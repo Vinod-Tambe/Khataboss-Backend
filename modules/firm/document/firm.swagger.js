@@ -99,9 +99,6 @@
  *           type: string
  *         firm_form_footer:
  *           type: string
- *         firm_own_id:
- *           type: integer
- *           default: 1
  *         firm_own_sign_img:
  *           $ref: '#/components/schemas/Image'
  *         firm_left_logo_img:
@@ -167,7 +164,6 @@
  *               firm_adhaar_no: { type: string }
  *               firm_form_header: { type: string }
  *               firm_form_footer: { type: string }
- *               firm_own_id: { type: integer, default: 1 }
  *               firm_own_sign_img: { type: string, format: binary }
  *               firm_left_logo_img: { type: string, format: binary }
  *               firm_right_logo_img: { type: string, format: binary }
@@ -248,7 +244,6 @@
  *               firm_adhaar_no: { type: string }
  *               firm_form_header: { type: string }
  *               firm_form_footer: { type: string }
- *               firm_own_id: { type: integer, default: 1 }
  *               firm_own_sign_img: { type: string, format: binary }
  *               firm_left_logo_img: { type: string, format: binary }
  *               firm_right_logo_img: { type: string, format: binary }

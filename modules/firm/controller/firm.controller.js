@@ -27,6 +27,9 @@ class FirmController {
       const dbUrl = this.getDbUrl(req.user.own_db);
       const firmData = { ...req.body };
 
+      // Ensure firm_own_id is set from the authenticated user
+      firmData.firm_own_id = req.user.own_id;
+
       // Convert date strings if any
       if (firmData.firm_start_date) {
         firmData.firm_start_date = new Date(firmData.firm_start_date);
@@ -46,7 +49,7 @@ class FirmController {
 
       if (req.files && Object.keys(req.files).length > 0) {
         const movedFiles = await imageService.moveFiles("firm", newFirm.firm_id, req.files);
-        
+
         const updateData = {};
         if (movedFiles.firm_own_sign_img) updateData.firm_own_sign_img = movedFiles.firm_own_sign_img;
         if (movedFiles.firm_left_logo_img) updateData.firm_left_logo_img = movedFiles.firm_left_logo_img;
@@ -121,6 +124,9 @@ class FirmController {
       const { id } = req.params;
       const dbUrl = this.getDbUrl(req.user.own_db);
       const updateData = { ...req.body };
+
+      // Ensure firm_own_id is set from the authenticated user
+      updateData.firm_own_id = req.user.own_id;
 
       // Convert date strings if any
       if (updateData.firm_start_date) {
