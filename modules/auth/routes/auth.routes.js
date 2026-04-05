@@ -33,7 +33,7 @@ const router = express.Router();
  *                 example: password123
  *     responses:
  *       200:
- *         description: Login successful. Returns tokens and personal profile.
+ *         description: login successful. Returns tokens and personal profile.
  *         content:
  *           application/json:
  *             schema:
@@ -47,7 +47,7 @@ const router = express.Router();
  *                   example: 200
  *                 message:
  *                   type: string
- *                   example: Login successfully.
+ *                   example: login successfully.
  *                 data:
  *                   type: object
  *                   properties:
@@ -104,7 +104,7 @@ const router = express.Router();
  *                   example: 400
  *                 message:
  *                   type: string
- *                   example: Login ID and password are required.
+ *                   example: please enter login id and password.
  *       401:
  *         description: Unauthorized. Incorrect password.
  *         content:
@@ -120,7 +120,7 @@ const router = express.Router();
  *                   example: 401
  *                 message:
  *                   type: string
- *                   example: Incorrect password. Please try again.
+ *                   example: incorrect password.
  *       403:
  *         description: Forbidden. Account is inactive.
  *         content:
@@ -136,7 +136,7 @@ const router = express.Router();
  *                   example: 403
  *                 message:
  *                   type: string
- *                   example: Your account is currently inactive. Please contact support.
+ *                   example: account is inactive.
  *       404:
  *         description: Not Found. Login ID does not exist.
  *         content:
@@ -152,7 +152,7 @@ const router = express.Router();
  *                   example: 404
  *                 message:
  *                   type: string
- *                   example: Please enter valid login Id, email or mobile no.
+ *                   example: account not found.
  */
 router.post("/login", (req, res) => authController.login(req, res));
 
@@ -178,11 +178,11 @@ router.post("/login", (req, res) => authController.login(req, res));
  *                 example: owner@example.com
  *     responses:
  *       200:
- *         description: OTP sent successfully.
+ *         description: otp send your register email
  *       400:
- *         description: Bad Request.
+ *         description: bad request
  *       404:
- *         description: Account not found.
+ *         description: account not found
  */
 router.post("/send-otp", (req, res) => authController.sendOtp(req, res));
 
@@ -213,9 +213,9 @@ router.post("/send-otp", (req, res) => authController.sendOtp(req, res));
  *                 example: "123456"
  *     responses:
  *       200:
- *         description: Login successful.
+ *         description: login successful
  *       401:
- *         description: Invalid or expired OTP.
+ *         description: invalid or expired otp
  */
 router.post("/verify-otp", (req, res) => authController.verifyOtp(req, res));
 

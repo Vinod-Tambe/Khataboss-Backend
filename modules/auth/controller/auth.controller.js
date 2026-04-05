@@ -18,7 +18,7 @@ class AuthController {
       return res.status(400).json({
         success: false,
         statusCode: 400,
-        message: "Login ID and password are required.",
+        message: "please enter login id and password.",
       });
     }
 
@@ -35,7 +35,7 @@ class AuthController {
       return res.status(200).json({
         success: true,
         statusCode: 200,
-        message: "Login successfully.",
+        message: "login successfully.",
         data: result,
       });
     } catch (error) {
@@ -59,7 +59,7 @@ class AuthController {
       return res.status(400).json({
         success: false,
         statusCode: 400,
-        message: "own_login_id is required.",
+        message: "please enter email or mobile.",
       });
     }
 
@@ -90,7 +90,7 @@ class AuthController {
       return res.status(400).json({
         success: false,
         statusCode: 400,
-        message: "own_login_id and otp are required.",
+        message: "please enter email/mobile and otp.",
       });
     }
 
@@ -106,7 +106,7 @@ class AuthController {
       return res.status(200).json({
         success: true,
         statusCode: 200,
-        message: "Logged in successfully.",
+        message: "login successfully.",
         data: result,
       });
     } catch (error) {

@@ -32,13 +32,13 @@ class AuthService {
     });
 
     if (!owner) {
-      const error = new Error("Please enter valid login Id, email or mobile no.");
+      const error = new Error("please enter valid login details.");
       error.statusCode = 404;
       throw error;
     }
 
     if (owner.own_status !== "Active") {
-      const error = new Error("Your account is currently inactive. Please contact support.");
+      const error = new Error("account is inactive.");
       error.statusCode = 403;
       throw error;
     }
@@ -46,7 +46,7 @@ class AuthService {
     // 2. Verify the password
     const isPasswordValid = await comparePassword(password, owner.own_password);
     if (!isPasswordValid) {
-      const error = new Error("Incorrect password. Please try again.");
+      const error = new Error("incorrect password.");
       error.statusCode = 401;
       throw error;
     }
@@ -113,13 +113,13 @@ class AuthService {
     });
 
     if (!owner) {
-      const error = new Error("Account not found. Please enter valid login Id, email or mobile no.");
+      const error = new Error("account not found.");
       error.statusCode = 404;
       throw error;
     }
 
     if (owner.own_status !== "Active") {
-      const error = new Error("Your account is currently inactive. Please contact support.");
+      const error = new Error("account is inactive.");
       error.statusCode = 403;
       throw error;
     }
@@ -150,7 +150,7 @@ class AuthService {
       replacements
     );
 
-    return { message: "OTP sent successfully to your registered email." };
+    return { message: "otp send your register email" };
   }
 
   /**
@@ -173,21 +173,21 @@ class AuthService {
     });
 
     if (!owner) {
-      const error = new Error("Account not found. Please enter valid login Id, email or mobile no.");
+      const error = new Error("account not found.");
       error.statusCode = 404;
       throw error;
     }
 
     // 2. Verify OTP
     if (!owner.own_otp || owner.own_otp !== otp) {
-      const error = new Error("Invalid OTP. Please try again.");
+      const error = new Error("please enter valid otp.");
       error.statusCode = 401;
       throw error;
     }
 
     // 3. Check Expiry
     if (otpService.isExpired(owner.own_otp_expiry)) {
-      const error = new Error("OTP has expired. Please request a new one.");
+      const error = new Error("otp expired.");
       error.statusCode = 401;
       throw error;
     }
