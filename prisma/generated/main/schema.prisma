@@ -1,0 +1,248 @@
+// =============================================================================
+// Main Prisma Schema — per-tenant (main) database
+// =============================================================================
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../../generated/main"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_MAIN_URL")
+}
+
+// =============================================================================
+
+enum OwnerStatus {
+  Active
+  Inactive
+}
+
+model Owner {
+  // ===============================
+  // Primary Key
+  // ===============================
+  own_id          Int         @id @default(autoincrement())
+  own_uuid        String      @unique @default(uuid())
+  own_product_key Int         @unique @default(autoincrement())
+  own_db          String      @unique
+  // ===============================
+  // Basic Information
+  // ===============================
+  own_add_date    DateTime    @default(now())
+  own_first_name  String
+  own_middle_name String?
+  own_last_name   String
+  own_phone_no    String?
+  own_mobile_no   String      @unique
+  own_email       String      @unique
+  own_login_id    String      @unique
+  own_password    String
+  own_status      OwnerStatus @default(Active)
+  own_profile_img Json?
+
+  // ===============================
+  // Authentication Details
+  // ===============================
+  own_refresh_token     String?
+  own_refresh_expiry    DateTime?
+  own_jwt_token         String?
+  own_jwt_expiry        DateTime?
+  own_login_status      Boolean   @default(false)
+  own_last_login_system Json?
+  own_otp               String?
+  own_otp_expiry        DateTime?
+
+  // ===============================
+  // Address Information
+  // ===============================
+  own_address String?
+  own_village String?
+  own_city    String?
+  own_state   String?
+  own_pincode String?
+
+  // ===============================
+  // Audit Fields
+  // ===============================
+  own_created_at DateTime  @default(now())
+  own_created_by String?
+  own_updated_at DateTime  @updatedAt
+  own_updated_by String?
+  own_deleted_at DateTime?
+  own_deleted_by String?
+  own_is_deleted Boolean   @default(false)
+
+  // ===============================
+  // Indexes
+  // ===============================
+  @@index([own_email])
+  @@index([own_login_id])
+}
+
+// ===============================
+// ENUMS
+// ===============================
+
+enum FirmType {
+  Sole_Proprietorship
+  Partnership
+  LLP
+  Private_Ltd
+  Other
+}
+
+enum FirmBalanceType {
+  DR
+  CR
+}
+
+// ===============================
+// MODEL: Firm
+// ===============================
+
+model Firm {
+  // ===============================
+  // Primary Key
+  // ===============================
+  firm_id Int @id @default(autoincrement())
+
+  // ===============================
+  // Basic Information
+  // ===============================
+  firm_add_date DateTime @default(now())
+  firm_own_id   Int      @default(0)
+
+  firm_name      String
+  firm_reg_no    String  @unique
+  firm_shop_name String
+  firm_desc      String?
+  firm_address   String?
+  firm_city      String?
+  firm_pincode   String?
+
+  firm_phone_no     String  @unique
+  firm_email_id     String  @unique
+  firm_website_link String?
+
+  firm_type       FirmType @default(Other)
+  firm_owner      String?
+  firm_other_info String?
+
+  // ===============================
+  // Location
+  // ===============================
+  firm_geo_latitude  String?
+  firm_geo_longitude String?
+
+  // ===============================
+  // Social Links
+  // =============================== 
+  firm_whatsapp_link String?
+  firm_facebook_link String?
+  firm_insta_link    String?
+
+  // ===============================
+  // Bank Details
+  // ===============================
+  firm_bank_name    String?
+  firm_bank_acc_no  String?
+  firm_bank_branch  String?
+  firm_bank_address String?
+  firm_acc_holder   String?
+  firm_acc_type     String?
+  firm_ifsc_code    String?
+
+  // ===============================
+  // Financial Information
+  // ===============================
+  firm_start_date   DateTime
+  firm_balance      Float           @default(0)
+  firm_balance_type FirmBalanceType @default(CR)
+
+  // ===============================
+  // Tax Details
+  // ===============================
+  firm_gstin_no  String?
+  firm_pan_no    String?
+  firm_adhaar_no String?
+
+  // ===============================
+  // Invoice / Form Settings
+  // ===============================
+  firm_form_header   String?
+  firm_form_footer   String?
+  firm_own_sign_img  Json?
+  firm_left_logo_img Json?
+  firm_right_logo    Json?
+  firm_qr_code_id    String?
+
+  // ===============================
+  // Audit Fields
+  // ===============================
+
+  firm_created_at DateTime @default(now())
+  firm_created_by String?
+  firm_updated_at DateTime @updatedAt
+  firm_updated_by String?
+
+  firm_deleted_at DateTime?
+  firm_deleted_by String?
+  firm_is_deleted Boolean   @default(false)
+
+  // ===============================
+  // Relations
+  // ===============================
+  accounts Account[] @relation("FirmAccount")
+}
+
+// Enum for balance type
+enum AccountBalanceType {
+  CR
+  DR
+}
+
+model Account {
+  acc_id Int @id @default(autoincrement())
+
+  acc_add_date DateTime @default(now())
+
+  acc_own_id  Int @default(0)
+  acc_firm_id Int @default(0)
+
+  acc_pan_no      String? @db.VarChar(10)
+  acc_name        String
+  acc_desc        String?
+  acc_pre_acc     String?
+  acc_bank_no     String?
+  acc_bsr_no      String?
+  acc_ifsc_code   String? @db.VarChar(11)
+  acc_branch_name String?
+
+  acc_opening_date DateTime
+
+  acc_address String?
+  acc_country String?
+  acc_state   String?
+  acc_city    String?
+  acc_pincode String? @db.VarChar(6)
+
+  acc_cash_balance Float              @default(0)
+  acc_balance_type AccountBalanceType @default(DR)
+
+  acc_other_info String?
+
+  // ===============================
+  // Audit Fields
+  // ===============================
+
+  acc_created_at DateTime  @default(now())
+  acc_created_by String?
+  acc_updated_by String?
+  acc_deleted_at DateTime?
+  acc_deleted_by String?
+  acc_is_deleted Boolean   @default(false)
+
+  firm Firm @relation("FirmAccount", fields: [acc_firm_id], references: [firm_id])
+}

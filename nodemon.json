@@ -1,0 +1,6 @@
+{
+  "watch": ["index.js", "server.js", "config", "modules", "common", "utils"],
+  "ignore": ["prisma/generated", "prisma/migrations", "node_modules"],
+  "ext": "js,json",
+  "delay": "500"
+}

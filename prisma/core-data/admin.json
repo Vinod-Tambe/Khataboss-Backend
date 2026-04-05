@@ -1,0 +1,17 @@
+{
+    "admin_first_name": "Vinod",
+    "admin_middle_name": "Gokul",
+    "admin_last_name": "Tambe",
+    "admin_phone_no": "02012345678",
+    "admin_mobile_no": "9876543210",
+    "admin_email": "vinod@example.com",
+    "admin_login_id": "vinod_admin",
+    "admin_password": "Pass@123",
+    "admin_login_status": false,
+    "admin_address": "Pune Station Road",
+    "admin_village": "Shivajinagar",
+    "admin_city": "Pune",
+    "admin_state": "Maharashtra",
+    "admin_pincode": "411005",
+    "admin_created_by": "system"
+}

@@ -1,0 +1,161 @@
+// =============================================================================
+// Master Prisma Schema — master database (Admin schema only)
+// =============================================================================
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../../generated/master"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DB_URL")
+}
+
+// =============================================================================
+// Admin Model
+// =============================================================================
+model Admin {
+
+  // ===============================
+  // Primary Key
+  // ===============================
+  admin_id                 Int       @id @default(autoincrement())
+  admin_uuid               String    @unique @default(uuid())
+
+  // ===============================
+  // Basic Information
+  // ===============================
+  admin_add_date           DateTime  @default(now())
+  admin_first_name         String
+  admin_middle_name        String?
+  admin_last_name          String
+  admin_phone_no           String?
+  admin_mobile_no          String?
+  admin_email              String    @unique
+  admin_login_id           String    @unique
+  admin_password           String
+
+  // ===============================
+  // Authentication Details
+  // ===============================
+  admin_refresh_token      String?
+  admin_refresh_expiry     DateTime?
+  admin_jwt_token          String?
+  admin_jwt_expiry         DateTime?
+  admin_login_status       Boolean   @default(false)
+  admin_last_login_system  Json?
+  admin_otp                String?
+  admin_otp_expiry         DateTime?
+
+  // ===============================
+  // Address Information
+  // ===============================
+  admin_address            String?
+  admin_village            String?
+  admin_city               String?
+  admin_state              String?
+  admin_pincode            String?
+
+  // ===============================
+  // Audit Fields
+  // ===============================
+  admin_created_at         DateTime  @default(now())
+  admin_created_by         String?
+  admin_updated_at         DateTime  @updatedAt
+  admin_updated_by         String?
+  admin_deleted_at         DateTime?
+  admin_deleted_by         String?
+  admin_is_deleted         Boolean   @default(false)
+
+  // ===============================
+  // Indexes
+  // ===============================
+  @@index([admin_email])
+  @@index([admin_login_id])
+}
+
+// =============================================================================
+// DbSeries Model (Master)
+// =============================================================================
+model DbSeries {
+  id            Int      @id @default(autoincrement())
+  series_name   String   @unique // e.g. "kboss"
+  last_number   Int      @default(1110) // Start from 1110 so the first is 1111
+  created_at    DateTime @default(now())
+  updated_at    DateTime @updatedAt
+}
+
+// =============================================================================
+// Owner Model (Master Registry)
+// =============================================================================
+
+enum OwnerStatus {
+  Active
+  Inactive
+}
+
+model Owner {
+
+  // ===============================
+  // Primary Key
+  // ===============================
+  own_id               Int       @id @default(autoincrement())
+  own_uuid           String    @unique @default(uuid())
+  own_product_key      Int       @unique @default(autoincrement())
+  own_db              String    @unique
+  // ===============================
+  // Basic Information
+  // ===============================
+  own_add_date         DateTime  @default(now())
+  own_first_name       String
+  own_middle_name      String?
+  own_last_name        String
+  own_phone_no         String?
+  own_mobile_no        String    @unique
+  own_email            String    @unique
+  own_login_id         String    @unique
+  own_password         String
+  own_status           OwnerStatus @default(Active)
+  own_profile_img      Json?        
+  
+
+  // ===============================
+  // Authentication Details
+  // ===============================
+  own_refresh_token    String?
+  own_refresh_expiry   DateTime?
+  own_jwt_token        String?
+  own_jwt_expiry       DateTime?
+  own_login_status     Boolean   @default(false)
+  own_last_login_system Json?
+  own_otp              String?
+  own_otp_expiry       DateTime?
+
+  // ===============================
+  // Address Information
+  // ===============================
+  own_address          String?
+  own_village          String?
+  own_city             String?
+  own_state            String?
+  own_pincode          String?
+
+  // ===============================
+  // Audit Fields
+  // ===============================
+  own_created_at       DateTime  @default(now())
+  own_created_by       String?
+  own_updated_at       DateTime  @updatedAt
+  own_updated_by       String?
+  own_deleted_at       DateTime?
+  own_deleted_by       String?
+  own_is_deleted       Boolean   @default(false)
+
+
+  // ===============================
+  // Indexes
+  // ===============================
+  @@index([own_email])
+  @@index([own_login_id])
+}

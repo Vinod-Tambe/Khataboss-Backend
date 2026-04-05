@@ -1,0 +1,33 @@
+{
+  "name": "master",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "udb": "node scripts/bootstrap.js",
+    "migrate": "prisma migrate deploy --schema=prisma/schema/master/schema.prisma",
+    "generate": "prisma generate --schema=prisma/schema/master/schema.prisma",
+    "seed": "node -e \"require('./config/db'); require('./prisma/seeder/admin-seeder').seedAdmin()\""
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@prisma/client": "^5.22.0",
+    "bcryptjs": "^3.0.2",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.3",
+    "migrate": "^2.1.0",
+    "multer": "^2.1.1",
+    "nodemailer": "^8.0.4",
+    "pg": "^8.14.1",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9",
+    "prisma": "^5.22.0"
+  }
+}
