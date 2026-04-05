@@ -162,6 +162,7 @@ exports.Prisma.OwnerScalarFieldEnum = {
 
 exports.Prisma.FirmScalarFieldEnum = {
   firm_id: 'firm_id',
+  firm_uuid: 'firm_uuid',
   firm_add_date: 'firm_add_date',
   firm_own_id: 'firm_own_id',
   firm_name: 'firm_name',
@@ -212,6 +213,7 @@ exports.Prisma.FirmScalarFieldEnum = {
 
 exports.Prisma.AccountScalarFieldEnum = {
   acc_id: 'acc_id',
+  acc_uuid: 'acc_uuid',
   acc_add_date: 'acc_add_date',
   acc_own_id: 'acc_own_id',
   acc_firm_id: 'acc_firm_id',

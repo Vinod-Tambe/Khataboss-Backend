@@ -1067,6 +1067,46 @@ export namespace Prisma {
 
 
   /**
+   * Count Type OwnerCountOutputType
+   */
+
+  export type OwnerCountOutputType = {
+    firms: number
+    accounts: number
+  }
+
+  export type OwnerCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    firms?: boolean | OwnerCountOutputTypeCountFirmsArgs
+    accounts?: boolean | OwnerCountOutputTypeCountAccountsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * OwnerCountOutputType without action
+   */
+  export type OwnerCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OwnerCountOutputType
+     */
+    select?: OwnerCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * OwnerCountOutputType without action
+   */
+  export type OwnerCountOutputTypeCountFirmsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FirmWhereInput
+  }
+
+  /**
+   * OwnerCountOutputType without action
+   */
+  export type OwnerCountOutputTypeCountAccountsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AccountWhereInput
+  }
+
+
+  /**
    * Count Type FirmCountOutputType
    */
 
@@ -1535,6 +1575,9 @@ export namespace Prisma {
     own_deleted_at?: boolean
     own_deleted_by?: boolean
     own_is_deleted?: boolean
+    firms?: boolean | Owner$firmsArgs<ExtArgs>
+    accounts?: boolean | Owner$accountsArgs<ExtArgs>
+    _count?: boolean | OwnerCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["owner"]>
 
   export type OwnerSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1613,10 +1656,19 @@ export namespace Prisma {
     own_is_deleted?: boolean
   }
 
+  export type OwnerInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    firms?: boolean | Owner$firmsArgs<ExtArgs>
+    accounts?: boolean | Owner$accountsArgs<ExtArgs>
+    _count?: boolean | OwnerCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type OwnerIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
   export type $OwnerPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Owner"
-    objects: {}
+    objects: {
+      firms: Prisma.$FirmPayload<ExtArgs>[]
+      accounts: Prisma.$AccountPayload<ExtArgs>[]
+    }
     scalars: $Extensions.GetPayloadResult<{
       own_id: number
       own_uuid: string
@@ -2017,6 +2069,8 @@ export namespace Prisma {
    */
   export interface Prisma__OwnerClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    firms<T extends Owner$firmsArgs<ExtArgs> = {}>(args?: Subset<T, Owner$firmsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FirmPayload<ExtArgs>, T, "findMany"> | Null>
+    accounts<T extends Owner$accountsArgs<ExtArgs> = {}>(args?: Subset<T, Owner$accountsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2094,6 +2148,10 @@ export namespace Prisma {
      */
     select?: OwnerSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OwnerInclude<ExtArgs> | null
+    /**
      * Filter, which Owner to fetch.
      */
     where: OwnerWhereUniqueInput
@@ -2108,6 +2166,10 @@ export namespace Prisma {
      */
     select?: OwnerSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OwnerInclude<ExtArgs> | null
+    /**
      * Filter, which Owner to fetch.
      */
     where: OwnerWhereUniqueInput
@@ -2121,6 +2183,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the Owner
      */
     select?: OwnerSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OwnerInclude<ExtArgs> | null
     /**
      * Filter, which Owner to fetch.
      */
@@ -2166,6 +2232,10 @@ export namespace Prisma {
      */
     select?: OwnerSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OwnerInclude<ExtArgs> | null
+    /**
      * Filter, which Owner to fetch.
      */
     where?: OwnerWhereInput
@@ -2210,6 +2280,10 @@ export namespace Prisma {
      */
     select?: OwnerSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OwnerInclude<ExtArgs> | null
+    /**
      * Filter, which Owners to fetch.
      */
     where?: OwnerWhereInput
@@ -2248,6 +2322,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the Owner
      */
     select?: OwnerSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OwnerInclude<ExtArgs> | null
     /**
      * The data needed to create a Owner.
      */
@@ -2289,6 +2367,10 @@ export namespace Prisma {
      */
     select?: OwnerSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OwnerInclude<ExtArgs> | null
+    /**
      * The data needed to update a Owner.
      */
     data: XOR<OwnerUpdateInput, OwnerUncheckedUpdateInput>
@@ -2321,6 +2403,10 @@ export namespace Prisma {
      */
     select?: OwnerSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OwnerInclude<ExtArgs> | null
+    /**
      * The filter to search for the Owner to update in case it exists.
      */
     where: OwnerWhereUniqueInput
@@ -2343,6 +2429,10 @@ export namespace Prisma {
      */
     select?: OwnerSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OwnerInclude<ExtArgs> | null
+    /**
      * Filter which Owner to delete.
      */
     where: OwnerWhereUniqueInput
@@ -2359,6 +2449,46 @@ export namespace Prisma {
   }
 
   /**
+   * Owner.firms
+   */
+  export type Owner$firmsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Firm
+     */
+    select?: FirmSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FirmInclude<ExtArgs> | null
+    where?: FirmWhereInput
+    orderBy?: FirmOrderByWithRelationInput | FirmOrderByWithRelationInput[]
+    cursor?: FirmWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: FirmScalarFieldEnum | FirmScalarFieldEnum[]
+  }
+
+  /**
+   * Owner.accounts
+   */
+  export type Owner$accountsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Account
+     */
+    select?: AccountSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountInclude<ExtArgs> | null
+    where?: AccountWhereInput
+    orderBy?: AccountOrderByWithRelationInput | AccountOrderByWithRelationInput[]
+    cursor?: AccountWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AccountScalarFieldEnum | AccountScalarFieldEnum[]
+  }
+
+  /**
    * Owner without action
    */
   export type OwnerDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2366,6 +2496,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the Owner
      */
     select?: OwnerSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OwnerInclude<ExtArgs> | null
   }
 
 
@@ -2395,6 +2529,7 @@ export namespace Prisma {
 
   export type FirmMinAggregateOutputType = {
     firm_id: number | null
+    firm_uuid: string | null
     firm_add_date: Date | null
     firm_own_id: number | null
     firm_name: string | null
@@ -2442,6 +2577,7 @@ export namespace Prisma {
 
   export type FirmMaxAggregateOutputType = {
     firm_id: number | null
+    firm_uuid: string | null
     firm_add_date: Date | null
     firm_own_id: number | null
     firm_name: string | null
@@ -2489,6 +2625,7 @@ export namespace Prisma {
 
   export type FirmCountAggregateOutputType = {
     firm_id: number
+    firm_uuid: number
     firm_add_date: number
     firm_own_id: number
     firm_name: number
@@ -2553,6 +2690,7 @@ export namespace Prisma {
 
   export type FirmMinAggregateInputType = {
     firm_id?: true
+    firm_uuid?: true
     firm_add_date?: true
     firm_own_id?: true
     firm_name?: true
@@ -2600,6 +2738,7 @@ export namespace Prisma {
 
   export type FirmMaxAggregateInputType = {
     firm_id?: true
+    firm_uuid?: true
     firm_add_date?: true
     firm_own_id?: true
     firm_name?: true
@@ -2647,6 +2786,7 @@ export namespace Prisma {
 
   export type FirmCountAggregateInputType = {
     firm_id?: true
+    firm_uuid?: true
     firm_add_date?: true
     firm_own_id?: true
     firm_name?: true
@@ -2784,6 +2924,7 @@ export namespace Prisma {
 
   export type FirmGroupByOutputType = {
     firm_id: number
+    firm_uuid: string
     firm_add_date: Date
     firm_own_id: number
     firm_name: string
@@ -2853,6 +2994,7 @@ export namespace Prisma {
 
   export type FirmSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     firm_id?: boolean
+    firm_uuid?: boolean
     firm_add_date?: boolean
     firm_own_id?: boolean
     firm_name?: boolean
@@ -2900,11 +3042,13 @@ export namespace Prisma {
     firm_deleted_by?: boolean
     firm_is_deleted?: boolean
     accounts?: boolean | Firm$accountsArgs<ExtArgs>
+    owner?: boolean | OwnerDefaultArgs<ExtArgs>
     _count?: boolean | FirmCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["firm"]>
 
   export type FirmSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     firm_id?: boolean
+    firm_uuid?: boolean
     firm_add_date?: boolean
     firm_own_id?: boolean
     firm_name?: boolean
@@ -2951,10 +3095,12 @@ export namespace Prisma {
     firm_deleted_at?: boolean
     firm_deleted_by?: boolean
     firm_is_deleted?: boolean
+    owner?: boolean | OwnerDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["firm"]>
 
   export type FirmSelectScalar = {
     firm_id?: boolean
+    firm_uuid?: boolean
     firm_add_date?: boolean
     firm_own_id?: boolean
     firm_name?: boolean
@@ -3005,17 +3151,22 @@ export namespace Prisma {
 
   export type FirmInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     accounts?: boolean | Firm$accountsArgs<ExtArgs>
+    owner?: boolean | OwnerDefaultArgs<ExtArgs>
     _count?: boolean | FirmCountOutputTypeDefaultArgs<ExtArgs>
   }
-  export type FirmIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type FirmIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    owner?: boolean | OwnerDefaultArgs<ExtArgs>
+  }
 
   export type $FirmPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Firm"
     objects: {
       accounts: Prisma.$AccountPayload<ExtArgs>[]
+      owner: Prisma.$OwnerPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       firm_id: number
+      firm_uuid: string
       firm_add_date: Date
       firm_own_id: number
       firm_name: string
@@ -3427,6 +3578,7 @@ export namespace Prisma {
   export interface Prisma__FirmClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     accounts<T extends Firm$accountsArgs<ExtArgs> = {}>(args?: Subset<T, Firm$accountsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findMany"> | Null>
+    owner<T extends OwnerDefaultArgs<ExtArgs> = {}>(args?: Subset<T, OwnerDefaultArgs<ExtArgs>>): Prisma__OwnerClient<$Result.GetResult<Prisma.$OwnerPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3457,6 +3609,7 @@ export namespace Prisma {
    */ 
   interface FirmFieldRefs {
     readonly firm_id: FieldRef<"Firm", 'Int'>
+    readonly firm_uuid: FieldRef<"Firm", 'String'>
     readonly firm_add_date: FieldRef<"Firm", 'DateTime'>
     readonly firm_own_id: FieldRef<"Firm", 'Int'>
     readonly firm_name: FieldRef<"Firm", 'String'>
@@ -3724,6 +3877,10 @@ export namespace Prisma {
      */
     data: FirmCreateManyInput | FirmCreateManyInput[]
     skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FirmIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -3879,6 +4036,7 @@ export namespace Prisma {
 
   export type AccountMinAggregateOutputType = {
     acc_id: number | null
+    acc_uuid: string | null
     acc_add_date: Date | null
     acc_own_id: number | null
     acc_firm_id: number | null
@@ -3909,6 +4067,7 @@ export namespace Prisma {
 
   export type AccountMaxAggregateOutputType = {
     acc_id: number | null
+    acc_uuid: string | null
     acc_add_date: Date | null
     acc_own_id: number | null
     acc_firm_id: number | null
@@ -3939,6 +4098,7 @@ export namespace Prisma {
 
   export type AccountCountAggregateOutputType = {
     acc_id: number
+    acc_uuid: number
     acc_add_date: number
     acc_own_id: number
     acc_firm_id: number
@@ -3985,6 +4145,7 @@ export namespace Prisma {
 
   export type AccountMinAggregateInputType = {
     acc_id?: true
+    acc_uuid?: true
     acc_add_date?: true
     acc_own_id?: true
     acc_firm_id?: true
@@ -4015,6 +4176,7 @@ export namespace Prisma {
 
   export type AccountMaxAggregateInputType = {
     acc_id?: true
+    acc_uuid?: true
     acc_add_date?: true
     acc_own_id?: true
     acc_firm_id?: true
@@ -4045,6 +4207,7 @@ export namespace Prisma {
 
   export type AccountCountAggregateInputType = {
     acc_id?: true
+    acc_uuid?: true
     acc_add_date?: true
     acc_own_id?: true
     acc_firm_id?: true
@@ -4162,6 +4325,7 @@ export namespace Prisma {
 
   export type AccountGroupByOutputType = {
     acc_id: number
+    acc_uuid: string
     acc_add_date: Date
     acc_own_id: number
     acc_firm_id: number
@@ -4211,6 +4375,7 @@ export namespace Prisma {
 
   export type AccountSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     acc_id?: boolean
+    acc_uuid?: boolean
     acc_add_date?: boolean
     acc_own_id?: boolean
     acc_firm_id?: boolean
@@ -4237,11 +4402,13 @@ export namespace Prisma {
     acc_deleted_at?: boolean
     acc_deleted_by?: boolean
     acc_is_deleted?: boolean
+    owner?: boolean | OwnerDefaultArgs<ExtArgs>
     firm?: boolean | FirmDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["account"]>
 
   export type AccountSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     acc_id?: boolean
+    acc_uuid?: boolean
     acc_add_date?: boolean
     acc_own_id?: boolean
     acc_firm_id?: boolean
@@ -4268,11 +4435,13 @@ export namespace Prisma {
     acc_deleted_at?: boolean
     acc_deleted_by?: boolean
     acc_is_deleted?: boolean
+    owner?: boolean | OwnerDefaultArgs<ExtArgs>
     firm?: boolean | FirmDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["account"]>
 
   export type AccountSelectScalar = {
     acc_id?: boolean
+    acc_uuid?: boolean
     acc_add_date?: boolean
     acc_own_id?: boolean
     acc_firm_id?: boolean
@@ -4302,19 +4471,23 @@ export namespace Prisma {
   }
 
   export type AccountInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    owner?: boolean | OwnerDefaultArgs<ExtArgs>
     firm?: boolean | FirmDefaultArgs<ExtArgs>
   }
   export type AccountIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    owner?: boolean | OwnerDefaultArgs<ExtArgs>
     firm?: boolean | FirmDefaultArgs<ExtArgs>
   }
 
   export type $AccountPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Account"
     objects: {
+      owner: Prisma.$OwnerPayload<ExtArgs>
       firm: Prisma.$FirmPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       acc_id: number
+      acc_uuid: string
       acc_add_date: Date
       acc_own_id: number
       acc_firm_id: number
@@ -4705,6 +4878,7 @@ export namespace Prisma {
    */
   export interface Prisma__AccountClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    owner<T extends OwnerDefaultArgs<ExtArgs> = {}>(args?: Subset<T, OwnerDefaultArgs<ExtArgs>>): Prisma__OwnerClient<$Result.GetResult<Prisma.$OwnerPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     firm<T extends FirmDefaultArgs<ExtArgs> = {}>(args?: Subset<T, FirmDefaultArgs<ExtArgs>>): Prisma__FirmClient<$Result.GetResult<Prisma.$FirmPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -4736,6 +4910,7 @@ export namespace Prisma {
    */ 
   interface AccountFieldRefs {
     readonly acc_id: FieldRef<"Account", 'Int'>
+    readonly acc_uuid: FieldRef<"Account", 'String'>
     readonly acc_add_date: FieldRef<"Account", 'DateTime'>
     readonly acc_own_id: FieldRef<"Account", 'Int'>
     readonly acc_firm_id: FieldRef<"Account", 'Int'>
@@ -5151,6 +5326,7 @@ export namespace Prisma {
 
   export const FirmScalarFieldEnum: {
     firm_id: 'firm_id',
+    firm_uuid: 'firm_uuid',
     firm_add_date: 'firm_add_date',
     firm_own_id: 'firm_own_id',
     firm_name: 'firm_name',
@@ -5204,6 +5380,7 @@ export namespace Prisma {
 
   export const AccountScalarFieldEnum: {
     acc_id: 'acc_id',
+    acc_uuid: 'acc_uuid',
     acc_add_date: 'acc_add_date',
     acc_own_id: 'acc_own_id',
     acc_firm_id: 'acc_firm_id',
@@ -5449,6 +5626,8 @@ export namespace Prisma {
     own_deleted_at?: DateTimeNullableFilter<"Owner"> | Date | string | null
     own_deleted_by?: StringNullableFilter<"Owner"> | string | null
     own_is_deleted?: BoolFilter<"Owner"> | boolean
+    firms?: FirmListRelationFilter
+    accounts?: AccountListRelationFilter
   }
 
   export type OwnerOrderByWithRelationInput = {
@@ -5487,6 +5666,8 @@ export namespace Prisma {
     own_deleted_at?: SortOrderInput | SortOrder
     own_deleted_by?: SortOrderInput | SortOrder
     own_is_deleted?: SortOrder
+    firms?: FirmOrderByRelationAggregateInput
+    accounts?: AccountOrderByRelationAggregateInput
   }
 
   export type OwnerWhereUniqueInput = Prisma.AtLeast<{
@@ -5528,6 +5709,8 @@ export namespace Prisma {
     own_deleted_at?: DateTimeNullableFilter<"Owner"> | Date | string | null
     own_deleted_by?: StringNullableFilter<"Owner"> | string | null
     own_is_deleted?: BoolFilter<"Owner"> | boolean
+    firms?: FirmListRelationFilter
+    accounts?: AccountListRelationFilter
   }, "own_id" | "own_uuid" | "own_product_key" | "own_db" | "own_mobile_no" | "own_email" | "own_login_id">
 
   export type OwnerOrderByWithAggregationInput = {
@@ -5619,6 +5802,7 @@ export namespace Prisma {
     OR?: FirmWhereInput[]
     NOT?: FirmWhereInput | FirmWhereInput[]
     firm_id?: IntFilter<"Firm"> | number
+    firm_uuid?: StringFilter<"Firm"> | string
     firm_add_date?: DateTimeFilter<"Firm"> | Date | string
     firm_own_id?: IntFilter<"Firm"> | number
     firm_name?: StringFilter<"Firm"> | string
@@ -5666,10 +5850,12 @@ export namespace Prisma {
     firm_deleted_by?: StringNullableFilter<"Firm"> | string | null
     firm_is_deleted?: BoolFilter<"Firm"> | boolean
     accounts?: AccountListRelationFilter
+    owner?: XOR<OwnerRelationFilter, OwnerWhereInput>
   }
 
   export type FirmOrderByWithRelationInput = {
     firm_id?: SortOrder
+    firm_uuid?: SortOrder
     firm_add_date?: SortOrder
     firm_own_id?: SortOrder
     firm_name?: SortOrder
@@ -5717,10 +5903,12 @@ export namespace Prisma {
     firm_deleted_by?: SortOrderInput | SortOrder
     firm_is_deleted?: SortOrder
     accounts?: AccountOrderByRelationAggregateInput
+    owner?: OwnerOrderByWithRelationInput
   }
 
   export type FirmWhereUniqueInput = Prisma.AtLeast<{
     firm_id?: number
+    firm_uuid?: string
     firm_reg_no?: string
     firm_phone_no?: string
     firm_email_id?: string
@@ -5771,10 +5959,12 @@ export namespace Prisma {
     firm_deleted_by?: StringNullableFilter<"Firm"> | string | null
     firm_is_deleted?: BoolFilter<"Firm"> | boolean
     accounts?: AccountListRelationFilter
-  }, "firm_id" | "firm_reg_no" | "firm_phone_no" | "firm_email_id">
+    owner?: XOR<OwnerRelationFilter, OwnerWhereInput>
+  }, "firm_id" | "firm_uuid" | "firm_reg_no" | "firm_phone_no" | "firm_email_id">
 
   export type FirmOrderByWithAggregationInput = {
     firm_id?: SortOrder
+    firm_uuid?: SortOrder
     firm_add_date?: SortOrder
     firm_own_id?: SortOrder
     firm_name?: SortOrder
@@ -5833,6 +6023,7 @@ export namespace Prisma {
     OR?: FirmScalarWhereWithAggregatesInput[]
     NOT?: FirmScalarWhereWithAggregatesInput | FirmScalarWhereWithAggregatesInput[]
     firm_id?: IntWithAggregatesFilter<"Firm"> | number
+    firm_uuid?: StringWithAggregatesFilter<"Firm"> | string
     firm_add_date?: DateTimeWithAggregatesFilter<"Firm"> | Date | string
     firm_own_id?: IntWithAggregatesFilter<"Firm"> | number
     firm_name?: StringWithAggregatesFilter<"Firm"> | string
@@ -5886,6 +6077,7 @@ export namespace Prisma {
     OR?: AccountWhereInput[]
     NOT?: AccountWhereInput | AccountWhereInput[]
     acc_id?: IntFilter<"Account"> | number
+    acc_uuid?: StringFilter<"Account"> | string
     acc_add_date?: DateTimeFilter<"Account"> | Date | string
     acc_own_id?: IntFilter<"Account"> | number
     acc_firm_id?: IntFilter<"Account"> | number
@@ -5912,11 +6104,13 @@ export namespace Prisma {
     acc_deleted_at?: DateTimeNullableFilter<"Account"> | Date | string | null
     acc_deleted_by?: StringNullableFilter<"Account"> | string | null
     acc_is_deleted?: BoolFilter<"Account"> | boolean
+    owner?: XOR<OwnerRelationFilter, OwnerWhereInput>
     firm?: XOR<FirmRelationFilter, FirmWhereInput>
   }
 
   export type AccountOrderByWithRelationInput = {
     acc_id?: SortOrder
+    acc_uuid?: SortOrder
     acc_add_date?: SortOrder
     acc_own_id?: SortOrder
     acc_firm_id?: SortOrder
@@ -5943,11 +6137,13 @@ export namespace Prisma {
     acc_deleted_at?: SortOrderInput | SortOrder
     acc_deleted_by?: SortOrderInput | SortOrder
     acc_is_deleted?: SortOrder
+    owner?: OwnerOrderByWithRelationInput
     firm?: FirmOrderByWithRelationInput
   }
 
   export type AccountWhereUniqueInput = Prisma.AtLeast<{
     acc_id?: number
+    acc_uuid?: string
     AND?: AccountWhereInput | AccountWhereInput[]
     OR?: AccountWhereInput[]
     NOT?: AccountWhereInput | AccountWhereInput[]
@@ -5977,11 +6173,13 @@ export namespace Prisma {
     acc_deleted_at?: DateTimeNullableFilter<"Account"> | Date | string | null
     acc_deleted_by?: StringNullableFilter<"Account"> | string | null
     acc_is_deleted?: BoolFilter<"Account"> | boolean
+    owner?: XOR<OwnerRelationFilter, OwnerWhereInput>
     firm?: XOR<FirmRelationFilter, FirmWhereInput>
-  }, "acc_id">
+  }, "acc_id" | "acc_uuid">
 
   export type AccountOrderByWithAggregationInput = {
     acc_id?: SortOrder
+    acc_uuid?: SortOrder
     acc_add_date?: SortOrder
     acc_own_id?: SortOrder
     acc_firm_id?: SortOrder
@@ -6020,6 +6218,7 @@ export namespace Prisma {
     OR?: AccountScalarWhereWithAggregatesInput[]
     NOT?: AccountScalarWhereWithAggregatesInput | AccountScalarWhereWithAggregatesInput[]
     acc_id?: IntWithAggregatesFilter<"Account"> | number
+    acc_uuid?: StringWithAggregatesFilter<"Account"> | string
     acc_add_date?: DateTimeWithAggregatesFilter<"Account"> | Date | string
     acc_own_id?: IntWithAggregatesFilter<"Account"> | number
     acc_firm_id?: IntWithAggregatesFilter<"Account"> | number
@@ -6083,6 +6282,8 @@ export namespace Prisma {
     own_deleted_at?: Date | string | null
     own_deleted_by?: string | null
     own_is_deleted?: boolean
+    firms?: FirmCreateNestedManyWithoutOwnerInput
+    accounts?: AccountCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerUncheckedCreateInput = {
@@ -6121,6 +6322,8 @@ export namespace Prisma {
     own_deleted_at?: Date | string | null
     own_deleted_by?: string | null
     own_is_deleted?: boolean
+    firms?: FirmUncheckedCreateNestedManyWithoutOwnerInput
+    accounts?: AccountUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerUpdateInput = {
@@ -6157,6 +6360,8 @@ export namespace Prisma {
     own_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     own_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    firms?: FirmUpdateManyWithoutOwnerNestedInput
+    accounts?: AccountUpdateManyWithoutOwnerNestedInput
   }
 
   export type OwnerUncheckedUpdateInput = {
@@ -6195,6 +6400,8 @@ export namespace Prisma {
     own_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     own_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    firms?: FirmUncheckedUpdateManyWithoutOwnerNestedInput
+    accounts?: AccountUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
   export type OwnerCreateManyInput = {
@@ -6310,8 +6517,8 @@ export namespace Prisma {
   }
 
   export type FirmCreateInput = {
+    firm_uuid?: string
     firm_add_date?: Date | string
-    firm_own_id?: number
     firm_name: string
     firm_reg_no: string
     firm_shop_name: string
@@ -6357,10 +6564,12 @@ export namespace Prisma {
     firm_deleted_by?: string | null
     firm_is_deleted?: boolean
     accounts?: AccountCreateNestedManyWithoutFirmInput
+    owner?: OwnerCreateNestedOneWithoutFirmsInput
   }
 
   export type FirmUncheckedCreateInput = {
     firm_id?: number
+    firm_uuid?: string
     firm_add_date?: Date | string
     firm_own_id?: number
     firm_name: string
@@ -6411,8 +6620,8 @@ export namespace Prisma {
   }
 
   export type FirmUpdateInput = {
+    firm_uuid?: StringFieldUpdateOperationsInput | string
     firm_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    firm_own_id?: IntFieldUpdateOperationsInput | number
     firm_name?: StringFieldUpdateOperationsInput | string
     firm_reg_no?: StringFieldUpdateOperationsInput | string
     firm_shop_name?: StringFieldUpdateOperationsInput | string
@@ -6458,10 +6667,12 @@ export namespace Prisma {
     firm_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     firm_is_deleted?: BoolFieldUpdateOperationsInput | boolean
     accounts?: AccountUpdateManyWithoutFirmNestedInput
+    owner?: OwnerUpdateOneRequiredWithoutFirmsNestedInput
   }
 
   export type FirmUncheckedUpdateInput = {
     firm_id?: IntFieldUpdateOperationsInput | number
+    firm_uuid?: StringFieldUpdateOperationsInput | string
     firm_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
     firm_own_id?: IntFieldUpdateOperationsInput | number
     firm_name?: StringFieldUpdateOperationsInput | string
@@ -6513,6 +6724,7 @@ export namespace Prisma {
 
   export type FirmCreateManyInput = {
     firm_id?: number
+    firm_uuid?: string
     firm_add_date?: Date | string
     firm_own_id?: number
     firm_name: string
@@ -6562,8 +6774,8 @@ export namespace Prisma {
   }
 
   export type FirmUpdateManyMutationInput = {
+    firm_uuid?: StringFieldUpdateOperationsInput | string
     firm_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    firm_own_id?: IntFieldUpdateOperationsInput | number
     firm_name?: StringFieldUpdateOperationsInput | string
     firm_reg_no?: StringFieldUpdateOperationsInput | string
     firm_shop_name?: StringFieldUpdateOperationsInput | string
@@ -6612,6 +6824,7 @@ export namespace Prisma {
 
   export type FirmUncheckedUpdateManyInput = {
     firm_id?: IntFieldUpdateOperationsInput | number
+    firm_uuid?: StringFieldUpdateOperationsInput | string
     firm_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
     firm_own_id?: IntFieldUpdateOperationsInput | number
     firm_name?: StringFieldUpdateOperationsInput | string
@@ -6661,8 +6874,8 @@ export namespace Prisma {
   }
 
   export type AccountCreateInput = {
+    acc_uuid?: string
     acc_add_date?: Date | string
-    acc_own_id?: number
     acc_pan_no?: string | null
     acc_name: string
     acc_desc?: string | null
@@ -6686,11 +6899,13 @@ export namespace Prisma {
     acc_deleted_at?: Date | string | null
     acc_deleted_by?: string | null
     acc_is_deleted?: boolean
+    owner?: OwnerCreateNestedOneWithoutAccountsInput
     firm?: FirmCreateNestedOneWithoutAccountsInput
   }
 
   export type AccountUncheckedCreateInput = {
     acc_id?: number
+    acc_uuid?: string
     acc_add_date?: Date | string
     acc_own_id?: number
     acc_firm_id?: number
@@ -6720,8 +6935,8 @@ export namespace Prisma {
   }
 
   export type AccountUpdateInput = {
+    acc_uuid?: StringFieldUpdateOperationsInput | string
     acc_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    acc_own_id?: IntFieldUpdateOperationsInput | number
     acc_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
     acc_name?: StringFieldUpdateOperationsInput | string
     acc_desc?: NullableStringFieldUpdateOperationsInput | string | null
@@ -6745,11 +6960,13 @@ export namespace Prisma {
     acc_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     acc_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     acc_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    owner?: OwnerUpdateOneRequiredWithoutAccountsNestedInput
     firm?: FirmUpdateOneRequiredWithoutAccountsNestedInput
   }
 
   export type AccountUncheckedUpdateInput = {
     acc_id?: IntFieldUpdateOperationsInput | number
+    acc_uuid?: StringFieldUpdateOperationsInput | string
     acc_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
     acc_own_id?: IntFieldUpdateOperationsInput | number
     acc_firm_id?: IntFieldUpdateOperationsInput | number
@@ -6780,6 +6997,7 @@ export namespace Prisma {
 
   export type AccountCreateManyInput = {
     acc_id?: number
+    acc_uuid?: string
     acc_add_date?: Date | string
     acc_own_id?: number
     acc_firm_id?: number
@@ -6809,8 +7027,8 @@ export namespace Prisma {
   }
 
   export type AccountUpdateManyMutationInput = {
+    acc_uuid?: StringFieldUpdateOperationsInput | string
     acc_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    acc_own_id?: IntFieldUpdateOperationsInput | number
     acc_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
     acc_name?: StringFieldUpdateOperationsInput | string
     acc_desc?: NullableStringFieldUpdateOperationsInput | string | null
@@ -6838,6 +7056,7 @@ export namespace Prisma {
 
   export type AccountUncheckedUpdateManyInput = {
     acc_id?: IntFieldUpdateOperationsInput | number
+    acc_uuid?: StringFieldUpdateOperationsInput | string
     acc_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
     acc_own_id?: IntFieldUpdateOperationsInput | number
     acc_firm_id?: IntFieldUpdateOperationsInput | number
@@ -6963,9 +7182,29 @@ export namespace Prisma {
     not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
+  export type FirmListRelationFilter = {
+    every?: FirmWhereInput
+    some?: FirmWhereInput
+    none?: FirmWhereInput
+  }
+
+  export type AccountListRelationFilter = {
+    every?: AccountWhereInput
+    some?: AccountWhereInput
+    none?: AccountWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
+  }
+
+  export type FirmOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type AccountOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type OwnerCountOrderByAggregateInput = {
@@ -7236,18 +7475,14 @@ export namespace Prisma {
     not?: NestedEnumFirmBalanceTypeFilter<$PrismaModel> | $Enums.FirmBalanceType
   }
 
-  export type AccountListRelationFilter = {
-    every?: AccountWhereInput
-    some?: AccountWhereInput
-    none?: AccountWhereInput
-  }
-
-  export type AccountOrderByRelationAggregateInput = {
-    _count?: SortOrder
+  export type OwnerRelationFilter = {
+    is?: OwnerWhereInput
+    isNot?: OwnerWhereInput
   }
 
   export type FirmCountOrderByAggregateInput = {
     firm_id?: SortOrder
+    firm_uuid?: SortOrder
     firm_add_date?: SortOrder
     firm_own_id?: SortOrder
     firm_name?: SortOrder
@@ -7304,6 +7539,7 @@ export namespace Prisma {
 
   export type FirmMaxOrderByAggregateInput = {
     firm_id?: SortOrder
+    firm_uuid?: SortOrder
     firm_add_date?: SortOrder
     firm_own_id?: SortOrder
     firm_name?: SortOrder
@@ -7351,6 +7587,7 @@ export namespace Prisma {
 
   export type FirmMinOrderByAggregateInput = {
     firm_id?: SortOrder
+    firm_uuid?: SortOrder
     firm_add_date?: SortOrder
     firm_own_id?: SortOrder
     firm_name?: SortOrder
@@ -7452,6 +7689,7 @@ export namespace Prisma {
 
   export type AccountCountOrderByAggregateInput = {
     acc_id?: SortOrder
+    acc_uuid?: SortOrder
     acc_add_date?: SortOrder
     acc_own_id?: SortOrder
     acc_firm_id?: SortOrder
@@ -7489,6 +7727,7 @@ export namespace Prisma {
 
   export type AccountMaxOrderByAggregateInput = {
     acc_id?: SortOrder
+    acc_uuid?: SortOrder
     acc_add_date?: SortOrder
     acc_own_id?: SortOrder
     acc_firm_id?: SortOrder
@@ -7519,6 +7758,7 @@ export namespace Prisma {
 
   export type AccountMinOrderByAggregateInput = {
     acc_id?: SortOrder
+    acc_uuid?: SortOrder
     acc_add_date?: SortOrder
     acc_own_id?: SortOrder
     acc_firm_id?: SortOrder
@@ -7564,6 +7804,34 @@ export namespace Prisma {
     _max?: NestedEnumAccountBalanceTypeFilter<$PrismaModel>
   }
 
+  export type FirmCreateNestedManyWithoutOwnerInput = {
+    create?: XOR<FirmCreateWithoutOwnerInput, FirmUncheckedCreateWithoutOwnerInput> | FirmCreateWithoutOwnerInput[] | FirmUncheckedCreateWithoutOwnerInput[]
+    connectOrCreate?: FirmCreateOrConnectWithoutOwnerInput | FirmCreateOrConnectWithoutOwnerInput[]
+    createMany?: FirmCreateManyOwnerInputEnvelope
+    connect?: FirmWhereUniqueInput | FirmWhereUniqueInput[]
+  }
+
+  export type AccountCreateNestedManyWithoutOwnerInput = {
+    create?: XOR<AccountCreateWithoutOwnerInput, AccountUncheckedCreateWithoutOwnerInput> | AccountCreateWithoutOwnerInput[] | AccountUncheckedCreateWithoutOwnerInput[]
+    connectOrCreate?: AccountCreateOrConnectWithoutOwnerInput | AccountCreateOrConnectWithoutOwnerInput[]
+    createMany?: AccountCreateManyOwnerInputEnvelope
+    connect?: AccountWhereUniqueInput | AccountWhereUniqueInput[]
+  }
+
+  export type FirmUncheckedCreateNestedManyWithoutOwnerInput = {
+    create?: XOR<FirmCreateWithoutOwnerInput, FirmUncheckedCreateWithoutOwnerInput> | FirmCreateWithoutOwnerInput[] | FirmUncheckedCreateWithoutOwnerInput[]
+    connectOrCreate?: FirmCreateOrConnectWithoutOwnerInput | FirmCreateOrConnectWithoutOwnerInput[]
+    createMany?: FirmCreateManyOwnerInputEnvelope
+    connect?: FirmWhereUniqueInput | FirmWhereUniqueInput[]
+  }
+
+  export type AccountUncheckedCreateNestedManyWithoutOwnerInput = {
+    create?: XOR<AccountCreateWithoutOwnerInput, AccountUncheckedCreateWithoutOwnerInput> | AccountCreateWithoutOwnerInput[] | AccountUncheckedCreateWithoutOwnerInput[]
+    connectOrCreate?: AccountCreateOrConnectWithoutOwnerInput | AccountCreateOrConnectWithoutOwnerInput[]
+    createMany?: AccountCreateManyOwnerInputEnvelope
+    connect?: AccountWhereUniqueInput | AccountWhereUniqueInput[]
+  }
+
   export type StringFieldUpdateOperationsInput = {
     set?: string
   }
@@ -7588,6 +7856,34 @@ export namespace Prisma {
     set?: boolean
   }
 
+  export type FirmUpdateManyWithoutOwnerNestedInput = {
+    create?: XOR<FirmCreateWithoutOwnerInput, FirmUncheckedCreateWithoutOwnerInput> | FirmCreateWithoutOwnerInput[] | FirmUncheckedCreateWithoutOwnerInput[]
+    connectOrCreate?: FirmCreateOrConnectWithoutOwnerInput | FirmCreateOrConnectWithoutOwnerInput[]
+    upsert?: FirmUpsertWithWhereUniqueWithoutOwnerInput | FirmUpsertWithWhereUniqueWithoutOwnerInput[]
+    createMany?: FirmCreateManyOwnerInputEnvelope
+    set?: FirmWhereUniqueInput | FirmWhereUniqueInput[]
+    disconnect?: FirmWhereUniqueInput | FirmWhereUniqueInput[]
+    delete?: FirmWhereUniqueInput | FirmWhereUniqueInput[]
+    connect?: FirmWhereUniqueInput | FirmWhereUniqueInput[]
+    update?: FirmUpdateWithWhereUniqueWithoutOwnerInput | FirmUpdateWithWhereUniqueWithoutOwnerInput[]
+    updateMany?: FirmUpdateManyWithWhereWithoutOwnerInput | FirmUpdateManyWithWhereWithoutOwnerInput[]
+    deleteMany?: FirmScalarWhereInput | FirmScalarWhereInput[]
+  }
+
+  export type AccountUpdateManyWithoutOwnerNestedInput = {
+    create?: XOR<AccountCreateWithoutOwnerInput, AccountUncheckedCreateWithoutOwnerInput> | AccountCreateWithoutOwnerInput[] | AccountUncheckedCreateWithoutOwnerInput[]
+    connectOrCreate?: AccountCreateOrConnectWithoutOwnerInput | AccountCreateOrConnectWithoutOwnerInput[]
+    upsert?: AccountUpsertWithWhereUniqueWithoutOwnerInput | AccountUpsertWithWhereUniqueWithoutOwnerInput[]
+    createMany?: AccountCreateManyOwnerInputEnvelope
+    set?: AccountWhereUniqueInput | AccountWhereUniqueInput[]
+    disconnect?: AccountWhereUniqueInput | AccountWhereUniqueInput[]
+    delete?: AccountWhereUniqueInput | AccountWhereUniqueInput[]
+    connect?: AccountWhereUniqueInput | AccountWhereUniqueInput[]
+    update?: AccountUpdateWithWhereUniqueWithoutOwnerInput | AccountUpdateWithWhereUniqueWithoutOwnerInput[]
+    updateMany?: AccountUpdateManyWithWhereWithoutOwnerInput | AccountUpdateManyWithWhereWithoutOwnerInput[]
+    deleteMany?: AccountScalarWhereInput | AccountScalarWhereInput[]
+  }
+
   export type IntFieldUpdateOperationsInput = {
     set?: number
     increment?: number
@@ -7596,11 +7892,45 @@ export namespace Prisma {
     divide?: number
   }
 
+  export type FirmUncheckedUpdateManyWithoutOwnerNestedInput = {
+    create?: XOR<FirmCreateWithoutOwnerInput, FirmUncheckedCreateWithoutOwnerInput> | FirmCreateWithoutOwnerInput[] | FirmUncheckedCreateWithoutOwnerInput[]
+    connectOrCreate?: FirmCreateOrConnectWithoutOwnerInput | FirmCreateOrConnectWithoutOwnerInput[]
+    upsert?: FirmUpsertWithWhereUniqueWithoutOwnerInput | FirmUpsertWithWhereUniqueWithoutOwnerInput[]
+    createMany?: FirmCreateManyOwnerInputEnvelope
+    set?: FirmWhereUniqueInput | FirmWhereUniqueInput[]
+    disconnect?: FirmWhereUniqueInput | FirmWhereUniqueInput[]
+    delete?: FirmWhereUniqueInput | FirmWhereUniqueInput[]
+    connect?: FirmWhereUniqueInput | FirmWhereUniqueInput[]
+    update?: FirmUpdateWithWhereUniqueWithoutOwnerInput | FirmUpdateWithWhereUniqueWithoutOwnerInput[]
+    updateMany?: FirmUpdateManyWithWhereWithoutOwnerInput | FirmUpdateManyWithWhereWithoutOwnerInput[]
+    deleteMany?: FirmScalarWhereInput | FirmScalarWhereInput[]
+  }
+
+  export type AccountUncheckedUpdateManyWithoutOwnerNestedInput = {
+    create?: XOR<AccountCreateWithoutOwnerInput, AccountUncheckedCreateWithoutOwnerInput> | AccountCreateWithoutOwnerInput[] | AccountUncheckedCreateWithoutOwnerInput[]
+    connectOrCreate?: AccountCreateOrConnectWithoutOwnerInput | AccountCreateOrConnectWithoutOwnerInput[]
+    upsert?: AccountUpsertWithWhereUniqueWithoutOwnerInput | AccountUpsertWithWhereUniqueWithoutOwnerInput[]
+    createMany?: AccountCreateManyOwnerInputEnvelope
+    set?: AccountWhereUniqueInput | AccountWhereUniqueInput[]
+    disconnect?: AccountWhereUniqueInput | AccountWhereUniqueInput[]
+    delete?: AccountWhereUniqueInput | AccountWhereUniqueInput[]
+    connect?: AccountWhereUniqueInput | AccountWhereUniqueInput[]
+    update?: AccountUpdateWithWhereUniqueWithoutOwnerInput | AccountUpdateWithWhereUniqueWithoutOwnerInput[]
+    updateMany?: AccountUpdateManyWithWhereWithoutOwnerInput | AccountUpdateManyWithWhereWithoutOwnerInput[]
+    deleteMany?: AccountScalarWhereInput | AccountScalarWhereInput[]
+  }
+
   export type AccountCreateNestedManyWithoutFirmInput = {
     create?: XOR<AccountCreateWithoutFirmInput, AccountUncheckedCreateWithoutFirmInput> | AccountCreateWithoutFirmInput[] | AccountUncheckedCreateWithoutFirmInput[]
     connectOrCreate?: AccountCreateOrConnectWithoutFirmInput | AccountCreateOrConnectWithoutFirmInput[]
     createMany?: AccountCreateManyFirmInputEnvelope
     connect?: AccountWhereUniqueInput | AccountWhereUniqueInput[]
+  }
+
+  export type OwnerCreateNestedOneWithoutFirmsInput = {
+    create?: XOR<OwnerCreateWithoutFirmsInput, OwnerUncheckedCreateWithoutFirmsInput>
+    connectOrCreate?: OwnerCreateOrConnectWithoutFirmsInput
+    connect?: OwnerWhereUniqueInput
   }
 
   export type AccountUncheckedCreateNestedManyWithoutFirmInput = {
@@ -7640,6 +7970,14 @@ export namespace Prisma {
     deleteMany?: AccountScalarWhereInput | AccountScalarWhereInput[]
   }
 
+  export type OwnerUpdateOneRequiredWithoutFirmsNestedInput = {
+    create?: XOR<OwnerCreateWithoutFirmsInput, OwnerUncheckedCreateWithoutFirmsInput>
+    connectOrCreate?: OwnerCreateOrConnectWithoutFirmsInput
+    upsert?: OwnerUpsertWithoutFirmsInput
+    connect?: OwnerWhereUniqueInput
+    update?: XOR<XOR<OwnerUpdateToOneWithWhereWithoutFirmsInput, OwnerUpdateWithoutFirmsInput>, OwnerUncheckedUpdateWithoutFirmsInput>
+  }
+
   export type AccountUncheckedUpdateManyWithoutFirmNestedInput = {
     create?: XOR<AccountCreateWithoutFirmInput, AccountUncheckedCreateWithoutFirmInput> | AccountCreateWithoutFirmInput[] | AccountUncheckedCreateWithoutFirmInput[]
     connectOrCreate?: AccountCreateOrConnectWithoutFirmInput | AccountCreateOrConnectWithoutFirmInput[]
@@ -7654,6 +7992,12 @@ export namespace Prisma {
     deleteMany?: AccountScalarWhereInput | AccountScalarWhereInput[]
   }
 
+  export type OwnerCreateNestedOneWithoutAccountsInput = {
+    create?: XOR<OwnerCreateWithoutAccountsInput, OwnerUncheckedCreateWithoutAccountsInput>
+    connectOrCreate?: OwnerCreateOrConnectWithoutAccountsInput
+    connect?: OwnerWhereUniqueInput
+  }
+
   export type FirmCreateNestedOneWithoutAccountsInput = {
     create?: XOR<FirmCreateWithoutAccountsInput, FirmUncheckedCreateWithoutAccountsInput>
     connectOrCreate?: FirmCreateOrConnectWithoutAccountsInput
@@ -7662,6 +8006,14 @@ export namespace Prisma {
 
   export type EnumAccountBalanceTypeFieldUpdateOperationsInput = {
     set?: $Enums.AccountBalanceType
+  }
+
+  export type OwnerUpdateOneRequiredWithoutAccountsNestedInput = {
+    create?: XOR<OwnerCreateWithoutAccountsInput, OwnerUncheckedCreateWithoutAccountsInput>
+    connectOrCreate?: OwnerCreateOrConnectWithoutAccountsInput
+    upsert?: OwnerUpsertWithoutAccountsInput
+    connect?: OwnerWhereUniqueInput
+    update?: XOR<XOR<OwnerUpdateToOneWithWhereWithoutAccountsInput, OwnerUpdateWithoutAccountsInput>, OwnerUncheckedUpdateWithoutAccountsInput>
   }
 
   export type FirmUpdateOneRequiredWithoutAccountsNestedInput = {
@@ -7952,125 +8304,9 @@ export namespace Prisma {
     _max?: NestedEnumAccountBalanceTypeFilter<$PrismaModel>
   }
 
-  export type AccountCreateWithoutFirmInput = {
-    acc_add_date?: Date | string
-    acc_own_id?: number
-    acc_pan_no?: string | null
-    acc_name: string
-    acc_desc?: string | null
-    acc_pre_acc?: string | null
-    acc_bank_no?: string | null
-    acc_bsr_no?: string | null
-    acc_ifsc_code?: string | null
-    acc_branch_name?: string | null
-    acc_opening_date: Date | string
-    acc_address?: string | null
-    acc_country?: string | null
-    acc_state?: string | null
-    acc_city?: string | null
-    acc_pincode?: string | null
-    acc_cash_balance?: number
-    acc_balance_type?: $Enums.AccountBalanceType
-    acc_other_info?: string | null
-    acc_created_at?: Date | string
-    acc_created_by?: string | null
-    acc_updated_by?: string | null
-    acc_deleted_at?: Date | string | null
-    acc_deleted_by?: string | null
-    acc_is_deleted?: boolean
-  }
-
-  export type AccountUncheckedCreateWithoutFirmInput = {
-    acc_id?: number
-    acc_add_date?: Date | string
-    acc_own_id?: number
-    acc_pan_no?: string | null
-    acc_name: string
-    acc_desc?: string | null
-    acc_pre_acc?: string | null
-    acc_bank_no?: string | null
-    acc_bsr_no?: string | null
-    acc_ifsc_code?: string | null
-    acc_branch_name?: string | null
-    acc_opening_date: Date | string
-    acc_address?: string | null
-    acc_country?: string | null
-    acc_state?: string | null
-    acc_city?: string | null
-    acc_pincode?: string | null
-    acc_cash_balance?: number
-    acc_balance_type?: $Enums.AccountBalanceType
-    acc_other_info?: string | null
-    acc_created_at?: Date | string
-    acc_created_by?: string | null
-    acc_updated_by?: string | null
-    acc_deleted_at?: Date | string | null
-    acc_deleted_by?: string | null
-    acc_is_deleted?: boolean
-  }
-
-  export type AccountCreateOrConnectWithoutFirmInput = {
-    where: AccountWhereUniqueInput
-    create: XOR<AccountCreateWithoutFirmInput, AccountUncheckedCreateWithoutFirmInput>
-  }
-
-  export type AccountCreateManyFirmInputEnvelope = {
-    data: AccountCreateManyFirmInput | AccountCreateManyFirmInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type AccountUpsertWithWhereUniqueWithoutFirmInput = {
-    where: AccountWhereUniqueInput
-    update: XOR<AccountUpdateWithoutFirmInput, AccountUncheckedUpdateWithoutFirmInput>
-    create: XOR<AccountCreateWithoutFirmInput, AccountUncheckedCreateWithoutFirmInput>
-  }
-
-  export type AccountUpdateWithWhereUniqueWithoutFirmInput = {
-    where: AccountWhereUniqueInput
-    data: XOR<AccountUpdateWithoutFirmInput, AccountUncheckedUpdateWithoutFirmInput>
-  }
-
-  export type AccountUpdateManyWithWhereWithoutFirmInput = {
-    where: AccountScalarWhereInput
-    data: XOR<AccountUpdateManyMutationInput, AccountUncheckedUpdateManyWithoutFirmInput>
-  }
-
-  export type AccountScalarWhereInput = {
-    AND?: AccountScalarWhereInput | AccountScalarWhereInput[]
-    OR?: AccountScalarWhereInput[]
-    NOT?: AccountScalarWhereInput | AccountScalarWhereInput[]
-    acc_id?: IntFilter<"Account"> | number
-    acc_add_date?: DateTimeFilter<"Account"> | Date | string
-    acc_own_id?: IntFilter<"Account"> | number
-    acc_firm_id?: IntFilter<"Account"> | number
-    acc_pan_no?: StringNullableFilter<"Account"> | string | null
-    acc_name?: StringFilter<"Account"> | string
-    acc_desc?: StringNullableFilter<"Account"> | string | null
-    acc_pre_acc?: StringNullableFilter<"Account"> | string | null
-    acc_bank_no?: StringNullableFilter<"Account"> | string | null
-    acc_bsr_no?: StringNullableFilter<"Account"> | string | null
-    acc_ifsc_code?: StringNullableFilter<"Account"> | string | null
-    acc_branch_name?: StringNullableFilter<"Account"> | string | null
-    acc_opening_date?: DateTimeFilter<"Account"> | Date | string
-    acc_address?: StringNullableFilter<"Account"> | string | null
-    acc_country?: StringNullableFilter<"Account"> | string | null
-    acc_state?: StringNullableFilter<"Account"> | string | null
-    acc_city?: StringNullableFilter<"Account"> | string | null
-    acc_pincode?: StringNullableFilter<"Account"> | string | null
-    acc_cash_balance?: FloatFilter<"Account"> | number
-    acc_balance_type?: EnumAccountBalanceTypeFilter<"Account"> | $Enums.AccountBalanceType
-    acc_other_info?: StringNullableFilter<"Account"> | string | null
-    acc_created_at?: DateTimeFilter<"Account"> | Date | string
-    acc_created_by?: StringNullableFilter<"Account"> | string | null
-    acc_updated_by?: StringNullableFilter<"Account"> | string | null
-    acc_deleted_at?: DateTimeNullableFilter<"Account"> | Date | string | null
-    acc_deleted_by?: StringNullableFilter<"Account"> | string | null
-    acc_is_deleted?: BoolFilter<"Account"> | boolean
-  }
-
-  export type FirmCreateWithoutAccountsInput = {
+  export type FirmCreateWithoutOwnerInput = {
+    firm_uuid?: string
     firm_add_date?: Date | string
-    firm_own_id?: number
     firm_name: string
     firm_reg_no: string
     firm_shop_name: string
@@ -8115,10 +8351,648 @@ export namespace Prisma {
     firm_deleted_at?: Date | string | null
     firm_deleted_by?: string | null
     firm_is_deleted?: boolean
+    accounts?: AccountCreateNestedManyWithoutFirmInput
+  }
+
+  export type FirmUncheckedCreateWithoutOwnerInput = {
+    firm_id?: number
+    firm_uuid?: string
+    firm_add_date?: Date | string
+    firm_name: string
+    firm_reg_no: string
+    firm_shop_name: string
+    firm_desc?: string | null
+    firm_address?: string | null
+    firm_city?: string | null
+    firm_pincode?: string | null
+    firm_phone_no: string
+    firm_email_id: string
+    firm_website_link?: string | null
+    firm_type?: $Enums.FirmType
+    firm_owner?: string | null
+    firm_other_info?: string | null
+    firm_geo_latitude?: string | null
+    firm_geo_longitude?: string | null
+    firm_whatsapp_link?: string | null
+    firm_facebook_link?: string | null
+    firm_insta_link?: string | null
+    firm_bank_name?: string | null
+    firm_bank_acc_no?: string | null
+    firm_bank_branch?: string | null
+    firm_bank_address?: string | null
+    firm_acc_holder?: string | null
+    firm_acc_type?: string | null
+    firm_ifsc_code?: string | null
+    firm_start_date: Date | string
+    firm_balance?: number
+    firm_balance_type?: $Enums.FirmBalanceType
+    firm_gstin_no?: string | null
+    firm_pan_no?: string | null
+    firm_adhaar_no?: string | null
+    firm_form_header?: string | null
+    firm_form_footer?: string | null
+    firm_own_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_left_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_right_logo?: NullableJsonNullValueInput | InputJsonValue
+    firm_qr_code_id?: string | null
+    firm_created_at?: Date | string
+    firm_created_by?: string | null
+    firm_updated_at?: Date | string
+    firm_updated_by?: string | null
+    firm_deleted_at?: Date | string | null
+    firm_deleted_by?: string | null
+    firm_is_deleted?: boolean
+    accounts?: AccountUncheckedCreateNestedManyWithoutFirmInput
+  }
+
+  export type FirmCreateOrConnectWithoutOwnerInput = {
+    where: FirmWhereUniqueInput
+    create: XOR<FirmCreateWithoutOwnerInput, FirmUncheckedCreateWithoutOwnerInput>
+  }
+
+  export type FirmCreateManyOwnerInputEnvelope = {
+    data: FirmCreateManyOwnerInput | FirmCreateManyOwnerInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type AccountCreateWithoutOwnerInput = {
+    acc_uuid?: string
+    acc_add_date?: Date | string
+    acc_pan_no?: string | null
+    acc_name: string
+    acc_desc?: string | null
+    acc_pre_acc?: string | null
+    acc_bank_no?: string | null
+    acc_bsr_no?: string | null
+    acc_ifsc_code?: string | null
+    acc_branch_name?: string | null
+    acc_opening_date: Date | string
+    acc_address?: string | null
+    acc_country?: string | null
+    acc_state?: string | null
+    acc_city?: string | null
+    acc_pincode?: string | null
+    acc_cash_balance?: number
+    acc_balance_type?: $Enums.AccountBalanceType
+    acc_other_info?: string | null
+    acc_created_at?: Date | string
+    acc_created_by?: string | null
+    acc_updated_by?: string | null
+    acc_deleted_at?: Date | string | null
+    acc_deleted_by?: string | null
+    acc_is_deleted?: boolean
+    firm?: FirmCreateNestedOneWithoutAccountsInput
+  }
+
+  export type AccountUncheckedCreateWithoutOwnerInput = {
+    acc_id?: number
+    acc_uuid?: string
+    acc_add_date?: Date | string
+    acc_firm_id?: number
+    acc_pan_no?: string | null
+    acc_name: string
+    acc_desc?: string | null
+    acc_pre_acc?: string | null
+    acc_bank_no?: string | null
+    acc_bsr_no?: string | null
+    acc_ifsc_code?: string | null
+    acc_branch_name?: string | null
+    acc_opening_date: Date | string
+    acc_address?: string | null
+    acc_country?: string | null
+    acc_state?: string | null
+    acc_city?: string | null
+    acc_pincode?: string | null
+    acc_cash_balance?: number
+    acc_balance_type?: $Enums.AccountBalanceType
+    acc_other_info?: string | null
+    acc_created_at?: Date | string
+    acc_created_by?: string | null
+    acc_updated_by?: string | null
+    acc_deleted_at?: Date | string | null
+    acc_deleted_by?: string | null
+    acc_is_deleted?: boolean
+  }
+
+  export type AccountCreateOrConnectWithoutOwnerInput = {
+    where: AccountWhereUniqueInput
+    create: XOR<AccountCreateWithoutOwnerInput, AccountUncheckedCreateWithoutOwnerInput>
+  }
+
+  export type AccountCreateManyOwnerInputEnvelope = {
+    data: AccountCreateManyOwnerInput | AccountCreateManyOwnerInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type FirmUpsertWithWhereUniqueWithoutOwnerInput = {
+    where: FirmWhereUniqueInput
+    update: XOR<FirmUpdateWithoutOwnerInput, FirmUncheckedUpdateWithoutOwnerInput>
+    create: XOR<FirmCreateWithoutOwnerInput, FirmUncheckedCreateWithoutOwnerInput>
+  }
+
+  export type FirmUpdateWithWhereUniqueWithoutOwnerInput = {
+    where: FirmWhereUniqueInput
+    data: XOR<FirmUpdateWithoutOwnerInput, FirmUncheckedUpdateWithoutOwnerInput>
+  }
+
+  export type FirmUpdateManyWithWhereWithoutOwnerInput = {
+    where: FirmScalarWhereInput
+    data: XOR<FirmUpdateManyMutationInput, FirmUncheckedUpdateManyWithoutOwnerInput>
+  }
+
+  export type FirmScalarWhereInput = {
+    AND?: FirmScalarWhereInput | FirmScalarWhereInput[]
+    OR?: FirmScalarWhereInput[]
+    NOT?: FirmScalarWhereInput | FirmScalarWhereInput[]
+    firm_id?: IntFilter<"Firm"> | number
+    firm_uuid?: StringFilter<"Firm"> | string
+    firm_add_date?: DateTimeFilter<"Firm"> | Date | string
+    firm_own_id?: IntFilter<"Firm"> | number
+    firm_name?: StringFilter<"Firm"> | string
+    firm_reg_no?: StringFilter<"Firm"> | string
+    firm_shop_name?: StringFilter<"Firm"> | string
+    firm_desc?: StringNullableFilter<"Firm"> | string | null
+    firm_address?: StringNullableFilter<"Firm"> | string | null
+    firm_city?: StringNullableFilter<"Firm"> | string | null
+    firm_pincode?: StringNullableFilter<"Firm"> | string | null
+    firm_phone_no?: StringFilter<"Firm"> | string
+    firm_email_id?: StringFilter<"Firm"> | string
+    firm_website_link?: StringNullableFilter<"Firm"> | string | null
+    firm_type?: EnumFirmTypeFilter<"Firm"> | $Enums.FirmType
+    firm_owner?: StringNullableFilter<"Firm"> | string | null
+    firm_other_info?: StringNullableFilter<"Firm"> | string | null
+    firm_geo_latitude?: StringNullableFilter<"Firm"> | string | null
+    firm_geo_longitude?: StringNullableFilter<"Firm"> | string | null
+    firm_whatsapp_link?: StringNullableFilter<"Firm"> | string | null
+    firm_facebook_link?: StringNullableFilter<"Firm"> | string | null
+    firm_insta_link?: StringNullableFilter<"Firm"> | string | null
+    firm_bank_name?: StringNullableFilter<"Firm"> | string | null
+    firm_bank_acc_no?: StringNullableFilter<"Firm"> | string | null
+    firm_bank_branch?: StringNullableFilter<"Firm"> | string | null
+    firm_bank_address?: StringNullableFilter<"Firm"> | string | null
+    firm_acc_holder?: StringNullableFilter<"Firm"> | string | null
+    firm_acc_type?: StringNullableFilter<"Firm"> | string | null
+    firm_ifsc_code?: StringNullableFilter<"Firm"> | string | null
+    firm_start_date?: DateTimeFilter<"Firm"> | Date | string
+    firm_balance?: FloatFilter<"Firm"> | number
+    firm_balance_type?: EnumFirmBalanceTypeFilter<"Firm"> | $Enums.FirmBalanceType
+    firm_gstin_no?: StringNullableFilter<"Firm"> | string | null
+    firm_pan_no?: StringNullableFilter<"Firm"> | string | null
+    firm_adhaar_no?: StringNullableFilter<"Firm"> | string | null
+    firm_form_header?: StringNullableFilter<"Firm"> | string | null
+    firm_form_footer?: StringNullableFilter<"Firm"> | string | null
+    firm_own_sign_img?: JsonNullableFilter<"Firm">
+    firm_left_logo_img?: JsonNullableFilter<"Firm">
+    firm_right_logo?: JsonNullableFilter<"Firm">
+    firm_qr_code_id?: StringNullableFilter<"Firm"> | string | null
+    firm_created_at?: DateTimeFilter<"Firm"> | Date | string
+    firm_created_by?: StringNullableFilter<"Firm"> | string | null
+    firm_updated_at?: DateTimeFilter<"Firm"> | Date | string
+    firm_updated_by?: StringNullableFilter<"Firm"> | string | null
+    firm_deleted_at?: DateTimeNullableFilter<"Firm"> | Date | string | null
+    firm_deleted_by?: StringNullableFilter<"Firm"> | string | null
+    firm_is_deleted?: BoolFilter<"Firm"> | boolean
+  }
+
+  export type AccountUpsertWithWhereUniqueWithoutOwnerInput = {
+    where: AccountWhereUniqueInput
+    update: XOR<AccountUpdateWithoutOwnerInput, AccountUncheckedUpdateWithoutOwnerInput>
+    create: XOR<AccountCreateWithoutOwnerInput, AccountUncheckedCreateWithoutOwnerInput>
+  }
+
+  export type AccountUpdateWithWhereUniqueWithoutOwnerInput = {
+    where: AccountWhereUniqueInput
+    data: XOR<AccountUpdateWithoutOwnerInput, AccountUncheckedUpdateWithoutOwnerInput>
+  }
+
+  export type AccountUpdateManyWithWhereWithoutOwnerInput = {
+    where: AccountScalarWhereInput
+    data: XOR<AccountUpdateManyMutationInput, AccountUncheckedUpdateManyWithoutOwnerInput>
+  }
+
+  export type AccountScalarWhereInput = {
+    AND?: AccountScalarWhereInput | AccountScalarWhereInput[]
+    OR?: AccountScalarWhereInput[]
+    NOT?: AccountScalarWhereInput | AccountScalarWhereInput[]
+    acc_id?: IntFilter<"Account"> | number
+    acc_uuid?: StringFilter<"Account"> | string
+    acc_add_date?: DateTimeFilter<"Account"> | Date | string
+    acc_own_id?: IntFilter<"Account"> | number
+    acc_firm_id?: IntFilter<"Account"> | number
+    acc_pan_no?: StringNullableFilter<"Account"> | string | null
+    acc_name?: StringFilter<"Account"> | string
+    acc_desc?: StringNullableFilter<"Account"> | string | null
+    acc_pre_acc?: StringNullableFilter<"Account"> | string | null
+    acc_bank_no?: StringNullableFilter<"Account"> | string | null
+    acc_bsr_no?: StringNullableFilter<"Account"> | string | null
+    acc_ifsc_code?: StringNullableFilter<"Account"> | string | null
+    acc_branch_name?: StringNullableFilter<"Account"> | string | null
+    acc_opening_date?: DateTimeFilter<"Account"> | Date | string
+    acc_address?: StringNullableFilter<"Account"> | string | null
+    acc_country?: StringNullableFilter<"Account"> | string | null
+    acc_state?: StringNullableFilter<"Account"> | string | null
+    acc_city?: StringNullableFilter<"Account"> | string | null
+    acc_pincode?: StringNullableFilter<"Account"> | string | null
+    acc_cash_balance?: FloatFilter<"Account"> | number
+    acc_balance_type?: EnumAccountBalanceTypeFilter<"Account"> | $Enums.AccountBalanceType
+    acc_other_info?: StringNullableFilter<"Account"> | string | null
+    acc_created_at?: DateTimeFilter<"Account"> | Date | string
+    acc_created_by?: StringNullableFilter<"Account"> | string | null
+    acc_updated_by?: StringNullableFilter<"Account"> | string | null
+    acc_deleted_at?: DateTimeNullableFilter<"Account"> | Date | string | null
+    acc_deleted_by?: StringNullableFilter<"Account"> | string | null
+    acc_is_deleted?: BoolFilter<"Account"> | boolean
+  }
+
+  export type AccountCreateWithoutFirmInput = {
+    acc_uuid?: string
+    acc_add_date?: Date | string
+    acc_pan_no?: string | null
+    acc_name: string
+    acc_desc?: string | null
+    acc_pre_acc?: string | null
+    acc_bank_no?: string | null
+    acc_bsr_no?: string | null
+    acc_ifsc_code?: string | null
+    acc_branch_name?: string | null
+    acc_opening_date: Date | string
+    acc_address?: string | null
+    acc_country?: string | null
+    acc_state?: string | null
+    acc_city?: string | null
+    acc_pincode?: string | null
+    acc_cash_balance?: number
+    acc_balance_type?: $Enums.AccountBalanceType
+    acc_other_info?: string | null
+    acc_created_at?: Date | string
+    acc_created_by?: string | null
+    acc_updated_by?: string | null
+    acc_deleted_at?: Date | string | null
+    acc_deleted_by?: string | null
+    acc_is_deleted?: boolean
+    owner?: OwnerCreateNestedOneWithoutAccountsInput
+  }
+
+  export type AccountUncheckedCreateWithoutFirmInput = {
+    acc_id?: number
+    acc_uuid?: string
+    acc_add_date?: Date | string
+    acc_own_id?: number
+    acc_pan_no?: string | null
+    acc_name: string
+    acc_desc?: string | null
+    acc_pre_acc?: string | null
+    acc_bank_no?: string | null
+    acc_bsr_no?: string | null
+    acc_ifsc_code?: string | null
+    acc_branch_name?: string | null
+    acc_opening_date: Date | string
+    acc_address?: string | null
+    acc_country?: string | null
+    acc_state?: string | null
+    acc_city?: string | null
+    acc_pincode?: string | null
+    acc_cash_balance?: number
+    acc_balance_type?: $Enums.AccountBalanceType
+    acc_other_info?: string | null
+    acc_created_at?: Date | string
+    acc_created_by?: string | null
+    acc_updated_by?: string | null
+    acc_deleted_at?: Date | string | null
+    acc_deleted_by?: string | null
+    acc_is_deleted?: boolean
+  }
+
+  export type AccountCreateOrConnectWithoutFirmInput = {
+    where: AccountWhereUniqueInput
+    create: XOR<AccountCreateWithoutFirmInput, AccountUncheckedCreateWithoutFirmInput>
+  }
+
+  export type AccountCreateManyFirmInputEnvelope = {
+    data: AccountCreateManyFirmInput | AccountCreateManyFirmInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type OwnerCreateWithoutFirmsInput = {
+    own_uuid?: string
+    own_product_key?: number
+    own_db: string
+    own_add_date?: Date | string
+    own_first_name: string
+    own_middle_name?: string | null
+    own_last_name: string
+    own_phone_no?: string | null
+    own_mobile_no: string
+    own_email: string
+    own_login_id: string
+    own_password: string
+    own_status?: $Enums.OwnerStatus
+    own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_refresh_token?: string | null
+    own_refresh_expiry?: Date | string | null
+    own_jwt_token?: string | null
+    own_jwt_expiry?: Date | string | null
+    own_login_status?: boolean
+    own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
+    own_otp?: string | null
+    own_otp_expiry?: Date | string | null
+    own_address?: string | null
+    own_village?: string | null
+    own_city?: string | null
+    own_state?: string | null
+    own_pincode?: string | null
+    own_created_at?: Date | string
+    own_created_by?: string | null
+    own_updated_at?: Date | string
+    own_updated_by?: string | null
+    own_deleted_at?: Date | string | null
+    own_deleted_by?: string | null
+    own_is_deleted?: boolean
+    accounts?: AccountCreateNestedManyWithoutOwnerInput
+  }
+
+  export type OwnerUncheckedCreateWithoutFirmsInput = {
+    own_id?: number
+    own_uuid?: string
+    own_product_key?: number
+    own_db: string
+    own_add_date?: Date | string
+    own_first_name: string
+    own_middle_name?: string | null
+    own_last_name: string
+    own_phone_no?: string | null
+    own_mobile_no: string
+    own_email: string
+    own_login_id: string
+    own_password: string
+    own_status?: $Enums.OwnerStatus
+    own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_refresh_token?: string | null
+    own_refresh_expiry?: Date | string | null
+    own_jwt_token?: string | null
+    own_jwt_expiry?: Date | string | null
+    own_login_status?: boolean
+    own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
+    own_otp?: string | null
+    own_otp_expiry?: Date | string | null
+    own_address?: string | null
+    own_village?: string | null
+    own_city?: string | null
+    own_state?: string | null
+    own_pincode?: string | null
+    own_created_at?: Date | string
+    own_created_by?: string | null
+    own_updated_at?: Date | string
+    own_updated_by?: string | null
+    own_deleted_at?: Date | string | null
+    own_deleted_by?: string | null
+    own_is_deleted?: boolean
+    accounts?: AccountUncheckedCreateNestedManyWithoutOwnerInput
+  }
+
+  export type OwnerCreateOrConnectWithoutFirmsInput = {
+    where: OwnerWhereUniqueInput
+    create: XOR<OwnerCreateWithoutFirmsInput, OwnerUncheckedCreateWithoutFirmsInput>
+  }
+
+  export type AccountUpsertWithWhereUniqueWithoutFirmInput = {
+    where: AccountWhereUniqueInput
+    update: XOR<AccountUpdateWithoutFirmInput, AccountUncheckedUpdateWithoutFirmInput>
+    create: XOR<AccountCreateWithoutFirmInput, AccountUncheckedCreateWithoutFirmInput>
+  }
+
+  export type AccountUpdateWithWhereUniqueWithoutFirmInput = {
+    where: AccountWhereUniqueInput
+    data: XOR<AccountUpdateWithoutFirmInput, AccountUncheckedUpdateWithoutFirmInput>
+  }
+
+  export type AccountUpdateManyWithWhereWithoutFirmInput = {
+    where: AccountScalarWhereInput
+    data: XOR<AccountUpdateManyMutationInput, AccountUncheckedUpdateManyWithoutFirmInput>
+  }
+
+  export type OwnerUpsertWithoutFirmsInput = {
+    update: XOR<OwnerUpdateWithoutFirmsInput, OwnerUncheckedUpdateWithoutFirmsInput>
+    create: XOR<OwnerCreateWithoutFirmsInput, OwnerUncheckedCreateWithoutFirmsInput>
+    where?: OwnerWhereInput
+  }
+
+  export type OwnerUpdateToOneWithWhereWithoutFirmsInput = {
+    where?: OwnerWhereInput
+    data: XOR<OwnerUpdateWithoutFirmsInput, OwnerUncheckedUpdateWithoutFirmsInput>
+  }
+
+  export type OwnerUpdateWithoutFirmsInput = {
+    own_uuid?: StringFieldUpdateOperationsInput | string
+    own_db?: StringFieldUpdateOperationsInput | string
+    own_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    own_first_name?: StringFieldUpdateOperationsInput | string
+    own_middle_name?: NullableStringFieldUpdateOperationsInput | string | null
+    own_last_name?: StringFieldUpdateOperationsInput | string
+    own_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mobile_no?: StringFieldUpdateOperationsInput | string
+    own_email?: StringFieldUpdateOperationsInput | string
+    own_login_id?: StringFieldUpdateOperationsInput | string
+    own_password?: StringFieldUpdateOperationsInput | string
+    own_status?: EnumOwnerStatusFieldUpdateOperationsInput | $Enums.OwnerStatus
+    own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
+    own_refresh_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_jwt_token?: NullableStringFieldUpdateOperationsInput | string | null
+    own_jwt_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_login_status?: BoolFieldUpdateOperationsInput | boolean
+    own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
+    own_otp?: NullableStringFieldUpdateOperationsInput | string | null
+    own_otp_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_address?: NullableStringFieldUpdateOperationsInput | string | null
+    own_village?: NullableStringFieldUpdateOperationsInput | string | null
+    own_city?: NullableStringFieldUpdateOperationsInput | string | null
+    own_state?: NullableStringFieldUpdateOperationsInput | string | null
+    own_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    own_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    own_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    own_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    own_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    own_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    own_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    accounts?: AccountUpdateManyWithoutOwnerNestedInput
+  }
+
+  export type OwnerUncheckedUpdateWithoutFirmsInput = {
+    own_id?: IntFieldUpdateOperationsInput | number
+    own_uuid?: StringFieldUpdateOperationsInput | string
+    own_product_key?: IntFieldUpdateOperationsInput | number
+    own_db?: StringFieldUpdateOperationsInput | string
+    own_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    own_first_name?: StringFieldUpdateOperationsInput | string
+    own_middle_name?: NullableStringFieldUpdateOperationsInput | string | null
+    own_last_name?: StringFieldUpdateOperationsInput | string
+    own_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mobile_no?: StringFieldUpdateOperationsInput | string
+    own_email?: StringFieldUpdateOperationsInput | string
+    own_login_id?: StringFieldUpdateOperationsInput | string
+    own_password?: StringFieldUpdateOperationsInput | string
+    own_status?: EnumOwnerStatusFieldUpdateOperationsInput | $Enums.OwnerStatus
+    own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
+    own_refresh_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_jwt_token?: NullableStringFieldUpdateOperationsInput | string | null
+    own_jwt_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_login_status?: BoolFieldUpdateOperationsInput | boolean
+    own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
+    own_otp?: NullableStringFieldUpdateOperationsInput | string | null
+    own_otp_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_address?: NullableStringFieldUpdateOperationsInput | string | null
+    own_village?: NullableStringFieldUpdateOperationsInput | string | null
+    own_city?: NullableStringFieldUpdateOperationsInput | string | null
+    own_state?: NullableStringFieldUpdateOperationsInput | string | null
+    own_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    own_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    own_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    own_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    own_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    own_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    own_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    accounts?: AccountUncheckedUpdateManyWithoutOwnerNestedInput
+  }
+
+  export type OwnerCreateWithoutAccountsInput = {
+    own_uuid?: string
+    own_product_key?: number
+    own_db: string
+    own_add_date?: Date | string
+    own_first_name: string
+    own_middle_name?: string | null
+    own_last_name: string
+    own_phone_no?: string | null
+    own_mobile_no: string
+    own_email: string
+    own_login_id: string
+    own_password: string
+    own_status?: $Enums.OwnerStatus
+    own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_refresh_token?: string | null
+    own_refresh_expiry?: Date | string | null
+    own_jwt_token?: string | null
+    own_jwt_expiry?: Date | string | null
+    own_login_status?: boolean
+    own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
+    own_otp?: string | null
+    own_otp_expiry?: Date | string | null
+    own_address?: string | null
+    own_village?: string | null
+    own_city?: string | null
+    own_state?: string | null
+    own_pincode?: string | null
+    own_created_at?: Date | string
+    own_created_by?: string | null
+    own_updated_at?: Date | string
+    own_updated_by?: string | null
+    own_deleted_at?: Date | string | null
+    own_deleted_by?: string | null
+    own_is_deleted?: boolean
+    firms?: FirmCreateNestedManyWithoutOwnerInput
+  }
+
+  export type OwnerUncheckedCreateWithoutAccountsInput = {
+    own_id?: number
+    own_uuid?: string
+    own_product_key?: number
+    own_db: string
+    own_add_date?: Date | string
+    own_first_name: string
+    own_middle_name?: string | null
+    own_last_name: string
+    own_phone_no?: string | null
+    own_mobile_no: string
+    own_email: string
+    own_login_id: string
+    own_password: string
+    own_status?: $Enums.OwnerStatus
+    own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_refresh_token?: string | null
+    own_refresh_expiry?: Date | string | null
+    own_jwt_token?: string | null
+    own_jwt_expiry?: Date | string | null
+    own_login_status?: boolean
+    own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
+    own_otp?: string | null
+    own_otp_expiry?: Date | string | null
+    own_address?: string | null
+    own_village?: string | null
+    own_city?: string | null
+    own_state?: string | null
+    own_pincode?: string | null
+    own_created_at?: Date | string
+    own_created_by?: string | null
+    own_updated_at?: Date | string
+    own_updated_by?: string | null
+    own_deleted_at?: Date | string | null
+    own_deleted_by?: string | null
+    own_is_deleted?: boolean
+    firms?: FirmUncheckedCreateNestedManyWithoutOwnerInput
+  }
+
+  export type OwnerCreateOrConnectWithoutAccountsInput = {
+    where: OwnerWhereUniqueInput
+    create: XOR<OwnerCreateWithoutAccountsInput, OwnerUncheckedCreateWithoutAccountsInput>
+  }
+
+  export type FirmCreateWithoutAccountsInput = {
+    firm_uuid?: string
+    firm_add_date?: Date | string
+    firm_name: string
+    firm_reg_no: string
+    firm_shop_name: string
+    firm_desc?: string | null
+    firm_address?: string | null
+    firm_city?: string | null
+    firm_pincode?: string | null
+    firm_phone_no: string
+    firm_email_id: string
+    firm_website_link?: string | null
+    firm_type?: $Enums.FirmType
+    firm_owner?: string | null
+    firm_other_info?: string | null
+    firm_geo_latitude?: string | null
+    firm_geo_longitude?: string | null
+    firm_whatsapp_link?: string | null
+    firm_facebook_link?: string | null
+    firm_insta_link?: string | null
+    firm_bank_name?: string | null
+    firm_bank_acc_no?: string | null
+    firm_bank_branch?: string | null
+    firm_bank_address?: string | null
+    firm_acc_holder?: string | null
+    firm_acc_type?: string | null
+    firm_ifsc_code?: string | null
+    firm_start_date: Date | string
+    firm_balance?: number
+    firm_balance_type?: $Enums.FirmBalanceType
+    firm_gstin_no?: string | null
+    firm_pan_no?: string | null
+    firm_adhaar_no?: string | null
+    firm_form_header?: string | null
+    firm_form_footer?: string | null
+    firm_own_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_left_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_right_logo?: NullableJsonNullValueInput | InputJsonValue
+    firm_qr_code_id?: string | null
+    firm_created_at?: Date | string
+    firm_created_by?: string | null
+    firm_updated_at?: Date | string
+    firm_updated_by?: string | null
+    firm_deleted_at?: Date | string | null
+    firm_deleted_by?: string | null
+    firm_is_deleted?: boolean
+    owner?: OwnerCreateNestedOneWithoutFirmsInput
   }
 
   export type FirmUncheckedCreateWithoutAccountsInput = {
     firm_id?: number
+    firm_uuid?: string
     firm_add_date?: Date | string
     firm_own_id?: number
     firm_name: string
@@ -8172,6 +9046,93 @@ export namespace Prisma {
     create: XOR<FirmCreateWithoutAccountsInput, FirmUncheckedCreateWithoutAccountsInput>
   }
 
+  export type OwnerUpsertWithoutAccountsInput = {
+    update: XOR<OwnerUpdateWithoutAccountsInput, OwnerUncheckedUpdateWithoutAccountsInput>
+    create: XOR<OwnerCreateWithoutAccountsInput, OwnerUncheckedCreateWithoutAccountsInput>
+    where?: OwnerWhereInput
+  }
+
+  export type OwnerUpdateToOneWithWhereWithoutAccountsInput = {
+    where?: OwnerWhereInput
+    data: XOR<OwnerUpdateWithoutAccountsInput, OwnerUncheckedUpdateWithoutAccountsInput>
+  }
+
+  export type OwnerUpdateWithoutAccountsInput = {
+    own_uuid?: StringFieldUpdateOperationsInput | string
+    own_db?: StringFieldUpdateOperationsInput | string
+    own_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    own_first_name?: StringFieldUpdateOperationsInput | string
+    own_middle_name?: NullableStringFieldUpdateOperationsInput | string | null
+    own_last_name?: StringFieldUpdateOperationsInput | string
+    own_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mobile_no?: StringFieldUpdateOperationsInput | string
+    own_email?: StringFieldUpdateOperationsInput | string
+    own_login_id?: StringFieldUpdateOperationsInput | string
+    own_password?: StringFieldUpdateOperationsInput | string
+    own_status?: EnumOwnerStatusFieldUpdateOperationsInput | $Enums.OwnerStatus
+    own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
+    own_refresh_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_jwt_token?: NullableStringFieldUpdateOperationsInput | string | null
+    own_jwt_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_login_status?: BoolFieldUpdateOperationsInput | boolean
+    own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
+    own_otp?: NullableStringFieldUpdateOperationsInput | string | null
+    own_otp_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_address?: NullableStringFieldUpdateOperationsInput | string | null
+    own_village?: NullableStringFieldUpdateOperationsInput | string | null
+    own_city?: NullableStringFieldUpdateOperationsInput | string | null
+    own_state?: NullableStringFieldUpdateOperationsInput | string | null
+    own_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    own_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    own_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    own_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    own_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    own_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    own_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    firms?: FirmUpdateManyWithoutOwnerNestedInput
+  }
+
+  export type OwnerUncheckedUpdateWithoutAccountsInput = {
+    own_id?: IntFieldUpdateOperationsInput | number
+    own_uuid?: StringFieldUpdateOperationsInput | string
+    own_product_key?: IntFieldUpdateOperationsInput | number
+    own_db?: StringFieldUpdateOperationsInput | string
+    own_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    own_first_name?: StringFieldUpdateOperationsInput | string
+    own_middle_name?: NullableStringFieldUpdateOperationsInput | string | null
+    own_last_name?: StringFieldUpdateOperationsInput | string
+    own_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mobile_no?: StringFieldUpdateOperationsInput | string
+    own_email?: StringFieldUpdateOperationsInput | string
+    own_login_id?: StringFieldUpdateOperationsInput | string
+    own_password?: StringFieldUpdateOperationsInput | string
+    own_status?: EnumOwnerStatusFieldUpdateOperationsInput | $Enums.OwnerStatus
+    own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
+    own_refresh_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_jwt_token?: NullableStringFieldUpdateOperationsInput | string | null
+    own_jwt_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_login_status?: BoolFieldUpdateOperationsInput | boolean
+    own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
+    own_otp?: NullableStringFieldUpdateOperationsInput | string | null
+    own_otp_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_address?: NullableStringFieldUpdateOperationsInput | string | null
+    own_village?: NullableStringFieldUpdateOperationsInput | string | null
+    own_city?: NullableStringFieldUpdateOperationsInput | string | null
+    own_state?: NullableStringFieldUpdateOperationsInput | string | null
+    own_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    own_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    own_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    own_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    own_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    own_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    own_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    firms?: FirmUncheckedUpdateManyWithoutOwnerNestedInput
+  }
+
   export type FirmUpsertWithoutAccountsInput = {
     update: XOR<FirmUpdateWithoutAccountsInput, FirmUncheckedUpdateWithoutAccountsInput>
     create: XOR<FirmCreateWithoutAccountsInput, FirmUncheckedCreateWithoutAccountsInput>
@@ -8184,8 +9145,8 @@ export namespace Prisma {
   }
 
   export type FirmUpdateWithoutAccountsInput = {
+    firm_uuid?: StringFieldUpdateOperationsInput | string
     firm_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    firm_own_id?: IntFieldUpdateOperationsInput | number
     firm_name?: StringFieldUpdateOperationsInput | string
     firm_reg_no?: StringFieldUpdateOperationsInput | string
     firm_shop_name?: StringFieldUpdateOperationsInput | string
@@ -8230,10 +9191,12 @@ export namespace Prisma {
     firm_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     firm_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     firm_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    owner?: OwnerUpdateOneRequiredWithoutFirmsNestedInput
   }
 
   export type FirmUncheckedUpdateWithoutAccountsInput = {
     firm_id?: IntFieldUpdateOperationsInput | number
+    firm_uuid?: StringFieldUpdateOperationsInput | string
     firm_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
     firm_own_id?: IntFieldUpdateOperationsInput | number
     firm_name?: StringFieldUpdateOperationsInput | string
@@ -8282,8 +9245,329 @@ export namespace Prisma {
     firm_is_deleted?: BoolFieldUpdateOperationsInput | boolean
   }
 
+  export type FirmCreateManyOwnerInput = {
+    firm_id?: number
+    firm_uuid?: string
+    firm_add_date?: Date | string
+    firm_name: string
+    firm_reg_no: string
+    firm_shop_name: string
+    firm_desc?: string | null
+    firm_address?: string | null
+    firm_city?: string | null
+    firm_pincode?: string | null
+    firm_phone_no: string
+    firm_email_id: string
+    firm_website_link?: string | null
+    firm_type?: $Enums.FirmType
+    firm_owner?: string | null
+    firm_other_info?: string | null
+    firm_geo_latitude?: string | null
+    firm_geo_longitude?: string | null
+    firm_whatsapp_link?: string | null
+    firm_facebook_link?: string | null
+    firm_insta_link?: string | null
+    firm_bank_name?: string | null
+    firm_bank_acc_no?: string | null
+    firm_bank_branch?: string | null
+    firm_bank_address?: string | null
+    firm_acc_holder?: string | null
+    firm_acc_type?: string | null
+    firm_ifsc_code?: string | null
+    firm_start_date: Date | string
+    firm_balance?: number
+    firm_balance_type?: $Enums.FirmBalanceType
+    firm_gstin_no?: string | null
+    firm_pan_no?: string | null
+    firm_adhaar_no?: string | null
+    firm_form_header?: string | null
+    firm_form_footer?: string | null
+    firm_own_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_left_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_right_logo?: NullableJsonNullValueInput | InputJsonValue
+    firm_qr_code_id?: string | null
+    firm_created_at?: Date | string
+    firm_created_by?: string | null
+    firm_updated_at?: Date | string
+    firm_updated_by?: string | null
+    firm_deleted_at?: Date | string | null
+    firm_deleted_by?: string | null
+    firm_is_deleted?: boolean
+  }
+
+  export type AccountCreateManyOwnerInput = {
+    acc_id?: number
+    acc_uuid?: string
+    acc_add_date?: Date | string
+    acc_firm_id?: number
+    acc_pan_no?: string | null
+    acc_name: string
+    acc_desc?: string | null
+    acc_pre_acc?: string | null
+    acc_bank_no?: string | null
+    acc_bsr_no?: string | null
+    acc_ifsc_code?: string | null
+    acc_branch_name?: string | null
+    acc_opening_date: Date | string
+    acc_address?: string | null
+    acc_country?: string | null
+    acc_state?: string | null
+    acc_city?: string | null
+    acc_pincode?: string | null
+    acc_cash_balance?: number
+    acc_balance_type?: $Enums.AccountBalanceType
+    acc_other_info?: string | null
+    acc_created_at?: Date | string
+    acc_created_by?: string | null
+    acc_updated_by?: string | null
+    acc_deleted_at?: Date | string | null
+    acc_deleted_by?: string | null
+    acc_is_deleted?: boolean
+  }
+
+  export type FirmUpdateWithoutOwnerInput = {
+    firm_uuid?: StringFieldUpdateOperationsInput | string
+    firm_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    firm_name?: StringFieldUpdateOperationsInput | string
+    firm_reg_no?: StringFieldUpdateOperationsInput | string
+    firm_shop_name?: StringFieldUpdateOperationsInput | string
+    firm_desc?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_address?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_city?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_phone_no?: StringFieldUpdateOperationsInput | string
+    firm_email_id?: StringFieldUpdateOperationsInput | string
+    firm_website_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_type?: EnumFirmTypeFieldUpdateOperationsInput | $Enums.FirmType
+    firm_owner?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_geo_latitude?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_geo_longitude?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_whatsapp_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_facebook_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_insta_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_name?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_acc_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_branch?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_address?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_acc_holder?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_acc_type?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_start_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    firm_balance?: FloatFieldUpdateOperationsInput | number
+    firm_balance_type?: EnumFirmBalanceTypeFieldUpdateOperationsInput | $Enums.FirmBalanceType
+    firm_gstin_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_adhaar_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_form_header?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_form_footer?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_own_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_left_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_right_logo?: NullableJsonNullValueInput | InputJsonValue
+    firm_qr_code_id?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    firm_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    firm_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firm_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    accounts?: AccountUpdateManyWithoutFirmNestedInput
+  }
+
+  export type FirmUncheckedUpdateWithoutOwnerInput = {
+    firm_id?: IntFieldUpdateOperationsInput | number
+    firm_uuid?: StringFieldUpdateOperationsInput | string
+    firm_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    firm_name?: StringFieldUpdateOperationsInput | string
+    firm_reg_no?: StringFieldUpdateOperationsInput | string
+    firm_shop_name?: StringFieldUpdateOperationsInput | string
+    firm_desc?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_address?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_city?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_phone_no?: StringFieldUpdateOperationsInput | string
+    firm_email_id?: StringFieldUpdateOperationsInput | string
+    firm_website_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_type?: EnumFirmTypeFieldUpdateOperationsInput | $Enums.FirmType
+    firm_owner?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_geo_latitude?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_geo_longitude?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_whatsapp_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_facebook_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_insta_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_name?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_acc_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_branch?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_address?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_acc_holder?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_acc_type?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_start_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    firm_balance?: FloatFieldUpdateOperationsInput | number
+    firm_balance_type?: EnumFirmBalanceTypeFieldUpdateOperationsInput | $Enums.FirmBalanceType
+    firm_gstin_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_adhaar_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_form_header?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_form_footer?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_own_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_left_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_right_logo?: NullableJsonNullValueInput | InputJsonValue
+    firm_qr_code_id?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    firm_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    firm_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firm_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    accounts?: AccountUncheckedUpdateManyWithoutFirmNestedInput
+  }
+
+  export type FirmUncheckedUpdateManyWithoutOwnerInput = {
+    firm_id?: IntFieldUpdateOperationsInput | number
+    firm_uuid?: StringFieldUpdateOperationsInput | string
+    firm_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    firm_name?: StringFieldUpdateOperationsInput | string
+    firm_reg_no?: StringFieldUpdateOperationsInput | string
+    firm_shop_name?: StringFieldUpdateOperationsInput | string
+    firm_desc?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_address?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_city?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_phone_no?: StringFieldUpdateOperationsInput | string
+    firm_email_id?: StringFieldUpdateOperationsInput | string
+    firm_website_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_type?: EnumFirmTypeFieldUpdateOperationsInput | $Enums.FirmType
+    firm_owner?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_geo_latitude?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_geo_longitude?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_whatsapp_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_facebook_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_insta_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_name?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_acc_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_branch?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_address?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_acc_holder?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_acc_type?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_start_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    firm_balance?: FloatFieldUpdateOperationsInput | number
+    firm_balance_type?: EnumFirmBalanceTypeFieldUpdateOperationsInput | $Enums.FirmBalanceType
+    firm_gstin_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_adhaar_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_form_header?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_form_footer?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_own_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_left_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_right_logo?: NullableJsonNullValueInput | InputJsonValue
+    firm_qr_code_id?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    firm_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    firm_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firm_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type AccountUpdateWithoutOwnerInput = {
+    acc_uuid?: StringFieldUpdateOperationsInput | string
+    acc_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    acc_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_name?: StringFieldUpdateOperationsInput | string
+    acc_desc?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_pre_acc?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_bank_no?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_bsr_no?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_branch_name?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_opening_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    acc_address?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_country?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_state?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_city?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_cash_balance?: FloatFieldUpdateOperationsInput | number
+    acc_balance_type?: EnumAccountBalanceTypeFieldUpdateOperationsInput | $Enums.AccountBalanceType
+    acc_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    acc_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    acc_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    firm?: FirmUpdateOneRequiredWithoutAccountsNestedInput
+  }
+
+  export type AccountUncheckedUpdateWithoutOwnerInput = {
+    acc_id?: IntFieldUpdateOperationsInput | number
+    acc_uuid?: StringFieldUpdateOperationsInput | string
+    acc_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    acc_firm_id?: IntFieldUpdateOperationsInput | number
+    acc_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_name?: StringFieldUpdateOperationsInput | string
+    acc_desc?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_pre_acc?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_bank_no?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_bsr_no?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_branch_name?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_opening_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    acc_address?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_country?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_state?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_city?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_cash_balance?: FloatFieldUpdateOperationsInput | number
+    acc_balance_type?: EnumAccountBalanceTypeFieldUpdateOperationsInput | $Enums.AccountBalanceType
+    acc_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    acc_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    acc_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type AccountUncheckedUpdateManyWithoutOwnerInput = {
+    acc_id?: IntFieldUpdateOperationsInput | number
+    acc_uuid?: StringFieldUpdateOperationsInput | string
+    acc_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    acc_firm_id?: IntFieldUpdateOperationsInput | number
+    acc_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_name?: StringFieldUpdateOperationsInput | string
+    acc_desc?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_pre_acc?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_bank_no?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_bsr_no?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_branch_name?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_opening_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    acc_address?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_country?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_state?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_city?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_cash_balance?: FloatFieldUpdateOperationsInput | number
+    acc_balance_type?: EnumAccountBalanceTypeFieldUpdateOperationsInput | $Enums.AccountBalanceType
+    acc_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    acc_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    acc_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
   export type AccountCreateManyFirmInput = {
     acc_id?: number
+    acc_uuid?: string
     acc_add_date?: Date | string
     acc_own_id?: number
     acc_pan_no?: string | null
@@ -8312,8 +9596,8 @@ export namespace Prisma {
   }
 
   export type AccountUpdateWithoutFirmInput = {
+    acc_uuid?: StringFieldUpdateOperationsInput | string
     acc_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    acc_own_id?: IntFieldUpdateOperationsInput | number
     acc_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
     acc_name?: StringFieldUpdateOperationsInput | string
     acc_desc?: NullableStringFieldUpdateOperationsInput | string | null
@@ -8337,10 +9621,12 @@ export namespace Prisma {
     acc_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     acc_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     acc_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    owner?: OwnerUpdateOneRequiredWithoutAccountsNestedInput
   }
 
   export type AccountUncheckedUpdateWithoutFirmInput = {
     acc_id?: IntFieldUpdateOperationsInput | number
+    acc_uuid?: StringFieldUpdateOperationsInput | string
     acc_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
     acc_own_id?: IntFieldUpdateOperationsInput | number
     acc_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
@@ -8370,6 +9656,7 @@ export namespace Prisma {
 
   export type AccountUncheckedUpdateManyWithoutFirmInput = {
     acc_id?: IntFieldUpdateOperationsInput | number
+    acc_uuid?: StringFieldUpdateOperationsInput | string
     acc_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
     acc_own_id?: IntFieldUpdateOperationsInput | number
     acc_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
@@ -8402,6 +9689,10 @@ export namespace Prisma {
   /**
    * Aliases for legacy arg types
    */
+    /**
+     * @deprecated Use OwnerCountOutputTypeDefaultArgs instead
+     */
+    export type OwnerCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = OwnerCountOutputTypeDefaultArgs<ExtArgs>
     /**
      * @deprecated Use FirmCountOutputTypeDefaultArgs instead
      */

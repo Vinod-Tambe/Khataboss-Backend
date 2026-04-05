@@ -82,6 +82,12 @@ model Owner {
   // ===============================
   @@index([own_email])
   @@index([own_login_id])
+
+  // ===============================
+  // Relations
+  // ===============================
+  firms                Firm[]               @relation("OwnerFirm")
+  accounts             Account[]            @relation("OwnerAccount")
 }
 
 // ===============================
@@ -111,12 +117,12 @@ model Firm {
   // Primary Key
   // ===============================
   firm_id            Int          @id @default(autoincrement())
-
+  firm_uuid           String    @unique @default(uuid())
   // ===============================
   // Basic Information
   // ===============================
   firm_add_date      DateTime     @default(now())
-  firm_own_id        Int          @default(0)
+  firm_own_id        Int          @default(1)
 
   firm_name          String
   firm_reg_no        String       @unique
@@ -200,6 +206,7 @@ model Firm {
   // Relations
   // ===============================
   accounts             Account[]                @relation("FirmAccount")
+  owner  Owner  @relation("OwnerFirm", fields: [firm_own_id], references: [own_id])
 }
 
 // Enum for balance type
@@ -210,10 +217,10 @@ enum AccountBalanceType {
 
 model Account {
   acc_id            Int                @id @default(autoincrement())
-  
+  acc_uuid           String    @unique @default(uuid())
   acc_add_date      DateTime           @default(now())
 
-  acc_own_id        Int                @default(0)
+  acc_own_id        Int                @default(1)
   acc_firm_id       Int                @default(0)
 
   acc_pan_no        String?            @db.VarChar(10)
@@ -249,6 +256,7 @@ model Account {
   acc_deleted_by     String?
   acc_is_deleted     Boolean   @default(false)
 
+owner  Owner  @relation("OwnerAccount", fields: [acc_own_id], references: [own_id])
  firm  Firm  @relation("FirmAccount", fields: [acc_firm_id], references: [firm_id])
 }
 
