@@ -10,7 +10,8 @@ const authenticateOwner = require("../../../middlewares/auth.middleware");
 const firmUploadFields = [
   { name: "firm_own_sign_img", maxCount: 1 },
   { name: "firm_left_logo_img", maxCount: 1 },
-  { name: "firm_right_logo", maxCount: 1 },
+  { name: "firm_right_logo_img", maxCount: 1 },
+  { name: "firm_qr_code_img", maxCount: 1 },
 ];
 
 /**

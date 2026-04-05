@@ -2565,7 +2565,6 @@ export namespace Prisma {
     firm_adhaar_no: string | null
     firm_form_header: string | null
     firm_form_footer: string | null
-    firm_qr_code_id: string | null
     firm_created_at: Date | null
     firm_created_by: string | null
     firm_updated_at: Date | null
@@ -2613,7 +2612,6 @@ export namespace Prisma {
     firm_adhaar_no: string | null
     firm_form_header: string | null
     firm_form_footer: string | null
-    firm_qr_code_id: string | null
     firm_created_at: Date | null
     firm_created_by: string | null
     firm_updated_at: Date | null
@@ -2663,8 +2661,8 @@ export namespace Prisma {
     firm_form_footer: number
     firm_own_sign_img: number
     firm_left_logo_img: number
-    firm_right_logo: number
-    firm_qr_code_id: number
+    firm_right_logo_img: number
+    firm_qr_code_img: number
     firm_created_at: number
     firm_created_by: number
     firm_updated_at: number
@@ -2726,7 +2724,6 @@ export namespace Prisma {
     firm_adhaar_no?: true
     firm_form_header?: true
     firm_form_footer?: true
-    firm_qr_code_id?: true
     firm_created_at?: true
     firm_created_by?: true
     firm_updated_at?: true
@@ -2774,7 +2771,6 @@ export namespace Prisma {
     firm_adhaar_no?: true
     firm_form_header?: true
     firm_form_footer?: true
-    firm_qr_code_id?: true
     firm_created_at?: true
     firm_created_by?: true
     firm_updated_at?: true
@@ -2824,8 +2820,8 @@ export namespace Prisma {
     firm_form_footer?: true
     firm_own_sign_img?: true
     firm_left_logo_img?: true
-    firm_right_logo?: true
-    firm_qr_code_id?: true
+    firm_right_logo_img?: true
+    firm_qr_code_img?: true
     firm_created_at?: true
     firm_created_by?: true
     firm_updated_at?: true
@@ -2962,8 +2958,8 @@ export namespace Prisma {
     firm_form_footer: string | null
     firm_own_sign_img: JsonValue | null
     firm_left_logo_img: JsonValue | null
-    firm_right_logo: JsonValue | null
-    firm_qr_code_id: string | null
+    firm_right_logo_img: JsonValue | null
+    firm_qr_code_img: JsonValue | null
     firm_created_at: Date
     firm_created_by: string | null
     firm_updated_at: Date
@@ -3032,8 +3028,8 @@ export namespace Prisma {
     firm_form_footer?: boolean
     firm_own_sign_img?: boolean
     firm_left_logo_img?: boolean
-    firm_right_logo?: boolean
-    firm_qr_code_id?: boolean
+    firm_right_logo_img?: boolean
+    firm_qr_code_img?: boolean
     firm_created_at?: boolean
     firm_created_by?: boolean
     firm_updated_at?: boolean
@@ -3086,8 +3082,8 @@ export namespace Prisma {
     firm_form_footer?: boolean
     firm_own_sign_img?: boolean
     firm_left_logo_img?: boolean
-    firm_right_logo?: boolean
-    firm_qr_code_id?: boolean
+    firm_right_logo_img?: boolean
+    firm_qr_code_img?: boolean
     firm_created_at?: boolean
     firm_created_by?: boolean
     firm_updated_at?: boolean
@@ -3138,8 +3134,8 @@ export namespace Prisma {
     firm_form_footer?: boolean
     firm_own_sign_img?: boolean
     firm_left_logo_img?: boolean
-    firm_right_logo?: boolean
-    firm_qr_code_id?: boolean
+    firm_right_logo_img?: boolean
+    firm_qr_code_img?: boolean
     firm_created_at?: boolean
     firm_created_by?: boolean
     firm_updated_at?: boolean
@@ -3204,8 +3200,8 @@ export namespace Prisma {
       firm_form_footer: string | null
       firm_own_sign_img: Prisma.JsonValue | null
       firm_left_logo_img: Prisma.JsonValue | null
-      firm_right_logo: Prisma.JsonValue | null
-      firm_qr_code_id: string | null
+      firm_right_logo_img: Prisma.JsonValue | null
+      firm_qr_code_img: Prisma.JsonValue | null
       firm_created_at: Date
       firm_created_by: string | null
       firm_updated_at: Date
@@ -3647,8 +3643,8 @@ export namespace Prisma {
     readonly firm_form_footer: FieldRef<"Firm", 'String'>
     readonly firm_own_sign_img: FieldRef<"Firm", 'Json'>
     readonly firm_left_logo_img: FieldRef<"Firm", 'Json'>
-    readonly firm_right_logo: FieldRef<"Firm", 'Json'>
-    readonly firm_qr_code_id: FieldRef<"Firm", 'String'>
+    readonly firm_right_logo_img: FieldRef<"Firm", 'Json'>
+    readonly firm_qr_code_img: FieldRef<"Firm", 'Json'>
     readonly firm_created_at: FieldRef<"Firm", 'DateTime'>
     readonly firm_created_by: FieldRef<"Firm", 'String'>
     readonly firm_updated_at: FieldRef<"Firm", 'DateTime'>
@@ -5364,8 +5360,8 @@ export namespace Prisma {
     firm_form_footer: 'firm_form_footer',
     firm_own_sign_img: 'firm_own_sign_img',
     firm_left_logo_img: 'firm_left_logo_img',
-    firm_right_logo: 'firm_right_logo',
-    firm_qr_code_id: 'firm_qr_code_id',
+    firm_right_logo_img: 'firm_right_logo_img',
+    firm_qr_code_img: 'firm_qr_code_img',
     firm_created_at: 'firm_created_at',
     firm_created_by: 'firm_created_by',
     firm_updated_at: 'firm_updated_at',
@@ -5840,8 +5836,8 @@ export namespace Prisma {
     firm_form_footer?: StringNullableFilter<"Firm"> | string | null
     firm_own_sign_img?: JsonNullableFilter<"Firm">
     firm_left_logo_img?: JsonNullableFilter<"Firm">
-    firm_right_logo?: JsonNullableFilter<"Firm">
-    firm_qr_code_id?: StringNullableFilter<"Firm"> | string | null
+    firm_right_logo_img?: JsonNullableFilter<"Firm">
+    firm_qr_code_img?: JsonNullableFilter<"Firm">
     firm_created_at?: DateTimeFilter<"Firm"> | Date | string
     firm_created_by?: StringNullableFilter<"Firm"> | string | null
     firm_updated_at?: DateTimeFilter<"Firm"> | Date | string
@@ -5893,8 +5889,8 @@ export namespace Prisma {
     firm_form_footer?: SortOrderInput | SortOrder
     firm_own_sign_img?: SortOrderInput | SortOrder
     firm_left_logo_img?: SortOrderInput | SortOrder
-    firm_right_logo?: SortOrderInput | SortOrder
-    firm_qr_code_id?: SortOrderInput | SortOrder
+    firm_right_logo_img?: SortOrderInput | SortOrder
+    firm_qr_code_img?: SortOrderInput | SortOrder
     firm_created_at?: SortOrder
     firm_created_by?: SortOrderInput | SortOrder
     firm_updated_at?: SortOrder
@@ -5949,8 +5945,8 @@ export namespace Prisma {
     firm_form_footer?: StringNullableFilter<"Firm"> | string | null
     firm_own_sign_img?: JsonNullableFilter<"Firm">
     firm_left_logo_img?: JsonNullableFilter<"Firm">
-    firm_right_logo?: JsonNullableFilter<"Firm">
-    firm_qr_code_id?: StringNullableFilter<"Firm"> | string | null
+    firm_right_logo_img?: JsonNullableFilter<"Firm">
+    firm_qr_code_img?: JsonNullableFilter<"Firm">
     firm_created_at?: DateTimeFilter<"Firm"> | Date | string
     firm_created_by?: StringNullableFilter<"Firm"> | string | null
     firm_updated_at?: DateTimeFilter<"Firm"> | Date | string
@@ -6002,8 +5998,8 @@ export namespace Prisma {
     firm_form_footer?: SortOrderInput | SortOrder
     firm_own_sign_img?: SortOrderInput | SortOrder
     firm_left_logo_img?: SortOrderInput | SortOrder
-    firm_right_logo?: SortOrderInput | SortOrder
-    firm_qr_code_id?: SortOrderInput | SortOrder
+    firm_right_logo_img?: SortOrderInput | SortOrder
+    firm_qr_code_img?: SortOrderInput | SortOrder
     firm_created_at?: SortOrder
     firm_created_by?: SortOrderInput | SortOrder
     firm_updated_at?: SortOrder
@@ -6061,8 +6057,8 @@ export namespace Prisma {
     firm_form_footer?: StringNullableWithAggregatesFilter<"Firm"> | string | null
     firm_own_sign_img?: JsonNullableWithAggregatesFilter<"Firm">
     firm_left_logo_img?: JsonNullableWithAggregatesFilter<"Firm">
-    firm_right_logo?: JsonNullableWithAggregatesFilter<"Firm">
-    firm_qr_code_id?: StringNullableWithAggregatesFilter<"Firm"> | string | null
+    firm_right_logo_img?: JsonNullableWithAggregatesFilter<"Firm">
+    firm_qr_code_img?: JsonNullableWithAggregatesFilter<"Firm">
     firm_created_at?: DateTimeWithAggregatesFilter<"Firm"> | Date | string
     firm_created_by?: StringNullableWithAggregatesFilter<"Firm"> | string | null
     firm_updated_at?: DateTimeWithAggregatesFilter<"Firm"> | Date | string
@@ -6554,8 +6550,8 @@ export namespace Prisma {
     firm_form_footer?: string | null
     firm_own_sign_img?: NullableJsonNullValueInput | InputJsonValue
     firm_left_logo_img?: NullableJsonNullValueInput | InputJsonValue
-    firm_right_logo?: NullableJsonNullValueInput | InputJsonValue
-    firm_qr_code_id?: string | null
+    firm_right_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_qr_code_img?: NullableJsonNullValueInput | InputJsonValue
     firm_created_at?: Date | string
     firm_created_by?: string | null
     firm_updated_at?: Date | string
@@ -6607,8 +6603,8 @@ export namespace Prisma {
     firm_form_footer?: string | null
     firm_own_sign_img?: NullableJsonNullValueInput | InputJsonValue
     firm_left_logo_img?: NullableJsonNullValueInput | InputJsonValue
-    firm_right_logo?: NullableJsonNullValueInput | InputJsonValue
-    firm_qr_code_id?: string | null
+    firm_right_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_qr_code_img?: NullableJsonNullValueInput | InputJsonValue
     firm_created_at?: Date | string
     firm_created_by?: string | null
     firm_updated_at?: Date | string
@@ -6657,8 +6653,8 @@ export namespace Prisma {
     firm_form_footer?: NullableStringFieldUpdateOperationsInput | string | null
     firm_own_sign_img?: NullableJsonNullValueInput | InputJsonValue
     firm_left_logo_img?: NullableJsonNullValueInput | InputJsonValue
-    firm_right_logo?: NullableJsonNullValueInput | InputJsonValue
-    firm_qr_code_id?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_right_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_qr_code_img?: NullableJsonNullValueInput | InputJsonValue
     firm_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     firm_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     firm_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -6710,8 +6706,8 @@ export namespace Prisma {
     firm_form_footer?: NullableStringFieldUpdateOperationsInput | string | null
     firm_own_sign_img?: NullableJsonNullValueInput | InputJsonValue
     firm_left_logo_img?: NullableJsonNullValueInput | InputJsonValue
-    firm_right_logo?: NullableJsonNullValueInput | InputJsonValue
-    firm_qr_code_id?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_right_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_qr_code_img?: NullableJsonNullValueInput | InputJsonValue
     firm_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     firm_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     firm_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -6762,8 +6758,8 @@ export namespace Prisma {
     firm_form_footer?: string | null
     firm_own_sign_img?: NullableJsonNullValueInput | InputJsonValue
     firm_left_logo_img?: NullableJsonNullValueInput | InputJsonValue
-    firm_right_logo?: NullableJsonNullValueInput | InputJsonValue
-    firm_qr_code_id?: string | null
+    firm_right_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_qr_code_img?: NullableJsonNullValueInput | InputJsonValue
     firm_created_at?: Date | string
     firm_created_by?: string | null
     firm_updated_at?: Date | string
@@ -6811,8 +6807,8 @@ export namespace Prisma {
     firm_form_footer?: NullableStringFieldUpdateOperationsInput | string | null
     firm_own_sign_img?: NullableJsonNullValueInput | InputJsonValue
     firm_left_logo_img?: NullableJsonNullValueInput | InputJsonValue
-    firm_right_logo?: NullableJsonNullValueInput | InputJsonValue
-    firm_qr_code_id?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_right_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_qr_code_img?: NullableJsonNullValueInput | InputJsonValue
     firm_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     firm_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     firm_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -6862,8 +6858,8 @@ export namespace Prisma {
     firm_form_footer?: NullableStringFieldUpdateOperationsInput | string | null
     firm_own_sign_img?: NullableJsonNullValueInput | InputJsonValue
     firm_left_logo_img?: NullableJsonNullValueInput | InputJsonValue
-    firm_right_logo?: NullableJsonNullValueInput | InputJsonValue
-    firm_qr_code_id?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_right_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_qr_code_img?: NullableJsonNullValueInput | InputJsonValue
     firm_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     firm_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     firm_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -7520,8 +7516,8 @@ export namespace Prisma {
     firm_form_footer?: SortOrder
     firm_own_sign_img?: SortOrder
     firm_left_logo_img?: SortOrder
-    firm_right_logo?: SortOrder
-    firm_qr_code_id?: SortOrder
+    firm_right_logo_img?: SortOrder
+    firm_qr_code_img?: SortOrder
     firm_created_at?: SortOrder
     firm_created_by?: SortOrder
     firm_updated_at?: SortOrder
@@ -7575,7 +7571,6 @@ export namespace Prisma {
     firm_adhaar_no?: SortOrder
     firm_form_header?: SortOrder
     firm_form_footer?: SortOrder
-    firm_qr_code_id?: SortOrder
     firm_created_at?: SortOrder
     firm_created_by?: SortOrder
     firm_updated_at?: SortOrder
@@ -7623,7 +7618,6 @@ export namespace Prisma {
     firm_adhaar_no?: SortOrder
     firm_form_header?: SortOrder
     firm_form_footer?: SortOrder
-    firm_qr_code_id?: SortOrder
     firm_created_at?: SortOrder
     firm_created_by?: SortOrder
     firm_updated_at?: SortOrder
@@ -8342,8 +8336,8 @@ export namespace Prisma {
     firm_form_footer?: string | null
     firm_own_sign_img?: NullableJsonNullValueInput | InputJsonValue
     firm_left_logo_img?: NullableJsonNullValueInput | InputJsonValue
-    firm_right_logo?: NullableJsonNullValueInput | InputJsonValue
-    firm_qr_code_id?: string | null
+    firm_right_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_qr_code_img?: NullableJsonNullValueInput | InputJsonValue
     firm_created_at?: Date | string
     firm_created_by?: string | null
     firm_updated_at?: Date | string
@@ -8393,8 +8387,8 @@ export namespace Prisma {
     firm_form_footer?: string | null
     firm_own_sign_img?: NullableJsonNullValueInput | InputJsonValue
     firm_left_logo_img?: NullableJsonNullValueInput | InputJsonValue
-    firm_right_logo?: NullableJsonNullValueInput | InputJsonValue
-    firm_qr_code_id?: string | null
+    firm_right_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_qr_code_img?: NullableJsonNullValueInput | InputJsonValue
     firm_created_at?: Date | string
     firm_created_by?: string | null
     firm_updated_at?: Date | string
@@ -8543,8 +8537,8 @@ export namespace Prisma {
     firm_form_footer?: StringNullableFilter<"Firm"> | string | null
     firm_own_sign_img?: JsonNullableFilter<"Firm">
     firm_left_logo_img?: JsonNullableFilter<"Firm">
-    firm_right_logo?: JsonNullableFilter<"Firm">
-    firm_qr_code_id?: StringNullableFilter<"Firm"> | string | null
+    firm_right_logo_img?: JsonNullableFilter<"Firm">
+    firm_qr_code_img?: JsonNullableFilter<"Firm">
     firm_created_at?: DateTimeFilter<"Firm"> | Date | string
     firm_created_by?: StringNullableFilter<"Firm"> | string | null
     firm_updated_at?: DateTimeFilter<"Firm"> | Date | string
@@ -8978,8 +8972,8 @@ export namespace Prisma {
     firm_form_footer?: string | null
     firm_own_sign_img?: NullableJsonNullValueInput | InputJsonValue
     firm_left_logo_img?: NullableJsonNullValueInput | InputJsonValue
-    firm_right_logo?: NullableJsonNullValueInput | InputJsonValue
-    firm_qr_code_id?: string | null
+    firm_right_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_qr_code_img?: NullableJsonNullValueInput | InputJsonValue
     firm_created_at?: Date | string
     firm_created_by?: string | null
     firm_updated_at?: Date | string
@@ -9030,8 +9024,8 @@ export namespace Prisma {
     firm_form_footer?: string | null
     firm_own_sign_img?: NullableJsonNullValueInput | InputJsonValue
     firm_left_logo_img?: NullableJsonNullValueInput | InputJsonValue
-    firm_right_logo?: NullableJsonNullValueInput | InputJsonValue
-    firm_qr_code_id?: string | null
+    firm_right_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_qr_code_img?: NullableJsonNullValueInput | InputJsonValue
     firm_created_at?: Date | string
     firm_created_by?: string | null
     firm_updated_at?: Date | string
@@ -9182,8 +9176,8 @@ export namespace Prisma {
     firm_form_footer?: NullableStringFieldUpdateOperationsInput | string | null
     firm_own_sign_img?: NullableJsonNullValueInput | InputJsonValue
     firm_left_logo_img?: NullableJsonNullValueInput | InputJsonValue
-    firm_right_logo?: NullableJsonNullValueInput | InputJsonValue
-    firm_qr_code_id?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_right_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_qr_code_img?: NullableJsonNullValueInput | InputJsonValue
     firm_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     firm_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     firm_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -9234,8 +9228,8 @@ export namespace Prisma {
     firm_form_footer?: NullableStringFieldUpdateOperationsInput | string | null
     firm_own_sign_img?: NullableJsonNullValueInput | InputJsonValue
     firm_left_logo_img?: NullableJsonNullValueInput | InputJsonValue
-    firm_right_logo?: NullableJsonNullValueInput | InputJsonValue
-    firm_qr_code_id?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_right_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_qr_code_img?: NullableJsonNullValueInput | InputJsonValue
     firm_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     firm_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     firm_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -9284,8 +9278,8 @@ export namespace Prisma {
     firm_form_footer?: string | null
     firm_own_sign_img?: NullableJsonNullValueInput | InputJsonValue
     firm_left_logo_img?: NullableJsonNullValueInput | InputJsonValue
-    firm_right_logo?: NullableJsonNullValueInput | InputJsonValue
-    firm_qr_code_id?: string | null
+    firm_right_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_qr_code_img?: NullableJsonNullValueInput | InputJsonValue
     firm_created_at?: Date | string
     firm_created_by?: string | null
     firm_updated_at?: Date | string
@@ -9363,8 +9357,8 @@ export namespace Prisma {
     firm_form_footer?: NullableStringFieldUpdateOperationsInput | string | null
     firm_own_sign_img?: NullableJsonNullValueInput | InputJsonValue
     firm_left_logo_img?: NullableJsonNullValueInput | InputJsonValue
-    firm_right_logo?: NullableJsonNullValueInput | InputJsonValue
-    firm_qr_code_id?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_right_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_qr_code_img?: NullableJsonNullValueInput | InputJsonValue
     firm_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     firm_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     firm_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -9414,8 +9408,8 @@ export namespace Prisma {
     firm_form_footer?: NullableStringFieldUpdateOperationsInput | string | null
     firm_own_sign_img?: NullableJsonNullValueInput | InputJsonValue
     firm_left_logo_img?: NullableJsonNullValueInput | InputJsonValue
-    firm_right_logo?: NullableJsonNullValueInput | InputJsonValue
-    firm_qr_code_id?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_right_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_qr_code_img?: NullableJsonNullValueInput | InputJsonValue
     firm_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     firm_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     firm_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -9465,8 +9459,8 @@ export namespace Prisma {
     firm_form_footer?: NullableStringFieldUpdateOperationsInput | string | null
     firm_own_sign_img?: NullableJsonNullValueInput | InputJsonValue
     firm_left_logo_img?: NullableJsonNullValueInput | InputJsonValue
-    firm_right_logo?: NullableJsonNullValueInput | InputJsonValue
-    firm_qr_code_id?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_right_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_qr_code_img?: NullableJsonNullValueInput | InputJsonValue
     firm_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     firm_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     firm_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string

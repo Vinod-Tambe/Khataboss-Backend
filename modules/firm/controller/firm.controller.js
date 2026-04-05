@@ -3,6 +3,7 @@
 const fs = require("fs");
 const path = require("path");
 const firmService = require("../service/firm.service");
+const imageService = require("../../../utils/image.service");
 const { BASE_URL } = require("../../../config/db");
 const { PrismaClient: MasterPrismaClient } = require("../../../prisma/generated/master");
 
@@ -16,35 +17,7 @@ class FirmController {
     return `${BASE_URL}/${dbName}`;
   }
 
-  /**
-   * Helper to move uploaded files to firm/{firm_id}/ directory.
-   */
-  async moveFirmFiles(firmId, files) {
-    const targetDir = path.join(__dirname, "../../../uploads/firm", firmId.toString());
-    if (!fs.existsSync(targetDir)) {
-      fs.mkdirSync(targetDir, { recursive: true });
-    }
 
-    const movedFiles = {};
-
-    for (const fieldname in files) {
-      const file = files[fieldname][0];
-      const newFileName = `${fieldname}-${Date.now()}${path.extname(file.originalname)}`;
-      const newPath = path.join(targetDir, newFileName);
-      
-      fs.renameSync(file.path, newPath);
-      
-      movedFiles[fieldname] = {
-        filename: newFileName,
-        originalName: file.originalname,
-        path: `uploads/firm/${firmId}/${newFileName}`,
-        mimetype: file.mimetype,
-        size: file.size,
-      };
-    }
-
-    return movedFiles;
-  }
 
   /**
    * POST /firm
@@ -71,14 +44,14 @@ class FirmController {
       // 1. Create Firm record first (to get firm_id)
       const newFirm = await firmService.createFirm(dbUrl, firmData);
 
-      // 2. If files are uploaded, move them and update the record
       if (req.files && Object.keys(req.files).length > 0) {
-        const movedFiles = await this.moveFirmFiles(newFirm.firm_id, req.files);
+        const movedFiles = await imageService.moveFiles("firm", newFirm.firm_id, req.files);
         
         const updateData = {};
         if (movedFiles.firm_own_sign_img) updateData.firm_own_sign_img = movedFiles.firm_own_sign_img;
         if (movedFiles.firm_left_logo_img) updateData.firm_left_logo_img = movedFiles.firm_left_logo_img;
-        if (movedFiles.firm_right_logo) updateData.firm_right_logo = movedFiles.firm_right_logo;
+        if (movedFiles.firm_right_logo_img) updateData.firm_right_logo_img = movedFiles.firm_right_logo_img;
+        if (movedFiles.firm_qr_code_img) updateData.firm_qr_code_img = movedFiles.firm_qr_code_img;
 
         if (Object.keys(updateData).length > 0) {
           const updatedFirm = await firmService.updateFirm(dbUrl, newFirm.firm_id, updateData);
@@ -165,10 +138,11 @@ class FirmController {
 
       // Handle File Uploads
       if (req.files && Object.keys(req.files).length > 0) {
-        const movedFiles = await this.moveFirmFiles(id, req.files);
+        const movedFiles = await imageService.moveFiles("firm", id, req.files);
         if (movedFiles.firm_own_sign_img) updateData.firm_own_sign_img = movedFiles.firm_own_sign_img;
         if (movedFiles.firm_left_logo_img) updateData.firm_left_logo_img = movedFiles.firm_left_logo_img;
-        if (movedFiles.firm_right_logo) updateData.firm_right_logo = movedFiles.firm_right_logo;
+        if (movedFiles.firm_right_logo_img) updateData.firm_right_logo_img = movedFiles.firm_right_logo_img;
+        if (movedFiles.firm_qr_code_img) updateData.firm_qr_code_img = movedFiles.firm_qr_code_img;
       }
 
       const updatedFirm = await firmService.updateFirm(dbUrl, id, updateData);

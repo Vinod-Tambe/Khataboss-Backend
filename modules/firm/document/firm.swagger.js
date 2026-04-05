@@ -9,6 +9,14 @@
  *       scheme: bearer
  *       bearerFormat: JWT
  *   schemas:
+ *     Image:
+ *       type: object
+ *       properties:
+ *         filename: { type: string }
+ *         originalName: { type: string }
+ *         path: { type: string }
+ *         mimetype: { type: string }
+ *         size: { type: integer }
  *     Firm:
  *       type: object
  *       required:
@@ -94,6 +102,14 @@
  *         firm_own_id:
  *           type: integer
  *           default: 1
+ *         firm_own_sign_img:
+ *           $ref: '#/components/schemas/Image'
+ *         firm_left_logo_img:
+ *           $ref: '#/components/schemas/Image'
+ *         firm_right_logo_img:
+ *           $ref: '#/components/schemas/Image'
+ *         firm_qr_code_img:
+ *           $ref: '#/components/schemas/Image'
  *
  * /firm:
  *   get:
@@ -154,7 +170,8 @@
  *               firm_own_id: { type: integer, default: 1 }
  *               firm_own_sign_img: { type: string, format: binary }
  *               firm_left_logo_img: { type: string, format: binary }
- *               firm_right_logo: { type: string, format: binary }
+ *               firm_right_logo_img: { type: string, format: binary }
+ *               firm_qr_code_img: { type: string, format: binary }
  *     responses:
  *       201:
  *         description: Firm created successfully
@@ -234,7 +251,8 @@
  *               firm_own_id: { type: integer, default: 1 }
  *               firm_own_sign_img: { type: string, format: binary }
  *               firm_left_logo_img: { type: string, format: binary }
- *               firm_right_logo: { type: string, format: binary }
+ *               firm_right_logo_img: { type: string, format: binary }
+ *               firm_qr_code_img: { type: string, format: binary }
  *     responses:
  *       200:
  *         description: Firm updated successfully

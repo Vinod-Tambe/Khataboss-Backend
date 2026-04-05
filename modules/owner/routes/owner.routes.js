@@ -3,7 +3,7 @@
 const express = require("express");
 const router = express.Router();
 const ownerController = require("../controller/owner.controller");
-const upload = require("../../../config/multer");
+const upload = require("../../../middlewares/upload.middleware");
 
 /**
  * @swagger

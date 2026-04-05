@@ -177,12 +177,12 @@ model Firm {
   // ===============================
   // Invoice / Form Settings
   // ===============================
-  firm_form_header   String?
-  firm_form_footer   String?
-  firm_own_sign_img  Json?
-  firm_left_logo_img Json?
-  firm_right_logo    Json?
-  firm_qr_code_id    String?
+  firm_form_header    String?
+  firm_form_footer    String?
+  firm_own_sign_img   Json?
+  firm_left_logo_img  Json?
+  firm_right_logo_img Json?
+  firm_qr_code_img    Json?
 
   // ===============================
   // Audit Fields

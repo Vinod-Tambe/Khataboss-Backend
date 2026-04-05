@@ -2,6 +2,7 @@
 
 const { BASE_URL, setupOwnerDatabase } = require("../../../config/db");
 const ownerService = require("../services/owner.service");
+const imageService = require("../../../utils/image.service");
 const { PrismaClient } = require("../../../prisma/generated/master");
 
 const masterPrisma = new PrismaClient();
@@ -101,18 +102,6 @@ class OwnerController {
         return res.status(500).json({ error: "Failed to generate database name." });
       }
 
-      // 2. Handle File Upload (Multer adds 'file' to 'req')
-      let profileImgData = null;
-      if (req.file) {
-        profileImgData = {
-          filename: req.file.filename,
-          originalName: req.file.originalname,
-          path: req.file.path,
-          mimetype: req.file.mimetype,
-          size: req.file.size,
-        };
-      }
-
       // 4. Setup the dynamic database and migrate schema
       console.log(`🚀  Starting database setup for: ${dbName}`);
       const dbUrl = await setupOwnerDatabase(dbName);
@@ -122,8 +111,13 @@ class OwnerController {
       const newOwner = await ownerService.createOwner(dbUrl, {
         ...ownerData,
         own_db: dbName,
-        own_profile_img: profileImgData,
       });
+
+      // 6. Handle File Upload (Move from temp to owner-specific dir)
+      if (req.file) {
+        const profileImgData = await imageService.moveSingleFile("owner", newOwner.own_uuid, req.file, "own_profile_img");
+        await ownerService.updateOwner(dbUrl, newOwner.own_uuid, { own_profile_img: profileImgData });
+      }
 
       console.log(`✅  Owner created successfully: ${newOwner.own_uuid}`);
       
@@ -196,13 +190,7 @@ class OwnerController {
 
       // Handle File Upload for profile image
       if (req.file) {
-        updateData.own_profile_img = {
-          filename: req.file.filename,
-          originalName: req.file.originalname,
-          path: req.file.path,
-          mimetype: req.file.mimetype,
-          size: req.file.size,
-        };
+        updateData.own_profile_img = await imageService.moveSingleFile("owner", uuid, req.file, "own_profile_img");
       }
 
       // Construct dbUrl (assuming the same logic as createOwner)
