@@ -202,6 +202,7 @@ exports.Prisma.FirmScalarFieldEnum = {
   firm_left_logo_img: 'firm_left_logo_img',
   firm_right_logo_img: 'firm_right_logo_img',
   firm_qr_code_img: 'firm_qr_code_img',
+  firm_pan_no_img: 'firm_pan_no_img',
   firm_created_at: 'firm_created_at',
   firm_created_by: 'firm_created_by',
   firm_updated_at: 'firm_updated_at',

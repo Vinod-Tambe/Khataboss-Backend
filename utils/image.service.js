@@ -36,9 +36,9 @@ class ImageService {
       const file = files[fieldname][0];
       const newFileName = `${fieldname}-${Date.now()}${path.extname(file.originalname)}`;
       const newPath = path.join(targetDir, newFileName);
-      
+
       fs.renameSync(file.path, newPath);
-      
+
       movedFiles[fieldname] = {
         filename: newFileName,
         originalName: file.originalname,
@@ -67,9 +67,9 @@ class ImageService {
     const actualFieldName = fieldName || file.fieldname;
     const newFileName = `${actualFieldName}-${Date.now()}${path.extname(file.originalname)}`;
     const newPath = path.join(targetDir, newFileName);
-    
+
     fs.renameSync(file.path, newPath);
-    
+
     return {
       filename: newFileName,
       originalName: file.originalname,
@@ -88,6 +88,19 @@ class ImageService {
     const fullPath = path.join(__dirname, "../../", relativePath);
     if (fs.existsSync(fullPath)) {
       fs.unlinkSync(fullPath);
+    }
+  }
+
+  /**
+   * Deletes a directory and its contents from the filesystem.
+   * @param {string} moduleName - e.g., 'firm', 'owner'
+   * @param {string|number} entityId - e.g., '6'
+   */
+  async deleteDirectory(moduleName, entityId) {
+    if (!moduleName || !entityId) return;
+    const targetDir = path.join(__dirname, "../../uploads", moduleName, entityId.toString());
+    if (fs.existsSync(targetDir)) {
+      fs.rmSync(targetDir, { recursive: true, force: true });
     }
   }
 

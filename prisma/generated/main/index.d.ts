@@ -2518,13 +2518,11 @@ export namespace Prisma {
   export type FirmAvgAggregateOutputType = {
     firm_id: number | null
     firm_own_id: number | null
-    firm_balance: number | null
   }
 
   export type FirmSumAggregateOutputType = {
     firm_id: number | null
     firm_own_id: number | null
-    firm_balance: number | null
   }
 
   export type FirmMinAggregateOutputType = {
@@ -2558,7 +2556,7 @@ export namespace Prisma {
     firm_acc_type: string | null
     firm_ifsc_code: string | null
     firm_start_date: Date | null
-    firm_balance: number | null
+    firm_balance: string | null
     firm_balance_type: $Enums.FirmBalanceType | null
     firm_gstin_no: string | null
     firm_pan_no: string | null
@@ -2605,7 +2603,7 @@ export namespace Prisma {
     firm_acc_type: string | null
     firm_ifsc_code: string | null
     firm_start_date: Date | null
-    firm_balance: number | null
+    firm_balance: string | null
     firm_balance_type: $Enums.FirmBalanceType | null
     firm_gstin_no: string | null
     firm_pan_no: string | null
@@ -2663,6 +2661,7 @@ export namespace Prisma {
     firm_left_logo_img: number
     firm_right_logo_img: number
     firm_qr_code_img: number
+    firm_pan_no_img: number
     firm_created_at: number
     firm_created_by: number
     firm_updated_at: number
@@ -2677,13 +2676,11 @@ export namespace Prisma {
   export type FirmAvgAggregateInputType = {
     firm_id?: true
     firm_own_id?: true
-    firm_balance?: true
   }
 
   export type FirmSumAggregateInputType = {
     firm_id?: true
     firm_own_id?: true
-    firm_balance?: true
   }
 
   export type FirmMinAggregateInputType = {
@@ -2822,6 +2819,7 @@ export namespace Prisma {
     firm_left_logo_img?: true
     firm_right_logo_img?: true
     firm_qr_code_img?: true
+    firm_pan_no_img?: true
     firm_created_at?: true
     firm_created_by?: true
     firm_updated_at?: true
@@ -2949,7 +2947,7 @@ export namespace Prisma {
     firm_acc_type: string | null
     firm_ifsc_code: string | null
     firm_start_date: Date
-    firm_balance: number
+    firm_balance: string | null
     firm_balance_type: $Enums.FirmBalanceType
     firm_gstin_no: string | null
     firm_pan_no: string | null
@@ -2960,6 +2958,7 @@ export namespace Prisma {
     firm_left_logo_img: JsonValue | null
     firm_right_logo_img: JsonValue | null
     firm_qr_code_img: JsonValue | null
+    firm_pan_no_img: JsonValue | null
     firm_created_at: Date
     firm_created_by: string | null
     firm_updated_at: Date
@@ -3030,6 +3029,7 @@ export namespace Prisma {
     firm_left_logo_img?: boolean
     firm_right_logo_img?: boolean
     firm_qr_code_img?: boolean
+    firm_pan_no_img?: boolean
     firm_created_at?: boolean
     firm_created_by?: boolean
     firm_updated_at?: boolean
@@ -3084,6 +3084,7 @@ export namespace Prisma {
     firm_left_logo_img?: boolean
     firm_right_logo_img?: boolean
     firm_qr_code_img?: boolean
+    firm_pan_no_img?: boolean
     firm_created_at?: boolean
     firm_created_by?: boolean
     firm_updated_at?: boolean
@@ -3136,6 +3137,7 @@ export namespace Prisma {
     firm_left_logo_img?: boolean
     firm_right_logo_img?: boolean
     firm_qr_code_img?: boolean
+    firm_pan_no_img?: boolean
     firm_created_at?: boolean
     firm_created_by?: boolean
     firm_updated_at?: boolean
@@ -3191,7 +3193,7 @@ export namespace Prisma {
       firm_acc_type: string | null
       firm_ifsc_code: string | null
       firm_start_date: Date
-      firm_balance: number
+      firm_balance: string | null
       firm_balance_type: $Enums.FirmBalanceType
       firm_gstin_no: string | null
       firm_pan_no: string | null
@@ -3202,6 +3204,7 @@ export namespace Prisma {
       firm_left_logo_img: Prisma.JsonValue | null
       firm_right_logo_img: Prisma.JsonValue | null
       firm_qr_code_img: Prisma.JsonValue | null
+      firm_pan_no_img: Prisma.JsonValue | null
       firm_created_at: Date
       firm_created_by: string | null
       firm_updated_at: Date
@@ -3634,7 +3637,7 @@ export namespace Prisma {
     readonly firm_acc_type: FieldRef<"Firm", 'String'>
     readonly firm_ifsc_code: FieldRef<"Firm", 'String'>
     readonly firm_start_date: FieldRef<"Firm", 'DateTime'>
-    readonly firm_balance: FieldRef<"Firm", 'Float'>
+    readonly firm_balance: FieldRef<"Firm", 'String'>
     readonly firm_balance_type: FieldRef<"Firm", 'FirmBalanceType'>
     readonly firm_gstin_no: FieldRef<"Firm", 'String'>
     readonly firm_pan_no: FieldRef<"Firm", 'String'>
@@ -3645,6 +3648,7 @@ export namespace Prisma {
     readonly firm_left_logo_img: FieldRef<"Firm", 'Json'>
     readonly firm_right_logo_img: FieldRef<"Firm", 'Json'>
     readonly firm_qr_code_img: FieldRef<"Firm", 'Json'>
+    readonly firm_pan_no_img: FieldRef<"Firm", 'Json'>
     readonly firm_created_at: FieldRef<"Firm", 'DateTime'>
     readonly firm_created_by: FieldRef<"Firm", 'String'>
     readonly firm_updated_at: FieldRef<"Firm", 'DateTime'>
@@ -5362,6 +5366,7 @@ export namespace Prisma {
     firm_left_logo_img: 'firm_left_logo_img',
     firm_right_logo_img: 'firm_right_logo_img',
     firm_qr_code_img: 'firm_qr_code_img',
+    firm_pan_no_img: 'firm_pan_no_img',
     firm_created_at: 'firm_created_at',
     firm_created_by: 'firm_created_by',
     firm_updated_at: 'firm_updated_at',
@@ -5539,20 +5544,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Float'
-   */
-  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
-    
-
-
-  /**
-   * Reference to a field of type 'Float[]'
-   */
-  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
-    
-
-
-  /**
    * Reference to a field of type 'FirmBalanceType'
    */
   export type EnumFirmBalanceTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FirmBalanceType'>
@@ -5563,6 +5554,20 @@ export namespace Prisma {
    * Reference to a field of type 'FirmBalanceType[]'
    */
   export type ListEnumFirmBalanceTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FirmBalanceType[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Float'
+   */
+  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+    
+
+
+  /**
+   * Reference to a field of type 'Float[]'
+   */
+  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
     
 
 
@@ -5827,7 +5832,7 @@ export namespace Prisma {
     firm_acc_type?: StringNullableFilter<"Firm"> | string | null
     firm_ifsc_code?: StringNullableFilter<"Firm"> | string | null
     firm_start_date?: DateTimeFilter<"Firm"> | Date | string
-    firm_balance?: FloatFilter<"Firm"> | number
+    firm_balance?: StringNullableFilter<"Firm"> | string | null
     firm_balance_type?: EnumFirmBalanceTypeFilter<"Firm"> | $Enums.FirmBalanceType
     firm_gstin_no?: StringNullableFilter<"Firm"> | string | null
     firm_pan_no?: StringNullableFilter<"Firm"> | string | null
@@ -5838,6 +5843,7 @@ export namespace Prisma {
     firm_left_logo_img?: JsonNullableFilter<"Firm">
     firm_right_logo_img?: JsonNullableFilter<"Firm">
     firm_qr_code_img?: JsonNullableFilter<"Firm">
+    firm_pan_no_img?: JsonNullableFilter<"Firm">
     firm_created_at?: DateTimeFilter<"Firm"> | Date | string
     firm_created_by?: StringNullableFilter<"Firm"> | string | null
     firm_updated_at?: DateTimeFilter<"Firm"> | Date | string
@@ -5880,7 +5886,7 @@ export namespace Prisma {
     firm_acc_type?: SortOrderInput | SortOrder
     firm_ifsc_code?: SortOrderInput | SortOrder
     firm_start_date?: SortOrder
-    firm_balance?: SortOrder
+    firm_balance?: SortOrderInput | SortOrder
     firm_balance_type?: SortOrder
     firm_gstin_no?: SortOrderInput | SortOrder
     firm_pan_no?: SortOrderInput | SortOrder
@@ -5891,6 +5897,7 @@ export namespace Prisma {
     firm_left_logo_img?: SortOrderInput | SortOrder
     firm_right_logo_img?: SortOrderInput | SortOrder
     firm_qr_code_img?: SortOrderInput | SortOrder
+    firm_pan_no_img?: SortOrderInput | SortOrder
     firm_created_at?: SortOrder
     firm_created_by?: SortOrderInput | SortOrder
     firm_updated_at?: SortOrder
@@ -5936,7 +5943,7 @@ export namespace Prisma {
     firm_acc_type?: StringNullableFilter<"Firm"> | string | null
     firm_ifsc_code?: StringNullableFilter<"Firm"> | string | null
     firm_start_date?: DateTimeFilter<"Firm"> | Date | string
-    firm_balance?: FloatFilter<"Firm"> | number
+    firm_balance?: StringNullableFilter<"Firm"> | string | null
     firm_balance_type?: EnumFirmBalanceTypeFilter<"Firm"> | $Enums.FirmBalanceType
     firm_gstin_no?: StringNullableFilter<"Firm"> | string | null
     firm_pan_no?: StringNullableFilter<"Firm"> | string | null
@@ -5947,6 +5954,7 @@ export namespace Prisma {
     firm_left_logo_img?: JsonNullableFilter<"Firm">
     firm_right_logo_img?: JsonNullableFilter<"Firm">
     firm_qr_code_img?: JsonNullableFilter<"Firm">
+    firm_pan_no_img?: JsonNullableFilter<"Firm">
     firm_created_at?: DateTimeFilter<"Firm"> | Date | string
     firm_created_by?: StringNullableFilter<"Firm"> | string | null
     firm_updated_at?: DateTimeFilter<"Firm"> | Date | string
@@ -5989,7 +5997,7 @@ export namespace Prisma {
     firm_acc_type?: SortOrderInput | SortOrder
     firm_ifsc_code?: SortOrderInput | SortOrder
     firm_start_date?: SortOrder
-    firm_balance?: SortOrder
+    firm_balance?: SortOrderInput | SortOrder
     firm_balance_type?: SortOrder
     firm_gstin_no?: SortOrderInput | SortOrder
     firm_pan_no?: SortOrderInput | SortOrder
@@ -6000,6 +6008,7 @@ export namespace Prisma {
     firm_left_logo_img?: SortOrderInput | SortOrder
     firm_right_logo_img?: SortOrderInput | SortOrder
     firm_qr_code_img?: SortOrderInput | SortOrder
+    firm_pan_no_img?: SortOrderInput | SortOrder
     firm_created_at?: SortOrder
     firm_created_by?: SortOrderInput | SortOrder
     firm_updated_at?: SortOrder
@@ -6048,7 +6057,7 @@ export namespace Prisma {
     firm_acc_type?: StringNullableWithAggregatesFilter<"Firm"> | string | null
     firm_ifsc_code?: StringNullableWithAggregatesFilter<"Firm"> | string | null
     firm_start_date?: DateTimeWithAggregatesFilter<"Firm"> | Date | string
-    firm_balance?: FloatWithAggregatesFilter<"Firm"> | number
+    firm_balance?: StringNullableWithAggregatesFilter<"Firm"> | string | null
     firm_balance_type?: EnumFirmBalanceTypeWithAggregatesFilter<"Firm"> | $Enums.FirmBalanceType
     firm_gstin_no?: StringNullableWithAggregatesFilter<"Firm"> | string | null
     firm_pan_no?: StringNullableWithAggregatesFilter<"Firm"> | string | null
@@ -6059,6 +6068,7 @@ export namespace Prisma {
     firm_left_logo_img?: JsonNullableWithAggregatesFilter<"Firm">
     firm_right_logo_img?: JsonNullableWithAggregatesFilter<"Firm">
     firm_qr_code_img?: JsonNullableWithAggregatesFilter<"Firm">
+    firm_pan_no_img?: JsonNullableWithAggregatesFilter<"Firm">
     firm_created_at?: DateTimeWithAggregatesFilter<"Firm"> | Date | string
     firm_created_by?: StringNullableWithAggregatesFilter<"Firm"> | string | null
     firm_updated_at?: DateTimeWithAggregatesFilter<"Firm"> | Date | string
@@ -6541,7 +6551,7 @@ export namespace Prisma {
     firm_acc_type?: string | null
     firm_ifsc_code?: string | null
     firm_start_date: Date | string
-    firm_balance?: number
+    firm_balance?: string | null
     firm_balance_type?: $Enums.FirmBalanceType
     firm_gstin_no?: string | null
     firm_pan_no?: string | null
@@ -6552,6 +6562,7 @@ export namespace Prisma {
     firm_left_logo_img?: NullableJsonNullValueInput | InputJsonValue
     firm_right_logo_img?: NullableJsonNullValueInput | InputJsonValue
     firm_qr_code_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_pan_no_img?: NullableJsonNullValueInput | InputJsonValue
     firm_created_at?: Date | string
     firm_created_by?: string | null
     firm_updated_at?: Date | string
@@ -6594,7 +6605,7 @@ export namespace Prisma {
     firm_acc_type?: string | null
     firm_ifsc_code?: string | null
     firm_start_date: Date | string
-    firm_balance?: number
+    firm_balance?: string | null
     firm_balance_type?: $Enums.FirmBalanceType
     firm_gstin_no?: string | null
     firm_pan_no?: string | null
@@ -6605,6 +6616,7 @@ export namespace Prisma {
     firm_left_logo_img?: NullableJsonNullValueInput | InputJsonValue
     firm_right_logo_img?: NullableJsonNullValueInput | InputJsonValue
     firm_qr_code_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_pan_no_img?: NullableJsonNullValueInput | InputJsonValue
     firm_created_at?: Date | string
     firm_created_by?: string | null
     firm_updated_at?: Date | string
@@ -6644,7 +6656,7 @@ export namespace Prisma {
     firm_acc_type?: NullableStringFieldUpdateOperationsInput | string | null
     firm_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
     firm_start_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    firm_balance?: FloatFieldUpdateOperationsInput | number
+    firm_balance?: NullableStringFieldUpdateOperationsInput | string | null
     firm_balance_type?: EnumFirmBalanceTypeFieldUpdateOperationsInput | $Enums.FirmBalanceType
     firm_gstin_no?: NullableStringFieldUpdateOperationsInput | string | null
     firm_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
@@ -6655,6 +6667,7 @@ export namespace Prisma {
     firm_left_logo_img?: NullableJsonNullValueInput | InputJsonValue
     firm_right_logo_img?: NullableJsonNullValueInput | InputJsonValue
     firm_qr_code_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_pan_no_img?: NullableJsonNullValueInput | InputJsonValue
     firm_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     firm_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     firm_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -6697,7 +6710,7 @@ export namespace Prisma {
     firm_acc_type?: NullableStringFieldUpdateOperationsInput | string | null
     firm_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
     firm_start_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    firm_balance?: FloatFieldUpdateOperationsInput | number
+    firm_balance?: NullableStringFieldUpdateOperationsInput | string | null
     firm_balance_type?: EnumFirmBalanceTypeFieldUpdateOperationsInput | $Enums.FirmBalanceType
     firm_gstin_no?: NullableStringFieldUpdateOperationsInput | string | null
     firm_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
@@ -6708,6 +6721,7 @@ export namespace Prisma {
     firm_left_logo_img?: NullableJsonNullValueInput | InputJsonValue
     firm_right_logo_img?: NullableJsonNullValueInput | InputJsonValue
     firm_qr_code_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_pan_no_img?: NullableJsonNullValueInput | InputJsonValue
     firm_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     firm_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     firm_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -6749,7 +6763,7 @@ export namespace Prisma {
     firm_acc_type?: string | null
     firm_ifsc_code?: string | null
     firm_start_date: Date | string
-    firm_balance?: number
+    firm_balance?: string | null
     firm_balance_type?: $Enums.FirmBalanceType
     firm_gstin_no?: string | null
     firm_pan_no?: string | null
@@ -6760,6 +6774,7 @@ export namespace Prisma {
     firm_left_logo_img?: NullableJsonNullValueInput | InputJsonValue
     firm_right_logo_img?: NullableJsonNullValueInput | InputJsonValue
     firm_qr_code_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_pan_no_img?: NullableJsonNullValueInput | InputJsonValue
     firm_created_at?: Date | string
     firm_created_by?: string | null
     firm_updated_at?: Date | string
@@ -6798,7 +6813,7 @@ export namespace Prisma {
     firm_acc_type?: NullableStringFieldUpdateOperationsInput | string | null
     firm_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
     firm_start_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    firm_balance?: FloatFieldUpdateOperationsInput | number
+    firm_balance?: NullableStringFieldUpdateOperationsInput | string | null
     firm_balance_type?: EnumFirmBalanceTypeFieldUpdateOperationsInput | $Enums.FirmBalanceType
     firm_gstin_no?: NullableStringFieldUpdateOperationsInput | string | null
     firm_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
@@ -6809,6 +6824,7 @@ export namespace Prisma {
     firm_left_logo_img?: NullableJsonNullValueInput | InputJsonValue
     firm_right_logo_img?: NullableJsonNullValueInput | InputJsonValue
     firm_qr_code_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_pan_no_img?: NullableJsonNullValueInput | InputJsonValue
     firm_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     firm_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     firm_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -6849,7 +6865,7 @@ export namespace Prisma {
     firm_acc_type?: NullableStringFieldUpdateOperationsInput | string | null
     firm_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
     firm_start_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    firm_balance?: FloatFieldUpdateOperationsInput | number
+    firm_balance?: NullableStringFieldUpdateOperationsInput | string | null
     firm_balance_type?: EnumFirmBalanceTypeFieldUpdateOperationsInput | $Enums.FirmBalanceType
     firm_gstin_no?: NullableStringFieldUpdateOperationsInput | string | null
     firm_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
@@ -6860,6 +6876,7 @@ export namespace Prisma {
     firm_left_logo_img?: NullableJsonNullValueInput | InputJsonValue
     firm_right_logo_img?: NullableJsonNullValueInput | InputJsonValue
     firm_qr_code_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_pan_no_img?: NullableJsonNullValueInput | InputJsonValue
     firm_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     firm_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     firm_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -7453,17 +7470,6 @@ export namespace Prisma {
     not?: NestedEnumFirmTypeFilter<$PrismaModel> | $Enums.FirmType
   }
 
-  export type FloatFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatFilter<$PrismaModel> | number
-  }
-
   export type EnumFirmBalanceTypeFilter<$PrismaModel = never> = {
     equals?: $Enums.FirmBalanceType | EnumFirmBalanceTypeFieldRefInput<$PrismaModel>
     in?: $Enums.FirmBalanceType[] | ListEnumFirmBalanceTypeFieldRefInput<$PrismaModel>
@@ -7518,6 +7524,7 @@ export namespace Prisma {
     firm_left_logo_img?: SortOrder
     firm_right_logo_img?: SortOrder
     firm_qr_code_img?: SortOrder
+    firm_pan_no_img?: SortOrder
     firm_created_at?: SortOrder
     firm_created_by?: SortOrder
     firm_updated_at?: SortOrder
@@ -7530,7 +7537,6 @@ export namespace Prisma {
   export type FirmAvgOrderByAggregateInput = {
     firm_id?: SortOrder
     firm_own_id?: SortOrder
-    firm_balance?: SortOrder
   }
 
   export type FirmMaxOrderByAggregateInput = {
@@ -7630,7 +7636,6 @@ export namespace Prisma {
   export type FirmSumOrderByAggregateInput = {
     firm_id?: SortOrder
     firm_own_id?: SortOrder
-    firm_balance?: SortOrder
   }
 
   export type EnumFirmTypeWithAggregatesFilter<$PrismaModel = never> = {
@@ -7643,22 +7648,6 @@ export namespace Prisma {
     _max?: NestedEnumFirmTypeFilter<$PrismaModel>
   }
 
-  export type FloatWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedFloatFilter<$PrismaModel>
-    _min?: NestedFloatFilter<$PrismaModel>
-    _max?: NestedFloatFilter<$PrismaModel>
-  }
-
   export type EnumFirmBalanceTypeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.FirmBalanceType | EnumFirmBalanceTypeFieldRefInput<$PrismaModel>
     in?: $Enums.FirmBalanceType[] | ListEnumFirmBalanceTypeFieldRefInput<$PrismaModel>
@@ -7667,6 +7656,17 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumFirmBalanceTypeFilter<$PrismaModel>
     _max?: NestedEnumFirmBalanceTypeFilter<$PrismaModel>
+  }
+
+  export type FloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
   }
 
   export type EnumAccountBalanceTypeFilter<$PrismaModel = never> = {
@@ -7786,6 +7786,22 @@ export namespace Prisma {
     acc_own_id?: SortOrder
     acc_firm_id?: SortOrder
     acc_cash_balance?: SortOrder
+  }
+
+  export type FloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
   }
 
   export type EnumAccountBalanceTypeWithAggregatesFilter<$PrismaModel = never> = {
@@ -7938,14 +7954,6 @@ export namespace Prisma {
     set?: $Enums.FirmType
   }
 
-  export type FloatFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
-  }
-
   export type EnumFirmBalanceTypeFieldUpdateOperationsInput = {
     set?: $Enums.FirmBalanceType
   }
@@ -7996,6 +8004,14 @@ export namespace Prisma {
     create?: XOR<FirmCreateWithoutAccountsInput, FirmUncheckedCreateWithoutAccountsInput>
     connectOrCreate?: FirmCreateOrConnectWithoutAccountsInput
     connect?: FirmWhereUniqueInput
+  }
+
+  export type FloatFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
   }
 
   export type EnumAccountBalanceTypeFieldUpdateOperationsInput = {
@@ -8255,22 +8271,6 @@ export namespace Prisma {
     _max?: NestedEnumFirmTypeFilter<$PrismaModel>
   }
 
-  export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedFloatFilter<$PrismaModel>
-    _min?: NestedFloatFilter<$PrismaModel>
-    _max?: NestedFloatFilter<$PrismaModel>
-  }
-
   export type NestedEnumFirmBalanceTypeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.FirmBalanceType | EnumFirmBalanceTypeFieldRefInput<$PrismaModel>
     in?: $Enums.FirmBalanceType[] | ListEnumFirmBalanceTypeFieldRefInput<$PrismaModel>
@@ -8286,6 +8286,22 @@ export namespace Prisma {
     in?: $Enums.AccountBalanceType[] | ListEnumAccountBalanceTypeFieldRefInput<$PrismaModel>
     notIn?: $Enums.AccountBalanceType[] | ListEnumAccountBalanceTypeFieldRefInput<$PrismaModel>
     not?: NestedEnumAccountBalanceTypeFilter<$PrismaModel> | $Enums.AccountBalanceType
+  }
+
+  export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
   }
 
   export type NestedEnumAccountBalanceTypeWithAggregatesFilter<$PrismaModel = never> = {
@@ -8327,7 +8343,7 @@ export namespace Prisma {
     firm_acc_type?: string | null
     firm_ifsc_code?: string | null
     firm_start_date: Date | string
-    firm_balance?: number
+    firm_balance?: string | null
     firm_balance_type?: $Enums.FirmBalanceType
     firm_gstin_no?: string | null
     firm_pan_no?: string | null
@@ -8338,6 +8354,7 @@ export namespace Prisma {
     firm_left_logo_img?: NullableJsonNullValueInput | InputJsonValue
     firm_right_logo_img?: NullableJsonNullValueInput | InputJsonValue
     firm_qr_code_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_pan_no_img?: NullableJsonNullValueInput | InputJsonValue
     firm_created_at?: Date | string
     firm_created_by?: string | null
     firm_updated_at?: Date | string
@@ -8378,7 +8395,7 @@ export namespace Prisma {
     firm_acc_type?: string | null
     firm_ifsc_code?: string | null
     firm_start_date: Date | string
-    firm_balance?: number
+    firm_balance?: string | null
     firm_balance_type?: $Enums.FirmBalanceType
     firm_gstin_no?: string | null
     firm_pan_no?: string | null
@@ -8389,6 +8406,7 @@ export namespace Prisma {
     firm_left_logo_img?: NullableJsonNullValueInput | InputJsonValue
     firm_right_logo_img?: NullableJsonNullValueInput | InputJsonValue
     firm_qr_code_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_pan_no_img?: NullableJsonNullValueInput | InputJsonValue
     firm_created_at?: Date | string
     firm_created_by?: string | null
     firm_updated_at?: Date | string
@@ -8528,7 +8546,7 @@ export namespace Prisma {
     firm_acc_type?: StringNullableFilter<"Firm"> | string | null
     firm_ifsc_code?: StringNullableFilter<"Firm"> | string | null
     firm_start_date?: DateTimeFilter<"Firm"> | Date | string
-    firm_balance?: FloatFilter<"Firm"> | number
+    firm_balance?: StringNullableFilter<"Firm"> | string | null
     firm_balance_type?: EnumFirmBalanceTypeFilter<"Firm"> | $Enums.FirmBalanceType
     firm_gstin_no?: StringNullableFilter<"Firm"> | string | null
     firm_pan_no?: StringNullableFilter<"Firm"> | string | null
@@ -8539,6 +8557,7 @@ export namespace Prisma {
     firm_left_logo_img?: JsonNullableFilter<"Firm">
     firm_right_logo_img?: JsonNullableFilter<"Firm">
     firm_qr_code_img?: JsonNullableFilter<"Firm">
+    firm_pan_no_img?: JsonNullableFilter<"Firm">
     firm_created_at?: DateTimeFilter<"Firm"> | Date | string
     firm_created_by?: StringNullableFilter<"Firm"> | string | null
     firm_updated_at?: DateTimeFilter<"Firm"> | Date | string
@@ -8963,7 +8982,7 @@ export namespace Prisma {
     firm_acc_type?: string | null
     firm_ifsc_code?: string | null
     firm_start_date: Date | string
-    firm_balance?: number
+    firm_balance?: string | null
     firm_balance_type?: $Enums.FirmBalanceType
     firm_gstin_no?: string | null
     firm_pan_no?: string | null
@@ -8974,6 +8993,7 @@ export namespace Prisma {
     firm_left_logo_img?: NullableJsonNullValueInput | InputJsonValue
     firm_right_logo_img?: NullableJsonNullValueInput | InputJsonValue
     firm_qr_code_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_pan_no_img?: NullableJsonNullValueInput | InputJsonValue
     firm_created_at?: Date | string
     firm_created_by?: string | null
     firm_updated_at?: Date | string
@@ -9015,7 +9035,7 @@ export namespace Prisma {
     firm_acc_type?: string | null
     firm_ifsc_code?: string | null
     firm_start_date: Date | string
-    firm_balance?: number
+    firm_balance?: string | null
     firm_balance_type?: $Enums.FirmBalanceType
     firm_gstin_no?: string | null
     firm_pan_no?: string | null
@@ -9026,6 +9046,7 @@ export namespace Prisma {
     firm_left_logo_img?: NullableJsonNullValueInput | InputJsonValue
     firm_right_logo_img?: NullableJsonNullValueInput | InputJsonValue
     firm_qr_code_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_pan_no_img?: NullableJsonNullValueInput | InputJsonValue
     firm_created_at?: Date | string
     firm_created_by?: string | null
     firm_updated_at?: Date | string
@@ -9167,7 +9188,7 @@ export namespace Prisma {
     firm_acc_type?: NullableStringFieldUpdateOperationsInput | string | null
     firm_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
     firm_start_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    firm_balance?: FloatFieldUpdateOperationsInput | number
+    firm_balance?: NullableStringFieldUpdateOperationsInput | string | null
     firm_balance_type?: EnumFirmBalanceTypeFieldUpdateOperationsInput | $Enums.FirmBalanceType
     firm_gstin_no?: NullableStringFieldUpdateOperationsInput | string | null
     firm_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9178,6 +9199,7 @@ export namespace Prisma {
     firm_left_logo_img?: NullableJsonNullValueInput | InputJsonValue
     firm_right_logo_img?: NullableJsonNullValueInput | InputJsonValue
     firm_qr_code_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_pan_no_img?: NullableJsonNullValueInput | InputJsonValue
     firm_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     firm_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     firm_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -9219,7 +9241,7 @@ export namespace Prisma {
     firm_acc_type?: NullableStringFieldUpdateOperationsInput | string | null
     firm_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
     firm_start_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    firm_balance?: FloatFieldUpdateOperationsInput | number
+    firm_balance?: NullableStringFieldUpdateOperationsInput | string | null
     firm_balance_type?: EnumFirmBalanceTypeFieldUpdateOperationsInput | $Enums.FirmBalanceType
     firm_gstin_no?: NullableStringFieldUpdateOperationsInput | string | null
     firm_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9230,6 +9252,7 @@ export namespace Prisma {
     firm_left_logo_img?: NullableJsonNullValueInput | InputJsonValue
     firm_right_logo_img?: NullableJsonNullValueInput | InputJsonValue
     firm_qr_code_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_pan_no_img?: NullableJsonNullValueInput | InputJsonValue
     firm_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     firm_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     firm_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -9269,7 +9292,7 @@ export namespace Prisma {
     firm_acc_type?: string | null
     firm_ifsc_code?: string | null
     firm_start_date: Date | string
-    firm_balance?: number
+    firm_balance?: string | null
     firm_balance_type?: $Enums.FirmBalanceType
     firm_gstin_no?: string | null
     firm_pan_no?: string | null
@@ -9280,6 +9303,7 @@ export namespace Prisma {
     firm_left_logo_img?: NullableJsonNullValueInput | InputJsonValue
     firm_right_logo_img?: NullableJsonNullValueInput | InputJsonValue
     firm_qr_code_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_pan_no_img?: NullableJsonNullValueInput | InputJsonValue
     firm_created_at?: Date | string
     firm_created_by?: string | null
     firm_updated_at?: Date | string
@@ -9348,7 +9372,7 @@ export namespace Prisma {
     firm_acc_type?: NullableStringFieldUpdateOperationsInput | string | null
     firm_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
     firm_start_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    firm_balance?: FloatFieldUpdateOperationsInput | number
+    firm_balance?: NullableStringFieldUpdateOperationsInput | string | null
     firm_balance_type?: EnumFirmBalanceTypeFieldUpdateOperationsInput | $Enums.FirmBalanceType
     firm_gstin_no?: NullableStringFieldUpdateOperationsInput | string | null
     firm_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9359,6 +9383,7 @@ export namespace Prisma {
     firm_left_logo_img?: NullableJsonNullValueInput | InputJsonValue
     firm_right_logo_img?: NullableJsonNullValueInput | InputJsonValue
     firm_qr_code_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_pan_no_img?: NullableJsonNullValueInput | InputJsonValue
     firm_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     firm_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     firm_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -9399,7 +9424,7 @@ export namespace Prisma {
     firm_acc_type?: NullableStringFieldUpdateOperationsInput | string | null
     firm_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
     firm_start_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    firm_balance?: FloatFieldUpdateOperationsInput | number
+    firm_balance?: NullableStringFieldUpdateOperationsInput | string | null
     firm_balance_type?: EnumFirmBalanceTypeFieldUpdateOperationsInput | $Enums.FirmBalanceType
     firm_gstin_no?: NullableStringFieldUpdateOperationsInput | string | null
     firm_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9410,6 +9435,7 @@ export namespace Prisma {
     firm_left_logo_img?: NullableJsonNullValueInput | InputJsonValue
     firm_right_logo_img?: NullableJsonNullValueInput | InputJsonValue
     firm_qr_code_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_pan_no_img?: NullableJsonNullValueInput | InputJsonValue
     firm_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     firm_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     firm_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -9450,7 +9476,7 @@ export namespace Prisma {
     firm_acc_type?: NullableStringFieldUpdateOperationsInput | string | null
     firm_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
     firm_start_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    firm_balance?: FloatFieldUpdateOperationsInput | number
+    firm_balance?: NullableStringFieldUpdateOperationsInput | string | null
     firm_balance_type?: EnumFirmBalanceTypeFieldUpdateOperationsInput | $Enums.FirmBalanceType
     firm_gstin_no?: NullableStringFieldUpdateOperationsInput | string | null
     firm_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9461,6 +9487,7 @@ export namespace Prisma {
     firm_left_logo_img?: NullableJsonNullValueInput | InputJsonValue
     firm_right_logo_img?: NullableJsonNullValueInput | InputJsonValue
     firm_qr_code_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_pan_no_img?: NullableJsonNullValueInput | InputJsonValue
     firm_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     firm_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     firm_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string

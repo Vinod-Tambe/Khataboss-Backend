@@ -12,6 +12,7 @@ const firmUploadFields = [
   { name: "firm_left_logo_img", maxCount: 1 },
   { name: "firm_right_logo_img", maxCount: 1 },
   { name: "firm_qr_code_img", maxCount: 1 },
+  { name: "firm_pan_no_img", maxCount: 1 },
 ];
 
 /**
@@ -22,7 +23,8 @@ const firmUploadFields = [
  */
 
 router.get("/", authenticateOwner, (req, res) => firmController.getFirms(req, res));
-router.get("/:id", authenticateOwner, (req, res) => firmController.getFirmById(req, res));
+router.get("/dropdown", authenticateOwner, (req, res) => firmController.getFirmsDropdown(req, res));
+router.get("/:uuid", authenticateOwner, (req, res) => firmController.getFirmByUuid(req, res));
 router.post(
   "/",
   authenticateOwner,
@@ -30,11 +32,11 @@ router.post(
   (req, res) => firmController.createFirm(req, res)
 );
 router.put(
-  "/:id",
+  "/:uuid",
   authenticateOwner,
   upload.fields(firmUploadFields),
   (req, res) => firmController.updateFirm(req, res)
 );
-router.delete("/:id", authenticateOwner, (req, res) => firmController.deleteFirm(req, res));
+router.delete("/:uuid", authenticateOwner, (req, res) => firmController.deleteFirm(req, res));
 
 module.exports = router;

@@ -50,15 +50,20 @@ class FirmService {
   }
 
   /**
-   * Get a firm by ID.
+   * Get all firms for dropdown (id and name only).
    * @param {string} dbUrl 
-   * @param {number} firm_id 
    */
-  async getFirmById(dbUrl, firm_id) {
+  async getFirmsDropdown(dbUrl) {
     const prisma = this.getPrisma(dbUrl);
     try {
-      return await prisma.firm.findUnique({
-        where: { firm_id: parseInt(firm_id), firm_is_deleted: false },
+      return await prisma.firm.findMany({
+        where: { firm_is_deleted: false },
+        select: {
+          firm_id: true,
+          firm_uuid: true,
+          firm_name: true,
+        },
+        orderBy: { firm_name: "asc" },
       });
     } finally {
       await prisma.$disconnect();
@@ -66,16 +71,32 @@ class FirmService {
   }
 
   /**
-   * Update a firm.
+   * Get a firm by UUID.
    * @param {string} dbUrl 
-   * @param {number} firm_id 
+   * @param {string} firm_uuid 
+   */
+  async getFirmByUuid(dbUrl, firm_uuid) {
+    const prisma = this.getPrisma(dbUrl);
+    try {
+      return await prisma.firm.findUnique({
+        where: { firm_uuid: firm_uuid, firm_is_deleted: false },
+      });
+    } finally {
+      await prisma.$disconnect();
+    }
+  }
+
+  /**
+   * Update a firm by UUID.
+   * @param {string} dbUrl 
+   * @param {string} firm_uuid 
    * @param {object} updateData 
    */
-  async updateFirm(dbUrl, firm_id, updateData) {
+  async updateFirmByUuid(dbUrl, firm_uuid, updateData) {
     const prisma = this.getPrisma(dbUrl);
     try {
       return await prisma.firm.update({
-        where: { firm_id: parseInt(firm_id) },
+        where: { firm_uuid: firm_uuid },
         data: updateData,
       });
     } finally {
@@ -84,16 +105,16 @@ class FirmService {
   }
 
   /**
-   * Soft delete a firm.
+   * Soft delete a firm by UUID.
    * @param {string} dbUrl 
-   * @param {number} firm_id 
+   * @param {string} firm_uuid 
    * @param {string} deletedBy 
    */
-  async deleteFirm(dbUrl, firm_id, deletedBy = null) {
+  async deleteFirmByUuid(dbUrl, firm_uuid, deletedBy = null) {
     const prisma = this.getPrisma(dbUrl);
     try {
       return await prisma.firm.update({
-        where: { firm_id: parseInt(firm_id) },
+        where: { firm_uuid: firm_uuid },
         data: {
           firm_is_deleted: true,
           firm_deleted_at: new Date(),

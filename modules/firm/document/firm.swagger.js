@@ -27,6 +27,10 @@
  *         - firm_email_id
  *         - firm_start_date
  *       properties:
+ *         firm_id:
+ *           type: integer
+ *         firm_uuid:
+ *           type: string
  *         firm_add_date:
  *           type: string
  *           format: date-time
@@ -77,15 +81,13 @@
  *           type: string
  *         firm_acc_holder:
  *           type: string
- *         firm_acc_type:
- *           type: string
- *         firm_ifsc_code:
- *           type: string
+ *         firm_acc_type: { type: string }
+ *         firm_ifsc_code: { type: string }
  *         firm_start_date:
  *           type: string
  *           format: date
  *         firm_balance:
- *           type: number
+ *           type: string
  *         firm_balance_type:
  *           type: string
  *           enum: [DR, CR]
@@ -107,6 +109,8 @@
  *           $ref: '#/components/schemas/Image'
  *         firm_qr_code_img:
  *           $ref: '#/components/schemas/Image'
+ *         firm_pan_no_img:
+ *           $ref: '#/components/schemas/Image'
  *
  * /firm:
  *   get:
@@ -117,6 +121,18 @@
  *     responses:
  *       200:
  *         description: List of firms
+ *       401:
+ *         description: Unauthorized
+ *
+ * /firm/dropdown:
+ *   get:
+ *     summary: Get all firms for dropdown (id and name only)
+ *     tags: [Firm]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: List of firms for dropdown
  *       401:
  *         description: Unauthorized
  *   post:
@@ -157,7 +173,7 @@
  *               firm_acc_type: { type: string }
  *               firm_ifsc_code: { type: string }
  *               firm_start_date: { type: string, format: date }
- *               firm_balance: { type: number }
+ *               firm_balance: { type: string }
  *               firm_balance_type: { type: string, enum: [DR, CR] }
  *               firm_gstin_no: { type: string }
  *               firm_pan_no: { type: string }
@@ -168,24 +184,25 @@
  *               firm_left_logo_img: { type: string, format: binary }
  *               firm_right_logo_img: { type: string, format: binary }
  *               firm_qr_code_img: { type: string, format: binary }
+ *               firm_pan_no_img: { type: string, format: binary }
  *     responses:
  *       201:
  *         description: Firm created successfully
  *       401:
  *         description: Unauthorized
  *
- * /firm/{id}:
+ * /firm/{uuid}:
  *   get:
- *     summary: Get firm by ID
+ *     summary: Get firm by UUID
  *     tags: [Firm]
  *     security:
  *       - bearerAuth: []
  *     parameters:
  *       - in: path
- *         name: id
+ *         name: uuid
  *         required: true
  *         schema:
- *           type: integer
+ *           type: string
  *     responses:
  *       200:
  *         description: Firm details
@@ -194,16 +211,16 @@
  *       404:
  *         description: Firm not found
  *   put:
- *     summary: Update an existing firm
+ *     summary: Update an existing firm by UUID
  *     tags: [Firm]
  *     security:
  *       - bearerAuth: []
  *     parameters:
  *       - in: path
- *         name: id
+ *         name: uuid
  *         required: true
  *         schema:
- *           type: integer
+ *           type: string
  *     requestBody:
  *       content:
  *         multipart/form-data:
@@ -237,7 +254,7 @@
  *               firm_acc_type: { type: string }
  *               firm_ifsc_code: { type: string }
  *               firm_start_date: { type: string, format: date }
- *               firm_balance: { type: number }
+ *               firm_balance: { type: string }
  *               firm_balance_type: { type: string, enum: [DR, CR] }
  *               firm_gstin_no: { type: string }
  *               firm_pan_no: { type: string }
@@ -248,22 +265,23 @@
  *               firm_left_logo_img: { type: string, format: binary }
  *               firm_right_logo_img: { type: string, format: binary }
  *               firm_qr_code_img: { type: string, format: binary }
+ *               firm_pan_no_img: { type: string, format: binary }
  *     responses:
  *       200:
  *         description: Firm updated successfully
  *       401:
  *         description: Unauthorized
  *   delete:
- *     summary: Soft delete a firm
+ *     summary: Soft delete a firm by UUID
  *     tags: [Firm]
  *     security:
  *       - bearerAuth: []
  *     parameters:
  *       - in: path
- *         name: id
+ *         name: uuid
  *         required: true
  *         schema:
- *           type: integer
+ *           type: string
  *     responses:
  *       200:
  *         description: Firm deleted successfully

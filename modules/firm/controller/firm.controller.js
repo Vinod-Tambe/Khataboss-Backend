@@ -38,7 +38,7 @@ class FirmController {
         firmData.firm_add_date = new Date(firmData.firm_add_date);
       }
       if (firmData.firm_balance) {
-        firmData.firm_balance = parseFloat(firmData.firm_balance);
+        firmData.firm_balance = String(firmData.firm_balance);
       }
       if (firmData.firm_own_id) {
         firmData.firm_own_id = parseInt(firmData.firm_own_id);
@@ -55,9 +55,10 @@ class FirmController {
         if (movedFiles.firm_left_logo_img) updateData.firm_left_logo_img = movedFiles.firm_left_logo_img;
         if (movedFiles.firm_right_logo_img) updateData.firm_right_logo_img = movedFiles.firm_right_logo_img;
         if (movedFiles.firm_qr_code_img) updateData.firm_qr_code_img = movedFiles.firm_qr_code_img;
+        if (movedFiles.firm_pan_no_img) updateData.firm_pan_no_img = movedFiles.firm_pan_no_img;
 
         if (Object.keys(updateData).length > 0) {
-          const updatedFirm = await firmService.updateFirm(dbUrl, newFirm.firm_id, updateData);
+          const updatedFirm = await firmService.updateFirmByUuid(dbUrl, newFirm.firm_uuid, updateData);
           return res.status(201).json({
             message: "Firm created successfully with images.",
             data: updatedFirm,
@@ -94,13 +95,31 @@ class FirmController {
   }
 
   /**
-   * GET /firm/:id
+   * GET /firm/dropdown
    */
-  async getFirmById(req, res) {
+  async getFirmsDropdown(req, res) {
     try {
-      const { id } = req.params;
       const dbUrl = this.getDbUrl(req.user.own_db);
-      const firm = await firmService.getFirmById(dbUrl, id);
+      const firms = await firmService.getFirmsDropdown(dbUrl);
+
+      return res.status(200).json({
+        message: "Firms for dropdown fetched successfully.",
+        data: firms,
+      });
+    } catch (error) {
+      console.error("❌  Error fetching firms for dropdown:", error.message);
+      return res.status(500).json({ error: error.message });
+    }
+  }
+
+  /**
+   * GET /firm/:uuid
+   */
+  async getFirmByUuid(req, res) {
+    try {
+      const { uuid } = req.params;
+      const dbUrl = this.getDbUrl(req.user.own_db);
+      const firm = await firmService.getFirmByUuid(dbUrl, uuid);
 
       if (!firm) {
         return res.status(404).json({ error: "Firm not found." });
@@ -117,11 +136,11 @@ class FirmController {
   }
 
   /**
-   * PUT /firm/:id
+   * PUT /firm/:uuid
    */
   async updateFirm(req, res) {
     try {
-      const { id } = req.params;
+      const { uuid } = req.params;
       const dbUrl = this.getDbUrl(req.user.own_db);
       const updateData = { ...req.body };
 
@@ -136,7 +155,7 @@ class FirmController {
         updateData.firm_add_date = new Date(updateData.firm_add_date);
       }
       if (updateData.firm_balance) {
-        updateData.firm_balance = parseFloat(updateData.firm_balance);
+        updateData.firm_balance = String(updateData.firm_balance);
       }
       if (updateData.firm_own_id) {
         updateData.firm_own_id = parseInt(updateData.firm_own_id);
@@ -144,14 +163,37 @@ class FirmController {
 
       // Handle File Uploads
       if (req.files && Object.keys(req.files).length > 0) {
-        const movedFiles = await imageService.moveFiles("firm", id, req.files);
+        // Fetch firm to get firm_id for folder naming
+        const firm = await firmService.getFirmByUuid(dbUrl, uuid);
+        if (!firm) {
+          return res.status(404).json({ error: "Firm not found." });
+        }
+        const firmId = firm.firm_id;
+
+        const movedFiles = await imageService.moveFiles("firm", firmId, req.files);
+        
+        // Delete old files if new ones were uploaded
+        const imageFields = [
+          "firm_own_sign_img",
+          "firm_left_logo_img",
+          "firm_right_logo_img",
+          "firm_qr_code_img",
+          "firm_pan_no_img"
+        ];
+        for (const field of imageFields) {
+          if (movedFiles[field] && firm[field] && firm[field].path) {
+            await imageService.deleteFile(firm[field].path);
+          }
+        }
+
         if (movedFiles.firm_own_sign_img) updateData.firm_own_sign_img = movedFiles.firm_own_sign_img;
         if (movedFiles.firm_left_logo_img) updateData.firm_left_logo_img = movedFiles.firm_left_logo_img;
         if (movedFiles.firm_right_logo_img) updateData.firm_right_logo_img = movedFiles.firm_right_logo_img;
         if (movedFiles.firm_qr_code_img) updateData.firm_qr_code_img = movedFiles.firm_qr_code_img;
+        if (movedFiles.firm_pan_no_img) updateData.firm_pan_no_img = movedFiles.firm_pan_no_img;
       }
 
-      const updatedFirm = await firmService.updateFirm(dbUrl, id, updateData);
+      const updatedFirm = await firmService.updateFirmByUuid(dbUrl, uuid, updateData);
 
       return res.status(200).json({
         message: "Firm updated successfully.",
@@ -164,13 +206,13 @@ class FirmController {
   }
 
   /**
-   * DELETE /firm/:id
+   * DELETE /firm/:uuid
    */
   async deleteFirm(req, res) {
     try {
-      const { id } = req.params;
+      const { uuid } = req.params;
       const dbUrl = this.getDbUrl(req.user.own_db);
-      await firmService.deleteFirm(dbUrl, id, "Admin");
+      await firmService.deleteFirmByUuid(dbUrl, uuid, "Admin");
 
       return res.status(200).json({
         message: "Firm deleted successfully (soft delete).",

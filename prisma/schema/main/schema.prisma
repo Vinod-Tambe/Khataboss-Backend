@@ -168,7 +168,7 @@ model Firm {
   // Financial Information
   // ===============================
   firm_start_date    DateTime
-  firm_balance       Float        @default(0)
+  firm_balance       String?      @default("0")
   firm_balance_type  FirmBalanceType  @default(CR)
 
   // ===============================
@@ -187,6 +187,7 @@ model Firm {
   firm_left_logo_img     Json?
   firm_right_logo_img        Json?
   firm_qr_code_img           Json?
+  firm_pan_no_img           Json?
 
 
   // ===============================
