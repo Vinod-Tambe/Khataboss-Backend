@@ -49,6 +49,7 @@ const v1Router = express.Router();
 v1Router.use("/auth", require("./modules/auth/routes/auth.routes"));
 v1Router.use("/owner", require("./modules/owner/routes/owner.routes"));
 v1Router.use("/firm", require("./modules/firm/routes/firm.routes"));
+v1Router.use("/account", require("./modules/account/routes/account.routes"));
 
 app.use("/api/v1", v1Router);
 

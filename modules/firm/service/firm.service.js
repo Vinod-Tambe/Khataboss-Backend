@@ -188,6 +188,7 @@ class FirmService {
           ...acc,
           acc_firm_id: firmId,
           acc_own_id: ownId,
+          acc_is_system: true,
           acc_balance_type: 'CR',
           acc_opening_date: openingDate || new Date(),
           acc_cash_balance: (acc.acc_name === "Capital Account") ? String(firmBalance || "0") : "0"
@@ -199,6 +200,7 @@ class FirmService {
           ...acc,
           acc_firm_id: firmId,
           acc_own_id: ownId,
+          acc_is_system: true,
           acc_balance_type: 'DR',
           acc_opening_date: openingDate || new Date(),
           acc_cash_balance: "0"

@@ -240,6 +240,7 @@ exports.Prisma.AccountScalarFieldEnum = {
   acc_updated_by: 'acc_updated_by',
   acc_deleted_at: 'acc_deleted_at',
   acc_deleted_by: 'acc_deleted_by',
+  acc_is_system: 'acc_is_system',
   acc_is_deleted: 'acc_is_deleted'
 };
 

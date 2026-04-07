@@ -4060,6 +4060,7 @@ export namespace Prisma {
     acc_updated_by: string | null
     acc_deleted_at: Date | null
     acc_deleted_by: string | null
+    acc_is_system: boolean | null
     acc_is_deleted: boolean | null
   }
 
@@ -4091,6 +4092,7 @@ export namespace Prisma {
     acc_updated_by: string | null
     acc_deleted_at: Date | null
     acc_deleted_by: string | null
+    acc_is_system: boolean | null
     acc_is_deleted: boolean | null
   }
 
@@ -4122,6 +4124,7 @@ export namespace Prisma {
     acc_updated_by: number
     acc_deleted_at: number
     acc_deleted_by: number
+    acc_is_system: number
     acc_is_deleted: number
     _all: number
   }
@@ -4167,6 +4170,7 @@ export namespace Prisma {
     acc_updated_by?: true
     acc_deleted_at?: true
     acc_deleted_by?: true
+    acc_is_system?: true
     acc_is_deleted?: true
   }
 
@@ -4198,6 +4202,7 @@ export namespace Prisma {
     acc_updated_by?: true
     acc_deleted_at?: true
     acc_deleted_by?: true
+    acc_is_system?: true
     acc_is_deleted?: true
   }
 
@@ -4229,6 +4234,7 @@ export namespace Prisma {
     acc_updated_by?: true
     acc_deleted_at?: true
     acc_deleted_by?: true
+    acc_is_system?: true
     acc_is_deleted?: true
     _all?: true
   }
@@ -4347,6 +4353,7 @@ export namespace Prisma {
     acc_updated_by: string | null
     acc_deleted_at: Date | null
     acc_deleted_by: string | null
+    acc_is_system: boolean
     acc_is_deleted: boolean
     _count: AccountCountAggregateOutputType | null
     _avg: AccountAvgAggregateOutputType | null
@@ -4397,6 +4404,7 @@ export namespace Prisma {
     acc_updated_by?: boolean
     acc_deleted_at?: boolean
     acc_deleted_by?: boolean
+    acc_is_system?: boolean
     acc_is_deleted?: boolean
     owner?: boolean | OwnerDefaultArgs<ExtArgs>
     firm?: boolean | FirmDefaultArgs<ExtArgs>
@@ -4430,6 +4438,7 @@ export namespace Prisma {
     acc_updated_by?: boolean
     acc_deleted_at?: boolean
     acc_deleted_by?: boolean
+    acc_is_system?: boolean
     acc_is_deleted?: boolean
     owner?: boolean | OwnerDefaultArgs<ExtArgs>
     firm?: boolean | FirmDefaultArgs<ExtArgs>
@@ -4463,6 +4472,7 @@ export namespace Prisma {
     acc_updated_by?: boolean
     acc_deleted_at?: boolean
     acc_deleted_by?: boolean
+    acc_is_system?: boolean
     acc_is_deleted?: boolean
   }
 
@@ -4509,6 +4519,7 @@ export namespace Prisma {
       acc_updated_by: string | null
       acc_deleted_at: Date | null
       acc_deleted_by: string | null
+      acc_is_system: boolean
       acc_is_deleted: boolean
     }, ExtArgs["result"]["account"]>
     composites: {}
@@ -4932,6 +4943,7 @@ export namespace Prisma {
     readonly acc_updated_by: FieldRef<"Account", 'String'>
     readonly acc_deleted_at: FieldRef<"Account", 'DateTime'>
     readonly acc_deleted_by: FieldRef<"Account", 'String'>
+    readonly acc_is_system: FieldRef<"Account", 'Boolean'>
     readonly acc_is_deleted: FieldRef<"Account", 'Boolean'>
   }
     
@@ -5403,6 +5415,7 @@ export namespace Prisma {
     acc_updated_by: 'acc_updated_by',
     acc_deleted_at: 'acc_deleted_at',
     acc_deleted_by: 'acc_deleted_by',
+    acc_is_system: 'acc_is_system',
     acc_is_deleted: 'acc_is_deleted'
   };
 
@@ -6105,6 +6118,7 @@ export namespace Prisma {
     acc_updated_by?: StringNullableFilter<"Account"> | string | null
     acc_deleted_at?: DateTimeNullableFilter<"Account"> | Date | string | null
     acc_deleted_by?: StringNullableFilter<"Account"> | string | null
+    acc_is_system?: BoolFilter<"Account"> | boolean
     acc_is_deleted?: BoolFilter<"Account"> | boolean
     owner?: XOR<OwnerRelationFilter, OwnerWhereInput>
     firm?: XOR<FirmRelationFilter, FirmWhereInput>
@@ -6138,6 +6152,7 @@ export namespace Prisma {
     acc_updated_by?: SortOrderInput | SortOrder
     acc_deleted_at?: SortOrderInput | SortOrder
     acc_deleted_by?: SortOrderInput | SortOrder
+    acc_is_system?: SortOrder
     acc_is_deleted?: SortOrder
     owner?: OwnerOrderByWithRelationInput
     firm?: FirmOrderByWithRelationInput
@@ -6174,6 +6189,7 @@ export namespace Prisma {
     acc_updated_by?: StringNullableFilter<"Account"> | string | null
     acc_deleted_at?: DateTimeNullableFilter<"Account"> | Date | string | null
     acc_deleted_by?: StringNullableFilter<"Account"> | string | null
+    acc_is_system?: BoolFilter<"Account"> | boolean
     acc_is_deleted?: BoolFilter<"Account"> | boolean
     owner?: XOR<OwnerRelationFilter, OwnerWhereInput>
     firm?: XOR<FirmRelationFilter, FirmWhereInput>
@@ -6207,6 +6223,7 @@ export namespace Prisma {
     acc_updated_by?: SortOrderInput | SortOrder
     acc_deleted_at?: SortOrderInput | SortOrder
     acc_deleted_by?: SortOrderInput | SortOrder
+    acc_is_system?: SortOrder
     acc_is_deleted?: SortOrder
     _count?: AccountCountOrderByAggregateInput
     _avg?: AccountAvgOrderByAggregateInput
@@ -6246,6 +6263,7 @@ export namespace Prisma {
     acc_updated_by?: StringNullableWithAggregatesFilter<"Account"> | string | null
     acc_deleted_at?: DateTimeNullableWithAggregatesFilter<"Account"> | Date | string | null
     acc_deleted_by?: StringNullableWithAggregatesFilter<"Account"> | string | null
+    acc_is_system?: BoolWithAggregatesFilter<"Account"> | boolean
     acc_is_deleted?: BoolWithAggregatesFilter<"Account"> | boolean
   }
 
@@ -6907,6 +6925,7 @@ export namespace Prisma {
     acc_updated_by?: string | null
     acc_deleted_at?: Date | string | null
     acc_deleted_by?: string | null
+    acc_is_system?: boolean
     acc_is_deleted?: boolean
     owner?: OwnerCreateNestedOneWithoutAccountsInput
     firm?: FirmCreateNestedOneWithoutAccountsInput
@@ -6940,6 +6959,7 @@ export namespace Prisma {
     acc_updated_by?: string | null
     acc_deleted_at?: Date | string | null
     acc_deleted_by?: string | null
+    acc_is_system?: boolean
     acc_is_deleted?: boolean
   }
 
@@ -6968,6 +6988,7 @@ export namespace Prisma {
     acc_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     acc_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     acc_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_is_system?: BoolFieldUpdateOperationsInput | boolean
     acc_is_deleted?: BoolFieldUpdateOperationsInput | boolean
     owner?: OwnerUpdateOneRequiredWithoutAccountsNestedInput
     firm?: FirmUpdateOneRequiredWithoutAccountsNestedInput
@@ -7001,6 +7022,7 @@ export namespace Prisma {
     acc_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     acc_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     acc_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_is_system?: BoolFieldUpdateOperationsInput | boolean
     acc_is_deleted?: BoolFieldUpdateOperationsInput | boolean
   }
 
@@ -7032,6 +7054,7 @@ export namespace Prisma {
     acc_updated_by?: string | null
     acc_deleted_at?: Date | string | null
     acc_deleted_by?: string | null
+    acc_is_system?: boolean
     acc_is_deleted?: boolean
   }
 
@@ -7060,6 +7083,7 @@ export namespace Prisma {
     acc_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     acc_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     acc_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_is_system?: BoolFieldUpdateOperationsInput | boolean
     acc_is_deleted?: BoolFieldUpdateOperationsInput | boolean
   }
 
@@ -7091,6 +7115,7 @@ export namespace Prisma {
     acc_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     acc_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     acc_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_is_system?: BoolFieldUpdateOperationsInput | boolean
     acc_is_deleted?: BoolFieldUpdateOperationsInput | boolean
   }
 
@@ -7694,6 +7719,7 @@ export namespace Prisma {
     acc_updated_by?: SortOrder
     acc_deleted_at?: SortOrder
     acc_deleted_by?: SortOrder
+    acc_is_system?: SortOrder
     acc_is_deleted?: SortOrder
   }
 
@@ -7731,6 +7757,7 @@ export namespace Prisma {
     acc_updated_by?: SortOrder
     acc_deleted_at?: SortOrder
     acc_deleted_by?: SortOrder
+    acc_is_system?: SortOrder
     acc_is_deleted?: SortOrder
   }
 
@@ -7762,6 +7789,7 @@ export namespace Prisma {
     acc_updated_by?: SortOrder
     acc_deleted_at?: SortOrder
     acc_deleted_by?: SortOrder
+    acc_is_system?: SortOrder
     acc_is_deleted?: SortOrder
   }
 
@@ -8395,6 +8423,7 @@ export namespace Prisma {
     acc_updated_by?: string | null
     acc_deleted_at?: Date | string | null
     acc_deleted_by?: string | null
+    acc_is_system?: boolean
     acc_is_deleted?: boolean
     firm?: FirmCreateNestedOneWithoutAccountsInput
   }
@@ -8426,6 +8455,7 @@ export namespace Prisma {
     acc_updated_by?: string | null
     acc_deleted_at?: Date | string | null
     acc_deleted_by?: string | null
+    acc_is_system?: boolean
     acc_is_deleted?: boolean
   }
 
@@ -8557,6 +8587,7 @@ export namespace Prisma {
     acc_updated_by?: StringNullableFilter<"Account"> | string | null
     acc_deleted_at?: DateTimeNullableFilter<"Account"> | Date | string | null
     acc_deleted_by?: StringNullableFilter<"Account"> | string | null
+    acc_is_system?: BoolFilter<"Account"> | boolean
     acc_is_deleted?: BoolFilter<"Account"> | boolean
   }
 
@@ -8585,6 +8616,7 @@ export namespace Prisma {
     acc_updated_by?: string | null
     acc_deleted_at?: Date | string | null
     acc_deleted_by?: string | null
+    acc_is_system?: boolean
     acc_is_deleted?: boolean
     owner?: OwnerCreateNestedOneWithoutAccountsInput
   }
@@ -8616,6 +8648,7 @@ export namespace Prisma {
     acc_updated_by?: string | null
     acc_deleted_at?: Date | string | null
     acc_deleted_by?: string | null
+    acc_is_system?: boolean
     acc_is_deleted?: boolean
   }
 
@@ -9283,6 +9316,7 @@ export namespace Prisma {
     acc_updated_by?: string | null
     acc_deleted_at?: Date | string | null
     acc_deleted_by?: string | null
+    acc_is_system?: boolean
     acc_is_deleted?: boolean
   }
 
@@ -9465,6 +9499,7 @@ export namespace Prisma {
     acc_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     acc_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     acc_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_is_system?: BoolFieldUpdateOperationsInput | boolean
     acc_is_deleted?: BoolFieldUpdateOperationsInput | boolean
     firm?: FirmUpdateOneRequiredWithoutAccountsNestedInput
   }
@@ -9496,6 +9531,7 @@ export namespace Prisma {
     acc_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     acc_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     acc_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_is_system?: BoolFieldUpdateOperationsInput | boolean
     acc_is_deleted?: BoolFieldUpdateOperationsInput | boolean
   }
 
@@ -9526,6 +9562,7 @@ export namespace Prisma {
     acc_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     acc_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     acc_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_is_system?: BoolFieldUpdateOperationsInput | boolean
     acc_is_deleted?: BoolFieldUpdateOperationsInput | boolean
   }
 
@@ -9556,6 +9593,7 @@ export namespace Prisma {
     acc_updated_by?: string | null
     acc_deleted_at?: Date | string | null
     acc_deleted_by?: string | null
+    acc_is_system?: boolean
     acc_is_deleted?: boolean
   }
 
@@ -9584,6 +9622,7 @@ export namespace Prisma {
     acc_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     acc_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     acc_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_is_system?: BoolFieldUpdateOperationsInput | boolean
     acc_is_deleted?: BoolFieldUpdateOperationsInput | boolean
     owner?: OwnerUpdateOneRequiredWithoutAccountsNestedInput
   }
@@ -9615,6 +9654,7 @@ export namespace Prisma {
     acc_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     acc_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     acc_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_is_system?: BoolFieldUpdateOperationsInput | boolean
     acc_is_deleted?: BoolFieldUpdateOperationsInput | boolean
   }
 
@@ -9645,6 +9685,7 @@ export namespace Prisma {
     acc_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
     acc_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     acc_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_is_system?: BoolFieldUpdateOperationsInput | boolean
     acc_is_deleted?: BoolFieldUpdateOperationsInput | boolean
   }
 

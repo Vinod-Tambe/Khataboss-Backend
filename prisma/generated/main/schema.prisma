@@ -250,6 +250,7 @@ model Account {
   acc_updated_by String?
   acc_deleted_at DateTime?
   acc_deleted_by String?
+  acc_is_system  Boolean   @default(false)
   acc_is_deleted Boolean   @default(false)
 
   owner Owner @relation("OwnerAccount", fields: [acc_own_id], references: [own_id])
