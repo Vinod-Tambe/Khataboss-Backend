@@ -44,8 +44,23 @@ class FirmController {
         firmData.firm_own_id = parseInt(firmData.firm_own_id);
       }
 
+      // 0. Pre-validate Uniqueness (Firm ID and Registration No)
+      const validationError = await firmService.checkUniqueFields(dbUrl, firmData);
+      if (validationError) {
+        return res.status(409).json({ error: validationError.error });
+      }
+
       // 1. Create Firm record first (to get firm_id)
       const newFirm = await firmService.createFirm(dbUrl, firmData);
+
+      // 2. Create Default Accounts
+      await firmService.createDefaultAccounts(
+        dbUrl,
+        newFirm.firm_id,
+        newFirm.firm_own_id,
+        newFirm.firm_balance,
+        newFirm.firm_start_date
+      );
 
       if (req.files && Object.keys(req.files).length > 0) {
         const movedFiles = await imageService.moveFiles("firm", newFirm.firm_id, req.files);
@@ -161,6 +176,12 @@ class FirmController {
         updateData.firm_own_id = parseInt(updateData.firm_own_id);
       }
 
+      // 0. Pre-validate Uniqueness (Exclude current UUID)
+      const validationError = await firmService.checkUniqueFields(dbUrl, updateData, uuid);
+      if (validationError) {
+        return res.status(409).json({ error: validationError.error });
+      }
+
       // Handle File Uploads
       if (req.files && Object.keys(req.files).length > 0) {
         // Fetch firm to get firm_id for folder naming
@@ -194,6 +215,11 @@ class FirmController {
       }
 
       const updatedFirm = await firmService.updateFirmByUuid(dbUrl, uuid, updateData);
+
+      // 3. Sync Capital Account balance if firm_balance is updated
+      if (updateData.firm_balance !== undefined) {
+        await firmService.updateCapitalAccountBalance(dbUrl, updatedFirm.firm_id, updatedFirm.firm_balance);
+      }
 
       return res.status(200).json({
         message: "Firm updated successfully.",

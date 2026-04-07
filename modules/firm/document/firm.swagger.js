@@ -123,18 +123,6 @@
  *         description: List of firms
  *       401:
  *         description: Unauthorized
- *
- * /firm/dropdown:
- *   get:
- *     summary: Get all firms for dropdown (id and name only)
- *     tags: [Firm]
- *     security:
- *       - bearerAuth: []
- *     responses:
- *       200:
- *         description: List of firms for dropdown
- *       401:
- *         description: Unauthorized
  *   post:
  *     summary: Create a new firm with optional image uploads
  *     tags: [Firm]
@@ -188,6 +176,18 @@
  *     responses:
  *       201:
  *         description: Firm created successfully
+ *       401:
+ *         description: Unauthorized
+ *
+ * /firm/dropdown:
+ *   get:
+ *     summary: Get all firms for dropdown (id and name only)
+ *     tags: [Firm]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: List of firms for dropdown
  *       401:
  *         description: Unauthorized
  *

@@ -2928,8 +2928,8 @@ export namespace Prisma {
     firm_address: string | null
     firm_city: string | null
     firm_pincode: string | null
-    firm_phone_no: string
-    firm_email_id: string
+    firm_phone_no: string | null
+    firm_email_id: string | null
     firm_website_link: string | null
     firm_type: $Enums.FirmType
     firm_owner: string | null
@@ -2946,7 +2946,7 @@ export namespace Prisma {
     firm_acc_holder: string | null
     firm_acc_type: string | null
     firm_ifsc_code: string | null
-    firm_start_date: Date
+    firm_start_date: Date | null
     firm_balance: string | null
     firm_balance_type: $Enums.FirmBalanceType
     firm_gstin_no: string | null
@@ -3174,8 +3174,8 @@ export namespace Prisma {
       firm_address: string | null
       firm_city: string | null
       firm_pincode: string | null
-      firm_phone_no: string
-      firm_email_id: string
+      firm_phone_no: string | null
+      firm_email_id: string | null
       firm_website_link: string | null
       firm_type: $Enums.FirmType
       firm_owner: string | null
@@ -3192,7 +3192,7 @@ export namespace Prisma {
       firm_acc_holder: string | null
       firm_acc_type: string | null
       firm_ifsc_code: string | null
-      firm_start_date: Date
+      firm_start_date: Date | null
       firm_balance: string | null
       firm_balance_type: $Enums.FirmBalanceType
       firm_gstin_no: string | null
@@ -4024,14 +4024,12 @@ export namespace Prisma {
     acc_id: number | null
     acc_own_id: number | null
     acc_firm_id: number | null
-    acc_cash_balance: number | null
   }
 
   export type AccountSumAggregateOutputType = {
     acc_id: number | null
     acc_own_id: number | null
     acc_firm_id: number | null
-    acc_cash_balance: number | null
   }
 
   export type AccountMinAggregateOutputType = {
@@ -4054,7 +4052,7 @@ export namespace Prisma {
     acc_state: string | null
     acc_city: string | null
     acc_pincode: string | null
-    acc_cash_balance: number | null
+    acc_cash_balance: string | null
     acc_balance_type: $Enums.AccountBalanceType | null
     acc_other_info: string | null
     acc_created_at: Date | null
@@ -4085,7 +4083,7 @@ export namespace Prisma {
     acc_state: string | null
     acc_city: string | null
     acc_pincode: string | null
-    acc_cash_balance: number | null
+    acc_cash_balance: string | null
     acc_balance_type: $Enums.AccountBalanceType | null
     acc_other_info: string | null
     acc_created_at: Date | null
@@ -4133,14 +4131,12 @@ export namespace Prisma {
     acc_id?: true
     acc_own_id?: true
     acc_firm_id?: true
-    acc_cash_balance?: true
   }
 
   export type AccountSumAggregateInputType = {
     acc_id?: true
     acc_own_id?: true
     acc_firm_id?: true
-    acc_cash_balance?: true
   }
 
   export type AccountMinAggregateInputType = {
@@ -4343,7 +4339,7 @@ export namespace Prisma {
     acc_state: string | null
     acc_city: string | null
     acc_pincode: string | null
-    acc_cash_balance: number
+    acc_cash_balance: string | null
     acc_balance_type: $Enums.AccountBalanceType
     acc_other_info: string | null
     acc_created_at: Date
@@ -4505,7 +4501,7 @@ export namespace Prisma {
       acc_state: string | null
       acc_city: string | null
       acc_pincode: string | null
-      acc_cash_balance: number
+      acc_cash_balance: string | null
       acc_balance_type: $Enums.AccountBalanceType
       acc_other_info: string | null
       acc_created_at: Date
@@ -4928,7 +4924,7 @@ export namespace Prisma {
     readonly acc_state: FieldRef<"Account", 'String'>
     readonly acc_city: FieldRef<"Account", 'String'>
     readonly acc_pincode: FieldRef<"Account", 'String'>
-    readonly acc_cash_balance: FieldRef<"Account", 'Float'>
+    readonly acc_cash_balance: FieldRef<"Account", 'String'>
     readonly acc_balance_type: FieldRef<"Account", 'AccountBalanceType'>
     readonly acc_other_info: FieldRef<"Account", 'String'>
     readonly acc_created_at: FieldRef<"Account", 'DateTime'>
@@ -5558,20 +5554,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Float'
-   */
-  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
-    
-
-
-  /**
-   * Reference to a field of type 'Float[]'
-   */
-  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
-    
-
-
-  /**
    * Reference to a field of type 'AccountBalanceType'
    */
   export type EnumAccountBalanceTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AccountBalanceType'>
@@ -5582,6 +5564,20 @@ export namespace Prisma {
    * Reference to a field of type 'AccountBalanceType[]'
    */
   export type ListEnumAccountBalanceTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AccountBalanceType[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Float'
+   */
+  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+    
+
+
+  /**
+   * Reference to a field of type 'Float[]'
+   */
+  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
     
   /**
    * Deep Input Types
@@ -5813,8 +5809,8 @@ export namespace Prisma {
     firm_address?: StringNullableFilter<"Firm"> | string | null
     firm_city?: StringNullableFilter<"Firm"> | string | null
     firm_pincode?: StringNullableFilter<"Firm"> | string | null
-    firm_phone_no?: StringFilter<"Firm"> | string
-    firm_email_id?: StringFilter<"Firm"> | string
+    firm_phone_no?: StringNullableFilter<"Firm"> | string | null
+    firm_email_id?: StringNullableFilter<"Firm"> | string | null
     firm_website_link?: StringNullableFilter<"Firm"> | string | null
     firm_type?: EnumFirmTypeFilter<"Firm"> | $Enums.FirmType
     firm_owner?: StringNullableFilter<"Firm"> | string | null
@@ -5831,7 +5827,7 @@ export namespace Prisma {
     firm_acc_holder?: StringNullableFilter<"Firm"> | string | null
     firm_acc_type?: StringNullableFilter<"Firm"> | string | null
     firm_ifsc_code?: StringNullableFilter<"Firm"> | string | null
-    firm_start_date?: DateTimeFilter<"Firm"> | Date | string
+    firm_start_date?: DateTimeNullableFilter<"Firm"> | Date | string | null
     firm_balance?: StringNullableFilter<"Firm"> | string | null
     firm_balance_type?: EnumFirmBalanceTypeFilter<"Firm"> | $Enums.FirmBalanceType
     firm_gstin_no?: StringNullableFilter<"Firm"> | string | null
@@ -5867,8 +5863,8 @@ export namespace Prisma {
     firm_address?: SortOrderInput | SortOrder
     firm_city?: SortOrderInput | SortOrder
     firm_pincode?: SortOrderInput | SortOrder
-    firm_phone_no?: SortOrder
-    firm_email_id?: SortOrder
+    firm_phone_no?: SortOrderInput | SortOrder
+    firm_email_id?: SortOrderInput | SortOrder
     firm_website_link?: SortOrderInput | SortOrder
     firm_type?: SortOrder
     firm_owner?: SortOrderInput | SortOrder
@@ -5885,7 +5881,7 @@ export namespace Prisma {
     firm_acc_holder?: SortOrderInput | SortOrder
     firm_acc_type?: SortOrderInput | SortOrder
     firm_ifsc_code?: SortOrderInput | SortOrder
-    firm_start_date?: SortOrder
+    firm_start_date?: SortOrderInput | SortOrder
     firm_balance?: SortOrderInput | SortOrder
     firm_balance_type?: SortOrder
     firm_gstin_no?: SortOrderInput | SortOrder
@@ -5912,20 +5908,20 @@ export namespace Prisma {
   export type FirmWhereUniqueInput = Prisma.AtLeast<{
     firm_id?: number
     firm_uuid?: string
+    firm_name?: string
     firm_reg_no?: string
-    firm_phone_no?: string
-    firm_email_id?: string
     AND?: FirmWhereInput | FirmWhereInput[]
     OR?: FirmWhereInput[]
     NOT?: FirmWhereInput | FirmWhereInput[]
     firm_add_date?: DateTimeFilter<"Firm"> | Date | string
     firm_own_id?: IntFilter<"Firm"> | number
-    firm_name?: StringFilter<"Firm"> | string
     firm_shop_name?: StringFilter<"Firm"> | string
     firm_desc?: StringNullableFilter<"Firm"> | string | null
     firm_address?: StringNullableFilter<"Firm"> | string | null
     firm_city?: StringNullableFilter<"Firm"> | string | null
     firm_pincode?: StringNullableFilter<"Firm"> | string | null
+    firm_phone_no?: StringNullableFilter<"Firm"> | string | null
+    firm_email_id?: StringNullableFilter<"Firm"> | string | null
     firm_website_link?: StringNullableFilter<"Firm"> | string | null
     firm_type?: EnumFirmTypeFilter<"Firm"> | $Enums.FirmType
     firm_owner?: StringNullableFilter<"Firm"> | string | null
@@ -5942,7 +5938,7 @@ export namespace Prisma {
     firm_acc_holder?: StringNullableFilter<"Firm"> | string | null
     firm_acc_type?: StringNullableFilter<"Firm"> | string | null
     firm_ifsc_code?: StringNullableFilter<"Firm"> | string | null
-    firm_start_date?: DateTimeFilter<"Firm"> | Date | string
+    firm_start_date?: DateTimeNullableFilter<"Firm"> | Date | string | null
     firm_balance?: StringNullableFilter<"Firm"> | string | null
     firm_balance_type?: EnumFirmBalanceTypeFilter<"Firm"> | $Enums.FirmBalanceType
     firm_gstin_no?: StringNullableFilter<"Firm"> | string | null
@@ -5964,7 +5960,7 @@ export namespace Prisma {
     firm_is_deleted?: BoolFilter<"Firm"> | boolean
     accounts?: AccountListRelationFilter
     owner?: XOR<OwnerRelationFilter, OwnerWhereInput>
-  }, "firm_id" | "firm_uuid" | "firm_reg_no" | "firm_phone_no" | "firm_email_id">
+  }, "firm_id" | "firm_uuid" | "firm_name" | "firm_reg_no">
 
   export type FirmOrderByWithAggregationInput = {
     firm_id?: SortOrder
@@ -5978,8 +5974,8 @@ export namespace Prisma {
     firm_address?: SortOrderInput | SortOrder
     firm_city?: SortOrderInput | SortOrder
     firm_pincode?: SortOrderInput | SortOrder
-    firm_phone_no?: SortOrder
-    firm_email_id?: SortOrder
+    firm_phone_no?: SortOrderInput | SortOrder
+    firm_email_id?: SortOrderInput | SortOrder
     firm_website_link?: SortOrderInput | SortOrder
     firm_type?: SortOrder
     firm_owner?: SortOrderInput | SortOrder
@@ -5996,7 +5992,7 @@ export namespace Prisma {
     firm_acc_holder?: SortOrderInput | SortOrder
     firm_acc_type?: SortOrderInput | SortOrder
     firm_ifsc_code?: SortOrderInput | SortOrder
-    firm_start_date?: SortOrder
+    firm_start_date?: SortOrderInput | SortOrder
     firm_balance?: SortOrderInput | SortOrder
     firm_balance_type?: SortOrder
     firm_gstin_no?: SortOrderInput | SortOrder
@@ -6038,8 +6034,8 @@ export namespace Prisma {
     firm_address?: StringNullableWithAggregatesFilter<"Firm"> | string | null
     firm_city?: StringNullableWithAggregatesFilter<"Firm"> | string | null
     firm_pincode?: StringNullableWithAggregatesFilter<"Firm"> | string | null
-    firm_phone_no?: StringWithAggregatesFilter<"Firm"> | string
-    firm_email_id?: StringWithAggregatesFilter<"Firm"> | string
+    firm_phone_no?: StringNullableWithAggregatesFilter<"Firm"> | string | null
+    firm_email_id?: StringNullableWithAggregatesFilter<"Firm"> | string | null
     firm_website_link?: StringNullableWithAggregatesFilter<"Firm"> | string | null
     firm_type?: EnumFirmTypeWithAggregatesFilter<"Firm"> | $Enums.FirmType
     firm_owner?: StringNullableWithAggregatesFilter<"Firm"> | string | null
@@ -6056,7 +6052,7 @@ export namespace Prisma {
     firm_acc_holder?: StringNullableWithAggregatesFilter<"Firm"> | string | null
     firm_acc_type?: StringNullableWithAggregatesFilter<"Firm"> | string | null
     firm_ifsc_code?: StringNullableWithAggregatesFilter<"Firm"> | string | null
-    firm_start_date?: DateTimeWithAggregatesFilter<"Firm"> | Date | string
+    firm_start_date?: DateTimeNullableWithAggregatesFilter<"Firm"> | Date | string | null
     firm_balance?: StringNullableWithAggregatesFilter<"Firm"> | string | null
     firm_balance_type?: EnumFirmBalanceTypeWithAggregatesFilter<"Firm"> | $Enums.FirmBalanceType
     firm_gstin_no?: StringNullableWithAggregatesFilter<"Firm"> | string | null
@@ -6101,7 +6097,7 @@ export namespace Prisma {
     acc_state?: StringNullableFilter<"Account"> | string | null
     acc_city?: StringNullableFilter<"Account"> | string | null
     acc_pincode?: StringNullableFilter<"Account"> | string | null
-    acc_cash_balance?: FloatFilter<"Account"> | number
+    acc_cash_balance?: StringNullableFilter<"Account"> | string | null
     acc_balance_type?: EnumAccountBalanceTypeFilter<"Account"> | $Enums.AccountBalanceType
     acc_other_info?: StringNullableFilter<"Account"> | string | null
     acc_created_at?: DateTimeFilter<"Account"> | Date | string
@@ -6134,7 +6130,7 @@ export namespace Prisma {
     acc_state?: SortOrderInput | SortOrder
     acc_city?: SortOrderInput | SortOrder
     acc_pincode?: SortOrderInput | SortOrder
-    acc_cash_balance?: SortOrder
+    acc_cash_balance?: SortOrderInput | SortOrder
     acc_balance_type?: SortOrder
     acc_other_info?: SortOrderInput | SortOrder
     acc_created_at?: SortOrder
@@ -6170,7 +6166,7 @@ export namespace Prisma {
     acc_state?: StringNullableFilter<"Account"> | string | null
     acc_city?: StringNullableFilter<"Account"> | string | null
     acc_pincode?: StringNullableFilter<"Account"> | string | null
-    acc_cash_balance?: FloatFilter<"Account"> | number
+    acc_cash_balance?: StringNullableFilter<"Account"> | string | null
     acc_balance_type?: EnumAccountBalanceTypeFilter<"Account"> | $Enums.AccountBalanceType
     acc_other_info?: StringNullableFilter<"Account"> | string | null
     acc_created_at?: DateTimeFilter<"Account"> | Date | string
@@ -6203,7 +6199,7 @@ export namespace Prisma {
     acc_state?: SortOrderInput | SortOrder
     acc_city?: SortOrderInput | SortOrder
     acc_pincode?: SortOrderInput | SortOrder
-    acc_cash_balance?: SortOrder
+    acc_cash_balance?: SortOrderInput | SortOrder
     acc_balance_type?: SortOrder
     acc_other_info?: SortOrderInput | SortOrder
     acc_created_at?: SortOrder
@@ -6242,7 +6238,7 @@ export namespace Prisma {
     acc_state?: StringNullableWithAggregatesFilter<"Account"> | string | null
     acc_city?: StringNullableWithAggregatesFilter<"Account"> | string | null
     acc_pincode?: StringNullableWithAggregatesFilter<"Account"> | string | null
-    acc_cash_balance?: FloatWithAggregatesFilter<"Account"> | number
+    acc_cash_balance?: StringNullableWithAggregatesFilter<"Account"> | string | null
     acc_balance_type?: EnumAccountBalanceTypeWithAggregatesFilter<"Account"> | $Enums.AccountBalanceType
     acc_other_info?: StringNullableWithAggregatesFilter<"Account"> | string | null
     acc_created_at?: DateTimeWithAggregatesFilter<"Account"> | Date | string
@@ -6532,8 +6528,8 @@ export namespace Prisma {
     firm_address?: string | null
     firm_city?: string | null
     firm_pincode?: string | null
-    firm_phone_no: string
-    firm_email_id: string
+    firm_phone_no?: string | null
+    firm_email_id?: string | null
     firm_website_link?: string | null
     firm_type?: $Enums.FirmType
     firm_owner?: string | null
@@ -6550,7 +6546,7 @@ export namespace Prisma {
     firm_acc_holder?: string | null
     firm_acc_type?: string | null
     firm_ifsc_code?: string | null
-    firm_start_date: Date | string
+    firm_start_date?: Date | string | null
     firm_balance?: string | null
     firm_balance_type?: $Enums.FirmBalanceType
     firm_gstin_no?: string | null
@@ -6586,8 +6582,8 @@ export namespace Prisma {
     firm_address?: string | null
     firm_city?: string | null
     firm_pincode?: string | null
-    firm_phone_no: string
-    firm_email_id: string
+    firm_phone_no?: string | null
+    firm_email_id?: string | null
     firm_website_link?: string | null
     firm_type?: $Enums.FirmType
     firm_owner?: string | null
@@ -6604,7 +6600,7 @@ export namespace Prisma {
     firm_acc_holder?: string | null
     firm_acc_type?: string | null
     firm_ifsc_code?: string | null
-    firm_start_date: Date | string
+    firm_start_date?: Date | string | null
     firm_balance?: string | null
     firm_balance_type?: $Enums.FirmBalanceType
     firm_gstin_no?: string | null
@@ -6637,8 +6633,8 @@ export namespace Prisma {
     firm_address?: NullableStringFieldUpdateOperationsInput | string | null
     firm_city?: NullableStringFieldUpdateOperationsInput | string | null
     firm_pincode?: NullableStringFieldUpdateOperationsInput | string | null
-    firm_phone_no?: StringFieldUpdateOperationsInput | string
-    firm_email_id?: StringFieldUpdateOperationsInput | string
+    firm_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_email_id?: NullableStringFieldUpdateOperationsInput | string | null
     firm_website_link?: NullableStringFieldUpdateOperationsInput | string | null
     firm_type?: EnumFirmTypeFieldUpdateOperationsInput | $Enums.FirmType
     firm_owner?: NullableStringFieldUpdateOperationsInput | string | null
@@ -6655,7 +6651,7 @@ export namespace Prisma {
     firm_acc_holder?: NullableStringFieldUpdateOperationsInput | string | null
     firm_acc_type?: NullableStringFieldUpdateOperationsInput | string | null
     firm_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
-    firm_start_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    firm_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     firm_balance?: NullableStringFieldUpdateOperationsInput | string | null
     firm_balance_type?: EnumFirmBalanceTypeFieldUpdateOperationsInput | $Enums.FirmBalanceType
     firm_gstin_no?: NullableStringFieldUpdateOperationsInput | string | null
@@ -6691,8 +6687,8 @@ export namespace Prisma {
     firm_address?: NullableStringFieldUpdateOperationsInput | string | null
     firm_city?: NullableStringFieldUpdateOperationsInput | string | null
     firm_pincode?: NullableStringFieldUpdateOperationsInput | string | null
-    firm_phone_no?: StringFieldUpdateOperationsInput | string
-    firm_email_id?: StringFieldUpdateOperationsInput | string
+    firm_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_email_id?: NullableStringFieldUpdateOperationsInput | string | null
     firm_website_link?: NullableStringFieldUpdateOperationsInput | string | null
     firm_type?: EnumFirmTypeFieldUpdateOperationsInput | $Enums.FirmType
     firm_owner?: NullableStringFieldUpdateOperationsInput | string | null
@@ -6709,7 +6705,7 @@ export namespace Prisma {
     firm_acc_holder?: NullableStringFieldUpdateOperationsInput | string | null
     firm_acc_type?: NullableStringFieldUpdateOperationsInput | string | null
     firm_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
-    firm_start_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    firm_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     firm_balance?: NullableStringFieldUpdateOperationsInput | string | null
     firm_balance_type?: EnumFirmBalanceTypeFieldUpdateOperationsInput | $Enums.FirmBalanceType
     firm_gstin_no?: NullableStringFieldUpdateOperationsInput | string | null
@@ -6744,8 +6740,8 @@ export namespace Prisma {
     firm_address?: string | null
     firm_city?: string | null
     firm_pincode?: string | null
-    firm_phone_no: string
-    firm_email_id: string
+    firm_phone_no?: string | null
+    firm_email_id?: string | null
     firm_website_link?: string | null
     firm_type?: $Enums.FirmType
     firm_owner?: string | null
@@ -6762,7 +6758,7 @@ export namespace Prisma {
     firm_acc_holder?: string | null
     firm_acc_type?: string | null
     firm_ifsc_code?: string | null
-    firm_start_date: Date | string
+    firm_start_date?: Date | string | null
     firm_balance?: string | null
     firm_balance_type?: $Enums.FirmBalanceType
     firm_gstin_no?: string | null
@@ -6794,8 +6790,8 @@ export namespace Prisma {
     firm_address?: NullableStringFieldUpdateOperationsInput | string | null
     firm_city?: NullableStringFieldUpdateOperationsInput | string | null
     firm_pincode?: NullableStringFieldUpdateOperationsInput | string | null
-    firm_phone_no?: StringFieldUpdateOperationsInput | string
-    firm_email_id?: StringFieldUpdateOperationsInput | string
+    firm_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_email_id?: NullableStringFieldUpdateOperationsInput | string | null
     firm_website_link?: NullableStringFieldUpdateOperationsInput | string | null
     firm_type?: EnumFirmTypeFieldUpdateOperationsInput | $Enums.FirmType
     firm_owner?: NullableStringFieldUpdateOperationsInput | string | null
@@ -6812,7 +6808,7 @@ export namespace Prisma {
     firm_acc_holder?: NullableStringFieldUpdateOperationsInput | string | null
     firm_acc_type?: NullableStringFieldUpdateOperationsInput | string | null
     firm_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
-    firm_start_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    firm_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     firm_balance?: NullableStringFieldUpdateOperationsInput | string | null
     firm_balance_type?: EnumFirmBalanceTypeFieldUpdateOperationsInput | $Enums.FirmBalanceType
     firm_gstin_no?: NullableStringFieldUpdateOperationsInput | string | null
@@ -6846,8 +6842,8 @@ export namespace Prisma {
     firm_address?: NullableStringFieldUpdateOperationsInput | string | null
     firm_city?: NullableStringFieldUpdateOperationsInput | string | null
     firm_pincode?: NullableStringFieldUpdateOperationsInput | string | null
-    firm_phone_no?: StringFieldUpdateOperationsInput | string
-    firm_email_id?: StringFieldUpdateOperationsInput | string
+    firm_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_email_id?: NullableStringFieldUpdateOperationsInput | string | null
     firm_website_link?: NullableStringFieldUpdateOperationsInput | string | null
     firm_type?: EnumFirmTypeFieldUpdateOperationsInput | $Enums.FirmType
     firm_owner?: NullableStringFieldUpdateOperationsInput | string | null
@@ -6864,7 +6860,7 @@ export namespace Prisma {
     firm_acc_holder?: NullableStringFieldUpdateOperationsInput | string | null
     firm_acc_type?: NullableStringFieldUpdateOperationsInput | string | null
     firm_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
-    firm_start_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    firm_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     firm_balance?: NullableStringFieldUpdateOperationsInput | string | null
     firm_balance_type?: EnumFirmBalanceTypeFieldUpdateOperationsInput | $Enums.FirmBalanceType
     firm_gstin_no?: NullableStringFieldUpdateOperationsInput | string | null
@@ -6903,7 +6899,7 @@ export namespace Prisma {
     acc_state?: string | null
     acc_city?: string | null
     acc_pincode?: string | null
-    acc_cash_balance?: number
+    acc_cash_balance?: string | null
     acc_balance_type?: $Enums.AccountBalanceType
     acc_other_info?: string | null
     acc_created_at?: Date | string
@@ -6936,7 +6932,7 @@ export namespace Prisma {
     acc_state?: string | null
     acc_city?: string | null
     acc_pincode?: string | null
-    acc_cash_balance?: number
+    acc_cash_balance?: string | null
     acc_balance_type?: $Enums.AccountBalanceType
     acc_other_info?: string | null
     acc_created_at?: Date | string
@@ -6964,7 +6960,7 @@ export namespace Prisma {
     acc_state?: NullableStringFieldUpdateOperationsInput | string | null
     acc_city?: NullableStringFieldUpdateOperationsInput | string | null
     acc_pincode?: NullableStringFieldUpdateOperationsInput | string | null
-    acc_cash_balance?: FloatFieldUpdateOperationsInput | number
+    acc_cash_balance?: NullableStringFieldUpdateOperationsInput | string | null
     acc_balance_type?: EnumAccountBalanceTypeFieldUpdateOperationsInput | $Enums.AccountBalanceType
     acc_other_info?: NullableStringFieldUpdateOperationsInput | string | null
     acc_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -6997,7 +6993,7 @@ export namespace Prisma {
     acc_state?: NullableStringFieldUpdateOperationsInput | string | null
     acc_city?: NullableStringFieldUpdateOperationsInput | string | null
     acc_pincode?: NullableStringFieldUpdateOperationsInput | string | null
-    acc_cash_balance?: FloatFieldUpdateOperationsInput | number
+    acc_cash_balance?: NullableStringFieldUpdateOperationsInput | string | null
     acc_balance_type?: EnumAccountBalanceTypeFieldUpdateOperationsInput | $Enums.AccountBalanceType
     acc_other_info?: NullableStringFieldUpdateOperationsInput | string | null
     acc_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -7028,7 +7024,7 @@ export namespace Prisma {
     acc_state?: string | null
     acc_city?: string | null
     acc_pincode?: string | null
-    acc_cash_balance?: number
+    acc_cash_balance?: string | null
     acc_balance_type?: $Enums.AccountBalanceType
     acc_other_info?: string | null
     acc_created_at?: Date | string
@@ -7056,7 +7052,7 @@ export namespace Prisma {
     acc_state?: NullableStringFieldUpdateOperationsInput | string | null
     acc_city?: NullableStringFieldUpdateOperationsInput | string | null
     acc_pincode?: NullableStringFieldUpdateOperationsInput | string | null
-    acc_cash_balance?: FloatFieldUpdateOperationsInput | number
+    acc_cash_balance?: NullableStringFieldUpdateOperationsInput | string | null
     acc_balance_type?: EnumAccountBalanceTypeFieldUpdateOperationsInput | $Enums.AccountBalanceType
     acc_other_info?: NullableStringFieldUpdateOperationsInput | string | null
     acc_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -7087,7 +7083,7 @@ export namespace Prisma {
     acc_state?: NullableStringFieldUpdateOperationsInput | string | null
     acc_city?: NullableStringFieldUpdateOperationsInput | string | null
     acc_pincode?: NullableStringFieldUpdateOperationsInput | string | null
-    acc_cash_balance?: FloatFieldUpdateOperationsInput | number
+    acc_cash_balance?: NullableStringFieldUpdateOperationsInput | string | null
     acc_balance_type?: EnumAccountBalanceTypeFieldUpdateOperationsInput | $Enums.AccountBalanceType
     acc_other_info?: NullableStringFieldUpdateOperationsInput | string | null
     acc_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -7658,17 +7654,6 @@ export namespace Prisma {
     _max?: NestedEnumFirmBalanceTypeFilter<$PrismaModel>
   }
 
-  export type FloatFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatFilter<$PrismaModel> | number
-  }
-
   export type EnumAccountBalanceTypeFilter<$PrismaModel = never> = {
     equals?: $Enums.AccountBalanceType | EnumAccountBalanceTypeFieldRefInput<$PrismaModel>
     in?: $Enums.AccountBalanceType[] | ListEnumAccountBalanceTypeFieldRefInput<$PrismaModel>
@@ -7716,7 +7701,6 @@ export namespace Prisma {
     acc_id?: SortOrder
     acc_own_id?: SortOrder
     acc_firm_id?: SortOrder
-    acc_cash_balance?: SortOrder
   }
 
   export type AccountMaxOrderByAggregateInput = {
@@ -7785,23 +7769,6 @@ export namespace Prisma {
     acc_id?: SortOrder
     acc_own_id?: SortOrder
     acc_firm_id?: SortOrder
-    acc_cash_balance?: SortOrder
-  }
-
-  export type FloatWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedFloatFilter<$PrismaModel>
-    _min?: NestedFloatFilter<$PrismaModel>
-    _max?: NestedFloatFilter<$PrismaModel>
   }
 
   export type EnumAccountBalanceTypeWithAggregatesFilter<$PrismaModel = never> = {
@@ -8004,14 +7971,6 @@ export namespace Prisma {
     create?: XOR<FirmCreateWithoutAccountsInput, FirmUncheckedCreateWithoutAccountsInput>
     connectOrCreate?: FirmCreateOrConnectWithoutAccountsInput
     connect?: FirmWhereUniqueInput
-  }
-
-  export type FloatFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
   }
 
   export type EnumAccountBalanceTypeFieldUpdateOperationsInput = {
@@ -8288,22 +8247,6 @@ export namespace Prisma {
     not?: NestedEnumAccountBalanceTypeFilter<$PrismaModel> | $Enums.AccountBalanceType
   }
 
-  export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedFloatFilter<$PrismaModel>
-    _min?: NestedFloatFilter<$PrismaModel>
-    _max?: NestedFloatFilter<$PrismaModel>
-  }
-
   export type NestedEnumAccountBalanceTypeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.AccountBalanceType | EnumAccountBalanceTypeFieldRefInput<$PrismaModel>
     in?: $Enums.AccountBalanceType[] | ListEnumAccountBalanceTypeFieldRefInput<$PrismaModel>
@@ -8324,8 +8267,8 @@ export namespace Prisma {
     firm_address?: string | null
     firm_city?: string | null
     firm_pincode?: string | null
-    firm_phone_no: string
-    firm_email_id: string
+    firm_phone_no?: string | null
+    firm_email_id?: string | null
     firm_website_link?: string | null
     firm_type?: $Enums.FirmType
     firm_owner?: string | null
@@ -8342,7 +8285,7 @@ export namespace Prisma {
     firm_acc_holder?: string | null
     firm_acc_type?: string | null
     firm_ifsc_code?: string | null
-    firm_start_date: Date | string
+    firm_start_date?: Date | string | null
     firm_balance?: string | null
     firm_balance_type?: $Enums.FirmBalanceType
     firm_gstin_no?: string | null
@@ -8376,8 +8319,8 @@ export namespace Prisma {
     firm_address?: string | null
     firm_city?: string | null
     firm_pincode?: string | null
-    firm_phone_no: string
-    firm_email_id: string
+    firm_phone_no?: string | null
+    firm_email_id?: string | null
     firm_website_link?: string | null
     firm_type?: $Enums.FirmType
     firm_owner?: string | null
@@ -8394,7 +8337,7 @@ export namespace Prisma {
     firm_acc_holder?: string | null
     firm_acc_type?: string | null
     firm_ifsc_code?: string | null
-    firm_start_date: Date | string
+    firm_start_date?: Date | string | null
     firm_balance?: string | null
     firm_balance_type?: $Enums.FirmBalanceType
     firm_gstin_no?: string | null
@@ -8444,7 +8387,7 @@ export namespace Prisma {
     acc_state?: string | null
     acc_city?: string | null
     acc_pincode?: string | null
-    acc_cash_balance?: number
+    acc_cash_balance?: string | null
     acc_balance_type?: $Enums.AccountBalanceType
     acc_other_info?: string | null
     acc_created_at?: Date | string
@@ -8475,7 +8418,7 @@ export namespace Prisma {
     acc_state?: string | null
     acc_city?: string | null
     acc_pincode?: string | null
-    acc_cash_balance?: number
+    acc_cash_balance?: string | null
     acc_balance_type?: $Enums.AccountBalanceType
     acc_other_info?: string | null
     acc_created_at?: Date | string
@@ -8527,8 +8470,8 @@ export namespace Prisma {
     firm_address?: StringNullableFilter<"Firm"> | string | null
     firm_city?: StringNullableFilter<"Firm"> | string | null
     firm_pincode?: StringNullableFilter<"Firm"> | string | null
-    firm_phone_no?: StringFilter<"Firm"> | string
-    firm_email_id?: StringFilter<"Firm"> | string
+    firm_phone_no?: StringNullableFilter<"Firm"> | string | null
+    firm_email_id?: StringNullableFilter<"Firm"> | string | null
     firm_website_link?: StringNullableFilter<"Firm"> | string | null
     firm_type?: EnumFirmTypeFilter<"Firm"> | $Enums.FirmType
     firm_owner?: StringNullableFilter<"Firm"> | string | null
@@ -8545,7 +8488,7 @@ export namespace Prisma {
     firm_acc_holder?: StringNullableFilter<"Firm"> | string | null
     firm_acc_type?: StringNullableFilter<"Firm"> | string | null
     firm_ifsc_code?: StringNullableFilter<"Firm"> | string | null
-    firm_start_date?: DateTimeFilter<"Firm"> | Date | string
+    firm_start_date?: DateTimeNullableFilter<"Firm"> | Date | string | null
     firm_balance?: StringNullableFilter<"Firm"> | string | null
     firm_balance_type?: EnumFirmBalanceTypeFilter<"Firm"> | $Enums.FirmBalanceType
     firm_gstin_no?: StringNullableFilter<"Firm"> | string | null
@@ -8606,7 +8549,7 @@ export namespace Prisma {
     acc_state?: StringNullableFilter<"Account"> | string | null
     acc_city?: StringNullableFilter<"Account"> | string | null
     acc_pincode?: StringNullableFilter<"Account"> | string | null
-    acc_cash_balance?: FloatFilter<"Account"> | number
+    acc_cash_balance?: StringNullableFilter<"Account"> | string | null
     acc_balance_type?: EnumAccountBalanceTypeFilter<"Account"> | $Enums.AccountBalanceType
     acc_other_info?: StringNullableFilter<"Account"> | string | null
     acc_created_at?: DateTimeFilter<"Account"> | Date | string
@@ -8634,7 +8577,7 @@ export namespace Prisma {
     acc_state?: string | null
     acc_city?: string | null
     acc_pincode?: string | null
-    acc_cash_balance?: number
+    acc_cash_balance?: string | null
     acc_balance_type?: $Enums.AccountBalanceType
     acc_other_info?: string | null
     acc_created_at?: Date | string
@@ -8665,7 +8608,7 @@ export namespace Prisma {
     acc_state?: string | null
     acc_city?: string | null
     acc_pincode?: string | null
-    acc_cash_balance?: number
+    acc_cash_balance?: string | null
     acc_balance_type?: $Enums.AccountBalanceType
     acc_other_info?: string | null
     acc_created_at?: Date | string
@@ -8963,8 +8906,8 @@ export namespace Prisma {
     firm_address?: string | null
     firm_city?: string | null
     firm_pincode?: string | null
-    firm_phone_no: string
-    firm_email_id: string
+    firm_phone_no?: string | null
+    firm_email_id?: string | null
     firm_website_link?: string | null
     firm_type?: $Enums.FirmType
     firm_owner?: string | null
@@ -8981,7 +8924,7 @@ export namespace Prisma {
     firm_acc_holder?: string | null
     firm_acc_type?: string | null
     firm_ifsc_code?: string | null
-    firm_start_date: Date | string
+    firm_start_date?: Date | string | null
     firm_balance?: string | null
     firm_balance_type?: $Enums.FirmBalanceType
     firm_gstin_no?: string | null
@@ -9016,8 +8959,8 @@ export namespace Prisma {
     firm_address?: string | null
     firm_city?: string | null
     firm_pincode?: string | null
-    firm_phone_no: string
-    firm_email_id: string
+    firm_phone_no?: string | null
+    firm_email_id?: string | null
     firm_website_link?: string | null
     firm_type?: $Enums.FirmType
     firm_owner?: string | null
@@ -9034,7 +8977,7 @@ export namespace Prisma {
     firm_acc_holder?: string | null
     firm_acc_type?: string | null
     firm_ifsc_code?: string | null
-    firm_start_date: Date | string
+    firm_start_date?: Date | string | null
     firm_balance?: string | null
     firm_balance_type?: $Enums.FirmBalanceType
     firm_gstin_no?: string | null
@@ -9169,8 +9112,8 @@ export namespace Prisma {
     firm_address?: NullableStringFieldUpdateOperationsInput | string | null
     firm_city?: NullableStringFieldUpdateOperationsInput | string | null
     firm_pincode?: NullableStringFieldUpdateOperationsInput | string | null
-    firm_phone_no?: StringFieldUpdateOperationsInput | string
-    firm_email_id?: StringFieldUpdateOperationsInput | string
+    firm_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_email_id?: NullableStringFieldUpdateOperationsInput | string | null
     firm_website_link?: NullableStringFieldUpdateOperationsInput | string | null
     firm_type?: EnumFirmTypeFieldUpdateOperationsInput | $Enums.FirmType
     firm_owner?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9187,7 +9130,7 @@ export namespace Prisma {
     firm_acc_holder?: NullableStringFieldUpdateOperationsInput | string | null
     firm_acc_type?: NullableStringFieldUpdateOperationsInput | string | null
     firm_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
-    firm_start_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    firm_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     firm_balance?: NullableStringFieldUpdateOperationsInput | string | null
     firm_balance_type?: EnumFirmBalanceTypeFieldUpdateOperationsInput | $Enums.FirmBalanceType
     firm_gstin_no?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9222,8 +9165,8 @@ export namespace Prisma {
     firm_address?: NullableStringFieldUpdateOperationsInput | string | null
     firm_city?: NullableStringFieldUpdateOperationsInput | string | null
     firm_pincode?: NullableStringFieldUpdateOperationsInput | string | null
-    firm_phone_no?: StringFieldUpdateOperationsInput | string
-    firm_email_id?: StringFieldUpdateOperationsInput | string
+    firm_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_email_id?: NullableStringFieldUpdateOperationsInput | string | null
     firm_website_link?: NullableStringFieldUpdateOperationsInput | string | null
     firm_type?: EnumFirmTypeFieldUpdateOperationsInput | $Enums.FirmType
     firm_owner?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9240,7 +9183,7 @@ export namespace Prisma {
     firm_acc_holder?: NullableStringFieldUpdateOperationsInput | string | null
     firm_acc_type?: NullableStringFieldUpdateOperationsInput | string | null
     firm_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
-    firm_start_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    firm_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     firm_balance?: NullableStringFieldUpdateOperationsInput | string | null
     firm_balance_type?: EnumFirmBalanceTypeFieldUpdateOperationsInput | $Enums.FirmBalanceType
     firm_gstin_no?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9273,8 +9216,8 @@ export namespace Prisma {
     firm_address?: string | null
     firm_city?: string | null
     firm_pincode?: string | null
-    firm_phone_no: string
-    firm_email_id: string
+    firm_phone_no?: string | null
+    firm_email_id?: string | null
     firm_website_link?: string | null
     firm_type?: $Enums.FirmType
     firm_owner?: string | null
@@ -9291,7 +9234,7 @@ export namespace Prisma {
     firm_acc_holder?: string | null
     firm_acc_type?: string | null
     firm_ifsc_code?: string | null
-    firm_start_date: Date | string
+    firm_start_date?: Date | string | null
     firm_balance?: string | null
     firm_balance_type?: $Enums.FirmBalanceType
     firm_gstin_no?: string | null
@@ -9332,7 +9275,7 @@ export namespace Prisma {
     acc_state?: string | null
     acc_city?: string | null
     acc_pincode?: string | null
-    acc_cash_balance?: number
+    acc_cash_balance?: string | null
     acc_balance_type?: $Enums.AccountBalanceType
     acc_other_info?: string | null
     acc_created_at?: Date | string
@@ -9353,8 +9296,8 @@ export namespace Prisma {
     firm_address?: NullableStringFieldUpdateOperationsInput | string | null
     firm_city?: NullableStringFieldUpdateOperationsInput | string | null
     firm_pincode?: NullableStringFieldUpdateOperationsInput | string | null
-    firm_phone_no?: StringFieldUpdateOperationsInput | string
-    firm_email_id?: StringFieldUpdateOperationsInput | string
+    firm_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_email_id?: NullableStringFieldUpdateOperationsInput | string | null
     firm_website_link?: NullableStringFieldUpdateOperationsInput | string | null
     firm_type?: EnumFirmTypeFieldUpdateOperationsInput | $Enums.FirmType
     firm_owner?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9371,7 +9314,7 @@ export namespace Prisma {
     firm_acc_holder?: NullableStringFieldUpdateOperationsInput | string | null
     firm_acc_type?: NullableStringFieldUpdateOperationsInput | string | null
     firm_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
-    firm_start_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    firm_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     firm_balance?: NullableStringFieldUpdateOperationsInput | string | null
     firm_balance_type?: EnumFirmBalanceTypeFieldUpdateOperationsInput | $Enums.FirmBalanceType
     firm_gstin_no?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9405,8 +9348,8 @@ export namespace Prisma {
     firm_address?: NullableStringFieldUpdateOperationsInput | string | null
     firm_city?: NullableStringFieldUpdateOperationsInput | string | null
     firm_pincode?: NullableStringFieldUpdateOperationsInput | string | null
-    firm_phone_no?: StringFieldUpdateOperationsInput | string
-    firm_email_id?: StringFieldUpdateOperationsInput | string
+    firm_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_email_id?: NullableStringFieldUpdateOperationsInput | string | null
     firm_website_link?: NullableStringFieldUpdateOperationsInput | string | null
     firm_type?: EnumFirmTypeFieldUpdateOperationsInput | $Enums.FirmType
     firm_owner?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9423,7 +9366,7 @@ export namespace Prisma {
     firm_acc_holder?: NullableStringFieldUpdateOperationsInput | string | null
     firm_acc_type?: NullableStringFieldUpdateOperationsInput | string | null
     firm_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
-    firm_start_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    firm_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     firm_balance?: NullableStringFieldUpdateOperationsInput | string | null
     firm_balance_type?: EnumFirmBalanceTypeFieldUpdateOperationsInput | $Enums.FirmBalanceType
     firm_gstin_no?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9457,8 +9400,8 @@ export namespace Prisma {
     firm_address?: NullableStringFieldUpdateOperationsInput | string | null
     firm_city?: NullableStringFieldUpdateOperationsInput | string | null
     firm_pincode?: NullableStringFieldUpdateOperationsInput | string | null
-    firm_phone_no?: StringFieldUpdateOperationsInput | string
-    firm_email_id?: StringFieldUpdateOperationsInput | string
+    firm_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_email_id?: NullableStringFieldUpdateOperationsInput | string | null
     firm_website_link?: NullableStringFieldUpdateOperationsInput | string | null
     firm_type?: EnumFirmTypeFieldUpdateOperationsInput | $Enums.FirmType
     firm_owner?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9475,7 +9418,7 @@ export namespace Prisma {
     firm_acc_holder?: NullableStringFieldUpdateOperationsInput | string | null
     firm_acc_type?: NullableStringFieldUpdateOperationsInput | string | null
     firm_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
-    firm_start_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    firm_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     firm_balance?: NullableStringFieldUpdateOperationsInput | string | null
     firm_balance_type?: EnumFirmBalanceTypeFieldUpdateOperationsInput | $Enums.FirmBalanceType
     firm_gstin_no?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9514,7 +9457,7 @@ export namespace Prisma {
     acc_state?: NullableStringFieldUpdateOperationsInput | string | null
     acc_city?: NullableStringFieldUpdateOperationsInput | string | null
     acc_pincode?: NullableStringFieldUpdateOperationsInput | string | null
-    acc_cash_balance?: FloatFieldUpdateOperationsInput | number
+    acc_cash_balance?: NullableStringFieldUpdateOperationsInput | string | null
     acc_balance_type?: EnumAccountBalanceTypeFieldUpdateOperationsInput | $Enums.AccountBalanceType
     acc_other_info?: NullableStringFieldUpdateOperationsInput | string | null
     acc_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -9545,7 +9488,7 @@ export namespace Prisma {
     acc_state?: NullableStringFieldUpdateOperationsInput | string | null
     acc_city?: NullableStringFieldUpdateOperationsInput | string | null
     acc_pincode?: NullableStringFieldUpdateOperationsInput | string | null
-    acc_cash_balance?: FloatFieldUpdateOperationsInput | number
+    acc_cash_balance?: NullableStringFieldUpdateOperationsInput | string | null
     acc_balance_type?: EnumAccountBalanceTypeFieldUpdateOperationsInput | $Enums.AccountBalanceType
     acc_other_info?: NullableStringFieldUpdateOperationsInput | string | null
     acc_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -9575,7 +9518,7 @@ export namespace Prisma {
     acc_state?: NullableStringFieldUpdateOperationsInput | string | null
     acc_city?: NullableStringFieldUpdateOperationsInput | string | null
     acc_pincode?: NullableStringFieldUpdateOperationsInput | string | null
-    acc_cash_balance?: FloatFieldUpdateOperationsInput | number
+    acc_cash_balance?: NullableStringFieldUpdateOperationsInput | string | null
     acc_balance_type?: EnumAccountBalanceTypeFieldUpdateOperationsInput | $Enums.AccountBalanceType
     acc_other_info?: NullableStringFieldUpdateOperationsInput | string | null
     acc_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -9605,7 +9548,7 @@ export namespace Prisma {
     acc_state?: string | null
     acc_city?: string | null
     acc_pincode?: string | null
-    acc_cash_balance?: number
+    acc_cash_balance?: string | null
     acc_balance_type?: $Enums.AccountBalanceType
     acc_other_info?: string | null
     acc_created_at?: Date | string
@@ -9633,7 +9576,7 @@ export namespace Prisma {
     acc_state?: NullableStringFieldUpdateOperationsInput | string | null
     acc_city?: NullableStringFieldUpdateOperationsInput | string | null
     acc_pincode?: NullableStringFieldUpdateOperationsInput | string | null
-    acc_cash_balance?: FloatFieldUpdateOperationsInput | number
+    acc_cash_balance?: NullableStringFieldUpdateOperationsInput | string | null
     acc_balance_type?: EnumAccountBalanceTypeFieldUpdateOperationsInput | $Enums.AccountBalanceType
     acc_other_info?: NullableStringFieldUpdateOperationsInput | string | null
     acc_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -9664,7 +9607,7 @@ export namespace Prisma {
     acc_state?: NullableStringFieldUpdateOperationsInput | string | null
     acc_city?: NullableStringFieldUpdateOperationsInput | string | null
     acc_pincode?: NullableStringFieldUpdateOperationsInput | string | null
-    acc_cash_balance?: FloatFieldUpdateOperationsInput | number
+    acc_cash_balance?: NullableStringFieldUpdateOperationsInput | string | null
     acc_balance_type?: EnumAccountBalanceTypeFieldUpdateOperationsInput | $Enums.AccountBalanceType
     acc_other_info?: NullableStringFieldUpdateOperationsInput | string | null
     acc_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -9694,7 +9637,7 @@ export namespace Prisma {
     acc_state?: NullableStringFieldUpdateOperationsInput | string | null
     acc_city?: NullableStringFieldUpdateOperationsInput | string | null
     acc_pincode?: NullableStringFieldUpdateOperationsInput | string | null
-    acc_cash_balance?: FloatFieldUpdateOperationsInput | number
+    acc_cash_balance?: NullableStringFieldUpdateOperationsInput | string | null
     acc_balance_type?: EnumAccountBalanceTypeFieldUpdateOperationsInput | $Enums.AccountBalanceType
     acc_other_info?: NullableStringFieldUpdateOperationsInput | string | null
     acc_created_at?: DateTimeFieldUpdateOperationsInput | Date | string

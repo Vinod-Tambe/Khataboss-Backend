@@ -105,6 +105,49 @@ class FirmService {
   }
 
   /**
+   * Check for duplicate unique fields (firm_name, firm_reg_no).
+   * @param {string} dbUrl 
+   * @param {object} firmData 
+   * @param {string} excludeUuid Optional UUID to exclude (for updates)
+   */
+  async checkUniqueFields(dbUrl, firmData, excludeUuid = null) {
+    const prisma = this.getPrisma(dbUrl);
+    try {
+      // 1. Check Firm ID (firm_name)
+      if (firmData.firm_name) {
+        const existingName = await prisma.firm.findFirst({
+          where: {
+            firm_name: firmData.firm_name,
+            firm_is_deleted: false,
+            NOT: excludeUuid ? { firm_uuid: excludeUuid } : undefined,
+          },
+        });
+        if (existingName) {
+          return { error: `Firm already exists with Firm ID: ${firmData.firm_name}` };
+        }
+      }
+
+      // 2. Check Registration No (firm_reg_no)
+      if (firmData.firm_reg_no) {
+        const existingReg = await prisma.firm.findFirst({
+          where: {
+            firm_reg_no: firmData.firm_reg_no,
+            firm_is_deleted: false,
+            NOT: excludeUuid ? { firm_uuid: excludeUuid } : undefined,
+          },
+        });
+        if (existingReg) {
+          return { error: `Firm already exists with Registration No: ${firmData.firm_reg_no}` };
+        }
+      }
+
+      return null; // All good
+    } finally {
+      await prisma.$disconnect();
+    }
+  }
+
+  /**
    * Soft delete a firm by UUID.
    * @param {string} dbUrl 
    * @param {string} firm_uuid 
@@ -120,6 +163,74 @@ class FirmService {
           firm_deleted_at: new Date(),
           firm_deleted_by: deletedBy,
         },
+      });
+    } finally {
+      await prisma.$disconnect();
+    }
+  }
+
+  /**
+   * Create default accounts for a new firm.
+   * @param {string} dbUrl 
+   * @param {number} firmId 
+   * @param {number} ownId 
+   * @param {string} firmBalance 
+   * @param {Date} openingDate 
+   */
+  async createDefaultAccounts(dbUrl, firmId, ownId, firmBalance, openingDate) {
+    const prisma = this.getPrisma(dbUrl);
+    try {
+      const { cr_accounts, dr_accounts } = require("../../../common/default-data/account");
+      const accountsToCreate = [];
+
+      cr_accounts.forEach(acc => {
+        accountsToCreate.push({
+          ...acc,
+          acc_firm_id: firmId,
+          acc_own_id: ownId,
+          acc_balance_type: 'CR',
+          acc_opening_date: openingDate || new Date(),
+          acc_cash_balance: (acc.acc_name === "Capital Account") ? String(firmBalance || "0") : "0"
+        });
+      });
+
+      dr_accounts.forEach(acc => {
+        accountsToCreate.push({
+          ...acc,
+          acc_firm_id: firmId,
+          acc_own_id: ownId,
+          acc_balance_type: 'DR',
+          acc_opening_date: openingDate || new Date(),
+          acc_cash_balance: "0"
+        });
+      });
+
+      return await prisma.account.createMany({
+        data: accountsToCreate,
+      });
+    } finally {
+      await prisma.$disconnect();
+    }
+  }
+
+  /**
+   * Update the balance of the "Capital Account" for a firm.
+   * @param {string} dbUrl 
+   * @param {number} firmId 
+   * @param {string} firmBalance 
+   */
+  async updateCapitalAccountBalance(dbUrl, firmId, firmBalance) {
+    const prisma = this.getPrisma(dbUrl);
+    try {
+      return await prisma.account.updateMany({
+        where: {
+          acc_firm_id: firmId,
+          acc_name: "Capital Account",
+          acc_is_deleted: false
+        },
+        data: {
+          acc_cash_balance: String(firmBalance)
+        }
       });
     } finally {
       await prisma.$disconnect();

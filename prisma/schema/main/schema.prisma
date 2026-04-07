@@ -124,7 +124,7 @@ model Firm {
   firm_add_date      DateTime     @default(now())
   firm_own_id        Int          @default(1)
 
-  firm_name          String
+  firm_name          String       @unique
   firm_reg_no        String       @unique
   firm_shop_name     String
   firm_desc          String?
@@ -132,8 +132,8 @@ model Firm {
   firm_city          String?
   firm_pincode       String?
 
-  firm_phone_no      String       @unique
-  firm_email_id      String       @unique
+  firm_phone_no      String?      
+  firm_email_id      String?      
   firm_website_link       String?
 
   firm_type          FirmType     @default(Other)
@@ -167,7 +167,7 @@ model Firm {
   // ===============================
   // Financial Information
   // ===============================
-  firm_start_date    DateTime
+  firm_start_date    DateTime?
   firm_balance       String?      @default("0")
   firm_balance_type  FirmBalanceType  @default(CR)
 
@@ -241,7 +241,7 @@ model Account {
   acc_city          String?
   acc_pincode       String?            @db.VarChar(6)
 
-  acc_cash_balance  Float              @default(0)
+  acc_cash_balance  String?              @default("0")
   acc_balance_type  AccountBalanceType @default(DR)
 
   acc_other_info    String?
@@ -258,6 +258,6 @@ model Account {
   acc_is_deleted     Boolean   @default(false)
 
 owner  Owner  @relation("OwnerAccount", fields: [acc_own_id], references: [own_id])
- firm  Firm  @relation("FirmAccount", fields: [acc_firm_id], references: [firm_id])
+firm  Firm  @relation("FirmAccount", fields: [acc_firm_id], references: [firm_id])
 }
 
