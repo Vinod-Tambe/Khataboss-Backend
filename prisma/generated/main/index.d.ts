@@ -28,6 +28,11 @@ export type Firm = $Result.DefaultSelection<Prisma.$FirmPayload>
  * 
  */
 export type Account = $Result.DefaultSelection<Prisma.$AccountPayload>
+/**
+ * Model User
+ * 
+ */
+export type User = $Result.DefaultSelection<Prisma.$UserPayload>
 
 /**
  * Enums
@@ -67,6 +72,26 @@ export const AccountBalanceType: {
 
 export type AccountBalanceType = (typeof AccountBalanceType)[keyof typeof AccountBalanceType]
 
+
+export const UserGender: {
+  Male: 'Male',
+  Female: 'Female',
+  Other: 'Other'
+};
+
+export type UserGender = (typeof UserGender)[keyof typeof UserGender]
+
+
+export const UserMaritalStatus: {
+  Single: 'Single',
+  Married: 'Married',
+  Divorced: 'Divorced',
+  Widowed: 'Widowed',
+  Other: 'Other'
+};
+
+export type UserMaritalStatus = (typeof UserMaritalStatus)[keyof typeof UserMaritalStatus]
+
 }
 
 export type OwnerStatus = $Enums.OwnerStatus
@@ -84,6 +109,14 @@ export const FirmBalanceType: typeof $Enums.FirmBalanceType
 export type AccountBalanceType = $Enums.AccountBalanceType
 
 export const AccountBalanceType: typeof $Enums.AccountBalanceType
+
+export type UserGender = $Enums.UserGender
+
+export const UserGender: typeof $Enums.UserGender
+
+export type UserMaritalStatus = $Enums.UserMaritalStatus
+
+export const UserMaritalStatus: typeof $Enums.UserMaritalStatus
 
 /**
  * ##  Prisma Client ʲˢ
@@ -237,6 +270,16 @@ export class PrismaClient<
     * ```
     */
   get account(): Prisma.AccountDelegate<ExtArgs>;
+
+  /**
+   * `prisma.user`: Exposes CRUD operations for the **User** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Users
+    * const users = await prisma.user.findMany()
+    * ```
+    */
+  get user(): Prisma.UserDelegate<ExtArgs>;
 }
 
 export namespace Prisma {
@@ -680,7 +723,8 @@ export namespace Prisma {
   export const ModelName: {
     Owner: 'Owner',
     Firm: 'Firm',
-    Account: 'Account'
+    Account: 'Account',
+    User: 'User'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -696,7 +740,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "owner" | "firm" | "account"
+      modelProps: "owner" | "firm" | "account" | "user"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -910,6 +954,76 @@ export namespace Prisma {
           }
         }
       }
+      User: {
+        payload: Prisma.$UserPayload<ExtArgs>
+        fields: Prisma.UserFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.UserFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.UserFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserPayload>
+          }
+          findFirst: {
+            args: Prisma.UserFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.UserFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserPayload>
+          }
+          findMany: {
+            args: Prisma.UserFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserPayload>[]
+          }
+          create: {
+            args: Prisma.UserCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserPayload>
+          }
+          createMany: {
+            args: Prisma.UserCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.UserCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserPayload>[]
+          }
+          delete: {
+            args: Prisma.UserDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserPayload>
+          }
+          update: {
+            args: Prisma.UserUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserPayload>
+          }
+          deleteMany: {
+            args: Prisma.UserDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.UserUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.UserUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserPayload>
+          }
+          aggregate: {
+            args: Prisma.UserAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateUser>
+          }
+          groupBy: {
+            args: Prisma.UserGroupByArgs<ExtArgs>
+            result: $Utils.Optional<UserGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.UserCountArgs<ExtArgs>
+            result: $Utils.Optional<UserCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1071,11 +1185,13 @@ export namespace Prisma {
    */
 
   export type OwnerCountOutputType = {
+    users: number
     firms: number
     accounts: number
   }
 
   export type OwnerCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    users?: boolean | OwnerCountOutputTypeCountUsersArgs
     firms?: boolean | OwnerCountOutputTypeCountFirmsArgs
     accounts?: boolean | OwnerCountOutputTypeCountAccountsArgs
   }
@@ -1089,6 +1205,13 @@ export namespace Prisma {
      * Select specific fields to fetch from the OwnerCountOutputType
      */
     select?: OwnerCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * OwnerCountOutputType without action
+   */
+  export type OwnerCountOutputTypeCountUsersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserWhereInput
   }
 
   /**
@@ -1111,10 +1234,12 @@ export namespace Prisma {
    */
 
   export type FirmCountOutputType = {
+    users: number
     accounts: number
   }
 
   export type FirmCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    users?: boolean | FirmCountOutputTypeCountUsersArgs
     accounts?: boolean | FirmCountOutputTypeCountAccountsArgs
   }
 
@@ -1127,6 +1252,13 @@ export namespace Prisma {
      * Select specific fields to fetch from the FirmCountOutputType
      */
     select?: FirmCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * FirmCountOutputType without action
+   */
+  export type FirmCountOutputTypeCountUsersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserWhereInput
   }
 
   /**
@@ -1575,6 +1707,7 @@ export namespace Prisma {
     own_deleted_at?: boolean
     own_deleted_by?: boolean
     own_is_deleted?: boolean
+    users?: boolean | Owner$usersArgs<ExtArgs>
     firms?: boolean | Owner$firmsArgs<ExtArgs>
     accounts?: boolean | Owner$accountsArgs<ExtArgs>
     _count?: boolean | OwnerCountOutputTypeDefaultArgs<ExtArgs>
@@ -1657,6 +1790,7 @@ export namespace Prisma {
   }
 
   export type OwnerInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    users?: boolean | Owner$usersArgs<ExtArgs>
     firms?: boolean | Owner$firmsArgs<ExtArgs>
     accounts?: boolean | Owner$accountsArgs<ExtArgs>
     _count?: boolean | OwnerCountOutputTypeDefaultArgs<ExtArgs>
@@ -1666,6 +1800,7 @@ export namespace Prisma {
   export type $OwnerPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Owner"
     objects: {
+      users: Prisma.$UserPayload<ExtArgs>[]
       firms: Prisma.$FirmPayload<ExtArgs>[]
       accounts: Prisma.$AccountPayload<ExtArgs>[]
     }
@@ -2069,6 +2204,7 @@ export namespace Prisma {
    */
   export interface Prisma__OwnerClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    users<T extends Owner$usersArgs<ExtArgs> = {}>(args?: Subset<T, Owner$usersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany"> | Null>
     firms<T extends Owner$firmsArgs<ExtArgs> = {}>(args?: Subset<T, Owner$firmsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FirmPayload<ExtArgs>, T, "findMany"> | Null>
     accounts<T extends Owner$accountsArgs<ExtArgs> = {}>(args?: Subset<T, Owner$accountsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findMany"> | Null>
     /**
@@ -2446,6 +2582,26 @@ export namespace Prisma {
      * Filter which Owners to delete
      */
     where?: OwnerWhereInput
+  }
+
+  /**
+   * Owner.users
+   */
+  export type Owner$usersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+    orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
+    cursor?: UserWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
   }
 
   /**
@@ -3037,6 +3193,7 @@ export namespace Prisma {
     firm_deleted_at?: boolean
     firm_deleted_by?: boolean
     firm_is_deleted?: boolean
+    users?: boolean | Firm$usersArgs<ExtArgs>
     accounts?: boolean | Firm$accountsArgs<ExtArgs>
     owner?: boolean | OwnerDefaultArgs<ExtArgs>
     _count?: boolean | FirmCountOutputTypeDefaultArgs<ExtArgs>
@@ -3148,6 +3305,7 @@ export namespace Prisma {
   }
 
   export type FirmInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    users?: boolean | Firm$usersArgs<ExtArgs>
     accounts?: boolean | Firm$accountsArgs<ExtArgs>
     owner?: boolean | OwnerDefaultArgs<ExtArgs>
     _count?: boolean | FirmCountOutputTypeDefaultArgs<ExtArgs>
@@ -3159,6 +3317,7 @@ export namespace Prisma {
   export type $FirmPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Firm"
     objects: {
+      users: Prisma.$UserPayload<ExtArgs>[]
       accounts: Prisma.$AccountPayload<ExtArgs>[]
       owner: Prisma.$OwnerPayload<ExtArgs>
     }
@@ -3576,6 +3735,7 @@ export namespace Prisma {
    */
   export interface Prisma__FirmClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    users<T extends Firm$usersArgs<ExtArgs> = {}>(args?: Subset<T, Firm$usersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany"> | Null>
     accounts<T extends Firm$accountsArgs<ExtArgs> = {}>(args?: Subset<T, Firm$accountsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findMany"> | Null>
     owner<T extends OwnerDefaultArgs<ExtArgs> = {}>(args?: Subset<T, OwnerDefaultArgs<ExtArgs>>): Prisma__OwnerClient<$Result.GetResult<Prisma.$OwnerPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     /**
@@ -3971,6 +4131,26 @@ export namespace Prisma {
      * Filter which Firms to delete
      */
     where?: FirmWhereInput
+  }
+
+  /**
+   * Firm.users
+   */
+  export type Firm$usersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+    orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
+    cursor?: UserWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
   }
 
   /**
@@ -5278,6 +5458,1459 @@ export namespace Prisma {
 
 
   /**
+   * Model User
+   */
+
+  export type AggregateUser = {
+    _count: UserCountAggregateOutputType | null
+    _avg: UserAvgAggregateOutputType | null
+    _sum: UserSumAggregateOutputType | null
+    _min: UserMinAggregateOutputType | null
+    _max: UserMaxAggregateOutputType | null
+  }
+
+  export type UserAvgAggregateOutputType = {
+    user_id: number | null
+    user_own_id: number | null
+    user_firm_id: number | null
+  }
+
+  export type UserSumAggregateOutputType = {
+    user_id: number | null
+    user_own_id: number | null
+    user_firm_id: number | null
+  }
+
+  export type UserMinAggregateOutputType = {
+    user_id: number | null
+    user_uuid: string | null
+    user_own_id: number | null
+    user_firm_id: number | null
+    user_add_date: Date | null
+    user_first_name: string | null
+    user_father_name: string | null
+    user_last_name: string | null
+    user_mother_name: string | null
+    user_mobile_no: string | null
+    user_phone_no: string | null
+    user_email_id: string | null
+    user_gender: $Enums.UserGender | null
+    user_cast: string | null
+    user_marital_status: $Enums.UserMaritalStatus | null
+    user_occupation: string | null
+    user_birth_date: Date | null
+    user_gstin: string | null
+    user_tax_no: string | null
+    user_pan_no: string | null
+    user_adhaar_no: string | null
+    user_per_address: string | null
+    user_curr_address: string | null
+    user_village: string | null
+    user_ward_no: string | null
+    user_tehsil: string | null
+    user_city: string | null
+    user_state: string | null
+    user_country: string | null
+    user_pincode: string | null
+    user_bank_name: string | null
+    user_bank_acc_no: string | null
+    user_ifsc_code: string | null
+    user_other_info: string | null
+    user_created_at: Date | null
+    user_created_by: string | null
+    user_updated_at: Date | null
+    user_updated_by: string | null
+    user_deleted_at: Date | null
+    user_deleted_by: string | null
+    user_is_deleted: boolean | null
+  }
+
+  export type UserMaxAggregateOutputType = {
+    user_id: number | null
+    user_uuid: string | null
+    user_own_id: number | null
+    user_firm_id: number | null
+    user_add_date: Date | null
+    user_first_name: string | null
+    user_father_name: string | null
+    user_last_name: string | null
+    user_mother_name: string | null
+    user_mobile_no: string | null
+    user_phone_no: string | null
+    user_email_id: string | null
+    user_gender: $Enums.UserGender | null
+    user_cast: string | null
+    user_marital_status: $Enums.UserMaritalStatus | null
+    user_occupation: string | null
+    user_birth_date: Date | null
+    user_gstin: string | null
+    user_tax_no: string | null
+    user_pan_no: string | null
+    user_adhaar_no: string | null
+    user_per_address: string | null
+    user_curr_address: string | null
+    user_village: string | null
+    user_ward_no: string | null
+    user_tehsil: string | null
+    user_city: string | null
+    user_state: string | null
+    user_country: string | null
+    user_pincode: string | null
+    user_bank_name: string | null
+    user_bank_acc_no: string | null
+    user_ifsc_code: string | null
+    user_other_info: string | null
+    user_created_at: Date | null
+    user_created_by: string | null
+    user_updated_at: Date | null
+    user_updated_by: string | null
+    user_deleted_at: Date | null
+    user_deleted_by: string | null
+    user_is_deleted: boolean | null
+  }
+
+  export type UserCountAggregateOutputType = {
+    user_id: number
+    user_uuid: number
+    user_own_id: number
+    user_firm_id: number
+    user_add_date: number
+    user_first_name: number
+    user_father_name: number
+    user_last_name: number
+    user_mother_name: number
+    user_mobile_no: number
+    user_phone_no: number
+    user_email_id: number
+    user_gender: number
+    user_cast: number
+    user_marital_status: number
+    user_occupation: number
+    user_birth_date: number
+    user_gstin: number
+    user_tax_no: number
+    user_pan_no: number
+    user_adhaar_no: number
+    user_profile_img: number
+    user_adhaar_front_img: number
+    user_adhaar_back_img: number
+    user_pan_card_img: number
+    user_per_address: number
+    user_curr_address: number
+    user_village: number
+    user_ward_no: number
+    user_tehsil: number
+    user_city: number
+    user_state: number
+    user_country: number
+    user_pincode: number
+    user_bank_name: number
+    user_bank_acc_no: number
+    user_ifsc_code: number
+    user_sign_img: number
+    user_other_info: number
+    user_created_at: number
+    user_created_by: number
+    user_updated_at: number
+    user_updated_by: number
+    user_deleted_at: number
+    user_deleted_by: number
+    user_is_deleted: number
+    _all: number
+  }
+
+
+  export type UserAvgAggregateInputType = {
+    user_id?: true
+    user_own_id?: true
+    user_firm_id?: true
+  }
+
+  export type UserSumAggregateInputType = {
+    user_id?: true
+    user_own_id?: true
+    user_firm_id?: true
+  }
+
+  export type UserMinAggregateInputType = {
+    user_id?: true
+    user_uuid?: true
+    user_own_id?: true
+    user_firm_id?: true
+    user_add_date?: true
+    user_first_name?: true
+    user_father_name?: true
+    user_last_name?: true
+    user_mother_name?: true
+    user_mobile_no?: true
+    user_phone_no?: true
+    user_email_id?: true
+    user_gender?: true
+    user_cast?: true
+    user_marital_status?: true
+    user_occupation?: true
+    user_birth_date?: true
+    user_gstin?: true
+    user_tax_no?: true
+    user_pan_no?: true
+    user_adhaar_no?: true
+    user_per_address?: true
+    user_curr_address?: true
+    user_village?: true
+    user_ward_no?: true
+    user_tehsil?: true
+    user_city?: true
+    user_state?: true
+    user_country?: true
+    user_pincode?: true
+    user_bank_name?: true
+    user_bank_acc_no?: true
+    user_ifsc_code?: true
+    user_other_info?: true
+    user_created_at?: true
+    user_created_by?: true
+    user_updated_at?: true
+    user_updated_by?: true
+    user_deleted_at?: true
+    user_deleted_by?: true
+    user_is_deleted?: true
+  }
+
+  export type UserMaxAggregateInputType = {
+    user_id?: true
+    user_uuid?: true
+    user_own_id?: true
+    user_firm_id?: true
+    user_add_date?: true
+    user_first_name?: true
+    user_father_name?: true
+    user_last_name?: true
+    user_mother_name?: true
+    user_mobile_no?: true
+    user_phone_no?: true
+    user_email_id?: true
+    user_gender?: true
+    user_cast?: true
+    user_marital_status?: true
+    user_occupation?: true
+    user_birth_date?: true
+    user_gstin?: true
+    user_tax_no?: true
+    user_pan_no?: true
+    user_adhaar_no?: true
+    user_per_address?: true
+    user_curr_address?: true
+    user_village?: true
+    user_ward_no?: true
+    user_tehsil?: true
+    user_city?: true
+    user_state?: true
+    user_country?: true
+    user_pincode?: true
+    user_bank_name?: true
+    user_bank_acc_no?: true
+    user_ifsc_code?: true
+    user_other_info?: true
+    user_created_at?: true
+    user_created_by?: true
+    user_updated_at?: true
+    user_updated_by?: true
+    user_deleted_at?: true
+    user_deleted_by?: true
+    user_is_deleted?: true
+  }
+
+  export type UserCountAggregateInputType = {
+    user_id?: true
+    user_uuid?: true
+    user_own_id?: true
+    user_firm_id?: true
+    user_add_date?: true
+    user_first_name?: true
+    user_father_name?: true
+    user_last_name?: true
+    user_mother_name?: true
+    user_mobile_no?: true
+    user_phone_no?: true
+    user_email_id?: true
+    user_gender?: true
+    user_cast?: true
+    user_marital_status?: true
+    user_occupation?: true
+    user_birth_date?: true
+    user_gstin?: true
+    user_tax_no?: true
+    user_pan_no?: true
+    user_adhaar_no?: true
+    user_profile_img?: true
+    user_adhaar_front_img?: true
+    user_adhaar_back_img?: true
+    user_pan_card_img?: true
+    user_per_address?: true
+    user_curr_address?: true
+    user_village?: true
+    user_ward_no?: true
+    user_tehsil?: true
+    user_city?: true
+    user_state?: true
+    user_country?: true
+    user_pincode?: true
+    user_bank_name?: true
+    user_bank_acc_no?: true
+    user_ifsc_code?: true
+    user_sign_img?: true
+    user_other_info?: true
+    user_created_at?: true
+    user_created_by?: true
+    user_updated_at?: true
+    user_updated_by?: true
+    user_deleted_at?: true
+    user_deleted_by?: true
+    user_is_deleted?: true
+    _all?: true
+  }
+
+  export type UserAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which User to aggregate.
+     */
+    where?: UserWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Users to fetch.
+     */
+    orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: UserWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Users from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Users.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Users
+    **/
+    _count?: true | UserCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: UserAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: UserSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: UserMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: UserMaxAggregateInputType
+  }
+
+  export type GetUserAggregateType<T extends UserAggregateArgs> = {
+        [P in keyof T & keyof AggregateUser]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateUser[P]>
+      : GetScalarType<T[P], AggregateUser[P]>
+  }
+
+
+
+
+  export type UserGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserWhereInput
+    orderBy?: UserOrderByWithAggregationInput | UserOrderByWithAggregationInput[]
+    by: UserScalarFieldEnum[] | UserScalarFieldEnum
+    having?: UserScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: UserCountAggregateInputType | true
+    _avg?: UserAvgAggregateInputType
+    _sum?: UserSumAggregateInputType
+    _min?: UserMinAggregateInputType
+    _max?: UserMaxAggregateInputType
+  }
+
+  export type UserGroupByOutputType = {
+    user_id: number
+    user_uuid: string
+    user_own_id: number
+    user_firm_id: number
+    user_add_date: Date
+    user_first_name: string
+    user_father_name: string | null
+    user_last_name: string
+    user_mother_name: string | null
+    user_mobile_no: string
+    user_phone_no: string | null
+    user_email_id: string | null
+    user_gender: $Enums.UserGender | null
+    user_cast: string | null
+    user_marital_status: $Enums.UserMaritalStatus | null
+    user_occupation: string | null
+    user_birth_date: Date | null
+    user_gstin: string | null
+    user_tax_no: string | null
+    user_pan_no: string | null
+    user_adhaar_no: string | null
+    user_profile_img: JsonValue | null
+    user_adhaar_front_img: JsonValue | null
+    user_adhaar_back_img: JsonValue | null
+    user_pan_card_img: JsonValue | null
+    user_per_address: string | null
+    user_curr_address: string | null
+    user_village: string | null
+    user_ward_no: string | null
+    user_tehsil: string | null
+    user_city: string | null
+    user_state: string | null
+    user_country: string | null
+    user_pincode: string | null
+    user_bank_name: string | null
+    user_bank_acc_no: string | null
+    user_ifsc_code: string | null
+    user_sign_img: JsonValue | null
+    user_other_info: string | null
+    user_created_at: Date
+    user_created_by: string | null
+    user_updated_at: Date
+    user_updated_by: string | null
+    user_deleted_at: Date | null
+    user_deleted_by: string | null
+    user_is_deleted: boolean
+    _count: UserCountAggregateOutputType | null
+    _avg: UserAvgAggregateOutputType | null
+    _sum: UserSumAggregateOutputType | null
+    _min: UserMinAggregateOutputType | null
+    _max: UserMaxAggregateOutputType | null
+  }
+
+  type GetUserGroupByPayload<T extends UserGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<UserGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof UserGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], UserGroupByOutputType[P]>
+            : GetScalarType<T[P], UserGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type UserSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    user_id?: boolean
+    user_uuid?: boolean
+    user_own_id?: boolean
+    user_firm_id?: boolean
+    user_add_date?: boolean
+    user_first_name?: boolean
+    user_father_name?: boolean
+    user_last_name?: boolean
+    user_mother_name?: boolean
+    user_mobile_no?: boolean
+    user_phone_no?: boolean
+    user_email_id?: boolean
+    user_gender?: boolean
+    user_cast?: boolean
+    user_marital_status?: boolean
+    user_occupation?: boolean
+    user_birth_date?: boolean
+    user_gstin?: boolean
+    user_tax_no?: boolean
+    user_pan_no?: boolean
+    user_adhaar_no?: boolean
+    user_profile_img?: boolean
+    user_adhaar_front_img?: boolean
+    user_adhaar_back_img?: boolean
+    user_pan_card_img?: boolean
+    user_per_address?: boolean
+    user_curr_address?: boolean
+    user_village?: boolean
+    user_ward_no?: boolean
+    user_tehsil?: boolean
+    user_city?: boolean
+    user_state?: boolean
+    user_country?: boolean
+    user_pincode?: boolean
+    user_bank_name?: boolean
+    user_bank_acc_no?: boolean
+    user_ifsc_code?: boolean
+    user_sign_img?: boolean
+    user_other_info?: boolean
+    user_created_at?: boolean
+    user_created_by?: boolean
+    user_updated_at?: boolean
+    user_updated_by?: boolean
+    user_deleted_at?: boolean
+    user_deleted_by?: boolean
+    user_is_deleted?: boolean
+    owner?: boolean | OwnerDefaultArgs<ExtArgs>
+    firm?: boolean | FirmDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["user"]>
+
+  export type UserSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    user_id?: boolean
+    user_uuid?: boolean
+    user_own_id?: boolean
+    user_firm_id?: boolean
+    user_add_date?: boolean
+    user_first_name?: boolean
+    user_father_name?: boolean
+    user_last_name?: boolean
+    user_mother_name?: boolean
+    user_mobile_no?: boolean
+    user_phone_no?: boolean
+    user_email_id?: boolean
+    user_gender?: boolean
+    user_cast?: boolean
+    user_marital_status?: boolean
+    user_occupation?: boolean
+    user_birth_date?: boolean
+    user_gstin?: boolean
+    user_tax_no?: boolean
+    user_pan_no?: boolean
+    user_adhaar_no?: boolean
+    user_profile_img?: boolean
+    user_adhaar_front_img?: boolean
+    user_adhaar_back_img?: boolean
+    user_pan_card_img?: boolean
+    user_per_address?: boolean
+    user_curr_address?: boolean
+    user_village?: boolean
+    user_ward_no?: boolean
+    user_tehsil?: boolean
+    user_city?: boolean
+    user_state?: boolean
+    user_country?: boolean
+    user_pincode?: boolean
+    user_bank_name?: boolean
+    user_bank_acc_no?: boolean
+    user_ifsc_code?: boolean
+    user_sign_img?: boolean
+    user_other_info?: boolean
+    user_created_at?: boolean
+    user_created_by?: boolean
+    user_updated_at?: boolean
+    user_updated_by?: boolean
+    user_deleted_at?: boolean
+    user_deleted_by?: boolean
+    user_is_deleted?: boolean
+    owner?: boolean | OwnerDefaultArgs<ExtArgs>
+    firm?: boolean | FirmDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["user"]>
+
+  export type UserSelectScalar = {
+    user_id?: boolean
+    user_uuid?: boolean
+    user_own_id?: boolean
+    user_firm_id?: boolean
+    user_add_date?: boolean
+    user_first_name?: boolean
+    user_father_name?: boolean
+    user_last_name?: boolean
+    user_mother_name?: boolean
+    user_mobile_no?: boolean
+    user_phone_no?: boolean
+    user_email_id?: boolean
+    user_gender?: boolean
+    user_cast?: boolean
+    user_marital_status?: boolean
+    user_occupation?: boolean
+    user_birth_date?: boolean
+    user_gstin?: boolean
+    user_tax_no?: boolean
+    user_pan_no?: boolean
+    user_adhaar_no?: boolean
+    user_profile_img?: boolean
+    user_adhaar_front_img?: boolean
+    user_adhaar_back_img?: boolean
+    user_pan_card_img?: boolean
+    user_per_address?: boolean
+    user_curr_address?: boolean
+    user_village?: boolean
+    user_ward_no?: boolean
+    user_tehsil?: boolean
+    user_city?: boolean
+    user_state?: boolean
+    user_country?: boolean
+    user_pincode?: boolean
+    user_bank_name?: boolean
+    user_bank_acc_no?: boolean
+    user_ifsc_code?: boolean
+    user_sign_img?: boolean
+    user_other_info?: boolean
+    user_created_at?: boolean
+    user_created_by?: boolean
+    user_updated_at?: boolean
+    user_updated_by?: boolean
+    user_deleted_at?: boolean
+    user_deleted_by?: boolean
+    user_is_deleted?: boolean
+  }
+
+  export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    owner?: boolean | OwnerDefaultArgs<ExtArgs>
+    firm?: boolean | FirmDefaultArgs<ExtArgs>
+  }
+  export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    owner?: boolean | OwnerDefaultArgs<ExtArgs>
+    firm?: boolean | FirmDefaultArgs<ExtArgs>
+  }
+
+  export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "User"
+    objects: {
+      owner: Prisma.$OwnerPayload<ExtArgs>
+      firm: Prisma.$FirmPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      user_id: number
+      user_uuid: string
+      user_own_id: number
+      user_firm_id: number
+      user_add_date: Date
+      user_first_name: string
+      user_father_name: string | null
+      user_last_name: string
+      user_mother_name: string | null
+      user_mobile_no: string
+      user_phone_no: string | null
+      user_email_id: string | null
+      user_gender: $Enums.UserGender | null
+      user_cast: string | null
+      user_marital_status: $Enums.UserMaritalStatus | null
+      user_occupation: string | null
+      user_birth_date: Date | null
+      user_gstin: string | null
+      user_tax_no: string | null
+      user_pan_no: string | null
+      user_adhaar_no: string | null
+      user_profile_img: Prisma.JsonValue | null
+      user_adhaar_front_img: Prisma.JsonValue | null
+      user_adhaar_back_img: Prisma.JsonValue | null
+      user_pan_card_img: Prisma.JsonValue | null
+      user_per_address: string | null
+      user_curr_address: string | null
+      user_village: string | null
+      user_ward_no: string | null
+      user_tehsil: string | null
+      user_city: string | null
+      user_state: string | null
+      user_country: string | null
+      user_pincode: string | null
+      user_bank_name: string | null
+      user_bank_acc_no: string | null
+      user_ifsc_code: string | null
+      user_sign_img: Prisma.JsonValue | null
+      user_other_info: string | null
+      user_created_at: Date
+      user_created_by: string | null
+      user_updated_at: Date
+      user_updated_by: string | null
+      user_deleted_at: Date | null
+      user_deleted_by: string | null
+      user_is_deleted: boolean
+    }, ExtArgs["result"]["user"]>
+    composites: {}
+  }
+
+  type UserGetPayload<S extends boolean | null | undefined | UserDefaultArgs> = $Result.GetResult<Prisma.$UserPayload, S>
+
+  type UserCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<UserFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: UserCountAggregateInputType | true
+    }
+
+  export interface UserDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['User'], meta: { name: 'User' } }
+    /**
+     * Find zero or one User that matches the filter.
+     * @param {UserFindUniqueArgs} args - Arguments to find a User
+     * @example
+     * // Get one User
+     * const user = await prisma.user.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends UserFindUniqueArgs>(args: SelectSubset<T, UserFindUniqueArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one User that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {UserFindUniqueOrThrowArgs} args - Arguments to find a User
+     * @example
+     * // Get one User
+     * const user = await prisma.user.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends UserFindUniqueOrThrowArgs>(args: SelectSubset<T, UserFindUniqueOrThrowArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first User that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserFindFirstArgs} args - Arguments to find a User
+     * @example
+     * // Get one User
+     * const user = await prisma.user.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends UserFindFirstArgs>(args?: SelectSubset<T, UserFindFirstArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first User that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserFindFirstOrThrowArgs} args - Arguments to find a User
+     * @example
+     * // Get one User
+     * const user = await prisma.user.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends UserFindFirstOrThrowArgs>(args?: SelectSubset<T, UserFindFirstOrThrowArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more Users that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Users
+     * const users = await prisma.user.findMany()
+     * 
+     * // Get first 10 Users
+     * const users = await prisma.user.findMany({ take: 10 })
+     * 
+     * // Only select the `user_id`
+     * const userWithUser_idOnly = await prisma.user.findMany({ select: { user_id: true } })
+     * 
+     */
+    findMany<T extends UserFindManyArgs>(args?: SelectSubset<T, UserFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a User.
+     * @param {UserCreateArgs} args - Arguments to create a User.
+     * @example
+     * // Create one User
+     * const User = await prisma.user.create({
+     *   data: {
+     *     // ... data to create a User
+     *   }
+     * })
+     * 
+     */
+    create<T extends UserCreateArgs>(args: SelectSubset<T, UserCreateArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many Users.
+     * @param {UserCreateManyArgs} args - Arguments to create many Users.
+     * @example
+     * // Create many Users
+     * const user = await prisma.user.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends UserCreateManyArgs>(args?: SelectSubset<T, UserCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Users and returns the data saved in the database.
+     * @param {UserCreateManyAndReturnArgs} args - Arguments to create many Users.
+     * @example
+     * // Create many Users
+     * const user = await prisma.user.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Users and only return the `user_id`
+     * const userWithUser_idOnly = await prisma.user.createManyAndReturn({ 
+     *   select: { user_id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends UserCreateManyAndReturnArgs>(args?: SelectSubset<T, UserCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a User.
+     * @param {UserDeleteArgs} args - Arguments to delete one User.
+     * @example
+     * // Delete one User
+     * const User = await prisma.user.delete({
+     *   where: {
+     *     // ... filter to delete one User
+     *   }
+     * })
+     * 
+     */
+    delete<T extends UserDeleteArgs>(args: SelectSubset<T, UserDeleteArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one User.
+     * @param {UserUpdateArgs} args - Arguments to update one User.
+     * @example
+     * // Update one User
+     * const user = await prisma.user.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends UserUpdateArgs>(args: SelectSubset<T, UserUpdateArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more Users.
+     * @param {UserDeleteManyArgs} args - Arguments to filter Users to delete.
+     * @example
+     * // Delete a few Users
+     * const { count } = await prisma.user.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends UserDeleteManyArgs>(args?: SelectSubset<T, UserDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Users.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Users
+     * const user = await prisma.user.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends UserUpdateManyArgs>(args: SelectSubset<T, UserUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one User.
+     * @param {UserUpsertArgs} args - Arguments to update or create a User.
+     * @example
+     * // Update or create a User
+     * const user = await prisma.user.upsert({
+     *   create: {
+     *     // ... data to create a User
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the User we want to update
+     *   }
+     * })
+     */
+    upsert<T extends UserUpsertArgs>(args: SelectSubset<T, UserUpsertArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of Users.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserCountArgs} args - Arguments to filter Users to count.
+     * @example
+     * // Count the number of Users
+     * const count = await prisma.user.count({
+     *   where: {
+     *     // ... the filter for the Users we want to count
+     *   }
+     * })
+    **/
+    count<T extends UserCountArgs>(
+      args?: Subset<T, UserCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], UserCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a User.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends UserAggregateArgs>(args: Subset<T, UserAggregateArgs>): Prisma.PrismaPromise<GetUserAggregateType<T>>
+
+    /**
+     * Group by User.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends UserGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: UserGroupByArgs['orderBy'] }
+        : { orderBy?: UserGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, UserGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetUserGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the User model
+   */
+  readonly fields: UserFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for User.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    owner<T extends OwnerDefaultArgs<ExtArgs> = {}>(args?: Subset<T, OwnerDefaultArgs<ExtArgs>>): Prisma__OwnerClient<$Result.GetResult<Prisma.$OwnerPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    firm<T extends FirmDefaultArgs<ExtArgs> = {}>(args?: Subset<T, FirmDefaultArgs<ExtArgs>>): Prisma__FirmClient<$Result.GetResult<Prisma.$FirmPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the User model
+   */ 
+  interface UserFieldRefs {
+    readonly user_id: FieldRef<"User", 'Int'>
+    readonly user_uuid: FieldRef<"User", 'String'>
+    readonly user_own_id: FieldRef<"User", 'Int'>
+    readonly user_firm_id: FieldRef<"User", 'Int'>
+    readonly user_add_date: FieldRef<"User", 'DateTime'>
+    readonly user_first_name: FieldRef<"User", 'String'>
+    readonly user_father_name: FieldRef<"User", 'String'>
+    readonly user_last_name: FieldRef<"User", 'String'>
+    readonly user_mother_name: FieldRef<"User", 'String'>
+    readonly user_mobile_no: FieldRef<"User", 'String'>
+    readonly user_phone_no: FieldRef<"User", 'String'>
+    readonly user_email_id: FieldRef<"User", 'String'>
+    readonly user_gender: FieldRef<"User", 'UserGender'>
+    readonly user_cast: FieldRef<"User", 'String'>
+    readonly user_marital_status: FieldRef<"User", 'UserMaritalStatus'>
+    readonly user_occupation: FieldRef<"User", 'String'>
+    readonly user_birth_date: FieldRef<"User", 'DateTime'>
+    readonly user_gstin: FieldRef<"User", 'String'>
+    readonly user_tax_no: FieldRef<"User", 'String'>
+    readonly user_pan_no: FieldRef<"User", 'String'>
+    readonly user_adhaar_no: FieldRef<"User", 'String'>
+    readonly user_profile_img: FieldRef<"User", 'Json'>
+    readonly user_adhaar_front_img: FieldRef<"User", 'Json'>
+    readonly user_adhaar_back_img: FieldRef<"User", 'Json'>
+    readonly user_pan_card_img: FieldRef<"User", 'Json'>
+    readonly user_per_address: FieldRef<"User", 'String'>
+    readonly user_curr_address: FieldRef<"User", 'String'>
+    readonly user_village: FieldRef<"User", 'String'>
+    readonly user_ward_no: FieldRef<"User", 'String'>
+    readonly user_tehsil: FieldRef<"User", 'String'>
+    readonly user_city: FieldRef<"User", 'String'>
+    readonly user_state: FieldRef<"User", 'String'>
+    readonly user_country: FieldRef<"User", 'String'>
+    readonly user_pincode: FieldRef<"User", 'String'>
+    readonly user_bank_name: FieldRef<"User", 'String'>
+    readonly user_bank_acc_no: FieldRef<"User", 'String'>
+    readonly user_ifsc_code: FieldRef<"User", 'String'>
+    readonly user_sign_img: FieldRef<"User", 'Json'>
+    readonly user_other_info: FieldRef<"User", 'String'>
+    readonly user_created_at: FieldRef<"User", 'DateTime'>
+    readonly user_created_by: FieldRef<"User", 'String'>
+    readonly user_updated_at: FieldRef<"User", 'DateTime'>
+    readonly user_updated_by: FieldRef<"User", 'String'>
+    readonly user_deleted_at: FieldRef<"User", 'DateTime'>
+    readonly user_deleted_by: FieldRef<"User", 'String'>
+    readonly user_is_deleted: FieldRef<"User", 'Boolean'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * User findUnique
+   */
+  export type UserFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
+     * Filter, which User to fetch.
+     */
+    where: UserWhereUniqueInput
+  }
+
+  /**
+   * User findUniqueOrThrow
+   */
+  export type UserFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
+     * Filter, which User to fetch.
+     */
+    where: UserWhereUniqueInput
+  }
+
+  /**
+   * User findFirst
+   */
+  export type UserFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
+     * Filter, which User to fetch.
+     */
+    where?: UserWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Users to fetch.
+     */
+    orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Users.
+     */
+    cursor?: UserWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Users from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Users.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Users.
+     */
+    distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
+  }
+
+  /**
+   * User findFirstOrThrow
+   */
+  export type UserFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
+     * Filter, which User to fetch.
+     */
+    where?: UserWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Users to fetch.
+     */
+    orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Users.
+     */
+    cursor?: UserWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Users from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Users.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Users.
+     */
+    distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
+  }
+
+  /**
+   * User findMany
+   */
+  export type UserFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
+     * Filter, which Users to fetch.
+     */
+    where?: UserWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Users to fetch.
+     */
+    orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Users.
+     */
+    cursor?: UserWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Users from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Users.
+     */
+    skip?: number
+    distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
+  }
+
+  /**
+   * User create
+   */
+  export type UserCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
+     * The data needed to create a User.
+     */
+    data: XOR<UserCreateInput, UserUncheckedCreateInput>
+  }
+
+  /**
+   * User createMany
+   */
+  export type UserCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Users.
+     */
+    data: UserCreateManyInput | UserCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * User createManyAndReturn
+   */
+  export type UserCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many Users.
+     */
+    data: UserCreateManyInput | UserCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * User update
+   */
+  export type UserUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
+     * The data needed to update a User.
+     */
+    data: XOR<UserUpdateInput, UserUncheckedUpdateInput>
+    /**
+     * Choose, which User to update.
+     */
+    where: UserWhereUniqueInput
+  }
+
+  /**
+   * User updateMany
+   */
+  export type UserUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Users.
+     */
+    data: XOR<UserUpdateManyMutationInput, UserUncheckedUpdateManyInput>
+    /**
+     * Filter which Users to update
+     */
+    where?: UserWhereInput
+  }
+
+  /**
+   * User upsert
+   */
+  export type UserUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
+     * The filter to search for the User to update in case it exists.
+     */
+    where: UserWhereUniqueInput
+    /**
+     * In case the User found by the `where` argument doesn't exist, create a new User with this data.
+     */
+    create: XOR<UserCreateInput, UserUncheckedCreateInput>
+    /**
+     * In case the User was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<UserUpdateInput, UserUncheckedUpdateInput>
+  }
+
+  /**
+   * User delete
+   */
+  export type UserDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
+     * Filter which User to delete.
+     */
+    where: UserWhereUniqueInput
+  }
+
+  /**
+   * User deleteMany
+   */
+  export type UserDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Users to delete
+     */
+    where?: UserWhereInput
+  }
+
+  /**
+   * User without action
+   */
+  export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -5420,6 +7053,58 @@ export namespace Prisma {
   };
 
   export type AccountScalarFieldEnum = (typeof AccountScalarFieldEnum)[keyof typeof AccountScalarFieldEnum]
+
+
+  export const UserScalarFieldEnum: {
+    user_id: 'user_id',
+    user_uuid: 'user_uuid',
+    user_own_id: 'user_own_id',
+    user_firm_id: 'user_firm_id',
+    user_add_date: 'user_add_date',
+    user_first_name: 'user_first_name',
+    user_father_name: 'user_father_name',
+    user_last_name: 'user_last_name',
+    user_mother_name: 'user_mother_name',
+    user_mobile_no: 'user_mobile_no',
+    user_phone_no: 'user_phone_no',
+    user_email_id: 'user_email_id',
+    user_gender: 'user_gender',
+    user_cast: 'user_cast',
+    user_marital_status: 'user_marital_status',
+    user_occupation: 'user_occupation',
+    user_birth_date: 'user_birth_date',
+    user_gstin: 'user_gstin',
+    user_tax_no: 'user_tax_no',
+    user_pan_no: 'user_pan_no',
+    user_adhaar_no: 'user_adhaar_no',
+    user_profile_img: 'user_profile_img',
+    user_adhaar_front_img: 'user_adhaar_front_img',
+    user_adhaar_back_img: 'user_adhaar_back_img',
+    user_pan_card_img: 'user_pan_card_img',
+    user_per_address: 'user_per_address',
+    user_curr_address: 'user_curr_address',
+    user_village: 'user_village',
+    user_ward_no: 'user_ward_no',
+    user_tehsil: 'user_tehsil',
+    user_city: 'user_city',
+    user_state: 'user_state',
+    user_country: 'user_country',
+    user_pincode: 'user_pincode',
+    user_bank_name: 'user_bank_name',
+    user_bank_acc_no: 'user_bank_acc_no',
+    user_ifsc_code: 'user_ifsc_code',
+    user_sign_img: 'user_sign_img',
+    user_other_info: 'user_other_info',
+    user_created_at: 'user_created_at',
+    user_created_by: 'user_created_by',
+    user_updated_at: 'user_updated_at',
+    user_updated_by: 'user_updated_by',
+    user_deleted_at: 'user_deleted_at',
+    user_deleted_by: 'user_deleted_by',
+    user_is_deleted: 'user_is_deleted'
+  };
+
+  export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -5581,6 +7266,34 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'UserGender'
+   */
+  export type EnumUserGenderFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'UserGender'>
+    
+
+
+  /**
+   * Reference to a field of type 'UserGender[]'
+   */
+  export type ListEnumUserGenderFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'UserGender[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'UserMaritalStatus'
+   */
+  export type EnumUserMaritalStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'UserMaritalStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'UserMaritalStatus[]'
+   */
+  export type ListEnumUserMaritalStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'UserMaritalStatus[]'>
+    
+
+
+  /**
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -5636,6 +7349,7 @@ export namespace Prisma {
     own_deleted_at?: DateTimeNullableFilter<"Owner"> | Date | string | null
     own_deleted_by?: StringNullableFilter<"Owner"> | string | null
     own_is_deleted?: BoolFilter<"Owner"> | boolean
+    users?: UserListRelationFilter
     firms?: FirmListRelationFilter
     accounts?: AccountListRelationFilter
   }
@@ -5676,6 +7390,7 @@ export namespace Prisma {
     own_deleted_at?: SortOrderInput | SortOrder
     own_deleted_by?: SortOrderInput | SortOrder
     own_is_deleted?: SortOrder
+    users?: UserOrderByRelationAggregateInput
     firms?: FirmOrderByRelationAggregateInput
     accounts?: AccountOrderByRelationAggregateInput
   }
@@ -5719,6 +7434,7 @@ export namespace Prisma {
     own_deleted_at?: DateTimeNullableFilter<"Owner"> | Date | string | null
     own_deleted_by?: StringNullableFilter<"Owner"> | string | null
     own_is_deleted?: BoolFilter<"Owner"> | boolean
+    users?: UserListRelationFilter
     firms?: FirmListRelationFilter
     accounts?: AccountListRelationFilter
   }, "own_id" | "own_uuid" | "own_product_key" | "own_db" | "own_mobile_no" | "own_email" | "own_login_id">
@@ -5860,6 +7576,7 @@ export namespace Prisma {
     firm_deleted_at?: DateTimeNullableFilter<"Firm"> | Date | string | null
     firm_deleted_by?: StringNullableFilter<"Firm"> | string | null
     firm_is_deleted?: BoolFilter<"Firm"> | boolean
+    users?: UserListRelationFilter
     accounts?: AccountListRelationFilter
     owner?: XOR<OwnerRelationFilter, OwnerWhereInput>
   }
@@ -5914,6 +7631,7 @@ export namespace Prisma {
     firm_deleted_at?: SortOrderInput | SortOrder
     firm_deleted_by?: SortOrderInput | SortOrder
     firm_is_deleted?: SortOrder
+    users?: UserOrderByRelationAggregateInput
     accounts?: AccountOrderByRelationAggregateInput
     owner?: OwnerOrderByWithRelationInput
   }
@@ -5971,6 +7689,7 @@ export namespace Prisma {
     firm_deleted_at?: DateTimeNullableFilter<"Firm"> | Date | string | null
     firm_deleted_by?: StringNullableFilter<"Firm"> | string | null
     firm_is_deleted?: BoolFilter<"Firm"> | boolean
+    users?: UserListRelationFilter
     accounts?: AccountListRelationFilter
     owner?: XOR<OwnerRelationFilter, OwnerWhereInput>
   }, "firm_id" | "firm_uuid" | "firm_name" | "firm_reg_no">
@@ -6267,6 +7986,271 @@ export namespace Prisma {
     acc_is_deleted?: BoolWithAggregatesFilter<"Account"> | boolean
   }
 
+  export type UserWhereInput = {
+    AND?: UserWhereInput | UserWhereInput[]
+    OR?: UserWhereInput[]
+    NOT?: UserWhereInput | UserWhereInput[]
+    user_id?: IntFilter<"User"> | number
+    user_uuid?: StringFilter<"User"> | string
+    user_own_id?: IntFilter<"User"> | number
+    user_firm_id?: IntFilter<"User"> | number
+    user_add_date?: DateTimeFilter<"User"> | Date | string
+    user_first_name?: StringFilter<"User"> | string
+    user_father_name?: StringNullableFilter<"User"> | string | null
+    user_last_name?: StringFilter<"User"> | string
+    user_mother_name?: StringNullableFilter<"User"> | string | null
+    user_mobile_no?: StringFilter<"User"> | string
+    user_phone_no?: StringNullableFilter<"User"> | string | null
+    user_email_id?: StringNullableFilter<"User"> | string | null
+    user_gender?: EnumUserGenderNullableFilter<"User"> | $Enums.UserGender | null
+    user_cast?: StringNullableFilter<"User"> | string | null
+    user_marital_status?: EnumUserMaritalStatusNullableFilter<"User"> | $Enums.UserMaritalStatus | null
+    user_occupation?: StringNullableFilter<"User"> | string | null
+    user_birth_date?: DateTimeNullableFilter<"User"> | Date | string | null
+    user_gstin?: StringNullableFilter<"User"> | string | null
+    user_tax_no?: StringNullableFilter<"User"> | string | null
+    user_pan_no?: StringNullableFilter<"User"> | string | null
+    user_adhaar_no?: StringNullableFilter<"User"> | string | null
+    user_profile_img?: JsonNullableFilter<"User">
+    user_adhaar_front_img?: JsonNullableFilter<"User">
+    user_adhaar_back_img?: JsonNullableFilter<"User">
+    user_pan_card_img?: JsonNullableFilter<"User">
+    user_per_address?: StringNullableFilter<"User"> | string | null
+    user_curr_address?: StringNullableFilter<"User"> | string | null
+    user_village?: StringNullableFilter<"User"> | string | null
+    user_ward_no?: StringNullableFilter<"User"> | string | null
+    user_tehsil?: StringNullableFilter<"User"> | string | null
+    user_city?: StringNullableFilter<"User"> | string | null
+    user_state?: StringNullableFilter<"User"> | string | null
+    user_country?: StringNullableFilter<"User"> | string | null
+    user_pincode?: StringNullableFilter<"User"> | string | null
+    user_bank_name?: StringNullableFilter<"User"> | string | null
+    user_bank_acc_no?: StringNullableFilter<"User"> | string | null
+    user_ifsc_code?: StringNullableFilter<"User"> | string | null
+    user_sign_img?: JsonNullableFilter<"User">
+    user_other_info?: StringNullableFilter<"User"> | string | null
+    user_created_at?: DateTimeFilter<"User"> | Date | string
+    user_created_by?: StringNullableFilter<"User"> | string | null
+    user_updated_at?: DateTimeFilter<"User"> | Date | string
+    user_updated_by?: StringNullableFilter<"User"> | string | null
+    user_deleted_at?: DateTimeNullableFilter<"User"> | Date | string | null
+    user_deleted_by?: StringNullableFilter<"User"> | string | null
+    user_is_deleted?: BoolFilter<"User"> | boolean
+    owner?: XOR<OwnerRelationFilter, OwnerWhereInput>
+    firm?: XOR<FirmRelationFilter, FirmWhereInput>
+  }
+
+  export type UserOrderByWithRelationInput = {
+    user_id?: SortOrder
+    user_uuid?: SortOrder
+    user_own_id?: SortOrder
+    user_firm_id?: SortOrder
+    user_add_date?: SortOrder
+    user_first_name?: SortOrder
+    user_father_name?: SortOrderInput | SortOrder
+    user_last_name?: SortOrder
+    user_mother_name?: SortOrderInput | SortOrder
+    user_mobile_no?: SortOrder
+    user_phone_no?: SortOrderInput | SortOrder
+    user_email_id?: SortOrderInput | SortOrder
+    user_gender?: SortOrderInput | SortOrder
+    user_cast?: SortOrderInput | SortOrder
+    user_marital_status?: SortOrderInput | SortOrder
+    user_occupation?: SortOrderInput | SortOrder
+    user_birth_date?: SortOrderInput | SortOrder
+    user_gstin?: SortOrderInput | SortOrder
+    user_tax_no?: SortOrderInput | SortOrder
+    user_pan_no?: SortOrderInput | SortOrder
+    user_adhaar_no?: SortOrderInput | SortOrder
+    user_profile_img?: SortOrderInput | SortOrder
+    user_adhaar_front_img?: SortOrderInput | SortOrder
+    user_adhaar_back_img?: SortOrderInput | SortOrder
+    user_pan_card_img?: SortOrderInput | SortOrder
+    user_per_address?: SortOrderInput | SortOrder
+    user_curr_address?: SortOrderInput | SortOrder
+    user_village?: SortOrderInput | SortOrder
+    user_ward_no?: SortOrderInput | SortOrder
+    user_tehsil?: SortOrderInput | SortOrder
+    user_city?: SortOrderInput | SortOrder
+    user_state?: SortOrderInput | SortOrder
+    user_country?: SortOrderInput | SortOrder
+    user_pincode?: SortOrderInput | SortOrder
+    user_bank_name?: SortOrderInput | SortOrder
+    user_bank_acc_no?: SortOrderInput | SortOrder
+    user_ifsc_code?: SortOrderInput | SortOrder
+    user_sign_img?: SortOrderInput | SortOrder
+    user_other_info?: SortOrderInput | SortOrder
+    user_created_at?: SortOrder
+    user_created_by?: SortOrderInput | SortOrder
+    user_updated_at?: SortOrder
+    user_updated_by?: SortOrderInput | SortOrder
+    user_deleted_at?: SortOrderInput | SortOrder
+    user_deleted_by?: SortOrderInput | SortOrder
+    user_is_deleted?: SortOrder
+    owner?: OwnerOrderByWithRelationInput
+    firm?: FirmOrderByWithRelationInput
+  }
+
+  export type UserWhereUniqueInput = Prisma.AtLeast<{
+    user_id?: number
+    user_uuid?: string
+    AND?: UserWhereInput | UserWhereInput[]
+    OR?: UserWhereInput[]
+    NOT?: UserWhereInput | UserWhereInput[]
+    user_own_id?: IntFilter<"User"> | number
+    user_firm_id?: IntFilter<"User"> | number
+    user_add_date?: DateTimeFilter<"User"> | Date | string
+    user_first_name?: StringFilter<"User"> | string
+    user_father_name?: StringNullableFilter<"User"> | string | null
+    user_last_name?: StringFilter<"User"> | string
+    user_mother_name?: StringNullableFilter<"User"> | string | null
+    user_mobile_no?: StringFilter<"User"> | string
+    user_phone_no?: StringNullableFilter<"User"> | string | null
+    user_email_id?: StringNullableFilter<"User"> | string | null
+    user_gender?: EnumUserGenderNullableFilter<"User"> | $Enums.UserGender | null
+    user_cast?: StringNullableFilter<"User"> | string | null
+    user_marital_status?: EnumUserMaritalStatusNullableFilter<"User"> | $Enums.UserMaritalStatus | null
+    user_occupation?: StringNullableFilter<"User"> | string | null
+    user_birth_date?: DateTimeNullableFilter<"User"> | Date | string | null
+    user_gstin?: StringNullableFilter<"User"> | string | null
+    user_tax_no?: StringNullableFilter<"User"> | string | null
+    user_pan_no?: StringNullableFilter<"User"> | string | null
+    user_adhaar_no?: StringNullableFilter<"User"> | string | null
+    user_profile_img?: JsonNullableFilter<"User">
+    user_adhaar_front_img?: JsonNullableFilter<"User">
+    user_adhaar_back_img?: JsonNullableFilter<"User">
+    user_pan_card_img?: JsonNullableFilter<"User">
+    user_per_address?: StringNullableFilter<"User"> | string | null
+    user_curr_address?: StringNullableFilter<"User"> | string | null
+    user_village?: StringNullableFilter<"User"> | string | null
+    user_ward_no?: StringNullableFilter<"User"> | string | null
+    user_tehsil?: StringNullableFilter<"User"> | string | null
+    user_city?: StringNullableFilter<"User"> | string | null
+    user_state?: StringNullableFilter<"User"> | string | null
+    user_country?: StringNullableFilter<"User"> | string | null
+    user_pincode?: StringNullableFilter<"User"> | string | null
+    user_bank_name?: StringNullableFilter<"User"> | string | null
+    user_bank_acc_no?: StringNullableFilter<"User"> | string | null
+    user_ifsc_code?: StringNullableFilter<"User"> | string | null
+    user_sign_img?: JsonNullableFilter<"User">
+    user_other_info?: StringNullableFilter<"User"> | string | null
+    user_created_at?: DateTimeFilter<"User"> | Date | string
+    user_created_by?: StringNullableFilter<"User"> | string | null
+    user_updated_at?: DateTimeFilter<"User"> | Date | string
+    user_updated_by?: StringNullableFilter<"User"> | string | null
+    user_deleted_at?: DateTimeNullableFilter<"User"> | Date | string | null
+    user_deleted_by?: StringNullableFilter<"User"> | string | null
+    user_is_deleted?: BoolFilter<"User"> | boolean
+    owner?: XOR<OwnerRelationFilter, OwnerWhereInput>
+    firm?: XOR<FirmRelationFilter, FirmWhereInput>
+  }, "user_id" | "user_uuid">
+
+  export type UserOrderByWithAggregationInput = {
+    user_id?: SortOrder
+    user_uuid?: SortOrder
+    user_own_id?: SortOrder
+    user_firm_id?: SortOrder
+    user_add_date?: SortOrder
+    user_first_name?: SortOrder
+    user_father_name?: SortOrderInput | SortOrder
+    user_last_name?: SortOrder
+    user_mother_name?: SortOrderInput | SortOrder
+    user_mobile_no?: SortOrder
+    user_phone_no?: SortOrderInput | SortOrder
+    user_email_id?: SortOrderInput | SortOrder
+    user_gender?: SortOrderInput | SortOrder
+    user_cast?: SortOrderInput | SortOrder
+    user_marital_status?: SortOrderInput | SortOrder
+    user_occupation?: SortOrderInput | SortOrder
+    user_birth_date?: SortOrderInput | SortOrder
+    user_gstin?: SortOrderInput | SortOrder
+    user_tax_no?: SortOrderInput | SortOrder
+    user_pan_no?: SortOrderInput | SortOrder
+    user_adhaar_no?: SortOrderInput | SortOrder
+    user_profile_img?: SortOrderInput | SortOrder
+    user_adhaar_front_img?: SortOrderInput | SortOrder
+    user_adhaar_back_img?: SortOrderInput | SortOrder
+    user_pan_card_img?: SortOrderInput | SortOrder
+    user_per_address?: SortOrderInput | SortOrder
+    user_curr_address?: SortOrderInput | SortOrder
+    user_village?: SortOrderInput | SortOrder
+    user_ward_no?: SortOrderInput | SortOrder
+    user_tehsil?: SortOrderInput | SortOrder
+    user_city?: SortOrderInput | SortOrder
+    user_state?: SortOrderInput | SortOrder
+    user_country?: SortOrderInput | SortOrder
+    user_pincode?: SortOrderInput | SortOrder
+    user_bank_name?: SortOrderInput | SortOrder
+    user_bank_acc_no?: SortOrderInput | SortOrder
+    user_ifsc_code?: SortOrderInput | SortOrder
+    user_sign_img?: SortOrderInput | SortOrder
+    user_other_info?: SortOrderInput | SortOrder
+    user_created_at?: SortOrder
+    user_created_by?: SortOrderInput | SortOrder
+    user_updated_at?: SortOrder
+    user_updated_by?: SortOrderInput | SortOrder
+    user_deleted_at?: SortOrderInput | SortOrder
+    user_deleted_by?: SortOrderInput | SortOrder
+    user_is_deleted?: SortOrder
+    _count?: UserCountOrderByAggregateInput
+    _avg?: UserAvgOrderByAggregateInput
+    _max?: UserMaxOrderByAggregateInput
+    _min?: UserMinOrderByAggregateInput
+    _sum?: UserSumOrderByAggregateInput
+  }
+
+  export type UserScalarWhereWithAggregatesInput = {
+    AND?: UserScalarWhereWithAggregatesInput | UserScalarWhereWithAggregatesInput[]
+    OR?: UserScalarWhereWithAggregatesInput[]
+    NOT?: UserScalarWhereWithAggregatesInput | UserScalarWhereWithAggregatesInput[]
+    user_id?: IntWithAggregatesFilter<"User"> | number
+    user_uuid?: StringWithAggregatesFilter<"User"> | string
+    user_own_id?: IntWithAggregatesFilter<"User"> | number
+    user_firm_id?: IntWithAggregatesFilter<"User"> | number
+    user_add_date?: DateTimeWithAggregatesFilter<"User"> | Date | string
+    user_first_name?: StringWithAggregatesFilter<"User"> | string
+    user_father_name?: StringNullableWithAggregatesFilter<"User"> | string | null
+    user_last_name?: StringWithAggregatesFilter<"User"> | string
+    user_mother_name?: StringNullableWithAggregatesFilter<"User"> | string | null
+    user_mobile_no?: StringWithAggregatesFilter<"User"> | string
+    user_phone_no?: StringNullableWithAggregatesFilter<"User"> | string | null
+    user_email_id?: StringNullableWithAggregatesFilter<"User"> | string | null
+    user_gender?: EnumUserGenderNullableWithAggregatesFilter<"User"> | $Enums.UserGender | null
+    user_cast?: StringNullableWithAggregatesFilter<"User"> | string | null
+    user_marital_status?: EnumUserMaritalStatusNullableWithAggregatesFilter<"User"> | $Enums.UserMaritalStatus | null
+    user_occupation?: StringNullableWithAggregatesFilter<"User"> | string | null
+    user_birth_date?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+    user_gstin?: StringNullableWithAggregatesFilter<"User"> | string | null
+    user_tax_no?: StringNullableWithAggregatesFilter<"User"> | string | null
+    user_pan_no?: StringNullableWithAggregatesFilter<"User"> | string | null
+    user_adhaar_no?: StringNullableWithAggregatesFilter<"User"> | string | null
+    user_profile_img?: JsonNullableWithAggregatesFilter<"User">
+    user_adhaar_front_img?: JsonNullableWithAggregatesFilter<"User">
+    user_adhaar_back_img?: JsonNullableWithAggregatesFilter<"User">
+    user_pan_card_img?: JsonNullableWithAggregatesFilter<"User">
+    user_per_address?: StringNullableWithAggregatesFilter<"User"> | string | null
+    user_curr_address?: StringNullableWithAggregatesFilter<"User"> | string | null
+    user_village?: StringNullableWithAggregatesFilter<"User"> | string | null
+    user_ward_no?: StringNullableWithAggregatesFilter<"User"> | string | null
+    user_tehsil?: StringNullableWithAggregatesFilter<"User"> | string | null
+    user_city?: StringNullableWithAggregatesFilter<"User"> | string | null
+    user_state?: StringNullableWithAggregatesFilter<"User"> | string | null
+    user_country?: StringNullableWithAggregatesFilter<"User"> | string | null
+    user_pincode?: StringNullableWithAggregatesFilter<"User"> | string | null
+    user_bank_name?: StringNullableWithAggregatesFilter<"User"> | string | null
+    user_bank_acc_no?: StringNullableWithAggregatesFilter<"User"> | string | null
+    user_ifsc_code?: StringNullableWithAggregatesFilter<"User"> | string | null
+    user_sign_img?: JsonNullableWithAggregatesFilter<"User">
+    user_other_info?: StringNullableWithAggregatesFilter<"User"> | string | null
+    user_created_at?: DateTimeWithAggregatesFilter<"User"> | Date | string
+    user_created_by?: StringNullableWithAggregatesFilter<"User"> | string | null
+    user_updated_at?: DateTimeWithAggregatesFilter<"User"> | Date | string
+    user_updated_by?: StringNullableWithAggregatesFilter<"User"> | string | null
+    user_deleted_at?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+    user_deleted_by?: StringNullableWithAggregatesFilter<"User"> | string | null
+    user_is_deleted?: BoolWithAggregatesFilter<"User"> | boolean
+  }
+
   export type OwnerCreateInput = {
     own_uuid?: string
     own_product_key?: number
@@ -6302,6 +8286,7 @@ export namespace Prisma {
     own_deleted_at?: Date | string | null
     own_deleted_by?: string | null
     own_is_deleted?: boolean
+    users?: UserCreateNestedManyWithoutOwnerInput
     firms?: FirmCreateNestedManyWithoutOwnerInput
     accounts?: AccountCreateNestedManyWithoutOwnerInput
   }
@@ -6342,6 +8327,7 @@ export namespace Prisma {
     own_deleted_at?: Date | string | null
     own_deleted_by?: string | null
     own_is_deleted?: boolean
+    users?: UserUncheckedCreateNestedManyWithoutOwnerInput
     firms?: FirmUncheckedCreateNestedManyWithoutOwnerInput
     accounts?: AccountUncheckedCreateNestedManyWithoutOwnerInput
   }
@@ -6380,6 +8366,7 @@ export namespace Prisma {
     own_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     own_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    users?: UserUpdateManyWithoutOwnerNestedInput
     firms?: FirmUpdateManyWithoutOwnerNestedInput
     accounts?: AccountUpdateManyWithoutOwnerNestedInput
   }
@@ -6420,6 +8407,7 @@ export namespace Prisma {
     own_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     own_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    users?: UserUncheckedUpdateManyWithoutOwnerNestedInput
     firms?: FirmUncheckedUpdateManyWithoutOwnerNestedInput
     accounts?: AccountUncheckedUpdateManyWithoutOwnerNestedInput
   }
@@ -6584,6 +8572,7 @@ export namespace Prisma {
     firm_deleted_at?: Date | string | null
     firm_deleted_by?: string | null
     firm_is_deleted?: boolean
+    users?: UserCreateNestedManyWithoutFirmInput
     accounts?: AccountCreateNestedManyWithoutFirmInput
     owner?: OwnerCreateNestedOneWithoutFirmsInput
   }
@@ -6638,6 +8627,7 @@ export namespace Prisma {
     firm_deleted_at?: Date | string | null
     firm_deleted_by?: string | null
     firm_is_deleted?: boolean
+    users?: UserUncheckedCreateNestedManyWithoutFirmInput
     accounts?: AccountUncheckedCreateNestedManyWithoutFirmInput
   }
 
@@ -6689,6 +8679,7 @@ export namespace Prisma {
     firm_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     firm_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     firm_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    users?: UserUpdateManyWithoutFirmNestedInput
     accounts?: AccountUpdateManyWithoutFirmNestedInput
     owner?: OwnerUpdateOneRequiredWithoutFirmsNestedInput
   }
@@ -6743,6 +8734,7 @@ export namespace Prisma {
     firm_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     firm_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     firm_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    users?: UserUncheckedUpdateManyWithoutFirmNestedInput
     accounts?: AccountUncheckedUpdateManyWithoutFirmNestedInput
   }
 
@@ -7119,6 +9111,344 @@ export namespace Prisma {
     acc_is_deleted?: BoolFieldUpdateOperationsInput | boolean
   }
 
+  export type UserCreateInput = {
+    user_uuid?: string
+    user_add_date?: Date | string
+    user_first_name: string
+    user_father_name?: string | null
+    user_last_name: string
+    user_mother_name?: string | null
+    user_mobile_no: string
+    user_phone_no?: string | null
+    user_email_id?: string | null
+    user_gender?: $Enums.UserGender | null
+    user_cast?: string | null
+    user_marital_status?: $Enums.UserMaritalStatus | null
+    user_occupation?: string | null
+    user_birth_date?: Date | string | null
+    user_gstin?: string | null
+    user_tax_no?: string | null
+    user_pan_no?: string | null
+    user_adhaar_no?: string | null
+    user_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    user_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
+    user_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
+    user_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
+    user_per_address?: string | null
+    user_curr_address?: string | null
+    user_village?: string | null
+    user_ward_no?: string | null
+    user_tehsil?: string | null
+    user_city?: string | null
+    user_state?: string | null
+    user_country?: string | null
+    user_pincode?: string | null
+    user_bank_name?: string | null
+    user_bank_acc_no?: string | null
+    user_ifsc_code?: string | null
+    user_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    user_other_info?: string | null
+    user_created_at?: Date | string
+    user_created_by?: string | null
+    user_updated_at?: Date | string
+    user_updated_by?: string | null
+    user_deleted_at?: Date | string | null
+    user_deleted_by?: string | null
+    user_is_deleted?: boolean
+    owner: OwnerCreateNestedOneWithoutUsersInput
+    firm: FirmCreateNestedOneWithoutUsersInput
+  }
+
+  export type UserUncheckedCreateInput = {
+    user_id?: number
+    user_uuid?: string
+    user_own_id: number
+    user_firm_id: number
+    user_add_date?: Date | string
+    user_first_name: string
+    user_father_name?: string | null
+    user_last_name: string
+    user_mother_name?: string | null
+    user_mobile_no: string
+    user_phone_no?: string | null
+    user_email_id?: string | null
+    user_gender?: $Enums.UserGender | null
+    user_cast?: string | null
+    user_marital_status?: $Enums.UserMaritalStatus | null
+    user_occupation?: string | null
+    user_birth_date?: Date | string | null
+    user_gstin?: string | null
+    user_tax_no?: string | null
+    user_pan_no?: string | null
+    user_adhaar_no?: string | null
+    user_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    user_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
+    user_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
+    user_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
+    user_per_address?: string | null
+    user_curr_address?: string | null
+    user_village?: string | null
+    user_ward_no?: string | null
+    user_tehsil?: string | null
+    user_city?: string | null
+    user_state?: string | null
+    user_country?: string | null
+    user_pincode?: string | null
+    user_bank_name?: string | null
+    user_bank_acc_no?: string | null
+    user_ifsc_code?: string | null
+    user_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    user_other_info?: string | null
+    user_created_at?: Date | string
+    user_created_by?: string | null
+    user_updated_at?: Date | string
+    user_updated_by?: string | null
+    user_deleted_at?: Date | string | null
+    user_deleted_by?: string | null
+    user_is_deleted?: boolean
+  }
+
+  export type UserUpdateInput = {
+    user_uuid?: StringFieldUpdateOperationsInput | string
+    user_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    user_first_name?: StringFieldUpdateOperationsInput | string
+    user_father_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_last_name?: StringFieldUpdateOperationsInput | string
+    user_mother_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_mobile_no?: StringFieldUpdateOperationsInput | string
+    user_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_email_id?: NullableStringFieldUpdateOperationsInput | string | null
+    user_gender?: NullableEnumUserGenderFieldUpdateOperationsInput | $Enums.UserGender | null
+    user_cast?: NullableStringFieldUpdateOperationsInput | string | null
+    user_marital_status?: NullableEnumUserMaritalStatusFieldUpdateOperationsInput | $Enums.UserMaritalStatus | null
+    user_occupation?: NullableStringFieldUpdateOperationsInput | string | null
+    user_birth_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    user_gstin?: NullableStringFieldUpdateOperationsInput | string | null
+    user_tax_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_adhaar_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    user_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
+    user_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
+    user_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
+    user_per_address?: NullableStringFieldUpdateOperationsInput | string | null
+    user_curr_address?: NullableStringFieldUpdateOperationsInput | string | null
+    user_village?: NullableStringFieldUpdateOperationsInput | string | null
+    user_ward_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_tehsil?: NullableStringFieldUpdateOperationsInput | string | null
+    user_city?: NullableStringFieldUpdateOperationsInput | string | null
+    user_state?: NullableStringFieldUpdateOperationsInput | string | null
+    user_country?: NullableStringFieldUpdateOperationsInput | string | null
+    user_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    user_bank_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_bank_acc_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
+    user_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    user_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    user_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    user_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    user_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    user_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    user_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    user_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    user_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    owner?: OwnerUpdateOneRequiredWithoutUsersNestedInput
+    firm?: FirmUpdateOneRequiredWithoutUsersNestedInput
+  }
+
+  export type UserUncheckedUpdateInput = {
+    user_id?: IntFieldUpdateOperationsInput | number
+    user_uuid?: StringFieldUpdateOperationsInput | string
+    user_own_id?: IntFieldUpdateOperationsInput | number
+    user_firm_id?: IntFieldUpdateOperationsInput | number
+    user_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    user_first_name?: StringFieldUpdateOperationsInput | string
+    user_father_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_last_name?: StringFieldUpdateOperationsInput | string
+    user_mother_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_mobile_no?: StringFieldUpdateOperationsInput | string
+    user_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_email_id?: NullableStringFieldUpdateOperationsInput | string | null
+    user_gender?: NullableEnumUserGenderFieldUpdateOperationsInput | $Enums.UserGender | null
+    user_cast?: NullableStringFieldUpdateOperationsInput | string | null
+    user_marital_status?: NullableEnumUserMaritalStatusFieldUpdateOperationsInput | $Enums.UserMaritalStatus | null
+    user_occupation?: NullableStringFieldUpdateOperationsInput | string | null
+    user_birth_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    user_gstin?: NullableStringFieldUpdateOperationsInput | string | null
+    user_tax_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_adhaar_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    user_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
+    user_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
+    user_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
+    user_per_address?: NullableStringFieldUpdateOperationsInput | string | null
+    user_curr_address?: NullableStringFieldUpdateOperationsInput | string | null
+    user_village?: NullableStringFieldUpdateOperationsInput | string | null
+    user_ward_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_tehsil?: NullableStringFieldUpdateOperationsInput | string | null
+    user_city?: NullableStringFieldUpdateOperationsInput | string | null
+    user_state?: NullableStringFieldUpdateOperationsInput | string | null
+    user_country?: NullableStringFieldUpdateOperationsInput | string | null
+    user_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    user_bank_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_bank_acc_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
+    user_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    user_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    user_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    user_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    user_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    user_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    user_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    user_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    user_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type UserCreateManyInput = {
+    user_id?: number
+    user_uuid?: string
+    user_own_id: number
+    user_firm_id: number
+    user_add_date?: Date | string
+    user_first_name: string
+    user_father_name?: string | null
+    user_last_name: string
+    user_mother_name?: string | null
+    user_mobile_no: string
+    user_phone_no?: string | null
+    user_email_id?: string | null
+    user_gender?: $Enums.UserGender | null
+    user_cast?: string | null
+    user_marital_status?: $Enums.UserMaritalStatus | null
+    user_occupation?: string | null
+    user_birth_date?: Date | string | null
+    user_gstin?: string | null
+    user_tax_no?: string | null
+    user_pan_no?: string | null
+    user_adhaar_no?: string | null
+    user_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    user_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
+    user_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
+    user_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
+    user_per_address?: string | null
+    user_curr_address?: string | null
+    user_village?: string | null
+    user_ward_no?: string | null
+    user_tehsil?: string | null
+    user_city?: string | null
+    user_state?: string | null
+    user_country?: string | null
+    user_pincode?: string | null
+    user_bank_name?: string | null
+    user_bank_acc_no?: string | null
+    user_ifsc_code?: string | null
+    user_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    user_other_info?: string | null
+    user_created_at?: Date | string
+    user_created_by?: string | null
+    user_updated_at?: Date | string
+    user_updated_by?: string | null
+    user_deleted_at?: Date | string | null
+    user_deleted_by?: string | null
+    user_is_deleted?: boolean
+  }
+
+  export type UserUpdateManyMutationInput = {
+    user_uuid?: StringFieldUpdateOperationsInput | string
+    user_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    user_first_name?: StringFieldUpdateOperationsInput | string
+    user_father_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_last_name?: StringFieldUpdateOperationsInput | string
+    user_mother_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_mobile_no?: StringFieldUpdateOperationsInput | string
+    user_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_email_id?: NullableStringFieldUpdateOperationsInput | string | null
+    user_gender?: NullableEnumUserGenderFieldUpdateOperationsInput | $Enums.UserGender | null
+    user_cast?: NullableStringFieldUpdateOperationsInput | string | null
+    user_marital_status?: NullableEnumUserMaritalStatusFieldUpdateOperationsInput | $Enums.UserMaritalStatus | null
+    user_occupation?: NullableStringFieldUpdateOperationsInput | string | null
+    user_birth_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    user_gstin?: NullableStringFieldUpdateOperationsInput | string | null
+    user_tax_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_adhaar_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    user_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
+    user_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
+    user_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
+    user_per_address?: NullableStringFieldUpdateOperationsInput | string | null
+    user_curr_address?: NullableStringFieldUpdateOperationsInput | string | null
+    user_village?: NullableStringFieldUpdateOperationsInput | string | null
+    user_ward_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_tehsil?: NullableStringFieldUpdateOperationsInput | string | null
+    user_city?: NullableStringFieldUpdateOperationsInput | string | null
+    user_state?: NullableStringFieldUpdateOperationsInput | string | null
+    user_country?: NullableStringFieldUpdateOperationsInput | string | null
+    user_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    user_bank_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_bank_acc_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
+    user_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    user_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    user_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    user_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    user_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    user_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    user_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    user_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    user_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type UserUncheckedUpdateManyInput = {
+    user_id?: IntFieldUpdateOperationsInput | number
+    user_uuid?: StringFieldUpdateOperationsInput | string
+    user_own_id?: IntFieldUpdateOperationsInput | number
+    user_firm_id?: IntFieldUpdateOperationsInput | number
+    user_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    user_first_name?: StringFieldUpdateOperationsInput | string
+    user_father_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_last_name?: StringFieldUpdateOperationsInput | string
+    user_mother_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_mobile_no?: StringFieldUpdateOperationsInput | string
+    user_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_email_id?: NullableStringFieldUpdateOperationsInput | string | null
+    user_gender?: NullableEnumUserGenderFieldUpdateOperationsInput | $Enums.UserGender | null
+    user_cast?: NullableStringFieldUpdateOperationsInput | string | null
+    user_marital_status?: NullableEnumUserMaritalStatusFieldUpdateOperationsInput | $Enums.UserMaritalStatus | null
+    user_occupation?: NullableStringFieldUpdateOperationsInput | string | null
+    user_birth_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    user_gstin?: NullableStringFieldUpdateOperationsInput | string | null
+    user_tax_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_adhaar_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    user_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
+    user_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
+    user_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
+    user_per_address?: NullableStringFieldUpdateOperationsInput | string | null
+    user_curr_address?: NullableStringFieldUpdateOperationsInput | string | null
+    user_village?: NullableStringFieldUpdateOperationsInput | string | null
+    user_ward_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_tehsil?: NullableStringFieldUpdateOperationsInput | string | null
+    user_city?: NullableStringFieldUpdateOperationsInput | string | null
+    user_state?: NullableStringFieldUpdateOperationsInput | string | null
+    user_country?: NullableStringFieldUpdateOperationsInput | string | null
+    user_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    user_bank_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_bank_acc_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
+    user_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    user_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    user_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    user_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    user_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    user_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    user_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    user_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    user_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
   export type IntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -7216,6 +9546,12 @@ export namespace Prisma {
     not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
+  export type UserListRelationFilter = {
+    every?: UserWhereInput
+    some?: UserWhereInput
+    none?: UserWhereInput
+  }
+
   export type FirmListRelationFilter = {
     every?: FirmWhereInput
     some?: FirmWhereInput
@@ -7231,6 +9567,10 @@ export namespace Prisma {
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
+  }
+
+  export type UserOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type FirmOrderByRelationAggregateInput = {
@@ -7809,6 +10149,196 @@ export namespace Prisma {
     _max?: NestedEnumAccountBalanceTypeFilter<$PrismaModel>
   }
 
+  export type EnumUserGenderNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.UserGender | EnumUserGenderFieldRefInput<$PrismaModel> | null
+    in?: $Enums.UserGender[] | ListEnumUserGenderFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.UserGender[] | ListEnumUserGenderFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumUserGenderNullableFilter<$PrismaModel> | $Enums.UserGender | null
+  }
+
+  export type EnumUserMaritalStatusNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.UserMaritalStatus | EnumUserMaritalStatusFieldRefInput<$PrismaModel> | null
+    in?: $Enums.UserMaritalStatus[] | ListEnumUserMaritalStatusFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.UserMaritalStatus[] | ListEnumUserMaritalStatusFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumUserMaritalStatusNullableFilter<$PrismaModel> | $Enums.UserMaritalStatus | null
+  }
+
+  export type UserCountOrderByAggregateInput = {
+    user_id?: SortOrder
+    user_uuid?: SortOrder
+    user_own_id?: SortOrder
+    user_firm_id?: SortOrder
+    user_add_date?: SortOrder
+    user_first_name?: SortOrder
+    user_father_name?: SortOrder
+    user_last_name?: SortOrder
+    user_mother_name?: SortOrder
+    user_mobile_no?: SortOrder
+    user_phone_no?: SortOrder
+    user_email_id?: SortOrder
+    user_gender?: SortOrder
+    user_cast?: SortOrder
+    user_marital_status?: SortOrder
+    user_occupation?: SortOrder
+    user_birth_date?: SortOrder
+    user_gstin?: SortOrder
+    user_tax_no?: SortOrder
+    user_pan_no?: SortOrder
+    user_adhaar_no?: SortOrder
+    user_profile_img?: SortOrder
+    user_adhaar_front_img?: SortOrder
+    user_adhaar_back_img?: SortOrder
+    user_pan_card_img?: SortOrder
+    user_per_address?: SortOrder
+    user_curr_address?: SortOrder
+    user_village?: SortOrder
+    user_ward_no?: SortOrder
+    user_tehsil?: SortOrder
+    user_city?: SortOrder
+    user_state?: SortOrder
+    user_country?: SortOrder
+    user_pincode?: SortOrder
+    user_bank_name?: SortOrder
+    user_bank_acc_no?: SortOrder
+    user_ifsc_code?: SortOrder
+    user_sign_img?: SortOrder
+    user_other_info?: SortOrder
+    user_created_at?: SortOrder
+    user_created_by?: SortOrder
+    user_updated_at?: SortOrder
+    user_updated_by?: SortOrder
+    user_deleted_at?: SortOrder
+    user_deleted_by?: SortOrder
+    user_is_deleted?: SortOrder
+  }
+
+  export type UserAvgOrderByAggregateInput = {
+    user_id?: SortOrder
+    user_own_id?: SortOrder
+    user_firm_id?: SortOrder
+  }
+
+  export type UserMaxOrderByAggregateInput = {
+    user_id?: SortOrder
+    user_uuid?: SortOrder
+    user_own_id?: SortOrder
+    user_firm_id?: SortOrder
+    user_add_date?: SortOrder
+    user_first_name?: SortOrder
+    user_father_name?: SortOrder
+    user_last_name?: SortOrder
+    user_mother_name?: SortOrder
+    user_mobile_no?: SortOrder
+    user_phone_no?: SortOrder
+    user_email_id?: SortOrder
+    user_gender?: SortOrder
+    user_cast?: SortOrder
+    user_marital_status?: SortOrder
+    user_occupation?: SortOrder
+    user_birth_date?: SortOrder
+    user_gstin?: SortOrder
+    user_tax_no?: SortOrder
+    user_pan_no?: SortOrder
+    user_adhaar_no?: SortOrder
+    user_per_address?: SortOrder
+    user_curr_address?: SortOrder
+    user_village?: SortOrder
+    user_ward_no?: SortOrder
+    user_tehsil?: SortOrder
+    user_city?: SortOrder
+    user_state?: SortOrder
+    user_country?: SortOrder
+    user_pincode?: SortOrder
+    user_bank_name?: SortOrder
+    user_bank_acc_no?: SortOrder
+    user_ifsc_code?: SortOrder
+    user_other_info?: SortOrder
+    user_created_at?: SortOrder
+    user_created_by?: SortOrder
+    user_updated_at?: SortOrder
+    user_updated_by?: SortOrder
+    user_deleted_at?: SortOrder
+    user_deleted_by?: SortOrder
+    user_is_deleted?: SortOrder
+  }
+
+  export type UserMinOrderByAggregateInput = {
+    user_id?: SortOrder
+    user_uuid?: SortOrder
+    user_own_id?: SortOrder
+    user_firm_id?: SortOrder
+    user_add_date?: SortOrder
+    user_first_name?: SortOrder
+    user_father_name?: SortOrder
+    user_last_name?: SortOrder
+    user_mother_name?: SortOrder
+    user_mobile_no?: SortOrder
+    user_phone_no?: SortOrder
+    user_email_id?: SortOrder
+    user_gender?: SortOrder
+    user_cast?: SortOrder
+    user_marital_status?: SortOrder
+    user_occupation?: SortOrder
+    user_birth_date?: SortOrder
+    user_gstin?: SortOrder
+    user_tax_no?: SortOrder
+    user_pan_no?: SortOrder
+    user_adhaar_no?: SortOrder
+    user_per_address?: SortOrder
+    user_curr_address?: SortOrder
+    user_village?: SortOrder
+    user_ward_no?: SortOrder
+    user_tehsil?: SortOrder
+    user_city?: SortOrder
+    user_state?: SortOrder
+    user_country?: SortOrder
+    user_pincode?: SortOrder
+    user_bank_name?: SortOrder
+    user_bank_acc_no?: SortOrder
+    user_ifsc_code?: SortOrder
+    user_other_info?: SortOrder
+    user_created_at?: SortOrder
+    user_created_by?: SortOrder
+    user_updated_at?: SortOrder
+    user_updated_by?: SortOrder
+    user_deleted_at?: SortOrder
+    user_deleted_by?: SortOrder
+    user_is_deleted?: SortOrder
+  }
+
+  export type UserSumOrderByAggregateInput = {
+    user_id?: SortOrder
+    user_own_id?: SortOrder
+    user_firm_id?: SortOrder
+  }
+
+  export type EnumUserGenderNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.UserGender | EnumUserGenderFieldRefInput<$PrismaModel> | null
+    in?: $Enums.UserGender[] | ListEnumUserGenderFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.UserGender[] | ListEnumUserGenderFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumUserGenderNullableWithAggregatesFilter<$PrismaModel> | $Enums.UserGender | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumUserGenderNullableFilter<$PrismaModel>
+    _max?: NestedEnumUserGenderNullableFilter<$PrismaModel>
+  }
+
+  export type EnumUserMaritalStatusNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.UserMaritalStatus | EnumUserMaritalStatusFieldRefInput<$PrismaModel> | null
+    in?: $Enums.UserMaritalStatus[] | ListEnumUserMaritalStatusFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.UserMaritalStatus[] | ListEnumUserMaritalStatusFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumUserMaritalStatusNullableWithAggregatesFilter<$PrismaModel> | $Enums.UserMaritalStatus | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumUserMaritalStatusNullableFilter<$PrismaModel>
+    _max?: NestedEnumUserMaritalStatusNullableFilter<$PrismaModel>
+  }
+
+  export type UserCreateNestedManyWithoutOwnerInput = {
+    create?: XOR<UserCreateWithoutOwnerInput, UserUncheckedCreateWithoutOwnerInput> | UserCreateWithoutOwnerInput[] | UserUncheckedCreateWithoutOwnerInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutOwnerInput | UserCreateOrConnectWithoutOwnerInput[]
+    createMany?: UserCreateManyOwnerInputEnvelope
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+  }
+
   export type FirmCreateNestedManyWithoutOwnerInput = {
     create?: XOR<FirmCreateWithoutOwnerInput, FirmUncheckedCreateWithoutOwnerInput> | FirmCreateWithoutOwnerInput[] | FirmUncheckedCreateWithoutOwnerInput[]
     connectOrCreate?: FirmCreateOrConnectWithoutOwnerInput | FirmCreateOrConnectWithoutOwnerInput[]
@@ -7821,6 +10351,13 @@ export namespace Prisma {
     connectOrCreate?: AccountCreateOrConnectWithoutOwnerInput | AccountCreateOrConnectWithoutOwnerInput[]
     createMany?: AccountCreateManyOwnerInputEnvelope
     connect?: AccountWhereUniqueInput | AccountWhereUniqueInput[]
+  }
+
+  export type UserUncheckedCreateNestedManyWithoutOwnerInput = {
+    create?: XOR<UserCreateWithoutOwnerInput, UserUncheckedCreateWithoutOwnerInput> | UserCreateWithoutOwnerInput[] | UserUncheckedCreateWithoutOwnerInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutOwnerInput | UserCreateOrConnectWithoutOwnerInput[]
+    createMany?: UserCreateManyOwnerInputEnvelope
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
   }
 
   export type FirmUncheckedCreateNestedManyWithoutOwnerInput = {
@@ -7861,6 +10398,20 @@ export namespace Prisma {
     set?: boolean
   }
 
+  export type UserUpdateManyWithoutOwnerNestedInput = {
+    create?: XOR<UserCreateWithoutOwnerInput, UserUncheckedCreateWithoutOwnerInput> | UserCreateWithoutOwnerInput[] | UserUncheckedCreateWithoutOwnerInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutOwnerInput | UserCreateOrConnectWithoutOwnerInput[]
+    upsert?: UserUpsertWithWhereUniqueWithoutOwnerInput | UserUpsertWithWhereUniqueWithoutOwnerInput[]
+    createMany?: UserCreateManyOwnerInputEnvelope
+    set?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    disconnect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    delete?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    update?: UserUpdateWithWhereUniqueWithoutOwnerInput | UserUpdateWithWhereUniqueWithoutOwnerInput[]
+    updateMany?: UserUpdateManyWithWhereWithoutOwnerInput | UserUpdateManyWithWhereWithoutOwnerInput[]
+    deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
+  }
+
   export type FirmUpdateManyWithoutOwnerNestedInput = {
     create?: XOR<FirmCreateWithoutOwnerInput, FirmUncheckedCreateWithoutOwnerInput> | FirmCreateWithoutOwnerInput[] | FirmUncheckedCreateWithoutOwnerInput[]
     connectOrCreate?: FirmCreateOrConnectWithoutOwnerInput | FirmCreateOrConnectWithoutOwnerInput[]
@@ -7897,6 +10448,20 @@ export namespace Prisma {
     divide?: number
   }
 
+  export type UserUncheckedUpdateManyWithoutOwnerNestedInput = {
+    create?: XOR<UserCreateWithoutOwnerInput, UserUncheckedCreateWithoutOwnerInput> | UserCreateWithoutOwnerInput[] | UserUncheckedCreateWithoutOwnerInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutOwnerInput | UserCreateOrConnectWithoutOwnerInput[]
+    upsert?: UserUpsertWithWhereUniqueWithoutOwnerInput | UserUpsertWithWhereUniqueWithoutOwnerInput[]
+    createMany?: UserCreateManyOwnerInputEnvelope
+    set?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    disconnect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    delete?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    update?: UserUpdateWithWhereUniqueWithoutOwnerInput | UserUpdateWithWhereUniqueWithoutOwnerInput[]
+    updateMany?: UserUpdateManyWithWhereWithoutOwnerInput | UserUpdateManyWithWhereWithoutOwnerInput[]
+    deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
+  }
+
   export type FirmUncheckedUpdateManyWithoutOwnerNestedInput = {
     create?: XOR<FirmCreateWithoutOwnerInput, FirmUncheckedCreateWithoutOwnerInput> | FirmCreateWithoutOwnerInput[] | FirmUncheckedCreateWithoutOwnerInput[]
     connectOrCreate?: FirmCreateOrConnectWithoutOwnerInput | FirmCreateOrConnectWithoutOwnerInput[]
@@ -7925,6 +10490,13 @@ export namespace Prisma {
     deleteMany?: AccountScalarWhereInput | AccountScalarWhereInput[]
   }
 
+  export type UserCreateNestedManyWithoutFirmInput = {
+    create?: XOR<UserCreateWithoutFirmInput, UserUncheckedCreateWithoutFirmInput> | UserCreateWithoutFirmInput[] | UserUncheckedCreateWithoutFirmInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutFirmInput | UserCreateOrConnectWithoutFirmInput[]
+    createMany?: UserCreateManyFirmInputEnvelope
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+  }
+
   export type AccountCreateNestedManyWithoutFirmInput = {
     create?: XOR<AccountCreateWithoutFirmInput, AccountUncheckedCreateWithoutFirmInput> | AccountCreateWithoutFirmInput[] | AccountUncheckedCreateWithoutFirmInput[]
     connectOrCreate?: AccountCreateOrConnectWithoutFirmInput | AccountCreateOrConnectWithoutFirmInput[]
@@ -7936,6 +10508,13 @@ export namespace Prisma {
     create?: XOR<OwnerCreateWithoutFirmsInput, OwnerUncheckedCreateWithoutFirmsInput>
     connectOrCreate?: OwnerCreateOrConnectWithoutFirmsInput
     connect?: OwnerWhereUniqueInput
+  }
+
+  export type UserUncheckedCreateNestedManyWithoutFirmInput = {
+    create?: XOR<UserCreateWithoutFirmInput, UserUncheckedCreateWithoutFirmInput> | UserCreateWithoutFirmInput[] | UserUncheckedCreateWithoutFirmInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutFirmInput | UserCreateOrConnectWithoutFirmInput[]
+    createMany?: UserCreateManyFirmInputEnvelope
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
   }
 
   export type AccountUncheckedCreateNestedManyWithoutFirmInput = {
@@ -7951,6 +10530,20 @@ export namespace Prisma {
 
   export type EnumFirmBalanceTypeFieldUpdateOperationsInput = {
     set?: $Enums.FirmBalanceType
+  }
+
+  export type UserUpdateManyWithoutFirmNestedInput = {
+    create?: XOR<UserCreateWithoutFirmInput, UserUncheckedCreateWithoutFirmInput> | UserCreateWithoutFirmInput[] | UserUncheckedCreateWithoutFirmInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutFirmInput | UserCreateOrConnectWithoutFirmInput[]
+    upsert?: UserUpsertWithWhereUniqueWithoutFirmInput | UserUpsertWithWhereUniqueWithoutFirmInput[]
+    createMany?: UserCreateManyFirmInputEnvelope
+    set?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    disconnect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    delete?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    update?: UserUpdateWithWhereUniqueWithoutFirmInput | UserUpdateWithWhereUniqueWithoutFirmInput[]
+    updateMany?: UserUpdateManyWithWhereWithoutFirmInput | UserUpdateManyWithWhereWithoutFirmInput[]
+    deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
   }
 
   export type AccountUpdateManyWithoutFirmNestedInput = {
@@ -7973,6 +10566,20 @@ export namespace Prisma {
     upsert?: OwnerUpsertWithoutFirmsInput
     connect?: OwnerWhereUniqueInput
     update?: XOR<XOR<OwnerUpdateToOneWithWhereWithoutFirmsInput, OwnerUpdateWithoutFirmsInput>, OwnerUncheckedUpdateWithoutFirmsInput>
+  }
+
+  export type UserUncheckedUpdateManyWithoutFirmNestedInput = {
+    create?: XOR<UserCreateWithoutFirmInput, UserUncheckedCreateWithoutFirmInput> | UserCreateWithoutFirmInput[] | UserUncheckedCreateWithoutFirmInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutFirmInput | UserCreateOrConnectWithoutFirmInput[]
+    upsert?: UserUpsertWithWhereUniqueWithoutFirmInput | UserUpsertWithWhereUniqueWithoutFirmInput[]
+    createMany?: UserCreateManyFirmInputEnvelope
+    set?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    disconnect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    delete?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    update?: UserUpdateWithWhereUniqueWithoutFirmInput | UserUpdateWithWhereUniqueWithoutFirmInput[]
+    updateMany?: UserUpdateManyWithWhereWithoutFirmInput | UserUpdateManyWithWhereWithoutFirmInput[]
+    deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
   }
 
   export type AccountUncheckedUpdateManyWithoutFirmNestedInput = {
@@ -8019,6 +10626,42 @@ export namespace Prisma {
     upsert?: FirmUpsertWithoutAccountsInput
     connect?: FirmWhereUniqueInput
     update?: XOR<XOR<FirmUpdateToOneWithWhereWithoutAccountsInput, FirmUpdateWithoutAccountsInput>, FirmUncheckedUpdateWithoutAccountsInput>
+  }
+
+  export type OwnerCreateNestedOneWithoutUsersInput = {
+    create?: XOR<OwnerCreateWithoutUsersInput, OwnerUncheckedCreateWithoutUsersInput>
+    connectOrCreate?: OwnerCreateOrConnectWithoutUsersInput
+    connect?: OwnerWhereUniqueInput
+  }
+
+  export type FirmCreateNestedOneWithoutUsersInput = {
+    create?: XOR<FirmCreateWithoutUsersInput, FirmUncheckedCreateWithoutUsersInput>
+    connectOrCreate?: FirmCreateOrConnectWithoutUsersInput
+    connect?: FirmWhereUniqueInput
+  }
+
+  export type NullableEnumUserGenderFieldUpdateOperationsInput = {
+    set?: $Enums.UserGender | null
+  }
+
+  export type NullableEnumUserMaritalStatusFieldUpdateOperationsInput = {
+    set?: $Enums.UserMaritalStatus | null
+  }
+
+  export type OwnerUpdateOneRequiredWithoutUsersNestedInput = {
+    create?: XOR<OwnerCreateWithoutUsersInput, OwnerUncheckedCreateWithoutUsersInput>
+    connectOrCreate?: OwnerCreateOrConnectWithoutUsersInput
+    upsert?: OwnerUpsertWithoutUsersInput
+    connect?: OwnerWhereUniqueInput
+    update?: XOR<XOR<OwnerUpdateToOneWithWhereWithoutUsersInput, OwnerUpdateWithoutUsersInput>, OwnerUncheckedUpdateWithoutUsersInput>
+  }
+
+  export type FirmUpdateOneRequiredWithoutUsersNestedInput = {
+    create?: XOR<FirmCreateWithoutUsersInput, FirmUncheckedCreateWithoutUsersInput>
+    connectOrCreate?: FirmCreateOrConnectWithoutUsersInput
+    upsert?: FirmUpsertWithoutUsersInput
+    connect?: FirmWhereUniqueInput
+    update?: XOR<XOR<FirmUpdateToOneWithWhereWithoutUsersInput, FirmUpdateWithoutUsersInput>, FirmUncheckedUpdateWithoutUsersInput>
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -8285,6 +10928,145 @@ export namespace Prisma {
     _max?: NestedEnumAccountBalanceTypeFilter<$PrismaModel>
   }
 
+  export type NestedEnumUserGenderNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.UserGender | EnumUserGenderFieldRefInput<$PrismaModel> | null
+    in?: $Enums.UserGender[] | ListEnumUserGenderFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.UserGender[] | ListEnumUserGenderFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumUserGenderNullableFilter<$PrismaModel> | $Enums.UserGender | null
+  }
+
+  export type NestedEnumUserMaritalStatusNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.UserMaritalStatus | EnumUserMaritalStatusFieldRefInput<$PrismaModel> | null
+    in?: $Enums.UserMaritalStatus[] | ListEnumUserMaritalStatusFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.UserMaritalStatus[] | ListEnumUserMaritalStatusFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumUserMaritalStatusNullableFilter<$PrismaModel> | $Enums.UserMaritalStatus | null
+  }
+
+  export type NestedEnumUserGenderNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.UserGender | EnumUserGenderFieldRefInput<$PrismaModel> | null
+    in?: $Enums.UserGender[] | ListEnumUserGenderFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.UserGender[] | ListEnumUserGenderFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumUserGenderNullableWithAggregatesFilter<$PrismaModel> | $Enums.UserGender | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumUserGenderNullableFilter<$PrismaModel>
+    _max?: NestedEnumUserGenderNullableFilter<$PrismaModel>
+  }
+
+  export type NestedEnumUserMaritalStatusNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.UserMaritalStatus | EnumUserMaritalStatusFieldRefInput<$PrismaModel> | null
+    in?: $Enums.UserMaritalStatus[] | ListEnumUserMaritalStatusFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.UserMaritalStatus[] | ListEnumUserMaritalStatusFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumUserMaritalStatusNullableWithAggregatesFilter<$PrismaModel> | $Enums.UserMaritalStatus | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumUserMaritalStatusNullableFilter<$PrismaModel>
+    _max?: NestedEnumUserMaritalStatusNullableFilter<$PrismaModel>
+  }
+
+  export type UserCreateWithoutOwnerInput = {
+    user_uuid?: string
+    user_add_date?: Date | string
+    user_first_name: string
+    user_father_name?: string | null
+    user_last_name: string
+    user_mother_name?: string | null
+    user_mobile_no: string
+    user_phone_no?: string | null
+    user_email_id?: string | null
+    user_gender?: $Enums.UserGender | null
+    user_cast?: string | null
+    user_marital_status?: $Enums.UserMaritalStatus | null
+    user_occupation?: string | null
+    user_birth_date?: Date | string | null
+    user_gstin?: string | null
+    user_tax_no?: string | null
+    user_pan_no?: string | null
+    user_adhaar_no?: string | null
+    user_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    user_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
+    user_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
+    user_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
+    user_per_address?: string | null
+    user_curr_address?: string | null
+    user_village?: string | null
+    user_ward_no?: string | null
+    user_tehsil?: string | null
+    user_city?: string | null
+    user_state?: string | null
+    user_country?: string | null
+    user_pincode?: string | null
+    user_bank_name?: string | null
+    user_bank_acc_no?: string | null
+    user_ifsc_code?: string | null
+    user_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    user_other_info?: string | null
+    user_created_at?: Date | string
+    user_created_by?: string | null
+    user_updated_at?: Date | string
+    user_updated_by?: string | null
+    user_deleted_at?: Date | string | null
+    user_deleted_by?: string | null
+    user_is_deleted?: boolean
+    firm: FirmCreateNestedOneWithoutUsersInput
+  }
+
+  export type UserUncheckedCreateWithoutOwnerInput = {
+    user_id?: number
+    user_uuid?: string
+    user_firm_id: number
+    user_add_date?: Date | string
+    user_first_name: string
+    user_father_name?: string | null
+    user_last_name: string
+    user_mother_name?: string | null
+    user_mobile_no: string
+    user_phone_no?: string | null
+    user_email_id?: string | null
+    user_gender?: $Enums.UserGender | null
+    user_cast?: string | null
+    user_marital_status?: $Enums.UserMaritalStatus | null
+    user_occupation?: string | null
+    user_birth_date?: Date | string | null
+    user_gstin?: string | null
+    user_tax_no?: string | null
+    user_pan_no?: string | null
+    user_adhaar_no?: string | null
+    user_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    user_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
+    user_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
+    user_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
+    user_per_address?: string | null
+    user_curr_address?: string | null
+    user_village?: string | null
+    user_ward_no?: string | null
+    user_tehsil?: string | null
+    user_city?: string | null
+    user_state?: string | null
+    user_country?: string | null
+    user_pincode?: string | null
+    user_bank_name?: string | null
+    user_bank_acc_no?: string | null
+    user_ifsc_code?: string | null
+    user_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    user_other_info?: string | null
+    user_created_at?: Date | string
+    user_created_by?: string | null
+    user_updated_at?: Date | string
+    user_updated_by?: string | null
+    user_deleted_at?: Date | string | null
+    user_deleted_by?: string | null
+    user_is_deleted?: boolean
+  }
+
+  export type UserCreateOrConnectWithoutOwnerInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutOwnerInput, UserUncheckedCreateWithoutOwnerInput>
+  }
+
+  export type UserCreateManyOwnerInputEnvelope = {
+    data: UserCreateManyOwnerInput | UserCreateManyOwnerInput[]
+    skipDuplicates?: boolean
+  }
+
   export type FirmCreateWithoutOwnerInput = {
     firm_uuid?: string
     firm_add_date?: Date | string
@@ -8333,6 +11115,7 @@ export namespace Prisma {
     firm_deleted_at?: Date | string | null
     firm_deleted_by?: string | null
     firm_is_deleted?: boolean
+    users?: UserCreateNestedManyWithoutFirmInput
     accounts?: AccountCreateNestedManyWithoutFirmInput
   }
 
@@ -8385,6 +11168,7 @@ export namespace Prisma {
     firm_deleted_at?: Date | string | null
     firm_deleted_by?: string | null
     firm_is_deleted?: boolean
+    users?: UserUncheckedCreateNestedManyWithoutFirmInput
     accounts?: AccountUncheckedCreateNestedManyWithoutFirmInput
   }
 
@@ -8467,6 +11251,74 @@ export namespace Prisma {
   export type AccountCreateManyOwnerInputEnvelope = {
     data: AccountCreateManyOwnerInput | AccountCreateManyOwnerInput[]
     skipDuplicates?: boolean
+  }
+
+  export type UserUpsertWithWhereUniqueWithoutOwnerInput = {
+    where: UserWhereUniqueInput
+    update: XOR<UserUpdateWithoutOwnerInput, UserUncheckedUpdateWithoutOwnerInput>
+    create: XOR<UserCreateWithoutOwnerInput, UserUncheckedCreateWithoutOwnerInput>
+  }
+
+  export type UserUpdateWithWhereUniqueWithoutOwnerInput = {
+    where: UserWhereUniqueInput
+    data: XOR<UserUpdateWithoutOwnerInput, UserUncheckedUpdateWithoutOwnerInput>
+  }
+
+  export type UserUpdateManyWithWhereWithoutOwnerInput = {
+    where: UserScalarWhereInput
+    data: XOR<UserUpdateManyMutationInput, UserUncheckedUpdateManyWithoutOwnerInput>
+  }
+
+  export type UserScalarWhereInput = {
+    AND?: UserScalarWhereInput | UserScalarWhereInput[]
+    OR?: UserScalarWhereInput[]
+    NOT?: UserScalarWhereInput | UserScalarWhereInput[]
+    user_id?: IntFilter<"User"> | number
+    user_uuid?: StringFilter<"User"> | string
+    user_own_id?: IntFilter<"User"> | number
+    user_firm_id?: IntFilter<"User"> | number
+    user_add_date?: DateTimeFilter<"User"> | Date | string
+    user_first_name?: StringFilter<"User"> | string
+    user_father_name?: StringNullableFilter<"User"> | string | null
+    user_last_name?: StringFilter<"User"> | string
+    user_mother_name?: StringNullableFilter<"User"> | string | null
+    user_mobile_no?: StringFilter<"User"> | string
+    user_phone_no?: StringNullableFilter<"User"> | string | null
+    user_email_id?: StringNullableFilter<"User"> | string | null
+    user_gender?: EnumUserGenderNullableFilter<"User"> | $Enums.UserGender | null
+    user_cast?: StringNullableFilter<"User"> | string | null
+    user_marital_status?: EnumUserMaritalStatusNullableFilter<"User"> | $Enums.UserMaritalStatus | null
+    user_occupation?: StringNullableFilter<"User"> | string | null
+    user_birth_date?: DateTimeNullableFilter<"User"> | Date | string | null
+    user_gstin?: StringNullableFilter<"User"> | string | null
+    user_tax_no?: StringNullableFilter<"User"> | string | null
+    user_pan_no?: StringNullableFilter<"User"> | string | null
+    user_adhaar_no?: StringNullableFilter<"User"> | string | null
+    user_profile_img?: JsonNullableFilter<"User">
+    user_adhaar_front_img?: JsonNullableFilter<"User">
+    user_adhaar_back_img?: JsonNullableFilter<"User">
+    user_pan_card_img?: JsonNullableFilter<"User">
+    user_per_address?: StringNullableFilter<"User"> | string | null
+    user_curr_address?: StringNullableFilter<"User"> | string | null
+    user_village?: StringNullableFilter<"User"> | string | null
+    user_ward_no?: StringNullableFilter<"User"> | string | null
+    user_tehsil?: StringNullableFilter<"User"> | string | null
+    user_city?: StringNullableFilter<"User"> | string | null
+    user_state?: StringNullableFilter<"User"> | string | null
+    user_country?: StringNullableFilter<"User"> | string | null
+    user_pincode?: StringNullableFilter<"User"> | string | null
+    user_bank_name?: StringNullableFilter<"User"> | string | null
+    user_bank_acc_no?: StringNullableFilter<"User"> | string | null
+    user_ifsc_code?: StringNullableFilter<"User"> | string | null
+    user_sign_img?: JsonNullableFilter<"User">
+    user_other_info?: StringNullableFilter<"User"> | string | null
+    user_created_at?: DateTimeFilter<"User"> | Date | string
+    user_created_by?: StringNullableFilter<"User"> | string | null
+    user_updated_at?: DateTimeFilter<"User"> | Date | string
+    user_updated_by?: StringNullableFilter<"User"> | string | null
+    user_deleted_at?: DateTimeNullableFilter<"User"> | Date | string | null
+    user_deleted_by?: StringNullableFilter<"User"> | string | null
+    user_is_deleted?: BoolFilter<"User"> | boolean
   }
 
   export type FirmUpsertWithWhereUniqueWithoutOwnerInput = {
@@ -8591,6 +11443,111 @@ export namespace Prisma {
     acc_is_deleted?: BoolFilter<"Account"> | boolean
   }
 
+  export type UserCreateWithoutFirmInput = {
+    user_uuid?: string
+    user_add_date?: Date | string
+    user_first_name: string
+    user_father_name?: string | null
+    user_last_name: string
+    user_mother_name?: string | null
+    user_mobile_no: string
+    user_phone_no?: string | null
+    user_email_id?: string | null
+    user_gender?: $Enums.UserGender | null
+    user_cast?: string | null
+    user_marital_status?: $Enums.UserMaritalStatus | null
+    user_occupation?: string | null
+    user_birth_date?: Date | string | null
+    user_gstin?: string | null
+    user_tax_no?: string | null
+    user_pan_no?: string | null
+    user_adhaar_no?: string | null
+    user_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    user_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
+    user_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
+    user_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
+    user_per_address?: string | null
+    user_curr_address?: string | null
+    user_village?: string | null
+    user_ward_no?: string | null
+    user_tehsil?: string | null
+    user_city?: string | null
+    user_state?: string | null
+    user_country?: string | null
+    user_pincode?: string | null
+    user_bank_name?: string | null
+    user_bank_acc_no?: string | null
+    user_ifsc_code?: string | null
+    user_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    user_other_info?: string | null
+    user_created_at?: Date | string
+    user_created_by?: string | null
+    user_updated_at?: Date | string
+    user_updated_by?: string | null
+    user_deleted_at?: Date | string | null
+    user_deleted_by?: string | null
+    user_is_deleted?: boolean
+    owner: OwnerCreateNestedOneWithoutUsersInput
+  }
+
+  export type UserUncheckedCreateWithoutFirmInput = {
+    user_id?: number
+    user_uuid?: string
+    user_own_id: number
+    user_add_date?: Date | string
+    user_first_name: string
+    user_father_name?: string | null
+    user_last_name: string
+    user_mother_name?: string | null
+    user_mobile_no: string
+    user_phone_no?: string | null
+    user_email_id?: string | null
+    user_gender?: $Enums.UserGender | null
+    user_cast?: string | null
+    user_marital_status?: $Enums.UserMaritalStatus | null
+    user_occupation?: string | null
+    user_birth_date?: Date | string | null
+    user_gstin?: string | null
+    user_tax_no?: string | null
+    user_pan_no?: string | null
+    user_adhaar_no?: string | null
+    user_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    user_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
+    user_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
+    user_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
+    user_per_address?: string | null
+    user_curr_address?: string | null
+    user_village?: string | null
+    user_ward_no?: string | null
+    user_tehsil?: string | null
+    user_city?: string | null
+    user_state?: string | null
+    user_country?: string | null
+    user_pincode?: string | null
+    user_bank_name?: string | null
+    user_bank_acc_no?: string | null
+    user_ifsc_code?: string | null
+    user_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    user_other_info?: string | null
+    user_created_at?: Date | string
+    user_created_by?: string | null
+    user_updated_at?: Date | string
+    user_updated_by?: string | null
+    user_deleted_at?: Date | string | null
+    user_deleted_by?: string | null
+    user_is_deleted?: boolean
+  }
+
+  export type UserCreateOrConnectWithoutFirmInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutFirmInput, UserUncheckedCreateWithoutFirmInput>
+  }
+
+  export type UserCreateManyFirmInputEnvelope = {
+    data: UserCreateManyFirmInput | UserCreateManyFirmInput[]
+    skipDuplicates?: boolean
+  }
+
   export type AccountCreateWithoutFirmInput = {
     acc_uuid?: string
     acc_add_date?: Date | string
@@ -8697,6 +11654,7 @@ export namespace Prisma {
     own_deleted_at?: Date | string | null
     own_deleted_by?: string | null
     own_is_deleted?: boolean
+    users?: UserCreateNestedManyWithoutOwnerInput
     accounts?: AccountCreateNestedManyWithoutOwnerInput
   }
 
@@ -8736,12 +11694,29 @@ export namespace Prisma {
     own_deleted_at?: Date | string | null
     own_deleted_by?: string | null
     own_is_deleted?: boolean
+    users?: UserUncheckedCreateNestedManyWithoutOwnerInput
     accounts?: AccountUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerCreateOrConnectWithoutFirmsInput = {
     where: OwnerWhereUniqueInput
     create: XOR<OwnerCreateWithoutFirmsInput, OwnerUncheckedCreateWithoutFirmsInput>
+  }
+
+  export type UserUpsertWithWhereUniqueWithoutFirmInput = {
+    where: UserWhereUniqueInput
+    update: XOR<UserUpdateWithoutFirmInput, UserUncheckedUpdateWithoutFirmInput>
+    create: XOR<UserCreateWithoutFirmInput, UserUncheckedCreateWithoutFirmInput>
+  }
+
+  export type UserUpdateWithWhereUniqueWithoutFirmInput = {
+    where: UserWhereUniqueInput
+    data: XOR<UserUpdateWithoutFirmInput, UserUncheckedUpdateWithoutFirmInput>
+  }
+
+  export type UserUpdateManyWithWhereWithoutFirmInput = {
+    where: UserScalarWhereInput
+    data: XOR<UserUpdateManyMutationInput, UserUncheckedUpdateManyWithoutFirmInput>
   }
 
   export type AccountUpsertWithWhereUniqueWithoutFirmInput = {
@@ -8805,6 +11780,7 @@ export namespace Prisma {
     own_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     own_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    users?: UserUpdateManyWithoutOwnerNestedInput
     accounts?: AccountUpdateManyWithoutOwnerNestedInput
   }
 
@@ -8844,6 +11820,7 @@ export namespace Prisma {
     own_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     own_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    users?: UserUncheckedUpdateManyWithoutOwnerNestedInput
     accounts?: AccountUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
@@ -8882,6 +11859,7 @@ export namespace Prisma {
     own_deleted_at?: Date | string | null
     own_deleted_by?: string | null
     own_is_deleted?: boolean
+    users?: UserCreateNestedManyWithoutOwnerInput
     firms?: FirmCreateNestedManyWithoutOwnerInput
   }
 
@@ -8921,6 +11899,7 @@ export namespace Prisma {
     own_deleted_at?: Date | string | null
     own_deleted_by?: string | null
     own_is_deleted?: boolean
+    users?: UserUncheckedCreateNestedManyWithoutOwnerInput
     firms?: FirmUncheckedCreateNestedManyWithoutOwnerInput
   }
 
@@ -8977,6 +11956,7 @@ export namespace Prisma {
     firm_deleted_at?: Date | string | null
     firm_deleted_by?: string | null
     firm_is_deleted?: boolean
+    users?: UserCreateNestedManyWithoutFirmInput
     owner?: OwnerCreateNestedOneWithoutFirmsInput
   }
 
@@ -9030,6 +12010,7 @@ export namespace Prisma {
     firm_deleted_at?: Date | string | null
     firm_deleted_by?: string | null
     firm_is_deleted?: boolean
+    users?: UserUncheckedCreateNestedManyWithoutFirmInput
   }
 
   export type FirmCreateOrConnectWithoutAccountsInput = {
@@ -9082,6 +12063,7 @@ export namespace Prisma {
     own_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     own_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    users?: UserUpdateManyWithoutOwnerNestedInput
     firms?: FirmUpdateManyWithoutOwnerNestedInput
   }
 
@@ -9121,6 +12103,7 @@ export namespace Prisma {
     own_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     own_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    users?: UserUncheckedUpdateManyWithoutOwnerNestedInput
     firms?: FirmUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
@@ -9183,6 +12166,7 @@ export namespace Prisma {
     firm_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     firm_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     firm_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    users?: UserUpdateManyWithoutFirmNestedInput
     owner?: OwnerUpdateOneRequiredWithoutFirmsNestedInput
   }
 
@@ -9236,6 +12220,454 @@ export namespace Prisma {
     firm_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     firm_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     firm_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    users?: UserUncheckedUpdateManyWithoutFirmNestedInput
+  }
+
+  export type OwnerCreateWithoutUsersInput = {
+    own_uuid?: string
+    own_product_key?: number
+    own_db: string
+    own_add_date?: Date | string
+    own_first_name: string
+    own_middle_name?: string | null
+    own_last_name: string
+    own_phone_no?: string | null
+    own_mobile_no: string
+    own_email: string
+    own_login_id: string
+    own_password: string
+    own_status?: $Enums.OwnerStatus
+    own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_refresh_token?: string | null
+    own_refresh_expiry?: Date | string | null
+    own_jwt_token?: string | null
+    own_jwt_expiry?: Date | string | null
+    own_login_status?: boolean
+    own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
+    own_otp?: string | null
+    own_otp_expiry?: Date | string | null
+    own_address?: string | null
+    own_village?: string | null
+    own_city?: string | null
+    own_state?: string | null
+    own_pincode?: string | null
+    own_created_at?: Date | string
+    own_created_by?: string | null
+    own_updated_at?: Date | string
+    own_updated_by?: string | null
+    own_deleted_at?: Date | string | null
+    own_deleted_by?: string | null
+    own_is_deleted?: boolean
+    firms?: FirmCreateNestedManyWithoutOwnerInput
+    accounts?: AccountCreateNestedManyWithoutOwnerInput
+  }
+
+  export type OwnerUncheckedCreateWithoutUsersInput = {
+    own_id?: number
+    own_uuid?: string
+    own_product_key?: number
+    own_db: string
+    own_add_date?: Date | string
+    own_first_name: string
+    own_middle_name?: string | null
+    own_last_name: string
+    own_phone_no?: string | null
+    own_mobile_no: string
+    own_email: string
+    own_login_id: string
+    own_password: string
+    own_status?: $Enums.OwnerStatus
+    own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_refresh_token?: string | null
+    own_refresh_expiry?: Date | string | null
+    own_jwt_token?: string | null
+    own_jwt_expiry?: Date | string | null
+    own_login_status?: boolean
+    own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
+    own_otp?: string | null
+    own_otp_expiry?: Date | string | null
+    own_address?: string | null
+    own_village?: string | null
+    own_city?: string | null
+    own_state?: string | null
+    own_pincode?: string | null
+    own_created_at?: Date | string
+    own_created_by?: string | null
+    own_updated_at?: Date | string
+    own_updated_by?: string | null
+    own_deleted_at?: Date | string | null
+    own_deleted_by?: string | null
+    own_is_deleted?: boolean
+    firms?: FirmUncheckedCreateNestedManyWithoutOwnerInput
+    accounts?: AccountUncheckedCreateNestedManyWithoutOwnerInput
+  }
+
+  export type OwnerCreateOrConnectWithoutUsersInput = {
+    where: OwnerWhereUniqueInput
+    create: XOR<OwnerCreateWithoutUsersInput, OwnerUncheckedCreateWithoutUsersInput>
+  }
+
+  export type FirmCreateWithoutUsersInput = {
+    firm_uuid?: string
+    firm_add_date?: Date | string
+    firm_name: string
+    firm_reg_no: string
+    firm_shop_name: string
+    firm_desc?: string | null
+    firm_address?: string | null
+    firm_city?: string | null
+    firm_pincode?: string | null
+    firm_phone_no?: string | null
+    firm_email_id?: string | null
+    firm_website_link?: string | null
+    firm_type?: $Enums.FirmType
+    firm_owner?: string | null
+    firm_other_info?: string | null
+    firm_geo_latitude?: string | null
+    firm_geo_longitude?: string | null
+    firm_whatsapp_link?: string | null
+    firm_facebook_link?: string | null
+    firm_insta_link?: string | null
+    firm_bank_name?: string | null
+    firm_bank_acc_no?: string | null
+    firm_bank_branch?: string | null
+    firm_bank_address?: string | null
+    firm_acc_holder?: string | null
+    firm_acc_type?: string | null
+    firm_ifsc_code?: string | null
+    firm_start_date?: Date | string | null
+    firm_balance?: string | null
+    firm_balance_type?: $Enums.FirmBalanceType
+    firm_gstin_no?: string | null
+    firm_pan_no?: string | null
+    firm_adhaar_no?: string | null
+    firm_form_header?: string | null
+    firm_form_footer?: string | null
+    firm_own_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_left_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_right_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_qr_code_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_pan_no_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_created_at?: Date | string
+    firm_created_by?: string | null
+    firm_updated_at?: Date | string
+    firm_updated_by?: string | null
+    firm_deleted_at?: Date | string | null
+    firm_deleted_by?: string | null
+    firm_is_deleted?: boolean
+    accounts?: AccountCreateNestedManyWithoutFirmInput
+    owner?: OwnerCreateNestedOneWithoutFirmsInput
+  }
+
+  export type FirmUncheckedCreateWithoutUsersInput = {
+    firm_id?: number
+    firm_uuid?: string
+    firm_add_date?: Date | string
+    firm_own_id?: number
+    firm_name: string
+    firm_reg_no: string
+    firm_shop_name: string
+    firm_desc?: string | null
+    firm_address?: string | null
+    firm_city?: string | null
+    firm_pincode?: string | null
+    firm_phone_no?: string | null
+    firm_email_id?: string | null
+    firm_website_link?: string | null
+    firm_type?: $Enums.FirmType
+    firm_owner?: string | null
+    firm_other_info?: string | null
+    firm_geo_latitude?: string | null
+    firm_geo_longitude?: string | null
+    firm_whatsapp_link?: string | null
+    firm_facebook_link?: string | null
+    firm_insta_link?: string | null
+    firm_bank_name?: string | null
+    firm_bank_acc_no?: string | null
+    firm_bank_branch?: string | null
+    firm_bank_address?: string | null
+    firm_acc_holder?: string | null
+    firm_acc_type?: string | null
+    firm_ifsc_code?: string | null
+    firm_start_date?: Date | string | null
+    firm_balance?: string | null
+    firm_balance_type?: $Enums.FirmBalanceType
+    firm_gstin_no?: string | null
+    firm_pan_no?: string | null
+    firm_adhaar_no?: string | null
+    firm_form_header?: string | null
+    firm_form_footer?: string | null
+    firm_own_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_left_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_right_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_qr_code_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_pan_no_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_created_at?: Date | string
+    firm_created_by?: string | null
+    firm_updated_at?: Date | string
+    firm_updated_by?: string | null
+    firm_deleted_at?: Date | string | null
+    firm_deleted_by?: string | null
+    firm_is_deleted?: boolean
+    accounts?: AccountUncheckedCreateNestedManyWithoutFirmInput
+  }
+
+  export type FirmCreateOrConnectWithoutUsersInput = {
+    where: FirmWhereUniqueInput
+    create: XOR<FirmCreateWithoutUsersInput, FirmUncheckedCreateWithoutUsersInput>
+  }
+
+  export type OwnerUpsertWithoutUsersInput = {
+    update: XOR<OwnerUpdateWithoutUsersInput, OwnerUncheckedUpdateWithoutUsersInput>
+    create: XOR<OwnerCreateWithoutUsersInput, OwnerUncheckedCreateWithoutUsersInput>
+    where?: OwnerWhereInput
+  }
+
+  export type OwnerUpdateToOneWithWhereWithoutUsersInput = {
+    where?: OwnerWhereInput
+    data: XOR<OwnerUpdateWithoutUsersInput, OwnerUncheckedUpdateWithoutUsersInput>
+  }
+
+  export type OwnerUpdateWithoutUsersInput = {
+    own_uuid?: StringFieldUpdateOperationsInput | string
+    own_db?: StringFieldUpdateOperationsInput | string
+    own_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    own_first_name?: StringFieldUpdateOperationsInput | string
+    own_middle_name?: NullableStringFieldUpdateOperationsInput | string | null
+    own_last_name?: StringFieldUpdateOperationsInput | string
+    own_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mobile_no?: StringFieldUpdateOperationsInput | string
+    own_email?: StringFieldUpdateOperationsInput | string
+    own_login_id?: StringFieldUpdateOperationsInput | string
+    own_password?: StringFieldUpdateOperationsInput | string
+    own_status?: EnumOwnerStatusFieldUpdateOperationsInput | $Enums.OwnerStatus
+    own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
+    own_refresh_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_jwt_token?: NullableStringFieldUpdateOperationsInput | string | null
+    own_jwt_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_login_status?: BoolFieldUpdateOperationsInput | boolean
+    own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
+    own_otp?: NullableStringFieldUpdateOperationsInput | string | null
+    own_otp_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_address?: NullableStringFieldUpdateOperationsInput | string | null
+    own_village?: NullableStringFieldUpdateOperationsInput | string | null
+    own_city?: NullableStringFieldUpdateOperationsInput | string | null
+    own_state?: NullableStringFieldUpdateOperationsInput | string | null
+    own_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    own_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    own_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    own_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    own_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    own_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    own_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    firms?: FirmUpdateManyWithoutOwnerNestedInput
+    accounts?: AccountUpdateManyWithoutOwnerNestedInput
+  }
+
+  export type OwnerUncheckedUpdateWithoutUsersInput = {
+    own_id?: IntFieldUpdateOperationsInput | number
+    own_uuid?: StringFieldUpdateOperationsInput | string
+    own_product_key?: IntFieldUpdateOperationsInput | number
+    own_db?: StringFieldUpdateOperationsInput | string
+    own_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    own_first_name?: StringFieldUpdateOperationsInput | string
+    own_middle_name?: NullableStringFieldUpdateOperationsInput | string | null
+    own_last_name?: StringFieldUpdateOperationsInput | string
+    own_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mobile_no?: StringFieldUpdateOperationsInput | string
+    own_email?: StringFieldUpdateOperationsInput | string
+    own_login_id?: StringFieldUpdateOperationsInput | string
+    own_password?: StringFieldUpdateOperationsInput | string
+    own_status?: EnumOwnerStatusFieldUpdateOperationsInput | $Enums.OwnerStatus
+    own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
+    own_refresh_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_jwt_token?: NullableStringFieldUpdateOperationsInput | string | null
+    own_jwt_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_login_status?: BoolFieldUpdateOperationsInput | boolean
+    own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
+    own_otp?: NullableStringFieldUpdateOperationsInput | string | null
+    own_otp_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_address?: NullableStringFieldUpdateOperationsInput | string | null
+    own_village?: NullableStringFieldUpdateOperationsInput | string | null
+    own_city?: NullableStringFieldUpdateOperationsInput | string | null
+    own_state?: NullableStringFieldUpdateOperationsInput | string | null
+    own_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    own_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    own_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    own_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    own_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    own_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    own_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    firms?: FirmUncheckedUpdateManyWithoutOwnerNestedInput
+    accounts?: AccountUncheckedUpdateManyWithoutOwnerNestedInput
+  }
+
+  export type FirmUpsertWithoutUsersInput = {
+    update: XOR<FirmUpdateWithoutUsersInput, FirmUncheckedUpdateWithoutUsersInput>
+    create: XOR<FirmCreateWithoutUsersInput, FirmUncheckedCreateWithoutUsersInput>
+    where?: FirmWhereInput
+  }
+
+  export type FirmUpdateToOneWithWhereWithoutUsersInput = {
+    where?: FirmWhereInput
+    data: XOR<FirmUpdateWithoutUsersInput, FirmUncheckedUpdateWithoutUsersInput>
+  }
+
+  export type FirmUpdateWithoutUsersInput = {
+    firm_uuid?: StringFieldUpdateOperationsInput | string
+    firm_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    firm_name?: StringFieldUpdateOperationsInput | string
+    firm_reg_no?: StringFieldUpdateOperationsInput | string
+    firm_shop_name?: StringFieldUpdateOperationsInput | string
+    firm_desc?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_address?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_city?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_email_id?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_website_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_type?: EnumFirmTypeFieldUpdateOperationsInput | $Enums.FirmType
+    firm_owner?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_geo_latitude?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_geo_longitude?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_whatsapp_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_facebook_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_insta_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_name?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_acc_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_branch?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_address?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_acc_holder?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_acc_type?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firm_balance?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_balance_type?: EnumFirmBalanceTypeFieldUpdateOperationsInput | $Enums.FirmBalanceType
+    firm_gstin_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_adhaar_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_form_header?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_form_footer?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_own_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_left_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_right_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_qr_code_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_pan_no_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    firm_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    firm_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firm_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    accounts?: AccountUpdateManyWithoutFirmNestedInput
+    owner?: OwnerUpdateOneRequiredWithoutFirmsNestedInput
+  }
+
+  export type FirmUncheckedUpdateWithoutUsersInput = {
+    firm_id?: IntFieldUpdateOperationsInput | number
+    firm_uuid?: StringFieldUpdateOperationsInput | string
+    firm_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    firm_own_id?: IntFieldUpdateOperationsInput | number
+    firm_name?: StringFieldUpdateOperationsInput | string
+    firm_reg_no?: StringFieldUpdateOperationsInput | string
+    firm_shop_name?: StringFieldUpdateOperationsInput | string
+    firm_desc?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_address?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_city?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_email_id?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_website_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_type?: EnumFirmTypeFieldUpdateOperationsInput | $Enums.FirmType
+    firm_owner?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_geo_latitude?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_geo_longitude?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_whatsapp_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_facebook_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_insta_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_name?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_acc_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_branch?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_address?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_acc_holder?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_acc_type?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firm_balance?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_balance_type?: EnumFirmBalanceTypeFieldUpdateOperationsInput | $Enums.FirmBalanceType
+    firm_gstin_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_adhaar_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_form_header?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_form_footer?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_own_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_left_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_right_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_qr_code_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_pan_no_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    firm_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    firm_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firm_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    accounts?: AccountUncheckedUpdateManyWithoutFirmNestedInput
+  }
+
+  export type UserCreateManyOwnerInput = {
+    user_id?: number
+    user_uuid?: string
+    user_firm_id: number
+    user_add_date?: Date | string
+    user_first_name: string
+    user_father_name?: string | null
+    user_last_name: string
+    user_mother_name?: string | null
+    user_mobile_no: string
+    user_phone_no?: string | null
+    user_email_id?: string | null
+    user_gender?: $Enums.UserGender | null
+    user_cast?: string | null
+    user_marital_status?: $Enums.UserMaritalStatus | null
+    user_occupation?: string | null
+    user_birth_date?: Date | string | null
+    user_gstin?: string | null
+    user_tax_no?: string | null
+    user_pan_no?: string | null
+    user_adhaar_no?: string | null
+    user_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    user_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
+    user_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
+    user_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
+    user_per_address?: string | null
+    user_curr_address?: string | null
+    user_village?: string | null
+    user_ward_no?: string | null
+    user_tehsil?: string | null
+    user_city?: string | null
+    user_state?: string | null
+    user_country?: string | null
+    user_pincode?: string | null
+    user_bank_name?: string | null
+    user_bank_acc_no?: string | null
+    user_ifsc_code?: string | null
+    user_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    user_other_info?: string | null
+    user_created_at?: Date | string
+    user_created_by?: string | null
+    user_updated_at?: Date | string
+    user_updated_by?: string | null
+    user_deleted_at?: Date | string | null
+    user_deleted_by?: string | null
+    user_is_deleted?: boolean
   }
 
   export type FirmCreateManyOwnerInput = {
@@ -9320,6 +12752,149 @@ export namespace Prisma {
     acc_is_deleted?: boolean
   }
 
+  export type UserUpdateWithoutOwnerInput = {
+    user_uuid?: StringFieldUpdateOperationsInput | string
+    user_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    user_first_name?: StringFieldUpdateOperationsInput | string
+    user_father_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_last_name?: StringFieldUpdateOperationsInput | string
+    user_mother_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_mobile_no?: StringFieldUpdateOperationsInput | string
+    user_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_email_id?: NullableStringFieldUpdateOperationsInput | string | null
+    user_gender?: NullableEnumUserGenderFieldUpdateOperationsInput | $Enums.UserGender | null
+    user_cast?: NullableStringFieldUpdateOperationsInput | string | null
+    user_marital_status?: NullableEnumUserMaritalStatusFieldUpdateOperationsInput | $Enums.UserMaritalStatus | null
+    user_occupation?: NullableStringFieldUpdateOperationsInput | string | null
+    user_birth_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    user_gstin?: NullableStringFieldUpdateOperationsInput | string | null
+    user_tax_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_adhaar_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    user_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
+    user_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
+    user_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
+    user_per_address?: NullableStringFieldUpdateOperationsInput | string | null
+    user_curr_address?: NullableStringFieldUpdateOperationsInput | string | null
+    user_village?: NullableStringFieldUpdateOperationsInput | string | null
+    user_ward_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_tehsil?: NullableStringFieldUpdateOperationsInput | string | null
+    user_city?: NullableStringFieldUpdateOperationsInput | string | null
+    user_state?: NullableStringFieldUpdateOperationsInput | string | null
+    user_country?: NullableStringFieldUpdateOperationsInput | string | null
+    user_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    user_bank_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_bank_acc_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
+    user_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    user_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    user_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    user_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    user_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    user_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    user_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    user_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    user_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    firm?: FirmUpdateOneRequiredWithoutUsersNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutOwnerInput = {
+    user_id?: IntFieldUpdateOperationsInput | number
+    user_uuid?: StringFieldUpdateOperationsInput | string
+    user_firm_id?: IntFieldUpdateOperationsInput | number
+    user_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    user_first_name?: StringFieldUpdateOperationsInput | string
+    user_father_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_last_name?: StringFieldUpdateOperationsInput | string
+    user_mother_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_mobile_no?: StringFieldUpdateOperationsInput | string
+    user_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_email_id?: NullableStringFieldUpdateOperationsInput | string | null
+    user_gender?: NullableEnumUserGenderFieldUpdateOperationsInput | $Enums.UserGender | null
+    user_cast?: NullableStringFieldUpdateOperationsInput | string | null
+    user_marital_status?: NullableEnumUserMaritalStatusFieldUpdateOperationsInput | $Enums.UserMaritalStatus | null
+    user_occupation?: NullableStringFieldUpdateOperationsInput | string | null
+    user_birth_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    user_gstin?: NullableStringFieldUpdateOperationsInput | string | null
+    user_tax_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_adhaar_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    user_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
+    user_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
+    user_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
+    user_per_address?: NullableStringFieldUpdateOperationsInput | string | null
+    user_curr_address?: NullableStringFieldUpdateOperationsInput | string | null
+    user_village?: NullableStringFieldUpdateOperationsInput | string | null
+    user_ward_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_tehsil?: NullableStringFieldUpdateOperationsInput | string | null
+    user_city?: NullableStringFieldUpdateOperationsInput | string | null
+    user_state?: NullableStringFieldUpdateOperationsInput | string | null
+    user_country?: NullableStringFieldUpdateOperationsInput | string | null
+    user_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    user_bank_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_bank_acc_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
+    user_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    user_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    user_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    user_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    user_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    user_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    user_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    user_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    user_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type UserUncheckedUpdateManyWithoutOwnerInput = {
+    user_id?: IntFieldUpdateOperationsInput | number
+    user_uuid?: StringFieldUpdateOperationsInput | string
+    user_firm_id?: IntFieldUpdateOperationsInput | number
+    user_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    user_first_name?: StringFieldUpdateOperationsInput | string
+    user_father_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_last_name?: StringFieldUpdateOperationsInput | string
+    user_mother_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_mobile_no?: StringFieldUpdateOperationsInput | string
+    user_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_email_id?: NullableStringFieldUpdateOperationsInput | string | null
+    user_gender?: NullableEnumUserGenderFieldUpdateOperationsInput | $Enums.UserGender | null
+    user_cast?: NullableStringFieldUpdateOperationsInput | string | null
+    user_marital_status?: NullableEnumUserMaritalStatusFieldUpdateOperationsInput | $Enums.UserMaritalStatus | null
+    user_occupation?: NullableStringFieldUpdateOperationsInput | string | null
+    user_birth_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    user_gstin?: NullableStringFieldUpdateOperationsInput | string | null
+    user_tax_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_adhaar_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    user_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
+    user_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
+    user_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
+    user_per_address?: NullableStringFieldUpdateOperationsInput | string | null
+    user_curr_address?: NullableStringFieldUpdateOperationsInput | string | null
+    user_village?: NullableStringFieldUpdateOperationsInput | string | null
+    user_ward_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_tehsil?: NullableStringFieldUpdateOperationsInput | string | null
+    user_city?: NullableStringFieldUpdateOperationsInput | string | null
+    user_state?: NullableStringFieldUpdateOperationsInput | string | null
+    user_country?: NullableStringFieldUpdateOperationsInput | string | null
+    user_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    user_bank_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_bank_acc_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
+    user_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    user_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    user_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    user_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    user_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    user_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    user_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    user_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    user_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
   export type FirmUpdateWithoutOwnerInput = {
     firm_uuid?: StringFieldUpdateOperationsInput | string
     firm_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -9368,6 +12943,7 @@ export namespace Prisma {
     firm_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     firm_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     firm_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    users?: UserUpdateManyWithoutFirmNestedInput
     accounts?: AccountUpdateManyWithoutFirmNestedInput
   }
 
@@ -9420,6 +12996,7 @@ export namespace Prisma {
     firm_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     firm_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     firm_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    users?: UserUncheckedUpdateManyWithoutFirmNestedInput
     accounts?: AccountUncheckedUpdateManyWithoutFirmNestedInput
   }
 
@@ -9566,6 +13143,54 @@ export namespace Prisma {
     acc_is_deleted?: BoolFieldUpdateOperationsInput | boolean
   }
 
+  export type UserCreateManyFirmInput = {
+    user_id?: number
+    user_uuid?: string
+    user_own_id: number
+    user_add_date?: Date | string
+    user_first_name: string
+    user_father_name?: string | null
+    user_last_name: string
+    user_mother_name?: string | null
+    user_mobile_no: string
+    user_phone_no?: string | null
+    user_email_id?: string | null
+    user_gender?: $Enums.UserGender | null
+    user_cast?: string | null
+    user_marital_status?: $Enums.UserMaritalStatus | null
+    user_occupation?: string | null
+    user_birth_date?: Date | string | null
+    user_gstin?: string | null
+    user_tax_no?: string | null
+    user_pan_no?: string | null
+    user_adhaar_no?: string | null
+    user_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    user_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
+    user_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
+    user_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
+    user_per_address?: string | null
+    user_curr_address?: string | null
+    user_village?: string | null
+    user_ward_no?: string | null
+    user_tehsil?: string | null
+    user_city?: string | null
+    user_state?: string | null
+    user_country?: string | null
+    user_pincode?: string | null
+    user_bank_name?: string | null
+    user_bank_acc_no?: string | null
+    user_ifsc_code?: string | null
+    user_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    user_other_info?: string | null
+    user_created_at?: Date | string
+    user_created_by?: string | null
+    user_updated_at?: Date | string
+    user_updated_by?: string | null
+    user_deleted_at?: Date | string | null
+    user_deleted_by?: string | null
+    user_is_deleted?: boolean
+  }
+
   export type AccountCreateManyFirmInput = {
     acc_id?: number
     acc_uuid?: string
@@ -9595,6 +13220,149 @@ export namespace Prisma {
     acc_deleted_by?: string | null
     acc_is_system?: boolean
     acc_is_deleted?: boolean
+  }
+
+  export type UserUpdateWithoutFirmInput = {
+    user_uuid?: StringFieldUpdateOperationsInput | string
+    user_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    user_first_name?: StringFieldUpdateOperationsInput | string
+    user_father_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_last_name?: StringFieldUpdateOperationsInput | string
+    user_mother_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_mobile_no?: StringFieldUpdateOperationsInput | string
+    user_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_email_id?: NullableStringFieldUpdateOperationsInput | string | null
+    user_gender?: NullableEnumUserGenderFieldUpdateOperationsInput | $Enums.UserGender | null
+    user_cast?: NullableStringFieldUpdateOperationsInput | string | null
+    user_marital_status?: NullableEnumUserMaritalStatusFieldUpdateOperationsInput | $Enums.UserMaritalStatus | null
+    user_occupation?: NullableStringFieldUpdateOperationsInput | string | null
+    user_birth_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    user_gstin?: NullableStringFieldUpdateOperationsInput | string | null
+    user_tax_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_adhaar_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    user_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
+    user_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
+    user_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
+    user_per_address?: NullableStringFieldUpdateOperationsInput | string | null
+    user_curr_address?: NullableStringFieldUpdateOperationsInput | string | null
+    user_village?: NullableStringFieldUpdateOperationsInput | string | null
+    user_ward_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_tehsil?: NullableStringFieldUpdateOperationsInput | string | null
+    user_city?: NullableStringFieldUpdateOperationsInput | string | null
+    user_state?: NullableStringFieldUpdateOperationsInput | string | null
+    user_country?: NullableStringFieldUpdateOperationsInput | string | null
+    user_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    user_bank_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_bank_acc_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
+    user_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    user_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    user_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    user_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    user_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    user_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    user_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    user_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    user_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    owner?: OwnerUpdateOneRequiredWithoutUsersNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutFirmInput = {
+    user_id?: IntFieldUpdateOperationsInput | number
+    user_uuid?: StringFieldUpdateOperationsInput | string
+    user_own_id?: IntFieldUpdateOperationsInput | number
+    user_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    user_first_name?: StringFieldUpdateOperationsInput | string
+    user_father_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_last_name?: StringFieldUpdateOperationsInput | string
+    user_mother_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_mobile_no?: StringFieldUpdateOperationsInput | string
+    user_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_email_id?: NullableStringFieldUpdateOperationsInput | string | null
+    user_gender?: NullableEnumUserGenderFieldUpdateOperationsInput | $Enums.UserGender | null
+    user_cast?: NullableStringFieldUpdateOperationsInput | string | null
+    user_marital_status?: NullableEnumUserMaritalStatusFieldUpdateOperationsInput | $Enums.UserMaritalStatus | null
+    user_occupation?: NullableStringFieldUpdateOperationsInput | string | null
+    user_birth_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    user_gstin?: NullableStringFieldUpdateOperationsInput | string | null
+    user_tax_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_adhaar_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    user_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
+    user_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
+    user_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
+    user_per_address?: NullableStringFieldUpdateOperationsInput | string | null
+    user_curr_address?: NullableStringFieldUpdateOperationsInput | string | null
+    user_village?: NullableStringFieldUpdateOperationsInput | string | null
+    user_ward_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_tehsil?: NullableStringFieldUpdateOperationsInput | string | null
+    user_city?: NullableStringFieldUpdateOperationsInput | string | null
+    user_state?: NullableStringFieldUpdateOperationsInput | string | null
+    user_country?: NullableStringFieldUpdateOperationsInput | string | null
+    user_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    user_bank_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_bank_acc_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
+    user_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    user_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    user_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    user_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    user_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    user_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    user_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    user_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    user_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type UserUncheckedUpdateManyWithoutFirmInput = {
+    user_id?: IntFieldUpdateOperationsInput | number
+    user_uuid?: StringFieldUpdateOperationsInput | string
+    user_own_id?: IntFieldUpdateOperationsInput | number
+    user_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    user_first_name?: StringFieldUpdateOperationsInput | string
+    user_father_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_last_name?: StringFieldUpdateOperationsInput | string
+    user_mother_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_mobile_no?: StringFieldUpdateOperationsInput | string
+    user_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_email_id?: NullableStringFieldUpdateOperationsInput | string | null
+    user_gender?: NullableEnumUserGenderFieldUpdateOperationsInput | $Enums.UserGender | null
+    user_cast?: NullableStringFieldUpdateOperationsInput | string | null
+    user_marital_status?: NullableEnumUserMaritalStatusFieldUpdateOperationsInput | $Enums.UserMaritalStatus | null
+    user_occupation?: NullableStringFieldUpdateOperationsInput | string | null
+    user_birth_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    user_gstin?: NullableStringFieldUpdateOperationsInput | string | null
+    user_tax_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_adhaar_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    user_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
+    user_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
+    user_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
+    user_per_address?: NullableStringFieldUpdateOperationsInput | string | null
+    user_curr_address?: NullableStringFieldUpdateOperationsInput | string | null
+    user_village?: NullableStringFieldUpdateOperationsInput | string | null
+    user_ward_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_tehsil?: NullableStringFieldUpdateOperationsInput | string | null
+    user_city?: NullableStringFieldUpdateOperationsInput | string | null
+    user_state?: NullableStringFieldUpdateOperationsInput | string | null
+    user_country?: NullableStringFieldUpdateOperationsInput | string | null
+    user_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    user_bank_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_bank_acc_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
+    user_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    user_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    user_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    user_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    user_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    user_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    user_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    user_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    user_is_deleted?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type AccountUpdateWithoutFirmInput = {
@@ -9714,6 +13482,10 @@ export namespace Prisma {
      * @deprecated Use AccountDefaultArgs instead
      */
     export type AccountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = AccountDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use UserDefaultArgs instead
+     */
+    export type UserArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = UserDefaultArgs<ExtArgs>
 
   /**
    * Batch Payload for updateMany & deleteMany & createMany

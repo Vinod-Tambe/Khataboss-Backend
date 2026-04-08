@@ -244,6 +244,55 @@ exports.Prisma.AccountScalarFieldEnum = {
   acc_is_deleted: 'acc_is_deleted'
 };
 
+exports.Prisma.UserScalarFieldEnum = {
+  user_id: 'user_id',
+  user_uuid: 'user_uuid',
+  user_own_id: 'user_own_id',
+  user_firm_id: 'user_firm_id',
+  user_add_date: 'user_add_date',
+  user_first_name: 'user_first_name',
+  user_father_name: 'user_father_name',
+  user_last_name: 'user_last_name',
+  user_mother_name: 'user_mother_name',
+  user_mobile_no: 'user_mobile_no',
+  user_phone_no: 'user_phone_no',
+  user_email_id: 'user_email_id',
+  user_gender: 'user_gender',
+  user_cast: 'user_cast',
+  user_marital_status: 'user_marital_status',
+  user_occupation: 'user_occupation',
+  user_birth_date: 'user_birth_date',
+  user_gstin: 'user_gstin',
+  user_tax_no: 'user_tax_no',
+  user_pan_no: 'user_pan_no',
+  user_adhaar_no: 'user_adhaar_no',
+  user_profile_img: 'user_profile_img',
+  user_adhaar_front_img: 'user_adhaar_front_img',
+  user_adhaar_back_img: 'user_adhaar_back_img',
+  user_pan_card_img: 'user_pan_card_img',
+  user_per_address: 'user_per_address',
+  user_curr_address: 'user_curr_address',
+  user_village: 'user_village',
+  user_ward_no: 'user_ward_no',
+  user_tehsil: 'user_tehsil',
+  user_city: 'user_city',
+  user_state: 'user_state',
+  user_country: 'user_country',
+  user_pincode: 'user_pincode',
+  user_bank_name: 'user_bank_name',
+  user_bank_acc_no: 'user_bank_acc_no',
+  user_ifsc_code: 'user_ifsc_code',
+  user_sign_img: 'user_sign_img',
+  user_other_info: 'user_other_info',
+  user_created_at: 'user_created_at',
+  user_created_by: 'user_created_by',
+  user_updated_at: 'user_updated_at',
+  user_updated_by: 'user_updated_by',
+  user_deleted_at: 'user_deleted_at',
+  user_deleted_by: 'user_deleted_by',
+  user_is_deleted: 'user_is_deleted'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -292,10 +341,25 @@ exports.AccountBalanceType = exports.$Enums.AccountBalanceType = {
   DR: 'DR'
 };
 
+exports.UserGender = exports.$Enums.UserGender = {
+  Male: 'Male',
+  Female: 'Female',
+  Other: 'Other'
+};
+
+exports.UserMaritalStatus = exports.$Enums.UserMaritalStatus = {
+  Single: 'Single',
+  Married: 'Married',
+  Divorced: 'Divorced',
+  Widowed: 'Widowed',
+  Other: 'Other'
+};
+
 exports.Prisma.ModelName = {
   Owner: 'Owner',
   Firm: 'Firm',
-  Account: 'Account'
+  Account: 'Account',
+  User: 'User'
 };
 
 /**

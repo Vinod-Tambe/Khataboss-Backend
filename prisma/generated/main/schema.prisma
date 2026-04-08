@@ -77,6 +77,7 @@ model Owner {
   // ===============================
   // Relations
   // ===============================
+  users    User[]    @relation("OwnerUser")
   firms    Firm[]    @relation("OwnerFirm")
   accounts Account[] @relation("OwnerAccount")
 
@@ -201,6 +202,7 @@ model Firm {
   // ===============================
   // Relations
   // ===============================
+  users    User[]    @relation("FirmUser")
   accounts Account[] @relation("FirmAccount")
   owner    Owner     @relation("OwnerFirm", fields: [firm_own_id], references: [own_id])
 }
@@ -255,4 +257,99 @@ model Account {
 
   owner Owner @relation("OwnerAccount", fields: [acc_own_id], references: [own_id])
   firm  Firm  @relation("FirmAccount", fields: [acc_firm_id], references: [firm_id])
+}
+
+enum UserGender {
+  Male
+  Female
+  Other
+}
+
+enum UserMaritalStatus {
+  Single
+  Married
+  Divorced
+  Widowed
+  Other
+}
+
+// =============================================================================
+// MODEL: User (NEW - CLEANED)
+// =============================================================================
+
+model User {
+  user_id   Int    @id @default(autoincrement())
+  user_uuid String @unique @default(uuid())
+
+  user_own_id  Int
+  user_firm_id Int
+
+  user_add_date DateTime @default(now())
+
+  user_first_name  String
+  user_father_name String?
+  user_last_name   String
+  user_mother_name String?
+
+  user_mobile_no String
+  user_phone_no  String?
+  user_email_id  String?
+
+  user_gender         UserGender?
+  user_cast           String?
+  user_marital_status UserMaritalStatus?
+  user_occupation     String?
+
+  user_birth_date DateTime?
+
+  user_gstin     String?
+  user_tax_no    String?
+  user_pan_no    String? @db.VarChar(10)
+  user_adhaar_no String? @db.VarChar(12)
+
+  user_profile_img      Json?
+  user_adhaar_front_img Json?
+  user_adhaar_back_img  Json?
+  user_pan_card_img     Json?
+
+  user_per_address  String?
+  user_curr_address String?
+
+  user_village String?
+  user_ward_no String?
+  user_tehsil  String?
+  user_city    String?
+  user_state   String?
+  user_country String?
+  user_pincode String? @db.VarChar(6)
+
+  user_bank_name   String?
+  user_bank_acc_no String?
+  user_ifsc_code   String? @db.VarChar(11)
+
+  user_sign_img   Json?
+  user_other_info String?
+
+  // ===============================
+  // Audit Fields
+  // ===============================
+
+  user_created_at DateTime  @default(now())
+  user_created_by String?
+  user_updated_at DateTime  @updatedAt
+  user_updated_by String?
+  user_deleted_at DateTime?
+  user_deleted_by String?
+  user_is_deleted Boolean   @default(false)
+
+  // ===============================
+  // Relations
+  // ===============================
+
+  owner Owner @relation("OwnerUser", fields: [user_own_id], references: [own_id])
+  firm  Firm  @relation("FirmUser", fields: [user_firm_id], references: [firm_id])
+
+  @@index([user_mobile_no])
+  @@index([user_email_id])
+  @@index([user_firm_id])
 }
