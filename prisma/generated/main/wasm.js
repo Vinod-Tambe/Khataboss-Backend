@@ -293,6 +293,168 @@ exports.Prisma.UserScalarFieldEnum = {
   user_is_deleted: 'user_is_deleted'
 };
 
+exports.Prisma.FinanceScalarFieldEnum = {
+  fin_id: 'fin_id',
+  fin_uuid: 'fin_uuid',
+  fin_add_date: 'fin_add_date',
+  fin_own_id: 'fin_own_id',
+  fin_firm_id: 'fin_firm_id',
+  fin_user_id: 'fin_user_id',
+  fin_jrnl_id: 'fin_jrnl_id',
+  fin_staff_id: 'fin_staff_id',
+  fin_prin_amt: 'fin_prin_amt',
+  fin_no_of_emi: 'fin_no_of_emi',
+  fin_start_date: 'fin_start_date',
+  fin_time_period: 'fin_time_period',
+  fin_sms_period: 'fin_sms_period',
+  fin_freq: 'fin_freq',
+  fin_freq_type: 'fin_freq_type',
+  fin_roi: 'fin_roi',
+  fin_status: 'fin_status',
+  fin_collec_amt: 'fin_collec_amt',
+  fin_proccess_amt: 'fin_proccess_amt',
+  fin_fine_amt: 'fin_fine_amt',
+  fin_fine_emi_no: 'fin_fine_emi_no',
+  fin_emi_amt: 'fin_emi_amt',
+  fin_final_amt: 'fin_final_amt',
+  fin_cash_amt: 'fin_cash_amt',
+  fin_bank_amt: 'fin_bank_amt',
+  fin_online_amt: 'fin_online_amt',
+  fin_card_amt: 'fin_card_amt',
+  fin_cash_acc_id: 'fin_cash_acc_id',
+  fin_bank_acc_id: 'fin_bank_acc_id',
+  fin_online_acc_id: 'fin_online_acc_id',
+  fin_card_acc_id: 'fin_card_acc_id',
+  fin_cash_info: 'fin_cash_info',
+  fin_bank_info: 'fin_bank_info',
+  fin_online_info: 'fin_online_info',
+  fin_card_info: 'fin_card_info',
+  fin_dr_acc_id: 'fin_dr_acc_id',
+  fin_pay_info: 'fin_pay_info',
+  fin_other_info: 'fin_other_info',
+  fin_created_at: 'fin_created_at',
+  fin_created_by: 'fin_created_by',
+  fin_updated_at: 'fin_updated_at',
+  fin_updated_by: 'fin_updated_by',
+  fin_deleted_at: 'fin_deleted_at',
+  fin_deleted_by: 'fin_deleted_by',
+  fin_is_deleted: 'fin_is_deleted'
+};
+
+exports.Prisma.Finance_TransactionScalarFieldEnum = {
+  ft_id: 'ft_id',
+  ft_uuid: 'ft_uuid',
+  ft_firm_id: 'ft_firm_id',
+  ft_own_id: 'ft_own_id',
+  ft_user_id: 'ft_user_id',
+  ft_fin_id: 'ft_fin_id',
+  ft_cash_acc_id: 'ft_cash_acc_id',
+  ft_bank_acc_id: 'ft_bank_acc_id',
+  ft_online_acc_id: 'ft_online_acc_id',
+  ft_card_acc_id: 'ft_card_acc_id',
+  ft_emi_no: 'ft_emi_no',
+  ft_add_date: 'ft_add_date',
+  ft_start_date: 'ft_start_date',
+  ft_due_date: 'ft_due_date',
+  ft_paid_date: 'ft_paid_date',
+  ft_emi_amt: 'ft_emi_amt',
+  ft_fine_amt: 'ft_fine_amt',
+  ft_paid_amt: 'ft_paid_amt',
+  ft_pending_amt: 'ft_pending_amt',
+  ft_emi_status: 'ft_emi_status',
+  ft_created_at: 'ft_created_at',
+  ft_created_by: 'ft_created_by',
+  ft_updated_at: 'ft_updated_at',
+  ft_updated_by: 'ft_updated_by',
+  ft_deleted_at: 'ft_deleted_at',
+  ft_deleted_by: 'ft_deleted_by',
+  ft_is_deleted: 'ft_is_deleted'
+};
+
+exports.Prisma.Finance_Money_TransactionScalarFieldEnum = {
+  fm_id: 'fm_id',
+  fm_uuid: 'fm_uuid',
+  fm_firm_id: 'fm_firm_id',
+  fm_own_id: 'fm_own_id',
+  fm_user_id: 'fm_user_id',
+  fm_fin_id: 'fm_fin_id',
+  fm_jrnl_id: 'fm_jrnl_id',
+  fm_cash_acc_id: 'fm_cash_acc_id',
+  fm_bank_acc_id: 'fm_bank_acc_id',
+  fm_online_acc_id: 'fm_online_acc_id',
+  fm_card_acc_id: 'fm_card_acc_id',
+  fm_dr_acc_id: 'fm_dr_acc_id',
+  fm_add_date: 'fm_add_date',
+  fm_trans_crdr: 'fm_trans_crdr',
+  fm_trans_date: 'fm_trans_date',
+  fm_trans_panel: 'fm_trans_panel',
+  fm_trans_type: 'fm_trans_type',
+  fm_trans_amt: 'fm_trans_amt',
+  fm_cash_amt: 'fm_cash_amt',
+  fm_bank_amt: 'fm_bank_amt',
+  fm_online_amt: 'fm_online_amt',
+  fm_card_amt: 'fm_card_amt',
+  fm_cash_info: 'fm_cash_info',
+  fm_bank_info: 'fm_bank_info',
+  fm_online_info: 'fm_online_info',
+  fm_card_info: 'fm_card_info',
+  fm_pay_info: 'fm_pay_info',
+  fm_other_info: 'fm_other_info',
+  fm_created_at: 'fm_created_at',
+  fm_created_by: 'fm_created_by',
+  fm_updated_by: 'fm_updated_by',
+  fm_updated_at: 'fm_updated_at',
+  fm_deleted_at: 'fm_deleted_at',
+  fm_deleted_by: 'fm_deleted_by',
+  fm_is_deleted: 'fm_is_deleted'
+};
+
+exports.Prisma.JournalScalarFieldEnum = {
+  jrnl_id: 'jrnl_id',
+  jrnl_uuid: 'jrnl_uuid',
+  jrnl_firm_id: 'jrnl_firm_id',
+  jrnl_own_id: 'jrnl_own_id',
+  jrnl_user_id: 'jrnl_user_id',
+  jrnl_add_date: 'jrnl_add_date',
+  jrnl_date: 'jrnl_date',
+  jrnl_amt: 'jrnl_amt',
+  jrnl_panel: 'jrnl_panel',
+  jrnl_other_info: 'jrnl_other_info',
+  jrnl_created_at: 'jrnl_created_at',
+  jrnl_created_by: 'jrnl_created_by',
+  jrnl_updated_by: 'jrnl_updated_by',
+  jrnl_updated_at: 'jrnl_updated_at',
+  jrnl_deleted_at: 'jrnl_deleted_at',
+  jrnl_deleted_by: 'jrnl_deleted_by',
+  jrnl_is_deleted: 'jrnl_is_deleted'
+};
+
+exports.Prisma.JournalTransactionScalarFieldEnum = {
+  jrtr_id: 'jrtr_id',
+  jrtr_uuid: 'jrtr_uuid',
+  jrtr_jrnl_id: 'jrtr_jrnl_id',
+  jrtr_firm_id: 'jrtr_firm_id',
+  jrtr_own_id: 'jrtr_own_id',
+  jrtr_user_id: 'jrtr_user_id',
+  jrtr_cr_acc_id: 'jrtr_cr_acc_id',
+  jrtr_dr_acc_id: 'jrtr_dr_acc_id',
+  jrtr_add_date: 'jrtr_add_date',
+  jrtr_date: 'jrtr_date',
+  jrtr_panel: 'jrtr_panel',
+  jrtr_crdr: 'jrtr_crdr',
+  jrtr_cr_amt: 'jrtr_cr_amt',
+  jrtr_dr_amt: 'jrtr_dr_amt',
+  jrtr_acc_info: 'jrtr_acc_info',
+  jrtr_other_info: 'jrtr_other_info',
+  jrtr_created_at: 'jrtr_created_at',
+  jrtr_created_by: 'jrtr_created_by',
+  jrtr_updated_by: 'jrtr_updated_by',
+  jrtr_updated_at: 'jrtr_updated_at',
+  jrtr_deleted_at: 'jrtr_deleted_at',
+  jrtr_deleted_by: 'jrtr_deleted_by',
+  jrtr_is_deleted: 'jrtr_is_deleted'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -355,11 +517,40 @@ exports.UserMaritalStatus = exports.$Enums.UserMaritalStatus = {
   Other: 'Other'
 };
 
+exports.FinanceStatus = exports.$Enums.FinanceStatus = {
+  ACTIVE: 'ACTIVE',
+  INACTIVE: 'INACTIVE',
+  PARTIAL: 'PARTIAL',
+  CLOSED: 'CLOSED',
+  COMPLETED: 'COMPLETED'
+};
+
+exports.EmiStatus = exports.$Enums.EmiStatus = {
+  PAID: 'PAID',
+  PENDING: 'PENDING',
+  DUE: 'DUE'
+};
+
+exports.BalanceType = exports.$Enums.BalanceType = {
+  CR: 'CR',
+  DR: 'DR'
+};
+
+exports.BalanceAmtType = exports.$Enums.BalanceAmtType = {
+  CR: 'CR',
+  DR: 'DR'
+};
+
 exports.Prisma.ModelName = {
   Owner: 'Owner',
   Firm: 'Firm',
   Account: 'Account',
-  User: 'User'
+  User: 'User',
+  Finance: 'Finance',
+  Finance_Transaction: 'Finance_Transaction',
+  Finance_Money_Transaction: 'Finance_Money_Transaction',
+  Journal: 'Journal',
+  JournalTransaction: 'JournalTransaction'
 };
 
 /**

@@ -81,6 +81,12 @@ model Owner {
   firms    Firm[]    @relation("OwnerFirm")
   accounts Account[] @relation("OwnerAccount")
 
+  finances            Finance[]                   @relation("OwnerFinance")
+  financeTransactions Finance_Transaction[]       @relation("OwnerFT")
+  financeMoneyTrans   Finance_Money_Transaction[] @relation("OwnerFMT")
+  journals            Journal[]                   @relation("OwnerJournal")
+  journalTransactions JournalTransaction[]        @relation("OwnerJRTR")
+
   // ===============================
   // Indexes
   // ===============================
@@ -205,6 +211,12 @@ model Firm {
   users    User[]    @relation("FirmUser")
   accounts Account[] @relation("FirmAccount")
   owner    Owner     @relation("OwnerFirm", fields: [firm_own_id], references: [own_id])
+
+  finances            Finance[]                   @relation("FinanceFirm")
+  financeTransactions Finance_Transaction[]
+  financeMoneyTrans   Finance_Money_Transaction[]
+  journals            Journal[]
+  journalTransactions JournalTransaction[]
 }
 
 // Enum for balance type
@@ -257,6 +269,26 @@ model Account {
 
   owner Owner @relation("OwnerAccount", fields: [acc_own_id], references: [own_id])
   firm  Firm  @relation("FirmAccount", fields: [acc_firm_id], references: [firm_id])
+
+  financeCash   Finance[] @relation("CashAccount")
+  financeBank   Finance[] @relation("BankAccount")
+  financeOnline Finance[] @relation("OnlineAccount")
+  financeCard   Finance[] @relation("CardAccount")
+  financeDr     Finance[] @relation("FinanceDrAccount")
+
+  ftCash   Finance_Transaction[] @relation("FTCashAccount")
+  ftBank   Finance_Transaction[] @relation("FTBankAccount")
+  ftOnline Finance_Transaction[] @relation("FTOnlineAccount")
+  ftCard   Finance_Transaction[] @relation("FTCardAccount")
+
+  fmCash   Finance_Money_Transaction[] @relation("FMCashAccount")
+  fmBank   Finance_Money_Transaction[] @relation("FMBankAccount")
+  fmOnline Finance_Money_Transaction[] @relation("FMOnlineAccount")
+  fmCard   Finance_Money_Transaction[] @relation("FMCardAccount")
+  fmDr     Finance_Money_Transaction[] @relation("FMDrAccount")
+
+  jrtrCredit JournalTransaction[] @relation("JournalCreditAccount")
+  jrtrDebit  JournalTransaction[] @relation("JournalDebitAccount")
 }
 
 enum UserGender {
@@ -349,7 +381,343 @@ model User {
   owner Owner @relation("OwnerUser", fields: [user_own_id], references: [own_id])
   firm  Firm  @relation("FirmUser", fields: [user_firm_id], references: [firm_id])
 
+  finances            Finance[]                   @relation("FinanceUser")
+  financeTransactions Finance_Transaction[]
+  financeMoneyTrans   Finance_Money_Transaction[]
+  journals            Journal[]
+  journalTransactions JournalTransaction[]
+
   @@index([user_mobile_no])
   @@index([user_email_id])
   @@index([user_firm_id])
+}
+
+enum FinanceStatus {
+  ACTIVE
+  INACTIVE
+  PARTIAL
+  CLOSED
+  COMPLETED
+}
+
+model Finance {
+  fin_id       Int     @id @default(autoincrement())
+  fin_uuid     String  @unique @default(uuid())
+  fin_add_date String? @default("")
+  fin_own_id   Int     @default(0)
+  fin_firm_id  Int     @default(0)
+  fin_user_id  Int     @default(0)
+  fin_jrnl_id  Int?    @default(0)
+  fin_staff_id Int     @default(0)
+
+  fin_prin_amt   Float
+  fin_no_of_emi  Int
+  fin_start_date String
+
+  fin_time_period  String?       @default("")
+  fin_sms_period   String?       @default("")
+  fin_freq         String
+  fin_freq_type    String
+  fin_roi          String?       @default("")
+  fin_status       FinanceStatus @default(ACTIVE)
+  fin_collec_amt   Float?        @default(0)
+  fin_proccess_amt Float?        @default(0)
+  fin_fine_amt     Float?        @default(0)
+  fin_fine_emi_no  Int?          @default(0)
+  fin_emi_amt      Float?        @default(0)
+
+  fin_final_amt Float
+
+  fin_cash_amt   String? @default("")
+  fin_bank_amt   String? @default("")
+  fin_online_amt String? @default("")
+  fin_card_amt   String? @default("")
+
+  fin_cash_acc_id   Int? @default(0)
+  fin_bank_acc_id   Int? @default(0)
+  fin_online_acc_id Int? @default(0)
+  fin_card_acc_id   Int? @default(0)
+
+  fin_cash_info   String? @default("")
+  fin_bank_info   String? @default("")
+  fin_online_info String? @default("")
+  fin_card_info   String? @default("")
+  fin_dr_acc_id   Int?    @default(0)
+
+  fin_pay_info   String? @default("")
+  fin_other_info String? @default("")
+
+  // Audit Fields
+  fin_created_at DateTime  @default(now())
+  fin_created_by String?
+  fin_updated_at DateTime  @default(now())
+  fin_updated_by String?
+  fin_deleted_at DateTime?
+  fin_deleted_by String?
+  fin_is_deleted Boolean   @default(false)
+
+  // Relations
+  firm                Firm                        @relation("FinanceFirm", fields: [fin_firm_id], references: [firm_id])
+  user                User                        @relation("FinanceUser", fields: [fin_user_id], references: [user_id])
+  finance_trans       Finance_Transaction[]
+  finance_money_trans Finance_Money_Transaction[]
+  cashAccount         Account?                    @relation("CashAccount", fields: [fin_cash_acc_id], references: [acc_id])
+  bankAccount         Account?                    @relation("BankAccount", fields: [fin_bank_acc_id], references: [acc_id])
+  onlineAccount       Account?                    @relation("OnlineAccount", fields: [fin_online_acc_id], references: [acc_id])
+  cardAccount         Account?                    @relation("CardAccount", fields: [fin_card_acc_id], references: [acc_id])
+  drAccount           Account?                    @relation("FinanceDrAccount", fields: [fin_dr_acc_id], references: [acc_id])
+
+  owner Owner @relation("OwnerFinance", fields: [fin_own_id], references: [own_id])
+
+  @@map("finance")
+}
+
+enum EmiStatus {
+  PAID
+  PENDING
+  DUE
+}
+
+model Finance_Transaction {
+  ft_id      Int    @id @default(autoincrement())
+  ft_uuid    String @unique @default(uuid())
+  // ================================
+  // 🔗 Foreign Keys
+  // ================================
+  ft_firm_id Int
+  ft_own_id  Int
+  ft_user_id Int
+  ft_fin_id  Int
+
+  // Account Foreign Keys
+  ft_cash_acc_id   Int?
+  ft_bank_acc_id   Int?
+  ft_online_acc_id Int?
+  ft_card_acc_id   Int?
+
+  // ================================
+  // EMI Details
+  // ================================
+
+  ft_emi_no     Int
+  ft_add_date   String? @default("")
+  ft_start_date String
+  ft_due_date   String
+  ft_paid_date  String?
+
+  ft_emi_amt     Float
+  ft_fine_amt    Float @default(0)
+  ft_paid_amt    Float
+  ft_pending_amt Float
+
+  ft_emi_status EmiStatus @default(PENDING)
+
+  // Audit Fields
+  ft_created_at DateTime  @default(now())
+  ft_created_by String?
+  ft_updated_at DateTime  @default(now())
+  ft_updated_by String?
+  ft_deleted_at DateTime?
+  ft_deleted_by String?
+  ft_is_deleted Boolean   @default(false)
+
+  // ================================
+  // 🔗 Relations
+  // ================================
+
+  firm    Firm    @relation(fields: [ft_firm_id], references: [firm_id])
+  user    User    @relation(fields: [ft_user_id], references: [user_id])
+  owner   Owner   @relation("OwnerFT", fields: [ft_own_id], references: [own_id])
+  finance Finance @relation(fields: [ft_fin_id], references: [fin_id])
+
+  cashAccount   Account? @relation("FTCashAccount", fields: [ft_cash_acc_id], references: [acc_id])
+  bankAccount   Account? @relation("FTBankAccount", fields: [ft_bank_acc_id], references: [acc_id])
+  onlineAccount Account? @relation("FTOnlineAccount", fields: [ft_online_acc_id], references: [acc_id])
+  cardAccount   Account? @relation("FTCardAccount", fields: [ft_card_acc_id], references: [acc_id])
+
+  @@map("finance_trans")
+}
+
+enum BalanceType {
+  CR
+  DR
+}
+
+model Finance_Money_Transaction {
+  fm_id   Int    @id @default(autoincrement())
+  fm_uuid String @unique @default(uuid())
+  // ===============================
+  // 🔗 Foreign Keys
+  // ===============================
+
+  fm_firm_id Int
+  fm_own_id  Int
+  fm_user_id Int
+  fm_fin_id  Int
+  fm_jrnl_id Int?
+
+  fm_cash_acc_id   Int?
+  fm_bank_acc_id   Int?
+  fm_online_acc_id Int?
+  fm_card_acc_id   Int?
+  fm_dr_acc_id     Int?
+
+  // ===============================
+  // Transaction Info
+  // ===============================
+
+  fm_add_date    String?     @default("")
+  fm_trans_crdr  BalanceType
+  fm_trans_date  String
+  fm_trans_panel String?     @default("")
+  fm_trans_type  String?     @default("")
+
+  fm_trans_amt Float
+
+  fm_cash_amt   Float @default(0)
+  fm_bank_amt   Float @default(0)
+  fm_online_amt Float @default(0)
+  fm_card_amt   Float @default(0)
+
+  fm_cash_info   String? @default("")
+  fm_bank_info   String? @default("")
+  fm_online_info String? @default("")
+  fm_card_info   String? @default("")
+
+  fm_pay_info   String? @default("")
+  fm_other_info String? @default("")
+
+  // Audit Fields
+  fm_created_at DateTime  @default(now())
+  fm_created_by String?
+  fm_updated_by String?
+  fm_updated_at DateTime  @default(now())
+  fm_deleted_at DateTime?
+  fm_deleted_by String?
+  fm_is_deleted Boolean   @default(false)
+
+  // ===============================
+  // 🔗 Relations
+  // ===============================
+
+  firm    Firm     @relation(fields: [fm_firm_id], references: [firm_id])
+  user    User     @relation(fields: [fm_user_id], references: [user_id])
+  owner   Owner    @relation("OwnerFMT", fields: [fm_own_id], references: [own_id])
+  finance Finance  @relation(fields: [fm_fin_id], references: [fin_id])
+  journal Journal? @relation(fields: [fm_jrnl_id], references: [jrnl_id])
+
+  cashAccount   Account? @relation("FMCashAccount", fields: [fm_cash_acc_id], references: [acc_id])
+  bankAccount   Account? @relation("FMBankAccount", fields: [fm_bank_acc_id], references: [acc_id])
+  onlineAccount Account? @relation("FMOnlineAccount", fields: [fm_online_acc_id], references: [acc_id])
+  cardAccount   Account? @relation("FMCardAccount", fields: [fm_card_acc_id], references: [acc_id])
+  drAccount     Account? @relation("FMDrAccount", fields: [fm_dr_acc_id], references: [acc_id])
+
+  @@map("finance_money_trans")
+}
+
+model Journal {
+  jrnl_id   Int    @id @default(autoincrement())
+  jrnl_uuid String @unique @default(uuid())
+  // ============================
+  // 🔗 Foreign Keys
+  // ============================
+
+  jrnl_firm_id Int
+  jrnl_own_id  Int
+  jrnl_user_id Int?
+
+  // ============================
+  // Journal Info
+  // ============================
+
+  jrnl_add_date   String? @default("")
+  jrnl_date       String
+  jrnl_amt        Float
+  jrnl_panel      String
+  jrnl_other_info String? @default("")
+
+  // ============================
+  // Reverse Relations
+  // ============================
+
+  financeMoneyTransactions Finance_Money_Transaction[]
+
+  // Audit Fields
+  jrnl_created_at DateTime  @default(now())
+  jrnl_created_by String?
+  jrnl_updated_by String?
+  jrnl_updated_at DateTime  @default(now())
+  jrnl_deleted_at DateTime?
+  jrnl_deleted_by String?
+  jrnl_is_deleted Boolean   @default(false)
+
+  // ===============================
+  // 🔗 Relations
+  // ===============================
+
+  firm                Firm                 @relation(fields: [jrnl_firm_id], references: [firm_id])
+  user                User?                @relation(fields: [jrnl_user_id], references: [user_id])
+  owner               Owner                @relation("OwnerJournal", fields: [jrnl_own_id], references: [own_id])
+  journalTransactions JournalTransaction[]
+
+  @@map("journal")
+}
+
+enum BalanceAmtType {
+  CR
+  DR
+}
+
+model JournalTransaction {
+  jrtr_id   Int    @id @default(autoincrement())
+  jrtr_uuid String @unique @default(uuid())
+  // ===============================
+  // 🔗 Foreign Keys
+  // ===============================
+
+  jrtr_jrnl_id Int
+  jrtr_firm_id Int
+  jrtr_own_id  Int
+  jrtr_user_id Int?
+
+  jrtr_cr_acc_id Int?
+  jrtr_dr_acc_id Int?
+
+  // ===============================
+  // Transaction Info
+  // ===============================
+
+  jrtr_add_date String?        @default("")
+  jrtr_date     String
+  jrtr_panel    String
+  jrtr_crdr     BalanceAmtType
+
+  jrtr_cr_amt Float
+  jrtr_dr_amt Float
+
+  jrtr_acc_info   String? @default("")
+  jrtr_other_info String? @default("")
+
+  // Audit Fields
+  jrtr_created_at DateTime  @default(now())
+  jrtr_created_by String?
+  jrtr_updated_by String?
+  jrtr_updated_at DateTime  @default(now())
+  jrtr_deleted_at DateTime?
+  jrtr_deleted_by String?
+  jrtr_is_deleted Boolean   @default(false)
+
+  // ===============================
+  // 🔗 Relations
+  // ===============================
+
+  journal Journal @relation(fields: [jrtr_jrnl_id], references: [jrnl_id])
+  firm    Firm    @relation(fields: [jrtr_firm_id], references: [firm_id])
+  user    User?   @relation(fields: [jrtr_user_id], references: [user_id])
+  owner   Owner   @relation("OwnerJRTR", fields: [jrtr_own_id], references: [own_id])
+
+  creditAccount Account? @relation("JournalCreditAccount", fields: [jrtr_cr_acc_id], references: [acc_id])
+  debitAccount  Account? @relation("JournalDebitAccount", fields: [jrtr_dr_acc_id], references: [acc_id])
+
+  @@map("journal_trans")
 }
