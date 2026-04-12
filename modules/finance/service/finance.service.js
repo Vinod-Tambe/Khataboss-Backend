@@ -133,19 +133,29 @@ class FinanceService {
     }
   }
 
-  async getFinances(dbUrl, firmId = null) {
+  async getFinances(dbUrl, firmId = null, userId = null, status = null) {
     const prisma = this.getPrisma(dbUrl);
     try {
       const where = { fin_is_deleted: false };
+      
       if (firmId && firmId !== 'all') {
         where.fin_firm_id = parseInt(firmId);
       }
+      
+      if (userId && userId !== 'all') {
+        where.fin_user_id = parseInt(userId);
+      }
+      
+      if (status && status !== 'ALL') {
+        where.fin_status = status;
+      }
+
       return await prisma.finance.findMany({
         where: where,
         orderBy: { fin_created_at: "desc" },
         include: {
           user: {
-            select: { user_first_name: true, user_last_name: true }
+            select: { user_first_name: true, user_last_name: true, user_mobile_no: true }
           },
           firm: {
             select: { firm_name: true }

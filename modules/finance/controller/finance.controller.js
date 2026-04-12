@@ -30,9 +30,9 @@ class FinanceController {
 
   async getFinances(req, res) {
     try {
-      const { firmId } = req.query;
+      const { firmId, userId, status } = req.query;
       const dbUrl = this.getDbUrl(req.user.own_db);
-      const result = await financeService.getFinances(dbUrl, firmId);
+      const result = await financeService.getFinances(dbUrl, firmId, userId, status);
       return res.status(200).json({
         message: "Finances fetched successfully.",
         data: result,
