@@ -118,6 +118,15 @@ export const UserMaritalStatus: {
 export type UserMaritalStatus = (typeof UserMaritalStatus)[keyof typeof UserMaritalStatus]
 
 
+export const FrequencyType: {
+  MONTHLY: 'MONTHLY',
+  YEARLY: 'YEARLY',
+  WEEKLY: 'WEEKLY'
+};
+
+export type FrequencyType = (typeof FrequencyType)[keyof typeof FrequencyType]
+
+
 export const FinanceStatus: {
   ACTIVE: 'ACTIVE',
   INACTIVE: 'INACTIVE',
@@ -178,6 +187,10 @@ export const UserGender: typeof $Enums.UserGender
 export type UserMaritalStatus = $Enums.UserMaritalStatus
 
 export const UserMaritalStatus: typeof $Enums.UserMaritalStatus
+
+export type FrequencyType = $Enums.FrequencyType
+
+export const FrequencyType: typeof $Enums.FrequencyType
 
 export type FinanceStatus = $Enums.FinanceStatus
 
@@ -8613,8 +8626,8 @@ export namespace Prisma {
     fin_start_date: string | null
     fin_time_period: string | null
     fin_sms_period: string | null
+    fin_freq_type: $Enums.FrequencyType | null
     fin_freq: string | null
-    fin_freq_type: string | null
     fin_roi: string | null
     fin_status: $Enums.FinanceStatus | null
     fin_collec_amt: number | null
@@ -8661,8 +8674,8 @@ export namespace Prisma {
     fin_start_date: string | null
     fin_time_period: string | null
     fin_sms_period: string | null
+    fin_freq_type: $Enums.FrequencyType | null
     fin_freq: string | null
-    fin_freq_type: string | null
     fin_roi: string | null
     fin_status: $Enums.FinanceStatus | null
     fin_collec_amt: number | null
@@ -8709,8 +8722,8 @@ export namespace Prisma {
     fin_start_date: number
     fin_time_period: number
     fin_sms_period: number
-    fin_freq: number
     fin_freq_type: number
+    fin_freq: number
     fin_roi: number
     fin_status: number
     fin_collec_amt: number
@@ -8803,8 +8816,8 @@ export namespace Prisma {
     fin_start_date?: true
     fin_time_period?: true
     fin_sms_period?: true
-    fin_freq?: true
     fin_freq_type?: true
+    fin_freq?: true
     fin_roi?: true
     fin_status?: true
     fin_collec_amt?: true
@@ -8851,8 +8864,8 @@ export namespace Prisma {
     fin_start_date?: true
     fin_time_period?: true
     fin_sms_period?: true
-    fin_freq?: true
     fin_freq_type?: true
+    fin_freq?: true
     fin_roi?: true
     fin_status?: true
     fin_collec_amt?: true
@@ -8899,8 +8912,8 @@ export namespace Prisma {
     fin_start_date?: true
     fin_time_period?: true
     fin_sms_period?: true
-    fin_freq?: true
     fin_freq_type?: true
+    fin_freq?: true
     fin_roi?: true
     fin_status?: true
     fin_collec_amt?: true
@@ -9034,8 +9047,8 @@ export namespace Prisma {
     fin_start_date: string
     fin_time_period: string | null
     fin_sms_period: string | null
-    fin_freq: string
-    fin_freq_type: string
+    fin_freq_type: $Enums.FrequencyType
+    fin_freq: string | null
     fin_roi: string | null
     fin_status: $Enums.FinanceStatus
     fin_collec_amt: number | null
@@ -9101,8 +9114,8 @@ export namespace Prisma {
     fin_start_date?: boolean
     fin_time_period?: boolean
     fin_sms_period?: boolean
-    fin_freq?: boolean
     fin_freq_type?: boolean
+    fin_freq?: boolean
     fin_roi?: boolean
     fin_status?: boolean
     fin_collec_amt?: boolean
@@ -9160,8 +9173,8 @@ export namespace Prisma {
     fin_start_date?: boolean
     fin_time_period?: boolean
     fin_sms_period?: boolean
-    fin_freq?: boolean
     fin_freq_type?: boolean
+    fin_freq?: boolean
     fin_roi?: boolean
     fin_status?: boolean
     fin_collec_amt?: boolean
@@ -9216,8 +9229,8 @@ export namespace Prisma {
     fin_start_date?: boolean
     fin_time_period?: boolean
     fin_sms_period?: boolean
-    fin_freq?: boolean
     fin_freq_type?: boolean
+    fin_freq?: boolean
     fin_roi?: boolean
     fin_status?: boolean
     fin_collec_amt?: boolean
@@ -9302,8 +9315,8 @@ export namespace Prisma {
       fin_start_date: string
       fin_time_period: string | null
       fin_sms_period: string | null
-      fin_freq: string
-      fin_freq_type: string
+      fin_freq_type: $Enums.FrequencyType
+      fin_freq: string | null
       fin_roi: string | null
       fin_status: $Enums.FinanceStatus
       fin_collec_amt: number | null
@@ -9750,8 +9763,8 @@ export namespace Prisma {
     readonly fin_start_date: FieldRef<"Finance", 'String'>
     readonly fin_time_period: FieldRef<"Finance", 'String'>
     readonly fin_sms_period: FieldRef<"Finance", 'String'>
+    readonly fin_freq_type: FieldRef<"Finance", 'FrequencyType'>
     readonly fin_freq: FieldRef<"Finance", 'String'>
-    readonly fin_freq_type: FieldRef<"Finance", 'String'>
     readonly fin_roi: FieldRef<"Finance", 'String'>
     readonly fin_status: FieldRef<"Finance", 'FinanceStatus'>
     readonly fin_collec_amt: FieldRef<"Finance", 'Float'>
@@ -15850,8 +15863,8 @@ export namespace Prisma {
     fin_start_date: 'fin_start_date',
     fin_time_period: 'fin_time_period',
     fin_sms_period: 'fin_sms_period',
-    fin_freq: 'fin_freq',
     fin_freq_type: 'fin_freq_type',
+    fin_freq: 'fin_freq',
     fin_roi: 'fin_roi',
     fin_status: 'fin_status',
     fin_collec_amt: 'fin_collec_amt',
@@ -16210,6 +16223,20 @@ export namespace Prisma {
    * Reference to a field of type 'Float[]'
    */
   export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'FrequencyType'
+   */
+  export type EnumFrequencyTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FrequencyType'>
+    
+
+
+  /**
+   * Reference to a field of type 'FrequencyType[]'
+   */
+  export type ListEnumFrequencyTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FrequencyType[]'>
     
 
 
@@ -17323,8 +17350,8 @@ export namespace Prisma {
     fin_start_date?: StringFilter<"Finance"> | string
     fin_time_period?: StringNullableFilter<"Finance"> | string | null
     fin_sms_period?: StringNullableFilter<"Finance"> | string | null
-    fin_freq?: StringFilter<"Finance"> | string
-    fin_freq_type?: StringFilter<"Finance"> | string
+    fin_freq_type?: EnumFrequencyTypeFilter<"Finance"> | $Enums.FrequencyType
+    fin_freq?: StringNullableFilter<"Finance"> | string | null
     fin_roi?: StringNullableFilter<"Finance"> | string | null
     fin_status?: EnumFinanceStatusFilter<"Finance"> | $Enums.FinanceStatus
     fin_collec_amt?: FloatNullableFilter<"Finance"> | number | null
@@ -17381,8 +17408,8 @@ export namespace Prisma {
     fin_start_date?: SortOrder
     fin_time_period?: SortOrderInput | SortOrder
     fin_sms_period?: SortOrderInput | SortOrder
-    fin_freq?: SortOrder
     fin_freq_type?: SortOrder
+    fin_freq?: SortOrderInput | SortOrder
     fin_roi?: SortOrderInput | SortOrder
     fin_status?: SortOrder
     fin_collec_amt?: SortOrderInput | SortOrder
@@ -17442,8 +17469,8 @@ export namespace Prisma {
     fin_start_date?: StringFilter<"Finance"> | string
     fin_time_period?: StringNullableFilter<"Finance"> | string | null
     fin_sms_period?: StringNullableFilter<"Finance"> | string | null
-    fin_freq?: StringFilter<"Finance"> | string
-    fin_freq_type?: StringFilter<"Finance"> | string
+    fin_freq_type?: EnumFrequencyTypeFilter<"Finance"> | $Enums.FrequencyType
+    fin_freq?: StringNullableFilter<"Finance"> | string | null
     fin_roi?: StringNullableFilter<"Finance"> | string | null
     fin_status?: EnumFinanceStatusFilter<"Finance"> | $Enums.FinanceStatus
     fin_collec_amt?: FloatNullableFilter<"Finance"> | number | null
@@ -17500,8 +17527,8 @@ export namespace Prisma {
     fin_start_date?: SortOrder
     fin_time_period?: SortOrderInput | SortOrder
     fin_sms_period?: SortOrderInput | SortOrder
-    fin_freq?: SortOrder
     fin_freq_type?: SortOrder
+    fin_freq?: SortOrderInput | SortOrder
     fin_roi?: SortOrderInput | SortOrder
     fin_status?: SortOrder
     fin_collec_amt?: SortOrderInput | SortOrder
@@ -17556,8 +17583,8 @@ export namespace Prisma {
     fin_start_date?: StringWithAggregatesFilter<"Finance"> | string
     fin_time_period?: StringNullableWithAggregatesFilter<"Finance"> | string | null
     fin_sms_period?: StringNullableWithAggregatesFilter<"Finance"> | string | null
-    fin_freq?: StringWithAggregatesFilter<"Finance"> | string
-    fin_freq_type?: StringWithAggregatesFilter<"Finance"> | string
+    fin_freq_type?: EnumFrequencyTypeWithAggregatesFilter<"Finance"> | $Enums.FrequencyType
+    fin_freq?: StringNullableWithAggregatesFilter<"Finance"> | string | null
     fin_roi?: StringNullableWithAggregatesFilter<"Finance"> | string | null
     fin_status?: EnumFinanceStatusWithAggregatesFilter<"Finance"> | $Enums.FinanceStatus
     fin_collec_amt?: FloatNullableWithAggregatesFilter<"Finance"> | number | null
@@ -19635,8 +19662,8 @@ export namespace Prisma {
     fin_start_date: string
     fin_time_period?: string | null
     fin_sms_period?: string | null
-    fin_freq: string
-    fin_freq_type: string
+    fin_freq_type?: $Enums.FrequencyType
+    fin_freq?: string | null
     fin_roi?: string | null
     fin_status?: $Enums.FinanceStatus
     fin_collec_amt?: number | null
@@ -19688,8 +19715,8 @@ export namespace Prisma {
     fin_start_date: string
     fin_time_period?: string | null
     fin_sms_period?: string | null
-    fin_freq: string
-    fin_freq_type: string
+    fin_freq_type?: $Enums.FrequencyType
+    fin_freq?: string | null
     fin_roi?: string | null
     fin_status?: $Enums.FinanceStatus
     fin_collec_amt?: number | null
@@ -19734,8 +19761,8 @@ export namespace Prisma {
     fin_start_date?: StringFieldUpdateOperationsInput | string
     fin_time_period?: NullableStringFieldUpdateOperationsInput | string | null
     fin_sms_period?: NullableStringFieldUpdateOperationsInput | string | null
-    fin_freq?: StringFieldUpdateOperationsInput | string
-    fin_freq_type?: StringFieldUpdateOperationsInput | string
+    fin_freq_type?: EnumFrequencyTypeFieldUpdateOperationsInput | $Enums.FrequencyType
+    fin_freq?: NullableStringFieldUpdateOperationsInput | string | null
     fin_roi?: NullableStringFieldUpdateOperationsInput | string | null
     fin_status?: EnumFinanceStatusFieldUpdateOperationsInput | $Enums.FinanceStatus
     fin_collec_amt?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -19787,8 +19814,8 @@ export namespace Prisma {
     fin_start_date?: StringFieldUpdateOperationsInput | string
     fin_time_period?: NullableStringFieldUpdateOperationsInput | string | null
     fin_sms_period?: NullableStringFieldUpdateOperationsInput | string | null
-    fin_freq?: StringFieldUpdateOperationsInput | string
-    fin_freq_type?: StringFieldUpdateOperationsInput | string
+    fin_freq_type?: EnumFrequencyTypeFieldUpdateOperationsInput | $Enums.FrequencyType
+    fin_freq?: NullableStringFieldUpdateOperationsInput | string | null
     fin_roi?: NullableStringFieldUpdateOperationsInput | string | null
     fin_status?: EnumFinanceStatusFieldUpdateOperationsInput | $Enums.FinanceStatus
     fin_collec_amt?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -19837,8 +19864,8 @@ export namespace Prisma {
     fin_start_date: string
     fin_time_period?: string | null
     fin_sms_period?: string | null
-    fin_freq: string
-    fin_freq_type: string
+    fin_freq_type?: $Enums.FrequencyType
+    fin_freq?: string | null
     fin_roi?: string | null
     fin_status?: $Enums.FinanceStatus
     fin_collec_amt?: number | null
@@ -19881,8 +19908,8 @@ export namespace Prisma {
     fin_start_date?: StringFieldUpdateOperationsInput | string
     fin_time_period?: NullableStringFieldUpdateOperationsInput | string | null
     fin_sms_period?: NullableStringFieldUpdateOperationsInput | string | null
-    fin_freq?: StringFieldUpdateOperationsInput | string
-    fin_freq_type?: StringFieldUpdateOperationsInput | string
+    fin_freq_type?: EnumFrequencyTypeFieldUpdateOperationsInput | $Enums.FrequencyType
+    fin_freq?: NullableStringFieldUpdateOperationsInput | string | null
     fin_roi?: NullableStringFieldUpdateOperationsInput | string | null
     fin_status?: EnumFinanceStatusFieldUpdateOperationsInput | $Enums.FinanceStatus
     fin_collec_amt?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -19924,8 +19951,8 @@ export namespace Prisma {
     fin_start_date?: StringFieldUpdateOperationsInput | string
     fin_time_period?: NullableStringFieldUpdateOperationsInput | string | null
     fin_sms_period?: NullableStringFieldUpdateOperationsInput | string | null
-    fin_freq?: StringFieldUpdateOperationsInput | string
-    fin_freq_type?: StringFieldUpdateOperationsInput | string
+    fin_freq_type?: EnumFrequencyTypeFieldUpdateOperationsInput | $Enums.FrequencyType
+    fin_freq?: NullableStringFieldUpdateOperationsInput | string | null
     fin_roi?: NullableStringFieldUpdateOperationsInput | string | null
     fin_status?: EnumFinanceStatusFieldUpdateOperationsInput | $Enums.FinanceStatus
     fin_collec_amt?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -21680,6 +21707,13 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
+  export type EnumFrequencyTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.FrequencyType | EnumFrequencyTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.FrequencyType[] | ListEnumFrequencyTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.FrequencyType[] | ListEnumFrequencyTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumFrequencyTypeFilter<$PrismaModel> | $Enums.FrequencyType
+  }
+
   export type EnumFinanceStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.FinanceStatus | EnumFinanceStatusFieldRefInput<$PrismaModel>
     in?: $Enums.FinanceStatus[] | ListEnumFinanceStatusFieldRefInput<$PrismaModel>
@@ -21722,8 +21756,8 @@ export namespace Prisma {
     fin_start_date?: SortOrder
     fin_time_period?: SortOrder
     fin_sms_period?: SortOrder
-    fin_freq?: SortOrder
     fin_freq_type?: SortOrder
+    fin_freq?: SortOrder
     fin_roi?: SortOrder
     fin_status?: SortOrder
     fin_collec_amt?: SortOrder
@@ -21792,8 +21826,8 @@ export namespace Prisma {
     fin_start_date?: SortOrder
     fin_time_period?: SortOrder
     fin_sms_period?: SortOrder
-    fin_freq?: SortOrder
     fin_freq_type?: SortOrder
+    fin_freq?: SortOrder
     fin_roi?: SortOrder
     fin_status?: SortOrder
     fin_collec_amt?: SortOrder
@@ -21840,8 +21874,8 @@ export namespace Prisma {
     fin_start_date?: SortOrder
     fin_time_period?: SortOrder
     fin_sms_period?: SortOrder
-    fin_freq?: SortOrder
     fin_freq_type?: SortOrder
+    fin_freq?: SortOrder
     fin_roi?: SortOrder
     fin_status?: SortOrder
     fin_collec_amt?: SortOrder
@@ -21926,6 +21960,16 @@ export namespace Prisma {
     _sum?: NestedFloatFilter<$PrismaModel>
     _min?: NestedFloatFilter<$PrismaModel>
     _max?: NestedFloatFilter<$PrismaModel>
+  }
+
+  export type EnumFrequencyTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.FrequencyType | EnumFrequencyTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.FrequencyType[] | ListEnumFrequencyTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.FrequencyType[] | ListEnumFrequencyTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumFrequencyTypeWithAggregatesFilter<$PrismaModel> | $Enums.FrequencyType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumFrequencyTypeFilter<$PrismaModel>
+    _max?: NestedEnumFrequencyTypeFilter<$PrismaModel>
   }
 
   export type EnumFinanceStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -24205,6 +24249,10 @@ export namespace Prisma {
     divide?: number
   }
 
+  export type EnumFrequencyTypeFieldUpdateOperationsInput = {
+    set?: $Enums.FrequencyType
+  }
+
   export type EnumFinanceStatusFieldUpdateOperationsInput = {
     set?: $Enums.FinanceStatus
   }
@@ -25147,6 +25195,13 @@ export namespace Prisma {
     _max?: NestedEnumUserMaritalStatusNullableFilter<$PrismaModel>
   }
 
+  export type NestedEnumFrequencyTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.FrequencyType | EnumFrequencyTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.FrequencyType[] | ListEnumFrequencyTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.FrequencyType[] | ListEnumFrequencyTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumFrequencyTypeFilter<$PrismaModel> | $Enums.FrequencyType
+  }
+
   export type NestedEnumFinanceStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.FinanceStatus | EnumFinanceStatusFieldRefInput<$PrismaModel>
     in?: $Enums.FinanceStatus[] | ListEnumFinanceStatusFieldRefInput<$PrismaModel>
@@ -25195,6 +25250,16 @@ export namespace Prisma {
     _sum?: NestedFloatFilter<$PrismaModel>
     _min?: NestedFloatFilter<$PrismaModel>
     _max?: NestedFloatFilter<$PrismaModel>
+  }
+
+  export type NestedEnumFrequencyTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.FrequencyType | EnumFrequencyTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.FrequencyType[] | ListEnumFrequencyTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.FrequencyType[] | ListEnumFrequencyTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumFrequencyTypeWithAggregatesFilter<$PrismaModel> | $Enums.FrequencyType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumFrequencyTypeFilter<$PrismaModel>
+    _max?: NestedEnumFrequencyTypeFilter<$PrismaModel>
   }
 
   export type NestedEnumFinanceStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -25627,8 +25692,8 @@ export namespace Prisma {
     fin_start_date: string
     fin_time_period?: string | null
     fin_sms_period?: string | null
-    fin_freq: string
-    fin_freq_type: string
+    fin_freq_type?: $Enums.FrequencyType
+    fin_freq?: string | null
     fin_roi?: string | null
     fin_status?: $Enums.FinanceStatus
     fin_collec_amt?: number | null
@@ -25678,8 +25743,8 @@ export namespace Prisma {
     fin_start_date: string
     fin_time_period?: string | null
     fin_sms_period?: string | null
-    fin_freq: string
-    fin_freq_type: string
+    fin_freq_type?: $Enums.FrequencyType
+    fin_freq?: string | null
     fin_roi?: string | null
     fin_status?: $Enums.FinanceStatus
     fin_collec_amt?: number | null
@@ -26207,8 +26272,8 @@ export namespace Prisma {
     fin_start_date?: StringFilter<"Finance"> | string
     fin_time_period?: StringNullableFilter<"Finance"> | string | null
     fin_sms_period?: StringNullableFilter<"Finance"> | string | null
-    fin_freq?: StringFilter<"Finance"> | string
-    fin_freq_type?: StringFilter<"Finance"> | string
+    fin_freq_type?: EnumFrequencyTypeFilter<"Finance"> | $Enums.FrequencyType
+    fin_freq?: StringNullableFilter<"Finance"> | string | null
     fin_roi?: StringNullableFilter<"Finance"> | string | null
     fin_status?: EnumFinanceStatusFilter<"Finance"> | $Enums.FinanceStatus
     fin_collec_amt?: FloatNullableFilter<"Finance"> | number | null
@@ -26753,8 +26818,8 @@ export namespace Prisma {
     fin_start_date: string
     fin_time_period?: string | null
     fin_sms_period?: string | null
-    fin_freq: string
-    fin_freq_type: string
+    fin_freq_type?: $Enums.FrequencyType
+    fin_freq?: string | null
     fin_roi?: string | null
     fin_status?: $Enums.FinanceStatus
     fin_collec_amt?: number | null
@@ -26804,8 +26869,8 @@ export namespace Prisma {
     fin_start_date: string
     fin_time_period?: string | null
     fin_sms_period?: string | null
-    fin_freq: string
-    fin_freq_type: string
+    fin_freq_type?: $Enums.FrequencyType
+    fin_freq?: string | null
     fin_roi?: string | null
     fin_status?: $Enums.FinanceStatus
     fin_collec_amt?: number | null
@@ -27545,8 +27610,8 @@ export namespace Prisma {
     fin_start_date: string
     fin_time_period?: string | null
     fin_sms_period?: string | null
-    fin_freq: string
-    fin_freq_type: string
+    fin_freq_type?: $Enums.FrequencyType
+    fin_freq?: string | null
     fin_roi?: string | null
     fin_status?: $Enums.FinanceStatus
     fin_collec_amt?: number | null
@@ -27597,8 +27662,8 @@ export namespace Prisma {
     fin_start_date: string
     fin_time_period?: string | null
     fin_sms_period?: string | null
-    fin_freq: string
-    fin_freq_type: string
+    fin_freq_type?: $Enums.FrequencyType
+    fin_freq?: string | null
     fin_roi?: string | null
     fin_status?: $Enums.FinanceStatus
     fin_collec_amt?: number | null
@@ -27652,8 +27717,8 @@ export namespace Prisma {
     fin_start_date: string
     fin_time_period?: string | null
     fin_sms_period?: string | null
-    fin_freq: string
-    fin_freq_type: string
+    fin_freq_type?: $Enums.FrequencyType
+    fin_freq?: string | null
     fin_roi?: string | null
     fin_status?: $Enums.FinanceStatus
     fin_collec_amt?: number | null
@@ -27704,8 +27769,8 @@ export namespace Prisma {
     fin_start_date: string
     fin_time_period?: string | null
     fin_sms_period?: string | null
-    fin_freq: string
-    fin_freq_type: string
+    fin_freq_type?: $Enums.FrequencyType
+    fin_freq?: string | null
     fin_roi?: string | null
     fin_status?: $Enums.FinanceStatus
     fin_collec_amt?: number | null
@@ -27759,8 +27824,8 @@ export namespace Prisma {
     fin_start_date: string
     fin_time_period?: string | null
     fin_sms_period?: string | null
-    fin_freq: string
-    fin_freq_type: string
+    fin_freq_type?: $Enums.FrequencyType
+    fin_freq?: string | null
     fin_roi?: string | null
     fin_status?: $Enums.FinanceStatus
     fin_collec_amt?: number | null
@@ -27811,8 +27876,8 @@ export namespace Prisma {
     fin_start_date: string
     fin_time_period?: string | null
     fin_sms_period?: string | null
-    fin_freq: string
-    fin_freq_type: string
+    fin_freq_type?: $Enums.FrequencyType
+    fin_freq?: string | null
     fin_roi?: string | null
     fin_status?: $Enums.FinanceStatus
     fin_collec_amt?: number | null
@@ -27866,8 +27931,8 @@ export namespace Prisma {
     fin_start_date: string
     fin_time_period?: string | null
     fin_sms_period?: string | null
-    fin_freq: string
-    fin_freq_type: string
+    fin_freq_type?: $Enums.FrequencyType
+    fin_freq?: string | null
     fin_roi?: string | null
     fin_status?: $Enums.FinanceStatus
     fin_collec_amt?: number | null
@@ -27918,8 +27983,8 @@ export namespace Prisma {
     fin_start_date: string
     fin_time_period?: string | null
     fin_sms_period?: string | null
-    fin_freq: string
-    fin_freq_type: string
+    fin_freq_type?: $Enums.FrequencyType
+    fin_freq?: string | null
     fin_roi?: string | null
     fin_status?: $Enums.FinanceStatus
     fin_collec_amt?: number | null
@@ -27973,8 +28038,8 @@ export namespace Prisma {
     fin_start_date: string
     fin_time_period?: string | null
     fin_sms_period?: string | null
-    fin_freq: string
-    fin_freq_type: string
+    fin_freq_type?: $Enums.FrequencyType
+    fin_freq?: string | null
     fin_roi?: string | null
     fin_status?: $Enums.FinanceStatus
     fin_collec_amt?: number | null
@@ -28025,8 +28090,8 @@ export namespace Prisma {
     fin_start_date: string
     fin_time_period?: string | null
     fin_sms_period?: string | null
-    fin_freq: string
-    fin_freq_type: string
+    fin_freq_type?: $Enums.FrequencyType
+    fin_freq?: string | null
     fin_roi?: string | null
     fin_status?: $Enums.FinanceStatus
     fin_collec_amt?: number | null
@@ -29576,8 +29641,8 @@ export namespace Prisma {
     fin_start_date: string
     fin_time_period?: string | null
     fin_sms_period?: string | null
-    fin_freq: string
-    fin_freq_type: string
+    fin_freq_type?: $Enums.FrequencyType
+    fin_freq?: string | null
     fin_roi?: string | null
     fin_status?: $Enums.FinanceStatus
     fin_collec_amt?: number | null
@@ -29627,8 +29692,8 @@ export namespace Prisma {
     fin_start_date: string
     fin_time_period?: string | null
     fin_sms_period?: string | null
-    fin_freq: string
-    fin_freq_type: string
+    fin_freq_type?: $Enums.FrequencyType
+    fin_freq?: string | null
     fin_roi?: string | null
     fin_status?: $Enums.FinanceStatus
     fin_collec_amt?: number | null
@@ -32429,8 +32494,8 @@ export namespace Prisma {
     fin_start_date: string
     fin_time_period?: string | null
     fin_sms_period?: string | null
-    fin_freq: string
-    fin_freq_type: string
+    fin_freq_type?: $Enums.FrequencyType
+    fin_freq?: string | null
     fin_roi?: string | null
     fin_status?: $Enums.FinanceStatus
     fin_collec_amt?: number | null
@@ -32481,8 +32546,8 @@ export namespace Prisma {
     fin_start_date: string
     fin_time_period?: string | null
     fin_sms_period?: string | null
-    fin_freq: string
-    fin_freq_type: string
+    fin_freq_type?: $Enums.FrequencyType
+    fin_freq?: string | null
     fin_roi?: string | null
     fin_status?: $Enums.FinanceStatus
     fin_collec_amt?: number | null
@@ -33275,8 +33340,8 @@ export namespace Prisma {
     fin_start_date?: StringFieldUpdateOperationsInput | string
     fin_time_period?: NullableStringFieldUpdateOperationsInput | string | null
     fin_sms_period?: NullableStringFieldUpdateOperationsInput | string | null
-    fin_freq?: StringFieldUpdateOperationsInput | string
-    fin_freq_type?: StringFieldUpdateOperationsInput | string
+    fin_freq_type?: EnumFrequencyTypeFieldUpdateOperationsInput | $Enums.FrequencyType
+    fin_freq?: NullableStringFieldUpdateOperationsInput | string | null
     fin_roi?: NullableStringFieldUpdateOperationsInput | string | null
     fin_status?: EnumFinanceStatusFieldUpdateOperationsInput | $Enums.FinanceStatus
     fin_collec_amt?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -33327,8 +33392,8 @@ export namespace Prisma {
     fin_start_date?: StringFieldUpdateOperationsInput | string
     fin_time_period?: NullableStringFieldUpdateOperationsInput | string | null
     fin_sms_period?: NullableStringFieldUpdateOperationsInput | string | null
-    fin_freq?: StringFieldUpdateOperationsInput | string
-    fin_freq_type?: StringFieldUpdateOperationsInput | string
+    fin_freq_type?: EnumFrequencyTypeFieldUpdateOperationsInput | $Enums.FrequencyType
+    fin_freq?: NullableStringFieldUpdateOperationsInput | string | null
     fin_roi?: NullableStringFieldUpdateOperationsInput | string | null
     fin_status?: EnumFinanceStatusFieldUpdateOperationsInput | $Enums.FinanceStatus
     fin_collec_amt?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -34112,8 +34177,8 @@ export namespace Prisma {
     fin_start_date: string
     fin_time_period?: string | null
     fin_sms_period?: string | null
-    fin_freq: string
-    fin_freq_type: string
+    fin_freq_type?: $Enums.FrequencyType
+    fin_freq?: string | null
     fin_roi?: string | null
     fin_status?: $Enums.FinanceStatus
     fin_collec_amt?: number | null
@@ -34164,8 +34229,8 @@ export namespace Prisma {
     fin_start_date: string
     fin_time_period?: string | null
     fin_sms_period?: string | null
-    fin_freq: string
-    fin_freq_type: string
+    fin_freq_type?: $Enums.FrequencyType
+    fin_freq?: string | null
     fin_roi?: string | null
     fin_status?: $Enums.FinanceStatus
     fin_collec_amt?: number | null
@@ -35102,8 +35167,8 @@ export namespace Prisma {
     fin_start_date?: StringFieldUpdateOperationsInput | string
     fin_time_period?: NullableStringFieldUpdateOperationsInput | string | null
     fin_sms_period?: NullableStringFieldUpdateOperationsInput | string | null
-    fin_freq?: StringFieldUpdateOperationsInput | string
-    fin_freq_type?: StringFieldUpdateOperationsInput | string
+    fin_freq_type?: EnumFrequencyTypeFieldUpdateOperationsInput | $Enums.FrequencyType
+    fin_freq?: NullableStringFieldUpdateOperationsInput | string | null
     fin_roi?: NullableStringFieldUpdateOperationsInput | string | null
     fin_status?: EnumFinanceStatusFieldUpdateOperationsInput | $Enums.FinanceStatus
     fin_collec_amt?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -35154,8 +35219,8 @@ export namespace Prisma {
     fin_start_date?: StringFieldUpdateOperationsInput | string
     fin_time_period?: NullableStringFieldUpdateOperationsInput | string | null
     fin_sms_period?: NullableStringFieldUpdateOperationsInput | string | null
-    fin_freq?: StringFieldUpdateOperationsInput | string
-    fin_freq_type?: StringFieldUpdateOperationsInput | string
+    fin_freq_type?: EnumFrequencyTypeFieldUpdateOperationsInput | $Enums.FrequencyType
+    fin_freq?: NullableStringFieldUpdateOperationsInput | string | null
     fin_roi?: NullableStringFieldUpdateOperationsInput | string | null
     fin_status?: EnumFinanceStatusFieldUpdateOperationsInput | $Enums.FinanceStatus
     fin_collec_amt?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -37910,8 +37975,8 @@ export namespace Prisma {
     fin_start_date: string
     fin_time_period?: string | null
     fin_sms_period?: string | null
-    fin_freq: string
-    fin_freq_type: string
+    fin_freq_type?: $Enums.FrequencyType
+    fin_freq?: string | null
     fin_roi?: string | null
     fin_status?: $Enums.FinanceStatus
     fin_collec_amt?: number | null
@@ -38507,8 +38572,8 @@ export namespace Prisma {
     fin_start_date?: StringFieldUpdateOperationsInput | string
     fin_time_period?: NullableStringFieldUpdateOperationsInput | string | null
     fin_sms_period?: NullableStringFieldUpdateOperationsInput | string | null
-    fin_freq?: StringFieldUpdateOperationsInput | string
-    fin_freq_type?: StringFieldUpdateOperationsInput | string
+    fin_freq_type?: EnumFrequencyTypeFieldUpdateOperationsInput | $Enums.FrequencyType
+    fin_freq?: NullableStringFieldUpdateOperationsInput | string | null
     fin_roi?: NullableStringFieldUpdateOperationsInput | string | null
     fin_status?: EnumFinanceStatusFieldUpdateOperationsInput | $Enums.FinanceStatus
     fin_collec_amt?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -38558,8 +38623,8 @@ export namespace Prisma {
     fin_start_date?: StringFieldUpdateOperationsInput | string
     fin_time_period?: NullableStringFieldUpdateOperationsInput | string | null
     fin_sms_period?: NullableStringFieldUpdateOperationsInput | string | null
-    fin_freq?: StringFieldUpdateOperationsInput | string
-    fin_freq_type?: StringFieldUpdateOperationsInput | string
+    fin_freq_type?: EnumFrequencyTypeFieldUpdateOperationsInput | $Enums.FrequencyType
+    fin_freq?: NullableStringFieldUpdateOperationsInput | string | null
     fin_roi?: NullableStringFieldUpdateOperationsInput | string | null
     fin_status?: EnumFinanceStatusFieldUpdateOperationsInput | $Enums.FinanceStatus
     fin_collec_amt?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -38607,8 +38672,8 @@ export namespace Prisma {
     fin_start_date?: StringFieldUpdateOperationsInput | string
     fin_time_period?: NullableStringFieldUpdateOperationsInput | string | null
     fin_sms_period?: NullableStringFieldUpdateOperationsInput | string | null
-    fin_freq?: StringFieldUpdateOperationsInput | string
-    fin_freq_type?: StringFieldUpdateOperationsInput | string
+    fin_freq_type?: EnumFrequencyTypeFieldUpdateOperationsInput | $Enums.FrequencyType
+    fin_freq?: NullableStringFieldUpdateOperationsInput | string | null
     fin_roi?: NullableStringFieldUpdateOperationsInput | string | null
     fin_status?: EnumFinanceStatusFieldUpdateOperationsInput | $Enums.FinanceStatus
     fin_collec_amt?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -39063,8 +39128,8 @@ export namespace Prisma {
     fin_start_date: string
     fin_time_period?: string | null
     fin_sms_period?: string | null
-    fin_freq: string
-    fin_freq_type: string
+    fin_freq_type?: $Enums.FrequencyType
+    fin_freq?: string | null
     fin_roi?: string | null
     fin_status?: $Enums.FinanceStatus
     fin_collec_amt?: number | null
@@ -39494,8 +39559,8 @@ export namespace Prisma {
     fin_start_date?: StringFieldUpdateOperationsInput | string
     fin_time_period?: NullableStringFieldUpdateOperationsInput | string | null
     fin_sms_period?: NullableStringFieldUpdateOperationsInput | string | null
-    fin_freq?: StringFieldUpdateOperationsInput | string
-    fin_freq_type?: StringFieldUpdateOperationsInput | string
+    fin_freq_type?: EnumFrequencyTypeFieldUpdateOperationsInput | $Enums.FrequencyType
+    fin_freq?: NullableStringFieldUpdateOperationsInput | string | null
     fin_roi?: NullableStringFieldUpdateOperationsInput | string | null
     fin_status?: EnumFinanceStatusFieldUpdateOperationsInput | $Enums.FinanceStatus
     fin_collec_amt?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -39545,8 +39610,8 @@ export namespace Prisma {
     fin_start_date?: StringFieldUpdateOperationsInput | string
     fin_time_period?: NullableStringFieldUpdateOperationsInput | string | null
     fin_sms_period?: NullableStringFieldUpdateOperationsInput | string | null
-    fin_freq?: StringFieldUpdateOperationsInput | string
-    fin_freq_type?: StringFieldUpdateOperationsInput | string
+    fin_freq_type?: EnumFrequencyTypeFieldUpdateOperationsInput | $Enums.FrequencyType
+    fin_freq?: NullableStringFieldUpdateOperationsInput | string | null
     fin_roi?: NullableStringFieldUpdateOperationsInput | string | null
     fin_status?: EnumFinanceStatusFieldUpdateOperationsInput | $Enums.FinanceStatus
     fin_collec_amt?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -39594,8 +39659,8 @@ export namespace Prisma {
     fin_start_date?: StringFieldUpdateOperationsInput | string
     fin_time_period?: NullableStringFieldUpdateOperationsInput | string | null
     fin_sms_period?: NullableStringFieldUpdateOperationsInput | string | null
-    fin_freq?: StringFieldUpdateOperationsInput | string
-    fin_freq_type?: StringFieldUpdateOperationsInput | string
+    fin_freq_type?: EnumFrequencyTypeFieldUpdateOperationsInput | $Enums.FrequencyType
+    fin_freq?: NullableStringFieldUpdateOperationsInput | string | null
     fin_roi?: NullableStringFieldUpdateOperationsInput | string | null
     fin_status?: EnumFinanceStatusFieldUpdateOperationsInput | $Enums.FinanceStatus
     fin_collec_amt?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -39972,8 +40037,8 @@ export namespace Prisma {
     fin_start_date: string
     fin_time_period?: string | null
     fin_sms_period?: string | null
-    fin_freq: string
-    fin_freq_type: string
+    fin_freq_type?: $Enums.FrequencyType
+    fin_freq?: string | null
     fin_roi?: string | null
     fin_status?: $Enums.FinanceStatus
     fin_collec_amt?: number | null
@@ -40019,8 +40084,8 @@ export namespace Prisma {
     fin_start_date: string
     fin_time_period?: string | null
     fin_sms_period?: string | null
-    fin_freq: string
-    fin_freq_type: string
+    fin_freq_type?: $Enums.FrequencyType
+    fin_freq?: string | null
     fin_roi?: string | null
     fin_status?: $Enums.FinanceStatus
     fin_collec_amt?: number | null
@@ -40066,8 +40131,8 @@ export namespace Prisma {
     fin_start_date: string
     fin_time_period?: string | null
     fin_sms_period?: string | null
-    fin_freq: string
-    fin_freq_type: string
+    fin_freq_type?: $Enums.FrequencyType
+    fin_freq?: string | null
     fin_roi?: string | null
     fin_status?: $Enums.FinanceStatus
     fin_collec_amt?: number | null
@@ -40113,8 +40178,8 @@ export namespace Prisma {
     fin_start_date: string
     fin_time_period?: string | null
     fin_sms_period?: string | null
-    fin_freq: string
-    fin_freq_type: string
+    fin_freq_type?: $Enums.FrequencyType
+    fin_freq?: string | null
     fin_roi?: string | null
     fin_status?: $Enums.FinanceStatus
     fin_collec_amt?: number | null
@@ -40160,8 +40225,8 @@ export namespace Prisma {
     fin_start_date: string
     fin_time_period?: string | null
     fin_sms_period?: string | null
-    fin_freq: string
-    fin_freq_type: string
+    fin_freq_type?: $Enums.FrequencyType
+    fin_freq?: string | null
     fin_roi?: string | null
     fin_status?: $Enums.FinanceStatus
     fin_collec_amt?: number | null
@@ -40554,8 +40619,8 @@ export namespace Prisma {
     fin_start_date?: StringFieldUpdateOperationsInput | string
     fin_time_period?: NullableStringFieldUpdateOperationsInput | string | null
     fin_sms_period?: NullableStringFieldUpdateOperationsInput | string | null
-    fin_freq?: StringFieldUpdateOperationsInput | string
-    fin_freq_type?: StringFieldUpdateOperationsInput | string
+    fin_freq_type?: EnumFrequencyTypeFieldUpdateOperationsInput | $Enums.FrequencyType
+    fin_freq?: NullableStringFieldUpdateOperationsInput | string | null
     fin_roi?: NullableStringFieldUpdateOperationsInput | string | null
     fin_status?: EnumFinanceStatusFieldUpdateOperationsInput | $Enums.FinanceStatus
     fin_collec_amt?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -40606,8 +40671,8 @@ export namespace Prisma {
     fin_start_date?: StringFieldUpdateOperationsInput | string
     fin_time_period?: NullableStringFieldUpdateOperationsInput | string | null
     fin_sms_period?: NullableStringFieldUpdateOperationsInput | string | null
-    fin_freq?: StringFieldUpdateOperationsInput | string
-    fin_freq_type?: StringFieldUpdateOperationsInput | string
+    fin_freq_type?: EnumFrequencyTypeFieldUpdateOperationsInput | $Enums.FrequencyType
+    fin_freq?: NullableStringFieldUpdateOperationsInput | string | null
     fin_roi?: NullableStringFieldUpdateOperationsInput | string | null
     fin_status?: EnumFinanceStatusFieldUpdateOperationsInput | $Enums.FinanceStatus
     fin_collec_amt?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -40655,8 +40720,8 @@ export namespace Prisma {
     fin_start_date?: StringFieldUpdateOperationsInput | string
     fin_time_period?: NullableStringFieldUpdateOperationsInput | string | null
     fin_sms_period?: NullableStringFieldUpdateOperationsInput | string | null
-    fin_freq?: StringFieldUpdateOperationsInput | string
-    fin_freq_type?: StringFieldUpdateOperationsInput | string
+    fin_freq_type?: EnumFrequencyTypeFieldUpdateOperationsInput | $Enums.FrequencyType
+    fin_freq?: NullableStringFieldUpdateOperationsInput | string | null
     fin_roi?: NullableStringFieldUpdateOperationsInput | string | null
     fin_status?: EnumFinanceStatusFieldUpdateOperationsInput | $Enums.FinanceStatus
     fin_collec_amt?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -40698,8 +40763,8 @@ export namespace Prisma {
     fin_start_date?: StringFieldUpdateOperationsInput | string
     fin_time_period?: NullableStringFieldUpdateOperationsInput | string | null
     fin_sms_period?: NullableStringFieldUpdateOperationsInput | string | null
-    fin_freq?: StringFieldUpdateOperationsInput | string
-    fin_freq_type?: StringFieldUpdateOperationsInput | string
+    fin_freq_type?: EnumFrequencyTypeFieldUpdateOperationsInput | $Enums.FrequencyType
+    fin_freq?: NullableStringFieldUpdateOperationsInput | string | null
     fin_roi?: NullableStringFieldUpdateOperationsInput | string | null
     fin_status?: EnumFinanceStatusFieldUpdateOperationsInput | $Enums.FinanceStatus
     fin_collec_amt?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -40750,8 +40815,8 @@ export namespace Prisma {
     fin_start_date?: StringFieldUpdateOperationsInput | string
     fin_time_period?: NullableStringFieldUpdateOperationsInput | string | null
     fin_sms_period?: NullableStringFieldUpdateOperationsInput | string | null
-    fin_freq?: StringFieldUpdateOperationsInput | string
-    fin_freq_type?: StringFieldUpdateOperationsInput | string
+    fin_freq_type?: EnumFrequencyTypeFieldUpdateOperationsInput | $Enums.FrequencyType
+    fin_freq?: NullableStringFieldUpdateOperationsInput | string | null
     fin_roi?: NullableStringFieldUpdateOperationsInput | string | null
     fin_status?: EnumFinanceStatusFieldUpdateOperationsInput | $Enums.FinanceStatus
     fin_collec_amt?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -40799,8 +40864,8 @@ export namespace Prisma {
     fin_start_date?: StringFieldUpdateOperationsInput | string
     fin_time_period?: NullableStringFieldUpdateOperationsInput | string | null
     fin_sms_period?: NullableStringFieldUpdateOperationsInput | string | null
-    fin_freq?: StringFieldUpdateOperationsInput | string
-    fin_freq_type?: StringFieldUpdateOperationsInput | string
+    fin_freq_type?: EnumFrequencyTypeFieldUpdateOperationsInput | $Enums.FrequencyType
+    fin_freq?: NullableStringFieldUpdateOperationsInput | string | null
     fin_roi?: NullableStringFieldUpdateOperationsInput | string | null
     fin_status?: EnumFinanceStatusFieldUpdateOperationsInput | $Enums.FinanceStatus
     fin_collec_amt?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -40842,8 +40907,8 @@ export namespace Prisma {
     fin_start_date?: StringFieldUpdateOperationsInput | string
     fin_time_period?: NullableStringFieldUpdateOperationsInput | string | null
     fin_sms_period?: NullableStringFieldUpdateOperationsInput | string | null
-    fin_freq?: StringFieldUpdateOperationsInput | string
-    fin_freq_type?: StringFieldUpdateOperationsInput | string
+    fin_freq_type?: EnumFrequencyTypeFieldUpdateOperationsInput | $Enums.FrequencyType
+    fin_freq?: NullableStringFieldUpdateOperationsInput | string | null
     fin_roi?: NullableStringFieldUpdateOperationsInput | string | null
     fin_status?: EnumFinanceStatusFieldUpdateOperationsInput | $Enums.FinanceStatus
     fin_collec_amt?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -40894,8 +40959,8 @@ export namespace Prisma {
     fin_start_date?: StringFieldUpdateOperationsInput | string
     fin_time_period?: NullableStringFieldUpdateOperationsInput | string | null
     fin_sms_period?: NullableStringFieldUpdateOperationsInput | string | null
-    fin_freq?: StringFieldUpdateOperationsInput | string
-    fin_freq_type?: StringFieldUpdateOperationsInput | string
+    fin_freq_type?: EnumFrequencyTypeFieldUpdateOperationsInput | $Enums.FrequencyType
+    fin_freq?: NullableStringFieldUpdateOperationsInput | string | null
     fin_roi?: NullableStringFieldUpdateOperationsInput | string | null
     fin_status?: EnumFinanceStatusFieldUpdateOperationsInput | $Enums.FinanceStatus
     fin_collec_amt?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -40943,8 +41008,8 @@ export namespace Prisma {
     fin_start_date?: StringFieldUpdateOperationsInput | string
     fin_time_period?: NullableStringFieldUpdateOperationsInput | string | null
     fin_sms_period?: NullableStringFieldUpdateOperationsInput | string | null
-    fin_freq?: StringFieldUpdateOperationsInput | string
-    fin_freq_type?: StringFieldUpdateOperationsInput | string
+    fin_freq_type?: EnumFrequencyTypeFieldUpdateOperationsInput | $Enums.FrequencyType
+    fin_freq?: NullableStringFieldUpdateOperationsInput | string | null
     fin_roi?: NullableStringFieldUpdateOperationsInput | string | null
     fin_status?: EnumFinanceStatusFieldUpdateOperationsInput | $Enums.FinanceStatus
     fin_collec_amt?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -40986,8 +41051,8 @@ export namespace Prisma {
     fin_start_date?: StringFieldUpdateOperationsInput | string
     fin_time_period?: NullableStringFieldUpdateOperationsInput | string | null
     fin_sms_period?: NullableStringFieldUpdateOperationsInput | string | null
-    fin_freq?: StringFieldUpdateOperationsInput | string
-    fin_freq_type?: StringFieldUpdateOperationsInput | string
+    fin_freq_type?: EnumFrequencyTypeFieldUpdateOperationsInput | $Enums.FrequencyType
+    fin_freq?: NullableStringFieldUpdateOperationsInput | string | null
     fin_roi?: NullableStringFieldUpdateOperationsInput | string | null
     fin_status?: EnumFinanceStatusFieldUpdateOperationsInput | $Enums.FinanceStatus
     fin_collec_amt?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -41038,8 +41103,8 @@ export namespace Prisma {
     fin_start_date?: StringFieldUpdateOperationsInput | string
     fin_time_period?: NullableStringFieldUpdateOperationsInput | string | null
     fin_sms_period?: NullableStringFieldUpdateOperationsInput | string | null
-    fin_freq?: StringFieldUpdateOperationsInput | string
-    fin_freq_type?: StringFieldUpdateOperationsInput | string
+    fin_freq_type?: EnumFrequencyTypeFieldUpdateOperationsInput | $Enums.FrequencyType
+    fin_freq?: NullableStringFieldUpdateOperationsInput | string | null
     fin_roi?: NullableStringFieldUpdateOperationsInput | string | null
     fin_status?: EnumFinanceStatusFieldUpdateOperationsInput | $Enums.FinanceStatus
     fin_collec_amt?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -41087,8 +41152,8 @@ export namespace Prisma {
     fin_start_date?: StringFieldUpdateOperationsInput | string
     fin_time_period?: NullableStringFieldUpdateOperationsInput | string | null
     fin_sms_period?: NullableStringFieldUpdateOperationsInput | string | null
-    fin_freq?: StringFieldUpdateOperationsInput | string
-    fin_freq_type?: StringFieldUpdateOperationsInput | string
+    fin_freq_type?: EnumFrequencyTypeFieldUpdateOperationsInput | $Enums.FrequencyType
+    fin_freq?: NullableStringFieldUpdateOperationsInput | string | null
     fin_roi?: NullableStringFieldUpdateOperationsInput | string | null
     fin_status?: EnumFinanceStatusFieldUpdateOperationsInput | $Enums.FinanceStatus
     fin_collec_amt?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -41130,8 +41195,8 @@ export namespace Prisma {
     fin_start_date?: StringFieldUpdateOperationsInput | string
     fin_time_period?: NullableStringFieldUpdateOperationsInput | string | null
     fin_sms_period?: NullableStringFieldUpdateOperationsInput | string | null
-    fin_freq?: StringFieldUpdateOperationsInput | string
-    fin_freq_type?: StringFieldUpdateOperationsInput | string
+    fin_freq_type?: EnumFrequencyTypeFieldUpdateOperationsInput | $Enums.FrequencyType
+    fin_freq?: NullableStringFieldUpdateOperationsInput | string | null
     fin_roi?: NullableStringFieldUpdateOperationsInput | string | null
     fin_status?: EnumFinanceStatusFieldUpdateOperationsInput | $Enums.FinanceStatus
     fin_collec_amt?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -41182,8 +41247,8 @@ export namespace Prisma {
     fin_start_date?: StringFieldUpdateOperationsInput | string
     fin_time_period?: NullableStringFieldUpdateOperationsInput | string | null
     fin_sms_period?: NullableStringFieldUpdateOperationsInput | string | null
-    fin_freq?: StringFieldUpdateOperationsInput | string
-    fin_freq_type?: StringFieldUpdateOperationsInput | string
+    fin_freq_type?: EnumFrequencyTypeFieldUpdateOperationsInput | $Enums.FrequencyType
+    fin_freq?: NullableStringFieldUpdateOperationsInput | string | null
     fin_roi?: NullableStringFieldUpdateOperationsInput | string | null
     fin_status?: EnumFinanceStatusFieldUpdateOperationsInput | $Enums.FinanceStatus
     fin_collec_amt?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -41231,8 +41296,8 @@ export namespace Prisma {
     fin_start_date?: StringFieldUpdateOperationsInput | string
     fin_time_period?: NullableStringFieldUpdateOperationsInput | string | null
     fin_sms_period?: NullableStringFieldUpdateOperationsInput | string | null
-    fin_freq?: StringFieldUpdateOperationsInput | string
-    fin_freq_type?: StringFieldUpdateOperationsInput | string
+    fin_freq_type?: EnumFrequencyTypeFieldUpdateOperationsInput | $Enums.FrequencyType
+    fin_freq?: NullableStringFieldUpdateOperationsInput | string | null
     fin_roi?: NullableStringFieldUpdateOperationsInput | string | null
     fin_status?: EnumFinanceStatusFieldUpdateOperationsInput | $Enums.FinanceStatus
     fin_collec_amt?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -42319,8 +42384,8 @@ export namespace Prisma {
     fin_start_date: string
     fin_time_period?: string | null
     fin_sms_period?: string | null
-    fin_freq: string
-    fin_freq_type: string
+    fin_freq_type?: $Enums.FrequencyType
+    fin_freq?: string | null
     fin_roi?: string | null
     fin_status?: $Enums.FinanceStatus
     fin_collec_amt?: number | null
@@ -42473,8 +42538,8 @@ export namespace Prisma {
     fin_start_date?: StringFieldUpdateOperationsInput | string
     fin_time_period?: NullableStringFieldUpdateOperationsInput | string | null
     fin_sms_period?: NullableStringFieldUpdateOperationsInput | string | null
-    fin_freq?: StringFieldUpdateOperationsInput | string
-    fin_freq_type?: StringFieldUpdateOperationsInput | string
+    fin_freq_type?: EnumFrequencyTypeFieldUpdateOperationsInput | $Enums.FrequencyType
+    fin_freq?: NullableStringFieldUpdateOperationsInput | string | null
     fin_roi?: NullableStringFieldUpdateOperationsInput | string | null
     fin_status?: EnumFinanceStatusFieldUpdateOperationsInput | $Enums.FinanceStatus
     fin_collec_amt?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -42524,8 +42589,8 @@ export namespace Prisma {
     fin_start_date?: StringFieldUpdateOperationsInput | string
     fin_time_period?: NullableStringFieldUpdateOperationsInput | string | null
     fin_sms_period?: NullableStringFieldUpdateOperationsInput | string | null
-    fin_freq?: StringFieldUpdateOperationsInput | string
-    fin_freq_type?: StringFieldUpdateOperationsInput | string
+    fin_freq_type?: EnumFrequencyTypeFieldUpdateOperationsInput | $Enums.FrequencyType
+    fin_freq?: NullableStringFieldUpdateOperationsInput | string | null
     fin_roi?: NullableStringFieldUpdateOperationsInput | string | null
     fin_status?: EnumFinanceStatusFieldUpdateOperationsInput | $Enums.FinanceStatus
     fin_collec_amt?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -42573,8 +42638,8 @@ export namespace Prisma {
     fin_start_date?: StringFieldUpdateOperationsInput | string
     fin_time_period?: NullableStringFieldUpdateOperationsInput | string | null
     fin_sms_period?: NullableStringFieldUpdateOperationsInput | string | null
-    fin_freq?: StringFieldUpdateOperationsInput | string
-    fin_freq_type?: StringFieldUpdateOperationsInput | string
+    fin_freq_type?: EnumFrequencyTypeFieldUpdateOperationsInput | $Enums.FrequencyType
+    fin_freq?: NullableStringFieldUpdateOperationsInput | string | null
     fin_roi?: NullableStringFieldUpdateOperationsInput | string | null
     fin_status?: EnumFinanceStatusFieldUpdateOperationsInput | $Enums.FinanceStatus
     fin_collec_amt?: NullableFloatFieldUpdateOperationsInput | number | null

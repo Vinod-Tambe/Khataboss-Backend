@@ -12,7 +12,8 @@ const app = express();
 // ─── Middleware ───────────────────────────────────────────────────────────────
 const allowedOrigins = [
   "http://localhost:3001",
-  "http://10.145.173.254:3001"
+  "http://10.145.173.254:3001",
+  "https://khataboss.com"
 ];
 
 app.use(
@@ -51,6 +52,8 @@ v1Router.use("/owner", require("./modules/owner/routes/owner.routes"));
 v1Router.use("/firm", require("./modules/firm/routes/firm.routes"));
 v1Router.use("/account", require("./modules/account/routes/account.routes"));
 v1Router.use("/user", require("./modules/user/routes/user.routes"));
+v1Router.use("/finance", require("./modules/finance/routes/finance.routes"));
+v1Router.use("/journal", require("./modules/journal/routes/journal.routes"));
 
 app.use("/api/v1", v1Router);
 

@@ -210,7 +210,7 @@ model Firm {
   // ===============================
   users    User[]    @relation("FirmUser")
   accounts Account[] @relation("FirmAccount")
-  owner    Owner     @relation("OwnerFirm", fields: [firm_own_id], references: [own_id])
+  owner    Owner     @relation("OwnerFirm", fields: [firm_own_id], references: [own_id], onDelete: Cascade)
 
   finances            Finance[]                   @relation("FinanceFirm")
   financeTransactions Finance_Transaction[]
@@ -267,8 +267,8 @@ model Account {
   acc_is_system  Boolean   @default(false)
   acc_is_deleted Boolean   @default(false)
 
-  owner Owner @relation("OwnerAccount", fields: [acc_own_id], references: [own_id])
-  firm  Firm  @relation("FirmAccount", fields: [acc_firm_id], references: [firm_id])
+  owner Owner @relation("OwnerAccount", fields: [acc_own_id], references: [own_id], onDelete: Cascade)
+  firm  Firm  @relation("FirmAccount", fields: [acc_firm_id], references: [firm_id], onDelete: Cascade)
 
   financeCash   Finance[] @relation("CashAccount")
   financeBank   Finance[] @relation("BankAccount")
@@ -378,8 +378,8 @@ model User {
   // Relations
   // ===============================
 
-  owner Owner @relation("OwnerUser", fields: [user_own_id], references: [own_id])
-  firm  Firm  @relation("FirmUser", fields: [user_firm_id], references: [firm_id])
+  owner Owner @relation("OwnerUser", fields: [user_own_id], references: [own_id], onDelete: Cascade)
+  firm  Firm  @relation("FirmUser", fields: [user_firm_id], references: [firm_id], onDelete: Cascade)
 
   finances            Finance[]                   @relation("FinanceUser")
   financeTransactions Finance_Transaction[]
@@ -400,6 +400,12 @@ enum FinanceStatus {
   COMPLETED
 }
 
+enum FrequencyType {
+  MONTHLY
+  YEARLY
+  WEEKLY
+}
+
 model Finance {
   fin_id       Int     @id @default(autoincrement())
   fin_uuid     String  @unique @default(uuid())
@@ -416,8 +422,8 @@ model Finance {
 
   fin_time_period  String?       @default("")
   fin_sms_period   String?       @default("")
-  fin_freq         String
-  fin_freq_type    String
+  fin_freq_type    FrequencyType @default(MONTHLY)
+  fin_freq         String?       @default("")
   fin_roi          String?       @default("")
   fin_status       FinanceStatus @default(ACTIVE)
   fin_collec_amt   Float?        @default(0)
@@ -457,8 +463,8 @@ model Finance {
   fin_is_deleted Boolean   @default(false)
 
   // Relations
-  firm                Firm                        @relation("FinanceFirm", fields: [fin_firm_id], references: [firm_id])
-  user                User                        @relation("FinanceUser", fields: [fin_user_id], references: [user_id])
+  firm                Firm                        @relation("FinanceFirm", fields: [fin_firm_id], references: [firm_id], onDelete: Cascade)
+  user                User                        @relation("FinanceUser", fields: [fin_user_id], references: [user_id], onDelete: Cascade)
   finance_trans       Finance_Transaction[]
   finance_money_trans Finance_Money_Transaction[]
   cashAccount         Account?                    @relation("CashAccount", fields: [fin_cash_acc_id], references: [acc_id])
@@ -467,7 +473,7 @@ model Finance {
   cardAccount         Account?                    @relation("CardAccount", fields: [fin_card_acc_id], references: [acc_id])
   drAccount           Account?                    @relation("FinanceDrAccount", fields: [fin_dr_acc_id], references: [acc_id])
 
-  owner Owner @relation("OwnerFinance", fields: [fin_own_id], references: [own_id])
+  owner Owner @relation("OwnerFinance", fields: [fin_own_id], references: [own_id], onDelete: Cascade)
 
   @@map("finance")
 }
@@ -525,10 +531,10 @@ model Finance_Transaction {
   // 🔗 Relations
   // ================================
 
-  firm    Firm    @relation(fields: [ft_firm_id], references: [firm_id])
-  user    User    @relation(fields: [ft_user_id], references: [user_id])
-  owner   Owner   @relation("OwnerFT", fields: [ft_own_id], references: [own_id])
-  finance Finance @relation(fields: [ft_fin_id], references: [fin_id])
+  firm    Firm    @relation(fields: [ft_firm_id], references: [firm_id], onDelete: Cascade)
+  user    User    @relation(fields: [ft_user_id], references: [user_id], onDelete: Cascade)
+  owner   Owner   @relation("OwnerFT", fields: [ft_own_id], references: [own_id], onDelete: Cascade)
+  finance Finance @relation(fields: [ft_fin_id], references: [fin_id], onDelete: Cascade)
 
   cashAccount   Account? @relation("FTCashAccount", fields: [ft_cash_acc_id], references: [acc_id])
   bankAccount   Account? @relation("FTBankAccount", fields: [ft_bank_acc_id], references: [acc_id])
@@ -600,10 +606,10 @@ model Finance_Money_Transaction {
   // 🔗 Relations
   // ===============================
 
-  firm    Firm     @relation(fields: [fm_firm_id], references: [firm_id])
-  user    User     @relation(fields: [fm_user_id], references: [user_id])
-  owner   Owner    @relation("OwnerFMT", fields: [fm_own_id], references: [own_id])
-  finance Finance  @relation(fields: [fm_fin_id], references: [fin_id])
+  firm    Firm     @relation(fields: [fm_firm_id], references: [firm_id], onDelete: Cascade)
+  user    User     @relation(fields: [fm_user_id], references: [user_id], onDelete: Cascade)
+  owner   Owner    @relation("OwnerFMT", fields: [fm_own_id], references: [own_id], onDelete: Cascade)
+  finance Finance  @relation(fields: [fm_fin_id], references: [fin_id], onDelete: Cascade)
   journal Journal? @relation(fields: [fm_jrnl_id], references: [jrnl_id])
 
   cashAccount   Account? @relation("FMCashAccount", fields: [fm_cash_acc_id], references: [acc_id])
@@ -655,9 +661,9 @@ model Journal {
   // 🔗 Relations
   // ===============================
 
-  firm                Firm                 @relation(fields: [jrnl_firm_id], references: [firm_id])
-  user                User?                @relation(fields: [jrnl_user_id], references: [user_id])
-  owner               Owner                @relation("OwnerJournal", fields: [jrnl_own_id], references: [own_id])
+  firm                Firm                 @relation(fields: [jrnl_firm_id], references: [firm_id], onDelete: Cascade)
+  user                User?                @relation(fields: [jrnl_user_id], references: [user_id], onDelete: Cascade)
+  owner               Owner                @relation("OwnerJournal", fields: [jrnl_own_id], references: [own_id], onDelete: Cascade)
   journalTransactions JournalTransaction[]
 
   @@map("journal")
@@ -711,10 +717,10 @@ model JournalTransaction {
   // 🔗 Relations
   // ===============================
 
-  journal Journal @relation(fields: [jrtr_jrnl_id], references: [jrnl_id])
-  firm    Firm    @relation(fields: [jrtr_firm_id], references: [firm_id])
-  user    User?   @relation(fields: [jrtr_user_id], references: [user_id])
-  owner   Owner   @relation("OwnerJRTR", fields: [jrtr_own_id], references: [own_id])
+  journal Journal @relation(fields: [jrtr_jrnl_id], references: [jrnl_id], onDelete: Cascade)
+  firm    Firm    @relation(fields: [jrtr_firm_id], references: [firm_id], onDelete: Cascade)
+  user    User?   @relation(fields: [jrtr_user_id], references: [user_id], onDelete: Cascade)
+  owner   Owner   @relation("OwnerJRTR", fields: [jrtr_own_id], references: [own_id], onDelete: Cascade)
 
   creditAccount Account? @relation("JournalCreditAccount", fields: [jrtr_cr_acc_id], references: [acc_id])
   debitAccount  Account? @relation("JournalDebitAccount", fields: [jrtr_dr_acc_id], references: [acc_id])

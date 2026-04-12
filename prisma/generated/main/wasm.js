@@ -307,8 +307,8 @@ exports.Prisma.FinanceScalarFieldEnum = {
   fin_start_date: 'fin_start_date',
   fin_time_period: 'fin_time_period',
   fin_sms_period: 'fin_sms_period',
-  fin_freq: 'fin_freq',
   fin_freq_type: 'fin_freq_type',
+  fin_freq: 'fin_freq',
   fin_roi: 'fin_roi',
   fin_status: 'fin_status',
   fin_collec_amt: 'fin_collec_amt',
@@ -515,6 +515,12 @@ exports.UserMaritalStatus = exports.$Enums.UserMaritalStatus = {
   Divorced: 'Divorced',
   Widowed: 'Widowed',
   Other: 'Other'
+};
+
+exports.FrequencyType = exports.$Enums.FrequencyType = {
+  MONTHLY: 'MONTHLY',
+  YEARLY: 'YEARLY',
+  WEEKLY: 'WEEKLY'
 };
 
 exports.FinanceStatus = exports.$Enums.FinanceStatus = {
