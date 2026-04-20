@@ -13,7 +13,8 @@ const app = express();
 const allowedOrigins = [
   "http://localhost:3001",
   "http://10.145.173.254:3001",
-  "https://khataboss.com"
+  "https://khataboss.com",
+  "https://carlie-atavic-tonita.ngrok-free.dev"
 ];
 
 app.use(
