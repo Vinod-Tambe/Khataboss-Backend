@@ -54,6 +54,35 @@ class FinanceController {
       return res.status(500).json({ error: error.message });
     }
   }
+
+  async getFinanceDetails(req, res) {
+    try {
+      const { id } = req.params;
+      const dbUrl = this.getDbUrl(req.user.own_db);
+      const result = await financeService.getFinanceDetails(dbUrl, id);
+      return res.status(200).json({
+        message: "Finance details fetched successfully.",
+        data: result,
+      });
+    } catch (error) {
+      console.error("❌ Controller Error (getFinanceDetails):", error.message);
+      return res.status(500).json({ error: error.message });
+    }
+  }
+
+  async createPayment(req, res) {
+    try {
+      const dbUrl = this.getDbUrl(req.user.own_db);
+      const result = await financeService.processPayment(dbUrl, req.body);
+      return res.status(201).json({
+        message: "Payment processed successfully.",
+        data: result,
+      });
+    } catch (error) {
+      console.error("❌ Controller Error (createPayment):", error.message);
+      return res.status(500).json({ error: error.message });
+    }
+  }
 }
 
 module.exports = new FinanceController();

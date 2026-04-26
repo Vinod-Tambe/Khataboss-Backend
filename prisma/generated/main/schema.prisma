@@ -481,6 +481,7 @@ model Finance {
 enum EmiStatus {
   PAID
   PENDING
+  PARTIAL
   DUE
 }
 

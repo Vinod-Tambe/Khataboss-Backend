@@ -167,6 +167,199 @@ class FinanceService {
     }
   }
 
+  async getFinanceDetails(dbUrl, id) {
+    const prisma = this.getPrisma(dbUrl);
+    try {
+      const finance = await prisma.finance.findUnique({
+        where: { fin_id: parseInt(id) },
+        include: {
+          user: {
+            select: { user_first_name: true, user_last_name: true, user_mobile_no: true }
+          },
+          firm: {
+            select: { firm_name: true }
+          },
+          finance_trans: {
+            orderBy: { ft_emi_no: "asc" }
+          },
+          finance_money_trans: {
+            orderBy: { fm_created_at: "desc" }
+          }
+        }
+      });
+
+      if (!finance) throw new Error("Finance record not found");
+      return finance;
+    } finally {
+      await prisma.$disconnect();
+    }
+  }
+
+  async processPayment(dbUrl, data) {
+    const prisma = this.getPrisma(dbUrl);
+    try {
+      const fin_id = parseInt(data.fm_fin_id);
+      const paymentAmt = parseFloat(data.fm_trans_amt);
+      const isRollback = data.fm_trans_type === "ROLLBACK";
+
+      // 1. Get Finance and relevant EMIs
+      const finance = await prisma.finance.findUnique({
+        where: { fin_id },
+        include: {
+          finance_trans: {
+            // If PAID: find pending/partial
+            // If ROLLBACK: find paid/partial
+            where: isRollback
+              ? { ft_paid_amt: { gt: 0 } }
+              : { ft_emi_status: { in: ["PENDING", "PARTIAL", "DUE"] } },
+            orderBy: { ft_emi_no: isRollback ? "desc" : "asc" },
+          },
+        },
+      });
+
+      if (!finance) throw new Error("Finance record not found");
+
+      // 2. Create Money Transaction Entry
+      const moneyTrans = await prisma.finance_Money_Transaction.create({
+        data: {
+          fm_own_id: finance.fin_own_id,
+          fm_firm_id: finance.fin_firm_id,
+          fm_user_id: finance.fin_user_id,
+          fm_fin_id: finance.fin_id,
+          fm_trans_crdr: isRollback ? "CR" : "DR",
+          fm_trans_date: data.fm_trans_date,
+          fm_trans_type: isRollback ? "ROLLBACK" : "PAID",
+          fm_trans_amt: paymentAmt,
+          fm_cash_amt: parseFloat(data.fm_cash_amt || 0),
+          fm_bank_amt: parseFloat(data.fm_bank_amt || 0),
+          fm_online_amt: parseFloat(data.fm_online_amt || 0),
+          fm_card_amt: parseFloat(data.fm_card_amt || 0),
+          fm_cash_acc_id: data.fm_cash_acc_id ? parseInt(data.fm_cash_acc_id) : null,
+          fm_bank_acc_id: data.fm_bank_acc_id ? parseInt(data.fm_bank_acc_id) : null,
+          fm_online_acc_id: data.fm_online_acc_id ? parseInt(data.fm_online_acc_id) : null,
+          fm_card_acc_id: data.fm_card_acc_id ? parseInt(data.fm_card_acc_id) : null,
+          fm_dr_acc_id: finance.fin_dr_acc_id,
+          fm_cash_info: data.fm_cash_info || "",
+          fm_bank_info: data.fm_bank_info || "",
+          fm_online_info: data.fm_online_info || "",
+          fm_card_info: data.fm_card_info || "",
+          fm_pay_info: data.fm_pay_info || "",
+          fm_other_info: data.fm_other_info || "",
+        },
+      });
+
+      // 3. Update EMIs (Waterfall or Reverse Waterfall logic)
+      let remainingAmt = paymentAmt;
+      for (const emi of finance.finance_trans) {
+        if (remainingAmt <= 0) break;
+
+        let toApply = 0;
+        if (!isRollback) {
+          // PAID logic: Reduce pending, Increase paid
+          toApply = Math.min(remainingAmt, emi.ft_pending_amt);
+          const newPaidAmt = emi.ft_paid_amt + toApply;
+          const newPendingAmt = emi.ft_pending_amt - toApply;
+          const newStatus = newPendingAmt <= 0 ? "PAID" : newPaidAmt > 0 ? "PARTIAL" : "PENDING";
+
+          await prisma.finance_Transaction.update({
+            where: { ft_id: emi.ft_id },
+            data: {
+              ft_paid_amt: newPaidAmt,
+              ft_pending_amt: newPendingAmt,
+              ft_emi_status: newStatus,
+              ft_paid_date: newStatus === "PAID" ? data.fm_trans_date : emi.ft_paid_date,
+            },
+          });
+        } else {
+          // ROLLBACK logic: Increase pending, Reduce paid
+          toApply = Math.min(remainingAmt, emi.ft_paid_amt);
+          const newPaidAmt = emi.ft_paid_amt - toApply;
+          const newPendingAmt = emi.ft_pending_amt + toApply;
+          const newStatus = newPaidAmt <= 0 ? "PENDING" : "PARTIAL";
+
+          await prisma.finance_Transaction.update({
+            where: { ft_id: emi.ft_id },
+            data: {
+              ft_paid_amt: newPaidAmt,
+              ft_pending_amt: newPendingAmt,
+              ft_emi_status: newStatus,
+              ft_paid_date: newPaidAmt <= 0 ? null : emi.ft_paid_date,
+            },
+          });
+        }
+
+        remainingAmt -= toApply;
+      }
+
+      // 4. Create Journal Entry
+      // PAID: DR Cash/Bank, CR Customer (Loan)
+      // ROLLBACK: DR Customer (Loan), CR Cash/Bank
+      const journal_request = {
+        journal_date: {
+          jrnl_date: data.fm_trans_date,
+          jrnl_firm_id: finance.fin_firm_id,
+          jrnl_own_id: finance.fin_own_id,
+          jrnl_user_id: finance.fin_user_id,
+          jrnl_amt: paymentAmt,
+          jrnl_panel: "Finance",
+          jrnl_other_info: `${isRollback ? "EMI Rollback" : "EMI Payment"} | Fin No - ${finance.fin_id} | Money Trans - ${moneyTrans.fm_id}`,
+        },
+        joural_trans_data: [
+          // If PAID: DR the assets. If ROLLBACK: CR the assets.
+          { 
+            jrtr_crdr: isRollback ? "CR" : "DR", 
+            jrtr_date: data.fm_trans_date, 
+            [isRollback ? "jrtr_cr_acc_id" : "jrtr_dr_acc_id"]: moneyTrans.fm_cash_acc_id, 
+            [isRollback ? "jrtr_cr_amt" : "jrtr_dr_amt"]: moneyTrans.fm_cash_amt, 
+            jrtr_acc_info: moneyTrans.fm_cash_info 
+          },
+          { 
+            jrtr_crdr: isRollback ? "CR" : "DR", 
+            jrtr_date: data.fm_trans_date, 
+            [isRollback ? "jrtr_cr_acc_id" : "jrtr_dr_acc_id"]: moneyTrans.fm_bank_acc_id, 
+            [isRollback ? "jrtr_cr_amt" : "jrtr_dr_amt"]: moneyTrans.fm_bank_amt, 
+            jrtr_acc_info: moneyTrans.fm_bank_info 
+          },
+          { 
+            jrtr_crdr: isRollback ? "CR" : "DR", 
+            jrtr_date: data.fm_trans_date, 
+            [isRollback ? "jrtr_cr_acc_id" : "jrtr_dr_acc_id"]: moneyTrans.fm_online_acc_id, 
+            [isRollback ? "jrtr_cr_amt" : "jrtr_dr_amt"]: moneyTrans.fm_online_amt, 
+            jrtr_acc_info: moneyTrans.fm_online_info 
+          },
+          { 
+            jrtr_crdr: isRollback ? "CR" : "DR", 
+            jrtr_date: data.fm_trans_date, 
+            [isRollback ? "jrtr_cr_acc_id" : "jrtr_dr_acc_id"]: moneyTrans.fm_card_acc_id, 
+            [isRollback ? "jrtr_cr_amt" : "jrtr_dr_amt"]: moneyTrans.fm_card_amt, 
+            jrtr_acc_info: moneyTrans.fm_card_info 
+          },
+          // The loan account (fin_dr_acc_id)
+          // If PAID: CR it. If ROLLBACK: DR it.
+          { 
+            jrtr_crdr: isRollback ? "DR" : "CR", 
+            jrtr_date: data.fm_trans_date, 
+            [isRollback ? "jrtr_dr_acc_id" : "jrtr_cr_acc_id"]: finance.fin_dr_acc_id, 
+            [isRollback ? "jrtr_dr_amt" : "jrtr_cr_amt"]: paymentAmt, 
+            jrtr_acc_info: `${isRollback ? "EMI Rollback" : "EMI Payment"} : Fin No - ${finance.fin_id}` 
+          }
+        ].filter(t => (t.jrtr_cr_amt && parseFloat(t.jrtr_cr_amt) > 0) || (t.jrtr_dr_amt && parseFloat(t.jrtr_dr_amt) > 0)),
+      };
+
+      const jrnl_id = await journalService.create_journal_entry(dbUrl, journal_request);
+
+      // 5. Update Money Trans with Journal ID
+      await prisma.finance_Money_Transaction.update({
+        where: { fm_id: moneyTrans.fm_id },
+        data: { fm_jrnl_id: jrnl_id },
+      });
+
+      return moneyTrans;
+    } finally {
+      await prisma.$disconnect();
+    }
+  }
+
   async delete_finance(dbUrl, id) {
     const prisma = this.getPrisma(dbUrl);
     try {

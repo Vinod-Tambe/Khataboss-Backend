@@ -141,6 +141,7 @@ export type FinanceStatus = (typeof FinanceStatus)[keyof typeof FinanceStatus]
 export const EmiStatus: {
   PAID: 'PAID',
   PENDING: 'PENDING',
+  PARTIAL: 'PARTIAL',
   DUE: 'DUE'
 };
 

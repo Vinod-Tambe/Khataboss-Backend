@@ -534,6 +534,7 @@ exports.FinanceStatus = exports.$Enums.FinanceStatus = {
 exports.EmiStatus = exports.$Enums.EmiStatus = {
   PAID: 'PAID',
   PENDING: 'PENDING',
+  PARTIAL: 'PARTIAL',
   DUE: 'DUE'
 };
 
