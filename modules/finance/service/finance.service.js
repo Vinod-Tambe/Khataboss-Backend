@@ -167,6 +167,37 @@ class FinanceService {
     }
   }
 
+  async getTransactions(dbUrl, firmId = null, userId = null) {
+    const prisma = this.getPrisma(dbUrl);
+    try {
+      const where = { fm_is_deleted: false };
+      
+      if (firmId && firmId !== 'all') {
+        where.fm_firm_id = parseInt(firmId);
+      }
+      
+      if (userId && userId !== 'all') {
+        where.fm_user_id = parseInt(userId);
+      }
+
+      return await prisma.finance_Money_Transaction.findMany({
+        where: where,
+        orderBy: { fm_created_at: "desc" },
+        take: 5,
+        include: {
+          user: {
+            select: { user_first_name: true, user_last_name: true, user_mobile_no: true }
+          },
+          finance: {
+            select: { fin_id: true, fin_prin_amt: true }
+          }
+        }
+      });
+    } finally {
+      await prisma.$disconnect();
+    }
+  }
+
   async getFinanceDetails(dbUrl, id) {
     const prisma = this.getPrisma(dbUrl);
     try {

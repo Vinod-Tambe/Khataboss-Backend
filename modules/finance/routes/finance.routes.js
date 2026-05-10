@@ -10,6 +10,7 @@ const authenticateOwner = require("../../../middlewares/auth.middleware");
  */
 
 router.get("/", authenticateOwner, (req, res) => financeController.getFinances(req, res));
+router.get("/transactions", authenticateOwner, (req, res) => financeController.getTransactions(req, res));
 router.post("/", authenticateOwner, (req, res) => financeController.createFinance(req, res));
 router.get("/:id", authenticateOwner, (req, res) => financeController.getFinanceDetails(req, res));
 router.post("/payment", authenticateOwner, (req, res) => financeController.createPayment(req, res));

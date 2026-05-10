@@ -42,6 +42,20 @@ class FinanceController {
     }
   }
 
+  async getTransactions(req, res) {
+    try {
+      const { firmId, userId } = req.query;
+      const dbUrl = this.getDbUrl(req.user.own_db);
+      const result = await financeService.getTransactions(dbUrl, firmId, userId);
+      return res.status(200).json({
+        message: "Transactions fetched successfully.",
+        data: result,
+      });
+    } catch (error) {
+      return res.status(500).json({ error: error.message });
+    }
+  }
+
   async deleteFinance(req, res) {
     try {
       const { id } = req.params;
