@@ -197,6 +197,52 @@ class AccountService {
       await prisma.$disconnect();
     }
   }
+
+  /**
+   * Get opening balances for accounts.
+   * @param {string} dbUrl
+   * @param {number|string} firmId
+   * @param {string} startDate
+   * @param {number|string} accId
+   */
+  async get_acc_opening_balance(dbUrl, firmId = "N", startDate, accId = "N") {
+    const prisma = this.getPrisma(dbUrl);
+    try {
+      const where = {
+        acc_opening_date: { lte: new Date(startDate) },
+        acc_is_deleted: false
+      };
+
+      if (firmId !== "N") {
+        where.acc_firm_id = parseInt(firmId);
+      }
+
+      if (accId !== "N") {
+        if (isNaN(parseInt(accId)) || accId.toString().includes("-")) {
+          where.acc_uuid = accId.toString();
+        } else {
+          where.acc_id = parseInt(accId);
+        }
+      } else {
+        where.acc_cash_balance = { not: "0" };
+      }
+
+      return await prisma.account.findMany({
+        where: where,
+        select: {
+          acc_id: true,
+          acc_uuid: true,
+          acc_name: true,
+          acc_firm_id: true,
+          acc_balance_type: true,
+          acc_cash_balance: true,
+          acc_pre_acc: true,
+        },
+      });
+    } finally {
+      await prisma.$disconnect();
+    }
+  }
 }
 
 module.exports = new AccountService();
