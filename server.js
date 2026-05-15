@@ -12,7 +12,7 @@ const app = express();
 // ─── Middleware ───────────────────────────────────────────────────────────────
 const allowedOrigins = [
   "http://localhost:3001",
-  "http://10.145.173.254:3001",
+  "http://localhost:9000",
   "https://khataboss.com",
   "https://carlie-atavic-tonita.ngrok-free.dev"
 ];
@@ -56,6 +56,11 @@ v1Router.use("/user", require("./modules/user/routes/user.routes"));
 v1Router.use("/finance", require("./modules/finance/routes/finance.routes"));
 v1Router.use("/journal", require("./modules/journal/routes/journal.routes"));
 v1Router.use("/dashboard", require("./modules/dashboard/routes/dashboard.routes"));
+v1Router.use("/daybook", require("./modules/daybook/routes/daybook.routes"));
+v1Router.use("/trial-balance", require("./modules/trial_balance/routes/trial_balance.routes"));
+v1Router.use("/balance-sheet", require("./modules/balance_sheet/routes/balance_sheet.routes"));
+
+
 
 app.use("/api/v1", v1Router);
 

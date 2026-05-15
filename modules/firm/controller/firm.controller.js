@@ -75,6 +75,7 @@ class FirmController {
         if (Object.keys(updateData).length > 0) {
           const updatedFirm = await firmService.updateFirmByUuid(dbUrl, newFirm.firm_uuid, updateData);
           return res.status(201).json({
+            success: true,
             message: "Firm created successfully with images.",
             data: updatedFirm,
           });
@@ -82,6 +83,7 @@ class FirmController {
       }
 
       return res.status(201).json({
+        success: true,
         message: "Firm created successfully.",
         data: newFirm,
       });
@@ -100,6 +102,7 @@ class FirmController {
       const firms = await firmService.getFirms(dbUrl);
 
       return res.status(200).json({
+        success: true,
         message: "Firms fetched successfully.",
         data: firms,
       });
@@ -118,6 +121,7 @@ class FirmController {
       const firms = await firmService.getFirmsDropdown(dbUrl);
 
       return res.status(200).json({
+        success: true,
         message: "Firms for dropdown fetched successfully.",
         data: firms,
       });
@@ -141,6 +145,7 @@ class FirmController {
       }
 
       return res.status(200).json({
+        success: true,
         message: "Firm fetched successfully.",
         data: firm,
       });
@@ -222,6 +227,7 @@ class FirmController {
       }
 
       return res.status(200).json({
+        success: true,
         message: "Firm updated successfully.",
         data: updatedFirm,
       });
@@ -241,6 +247,7 @@ class FirmController {
       await firmService.deleteFirmByUuid(dbUrl, uuid, "Admin");
 
       return res.status(200).json({
+        success: true,
         message: "Firm deleted successfully (soft delete).",
       });
     } catch (error) {

@@ -67,6 +67,7 @@ class OwnerService {
       await tenantPrisma.owner.create({
         data: {
           ...finalOwnerData,
+          own_id: masterOwner.own_id, // Ensure ID consistency across DBs
           own_uuid: masterOwner.own_uuid, // Ensure UUID consistency across DBs
         },
       });

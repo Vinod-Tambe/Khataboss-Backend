@@ -167,6 +167,23 @@ class UserService {
       await prisma.$disconnect();
     }
   }
+  /**
+   * Get user full name by ID.
+   * @param {string} dbUrl 
+   * @param {number|string} userId 
+   */
+  async get_user_full_name(dbUrl, userId) {
+    const prisma = this.getPrisma(dbUrl);
+    try {
+      const user = await prisma.user.findUnique({
+        where: { user_id: parseInt(userId) },
+        select: { user_first_name: true, user_last_name: true },
+      });
+      return user ? `${user.user_first_name} ${user.user_last_name || ""}`.trim() : null;
+    } finally {
+      await prisma.$disconnect();
+    }
+  }
 }
 
 module.exports = new UserService();

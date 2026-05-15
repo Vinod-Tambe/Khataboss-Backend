@@ -208,8 +208,12 @@ class AccountService {
   async get_acc_opening_balance(dbUrl, firmId = "N", startDate, accId = "N") {
     const prisma = this.getPrisma(dbUrl);
     try {
+      // Ensure startDate is treated as UTC end-of-day to include all accounts created on that date
+      const [year, month, day] = startDate.split("-").map(Number);
+      const endOfStartDate = new Date(Date.UTC(year, month - 1, day, 23, 59, 59, 999));
+
       const where = {
-        acc_opening_date: { lte: new Date(startDate) },
+        acc_opening_date: { lte: endOfStartDate },
         acc_is_deleted: false
       };
 
