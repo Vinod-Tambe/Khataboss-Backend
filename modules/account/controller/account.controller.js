@@ -138,6 +138,26 @@ class AccountController {
         updateData.acc_cash_balance = String(updateData.acc_cash_balance);
       }
 
+      // Check if the account is a system account
+      const isSystem = await accountService.isSystemAccount(dbUrl, uuid);
+      if (isSystem) {
+        // Restricted fields for system accounts
+        const restrictedFields = [
+          "acc_name",
+          "acc_opening_date",
+          "acc_balance_type",
+          "acc_pre_acc",
+          "acc_firm_id"
+        ];
+
+        // Remove restricted fields from updateData
+        restrictedFields.forEach(field => {
+          if (field in updateData) {
+            delete updateData[field];
+          }
+        });
+      }
+
       // Check Duplicates if name or firmId is changing
       if (updateData.acc_name || updateData.acc_firm_id) {
         // Fetch current account to get its firmId if not provided
