@@ -172,8 +172,6 @@ class BalanceSheetService {
                 }
             }
 
-            // Clean up: If any group ended up with a negative total, we might want to handle it 
-            // (e.g. negative Asset is a Liability), but for now we keep it simple as per accounting standards.
 
             // Convert aggregated objects back to arrays of objects
             const assets = Object.entries(assetsObj).map(([key, val]) => ({ [key]: val }));

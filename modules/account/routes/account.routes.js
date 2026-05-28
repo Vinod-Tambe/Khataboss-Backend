@@ -15,6 +15,7 @@ const authenticateOwner = require("../../../middlewares/auth.middleware");
 router.get("/", authenticateOwner, (req, res) => accountController.getAccounts(req, res));
 router.get("/ledger", authenticateOwner, (req, res) => accountController.get_account_ledger(req, res));
 router.get("/dropdown", authenticateOwner, (req, res) => accountController.getAccountsDropdown(req, res));
+router.get("/totals", authenticateOwner, (req, res) => accountController.getAccountTotals(req, res));
 router.get("/:uuid", authenticateOwner, (req, res) => accountController.getAccountByUuid(req, res));
 router.post("/", authenticateOwner, (req, res) => accountController.createAccount(req, res));
 router.put("/:uuid", authenticateOwner, (req, res) => accountController.updateAccount(req, res));

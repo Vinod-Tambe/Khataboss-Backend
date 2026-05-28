@@ -146,8 +146,15 @@ class AccountLedgerService {
       filters.firmId
     );
 
+    // Calculate opening balance at start date in credit-oriented terms (CR positive, DR negative)
+    let signed_initial_opening_balance = initial_opening_balance;
+    if (acc_balance_type === "DR") {
+      signed_initial_opening_balance = -initial_opening_balance;
+    }
+    const acc_open_balanace = signed_initial_opening_balance + total_pre_cr_amt - total_pre_dr_amt;
+
     return {
-      acc_open_balanace: (initial_opening_balance + total_pre_dr_amt) - total_pre_cr_amt,
+      acc_open_balanace: acc_open_balanace,
       acc_balance_type: acc_balance_type,
       acc_name: acc_name,
       acc_pre_acc: acc_pre_acc,

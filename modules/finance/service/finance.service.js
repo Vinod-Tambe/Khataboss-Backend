@@ -17,6 +17,33 @@ class FinanceService {
   }
 
   /**
+   * Helper to parse account ID and fall back to firm's default account if not selected.
+   */
+  async resolveAccount(prisma, firmId, customAccId, fallbackNames) {
+    let parsedId = customAccId ? parseInt(customAccId) : null;
+    if (parsedId && !isNaN(parsedId) && parsedId > 0) {
+      return parsedId;
+    }
+    
+    // Try to find the fallback account under this firm in the database
+    for (const name of fallbackNames) {
+      const acc = await prisma.account.findFirst({
+        where: {
+          acc_firm_id: parseInt(firmId),
+          acc_is_deleted: false,
+          acc_name: {
+            contains: name,
+            mode: 'insensitive',
+          },
+        },
+      });
+      if (acc) return acc.acc_id;
+    }
+    
+    return null;
+  }
+
+  /**
    * Create a new finance record with transactions and journal entries.
    */
   async create_finance(dbUrl, data) {
@@ -34,6 +61,16 @@ class FinanceService {
         });
         if (drAcc) fin_dr_acc_id = drAcc.acc_id;
       }
+
+      const fin_cash_amt_val = parseFloat(data.fin_cash_amt || 0);
+      const fin_bank_amt_val = parseFloat(data.fin_bank_amt || 0);
+      const fin_online_amt_val = parseFloat(data.fin_online_amt || 0);
+      const fin_card_amt_val = parseFloat(data.fin_card_amt || 0);
+
+      const fin_cash_acc_id = fin_cash_amt_val > 0 ? await this.resolveAccount(prisma, data.fin_firm_id, data.fin_cash_acc_id, ["Cash In Hand", "Cash"]) : null;
+      const fin_bank_acc_id = fin_bank_amt_val > 0 ? await this.resolveAccount(prisma, data.fin_firm_id, data.fin_bank_acc_id, ["Bank Account", "Bank"]) : null;
+      const fin_online_acc_id = fin_online_amt_val > 0 ? await this.resolveAccount(prisma, data.fin_firm_id, data.fin_online_acc_id, ["Online Account", "Online"]) : null;
+      const fin_card_acc_id = fin_card_amt_val > 0 ? await this.resolveAccount(prisma, data.fin_firm_id, data.fin_card_acc_id, ["Card Account", "Card", "POS"]) : null;
 
       // 2. Create Finance Record
       const finance = await prisma.finance.create({
@@ -60,10 +97,10 @@ class FinanceService {
           fin_online_amt: String(data.fin_online_amt || ""),
           fin_card_amt: String(data.fin_card_amt || ""),
 
-          fin_cash_acc_id: data.fin_cash_acc_id ? parseInt(data.fin_cash_acc_id) : null,
-          fin_bank_acc_id: data.fin_bank_acc_id ? parseInt(data.fin_bank_acc_id) : null,
-          fin_online_acc_id: data.fin_online_acc_id ? parseInt(data.fin_online_acc_id) : null,
-          fin_card_acc_id: data.fin_card_acc_id ? parseInt(data.fin_card_acc_id) : null,
+          fin_cash_acc_id: fin_cash_acc_id,
+          fin_bank_acc_id: fin_bank_acc_id,
+          fin_online_acc_id: fin_online_acc_id,
+          fin_card_acc_id: fin_card_acc_id,
           fin_dr_acc_id: fin_dr_acc_id,
 
           fin_cash_info: data.fin_cash_info || "",
@@ -250,6 +287,16 @@ class FinanceService {
 
       if (!finance) throw new Error("Finance record not found");
 
+      const fm_cash_amt = parseFloat(data.fm_cash_amt || 0);
+      const fm_bank_amt = parseFloat(data.fm_bank_amt || 0);
+      const fm_online_amt = parseFloat(data.fm_online_amt || 0);
+      const fm_card_amt = parseFloat(data.fm_card_amt || 0);
+
+      const fm_cash_acc_id = fm_cash_amt > 0 ? await this.resolveAccount(prisma, finance.fin_firm_id, data.fm_cash_acc_id, ["Cash In Hand", "Cash"]) : null;
+      const fm_bank_acc_id = fm_bank_amt > 0 ? await this.resolveAccount(prisma, finance.fin_firm_id, data.fm_bank_acc_id, ["Bank Account", "Bank"]) : null;
+      const fm_online_acc_id = fm_online_amt > 0 ? await this.resolveAccount(prisma, finance.fin_firm_id, data.fm_online_acc_id, ["Online Account", "Online"]) : null;
+      const fm_card_acc_id = fm_card_amt > 0 ? await this.resolveAccount(prisma, finance.fin_firm_id, data.fm_card_acc_id, ["Card Account", "Card", "POS"]) : null;
+
       // 2. Create Money Transaction Entry
       const moneyTrans = await prisma.finance_Money_Transaction.create({
         data: {
@@ -261,14 +308,14 @@ class FinanceService {
           fm_trans_date: data.fm_trans_date,
           fm_trans_type: isRollback ? "ROLLBACK" : "PAID",
           fm_trans_amt: paymentAmt,
-          fm_cash_amt: parseFloat(data.fm_cash_amt || 0),
-          fm_bank_amt: parseFloat(data.fm_bank_amt || 0),
-          fm_online_amt: parseFloat(data.fm_online_amt || 0),
-          fm_card_amt: parseFloat(data.fm_card_amt || 0),
-          fm_cash_acc_id: data.fm_cash_acc_id ? parseInt(data.fm_cash_acc_id) : null,
-          fm_bank_acc_id: data.fm_bank_acc_id ? parseInt(data.fm_bank_acc_id) : null,
-          fm_online_acc_id: data.fm_online_acc_id ? parseInt(data.fm_online_acc_id) : null,
-          fm_card_acc_id: data.fm_card_acc_id ? parseInt(data.fm_card_acc_id) : null,
+          fm_cash_amt: fm_cash_amt,
+          fm_bank_amt: fm_bank_amt,
+          fm_online_amt: fm_online_amt,
+          fm_card_amt: fm_card_amt,
+          fm_cash_acc_id: fm_cash_acc_id,
+          fm_bank_acc_id: fm_bank_acc_id,
+          fm_online_acc_id: fm_online_acc_id,
+          fm_card_acc_id: fm_card_acc_id,
           fm_dr_acc_id: finance.fin_dr_acc_id,
           fm_cash_info: data.fm_cash_info || "",
           fm_bank_info: data.fm_bank_info || "",

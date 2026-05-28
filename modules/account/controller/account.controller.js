@@ -277,6 +277,25 @@ class AccountController {
       });
     }
   }
+
+  /**
+   * GET /account/totals
+   */
+  async getAccountTotals(req, res) {
+    try {
+      const { firmId } = req.query;
+      const dbUrl = this.getDbUrl(req.user.own_db);
+      const totals = await accountService.getAccountTotals(dbUrl, firmId);
+
+      return res.status(200).json({
+        message: "Account totals fetched successfully.",
+        data: totals,
+      });
+    } catch (error) {
+      console.error("❌  Error fetching account totals:", error.message);
+      return res.status(500).json({ error: error.message });
+    }
+  }
 }
 
 module.exports = new AccountController();

@@ -247,6 +247,51 @@ class AccountService {
       await prisma.$disconnect();
     }
   }
+
+  /**
+   * Get totals of DR and CR accounts and their difference.
+   * @param {string} dbUrl 
+   * @param {number} firmId Optional firm ID to filter by
+   */
+  async getAccountTotals(dbUrl, firmId = null) {
+    const prisma = this.getPrisma(dbUrl);
+    try {
+      const where = { acc_is_deleted: false };
+      if (firmId) {
+        where.acc_firm_id = parseInt(firmId);
+      }
+
+      const accounts = await prisma.account.findMany({
+        where: where,
+        select: {
+          acc_cash_balance: true,
+          acc_balance_type: true,
+        },
+      });
+
+      let debitTotal = 0;
+      let creditTotal = 0;
+
+      for (const account of accounts) {
+        const balance = parseFloat(account.acc_cash_balance || 0);
+        if (account.acc_balance_type === "DR") {
+          debitTotal += balance;
+        } else if (account.acc_balance_type === "CR") {
+          creditTotal += balance;
+        }
+      }
+
+      const difference = Math.abs(debitTotal - creditTotal);
+
+      return {
+        debitTotal,
+        creditTotal,
+        difference,
+      };
+    } finally {
+      await prisma.$disconnect();
+    }
+  }
 }
 
 module.exports = new AccountService();

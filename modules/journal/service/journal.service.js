@@ -23,6 +23,14 @@ class JournalService {
    */
   async create_journal_entry(dbUrl, data) {
     const prisma = this.getPrisma(dbUrl);
+    
+    // Helper to safely parse integer IDs (e.g. accounts and users)
+    const safeParseInt = (val) => {
+      if (val === null || val === undefined || val === "") return null;
+      const parsed = parseInt(val);
+      return isNaN(parsed) || parsed <= 0 ? null : parsed;
+    };
+
     try {
       return await prisma.$transaction(async (tx) => {
         // 1. Create Journal
@@ -31,7 +39,7 @@ class JournalService {
           data: {
             jrnl_firm_id: journalData.jrnl_firm_id,
             jrnl_own_id: journalData.jrnl_own_id,
-            jrnl_user_id: journalData.jrnl_user_id,
+            jrnl_user_id: safeParseInt(journalData.jrnl_user_id),
             jrnl_date: journalData.jrnl_date,
             jrnl_amt: parseFloat(journalData.jrnl_amt),
             jrnl_panel: journalData.jrnl_panel,
@@ -48,9 +56,9 @@ class JournalService {
             jrtr_jrnl_id: journal.jrnl_id,
             jrtr_firm_id: journalData.jrnl_firm_id,
             jrtr_own_id: journalData.jrnl_own_id,
-            jrtr_user_id: journalData.jrnl_user_id,
-            jrtr_cr_acc_id: t.jrtr_cr_acc_id ? parseInt(t.jrtr_cr_acc_id) : null,
-            jrtr_dr_acc_id: t.jrtr_dr_acc_id ? parseInt(t.jrtr_dr_acc_id) : null,
+            jrtr_user_id: safeParseInt(journalData.jrnl_user_id),
+            jrtr_cr_acc_id: safeParseInt(t.jrtr_cr_acc_id),
+            jrtr_dr_acc_id: safeParseInt(t.jrtr_dr_acc_id),
             jrtr_date: t.jrtr_date,
             jrtr_panel: journalData.jrnl_panel,
             jrtr_crdr: t.jrtr_crdr,
