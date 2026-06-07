@@ -139,7 +139,7 @@ class BalanceSheetService {
             // Convert Map to aggregated objects
             for (const [key, value] of trialBalanceMap.entries()) {
                 value.acc_balance = value.acc_open_balance + value.total_dr_amt - value.total_cr_amt;
-                
+
                 if (value.acc_balance === 0) {
                     continue;
                 }
