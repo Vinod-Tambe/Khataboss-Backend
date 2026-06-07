@@ -63,27 +63,24 @@ class DaybookService {
    */
   async mapToResponse(dbUrl, item) {
     const toNumber = (value) => (parseFloat(value) || 0).toFixed(2);
-    const userId = item.fin_user_id || item.fm_user_id || "";
+    const userId = item.fin_user_id || item.fm_user_id || item.girv_user_id || "";
     const customerName = await this.getCustomerName(dbUrl, userId);
 
     return {
-      db_date: this.formatDateToDDMMYYYY(item.fin_start_date || item.fm_trans_date),
+      db_date: this.formatDateToDDMMYYYY(item.fin_start_date || item.fm_trans_date || item.girv_start_date),
       db_firm: item.firm?.firm_name || item.finance?.firm?.firm_name || "-",
       db_customer_name: customerName,
       db_cust_id: `C${userId}`,
       db_user_id: userId,
       db_user_uuid: item.user?.user_uuid || "",
-      db_cash_amt: toNumber(item.fin_cash_amt || item.fm_cash_amt),
-      db_bank_amt: toNumber(item.fin_bank_amt || item.fm_bank_amt),
-      db_online_amt: toNumber(item.fin_online_amt || item.fm_online_amt),
-      db_card_amt: toNumber(item.fin_card_amt || item.fm_card_amt),
+      db_cash_amt: toNumber(item.fin_cash_amt || item.fm_cash_amt || item.girv_cash_amt),
+      db_bank_amt: toNumber(item.fin_bank_amt || item.fm_bank_amt || item.girv_bank_amt),
+      db_online_amt: toNumber(item.fin_online_amt || item.fm_online_amt || item.girv_online_amt),
+      db_card_amt: toNumber(item.fin_card_amt || item.fm_card_amt || item.girv_card_amt),
       db_disc_amt: (0).toFixed(2),
     };
   }
 
-  /**
-   * Fetch finance added data
-   */
   async get_add_new_finance_data(dbUrl, filters = {}) {
     const prisma = this.getPrisma(dbUrl);
     try {
@@ -137,14 +134,69 @@ class DaybookService {
   }
 
   /**
+   * Fetch girvi added data
+   */
+  async get_add_new_girvi_data(dbUrl, filters = {}) {
+    const prisma = this.getPrisma(dbUrl);
+    try {
+      const where = { girv_is_deleted: false };
+      if (filters.firmId) {
+        where.girv_firm_id = parseInt(filters.firmId);
+      }
+      if (filters.startDate || filters.endDate) {
+        where.girv_start_date = {};
+        if (filters.startDate) where.girv_start_date.gte = filters.startDate;
+        if (filters.endDate) where.girv_start_date.lte = filters.endDate;
+      }
+
+      const girviRecords = await prisma.girvi.findMany({
+        where,
+        select: {
+          girv_start_date: true,
+          girv_firm_id: true,
+          girv_user_id: true,
+          girv_cash_amt: true,
+          girv_bank_amt: true,
+          girv_online_amt: true,
+          girv_card_amt: true,
+          user: {
+            select: { user_uuid: true }
+          },
+          firm: {
+            select: { firm_name: true }
+          }
+        },
+      });
+
+      if (girviRecords.length === 0) return 0;
+
+      const data = await Promise.all(
+        girviRecords.map((item) => this.mapToResponse(dbUrl, item))
+      );
+
+      return {
+        title: "LOAN ADDED",
+        colorClass: "bg-purple",
+        amtColor: "text-danger",
+        column: ["DATE", "FIRM", "CUSTOMER NAME", "CUST ID", "CASH", "BANK", "ONLINE", "CARD", "DISC"],
+        data,
+      };
+    } catch (error) {
+      return this.handleError(error, "LOAN ADDED", "bg-purple", "text-danger");
+    } finally {
+      await prisma.$disconnect();
+    }
+  }
+
+  /**
    * Fetch EMI transaction data (PAID or ROLLBACK)
    */
   async get_finance_emi_data(dbUrl, type, title, colorClass, amtColor, filters = {}) {
     const prisma = this.getPrisma(dbUrl);
     try {
-      const where = { 
+      const where = {
         fm_trans_type: type,
-        fm_is_deleted: false 
+        fm_is_deleted: false
       };
       if (filters.firmId) {
         where.fm_firm_id = parseInt(filters.firmId);
@@ -236,6 +288,31 @@ class DaybookService {
         { cash: 0, bank: 0, online: 0, card: 0 }
       );
 
+      // 1b. Girvi Added (Outflow) Aggregation
+      const girviAdded = await prisma.girvi.findMany({
+        where: {
+          girv_is_deleted: false,
+          ...(firmId && { girv_firm_id: firmId }),
+          ...(startDate && { girv_start_date: { lt: startDate } }),
+        },
+        select: {
+          girv_cash_amt: true,
+          girv_bank_amt: true,
+          girv_online_amt: true,
+          girv_card_amt: true,
+        },
+      });
+
+      const sumGirvi = girviAdded.reduce(
+        (acc, item) => ({
+          cash: acc.cash + (parseFloat(item.girv_cash_amt) || 0),
+          bank: acc.bank + (parseFloat(item.girv_bank_amt) || 0),
+          online: acc.online + (parseFloat(item.girv_online_amt) || 0),
+          card: acc.card + (parseFloat(item.girv_card_amt) || 0),
+        }),
+        { cash: 0, bank: 0, online: 0, card: 0 }
+      );
+
       // 2. EMI Paid (Inflow) Aggregation
       const emiPaid = await prisma.finance_Money_Transaction.aggregate({
         where: {
@@ -283,11 +360,11 @@ class DaybookService {
       const toNumber = (val) => (parseFloat(val) || 0).toFixed(2);
 
       // Formula: Opening = Acc_Opening + PAID - (ADDED + ROLLBACK)
-      const cash_open = toNumber(acc_cash_open + (emiPaid._sum.fm_cash_amt || 0) - (sumFinance.cash + (emiRollback._sum.fm_cash_amt || 0)));
-      const bank_open = toNumber(acc_bank_open + (emiPaid._sum.fm_bank_amt || 0) - (sumFinance.bank + (emiRollback._sum.fm_bank_amt || 0)));
-      const online_open = toNumber(acc_online_open + (emiPaid._sum.fm_online_amt || 0) - (sumFinance.online + (emiRollback._sum.fm_online_amt || 0)));
-      const card_open = toNumber(acc_card_open + (emiPaid._sum.fm_card_amt || 0) - (sumFinance.card + (emiRollback._sum.fm_card_amt || 0)));
-      
+      const cash_open = toNumber(acc_cash_open + (emiPaid._sum.fm_cash_amt || 0) - (sumFinance.cash + sumGirvi.cash + (emiRollback._sum.fm_cash_amt || 0)));
+      const bank_open = toNumber(acc_bank_open + (emiPaid._sum.fm_bank_amt || 0) - (sumFinance.bank + sumGirvi.bank + (emiRollback._sum.fm_bank_amt || 0)));
+      const online_open = toNumber(acc_online_open + (emiPaid._sum.fm_online_amt || 0) - (sumFinance.online + sumGirvi.online + (emiRollback._sum.fm_online_amt || 0)));
+      const card_open = toNumber(acc_card_open + (emiPaid._sum.fm_card_amt || 0) - (sumFinance.card + sumGirvi.card + (emiRollback._sum.fm_card_amt || 0)));
+
       const total_open = toNumber(parseFloat(cash_open) + parseFloat(bank_open) + parseFloat(online_open) + parseFloat(card_open));
 
       return {
@@ -305,13 +382,11 @@ class DaybookService {
     }
   }
 
-  /**
-   * Main method to combine all data
-   */
   async get_all_daybook_data(dbUrl, filters = {}) {
     try {
-      const [financeData, paidEmiData, rollbackEmiData, summaryData] = await Promise.all([
+      const [financeData, girviData, paidEmiData, rollbackEmiData, summaryData] = await Promise.all([
         this.get_add_new_finance_data(dbUrl, filters),
+        this.get_add_new_girvi_data(dbUrl, filters),
         this.get_finance_emi_data(dbUrl, "PAID", "FINANCE EMI DEPOSIT", "bg-red", "text-success", filters),
         this.get_finance_emi_data(dbUrl, "ROLLBACK", "FINANCE EMI ROLLBACK", "bg-blue", "text-danger", filters),
         this.get_day_book_summary(dbUrl, filters),
@@ -319,6 +394,7 @@ class DaybookService {
 
       const response_arr = [];
       if (financeData !== 0) response_arr.push(financeData);
+      if (girviData !== 0) response_arr.push(girviData);
       if (paidEmiData !== 0) response_arr.push(paidEmiData);
       if (rollbackEmiData !== 0) response_arr.push(rollbackEmiData);
 
