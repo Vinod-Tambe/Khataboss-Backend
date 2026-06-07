@@ -59,9 +59,9 @@ v1Router.use("/dashboard", require("./modules/dashboard/routes/dashboard.routes"
 v1Router.use("/daybook", require("./modules/daybook/routes/daybook.routes"));
 v1Router.use("/trial-balance", require("./modules/trial_balance/routes/trial_balance.routes"));
 v1Router.use("/balance-sheet", require("./modules/balance_sheet/routes/balance_sheet.routes"));
-
-
-
+v1Router.use("/profit-loss", require("./modules/profit_loss/routes/profit_loss.routes"));
+v1Router.use("/girvi", require("./modules/girvi/routes/girvi.routes"));
+v1Router.use("/stock", require("./modules/stock/routes/stock.routes"));
 app.use("/api/v1", v1Router);
 
 module.exports = app;

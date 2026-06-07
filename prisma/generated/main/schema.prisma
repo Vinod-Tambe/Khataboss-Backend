@@ -86,6 +86,8 @@ model Owner {
   financeMoneyTrans   Finance_Money_Transaction[] @relation("OwnerFMT")
   journals            Journal[]                   @relation("OwnerJournal")
   journalTransactions JournalTransaction[]        @relation("OwnerJRTR")
+  girvis              Girvi[]                     @relation("OwnerGirvi")
+  stocks              Stock[]                     @relation("OwnerStock")
 
   // ===============================
   // Indexes
@@ -217,6 +219,8 @@ model Firm {
   financeMoneyTrans   Finance_Money_Transaction[]
   journals            Journal[]
   journalTransactions JournalTransaction[]
+  girvis              Girvi[]                     @relation("FirmGirvi")
+  stocks              Stock[]                     @relation("FirmStock")
 }
 
 // Enum for balance type
@@ -289,6 +293,14 @@ model Account {
 
   jrtrCredit JournalTransaction[] @relation("JournalCreditAccount")
   jrtrDebit  JournalTransaction[] @relation("JournalDebitAccount")
+
+  girviFirstIntCr Girvi[] @relation("GirviFirstIntCrAccount")
+  girviFirstIntDr Girvi[] @relation("GirviFirstIntDrAccount")
+  girviCash       Girvi[] @relation("GirviCashAccount")
+  girviBank       Girvi[] @relation("GirviBankAccount")
+  girviOnline     Girvi[] @relation("GirviOnlineAccount")
+  girviCard       Girvi[] @relation("GirviCardAccount")
+  girviDr         Girvi[] @relation("GirviDrAccount")
 }
 
 enum UserGender {
@@ -386,6 +398,8 @@ model User {
   financeMoneyTrans   Finance_Money_Transaction[]
   journals            Journal[]
   journalTransactions JournalTransaction[]
+  girvis              Girvi[]                     @relation("UserGirvi")
+  stocks              Stock[]                     @relation("UserStock")
 
   @@index([user_mobile_no])
   @@index([user_email_id])
@@ -727,4 +741,169 @@ model JournalTransaction {
   debitAccount  Account? @relation("JournalDebitAccount", fields: [jrtr_dr_acc_id], references: [acc_id])
 
   @@map("journal_trans")
+}
+
+// =============================================================================
+// MODEL: Girvi
+// =============================================================================
+
+enum GirviRoiType {
+  monthly
+  annually
+}
+
+enum GirviType {
+  unsecured
+  secured
+}
+
+model Girvi {
+  girv_id       Int     @id @default(autoincrement())
+  girv_uuid     String  @unique @default(uuid())
+  girv_add_date String? @default("")
+
+  girv_firm_id  Int @default(0)
+  girv_own_id   Int @default(0)
+  girv_user_id  Int @default(0)
+  girv_staff_id Int @default(0)
+
+  girv_start_date String
+
+  girv_loan_no     String?
+  girv_loan_pre_no String?
+
+  girv_prin_amt    Float  @default(0)
+  girv_process_per Float? @default(0)
+  girv_process_amt Float? @default(0)
+
+  girv_packet_no String?
+  girv_locker_no String?
+
+  girv_charge_per Float? @default(0)
+  girv_charge_amt Float? @default(0)
+
+  girv_roi      Float        @default(0)
+  girv_roi_type GirviRoiType
+  girv_type     GirviType
+
+  girv_final_amt Float @default(0)
+
+  girv_first_int           String? @default("N")
+  girv_first_int_cr_acc_id Int?    @default(0)
+  girv_first_int_dr_acc_id Int?    @default(0)
+
+  girv_cash_amt   Float? @default(0)
+  girv_bank_amt   Float? @default(0)
+  girv_online_amt Float? @default(0)
+  girv_card_amt   Float? @default(0)
+
+  girv_cash_acc_id   Int? @default(0)
+  girv_bank_acc_id   Int? @default(0)
+  girv_online_acc_id Int? @default(0)
+  girv_card_acc_id   Int? @default(0)
+
+  girv_cash_info   String? @default("")
+  girv_bank_info   String? @default("")
+  girv_online_info String? @default("")
+  girv_card_info   String? @default("")
+
+  girv_dr_acc_id Int? @default(0)
+
+  girv_other_info String? @default("")
+  girv_pay_info   String? @default("")
+
+  // Audit Fields
+  girv_created_at DateTime  @default(now())
+  girv_created_by String?
+  girv_updated_at DateTime  @updatedAt
+  girv_updated_by String?
+  girv_deleted_at DateTime?
+  girv_deleted_by String?
+  girv_is_deleted Boolean   @default(false)
+
+  // Relations
+  owner Owner @relation("OwnerGirvi", fields: [girv_own_id], references: [own_id], onDelete: Cascade)
+  firm  Firm  @relation("FirmGirvi", fields: [girv_firm_id], references: [firm_id], onDelete: Cascade)
+  user  User  @relation("UserGirvi", fields: [girv_user_id], references: [user_id], onDelete: Cascade)
+
+  firstIntCrAccount Account? @relation("GirviFirstIntCrAccount", fields: [girv_first_int_cr_acc_id], references: [acc_id])
+  firstIntDrAccount Account? @relation("GirviFirstIntDrAccount", fields: [girv_first_int_dr_acc_id], references: [acc_id])
+  cashAccount       Account? @relation("GirviCashAccount", fields: [girv_cash_acc_id], references: [acc_id])
+  bankAccount       Account? @relation("GirviBankAccount", fields: [girv_bank_acc_id], references: [acc_id])
+  onlineAccount     Account? @relation("GirviOnlineAccount", fields: [girv_online_acc_id], references: [acc_id])
+  cardAccount       Account? @relation("GirviCardAccount", fields: [girv_card_acc_id], references: [acc_id])
+  drAccount         Account? @relation("GirviDrAccount", fields: [girv_dr_acc_id], references: [acc_id])
+
+  @@map("girvi")
+}
+
+// =============================================================================
+// MODEL: Stock
+// =============================================================================
+
+enum StockMetalType {
+  gold
+  silver
+  platinum
+}
+
+enum StockWeightType {
+  GM
+  KG
+}
+
+enum StockStatus {
+  active
+  inactive
+  sold
+  returned
+}
+
+model Stock {
+  st_id       Int     @id @default(autoincrement())
+  st_uuid     String  @unique @default(uuid())
+  st_add_date String? @default("")
+
+  st_own_id   Int
+  st_firm_id  Int
+  st_user_id  Int
+  st_staff_id Int @default(0)
+
+  st_image_id Int?
+
+  st_referance_panel String? @default("")
+  st_referance_id    Int?
+
+  st_metal_type StockMetalType
+  st_item_name  String
+  st_quantity   Int
+
+  st_rate      Float
+  st_gs_weight Float
+  st_gs_type   StockWeightType
+  st_nt_weight Float
+  st_nt_type   StockWeightType
+
+  st_purity          Float
+  st_fine_weight     Float
+  st_valuation       Float
+  st_final_valuation Float
+
+  st_status StockStatus @default(active)
+
+  // Audit Fields
+  st_created_at DateTime  @default(now())
+  st_created_by String?
+  st_updated_at DateTime  @updatedAt
+  st_updated_by String?
+  st_deleted_at DateTime?
+  st_deleted_by String?
+  st_is_deleted Boolean   @default(false)
+
+  // Relations
+  owner Owner @relation("OwnerStock", fields: [st_own_id], references: [own_id], onDelete: Cascade)
+  firm  Firm  @relation("FirmStock", fields: [st_firm_id], references: [firm_id], onDelete: Cascade)
+  user  User  @relation("UserStock", fields: [st_user_id], references: [user_id], onDelete: Cascade)
+
+  @@map("stock")
 }

@@ -455,6 +455,88 @@ exports.Prisma.JournalTransactionScalarFieldEnum = {
   jrtr_is_deleted: 'jrtr_is_deleted'
 };
 
+exports.Prisma.GirviScalarFieldEnum = {
+  girv_id: 'girv_id',
+  girv_uuid: 'girv_uuid',
+  girv_add_date: 'girv_add_date',
+  girv_firm_id: 'girv_firm_id',
+  girv_own_id: 'girv_own_id',
+  girv_user_id: 'girv_user_id',
+  girv_staff_id: 'girv_staff_id',
+  girv_start_date: 'girv_start_date',
+  girv_loan_no: 'girv_loan_no',
+  girv_loan_pre_no: 'girv_loan_pre_no',
+  girv_prin_amt: 'girv_prin_amt',
+  girv_process_per: 'girv_process_per',
+  girv_process_amt: 'girv_process_amt',
+  girv_packet_no: 'girv_packet_no',
+  girv_locker_no: 'girv_locker_no',
+  girv_charge_per: 'girv_charge_per',
+  girv_charge_amt: 'girv_charge_amt',
+  girv_roi: 'girv_roi',
+  girv_roi_type: 'girv_roi_type',
+  girv_type: 'girv_type',
+  girv_final_amt: 'girv_final_amt',
+  girv_first_int: 'girv_first_int',
+  girv_first_int_cr_acc_id: 'girv_first_int_cr_acc_id',
+  girv_first_int_dr_acc_id: 'girv_first_int_dr_acc_id',
+  girv_cash_amt: 'girv_cash_amt',
+  girv_bank_amt: 'girv_bank_amt',
+  girv_online_amt: 'girv_online_amt',
+  girv_card_amt: 'girv_card_amt',
+  girv_cash_acc_id: 'girv_cash_acc_id',
+  girv_bank_acc_id: 'girv_bank_acc_id',
+  girv_online_acc_id: 'girv_online_acc_id',
+  girv_card_acc_id: 'girv_card_acc_id',
+  girv_cash_info: 'girv_cash_info',
+  girv_bank_info: 'girv_bank_info',
+  girv_online_info: 'girv_online_info',
+  girv_card_info: 'girv_card_info',
+  girv_dr_acc_id: 'girv_dr_acc_id',
+  girv_other_info: 'girv_other_info',
+  girv_pay_info: 'girv_pay_info',
+  girv_created_at: 'girv_created_at',
+  girv_created_by: 'girv_created_by',
+  girv_updated_at: 'girv_updated_at',
+  girv_updated_by: 'girv_updated_by',
+  girv_deleted_at: 'girv_deleted_at',
+  girv_deleted_by: 'girv_deleted_by',
+  girv_is_deleted: 'girv_is_deleted'
+};
+
+exports.Prisma.StockScalarFieldEnum = {
+  st_id: 'st_id',
+  st_uuid: 'st_uuid',
+  st_add_date: 'st_add_date',
+  st_own_id: 'st_own_id',
+  st_firm_id: 'st_firm_id',
+  st_user_id: 'st_user_id',
+  st_staff_id: 'st_staff_id',
+  st_image_id: 'st_image_id',
+  st_referance_panel: 'st_referance_panel',
+  st_referance_id: 'st_referance_id',
+  st_metal_type: 'st_metal_type',
+  st_item_name: 'st_item_name',
+  st_quantity: 'st_quantity',
+  st_rate: 'st_rate',
+  st_gs_weight: 'st_gs_weight',
+  st_gs_type: 'st_gs_type',
+  st_nt_weight: 'st_nt_weight',
+  st_nt_type: 'st_nt_type',
+  st_purity: 'st_purity',
+  st_fine_weight: 'st_fine_weight',
+  st_valuation: 'st_valuation',
+  st_final_valuation: 'st_final_valuation',
+  st_status: 'st_status',
+  st_created_at: 'st_created_at',
+  st_created_by: 'st_created_by',
+  st_updated_at: 'st_updated_at',
+  st_updated_by: 'st_updated_by',
+  st_deleted_at: 'st_deleted_at',
+  st_deleted_by: 'st_deleted_by',
+  st_is_deleted: 'st_is_deleted'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -548,6 +630,34 @@ exports.BalanceAmtType = exports.$Enums.BalanceAmtType = {
   DR: 'DR'
 };
 
+exports.GirviRoiType = exports.$Enums.GirviRoiType = {
+  monthly: 'monthly',
+  annually: 'annually'
+};
+
+exports.GirviType = exports.$Enums.GirviType = {
+  unsecured: 'unsecured',
+  secured: 'secured'
+};
+
+exports.StockMetalType = exports.$Enums.StockMetalType = {
+  gold: 'gold',
+  silver: 'silver',
+  platinum: 'platinum'
+};
+
+exports.StockWeightType = exports.$Enums.StockWeightType = {
+  GM: 'GM',
+  KG: 'KG'
+};
+
+exports.StockStatus = exports.$Enums.StockStatus = {
+  active: 'active',
+  inactive: 'inactive',
+  sold: 'sold',
+  returned: 'returned'
+};
+
 exports.Prisma.ModelName = {
   Owner: 'Owner',
   Firm: 'Firm',
@@ -557,7 +667,9 @@ exports.Prisma.ModelName = {
   Finance_Transaction: 'Finance_Transaction',
   Finance_Money_Transaction: 'Finance_Money_Transaction',
   Journal: 'Journal',
-  JournalTransaction: 'JournalTransaction'
+  JournalTransaction: 'JournalTransaction',
+  Girvi: 'Girvi',
+  Stock: 'Stock'
 };
 
 /**

@@ -8,7 +8,8 @@ const cr_accounts = [
   { acc_name: "Unsecured Loans", acc_pre_acc: "Loans (Liability)" },
   { acc_name: "Provisions", acc_pre_acc: "Provisions" },
   { acc_name: "Reserves & Surplus", acc_pre_acc: "Reserves & Surplus" },
-  { acc_name: "Sundry Creditors", acc_pre_acc: "Sundry Creditors" }
+  { acc_name: "Sundry Creditors", acc_pre_acc: "Sundry Creditors" },
+  { acc_name: "Interest Rec", acc_pre_acc: "Indirect Incomes" }
 ];
 
 const dr_accounts = [
