@@ -61,9 +61,11 @@ class GirviController {
         girv_add_date: new Date().toISOString().split('T')[0],
         girv_loan_no: data.girv_loan_no || null,
         girv_prin_amt: parseFloat(data.girv_prin_amt),
+        girv_process_per: data.girv_process_per ? parseFloat(data.girv_process_per) : 0,
         girv_process_amt: data.girv_process_amt ? parseFloat(data.girv_process_amt) : 0,
         girv_packet_no: data.girv_packet_no || null,
         girv_locker_no: data.girv_locker_no || null,
+        girv_charge_per: data.girv_charge_per ? parseFloat(data.girv_charge_per) : 0,
         girv_charge_amt: data.girv_charge_amt ? parseFloat(data.girv_charge_amt) : 0,
         girv_roi: parseFloat(data.girv_roi),
         girv_roi_type: data.girv_roi_type || "monthly",
@@ -139,9 +141,9 @@ class GirviController {
 
   async getGirvis(req, res) {
     try {
-      const { firmId } = req.query;
+      const { firmId, userId, status } = req.query;
       const dbUrl = this.getDbUrl(req.user.own_db);
-      const girvis = await girviService.getGirvis(dbUrl, firmId);
+      const girvis = await girviService.getGirvis(dbUrl, firmId, userId, status);
 
       return res.status(200).json({
         message: "Loans fetched successfully.",
@@ -149,6 +151,21 @@ class GirviController {
       });
     } catch (error) {
       console.error("❌ Error fetching girvis:", error.message);
+      return res.status(500).json({ error: error.message });
+    }
+  }
+
+  async getGirviById(req, res) {
+    try {
+      const dbUrl = this.getDbUrl(req.user.own_db);
+      const girvi = await girviService.getGirviById(dbUrl, req.params.id);
+
+      return res.status(200).json({
+        message: "Loan fetched successfully.",
+        data: girvi,
+      });
+    } catch (error) {
+      console.error("❌ Error fetching girvi details:", error.message);
       return res.status(500).json({ error: error.message });
     }
   }

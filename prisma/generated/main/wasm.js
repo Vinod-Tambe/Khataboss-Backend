@@ -477,6 +477,7 @@ exports.Prisma.GirviScalarFieldEnum = {
   girv_roi_type: 'girv_roi_type',
   girv_type: 'girv_type',
   girv_final_amt: 'girv_final_amt',
+  girv_status: 'girv_status',
   girv_first_int: 'girv_first_int',
   girv_first_int_cr_acc_id: 'girv_first_int_cr_acc_id',
   girv_first_int_dr_acc_id: 'girv_first_int_dr_acc_id',
@@ -638,6 +639,12 @@ exports.GirviRoiType = exports.$Enums.GirviRoiType = {
 exports.GirviType = exports.$Enums.GirviType = {
   unsecured: 'unsecured',
   secured: 'secured'
+};
+
+exports.GirviStatus = exports.$Enums.GirviStatus = {
+  ACTIVE: 'ACTIVE',
+  RELEASED: 'RELEASED',
+  CLOSED: 'CLOSED'
 };
 
 exports.StockMetalType = exports.$Enums.StockMetalType = {

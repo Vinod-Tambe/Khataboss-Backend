@@ -19,4 +19,10 @@ router.get(
   (req, res) => girviController.getGirvis(req, res)
 );
 
+router.get(
+  "/:id",
+  authenticateOwner,
+  (req, res) => girviController.getGirviById(req, res)
+);
+
 module.exports = router;

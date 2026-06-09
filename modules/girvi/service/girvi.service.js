@@ -124,17 +124,51 @@ class GirviService {
     }
   }
 
-  async getGirvis(dbUrl, firmId) {
+  async getGirvis(dbUrl, firmId, userId, status) {
     const prisma = this.getPrisma(dbUrl);
     try {
       const where = { girv_is_deleted: false };
       if (firmId) {
         where.girv_firm_id = parseInt(firmId);
       }
+      if (userId) {
+        where.girv_user_id = parseInt(userId);
+      }
+      if (status && status !== "ALL") {
+        where.girv_status = status;
+      }
       return await prisma.girvi.findMany({
         where,
         orderBy: { girv_created_at: "desc" },
+        include: { firm: true, user: true },
       });
+    } finally {
+      await prisma.$disconnect();
+    }
+  }
+
+  async getGirviById(dbUrl, girvId) {
+    const prisma = this.getPrisma(dbUrl);
+    try {
+      const girvi = await prisma.girvi.findUnique({
+        where: { girv_id: parseInt(girvId) },
+        include: {
+          firm: true,
+          user: true,
+        }
+      });
+
+      if (!girvi) throw new Error("Girvi not found");
+
+      const items = await prisma.stock.findMany({
+        where: {
+          st_referance_panel: "girvi",
+          st_referance_id: parseInt(girvId),
+          st_is_deleted: false,
+        }
+      });
+
+      return { ...girvi, items };
     } finally {
       await prisma.$disconnect();
     }

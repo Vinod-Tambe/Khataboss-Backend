@@ -190,6 +190,15 @@ export const GirviType: {
 export type GirviType = (typeof GirviType)[keyof typeof GirviType]
 
 
+export const GirviStatus: {
+  ACTIVE: 'ACTIVE',
+  RELEASED: 'RELEASED',
+  CLOSED: 'CLOSED'
+};
+
+export type GirviStatus = (typeof GirviStatus)[keyof typeof GirviStatus]
+
+
 export const StockMetalType: {
   gold: 'gold',
   silver: 'silver',
@@ -269,6 +278,10 @@ export const GirviRoiType: typeof $Enums.GirviRoiType
 export type GirviType = $Enums.GirviType
 
 export const GirviType: typeof $Enums.GirviType
+
+export type GirviStatus = $Enums.GirviStatus
+
+export const GirviStatus: typeof $Enums.GirviStatus
 
 export type StockMetalType = $Enums.StockMetalType
 
@@ -16403,6 +16416,7 @@ export namespace Prisma {
     girv_roi_type: $Enums.GirviRoiType | null
     girv_type: $Enums.GirviType | null
     girv_final_amt: number | null
+    girv_status: $Enums.GirviStatus | null
     girv_first_int: string | null
     girv_first_int_cr_acc_id: number | null
     girv_first_int_dr_acc_id: number | null
@@ -16452,6 +16466,7 @@ export namespace Prisma {
     girv_roi_type: $Enums.GirviRoiType | null
     girv_type: $Enums.GirviType | null
     girv_final_amt: number | null
+    girv_status: $Enums.GirviStatus | null
     girv_first_int: string | null
     girv_first_int_cr_acc_id: number | null
     girv_first_int_dr_acc_id: number | null
@@ -16501,6 +16516,7 @@ export namespace Prisma {
     girv_roi_type: number
     girv_type: number
     girv_final_amt: number
+    girv_status: number
     girv_first_int: number
     girv_first_int_cr_acc_id: number
     girv_first_int_dr_acc_id: number
@@ -16604,6 +16620,7 @@ export namespace Prisma {
     girv_roi_type?: true
     girv_type?: true
     girv_final_amt?: true
+    girv_status?: true
     girv_first_int?: true
     girv_first_int_cr_acc_id?: true
     girv_first_int_dr_acc_id?: true
@@ -16653,6 +16670,7 @@ export namespace Prisma {
     girv_roi_type?: true
     girv_type?: true
     girv_final_amt?: true
+    girv_status?: true
     girv_first_int?: true
     girv_first_int_cr_acc_id?: true
     girv_first_int_dr_acc_id?: true
@@ -16702,6 +16720,7 @@ export namespace Prisma {
     girv_roi_type?: true
     girv_type?: true
     girv_final_amt?: true
+    girv_status?: true
     girv_first_int?: true
     girv_first_int_cr_acc_id?: true
     girv_first_int_dr_acc_id?: true
@@ -16838,6 +16857,7 @@ export namespace Prisma {
     girv_roi_type: $Enums.GirviRoiType
     girv_type: $Enums.GirviType
     girv_final_amt: number
+    girv_status: $Enums.GirviStatus
     girv_first_int: string | null
     girv_first_int_cr_acc_id: number | null
     girv_first_int_dr_acc_id: number | null
@@ -16906,6 +16926,7 @@ export namespace Prisma {
     girv_roi_type?: boolean
     girv_type?: boolean
     girv_final_amt?: boolean
+    girv_status?: boolean
     girv_first_int?: boolean
     girv_first_int_cr_acc_id?: boolean
     girv_first_int_dr_acc_id?: boolean
@@ -16965,6 +16986,7 @@ export namespace Prisma {
     girv_roi_type?: boolean
     girv_type?: boolean
     girv_final_amt?: boolean
+    girv_status?: boolean
     girv_first_int?: boolean
     girv_first_int_cr_acc_id?: boolean
     girv_first_int_dr_acc_id?: boolean
@@ -17024,6 +17046,7 @@ export namespace Prisma {
     girv_roi_type?: boolean
     girv_type?: boolean
     girv_final_amt?: boolean
+    girv_status?: boolean
     girv_first_int?: boolean
     girv_first_int_cr_acc_id?: boolean
     girv_first_int_dr_acc_id?: boolean
@@ -17112,6 +17135,7 @@ export namespace Prisma {
       girv_roi_type: $Enums.GirviRoiType
       girv_type: $Enums.GirviType
       girv_final_amt: number
+      girv_status: $Enums.GirviStatus
       girv_first_int: string | null
       girv_first_int_cr_acc_id: number | null
       girv_first_int_dr_acc_id: number | null
@@ -17561,6 +17585,7 @@ export namespace Prisma {
     readonly girv_roi_type: FieldRef<"Girvi", 'GirviRoiType'>
     readonly girv_type: FieldRef<"Girvi", 'GirviType'>
     readonly girv_final_amt: FieldRef<"Girvi", 'Float'>
+    readonly girv_status: FieldRef<"Girvi", 'GirviStatus'>
     readonly girv_first_int: FieldRef<"Girvi", 'String'>
     readonly girv_first_int_cr_acc_id: FieldRef<"Girvi", 'Int'>
     readonly girv_first_int_dr_acc_id: FieldRef<"Girvi", 'Int'>
@@ -19754,6 +19779,7 @@ export namespace Prisma {
     girv_roi_type: 'girv_roi_type',
     girv_type: 'girv_type',
     girv_final_amt: 'girv_final_amt',
+    girv_status: 'girv_status',
     girv_first_int: 'girv_first_int',
     girv_first_int_cr_acc_id: 'girv_first_int_cr_acc_id',
     girv_first_int_dr_acc_id: 'girv_first_int_dr_acc_id',
@@ -20115,6 +20141,20 @@ export namespace Prisma {
    * Reference to a field of type 'GirviType[]'
    */
   export type ListEnumGirviTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'GirviType[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'GirviStatus'
+   */
+  export type EnumGirviStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'GirviStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'GirviStatus[]'
+   */
+  export type ListEnumGirviStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'GirviStatus[]'>
     
 
 
@@ -22258,6 +22298,7 @@ export namespace Prisma {
     girv_roi_type?: EnumGirviRoiTypeFilter<"Girvi"> | $Enums.GirviRoiType
     girv_type?: EnumGirviTypeFilter<"Girvi"> | $Enums.GirviType
     girv_final_amt?: FloatFilter<"Girvi"> | number
+    girv_status?: EnumGirviStatusFilter<"Girvi"> | $Enums.GirviStatus
     girv_first_int?: StringNullableFilter<"Girvi"> | string | null
     girv_first_int_cr_acc_id?: IntNullableFilter<"Girvi"> | number | null
     girv_first_int_dr_acc_id?: IntNullableFilter<"Girvi"> | number | null
@@ -22317,6 +22358,7 @@ export namespace Prisma {
     girv_roi_type?: SortOrder
     girv_type?: SortOrder
     girv_final_amt?: SortOrder
+    girv_status?: SortOrder
     girv_first_int?: SortOrderInput | SortOrder
     girv_first_int_cr_acc_id?: SortOrderInput | SortOrder
     girv_first_int_dr_acc_id?: SortOrderInput | SortOrder
@@ -22379,6 +22421,7 @@ export namespace Prisma {
     girv_roi_type?: EnumGirviRoiTypeFilter<"Girvi"> | $Enums.GirviRoiType
     girv_type?: EnumGirviTypeFilter<"Girvi"> | $Enums.GirviType
     girv_final_amt?: FloatFilter<"Girvi"> | number
+    girv_status?: EnumGirviStatusFilter<"Girvi"> | $Enums.GirviStatus
     girv_first_int?: StringNullableFilter<"Girvi"> | string | null
     girv_first_int_cr_acc_id?: IntNullableFilter<"Girvi"> | number | null
     girv_first_int_dr_acc_id?: IntNullableFilter<"Girvi"> | number | null
@@ -22438,6 +22481,7 @@ export namespace Prisma {
     girv_roi_type?: SortOrder
     girv_type?: SortOrder
     girv_final_amt?: SortOrder
+    girv_status?: SortOrder
     girv_first_int?: SortOrderInput | SortOrder
     girv_first_int_cr_acc_id?: SortOrderInput | SortOrder
     girv_first_int_dr_acc_id?: SortOrderInput | SortOrder
@@ -22495,6 +22539,7 @@ export namespace Prisma {
     girv_roi_type?: EnumGirviRoiTypeWithAggregatesFilter<"Girvi"> | $Enums.GirviRoiType
     girv_type?: EnumGirviTypeWithAggregatesFilter<"Girvi"> | $Enums.GirviType
     girv_final_amt?: FloatWithAggregatesFilter<"Girvi"> | number
+    girv_status?: EnumGirviStatusWithAggregatesFilter<"Girvi"> | $Enums.GirviStatus
     girv_first_int?: StringNullableWithAggregatesFilter<"Girvi"> | string | null
     girv_first_int_cr_acc_id?: IntNullableWithAggregatesFilter<"Girvi"> | number | null
     girv_first_int_dr_acc_id?: IntNullableWithAggregatesFilter<"Girvi"> | number | null
@@ -25202,6 +25247,7 @@ export namespace Prisma {
     girv_roi_type: $Enums.GirviRoiType
     girv_type: $Enums.GirviType
     girv_final_amt?: number
+    girv_status?: $Enums.GirviStatus
     girv_first_int?: string | null
     girv_cash_amt?: number | null
     girv_bank_amt?: number | null
@@ -25254,6 +25300,7 @@ export namespace Prisma {
     girv_roi_type: $Enums.GirviRoiType
     girv_type: $Enums.GirviType
     girv_final_amt?: number
+    girv_status?: $Enums.GirviStatus
     girv_first_int?: string | null
     girv_first_int_cr_acc_id?: number | null
     girv_first_int_dr_acc_id?: number | null
@@ -25299,6 +25346,7 @@ export namespace Prisma {
     girv_roi_type?: EnumGirviRoiTypeFieldUpdateOperationsInput | $Enums.GirviRoiType
     girv_type?: EnumGirviTypeFieldUpdateOperationsInput | $Enums.GirviType
     girv_final_amt?: FloatFieldUpdateOperationsInput | number
+    girv_status?: EnumGirviStatusFieldUpdateOperationsInput | $Enums.GirviStatus
     girv_first_int?: NullableStringFieldUpdateOperationsInput | string | null
     girv_cash_amt?: NullableFloatFieldUpdateOperationsInput | number | null
     girv_bank_amt?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -25351,6 +25399,7 @@ export namespace Prisma {
     girv_roi_type?: EnumGirviRoiTypeFieldUpdateOperationsInput | $Enums.GirviRoiType
     girv_type?: EnumGirviTypeFieldUpdateOperationsInput | $Enums.GirviType
     girv_final_amt?: FloatFieldUpdateOperationsInput | number
+    girv_status?: EnumGirviStatusFieldUpdateOperationsInput | $Enums.GirviStatus
     girv_first_int?: NullableStringFieldUpdateOperationsInput | string | null
     girv_first_int_cr_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_first_int_dr_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
@@ -25400,6 +25449,7 @@ export namespace Prisma {
     girv_roi_type: $Enums.GirviRoiType
     girv_type: $Enums.GirviType
     girv_final_amt?: number
+    girv_status?: $Enums.GirviStatus
     girv_first_int?: string | null
     girv_first_int_cr_acc_id?: number | null
     girv_first_int_dr_acc_id?: number | null
@@ -25445,6 +25495,7 @@ export namespace Prisma {
     girv_roi_type?: EnumGirviRoiTypeFieldUpdateOperationsInput | $Enums.GirviRoiType
     girv_type?: EnumGirviTypeFieldUpdateOperationsInput | $Enums.GirviType
     girv_final_amt?: FloatFieldUpdateOperationsInput | number
+    girv_status?: EnumGirviStatusFieldUpdateOperationsInput | $Enums.GirviStatus
     girv_first_int?: NullableStringFieldUpdateOperationsInput | string | null
     girv_cash_amt?: NullableFloatFieldUpdateOperationsInput | number | null
     girv_bank_amt?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -25487,6 +25538,7 @@ export namespace Prisma {
     girv_roi_type?: EnumGirviRoiTypeFieldUpdateOperationsInput | $Enums.GirviRoiType
     girv_type?: EnumGirviTypeFieldUpdateOperationsInput | $Enums.GirviType
     girv_final_amt?: FloatFieldUpdateOperationsInput | number
+    girv_status?: EnumGirviStatusFieldUpdateOperationsInput | $Enums.GirviStatus
     girv_first_int?: NullableStringFieldUpdateOperationsInput | string | null
     girv_first_int_cr_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_first_int_dr_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
@@ -27544,6 +27596,13 @@ export namespace Prisma {
     not?: NestedEnumGirviTypeFilter<$PrismaModel> | $Enums.GirviType
   }
 
+  export type EnumGirviStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.GirviStatus | EnumGirviStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.GirviStatus[] | ListEnumGirviStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.GirviStatus[] | ListEnumGirviStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumGirviStatusFilter<$PrismaModel> | $Enums.GirviStatus
+  }
+
   export type GirviCountOrderByAggregateInput = {
     girv_id?: SortOrder
     girv_uuid?: SortOrder
@@ -27566,6 +27625,7 @@ export namespace Prisma {
     girv_roi_type?: SortOrder
     girv_type?: SortOrder
     girv_final_amt?: SortOrder
+    girv_status?: SortOrder
     girv_first_int?: SortOrder
     girv_first_int_cr_acc_id?: SortOrder
     girv_first_int_dr_acc_id?: SortOrder
@@ -27641,6 +27701,7 @@ export namespace Prisma {
     girv_roi_type?: SortOrder
     girv_type?: SortOrder
     girv_final_amt?: SortOrder
+    girv_status?: SortOrder
     girv_first_int?: SortOrder
     girv_first_int_cr_acc_id?: SortOrder
     girv_first_int_dr_acc_id?: SortOrder
@@ -27690,6 +27751,7 @@ export namespace Prisma {
     girv_roi_type?: SortOrder
     girv_type?: SortOrder
     girv_final_amt?: SortOrder
+    girv_status?: SortOrder
     girv_first_int?: SortOrder
     girv_first_int_cr_acc_id?: SortOrder
     girv_first_int_dr_acc_id?: SortOrder
@@ -27761,6 +27823,16 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumGirviTypeFilter<$PrismaModel>
     _max?: NestedEnumGirviTypeFilter<$PrismaModel>
+  }
+
+  export type EnumGirviStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.GirviStatus | EnumGirviStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.GirviStatus[] | ListEnumGirviStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.GirviStatus[] | ListEnumGirviStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumGirviStatusWithAggregatesFilter<$PrismaModel> | $Enums.GirviStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumGirviStatusFilter<$PrismaModel>
+    _max?: NestedEnumGirviStatusFilter<$PrismaModel>
   }
 
   export type EnumStockMetalTypeFilter<$PrismaModel = never> = {
@@ -30937,6 +31009,10 @@ export namespace Prisma {
     set?: $Enums.GirviType
   }
 
+  export type EnumGirviStatusFieldUpdateOperationsInput = {
+    set?: $Enums.GirviStatus
+  }
+
   export type OwnerUpdateOneRequiredWithoutGirvisNestedInput = {
     create?: XOR<OwnerCreateWithoutGirvisInput, OwnerUncheckedCreateWithoutGirvisInput>
     connectOrCreate?: OwnerCreateOrConnectWithoutGirvisInput
@@ -31541,6 +31617,13 @@ export namespace Prisma {
     not?: NestedEnumGirviTypeFilter<$PrismaModel> | $Enums.GirviType
   }
 
+  export type NestedEnumGirviStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.GirviStatus | EnumGirviStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.GirviStatus[] | ListEnumGirviStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.GirviStatus[] | ListEnumGirviStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumGirviStatusFilter<$PrismaModel> | $Enums.GirviStatus
+  }
+
   export type NestedEnumGirviRoiTypeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.GirviRoiType | EnumGirviRoiTypeFieldRefInput<$PrismaModel>
     in?: $Enums.GirviRoiType[] | ListEnumGirviRoiTypeFieldRefInput<$PrismaModel>
@@ -31559,6 +31642,16 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumGirviTypeFilter<$PrismaModel>
     _max?: NestedEnumGirviTypeFilter<$PrismaModel>
+  }
+
+  export type NestedEnumGirviStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.GirviStatus | EnumGirviStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.GirviStatus[] | ListEnumGirviStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.GirviStatus[] | ListEnumGirviStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumGirviStatusWithAggregatesFilter<$PrismaModel> | $Enums.GirviStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumGirviStatusFilter<$PrismaModel>
+    _max?: NestedEnumGirviStatusFilter<$PrismaModel>
   }
 
   export type NestedEnumStockMetalTypeFilter<$PrismaModel = never> = {
@@ -32362,6 +32455,7 @@ export namespace Prisma {
     girv_roi_type: $Enums.GirviRoiType
     girv_type: $Enums.GirviType
     girv_final_amt?: number
+    girv_status?: $Enums.GirviStatus
     girv_first_int?: string | null
     girv_cash_amt?: number | null
     girv_bank_amt?: number | null
@@ -32412,6 +32506,7 @@ export namespace Prisma {
     girv_roi_type: $Enums.GirviRoiType
     girv_type: $Enums.GirviType
     girv_final_amt?: number
+    girv_status?: $Enums.GirviStatus
     girv_first_int?: string | null
     girv_first_int_cr_acc_id?: number | null
     girv_first_int_dr_acc_id?: number | null
@@ -33010,6 +33105,7 @@ export namespace Prisma {
     girv_roi_type?: EnumGirviRoiTypeFilter<"Girvi"> | $Enums.GirviRoiType
     girv_type?: EnumGirviTypeFilter<"Girvi"> | $Enums.GirviType
     girv_final_amt?: FloatFilter<"Girvi"> | number
+    girv_status?: EnumGirviStatusFilter<"Girvi"> | $Enums.GirviStatus
     girv_first_int?: StringNullableFilter<"Girvi"> | string | null
     girv_first_int_cr_acc_id?: IntNullableFilter<"Girvi"> | number | null
     girv_first_int_dr_acc_id?: IntNullableFilter<"Girvi"> | number | null
@@ -33808,6 +33904,7 @@ export namespace Prisma {
     girv_roi_type: $Enums.GirviRoiType
     girv_type: $Enums.GirviType
     girv_final_amt?: number
+    girv_status?: $Enums.GirviStatus
     girv_first_int?: string | null
     girv_cash_amt?: number | null
     girv_bank_amt?: number | null
@@ -33858,6 +33955,7 @@ export namespace Prisma {
     girv_roi_type: $Enums.GirviRoiType
     girv_type: $Enums.GirviType
     girv_final_amt?: number
+    girv_status?: $Enums.GirviStatus
     girv_first_int?: string | null
     girv_first_int_cr_acc_id?: number | null
     girv_first_int_dr_acc_id?: number | null
@@ -35791,6 +35889,7 @@ export namespace Prisma {
     girv_roi_type: $Enums.GirviRoiType
     girv_type: $Enums.GirviType
     girv_final_amt?: number
+    girv_status?: $Enums.GirviStatus
     girv_first_int?: string | null
     girv_cash_amt?: number | null
     girv_bank_amt?: number | null
@@ -35842,6 +35941,7 @@ export namespace Prisma {
     girv_roi_type: $Enums.GirviRoiType
     girv_type: $Enums.GirviType
     girv_final_amt?: number
+    girv_status?: $Enums.GirviStatus
     girv_first_int?: string | null
     girv_first_int_dr_acc_id?: number | null
     girv_cash_amt?: number | null
@@ -35896,6 +35996,7 @@ export namespace Prisma {
     girv_roi_type: $Enums.GirviRoiType
     girv_type: $Enums.GirviType
     girv_final_amt?: number
+    girv_status?: $Enums.GirviStatus
     girv_first_int?: string | null
     girv_cash_amt?: number | null
     girv_bank_amt?: number | null
@@ -35947,6 +36048,7 @@ export namespace Prisma {
     girv_roi_type: $Enums.GirviRoiType
     girv_type: $Enums.GirviType
     girv_final_amt?: number
+    girv_status?: $Enums.GirviStatus
     girv_first_int?: string | null
     girv_first_int_cr_acc_id?: number | null
     girv_cash_amt?: number | null
@@ -36001,6 +36103,7 @@ export namespace Prisma {
     girv_roi_type: $Enums.GirviRoiType
     girv_type: $Enums.GirviType
     girv_final_amt?: number
+    girv_status?: $Enums.GirviStatus
     girv_first_int?: string | null
     girv_cash_amt?: number | null
     girv_bank_amt?: number | null
@@ -36052,6 +36155,7 @@ export namespace Prisma {
     girv_roi_type: $Enums.GirviRoiType
     girv_type: $Enums.GirviType
     girv_final_amt?: number
+    girv_status?: $Enums.GirviStatus
     girv_first_int?: string | null
     girv_first_int_cr_acc_id?: number | null
     girv_first_int_dr_acc_id?: number | null
@@ -36106,6 +36210,7 @@ export namespace Prisma {
     girv_roi_type: $Enums.GirviRoiType
     girv_type: $Enums.GirviType
     girv_final_amt?: number
+    girv_status?: $Enums.GirviStatus
     girv_first_int?: string | null
     girv_cash_amt?: number | null
     girv_bank_amt?: number | null
@@ -36157,6 +36262,7 @@ export namespace Prisma {
     girv_roi_type: $Enums.GirviRoiType
     girv_type: $Enums.GirviType
     girv_final_amt?: number
+    girv_status?: $Enums.GirviStatus
     girv_first_int?: string | null
     girv_first_int_cr_acc_id?: number | null
     girv_first_int_dr_acc_id?: number | null
@@ -36211,6 +36317,7 @@ export namespace Prisma {
     girv_roi_type: $Enums.GirviRoiType
     girv_type: $Enums.GirviType
     girv_final_amt?: number
+    girv_status?: $Enums.GirviStatus
     girv_first_int?: string | null
     girv_cash_amt?: number | null
     girv_bank_amt?: number | null
@@ -36262,6 +36369,7 @@ export namespace Prisma {
     girv_roi_type: $Enums.GirviRoiType
     girv_type: $Enums.GirviType
     girv_final_amt?: number
+    girv_status?: $Enums.GirviStatus
     girv_first_int?: string | null
     girv_first_int_cr_acc_id?: number | null
     girv_first_int_dr_acc_id?: number | null
@@ -36316,6 +36424,7 @@ export namespace Prisma {
     girv_roi_type: $Enums.GirviRoiType
     girv_type: $Enums.GirviType
     girv_final_amt?: number
+    girv_status?: $Enums.GirviStatus
     girv_first_int?: string | null
     girv_cash_amt?: number | null
     girv_bank_amt?: number | null
@@ -36367,6 +36476,7 @@ export namespace Prisma {
     girv_roi_type: $Enums.GirviRoiType
     girv_type: $Enums.GirviType
     girv_final_amt?: number
+    girv_status?: $Enums.GirviStatus
     girv_first_int?: string | null
     girv_first_int_cr_acc_id?: number | null
     girv_first_int_dr_acc_id?: number | null
@@ -36421,6 +36531,7 @@ export namespace Prisma {
     girv_roi_type: $Enums.GirviRoiType
     girv_type: $Enums.GirviType
     girv_final_amt?: number
+    girv_status?: $Enums.GirviStatus
     girv_first_int?: string | null
     girv_cash_amt?: number | null
     girv_bank_amt?: number | null
@@ -36472,6 +36583,7 @@ export namespace Prisma {
     girv_roi_type: $Enums.GirviRoiType
     girv_type: $Enums.GirviType
     girv_final_amt?: number
+    girv_status?: $Enums.GirviStatus
     girv_first_int?: string | null
     girv_first_int_cr_acc_id?: number | null
     girv_first_int_dr_acc_id?: number | null
@@ -37716,6 +37828,7 @@ export namespace Prisma {
     girv_roi_type: $Enums.GirviRoiType
     girv_type: $Enums.GirviType
     girv_final_amt?: number
+    girv_status?: $Enums.GirviStatus
     girv_first_int?: string | null
     girv_cash_amt?: number | null
     girv_bank_amt?: number | null
@@ -37766,6 +37879,7 @@ export namespace Prisma {
     girv_roi_type: $Enums.GirviRoiType
     girv_type: $Enums.GirviType
     girv_final_amt?: number
+    girv_status?: $Enums.GirviStatus
     girv_first_int?: string | null
     girv_first_int_cr_acc_id?: number | null
     girv_first_int_dr_acc_id?: number | null
@@ -49614,6 +49728,7 @@ export namespace Prisma {
     girv_roi_type: $Enums.GirviRoiType
     girv_type: $Enums.GirviType
     girv_final_amt?: number
+    girv_status?: $Enums.GirviStatus
     girv_first_int?: string | null
     girv_first_int_cr_acc_id?: number | null
     girv_first_int_dr_acc_id?: number | null
@@ -50630,6 +50745,7 @@ export namespace Prisma {
     girv_roi_type?: EnumGirviRoiTypeFieldUpdateOperationsInput | $Enums.GirviRoiType
     girv_type?: EnumGirviTypeFieldUpdateOperationsInput | $Enums.GirviType
     girv_final_amt?: FloatFieldUpdateOperationsInput | number
+    girv_status?: EnumGirviStatusFieldUpdateOperationsInput | $Enums.GirviStatus
     girv_first_int?: NullableStringFieldUpdateOperationsInput | string | null
     girv_cash_amt?: NullableFloatFieldUpdateOperationsInput | number | null
     girv_bank_amt?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -50680,6 +50796,7 @@ export namespace Prisma {
     girv_roi_type?: EnumGirviRoiTypeFieldUpdateOperationsInput | $Enums.GirviRoiType
     girv_type?: EnumGirviTypeFieldUpdateOperationsInput | $Enums.GirviType
     girv_final_amt?: FloatFieldUpdateOperationsInput | number
+    girv_status?: EnumGirviStatusFieldUpdateOperationsInput | $Enums.GirviStatus
     girv_first_int?: NullableStringFieldUpdateOperationsInput | string | null
     girv_first_int_cr_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_first_int_dr_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
@@ -50728,6 +50845,7 @@ export namespace Prisma {
     girv_roi_type?: EnumGirviRoiTypeFieldUpdateOperationsInput | $Enums.GirviRoiType
     girv_type?: EnumGirviTypeFieldUpdateOperationsInput | $Enums.GirviType
     girv_final_amt?: FloatFieldUpdateOperationsInput | number
+    girv_status?: EnumGirviStatusFieldUpdateOperationsInput | $Enums.GirviStatus
     girv_first_int?: NullableStringFieldUpdateOperationsInput | string | null
     girv_first_int_cr_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_first_int_dr_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
@@ -51107,6 +51225,7 @@ export namespace Prisma {
     girv_roi_type: $Enums.GirviRoiType
     girv_type: $Enums.GirviType
     girv_final_amt?: number
+    girv_status?: $Enums.GirviStatus
     girv_first_int?: string | null
     girv_first_int_cr_acc_id?: number | null
     girv_first_int_dr_acc_id?: number | null
@@ -51953,6 +52072,7 @@ export namespace Prisma {
     girv_roi_type?: EnumGirviRoiTypeFieldUpdateOperationsInput | $Enums.GirviRoiType
     girv_type?: EnumGirviTypeFieldUpdateOperationsInput | $Enums.GirviType
     girv_final_amt?: FloatFieldUpdateOperationsInput | number
+    girv_status?: EnumGirviStatusFieldUpdateOperationsInput | $Enums.GirviStatus
     girv_first_int?: NullableStringFieldUpdateOperationsInput | string | null
     girv_cash_amt?: NullableFloatFieldUpdateOperationsInput | number | null
     girv_bank_amt?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -52003,6 +52123,7 @@ export namespace Prisma {
     girv_roi_type?: EnumGirviRoiTypeFieldUpdateOperationsInput | $Enums.GirviRoiType
     girv_type?: EnumGirviTypeFieldUpdateOperationsInput | $Enums.GirviType
     girv_final_amt?: FloatFieldUpdateOperationsInput | number
+    girv_status?: EnumGirviStatusFieldUpdateOperationsInput | $Enums.GirviStatus
     girv_first_int?: NullableStringFieldUpdateOperationsInput | string | null
     girv_first_int_cr_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_first_int_dr_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
@@ -52051,6 +52172,7 @@ export namespace Prisma {
     girv_roi_type?: EnumGirviRoiTypeFieldUpdateOperationsInput | $Enums.GirviRoiType
     girv_type?: EnumGirviTypeFieldUpdateOperationsInput | $Enums.GirviType
     girv_final_amt?: FloatFieldUpdateOperationsInput | number
+    girv_status?: EnumGirviStatusFieldUpdateOperationsInput | $Enums.GirviStatus
     girv_first_int?: NullableStringFieldUpdateOperationsInput | string | null
     girv_first_int_cr_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_first_int_dr_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
@@ -52781,6 +52903,7 @@ export namespace Prisma {
     girv_roi_type: $Enums.GirviRoiType
     girv_type: $Enums.GirviType
     girv_final_amt?: number
+    girv_status?: $Enums.GirviStatus
     girv_first_int?: string | null
     girv_first_int_dr_acc_id?: number | null
     girv_cash_amt?: number | null
@@ -52829,6 +52952,7 @@ export namespace Prisma {
     girv_roi_type: $Enums.GirviRoiType
     girv_type: $Enums.GirviType
     girv_final_amt?: number
+    girv_status?: $Enums.GirviStatus
     girv_first_int?: string | null
     girv_first_int_cr_acc_id?: number | null
     girv_cash_amt?: number | null
@@ -52877,6 +53001,7 @@ export namespace Prisma {
     girv_roi_type: $Enums.GirviRoiType
     girv_type: $Enums.GirviType
     girv_final_amt?: number
+    girv_status?: $Enums.GirviStatus
     girv_first_int?: string | null
     girv_first_int_cr_acc_id?: number | null
     girv_first_int_dr_acc_id?: number | null
@@ -52925,6 +53050,7 @@ export namespace Prisma {
     girv_roi_type: $Enums.GirviRoiType
     girv_type: $Enums.GirviType
     girv_final_amt?: number
+    girv_status?: $Enums.GirviStatus
     girv_first_int?: string | null
     girv_first_int_cr_acc_id?: number | null
     girv_first_int_dr_acc_id?: number | null
@@ -52973,6 +53099,7 @@ export namespace Prisma {
     girv_roi_type: $Enums.GirviRoiType
     girv_type: $Enums.GirviType
     girv_final_amt?: number
+    girv_status?: $Enums.GirviStatus
     girv_first_int?: string | null
     girv_first_int_cr_acc_id?: number | null
     girv_first_int_dr_acc_id?: number | null
@@ -53021,6 +53148,7 @@ export namespace Prisma {
     girv_roi_type: $Enums.GirviRoiType
     girv_type: $Enums.GirviType
     girv_final_amt?: number
+    girv_status?: $Enums.GirviStatus
     girv_first_int?: string | null
     girv_first_int_cr_acc_id?: number | null
     girv_first_int_dr_acc_id?: number | null
@@ -53069,6 +53197,7 @@ export namespace Prisma {
     girv_roi_type: $Enums.GirviRoiType
     girv_type: $Enums.GirviType
     girv_final_amt?: number
+    girv_status?: $Enums.GirviStatus
     girv_first_int?: string | null
     girv_first_int_cr_acc_id?: number | null
     girv_first_int_dr_acc_id?: number | null
@@ -54875,6 +55004,7 @@ export namespace Prisma {
     girv_roi_type?: EnumGirviRoiTypeFieldUpdateOperationsInput | $Enums.GirviRoiType
     girv_type?: EnumGirviTypeFieldUpdateOperationsInput | $Enums.GirviType
     girv_final_amt?: FloatFieldUpdateOperationsInput | number
+    girv_status?: EnumGirviStatusFieldUpdateOperationsInput | $Enums.GirviStatus
     girv_first_int?: NullableStringFieldUpdateOperationsInput | string | null
     girv_cash_amt?: NullableFloatFieldUpdateOperationsInput | number | null
     girv_bank_amt?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -54926,6 +55056,7 @@ export namespace Prisma {
     girv_roi_type?: EnumGirviRoiTypeFieldUpdateOperationsInput | $Enums.GirviRoiType
     girv_type?: EnumGirviTypeFieldUpdateOperationsInput | $Enums.GirviType
     girv_final_amt?: FloatFieldUpdateOperationsInput | number
+    girv_status?: EnumGirviStatusFieldUpdateOperationsInput | $Enums.GirviStatus
     girv_first_int?: NullableStringFieldUpdateOperationsInput | string | null
     girv_first_int_dr_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_cash_amt?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -54974,6 +55105,7 @@ export namespace Prisma {
     girv_roi_type?: EnumGirviRoiTypeFieldUpdateOperationsInput | $Enums.GirviRoiType
     girv_type?: EnumGirviTypeFieldUpdateOperationsInput | $Enums.GirviType
     girv_final_amt?: FloatFieldUpdateOperationsInput | number
+    girv_status?: EnumGirviStatusFieldUpdateOperationsInput | $Enums.GirviStatus
     girv_first_int?: NullableStringFieldUpdateOperationsInput | string | null
     girv_first_int_dr_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_cash_amt?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -55018,6 +55150,7 @@ export namespace Prisma {
     girv_roi_type?: EnumGirviRoiTypeFieldUpdateOperationsInput | $Enums.GirviRoiType
     girv_type?: EnumGirviTypeFieldUpdateOperationsInput | $Enums.GirviType
     girv_final_amt?: FloatFieldUpdateOperationsInput | number
+    girv_status?: EnumGirviStatusFieldUpdateOperationsInput | $Enums.GirviStatus
     girv_first_int?: NullableStringFieldUpdateOperationsInput | string | null
     girv_cash_amt?: NullableFloatFieldUpdateOperationsInput | number | null
     girv_bank_amt?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -55069,6 +55202,7 @@ export namespace Prisma {
     girv_roi_type?: EnumGirviRoiTypeFieldUpdateOperationsInput | $Enums.GirviRoiType
     girv_type?: EnumGirviTypeFieldUpdateOperationsInput | $Enums.GirviType
     girv_final_amt?: FloatFieldUpdateOperationsInput | number
+    girv_status?: EnumGirviStatusFieldUpdateOperationsInput | $Enums.GirviStatus
     girv_first_int?: NullableStringFieldUpdateOperationsInput | string | null
     girv_first_int_cr_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_cash_amt?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -55117,6 +55251,7 @@ export namespace Prisma {
     girv_roi_type?: EnumGirviRoiTypeFieldUpdateOperationsInput | $Enums.GirviRoiType
     girv_type?: EnumGirviTypeFieldUpdateOperationsInput | $Enums.GirviType
     girv_final_amt?: FloatFieldUpdateOperationsInput | number
+    girv_status?: EnumGirviStatusFieldUpdateOperationsInput | $Enums.GirviStatus
     girv_first_int?: NullableStringFieldUpdateOperationsInput | string | null
     girv_first_int_cr_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_cash_amt?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -55161,6 +55296,7 @@ export namespace Prisma {
     girv_roi_type?: EnumGirviRoiTypeFieldUpdateOperationsInput | $Enums.GirviRoiType
     girv_type?: EnumGirviTypeFieldUpdateOperationsInput | $Enums.GirviType
     girv_final_amt?: FloatFieldUpdateOperationsInput | number
+    girv_status?: EnumGirviStatusFieldUpdateOperationsInput | $Enums.GirviStatus
     girv_first_int?: NullableStringFieldUpdateOperationsInput | string | null
     girv_cash_amt?: NullableFloatFieldUpdateOperationsInput | number | null
     girv_bank_amt?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -55212,6 +55348,7 @@ export namespace Prisma {
     girv_roi_type?: EnumGirviRoiTypeFieldUpdateOperationsInput | $Enums.GirviRoiType
     girv_type?: EnumGirviTypeFieldUpdateOperationsInput | $Enums.GirviType
     girv_final_amt?: FloatFieldUpdateOperationsInput | number
+    girv_status?: EnumGirviStatusFieldUpdateOperationsInput | $Enums.GirviStatus
     girv_first_int?: NullableStringFieldUpdateOperationsInput | string | null
     girv_first_int_cr_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_first_int_dr_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
@@ -55260,6 +55397,7 @@ export namespace Prisma {
     girv_roi_type?: EnumGirviRoiTypeFieldUpdateOperationsInput | $Enums.GirviRoiType
     girv_type?: EnumGirviTypeFieldUpdateOperationsInput | $Enums.GirviType
     girv_final_amt?: FloatFieldUpdateOperationsInput | number
+    girv_status?: EnumGirviStatusFieldUpdateOperationsInput | $Enums.GirviStatus
     girv_first_int?: NullableStringFieldUpdateOperationsInput | string | null
     girv_first_int_cr_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_first_int_dr_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
@@ -55304,6 +55442,7 @@ export namespace Prisma {
     girv_roi_type?: EnumGirviRoiTypeFieldUpdateOperationsInput | $Enums.GirviRoiType
     girv_type?: EnumGirviTypeFieldUpdateOperationsInput | $Enums.GirviType
     girv_final_amt?: FloatFieldUpdateOperationsInput | number
+    girv_status?: EnumGirviStatusFieldUpdateOperationsInput | $Enums.GirviStatus
     girv_first_int?: NullableStringFieldUpdateOperationsInput | string | null
     girv_cash_amt?: NullableFloatFieldUpdateOperationsInput | number | null
     girv_bank_amt?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -55355,6 +55494,7 @@ export namespace Prisma {
     girv_roi_type?: EnumGirviRoiTypeFieldUpdateOperationsInput | $Enums.GirviRoiType
     girv_type?: EnumGirviTypeFieldUpdateOperationsInput | $Enums.GirviType
     girv_final_amt?: FloatFieldUpdateOperationsInput | number
+    girv_status?: EnumGirviStatusFieldUpdateOperationsInput | $Enums.GirviStatus
     girv_first_int?: NullableStringFieldUpdateOperationsInput | string | null
     girv_first_int_cr_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_first_int_dr_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
@@ -55403,6 +55543,7 @@ export namespace Prisma {
     girv_roi_type?: EnumGirviRoiTypeFieldUpdateOperationsInput | $Enums.GirviRoiType
     girv_type?: EnumGirviTypeFieldUpdateOperationsInput | $Enums.GirviType
     girv_final_amt?: FloatFieldUpdateOperationsInput | number
+    girv_status?: EnumGirviStatusFieldUpdateOperationsInput | $Enums.GirviStatus
     girv_first_int?: NullableStringFieldUpdateOperationsInput | string | null
     girv_first_int_cr_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_first_int_dr_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
@@ -55447,6 +55588,7 @@ export namespace Prisma {
     girv_roi_type?: EnumGirviRoiTypeFieldUpdateOperationsInput | $Enums.GirviRoiType
     girv_type?: EnumGirviTypeFieldUpdateOperationsInput | $Enums.GirviType
     girv_final_amt?: FloatFieldUpdateOperationsInput | number
+    girv_status?: EnumGirviStatusFieldUpdateOperationsInput | $Enums.GirviStatus
     girv_first_int?: NullableStringFieldUpdateOperationsInput | string | null
     girv_cash_amt?: NullableFloatFieldUpdateOperationsInput | number | null
     girv_bank_amt?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -55498,6 +55640,7 @@ export namespace Prisma {
     girv_roi_type?: EnumGirviRoiTypeFieldUpdateOperationsInput | $Enums.GirviRoiType
     girv_type?: EnumGirviTypeFieldUpdateOperationsInput | $Enums.GirviType
     girv_final_amt?: FloatFieldUpdateOperationsInput | number
+    girv_status?: EnumGirviStatusFieldUpdateOperationsInput | $Enums.GirviStatus
     girv_first_int?: NullableStringFieldUpdateOperationsInput | string | null
     girv_first_int_cr_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_first_int_dr_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
@@ -55546,6 +55689,7 @@ export namespace Prisma {
     girv_roi_type?: EnumGirviRoiTypeFieldUpdateOperationsInput | $Enums.GirviRoiType
     girv_type?: EnumGirviTypeFieldUpdateOperationsInput | $Enums.GirviType
     girv_final_amt?: FloatFieldUpdateOperationsInput | number
+    girv_status?: EnumGirviStatusFieldUpdateOperationsInput | $Enums.GirviStatus
     girv_first_int?: NullableStringFieldUpdateOperationsInput | string | null
     girv_first_int_cr_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_first_int_dr_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
@@ -55590,6 +55734,7 @@ export namespace Prisma {
     girv_roi_type?: EnumGirviRoiTypeFieldUpdateOperationsInput | $Enums.GirviRoiType
     girv_type?: EnumGirviTypeFieldUpdateOperationsInput | $Enums.GirviType
     girv_final_amt?: FloatFieldUpdateOperationsInput | number
+    girv_status?: EnumGirviStatusFieldUpdateOperationsInput | $Enums.GirviStatus
     girv_first_int?: NullableStringFieldUpdateOperationsInput | string | null
     girv_cash_amt?: NullableFloatFieldUpdateOperationsInput | number | null
     girv_bank_amt?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -55641,6 +55786,7 @@ export namespace Prisma {
     girv_roi_type?: EnumGirviRoiTypeFieldUpdateOperationsInput | $Enums.GirviRoiType
     girv_type?: EnumGirviTypeFieldUpdateOperationsInput | $Enums.GirviType
     girv_final_amt?: FloatFieldUpdateOperationsInput | number
+    girv_status?: EnumGirviStatusFieldUpdateOperationsInput | $Enums.GirviStatus
     girv_first_int?: NullableStringFieldUpdateOperationsInput | string | null
     girv_first_int_cr_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_first_int_dr_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
@@ -55689,6 +55835,7 @@ export namespace Prisma {
     girv_roi_type?: EnumGirviRoiTypeFieldUpdateOperationsInput | $Enums.GirviRoiType
     girv_type?: EnumGirviTypeFieldUpdateOperationsInput | $Enums.GirviType
     girv_final_amt?: FloatFieldUpdateOperationsInput | number
+    girv_status?: EnumGirviStatusFieldUpdateOperationsInput | $Enums.GirviStatus
     girv_first_int?: NullableStringFieldUpdateOperationsInput | string | null
     girv_first_int_cr_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_first_int_dr_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
@@ -55733,6 +55880,7 @@ export namespace Prisma {
     girv_roi_type?: EnumGirviRoiTypeFieldUpdateOperationsInput | $Enums.GirviRoiType
     girv_type?: EnumGirviTypeFieldUpdateOperationsInput | $Enums.GirviType
     girv_final_amt?: FloatFieldUpdateOperationsInput | number
+    girv_status?: EnumGirviStatusFieldUpdateOperationsInput | $Enums.GirviStatus
     girv_first_int?: NullableStringFieldUpdateOperationsInput | string | null
     girv_cash_amt?: NullableFloatFieldUpdateOperationsInput | number | null
     girv_bank_amt?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -55784,6 +55932,7 @@ export namespace Prisma {
     girv_roi_type?: EnumGirviRoiTypeFieldUpdateOperationsInput | $Enums.GirviRoiType
     girv_type?: EnumGirviTypeFieldUpdateOperationsInput | $Enums.GirviType
     girv_final_amt?: FloatFieldUpdateOperationsInput | number
+    girv_status?: EnumGirviStatusFieldUpdateOperationsInput | $Enums.GirviStatus
     girv_first_int?: NullableStringFieldUpdateOperationsInput | string | null
     girv_first_int_cr_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_first_int_dr_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
@@ -55832,6 +55981,7 @@ export namespace Prisma {
     girv_roi_type?: EnumGirviRoiTypeFieldUpdateOperationsInput | $Enums.GirviRoiType
     girv_type?: EnumGirviTypeFieldUpdateOperationsInput | $Enums.GirviType
     girv_final_amt?: FloatFieldUpdateOperationsInput | number
+    girv_status?: EnumGirviStatusFieldUpdateOperationsInput | $Enums.GirviStatus
     girv_first_int?: NullableStringFieldUpdateOperationsInput | string | null
     girv_first_int_cr_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_first_int_dr_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
@@ -56036,6 +56186,7 @@ export namespace Prisma {
     girv_roi_type: $Enums.GirviRoiType
     girv_type: $Enums.GirviType
     girv_final_amt?: number
+    girv_status?: $Enums.GirviStatus
     girv_first_int?: string | null
     girv_first_int_cr_acc_id?: number | null
     girv_first_int_dr_acc_id?: number | null
@@ -56587,6 +56738,7 @@ export namespace Prisma {
     girv_roi_type?: EnumGirviRoiTypeFieldUpdateOperationsInput | $Enums.GirviRoiType
     girv_type?: EnumGirviTypeFieldUpdateOperationsInput | $Enums.GirviType
     girv_final_amt?: FloatFieldUpdateOperationsInput | number
+    girv_status?: EnumGirviStatusFieldUpdateOperationsInput | $Enums.GirviStatus
     girv_first_int?: NullableStringFieldUpdateOperationsInput | string | null
     girv_cash_amt?: NullableFloatFieldUpdateOperationsInput | number | null
     girv_bank_amt?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -56637,6 +56789,7 @@ export namespace Prisma {
     girv_roi_type?: EnumGirviRoiTypeFieldUpdateOperationsInput | $Enums.GirviRoiType
     girv_type?: EnumGirviTypeFieldUpdateOperationsInput | $Enums.GirviType
     girv_final_amt?: FloatFieldUpdateOperationsInput | number
+    girv_status?: EnumGirviStatusFieldUpdateOperationsInput | $Enums.GirviStatus
     girv_first_int?: NullableStringFieldUpdateOperationsInput | string | null
     girv_first_int_cr_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_first_int_dr_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
@@ -56685,6 +56838,7 @@ export namespace Prisma {
     girv_roi_type?: EnumGirviRoiTypeFieldUpdateOperationsInput | $Enums.GirviRoiType
     girv_type?: EnumGirviTypeFieldUpdateOperationsInput | $Enums.GirviType
     girv_final_amt?: FloatFieldUpdateOperationsInput | number
+    girv_status?: EnumGirviStatusFieldUpdateOperationsInput | $Enums.GirviStatus
     girv_first_int?: NullableStringFieldUpdateOperationsInput | string | null
     girv_first_int_cr_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_first_int_dr_acc_id?: NullableIntFieldUpdateOperationsInput | number | null

@@ -757,6 +757,12 @@ enum GirviType {
   secured
 }
 
+enum GirviStatus {
+  ACTIVE
+  RELEASED
+  CLOSED
+}
+
 model Girvi {
   girv_id       Int     @id @default(autoincrement())
   girv_uuid     String  @unique @default(uuid())
@@ -787,6 +793,8 @@ model Girvi {
   girv_type     GirviType
 
   girv_final_amt Float @default(0)
+
+  girv_status GirviStatus @default(ACTIVE)
 
   girv_first_int           String? @default("N")
   girv_first_int_cr_acc_id Int?    @default(0)
