@@ -88,6 +88,7 @@ model Owner {
   journalTransactions JournalTransaction[]        @relation("OwnerJRTR")
   girvis              Girvi[]                     @relation("OwnerGirvi")
   stocks              Stock[]                     @relation("OwnerStock")
+  additionalPrincipals AdditionalPrincipal[]     @relation("OwnerAP")
 
   // ===============================
   // Indexes
@@ -221,6 +222,7 @@ model Firm {
   journalTransactions JournalTransaction[]
   girvis              Girvi[]                     @relation("FirmGirvi")
   stocks              Stock[]                     @relation("FirmStock")
+  additionalPrincipals AdditionalPrincipal[]     @relation("FirmAP")
 }
 
 // Enum for balance type
@@ -301,6 +303,11 @@ model Account {
   girviOnline     Girvi[] @relation("GirviOnlineAccount")
   girviCard       Girvi[] @relation("GirviCardAccount")
   girviDr         Girvi[] @relation("GirviDrAccount")
+
+  apCash   AdditionalPrincipal[] @relation("APCashAccount")
+  apBank   AdditionalPrincipal[] @relation("APBankAccount")
+  apOnline AdditionalPrincipal[] @relation("APOnlineAccount")
+  apCard   AdditionalPrincipal[] @relation("APCardAccount")
 }
 
 enum UserGender {
@@ -400,6 +407,7 @@ model User {
   journalTransactions JournalTransaction[]
   girvis              Girvi[]                     @relation("UserGirvi")
   stocks              Stock[]                     @relation("UserStock")
+  additionalPrincipals AdditionalPrincipal[]     @relation("UserAP")
 
   @@index([user_mobile_no])
   @@index([user_email_id])
@@ -842,6 +850,8 @@ model Girvi {
   cardAccount       Account? @relation("GirviCardAccount", fields: [girv_card_acc_id], references: [acc_id])
   drAccount         Account? @relation("GirviDrAccount", fields: [girv_dr_acc_id], references: [acc_id])
 
+  additionalPrincipals AdditionalPrincipal[] @relation("GirviAP")
+
   @@map("girvi")
 }
 
@@ -914,4 +924,68 @@ model Stock {
   user  User  @relation("UserStock", fields: [st_user_id], references: [user_id], onDelete: Cascade)
 
   @@map("stock")
+}
+
+// =============================================================================
+// MODEL: AdditionalPrincipal (additional_principal)
+// =============================================================================
+model AdditionalPrincipal {
+  ap_id           Int       @id @default(autoincrement())
+  ap_uuid         String    @unique @default(uuid())
+
+  // 🔗 Foreign Keys & Relationships
+  ap_own_id       Int       @default(1)
+  ap_firm_id      Int       @default(0)
+  ap_user_id      Int       @default(0)
+  ap_girv_id      Int       @default(0)
+  ap_staff_id     Int       @default(0)
+
+  // 💰 Principal Information
+  ap_trans_date   String
+  ap_prin_amt     Float
+  ap_roi          Float
+  ap_payable_amt  Float
+
+  // 🏦 Payment Details & Account Associations
+  ap_cash_amt     Float?    @default(0)
+  ap_cash_acc_id  Int?      @default(0)
+  ap_cash_info    String?   @default("")
+
+  ap_bank_amt     Float?    @default(0)
+  ap_bank_acc_id  Int?      @default(0)
+  ap_bank_info    String?   @default("")
+
+  ap_online_amt   Float?    @default(0)
+  ap_online_acc_id Int?     @default(0)
+  ap_online_info  String?   @default("")
+
+  ap_card_amt     Float?    @default(0)
+  ap_card_acc_id  Int?      @default(0)
+  ap_card_info    String?   @default("")
+
+  // 📝 Other Remarks & Audit
+  ap_pay_info     String?   @default("")
+  ap_other_info   String?   @default("")
+
+  // 🛡️ Audit Fields
+  ap_created_at   DateTime  @default(now())
+  ap_created_by   String?
+  ap_updated_at   DateTime  @updatedAt
+  ap_updated_by   String?
+  ap_deleted_at   DateTime?
+  ap_deleted_by   String?
+  ap_is_deleted   Boolean   @default(false)
+
+  // Relations
+  owner         Owner     @relation("OwnerAP", fields: [ap_own_id], references: [own_id], onDelete: Cascade)
+  firm          Firm      @relation("FirmAP", fields: [ap_firm_id], references: [firm_id], onDelete: Cascade)
+  user          User      @relation("UserAP", fields: [ap_user_id], references: [user_id], onDelete: Cascade)
+  girvi         Girvi     @relation("GirviAP", fields: [ap_girv_id], references: [girv_id], onDelete: Cascade)
+
+  cashAccount   Account?  @relation("APCashAccount", fields: [ap_cash_acc_id], references: [acc_id])
+  bankAccount   Account?  @relation("APBankAccount", fields: [ap_bank_acc_id], references: [acc_id])
+  onlineAccount Account?  @relation("APOnlineAccount", fields: [ap_online_acc_id], references: [acc_id])
+  cardAccount   Account?  @relation("APCardAccount", fields: [ap_card_acc_id], references: [acc_id])
+
+  @@map("additional_principal")
 }

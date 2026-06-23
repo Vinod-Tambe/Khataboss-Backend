@@ -538,6 +538,41 @@ exports.Prisma.StockScalarFieldEnum = {
   st_is_deleted: 'st_is_deleted'
 };
 
+exports.Prisma.AdditionalPrincipalScalarFieldEnum = {
+  ap_id: 'ap_id',
+  ap_uuid: 'ap_uuid',
+  ap_own_id: 'ap_own_id',
+  ap_firm_id: 'ap_firm_id',
+  ap_user_id: 'ap_user_id',
+  ap_girv_id: 'ap_girv_id',
+  ap_staff_id: 'ap_staff_id',
+  ap_trans_date: 'ap_trans_date',
+  ap_prin_amt: 'ap_prin_amt',
+  ap_roi: 'ap_roi',
+  ap_payable_amt: 'ap_payable_amt',
+  ap_cash_amt: 'ap_cash_amt',
+  ap_cash_acc_id: 'ap_cash_acc_id',
+  ap_cash_info: 'ap_cash_info',
+  ap_bank_amt: 'ap_bank_amt',
+  ap_bank_acc_id: 'ap_bank_acc_id',
+  ap_bank_info: 'ap_bank_info',
+  ap_online_amt: 'ap_online_amt',
+  ap_online_acc_id: 'ap_online_acc_id',
+  ap_online_info: 'ap_online_info',
+  ap_card_amt: 'ap_card_amt',
+  ap_card_acc_id: 'ap_card_acc_id',
+  ap_card_info: 'ap_card_info',
+  ap_pay_info: 'ap_pay_info',
+  ap_other_info: 'ap_other_info',
+  ap_created_at: 'ap_created_at',
+  ap_created_by: 'ap_created_by',
+  ap_updated_at: 'ap_updated_at',
+  ap_updated_by: 'ap_updated_by',
+  ap_deleted_at: 'ap_deleted_at',
+  ap_deleted_by: 'ap_deleted_by',
+  ap_is_deleted: 'ap_is_deleted'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -676,7 +711,8 @@ exports.Prisma.ModelName = {
   Journal: 'Journal',
   JournalTransaction: 'JournalTransaction',
   Girvi: 'Girvi',
-  Stock: 'Stock'
+  Stock: 'Stock',
+  AdditionalPrincipal: 'AdditionalPrincipal'
 };
 
 /**

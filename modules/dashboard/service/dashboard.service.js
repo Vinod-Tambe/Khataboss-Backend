@@ -44,16 +44,23 @@ class DashboardService {
         orderBy: { fin_created_at: "desc" }
       });
 
-      // 2. Calculate Totals
-      let totalFinanceAmount = 0;
+      // 2. Calculate Finance Totals
+      let totalActiveFinance = 0;
+      let totalCloseFinance = 0;
+      let totalActiveFinanceAmt = 0;
+      let totalCloseFinanceAmt = 0;
       let totalFinancePending = 0;
       
       finances.forEach(f => {
         if (f.fin_status === "ACTIVE") {
-          totalFinanceAmount += (f.fin_prin_amt || 0);
+          totalActiveFinance += 1;
+          totalActiveFinanceAmt += (f.fin_prin_amt || 0);
           f.finance_trans.forEach(t => {
             totalFinancePending += (t.ft_pending_amt || 0);
           });
+        } else if (f.fin_status === "CLOSED" || f.fin_status === "COMPLETED" || f.fin_status === "INACTIVE") {
+          totalCloseFinance += 1;
+          totalCloseFinanceAmt += (f.fin_prin_amt || 0);
         }
       });
 
@@ -62,31 +69,71 @@ class DashboardService {
         .filter(f => f.fin_status === "ACTIVE")
         .slice(0, 5);
 
-      // 4. Get Latest 5 Transactions
-      const transWhere = {
-        fm_user_id: uId,
-        fm_is_deleted: false,
+      // 4. Get Latest 5 Transactions (Finance & Loan) from Journal
+      const journalWhere = {
+        jrnl_user_id: uId,
+        jrnl_is_deleted: false,
       };
-      if (fId) transWhere.fm_firm_id = fId;
+      if (fId) journalWhere.jrnl_firm_id = fId;
 
-      const latestTransactions = await prisma.finance_Money_Transaction.findMany({
-        where: transWhere,
-        orderBy: { fm_created_at: "desc" },
+      const latestTransactions = await prisma.journal.findMany({
+        where: journalWhere,
+        orderBy: { jrnl_created_at: "desc" },
         take: 5,
+        include: {
+          financeMoneyTransactions: {
+            where: { fm_is_deleted: false }
+          }
+        }
       });
 
-      // 5. Loan placeholders (Loans are not in a separate table yet)
-      const totalLoanCount = 0;
-      const totalLoanAmount = 0;
+      // 5. Fetch actual Loan (Girvi) records
+      const loanWhereClause = {
+        girv_user_id: uId,
+        girv_is_deleted: false,
+      };
+      if (fId) loanWhereClause.girv_firm_id = fId;
+
+      const loans = await prisma.girvi.findMany({
+        where: loanWhereClause,
+        orderBy: { girv_created_at: "desc" }
+      });
+
+      // Calculate Loan Totals (Active and Released)
+      let totalActiveLoan = 0;
+      let totalReleaseLoan = 0;
+      let totalActiveLoanAmt = 0;
+      let totalReleaseLoanAmt = 0;
+
+      loans.forEach(l => {
+        if (l.girv_status === "ACTIVE") {
+          totalActiveLoan += 1;
+          totalActiveLoanAmt += (l.girv_prin_amt || 0);
+        } else if (l.girv_status === "RELEASED") {
+          totalReleaseLoan += 1;
+          totalReleaseLoanAmt += (l.girv_prin_amt || 0);
+        }
+      });
+
+      // Get Latest 5 Active Loans
+      const latestLoans = loans
+        .filter(l => l.girv_status === "ACTIVE")
+        .slice(0, 5);
 
       return {
         totals: {
-          totalFinanceAmount,
-          totalFinancePending,
-          totalLoanCount,
-          totalLoanAmount
+          totalActiveFinance,
+          totalCloseFinance,
+          totalActiveFinanceAmt,
+          totalCloseFinanceAmt,
+          totalActiveLoan,
+          totalReleaseLoan,
+          totalActiveLoanAmt,
+          totalReleaseLoanAmt,
+          totalFinancePending
         },
         latestFinances,
+        latestLoans,
         latestTransactions
       };
     } catch (error) {

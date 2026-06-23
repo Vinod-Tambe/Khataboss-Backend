@@ -68,6 +68,11 @@ export type Girvi = $Result.DefaultSelection<Prisma.$GirviPayload>
  * 
  */
 export type Stock = $Result.DefaultSelection<Prisma.$StockPayload>
+/**
+ * Model AdditionalPrincipal
+ * 
+ */
+export type AdditionalPrincipal = $Result.DefaultSelection<Prisma.$AdditionalPrincipalPayload>
 
 /**
  * Enums
@@ -527,6 +532,16 @@ export class PrismaClient<
     * ```
     */
   get stock(): Prisma.StockDelegate<ExtArgs>;
+
+  /**
+   * `prisma.additionalPrincipal`: Exposes CRUD operations for the **AdditionalPrincipal** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more AdditionalPrincipals
+    * const additionalPrincipals = await prisma.additionalPrincipal.findMany()
+    * ```
+    */
+  get additionalPrincipal(): Prisma.AdditionalPrincipalDelegate<ExtArgs>;
 }
 
 export namespace Prisma {
@@ -978,7 +993,8 @@ export namespace Prisma {
     Journal: 'Journal',
     JournalTransaction: 'JournalTransaction',
     Girvi: 'Girvi',
-    Stock: 'Stock'
+    Stock: 'Stock',
+    AdditionalPrincipal: 'AdditionalPrincipal'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -994,7 +1010,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "owner" | "firm" | "account" | "user" | "finance" | "finance_Transaction" | "finance_Money_Transaction" | "journal" | "journalTransaction" | "girvi" | "stock"
+      modelProps: "owner" | "firm" | "account" | "user" | "finance" | "finance_Transaction" | "finance_Money_Transaction" | "journal" | "journalTransaction" | "girvi" | "stock" | "additionalPrincipal"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1768,6 +1784,76 @@ export namespace Prisma {
           }
         }
       }
+      AdditionalPrincipal: {
+        payload: Prisma.$AdditionalPrincipalPayload<ExtArgs>
+        fields: Prisma.AdditionalPrincipalFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.AdditionalPrincipalFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AdditionalPrincipalPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.AdditionalPrincipalFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AdditionalPrincipalPayload>
+          }
+          findFirst: {
+            args: Prisma.AdditionalPrincipalFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AdditionalPrincipalPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.AdditionalPrincipalFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AdditionalPrincipalPayload>
+          }
+          findMany: {
+            args: Prisma.AdditionalPrincipalFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AdditionalPrincipalPayload>[]
+          }
+          create: {
+            args: Prisma.AdditionalPrincipalCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AdditionalPrincipalPayload>
+          }
+          createMany: {
+            args: Prisma.AdditionalPrincipalCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.AdditionalPrincipalCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AdditionalPrincipalPayload>[]
+          }
+          delete: {
+            args: Prisma.AdditionalPrincipalDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AdditionalPrincipalPayload>
+          }
+          update: {
+            args: Prisma.AdditionalPrincipalUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AdditionalPrincipalPayload>
+          }
+          deleteMany: {
+            args: Prisma.AdditionalPrincipalDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.AdditionalPrincipalUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.AdditionalPrincipalUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AdditionalPrincipalPayload>
+          }
+          aggregate: {
+            args: Prisma.AdditionalPrincipalAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateAdditionalPrincipal>
+          }
+          groupBy: {
+            args: Prisma.AdditionalPrincipalGroupByArgs<ExtArgs>
+            result: $Utils.Optional<AdditionalPrincipalGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.AdditionalPrincipalCountArgs<ExtArgs>
+            result: $Utils.Optional<AdditionalPrincipalCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1939,6 +2025,7 @@ export namespace Prisma {
     journalTransactions: number
     girvis: number
     stocks: number
+    additionalPrincipals: number
   }
 
   export type OwnerCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -1952,6 +2039,7 @@ export namespace Prisma {
     journalTransactions?: boolean | OwnerCountOutputTypeCountJournalTransactionsArgs
     girvis?: boolean | OwnerCountOutputTypeCountGirvisArgs
     stocks?: boolean | OwnerCountOutputTypeCountStocksArgs
+    additionalPrincipals?: boolean | OwnerCountOutputTypeCountAdditionalPrincipalsArgs
   }
 
   // Custom InputTypes
@@ -2035,6 +2123,13 @@ export namespace Prisma {
     where?: StockWhereInput
   }
 
+  /**
+   * OwnerCountOutputType without action
+   */
+  export type OwnerCountOutputTypeCountAdditionalPrincipalsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AdditionalPrincipalWhereInput
+  }
+
 
   /**
    * Count Type FirmCountOutputType
@@ -2050,6 +2145,7 @@ export namespace Prisma {
     journalTransactions: number
     girvis: number
     stocks: number
+    additionalPrincipals: number
   }
 
   export type FirmCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2062,6 +2158,7 @@ export namespace Prisma {
     journalTransactions?: boolean | FirmCountOutputTypeCountJournalTransactionsArgs
     girvis?: boolean | FirmCountOutputTypeCountGirvisArgs
     stocks?: boolean | FirmCountOutputTypeCountStocksArgs
+    additionalPrincipals?: boolean | FirmCountOutputTypeCountAdditionalPrincipalsArgs
   }
 
   // Custom InputTypes
@@ -2138,6 +2235,13 @@ export namespace Prisma {
     where?: StockWhereInput
   }
 
+  /**
+   * FirmCountOutputType without action
+   */
+  export type FirmCountOutputTypeCountAdditionalPrincipalsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AdditionalPrincipalWhereInput
+  }
+
 
   /**
    * Count Type AccountCountOutputType
@@ -2167,6 +2271,10 @@ export namespace Prisma {
     girviOnline: number
     girviCard: number
     girviDr: number
+    apCash: number
+    apBank: number
+    apOnline: number
+    apCard: number
   }
 
   export type AccountCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2193,6 +2301,10 @@ export namespace Prisma {
     girviOnline?: boolean | AccountCountOutputTypeCountGirviOnlineArgs
     girviCard?: boolean | AccountCountOutputTypeCountGirviCardArgs
     girviDr?: boolean | AccountCountOutputTypeCountGirviDrArgs
+    apCash?: boolean | AccountCountOutputTypeCountApCashArgs
+    apBank?: boolean | AccountCountOutputTypeCountApBankArgs
+    apOnline?: boolean | AccountCountOutputTypeCountApOnlineArgs
+    apCard?: boolean | AccountCountOutputTypeCountApCardArgs
   }
 
   // Custom InputTypes
@@ -2367,6 +2479,34 @@ export namespace Prisma {
     where?: GirviWhereInput
   }
 
+  /**
+   * AccountCountOutputType without action
+   */
+  export type AccountCountOutputTypeCountApCashArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AdditionalPrincipalWhereInput
+  }
+
+  /**
+   * AccountCountOutputType without action
+   */
+  export type AccountCountOutputTypeCountApBankArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AdditionalPrincipalWhereInput
+  }
+
+  /**
+   * AccountCountOutputType without action
+   */
+  export type AccountCountOutputTypeCountApOnlineArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AdditionalPrincipalWhereInput
+  }
+
+  /**
+   * AccountCountOutputType without action
+   */
+  export type AccountCountOutputTypeCountApCardArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AdditionalPrincipalWhereInput
+  }
+
 
   /**
    * Count Type UserCountOutputType
@@ -2380,6 +2520,7 @@ export namespace Prisma {
     journalTransactions: number
     girvis: number
     stocks: number
+    additionalPrincipals: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2390,6 +2531,7 @@ export namespace Prisma {
     journalTransactions?: boolean | UserCountOutputTypeCountJournalTransactionsArgs
     girvis?: boolean | UserCountOutputTypeCountGirvisArgs
     stocks?: boolean | UserCountOutputTypeCountStocksArgs
+    additionalPrincipals?: boolean | UserCountOutputTypeCountAdditionalPrincipalsArgs
   }
 
   // Custom InputTypes
@@ -2450,6 +2592,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountStocksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: StockWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountAdditionalPrincipalsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AdditionalPrincipalWhereInput
   }
 
 
@@ -2530,6 +2679,37 @@ export namespace Prisma {
    */
   export type JournalCountOutputTypeCountJournalTransactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: JournalTransactionWhereInput
+  }
+
+
+  /**
+   * Count Type GirviCountOutputType
+   */
+
+  export type GirviCountOutputType = {
+    additionalPrincipals: number
+  }
+
+  export type GirviCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    additionalPrincipals?: boolean | GirviCountOutputTypeCountAdditionalPrincipalsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * GirviCountOutputType without action
+   */
+  export type GirviCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GirviCountOutputType
+     */
+    select?: GirviCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * GirviCountOutputType without action
+   */
+  export type GirviCountOutputTypeCountAdditionalPrincipalsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AdditionalPrincipalWhereInput
   }
 
 
@@ -2981,6 +3161,7 @@ export namespace Prisma {
     journalTransactions?: boolean | Owner$journalTransactionsArgs<ExtArgs>
     girvis?: boolean | Owner$girvisArgs<ExtArgs>
     stocks?: boolean | Owner$stocksArgs<ExtArgs>
+    additionalPrincipals?: boolean | Owner$additionalPrincipalsArgs<ExtArgs>
     _count?: boolean | OwnerCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["owner"]>
 
@@ -3071,6 +3252,7 @@ export namespace Prisma {
     journalTransactions?: boolean | Owner$journalTransactionsArgs<ExtArgs>
     girvis?: boolean | Owner$girvisArgs<ExtArgs>
     stocks?: boolean | Owner$stocksArgs<ExtArgs>
+    additionalPrincipals?: boolean | Owner$additionalPrincipalsArgs<ExtArgs>
     _count?: boolean | OwnerCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type OwnerIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -3088,6 +3270,7 @@ export namespace Prisma {
       journalTransactions: Prisma.$JournalTransactionPayload<ExtArgs>[]
       girvis: Prisma.$GirviPayload<ExtArgs>[]
       stocks: Prisma.$StockPayload<ExtArgs>[]
+      additionalPrincipals: Prisma.$AdditionalPrincipalPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       own_id: number
@@ -3499,6 +3682,7 @@ export namespace Prisma {
     journalTransactions<T extends Owner$journalTransactionsArgs<ExtArgs> = {}>(args?: Subset<T, Owner$journalTransactionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$JournalTransactionPayload<ExtArgs>, T, "findMany"> | Null>
     girvis<T extends Owner$girvisArgs<ExtArgs> = {}>(args?: Subset<T, Owner$girvisArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GirviPayload<ExtArgs>, T, "findMany"> | Null>
     stocks<T extends Owner$stocksArgs<ExtArgs> = {}>(args?: Subset<T, Owner$stocksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StockPayload<ExtArgs>, T, "findMany"> | Null>
+    additionalPrincipals<T extends Owner$additionalPrincipalsArgs<ExtArgs> = {}>(args?: Subset<T, Owner$additionalPrincipalsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AdditionalPrincipalPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4077,6 +4261,26 @@ export namespace Prisma {
   }
 
   /**
+   * Owner.additionalPrincipals
+   */
+  export type Owner$additionalPrincipalsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AdditionalPrincipal
+     */
+    select?: AdditionalPrincipalSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdditionalPrincipalInclude<ExtArgs> | null
+    where?: AdditionalPrincipalWhereInput
+    orderBy?: AdditionalPrincipalOrderByWithRelationInput | AdditionalPrincipalOrderByWithRelationInput[]
+    cursor?: AdditionalPrincipalWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AdditionalPrincipalScalarFieldEnum | AdditionalPrincipalScalarFieldEnum[]
+  }
+
+  /**
    * Owner without action
    */
   export type OwnerDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4635,6 +4839,7 @@ export namespace Prisma {
     journalTransactions?: boolean | Firm$journalTransactionsArgs<ExtArgs>
     girvis?: boolean | Firm$girvisArgs<ExtArgs>
     stocks?: boolean | Firm$stocksArgs<ExtArgs>
+    additionalPrincipals?: boolean | Firm$additionalPrincipalsArgs<ExtArgs>
     _count?: boolean | FirmCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["firm"]>
 
@@ -4754,6 +4959,7 @@ export namespace Prisma {
     journalTransactions?: boolean | Firm$journalTransactionsArgs<ExtArgs>
     girvis?: boolean | Firm$girvisArgs<ExtArgs>
     stocks?: boolean | Firm$stocksArgs<ExtArgs>
+    additionalPrincipals?: boolean | Firm$additionalPrincipalsArgs<ExtArgs>
     _count?: boolean | FirmCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type FirmIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4773,6 +4979,7 @@ export namespace Prisma {
       journalTransactions: Prisma.$JournalTransactionPayload<ExtArgs>[]
       girvis: Prisma.$GirviPayload<ExtArgs>[]
       stocks: Prisma.$StockPayload<ExtArgs>[]
+      additionalPrincipals: Prisma.$AdditionalPrincipalPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       firm_id: number
@@ -5198,6 +5405,7 @@ export namespace Prisma {
     journalTransactions<T extends Firm$journalTransactionsArgs<ExtArgs> = {}>(args?: Subset<T, Firm$journalTransactionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$JournalTransactionPayload<ExtArgs>, T, "findMany"> | Null>
     girvis<T extends Firm$girvisArgs<ExtArgs> = {}>(args?: Subset<T, Firm$girvisArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GirviPayload<ExtArgs>, T, "findMany"> | Null>
     stocks<T extends Firm$stocksArgs<ExtArgs> = {}>(args?: Subset<T, Firm$stocksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StockPayload<ExtArgs>, T, "findMany"> | Null>
+    additionalPrincipals<T extends Firm$additionalPrincipalsArgs<ExtArgs> = {}>(args?: Subset<T, Firm$additionalPrincipalsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AdditionalPrincipalPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5774,6 +5982,26 @@ export namespace Prisma {
   }
 
   /**
+   * Firm.additionalPrincipals
+   */
+  export type Firm$additionalPrincipalsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AdditionalPrincipal
+     */
+    select?: AdditionalPrincipalSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdditionalPrincipalInclude<ExtArgs> | null
+    where?: AdditionalPrincipalWhereInput
+    orderBy?: AdditionalPrincipalOrderByWithRelationInput | AdditionalPrincipalOrderByWithRelationInput[]
+    cursor?: AdditionalPrincipalWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AdditionalPrincipalScalarFieldEnum | AdditionalPrincipalScalarFieldEnum[]
+  }
+
+  /**
    * Firm without action
    */
   export type FirmDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -6211,6 +6439,10 @@ export namespace Prisma {
     girviOnline?: boolean | Account$girviOnlineArgs<ExtArgs>
     girviCard?: boolean | Account$girviCardArgs<ExtArgs>
     girviDr?: boolean | Account$girviDrArgs<ExtArgs>
+    apCash?: boolean | Account$apCashArgs<ExtArgs>
+    apBank?: boolean | Account$apBankArgs<ExtArgs>
+    apOnline?: boolean | Account$apOnlineArgs<ExtArgs>
+    apCard?: boolean | Account$apCardArgs<ExtArgs>
     _count?: boolean | AccountCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["account"]>
 
@@ -6306,6 +6538,10 @@ export namespace Prisma {
     girviOnline?: boolean | Account$girviOnlineArgs<ExtArgs>
     girviCard?: boolean | Account$girviCardArgs<ExtArgs>
     girviDr?: boolean | Account$girviDrArgs<ExtArgs>
+    apCash?: boolean | Account$apCashArgs<ExtArgs>
+    apBank?: boolean | Account$apBankArgs<ExtArgs>
+    apOnline?: boolean | Account$apOnlineArgs<ExtArgs>
+    apCard?: boolean | Account$apCardArgs<ExtArgs>
     _count?: boolean | AccountCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type AccountIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -6341,6 +6577,10 @@ export namespace Prisma {
       girviOnline: Prisma.$GirviPayload<ExtArgs>[]
       girviCard: Prisma.$GirviPayload<ExtArgs>[]
       girviDr: Prisma.$GirviPayload<ExtArgs>[]
+      apCash: Prisma.$AdditionalPrincipalPayload<ExtArgs>[]
+      apBank: Prisma.$AdditionalPrincipalPayload<ExtArgs>[]
+      apOnline: Prisma.$AdditionalPrincipalPayload<ExtArgs>[]
+      apCard: Prisma.$AdditionalPrincipalPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       acc_id: number
@@ -6761,6 +7001,10 @@ export namespace Prisma {
     girviOnline<T extends Account$girviOnlineArgs<ExtArgs> = {}>(args?: Subset<T, Account$girviOnlineArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GirviPayload<ExtArgs>, T, "findMany"> | Null>
     girviCard<T extends Account$girviCardArgs<ExtArgs> = {}>(args?: Subset<T, Account$girviCardArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GirviPayload<ExtArgs>, T, "findMany"> | Null>
     girviDr<T extends Account$girviDrArgs<ExtArgs> = {}>(args?: Subset<T, Account$girviDrArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GirviPayload<ExtArgs>, T, "findMany"> | Null>
+    apCash<T extends Account$apCashArgs<ExtArgs> = {}>(args?: Subset<T, Account$apCashArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AdditionalPrincipalPayload<ExtArgs>, T, "findMany"> | Null>
+    apBank<T extends Account$apBankArgs<ExtArgs> = {}>(args?: Subset<T, Account$apBankArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AdditionalPrincipalPayload<ExtArgs>, T, "findMany"> | Null>
+    apOnline<T extends Account$apOnlineArgs<ExtArgs> = {}>(args?: Subset<T, Account$apOnlineArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AdditionalPrincipalPayload<ExtArgs>, T, "findMany"> | Null>
+    apCard<T extends Account$apCardArgs<ExtArgs> = {}>(args?: Subset<T, Account$apCardArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AdditionalPrincipalPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -7597,6 +7841,86 @@ export namespace Prisma {
   }
 
   /**
+   * Account.apCash
+   */
+  export type Account$apCashArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AdditionalPrincipal
+     */
+    select?: AdditionalPrincipalSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdditionalPrincipalInclude<ExtArgs> | null
+    where?: AdditionalPrincipalWhereInput
+    orderBy?: AdditionalPrincipalOrderByWithRelationInput | AdditionalPrincipalOrderByWithRelationInput[]
+    cursor?: AdditionalPrincipalWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AdditionalPrincipalScalarFieldEnum | AdditionalPrincipalScalarFieldEnum[]
+  }
+
+  /**
+   * Account.apBank
+   */
+  export type Account$apBankArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AdditionalPrincipal
+     */
+    select?: AdditionalPrincipalSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdditionalPrincipalInclude<ExtArgs> | null
+    where?: AdditionalPrincipalWhereInput
+    orderBy?: AdditionalPrincipalOrderByWithRelationInput | AdditionalPrincipalOrderByWithRelationInput[]
+    cursor?: AdditionalPrincipalWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AdditionalPrincipalScalarFieldEnum | AdditionalPrincipalScalarFieldEnum[]
+  }
+
+  /**
+   * Account.apOnline
+   */
+  export type Account$apOnlineArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AdditionalPrincipal
+     */
+    select?: AdditionalPrincipalSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdditionalPrincipalInclude<ExtArgs> | null
+    where?: AdditionalPrincipalWhereInput
+    orderBy?: AdditionalPrincipalOrderByWithRelationInput | AdditionalPrincipalOrderByWithRelationInput[]
+    cursor?: AdditionalPrincipalWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AdditionalPrincipalScalarFieldEnum | AdditionalPrincipalScalarFieldEnum[]
+  }
+
+  /**
+   * Account.apCard
+   */
+  export type Account$apCardArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AdditionalPrincipal
+     */
+    select?: AdditionalPrincipalSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdditionalPrincipalInclude<ExtArgs> | null
+    where?: AdditionalPrincipalWhereInput
+    orderBy?: AdditionalPrincipalOrderByWithRelationInput | AdditionalPrincipalOrderByWithRelationInput[]
+    cursor?: AdditionalPrincipalWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AdditionalPrincipalScalarFieldEnum | AdditionalPrincipalScalarFieldEnum[]
+  }
+
+  /**
    * Account without action
    */
   export type AccountDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -8134,6 +8458,7 @@ export namespace Prisma {
     journalTransactions?: boolean | User$journalTransactionsArgs<ExtArgs>
     girvis?: boolean | User$girvisArgs<ExtArgs>
     stocks?: boolean | User$stocksArgs<ExtArgs>
+    additionalPrincipals?: boolean | User$additionalPrincipalsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -8247,6 +8572,7 @@ export namespace Prisma {
     journalTransactions?: boolean | User$journalTransactionsArgs<ExtArgs>
     girvis?: boolean | User$girvisArgs<ExtArgs>
     stocks?: boolean | User$stocksArgs<ExtArgs>
+    additionalPrincipals?: boolean | User$additionalPrincipalsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -8266,6 +8592,7 @@ export namespace Prisma {
       journalTransactions: Prisma.$JournalTransactionPayload<ExtArgs>[]
       girvis: Prisma.$GirviPayload<ExtArgs>[]
       stocks: Prisma.$StockPayload<ExtArgs>[]
+      additionalPrincipals: Prisma.$AdditionalPrincipalPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       user_id: number
@@ -8687,6 +9014,7 @@ export namespace Prisma {
     journalTransactions<T extends User$journalTransactionsArgs<ExtArgs> = {}>(args?: Subset<T, User$journalTransactionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$JournalTransactionPayload<ExtArgs>, T, "findMany"> | Null>
     girvis<T extends User$girvisArgs<ExtArgs> = {}>(args?: Subset<T, User$girvisArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GirviPayload<ExtArgs>, T, "findMany"> | Null>
     stocks<T extends User$stocksArgs<ExtArgs> = {}>(args?: Subset<T, User$stocksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StockPayload<ExtArgs>, T, "findMany"> | Null>
+    additionalPrincipals<T extends User$additionalPrincipalsArgs<ExtArgs> = {}>(args?: Subset<T, User$additionalPrincipalsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AdditionalPrincipalPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -9217,6 +9545,26 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: StockScalarFieldEnum | StockScalarFieldEnum[]
+  }
+
+  /**
+   * User.additionalPrincipals
+   */
+  export type User$additionalPrincipalsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AdditionalPrincipal
+     */
+    select?: AdditionalPrincipalSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdditionalPrincipalInclude<ExtArgs> | null
+    where?: AdditionalPrincipalWhereInput
+    orderBy?: AdditionalPrincipalOrderByWithRelationInput | AdditionalPrincipalOrderByWithRelationInput[]
+    cursor?: AdditionalPrincipalWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AdditionalPrincipalScalarFieldEnum | AdditionalPrincipalScalarFieldEnum[]
   }
 
   /**
@@ -16962,6 +17310,8 @@ export namespace Prisma {
     onlineAccount?: boolean | Girvi$onlineAccountArgs<ExtArgs>
     cardAccount?: boolean | Girvi$cardAccountArgs<ExtArgs>
     drAccount?: boolean | Girvi$drAccountArgs<ExtArgs>
+    additionalPrincipals?: boolean | Girvi$additionalPrincipalsArgs<ExtArgs>
+    _count?: boolean | GirviCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["girvi"]>
 
   export type GirviSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -17085,6 +17435,8 @@ export namespace Prisma {
     onlineAccount?: boolean | Girvi$onlineAccountArgs<ExtArgs>
     cardAccount?: boolean | Girvi$cardAccountArgs<ExtArgs>
     drAccount?: boolean | Girvi$drAccountArgs<ExtArgs>
+    additionalPrincipals?: boolean | Girvi$additionalPrincipalsArgs<ExtArgs>
+    _count?: boolean | GirviCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type GirviIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     owner?: boolean | OwnerDefaultArgs<ExtArgs>
@@ -17112,6 +17464,7 @@ export namespace Prisma {
       onlineAccount: Prisma.$AccountPayload<ExtArgs> | null
       cardAccount: Prisma.$AccountPayload<ExtArgs> | null
       drAccount: Prisma.$AccountPayload<ExtArgs> | null
+      additionalPrincipals: Prisma.$AdditionalPrincipalPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       girv_id: number
@@ -17535,6 +17888,7 @@ export namespace Prisma {
     onlineAccount<T extends Girvi$onlineAccountArgs<ExtArgs> = {}>(args?: Subset<T, Girvi$onlineAccountArgs<ExtArgs>>): Prisma__AccountClient<$Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     cardAccount<T extends Girvi$cardAccountArgs<ExtArgs> = {}>(args?: Subset<T, Girvi$cardAccountArgs<ExtArgs>>): Prisma__AccountClient<$Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     drAccount<T extends Girvi$drAccountArgs<ExtArgs> = {}>(args?: Subset<T, Girvi$drAccountArgs<ExtArgs>>): Prisma__AccountClient<$Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    additionalPrincipals<T extends Girvi$additionalPrincipalsArgs<ExtArgs> = {}>(args?: Subset<T, Girvi$additionalPrincipalsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AdditionalPrincipalPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -18031,6 +18385,26 @@ export namespace Prisma {
      */
     include?: AccountInclude<ExtArgs> | null
     where?: AccountWhereInput
+  }
+
+  /**
+   * Girvi.additionalPrincipals
+   */
+  export type Girvi$additionalPrincipalsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AdditionalPrincipal
+     */
+    select?: AdditionalPrincipalSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdditionalPrincipalInclude<ExtArgs> | null
+    where?: AdditionalPrincipalWhereInput
+    orderBy?: AdditionalPrincipalOrderByWithRelationInput | AdditionalPrincipalOrderByWithRelationInput[]
+    cursor?: AdditionalPrincipalWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AdditionalPrincipalScalarFieldEnum | AdditionalPrincipalScalarFieldEnum[]
   }
 
   /**
@@ -19384,6 +19758,1463 @@ export namespace Prisma {
 
 
   /**
+   * Model AdditionalPrincipal
+   */
+
+  export type AggregateAdditionalPrincipal = {
+    _count: AdditionalPrincipalCountAggregateOutputType | null
+    _avg: AdditionalPrincipalAvgAggregateOutputType | null
+    _sum: AdditionalPrincipalSumAggregateOutputType | null
+    _min: AdditionalPrincipalMinAggregateOutputType | null
+    _max: AdditionalPrincipalMaxAggregateOutputType | null
+  }
+
+  export type AdditionalPrincipalAvgAggregateOutputType = {
+    ap_id: number | null
+    ap_own_id: number | null
+    ap_firm_id: number | null
+    ap_user_id: number | null
+    ap_girv_id: number | null
+    ap_staff_id: number | null
+    ap_prin_amt: number | null
+    ap_roi: number | null
+    ap_payable_amt: number | null
+    ap_cash_amt: number | null
+    ap_cash_acc_id: number | null
+    ap_bank_amt: number | null
+    ap_bank_acc_id: number | null
+    ap_online_amt: number | null
+    ap_online_acc_id: number | null
+    ap_card_amt: number | null
+    ap_card_acc_id: number | null
+  }
+
+  export type AdditionalPrincipalSumAggregateOutputType = {
+    ap_id: number | null
+    ap_own_id: number | null
+    ap_firm_id: number | null
+    ap_user_id: number | null
+    ap_girv_id: number | null
+    ap_staff_id: number | null
+    ap_prin_amt: number | null
+    ap_roi: number | null
+    ap_payable_amt: number | null
+    ap_cash_amt: number | null
+    ap_cash_acc_id: number | null
+    ap_bank_amt: number | null
+    ap_bank_acc_id: number | null
+    ap_online_amt: number | null
+    ap_online_acc_id: number | null
+    ap_card_amt: number | null
+    ap_card_acc_id: number | null
+  }
+
+  export type AdditionalPrincipalMinAggregateOutputType = {
+    ap_id: number | null
+    ap_uuid: string | null
+    ap_own_id: number | null
+    ap_firm_id: number | null
+    ap_user_id: number | null
+    ap_girv_id: number | null
+    ap_staff_id: number | null
+    ap_trans_date: string | null
+    ap_prin_amt: number | null
+    ap_roi: number | null
+    ap_payable_amt: number | null
+    ap_cash_amt: number | null
+    ap_cash_acc_id: number | null
+    ap_cash_info: string | null
+    ap_bank_amt: number | null
+    ap_bank_acc_id: number | null
+    ap_bank_info: string | null
+    ap_online_amt: number | null
+    ap_online_acc_id: number | null
+    ap_online_info: string | null
+    ap_card_amt: number | null
+    ap_card_acc_id: number | null
+    ap_card_info: string | null
+    ap_pay_info: string | null
+    ap_other_info: string | null
+    ap_created_at: Date | null
+    ap_created_by: string | null
+    ap_updated_at: Date | null
+    ap_updated_by: string | null
+    ap_deleted_at: Date | null
+    ap_deleted_by: string | null
+    ap_is_deleted: boolean | null
+  }
+
+  export type AdditionalPrincipalMaxAggregateOutputType = {
+    ap_id: number | null
+    ap_uuid: string | null
+    ap_own_id: number | null
+    ap_firm_id: number | null
+    ap_user_id: number | null
+    ap_girv_id: number | null
+    ap_staff_id: number | null
+    ap_trans_date: string | null
+    ap_prin_amt: number | null
+    ap_roi: number | null
+    ap_payable_amt: number | null
+    ap_cash_amt: number | null
+    ap_cash_acc_id: number | null
+    ap_cash_info: string | null
+    ap_bank_amt: number | null
+    ap_bank_acc_id: number | null
+    ap_bank_info: string | null
+    ap_online_amt: number | null
+    ap_online_acc_id: number | null
+    ap_online_info: string | null
+    ap_card_amt: number | null
+    ap_card_acc_id: number | null
+    ap_card_info: string | null
+    ap_pay_info: string | null
+    ap_other_info: string | null
+    ap_created_at: Date | null
+    ap_created_by: string | null
+    ap_updated_at: Date | null
+    ap_updated_by: string | null
+    ap_deleted_at: Date | null
+    ap_deleted_by: string | null
+    ap_is_deleted: boolean | null
+  }
+
+  export type AdditionalPrincipalCountAggregateOutputType = {
+    ap_id: number
+    ap_uuid: number
+    ap_own_id: number
+    ap_firm_id: number
+    ap_user_id: number
+    ap_girv_id: number
+    ap_staff_id: number
+    ap_trans_date: number
+    ap_prin_amt: number
+    ap_roi: number
+    ap_payable_amt: number
+    ap_cash_amt: number
+    ap_cash_acc_id: number
+    ap_cash_info: number
+    ap_bank_amt: number
+    ap_bank_acc_id: number
+    ap_bank_info: number
+    ap_online_amt: number
+    ap_online_acc_id: number
+    ap_online_info: number
+    ap_card_amt: number
+    ap_card_acc_id: number
+    ap_card_info: number
+    ap_pay_info: number
+    ap_other_info: number
+    ap_created_at: number
+    ap_created_by: number
+    ap_updated_at: number
+    ap_updated_by: number
+    ap_deleted_at: number
+    ap_deleted_by: number
+    ap_is_deleted: number
+    _all: number
+  }
+
+
+  export type AdditionalPrincipalAvgAggregateInputType = {
+    ap_id?: true
+    ap_own_id?: true
+    ap_firm_id?: true
+    ap_user_id?: true
+    ap_girv_id?: true
+    ap_staff_id?: true
+    ap_prin_amt?: true
+    ap_roi?: true
+    ap_payable_amt?: true
+    ap_cash_amt?: true
+    ap_cash_acc_id?: true
+    ap_bank_amt?: true
+    ap_bank_acc_id?: true
+    ap_online_amt?: true
+    ap_online_acc_id?: true
+    ap_card_amt?: true
+    ap_card_acc_id?: true
+  }
+
+  export type AdditionalPrincipalSumAggregateInputType = {
+    ap_id?: true
+    ap_own_id?: true
+    ap_firm_id?: true
+    ap_user_id?: true
+    ap_girv_id?: true
+    ap_staff_id?: true
+    ap_prin_amt?: true
+    ap_roi?: true
+    ap_payable_amt?: true
+    ap_cash_amt?: true
+    ap_cash_acc_id?: true
+    ap_bank_amt?: true
+    ap_bank_acc_id?: true
+    ap_online_amt?: true
+    ap_online_acc_id?: true
+    ap_card_amt?: true
+    ap_card_acc_id?: true
+  }
+
+  export type AdditionalPrincipalMinAggregateInputType = {
+    ap_id?: true
+    ap_uuid?: true
+    ap_own_id?: true
+    ap_firm_id?: true
+    ap_user_id?: true
+    ap_girv_id?: true
+    ap_staff_id?: true
+    ap_trans_date?: true
+    ap_prin_amt?: true
+    ap_roi?: true
+    ap_payable_amt?: true
+    ap_cash_amt?: true
+    ap_cash_acc_id?: true
+    ap_cash_info?: true
+    ap_bank_amt?: true
+    ap_bank_acc_id?: true
+    ap_bank_info?: true
+    ap_online_amt?: true
+    ap_online_acc_id?: true
+    ap_online_info?: true
+    ap_card_amt?: true
+    ap_card_acc_id?: true
+    ap_card_info?: true
+    ap_pay_info?: true
+    ap_other_info?: true
+    ap_created_at?: true
+    ap_created_by?: true
+    ap_updated_at?: true
+    ap_updated_by?: true
+    ap_deleted_at?: true
+    ap_deleted_by?: true
+    ap_is_deleted?: true
+  }
+
+  export type AdditionalPrincipalMaxAggregateInputType = {
+    ap_id?: true
+    ap_uuid?: true
+    ap_own_id?: true
+    ap_firm_id?: true
+    ap_user_id?: true
+    ap_girv_id?: true
+    ap_staff_id?: true
+    ap_trans_date?: true
+    ap_prin_amt?: true
+    ap_roi?: true
+    ap_payable_amt?: true
+    ap_cash_amt?: true
+    ap_cash_acc_id?: true
+    ap_cash_info?: true
+    ap_bank_amt?: true
+    ap_bank_acc_id?: true
+    ap_bank_info?: true
+    ap_online_amt?: true
+    ap_online_acc_id?: true
+    ap_online_info?: true
+    ap_card_amt?: true
+    ap_card_acc_id?: true
+    ap_card_info?: true
+    ap_pay_info?: true
+    ap_other_info?: true
+    ap_created_at?: true
+    ap_created_by?: true
+    ap_updated_at?: true
+    ap_updated_by?: true
+    ap_deleted_at?: true
+    ap_deleted_by?: true
+    ap_is_deleted?: true
+  }
+
+  export type AdditionalPrincipalCountAggregateInputType = {
+    ap_id?: true
+    ap_uuid?: true
+    ap_own_id?: true
+    ap_firm_id?: true
+    ap_user_id?: true
+    ap_girv_id?: true
+    ap_staff_id?: true
+    ap_trans_date?: true
+    ap_prin_amt?: true
+    ap_roi?: true
+    ap_payable_amt?: true
+    ap_cash_amt?: true
+    ap_cash_acc_id?: true
+    ap_cash_info?: true
+    ap_bank_amt?: true
+    ap_bank_acc_id?: true
+    ap_bank_info?: true
+    ap_online_amt?: true
+    ap_online_acc_id?: true
+    ap_online_info?: true
+    ap_card_amt?: true
+    ap_card_acc_id?: true
+    ap_card_info?: true
+    ap_pay_info?: true
+    ap_other_info?: true
+    ap_created_at?: true
+    ap_created_by?: true
+    ap_updated_at?: true
+    ap_updated_by?: true
+    ap_deleted_at?: true
+    ap_deleted_by?: true
+    ap_is_deleted?: true
+    _all?: true
+  }
+
+  export type AdditionalPrincipalAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AdditionalPrincipal to aggregate.
+     */
+    where?: AdditionalPrincipalWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AdditionalPrincipals to fetch.
+     */
+    orderBy?: AdditionalPrincipalOrderByWithRelationInput | AdditionalPrincipalOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: AdditionalPrincipalWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AdditionalPrincipals from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AdditionalPrincipals.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned AdditionalPrincipals
+    **/
+    _count?: true | AdditionalPrincipalCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: AdditionalPrincipalAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: AdditionalPrincipalSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AdditionalPrincipalMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AdditionalPrincipalMaxAggregateInputType
+  }
+
+  export type GetAdditionalPrincipalAggregateType<T extends AdditionalPrincipalAggregateArgs> = {
+        [P in keyof T & keyof AggregateAdditionalPrincipal]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAdditionalPrincipal[P]>
+      : GetScalarType<T[P], AggregateAdditionalPrincipal[P]>
+  }
+
+
+
+
+  export type AdditionalPrincipalGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AdditionalPrincipalWhereInput
+    orderBy?: AdditionalPrincipalOrderByWithAggregationInput | AdditionalPrincipalOrderByWithAggregationInput[]
+    by: AdditionalPrincipalScalarFieldEnum[] | AdditionalPrincipalScalarFieldEnum
+    having?: AdditionalPrincipalScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AdditionalPrincipalCountAggregateInputType | true
+    _avg?: AdditionalPrincipalAvgAggregateInputType
+    _sum?: AdditionalPrincipalSumAggregateInputType
+    _min?: AdditionalPrincipalMinAggregateInputType
+    _max?: AdditionalPrincipalMaxAggregateInputType
+  }
+
+  export type AdditionalPrincipalGroupByOutputType = {
+    ap_id: number
+    ap_uuid: string
+    ap_own_id: number
+    ap_firm_id: number
+    ap_user_id: number
+    ap_girv_id: number
+    ap_staff_id: number
+    ap_trans_date: string
+    ap_prin_amt: number
+    ap_roi: number
+    ap_payable_amt: number
+    ap_cash_amt: number | null
+    ap_cash_acc_id: number | null
+    ap_cash_info: string | null
+    ap_bank_amt: number | null
+    ap_bank_acc_id: number | null
+    ap_bank_info: string | null
+    ap_online_amt: number | null
+    ap_online_acc_id: number | null
+    ap_online_info: string | null
+    ap_card_amt: number | null
+    ap_card_acc_id: number | null
+    ap_card_info: string | null
+    ap_pay_info: string | null
+    ap_other_info: string | null
+    ap_created_at: Date
+    ap_created_by: string | null
+    ap_updated_at: Date
+    ap_updated_by: string | null
+    ap_deleted_at: Date | null
+    ap_deleted_by: string | null
+    ap_is_deleted: boolean
+    _count: AdditionalPrincipalCountAggregateOutputType | null
+    _avg: AdditionalPrincipalAvgAggregateOutputType | null
+    _sum: AdditionalPrincipalSumAggregateOutputType | null
+    _min: AdditionalPrincipalMinAggregateOutputType | null
+    _max: AdditionalPrincipalMaxAggregateOutputType | null
+  }
+
+  type GetAdditionalPrincipalGroupByPayload<T extends AdditionalPrincipalGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<AdditionalPrincipalGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AdditionalPrincipalGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AdditionalPrincipalGroupByOutputType[P]>
+            : GetScalarType<T[P], AdditionalPrincipalGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type AdditionalPrincipalSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    ap_id?: boolean
+    ap_uuid?: boolean
+    ap_own_id?: boolean
+    ap_firm_id?: boolean
+    ap_user_id?: boolean
+    ap_girv_id?: boolean
+    ap_staff_id?: boolean
+    ap_trans_date?: boolean
+    ap_prin_amt?: boolean
+    ap_roi?: boolean
+    ap_payable_amt?: boolean
+    ap_cash_amt?: boolean
+    ap_cash_acc_id?: boolean
+    ap_cash_info?: boolean
+    ap_bank_amt?: boolean
+    ap_bank_acc_id?: boolean
+    ap_bank_info?: boolean
+    ap_online_amt?: boolean
+    ap_online_acc_id?: boolean
+    ap_online_info?: boolean
+    ap_card_amt?: boolean
+    ap_card_acc_id?: boolean
+    ap_card_info?: boolean
+    ap_pay_info?: boolean
+    ap_other_info?: boolean
+    ap_created_at?: boolean
+    ap_created_by?: boolean
+    ap_updated_at?: boolean
+    ap_updated_by?: boolean
+    ap_deleted_at?: boolean
+    ap_deleted_by?: boolean
+    ap_is_deleted?: boolean
+    owner?: boolean | OwnerDefaultArgs<ExtArgs>
+    firm?: boolean | FirmDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    girvi?: boolean | GirviDefaultArgs<ExtArgs>
+    cashAccount?: boolean | AdditionalPrincipal$cashAccountArgs<ExtArgs>
+    bankAccount?: boolean | AdditionalPrincipal$bankAccountArgs<ExtArgs>
+    onlineAccount?: boolean | AdditionalPrincipal$onlineAccountArgs<ExtArgs>
+    cardAccount?: boolean | AdditionalPrincipal$cardAccountArgs<ExtArgs>
+  }, ExtArgs["result"]["additionalPrincipal"]>
+
+  export type AdditionalPrincipalSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    ap_id?: boolean
+    ap_uuid?: boolean
+    ap_own_id?: boolean
+    ap_firm_id?: boolean
+    ap_user_id?: boolean
+    ap_girv_id?: boolean
+    ap_staff_id?: boolean
+    ap_trans_date?: boolean
+    ap_prin_amt?: boolean
+    ap_roi?: boolean
+    ap_payable_amt?: boolean
+    ap_cash_amt?: boolean
+    ap_cash_acc_id?: boolean
+    ap_cash_info?: boolean
+    ap_bank_amt?: boolean
+    ap_bank_acc_id?: boolean
+    ap_bank_info?: boolean
+    ap_online_amt?: boolean
+    ap_online_acc_id?: boolean
+    ap_online_info?: boolean
+    ap_card_amt?: boolean
+    ap_card_acc_id?: boolean
+    ap_card_info?: boolean
+    ap_pay_info?: boolean
+    ap_other_info?: boolean
+    ap_created_at?: boolean
+    ap_created_by?: boolean
+    ap_updated_at?: boolean
+    ap_updated_by?: boolean
+    ap_deleted_at?: boolean
+    ap_deleted_by?: boolean
+    ap_is_deleted?: boolean
+    owner?: boolean | OwnerDefaultArgs<ExtArgs>
+    firm?: boolean | FirmDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    girvi?: boolean | GirviDefaultArgs<ExtArgs>
+    cashAccount?: boolean | AdditionalPrincipal$cashAccountArgs<ExtArgs>
+    bankAccount?: boolean | AdditionalPrincipal$bankAccountArgs<ExtArgs>
+    onlineAccount?: boolean | AdditionalPrincipal$onlineAccountArgs<ExtArgs>
+    cardAccount?: boolean | AdditionalPrincipal$cardAccountArgs<ExtArgs>
+  }, ExtArgs["result"]["additionalPrincipal"]>
+
+  export type AdditionalPrincipalSelectScalar = {
+    ap_id?: boolean
+    ap_uuid?: boolean
+    ap_own_id?: boolean
+    ap_firm_id?: boolean
+    ap_user_id?: boolean
+    ap_girv_id?: boolean
+    ap_staff_id?: boolean
+    ap_trans_date?: boolean
+    ap_prin_amt?: boolean
+    ap_roi?: boolean
+    ap_payable_amt?: boolean
+    ap_cash_amt?: boolean
+    ap_cash_acc_id?: boolean
+    ap_cash_info?: boolean
+    ap_bank_amt?: boolean
+    ap_bank_acc_id?: boolean
+    ap_bank_info?: boolean
+    ap_online_amt?: boolean
+    ap_online_acc_id?: boolean
+    ap_online_info?: boolean
+    ap_card_amt?: boolean
+    ap_card_acc_id?: boolean
+    ap_card_info?: boolean
+    ap_pay_info?: boolean
+    ap_other_info?: boolean
+    ap_created_at?: boolean
+    ap_created_by?: boolean
+    ap_updated_at?: boolean
+    ap_updated_by?: boolean
+    ap_deleted_at?: boolean
+    ap_deleted_by?: boolean
+    ap_is_deleted?: boolean
+  }
+
+  export type AdditionalPrincipalInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    owner?: boolean | OwnerDefaultArgs<ExtArgs>
+    firm?: boolean | FirmDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    girvi?: boolean | GirviDefaultArgs<ExtArgs>
+    cashAccount?: boolean | AdditionalPrincipal$cashAccountArgs<ExtArgs>
+    bankAccount?: boolean | AdditionalPrincipal$bankAccountArgs<ExtArgs>
+    onlineAccount?: boolean | AdditionalPrincipal$onlineAccountArgs<ExtArgs>
+    cardAccount?: boolean | AdditionalPrincipal$cardAccountArgs<ExtArgs>
+  }
+  export type AdditionalPrincipalIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    owner?: boolean | OwnerDefaultArgs<ExtArgs>
+    firm?: boolean | FirmDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    girvi?: boolean | GirviDefaultArgs<ExtArgs>
+    cashAccount?: boolean | AdditionalPrincipal$cashAccountArgs<ExtArgs>
+    bankAccount?: boolean | AdditionalPrincipal$bankAccountArgs<ExtArgs>
+    onlineAccount?: boolean | AdditionalPrincipal$onlineAccountArgs<ExtArgs>
+    cardAccount?: boolean | AdditionalPrincipal$cardAccountArgs<ExtArgs>
+  }
+
+  export type $AdditionalPrincipalPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "AdditionalPrincipal"
+    objects: {
+      owner: Prisma.$OwnerPayload<ExtArgs>
+      firm: Prisma.$FirmPayload<ExtArgs>
+      user: Prisma.$UserPayload<ExtArgs>
+      girvi: Prisma.$GirviPayload<ExtArgs>
+      cashAccount: Prisma.$AccountPayload<ExtArgs> | null
+      bankAccount: Prisma.$AccountPayload<ExtArgs> | null
+      onlineAccount: Prisma.$AccountPayload<ExtArgs> | null
+      cardAccount: Prisma.$AccountPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      ap_id: number
+      ap_uuid: string
+      ap_own_id: number
+      ap_firm_id: number
+      ap_user_id: number
+      ap_girv_id: number
+      ap_staff_id: number
+      ap_trans_date: string
+      ap_prin_amt: number
+      ap_roi: number
+      ap_payable_amt: number
+      ap_cash_amt: number | null
+      ap_cash_acc_id: number | null
+      ap_cash_info: string | null
+      ap_bank_amt: number | null
+      ap_bank_acc_id: number | null
+      ap_bank_info: string | null
+      ap_online_amt: number | null
+      ap_online_acc_id: number | null
+      ap_online_info: string | null
+      ap_card_amt: number | null
+      ap_card_acc_id: number | null
+      ap_card_info: string | null
+      ap_pay_info: string | null
+      ap_other_info: string | null
+      ap_created_at: Date
+      ap_created_by: string | null
+      ap_updated_at: Date
+      ap_updated_by: string | null
+      ap_deleted_at: Date | null
+      ap_deleted_by: string | null
+      ap_is_deleted: boolean
+    }, ExtArgs["result"]["additionalPrincipal"]>
+    composites: {}
+  }
+
+  type AdditionalPrincipalGetPayload<S extends boolean | null | undefined | AdditionalPrincipalDefaultArgs> = $Result.GetResult<Prisma.$AdditionalPrincipalPayload, S>
+
+  type AdditionalPrincipalCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<AdditionalPrincipalFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: AdditionalPrincipalCountAggregateInputType | true
+    }
+
+  export interface AdditionalPrincipalDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['AdditionalPrincipal'], meta: { name: 'AdditionalPrincipal' } }
+    /**
+     * Find zero or one AdditionalPrincipal that matches the filter.
+     * @param {AdditionalPrincipalFindUniqueArgs} args - Arguments to find a AdditionalPrincipal
+     * @example
+     * // Get one AdditionalPrincipal
+     * const additionalPrincipal = await prisma.additionalPrincipal.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends AdditionalPrincipalFindUniqueArgs>(args: SelectSubset<T, AdditionalPrincipalFindUniqueArgs<ExtArgs>>): Prisma__AdditionalPrincipalClient<$Result.GetResult<Prisma.$AdditionalPrincipalPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one AdditionalPrincipal that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {AdditionalPrincipalFindUniqueOrThrowArgs} args - Arguments to find a AdditionalPrincipal
+     * @example
+     * // Get one AdditionalPrincipal
+     * const additionalPrincipal = await prisma.additionalPrincipal.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends AdditionalPrincipalFindUniqueOrThrowArgs>(args: SelectSubset<T, AdditionalPrincipalFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AdditionalPrincipalClient<$Result.GetResult<Prisma.$AdditionalPrincipalPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first AdditionalPrincipal that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AdditionalPrincipalFindFirstArgs} args - Arguments to find a AdditionalPrincipal
+     * @example
+     * // Get one AdditionalPrincipal
+     * const additionalPrincipal = await prisma.additionalPrincipal.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends AdditionalPrincipalFindFirstArgs>(args?: SelectSubset<T, AdditionalPrincipalFindFirstArgs<ExtArgs>>): Prisma__AdditionalPrincipalClient<$Result.GetResult<Prisma.$AdditionalPrincipalPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first AdditionalPrincipal that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AdditionalPrincipalFindFirstOrThrowArgs} args - Arguments to find a AdditionalPrincipal
+     * @example
+     * // Get one AdditionalPrincipal
+     * const additionalPrincipal = await prisma.additionalPrincipal.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends AdditionalPrincipalFindFirstOrThrowArgs>(args?: SelectSubset<T, AdditionalPrincipalFindFirstOrThrowArgs<ExtArgs>>): Prisma__AdditionalPrincipalClient<$Result.GetResult<Prisma.$AdditionalPrincipalPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more AdditionalPrincipals that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AdditionalPrincipalFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all AdditionalPrincipals
+     * const additionalPrincipals = await prisma.additionalPrincipal.findMany()
+     * 
+     * // Get first 10 AdditionalPrincipals
+     * const additionalPrincipals = await prisma.additionalPrincipal.findMany({ take: 10 })
+     * 
+     * // Only select the `ap_id`
+     * const additionalPrincipalWithAp_idOnly = await prisma.additionalPrincipal.findMany({ select: { ap_id: true } })
+     * 
+     */
+    findMany<T extends AdditionalPrincipalFindManyArgs>(args?: SelectSubset<T, AdditionalPrincipalFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AdditionalPrincipalPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a AdditionalPrincipal.
+     * @param {AdditionalPrincipalCreateArgs} args - Arguments to create a AdditionalPrincipal.
+     * @example
+     * // Create one AdditionalPrincipal
+     * const AdditionalPrincipal = await prisma.additionalPrincipal.create({
+     *   data: {
+     *     // ... data to create a AdditionalPrincipal
+     *   }
+     * })
+     * 
+     */
+    create<T extends AdditionalPrincipalCreateArgs>(args: SelectSubset<T, AdditionalPrincipalCreateArgs<ExtArgs>>): Prisma__AdditionalPrincipalClient<$Result.GetResult<Prisma.$AdditionalPrincipalPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many AdditionalPrincipals.
+     * @param {AdditionalPrincipalCreateManyArgs} args - Arguments to create many AdditionalPrincipals.
+     * @example
+     * // Create many AdditionalPrincipals
+     * const additionalPrincipal = await prisma.additionalPrincipal.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends AdditionalPrincipalCreateManyArgs>(args?: SelectSubset<T, AdditionalPrincipalCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many AdditionalPrincipals and returns the data saved in the database.
+     * @param {AdditionalPrincipalCreateManyAndReturnArgs} args - Arguments to create many AdditionalPrincipals.
+     * @example
+     * // Create many AdditionalPrincipals
+     * const additionalPrincipal = await prisma.additionalPrincipal.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many AdditionalPrincipals and only return the `ap_id`
+     * const additionalPrincipalWithAp_idOnly = await prisma.additionalPrincipal.createManyAndReturn({ 
+     *   select: { ap_id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends AdditionalPrincipalCreateManyAndReturnArgs>(args?: SelectSubset<T, AdditionalPrincipalCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AdditionalPrincipalPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a AdditionalPrincipal.
+     * @param {AdditionalPrincipalDeleteArgs} args - Arguments to delete one AdditionalPrincipal.
+     * @example
+     * // Delete one AdditionalPrincipal
+     * const AdditionalPrincipal = await prisma.additionalPrincipal.delete({
+     *   where: {
+     *     // ... filter to delete one AdditionalPrincipal
+     *   }
+     * })
+     * 
+     */
+    delete<T extends AdditionalPrincipalDeleteArgs>(args: SelectSubset<T, AdditionalPrincipalDeleteArgs<ExtArgs>>): Prisma__AdditionalPrincipalClient<$Result.GetResult<Prisma.$AdditionalPrincipalPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one AdditionalPrincipal.
+     * @param {AdditionalPrincipalUpdateArgs} args - Arguments to update one AdditionalPrincipal.
+     * @example
+     * // Update one AdditionalPrincipal
+     * const additionalPrincipal = await prisma.additionalPrincipal.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends AdditionalPrincipalUpdateArgs>(args: SelectSubset<T, AdditionalPrincipalUpdateArgs<ExtArgs>>): Prisma__AdditionalPrincipalClient<$Result.GetResult<Prisma.$AdditionalPrincipalPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more AdditionalPrincipals.
+     * @param {AdditionalPrincipalDeleteManyArgs} args - Arguments to filter AdditionalPrincipals to delete.
+     * @example
+     * // Delete a few AdditionalPrincipals
+     * const { count } = await prisma.additionalPrincipal.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends AdditionalPrincipalDeleteManyArgs>(args?: SelectSubset<T, AdditionalPrincipalDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AdditionalPrincipals.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AdditionalPrincipalUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many AdditionalPrincipals
+     * const additionalPrincipal = await prisma.additionalPrincipal.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends AdditionalPrincipalUpdateManyArgs>(args: SelectSubset<T, AdditionalPrincipalUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one AdditionalPrincipal.
+     * @param {AdditionalPrincipalUpsertArgs} args - Arguments to update or create a AdditionalPrincipal.
+     * @example
+     * // Update or create a AdditionalPrincipal
+     * const additionalPrincipal = await prisma.additionalPrincipal.upsert({
+     *   create: {
+     *     // ... data to create a AdditionalPrincipal
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the AdditionalPrincipal we want to update
+     *   }
+     * })
+     */
+    upsert<T extends AdditionalPrincipalUpsertArgs>(args: SelectSubset<T, AdditionalPrincipalUpsertArgs<ExtArgs>>): Prisma__AdditionalPrincipalClient<$Result.GetResult<Prisma.$AdditionalPrincipalPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of AdditionalPrincipals.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AdditionalPrincipalCountArgs} args - Arguments to filter AdditionalPrincipals to count.
+     * @example
+     * // Count the number of AdditionalPrincipals
+     * const count = await prisma.additionalPrincipal.count({
+     *   where: {
+     *     // ... the filter for the AdditionalPrincipals we want to count
+     *   }
+     * })
+    **/
+    count<T extends AdditionalPrincipalCountArgs>(
+      args?: Subset<T, AdditionalPrincipalCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AdditionalPrincipalCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a AdditionalPrincipal.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AdditionalPrincipalAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AdditionalPrincipalAggregateArgs>(args: Subset<T, AdditionalPrincipalAggregateArgs>): Prisma.PrismaPromise<GetAdditionalPrincipalAggregateType<T>>
+
+    /**
+     * Group by AdditionalPrincipal.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AdditionalPrincipalGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends AdditionalPrincipalGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: AdditionalPrincipalGroupByArgs['orderBy'] }
+        : { orderBy?: AdditionalPrincipalGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, AdditionalPrincipalGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAdditionalPrincipalGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the AdditionalPrincipal model
+   */
+  readonly fields: AdditionalPrincipalFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for AdditionalPrincipal.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__AdditionalPrincipalClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    owner<T extends OwnerDefaultArgs<ExtArgs> = {}>(args?: Subset<T, OwnerDefaultArgs<ExtArgs>>): Prisma__OwnerClient<$Result.GetResult<Prisma.$OwnerPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    firm<T extends FirmDefaultArgs<ExtArgs> = {}>(args?: Subset<T, FirmDefaultArgs<ExtArgs>>): Prisma__FirmClient<$Result.GetResult<Prisma.$FirmPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    girvi<T extends GirviDefaultArgs<ExtArgs> = {}>(args?: Subset<T, GirviDefaultArgs<ExtArgs>>): Prisma__GirviClient<$Result.GetResult<Prisma.$GirviPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    cashAccount<T extends AdditionalPrincipal$cashAccountArgs<ExtArgs> = {}>(args?: Subset<T, AdditionalPrincipal$cashAccountArgs<ExtArgs>>): Prisma__AccountClient<$Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    bankAccount<T extends AdditionalPrincipal$bankAccountArgs<ExtArgs> = {}>(args?: Subset<T, AdditionalPrincipal$bankAccountArgs<ExtArgs>>): Prisma__AccountClient<$Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    onlineAccount<T extends AdditionalPrincipal$onlineAccountArgs<ExtArgs> = {}>(args?: Subset<T, AdditionalPrincipal$onlineAccountArgs<ExtArgs>>): Prisma__AccountClient<$Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    cardAccount<T extends AdditionalPrincipal$cardAccountArgs<ExtArgs> = {}>(args?: Subset<T, AdditionalPrincipal$cardAccountArgs<ExtArgs>>): Prisma__AccountClient<$Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the AdditionalPrincipal model
+   */ 
+  interface AdditionalPrincipalFieldRefs {
+    readonly ap_id: FieldRef<"AdditionalPrincipal", 'Int'>
+    readonly ap_uuid: FieldRef<"AdditionalPrincipal", 'String'>
+    readonly ap_own_id: FieldRef<"AdditionalPrincipal", 'Int'>
+    readonly ap_firm_id: FieldRef<"AdditionalPrincipal", 'Int'>
+    readonly ap_user_id: FieldRef<"AdditionalPrincipal", 'Int'>
+    readonly ap_girv_id: FieldRef<"AdditionalPrincipal", 'Int'>
+    readonly ap_staff_id: FieldRef<"AdditionalPrincipal", 'Int'>
+    readonly ap_trans_date: FieldRef<"AdditionalPrincipal", 'String'>
+    readonly ap_prin_amt: FieldRef<"AdditionalPrincipal", 'Float'>
+    readonly ap_roi: FieldRef<"AdditionalPrincipal", 'Float'>
+    readonly ap_payable_amt: FieldRef<"AdditionalPrincipal", 'Float'>
+    readonly ap_cash_amt: FieldRef<"AdditionalPrincipal", 'Float'>
+    readonly ap_cash_acc_id: FieldRef<"AdditionalPrincipal", 'Int'>
+    readonly ap_cash_info: FieldRef<"AdditionalPrincipal", 'String'>
+    readonly ap_bank_amt: FieldRef<"AdditionalPrincipal", 'Float'>
+    readonly ap_bank_acc_id: FieldRef<"AdditionalPrincipal", 'Int'>
+    readonly ap_bank_info: FieldRef<"AdditionalPrincipal", 'String'>
+    readonly ap_online_amt: FieldRef<"AdditionalPrincipal", 'Float'>
+    readonly ap_online_acc_id: FieldRef<"AdditionalPrincipal", 'Int'>
+    readonly ap_online_info: FieldRef<"AdditionalPrincipal", 'String'>
+    readonly ap_card_amt: FieldRef<"AdditionalPrincipal", 'Float'>
+    readonly ap_card_acc_id: FieldRef<"AdditionalPrincipal", 'Int'>
+    readonly ap_card_info: FieldRef<"AdditionalPrincipal", 'String'>
+    readonly ap_pay_info: FieldRef<"AdditionalPrincipal", 'String'>
+    readonly ap_other_info: FieldRef<"AdditionalPrincipal", 'String'>
+    readonly ap_created_at: FieldRef<"AdditionalPrincipal", 'DateTime'>
+    readonly ap_created_by: FieldRef<"AdditionalPrincipal", 'String'>
+    readonly ap_updated_at: FieldRef<"AdditionalPrincipal", 'DateTime'>
+    readonly ap_updated_by: FieldRef<"AdditionalPrincipal", 'String'>
+    readonly ap_deleted_at: FieldRef<"AdditionalPrincipal", 'DateTime'>
+    readonly ap_deleted_by: FieldRef<"AdditionalPrincipal", 'String'>
+    readonly ap_is_deleted: FieldRef<"AdditionalPrincipal", 'Boolean'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * AdditionalPrincipal findUnique
+   */
+  export type AdditionalPrincipalFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AdditionalPrincipal
+     */
+    select?: AdditionalPrincipalSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdditionalPrincipalInclude<ExtArgs> | null
+    /**
+     * Filter, which AdditionalPrincipal to fetch.
+     */
+    where: AdditionalPrincipalWhereUniqueInput
+  }
+
+  /**
+   * AdditionalPrincipal findUniqueOrThrow
+   */
+  export type AdditionalPrincipalFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AdditionalPrincipal
+     */
+    select?: AdditionalPrincipalSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdditionalPrincipalInclude<ExtArgs> | null
+    /**
+     * Filter, which AdditionalPrincipal to fetch.
+     */
+    where: AdditionalPrincipalWhereUniqueInput
+  }
+
+  /**
+   * AdditionalPrincipal findFirst
+   */
+  export type AdditionalPrincipalFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AdditionalPrincipal
+     */
+    select?: AdditionalPrincipalSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdditionalPrincipalInclude<ExtArgs> | null
+    /**
+     * Filter, which AdditionalPrincipal to fetch.
+     */
+    where?: AdditionalPrincipalWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AdditionalPrincipals to fetch.
+     */
+    orderBy?: AdditionalPrincipalOrderByWithRelationInput | AdditionalPrincipalOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AdditionalPrincipals.
+     */
+    cursor?: AdditionalPrincipalWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AdditionalPrincipals from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AdditionalPrincipals.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AdditionalPrincipals.
+     */
+    distinct?: AdditionalPrincipalScalarFieldEnum | AdditionalPrincipalScalarFieldEnum[]
+  }
+
+  /**
+   * AdditionalPrincipal findFirstOrThrow
+   */
+  export type AdditionalPrincipalFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AdditionalPrincipal
+     */
+    select?: AdditionalPrincipalSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdditionalPrincipalInclude<ExtArgs> | null
+    /**
+     * Filter, which AdditionalPrincipal to fetch.
+     */
+    where?: AdditionalPrincipalWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AdditionalPrincipals to fetch.
+     */
+    orderBy?: AdditionalPrincipalOrderByWithRelationInput | AdditionalPrincipalOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AdditionalPrincipals.
+     */
+    cursor?: AdditionalPrincipalWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AdditionalPrincipals from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AdditionalPrincipals.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AdditionalPrincipals.
+     */
+    distinct?: AdditionalPrincipalScalarFieldEnum | AdditionalPrincipalScalarFieldEnum[]
+  }
+
+  /**
+   * AdditionalPrincipal findMany
+   */
+  export type AdditionalPrincipalFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AdditionalPrincipal
+     */
+    select?: AdditionalPrincipalSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdditionalPrincipalInclude<ExtArgs> | null
+    /**
+     * Filter, which AdditionalPrincipals to fetch.
+     */
+    where?: AdditionalPrincipalWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AdditionalPrincipals to fetch.
+     */
+    orderBy?: AdditionalPrincipalOrderByWithRelationInput | AdditionalPrincipalOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing AdditionalPrincipals.
+     */
+    cursor?: AdditionalPrincipalWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AdditionalPrincipals from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AdditionalPrincipals.
+     */
+    skip?: number
+    distinct?: AdditionalPrincipalScalarFieldEnum | AdditionalPrincipalScalarFieldEnum[]
+  }
+
+  /**
+   * AdditionalPrincipal create
+   */
+  export type AdditionalPrincipalCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AdditionalPrincipal
+     */
+    select?: AdditionalPrincipalSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdditionalPrincipalInclude<ExtArgs> | null
+    /**
+     * The data needed to create a AdditionalPrincipal.
+     */
+    data: XOR<AdditionalPrincipalCreateInput, AdditionalPrincipalUncheckedCreateInput>
+  }
+
+  /**
+   * AdditionalPrincipal createMany
+   */
+  export type AdditionalPrincipalCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many AdditionalPrincipals.
+     */
+    data: AdditionalPrincipalCreateManyInput | AdditionalPrincipalCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * AdditionalPrincipal createManyAndReturn
+   */
+  export type AdditionalPrincipalCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AdditionalPrincipal
+     */
+    select?: AdditionalPrincipalSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many AdditionalPrincipals.
+     */
+    data: AdditionalPrincipalCreateManyInput | AdditionalPrincipalCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdditionalPrincipalIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * AdditionalPrincipal update
+   */
+  export type AdditionalPrincipalUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AdditionalPrincipal
+     */
+    select?: AdditionalPrincipalSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdditionalPrincipalInclude<ExtArgs> | null
+    /**
+     * The data needed to update a AdditionalPrincipal.
+     */
+    data: XOR<AdditionalPrincipalUpdateInput, AdditionalPrincipalUncheckedUpdateInput>
+    /**
+     * Choose, which AdditionalPrincipal to update.
+     */
+    where: AdditionalPrincipalWhereUniqueInput
+  }
+
+  /**
+   * AdditionalPrincipal updateMany
+   */
+  export type AdditionalPrincipalUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update AdditionalPrincipals.
+     */
+    data: XOR<AdditionalPrincipalUpdateManyMutationInput, AdditionalPrincipalUncheckedUpdateManyInput>
+    /**
+     * Filter which AdditionalPrincipals to update
+     */
+    where?: AdditionalPrincipalWhereInput
+  }
+
+  /**
+   * AdditionalPrincipal upsert
+   */
+  export type AdditionalPrincipalUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AdditionalPrincipal
+     */
+    select?: AdditionalPrincipalSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdditionalPrincipalInclude<ExtArgs> | null
+    /**
+     * The filter to search for the AdditionalPrincipal to update in case it exists.
+     */
+    where: AdditionalPrincipalWhereUniqueInput
+    /**
+     * In case the AdditionalPrincipal found by the `where` argument doesn't exist, create a new AdditionalPrincipal with this data.
+     */
+    create: XOR<AdditionalPrincipalCreateInput, AdditionalPrincipalUncheckedCreateInput>
+    /**
+     * In case the AdditionalPrincipal was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<AdditionalPrincipalUpdateInput, AdditionalPrincipalUncheckedUpdateInput>
+  }
+
+  /**
+   * AdditionalPrincipal delete
+   */
+  export type AdditionalPrincipalDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AdditionalPrincipal
+     */
+    select?: AdditionalPrincipalSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdditionalPrincipalInclude<ExtArgs> | null
+    /**
+     * Filter which AdditionalPrincipal to delete.
+     */
+    where: AdditionalPrincipalWhereUniqueInput
+  }
+
+  /**
+   * AdditionalPrincipal deleteMany
+   */
+  export type AdditionalPrincipalDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AdditionalPrincipals to delete
+     */
+    where?: AdditionalPrincipalWhereInput
+  }
+
+  /**
+   * AdditionalPrincipal.cashAccount
+   */
+  export type AdditionalPrincipal$cashAccountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Account
+     */
+    select?: AccountSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountInclude<ExtArgs> | null
+    where?: AccountWhereInput
+  }
+
+  /**
+   * AdditionalPrincipal.bankAccount
+   */
+  export type AdditionalPrincipal$bankAccountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Account
+     */
+    select?: AccountSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountInclude<ExtArgs> | null
+    where?: AccountWhereInput
+  }
+
+  /**
+   * AdditionalPrincipal.onlineAccount
+   */
+  export type AdditionalPrincipal$onlineAccountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Account
+     */
+    select?: AccountSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountInclude<ExtArgs> | null
+    where?: AccountWhereInput
+  }
+
+  /**
+   * AdditionalPrincipal.cardAccount
+   */
+  export type AdditionalPrincipal$cardAccountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Account
+     */
+    select?: AccountSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountInclude<ExtArgs> | null
+    where?: AccountWhereInput
+  }
+
+  /**
+   * AdditionalPrincipal without action
+   */
+  export type AdditionalPrincipalDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AdditionalPrincipal
+     */
+    select?: AdditionalPrincipalSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdditionalPrincipalInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -19846,6 +21677,44 @@ export namespace Prisma {
   export type StockScalarFieldEnum = (typeof StockScalarFieldEnum)[keyof typeof StockScalarFieldEnum]
 
 
+  export const AdditionalPrincipalScalarFieldEnum: {
+    ap_id: 'ap_id',
+    ap_uuid: 'ap_uuid',
+    ap_own_id: 'ap_own_id',
+    ap_firm_id: 'ap_firm_id',
+    ap_user_id: 'ap_user_id',
+    ap_girv_id: 'ap_girv_id',
+    ap_staff_id: 'ap_staff_id',
+    ap_trans_date: 'ap_trans_date',
+    ap_prin_amt: 'ap_prin_amt',
+    ap_roi: 'ap_roi',
+    ap_payable_amt: 'ap_payable_amt',
+    ap_cash_amt: 'ap_cash_amt',
+    ap_cash_acc_id: 'ap_cash_acc_id',
+    ap_cash_info: 'ap_cash_info',
+    ap_bank_amt: 'ap_bank_amt',
+    ap_bank_acc_id: 'ap_bank_acc_id',
+    ap_bank_info: 'ap_bank_info',
+    ap_online_amt: 'ap_online_amt',
+    ap_online_acc_id: 'ap_online_acc_id',
+    ap_online_info: 'ap_online_info',
+    ap_card_amt: 'ap_card_amt',
+    ap_card_acc_id: 'ap_card_acc_id',
+    ap_card_info: 'ap_card_info',
+    ap_pay_info: 'ap_pay_info',
+    ap_other_info: 'ap_other_info',
+    ap_created_at: 'ap_created_at',
+    ap_created_by: 'ap_created_by',
+    ap_updated_at: 'ap_updated_at',
+    ap_updated_by: 'ap_updated_by',
+    ap_deleted_at: 'ap_deleted_at',
+    ap_deleted_by: 'ap_deleted_by',
+    ap_is_deleted: 'ap_is_deleted'
+  };
+
+  export type AdditionalPrincipalScalarFieldEnum = (typeof AdditionalPrincipalScalarFieldEnum)[keyof typeof AdditionalPrincipalScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -20252,6 +22121,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionListRelationFilter
     girvis?: GirviListRelationFilter
     stocks?: StockListRelationFilter
+    additionalPrincipals?: AdditionalPrincipalListRelationFilter
   }
 
   export type OwnerOrderByWithRelationInput = {
@@ -20300,6 +22170,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionOrderByRelationAggregateInput
     girvis?: GirviOrderByRelationAggregateInput
     stocks?: StockOrderByRelationAggregateInput
+    additionalPrincipals?: AdditionalPrincipalOrderByRelationAggregateInput
   }
 
   export type OwnerWhereUniqueInput = Prisma.AtLeast<{
@@ -20351,6 +22222,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionListRelationFilter
     girvis?: GirviListRelationFilter
     stocks?: StockListRelationFilter
+    additionalPrincipals?: AdditionalPrincipalListRelationFilter
   }, "own_id" | "own_uuid" | "own_product_key" | "own_db" | "own_mobile_no" | "own_email" | "own_login_id">
 
   export type OwnerOrderByWithAggregationInput = {
@@ -20500,6 +22372,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionListRelationFilter
     girvis?: GirviListRelationFilter
     stocks?: StockListRelationFilter
+    additionalPrincipals?: AdditionalPrincipalListRelationFilter
   }
 
   export type FirmOrderByWithRelationInput = {
@@ -20562,6 +22435,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionOrderByRelationAggregateInput
     girvis?: GirviOrderByRelationAggregateInput
     stocks?: StockOrderByRelationAggregateInput
+    additionalPrincipals?: AdditionalPrincipalOrderByRelationAggregateInput
   }
 
   export type FirmWhereUniqueInput = Prisma.AtLeast<{
@@ -20627,6 +22501,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionListRelationFilter
     girvis?: GirviListRelationFilter
     stocks?: StockListRelationFilter
+    additionalPrincipals?: AdditionalPrincipalListRelationFilter
   }, "firm_id" | "firm_uuid" | "firm_name" | "firm_reg_no">
 
   export type FirmOrderByWithAggregationInput = {
@@ -20799,6 +22674,10 @@ export namespace Prisma {
     girviOnline?: GirviListRelationFilter
     girviCard?: GirviListRelationFilter
     girviDr?: GirviListRelationFilter
+    apCash?: AdditionalPrincipalListRelationFilter
+    apBank?: AdditionalPrincipalListRelationFilter
+    apOnline?: AdditionalPrincipalListRelationFilter
+    apCard?: AdditionalPrincipalListRelationFilter
   }
 
   export type AccountOrderByWithRelationInput = {
@@ -20856,6 +22735,10 @@ export namespace Prisma {
     girviOnline?: GirviOrderByRelationAggregateInput
     girviCard?: GirviOrderByRelationAggregateInput
     girviDr?: GirviOrderByRelationAggregateInput
+    apCash?: AdditionalPrincipalOrderByRelationAggregateInput
+    apBank?: AdditionalPrincipalOrderByRelationAggregateInput
+    apOnline?: AdditionalPrincipalOrderByRelationAggregateInput
+    apCard?: AdditionalPrincipalOrderByRelationAggregateInput
   }
 
   export type AccountWhereUniqueInput = Prisma.AtLeast<{
@@ -20916,6 +22799,10 @@ export namespace Prisma {
     girviOnline?: GirviListRelationFilter
     girviCard?: GirviListRelationFilter
     girviDr?: GirviListRelationFilter
+    apCash?: AdditionalPrincipalListRelationFilter
+    apBank?: AdditionalPrincipalListRelationFilter
+    apOnline?: AdditionalPrincipalListRelationFilter
+    apCard?: AdditionalPrincipalListRelationFilter
   }, "acc_id" | "acc_uuid">
 
   export type AccountOrderByWithAggregationInput = {
@@ -21049,6 +22936,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionListRelationFilter
     girvis?: GirviListRelationFilter
     stocks?: StockListRelationFilter
+    additionalPrincipals?: AdditionalPrincipalListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -21107,6 +22995,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionOrderByRelationAggregateInput
     girvis?: GirviOrderByRelationAggregateInput
     stocks?: StockOrderByRelationAggregateInput
+    additionalPrincipals?: AdditionalPrincipalOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -21168,6 +23057,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionListRelationFilter
     girvis?: GirviListRelationFilter
     stocks?: StockListRelationFilter
+    additionalPrincipals?: AdditionalPrincipalListRelationFilter
   }, "user_id" | "user_uuid">
 
   export type UserOrderByWithAggregationInput = {
@@ -22334,6 +24224,7 @@ export namespace Prisma {
     onlineAccount?: XOR<AccountNullableRelationFilter, AccountWhereInput> | null
     cardAccount?: XOR<AccountNullableRelationFilter, AccountWhereInput> | null
     drAccount?: XOR<AccountNullableRelationFilter, AccountWhereInput> | null
+    additionalPrincipals?: AdditionalPrincipalListRelationFilter
   }
 
   export type GirviOrderByWithRelationInput = {
@@ -22394,6 +24285,7 @@ export namespace Prisma {
     onlineAccount?: AccountOrderByWithRelationInput
     cardAccount?: AccountOrderByWithRelationInput
     drAccount?: AccountOrderByWithRelationInput
+    additionalPrincipals?: AdditionalPrincipalOrderByRelationAggregateInput
   }
 
   export type GirviWhereUniqueInput = Prisma.AtLeast<{
@@ -22457,6 +24349,7 @@ export namespace Prisma {
     onlineAccount?: XOR<AccountNullableRelationFilter, AccountWhereInput> | null
     cardAccount?: XOR<AccountNullableRelationFilter, AccountWhereInput> | null
     drAccount?: XOR<AccountNullableRelationFilter, AccountWhereInput> | null
+    additionalPrincipals?: AdditionalPrincipalListRelationFilter
   }, "girv_id" | "girv_uuid">
 
   export type GirviOrderByWithAggregationInput = {
@@ -22755,6 +24648,219 @@ export namespace Prisma {
     st_is_deleted?: BoolWithAggregatesFilter<"Stock"> | boolean
   }
 
+  export type AdditionalPrincipalWhereInput = {
+    AND?: AdditionalPrincipalWhereInput | AdditionalPrincipalWhereInput[]
+    OR?: AdditionalPrincipalWhereInput[]
+    NOT?: AdditionalPrincipalWhereInput | AdditionalPrincipalWhereInput[]
+    ap_id?: IntFilter<"AdditionalPrincipal"> | number
+    ap_uuid?: StringFilter<"AdditionalPrincipal"> | string
+    ap_own_id?: IntFilter<"AdditionalPrincipal"> | number
+    ap_firm_id?: IntFilter<"AdditionalPrincipal"> | number
+    ap_user_id?: IntFilter<"AdditionalPrincipal"> | number
+    ap_girv_id?: IntFilter<"AdditionalPrincipal"> | number
+    ap_staff_id?: IntFilter<"AdditionalPrincipal"> | number
+    ap_trans_date?: StringFilter<"AdditionalPrincipal"> | string
+    ap_prin_amt?: FloatFilter<"AdditionalPrincipal"> | number
+    ap_roi?: FloatFilter<"AdditionalPrincipal"> | number
+    ap_payable_amt?: FloatFilter<"AdditionalPrincipal"> | number
+    ap_cash_amt?: FloatNullableFilter<"AdditionalPrincipal"> | number | null
+    ap_cash_acc_id?: IntNullableFilter<"AdditionalPrincipal"> | number | null
+    ap_cash_info?: StringNullableFilter<"AdditionalPrincipal"> | string | null
+    ap_bank_amt?: FloatNullableFilter<"AdditionalPrincipal"> | number | null
+    ap_bank_acc_id?: IntNullableFilter<"AdditionalPrincipal"> | number | null
+    ap_bank_info?: StringNullableFilter<"AdditionalPrincipal"> | string | null
+    ap_online_amt?: FloatNullableFilter<"AdditionalPrincipal"> | number | null
+    ap_online_acc_id?: IntNullableFilter<"AdditionalPrincipal"> | number | null
+    ap_online_info?: StringNullableFilter<"AdditionalPrincipal"> | string | null
+    ap_card_amt?: FloatNullableFilter<"AdditionalPrincipal"> | number | null
+    ap_card_acc_id?: IntNullableFilter<"AdditionalPrincipal"> | number | null
+    ap_card_info?: StringNullableFilter<"AdditionalPrincipal"> | string | null
+    ap_pay_info?: StringNullableFilter<"AdditionalPrincipal"> | string | null
+    ap_other_info?: StringNullableFilter<"AdditionalPrincipal"> | string | null
+    ap_created_at?: DateTimeFilter<"AdditionalPrincipal"> | Date | string
+    ap_created_by?: StringNullableFilter<"AdditionalPrincipal"> | string | null
+    ap_updated_at?: DateTimeFilter<"AdditionalPrincipal"> | Date | string
+    ap_updated_by?: StringNullableFilter<"AdditionalPrincipal"> | string | null
+    ap_deleted_at?: DateTimeNullableFilter<"AdditionalPrincipal"> | Date | string | null
+    ap_deleted_by?: StringNullableFilter<"AdditionalPrincipal"> | string | null
+    ap_is_deleted?: BoolFilter<"AdditionalPrincipal"> | boolean
+    owner?: XOR<OwnerRelationFilter, OwnerWhereInput>
+    firm?: XOR<FirmRelationFilter, FirmWhereInput>
+    user?: XOR<UserRelationFilter, UserWhereInput>
+    girvi?: XOR<GirviRelationFilter, GirviWhereInput>
+    cashAccount?: XOR<AccountNullableRelationFilter, AccountWhereInput> | null
+    bankAccount?: XOR<AccountNullableRelationFilter, AccountWhereInput> | null
+    onlineAccount?: XOR<AccountNullableRelationFilter, AccountWhereInput> | null
+    cardAccount?: XOR<AccountNullableRelationFilter, AccountWhereInput> | null
+  }
+
+  export type AdditionalPrincipalOrderByWithRelationInput = {
+    ap_id?: SortOrder
+    ap_uuid?: SortOrder
+    ap_own_id?: SortOrder
+    ap_firm_id?: SortOrder
+    ap_user_id?: SortOrder
+    ap_girv_id?: SortOrder
+    ap_staff_id?: SortOrder
+    ap_trans_date?: SortOrder
+    ap_prin_amt?: SortOrder
+    ap_roi?: SortOrder
+    ap_payable_amt?: SortOrder
+    ap_cash_amt?: SortOrderInput | SortOrder
+    ap_cash_acc_id?: SortOrderInput | SortOrder
+    ap_cash_info?: SortOrderInput | SortOrder
+    ap_bank_amt?: SortOrderInput | SortOrder
+    ap_bank_acc_id?: SortOrderInput | SortOrder
+    ap_bank_info?: SortOrderInput | SortOrder
+    ap_online_amt?: SortOrderInput | SortOrder
+    ap_online_acc_id?: SortOrderInput | SortOrder
+    ap_online_info?: SortOrderInput | SortOrder
+    ap_card_amt?: SortOrderInput | SortOrder
+    ap_card_acc_id?: SortOrderInput | SortOrder
+    ap_card_info?: SortOrderInput | SortOrder
+    ap_pay_info?: SortOrderInput | SortOrder
+    ap_other_info?: SortOrderInput | SortOrder
+    ap_created_at?: SortOrder
+    ap_created_by?: SortOrderInput | SortOrder
+    ap_updated_at?: SortOrder
+    ap_updated_by?: SortOrderInput | SortOrder
+    ap_deleted_at?: SortOrderInput | SortOrder
+    ap_deleted_by?: SortOrderInput | SortOrder
+    ap_is_deleted?: SortOrder
+    owner?: OwnerOrderByWithRelationInput
+    firm?: FirmOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
+    girvi?: GirviOrderByWithRelationInput
+    cashAccount?: AccountOrderByWithRelationInput
+    bankAccount?: AccountOrderByWithRelationInput
+    onlineAccount?: AccountOrderByWithRelationInput
+    cardAccount?: AccountOrderByWithRelationInput
+  }
+
+  export type AdditionalPrincipalWhereUniqueInput = Prisma.AtLeast<{
+    ap_id?: number
+    ap_uuid?: string
+    AND?: AdditionalPrincipalWhereInput | AdditionalPrincipalWhereInput[]
+    OR?: AdditionalPrincipalWhereInput[]
+    NOT?: AdditionalPrincipalWhereInput | AdditionalPrincipalWhereInput[]
+    ap_own_id?: IntFilter<"AdditionalPrincipal"> | number
+    ap_firm_id?: IntFilter<"AdditionalPrincipal"> | number
+    ap_user_id?: IntFilter<"AdditionalPrincipal"> | number
+    ap_girv_id?: IntFilter<"AdditionalPrincipal"> | number
+    ap_staff_id?: IntFilter<"AdditionalPrincipal"> | number
+    ap_trans_date?: StringFilter<"AdditionalPrincipal"> | string
+    ap_prin_amt?: FloatFilter<"AdditionalPrincipal"> | number
+    ap_roi?: FloatFilter<"AdditionalPrincipal"> | number
+    ap_payable_amt?: FloatFilter<"AdditionalPrincipal"> | number
+    ap_cash_amt?: FloatNullableFilter<"AdditionalPrincipal"> | number | null
+    ap_cash_acc_id?: IntNullableFilter<"AdditionalPrincipal"> | number | null
+    ap_cash_info?: StringNullableFilter<"AdditionalPrincipal"> | string | null
+    ap_bank_amt?: FloatNullableFilter<"AdditionalPrincipal"> | number | null
+    ap_bank_acc_id?: IntNullableFilter<"AdditionalPrincipal"> | number | null
+    ap_bank_info?: StringNullableFilter<"AdditionalPrincipal"> | string | null
+    ap_online_amt?: FloatNullableFilter<"AdditionalPrincipal"> | number | null
+    ap_online_acc_id?: IntNullableFilter<"AdditionalPrincipal"> | number | null
+    ap_online_info?: StringNullableFilter<"AdditionalPrincipal"> | string | null
+    ap_card_amt?: FloatNullableFilter<"AdditionalPrincipal"> | number | null
+    ap_card_acc_id?: IntNullableFilter<"AdditionalPrincipal"> | number | null
+    ap_card_info?: StringNullableFilter<"AdditionalPrincipal"> | string | null
+    ap_pay_info?: StringNullableFilter<"AdditionalPrincipal"> | string | null
+    ap_other_info?: StringNullableFilter<"AdditionalPrincipal"> | string | null
+    ap_created_at?: DateTimeFilter<"AdditionalPrincipal"> | Date | string
+    ap_created_by?: StringNullableFilter<"AdditionalPrincipal"> | string | null
+    ap_updated_at?: DateTimeFilter<"AdditionalPrincipal"> | Date | string
+    ap_updated_by?: StringNullableFilter<"AdditionalPrincipal"> | string | null
+    ap_deleted_at?: DateTimeNullableFilter<"AdditionalPrincipal"> | Date | string | null
+    ap_deleted_by?: StringNullableFilter<"AdditionalPrincipal"> | string | null
+    ap_is_deleted?: BoolFilter<"AdditionalPrincipal"> | boolean
+    owner?: XOR<OwnerRelationFilter, OwnerWhereInput>
+    firm?: XOR<FirmRelationFilter, FirmWhereInput>
+    user?: XOR<UserRelationFilter, UserWhereInput>
+    girvi?: XOR<GirviRelationFilter, GirviWhereInput>
+    cashAccount?: XOR<AccountNullableRelationFilter, AccountWhereInput> | null
+    bankAccount?: XOR<AccountNullableRelationFilter, AccountWhereInput> | null
+    onlineAccount?: XOR<AccountNullableRelationFilter, AccountWhereInput> | null
+    cardAccount?: XOR<AccountNullableRelationFilter, AccountWhereInput> | null
+  }, "ap_id" | "ap_uuid">
+
+  export type AdditionalPrincipalOrderByWithAggregationInput = {
+    ap_id?: SortOrder
+    ap_uuid?: SortOrder
+    ap_own_id?: SortOrder
+    ap_firm_id?: SortOrder
+    ap_user_id?: SortOrder
+    ap_girv_id?: SortOrder
+    ap_staff_id?: SortOrder
+    ap_trans_date?: SortOrder
+    ap_prin_amt?: SortOrder
+    ap_roi?: SortOrder
+    ap_payable_amt?: SortOrder
+    ap_cash_amt?: SortOrderInput | SortOrder
+    ap_cash_acc_id?: SortOrderInput | SortOrder
+    ap_cash_info?: SortOrderInput | SortOrder
+    ap_bank_amt?: SortOrderInput | SortOrder
+    ap_bank_acc_id?: SortOrderInput | SortOrder
+    ap_bank_info?: SortOrderInput | SortOrder
+    ap_online_amt?: SortOrderInput | SortOrder
+    ap_online_acc_id?: SortOrderInput | SortOrder
+    ap_online_info?: SortOrderInput | SortOrder
+    ap_card_amt?: SortOrderInput | SortOrder
+    ap_card_acc_id?: SortOrderInput | SortOrder
+    ap_card_info?: SortOrderInput | SortOrder
+    ap_pay_info?: SortOrderInput | SortOrder
+    ap_other_info?: SortOrderInput | SortOrder
+    ap_created_at?: SortOrder
+    ap_created_by?: SortOrderInput | SortOrder
+    ap_updated_at?: SortOrder
+    ap_updated_by?: SortOrderInput | SortOrder
+    ap_deleted_at?: SortOrderInput | SortOrder
+    ap_deleted_by?: SortOrderInput | SortOrder
+    ap_is_deleted?: SortOrder
+    _count?: AdditionalPrincipalCountOrderByAggregateInput
+    _avg?: AdditionalPrincipalAvgOrderByAggregateInput
+    _max?: AdditionalPrincipalMaxOrderByAggregateInput
+    _min?: AdditionalPrincipalMinOrderByAggregateInput
+    _sum?: AdditionalPrincipalSumOrderByAggregateInput
+  }
+
+  export type AdditionalPrincipalScalarWhereWithAggregatesInput = {
+    AND?: AdditionalPrincipalScalarWhereWithAggregatesInput | AdditionalPrincipalScalarWhereWithAggregatesInput[]
+    OR?: AdditionalPrincipalScalarWhereWithAggregatesInput[]
+    NOT?: AdditionalPrincipalScalarWhereWithAggregatesInput | AdditionalPrincipalScalarWhereWithAggregatesInput[]
+    ap_id?: IntWithAggregatesFilter<"AdditionalPrincipal"> | number
+    ap_uuid?: StringWithAggregatesFilter<"AdditionalPrincipal"> | string
+    ap_own_id?: IntWithAggregatesFilter<"AdditionalPrincipal"> | number
+    ap_firm_id?: IntWithAggregatesFilter<"AdditionalPrincipal"> | number
+    ap_user_id?: IntWithAggregatesFilter<"AdditionalPrincipal"> | number
+    ap_girv_id?: IntWithAggregatesFilter<"AdditionalPrincipal"> | number
+    ap_staff_id?: IntWithAggregatesFilter<"AdditionalPrincipal"> | number
+    ap_trans_date?: StringWithAggregatesFilter<"AdditionalPrincipal"> | string
+    ap_prin_amt?: FloatWithAggregatesFilter<"AdditionalPrincipal"> | number
+    ap_roi?: FloatWithAggregatesFilter<"AdditionalPrincipal"> | number
+    ap_payable_amt?: FloatWithAggregatesFilter<"AdditionalPrincipal"> | number
+    ap_cash_amt?: FloatNullableWithAggregatesFilter<"AdditionalPrincipal"> | number | null
+    ap_cash_acc_id?: IntNullableWithAggregatesFilter<"AdditionalPrincipal"> | number | null
+    ap_cash_info?: StringNullableWithAggregatesFilter<"AdditionalPrincipal"> | string | null
+    ap_bank_amt?: FloatNullableWithAggregatesFilter<"AdditionalPrincipal"> | number | null
+    ap_bank_acc_id?: IntNullableWithAggregatesFilter<"AdditionalPrincipal"> | number | null
+    ap_bank_info?: StringNullableWithAggregatesFilter<"AdditionalPrincipal"> | string | null
+    ap_online_amt?: FloatNullableWithAggregatesFilter<"AdditionalPrincipal"> | number | null
+    ap_online_acc_id?: IntNullableWithAggregatesFilter<"AdditionalPrincipal"> | number | null
+    ap_online_info?: StringNullableWithAggregatesFilter<"AdditionalPrincipal"> | string | null
+    ap_card_amt?: FloatNullableWithAggregatesFilter<"AdditionalPrincipal"> | number | null
+    ap_card_acc_id?: IntNullableWithAggregatesFilter<"AdditionalPrincipal"> | number | null
+    ap_card_info?: StringNullableWithAggregatesFilter<"AdditionalPrincipal"> | string | null
+    ap_pay_info?: StringNullableWithAggregatesFilter<"AdditionalPrincipal"> | string | null
+    ap_other_info?: StringNullableWithAggregatesFilter<"AdditionalPrincipal"> | string | null
+    ap_created_at?: DateTimeWithAggregatesFilter<"AdditionalPrincipal"> | Date | string
+    ap_created_by?: StringNullableWithAggregatesFilter<"AdditionalPrincipal"> | string | null
+    ap_updated_at?: DateTimeWithAggregatesFilter<"AdditionalPrincipal"> | Date | string
+    ap_updated_by?: StringNullableWithAggregatesFilter<"AdditionalPrincipal"> | string | null
+    ap_deleted_at?: DateTimeNullableWithAggregatesFilter<"AdditionalPrincipal"> | Date | string | null
+    ap_deleted_by?: StringNullableWithAggregatesFilter<"AdditionalPrincipal"> | string | null
+    ap_is_deleted?: BoolWithAggregatesFilter<"AdditionalPrincipal"> | boolean
+  }
+
   export type OwnerCreateInput = {
     own_uuid?: string
     own_product_key?: number
@@ -22800,6 +24906,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionCreateNestedManyWithoutOwnerInput
     girvis?: GirviCreateNestedManyWithoutOwnerInput
     stocks?: StockCreateNestedManyWithoutOwnerInput
+    additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerUncheckedCreateInput = {
@@ -22848,6 +24955,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutOwnerInput
     girvis?: GirviUncheckedCreateNestedManyWithoutOwnerInput
     stocks?: StockUncheckedCreateNestedManyWithoutOwnerInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerUpdateInput = {
@@ -22894,6 +25002,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionUpdateManyWithoutOwnerNestedInput
     girvis?: GirviUpdateManyWithoutOwnerNestedInput
     stocks?: StockUpdateManyWithoutOwnerNestedInput
+    additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutOwnerNestedInput
   }
 
   export type OwnerUncheckedUpdateInput = {
@@ -22942,6 +25051,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutOwnerNestedInput
     girvis?: GirviUncheckedUpdateManyWithoutOwnerNestedInput
     stocks?: StockUncheckedUpdateManyWithoutOwnerNestedInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
   export type OwnerCreateManyInput = {
@@ -23114,6 +25224,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionCreateNestedManyWithoutFirmInput
     girvis?: GirviCreateNestedManyWithoutFirmInput
     stocks?: StockCreateNestedManyWithoutFirmInput
+    additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutFirmInput
   }
 
   export type FirmUncheckedCreateInput = {
@@ -23175,6 +25286,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutFirmInput
     girvis?: GirviUncheckedCreateNestedManyWithoutFirmInput
     stocks?: StockUncheckedCreateNestedManyWithoutFirmInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutFirmInput
   }
 
   export type FirmUpdateInput = {
@@ -23235,6 +25347,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionUpdateManyWithoutFirmNestedInput
     girvis?: GirviUpdateManyWithoutFirmNestedInput
     stocks?: StockUpdateManyWithoutFirmNestedInput
+    additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutFirmNestedInput
   }
 
   export type FirmUncheckedUpdateInput = {
@@ -23296,6 +25409,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutFirmNestedInput
     girvis?: GirviUncheckedUpdateManyWithoutFirmNestedInput
     stocks?: StockUncheckedUpdateManyWithoutFirmNestedInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutFirmNestedInput
   }
 
   export type FirmCreateManyInput = {
@@ -23504,6 +25618,10 @@ export namespace Prisma {
     girviOnline?: GirviCreateNestedManyWithoutOnlineAccountInput
     girviCard?: GirviCreateNestedManyWithoutCardAccountInput
     girviDr?: GirviCreateNestedManyWithoutDrAccountInput
+    apCash?: AdditionalPrincipalCreateNestedManyWithoutCashAccountInput
+    apBank?: AdditionalPrincipalCreateNestedManyWithoutBankAccountInput
+    apOnline?: AdditionalPrincipalCreateNestedManyWithoutOnlineAccountInput
+    apCard?: AdditionalPrincipalCreateNestedManyWithoutCardAccountInput
   }
 
   export type AccountUncheckedCreateInput = {
@@ -23559,6 +25677,10 @@ export namespace Prisma {
     girviOnline?: GirviUncheckedCreateNestedManyWithoutOnlineAccountInput
     girviCard?: GirviUncheckedCreateNestedManyWithoutCardAccountInput
     girviDr?: GirviUncheckedCreateNestedManyWithoutDrAccountInput
+    apCash?: AdditionalPrincipalUncheckedCreateNestedManyWithoutCashAccountInput
+    apBank?: AdditionalPrincipalUncheckedCreateNestedManyWithoutBankAccountInput
+    apOnline?: AdditionalPrincipalUncheckedCreateNestedManyWithoutOnlineAccountInput
+    apCard?: AdditionalPrincipalUncheckedCreateNestedManyWithoutCardAccountInput
   }
 
   export type AccountUpdateInput = {
@@ -23613,6 +25735,10 @@ export namespace Prisma {
     girviOnline?: GirviUpdateManyWithoutOnlineAccountNestedInput
     girviCard?: GirviUpdateManyWithoutCardAccountNestedInput
     girviDr?: GirviUpdateManyWithoutDrAccountNestedInput
+    apCash?: AdditionalPrincipalUpdateManyWithoutCashAccountNestedInput
+    apBank?: AdditionalPrincipalUpdateManyWithoutBankAccountNestedInput
+    apOnline?: AdditionalPrincipalUpdateManyWithoutOnlineAccountNestedInput
+    apCard?: AdditionalPrincipalUpdateManyWithoutCardAccountNestedInput
   }
 
   export type AccountUncheckedUpdateInput = {
@@ -23668,6 +25794,10 @@ export namespace Prisma {
     girviOnline?: GirviUncheckedUpdateManyWithoutOnlineAccountNestedInput
     girviCard?: GirviUncheckedUpdateManyWithoutCardAccountNestedInput
     girviDr?: GirviUncheckedUpdateManyWithoutDrAccountNestedInput
+    apCash?: AdditionalPrincipalUncheckedUpdateManyWithoutCashAccountNestedInput
+    apBank?: AdditionalPrincipalUncheckedUpdateManyWithoutBankAccountNestedInput
+    apOnline?: AdditionalPrincipalUncheckedUpdateManyWithoutOnlineAccountNestedInput
+    apCard?: AdditionalPrincipalUncheckedUpdateManyWithoutCardAccountNestedInput
   }
 
   export type AccountCreateManyInput = {
@@ -23816,6 +25946,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionCreateNestedManyWithoutUserInput
     girvis?: GirviCreateNestedManyWithoutUserInput
     stocks?: StockCreateNestedManyWithoutUserInput
+    additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -23872,6 +26003,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutUserInput
     girvis?: GirviUncheckedCreateNestedManyWithoutUserInput
     stocks?: StockUncheckedCreateNestedManyWithoutUserInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -23927,6 +26059,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionUpdateManyWithoutUserNestedInput
     girvis?: GirviUpdateManyWithoutUserNestedInput
     stocks?: StockUpdateManyWithoutUserNestedInput
+    additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -23983,6 +26116,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutUserNestedInput
     girvis?: GirviUncheckedUpdateManyWithoutUserNestedInput
     stocks?: StockUncheckedUpdateManyWithoutUserNestedInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -25276,6 +27410,7 @@ export namespace Prisma {
     onlineAccount?: AccountCreateNestedOneWithoutGirviOnlineInput
     cardAccount?: AccountCreateNestedOneWithoutGirviCardInput
     drAccount?: AccountCreateNestedOneWithoutGirviDrInput
+    additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutGirviInput
   }
 
   export type GirviUncheckedCreateInput = {
@@ -25326,6 +27461,7 @@ export namespace Prisma {
     girv_deleted_at?: Date | string | null
     girv_deleted_by?: string | null
     girv_is_deleted?: boolean
+    additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutGirviInput
   }
 
   export type GirviUpdateInput = {
@@ -25375,6 +27511,7 @@ export namespace Prisma {
     onlineAccount?: AccountUpdateOneWithoutGirviOnlineNestedInput
     cardAccount?: AccountUpdateOneWithoutGirviCardNestedInput
     drAccount?: AccountUpdateOneWithoutGirviDrNestedInput
+    additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutGirviNestedInput
   }
 
   export type GirviUncheckedUpdateInput = {
@@ -25425,6 +27562,7 @@ export namespace Prisma {
     girv_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     girv_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     girv_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutGirviNestedInput
   }
 
   export type GirviCreateManyInput = {
@@ -25791,6 +27929,240 @@ export namespace Prisma {
     st_is_deleted?: BoolFieldUpdateOperationsInput | boolean
   }
 
+  export type AdditionalPrincipalCreateInput = {
+    ap_uuid?: string
+    ap_staff_id?: number
+    ap_trans_date: string
+    ap_prin_amt: number
+    ap_roi: number
+    ap_payable_amt: number
+    ap_cash_amt?: number | null
+    ap_cash_info?: string | null
+    ap_bank_amt?: number | null
+    ap_bank_info?: string | null
+    ap_online_amt?: number | null
+    ap_online_info?: string | null
+    ap_card_amt?: number | null
+    ap_card_info?: string | null
+    ap_pay_info?: string | null
+    ap_other_info?: string | null
+    ap_created_at?: Date | string
+    ap_created_by?: string | null
+    ap_updated_at?: Date | string
+    ap_updated_by?: string | null
+    ap_deleted_at?: Date | string | null
+    ap_deleted_by?: string | null
+    ap_is_deleted?: boolean
+    owner?: OwnerCreateNestedOneWithoutAdditionalPrincipalsInput
+    firm?: FirmCreateNestedOneWithoutAdditionalPrincipalsInput
+    user?: UserCreateNestedOneWithoutAdditionalPrincipalsInput
+    girvi?: GirviCreateNestedOneWithoutAdditionalPrincipalsInput
+    cashAccount?: AccountCreateNestedOneWithoutApCashInput
+    bankAccount?: AccountCreateNestedOneWithoutApBankInput
+    onlineAccount?: AccountCreateNestedOneWithoutApOnlineInput
+    cardAccount?: AccountCreateNestedOneWithoutApCardInput
+  }
+
+  export type AdditionalPrincipalUncheckedCreateInput = {
+    ap_id?: number
+    ap_uuid?: string
+    ap_own_id?: number
+    ap_firm_id?: number
+    ap_user_id?: number
+    ap_girv_id?: number
+    ap_staff_id?: number
+    ap_trans_date: string
+    ap_prin_amt: number
+    ap_roi: number
+    ap_payable_amt: number
+    ap_cash_amt?: number | null
+    ap_cash_acc_id?: number | null
+    ap_cash_info?: string | null
+    ap_bank_amt?: number | null
+    ap_bank_acc_id?: number | null
+    ap_bank_info?: string | null
+    ap_online_amt?: number | null
+    ap_online_acc_id?: number | null
+    ap_online_info?: string | null
+    ap_card_amt?: number | null
+    ap_card_acc_id?: number | null
+    ap_card_info?: string | null
+    ap_pay_info?: string | null
+    ap_other_info?: string | null
+    ap_created_at?: Date | string
+    ap_created_by?: string | null
+    ap_updated_at?: Date | string
+    ap_updated_by?: string | null
+    ap_deleted_at?: Date | string | null
+    ap_deleted_by?: string | null
+    ap_is_deleted?: boolean
+  }
+
+  export type AdditionalPrincipalUpdateInput = {
+    ap_uuid?: StringFieldUpdateOperationsInput | string
+    ap_staff_id?: IntFieldUpdateOperationsInput | number
+    ap_trans_date?: StringFieldUpdateOperationsInput | string
+    ap_prin_amt?: FloatFieldUpdateOperationsInput | number
+    ap_roi?: FloatFieldUpdateOperationsInput | number
+    ap_payable_amt?: FloatFieldUpdateOperationsInput | number
+    ap_cash_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_cash_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_bank_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_bank_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_online_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_online_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_card_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_card_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    ap_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    ap_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ap_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    owner?: OwnerUpdateOneRequiredWithoutAdditionalPrincipalsNestedInput
+    firm?: FirmUpdateOneRequiredWithoutAdditionalPrincipalsNestedInput
+    user?: UserUpdateOneRequiredWithoutAdditionalPrincipalsNestedInput
+    girvi?: GirviUpdateOneRequiredWithoutAdditionalPrincipalsNestedInput
+    cashAccount?: AccountUpdateOneWithoutApCashNestedInput
+    bankAccount?: AccountUpdateOneWithoutApBankNestedInput
+    onlineAccount?: AccountUpdateOneWithoutApOnlineNestedInput
+    cardAccount?: AccountUpdateOneWithoutApCardNestedInput
+  }
+
+  export type AdditionalPrincipalUncheckedUpdateInput = {
+    ap_id?: IntFieldUpdateOperationsInput | number
+    ap_uuid?: StringFieldUpdateOperationsInput | string
+    ap_own_id?: IntFieldUpdateOperationsInput | number
+    ap_firm_id?: IntFieldUpdateOperationsInput | number
+    ap_user_id?: IntFieldUpdateOperationsInput | number
+    ap_girv_id?: IntFieldUpdateOperationsInput | number
+    ap_staff_id?: IntFieldUpdateOperationsInput | number
+    ap_trans_date?: StringFieldUpdateOperationsInput | string
+    ap_prin_amt?: FloatFieldUpdateOperationsInput | number
+    ap_roi?: FloatFieldUpdateOperationsInput | number
+    ap_payable_amt?: FloatFieldUpdateOperationsInput | number
+    ap_cash_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_cash_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    ap_cash_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_bank_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_bank_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    ap_bank_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_online_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_online_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    ap_online_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_card_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_card_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    ap_card_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    ap_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    ap_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ap_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type AdditionalPrincipalCreateManyInput = {
+    ap_id?: number
+    ap_uuid?: string
+    ap_own_id?: number
+    ap_firm_id?: number
+    ap_user_id?: number
+    ap_girv_id?: number
+    ap_staff_id?: number
+    ap_trans_date: string
+    ap_prin_amt: number
+    ap_roi: number
+    ap_payable_amt: number
+    ap_cash_amt?: number | null
+    ap_cash_acc_id?: number | null
+    ap_cash_info?: string | null
+    ap_bank_amt?: number | null
+    ap_bank_acc_id?: number | null
+    ap_bank_info?: string | null
+    ap_online_amt?: number | null
+    ap_online_acc_id?: number | null
+    ap_online_info?: string | null
+    ap_card_amt?: number | null
+    ap_card_acc_id?: number | null
+    ap_card_info?: string | null
+    ap_pay_info?: string | null
+    ap_other_info?: string | null
+    ap_created_at?: Date | string
+    ap_created_by?: string | null
+    ap_updated_at?: Date | string
+    ap_updated_by?: string | null
+    ap_deleted_at?: Date | string | null
+    ap_deleted_by?: string | null
+    ap_is_deleted?: boolean
+  }
+
+  export type AdditionalPrincipalUpdateManyMutationInput = {
+    ap_uuid?: StringFieldUpdateOperationsInput | string
+    ap_staff_id?: IntFieldUpdateOperationsInput | number
+    ap_trans_date?: StringFieldUpdateOperationsInput | string
+    ap_prin_amt?: FloatFieldUpdateOperationsInput | number
+    ap_roi?: FloatFieldUpdateOperationsInput | number
+    ap_payable_amt?: FloatFieldUpdateOperationsInput | number
+    ap_cash_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_cash_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_bank_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_bank_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_online_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_online_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_card_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_card_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    ap_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    ap_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ap_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type AdditionalPrincipalUncheckedUpdateManyInput = {
+    ap_id?: IntFieldUpdateOperationsInput | number
+    ap_uuid?: StringFieldUpdateOperationsInput | string
+    ap_own_id?: IntFieldUpdateOperationsInput | number
+    ap_firm_id?: IntFieldUpdateOperationsInput | number
+    ap_user_id?: IntFieldUpdateOperationsInput | number
+    ap_girv_id?: IntFieldUpdateOperationsInput | number
+    ap_staff_id?: IntFieldUpdateOperationsInput | number
+    ap_trans_date?: StringFieldUpdateOperationsInput | string
+    ap_prin_amt?: FloatFieldUpdateOperationsInput | number
+    ap_roi?: FloatFieldUpdateOperationsInput | number
+    ap_payable_amt?: FloatFieldUpdateOperationsInput | number
+    ap_cash_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_cash_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    ap_cash_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_bank_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_bank_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    ap_bank_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_online_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_online_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    ap_online_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_card_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_card_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    ap_card_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    ap_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    ap_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ap_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
   export type IntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -25948,6 +28320,12 @@ export namespace Prisma {
     none?: StockWhereInput
   }
 
+  export type AdditionalPrincipalListRelationFilter = {
+    every?: AdditionalPrincipalWhereInput
+    some?: AdditionalPrincipalWhereInput
+    none?: AdditionalPrincipalWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -25990,6 +28368,10 @@ export namespace Prisma {
   }
 
   export type StockOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type AdditionalPrincipalOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -28021,6 +30403,156 @@ export namespace Prisma {
     _max?: NestedEnumStockStatusFilter<$PrismaModel>
   }
 
+  export type GirviRelationFilter = {
+    is?: GirviWhereInput
+    isNot?: GirviWhereInput
+  }
+
+  export type AdditionalPrincipalCountOrderByAggregateInput = {
+    ap_id?: SortOrder
+    ap_uuid?: SortOrder
+    ap_own_id?: SortOrder
+    ap_firm_id?: SortOrder
+    ap_user_id?: SortOrder
+    ap_girv_id?: SortOrder
+    ap_staff_id?: SortOrder
+    ap_trans_date?: SortOrder
+    ap_prin_amt?: SortOrder
+    ap_roi?: SortOrder
+    ap_payable_amt?: SortOrder
+    ap_cash_amt?: SortOrder
+    ap_cash_acc_id?: SortOrder
+    ap_cash_info?: SortOrder
+    ap_bank_amt?: SortOrder
+    ap_bank_acc_id?: SortOrder
+    ap_bank_info?: SortOrder
+    ap_online_amt?: SortOrder
+    ap_online_acc_id?: SortOrder
+    ap_online_info?: SortOrder
+    ap_card_amt?: SortOrder
+    ap_card_acc_id?: SortOrder
+    ap_card_info?: SortOrder
+    ap_pay_info?: SortOrder
+    ap_other_info?: SortOrder
+    ap_created_at?: SortOrder
+    ap_created_by?: SortOrder
+    ap_updated_at?: SortOrder
+    ap_updated_by?: SortOrder
+    ap_deleted_at?: SortOrder
+    ap_deleted_by?: SortOrder
+    ap_is_deleted?: SortOrder
+  }
+
+  export type AdditionalPrincipalAvgOrderByAggregateInput = {
+    ap_id?: SortOrder
+    ap_own_id?: SortOrder
+    ap_firm_id?: SortOrder
+    ap_user_id?: SortOrder
+    ap_girv_id?: SortOrder
+    ap_staff_id?: SortOrder
+    ap_prin_amt?: SortOrder
+    ap_roi?: SortOrder
+    ap_payable_amt?: SortOrder
+    ap_cash_amt?: SortOrder
+    ap_cash_acc_id?: SortOrder
+    ap_bank_amt?: SortOrder
+    ap_bank_acc_id?: SortOrder
+    ap_online_amt?: SortOrder
+    ap_online_acc_id?: SortOrder
+    ap_card_amt?: SortOrder
+    ap_card_acc_id?: SortOrder
+  }
+
+  export type AdditionalPrincipalMaxOrderByAggregateInput = {
+    ap_id?: SortOrder
+    ap_uuid?: SortOrder
+    ap_own_id?: SortOrder
+    ap_firm_id?: SortOrder
+    ap_user_id?: SortOrder
+    ap_girv_id?: SortOrder
+    ap_staff_id?: SortOrder
+    ap_trans_date?: SortOrder
+    ap_prin_amt?: SortOrder
+    ap_roi?: SortOrder
+    ap_payable_amt?: SortOrder
+    ap_cash_amt?: SortOrder
+    ap_cash_acc_id?: SortOrder
+    ap_cash_info?: SortOrder
+    ap_bank_amt?: SortOrder
+    ap_bank_acc_id?: SortOrder
+    ap_bank_info?: SortOrder
+    ap_online_amt?: SortOrder
+    ap_online_acc_id?: SortOrder
+    ap_online_info?: SortOrder
+    ap_card_amt?: SortOrder
+    ap_card_acc_id?: SortOrder
+    ap_card_info?: SortOrder
+    ap_pay_info?: SortOrder
+    ap_other_info?: SortOrder
+    ap_created_at?: SortOrder
+    ap_created_by?: SortOrder
+    ap_updated_at?: SortOrder
+    ap_updated_by?: SortOrder
+    ap_deleted_at?: SortOrder
+    ap_deleted_by?: SortOrder
+    ap_is_deleted?: SortOrder
+  }
+
+  export type AdditionalPrincipalMinOrderByAggregateInput = {
+    ap_id?: SortOrder
+    ap_uuid?: SortOrder
+    ap_own_id?: SortOrder
+    ap_firm_id?: SortOrder
+    ap_user_id?: SortOrder
+    ap_girv_id?: SortOrder
+    ap_staff_id?: SortOrder
+    ap_trans_date?: SortOrder
+    ap_prin_amt?: SortOrder
+    ap_roi?: SortOrder
+    ap_payable_amt?: SortOrder
+    ap_cash_amt?: SortOrder
+    ap_cash_acc_id?: SortOrder
+    ap_cash_info?: SortOrder
+    ap_bank_amt?: SortOrder
+    ap_bank_acc_id?: SortOrder
+    ap_bank_info?: SortOrder
+    ap_online_amt?: SortOrder
+    ap_online_acc_id?: SortOrder
+    ap_online_info?: SortOrder
+    ap_card_amt?: SortOrder
+    ap_card_acc_id?: SortOrder
+    ap_card_info?: SortOrder
+    ap_pay_info?: SortOrder
+    ap_other_info?: SortOrder
+    ap_created_at?: SortOrder
+    ap_created_by?: SortOrder
+    ap_updated_at?: SortOrder
+    ap_updated_by?: SortOrder
+    ap_deleted_at?: SortOrder
+    ap_deleted_by?: SortOrder
+    ap_is_deleted?: SortOrder
+  }
+
+  export type AdditionalPrincipalSumOrderByAggregateInput = {
+    ap_id?: SortOrder
+    ap_own_id?: SortOrder
+    ap_firm_id?: SortOrder
+    ap_user_id?: SortOrder
+    ap_girv_id?: SortOrder
+    ap_staff_id?: SortOrder
+    ap_prin_amt?: SortOrder
+    ap_roi?: SortOrder
+    ap_payable_amt?: SortOrder
+    ap_cash_amt?: SortOrder
+    ap_cash_acc_id?: SortOrder
+    ap_bank_amt?: SortOrder
+    ap_bank_acc_id?: SortOrder
+    ap_online_amt?: SortOrder
+    ap_online_acc_id?: SortOrder
+    ap_card_amt?: SortOrder
+    ap_card_acc_id?: SortOrder
+  }
+
   export type UserCreateNestedManyWithoutOwnerInput = {
     create?: XOR<UserCreateWithoutOwnerInput, UserUncheckedCreateWithoutOwnerInput> | UserCreateWithoutOwnerInput[] | UserUncheckedCreateWithoutOwnerInput[]
     connectOrCreate?: UserCreateOrConnectWithoutOwnerInput | UserCreateOrConnectWithoutOwnerInput[]
@@ -28091,6 +30623,13 @@ export namespace Prisma {
     connect?: StockWhereUniqueInput | StockWhereUniqueInput[]
   }
 
+  export type AdditionalPrincipalCreateNestedManyWithoutOwnerInput = {
+    create?: XOR<AdditionalPrincipalCreateWithoutOwnerInput, AdditionalPrincipalUncheckedCreateWithoutOwnerInput> | AdditionalPrincipalCreateWithoutOwnerInput[] | AdditionalPrincipalUncheckedCreateWithoutOwnerInput[]
+    connectOrCreate?: AdditionalPrincipalCreateOrConnectWithoutOwnerInput | AdditionalPrincipalCreateOrConnectWithoutOwnerInput[]
+    createMany?: AdditionalPrincipalCreateManyOwnerInputEnvelope
+    connect?: AdditionalPrincipalWhereUniqueInput | AdditionalPrincipalWhereUniqueInput[]
+  }
+
   export type UserUncheckedCreateNestedManyWithoutOwnerInput = {
     create?: XOR<UserCreateWithoutOwnerInput, UserUncheckedCreateWithoutOwnerInput> | UserCreateWithoutOwnerInput[] | UserUncheckedCreateWithoutOwnerInput[]
     connectOrCreate?: UserCreateOrConnectWithoutOwnerInput | UserCreateOrConnectWithoutOwnerInput[]
@@ -28159,6 +30698,13 @@ export namespace Prisma {
     connectOrCreate?: StockCreateOrConnectWithoutOwnerInput | StockCreateOrConnectWithoutOwnerInput[]
     createMany?: StockCreateManyOwnerInputEnvelope
     connect?: StockWhereUniqueInput | StockWhereUniqueInput[]
+  }
+
+  export type AdditionalPrincipalUncheckedCreateNestedManyWithoutOwnerInput = {
+    create?: XOR<AdditionalPrincipalCreateWithoutOwnerInput, AdditionalPrincipalUncheckedCreateWithoutOwnerInput> | AdditionalPrincipalCreateWithoutOwnerInput[] | AdditionalPrincipalUncheckedCreateWithoutOwnerInput[]
+    connectOrCreate?: AdditionalPrincipalCreateOrConnectWithoutOwnerInput | AdditionalPrincipalCreateOrConnectWithoutOwnerInput[]
+    createMany?: AdditionalPrincipalCreateManyOwnerInputEnvelope
+    connect?: AdditionalPrincipalWhereUniqueInput | AdditionalPrincipalWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -28325,6 +30871,20 @@ export namespace Prisma {
     deleteMany?: StockScalarWhereInput | StockScalarWhereInput[]
   }
 
+  export type AdditionalPrincipalUpdateManyWithoutOwnerNestedInput = {
+    create?: XOR<AdditionalPrincipalCreateWithoutOwnerInput, AdditionalPrincipalUncheckedCreateWithoutOwnerInput> | AdditionalPrincipalCreateWithoutOwnerInput[] | AdditionalPrincipalUncheckedCreateWithoutOwnerInput[]
+    connectOrCreate?: AdditionalPrincipalCreateOrConnectWithoutOwnerInput | AdditionalPrincipalCreateOrConnectWithoutOwnerInput[]
+    upsert?: AdditionalPrincipalUpsertWithWhereUniqueWithoutOwnerInput | AdditionalPrincipalUpsertWithWhereUniqueWithoutOwnerInput[]
+    createMany?: AdditionalPrincipalCreateManyOwnerInputEnvelope
+    set?: AdditionalPrincipalWhereUniqueInput | AdditionalPrincipalWhereUniqueInput[]
+    disconnect?: AdditionalPrincipalWhereUniqueInput | AdditionalPrincipalWhereUniqueInput[]
+    delete?: AdditionalPrincipalWhereUniqueInput | AdditionalPrincipalWhereUniqueInput[]
+    connect?: AdditionalPrincipalWhereUniqueInput | AdditionalPrincipalWhereUniqueInput[]
+    update?: AdditionalPrincipalUpdateWithWhereUniqueWithoutOwnerInput | AdditionalPrincipalUpdateWithWhereUniqueWithoutOwnerInput[]
+    updateMany?: AdditionalPrincipalUpdateManyWithWhereWithoutOwnerInput | AdditionalPrincipalUpdateManyWithWhereWithoutOwnerInput[]
+    deleteMany?: AdditionalPrincipalScalarWhereInput | AdditionalPrincipalScalarWhereInput[]
+  }
+
   export type IntFieldUpdateOperationsInput = {
     set?: number
     increment?: number
@@ -28473,6 +31033,20 @@ export namespace Prisma {
     deleteMany?: StockScalarWhereInput | StockScalarWhereInput[]
   }
 
+  export type AdditionalPrincipalUncheckedUpdateManyWithoutOwnerNestedInput = {
+    create?: XOR<AdditionalPrincipalCreateWithoutOwnerInput, AdditionalPrincipalUncheckedCreateWithoutOwnerInput> | AdditionalPrincipalCreateWithoutOwnerInput[] | AdditionalPrincipalUncheckedCreateWithoutOwnerInput[]
+    connectOrCreate?: AdditionalPrincipalCreateOrConnectWithoutOwnerInput | AdditionalPrincipalCreateOrConnectWithoutOwnerInput[]
+    upsert?: AdditionalPrincipalUpsertWithWhereUniqueWithoutOwnerInput | AdditionalPrincipalUpsertWithWhereUniqueWithoutOwnerInput[]
+    createMany?: AdditionalPrincipalCreateManyOwnerInputEnvelope
+    set?: AdditionalPrincipalWhereUniqueInput | AdditionalPrincipalWhereUniqueInput[]
+    disconnect?: AdditionalPrincipalWhereUniqueInput | AdditionalPrincipalWhereUniqueInput[]
+    delete?: AdditionalPrincipalWhereUniqueInput | AdditionalPrincipalWhereUniqueInput[]
+    connect?: AdditionalPrincipalWhereUniqueInput | AdditionalPrincipalWhereUniqueInput[]
+    update?: AdditionalPrincipalUpdateWithWhereUniqueWithoutOwnerInput | AdditionalPrincipalUpdateWithWhereUniqueWithoutOwnerInput[]
+    updateMany?: AdditionalPrincipalUpdateManyWithWhereWithoutOwnerInput | AdditionalPrincipalUpdateManyWithWhereWithoutOwnerInput[]
+    deleteMany?: AdditionalPrincipalScalarWhereInput | AdditionalPrincipalScalarWhereInput[]
+  }
+
   export type UserCreateNestedManyWithoutFirmInput = {
     create?: XOR<UserCreateWithoutFirmInput, UserUncheckedCreateWithoutFirmInput> | UserCreateWithoutFirmInput[] | UserUncheckedCreateWithoutFirmInput[]
     connectOrCreate?: UserCreateOrConnectWithoutFirmInput | UserCreateOrConnectWithoutFirmInput[]
@@ -28542,6 +31116,13 @@ export namespace Prisma {
     connect?: StockWhereUniqueInput | StockWhereUniqueInput[]
   }
 
+  export type AdditionalPrincipalCreateNestedManyWithoutFirmInput = {
+    create?: XOR<AdditionalPrincipalCreateWithoutFirmInput, AdditionalPrincipalUncheckedCreateWithoutFirmInput> | AdditionalPrincipalCreateWithoutFirmInput[] | AdditionalPrincipalUncheckedCreateWithoutFirmInput[]
+    connectOrCreate?: AdditionalPrincipalCreateOrConnectWithoutFirmInput | AdditionalPrincipalCreateOrConnectWithoutFirmInput[]
+    createMany?: AdditionalPrincipalCreateManyFirmInputEnvelope
+    connect?: AdditionalPrincipalWhereUniqueInput | AdditionalPrincipalWhereUniqueInput[]
+  }
+
   export type UserUncheckedCreateNestedManyWithoutFirmInput = {
     create?: XOR<UserCreateWithoutFirmInput, UserUncheckedCreateWithoutFirmInput> | UserCreateWithoutFirmInput[] | UserUncheckedCreateWithoutFirmInput[]
     connectOrCreate?: UserCreateOrConnectWithoutFirmInput | UserCreateOrConnectWithoutFirmInput[]
@@ -28603,6 +31184,13 @@ export namespace Prisma {
     connectOrCreate?: StockCreateOrConnectWithoutFirmInput | StockCreateOrConnectWithoutFirmInput[]
     createMany?: StockCreateManyFirmInputEnvelope
     connect?: StockWhereUniqueInput | StockWhereUniqueInput[]
+  }
+
+  export type AdditionalPrincipalUncheckedCreateNestedManyWithoutFirmInput = {
+    create?: XOR<AdditionalPrincipalCreateWithoutFirmInput, AdditionalPrincipalUncheckedCreateWithoutFirmInput> | AdditionalPrincipalCreateWithoutFirmInput[] | AdditionalPrincipalUncheckedCreateWithoutFirmInput[]
+    connectOrCreate?: AdditionalPrincipalCreateOrConnectWithoutFirmInput | AdditionalPrincipalCreateOrConnectWithoutFirmInput[]
+    createMany?: AdditionalPrincipalCreateManyFirmInputEnvelope
+    connect?: AdditionalPrincipalWhereUniqueInput | AdditionalPrincipalWhereUniqueInput[]
   }
 
   export type EnumFirmTypeFieldUpdateOperationsInput = {
@@ -28747,6 +31335,20 @@ export namespace Prisma {
     deleteMany?: StockScalarWhereInput | StockScalarWhereInput[]
   }
 
+  export type AdditionalPrincipalUpdateManyWithoutFirmNestedInput = {
+    create?: XOR<AdditionalPrincipalCreateWithoutFirmInput, AdditionalPrincipalUncheckedCreateWithoutFirmInput> | AdditionalPrincipalCreateWithoutFirmInput[] | AdditionalPrincipalUncheckedCreateWithoutFirmInput[]
+    connectOrCreate?: AdditionalPrincipalCreateOrConnectWithoutFirmInput | AdditionalPrincipalCreateOrConnectWithoutFirmInput[]
+    upsert?: AdditionalPrincipalUpsertWithWhereUniqueWithoutFirmInput | AdditionalPrincipalUpsertWithWhereUniqueWithoutFirmInput[]
+    createMany?: AdditionalPrincipalCreateManyFirmInputEnvelope
+    set?: AdditionalPrincipalWhereUniqueInput | AdditionalPrincipalWhereUniqueInput[]
+    disconnect?: AdditionalPrincipalWhereUniqueInput | AdditionalPrincipalWhereUniqueInput[]
+    delete?: AdditionalPrincipalWhereUniqueInput | AdditionalPrincipalWhereUniqueInput[]
+    connect?: AdditionalPrincipalWhereUniqueInput | AdditionalPrincipalWhereUniqueInput[]
+    update?: AdditionalPrincipalUpdateWithWhereUniqueWithoutFirmInput | AdditionalPrincipalUpdateWithWhereUniqueWithoutFirmInput[]
+    updateMany?: AdditionalPrincipalUpdateManyWithWhereWithoutFirmInput | AdditionalPrincipalUpdateManyWithWhereWithoutFirmInput[]
+    deleteMany?: AdditionalPrincipalScalarWhereInput | AdditionalPrincipalScalarWhereInput[]
+  }
+
   export type UserUncheckedUpdateManyWithoutFirmNestedInput = {
     create?: XOR<UserCreateWithoutFirmInput, UserUncheckedCreateWithoutFirmInput> | UserCreateWithoutFirmInput[] | UserUncheckedCreateWithoutFirmInput[]
     connectOrCreate?: UserCreateOrConnectWithoutFirmInput | UserCreateOrConnectWithoutFirmInput[]
@@ -28871,6 +31473,20 @@ export namespace Prisma {
     update?: StockUpdateWithWhereUniqueWithoutFirmInput | StockUpdateWithWhereUniqueWithoutFirmInput[]
     updateMany?: StockUpdateManyWithWhereWithoutFirmInput | StockUpdateManyWithWhereWithoutFirmInput[]
     deleteMany?: StockScalarWhereInput | StockScalarWhereInput[]
+  }
+
+  export type AdditionalPrincipalUncheckedUpdateManyWithoutFirmNestedInput = {
+    create?: XOR<AdditionalPrincipalCreateWithoutFirmInput, AdditionalPrincipalUncheckedCreateWithoutFirmInput> | AdditionalPrincipalCreateWithoutFirmInput[] | AdditionalPrincipalUncheckedCreateWithoutFirmInput[]
+    connectOrCreate?: AdditionalPrincipalCreateOrConnectWithoutFirmInput | AdditionalPrincipalCreateOrConnectWithoutFirmInput[]
+    upsert?: AdditionalPrincipalUpsertWithWhereUniqueWithoutFirmInput | AdditionalPrincipalUpsertWithWhereUniqueWithoutFirmInput[]
+    createMany?: AdditionalPrincipalCreateManyFirmInputEnvelope
+    set?: AdditionalPrincipalWhereUniqueInput | AdditionalPrincipalWhereUniqueInput[]
+    disconnect?: AdditionalPrincipalWhereUniqueInput | AdditionalPrincipalWhereUniqueInput[]
+    delete?: AdditionalPrincipalWhereUniqueInput | AdditionalPrincipalWhereUniqueInput[]
+    connect?: AdditionalPrincipalWhereUniqueInput | AdditionalPrincipalWhereUniqueInput[]
+    update?: AdditionalPrincipalUpdateWithWhereUniqueWithoutFirmInput | AdditionalPrincipalUpdateWithWhereUniqueWithoutFirmInput[]
+    updateMany?: AdditionalPrincipalUpdateManyWithWhereWithoutFirmInput | AdditionalPrincipalUpdateManyWithWhereWithoutFirmInput[]
+    deleteMany?: AdditionalPrincipalScalarWhereInput | AdditionalPrincipalScalarWhereInput[]
   }
 
   export type OwnerCreateNestedOneWithoutAccountsInput = {
@@ -29046,6 +31662,34 @@ export namespace Prisma {
     connect?: GirviWhereUniqueInput | GirviWhereUniqueInput[]
   }
 
+  export type AdditionalPrincipalCreateNestedManyWithoutCashAccountInput = {
+    create?: XOR<AdditionalPrincipalCreateWithoutCashAccountInput, AdditionalPrincipalUncheckedCreateWithoutCashAccountInput> | AdditionalPrincipalCreateWithoutCashAccountInput[] | AdditionalPrincipalUncheckedCreateWithoutCashAccountInput[]
+    connectOrCreate?: AdditionalPrincipalCreateOrConnectWithoutCashAccountInput | AdditionalPrincipalCreateOrConnectWithoutCashAccountInput[]
+    createMany?: AdditionalPrincipalCreateManyCashAccountInputEnvelope
+    connect?: AdditionalPrincipalWhereUniqueInput | AdditionalPrincipalWhereUniqueInput[]
+  }
+
+  export type AdditionalPrincipalCreateNestedManyWithoutBankAccountInput = {
+    create?: XOR<AdditionalPrincipalCreateWithoutBankAccountInput, AdditionalPrincipalUncheckedCreateWithoutBankAccountInput> | AdditionalPrincipalCreateWithoutBankAccountInput[] | AdditionalPrincipalUncheckedCreateWithoutBankAccountInput[]
+    connectOrCreate?: AdditionalPrincipalCreateOrConnectWithoutBankAccountInput | AdditionalPrincipalCreateOrConnectWithoutBankAccountInput[]
+    createMany?: AdditionalPrincipalCreateManyBankAccountInputEnvelope
+    connect?: AdditionalPrincipalWhereUniqueInput | AdditionalPrincipalWhereUniqueInput[]
+  }
+
+  export type AdditionalPrincipalCreateNestedManyWithoutOnlineAccountInput = {
+    create?: XOR<AdditionalPrincipalCreateWithoutOnlineAccountInput, AdditionalPrincipalUncheckedCreateWithoutOnlineAccountInput> | AdditionalPrincipalCreateWithoutOnlineAccountInput[] | AdditionalPrincipalUncheckedCreateWithoutOnlineAccountInput[]
+    connectOrCreate?: AdditionalPrincipalCreateOrConnectWithoutOnlineAccountInput | AdditionalPrincipalCreateOrConnectWithoutOnlineAccountInput[]
+    createMany?: AdditionalPrincipalCreateManyOnlineAccountInputEnvelope
+    connect?: AdditionalPrincipalWhereUniqueInput | AdditionalPrincipalWhereUniqueInput[]
+  }
+
+  export type AdditionalPrincipalCreateNestedManyWithoutCardAccountInput = {
+    create?: XOR<AdditionalPrincipalCreateWithoutCardAccountInput, AdditionalPrincipalUncheckedCreateWithoutCardAccountInput> | AdditionalPrincipalCreateWithoutCardAccountInput[] | AdditionalPrincipalUncheckedCreateWithoutCardAccountInput[]
+    connectOrCreate?: AdditionalPrincipalCreateOrConnectWithoutCardAccountInput | AdditionalPrincipalCreateOrConnectWithoutCardAccountInput[]
+    createMany?: AdditionalPrincipalCreateManyCardAccountInputEnvelope
+    connect?: AdditionalPrincipalWhereUniqueInput | AdditionalPrincipalWhereUniqueInput[]
+  }
+
   export type FinanceUncheckedCreateNestedManyWithoutCashAccountInput = {
     create?: XOR<FinanceCreateWithoutCashAccountInput, FinanceUncheckedCreateWithoutCashAccountInput> | FinanceCreateWithoutCashAccountInput[] | FinanceUncheckedCreateWithoutCashAccountInput[]
     connectOrCreate?: FinanceCreateOrConnectWithoutCashAccountInput | FinanceCreateOrConnectWithoutCashAccountInput[]
@@ -29205,6 +31849,34 @@ export namespace Prisma {
     connectOrCreate?: GirviCreateOrConnectWithoutDrAccountInput | GirviCreateOrConnectWithoutDrAccountInput[]
     createMany?: GirviCreateManyDrAccountInputEnvelope
     connect?: GirviWhereUniqueInput | GirviWhereUniqueInput[]
+  }
+
+  export type AdditionalPrincipalUncheckedCreateNestedManyWithoutCashAccountInput = {
+    create?: XOR<AdditionalPrincipalCreateWithoutCashAccountInput, AdditionalPrincipalUncheckedCreateWithoutCashAccountInput> | AdditionalPrincipalCreateWithoutCashAccountInput[] | AdditionalPrincipalUncheckedCreateWithoutCashAccountInput[]
+    connectOrCreate?: AdditionalPrincipalCreateOrConnectWithoutCashAccountInput | AdditionalPrincipalCreateOrConnectWithoutCashAccountInput[]
+    createMany?: AdditionalPrincipalCreateManyCashAccountInputEnvelope
+    connect?: AdditionalPrincipalWhereUniqueInput | AdditionalPrincipalWhereUniqueInput[]
+  }
+
+  export type AdditionalPrincipalUncheckedCreateNestedManyWithoutBankAccountInput = {
+    create?: XOR<AdditionalPrincipalCreateWithoutBankAccountInput, AdditionalPrincipalUncheckedCreateWithoutBankAccountInput> | AdditionalPrincipalCreateWithoutBankAccountInput[] | AdditionalPrincipalUncheckedCreateWithoutBankAccountInput[]
+    connectOrCreate?: AdditionalPrincipalCreateOrConnectWithoutBankAccountInput | AdditionalPrincipalCreateOrConnectWithoutBankAccountInput[]
+    createMany?: AdditionalPrincipalCreateManyBankAccountInputEnvelope
+    connect?: AdditionalPrincipalWhereUniqueInput | AdditionalPrincipalWhereUniqueInput[]
+  }
+
+  export type AdditionalPrincipalUncheckedCreateNestedManyWithoutOnlineAccountInput = {
+    create?: XOR<AdditionalPrincipalCreateWithoutOnlineAccountInput, AdditionalPrincipalUncheckedCreateWithoutOnlineAccountInput> | AdditionalPrincipalCreateWithoutOnlineAccountInput[] | AdditionalPrincipalUncheckedCreateWithoutOnlineAccountInput[]
+    connectOrCreate?: AdditionalPrincipalCreateOrConnectWithoutOnlineAccountInput | AdditionalPrincipalCreateOrConnectWithoutOnlineAccountInput[]
+    createMany?: AdditionalPrincipalCreateManyOnlineAccountInputEnvelope
+    connect?: AdditionalPrincipalWhereUniqueInput | AdditionalPrincipalWhereUniqueInput[]
+  }
+
+  export type AdditionalPrincipalUncheckedCreateNestedManyWithoutCardAccountInput = {
+    create?: XOR<AdditionalPrincipalCreateWithoutCardAccountInput, AdditionalPrincipalUncheckedCreateWithoutCardAccountInput> | AdditionalPrincipalCreateWithoutCardAccountInput[] | AdditionalPrincipalUncheckedCreateWithoutCardAccountInput[]
+    connectOrCreate?: AdditionalPrincipalCreateOrConnectWithoutCardAccountInput | AdditionalPrincipalCreateOrConnectWithoutCardAccountInput[]
+    createMany?: AdditionalPrincipalCreateManyCardAccountInputEnvelope
+    connect?: AdditionalPrincipalWhereUniqueInput | AdditionalPrincipalWhereUniqueInput[]
   }
 
   export type EnumAccountBalanceTypeFieldUpdateOperationsInput = {
@@ -29549,6 +32221,62 @@ export namespace Prisma {
     deleteMany?: GirviScalarWhereInput | GirviScalarWhereInput[]
   }
 
+  export type AdditionalPrincipalUpdateManyWithoutCashAccountNestedInput = {
+    create?: XOR<AdditionalPrincipalCreateWithoutCashAccountInput, AdditionalPrincipalUncheckedCreateWithoutCashAccountInput> | AdditionalPrincipalCreateWithoutCashAccountInput[] | AdditionalPrincipalUncheckedCreateWithoutCashAccountInput[]
+    connectOrCreate?: AdditionalPrincipalCreateOrConnectWithoutCashAccountInput | AdditionalPrincipalCreateOrConnectWithoutCashAccountInput[]
+    upsert?: AdditionalPrincipalUpsertWithWhereUniqueWithoutCashAccountInput | AdditionalPrincipalUpsertWithWhereUniqueWithoutCashAccountInput[]
+    createMany?: AdditionalPrincipalCreateManyCashAccountInputEnvelope
+    set?: AdditionalPrincipalWhereUniqueInput | AdditionalPrincipalWhereUniqueInput[]
+    disconnect?: AdditionalPrincipalWhereUniqueInput | AdditionalPrincipalWhereUniqueInput[]
+    delete?: AdditionalPrincipalWhereUniqueInput | AdditionalPrincipalWhereUniqueInput[]
+    connect?: AdditionalPrincipalWhereUniqueInput | AdditionalPrincipalWhereUniqueInput[]
+    update?: AdditionalPrincipalUpdateWithWhereUniqueWithoutCashAccountInput | AdditionalPrincipalUpdateWithWhereUniqueWithoutCashAccountInput[]
+    updateMany?: AdditionalPrincipalUpdateManyWithWhereWithoutCashAccountInput | AdditionalPrincipalUpdateManyWithWhereWithoutCashAccountInput[]
+    deleteMany?: AdditionalPrincipalScalarWhereInput | AdditionalPrincipalScalarWhereInput[]
+  }
+
+  export type AdditionalPrincipalUpdateManyWithoutBankAccountNestedInput = {
+    create?: XOR<AdditionalPrincipalCreateWithoutBankAccountInput, AdditionalPrincipalUncheckedCreateWithoutBankAccountInput> | AdditionalPrincipalCreateWithoutBankAccountInput[] | AdditionalPrincipalUncheckedCreateWithoutBankAccountInput[]
+    connectOrCreate?: AdditionalPrincipalCreateOrConnectWithoutBankAccountInput | AdditionalPrincipalCreateOrConnectWithoutBankAccountInput[]
+    upsert?: AdditionalPrincipalUpsertWithWhereUniqueWithoutBankAccountInput | AdditionalPrincipalUpsertWithWhereUniqueWithoutBankAccountInput[]
+    createMany?: AdditionalPrincipalCreateManyBankAccountInputEnvelope
+    set?: AdditionalPrincipalWhereUniqueInput | AdditionalPrincipalWhereUniqueInput[]
+    disconnect?: AdditionalPrincipalWhereUniqueInput | AdditionalPrincipalWhereUniqueInput[]
+    delete?: AdditionalPrincipalWhereUniqueInput | AdditionalPrincipalWhereUniqueInput[]
+    connect?: AdditionalPrincipalWhereUniqueInput | AdditionalPrincipalWhereUniqueInput[]
+    update?: AdditionalPrincipalUpdateWithWhereUniqueWithoutBankAccountInput | AdditionalPrincipalUpdateWithWhereUniqueWithoutBankAccountInput[]
+    updateMany?: AdditionalPrincipalUpdateManyWithWhereWithoutBankAccountInput | AdditionalPrincipalUpdateManyWithWhereWithoutBankAccountInput[]
+    deleteMany?: AdditionalPrincipalScalarWhereInput | AdditionalPrincipalScalarWhereInput[]
+  }
+
+  export type AdditionalPrincipalUpdateManyWithoutOnlineAccountNestedInput = {
+    create?: XOR<AdditionalPrincipalCreateWithoutOnlineAccountInput, AdditionalPrincipalUncheckedCreateWithoutOnlineAccountInput> | AdditionalPrincipalCreateWithoutOnlineAccountInput[] | AdditionalPrincipalUncheckedCreateWithoutOnlineAccountInput[]
+    connectOrCreate?: AdditionalPrincipalCreateOrConnectWithoutOnlineAccountInput | AdditionalPrincipalCreateOrConnectWithoutOnlineAccountInput[]
+    upsert?: AdditionalPrincipalUpsertWithWhereUniqueWithoutOnlineAccountInput | AdditionalPrincipalUpsertWithWhereUniqueWithoutOnlineAccountInput[]
+    createMany?: AdditionalPrincipalCreateManyOnlineAccountInputEnvelope
+    set?: AdditionalPrincipalWhereUniqueInput | AdditionalPrincipalWhereUniqueInput[]
+    disconnect?: AdditionalPrincipalWhereUniqueInput | AdditionalPrincipalWhereUniqueInput[]
+    delete?: AdditionalPrincipalWhereUniqueInput | AdditionalPrincipalWhereUniqueInput[]
+    connect?: AdditionalPrincipalWhereUniqueInput | AdditionalPrincipalWhereUniqueInput[]
+    update?: AdditionalPrincipalUpdateWithWhereUniqueWithoutOnlineAccountInput | AdditionalPrincipalUpdateWithWhereUniqueWithoutOnlineAccountInput[]
+    updateMany?: AdditionalPrincipalUpdateManyWithWhereWithoutOnlineAccountInput | AdditionalPrincipalUpdateManyWithWhereWithoutOnlineAccountInput[]
+    deleteMany?: AdditionalPrincipalScalarWhereInput | AdditionalPrincipalScalarWhereInput[]
+  }
+
+  export type AdditionalPrincipalUpdateManyWithoutCardAccountNestedInput = {
+    create?: XOR<AdditionalPrincipalCreateWithoutCardAccountInput, AdditionalPrincipalUncheckedCreateWithoutCardAccountInput> | AdditionalPrincipalCreateWithoutCardAccountInput[] | AdditionalPrincipalUncheckedCreateWithoutCardAccountInput[]
+    connectOrCreate?: AdditionalPrincipalCreateOrConnectWithoutCardAccountInput | AdditionalPrincipalCreateOrConnectWithoutCardAccountInput[]
+    upsert?: AdditionalPrincipalUpsertWithWhereUniqueWithoutCardAccountInput | AdditionalPrincipalUpsertWithWhereUniqueWithoutCardAccountInput[]
+    createMany?: AdditionalPrincipalCreateManyCardAccountInputEnvelope
+    set?: AdditionalPrincipalWhereUniqueInput | AdditionalPrincipalWhereUniqueInput[]
+    disconnect?: AdditionalPrincipalWhereUniqueInput | AdditionalPrincipalWhereUniqueInput[]
+    delete?: AdditionalPrincipalWhereUniqueInput | AdditionalPrincipalWhereUniqueInput[]
+    connect?: AdditionalPrincipalWhereUniqueInput | AdditionalPrincipalWhereUniqueInput[]
+    update?: AdditionalPrincipalUpdateWithWhereUniqueWithoutCardAccountInput | AdditionalPrincipalUpdateWithWhereUniqueWithoutCardAccountInput[]
+    updateMany?: AdditionalPrincipalUpdateManyWithWhereWithoutCardAccountInput | AdditionalPrincipalUpdateManyWithWhereWithoutCardAccountInput[]
+    deleteMany?: AdditionalPrincipalScalarWhereInput | AdditionalPrincipalScalarWhereInput[]
+  }
+
   export type FinanceUncheckedUpdateManyWithoutCashAccountNestedInput = {
     create?: XOR<FinanceCreateWithoutCashAccountInput, FinanceUncheckedCreateWithoutCashAccountInput> | FinanceCreateWithoutCashAccountInput[] | FinanceUncheckedCreateWithoutCashAccountInput[]
     connectOrCreate?: FinanceCreateOrConnectWithoutCashAccountInput | FinanceCreateOrConnectWithoutCashAccountInput[]
@@ -29871,6 +32599,62 @@ export namespace Prisma {
     deleteMany?: GirviScalarWhereInput | GirviScalarWhereInput[]
   }
 
+  export type AdditionalPrincipalUncheckedUpdateManyWithoutCashAccountNestedInput = {
+    create?: XOR<AdditionalPrincipalCreateWithoutCashAccountInput, AdditionalPrincipalUncheckedCreateWithoutCashAccountInput> | AdditionalPrincipalCreateWithoutCashAccountInput[] | AdditionalPrincipalUncheckedCreateWithoutCashAccountInput[]
+    connectOrCreate?: AdditionalPrincipalCreateOrConnectWithoutCashAccountInput | AdditionalPrincipalCreateOrConnectWithoutCashAccountInput[]
+    upsert?: AdditionalPrincipalUpsertWithWhereUniqueWithoutCashAccountInput | AdditionalPrincipalUpsertWithWhereUniqueWithoutCashAccountInput[]
+    createMany?: AdditionalPrincipalCreateManyCashAccountInputEnvelope
+    set?: AdditionalPrincipalWhereUniqueInput | AdditionalPrincipalWhereUniqueInput[]
+    disconnect?: AdditionalPrincipalWhereUniqueInput | AdditionalPrincipalWhereUniqueInput[]
+    delete?: AdditionalPrincipalWhereUniqueInput | AdditionalPrincipalWhereUniqueInput[]
+    connect?: AdditionalPrincipalWhereUniqueInput | AdditionalPrincipalWhereUniqueInput[]
+    update?: AdditionalPrincipalUpdateWithWhereUniqueWithoutCashAccountInput | AdditionalPrincipalUpdateWithWhereUniqueWithoutCashAccountInput[]
+    updateMany?: AdditionalPrincipalUpdateManyWithWhereWithoutCashAccountInput | AdditionalPrincipalUpdateManyWithWhereWithoutCashAccountInput[]
+    deleteMany?: AdditionalPrincipalScalarWhereInput | AdditionalPrincipalScalarWhereInput[]
+  }
+
+  export type AdditionalPrincipalUncheckedUpdateManyWithoutBankAccountNestedInput = {
+    create?: XOR<AdditionalPrincipalCreateWithoutBankAccountInput, AdditionalPrincipalUncheckedCreateWithoutBankAccountInput> | AdditionalPrincipalCreateWithoutBankAccountInput[] | AdditionalPrincipalUncheckedCreateWithoutBankAccountInput[]
+    connectOrCreate?: AdditionalPrincipalCreateOrConnectWithoutBankAccountInput | AdditionalPrincipalCreateOrConnectWithoutBankAccountInput[]
+    upsert?: AdditionalPrincipalUpsertWithWhereUniqueWithoutBankAccountInput | AdditionalPrincipalUpsertWithWhereUniqueWithoutBankAccountInput[]
+    createMany?: AdditionalPrincipalCreateManyBankAccountInputEnvelope
+    set?: AdditionalPrincipalWhereUniqueInput | AdditionalPrincipalWhereUniqueInput[]
+    disconnect?: AdditionalPrincipalWhereUniqueInput | AdditionalPrincipalWhereUniqueInput[]
+    delete?: AdditionalPrincipalWhereUniqueInput | AdditionalPrincipalWhereUniqueInput[]
+    connect?: AdditionalPrincipalWhereUniqueInput | AdditionalPrincipalWhereUniqueInput[]
+    update?: AdditionalPrincipalUpdateWithWhereUniqueWithoutBankAccountInput | AdditionalPrincipalUpdateWithWhereUniqueWithoutBankAccountInput[]
+    updateMany?: AdditionalPrincipalUpdateManyWithWhereWithoutBankAccountInput | AdditionalPrincipalUpdateManyWithWhereWithoutBankAccountInput[]
+    deleteMany?: AdditionalPrincipalScalarWhereInput | AdditionalPrincipalScalarWhereInput[]
+  }
+
+  export type AdditionalPrincipalUncheckedUpdateManyWithoutOnlineAccountNestedInput = {
+    create?: XOR<AdditionalPrincipalCreateWithoutOnlineAccountInput, AdditionalPrincipalUncheckedCreateWithoutOnlineAccountInput> | AdditionalPrincipalCreateWithoutOnlineAccountInput[] | AdditionalPrincipalUncheckedCreateWithoutOnlineAccountInput[]
+    connectOrCreate?: AdditionalPrincipalCreateOrConnectWithoutOnlineAccountInput | AdditionalPrincipalCreateOrConnectWithoutOnlineAccountInput[]
+    upsert?: AdditionalPrincipalUpsertWithWhereUniqueWithoutOnlineAccountInput | AdditionalPrincipalUpsertWithWhereUniqueWithoutOnlineAccountInput[]
+    createMany?: AdditionalPrincipalCreateManyOnlineAccountInputEnvelope
+    set?: AdditionalPrincipalWhereUniqueInput | AdditionalPrincipalWhereUniqueInput[]
+    disconnect?: AdditionalPrincipalWhereUniqueInput | AdditionalPrincipalWhereUniqueInput[]
+    delete?: AdditionalPrincipalWhereUniqueInput | AdditionalPrincipalWhereUniqueInput[]
+    connect?: AdditionalPrincipalWhereUniqueInput | AdditionalPrincipalWhereUniqueInput[]
+    update?: AdditionalPrincipalUpdateWithWhereUniqueWithoutOnlineAccountInput | AdditionalPrincipalUpdateWithWhereUniqueWithoutOnlineAccountInput[]
+    updateMany?: AdditionalPrincipalUpdateManyWithWhereWithoutOnlineAccountInput | AdditionalPrincipalUpdateManyWithWhereWithoutOnlineAccountInput[]
+    deleteMany?: AdditionalPrincipalScalarWhereInput | AdditionalPrincipalScalarWhereInput[]
+  }
+
+  export type AdditionalPrincipalUncheckedUpdateManyWithoutCardAccountNestedInput = {
+    create?: XOR<AdditionalPrincipalCreateWithoutCardAccountInput, AdditionalPrincipalUncheckedCreateWithoutCardAccountInput> | AdditionalPrincipalCreateWithoutCardAccountInput[] | AdditionalPrincipalUncheckedCreateWithoutCardAccountInput[]
+    connectOrCreate?: AdditionalPrincipalCreateOrConnectWithoutCardAccountInput | AdditionalPrincipalCreateOrConnectWithoutCardAccountInput[]
+    upsert?: AdditionalPrincipalUpsertWithWhereUniqueWithoutCardAccountInput | AdditionalPrincipalUpsertWithWhereUniqueWithoutCardAccountInput[]
+    createMany?: AdditionalPrincipalCreateManyCardAccountInputEnvelope
+    set?: AdditionalPrincipalWhereUniqueInput | AdditionalPrincipalWhereUniqueInput[]
+    disconnect?: AdditionalPrincipalWhereUniqueInput | AdditionalPrincipalWhereUniqueInput[]
+    delete?: AdditionalPrincipalWhereUniqueInput | AdditionalPrincipalWhereUniqueInput[]
+    connect?: AdditionalPrincipalWhereUniqueInput | AdditionalPrincipalWhereUniqueInput[]
+    update?: AdditionalPrincipalUpdateWithWhereUniqueWithoutCardAccountInput | AdditionalPrincipalUpdateWithWhereUniqueWithoutCardAccountInput[]
+    updateMany?: AdditionalPrincipalUpdateManyWithWhereWithoutCardAccountInput | AdditionalPrincipalUpdateManyWithWhereWithoutCardAccountInput[]
+    deleteMany?: AdditionalPrincipalScalarWhereInput | AdditionalPrincipalScalarWhereInput[]
+  }
+
   export type OwnerCreateNestedOneWithoutUsersInput = {
     create?: XOR<OwnerCreateWithoutUsersInput, OwnerUncheckedCreateWithoutUsersInput>
     connectOrCreate?: OwnerCreateOrConnectWithoutUsersInput
@@ -29932,6 +32716,13 @@ export namespace Prisma {
     connect?: StockWhereUniqueInput | StockWhereUniqueInput[]
   }
 
+  export type AdditionalPrincipalCreateNestedManyWithoutUserInput = {
+    create?: XOR<AdditionalPrincipalCreateWithoutUserInput, AdditionalPrincipalUncheckedCreateWithoutUserInput> | AdditionalPrincipalCreateWithoutUserInput[] | AdditionalPrincipalUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AdditionalPrincipalCreateOrConnectWithoutUserInput | AdditionalPrincipalCreateOrConnectWithoutUserInput[]
+    createMany?: AdditionalPrincipalCreateManyUserInputEnvelope
+    connect?: AdditionalPrincipalWhereUniqueInput | AdditionalPrincipalWhereUniqueInput[]
+  }
+
   export type FinanceUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<FinanceCreateWithoutUserInput, FinanceUncheckedCreateWithoutUserInput> | FinanceCreateWithoutUserInput[] | FinanceUncheckedCreateWithoutUserInput[]
     connectOrCreate?: FinanceCreateOrConnectWithoutUserInput | FinanceCreateOrConnectWithoutUserInput[]
@@ -29979,6 +32770,13 @@ export namespace Prisma {
     connectOrCreate?: StockCreateOrConnectWithoutUserInput | StockCreateOrConnectWithoutUserInput[]
     createMany?: StockCreateManyUserInputEnvelope
     connect?: StockWhereUniqueInput | StockWhereUniqueInput[]
+  }
+
+  export type AdditionalPrincipalUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<AdditionalPrincipalCreateWithoutUserInput, AdditionalPrincipalUncheckedCreateWithoutUserInput> | AdditionalPrincipalCreateWithoutUserInput[] | AdditionalPrincipalUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AdditionalPrincipalCreateOrConnectWithoutUserInput | AdditionalPrincipalCreateOrConnectWithoutUserInput[]
+    createMany?: AdditionalPrincipalCreateManyUserInputEnvelope
+    connect?: AdditionalPrincipalWhereUniqueInput | AdditionalPrincipalWhereUniqueInput[]
   }
 
   export type NullableEnumUserGenderFieldUpdateOperationsInput = {
@@ -30103,6 +32901,20 @@ export namespace Prisma {
     deleteMany?: StockScalarWhereInput | StockScalarWhereInput[]
   }
 
+  export type AdditionalPrincipalUpdateManyWithoutUserNestedInput = {
+    create?: XOR<AdditionalPrincipalCreateWithoutUserInput, AdditionalPrincipalUncheckedCreateWithoutUserInput> | AdditionalPrincipalCreateWithoutUserInput[] | AdditionalPrincipalUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AdditionalPrincipalCreateOrConnectWithoutUserInput | AdditionalPrincipalCreateOrConnectWithoutUserInput[]
+    upsert?: AdditionalPrincipalUpsertWithWhereUniqueWithoutUserInput | AdditionalPrincipalUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: AdditionalPrincipalCreateManyUserInputEnvelope
+    set?: AdditionalPrincipalWhereUniqueInput | AdditionalPrincipalWhereUniqueInput[]
+    disconnect?: AdditionalPrincipalWhereUniqueInput | AdditionalPrincipalWhereUniqueInput[]
+    delete?: AdditionalPrincipalWhereUniqueInput | AdditionalPrincipalWhereUniqueInput[]
+    connect?: AdditionalPrincipalWhereUniqueInput | AdditionalPrincipalWhereUniqueInput[]
+    update?: AdditionalPrincipalUpdateWithWhereUniqueWithoutUserInput | AdditionalPrincipalUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: AdditionalPrincipalUpdateManyWithWhereWithoutUserInput | AdditionalPrincipalUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: AdditionalPrincipalScalarWhereInput | AdditionalPrincipalScalarWhereInput[]
+  }
+
   export type FinanceUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<FinanceCreateWithoutUserInput, FinanceUncheckedCreateWithoutUserInput> | FinanceCreateWithoutUserInput[] | FinanceUncheckedCreateWithoutUserInput[]
     connectOrCreate?: FinanceCreateOrConnectWithoutUserInput | FinanceCreateOrConnectWithoutUserInput[]
@@ -30199,6 +33011,20 @@ export namespace Prisma {
     update?: StockUpdateWithWhereUniqueWithoutUserInput | StockUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: StockUpdateManyWithWhereWithoutUserInput | StockUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: StockScalarWhereInput | StockScalarWhereInput[]
+  }
+
+  export type AdditionalPrincipalUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<AdditionalPrincipalCreateWithoutUserInput, AdditionalPrincipalUncheckedCreateWithoutUserInput> | AdditionalPrincipalCreateWithoutUserInput[] | AdditionalPrincipalUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AdditionalPrincipalCreateOrConnectWithoutUserInput | AdditionalPrincipalCreateOrConnectWithoutUserInput[]
+    upsert?: AdditionalPrincipalUpsertWithWhereUniqueWithoutUserInput | AdditionalPrincipalUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: AdditionalPrincipalCreateManyUserInputEnvelope
+    set?: AdditionalPrincipalWhereUniqueInput | AdditionalPrincipalWhereUniqueInput[]
+    disconnect?: AdditionalPrincipalWhereUniqueInput | AdditionalPrincipalWhereUniqueInput[]
+    delete?: AdditionalPrincipalWhereUniqueInput | AdditionalPrincipalWhereUniqueInput[]
+    connect?: AdditionalPrincipalWhereUniqueInput | AdditionalPrincipalWhereUniqueInput[]
+    update?: AdditionalPrincipalUpdateWithWhereUniqueWithoutUserInput | AdditionalPrincipalUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: AdditionalPrincipalUpdateManyWithWhereWithoutUserInput | AdditionalPrincipalUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: AdditionalPrincipalScalarWhereInput | AdditionalPrincipalScalarWhereInput[]
   }
 
   export type FirmCreateNestedOneWithoutFinancesInput = {
@@ -31001,6 +33827,20 @@ export namespace Prisma {
     connect?: AccountWhereUniqueInput
   }
 
+  export type AdditionalPrincipalCreateNestedManyWithoutGirviInput = {
+    create?: XOR<AdditionalPrincipalCreateWithoutGirviInput, AdditionalPrincipalUncheckedCreateWithoutGirviInput> | AdditionalPrincipalCreateWithoutGirviInput[] | AdditionalPrincipalUncheckedCreateWithoutGirviInput[]
+    connectOrCreate?: AdditionalPrincipalCreateOrConnectWithoutGirviInput | AdditionalPrincipalCreateOrConnectWithoutGirviInput[]
+    createMany?: AdditionalPrincipalCreateManyGirviInputEnvelope
+    connect?: AdditionalPrincipalWhereUniqueInput | AdditionalPrincipalWhereUniqueInput[]
+  }
+
+  export type AdditionalPrincipalUncheckedCreateNestedManyWithoutGirviInput = {
+    create?: XOR<AdditionalPrincipalCreateWithoutGirviInput, AdditionalPrincipalUncheckedCreateWithoutGirviInput> | AdditionalPrincipalCreateWithoutGirviInput[] | AdditionalPrincipalUncheckedCreateWithoutGirviInput[]
+    connectOrCreate?: AdditionalPrincipalCreateOrConnectWithoutGirviInput | AdditionalPrincipalCreateOrConnectWithoutGirviInput[]
+    createMany?: AdditionalPrincipalCreateManyGirviInputEnvelope
+    connect?: AdditionalPrincipalWhereUniqueInput | AdditionalPrincipalWhereUniqueInput[]
+  }
+
   export type EnumGirviRoiTypeFieldUpdateOperationsInput = {
     set?: $Enums.GirviRoiType
   }
@@ -31107,6 +33947,34 @@ export namespace Prisma {
     update?: XOR<XOR<AccountUpdateToOneWithWhereWithoutGirviDrInput, AccountUpdateWithoutGirviDrInput>, AccountUncheckedUpdateWithoutGirviDrInput>
   }
 
+  export type AdditionalPrincipalUpdateManyWithoutGirviNestedInput = {
+    create?: XOR<AdditionalPrincipalCreateWithoutGirviInput, AdditionalPrincipalUncheckedCreateWithoutGirviInput> | AdditionalPrincipalCreateWithoutGirviInput[] | AdditionalPrincipalUncheckedCreateWithoutGirviInput[]
+    connectOrCreate?: AdditionalPrincipalCreateOrConnectWithoutGirviInput | AdditionalPrincipalCreateOrConnectWithoutGirviInput[]
+    upsert?: AdditionalPrincipalUpsertWithWhereUniqueWithoutGirviInput | AdditionalPrincipalUpsertWithWhereUniqueWithoutGirviInput[]
+    createMany?: AdditionalPrincipalCreateManyGirviInputEnvelope
+    set?: AdditionalPrincipalWhereUniqueInput | AdditionalPrincipalWhereUniqueInput[]
+    disconnect?: AdditionalPrincipalWhereUniqueInput | AdditionalPrincipalWhereUniqueInput[]
+    delete?: AdditionalPrincipalWhereUniqueInput | AdditionalPrincipalWhereUniqueInput[]
+    connect?: AdditionalPrincipalWhereUniqueInput | AdditionalPrincipalWhereUniqueInput[]
+    update?: AdditionalPrincipalUpdateWithWhereUniqueWithoutGirviInput | AdditionalPrincipalUpdateWithWhereUniqueWithoutGirviInput[]
+    updateMany?: AdditionalPrincipalUpdateManyWithWhereWithoutGirviInput | AdditionalPrincipalUpdateManyWithWhereWithoutGirviInput[]
+    deleteMany?: AdditionalPrincipalScalarWhereInput | AdditionalPrincipalScalarWhereInput[]
+  }
+
+  export type AdditionalPrincipalUncheckedUpdateManyWithoutGirviNestedInput = {
+    create?: XOR<AdditionalPrincipalCreateWithoutGirviInput, AdditionalPrincipalUncheckedCreateWithoutGirviInput> | AdditionalPrincipalCreateWithoutGirviInput[] | AdditionalPrincipalUncheckedCreateWithoutGirviInput[]
+    connectOrCreate?: AdditionalPrincipalCreateOrConnectWithoutGirviInput | AdditionalPrincipalCreateOrConnectWithoutGirviInput[]
+    upsert?: AdditionalPrincipalUpsertWithWhereUniqueWithoutGirviInput | AdditionalPrincipalUpsertWithWhereUniqueWithoutGirviInput[]
+    createMany?: AdditionalPrincipalCreateManyGirviInputEnvelope
+    set?: AdditionalPrincipalWhereUniqueInput | AdditionalPrincipalWhereUniqueInput[]
+    disconnect?: AdditionalPrincipalWhereUniqueInput | AdditionalPrincipalWhereUniqueInput[]
+    delete?: AdditionalPrincipalWhereUniqueInput | AdditionalPrincipalWhereUniqueInput[]
+    connect?: AdditionalPrincipalWhereUniqueInput | AdditionalPrincipalWhereUniqueInput[]
+    update?: AdditionalPrincipalUpdateWithWhereUniqueWithoutGirviInput | AdditionalPrincipalUpdateWithWhereUniqueWithoutGirviInput[]
+    updateMany?: AdditionalPrincipalUpdateManyWithWhereWithoutGirviInput | AdditionalPrincipalUpdateManyWithWhereWithoutGirviInput[]
+    deleteMany?: AdditionalPrincipalScalarWhereInput | AdditionalPrincipalScalarWhereInput[]
+  }
+
   export type OwnerCreateNestedOneWithoutStocksInput = {
     create?: XOR<OwnerCreateWithoutStocksInput, OwnerUncheckedCreateWithoutStocksInput>
     connectOrCreate?: OwnerCreateOrConnectWithoutStocksInput
@@ -31159,6 +34027,126 @@ export namespace Prisma {
     upsert?: UserUpsertWithoutStocksInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutStocksInput, UserUpdateWithoutStocksInput>, UserUncheckedUpdateWithoutStocksInput>
+  }
+
+  export type OwnerCreateNestedOneWithoutAdditionalPrincipalsInput = {
+    create?: XOR<OwnerCreateWithoutAdditionalPrincipalsInput, OwnerUncheckedCreateWithoutAdditionalPrincipalsInput>
+    connectOrCreate?: OwnerCreateOrConnectWithoutAdditionalPrincipalsInput
+    connect?: OwnerWhereUniqueInput
+  }
+
+  export type FirmCreateNestedOneWithoutAdditionalPrincipalsInput = {
+    create?: XOR<FirmCreateWithoutAdditionalPrincipalsInput, FirmUncheckedCreateWithoutAdditionalPrincipalsInput>
+    connectOrCreate?: FirmCreateOrConnectWithoutAdditionalPrincipalsInput
+    connect?: FirmWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutAdditionalPrincipalsInput = {
+    create?: XOR<UserCreateWithoutAdditionalPrincipalsInput, UserUncheckedCreateWithoutAdditionalPrincipalsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAdditionalPrincipalsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type GirviCreateNestedOneWithoutAdditionalPrincipalsInput = {
+    create?: XOR<GirviCreateWithoutAdditionalPrincipalsInput, GirviUncheckedCreateWithoutAdditionalPrincipalsInput>
+    connectOrCreate?: GirviCreateOrConnectWithoutAdditionalPrincipalsInput
+    connect?: GirviWhereUniqueInput
+  }
+
+  export type AccountCreateNestedOneWithoutApCashInput = {
+    create?: XOR<AccountCreateWithoutApCashInput, AccountUncheckedCreateWithoutApCashInput>
+    connectOrCreate?: AccountCreateOrConnectWithoutApCashInput
+    connect?: AccountWhereUniqueInput
+  }
+
+  export type AccountCreateNestedOneWithoutApBankInput = {
+    create?: XOR<AccountCreateWithoutApBankInput, AccountUncheckedCreateWithoutApBankInput>
+    connectOrCreate?: AccountCreateOrConnectWithoutApBankInput
+    connect?: AccountWhereUniqueInput
+  }
+
+  export type AccountCreateNestedOneWithoutApOnlineInput = {
+    create?: XOR<AccountCreateWithoutApOnlineInput, AccountUncheckedCreateWithoutApOnlineInput>
+    connectOrCreate?: AccountCreateOrConnectWithoutApOnlineInput
+    connect?: AccountWhereUniqueInput
+  }
+
+  export type AccountCreateNestedOneWithoutApCardInput = {
+    create?: XOR<AccountCreateWithoutApCardInput, AccountUncheckedCreateWithoutApCardInput>
+    connectOrCreate?: AccountCreateOrConnectWithoutApCardInput
+    connect?: AccountWhereUniqueInput
+  }
+
+  export type OwnerUpdateOneRequiredWithoutAdditionalPrincipalsNestedInput = {
+    create?: XOR<OwnerCreateWithoutAdditionalPrincipalsInput, OwnerUncheckedCreateWithoutAdditionalPrincipalsInput>
+    connectOrCreate?: OwnerCreateOrConnectWithoutAdditionalPrincipalsInput
+    upsert?: OwnerUpsertWithoutAdditionalPrincipalsInput
+    connect?: OwnerWhereUniqueInput
+    update?: XOR<XOR<OwnerUpdateToOneWithWhereWithoutAdditionalPrincipalsInput, OwnerUpdateWithoutAdditionalPrincipalsInput>, OwnerUncheckedUpdateWithoutAdditionalPrincipalsInput>
+  }
+
+  export type FirmUpdateOneRequiredWithoutAdditionalPrincipalsNestedInput = {
+    create?: XOR<FirmCreateWithoutAdditionalPrincipalsInput, FirmUncheckedCreateWithoutAdditionalPrincipalsInput>
+    connectOrCreate?: FirmCreateOrConnectWithoutAdditionalPrincipalsInput
+    upsert?: FirmUpsertWithoutAdditionalPrincipalsInput
+    connect?: FirmWhereUniqueInput
+    update?: XOR<XOR<FirmUpdateToOneWithWhereWithoutAdditionalPrincipalsInput, FirmUpdateWithoutAdditionalPrincipalsInput>, FirmUncheckedUpdateWithoutAdditionalPrincipalsInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutAdditionalPrincipalsNestedInput = {
+    create?: XOR<UserCreateWithoutAdditionalPrincipalsInput, UserUncheckedCreateWithoutAdditionalPrincipalsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAdditionalPrincipalsInput
+    upsert?: UserUpsertWithoutAdditionalPrincipalsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutAdditionalPrincipalsInput, UserUpdateWithoutAdditionalPrincipalsInput>, UserUncheckedUpdateWithoutAdditionalPrincipalsInput>
+  }
+
+  export type GirviUpdateOneRequiredWithoutAdditionalPrincipalsNestedInput = {
+    create?: XOR<GirviCreateWithoutAdditionalPrincipalsInput, GirviUncheckedCreateWithoutAdditionalPrincipalsInput>
+    connectOrCreate?: GirviCreateOrConnectWithoutAdditionalPrincipalsInput
+    upsert?: GirviUpsertWithoutAdditionalPrincipalsInput
+    connect?: GirviWhereUniqueInput
+    update?: XOR<XOR<GirviUpdateToOneWithWhereWithoutAdditionalPrincipalsInput, GirviUpdateWithoutAdditionalPrincipalsInput>, GirviUncheckedUpdateWithoutAdditionalPrincipalsInput>
+  }
+
+  export type AccountUpdateOneWithoutApCashNestedInput = {
+    create?: XOR<AccountCreateWithoutApCashInput, AccountUncheckedCreateWithoutApCashInput>
+    connectOrCreate?: AccountCreateOrConnectWithoutApCashInput
+    upsert?: AccountUpsertWithoutApCashInput
+    disconnect?: AccountWhereInput | boolean
+    delete?: AccountWhereInput | boolean
+    connect?: AccountWhereUniqueInput
+    update?: XOR<XOR<AccountUpdateToOneWithWhereWithoutApCashInput, AccountUpdateWithoutApCashInput>, AccountUncheckedUpdateWithoutApCashInput>
+  }
+
+  export type AccountUpdateOneWithoutApBankNestedInput = {
+    create?: XOR<AccountCreateWithoutApBankInput, AccountUncheckedCreateWithoutApBankInput>
+    connectOrCreate?: AccountCreateOrConnectWithoutApBankInput
+    upsert?: AccountUpsertWithoutApBankInput
+    disconnect?: AccountWhereInput | boolean
+    delete?: AccountWhereInput | boolean
+    connect?: AccountWhereUniqueInput
+    update?: XOR<XOR<AccountUpdateToOneWithWhereWithoutApBankInput, AccountUpdateWithoutApBankInput>, AccountUncheckedUpdateWithoutApBankInput>
+  }
+
+  export type AccountUpdateOneWithoutApOnlineNestedInput = {
+    create?: XOR<AccountCreateWithoutApOnlineInput, AccountUncheckedCreateWithoutApOnlineInput>
+    connectOrCreate?: AccountCreateOrConnectWithoutApOnlineInput
+    upsert?: AccountUpsertWithoutApOnlineInput
+    disconnect?: AccountWhereInput | boolean
+    delete?: AccountWhereInput | boolean
+    connect?: AccountWhereUniqueInput
+    update?: XOR<XOR<AccountUpdateToOneWithWhereWithoutApOnlineInput, AccountUpdateWithoutApOnlineInput>, AccountUncheckedUpdateWithoutApOnlineInput>
+  }
+
+  export type AccountUpdateOneWithoutApCardNestedInput = {
+    create?: XOR<AccountCreateWithoutApCardInput, AccountUncheckedCreateWithoutApCardInput>
+    connectOrCreate?: AccountCreateOrConnectWithoutApCardInput
+    upsert?: AccountUpsertWithoutApCardInput
+    disconnect?: AccountWhereInput | boolean
+    delete?: AccountWhereInput | boolean
+    connect?: AccountWhereUniqueInput
+    update?: XOR<XOR<AccountUpdateToOneWithWhereWithoutApCardInput, AccountUpdateWithoutApCardInput>, AccountUncheckedUpdateWithoutApCardInput>
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -31757,6 +34745,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionCreateNestedManyWithoutUserInput
     girvis?: GirviCreateNestedManyWithoutUserInput
     stocks?: StockCreateNestedManyWithoutUserInput
+    additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutOwnerInput = {
@@ -31812,6 +34801,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutUserInput
     girvis?: GirviUncheckedCreateNestedManyWithoutUserInput
     stocks?: StockUncheckedCreateNestedManyWithoutUserInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutOwnerInput = {
@@ -31881,6 +34871,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionCreateNestedManyWithoutFirmInput
     girvis?: GirviCreateNestedManyWithoutFirmInput
     stocks?: StockCreateNestedManyWithoutFirmInput
+    additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutFirmInput
   }
 
   export type FirmUncheckedCreateWithoutOwnerInput = {
@@ -31941,6 +34932,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutFirmInput
     girvis?: GirviUncheckedCreateNestedManyWithoutFirmInput
     stocks?: StockUncheckedCreateNestedManyWithoutFirmInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutFirmInput
   }
 
   export type FirmCreateOrConnectWithoutOwnerInput = {
@@ -32004,6 +34996,10 @@ export namespace Prisma {
     girviOnline?: GirviCreateNestedManyWithoutOnlineAccountInput
     girviCard?: GirviCreateNestedManyWithoutCardAccountInput
     girviDr?: GirviCreateNestedManyWithoutDrAccountInput
+    apCash?: AdditionalPrincipalCreateNestedManyWithoutCashAccountInput
+    apBank?: AdditionalPrincipalCreateNestedManyWithoutBankAccountInput
+    apOnline?: AdditionalPrincipalCreateNestedManyWithoutOnlineAccountInput
+    apCard?: AdditionalPrincipalCreateNestedManyWithoutCardAccountInput
   }
 
   export type AccountUncheckedCreateWithoutOwnerInput = {
@@ -32058,6 +35054,10 @@ export namespace Prisma {
     girviOnline?: GirviUncheckedCreateNestedManyWithoutOnlineAccountInput
     girviCard?: GirviUncheckedCreateNestedManyWithoutCardAccountInput
     girviDr?: GirviUncheckedCreateNestedManyWithoutDrAccountInput
+    apCash?: AdditionalPrincipalUncheckedCreateNestedManyWithoutCashAccountInput
+    apBank?: AdditionalPrincipalUncheckedCreateNestedManyWithoutBankAccountInput
+    apOnline?: AdditionalPrincipalUncheckedCreateNestedManyWithoutOnlineAccountInput
+    apCard?: AdditionalPrincipalUncheckedCreateNestedManyWithoutCardAccountInput
   }
 
   export type AccountCreateOrConnectWithoutOwnerInput = {
@@ -32483,6 +35483,7 @@ export namespace Prisma {
     onlineAccount?: AccountCreateNestedOneWithoutGirviOnlineInput
     cardAccount?: AccountCreateNestedOneWithoutGirviCardInput
     drAccount?: AccountCreateNestedOneWithoutGirviDrInput
+    additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutGirviInput
   }
 
   export type GirviUncheckedCreateWithoutOwnerInput = {
@@ -32532,6 +35533,7 @@ export namespace Prisma {
     girv_deleted_at?: Date | string | null
     girv_deleted_by?: string | null
     girv_is_deleted?: boolean
+    additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutGirviInput
   }
 
   export type GirviCreateOrConnectWithoutOwnerInput = {
@@ -32614,6 +35616,83 @@ export namespace Prisma {
 
   export type StockCreateManyOwnerInputEnvelope = {
     data: StockCreateManyOwnerInput | StockCreateManyOwnerInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type AdditionalPrincipalCreateWithoutOwnerInput = {
+    ap_uuid?: string
+    ap_staff_id?: number
+    ap_trans_date: string
+    ap_prin_amt: number
+    ap_roi: number
+    ap_payable_amt: number
+    ap_cash_amt?: number | null
+    ap_cash_info?: string | null
+    ap_bank_amt?: number | null
+    ap_bank_info?: string | null
+    ap_online_amt?: number | null
+    ap_online_info?: string | null
+    ap_card_amt?: number | null
+    ap_card_info?: string | null
+    ap_pay_info?: string | null
+    ap_other_info?: string | null
+    ap_created_at?: Date | string
+    ap_created_by?: string | null
+    ap_updated_at?: Date | string
+    ap_updated_by?: string | null
+    ap_deleted_at?: Date | string | null
+    ap_deleted_by?: string | null
+    ap_is_deleted?: boolean
+    firm?: FirmCreateNestedOneWithoutAdditionalPrincipalsInput
+    user?: UserCreateNestedOneWithoutAdditionalPrincipalsInput
+    girvi?: GirviCreateNestedOneWithoutAdditionalPrincipalsInput
+    cashAccount?: AccountCreateNestedOneWithoutApCashInput
+    bankAccount?: AccountCreateNestedOneWithoutApBankInput
+    onlineAccount?: AccountCreateNestedOneWithoutApOnlineInput
+    cardAccount?: AccountCreateNestedOneWithoutApCardInput
+  }
+
+  export type AdditionalPrincipalUncheckedCreateWithoutOwnerInput = {
+    ap_id?: number
+    ap_uuid?: string
+    ap_firm_id?: number
+    ap_user_id?: number
+    ap_girv_id?: number
+    ap_staff_id?: number
+    ap_trans_date: string
+    ap_prin_amt: number
+    ap_roi: number
+    ap_payable_amt: number
+    ap_cash_amt?: number | null
+    ap_cash_acc_id?: number | null
+    ap_cash_info?: string | null
+    ap_bank_amt?: number | null
+    ap_bank_acc_id?: number | null
+    ap_bank_info?: string | null
+    ap_online_amt?: number | null
+    ap_online_acc_id?: number | null
+    ap_online_info?: string | null
+    ap_card_amt?: number | null
+    ap_card_acc_id?: number | null
+    ap_card_info?: string | null
+    ap_pay_info?: string | null
+    ap_other_info?: string | null
+    ap_created_at?: Date | string
+    ap_created_by?: string | null
+    ap_updated_at?: Date | string
+    ap_updated_by?: string | null
+    ap_deleted_at?: Date | string | null
+    ap_deleted_by?: string | null
+    ap_is_deleted?: boolean
+  }
+
+  export type AdditionalPrincipalCreateOrConnectWithoutOwnerInput = {
+    where: AdditionalPrincipalWhereUniqueInput
+    create: XOR<AdditionalPrincipalCreateWithoutOwnerInput, AdditionalPrincipalUncheckedCreateWithoutOwnerInput>
+  }
+
+  export type AdditionalPrincipalCreateManyOwnerInputEnvelope = {
+    data: AdditionalPrincipalCreateManyOwnerInput | AdditionalPrincipalCreateManyOwnerInput[]
     skipDuplicates?: boolean
   }
 
@@ -33185,6 +36264,60 @@ export namespace Prisma {
     st_is_deleted?: BoolFilter<"Stock"> | boolean
   }
 
+  export type AdditionalPrincipalUpsertWithWhereUniqueWithoutOwnerInput = {
+    where: AdditionalPrincipalWhereUniqueInput
+    update: XOR<AdditionalPrincipalUpdateWithoutOwnerInput, AdditionalPrincipalUncheckedUpdateWithoutOwnerInput>
+    create: XOR<AdditionalPrincipalCreateWithoutOwnerInput, AdditionalPrincipalUncheckedCreateWithoutOwnerInput>
+  }
+
+  export type AdditionalPrincipalUpdateWithWhereUniqueWithoutOwnerInput = {
+    where: AdditionalPrincipalWhereUniqueInput
+    data: XOR<AdditionalPrincipalUpdateWithoutOwnerInput, AdditionalPrincipalUncheckedUpdateWithoutOwnerInput>
+  }
+
+  export type AdditionalPrincipalUpdateManyWithWhereWithoutOwnerInput = {
+    where: AdditionalPrincipalScalarWhereInput
+    data: XOR<AdditionalPrincipalUpdateManyMutationInput, AdditionalPrincipalUncheckedUpdateManyWithoutOwnerInput>
+  }
+
+  export type AdditionalPrincipalScalarWhereInput = {
+    AND?: AdditionalPrincipalScalarWhereInput | AdditionalPrincipalScalarWhereInput[]
+    OR?: AdditionalPrincipalScalarWhereInput[]
+    NOT?: AdditionalPrincipalScalarWhereInput | AdditionalPrincipalScalarWhereInput[]
+    ap_id?: IntFilter<"AdditionalPrincipal"> | number
+    ap_uuid?: StringFilter<"AdditionalPrincipal"> | string
+    ap_own_id?: IntFilter<"AdditionalPrincipal"> | number
+    ap_firm_id?: IntFilter<"AdditionalPrincipal"> | number
+    ap_user_id?: IntFilter<"AdditionalPrincipal"> | number
+    ap_girv_id?: IntFilter<"AdditionalPrincipal"> | number
+    ap_staff_id?: IntFilter<"AdditionalPrincipal"> | number
+    ap_trans_date?: StringFilter<"AdditionalPrincipal"> | string
+    ap_prin_amt?: FloatFilter<"AdditionalPrincipal"> | number
+    ap_roi?: FloatFilter<"AdditionalPrincipal"> | number
+    ap_payable_amt?: FloatFilter<"AdditionalPrincipal"> | number
+    ap_cash_amt?: FloatNullableFilter<"AdditionalPrincipal"> | number | null
+    ap_cash_acc_id?: IntNullableFilter<"AdditionalPrincipal"> | number | null
+    ap_cash_info?: StringNullableFilter<"AdditionalPrincipal"> | string | null
+    ap_bank_amt?: FloatNullableFilter<"AdditionalPrincipal"> | number | null
+    ap_bank_acc_id?: IntNullableFilter<"AdditionalPrincipal"> | number | null
+    ap_bank_info?: StringNullableFilter<"AdditionalPrincipal"> | string | null
+    ap_online_amt?: FloatNullableFilter<"AdditionalPrincipal"> | number | null
+    ap_online_acc_id?: IntNullableFilter<"AdditionalPrincipal"> | number | null
+    ap_online_info?: StringNullableFilter<"AdditionalPrincipal"> | string | null
+    ap_card_amt?: FloatNullableFilter<"AdditionalPrincipal"> | number | null
+    ap_card_acc_id?: IntNullableFilter<"AdditionalPrincipal"> | number | null
+    ap_card_info?: StringNullableFilter<"AdditionalPrincipal"> | string | null
+    ap_pay_info?: StringNullableFilter<"AdditionalPrincipal"> | string | null
+    ap_other_info?: StringNullableFilter<"AdditionalPrincipal"> | string | null
+    ap_created_at?: DateTimeFilter<"AdditionalPrincipal"> | Date | string
+    ap_created_by?: StringNullableFilter<"AdditionalPrincipal"> | string | null
+    ap_updated_at?: DateTimeFilter<"AdditionalPrincipal"> | Date | string
+    ap_updated_by?: StringNullableFilter<"AdditionalPrincipal"> | string | null
+    ap_deleted_at?: DateTimeNullableFilter<"AdditionalPrincipal"> | Date | string | null
+    ap_deleted_by?: StringNullableFilter<"AdditionalPrincipal"> | string | null
+    ap_is_deleted?: BoolFilter<"AdditionalPrincipal"> | boolean
+  }
+
   export type UserCreateWithoutFirmInput = {
     user_uuid?: string
     user_add_date?: Date | string
@@ -33237,6 +36370,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionCreateNestedManyWithoutUserInput
     girvis?: GirviCreateNestedManyWithoutUserInput
     stocks?: StockCreateNestedManyWithoutUserInput
+    additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutFirmInput = {
@@ -33292,6 +36426,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutUserInput
     girvis?: GirviUncheckedCreateNestedManyWithoutUserInput
     stocks?: StockUncheckedCreateNestedManyWithoutUserInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutFirmInput = {
@@ -33355,6 +36490,10 @@ export namespace Prisma {
     girviOnline?: GirviCreateNestedManyWithoutOnlineAccountInput
     girviCard?: GirviCreateNestedManyWithoutCardAccountInput
     girviDr?: GirviCreateNestedManyWithoutDrAccountInput
+    apCash?: AdditionalPrincipalCreateNestedManyWithoutCashAccountInput
+    apBank?: AdditionalPrincipalCreateNestedManyWithoutBankAccountInput
+    apOnline?: AdditionalPrincipalCreateNestedManyWithoutOnlineAccountInput
+    apCard?: AdditionalPrincipalCreateNestedManyWithoutCardAccountInput
   }
 
   export type AccountUncheckedCreateWithoutFirmInput = {
@@ -33409,6 +36548,10 @@ export namespace Prisma {
     girviOnline?: GirviUncheckedCreateNestedManyWithoutOnlineAccountInput
     girviCard?: GirviUncheckedCreateNestedManyWithoutCardAccountInput
     girviDr?: GirviUncheckedCreateNestedManyWithoutDrAccountInput
+    apCash?: AdditionalPrincipalUncheckedCreateNestedManyWithoutCashAccountInput
+    apBank?: AdditionalPrincipalUncheckedCreateNestedManyWithoutBankAccountInput
+    apOnline?: AdditionalPrincipalUncheckedCreateNestedManyWithoutOnlineAccountInput
+    apCard?: AdditionalPrincipalUncheckedCreateNestedManyWithoutCardAccountInput
   }
 
   export type AccountCreateOrConnectWithoutFirmInput = {
@@ -33465,6 +36608,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionCreateNestedManyWithoutOwnerInput
     girvis?: GirviCreateNestedManyWithoutOwnerInput
     stocks?: StockCreateNestedManyWithoutOwnerInput
+    additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerUncheckedCreateWithoutFirmsInput = {
@@ -33512,6 +36656,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutOwnerInput
     girvis?: GirviUncheckedCreateNestedManyWithoutOwnerInput
     stocks?: StockUncheckedCreateNestedManyWithoutOwnerInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerCreateOrConnectWithoutFirmsInput = {
@@ -33932,6 +37077,7 @@ export namespace Prisma {
     onlineAccount?: AccountCreateNestedOneWithoutGirviOnlineInput
     cardAccount?: AccountCreateNestedOneWithoutGirviCardInput
     drAccount?: AccountCreateNestedOneWithoutGirviDrInput
+    additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutGirviInput
   }
 
   export type GirviUncheckedCreateWithoutFirmInput = {
@@ -33981,6 +37127,7 @@ export namespace Prisma {
     girv_deleted_at?: Date | string | null
     girv_deleted_by?: string | null
     girv_is_deleted?: boolean
+    additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutGirviInput
   }
 
   export type GirviCreateOrConnectWithoutFirmInput = {
@@ -34063,6 +37210,83 @@ export namespace Prisma {
 
   export type StockCreateManyFirmInputEnvelope = {
     data: StockCreateManyFirmInput | StockCreateManyFirmInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type AdditionalPrincipalCreateWithoutFirmInput = {
+    ap_uuid?: string
+    ap_staff_id?: number
+    ap_trans_date: string
+    ap_prin_amt: number
+    ap_roi: number
+    ap_payable_amt: number
+    ap_cash_amt?: number | null
+    ap_cash_info?: string | null
+    ap_bank_amt?: number | null
+    ap_bank_info?: string | null
+    ap_online_amt?: number | null
+    ap_online_info?: string | null
+    ap_card_amt?: number | null
+    ap_card_info?: string | null
+    ap_pay_info?: string | null
+    ap_other_info?: string | null
+    ap_created_at?: Date | string
+    ap_created_by?: string | null
+    ap_updated_at?: Date | string
+    ap_updated_by?: string | null
+    ap_deleted_at?: Date | string | null
+    ap_deleted_by?: string | null
+    ap_is_deleted?: boolean
+    owner?: OwnerCreateNestedOneWithoutAdditionalPrincipalsInput
+    user?: UserCreateNestedOneWithoutAdditionalPrincipalsInput
+    girvi?: GirviCreateNestedOneWithoutAdditionalPrincipalsInput
+    cashAccount?: AccountCreateNestedOneWithoutApCashInput
+    bankAccount?: AccountCreateNestedOneWithoutApBankInput
+    onlineAccount?: AccountCreateNestedOneWithoutApOnlineInput
+    cardAccount?: AccountCreateNestedOneWithoutApCardInput
+  }
+
+  export type AdditionalPrincipalUncheckedCreateWithoutFirmInput = {
+    ap_id?: number
+    ap_uuid?: string
+    ap_own_id?: number
+    ap_user_id?: number
+    ap_girv_id?: number
+    ap_staff_id?: number
+    ap_trans_date: string
+    ap_prin_amt: number
+    ap_roi: number
+    ap_payable_amt: number
+    ap_cash_amt?: number | null
+    ap_cash_acc_id?: number | null
+    ap_cash_info?: string | null
+    ap_bank_amt?: number | null
+    ap_bank_acc_id?: number | null
+    ap_bank_info?: string | null
+    ap_online_amt?: number | null
+    ap_online_acc_id?: number | null
+    ap_online_info?: string | null
+    ap_card_amt?: number | null
+    ap_card_acc_id?: number | null
+    ap_card_info?: string | null
+    ap_pay_info?: string | null
+    ap_other_info?: string | null
+    ap_created_at?: Date | string
+    ap_created_by?: string | null
+    ap_updated_at?: Date | string
+    ap_updated_by?: string | null
+    ap_deleted_at?: Date | string | null
+    ap_deleted_by?: string | null
+    ap_is_deleted?: boolean
+  }
+
+  export type AdditionalPrincipalCreateOrConnectWithoutFirmInput = {
+    where: AdditionalPrincipalWhereUniqueInput
+    create: XOR<AdditionalPrincipalCreateWithoutFirmInput, AdditionalPrincipalUncheckedCreateWithoutFirmInput>
+  }
+
+  export type AdditionalPrincipalCreateManyFirmInputEnvelope = {
+    data: AdditionalPrincipalCreateManyFirmInput | AdditionalPrincipalCreateManyFirmInput[]
     skipDuplicates?: boolean
   }
 
@@ -34152,6 +37376,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionUpdateManyWithoutOwnerNestedInput
     girvis?: GirviUpdateManyWithoutOwnerNestedInput
     stocks?: StockUpdateManyWithoutOwnerNestedInput
+    additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutOwnerNestedInput
   }
 
   export type OwnerUncheckedUpdateWithoutFirmsInput = {
@@ -34199,6 +37424,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutOwnerNestedInput
     girvis?: GirviUncheckedUpdateManyWithoutOwnerNestedInput
     stocks?: StockUncheckedUpdateManyWithoutOwnerNestedInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
   export type FinanceUpsertWithWhereUniqueWithoutFirmInput = {
@@ -34313,6 +37539,22 @@ export namespace Prisma {
     data: XOR<StockUpdateManyMutationInput, StockUncheckedUpdateManyWithoutFirmInput>
   }
 
+  export type AdditionalPrincipalUpsertWithWhereUniqueWithoutFirmInput = {
+    where: AdditionalPrincipalWhereUniqueInput
+    update: XOR<AdditionalPrincipalUpdateWithoutFirmInput, AdditionalPrincipalUncheckedUpdateWithoutFirmInput>
+    create: XOR<AdditionalPrincipalCreateWithoutFirmInput, AdditionalPrincipalUncheckedCreateWithoutFirmInput>
+  }
+
+  export type AdditionalPrincipalUpdateWithWhereUniqueWithoutFirmInput = {
+    where: AdditionalPrincipalWhereUniqueInput
+    data: XOR<AdditionalPrincipalUpdateWithoutFirmInput, AdditionalPrincipalUncheckedUpdateWithoutFirmInput>
+  }
+
+  export type AdditionalPrincipalUpdateManyWithWhereWithoutFirmInput = {
+    where: AdditionalPrincipalScalarWhereInput
+    data: XOR<AdditionalPrincipalUpdateManyMutationInput, AdditionalPrincipalUncheckedUpdateManyWithoutFirmInput>
+  }
+
   export type OwnerCreateWithoutAccountsInput = {
     own_uuid?: string
     own_product_key?: number
@@ -34357,6 +37599,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionCreateNestedManyWithoutOwnerInput
     girvis?: GirviCreateNestedManyWithoutOwnerInput
     stocks?: StockCreateNestedManyWithoutOwnerInput
+    additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerUncheckedCreateWithoutAccountsInput = {
@@ -34404,6 +37647,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutOwnerInput
     girvis?: GirviUncheckedCreateNestedManyWithoutOwnerInput
     stocks?: StockUncheckedCreateNestedManyWithoutOwnerInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerCreateOrConnectWithoutAccountsInput = {
@@ -34468,6 +37712,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionCreateNestedManyWithoutFirmInput
     girvis?: GirviCreateNestedManyWithoutFirmInput
     stocks?: StockCreateNestedManyWithoutFirmInput
+    additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutFirmInput
   }
 
   export type FirmUncheckedCreateWithoutAccountsInput = {
@@ -34528,6 +37773,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutFirmInput
     girvis?: GirviUncheckedCreateNestedManyWithoutFirmInput
     stocks?: StockUncheckedCreateNestedManyWithoutFirmInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutFirmInput
   }
 
   export type FirmCreateOrConnectWithoutAccountsInput = {
@@ -35917,6 +39163,7 @@ export namespace Prisma {
     onlineAccount?: AccountCreateNestedOneWithoutGirviOnlineInput
     cardAccount?: AccountCreateNestedOneWithoutGirviCardInput
     drAccount?: AccountCreateNestedOneWithoutGirviDrInput
+    additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutGirviInput
   }
 
   export type GirviUncheckedCreateWithoutFirstIntCrAccountInput = {
@@ -35966,6 +39213,7 @@ export namespace Prisma {
     girv_deleted_at?: Date | string | null
     girv_deleted_by?: string | null
     girv_is_deleted?: boolean
+    additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutGirviInput
   }
 
   export type GirviCreateOrConnectWithoutFirstIntCrAccountInput = {
@@ -36024,6 +39272,7 @@ export namespace Prisma {
     onlineAccount?: AccountCreateNestedOneWithoutGirviOnlineInput
     cardAccount?: AccountCreateNestedOneWithoutGirviCardInput
     drAccount?: AccountCreateNestedOneWithoutGirviDrInput
+    additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutGirviInput
   }
 
   export type GirviUncheckedCreateWithoutFirstIntDrAccountInput = {
@@ -36073,6 +39322,7 @@ export namespace Prisma {
     girv_deleted_at?: Date | string | null
     girv_deleted_by?: string | null
     girv_is_deleted?: boolean
+    additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutGirviInput
   }
 
   export type GirviCreateOrConnectWithoutFirstIntDrAccountInput = {
@@ -36131,6 +39381,7 @@ export namespace Prisma {
     onlineAccount?: AccountCreateNestedOneWithoutGirviOnlineInput
     cardAccount?: AccountCreateNestedOneWithoutGirviCardInput
     drAccount?: AccountCreateNestedOneWithoutGirviDrInput
+    additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutGirviInput
   }
 
   export type GirviUncheckedCreateWithoutCashAccountInput = {
@@ -36180,6 +39431,7 @@ export namespace Prisma {
     girv_deleted_at?: Date | string | null
     girv_deleted_by?: string | null
     girv_is_deleted?: boolean
+    additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutGirviInput
   }
 
   export type GirviCreateOrConnectWithoutCashAccountInput = {
@@ -36238,6 +39490,7 @@ export namespace Prisma {
     onlineAccount?: AccountCreateNestedOneWithoutGirviOnlineInput
     cardAccount?: AccountCreateNestedOneWithoutGirviCardInput
     drAccount?: AccountCreateNestedOneWithoutGirviDrInput
+    additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutGirviInput
   }
 
   export type GirviUncheckedCreateWithoutBankAccountInput = {
@@ -36287,6 +39540,7 @@ export namespace Prisma {
     girv_deleted_at?: Date | string | null
     girv_deleted_by?: string | null
     girv_is_deleted?: boolean
+    additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutGirviInput
   }
 
   export type GirviCreateOrConnectWithoutBankAccountInput = {
@@ -36345,6 +39599,7 @@ export namespace Prisma {
     bankAccount?: AccountCreateNestedOneWithoutGirviBankInput
     cardAccount?: AccountCreateNestedOneWithoutGirviCardInput
     drAccount?: AccountCreateNestedOneWithoutGirviDrInput
+    additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutGirviInput
   }
 
   export type GirviUncheckedCreateWithoutOnlineAccountInput = {
@@ -36394,6 +39649,7 @@ export namespace Prisma {
     girv_deleted_at?: Date | string | null
     girv_deleted_by?: string | null
     girv_is_deleted?: boolean
+    additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutGirviInput
   }
 
   export type GirviCreateOrConnectWithoutOnlineAccountInput = {
@@ -36452,6 +39708,7 @@ export namespace Prisma {
     bankAccount?: AccountCreateNestedOneWithoutGirviBankInput
     onlineAccount?: AccountCreateNestedOneWithoutGirviOnlineInput
     drAccount?: AccountCreateNestedOneWithoutGirviDrInput
+    additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutGirviInput
   }
 
   export type GirviUncheckedCreateWithoutCardAccountInput = {
@@ -36501,6 +39758,7 @@ export namespace Prisma {
     girv_deleted_at?: Date | string | null
     girv_deleted_by?: string | null
     girv_is_deleted?: boolean
+    additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutGirviInput
   }
 
   export type GirviCreateOrConnectWithoutCardAccountInput = {
@@ -36559,6 +39817,7 @@ export namespace Prisma {
     bankAccount?: AccountCreateNestedOneWithoutGirviBankInput
     onlineAccount?: AccountCreateNestedOneWithoutGirviOnlineInput
     cardAccount?: AccountCreateNestedOneWithoutGirviCardInput
+    additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutGirviInput
   }
 
   export type GirviUncheckedCreateWithoutDrAccountInput = {
@@ -36608,6 +39867,7 @@ export namespace Prisma {
     girv_deleted_at?: Date | string | null
     girv_deleted_by?: string | null
     girv_is_deleted?: boolean
+    additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutGirviInput
   }
 
   export type GirviCreateOrConnectWithoutDrAccountInput = {
@@ -36617,6 +39877,314 @@ export namespace Prisma {
 
   export type GirviCreateManyDrAccountInputEnvelope = {
     data: GirviCreateManyDrAccountInput | GirviCreateManyDrAccountInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type AdditionalPrincipalCreateWithoutCashAccountInput = {
+    ap_uuid?: string
+    ap_staff_id?: number
+    ap_trans_date: string
+    ap_prin_amt: number
+    ap_roi: number
+    ap_payable_amt: number
+    ap_cash_amt?: number | null
+    ap_cash_info?: string | null
+    ap_bank_amt?: number | null
+    ap_bank_info?: string | null
+    ap_online_amt?: number | null
+    ap_online_info?: string | null
+    ap_card_amt?: number | null
+    ap_card_info?: string | null
+    ap_pay_info?: string | null
+    ap_other_info?: string | null
+    ap_created_at?: Date | string
+    ap_created_by?: string | null
+    ap_updated_at?: Date | string
+    ap_updated_by?: string | null
+    ap_deleted_at?: Date | string | null
+    ap_deleted_by?: string | null
+    ap_is_deleted?: boolean
+    owner?: OwnerCreateNestedOneWithoutAdditionalPrincipalsInput
+    firm?: FirmCreateNestedOneWithoutAdditionalPrincipalsInput
+    user?: UserCreateNestedOneWithoutAdditionalPrincipalsInput
+    girvi?: GirviCreateNestedOneWithoutAdditionalPrincipalsInput
+    bankAccount?: AccountCreateNestedOneWithoutApBankInput
+    onlineAccount?: AccountCreateNestedOneWithoutApOnlineInput
+    cardAccount?: AccountCreateNestedOneWithoutApCardInput
+  }
+
+  export type AdditionalPrincipalUncheckedCreateWithoutCashAccountInput = {
+    ap_id?: number
+    ap_uuid?: string
+    ap_own_id?: number
+    ap_firm_id?: number
+    ap_user_id?: number
+    ap_girv_id?: number
+    ap_staff_id?: number
+    ap_trans_date: string
+    ap_prin_amt: number
+    ap_roi: number
+    ap_payable_amt: number
+    ap_cash_amt?: number | null
+    ap_cash_info?: string | null
+    ap_bank_amt?: number | null
+    ap_bank_acc_id?: number | null
+    ap_bank_info?: string | null
+    ap_online_amt?: number | null
+    ap_online_acc_id?: number | null
+    ap_online_info?: string | null
+    ap_card_amt?: number | null
+    ap_card_acc_id?: number | null
+    ap_card_info?: string | null
+    ap_pay_info?: string | null
+    ap_other_info?: string | null
+    ap_created_at?: Date | string
+    ap_created_by?: string | null
+    ap_updated_at?: Date | string
+    ap_updated_by?: string | null
+    ap_deleted_at?: Date | string | null
+    ap_deleted_by?: string | null
+    ap_is_deleted?: boolean
+  }
+
+  export type AdditionalPrincipalCreateOrConnectWithoutCashAccountInput = {
+    where: AdditionalPrincipalWhereUniqueInput
+    create: XOR<AdditionalPrincipalCreateWithoutCashAccountInput, AdditionalPrincipalUncheckedCreateWithoutCashAccountInput>
+  }
+
+  export type AdditionalPrincipalCreateManyCashAccountInputEnvelope = {
+    data: AdditionalPrincipalCreateManyCashAccountInput | AdditionalPrincipalCreateManyCashAccountInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type AdditionalPrincipalCreateWithoutBankAccountInput = {
+    ap_uuid?: string
+    ap_staff_id?: number
+    ap_trans_date: string
+    ap_prin_amt: number
+    ap_roi: number
+    ap_payable_amt: number
+    ap_cash_amt?: number | null
+    ap_cash_info?: string | null
+    ap_bank_amt?: number | null
+    ap_bank_info?: string | null
+    ap_online_amt?: number | null
+    ap_online_info?: string | null
+    ap_card_amt?: number | null
+    ap_card_info?: string | null
+    ap_pay_info?: string | null
+    ap_other_info?: string | null
+    ap_created_at?: Date | string
+    ap_created_by?: string | null
+    ap_updated_at?: Date | string
+    ap_updated_by?: string | null
+    ap_deleted_at?: Date | string | null
+    ap_deleted_by?: string | null
+    ap_is_deleted?: boolean
+    owner?: OwnerCreateNestedOneWithoutAdditionalPrincipalsInput
+    firm?: FirmCreateNestedOneWithoutAdditionalPrincipalsInput
+    user?: UserCreateNestedOneWithoutAdditionalPrincipalsInput
+    girvi?: GirviCreateNestedOneWithoutAdditionalPrincipalsInput
+    cashAccount?: AccountCreateNestedOneWithoutApCashInput
+    onlineAccount?: AccountCreateNestedOneWithoutApOnlineInput
+    cardAccount?: AccountCreateNestedOneWithoutApCardInput
+  }
+
+  export type AdditionalPrincipalUncheckedCreateWithoutBankAccountInput = {
+    ap_id?: number
+    ap_uuid?: string
+    ap_own_id?: number
+    ap_firm_id?: number
+    ap_user_id?: number
+    ap_girv_id?: number
+    ap_staff_id?: number
+    ap_trans_date: string
+    ap_prin_amt: number
+    ap_roi: number
+    ap_payable_amt: number
+    ap_cash_amt?: number | null
+    ap_cash_acc_id?: number | null
+    ap_cash_info?: string | null
+    ap_bank_amt?: number | null
+    ap_bank_info?: string | null
+    ap_online_amt?: number | null
+    ap_online_acc_id?: number | null
+    ap_online_info?: string | null
+    ap_card_amt?: number | null
+    ap_card_acc_id?: number | null
+    ap_card_info?: string | null
+    ap_pay_info?: string | null
+    ap_other_info?: string | null
+    ap_created_at?: Date | string
+    ap_created_by?: string | null
+    ap_updated_at?: Date | string
+    ap_updated_by?: string | null
+    ap_deleted_at?: Date | string | null
+    ap_deleted_by?: string | null
+    ap_is_deleted?: boolean
+  }
+
+  export type AdditionalPrincipalCreateOrConnectWithoutBankAccountInput = {
+    where: AdditionalPrincipalWhereUniqueInput
+    create: XOR<AdditionalPrincipalCreateWithoutBankAccountInput, AdditionalPrincipalUncheckedCreateWithoutBankAccountInput>
+  }
+
+  export type AdditionalPrincipalCreateManyBankAccountInputEnvelope = {
+    data: AdditionalPrincipalCreateManyBankAccountInput | AdditionalPrincipalCreateManyBankAccountInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type AdditionalPrincipalCreateWithoutOnlineAccountInput = {
+    ap_uuid?: string
+    ap_staff_id?: number
+    ap_trans_date: string
+    ap_prin_amt: number
+    ap_roi: number
+    ap_payable_amt: number
+    ap_cash_amt?: number | null
+    ap_cash_info?: string | null
+    ap_bank_amt?: number | null
+    ap_bank_info?: string | null
+    ap_online_amt?: number | null
+    ap_online_info?: string | null
+    ap_card_amt?: number | null
+    ap_card_info?: string | null
+    ap_pay_info?: string | null
+    ap_other_info?: string | null
+    ap_created_at?: Date | string
+    ap_created_by?: string | null
+    ap_updated_at?: Date | string
+    ap_updated_by?: string | null
+    ap_deleted_at?: Date | string | null
+    ap_deleted_by?: string | null
+    ap_is_deleted?: boolean
+    owner?: OwnerCreateNestedOneWithoutAdditionalPrincipalsInput
+    firm?: FirmCreateNestedOneWithoutAdditionalPrincipalsInput
+    user?: UserCreateNestedOneWithoutAdditionalPrincipalsInput
+    girvi?: GirviCreateNestedOneWithoutAdditionalPrincipalsInput
+    cashAccount?: AccountCreateNestedOneWithoutApCashInput
+    bankAccount?: AccountCreateNestedOneWithoutApBankInput
+    cardAccount?: AccountCreateNestedOneWithoutApCardInput
+  }
+
+  export type AdditionalPrincipalUncheckedCreateWithoutOnlineAccountInput = {
+    ap_id?: number
+    ap_uuid?: string
+    ap_own_id?: number
+    ap_firm_id?: number
+    ap_user_id?: number
+    ap_girv_id?: number
+    ap_staff_id?: number
+    ap_trans_date: string
+    ap_prin_amt: number
+    ap_roi: number
+    ap_payable_amt: number
+    ap_cash_amt?: number | null
+    ap_cash_acc_id?: number | null
+    ap_cash_info?: string | null
+    ap_bank_amt?: number | null
+    ap_bank_acc_id?: number | null
+    ap_bank_info?: string | null
+    ap_online_amt?: number | null
+    ap_online_info?: string | null
+    ap_card_amt?: number | null
+    ap_card_acc_id?: number | null
+    ap_card_info?: string | null
+    ap_pay_info?: string | null
+    ap_other_info?: string | null
+    ap_created_at?: Date | string
+    ap_created_by?: string | null
+    ap_updated_at?: Date | string
+    ap_updated_by?: string | null
+    ap_deleted_at?: Date | string | null
+    ap_deleted_by?: string | null
+    ap_is_deleted?: boolean
+  }
+
+  export type AdditionalPrincipalCreateOrConnectWithoutOnlineAccountInput = {
+    where: AdditionalPrincipalWhereUniqueInput
+    create: XOR<AdditionalPrincipalCreateWithoutOnlineAccountInput, AdditionalPrincipalUncheckedCreateWithoutOnlineAccountInput>
+  }
+
+  export type AdditionalPrincipalCreateManyOnlineAccountInputEnvelope = {
+    data: AdditionalPrincipalCreateManyOnlineAccountInput | AdditionalPrincipalCreateManyOnlineAccountInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type AdditionalPrincipalCreateWithoutCardAccountInput = {
+    ap_uuid?: string
+    ap_staff_id?: number
+    ap_trans_date: string
+    ap_prin_amt: number
+    ap_roi: number
+    ap_payable_amt: number
+    ap_cash_amt?: number | null
+    ap_cash_info?: string | null
+    ap_bank_amt?: number | null
+    ap_bank_info?: string | null
+    ap_online_amt?: number | null
+    ap_online_info?: string | null
+    ap_card_amt?: number | null
+    ap_card_info?: string | null
+    ap_pay_info?: string | null
+    ap_other_info?: string | null
+    ap_created_at?: Date | string
+    ap_created_by?: string | null
+    ap_updated_at?: Date | string
+    ap_updated_by?: string | null
+    ap_deleted_at?: Date | string | null
+    ap_deleted_by?: string | null
+    ap_is_deleted?: boolean
+    owner?: OwnerCreateNestedOneWithoutAdditionalPrincipalsInput
+    firm?: FirmCreateNestedOneWithoutAdditionalPrincipalsInput
+    user?: UserCreateNestedOneWithoutAdditionalPrincipalsInput
+    girvi?: GirviCreateNestedOneWithoutAdditionalPrincipalsInput
+    cashAccount?: AccountCreateNestedOneWithoutApCashInput
+    bankAccount?: AccountCreateNestedOneWithoutApBankInput
+    onlineAccount?: AccountCreateNestedOneWithoutApOnlineInput
+  }
+
+  export type AdditionalPrincipalUncheckedCreateWithoutCardAccountInput = {
+    ap_id?: number
+    ap_uuid?: string
+    ap_own_id?: number
+    ap_firm_id?: number
+    ap_user_id?: number
+    ap_girv_id?: number
+    ap_staff_id?: number
+    ap_trans_date: string
+    ap_prin_amt: number
+    ap_roi: number
+    ap_payable_amt: number
+    ap_cash_amt?: number | null
+    ap_cash_acc_id?: number | null
+    ap_cash_info?: string | null
+    ap_bank_amt?: number | null
+    ap_bank_acc_id?: number | null
+    ap_bank_info?: string | null
+    ap_online_amt?: number | null
+    ap_online_acc_id?: number | null
+    ap_online_info?: string | null
+    ap_card_amt?: number | null
+    ap_card_info?: string | null
+    ap_pay_info?: string | null
+    ap_other_info?: string | null
+    ap_created_at?: Date | string
+    ap_created_by?: string | null
+    ap_updated_at?: Date | string
+    ap_updated_by?: string | null
+    ap_deleted_at?: Date | string | null
+    ap_deleted_by?: string | null
+    ap_is_deleted?: boolean
+  }
+
+  export type AdditionalPrincipalCreateOrConnectWithoutCardAccountInput = {
+    where: AdditionalPrincipalWhereUniqueInput
+    create: XOR<AdditionalPrincipalCreateWithoutCardAccountInput, AdditionalPrincipalUncheckedCreateWithoutCardAccountInput>
+  }
+
+  export type AdditionalPrincipalCreateManyCardAccountInputEnvelope = {
+    data: AdditionalPrincipalCreateManyCardAccountInput | AdditionalPrincipalCreateManyCardAccountInput[]
     skipDuplicates?: boolean
   }
 
@@ -36674,6 +40242,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionUpdateManyWithoutOwnerNestedInput
     girvis?: GirviUpdateManyWithoutOwnerNestedInput
     stocks?: StockUpdateManyWithoutOwnerNestedInput
+    additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutOwnerNestedInput
   }
 
   export type OwnerUncheckedUpdateWithoutAccountsInput = {
@@ -36721,6 +40290,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutOwnerNestedInput
     girvis?: GirviUncheckedUpdateManyWithoutOwnerNestedInput
     stocks?: StockUncheckedUpdateManyWithoutOwnerNestedInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
   export type FirmUpsertWithoutAccountsInput = {
@@ -36791,6 +40361,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionUpdateManyWithoutFirmNestedInput
     girvis?: GirviUpdateManyWithoutFirmNestedInput
     stocks?: StockUpdateManyWithoutFirmNestedInput
+    additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutFirmNestedInput
   }
 
   export type FirmUncheckedUpdateWithoutAccountsInput = {
@@ -36851,6 +40422,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutFirmNestedInput
     girvis?: GirviUncheckedUpdateManyWithoutFirmNestedInput
     stocks?: StockUncheckedUpdateManyWithoutFirmNestedInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutFirmNestedInput
   }
 
   export type FinanceUpsertWithWhereUniqueWithoutCashAccountInput = {
@@ -37221,6 +40793,70 @@ export namespace Prisma {
     data: XOR<GirviUpdateManyMutationInput, GirviUncheckedUpdateManyWithoutDrAccountInput>
   }
 
+  export type AdditionalPrincipalUpsertWithWhereUniqueWithoutCashAccountInput = {
+    where: AdditionalPrincipalWhereUniqueInput
+    update: XOR<AdditionalPrincipalUpdateWithoutCashAccountInput, AdditionalPrincipalUncheckedUpdateWithoutCashAccountInput>
+    create: XOR<AdditionalPrincipalCreateWithoutCashAccountInput, AdditionalPrincipalUncheckedCreateWithoutCashAccountInput>
+  }
+
+  export type AdditionalPrincipalUpdateWithWhereUniqueWithoutCashAccountInput = {
+    where: AdditionalPrincipalWhereUniqueInput
+    data: XOR<AdditionalPrincipalUpdateWithoutCashAccountInput, AdditionalPrincipalUncheckedUpdateWithoutCashAccountInput>
+  }
+
+  export type AdditionalPrincipalUpdateManyWithWhereWithoutCashAccountInput = {
+    where: AdditionalPrincipalScalarWhereInput
+    data: XOR<AdditionalPrincipalUpdateManyMutationInput, AdditionalPrincipalUncheckedUpdateManyWithoutCashAccountInput>
+  }
+
+  export type AdditionalPrincipalUpsertWithWhereUniqueWithoutBankAccountInput = {
+    where: AdditionalPrincipalWhereUniqueInput
+    update: XOR<AdditionalPrincipalUpdateWithoutBankAccountInput, AdditionalPrincipalUncheckedUpdateWithoutBankAccountInput>
+    create: XOR<AdditionalPrincipalCreateWithoutBankAccountInput, AdditionalPrincipalUncheckedCreateWithoutBankAccountInput>
+  }
+
+  export type AdditionalPrincipalUpdateWithWhereUniqueWithoutBankAccountInput = {
+    where: AdditionalPrincipalWhereUniqueInput
+    data: XOR<AdditionalPrincipalUpdateWithoutBankAccountInput, AdditionalPrincipalUncheckedUpdateWithoutBankAccountInput>
+  }
+
+  export type AdditionalPrincipalUpdateManyWithWhereWithoutBankAccountInput = {
+    where: AdditionalPrincipalScalarWhereInput
+    data: XOR<AdditionalPrincipalUpdateManyMutationInput, AdditionalPrincipalUncheckedUpdateManyWithoutBankAccountInput>
+  }
+
+  export type AdditionalPrincipalUpsertWithWhereUniqueWithoutOnlineAccountInput = {
+    where: AdditionalPrincipalWhereUniqueInput
+    update: XOR<AdditionalPrincipalUpdateWithoutOnlineAccountInput, AdditionalPrincipalUncheckedUpdateWithoutOnlineAccountInput>
+    create: XOR<AdditionalPrincipalCreateWithoutOnlineAccountInput, AdditionalPrincipalUncheckedCreateWithoutOnlineAccountInput>
+  }
+
+  export type AdditionalPrincipalUpdateWithWhereUniqueWithoutOnlineAccountInput = {
+    where: AdditionalPrincipalWhereUniqueInput
+    data: XOR<AdditionalPrincipalUpdateWithoutOnlineAccountInput, AdditionalPrincipalUncheckedUpdateWithoutOnlineAccountInput>
+  }
+
+  export type AdditionalPrincipalUpdateManyWithWhereWithoutOnlineAccountInput = {
+    where: AdditionalPrincipalScalarWhereInput
+    data: XOR<AdditionalPrincipalUpdateManyMutationInput, AdditionalPrincipalUncheckedUpdateManyWithoutOnlineAccountInput>
+  }
+
+  export type AdditionalPrincipalUpsertWithWhereUniqueWithoutCardAccountInput = {
+    where: AdditionalPrincipalWhereUniqueInput
+    update: XOR<AdditionalPrincipalUpdateWithoutCardAccountInput, AdditionalPrincipalUncheckedUpdateWithoutCardAccountInput>
+    create: XOR<AdditionalPrincipalCreateWithoutCardAccountInput, AdditionalPrincipalUncheckedCreateWithoutCardAccountInput>
+  }
+
+  export type AdditionalPrincipalUpdateWithWhereUniqueWithoutCardAccountInput = {
+    where: AdditionalPrincipalWhereUniqueInput
+    data: XOR<AdditionalPrincipalUpdateWithoutCardAccountInput, AdditionalPrincipalUncheckedUpdateWithoutCardAccountInput>
+  }
+
+  export type AdditionalPrincipalUpdateManyWithWhereWithoutCardAccountInput = {
+    where: AdditionalPrincipalScalarWhereInput
+    data: XOR<AdditionalPrincipalUpdateManyMutationInput, AdditionalPrincipalUncheckedUpdateManyWithoutCardAccountInput>
+  }
+
   export type OwnerCreateWithoutUsersInput = {
     own_uuid?: string
     own_product_key?: number
@@ -37265,6 +40901,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionCreateNestedManyWithoutOwnerInput
     girvis?: GirviCreateNestedManyWithoutOwnerInput
     stocks?: StockCreateNestedManyWithoutOwnerInput
+    additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerUncheckedCreateWithoutUsersInput = {
@@ -37312,6 +40949,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutOwnerInput
     girvis?: GirviUncheckedCreateNestedManyWithoutOwnerInput
     stocks?: StockUncheckedCreateNestedManyWithoutOwnerInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerCreateOrConnectWithoutUsersInput = {
@@ -37376,6 +41014,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionCreateNestedManyWithoutFirmInput
     girvis?: GirviCreateNestedManyWithoutFirmInput
     stocks?: StockCreateNestedManyWithoutFirmInput
+    additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutFirmInput
   }
 
   export type FirmUncheckedCreateWithoutUsersInput = {
@@ -37436,6 +41075,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutFirmInput
     girvis?: GirviUncheckedCreateNestedManyWithoutFirmInput
     stocks?: StockUncheckedCreateNestedManyWithoutFirmInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutFirmInput
   }
 
   export type FirmCreateOrConnectWithoutUsersInput = {
@@ -37856,6 +41496,7 @@ export namespace Prisma {
     onlineAccount?: AccountCreateNestedOneWithoutGirviOnlineInput
     cardAccount?: AccountCreateNestedOneWithoutGirviCardInput
     drAccount?: AccountCreateNestedOneWithoutGirviDrInput
+    additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutGirviInput
   }
 
   export type GirviUncheckedCreateWithoutUserInput = {
@@ -37905,6 +41546,7 @@ export namespace Prisma {
     girv_deleted_at?: Date | string | null
     girv_deleted_by?: string | null
     girv_is_deleted?: boolean
+    additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutGirviInput
   }
 
   export type GirviCreateOrConnectWithoutUserInput = {
@@ -37990,6 +41632,83 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type AdditionalPrincipalCreateWithoutUserInput = {
+    ap_uuid?: string
+    ap_staff_id?: number
+    ap_trans_date: string
+    ap_prin_amt: number
+    ap_roi: number
+    ap_payable_amt: number
+    ap_cash_amt?: number | null
+    ap_cash_info?: string | null
+    ap_bank_amt?: number | null
+    ap_bank_info?: string | null
+    ap_online_amt?: number | null
+    ap_online_info?: string | null
+    ap_card_amt?: number | null
+    ap_card_info?: string | null
+    ap_pay_info?: string | null
+    ap_other_info?: string | null
+    ap_created_at?: Date | string
+    ap_created_by?: string | null
+    ap_updated_at?: Date | string
+    ap_updated_by?: string | null
+    ap_deleted_at?: Date | string | null
+    ap_deleted_by?: string | null
+    ap_is_deleted?: boolean
+    owner?: OwnerCreateNestedOneWithoutAdditionalPrincipalsInput
+    firm?: FirmCreateNestedOneWithoutAdditionalPrincipalsInput
+    girvi?: GirviCreateNestedOneWithoutAdditionalPrincipalsInput
+    cashAccount?: AccountCreateNestedOneWithoutApCashInput
+    bankAccount?: AccountCreateNestedOneWithoutApBankInput
+    onlineAccount?: AccountCreateNestedOneWithoutApOnlineInput
+    cardAccount?: AccountCreateNestedOneWithoutApCardInput
+  }
+
+  export type AdditionalPrincipalUncheckedCreateWithoutUserInput = {
+    ap_id?: number
+    ap_uuid?: string
+    ap_own_id?: number
+    ap_firm_id?: number
+    ap_girv_id?: number
+    ap_staff_id?: number
+    ap_trans_date: string
+    ap_prin_amt: number
+    ap_roi: number
+    ap_payable_amt: number
+    ap_cash_amt?: number | null
+    ap_cash_acc_id?: number | null
+    ap_cash_info?: string | null
+    ap_bank_amt?: number | null
+    ap_bank_acc_id?: number | null
+    ap_bank_info?: string | null
+    ap_online_amt?: number | null
+    ap_online_acc_id?: number | null
+    ap_online_info?: string | null
+    ap_card_amt?: number | null
+    ap_card_acc_id?: number | null
+    ap_card_info?: string | null
+    ap_pay_info?: string | null
+    ap_other_info?: string | null
+    ap_created_at?: Date | string
+    ap_created_by?: string | null
+    ap_updated_at?: Date | string
+    ap_updated_by?: string | null
+    ap_deleted_at?: Date | string | null
+    ap_deleted_by?: string | null
+    ap_is_deleted?: boolean
+  }
+
+  export type AdditionalPrincipalCreateOrConnectWithoutUserInput = {
+    where: AdditionalPrincipalWhereUniqueInput
+    create: XOR<AdditionalPrincipalCreateWithoutUserInput, AdditionalPrincipalUncheckedCreateWithoutUserInput>
+  }
+
+  export type AdditionalPrincipalCreateManyUserInputEnvelope = {
+    data: AdditionalPrincipalCreateManyUserInput | AdditionalPrincipalCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type OwnerUpsertWithoutUsersInput = {
     update: XOR<OwnerUpdateWithoutUsersInput, OwnerUncheckedUpdateWithoutUsersInput>
     create: XOR<OwnerCreateWithoutUsersInput, OwnerUncheckedCreateWithoutUsersInput>
@@ -38044,6 +41763,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionUpdateManyWithoutOwnerNestedInput
     girvis?: GirviUpdateManyWithoutOwnerNestedInput
     stocks?: StockUpdateManyWithoutOwnerNestedInput
+    additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutOwnerNestedInput
   }
 
   export type OwnerUncheckedUpdateWithoutUsersInput = {
@@ -38091,6 +41811,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutOwnerNestedInput
     girvis?: GirviUncheckedUpdateManyWithoutOwnerNestedInput
     stocks?: StockUncheckedUpdateManyWithoutOwnerNestedInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
   export type FirmUpsertWithoutUsersInput = {
@@ -38161,6 +41882,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionUpdateManyWithoutFirmNestedInput
     girvis?: GirviUpdateManyWithoutFirmNestedInput
     stocks?: StockUpdateManyWithoutFirmNestedInput
+    additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutFirmNestedInput
   }
 
   export type FirmUncheckedUpdateWithoutUsersInput = {
@@ -38221,6 +41943,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutFirmNestedInput
     girvis?: GirviUncheckedUpdateManyWithoutFirmNestedInput
     stocks?: StockUncheckedUpdateManyWithoutFirmNestedInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutFirmNestedInput
   }
 
   export type FinanceUpsertWithWhereUniqueWithoutUserInput = {
@@ -38335,6 +42058,22 @@ export namespace Prisma {
     data: XOR<StockUpdateManyMutationInput, StockUncheckedUpdateManyWithoutUserInput>
   }
 
+  export type AdditionalPrincipalUpsertWithWhereUniqueWithoutUserInput = {
+    where: AdditionalPrincipalWhereUniqueInput
+    update: XOR<AdditionalPrincipalUpdateWithoutUserInput, AdditionalPrincipalUncheckedUpdateWithoutUserInput>
+    create: XOR<AdditionalPrincipalCreateWithoutUserInput, AdditionalPrincipalUncheckedCreateWithoutUserInput>
+  }
+
+  export type AdditionalPrincipalUpdateWithWhereUniqueWithoutUserInput = {
+    where: AdditionalPrincipalWhereUniqueInput
+    data: XOR<AdditionalPrincipalUpdateWithoutUserInput, AdditionalPrincipalUncheckedUpdateWithoutUserInput>
+  }
+
+  export type AdditionalPrincipalUpdateManyWithWhereWithoutUserInput = {
+    where: AdditionalPrincipalScalarWhereInput
+    data: XOR<AdditionalPrincipalUpdateManyMutationInput, AdditionalPrincipalUncheckedUpdateManyWithoutUserInput>
+  }
+
   export type FirmCreateWithoutFinancesInput = {
     firm_uuid?: string
     firm_add_date?: Date | string
@@ -38392,6 +42131,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionCreateNestedManyWithoutFirmInput
     girvis?: GirviCreateNestedManyWithoutFirmInput
     stocks?: StockCreateNestedManyWithoutFirmInput
+    additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutFirmInput
   }
 
   export type FirmUncheckedCreateWithoutFinancesInput = {
@@ -38452,6 +42192,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutFirmInput
     girvis?: GirviUncheckedCreateNestedManyWithoutFirmInput
     stocks?: StockUncheckedCreateNestedManyWithoutFirmInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutFirmInput
   }
 
   export type FirmCreateOrConnectWithoutFinancesInput = {
@@ -38511,6 +42252,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionCreateNestedManyWithoutUserInput
     girvis?: GirviCreateNestedManyWithoutUserInput
     stocks?: StockCreateNestedManyWithoutUserInput
+    additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutFinancesInput = {
@@ -38566,6 +42308,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutUserInput
     girvis?: GirviUncheckedCreateNestedManyWithoutUserInput
     stocks?: StockUncheckedCreateNestedManyWithoutUserInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutFinancesInput = {
@@ -38774,6 +42517,10 @@ export namespace Prisma {
     girviOnline?: GirviCreateNestedManyWithoutOnlineAccountInput
     girviCard?: GirviCreateNestedManyWithoutCardAccountInput
     girviDr?: GirviCreateNestedManyWithoutDrAccountInput
+    apCash?: AdditionalPrincipalCreateNestedManyWithoutCashAccountInput
+    apBank?: AdditionalPrincipalCreateNestedManyWithoutBankAccountInput
+    apOnline?: AdditionalPrincipalCreateNestedManyWithoutOnlineAccountInput
+    apCard?: AdditionalPrincipalCreateNestedManyWithoutCardAccountInput
   }
 
   export type AccountUncheckedCreateWithoutFinanceCashInput = {
@@ -38828,6 +42575,10 @@ export namespace Prisma {
     girviOnline?: GirviUncheckedCreateNestedManyWithoutOnlineAccountInput
     girviCard?: GirviUncheckedCreateNestedManyWithoutCardAccountInput
     girviDr?: GirviUncheckedCreateNestedManyWithoutDrAccountInput
+    apCash?: AdditionalPrincipalUncheckedCreateNestedManyWithoutCashAccountInput
+    apBank?: AdditionalPrincipalUncheckedCreateNestedManyWithoutBankAccountInput
+    apOnline?: AdditionalPrincipalUncheckedCreateNestedManyWithoutOnlineAccountInput
+    apCard?: AdditionalPrincipalUncheckedCreateNestedManyWithoutCardAccountInput
   }
 
   export type AccountCreateOrConnectWithoutFinanceCashInput = {
@@ -38886,6 +42637,10 @@ export namespace Prisma {
     girviOnline?: GirviCreateNestedManyWithoutOnlineAccountInput
     girviCard?: GirviCreateNestedManyWithoutCardAccountInput
     girviDr?: GirviCreateNestedManyWithoutDrAccountInput
+    apCash?: AdditionalPrincipalCreateNestedManyWithoutCashAccountInput
+    apBank?: AdditionalPrincipalCreateNestedManyWithoutBankAccountInput
+    apOnline?: AdditionalPrincipalCreateNestedManyWithoutOnlineAccountInput
+    apCard?: AdditionalPrincipalCreateNestedManyWithoutCardAccountInput
   }
 
   export type AccountUncheckedCreateWithoutFinanceBankInput = {
@@ -38940,6 +42695,10 @@ export namespace Prisma {
     girviOnline?: GirviUncheckedCreateNestedManyWithoutOnlineAccountInput
     girviCard?: GirviUncheckedCreateNestedManyWithoutCardAccountInput
     girviDr?: GirviUncheckedCreateNestedManyWithoutDrAccountInput
+    apCash?: AdditionalPrincipalUncheckedCreateNestedManyWithoutCashAccountInput
+    apBank?: AdditionalPrincipalUncheckedCreateNestedManyWithoutBankAccountInput
+    apOnline?: AdditionalPrincipalUncheckedCreateNestedManyWithoutOnlineAccountInput
+    apCard?: AdditionalPrincipalUncheckedCreateNestedManyWithoutCardAccountInput
   }
 
   export type AccountCreateOrConnectWithoutFinanceBankInput = {
@@ -38998,6 +42757,10 @@ export namespace Prisma {
     girviOnline?: GirviCreateNestedManyWithoutOnlineAccountInput
     girviCard?: GirviCreateNestedManyWithoutCardAccountInput
     girviDr?: GirviCreateNestedManyWithoutDrAccountInput
+    apCash?: AdditionalPrincipalCreateNestedManyWithoutCashAccountInput
+    apBank?: AdditionalPrincipalCreateNestedManyWithoutBankAccountInput
+    apOnline?: AdditionalPrincipalCreateNestedManyWithoutOnlineAccountInput
+    apCard?: AdditionalPrincipalCreateNestedManyWithoutCardAccountInput
   }
 
   export type AccountUncheckedCreateWithoutFinanceOnlineInput = {
@@ -39052,6 +42815,10 @@ export namespace Prisma {
     girviOnline?: GirviUncheckedCreateNestedManyWithoutOnlineAccountInput
     girviCard?: GirviUncheckedCreateNestedManyWithoutCardAccountInput
     girviDr?: GirviUncheckedCreateNestedManyWithoutDrAccountInput
+    apCash?: AdditionalPrincipalUncheckedCreateNestedManyWithoutCashAccountInput
+    apBank?: AdditionalPrincipalUncheckedCreateNestedManyWithoutBankAccountInput
+    apOnline?: AdditionalPrincipalUncheckedCreateNestedManyWithoutOnlineAccountInput
+    apCard?: AdditionalPrincipalUncheckedCreateNestedManyWithoutCardAccountInput
   }
 
   export type AccountCreateOrConnectWithoutFinanceOnlineInput = {
@@ -39110,6 +42877,10 @@ export namespace Prisma {
     girviOnline?: GirviCreateNestedManyWithoutOnlineAccountInput
     girviCard?: GirviCreateNestedManyWithoutCardAccountInput
     girviDr?: GirviCreateNestedManyWithoutDrAccountInput
+    apCash?: AdditionalPrincipalCreateNestedManyWithoutCashAccountInput
+    apBank?: AdditionalPrincipalCreateNestedManyWithoutBankAccountInput
+    apOnline?: AdditionalPrincipalCreateNestedManyWithoutOnlineAccountInput
+    apCard?: AdditionalPrincipalCreateNestedManyWithoutCardAccountInput
   }
 
   export type AccountUncheckedCreateWithoutFinanceCardInput = {
@@ -39164,6 +42935,10 @@ export namespace Prisma {
     girviOnline?: GirviUncheckedCreateNestedManyWithoutOnlineAccountInput
     girviCard?: GirviUncheckedCreateNestedManyWithoutCardAccountInput
     girviDr?: GirviUncheckedCreateNestedManyWithoutDrAccountInput
+    apCash?: AdditionalPrincipalUncheckedCreateNestedManyWithoutCashAccountInput
+    apBank?: AdditionalPrincipalUncheckedCreateNestedManyWithoutBankAccountInput
+    apOnline?: AdditionalPrincipalUncheckedCreateNestedManyWithoutOnlineAccountInput
+    apCard?: AdditionalPrincipalUncheckedCreateNestedManyWithoutCardAccountInput
   }
 
   export type AccountCreateOrConnectWithoutFinanceCardInput = {
@@ -39222,6 +42997,10 @@ export namespace Prisma {
     girviOnline?: GirviCreateNestedManyWithoutOnlineAccountInput
     girviCard?: GirviCreateNestedManyWithoutCardAccountInput
     girviDr?: GirviCreateNestedManyWithoutDrAccountInput
+    apCash?: AdditionalPrincipalCreateNestedManyWithoutCashAccountInput
+    apBank?: AdditionalPrincipalCreateNestedManyWithoutBankAccountInput
+    apOnline?: AdditionalPrincipalCreateNestedManyWithoutOnlineAccountInput
+    apCard?: AdditionalPrincipalCreateNestedManyWithoutCardAccountInput
   }
 
   export type AccountUncheckedCreateWithoutFinanceDrInput = {
@@ -39276,6 +43055,10 @@ export namespace Prisma {
     girviOnline?: GirviUncheckedCreateNestedManyWithoutOnlineAccountInput
     girviCard?: GirviUncheckedCreateNestedManyWithoutCardAccountInput
     girviDr?: GirviUncheckedCreateNestedManyWithoutDrAccountInput
+    apCash?: AdditionalPrincipalUncheckedCreateNestedManyWithoutCashAccountInput
+    apBank?: AdditionalPrincipalUncheckedCreateNestedManyWithoutBankAccountInput
+    apOnline?: AdditionalPrincipalUncheckedCreateNestedManyWithoutOnlineAccountInput
+    apCard?: AdditionalPrincipalUncheckedCreateNestedManyWithoutCardAccountInput
   }
 
   export type AccountCreateOrConnectWithoutFinanceDrInput = {
@@ -39327,6 +43110,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionCreateNestedManyWithoutOwnerInput
     girvis?: GirviCreateNestedManyWithoutOwnerInput
     stocks?: StockCreateNestedManyWithoutOwnerInput
+    additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerUncheckedCreateWithoutFinancesInput = {
@@ -39374,6 +43158,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutOwnerInput
     girvis?: GirviUncheckedCreateNestedManyWithoutOwnerInput
     stocks?: StockUncheckedCreateNestedManyWithoutOwnerInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerCreateOrConnectWithoutFinancesInput = {
@@ -39449,6 +43234,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionUpdateManyWithoutFirmNestedInput
     girvis?: GirviUpdateManyWithoutFirmNestedInput
     stocks?: StockUpdateManyWithoutFirmNestedInput
+    additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutFirmNestedInput
   }
 
   export type FirmUncheckedUpdateWithoutFinancesInput = {
@@ -39509,6 +43295,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutFirmNestedInput
     girvis?: GirviUncheckedUpdateManyWithoutFirmNestedInput
     stocks?: StockUncheckedUpdateManyWithoutFirmNestedInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutFirmNestedInput
   }
 
   export type UserUpsertWithoutFinancesInput = {
@@ -39574,6 +43361,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionUpdateManyWithoutUserNestedInput
     girvis?: GirviUpdateManyWithoutUserNestedInput
     stocks?: StockUpdateManyWithoutUserNestedInput
+    additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutFinancesInput = {
@@ -39629,6 +43417,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutUserNestedInput
     girvis?: GirviUncheckedUpdateManyWithoutUserNestedInput
     stocks?: StockUncheckedUpdateManyWithoutUserNestedInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type Finance_TransactionUpsertWithWhereUniqueWithoutFinanceInput = {
@@ -39725,6 +43514,10 @@ export namespace Prisma {
     girviOnline?: GirviUpdateManyWithoutOnlineAccountNestedInput
     girviCard?: GirviUpdateManyWithoutCardAccountNestedInput
     girviDr?: GirviUpdateManyWithoutDrAccountNestedInput
+    apCash?: AdditionalPrincipalUpdateManyWithoutCashAccountNestedInput
+    apBank?: AdditionalPrincipalUpdateManyWithoutBankAccountNestedInput
+    apOnline?: AdditionalPrincipalUpdateManyWithoutOnlineAccountNestedInput
+    apCard?: AdditionalPrincipalUpdateManyWithoutCardAccountNestedInput
   }
 
   export type AccountUncheckedUpdateWithoutFinanceCashInput = {
@@ -39779,6 +43572,10 @@ export namespace Prisma {
     girviOnline?: GirviUncheckedUpdateManyWithoutOnlineAccountNestedInput
     girviCard?: GirviUncheckedUpdateManyWithoutCardAccountNestedInput
     girviDr?: GirviUncheckedUpdateManyWithoutDrAccountNestedInput
+    apCash?: AdditionalPrincipalUncheckedUpdateManyWithoutCashAccountNestedInput
+    apBank?: AdditionalPrincipalUncheckedUpdateManyWithoutBankAccountNestedInput
+    apOnline?: AdditionalPrincipalUncheckedUpdateManyWithoutOnlineAccountNestedInput
+    apCard?: AdditionalPrincipalUncheckedUpdateManyWithoutCardAccountNestedInput
   }
 
   export type AccountUpsertWithoutFinanceBankInput = {
@@ -39843,6 +43640,10 @@ export namespace Prisma {
     girviOnline?: GirviUpdateManyWithoutOnlineAccountNestedInput
     girviCard?: GirviUpdateManyWithoutCardAccountNestedInput
     girviDr?: GirviUpdateManyWithoutDrAccountNestedInput
+    apCash?: AdditionalPrincipalUpdateManyWithoutCashAccountNestedInput
+    apBank?: AdditionalPrincipalUpdateManyWithoutBankAccountNestedInput
+    apOnline?: AdditionalPrincipalUpdateManyWithoutOnlineAccountNestedInput
+    apCard?: AdditionalPrincipalUpdateManyWithoutCardAccountNestedInput
   }
 
   export type AccountUncheckedUpdateWithoutFinanceBankInput = {
@@ -39897,6 +43698,10 @@ export namespace Prisma {
     girviOnline?: GirviUncheckedUpdateManyWithoutOnlineAccountNestedInput
     girviCard?: GirviUncheckedUpdateManyWithoutCardAccountNestedInput
     girviDr?: GirviUncheckedUpdateManyWithoutDrAccountNestedInput
+    apCash?: AdditionalPrincipalUncheckedUpdateManyWithoutCashAccountNestedInput
+    apBank?: AdditionalPrincipalUncheckedUpdateManyWithoutBankAccountNestedInput
+    apOnline?: AdditionalPrincipalUncheckedUpdateManyWithoutOnlineAccountNestedInput
+    apCard?: AdditionalPrincipalUncheckedUpdateManyWithoutCardAccountNestedInput
   }
 
   export type AccountUpsertWithoutFinanceOnlineInput = {
@@ -39961,6 +43766,10 @@ export namespace Prisma {
     girviOnline?: GirviUpdateManyWithoutOnlineAccountNestedInput
     girviCard?: GirviUpdateManyWithoutCardAccountNestedInput
     girviDr?: GirviUpdateManyWithoutDrAccountNestedInput
+    apCash?: AdditionalPrincipalUpdateManyWithoutCashAccountNestedInput
+    apBank?: AdditionalPrincipalUpdateManyWithoutBankAccountNestedInput
+    apOnline?: AdditionalPrincipalUpdateManyWithoutOnlineAccountNestedInput
+    apCard?: AdditionalPrincipalUpdateManyWithoutCardAccountNestedInput
   }
 
   export type AccountUncheckedUpdateWithoutFinanceOnlineInput = {
@@ -40015,6 +43824,10 @@ export namespace Prisma {
     girviOnline?: GirviUncheckedUpdateManyWithoutOnlineAccountNestedInput
     girviCard?: GirviUncheckedUpdateManyWithoutCardAccountNestedInput
     girviDr?: GirviUncheckedUpdateManyWithoutDrAccountNestedInput
+    apCash?: AdditionalPrincipalUncheckedUpdateManyWithoutCashAccountNestedInput
+    apBank?: AdditionalPrincipalUncheckedUpdateManyWithoutBankAccountNestedInput
+    apOnline?: AdditionalPrincipalUncheckedUpdateManyWithoutOnlineAccountNestedInput
+    apCard?: AdditionalPrincipalUncheckedUpdateManyWithoutCardAccountNestedInput
   }
 
   export type AccountUpsertWithoutFinanceCardInput = {
@@ -40079,6 +43892,10 @@ export namespace Prisma {
     girviOnline?: GirviUpdateManyWithoutOnlineAccountNestedInput
     girviCard?: GirviUpdateManyWithoutCardAccountNestedInput
     girviDr?: GirviUpdateManyWithoutDrAccountNestedInput
+    apCash?: AdditionalPrincipalUpdateManyWithoutCashAccountNestedInput
+    apBank?: AdditionalPrincipalUpdateManyWithoutBankAccountNestedInput
+    apOnline?: AdditionalPrincipalUpdateManyWithoutOnlineAccountNestedInput
+    apCard?: AdditionalPrincipalUpdateManyWithoutCardAccountNestedInput
   }
 
   export type AccountUncheckedUpdateWithoutFinanceCardInput = {
@@ -40133,6 +43950,10 @@ export namespace Prisma {
     girviOnline?: GirviUncheckedUpdateManyWithoutOnlineAccountNestedInput
     girviCard?: GirviUncheckedUpdateManyWithoutCardAccountNestedInput
     girviDr?: GirviUncheckedUpdateManyWithoutDrAccountNestedInput
+    apCash?: AdditionalPrincipalUncheckedUpdateManyWithoutCashAccountNestedInput
+    apBank?: AdditionalPrincipalUncheckedUpdateManyWithoutBankAccountNestedInput
+    apOnline?: AdditionalPrincipalUncheckedUpdateManyWithoutOnlineAccountNestedInput
+    apCard?: AdditionalPrincipalUncheckedUpdateManyWithoutCardAccountNestedInput
   }
 
   export type AccountUpsertWithoutFinanceDrInput = {
@@ -40197,6 +44018,10 @@ export namespace Prisma {
     girviOnline?: GirviUpdateManyWithoutOnlineAccountNestedInput
     girviCard?: GirviUpdateManyWithoutCardAccountNestedInput
     girviDr?: GirviUpdateManyWithoutDrAccountNestedInput
+    apCash?: AdditionalPrincipalUpdateManyWithoutCashAccountNestedInput
+    apBank?: AdditionalPrincipalUpdateManyWithoutBankAccountNestedInput
+    apOnline?: AdditionalPrincipalUpdateManyWithoutOnlineAccountNestedInput
+    apCard?: AdditionalPrincipalUpdateManyWithoutCardAccountNestedInput
   }
 
   export type AccountUncheckedUpdateWithoutFinanceDrInput = {
@@ -40251,6 +44076,10 @@ export namespace Prisma {
     girviOnline?: GirviUncheckedUpdateManyWithoutOnlineAccountNestedInput
     girviCard?: GirviUncheckedUpdateManyWithoutCardAccountNestedInput
     girviDr?: GirviUncheckedUpdateManyWithoutDrAccountNestedInput
+    apCash?: AdditionalPrincipalUncheckedUpdateManyWithoutCashAccountNestedInput
+    apBank?: AdditionalPrincipalUncheckedUpdateManyWithoutBankAccountNestedInput
+    apOnline?: AdditionalPrincipalUncheckedUpdateManyWithoutOnlineAccountNestedInput
+    apCard?: AdditionalPrincipalUncheckedUpdateManyWithoutCardAccountNestedInput
   }
 
   export type OwnerUpsertWithoutFinancesInput = {
@@ -40307,6 +44136,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionUpdateManyWithoutOwnerNestedInput
     girvis?: GirviUpdateManyWithoutOwnerNestedInput
     stocks?: StockUpdateManyWithoutOwnerNestedInput
+    additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutOwnerNestedInput
   }
 
   export type OwnerUncheckedUpdateWithoutFinancesInput = {
@@ -40354,6 +44184,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutOwnerNestedInput
     girvis?: GirviUncheckedUpdateManyWithoutOwnerNestedInput
     stocks?: StockUncheckedUpdateManyWithoutOwnerNestedInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
   export type FirmCreateWithoutFinanceTransactionsInput = {
@@ -40413,6 +44244,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionCreateNestedManyWithoutFirmInput
     girvis?: GirviCreateNestedManyWithoutFirmInput
     stocks?: StockCreateNestedManyWithoutFirmInput
+    additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutFirmInput
   }
 
   export type FirmUncheckedCreateWithoutFinanceTransactionsInput = {
@@ -40473,6 +44305,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutFirmInput
     girvis?: GirviUncheckedCreateNestedManyWithoutFirmInput
     stocks?: StockUncheckedCreateNestedManyWithoutFirmInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutFirmInput
   }
 
   export type FirmCreateOrConnectWithoutFinanceTransactionsInput = {
@@ -40532,6 +44365,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionCreateNestedManyWithoutUserInput
     girvis?: GirviCreateNestedManyWithoutUserInput
     stocks?: StockCreateNestedManyWithoutUserInput
+    additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutFinanceTransactionsInput = {
@@ -40587,6 +44421,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutUserInput
     girvis?: GirviUncheckedCreateNestedManyWithoutUserInput
     stocks?: StockUncheckedCreateNestedManyWithoutUserInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutFinanceTransactionsInput = {
@@ -40638,6 +44473,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionCreateNestedManyWithoutOwnerInput
     girvis?: GirviCreateNestedManyWithoutOwnerInput
     stocks?: StockCreateNestedManyWithoutOwnerInput
+    additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerUncheckedCreateWithoutFinanceTransactionsInput = {
@@ -40685,6 +44521,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutOwnerInput
     girvis?: GirviUncheckedCreateNestedManyWithoutOwnerInput
     stocks?: StockUncheckedCreateNestedManyWithoutOwnerInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerCreateOrConnectWithoutFinanceTransactionsInput = {
@@ -40845,6 +44682,10 @@ export namespace Prisma {
     girviOnline?: GirviCreateNestedManyWithoutOnlineAccountInput
     girviCard?: GirviCreateNestedManyWithoutCardAccountInput
     girviDr?: GirviCreateNestedManyWithoutDrAccountInput
+    apCash?: AdditionalPrincipalCreateNestedManyWithoutCashAccountInput
+    apBank?: AdditionalPrincipalCreateNestedManyWithoutBankAccountInput
+    apOnline?: AdditionalPrincipalCreateNestedManyWithoutOnlineAccountInput
+    apCard?: AdditionalPrincipalCreateNestedManyWithoutCardAccountInput
   }
 
   export type AccountUncheckedCreateWithoutFtCashInput = {
@@ -40899,6 +44740,10 @@ export namespace Prisma {
     girviOnline?: GirviUncheckedCreateNestedManyWithoutOnlineAccountInput
     girviCard?: GirviUncheckedCreateNestedManyWithoutCardAccountInput
     girviDr?: GirviUncheckedCreateNestedManyWithoutDrAccountInput
+    apCash?: AdditionalPrincipalUncheckedCreateNestedManyWithoutCashAccountInput
+    apBank?: AdditionalPrincipalUncheckedCreateNestedManyWithoutBankAccountInput
+    apOnline?: AdditionalPrincipalUncheckedCreateNestedManyWithoutOnlineAccountInput
+    apCard?: AdditionalPrincipalUncheckedCreateNestedManyWithoutCardAccountInput
   }
 
   export type AccountCreateOrConnectWithoutFtCashInput = {
@@ -40957,6 +44802,10 @@ export namespace Prisma {
     girviOnline?: GirviCreateNestedManyWithoutOnlineAccountInput
     girviCard?: GirviCreateNestedManyWithoutCardAccountInput
     girviDr?: GirviCreateNestedManyWithoutDrAccountInput
+    apCash?: AdditionalPrincipalCreateNestedManyWithoutCashAccountInput
+    apBank?: AdditionalPrincipalCreateNestedManyWithoutBankAccountInput
+    apOnline?: AdditionalPrincipalCreateNestedManyWithoutOnlineAccountInput
+    apCard?: AdditionalPrincipalCreateNestedManyWithoutCardAccountInput
   }
 
   export type AccountUncheckedCreateWithoutFtBankInput = {
@@ -41011,6 +44860,10 @@ export namespace Prisma {
     girviOnline?: GirviUncheckedCreateNestedManyWithoutOnlineAccountInput
     girviCard?: GirviUncheckedCreateNestedManyWithoutCardAccountInput
     girviDr?: GirviUncheckedCreateNestedManyWithoutDrAccountInput
+    apCash?: AdditionalPrincipalUncheckedCreateNestedManyWithoutCashAccountInput
+    apBank?: AdditionalPrincipalUncheckedCreateNestedManyWithoutBankAccountInput
+    apOnline?: AdditionalPrincipalUncheckedCreateNestedManyWithoutOnlineAccountInput
+    apCard?: AdditionalPrincipalUncheckedCreateNestedManyWithoutCardAccountInput
   }
 
   export type AccountCreateOrConnectWithoutFtBankInput = {
@@ -41069,6 +44922,10 @@ export namespace Prisma {
     girviOnline?: GirviCreateNestedManyWithoutOnlineAccountInput
     girviCard?: GirviCreateNestedManyWithoutCardAccountInput
     girviDr?: GirviCreateNestedManyWithoutDrAccountInput
+    apCash?: AdditionalPrincipalCreateNestedManyWithoutCashAccountInput
+    apBank?: AdditionalPrincipalCreateNestedManyWithoutBankAccountInput
+    apOnline?: AdditionalPrincipalCreateNestedManyWithoutOnlineAccountInput
+    apCard?: AdditionalPrincipalCreateNestedManyWithoutCardAccountInput
   }
 
   export type AccountUncheckedCreateWithoutFtOnlineInput = {
@@ -41123,6 +44980,10 @@ export namespace Prisma {
     girviOnline?: GirviUncheckedCreateNestedManyWithoutOnlineAccountInput
     girviCard?: GirviUncheckedCreateNestedManyWithoutCardAccountInput
     girviDr?: GirviUncheckedCreateNestedManyWithoutDrAccountInput
+    apCash?: AdditionalPrincipalUncheckedCreateNestedManyWithoutCashAccountInput
+    apBank?: AdditionalPrincipalUncheckedCreateNestedManyWithoutBankAccountInput
+    apOnline?: AdditionalPrincipalUncheckedCreateNestedManyWithoutOnlineAccountInput
+    apCard?: AdditionalPrincipalUncheckedCreateNestedManyWithoutCardAccountInput
   }
 
   export type AccountCreateOrConnectWithoutFtOnlineInput = {
@@ -41181,6 +45042,10 @@ export namespace Prisma {
     girviOnline?: GirviCreateNestedManyWithoutOnlineAccountInput
     girviCard?: GirviCreateNestedManyWithoutCardAccountInput
     girviDr?: GirviCreateNestedManyWithoutDrAccountInput
+    apCash?: AdditionalPrincipalCreateNestedManyWithoutCashAccountInput
+    apBank?: AdditionalPrincipalCreateNestedManyWithoutBankAccountInput
+    apOnline?: AdditionalPrincipalCreateNestedManyWithoutOnlineAccountInput
+    apCard?: AdditionalPrincipalCreateNestedManyWithoutCardAccountInput
   }
 
   export type AccountUncheckedCreateWithoutFtCardInput = {
@@ -41235,6 +45100,10 @@ export namespace Prisma {
     girviOnline?: GirviUncheckedCreateNestedManyWithoutOnlineAccountInput
     girviCard?: GirviUncheckedCreateNestedManyWithoutCardAccountInput
     girviDr?: GirviUncheckedCreateNestedManyWithoutDrAccountInput
+    apCash?: AdditionalPrincipalUncheckedCreateNestedManyWithoutCashAccountInput
+    apBank?: AdditionalPrincipalUncheckedCreateNestedManyWithoutBankAccountInput
+    apOnline?: AdditionalPrincipalUncheckedCreateNestedManyWithoutOnlineAccountInput
+    apCard?: AdditionalPrincipalUncheckedCreateNestedManyWithoutCardAccountInput
   }
 
   export type AccountCreateOrConnectWithoutFtCardInput = {
@@ -41310,6 +45179,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionUpdateManyWithoutFirmNestedInput
     girvis?: GirviUpdateManyWithoutFirmNestedInput
     stocks?: StockUpdateManyWithoutFirmNestedInput
+    additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutFirmNestedInput
   }
 
   export type FirmUncheckedUpdateWithoutFinanceTransactionsInput = {
@@ -41370,6 +45240,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutFirmNestedInput
     girvis?: GirviUncheckedUpdateManyWithoutFirmNestedInput
     stocks?: StockUncheckedUpdateManyWithoutFirmNestedInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutFirmNestedInput
   }
 
   export type UserUpsertWithoutFinanceTransactionsInput = {
@@ -41435,6 +45306,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionUpdateManyWithoutUserNestedInput
     girvis?: GirviUpdateManyWithoutUserNestedInput
     stocks?: StockUpdateManyWithoutUserNestedInput
+    additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutFinanceTransactionsInput = {
@@ -41490,6 +45362,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutUserNestedInput
     girvis?: GirviUncheckedUpdateManyWithoutUserNestedInput
     stocks?: StockUncheckedUpdateManyWithoutUserNestedInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type OwnerUpsertWithoutFinanceTransactionsInput = {
@@ -41546,6 +45419,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionUpdateManyWithoutOwnerNestedInput
     girvis?: GirviUpdateManyWithoutOwnerNestedInput
     stocks?: StockUpdateManyWithoutOwnerNestedInput
+    additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutOwnerNestedInput
   }
 
   export type OwnerUncheckedUpdateWithoutFinanceTransactionsInput = {
@@ -41593,6 +45467,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutOwnerNestedInput
     girvis?: GirviUncheckedUpdateManyWithoutOwnerNestedInput
     stocks?: StockUncheckedUpdateManyWithoutOwnerNestedInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
   export type FinanceUpsertWithoutFinance_transInput = {
@@ -41765,6 +45640,10 @@ export namespace Prisma {
     girviOnline?: GirviUpdateManyWithoutOnlineAccountNestedInput
     girviCard?: GirviUpdateManyWithoutCardAccountNestedInput
     girviDr?: GirviUpdateManyWithoutDrAccountNestedInput
+    apCash?: AdditionalPrincipalUpdateManyWithoutCashAccountNestedInput
+    apBank?: AdditionalPrincipalUpdateManyWithoutBankAccountNestedInput
+    apOnline?: AdditionalPrincipalUpdateManyWithoutOnlineAccountNestedInput
+    apCard?: AdditionalPrincipalUpdateManyWithoutCardAccountNestedInput
   }
 
   export type AccountUncheckedUpdateWithoutFtCashInput = {
@@ -41819,6 +45698,10 @@ export namespace Prisma {
     girviOnline?: GirviUncheckedUpdateManyWithoutOnlineAccountNestedInput
     girviCard?: GirviUncheckedUpdateManyWithoutCardAccountNestedInput
     girviDr?: GirviUncheckedUpdateManyWithoutDrAccountNestedInput
+    apCash?: AdditionalPrincipalUncheckedUpdateManyWithoutCashAccountNestedInput
+    apBank?: AdditionalPrincipalUncheckedUpdateManyWithoutBankAccountNestedInput
+    apOnline?: AdditionalPrincipalUncheckedUpdateManyWithoutOnlineAccountNestedInput
+    apCard?: AdditionalPrincipalUncheckedUpdateManyWithoutCardAccountNestedInput
   }
 
   export type AccountUpsertWithoutFtBankInput = {
@@ -41883,6 +45766,10 @@ export namespace Prisma {
     girviOnline?: GirviUpdateManyWithoutOnlineAccountNestedInput
     girviCard?: GirviUpdateManyWithoutCardAccountNestedInput
     girviDr?: GirviUpdateManyWithoutDrAccountNestedInput
+    apCash?: AdditionalPrincipalUpdateManyWithoutCashAccountNestedInput
+    apBank?: AdditionalPrincipalUpdateManyWithoutBankAccountNestedInput
+    apOnline?: AdditionalPrincipalUpdateManyWithoutOnlineAccountNestedInput
+    apCard?: AdditionalPrincipalUpdateManyWithoutCardAccountNestedInput
   }
 
   export type AccountUncheckedUpdateWithoutFtBankInput = {
@@ -41937,6 +45824,10 @@ export namespace Prisma {
     girviOnline?: GirviUncheckedUpdateManyWithoutOnlineAccountNestedInput
     girviCard?: GirviUncheckedUpdateManyWithoutCardAccountNestedInput
     girviDr?: GirviUncheckedUpdateManyWithoutDrAccountNestedInput
+    apCash?: AdditionalPrincipalUncheckedUpdateManyWithoutCashAccountNestedInput
+    apBank?: AdditionalPrincipalUncheckedUpdateManyWithoutBankAccountNestedInput
+    apOnline?: AdditionalPrincipalUncheckedUpdateManyWithoutOnlineAccountNestedInput
+    apCard?: AdditionalPrincipalUncheckedUpdateManyWithoutCardAccountNestedInput
   }
 
   export type AccountUpsertWithoutFtOnlineInput = {
@@ -42001,6 +45892,10 @@ export namespace Prisma {
     girviOnline?: GirviUpdateManyWithoutOnlineAccountNestedInput
     girviCard?: GirviUpdateManyWithoutCardAccountNestedInput
     girviDr?: GirviUpdateManyWithoutDrAccountNestedInput
+    apCash?: AdditionalPrincipalUpdateManyWithoutCashAccountNestedInput
+    apBank?: AdditionalPrincipalUpdateManyWithoutBankAccountNestedInput
+    apOnline?: AdditionalPrincipalUpdateManyWithoutOnlineAccountNestedInput
+    apCard?: AdditionalPrincipalUpdateManyWithoutCardAccountNestedInput
   }
 
   export type AccountUncheckedUpdateWithoutFtOnlineInput = {
@@ -42055,6 +45950,10 @@ export namespace Prisma {
     girviOnline?: GirviUncheckedUpdateManyWithoutOnlineAccountNestedInput
     girviCard?: GirviUncheckedUpdateManyWithoutCardAccountNestedInput
     girviDr?: GirviUncheckedUpdateManyWithoutDrAccountNestedInput
+    apCash?: AdditionalPrincipalUncheckedUpdateManyWithoutCashAccountNestedInput
+    apBank?: AdditionalPrincipalUncheckedUpdateManyWithoutBankAccountNestedInput
+    apOnline?: AdditionalPrincipalUncheckedUpdateManyWithoutOnlineAccountNestedInput
+    apCard?: AdditionalPrincipalUncheckedUpdateManyWithoutCardAccountNestedInput
   }
 
   export type AccountUpsertWithoutFtCardInput = {
@@ -42119,6 +46018,10 @@ export namespace Prisma {
     girviOnline?: GirviUpdateManyWithoutOnlineAccountNestedInput
     girviCard?: GirviUpdateManyWithoutCardAccountNestedInput
     girviDr?: GirviUpdateManyWithoutDrAccountNestedInput
+    apCash?: AdditionalPrincipalUpdateManyWithoutCashAccountNestedInput
+    apBank?: AdditionalPrincipalUpdateManyWithoutBankAccountNestedInput
+    apOnline?: AdditionalPrincipalUpdateManyWithoutOnlineAccountNestedInput
+    apCard?: AdditionalPrincipalUpdateManyWithoutCardAccountNestedInput
   }
 
   export type AccountUncheckedUpdateWithoutFtCardInput = {
@@ -42173,6 +46076,10 @@ export namespace Prisma {
     girviOnline?: GirviUncheckedUpdateManyWithoutOnlineAccountNestedInput
     girviCard?: GirviUncheckedUpdateManyWithoutCardAccountNestedInput
     girviDr?: GirviUncheckedUpdateManyWithoutDrAccountNestedInput
+    apCash?: AdditionalPrincipalUncheckedUpdateManyWithoutCashAccountNestedInput
+    apBank?: AdditionalPrincipalUncheckedUpdateManyWithoutBankAccountNestedInput
+    apOnline?: AdditionalPrincipalUncheckedUpdateManyWithoutOnlineAccountNestedInput
+    apCard?: AdditionalPrincipalUncheckedUpdateManyWithoutCardAccountNestedInput
   }
 
   export type FirmCreateWithoutFinanceMoneyTransInput = {
@@ -42232,6 +46139,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionCreateNestedManyWithoutFirmInput
     girvis?: GirviCreateNestedManyWithoutFirmInput
     stocks?: StockCreateNestedManyWithoutFirmInput
+    additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutFirmInput
   }
 
   export type FirmUncheckedCreateWithoutFinanceMoneyTransInput = {
@@ -42292,6 +46200,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutFirmInput
     girvis?: GirviUncheckedCreateNestedManyWithoutFirmInput
     stocks?: StockUncheckedCreateNestedManyWithoutFirmInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutFirmInput
   }
 
   export type FirmCreateOrConnectWithoutFinanceMoneyTransInput = {
@@ -42351,6 +46260,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionCreateNestedManyWithoutUserInput
     girvis?: GirviCreateNestedManyWithoutUserInput
     stocks?: StockCreateNestedManyWithoutUserInput
+    additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutFinanceMoneyTransInput = {
@@ -42406,6 +46316,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutUserInput
     girvis?: GirviUncheckedCreateNestedManyWithoutUserInput
     stocks?: StockUncheckedCreateNestedManyWithoutUserInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutFinanceMoneyTransInput = {
@@ -42457,6 +46368,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionCreateNestedManyWithoutOwnerInput
     girvis?: GirviCreateNestedManyWithoutOwnerInput
     stocks?: StockCreateNestedManyWithoutOwnerInput
+    additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerUncheckedCreateWithoutFinanceMoneyTransInput = {
@@ -42504,6 +46416,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutOwnerInput
     girvis?: GirviUncheckedCreateNestedManyWithoutOwnerInput
     stocks?: StockUncheckedCreateNestedManyWithoutOwnerInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerCreateOrConnectWithoutFinanceMoneyTransInput = {
@@ -42710,6 +46623,10 @@ export namespace Prisma {
     girviOnline?: GirviCreateNestedManyWithoutOnlineAccountInput
     girviCard?: GirviCreateNestedManyWithoutCardAccountInput
     girviDr?: GirviCreateNestedManyWithoutDrAccountInput
+    apCash?: AdditionalPrincipalCreateNestedManyWithoutCashAccountInput
+    apBank?: AdditionalPrincipalCreateNestedManyWithoutBankAccountInput
+    apOnline?: AdditionalPrincipalCreateNestedManyWithoutOnlineAccountInput
+    apCard?: AdditionalPrincipalCreateNestedManyWithoutCardAccountInput
   }
 
   export type AccountUncheckedCreateWithoutFmCashInput = {
@@ -42764,6 +46681,10 @@ export namespace Prisma {
     girviOnline?: GirviUncheckedCreateNestedManyWithoutOnlineAccountInput
     girviCard?: GirviUncheckedCreateNestedManyWithoutCardAccountInput
     girviDr?: GirviUncheckedCreateNestedManyWithoutDrAccountInput
+    apCash?: AdditionalPrincipalUncheckedCreateNestedManyWithoutCashAccountInput
+    apBank?: AdditionalPrincipalUncheckedCreateNestedManyWithoutBankAccountInput
+    apOnline?: AdditionalPrincipalUncheckedCreateNestedManyWithoutOnlineAccountInput
+    apCard?: AdditionalPrincipalUncheckedCreateNestedManyWithoutCardAccountInput
   }
 
   export type AccountCreateOrConnectWithoutFmCashInput = {
@@ -42822,6 +46743,10 @@ export namespace Prisma {
     girviOnline?: GirviCreateNestedManyWithoutOnlineAccountInput
     girviCard?: GirviCreateNestedManyWithoutCardAccountInput
     girviDr?: GirviCreateNestedManyWithoutDrAccountInput
+    apCash?: AdditionalPrincipalCreateNestedManyWithoutCashAccountInput
+    apBank?: AdditionalPrincipalCreateNestedManyWithoutBankAccountInput
+    apOnline?: AdditionalPrincipalCreateNestedManyWithoutOnlineAccountInput
+    apCard?: AdditionalPrincipalCreateNestedManyWithoutCardAccountInput
   }
 
   export type AccountUncheckedCreateWithoutFmBankInput = {
@@ -42876,6 +46801,10 @@ export namespace Prisma {
     girviOnline?: GirviUncheckedCreateNestedManyWithoutOnlineAccountInput
     girviCard?: GirviUncheckedCreateNestedManyWithoutCardAccountInput
     girviDr?: GirviUncheckedCreateNestedManyWithoutDrAccountInput
+    apCash?: AdditionalPrincipalUncheckedCreateNestedManyWithoutCashAccountInput
+    apBank?: AdditionalPrincipalUncheckedCreateNestedManyWithoutBankAccountInput
+    apOnline?: AdditionalPrincipalUncheckedCreateNestedManyWithoutOnlineAccountInput
+    apCard?: AdditionalPrincipalUncheckedCreateNestedManyWithoutCardAccountInput
   }
 
   export type AccountCreateOrConnectWithoutFmBankInput = {
@@ -42934,6 +46863,10 @@ export namespace Prisma {
     girviOnline?: GirviCreateNestedManyWithoutOnlineAccountInput
     girviCard?: GirviCreateNestedManyWithoutCardAccountInput
     girviDr?: GirviCreateNestedManyWithoutDrAccountInput
+    apCash?: AdditionalPrincipalCreateNestedManyWithoutCashAccountInput
+    apBank?: AdditionalPrincipalCreateNestedManyWithoutBankAccountInput
+    apOnline?: AdditionalPrincipalCreateNestedManyWithoutOnlineAccountInput
+    apCard?: AdditionalPrincipalCreateNestedManyWithoutCardAccountInput
   }
 
   export type AccountUncheckedCreateWithoutFmOnlineInput = {
@@ -42988,6 +46921,10 @@ export namespace Prisma {
     girviOnline?: GirviUncheckedCreateNestedManyWithoutOnlineAccountInput
     girviCard?: GirviUncheckedCreateNestedManyWithoutCardAccountInput
     girviDr?: GirviUncheckedCreateNestedManyWithoutDrAccountInput
+    apCash?: AdditionalPrincipalUncheckedCreateNestedManyWithoutCashAccountInput
+    apBank?: AdditionalPrincipalUncheckedCreateNestedManyWithoutBankAccountInput
+    apOnline?: AdditionalPrincipalUncheckedCreateNestedManyWithoutOnlineAccountInput
+    apCard?: AdditionalPrincipalUncheckedCreateNestedManyWithoutCardAccountInput
   }
 
   export type AccountCreateOrConnectWithoutFmOnlineInput = {
@@ -43046,6 +46983,10 @@ export namespace Prisma {
     girviOnline?: GirviCreateNestedManyWithoutOnlineAccountInput
     girviCard?: GirviCreateNestedManyWithoutCardAccountInput
     girviDr?: GirviCreateNestedManyWithoutDrAccountInput
+    apCash?: AdditionalPrincipalCreateNestedManyWithoutCashAccountInput
+    apBank?: AdditionalPrincipalCreateNestedManyWithoutBankAccountInput
+    apOnline?: AdditionalPrincipalCreateNestedManyWithoutOnlineAccountInput
+    apCard?: AdditionalPrincipalCreateNestedManyWithoutCardAccountInput
   }
 
   export type AccountUncheckedCreateWithoutFmCardInput = {
@@ -43100,6 +47041,10 @@ export namespace Prisma {
     girviOnline?: GirviUncheckedCreateNestedManyWithoutOnlineAccountInput
     girviCard?: GirviUncheckedCreateNestedManyWithoutCardAccountInput
     girviDr?: GirviUncheckedCreateNestedManyWithoutDrAccountInput
+    apCash?: AdditionalPrincipalUncheckedCreateNestedManyWithoutCashAccountInput
+    apBank?: AdditionalPrincipalUncheckedCreateNestedManyWithoutBankAccountInput
+    apOnline?: AdditionalPrincipalUncheckedCreateNestedManyWithoutOnlineAccountInput
+    apCard?: AdditionalPrincipalUncheckedCreateNestedManyWithoutCardAccountInput
   }
 
   export type AccountCreateOrConnectWithoutFmCardInput = {
@@ -43158,6 +47103,10 @@ export namespace Prisma {
     girviOnline?: GirviCreateNestedManyWithoutOnlineAccountInput
     girviCard?: GirviCreateNestedManyWithoutCardAccountInput
     girviDr?: GirviCreateNestedManyWithoutDrAccountInput
+    apCash?: AdditionalPrincipalCreateNestedManyWithoutCashAccountInput
+    apBank?: AdditionalPrincipalCreateNestedManyWithoutBankAccountInput
+    apOnline?: AdditionalPrincipalCreateNestedManyWithoutOnlineAccountInput
+    apCard?: AdditionalPrincipalCreateNestedManyWithoutCardAccountInput
   }
 
   export type AccountUncheckedCreateWithoutFmDrInput = {
@@ -43212,6 +47161,10 @@ export namespace Prisma {
     girviOnline?: GirviUncheckedCreateNestedManyWithoutOnlineAccountInput
     girviCard?: GirviUncheckedCreateNestedManyWithoutCardAccountInput
     girviDr?: GirviUncheckedCreateNestedManyWithoutDrAccountInput
+    apCash?: AdditionalPrincipalUncheckedCreateNestedManyWithoutCashAccountInput
+    apBank?: AdditionalPrincipalUncheckedCreateNestedManyWithoutBankAccountInput
+    apOnline?: AdditionalPrincipalUncheckedCreateNestedManyWithoutOnlineAccountInput
+    apCard?: AdditionalPrincipalUncheckedCreateNestedManyWithoutCardAccountInput
   }
 
   export type AccountCreateOrConnectWithoutFmDrInput = {
@@ -43287,6 +47240,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionUpdateManyWithoutFirmNestedInput
     girvis?: GirviUpdateManyWithoutFirmNestedInput
     stocks?: StockUpdateManyWithoutFirmNestedInput
+    additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutFirmNestedInput
   }
 
   export type FirmUncheckedUpdateWithoutFinanceMoneyTransInput = {
@@ -43347,6 +47301,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutFirmNestedInput
     girvis?: GirviUncheckedUpdateManyWithoutFirmNestedInput
     stocks?: StockUncheckedUpdateManyWithoutFirmNestedInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutFirmNestedInput
   }
 
   export type UserUpsertWithoutFinanceMoneyTransInput = {
@@ -43412,6 +47367,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionUpdateManyWithoutUserNestedInput
     girvis?: GirviUpdateManyWithoutUserNestedInput
     stocks?: StockUpdateManyWithoutUserNestedInput
+    additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutFinanceMoneyTransInput = {
@@ -43467,6 +47423,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutUserNestedInput
     girvis?: GirviUncheckedUpdateManyWithoutUserNestedInput
     stocks?: StockUncheckedUpdateManyWithoutUserNestedInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type OwnerUpsertWithoutFinanceMoneyTransInput = {
@@ -43523,6 +47480,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionUpdateManyWithoutOwnerNestedInput
     girvis?: GirviUpdateManyWithoutOwnerNestedInput
     stocks?: StockUpdateManyWithoutOwnerNestedInput
+    additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutOwnerNestedInput
   }
 
   export type OwnerUncheckedUpdateWithoutFinanceMoneyTransInput = {
@@ -43570,6 +47528,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutOwnerNestedInput
     girvis?: GirviUncheckedUpdateManyWithoutOwnerNestedInput
     stocks?: StockUncheckedUpdateManyWithoutOwnerNestedInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
   export type FinanceUpsertWithoutFinance_money_transInput = {
@@ -43794,6 +47753,10 @@ export namespace Prisma {
     girviOnline?: GirviUpdateManyWithoutOnlineAccountNestedInput
     girviCard?: GirviUpdateManyWithoutCardAccountNestedInput
     girviDr?: GirviUpdateManyWithoutDrAccountNestedInput
+    apCash?: AdditionalPrincipalUpdateManyWithoutCashAccountNestedInput
+    apBank?: AdditionalPrincipalUpdateManyWithoutBankAccountNestedInput
+    apOnline?: AdditionalPrincipalUpdateManyWithoutOnlineAccountNestedInput
+    apCard?: AdditionalPrincipalUpdateManyWithoutCardAccountNestedInput
   }
 
   export type AccountUncheckedUpdateWithoutFmCashInput = {
@@ -43848,6 +47811,10 @@ export namespace Prisma {
     girviOnline?: GirviUncheckedUpdateManyWithoutOnlineAccountNestedInput
     girviCard?: GirviUncheckedUpdateManyWithoutCardAccountNestedInput
     girviDr?: GirviUncheckedUpdateManyWithoutDrAccountNestedInput
+    apCash?: AdditionalPrincipalUncheckedUpdateManyWithoutCashAccountNestedInput
+    apBank?: AdditionalPrincipalUncheckedUpdateManyWithoutBankAccountNestedInput
+    apOnline?: AdditionalPrincipalUncheckedUpdateManyWithoutOnlineAccountNestedInput
+    apCard?: AdditionalPrincipalUncheckedUpdateManyWithoutCardAccountNestedInput
   }
 
   export type AccountUpsertWithoutFmBankInput = {
@@ -43912,6 +47879,10 @@ export namespace Prisma {
     girviOnline?: GirviUpdateManyWithoutOnlineAccountNestedInput
     girviCard?: GirviUpdateManyWithoutCardAccountNestedInput
     girviDr?: GirviUpdateManyWithoutDrAccountNestedInput
+    apCash?: AdditionalPrincipalUpdateManyWithoutCashAccountNestedInput
+    apBank?: AdditionalPrincipalUpdateManyWithoutBankAccountNestedInput
+    apOnline?: AdditionalPrincipalUpdateManyWithoutOnlineAccountNestedInput
+    apCard?: AdditionalPrincipalUpdateManyWithoutCardAccountNestedInput
   }
 
   export type AccountUncheckedUpdateWithoutFmBankInput = {
@@ -43966,6 +47937,10 @@ export namespace Prisma {
     girviOnline?: GirviUncheckedUpdateManyWithoutOnlineAccountNestedInput
     girviCard?: GirviUncheckedUpdateManyWithoutCardAccountNestedInput
     girviDr?: GirviUncheckedUpdateManyWithoutDrAccountNestedInput
+    apCash?: AdditionalPrincipalUncheckedUpdateManyWithoutCashAccountNestedInput
+    apBank?: AdditionalPrincipalUncheckedUpdateManyWithoutBankAccountNestedInput
+    apOnline?: AdditionalPrincipalUncheckedUpdateManyWithoutOnlineAccountNestedInput
+    apCard?: AdditionalPrincipalUncheckedUpdateManyWithoutCardAccountNestedInput
   }
 
   export type AccountUpsertWithoutFmOnlineInput = {
@@ -44030,6 +48005,10 @@ export namespace Prisma {
     girviOnline?: GirviUpdateManyWithoutOnlineAccountNestedInput
     girviCard?: GirviUpdateManyWithoutCardAccountNestedInput
     girviDr?: GirviUpdateManyWithoutDrAccountNestedInput
+    apCash?: AdditionalPrincipalUpdateManyWithoutCashAccountNestedInput
+    apBank?: AdditionalPrincipalUpdateManyWithoutBankAccountNestedInput
+    apOnline?: AdditionalPrincipalUpdateManyWithoutOnlineAccountNestedInput
+    apCard?: AdditionalPrincipalUpdateManyWithoutCardAccountNestedInput
   }
 
   export type AccountUncheckedUpdateWithoutFmOnlineInput = {
@@ -44084,6 +48063,10 @@ export namespace Prisma {
     girviOnline?: GirviUncheckedUpdateManyWithoutOnlineAccountNestedInput
     girviCard?: GirviUncheckedUpdateManyWithoutCardAccountNestedInput
     girviDr?: GirviUncheckedUpdateManyWithoutDrAccountNestedInput
+    apCash?: AdditionalPrincipalUncheckedUpdateManyWithoutCashAccountNestedInput
+    apBank?: AdditionalPrincipalUncheckedUpdateManyWithoutBankAccountNestedInput
+    apOnline?: AdditionalPrincipalUncheckedUpdateManyWithoutOnlineAccountNestedInput
+    apCard?: AdditionalPrincipalUncheckedUpdateManyWithoutCardAccountNestedInput
   }
 
   export type AccountUpsertWithoutFmCardInput = {
@@ -44148,6 +48131,10 @@ export namespace Prisma {
     girviOnline?: GirviUpdateManyWithoutOnlineAccountNestedInput
     girviCard?: GirviUpdateManyWithoutCardAccountNestedInput
     girviDr?: GirviUpdateManyWithoutDrAccountNestedInput
+    apCash?: AdditionalPrincipalUpdateManyWithoutCashAccountNestedInput
+    apBank?: AdditionalPrincipalUpdateManyWithoutBankAccountNestedInput
+    apOnline?: AdditionalPrincipalUpdateManyWithoutOnlineAccountNestedInput
+    apCard?: AdditionalPrincipalUpdateManyWithoutCardAccountNestedInput
   }
 
   export type AccountUncheckedUpdateWithoutFmCardInput = {
@@ -44202,6 +48189,10 @@ export namespace Prisma {
     girviOnline?: GirviUncheckedUpdateManyWithoutOnlineAccountNestedInput
     girviCard?: GirviUncheckedUpdateManyWithoutCardAccountNestedInput
     girviDr?: GirviUncheckedUpdateManyWithoutDrAccountNestedInput
+    apCash?: AdditionalPrincipalUncheckedUpdateManyWithoutCashAccountNestedInput
+    apBank?: AdditionalPrincipalUncheckedUpdateManyWithoutBankAccountNestedInput
+    apOnline?: AdditionalPrincipalUncheckedUpdateManyWithoutOnlineAccountNestedInput
+    apCard?: AdditionalPrincipalUncheckedUpdateManyWithoutCardAccountNestedInput
   }
 
   export type AccountUpsertWithoutFmDrInput = {
@@ -44266,6 +48257,10 @@ export namespace Prisma {
     girviOnline?: GirviUpdateManyWithoutOnlineAccountNestedInput
     girviCard?: GirviUpdateManyWithoutCardAccountNestedInput
     girviDr?: GirviUpdateManyWithoutDrAccountNestedInput
+    apCash?: AdditionalPrincipalUpdateManyWithoutCashAccountNestedInput
+    apBank?: AdditionalPrincipalUpdateManyWithoutBankAccountNestedInput
+    apOnline?: AdditionalPrincipalUpdateManyWithoutOnlineAccountNestedInput
+    apCard?: AdditionalPrincipalUpdateManyWithoutCardAccountNestedInput
   }
 
   export type AccountUncheckedUpdateWithoutFmDrInput = {
@@ -44320,6 +48315,10 @@ export namespace Prisma {
     girviOnline?: GirviUncheckedUpdateManyWithoutOnlineAccountNestedInput
     girviCard?: GirviUncheckedUpdateManyWithoutCardAccountNestedInput
     girviDr?: GirviUncheckedUpdateManyWithoutDrAccountNestedInput
+    apCash?: AdditionalPrincipalUncheckedUpdateManyWithoutCashAccountNestedInput
+    apBank?: AdditionalPrincipalUncheckedUpdateManyWithoutBankAccountNestedInput
+    apOnline?: AdditionalPrincipalUncheckedUpdateManyWithoutOnlineAccountNestedInput
+    apCard?: AdditionalPrincipalUncheckedUpdateManyWithoutCardAccountNestedInput
   }
 
   export type Finance_Money_TransactionCreateWithoutJournalInput = {
@@ -44462,6 +48461,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionCreateNestedManyWithoutFirmInput
     girvis?: GirviCreateNestedManyWithoutFirmInput
     stocks?: StockCreateNestedManyWithoutFirmInput
+    additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutFirmInput
   }
 
   export type FirmUncheckedCreateWithoutJournalsInput = {
@@ -44522,6 +48522,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutFirmInput
     girvis?: GirviUncheckedCreateNestedManyWithoutFirmInput
     stocks?: StockUncheckedCreateNestedManyWithoutFirmInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutFirmInput
   }
 
   export type FirmCreateOrConnectWithoutJournalsInput = {
@@ -44581,6 +48582,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionCreateNestedManyWithoutUserInput
     girvis?: GirviCreateNestedManyWithoutUserInput
     stocks?: StockCreateNestedManyWithoutUserInput
+    additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutJournalsInput = {
@@ -44636,6 +48638,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutUserInput
     girvis?: GirviUncheckedCreateNestedManyWithoutUserInput
     stocks?: StockUncheckedCreateNestedManyWithoutUserInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutJournalsInput = {
@@ -44687,6 +48690,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionCreateNestedManyWithoutOwnerInput
     girvis?: GirviCreateNestedManyWithoutOwnerInput
     stocks?: StockCreateNestedManyWithoutOwnerInput
+    additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerUncheckedCreateWithoutJournalsInput = {
@@ -44734,6 +48738,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutOwnerInput
     girvis?: GirviUncheckedCreateNestedManyWithoutOwnerInput
     stocks?: StockUncheckedCreateNestedManyWithoutOwnerInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerCreateOrConnectWithoutJournalsInput = {
@@ -44884,6 +48889,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionUpdateManyWithoutFirmNestedInput
     girvis?: GirviUpdateManyWithoutFirmNestedInput
     stocks?: StockUpdateManyWithoutFirmNestedInput
+    additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutFirmNestedInput
   }
 
   export type FirmUncheckedUpdateWithoutJournalsInput = {
@@ -44944,6 +48950,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutFirmNestedInput
     girvis?: GirviUncheckedUpdateManyWithoutFirmNestedInput
     stocks?: StockUncheckedUpdateManyWithoutFirmNestedInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutFirmNestedInput
   }
 
   export type UserUpsertWithoutJournalsInput = {
@@ -45009,6 +49016,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionUpdateManyWithoutUserNestedInput
     girvis?: GirviUpdateManyWithoutUserNestedInput
     stocks?: StockUpdateManyWithoutUserNestedInput
+    additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutJournalsInput = {
@@ -45064,6 +49072,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutUserNestedInput
     girvis?: GirviUncheckedUpdateManyWithoutUserNestedInput
     stocks?: StockUncheckedUpdateManyWithoutUserNestedInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type OwnerUpsertWithoutJournalsInput = {
@@ -45120,6 +49129,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionUpdateManyWithoutOwnerNestedInput
     girvis?: GirviUpdateManyWithoutOwnerNestedInput
     stocks?: StockUpdateManyWithoutOwnerNestedInput
+    additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutOwnerNestedInput
   }
 
   export type OwnerUncheckedUpdateWithoutJournalsInput = {
@@ -45167,6 +49177,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutOwnerNestedInput
     girvis?: GirviUncheckedUpdateManyWithoutOwnerNestedInput
     stocks?: StockUncheckedUpdateManyWithoutOwnerNestedInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
   export type JournalTransactionUpsertWithWhereUniqueWithoutJournalInput = {
@@ -45288,6 +49299,7 @@ export namespace Prisma {
     journals?: JournalCreateNestedManyWithoutFirmInput
     girvis?: GirviCreateNestedManyWithoutFirmInput
     stocks?: StockCreateNestedManyWithoutFirmInput
+    additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutFirmInput
   }
 
   export type FirmUncheckedCreateWithoutJournalTransactionsInput = {
@@ -45348,6 +49360,7 @@ export namespace Prisma {
     journals?: JournalUncheckedCreateNestedManyWithoutFirmInput
     girvis?: GirviUncheckedCreateNestedManyWithoutFirmInput
     stocks?: StockUncheckedCreateNestedManyWithoutFirmInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutFirmInput
   }
 
   export type FirmCreateOrConnectWithoutJournalTransactionsInput = {
@@ -45407,6 +49420,7 @@ export namespace Prisma {
     journals?: JournalCreateNestedManyWithoutUserInput
     girvis?: GirviCreateNestedManyWithoutUserInput
     stocks?: StockCreateNestedManyWithoutUserInput
+    additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutJournalTransactionsInput = {
@@ -45462,6 +49476,7 @@ export namespace Prisma {
     journals?: JournalUncheckedCreateNestedManyWithoutUserInput
     girvis?: GirviUncheckedCreateNestedManyWithoutUserInput
     stocks?: StockUncheckedCreateNestedManyWithoutUserInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutJournalTransactionsInput = {
@@ -45513,6 +49528,7 @@ export namespace Prisma {
     journals?: JournalCreateNestedManyWithoutOwnerInput
     girvis?: GirviCreateNestedManyWithoutOwnerInput
     stocks?: StockCreateNestedManyWithoutOwnerInput
+    additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerUncheckedCreateWithoutJournalTransactionsInput = {
@@ -45560,6 +49576,7 @@ export namespace Prisma {
     journals?: JournalUncheckedCreateNestedManyWithoutOwnerInput
     girvis?: GirviUncheckedCreateNestedManyWithoutOwnerInput
     stocks?: StockUncheckedCreateNestedManyWithoutOwnerInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerCreateOrConnectWithoutJournalTransactionsInput = {
@@ -45618,6 +49635,10 @@ export namespace Prisma {
     girviOnline?: GirviCreateNestedManyWithoutOnlineAccountInput
     girviCard?: GirviCreateNestedManyWithoutCardAccountInput
     girviDr?: GirviCreateNestedManyWithoutDrAccountInput
+    apCash?: AdditionalPrincipalCreateNestedManyWithoutCashAccountInput
+    apBank?: AdditionalPrincipalCreateNestedManyWithoutBankAccountInput
+    apOnline?: AdditionalPrincipalCreateNestedManyWithoutOnlineAccountInput
+    apCard?: AdditionalPrincipalCreateNestedManyWithoutCardAccountInput
   }
 
   export type AccountUncheckedCreateWithoutJrtrCreditInput = {
@@ -45672,6 +49693,10 @@ export namespace Prisma {
     girviOnline?: GirviUncheckedCreateNestedManyWithoutOnlineAccountInput
     girviCard?: GirviUncheckedCreateNestedManyWithoutCardAccountInput
     girviDr?: GirviUncheckedCreateNestedManyWithoutDrAccountInput
+    apCash?: AdditionalPrincipalUncheckedCreateNestedManyWithoutCashAccountInput
+    apBank?: AdditionalPrincipalUncheckedCreateNestedManyWithoutBankAccountInput
+    apOnline?: AdditionalPrincipalUncheckedCreateNestedManyWithoutOnlineAccountInput
+    apCard?: AdditionalPrincipalUncheckedCreateNestedManyWithoutCardAccountInput
   }
 
   export type AccountCreateOrConnectWithoutJrtrCreditInput = {
@@ -45730,6 +49755,10 @@ export namespace Prisma {
     girviOnline?: GirviCreateNestedManyWithoutOnlineAccountInput
     girviCard?: GirviCreateNestedManyWithoutCardAccountInput
     girviDr?: GirviCreateNestedManyWithoutDrAccountInput
+    apCash?: AdditionalPrincipalCreateNestedManyWithoutCashAccountInput
+    apBank?: AdditionalPrincipalCreateNestedManyWithoutBankAccountInput
+    apOnline?: AdditionalPrincipalCreateNestedManyWithoutOnlineAccountInput
+    apCard?: AdditionalPrincipalCreateNestedManyWithoutCardAccountInput
   }
 
   export type AccountUncheckedCreateWithoutJrtrDebitInput = {
@@ -45784,6 +49813,10 @@ export namespace Prisma {
     girviOnline?: GirviUncheckedCreateNestedManyWithoutOnlineAccountInput
     girviCard?: GirviUncheckedCreateNestedManyWithoutCardAccountInput
     girviDr?: GirviUncheckedCreateNestedManyWithoutDrAccountInput
+    apCash?: AdditionalPrincipalUncheckedCreateNestedManyWithoutCashAccountInput
+    apBank?: AdditionalPrincipalUncheckedCreateNestedManyWithoutBankAccountInput
+    apOnline?: AdditionalPrincipalUncheckedCreateNestedManyWithoutOnlineAccountInput
+    apCard?: AdditionalPrincipalUncheckedCreateNestedManyWithoutCardAccountInput
   }
 
   export type AccountCreateOrConnectWithoutJrtrDebitInput = {
@@ -45911,6 +49944,7 @@ export namespace Prisma {
     journals?: JournalUpdateManyWithoutFirmNestedInput
     girvis?: GirviUpdateManyWithoutFirmNestedInput
     stocks?: StockUpdateManyWithoutFirmNestedInput
+    additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutFirmNestedInput
   }
 
   export type FirmUncheckedUpdateWithoutJournalTransactionsInput = {
@@ -45971,6 +50005,7 @@ export namespace Prisma {
     journals?: JournalUncheckedUpdateManyWithoutFirmNestedInput
     girvis?: GirviUncheckedUpdateManyWithoutFirmNestedInput
     stocks?: StockUncheckedUpdateManyWithoutFirmNestedInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutFirmNestedInput
   }
 
   export type UserUpsertWithoutJournalTransactionsInput = {
@@ -46036,6 +50071,7 @@ export namespace Prisma {
     journals?: JournalUpdateManyWithoutUserNestedInput
     girvis?: GirviUpdateManyWithoutUserNestedInput
     stocks?: StockUpdateManyWithoutUserNestedInput
+    additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutJournalTransactionsInput = {
@@ -46091,6 +50127,7 @@ export namespace Prisma {
     journals?: JournalUncheckedUpdateManyWithoutUserNestedInput
     girvis?: GirviUncheckedUpdateManyWithoutUserNestedInput
     stocks?: StockUncheckedUpdateManyWithoutUserNestedInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type OwnerUpsertWithoutJournalTransactionsInput = {
@@ -46147,6 +50184,7 @@ export namespace Prisma {
     journals?: JournalUpdateManyWithoutOwnerNestedInput
     girvis?: GirviUpdateManyWithoutOwnerNestedInput
     stocks?: StockUpdateManyWithoutOwnerNestedInput
+    additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutOwnerNestedInput
   }
 
   export type OwnerUncheckedUpdateWithoutJournalTransactionsInput = {
@@ -46194,6 +50232,7 @@ export namespace Prisma {
     journals?: JournalUncheckedUpdateManyWithoutOwnerNestedInput
     girvis?: GirviUncheckedUpdateManyWithoutOwnerNestedInput
     stocks?: StockUncheckedUpdateManyWithoutOwnerNestedInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
   export type AccountUpsertWithoutJrtrCreditInput = {
@@ -46258,6 +50297,10 @@ export namespace Prisma {
     girviOnline?: GirviUpdateManyWithoutOnlineAccountNestedInput
     girviCard?: GirviUpdateManyWithoutCardAccountNestedInput
     girviDr?: GirviUpdateManyWithoutDrAccountNestedInput
+    apCash?: AdditionalPrincipalUpdateManyWithoutCashAccountNestedInput
+    apBank?: AdditionalPrincipalUpdateManyWithoutBankAccountNestedInput
+    apOnline?: AdditionalPrincipalUpdateManyWithoutOnlineAccountNestedInput
+    apCard?: AdditionalPrincipalUpdateManyWithoutCardAccountNestedInput
   }
 
   export type AccountUncheckedUpdateWithoutJrtrCreditInput = {
@@ -46312,6 +50355,10 @@ export namespace Prisma {
     girviOnline?: GirviUncheckedUpdateManyWithoutOnlineAccountNestedInput
     girviCard?: GirviUncheckedUpdateManyWithoutCardAccountNestedInput
     girviDr?: GirviUncheckedUpdateManyWithoutDrAccountNestedInput
+    apCash?: AdditionalPrincipalUncheckedUpdateManyWithoutCashAccountNestedInput
+    apBank?: AdditionalPrincipalUncheckedUpdateManyWithoutBankAccountNestedInput
+    apOnline?: AdditionalPrincipalUncheckedUpdateManyWithoutOnlineAccountNestedInput
+    apCard?: AdditionalPrincipalUncheckedUpdateManyWithoutCardAccountNestedInput
   }
 
   export type AccountUpsertWithoutJrtrDebitInput = {
@@ -46376,6 +50423,10 @@ export namespace Prisma {
     girviOnline?: GirviUpdateManyWithoutOnlineAccountNestedInput
     girviCard?: GirviUpdateManyWithoutCardAccountNestedInput
     girviDr?: GirviUpdateManyWithoutDrAccountNestedInput
+    apCash?: AdditionalPrincipalUpdateManyWithoutCashAccountNestedInput
+    apBank?: AdditionalPrincipalUpdateManyWithoutBankAccountNestedInput
+    apOnline?: AdditionalPrincipalUpdateManyWithoutOnlineAccountNestedInput
+    apCard?: AdditionalPrincipalUpdateManyWithoutCardAccountNestedInput
   }
 
   export type AccountUncheckedUpdateWithoutJrtrDebitInput = {
@@ -46430,6 +50481,10 @@ export namespace Prisma {
     girviOnline?: GirviUncheckedUpdateManyWithoutOnlineAccountNestedInput
     girviCard?: GirviUncheckedUpdateManyWithoutCardAccountNestedInput
     girviDr?: GirviUncheckedUpdateManyWithoutDrAccountNestedInput
+    apCash?: AdditionalPrincipalUncheckedUpdateManyWithoutCashAccountNestedInput
+    apBank?: AdditionalPrincipalUncheckedUpdateManyWithoutBankAccountNestedInput
+    apOnline?: AdditionalPrincipalUncheckedUpdateManyWithoutOnlineAccountNestedInput
+    apCard?: AdditionalPrincipalUncheckedUpdateManyWithoutCardAccountNestedInput
   }
 
   export type OwnerCreateWithoutGirvisInput = {
@@ -46476,6 +50531,7 @@ export namespace Prisma {
     journals?: JournalCreateNestedManyWithoutOwnerInput
     journalTransactions?: JournalTransactionCreateNestedManyWithoutOwnerInput
     stocks?: StockCreateNestedManyWithoutOwnerInput
+    additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerUncheckedCreateWithoutGirvisInput = {
@@ -46523,6 +50579,7 @@ export namespace Prisma {
     journals?: JournalUncheckedCreateNestedManyWithoutOwnerInput
     journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutOwnerInput
     stocks?: StockUncheckedCreateNestedManyWithoutOwnerInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerCreateOrConnectWithoutGirvisInput = {
@@ -46587,6 +50644,7 @@ export namespace Prisma {
     journals?: JournalCreateNestedManyWithoutFirmInput
     journalTransactions?: JournalTransactionCreateNestedManyWithoutFirmInput
     stocks?: StockCreateNestedManyWithoutFirmInput
+    additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutFirmInput
   }
 
   export type FirmUncheckedCreateWithoutGirvisInput = {
@@ -46647,6 +50705,7 @@ export namespace Prisma {
     journals?: JournalUncheckedCreateNestedManyWithoutFirmInput
     journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutFirmInput
     stocks?: StockUncheckedCreateNestedManyWithoutFirmInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutFirmInput
   }
 
   export type FirmCreateOrConnectWithoutGirvisInput = {
@@ -46706,6 +50765,7 @@ export namespace Prisma {
     journals?: JournalCreateNestedManyWithoutUserInput
     journalTransactions?: JournalTransactionCreateNestedManyWithoutUserInput
     stocks?: StockCreateNestedManyWithoutUserInput
+    additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutGirvisInput = {
@@ -46761,6 +50821,7 @@ export namespace Prisma {
     journals?: JournalUncheckedCreateNestedManyWithoutUserInput
     journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutUserInput
     stocks?: StockUncheckedCreateNestedManyWithoutUserInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutGirvisInput = {
@@ -46819,6 +50880,10 @@ export namespace Prisma {
     girviOnline?: GirviCreateNestedManyWithoutOnlineAccountInput
     girviCard?: GirviCreateNestedManyWithoutCardAccountInput
     girviDr?: GirviCreateNestedManyWithoutDrAccountInput
+    apCash?: AdditionalPrincipalCreateNestedManyWithoutCashAccountInput
+    apBank?: AdditionalPrincipalCreateNestedManyWithoutBankAccountInput
+    apOnline?: AdditionalPrincipalCreateNestedManyWithoutOnlineAccountInput
+    apCard?: AdditionalPrincipalCreateNestedManyWithoutCardAccountInput
   }
 
   export type AccountUncheckedCreateWithoutGirviFirstIntCrInput = {
@@ -46873,6 +50938,10 @@ export namespace Prisma {
     girviOnline?: GirviUncheckedCreateNestedManyWithoutOnlineAccountInput
     girviCard?: GirviUncheckedCreateNestedManyWithoutCardAccountInput
     girviDr?: GirviUncheckedCreateNestedManyWithoutDrAccountInput
+    apCash?: AdditionalPrincipalUncheckedCreateNestedManyWithoutCashAccountInput
+    apBank?: AdditionalPrincipalUncheckedCreateNestedManyWithoutBankAccountInput
+    apOnline?: AdditionalPrincipalUncheckedCreateNestedManyWithoutOnlineAccountInput
+    apCard?: AdditionalPrincipalUncheckedCreateNestedManyWithoutCardAccountInput
   }
 
   export type AccountCreateOrConnectWithoutGirviFirstIntCrInput = {
@@ -46931,6 +51000,10 @@ export namespace Prisma {
     girviOnline?: GirviCreateNestedManyWithoutOnlineAccountInput
     girviCard?: GirviCreateNestedManyWithoutCardAccountInput
     girviDr?: GirviCreateNestedManyWithoutDrAccountInput
+    apCash?: AdditionalPrincipalCreateNestedManyWithoutCashAccountInput
+    apBank?: AdditionalPrincipalCreateNestedManyWithoutBankAccountInput
+    apOnline?: AdditionalPrincipalCreateNestedManyWithoutOnlineAccountInput
+    apCard?: AdditionalPrincipalCreateNestedManyWithoutCardAccountInput
   }
 
   export type AccountUncheckedCreateWithoutGirviFirstIntDrInput = {
@@ -46985,6 +51058,10 @@ export namespace Prisma {
     girviOnline?: GirviUncheckedCreateNestedManyWithoutOnlineAccountInput
     girviCard?: GirviUncheckedCreateNestedManyWithoutCardAccountInput
     girviDr?: GirviUncheckedCreateNestedManyWithoutDrAccountInput
+    apCash?: AdditionalPrincipalUncheckedCreateNestedManyWithoutCashAccountInput
+    apBank?: AdditionalPrincipalUncheckedCreateNestedManyWithoutBankAccountInput
+    apOnline?: AdditionalPrincipalUncheckedCreateNestedManyWithoutOnlineAccountInput
+    apCard?: AdditionalPrincipalUncheckedCreateNestedManyWithoutCardAccountInput
   }
 
   export type AccountCreateOrConnectWithoutGirviFirstIntDrInput = {
@@ -47043,6 +51120,10 @@ export namespace Prisma {
     girviOnline?: GirviCreateNestedManyWithoutOnlineAccountInput
     girviCard?: GirviCreateNestedManyWithoutCardAccountInput
     girviDr?: GirviCreateNestedManyWithoutDrAccountInput
+    apCash?: AdditionalPrincipalCreateNestedManyWithoutCashAccountInput
+    apBank?: AdditionalPrincipalCreateNestedManyWithoutBankAccountInput
+    apOnline?: AdditionalPrincipalCreateNestedManyWithoutOnlineAccountInput
+    apCard?: AdditionalPrincipalCreateNestedManyWithoutCardAccountInput
   }
 
   export type AccountUncheckedCreateWithoutGirviCashInput = {
@@ -47097,6 +51178,10 @@ export namespace Prisma {
     girviOnline?: GirviUncheckedCreateNestedManyWithoutOnlineAccountInput
     girviCard?: GirviUncheckedCreateNestedManyWithoutCardAccountInput
     girviDr?: GirviUncheckedCreateNestedManyWithoutDrAccountInput
+    apCash?: AdditionalPrincipalUncheckedCreateNestedManyWithoutCashAccountInput
+    apBank?: AdditionalPrincipalUncheckedCreateNestedManyWithoutBankAccountInput
+    apOnline?: AdditionalPrincipalUncheckedCreateNestedManyWithoutOnlineAccountInput
+    apCard?: AdditionalPrincipalUncheckedCreateNestedManyWithoutCardAccountInput
   }
 
   export type AccountCreateOrConnectWithoutGirviCashInput = {
@@ -47155,6 +51240,10 @@ export namespace Prisma {
     girviOnline?: GirviCreateNestedManyWithoutOnlineAccountInput
     girviCard?: GirviCreateNestedManyWithoutCardAccountInput
     girviDr?: GirviCreateNestedManyWithoutDrAccountInput
+    apCash?: AdditionalPrincipalCreateNestedManyWithoutCashAccountInput
+    apBank?: AdditionalPrincipalCreateNestedManyWithoutBankAccountInput
+    apOnline?: AdditionalPrincipalCreateNestedManyWithoutOnlineAccountInput
+    apCard?: AdditionalPrincipalCreateNestedManyWithoutCardAccountInput
   }
 
   export type AccountUncheckedCreateWithoutGirviBankInput = {
@@ -47209,6 +51298,10 @@ export namespace Prisma {
     girviOnline?: GirviUncheckedCreateNestedManyWithoutOnlineAccountInput
     girviCard?: GirviUncheckedCreateNestedManyWithoutCardAccountInput
     girviDr?: GirviUncheckedCreateNestedManyWithoutDrAccountInput
+    apCash?: AdditionalPrincipalUncheckedCreateNestedManyWithoutCashAccountInput
+    apBank?: AdditionalPrincipalUncheckedCreateNestedManyWithoutBankAccountInput
+    apOnline?: AdditionalPrincipalUncheckedCreateNestedManyWithoutOnlineAccountInput
+    apCard?: AdditionalPrincipalUncheckedCreateNestedManyWithoutCardAccountInput
   }
 
   export type AccountCreateOrConnectWithoutGirviBankInput = {
@@ -47267,6 +51360,10 @@ export namespace Prisma {
     girviBank?: GirviCreateNestedManyWithoutBankAccountInput
     girviCard?: GirviCreateNestedManyWithoutCardAccountInput
     girviDr?: GirviCreateNestedManyWithoutDrAccountInput
+    apCash?: AdditionalPrincipalCreateNestedManyWithoutCashAccountInput
+    apBank?: AdditionalPrincipalCreateNestedManyWithoutBankAccountInput
+    apOnline?: AdditionalPrincipalCreateNestedManyWithoutOnlineAccountInput
+    apCard?: AdditionalPrincipalCreateNestedManyWithoutCardAccountInput
   }
 
   export type AccountUncheckedCreateWithoutGirviOnlineInput = {
@@ -47321,6 +51418,10 @@ export namespace Prisma {
     girviBank?: GirviUncheckedCreateNestedManyWithoutBankAccountInput
     girviCard?: GirviUncheckedCreateNestedManyWithoutCardAccountInput
     girviDr?: GirviUncheckedCreateNestedManyWithoutDrAccountInput
+    apCash?: AdditionalPrincipalUncheckedCreateNestedManyWithoutCashAccountInput
+    apBank?: AdditionalPrincipalUncheckedCreateNestedManyWithoutBankAccountInput
+    apOnline?: AdditionalPrincipalUncheckedCreateNestedManyWithoutOnlineAccountInput
+    apCard?: AdditionalPrincipalUncheckedCreateNestedManyWithoutCardAccountInput
   }
 
   export type AccountCreateOrConnectWithoutGirviOnlineInput = {
@@ -47379,6 +51480,10 @@ export namespace Prisma {
     girviBank?: GirviCreateNestedManyWithoutBankAccountInput
     girviOnline?: GirviCreateNestedManyWithoutOnlineAccountInput
     girviDr?: GirviCreateNestedManyWithoutDrAccountInput
+    apCash?: AdditionalPrincipalCreateNestedManyWithoutCashAccountInput
+    apBank?: AdditionalPrincipalCreateNestedManyWithoutBankAccountInput
+    apOnline?: AdditionalPrincipalCreateNestedManyWithoutOnlineAccountInput
+    apCard?: AdditionalPrincipalCreateNestedManyWithoutCardAccountInput
   }
 
   export type AccountUncheckedCreateWithoutGirviCardInput = {
@@ -47433,6 +51538,10 @@ export namespace Prisma {
     girviBank?: GirviUncheckedCreateNestedManyWithoutBankAccountInput
     girviOnline?: GirviUncheckedCreateNestedManyWithoutOnlineAccountInput
     girviDr?: GirviUncheckedCreateNestedManyWithoutDrAccountInput
+    apCash?: AdditionalPrincipalUncheckedCreateNestedManyWithoutCashAccountInput
+    apBank?: AdditionalPrincipalUncheckedCreateNestedManyWithoutBankAccountInput
+    apOnline?: AdditionalPrincipalUncheckedCreateNestedManyWithoutOnlineAccountInput
+    apCard?: AdditionalPrincipalUncheckedCreateNestedManyWithoutCardAccountInput
   }
 
   export type AccountCreateOrConnectWithoutGirviCardInput = {
@@ -47491,6 +51600,10 @@ export namespace Prisma {
     girviBank?: GirviCreateNestedManyWithoutBankAccountInput
     girviOnline?: GirviCreateNestedManyWithoutOnlineAccountInput
     girviCard?: GirviCreateNestedManyWithoutCardAccountInput
+    apCash?: AdditionalPrincipalCreateNestedManyWithoutCashAccountInput
+    apBank?: AdditionalPrincipalCreateNestedManyWithoutBankAccountInput
+    apOnline?: AdditionalPrincipalCreateNestedManyWithoutOnlineAccountInput
+    apCard?: AdditionalPrincipalCreateNestedManyWithoutCardAccountInput
   }
 
   export type AccountUncheckedCreateWithoutGirviDrInput = {
@@ -47545,11 +51658,92 @@ export namespace Prisma {
     girviBank?: GirviUncheckedCreateNestedManyWithoutBankAccountInput
     girviOnline?: GirviUncheckedCreateNestedManyWithoutOnlineAccountInput
     girviCard?: GirviUncheckedCreateNestedManyWithoutCardAccountInput
+    apCash?: AdditionalPrincipalUncheckedCreateNestedManyWithoutCashAccountInput
+    apBank?: AdditionalPrincipalUncheckedCreateNestedManyWithoutBankAccountInput
+    apOnline?: AdditionalPrincipalUncheckedCreateNestedManyWithoutOnlineAccountInput
+    apCard?: AdditionalPrincipalUncheckedCreateNestedManyWithoutCardAccountInput
   }
 
   export type AccountCreateOrConnectWithoutGirviDrInput = {
     where: AccountWhereUniqueInput
     create: XOR<AccountCreateWithoutGirviDrInput, AccountUncheckedCreateWithoutGirviDrInput>
+  }
+
+  export type AdditionalPrincipalCreateWithoutGirviInput = {
+    ap_uuid?: string
+    ap_staff_id?: number
+    ap_trans_date: string
+    ap_prin_amt: number
+    ap_roi: number
+    ap_payable_amt: number
+    ap_cash_amt?: number | null
+    ap_cash_info?: string | null
+    ap_bank_amt?: number | null
+    ap_bank_info?: string | null
+    ap_online_amt?: number | null
+    ap_online_info?: string | null
+    ap_card_amt?: number | null
+    ap_card_info?: string | null
+    ap_pay_info?: string | null
+    ap_other_info?: string | null
+    ap_created_at?: Date | string
+    ap_created_by?: string | null
+    ap_updated_at?: Date | string
+    ap_updated_by?: string | null
+    ap_deleted_at?: Date | string | null
+    ap_deleted_by?: string | null
+    ap_is_deleted?: boolean
+    owner?: OwnerCreateNestedOneWithoutAdditionalPrincipalsInput
+    firm?: FirmCreateNestedOneWithoutAdditionalPrincipalsInput
+    user?: UserCreateNestedOneWithoutAdditionalPrincipalsInput
+    cashAccount?: AccountCreateNestedOneWithoutApCashInput
+    bankAccount?: AccountCreateNestedOneWithoutApBankInput
+    onlineAccount?: AccountCreateNestedOneWithoutApOnlineInput
+    cardAccount?: AccountCreateNestedOneWithoutApCardInput
+  }
+
+  export type AdditionalPrincipalUncheckedCreateWithoutGirviInput = {
+    ap_id?: number
+    ap_uuid?: string
+    ap_own_id?: number
+    ap_firm_id?: number
+    ap_user_id?: number
+    ap_staff_id?: number
+    ap_trans_date: string
+    ap_prin_amt: number
+    ap_roi: number
+    ap_payable_amt: number
+    ap_cash_amt?: number | null
+    ap_cash_acc_id?: number | null
+    ap_cash_info?: string | null
+    ap_bank_amt?: number | null
+    ap_bank_acc_id?: number | null
+    ap_bank_info?: string | null
+    ap_online_amt?: number | null
+    ap_online_acc_id?: number | null
+    ap_online_info?: string | null
+    ap_card_amt?: number | null
+    ap_card_acc_id?: number | null
+    ap_card_info?: string | null
+    ap_pay_info?: string | null
+    ap_other_info?: string | null
+    ap_created_at?: Date | string
+    ap_created_by?: string | null
+    ap_updated_at?: Date | string
+    ap_updated_by?: string | null
+    ap_deleted_at?: Date | string | null
+    ap_deleted_by?: string | null
+    ap_is_deleted?: boolean
+  }
+
+  export type AdditionalPrincipalCreateOrConnectWithoutGirviInput = {
+    where: AdditionalPrincipalWhereUniqueInput
+    create: XOR<AdditionalPrincipalCreateWithoutGirviInput, AdditionalPrincipalUncheckedCreateWithoutGirviInput>
+  }
+
+  export type AdditionalPrincipalCreateManyGirviInputEnvelope = {
+    data: AdditionalPrincipalCreateManyGirviInput | AdditionalPrincipalCreateManyGirviInput[]
+    skipDuplicates?: boolean
   }
 
   export type OwnerUpsertWithoutGirvisInput = {
@@ -47606,6 +51800,7 @@ export namespace Prisma {
     journals?: JournalUpdateManyWithoutOwnerNestedInput
     journalTransactions?: JournalTransactionUpdateManyWithoutOwnerNestedInput
     stocks?: StockUpdateManyWithoutOwnerNestedInput
+    additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutOwnerNestedInput
   }
 
   export type OwnerUncheckedUpdateWithoutGirvisInput = {
@@ -47653,6 +51848,7 @@ export namespace Prisma {
     journals?: JournalUncheckedUpdateManyWithoutOwnerNestedInput
     journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutOwnerNestedInput
     stocks?: StockUncheckedUpdateManyWithoutOwnerNestedInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
   export type FirmUpsertWithoutGirvisInput = {
@@ -47723,6 +51919,7 @@ export namespace Prisma {
     journals?: JournalUpdateManyWithoutFirmNestedInput
     journalTransactions?: JournalTransactionUpdateManyWithoutFirmNestedInput
     stocks?: StockUpdateManyWithoutFirmNestedInput
+    additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutFirmNestedInput
   }
 
   export type FirmUncheckedUpdateWithoutGirvisInput = {
@@ -47783,6 +51980,7 @@ export namespace Prisma {
     journals?: JournalUncheckedUpdateManyWithoutFirmNestedInput
     journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutFirmNestedInput
     stocks?: StockUncheckedUpdateManyWithoutFirmNestedInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutFirmNestedInput
   }
 
   export type UserUpsertWithoutGirvisInput = {
@@ -47848,6 +52046,7 @@ export namespace Prisma {
     journals?: JournalUpdateManyWithoutUserNestedInput
     journalTransactions?: JournalTransactionUpdateManyWithoutUserNestedInput
     stocks?: StockUpdateManyWithoutUserNestedInput
+    additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutGirvisInput = {
@@ -47903,6 +52102,7 @@ export namespace Prisma {
     journals?: JournalUncheckedUpdateManyWithoutUserNestedInput
     journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutUserNestedInput
     stocks?: StockUncheckedUpdateManyWithoutUserNestedInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type AccountUpsertWithoutGirviFirstIntCrInput = {
@@ -47967,6 +52167,10 @@ export namespace Prisma {
     girviOnline?: GirviUpdateManyWithoutOnlineAccountNestedInput
     girviCard?: GirviUpdateManyWithoutCardAccountNestedInput
     girviDr?: GirviUpdateManyWithoutDrAccountNestedInput
+    apCash?: AdditionalPrincipalUpdateManyWithoutCashAccountNestedInput
+    apBank?: AdditionalPrincipalUpdateManyWithoutBankAccountNestedInput
+    apOnline?: AdditionalPrincipalUpdateManyWithoutOnlineAccountNestedInput
+    apCard?: AdditionalPrincipalUpdateManyWithoutCardAccountNestedInput
   }
 
   export type AccountUncheckedUpdateWithoutGirviFirstIntCrInput = {
@@ -48021,6 +52225,10 @@ export namespace Prisma {
     girviOnline?: GirviUncheckedUpdateManyWithoutOnlineAccountNestedInput
     girviCard?: GirviUncheckedUpdateManyWithoutCardAccountNestedInput
     girviDr?: GirviUncheckedUpdateManyWithoutDrAccountNestedInput
+    apCash?: AdditionalPrincipalUncheckedUpdateManyWithoutCashAccountNestedInput
+    apBank?: AdditionalPrincipalUncheckedUpdateManyWithoutBankAccountNestedInput
+    apOnline?: AdditionalPrincipalUncheckedUpdateManyWithoutOnlineAccountNestedInput
+    apCard?: AdditionalPrincipalUncheckedUpdateManyWithoutCardAccountNestedInput
   }
 
   export type AccountUpsertWithoutGirviFirstIntDrInput = {
@@ -48085,6 +52293,10 @@ export namespace Prisma {
     girviOnline?: GirviUpdateManyWithoutOnlineAccountNestedInput
     girviCard?: GirviUpdateManyWithoutCardAccountNestedInput
     girviDr?: GirviUpdateManyWithoutDrAccountNestedInput
+    apCash?: AdditionalPrincipalUpdateManyWithoutCashAccountNestedInput
+    apBank?: AdditionalPrincipalUpdateManyWithoutBankAccountNestedInput
+    apOnline?: AdditionalPrincipalUpdateManyWithoutOnlineAccountNestedInput
+    apCard?: AdditionalPrincipalUpdateManyWithoutCardAccountNestedInput
   }
 
   export type AccountUncheckedUpdateWithoutGirviFirstIntDrInput = {
@@ -48139,6 +52351,10 @@ export namespace Prisma {
     girviOnline?: GirviUncheckedUpdateManyWithoutOnlineAccountNestedInput
     girviCard?: GirviUncheckedUpdateManyWithoutCardAccountNestedInput
     girviDr?: GirviUncheckedUpdateManyWithoutDrAccountNestedInput
+    apCash?: AdditionalPrincipalUncheckedUpdateManyWithoutCashAccountNestedInput
+    apBank?: AdditionalPrincipalUncheckedUpdateManyWithoutBankAccountNestedInput
+    apOnline?: AdditionalPrincipalUncheckedUpdateManyWithoutOnlineAccountNestedInput
+    apCard?: AdditionalPrincipalUncheckedUpdateManyWithoutCardAccountNestedInput
   }
 
   export type AccountUpsertWithoutGirviCashInput = {
@@ -48203,6 +52419,10 @@ export namespace Prisma {
     girviOnline?: GirviUpdateManyWithoutOnlineAccountNestedInput
     girviCard?: GirviUpdateManyWithoutCardAccountNestedInput
     girviDr?: GirviUpdateManyWithoutDrAccountNestedInput
+    apCash?: AdditionalPrincipalUpdateManyWithoutCashAccountNestedInput
+    apBank?: AdditionalPrincipalUpdateManyWithoutBankAccountNestedInput
+    apOnline?: AdditionalPrincipalUpdateManyWithoutOnlineAccountNestedInput
+    apCard?: AdditionalPrincipalUpdateManyWithoutCardAccountNestedInput
   }
 
   export type AccountUncheckedUpdateWithoutGirviCashInput = {
@@ -48257,6 +52477,10 @@ export namespace Prisma {
     girviOnline?: GirviUncheckedUpdateManyWithoutOnlineAccountNestedInput
     girviCard?: GirviUncheckedUpdateManyWithoutCardAccountNestedInput
     girviDr?: GirviUncheckedUpdateManyWithoutDrAccountNestedInput
+    apCash?: AdditionalPrincipalUncheckedUpdateManyWithoutCashAccountNestedInput
+    apBank?: AdditionalPrincipalUncheckedUpdateManyWithoutBankAccountNestedInput
+    apOnline?: AdditionalPrincipalUncheckedUpdateManyWithoutOnlineAccountNestedInput
+    apCard?: AdditionalPrincipalUncheckedUpdateManyWithoutCardAccountNestedInput
   }
 
   export type AccountUpsertWithoutGirviBankInput = {
@@ -48321,6 +52545,10 @@ export namespace Prisma {
     girviOnline?: GirviUpdateManyWithoutOnlineAccountNestedInput
     girviCard?: GirviUpdateManyWithoutCardAccountNestedInput
     girviDr?: GirviUpdateManyWithoutDrAccountNestedInput
+    apCash?: AdditionalPrincipalUpdateManyWithoutCashAccountNestedInput
+    apBank?: AdditionalPrincipalUpdateManyWithoutBankAccountNestedInput
+    apOnline?: AdditionalPrincipalUpdateManyWithoutOnlineAccountNestedInput
+    apCard?: AdditionalPrincipalUpdateManyWithoutCardAccountNestedInput
   }
 
   export type AccountUncheckedUpdateWithoutGirviBankInput = {
@@ -48375,6 +52603,10 @@ export namespace Prisma {
     girviOnline?: GirviUncheckedUpdateManyWithoutOnlineAccountNestedInput
     girviCard?: GirviUncheckedUpdateManyWithoutCardAccountNestedInput
     girviDr?: GirviUncheckedUpdateManyWithoutDrAccountNestedInput
+    apCash?: AdditionalPrincipalUncheckedUpdateManyWithoutCashAccountNestedInput
+    apBank?: AdditionalPrincipalUncheckedUpdateManyWithoutBankAccountNestedInput
+    apOnline?: AdditionalPrincipalUncheckedUpdateManyWithoutOnlineAccountNestedInput
+    apCard?: AdditionalPrincipalUncheckedUpdateManyWithoutCardAccountNestedInput
   }
 
   export type AccountUpsertWithoutGirviOnlineInput = {
@@ -48439,6 +52671,10 @@ export namespace Prisma {
     girviBank?: GirviUpdateManyWithoutBankAccountNestedInput
     girviCard?: GirviUpdateManyWithoutCardAccountNestedInput
     girviDr?: GirviUpdateManyWithoutDrAccountNestedInput
+    apCash?: AdditionalPrincipalUpdateManyWithoutCashAccountNestedInput
+    apBank?: AdditionalPrincipalUpdateManyWithoutBankAccountNestedInput
+    apOnline?: AdditionalPrincipalUpdateManyWithoutOnlineAccountNestedInput
+    apCard?: AdditionalPrincipalUpdateManyWithoutCardAccountNestedInput
   }
 
   export type AccountUncheckedUpdateWithoutGirviOnlineInput = {
@@ -48493,6 +52729,10 @@ export namespace Prisma {
     girviBank?: GirviUncheckedUpdateManyWithoutBankAccountNestedInput
     girviCard?: GirviUncheckedUpdateManyWithoutCardAccountNestedInput
     girviDr?: GirviUncheckedUpdateManyWithoutDrAccountNestedInput
+    apCash?: AdditionalPrincipalUncheckedUpdateManyWithoutCashAccountNestedInput
+    apBank?: AdditionalPrincipalUncheckedUpdateManyWithoutBankAccountNestedInput
+    apOnline?: AdditionalPrincipalUncheckedUpdateManyWithoutOnlineAccountNestedInput
+    apCard?: AdditionalPrincipalUncheckedUpdateManyWithoutCardAccountNestedInput
   }
 
   export type AccountUpsertWithoutGirviCardInput = {
@@ -48557,6 +52797,10 @@ export namespace Prisma {
     girviBank?: GirviUpdateManyWithoutBankAccountNestedInput
     girviOnline?: GirviUpdateManyWithoutOnlineAccountNestedInput
     girviDr?: GirviUpdateManyWithoutDrAccountNestedInput
+    apCash?: AdditionalPrincipalUpdateManyWithoutCashAccountNestedInput
+    apBank?: AdditionalPrincipalUpdateManyWithoutBankAccountNestedInput
+    apOnline?: AdditionalPrincipalUpdateManyWithoutOnlineAccountNestedInput
+    apCard?: AdditionalPrincipalUpdateManyWithoutCardAccountNestedInput
   }
 
   export type AccountUncheckedUpdateWithoutGirviCardInput = {
@@ -48611,6 +52855,10 @@ export namespace Prisma {
     girviBank?: GirviUncheckedUpdateManyWithoutBankAccountNestedInput
     girviOnline?: GirviUncheckedUpdateManyWithoutOnlineAccountNestedInput
     girviDr?: GirviUncheckedUpdateManyWithoutDrAccountNestedInput
+    apCash?: AdditionalPrincipalUncheckedUpdateManyWithoutCashAccountNestedInput
+    apBank?: AdditionalPrincipalUncheckedUpdateManyWithoutBankAccountNestedInput
+    apOnline?: AdditionalPrincipalUncheckedUpdateManyWithoutOnlineAccountNestedInput
+    apCard?: AdditionalPrincipalUncheckedUpdateManyWithoutCardAccountNestedInput
   }
 
   export type AccountUpsertWithoutGirviDrInput = {
@@ -48675,6 +52923,10 @@ export namespace Prisma {
     girviBank?: GirviUpdateManyWithoutBankAccountNestedInput
     girviOnline?: GirviUpdateManyWithoutOnlineAccountNestedInput
     girviCard?: GirviUpdateManyWithoutCardAccountNestedInput
+    apCash?: AdditionalPrincipalUpdateManyWithoutCashAccountNestedInput
+    apBank?: AdditionalPrincipalUpdateManyWithoutBankAccountNestedInput
+    apOnline?: AdditionalPrincipalUpdateManyWithoutOnlineAccountNestedInput
+    apCard?: AdditionalPrincipalUpdateManyWithoutCardAccountNestedInput
   }
 
   export type AccountUncheckedUpdateWithoutGirviDrInput = {
@@ -48729,6 +52981,26 @@ export namespace Prisma {
     girviBank?: GirviUncheckedUpdateManyWithoutBankAccountNestedInput
     girviOnline?: GirviUncheckedUpdateManyWithoutOnlineAccountNestedInput
     girviCard?: GirviUncheckedUpdateManyWithoutCardAccountNestedInput
+    apCash?: AdditionalPrincipalUncheckedUpdateManyWithoutCashAccountNestedInput
+    apBank?: AdditionalPrincipalUncheckedUpdateManyWithoutBankAccountNestedInput
+    apOnline?: AdditionalPrincipalUncheckedUpdateManyWithoutOnlineAccountNestedInput
+    apCard?: AdditionalPrincipalUncheckedUpdateManyWithoutCardAccountNestedInput
+  }
+
+  export type AdditionalPrincipalUpsertWithWhereUniqueWithoutGirviInput = {
+    where: AdditionalPrincipalWhereUniqueInput
+    update: XOR<AdditionalPrincipalUpdateWithoutGirviInput, AdditionalPrincipalUncheckedUpdateWithoutGirviInput>
+    create: XOR<AdditionalPrincipalCreateWithoutGirviInput, AdditionalPrincipalUncheckedCreateWithoutGirviInput>
+  }
+
+  export type AdditionalPrincipalUpdateWithWhereUniqueWithoutGirviInput = {
+    where: AdditionalPrincipalWhereUniqueInput
+    data: XOR<AdditionalPrincipalUpdateWithoutGirviInput, AdditionalPrincipalUncheckedUpdateWithoutGirviInput>
+  }
+
+  export type AdditionalPrincipalUpdateManyWithWhereWithoutGirviInput = {
+    where: AdditionalPrincipalScalarWhereInput
+    data: XOR<AdditionalPrincipalUpdateManyMutationInput, AdditionalPrincipalUncheckedUpdateManyWithoutGirviInput>
   }
 
   export type OwnerCreateWithoutStocksInput = {
@@ -48775,6 +53047,7 @@ export namespace Prisma {
     journals?: JournalCreateNestedManyWithoutOwnerInput
     journalTransactions?: JournalTransactionCreateNestedManyWithoutOwnerInput
     girvis?: GirviCreateNestedManyWithoutOwnerInput
+    additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerUncheckedCreateWithoutStocksInput = {
@@ -48822,6 +53095,7 @@ export namespace Prisma {
     journals?: JournalUncheckedCreateNestedManyWithoutOwnerInput
     journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutOwnerInput
     girvis?: GirviUncheckedCreateNestedManyWithoutOwnerInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerCreateOrConnectWithoutStocksInput = {
@@ -48886,6 +53160,7 @@ export namespace Prisma {
     journals?: JournalCreateNestedManyWithoutFirmInput
     journalTransactions?: JournalTransactionCreateNestedManyWithoutFirmInput
     girvis?: GirviCreateNestedManyWithoutFirmInput
+    additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutFirmInput
   }
 
   export type FirmUncheckedCreateWithoutStocksInput = {
@@ -48946,6 +53221,7 @@ export namespace Prisma {
     journals?: JournalUncheckedCreateNestedManyWithoutFirmInput
     journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutFirmInput
     girvis?: GirviUncheckedCreateNestedManyWithoutFirmInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutFirmInput
   }
 
   export type FirmCreateOrConnectWithoutStocksInput = {
@@ -49005,6 +53281,7 @@ export namespace Prisma {
     journals?: JournalCreateNestedManyWithoutUserInput
     journalTransactions?: JournalTransactionCreateNestedManyWithoutUserInput
     girvis?: GirviCreateNestedManyWithoutUserInput
+    additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutStocksInput = {
@@ -49060,6 +53337,7 @@ export namespace Prisma {
     journals?: JournalUncheckedCreateNestedManyWithoutUserInput
     journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutUserInput
     girvis?: GirviUncheckedCreateNestedManyWithoutUserInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutStocksInput = {
@@ -49121,6 +53399,7 @@ export namespace Prisma {
     journals?: JournalUpdateManyWithoutOwnerNestedInput
     journalTransactions?: JournalTransactionUpdateManyWithoutOwnerNestedInput
     girvis?: GirviUpdateManyWithoutOwnerNestedInput
+    additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutOwnerNestedInput
   }
 
   export type OwnerUncheckedUpdateWithoutStocksInput = {
@@ -49168,6 +53447,7 @@ export namespace Prisma {
     journals?: JournalUncheckedUpdateManyWithoutOwnerNestedInput
     journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutOwnerNestedInput
     girvis?: GirviUncheckedUpdateManyWithoutOwnerNestedInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
   export type FirmUpsertWithoutStocksInput = {
@@ -49238,6 +53518,7 @@ export namespace Prisma {
     journals?: JournalUpdateManyWithoutFirmNestedInput
     journalTransactions?: JournalTransactionUpdateManyWithoutFirmNestedInput
     girvis?: GirviUpdateManyWithoutFirmNestedInput
+    additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutFirmNestedInput
   }
 
   export type FirmUncheckedUpdateWithoutStocksInput = {
@@ -49298,6 +53579,7 @@ export namespace Prisma {
     journals?: JournalUncheckedUpdateManyWithoutFirmNestedInput
     journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutFirmNestedInput
     girvis?: GirviUncheckedUpdateManyWithoutFirmNestedInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutFirmNestedInput
   }
 
   export type UserUpsertWithoutStocksInput = {
@@ -49363,6 +53645,7 @@ export namespace Prisma {
     journals?: JournalUpdateManyWithoutUserNestedInput
     journalTransactions?: JournalTransactionUpdateManyWithoutUserNestedInput
     girvis?: GirviUpdateManyWithoutUserNestedInput
+    additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutStocksInput = {
@@ -49418,6 +53701,1906 @@ export namespace Prisma {
     journals?: JournalUncheckedUpdateManyWithoutUserNestedInput
     journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutUserNestedInput
     girvis?: GirviUncheckedUpdateManyWithoutUserNestedInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type OwnerCreateWithoutAdditionalPrincipalsInput = {
+    own_uuid?: string
+    own_product_key?: number
+    own_db: string
+    own_add_date?: Date | string
+    own_first_name: string
+    own_middle_name?: string | null
+    own_last_name: string
+    own_phone_no?: string | null
+    own_mobile_no: string
+    own_email: string
+    own_login_id: string
+    own_password: string
+    own_status?: $Enums.OwnerStatus
+    own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_refresh_token?: string | null
+    own_refresh_expiry?: Date | string | null
+    own_jwt_token?: string | null
+    own_jwt_expiry?: Date | string | null
+    own_login_status?: boolean
+    own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
+    own_otp?: string | null
+    own_otp_expiry?: Date | string | null
+    own_address?: string | null
+    own_village?: string | null
+    own_city?: string | null
+    own_state?: string | null
+    own_pincode?: string | null
+    own_created_at?: Date | string
+    own_created_by?: string | null
+    own_updated_at?: Date | string
+    own_updated_by?: string | null
+    own_deleted_at?: Date | string | null
+    own_deleted_by?: string | null
+    own_is_deleted?: boolean
+    users?: UserCreateNestedManyWithoutOwnerInput
+    firms?: FirmCreateNestedManyWithoutOwnerInput
+    accounts?: AccountCreateNestedManyWithoutOwnerInput
+    finances?: FinanceCreateNestedManyWithoutOwnerInput
+    financeTransactions?: Finance_TransactionCreateNestedManyWithoutOwnerInput
+    financeMoneyTrans?: Finance_Money_TransactionCreateNestedManyWithoutOwnerInput
+    journals?: JournalCreateNestedManyWithoutOwnerInput
+    journalTransactions?: JournalTransactionCreateNestedManyWithoutOwnerInput
+    girvis?: GirviCreateNestedManyWithoutOwnerInput
+    stocks?: StockCreateNestedManyWithoutOwnerInput
+  }
+
+  export type OwnerUncheckedCreateWithoutAdditionalPrincipalsInput = {
+    own_id?: number
+    own_uuid?: string
+    own_product_key?: number
+    own_db: string
+    own_add_date?: Date | string
+    own_first_name: string
+    own_middle_name?: string | null
+    own_last_name: string
+    own_phone_no?: string | null
+    own_mobile_no: string
+    own_email: string
+    own_login_id: string
+    own_password: string
+    own_status?: $Enums.OwnerStatus
+    own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_refresh_token?: string | null
+    own_refresh_expiry?: Date | string | null
+    own_jwt_token?: string | null
+    own_jwt_expiry?: Date | string | null
+    own_login_status?: boolean
+    own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
+    own_otp?: string | null
+    own_otp_expiry?: Date | string | null
+    own_address?: string | null
+    own_village?: string | null
+    own_city?: string | null
+    own_state?: string | null
+    own_pincode?: string | null
+    own_created_at?: Date | string
+    own_created_by?: string | null
+    own_updated_at?: Date | string
+    own_updated_by?: string | null
+    own_deleted_at?: Date | string | null
+    own_deleted_by?: string | null
+    own_is_deleted?: boolean
+    users?: UserUncheckedCreateNestedManyWithoutOwnerInput
+    firms?: FirmUncheckedCreateNestedManyWithoutOwnerInput
+    accounts?: AccountUncheckedCreateNestedManyWithoutOwnerInput
+    finances?: FinanceUncheckedCreateNestedManyWithoutOwnerInput
+    financeTransactions?: Finance_TransactionUncheckedCreateNestedManyWithoutOwnerInput
+    financeMoneyTrans?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutOwnerInput
+    journals?: JournalUncheckedCreateNestedManyWithoutOwnerInput
+    journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutOwnerInput
+    girvis?: GirviUncheckedCreateNestedManyWithoutOwnerInput
+    stocks?: StockUncheckedCreateNestedManyWithoutOwnerInput
+  }
+
+  export type OwnerCreateOrConnectWithoutAdditionalPrincipalsInput = {
+    where: OwnerWhereUniqueInput
+    create: XOR<OwnerCreateWithoutAdditionalPrincipalsInput, OwnerUncheckedCreateWithoutAdditionalPrincipalsInput>
+  }
+
+  export type FirmCreateWithoutAdditionalPrincipalsInput = {
+    firm_uuid?: string
+    firm_add_date?: Date | string
+    firm_name: string
+    firm_reg_no: string
+    firm_shop_name: string
+    firm_desc?: string | null
+    firm_address?: string | null
+    firm_city?: string | null
+    firm_pincode?: string | null
+    firm_phone_no?: string | null
+    firm_email_id?: string | null
+    firm_website_link?: string | null
+    firm_type?: $Enums.FirmType
+    firm_owner?: string | null
+    firm_other_info?: string | null
+    firm_geo_latitude?: string | null
+    firm_geo_longitude?: string | null
+    firm_whatsapp_link?: string | null
+    firm_facebook_link?: string | null
+    firm_insta_link?: string | null
+    firm_bank_name?: string | null
+    firm_bank_acc_no?: string | null
+    firm_bank_branch?: string | null
+    firm_bank_address?: string | null
+    firm_acc_holder?: string | null
+    firm_acc_type?: string | null
+    firm_ifsc_code?: string | null
+    firm_start_date?: Date | string | null
+    firm_balance?: string | null
+    firm_balance_type?: $Enums.FirmBalanceType
+    firm_gstin_no?: string | null
+    firm_pan_no?: string | null
+    firm_adhaar_no?: string | null
+    firm_form_header?: string | null
+    firm_form_footer?: string | null
+    firm_own_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_left_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_right_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_qr_code_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_pan_no_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_created_at?: Date | string
+    firm_created_by?: string | null
+    firm_updated_at?: Date | string
+    firm_updated_by?: string | null
+    firm_deleted_at?: Date | string | null
+    firm_deleted_by?: string | null
+    firm_is_deleted?: boolean
+    users?: UserCreateNestedManyWithoutFirmInput
+    accounts?: AccountCreateNestedManyWithoutFirmInput
+    owner?: OwnerCreateNestedOneWithoutFirmsInput
+    finances?: FinanceCreateNestedManyWithoutFirmInput
+    financeTransactions?: Finance_TransactionCreateNestedManyWithoutFirmInput
+    financeMoneyTrans?: Finance_Money_TransactionCreateNestedManyWithoutFirmInput
+    journals?: JournalCreateNestedManyWithoutFirmInput
+    journalTransactions?: JournalTransactionCreateNestedManyWithoutFirmInput
+    girvis?: GirviCreateNestedManyWithoutFirmInput
+    stocks?: StockCreateNestedManyWithoutFirmInput
+  }
+
+  export type FirmUncheckedCreateWithoutAdditionalPrincipalsInput = {
+    firm_id?: number
+    firm_uuid?: string
+    firm_add_date?: Date | string
+    firm_own_id?: number
+    firm_name: string
+    firm_reg_no: string
+    firm_shop_name: string
+    firm_desc?: string | null
+    firm_address?: string | null
+    firm_city?: string | null
+    firm_pincode?: string | null
+    firm_phone_no?: string | null
+    firm_email_id?: string | null
+    firm_website_link?: string | null
+    firm_type?: $Enums.FirmType
+    firm_owner?: string | null
+    firm_other_info?: string | null
+    firm_geo_latitude?: string | null
+    firm_geo_longitude?: string | null
+    firm_whatsapp_link?: string | null
+    firm_facebook_link?: string | null
+    firm_insta_link?: string | null
+    firm_bank_name?: string | null
+    firm_bank_acc_no?: string | null
+    firm_bank_branch?: string | null
+    firm_bank_address?: string | null
+    firm_acc_holder?: string | null
+    firm_acc_type?: string | null
+    firm_ifsc_code?: string | null
+    firm_start_date?: Date | string | null
+    firm_balance?: string | null
+    firm_balance_type?: $Enums.FirmBalanceType
+    firm_gstin_no?: string | null
+    firm_pan_no?: string | null
+    firm_adhaar_no?: string | null
+    firm_form_header?: string | null
+    firm_form_footer?: string | null
+    firm_own_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_left_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_right_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_qr_code_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_pan_no_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_created_at?: Date | string
+    firm_created_by?: string | null
+    firm_updated_at?: Date | string
+    firm_updated_by?: string | null
+    firm_deleted_at?: Date | string | null
+    firm_deleted_by?: string | null
+    firm_is_deleted?: boolean
+    users?: UserUncheckedCreateNestedManyWithoutFirmInput
+    accounts?: AccountUncheckedCreateNestedManyWithoutFirmInput
+    finances?: FinanceUncheckedCreateNestedManyWithoutFirmInput
+    financeTransactions?: Finance_TransactionUncheckedCreateNestedManyWithoutFirmInput
+    financeMoneyTrans?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutFirmInput
+    journals?: JournalUncheckedCreateNestedManyWithoutFirmInput
+    journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutFirmInput
+    girvis?: GirviUncheckedCreateNestedManyWithoutFirmInput
+    stocks?: StockUncheckedCreateNestedManyWithoutFirmInput
+  }
+
+  export type FirmCreateOrConnectWithoutAdditionalPrincipalsInput = {
+    where: FirmWhereUniqueInput
+    create: XOR<FirmCreateWithoutAdditionalPrincipalsInput, FirmUncheckedCreateWithoutAdditionalPrincipalsInput>
+  }
+
+  export type UserCreateWithoutAdditionalPrincipalsInput = {
+    user_uuid?: string
+    user_add_date?: Date | string
+    user_first_name: string
+    user_father_name?: string | null
+    user_last_name: string
+    user_mother_name?: string | null
+    user_mobile_no: string
+    user_phone_no?: string | null
+    user_email_id?: string | null
+    user_gender?: $Enums.UserGender | null
+    user_cast?: string | null
+    user_marital_status?: $Enums.UserMaritalStatus | null
+    user_occupation?: string | null
+    user_birth_date?: Date | string | null
+    user_gstin?: string | null
+    user_tax_no?: string | null
+    user_pan_no?: string | null
+    user_adhaar_no?: string | null
+    user_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    user_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
+    user_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
+    user_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
+    user_per_address?: string | null
+    user_curr_address?: string | null
+    user_village?: string | null
+    user_ward_no?: string | null
+    user_tehsil?: string | null
+    user_city?: string | null
+    user_state?: string | null
+    user_country?: string | null
+    user_pincode?: string | null
+    user_bank_name?: string | null
+    user_bank_acc_no?: string | null
+    user_ifsc_code?: string | null
+    user_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    user_other_info?: string | null
+    user_created_at?: Date | string
+    user_created_by?: string | null
+    user_updated_at?: Date | string
+    user_updated_by?: string | null
+    user_deleted_at?: Date | string | null
+    user_deleted_by?: string | null
+    user_is_deleted?: boolean
+    owner: OwnerCreateNestedOneWithoutUsersInput
+    firm: FirmCreateNestedOneWithoutUsersInput
+    finances?: FinanceCreateNestedManyWithoutUserInput
+    financeTransactions?: Finance_TransactionCreateNestedManyWithoutUserInput
+    financeMoneyTrans?: Finance_Money_TransactionCreateNestedManyWithoutUserInput
+    journals?: JournalCreateNestedManyWithoutUserInput
+    journalTransactions?: JournalTransactionCreateNestedManyWithoutUserInput
+    girvis?: GirviCreateNestedManyWithoutUserInput
+    stocks?: StockCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutAdditionalPrincipalsInput = {
+    user_id?: number
+    user_uuid?: string
+    user_own_id: number
+    user_firm_id: number
+    user_add_date?: Date | string
+    user_first_name: string
+    user_father_name?: string | null
+    user_last_name: string
+    user_mother_name?: string | null
+    user_mobile_no: string
+    user_phone_no?: string | null
+    user_email_id?: string | null
+    user_gender?: $Enums.UserGender | null
+    user_cast?: string | null
+    user_marital_status?: $Enums.UserMaritalStatus | null
+    user_occupation?: string | null
+    user_birth_date?: Date | string | null
+    user_gstin?: string | null
+    user_tax_no?: string | null
+    user_pan_no?: string | null
+    user_adhaar_no?: string | null
+    user_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    user_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
+    user_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
+    user_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
+    user_per_address?: string | null
+    user_curr_address?: string | null
+    user_village?: string | null
+    user_ward_no?: string | null
+    user_tehsil?: string | null
+    user_city?: string | null
+    user_state?: string | null
+    user_country?: string | null
+    user_pincode?: string | null
+    user_bank_name?: string | null
+    user_bank_acc_no?: string | null
+    user_ifsc_code?: string | null
+    user_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    user_other_info?: string | null
+    user_created_at?: Date | string
+    user_created_by?: string | null
+    user_updated_at?: Date | string
+    user_updated_by?: string | null
+    user_deleted_at?: Date | string | null
+    user_deleted_by?: string | null
+    user_is_deleted?: boolean
+    finances?: FinanceUncheckedCreateNestedManyWithoutUserInput
+    financeTransactions?: Finance_TransactionUncheckedCreateNestedManyWithoutUserInput
+    financeMoneyTrans?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutUserInput
+    journals?: JournalUncheckedCreateNestedManyWithoutUserInput
+    journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutUserInput
+    girvis?: GirviUncheckedCreateNestedManyWithoutUserInput
+    stocks?: StockUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutAdditionalPrincipalsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutAdditionalPrincipalsInput, UserUncheckedCreateWithoutAdditionalPrincipalsInput>
+  }
+
+  export type GirviCreateWithoutAdditionalPrincipalsInput = {
+    girv_uuid?: string
+    girv_add_date?: string | null
+    girv_staff_id?: number
+    girv_start_date: string
+    girv_loan_no?: string | null
+    girv_loan_pre_no?: string | null
+    girv_prin_amt?: number
+    girv_process_per?: number | null
+    girv_process_amt?: number | null
+    girv_packet_no?: string | null
+    girv_locker_no?: string | null
+    girv_charge_per?: number | null
+    girv_charge_amt?: number | null
+    girv_roi?: number
+    girv_roi_type: $Enums.GirviRoiType
+    girv_type: $Enums.GirviType
+    girv_final_amt?: number
+    girv_status?: $Enums.GirviStatus
+    girv_first_int?: string | null
+    girv_cash_amt?: number | null
+    girv_bank_amt?: number | null
+    girv_online_amt?: number | null
+    girv_card_amt?: number | null
+    girv_cash_info?: string | null
+    girv_bank_info?: string | null
+    girv_online_info?: string | null
+    girv_card_info?: string | null
+    girv_other_info?: string | null
+    girv_pay_info?: string | null
+    girv_created_at?: Date | string
+    girv_created_by?: string | null
+    girv_updated_at?: Date | string
+    girv_updated_by?: string | null
+    girv_deleted_at?: Date | string | null
+    girv_deleted_by?: string | null
+    girv_is_deleted?: boolean
+    owner?: OwnerCreateNestedOneWithoutGirvisInput
+    firm?: FirmCreateNestedOneWithoutGirvisInput
+    user?: UserCreateNestedOneWithoutGirvisInput
+    firstIntCrAccount?: AccountCreateNestedOneWithoutGirviFirstIntCrInput
+    firstIntDrAccount?: AccountCreateNestedOneWithoutGirviFirstIntDrInput
+    cashAccount?: AccountCreateNestedOneWithoutGirviCashInput
+    bankAccount?: AccountCreateNestedOneWithoutGirviBankInput
+    onlineAccount?: AccountCreateNestedOneWithoutGirviOnlineInput
+    cardAccount?: AccountCreateNestedOneWithoutGirviCardInput
+    drAccount?: AccountCreateNestedOneWithoutGirviDrInput
+  }
+
+  export type GirviUncheckedCreateWithoutAdditionalPrincipalsInput = {
+    girv_id?: number
+    girv_uuid?: string
+    girv_add_date?: string | null
+    girv_firm_id?: number
+    girv_own_id?: number
+    girv_user_id?: number
+    girv_staff_id?: number
+    girv_start_date: string
+    girv_loan_no?: string | null
+    girv_loan_pre_no?: string | null
+    girv_prin_amt?: number
+    girv_process_per?: number | null
+    girv_process_amt?: number | null
+    girv_packet_no?: string | null
+    girv_locker_no?: string | null
+    girv_charge_per?: number | null
+    girv_charge_amt?: number | null
+    girv_roi?: number
+    girv_roi_type: $Enums.GirviRoiType
+    girv_type: $Enums.GirviType
+    girv_final_amt?: number
+    girv_status?: $Enums.GirviStatus
+    girv_first_int?: string | null
+    girv_first_int_cr_acc_id?: number | null
+    girv_first_int_dr_acc_id?: number | null
+    girv_cash_amt?: number | null
+    girv_bank_amt?: number | null
+    girv_online_amt?: number | null
+    girv_card_amt?: number | null
+    girv_cash_acc_id?: number | null
+    girv_bank_acc_id?: number | null
+    girv_online_acc_id?: number | null
+    girv_card_acc_id?: number | null
+    girv_cash_info?: string | null
+    girv_bank_info?: string | null
+    girv_online_info?: string | null
+    girv_card_info?: string | null
+    girv_dr_acc_id?: number | null
+    girv_other_info?: string | null
+    girv_pay_info?: string | null
+    girv_created_at?: Date | string
+    girv_created_by?: string | null
+    girv_updated_at?: Date | string
+    girv_updated_by?: string | null
+    girv_deleted_at?: Date | string | null
+    girv_deleted_by?: string | null
+    girv_is_deleted?: boolean
+  }
+
+  export type GirviCreateOrConnectWithoutAdditionalPrincipalsInput = {
+    where: GirviWhereUniqueInput
+    create: XOR<GirviCreateWithoutAdditionalPrincipalsInput, GirviUncheckedCreateWithoutAdditionalPrincipalsInput>
+  }
+
+  export type AccountCreateWithoutApCashInput = {
+    acc_uuid?: string
+    acc_add_date?: Date | string
+    acc_pan_no?: string | null
+    acc_name: string
+    acc_desc?: string | null
+    acc_pre_acc?: string | null
+    acc_bank_no?: string | null
+    acc_bsr_no?: string | null
+    acc_ifsc_code?: string | null
+    acc_branch_name?: string | null
+    acc_opening_date: Date | string
+    acc_address?: string | null
+    acc_country?: string | null
+    acc_state?: string | null
+    acc_city?: string | null
+    acc_pincode?: string | null
+    acc_cash_balance?: string | null
+    acc_balance_type?: $Enums.AccountBalanceType
+    acc_other_info?: string | null
+    acc_created_at?: Date | string
+    acc_created_by?: string | null
+    acc_updated_by?: string | null
+    acc_deleted_at?: Date | string | null
+    acc_deleted_by?: string | null
+    acc_is_system?: boolean
+    acc_is_deleted?: boolean
+    owner?: OwnerCreateNestedOneWithoutAccountsInput
+    firm?: FirmCreateNestedOneWithoutAccountsInput
+    financeCash?: FinanceCreateNestedManyWithoutCashAccountInput
+    financeBank?: FinanceCreateNestedManyWithoutBankAccountInput
+    financeOnline?: FinanceCreateNestedManyWithoutOnlineAccountInput
+    financeCard?: FinanceCreateNestedManyWithoutCardAccountInput
+    financeDr?: FinanceCreateNestedManyWithoutDrAccountInput
+    ftCash?: Finance_TransactionCreateNestedManyWithoutCashAccountInput
+    ftBank?: Finance_TransactionCreateNestedManyWithoutBankAccountInput
+    ftOnline?: Finance_TransactionCreateNestedManyWithoutOnlineAccountInput
+    ftCard?: Finance_TransactionCreateNestedManyWithoutCardAccountInput
+    fmCash?: Finance_Money_TransactionCreateNestedManyWithoutCashAccountInput
+    fmBank?: Finance_Money_TransactionCreateNestedManyWithoutBankAccountInput
+    fmOnline?: Finance_Money_TransactionCreateNestedManyWithoutOnlineAccountInput
+    fmCard?: Finance_Money_TransactionCreateNestedManyWithoutCardAccountInput
+    fmDr?: Finance_Money_TransactionCreateNestedManyWithoutDrAccountInput
+    jrtrCredit?: JournalTransactionCreateNestedManyWithoutCreditAccountInput
+    jrtrDebit?: JournalTransactionCreateNestedManyWithoutDebitAccountInput
+    girviFirstIntCr?: GirviCreateNestedManyWithoutFirstIntCrAccountInput
+    girviFirstIntDr?: GirviCreateNestedManyWithoutFirstIntDrAccountInput
+    girviCash?: GirviCreateNestedManyWithoutCashAccountInput
+    girviBank?: GirviCreateNestedManyWithoutBankAccountInput
+    girviOnline?: GirviCreateNestedManyWithoutOnlineAccountInput
+    girviCard?: GirviCreateNestedManyWithoutCardAccountInput
+    girviDr?: GirviCreateNestedManyWithoutDrAccountInput
+    apBank?: AdditionalPrincipalCreateNestedManyWithoutBankAccountInput
+    apOnline?: AdditionalPrincipalCreateNestedManyWithoutOnlineAccountInput
+    apCard?: AdditionalPrincipalCreateNestedManyWithoutCardAccountInput
+  }
+
+  export type AccountUncheckedCreateWithoutApCashInput = {
+    acc_id?: number
+    acc_uuid?: string
+    acc_add_date?: Date | string
+    acc_own_id?: number
+    acc_firm_id?: number
+    acc_pan_no?: string | null
+    acc_name: string
+    acc_desc?: string | null
+    acc_pre_acc?: string | null
+    acc_bank_no?: string | null
+    acc_bsr_no?: string | null
+    acc_ifsc_code?: string | null
+    acc_branch_name?: string | null
+    acc_opening_date: Date | string
+    acc_address?: string | null
+    acc_country?: string | null
+    acc_state?: string | null
+    acc_city?: string | null
+    acc_pincode?: string | null
+    acc_cash_balance?: string | null
+    acc_balance_type?: $Enums.AccountBalanceType
+    acc_other_info?: string | null
+    acc_created_at?: Date | string
+    acc_created_by?: string | null
+    acc_updated_by?: string | null
+    acc_deleted_at?: Date | string | null
+    acc_deleted_by?: string | null
+    acc_is_system?: boolean
+    acc_is_deleted?: boolean
+    financeCash?: FinanceUncheckedCreateNestedManyWithoutCashAccountInput
+    financeBank?: FinanceUncheckedCreateNestedManyWithoutBankAccountInput
+    financeOnline?: FinanceUncheckedCreateNestedManyWithoutOnlineAccountInput
+    financeCard?: FinanceUncheckedCreateNestedManyWithoutCardAccountInput
+    financeDr?: FinanceUncheckedCreateNestedManyWithoutDrAccountInput
+    ftCash?: Finance_TransactionUncheckedCreateNestedManyWithoutCashAccountInput
+    ftBank?: Finance_TransactionUncheckedCreateNestedManyWithoutBankAccountInput
+    ftOnline?: Finance_TransactionUncheckedCreateNestedManyWithoutOnlineAccountInput
+    ftCard?: Finance_TransactionUncheckedCreateNestedManyWithoutCardAccountInput
+    fmCash?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutCashAccountInput
+    fmBank?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutBankAccountInput
+    fmOnline?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutOnlineAccountInput
+    fmCard?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutCardAccountInput
+    fmDr?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutDrAccountInput
+    jrtrCredit?: JournalTransactionUncheckedCreateNestedManyWithoutCreditAccountInput
+    jrtrDebit?: JournalTransactionUncheckedCreateNestedManyWithoutDebitAccountInput
+    girviFirstIntCr?: GirviUncheckedCreateNestedManyWithoutFirstIntCrAccountInput
+    girviFirstIntDr?: GirviUncheckedCreateNestedManyWithoutFirstIntDrAccountInput
+    girviCash?: GirviUncheckedCreateNestedManyWithoutCashAccountInput
+    girviBank?: GirviUncheckedCreateNestedManyWithoutBankAccountInput
+    girviOnline?: GirviUncheckedCreateNestedManyWithoutOnlineAccountInput
+    girviCard?: GirviUncheckedCreateNestedManyWithoutCardAccountInput
+    girviDr?: GirviUncheckedCreateNestedManyWithoutDrAccountInput
+    apBank?: AdditionalPrincipalUncheckedCreateNestedManyWithoutBankAccountInput
+    apOnline?: AdditionalPrincipalUncheckedCreateNestedManyWithoutOnlineAccountInput
+    apCard?: AdditionalPrincipalUncheckedCreateNestedManyWithoutCardAccountInput
+  }
+
+  export type AccountCreateOrConnectWithoutApCashInput = {
+    where: AccountWhereUniqueInput
+    create: XOR<AccountCreateWithoutApCashInput, AccountUncheckedCreateWithoutApCashInput>
+  }
+
+  export type AccountCreateWithoutApBankInput = {
+    acc_uuid?: string
+    acc_add_date?: Date | string
+    acc_pan_no?: string | null
+    acc_name: string
+    acc_desc?: string | null
+    acc_pre_acc?: string | null
+    acc_bank_no?: string | null
+    acc_bsr_no?: string | null
+    acc_ifsc_code?: string | null
+    acc_branch_name?: string | null
+    acc_opening_date: Date | string
+    acc_address?: string | null
+    acc_country?: string | null
+    acc_state?: string | null
+    acc_city?: string | null
+    acc_pincode?: string | null
+    acc_cash_balance?: string | null
+    acc_balance_type?: $Enums.AccountBalanceType
+    acc_other_info?: string | null
+    acc_created_at?: Date | string
+    acc_created_by?: string | null
+    acc_updated_by?: string | null
+    acc_deleted_at?: Date | string | null
+    acc_deleted_by?: string | null
+    acc_is_system?: boolean
+    acc_is_deleted?: boolean
+    owner?: OwnerCreateNestedOneWithoutAccountsInput
+    firm?: FirmCreateNestedOneWithoutAccountsInput
+    financeCash?: FinanceCreateNestedManyWithoutCashAccountInput
+    financeBank?: FinanceCreateNestedManyWithoutBankAccountInput
+    financeOnline?: FinanceCreateNestedManyWithoutOnlineAccountInput
+    financeCard?: FinanceCreateNestedManyWithoutCardAccountInput
+    financeDr?: FinanceCreateNestedManyWithoutDrAccountInput
+    ftCash?: Finance_TransactionCreateNestedManyWithoutCashAccountInput
+    ftBank?: Finance_TransactionCreateNestedManyWithoutBankAccountInput
+    ftOnline?: Finance_TransactionCreateNestedManyWithoutOnlineAccountInput
+    ftCard?: Finance_TransactionCreateNestedManyWithoutCardAccountInput
+    fmCash?: Finance_Money_TransactionCreateNestedManyWithoutCashAccountInput
+    fmBank?: Finance_Money_TransactionCreateNestedManyWithoutBankAccountInput
+    fmOnline?: Finance_Money_TransactionCreateNestedManyWithoutOnlineAccountInput
+    fmCard?: Finance_Money_TransactionCreateNestedManyWithoutCardAccountInput
+    fmDr?: Finance_Money_TransactionCreateNestedManyWithoutDrAccountInput
+    jrtrCredit?: JournalTransactionCreateNestedManyWithoutCreditAccountInput
+    jrtrDebit?: JournalTransactionCreateNestedManyWithoutDebitAccountInput
+    girviFirstIntCr?: GirviCreateNestedManyWithoutFirstIntCrAccountInput
+    girviFirstIntDr?: GirviCreateNestedManyWithoutFirstIntDrAccountInput
+    girviCash?: GirviCreateNestedManyWithoutCashAccountInput
+    girviBank?: GirviCreateNestedManyWithoutBankAccountInput
+    girviOnline?: GirviCreateNestedManyWithoutOnlineAccountInput
+    girviCard?: GirviCreateNestedManyWithoutCardAccountInput
+    girviDr?: GirviCreateNestedManyWithoutDrAccountInput
+    apCash?: AdditionalPrincipalCreateNestedManyWithoutCashAccountInput
+    apOnline?: AdditionalPrincipalCreateNestedManyWithoutOnlineAccountInput
+    apCard?: AdditionalPrincipalCreateNestedManyWithoutCardAccountInput
+  }
+
+  export type AccountUncheckedCreateWithoutApBankInput = {
+    acc_id?: number
+    acc_uuid?: string
+    acc_add_date?: Date | string
+    acc_own_id?: number
+    acc_firm_id?: number
+    acc_pan_no?: string | null
+    acc_name: string
+    acc_desc?: string | null
+    acc_pre_acc?: string | null
+    acc_bank_no?: string | null
+    acc_bsr_no?: string | null
+    acc_ifsc_code?: string | null
+    acc_branch_name?: string | null
+    acc_opening_date: Date | string
+    acc_address?: string | null
+    acc_country?: string | null
+    acc_state?: string | null
+    acc_city?: string | null
+    acc_pincode?: string | null
+    acc_cash_balance?: string | null
+    acc_balance_type?: $Enums.AccountBalanceType
+    acc_other_info?: string | null
+    acc_created_at?: Date | string
+    acc_created_by?: string | null
+    acc_updated_by?: string | null
+    acc_deleted_at?: Date | string | null
+    acc_deleted_by?: string | null
+    acc_is_system?: boolean
+    acc_is_deleted?: boolean
+    financeCash?: FinanceUncheckedCreateNestedManyWithoutCashAccountInput
+    financeBank?: FinanceUncheckedCreateNestedManyWithoutBankAccountInput
+    financeOnline?: FinanceUncheckedCreateNestedManyWithoutOnlineAccountInput
+    financeCard?: FinanceUncheckedCreateNestedManyWithoutCardAccountInput
+    financeDr?: FinanceUncheckedCreateNestedManyWithoutDrAccountInput
+    ftCash?: Finance_TransactionUncheckedCreateNestedManyWithoutCashAccountInput
+    ftBank?: Finance_TransactionUncheckedCreateNestedManyWithoutBankAccountInput
+    ftOnline?: Finance_TransactionUncheckedCreateNestedManyWithoutOnlineAccountInput
+    ftCard?: Finance_TransactionUncheckedCreateNestedManyWithoutCardAccountInput
+    fmCash?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutCashAccountInput
+    fmBank?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutBankAccountInput
+    fmOnline?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutOnlineAccountInput
+    fmCard?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutCardAccountInput
+    fmDr?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutDrAccountInput
+    jrtrCredit?: JournalTransactionUncheckedCreateNestedManyWithoutCreditAccountInput
+    jrtrDebit?: JournalTransactionUncheckedCreateNestedManyWithoutDebitAccountInput
+    girviFirstIntCr?: GirviUncheckedCreateNestedManyWithoutFirstIntCrAccountInput
+    girviFirstIntDr?: GirviUncheckedCreateNestedManyWithoutFirstIntDrAccountInput
+    girviCash?: GirviUncheckedCreateNestedManyWithoutCashAccountInput
+    girviBank?: GirviUncheckedCreateNestedManyWithoutBankAccountInput
+    girviOnline?: GirviUncheckedCreateNestedManyWithoutOnlineAccountInput
+    girviCard?: GirviUncheckedCreateNestedManyWithoutCardAccountInput
+    girviDr?: GirviUncheckedCreateNestedManyWithoutDrAccountInput
+    apCash?: AdditionalPrincipalUncheckedCreateNestedManyWithoutCashAccountInput
+    apOnline?: AdditionalPrincipalUncheckedCreateNestedManyWithoutOnlineAccountInput
+    apCard?: AdditionalPrincipalUncheckedCreateNestedManyWithoutCardAccountInput
+  }
+
+  export type AccountCreateOrConnectWithoutApBankInput = {
+    where: AccountWhereUniqueInput
+    create: XOR<AccountCreateWithoutApBankInput, AccountUncheckedCreateWithoutApBankInput>
+  }
+
+  export type AccountCreateWithoutApOnlineInput = {
+    acc_uuid?: string
+    acc_add_date?: Date | string
+    acc_pan_no?: string | null
+    acc_name: string
+    acc_desc?: string | null
+    acc_pre_acc?: string | null
+    acc_bank_no?: string | null
+    acc_bsr_no?: string | null
+    acc_ifsc_code?: string | null
+    acc_branch_name?: string | null
+    acc_opening_date: Date | string
+    acc_address?: string | null
+    acc_country?: string | null
+    acc_state?: string | null
+    acc_city?: string | null
+    acc_pincode?: string | null
+    acc_cash_balance?: string | null
+    acc_balance_type?: $Enums.AccountBalanceType
+    acc_other_info?: string | null
+    acc_created_at?: Date | string
+    acc_created_by?: string | null
+    acc_updated_by?: string | null
+    acc_deleted_at?: Date | string | null
+    acc_deleted_by?: string | null
+    acc_is_system?: boolean
+    acc_is_deleted?: boolean
+    owner?: OwnerCreateNestedOneWithoutAccountsInput
+    firm?: FirmCreateNestedOneWithoutAccountsInput
+    financeCash?: FinanceCreateNestedManyWithoutCashAccountInput
+    financeBank?: FinanceCreateNestedManyWithoutBankAccountInput
+    financeOnline?: FinanceCreateNestedManyWithoutOnlineAccountInput
+    financeCard?: FinanceCreateNestedManyWithoutCardAccountInput
+    financeDr?: FinanceCreateNestedManyWithoutDrAccountInput
+    ftCash?: Finance_TransactionCreateNestedManyWithoutCashAccountInput
+    ftBank?: Finance_TransactionCreateNestedManyWithoutBankAccountInput
+    ftOnline?: Finance_TransactionCreateNestedManyWithoutOnlineAccountInput
+    ftCard?: Finance_TransactionCreateNestedManyWithoutCardAccountInput
+    fmCash?: Finance_Money_TransactionCreateNestedManyWithoutCashAccountInput
+    fmBank?: Finance_Money_TransactionCreateNestedManyWithoutBankAccountInput
+    fmOnline?: Finance_Money_TransactionCreateNestedManyWithoutOnlineAccountInput
+    fmCard?: Finance_Money_TransactionCreateNestedManyWithoutCardAccountInput
+    fmDr?: Finance_Money_TransactionCreateNestedManyWithoutDrAccountInput
+    jrtrCredit?: JournalTransactionCreateNestedManyWithoutCreditAccountInput
+    jrtrDebit?: JournalTransactionCreateNestedManyWithoutDebitAccountInput
+    girviFirstIntCr?: GirviCreateNestedManyWithoutFirstIntCrAccountInput
+    girviFirstIntDr?: GirviCreateNestedManyWithoutFirstIntDrAccountInput
+    girviCash?: GirviCreateNestedManyWithoutCashAccountInput
+    girviBank?: GirviCreateNestedManyWithoutBankAccountInput
+    girviOnline?: GirviCreateNestedManyWithoutOnlineAccountInput
+    girviCard?: GirviCreateNestedManyWithoutCardAccountInput
+    girviDr?: GirviCreateNestedManyWithoutDrAccountInput
+    apCash?: AdditionalPrincipalCreateNestedManyWithoutCashAccountInput
+    apBank?: AdditionalPrincipalCreateNestedManyWithoutBankAccountInput
+    apCard?: AdditionalPrincipalCreateNestedManyWithoutCardAccountInput
+  }
+
+  export type AccountUncheckedCreateWithoutApOnlineInput = {
+    acc_id?: number
+    acc_uuid?: string
+    acc_add_date?: Date | string
+    acc_own_id?: number
+    acc_firm_id?: number
+    acc_pan_no?: string | null
+    acc_name: string
+    acc_desc?: string | null
+    acc_pre_acc?: string | null
+    acc_bank_no?: string | null
+    acc_bsr_no?: string | null
+    acc_ifsc_code?: string | null
+    acc_branch_name?: string | null
+    acc_opening_date: Date | string
+    acc_address?: string | null
+    acc_country?: string | null
+    acc_state?: string | null
+    acc_city?: string | null
+    acc_pincode?: string | null
+    acc_cash_balance?: string | null
+    acc_balance_type?: $Enums.AccountBalanceType
+    acc_other_info?: string | null
+    acc_created_at?: Date | string
+    acc_created_by?: string | null
+    acc_updated_by?: string | null
+    acc_deleted_at?: Date | string | null
+    acc_deleted_by?: string | null
+    acc_is_system?: boolean
+    acc_is_deleted?: boolean
+    financeCash?: FinanceUncheckedCreateNestedManyWithoutCashAccountInput
+    financeBank?: FinanceUncheckedCreateNestedManyWithoutBankAccountInput
+    financeOnline?: FinanceUncheckedCreateNestedManyWithoutOnlineAccountInput
+    financeCard?: FinanceUncheckedCreateNestedManyWithoutCardAccountInput
+    financeDr?: FinanceUncheckedCreateNestedManyWithoutDrAccountInput
+    ftCash?: Finance_TransactionUncheckedCreateNestedManyWithoutCashAccountInput
+    ftBank?: Finance_TransactionUncheckedCreateNestedManyWithoutBankAccountInput
+    ftOnline?: Finance_TransactionUncheckedCreateNestedManyWithoutOnlineAccountInput
+    ftCard?: Finance_TransactionUncheckedCreateNestedManyWithoutCardAccountInput
+    fmCash?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutCashAccountInput
+    fmBank?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutBankAccountInput
+    fmOnline?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutOnlineAccountInput
+    fmCard?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutCardAccountInput
+    fmDr?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutDrAccountInput
+    jrtrCredit?: JournalTransactionUncheckedCreateNestedManyWithoutCreditAccountInput
+    jrtrDebit?: JournalTransactionUncheckedCreateNestedManyWithoutDebitAccountInput
+    girviFirstIntCr?: GirviUncheckedCreateNestedManyWithoutFirstIntCrAccountInput
+    girviFirstIntDr?: GirviUncheckedCreateNestedManyWithoutFirstIntDrAccountInput
+    girviCash?: GirviUncheckedCreateNestedManyWithoutCashAccountInput
+    girviBank?: GirviUncheckedCreateNestedManyWithoutBankAccountInput
+    girviOnline?: GirviUncheckedCreateNestedManyWithoutOnlineAccountInput
+    girviCard?: GirviUncheckedCreateNestedManyWithoutCardAccountInput
+    girviDr?: GirviUncheckedCreateNestedManyWithoutDrAccountInput
+    apCash?: AdditionalPrincipalUncheckedCreateNestedManyWithoutCashAccountInput
+    apBank?: AdditionalPrincipalUncheckedCreateNestedManyWithoutBankAccountInput
+    apCard?: AdditionalPrincipalUncheckedCreateNestedManyWithoutCardAccountInput
+  }
+
+  export type AccountCreateOrConnectWithoutApOnlineInput = {
+    where: AccountWhereUniqueInput
+    create: XOR<AccountCreateWithoutApOnlineInput, AccountUncheckedCreateWithoutApOnlineInput>
+  }
+
+  export type AccountCreateWithoutApCardInput = {
+    acc_uuid?: string
+    acc_add_date?: Date | string
+    acc_pan_no?: string | null
+    acc_name: string
+    acc_desc?: string | null
+    acc_pre_acc?: string | null
+    acc_bank_no?: string | null
+    acc_bsr_no?: string | null
+    acc_ifsc_code?: string | null
+    acc_branch_name?: string | null
+    acc_opening_date: Date | string
+    acc_address?: string | null
+    acc_country?: string | null
+    acc_state?: string | null
+    acc_city?: string | null
+    acc_pincode?: string | null
+    acc_cash_balance?: string | null
+    acc_balance_type?: $Enums.AccountBalanceType
+    acc_other_info?: string | null
+    acc_created_at?: Date | string
+    acc_created_by?: string | null
+    acc_updated_by?: string | null
+    acc_deleted_at?: Date | string | null
+    acc_deleted_by?: string | null
+    acc_is_system?: boolean
+    acc_is_deleted?: boolean
+    owner?: OwnerCreateNestedOneWithoutAccountsInput
+    firm?: FirmCreateNestedOneWithoutAccountsInput
+    financeCash?: FinanceCreateNestedManyWithoutCashAccountInput
+    financeBank?: FinanceCreateNestedManyWithoutBankAccountInput
+    financeOnline?: FinanceCreateNestedManyWithoutOnlineAccountInput
+    financeCard?: FinanceCreateNestedManyWithoutCardAccountInput
+    financeDr?: FinanceCreateNestedManyWithoutDrAccountInput
+    ftCash?: Finance_TransactionCreateNestedManyWithoutCashAccountInput
+    ftBank?: Finance_TransactionCreateNestedManyWithoutBankAccountInput
+    ftOnline?: Finance_TransactionCreateNestedManyWithoutOnlineAccountInput
+    ftCard?: Finance_TransactionCreateNestedManyWithoutCardAccountInput
+    fmCash?: Finance_Money_TransactionCreateNestedManyWithoutCashAccountInput
+    fmBank?: Finance_Money_TransactionCreateNestedManyWithoutBankAccountInput
+    fmOnline?: Finance_Money_TransactionCreateNestedManyWithoutOnlineAccountInput
+    fmCard?: Finance_Money_TransactionCreateNestedManyWithoutCardAccountInput
+    fmDr?: Finance_Money_TransactionCreateNestedManyWithoutDrAccountInput
+    jrtrCredit?: JournalTransactionCreateNestedManyWithoutCreditAccountInput
+    jrtrDebit?: JournalTransactionCreateNestedManyWithoutDebitAccountInput
+    girviFirstIntCr?: GirviCreateNestedManyWithoutFirstIntCrAccountInput
+    girviFirstIntDr?: GirviCreateNestedManyWithoutFirstIntDrAccountInput
+    girviCash?: GirviCreateNestedManyWithoutCashAccountInput
+    girviBank?: GirviCreateNestedManyWithoutBankAccountInput
+    girviOnline?: GirviCreateNestedManyWithoutOnlineAccountInput
+    girviCard?: GirviCreateNestedManyWithoutCardAccountInput
+    girviDr?: GirviCreateNestedManyWithoutDrAccountInput
+    apCash?: AdditionalPrincipalCreateNestedManyWithoutCashAccountInput
+    apBank?: AdditionalPrincipalCreateNestedManyWithoutBankAccountInput
+    apOnline?: AdditionalPrincipalCreateNestedManyWithoutOnlineAccountInput
+  }
+
+  export type AccountUncheckedCreateWithoutApCardInput = {
+    acc_id?: number
+    acc_uuid?: string
+    acc_add_date?: Date | string
+    acc_own_id?: number
+    acc_firm_id?: number
+    acc_pan_no?: string | null
+    acc_name: string
+    acc_desc?: string | null
+    acc_pre_acc?: string | null
+    acc_bank_no?: string | null
+    acc_bsr_no?: string | null
+    acc_ifsc_code?: string | null
+    acc_branch_name?: string | null
+    acc_opening_date: Date | string
+    acc_address?: string | null
+    acc_country?: string | null
+    acc_state?: string | null
+    acc_city?: string | null
+    acc_pincode?: string | null
+    acc_cash_balance?: string | null
+    acc_balance_type?: $Enums.AccountBalanceType
+    acc_other_info?: string | null
+    acc_created_at?: Date | string
+    acc_created_by?: string | null
+    acc_updated_by?: string | null
+    acc_deleted_at?: Date | string | null
+    acc_deleted_by?: string | null
+    acc_is_system?: boolean
+    acc_is_deleted?: boolean
+    financeCash?: FinanceUncheckedCreateNestedManyWithoutCashAccountInput
+    financeBank?: FinanceUncheckedCreateNestedManyWithoutBankAccountInput
+    financeOnline?: FinanceUncheckedCreateNestedManyWithoutOnlineAccountInput
+    financeCard?: FinanceUncheckedCreateNestedManyWithoutCardAccountInput
+    financeDr?: FinanceUncheckedCreateNestedManyWithoutDrAccountInput
+    ftCash?: Finance_TransactionUncheckedCreateNestedManyWithoutCashAccountInput
+    ftBank?: Finance_TransactionUncheckedCreateNestedManyWithoutBankAccountInput
+    ftOnline?: Finance_TransactionUncheckedCreateNestedManyWithoutOnlineAccountInput
+    ftCard?: Finance_TransactionUncheckedCreateNestedManyWithoutCardAccountInput
+    fmCash?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutCashAccountInput
+    fmBank?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutBankAccountInput
+    fmOnline?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutOnlineAccountInput
+    fmCard?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutCardAccountInput
+    fmDr?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutDrAccountInput
+    jrtrCredit?: JournalTransactionUncheckedCreateNestedManyWithoutCreditAccountInput
+    jrtrDebit?: JournalTransactionUncheckedCreateNestedManyWithoutDebitAccountInput
+    girviFirstIntCr?: GirviUncheckedCreateNestedManyWithoutFirstIntCrAccountInput
+    girviFirstIntDr?: GirviUncheckedCreateNestedManyWithoutFirstIntDrAccountInput
+    girviCash?: GirviUncheckedCreateNestedManyWithoutCashAccountInput
+    girviBank?: GirviUncheckedCreateNestedManyWithoutBankAccountInput
+    girviOnline?: GirviUncheckedCreateNestedManyWithoutOnlineAccountInput
+    girviCard?: GirviUncheckedCreateNestedManyWithoutCardAccountInput
+    girviDr?: GirviUncheckedCreateNestedManyWithoutDrAccountInput
+    apCash?: AdditionalPrincipalUncheckedCreateNestedManyWithoutCashAccountInput
+    apBank?: AdditionalPrincipalUncheckedCreateNestedManyWithoutBankAccountInput
+    apOnline?: AdditionalPrincipalUncheckedCreateNestedManyWithoutOnlineAccountInput
+  }
+
+  export type AccountCreateOrConnectWithoutApCardInput = {
+    where: AccountWhereUniqueInput
+    create: XOR<AccountCreateWithoutApCardInput, AccountUncheckedCreateWithoutApCardInput>
+  }
+
+  export type OwnerUpsertWithoutAdditionalPrincipalsInput = {
+    update: XOR<OwnerUpdateWithoutAdditionalPrincipalsInput, OwnerUncheckedUpdateWithoutAdditionalPrincipalsInput>
+    create: XOR<OwnerCreateWithoutAdditionalPrincipalsInput, OwnerUncheckedCreateWithoutAdditionalPrincipalsInput>
+    where?: OwnerWhereInput
+  }
+
+  export type OwnerUpdateToOneWithWhereWithoutAdditionalPrincipalsInput = {
+    where?: OwnerWhereInput
+    data: XOR<OwnerUpdateWithoutAdditionalPrincipalsInput, OwnerUncheckedUpdateWithoutAdditionalPrincipalsInput>
+  }
+
+  export type OwnerUpdateWithoutAdditionalPrincipalsInput = {
+    own_uuid?: StringFieldUpdateOperationsInput | string
+    own_db?: StringFieldUpdateOperationsInput | string
+    own_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    own_first_name?: StringFieldUpdateOperationsInput | string
+    own_middle_name?: NullableStringFieldUpdateOperationsInput | string | null
+    own_last_name?: StringFieldUpdateOperationsInput | string
+    own_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mobile_no?: StringFieldUpdateOperationsInput | string
+    own_email?: StringFieldUpdateOperationsInput | string
+    own_login_id?: StringFieldUpdateOperationsInput | string
+    own_password?: StringFieldUpdateOperationsInput | string
+    own_status?: EnumOwnerStatusFieldUpdateOperationsInput | $Enums.OwnerStatus
+    own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
+    own_refresh_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_jwt_token?: NullableStringFieldUpdateOperationsInput | string | null
+    own_jwt_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_login_status?: BoolFieldUpdateOperationsInput | boolean
+    own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
+    own_otp?: NullableStringFieldUpdateOperationsInput | string | null
+    own_otp_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_address?: NullableStringFieldUpdateOperationsInput | string | null
+    own_village?: NullableStringFieldUpdateOperationsInput | string | null
+    own_city?: NullableStringFieldUpdateOperationsInput | string | null
+    own_state?: NullableStringFieldUpdateOperationsInput | string | null
+    own_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    own_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    own_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    own_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    own_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    own_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    own_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    users?: UserUpdateManyWithoutOwnerNestedInput
+    firms?: FirmUpdateManyWithoutOwnerNestedInput
+    accounts?: AccountUpdateManyWithoutOwnerNestedInput
+    finances?: FinanceUpdateManyWithoutOwnerNestedInput
+    financeTransactions?: Finance_TransactionUpdateManyWithoutOwnerNestedInput
+    financeMoneyTrans?: Finance_Money_TransactionUpdateManyWithoutOwnerNestedInput
+    journals?: JournalUpdateManyWithoutOwnerNestedInput
+    journalTransactions?: JournalTransactionUpdateManyWithoutOwnerNestedInput
+    girvis?: GirviUpdateManyWithoutOwnerNestedInput
+    stocks?: StockUpdateManyWithoutOwnerNestedInput
+  }
+
+  export type OwnerUncheckedUpdateWithoutAdditionalPrincipalsInput = {
+    own_id?: IntFieldUpdateOperationsInput | number
+    own_uuid?: StringFieldUpdateOperationsInput | string
+    own_product_key?: IntFieldUpdateOperationsInput | number
+    own_db?: StringFieldUpdateOperationsInput | string
+    own_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    own_first_name?: StringFieldUpdateOperationsInput | string
+    own_middle_name?: NullableStringFieldUpdateOperationsInput | string | null
+    own_last_name?: StringFieldUpdateOperationsInput | string
+    own_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mobile_no?: StringFieldUpdateOperationsInput | string
+    own_email?: StringFieldUpdateOperationsInput | string
+    own_login_id?: StringFieldUpdateOperationsInput | string
+    own_password?: StringFieldUpdateOperationsInput | string
+    own_status?: EnumOwnerStatusFieldUpdateOperationsInput | $Enums.OwnerStatus
+    own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
+    own_refresh_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_jwt_token?: NullableStringFieldUpdateOperationsInput | string | null
+    own_jwt_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_login_status?: BoolFieldUpdateOperationsInput | boolean
+    own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
+    own_otp?: NullableStringFieldUpdateOperationsInput | string | null
+    own_otp_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_address?: NullableStringFieldUpdateOperationsInput | string | null
+    own_village?: NullableStringFieldUpdateOperationsInput | string | null
+    own_city?: NullableStringFieldUpdateOperationsInput | string | null
+    own_state?: NullableStringFieldUpdateOperationsInput | string | null
+    own_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    own_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    own_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    own_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    own_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    own_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    own_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    users?: UserUncheckedUpdateManyWithoutOwnerNestedInput
+    firms?: FirmUncheckedUpdateManyWithoutOwnerNestedInput
+    accounts?: AccountUncheckedUpdateManyWithoutOwnerNestedInput
+    finances?: FinanceUncheckedUpdateManyWithoutOwnerNestedInput
+    financeTransactions?: Finance_TransactionUncheckedUpdateManyWithoutOwnerNestedInput
+    financeMoneyTrans?: Finance_Money_TransactionUncheckedUpdateManyWithoutOwnerNestedInput
+    journals?: JournalUncheckedUpdateManyWithoutOwnerNestedInput
+    journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutOwnerNestedInput
+    girvis?: GirviUncheckedUpdateManyWithoutOwnerNestedInput
+    stocks?: StockUncheckedUpdateManyWithoutOwnerNestedInput
+  }
+
+  export type FirmUpsertWithoutAdditionalPrincipalsInput = {
+    update: XOR<FirmUpdateWithoutAdditionalPrincipalsInput, FirmUncheckedUpdateWithoutAdditionalPrincipalsInput>
+    create: XOR<FirmCreateWithoutAdditionalPrincipalsInput, FirmUncheckedCreateWithoutAdditionalPrincipalsInput>
+    where?: FirmWhereInput
+  }
+
+  export type FirmUpdateToOneWithWhereWithoutAdditionalPrincipalsInput = {
+    where?: FirmWhereInput
+    data: XOR<FirmUpdateWithoutAdditionalPrincipalsInput, FirmUncheckedUpdateWithoutAdditionalPrincipalsInput>
+  }
+
+  export type FirmUpdateWithoutAdditionalPrincipalsInput = {
+    firm_uuid?: StringFieldUpdateOperationsInput | string
+    firm_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    firm_name?: StringFieldUpdateOperationsInput | string
+    firm_reg_no?: StringFieldUpdateOperationsInput | string
+    firm_shop_name?: StringFieldUpdateOperationsInput | string
+    firm_desc?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_address?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_city?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_email_id?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_website_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_type?: EnumFirmTypeFieldUpdateOperationsInput | $Enums.FirmType
+    firm_owner?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_geo_latitude?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_geo_longitude?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_whatsapp_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_facebook_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_insta_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_name?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_acc_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_branch?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_address?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_acc_holder?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_acc_type?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firm_balance?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_balance_type?: EnumFirmBalanceTypeFieldUpdateOperationsInput | $Enums.FirmBalanceType
+    firm_gstin_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_adhaar_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_form_header?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_form_footer?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_own_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_left_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_right_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_qr_code_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_pan_no_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    firm_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    firm_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firm_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    users?: UserUpdateManyWithoutFirmNestedInput
+    accounts?: AccountUpdateManyWithoutFirmNestedInput
+    owner?: OwnerUpdateOneRequiredWithoutFirmsNestedInput
+    finances?: FinanceUpdateManyWithoutFirmNestedInput
+    financeTransactions?: Finance_TransactionUpdateManyWithoutFirmNestedInput
+    financeMoneyTrans?: Finance_Money_TransactionUpdateManyWithoutFirmNestedInput
+    journals?: JournalUpdateManyWithoutFirmNestedInput
+    journalTransactions?: JournalTransactionUpdateManyWithoutFirmNestedInput
+    girvis?: GirviUpdateManyWithoutFirmNestedInput
+    stocks?: StockUpdateManyWithoutFirmNestedInput
+  }
+
+  export type FirmUncheckedUpdateWithoutAdditionalPrincipalsInput = {
+    firm_id?: IntFieldUpdateOperationsInput | number
+    firm_uuid?: StringFieldUpdateOperationsInput | string
+    firm_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    firm_own_id?: IntFieldUpdateOperationsInput | number
+    firm_name?: StringFieldUpdateOperationsInput | string
+    firm_reg_no?: StringFieldUpdateOperationsInput | string
+    firm_shop_name?: StringFieldUpdateOperationsInput | string
+    firm_desc?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_address?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_city?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_email_id?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_website_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_type?: EnumFirmTypeFieldUpdateOperationsInput | $Enums.FirmType
+    firm_owner?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_geo_latitude?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_geo_longitude?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_whatsapp_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_facebook_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_insta_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_name?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_acc_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_branch?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_address?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_acc_holder?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_acc_type?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firm_balance?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_balance_type?: EnumFirmBalanceTypeFieldUpdateOperationsInput | $Enums.FirmBalanceType
+    firm_gstin_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_adhaar_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_form_header?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_form_footer?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_own_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_left_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_right_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_qr_code_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_pan_no_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    firm_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    firm_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firm_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    users?: UserUncheckedUpdateManyWithoutFirmNestedInput
+    accounts?: AccountUncheckedUpdateManyWithoutFirmNestedInput
+    finances?: FinanceUncheckedUpdateManyWithoutFirmNestedInput
+    financeTransactions?: Finance_TransactionUncheckedUpdateManyWithoutFirmNestedInput
+    financeMoneyTrans?: Finance_Money_TransactionUncheckedUpdateManyWithoutFirmNestedInput
+    journals?: JournalUncheckedUpdateManyWithoutFirmNestedInput
+    journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutFirmNestedInput
+    girvis?: GirviUncheckedUpdateManyWithoutFirmNestedInput
+    stocks?: StockUncheckedUpdateManyWithoutFirmNestedInput
+  }
+
+  export type UserUpsertWithoutAdditionalPrincipalsInput = {
+    update: XOR<UserUpdateWithoutAdditionalPrincipalsInput, UserUncheckedUpdateWithoutAdditionalPrincipalsInput>
+    create: XOR<UserCreateWithoutAdditionalPrincipalsInput, UserUncheckedCreateWithoutAdditionalPrincipalsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutAdditionalPrincipalsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutAdditionalPrincipalsInput, UserUncheckedUpdateWithoutAdditionalPrincipalsInput>
+  }
+
+  export type UserUpdateWithoutAdditionalPrincipalsInput = {
+    user_uuid?: StringFieldUpdateOperationsInput | string
+    user_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    user_first_name?: StringFieldUpdateOperationsInput | string
+    user_father_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_last_name?: StringFieldUpdateOperationsInput | string
+    user_mother_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_mobile_no?: StringFieldUpdateOperationsInput | string
+    user_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_email_id?: NullableStringFieldUpdateOperationsInput | string | null
+    user_gender?: NullableEnumUserGenderFieldUpdateOperationsInput | $Enums.UserGender | null
+    user_cast?: NullableStringFieldUpdateOperationsInput | string | null
+    user_marital_status?: NullableEnumUserMaritalStatusFieldUpdateOperationsInput | $Enums.UserMaritalStatus | null
+    user_occupation?: NullableStringFieldUpdateOperationsInput | string | null
+    user_birth_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    user_gstin?: NullableStringFieldUpdateOperationsInput | string | null
+    user_tax_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_adhaar_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    user_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
+    user_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
+    user_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
+    user_per_address?: NullableStringFieldUpdateOperationsInput | string | null
+    user_curr_address?: NullableStringFieldUpdateOperationsInput | string | null
+    user_village?: NullableStringFieldUpdateOperationsInput | string | null
+    user_ward_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_tehsil?: NullableStringFieldUpdateOperationsInput | string | null
+    user_city?: NullableStringFieldUpdateOperationsInput | string | null
+    user_state?: NullableStringFieldUpdateOperationsInput | string | null
+    user_country?: NullableStringFieldUpdateOperationsInput | string | null
+    user_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    user_bank_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_bank_acc_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
+    user_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    user_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    user_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    user_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    user_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    user_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    user_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    user_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    user_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    owner?: OwnerUpdateOneRequiredWithoutUsersNestedInput
+    firm?: FirmUpdateOneRequiredWithoutUsersNestedInput
+    finances?: FinanceUpdateManyWithoutUserNestedInput
+    financeTransactions?: Finance_TransactionUpdateManyWithoutUserNestedInput
+    financeMoneyTrans?: Finance_Money_TransactionUpdateManyWithoutUserNestedInput
+    journals?: JournalUpdateManyWithoutUserNestedInput
+    journalTransactions?: JournalTransactionUpdateManyWithoutUserNestedInput
+    girvis?: GirviUpdateManyWithoutUserNestedInput
+    stocks?: StockUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutAdditionalPrincipalsInput = {
+    user_id?: IntFieldUpdateOperationsInput | number
+    user_uuid?: StringFieldUpdateOperationsInput | string
+    user_own_id?: IntFieldUpdateOperationsInput | number
+    user_firm_id?: IntFieldUpdateOperationsInput | number
+    user_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    user_first_name?: StringFieldUpdateOperationsInput | string
+    user_father_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_last_name?: StringFieldUpdateOperationsInput | string
+    user_mother_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_mobile_no?: StringFieldUpdateOperationsInput | string
+    user_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_email_id?: NullableStringFieldUpdateOperationsInput | string | null
+    user_gender?: NullableEnumUserGenderFieldUpdateOperationsInput | $Enums.UserGender | null
+    user_cast?: NullableStringFieldUpdateOperationsInput | string | null
+    user_marital_status?: NullableEnumUserMaritalStatusFieldUpdateOperationsInput | $Enums.UserMaritalStatus | null
+    user_occupation?: NullableStringFieldUpdateOperationsInput | string | null
+    user_birth_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    user_gstin?: NullableStringFieldUpdateOperationsInput | string | null
+    user_tax_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_adhaar_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    user_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
+    user_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
+    user_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
+    user_per_address?: NullableStringFieldUpdateOperationsInput | string | null
+    user_curr_address?: NullableStringFieldUpdateOperationsInput | string | null
+    user_village?: NullableStringFieldUpdateOperationsInput | string | null
+    user_ward_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_tehsil?: NullableStringFieldUpdateOperationsInput | string | null
+    user_city?: NullableStringFieldUpdateOperationsInput | string | null
+    user_state?: NullableStringFieldUpdateOperationsInput | string | null
+    user_country?: NullableStringFieldUpdateOperationsInput | string | null
+    user_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    user_bank_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_bank_acc_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
+    user_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    user_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    user_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    user_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    user_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    user_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    user_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    user_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    user_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    finances?: FinanceUncheckedUpdateManyWithoutUserNestedInput
+    financeTransactions?: Finance_TransactionUncheckedUpdateManyWithoutUserNestedInput
+    financeMoneyTrans?: Finance_Money_TransactionUncheckedUpdateManyWithoutUserNestedInput
+    journals?: JournalUncheckedUpdateManyWithoutUserNestedInput
+    journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutUserNestedInput
+    girvis?: GirviUncheckedUpdateManyWithoutUserNestedInput
+    stocks?: StockUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type GirviUpsertWithoutAdditionalPrincipalsInput = {
+    update: XOR<GirviUpdateWithoutAdditionalPrincipalsInput, GirviUncheckedUpdateWithoutAdditionalPrincipalsInput>
+    create: XOR<GirviCreateWithoutAdditionalPrincipalsInput, GirviUncheckedCreateWithoutAdditionalPrincipalsInput>
+    where?: GirviWhereInput
+  }
+
+  export type GirviUpdateToOneWithWhereWithoutAdditionalPrincipalsInput = {
+    where?: GirviWhereInput
+    data: XOR<GirviUpdateWithoutAdditionalPrincipalsInput, GirviUncheckedUpdateWithoutAdditionalPrincipalsInput>
+  }
+
+  export type GirviUpdateWithoutAdditionalPrincipalsInput = {
+    girv_uuid?: StringFieldUpdateOperationsInput | string
+    girv_add_date?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_staff_id?: IntFieldUpdateOperationsInput | number
+    girv_start_date?: StringFieldUpdateOperationsInput | string
+    girv_loan_no?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_loan_pre_no?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_prin_amt?: FloatFieldUpdateOperationsInput | number
+    girv_process_per?: NullableFloatFieldUpdateOperationsInput | number | null
+    girv_process_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    girv_packet_no?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_locker_no?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_charge_per?: NullableFloatFieldUpdateOperationsInput | number | null
+    girv_charge_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    girv_roi?: FloatFieldUpdateOperationsInput | number
+    girv_roi_type?: EnumGirviRoiTypeFieldUpdateOperationsInput | $Enums.GirviRoiType
+    girv_type?: EnumGirviTypeFieldUpdateOperationsInput | $Enums.GirviType
+    girv_final_amt?: FloatFieldUpdateOperationsInput | number
+    girv_status?: EnumGirviStatusFieldUpdateOperationsInput | $Enums.GirviStatus
+    girv_first_int?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_cash_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    girv_bank_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    girv_online_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    girv_card_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    girv_cash_info?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_bank_info?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_online_info?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_card_info?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    girv_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    girv_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    girv_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    owner?: OwnerUpdateOneRequiredWithoutGirvisNestedInput
+    firm?: FirmUpdateOneRequiredWithoutGirvisNestedInput
+    user?: UserUpdateOneRequiredWithoutGirvisNestedInput
+    firstIntCrAccount?: AccountUpdateOneWithoutGirviFirstIntCrNestedInput
+    firstIntDrAccount?: AccountUpdateOneWithoutGirviFirstIntDrNestedInput
+    cashAccount?: AccountUpdateOneWithoutGirviCashNestedInput
+    bankAccount?: AccountUpdateOneWithoutGirviBankNestedInput
+    onlineAccount?: AccountUpdateOneWithoutGirviOnlineNestedInput
+    cardAccount?: AccountUpdateOneWithoutGirviCardNestedInput
+    drAccount?: AccountUpdateOneWithoutGirviDrNestedInput
+  }
+
+  export type GirviUncheckedUpdateWithoutAdditionalPrincipalsInput = {
+    girv_id?: IntFieldUpdateOperationsInput | number
+    girv_uuid?: StringFieldUpdateOperationsInput | string
+    girv_add_date?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_firm_id?: IntFieldUpdateOperationsInput | number
+    girv_own_id?: IntFieldUpdateOperationsInput | number
+    girv_user_id?: IntFieldUpdateOperationsInput | number
+    girv_staff_id?: IntFieldUpdateOperationsInput | number
+    girv_start_date?: StringFieldUpdateOperationsInput | string
+    girv_loan_no?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_loan_pre_no?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_prin_amt?: FloatFieldUpdateOperationsInput | number
+    girv_process_per?: NullableFloatFieldUpdateOperationsInput | number | null
+    girv_process_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    girv_packet_no?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_locker_no?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_charge_per?: NullableFloatFieldUpdateOperationsInput | number | null
+    girv_charge_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    girv_roi?: FloatFieldUpdateOperationsInput | number
+    girv_roi_type?: EnumGirviRoiTypeFieldUpdateOperationsInput | $Enums.GirviRoiType
+    girv_type?: EnumGirviTypeFieldUpdateOperationsInput | $Enums.GirviType
+    girv_final_amt?: FloatFieldUpdateOperationsInput | number
+    girv_status?: EnumGirviStatusFieldUpdateOperationsInput | $Enums.GirviStatus
+    girv_first_int?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_first_int_cr_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_first_int_dr_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_cash_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    girv_bank_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    girv_online_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    girv_card_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    girv_cash_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_bank_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_online_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_card_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_cash_info?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_bank_info?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_online_info?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_card_info?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_dr_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    girv_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    girv_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    girv_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type AccountUpsertWithoutApCashInput = {
+    update: XOR<AccountUpdateWithoutApCashInput, AccountUncheckedUpdateWithoutApCashInput>
+    create: XOR<AccountCreateWithoutApCashInput, AccountUncheckedCreateWithoutApCashInput>
+    where?: AccountWhereInput
+  }
+
+  export type AccountUpdateToOneWithWhereWithoutApCashInput = {
+    where?: AccountWhereInput
+    data: XOR<AccountUpdateWithoutApCashInput, AccountUncheckedUpdateWithoutApCashInput>
+  }
+
+  export type AccountUpdateWithoutApCashInput = {
+    acc_uuid?: StringFieldUpdateOperationsInput | string
+    acc_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    acc_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_name?: StringFieldUpdateOperationsInput | string
+    acc_desc?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_pre_acc?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_bank_no?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_bsr_no?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_branch_name?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_opening_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    acc_address?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_country?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_state?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_city?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_cash_balance?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_balance_type?: EnumAccountBalanceTypeFieldUpdateOperationsInput | $Enums.AccountBalanceType
+    acc_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    acc_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    acc_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_is_system?: BoolFieldUpdateOperationsInput | boolean
+    acc_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    owner?: OwnerUpdateOneRequiredWithoutAccountsNestedInput
+    firm?: FirmUpdateOneRequiredWithoutAccountsNestedInput
+    financeCash?: FinanceUpdateManyWithoutCashAccountNestedInput
+    financeBank?: FinanceUpdateManyWithoutBankAccountNestedInput
+    financeOnline?: FinanceUpdateManyWithoutOnlineAccountNestedInput
+    financeCard?: FinanceUpdateManyWithoutCardAccountNestedInput
+    financeDr?: FinanceUpdateManyWithoutDrAccountNestedInput
+    ftCash?: Finance_TransactionUpdateManyWithoutCashAccountNestedInput
+    ftBank?: Finance_TransactionUpdateManyWithoutBankAccountNestedInput
+    ftOnline?: Finance_TransactionUpdateManyWithoutOnlineAccountNestedInput
+    ftCard?: Finance_TransactionUpdateManyWithoutCardAccountNestedInput
+    fmCash?: Finance_Money_TransactionUpdateManyWithoutCashAccountNestedInput
+    fmBank?: Finance_Money_TransactionUpdateManyWithoutBankAccountNestedInput
+    fmOnline?: Finance_Money_TransactionUpdateManyWithoutOnlineAccountNestedInput
+    fmCard?: Finance_Money_TransactionUpdateManyWithoutCardAccountNestedInput
+    fmDr?: Finance_Money_TransactionUpdateManyWithoutDrAccountNestedInput
+    jrtrCredit?: JournalTransactionUpdateManyWithoutCreditAccountNestedInput
+    jrtrDebit?: JournalTransactionUpdateManyWithoutDebitAccountNestedInput
+    girviFirstIntCr?: GirviUpdateManyWithoutFirstIntCrAccountNestedInput
+    girviFirstIntDr?: GirviUpdateManyWithoutFirstIntDrAccountNestedInput
+    girviCash?: GirviUpdateManyWithoutCashAccountNestedInput
+    girviBank?: GirviUpdateManyWithoutBankAccountNestedInput
+    girviOnline?: GirviUpdateManyWithoutOnlineAccountNestedInput
+    girviCard?: GirviUpdateManyWithoutCardAccountNestedInput
+    girviDr?: GirviUpdateManyWithoutDrAccountNestedInput
+    apBank?: AdditionalPrincipalUpdateManyWithoutBankAccountNestedInput
+    apOnline?: AdditionalPrincipalUpdateManyWithoutOnlineAccountNestedInput
+    apCard?: AdditionalPrincipalUpdateManyWithoutCardAccountNestedInput
+  }
+
+  export type AccountUncheckedUpdateWithoutApCashInput = {
+    acc_id?: IntFieldUpdateOperationsInput | number
+    acc_uuid?: StringFieldUpdateOperationsInput | string
+    acc_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    acc_own_id?: IntFieldUpdateOperationsInput | number
+    acc_firm_id?: IntFieldUpdateOperationsInput | number
+    acc_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_name?: StringFieldUpdateOperationsInput | string
+    acc_desc?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_pre_acc?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_bank_no?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_bsr_no?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_branch_name?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_opening_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    acc_address?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_country?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_state?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_city?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_cash_balance?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_balance_type?: EnumAccountBalanceTypeFieldUpdateOperationsInput | $Enums.AccountBalanceType
+    acc_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    acc_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    acc_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_is_system?: BoolFieldUpdateOperationsInput | boolean
+    acc_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    financeCash?: FinanceUncheckedUpdateManyWithoutCashAccountNestedInput
+    financeBank?: FinanceUncheckedUpdateManyWithoutBankAccountNestedInput
+    financeOnline?: FinanceUncheckedUpdateManyWithoutOnlineAccountNestedInput
+    financeCard?: FinanceUncheckedUpdateManyWithoutCardAccountNestedInput
+    financeDr?: FinanceUncheckedUpdateManyWithoutDrAccountNestedInput
+    ftCash?: Finance_TransactionUncheckedUpdateManyWithoutCashAccountNestedInput
+    ftBank?: Finance_TransactionUncheckedUpdateManyWithoutBankAccountNestedInput
+    ftOnline?: Finance_TransactionUncheckedUpdateManyWithoutOnlineAccountNestedInput
+    ftCard?: Finance_TransactionUncheckedUpdateManyWithoutCardAccountNestedInput
+    fmCash?: Finance_Money_TransactionUncheckedUpdateManyWithoutCashAccountNestedInput
+    fmBank?: Finance_Money_TransactionUncheckedUpdateManyWithoutBankAccountNestedInput
+    fmOnline?: Finance_Money_TransactionUncheckedUpdateManyWithoutOnlineAccountNestedInput
+    fmCard?: Finance_Money_TransactionUncheckedUpdateManyWithoutCardAccountNestedInput
+    fmDr?: Finance_Money_TransactionUncheckedUpdateManyWithoutDrAccountNestedInput
+    jrtrCredit?: JournalTransactionUncheckedUpdateManyWithoutCreditAccountNestedInput
+    jrtrDebit?: JournalTransactionUncheckedUpdateManyWithoutDebitAccountNestedInput
+    girviFirstIntCr?: GirviUncheckedUpdateManyWithoutFirstIntCrAccountNestedInput
+    girviFirstIntDr?: GirviUncheckedUpdateManyWithoutFirstIntDrAccountNestedInput
+    girviCash?: GirviUncheckedUpdateManyWithoutCashAccountNestedInput
+    girviBank?: GirviUncheckedUpdateManyWithoutBankAccountNestedInput
+    girviOnline?: GirviUncheckedUpdateManyWithoutOnlineAccountNestedInput
+    girviCard?: GirviUncheckedUpdateManyWithoutCardAccountNestedInput
+    girviDr?: GirviUncheckedUpdateManyWithoutDrAccountNestedInput
+    apBank?: AdditionalPrincipalUncheckedUpdateManyWithoutBankAccountNestedInput
+    apOnline?: AdditionalPrincipalUncheckedUpdateManyWithoutOnlineAccountNestedInput
+    apCard?: AdditionalPrincipalUncheckedUpdateManyWithoutCardAccountNestedInput
+  }
+
+  export type AccountUpsertWithoutApBankInput = {
+    update: XOR<AccountUpdateWithoutApBankInput, AccountUncheckedUpdateWithoutApBankInput>
+    create: XOR<AccountCreateWithoutApBankInput, AccountUncheckedCreateWithoutApBankInput>
+    where?: AccountWhereInput
+  }
+
+  export type AccountUpdateToOneWithWhereWithoutApBankInput = {
+    where?: AccountWhereInput
+    data: XOR<AccountUpdateWithoutApBankInput, AccountUncheckedUpdateWithoutApBankInput>
+  }
+
+  export type AccountUpdateWithoutApBankInput = {
+    acc_uuid?: StringFieldUpdateOperationsInput | string
+    acc_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    acc_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_name?: StringFieldUpdateOperationsInput | string
+    acc_desc?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_pre_acc?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_bank_no?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_bsr_no?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_branch_name?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_opening_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    acc_address?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_country?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_state?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_city?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_cash_balance?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_balance_type?: EnumAccountBalanceTypeFieldUpdateOperationsInput | $Enums.AccountBalanceType
+    acc_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    acc_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    acc_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_is_system?: BoolFieldUpdateOperationsInput | boolean
+    acc_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    owner?: OwnerUpdateOneRequiredWithoutAccountsNestedInput
+    firm?: FirmUpdateOneRequiredWithoutAccountsNestedInput
+    financeCash?: FinanceUpdateManyWithoutCashAccountNestedInput
+    financeBank?: FinanceUpdateManyWithoutBankAccountNestedInput
+    financeOnline?: FinanceUpdateManyWithoutOnlineAccountNestedInput
+    financeCard?: FinanceUpdateManyWithoutCardAccountNestedInput
+    financeDr?: FinanceUpdateManyWithoutDrAccountNestedInput
+    ftCash?: Finance_TransactionUpdateManyWithoutCashAccountNestedInput
+    ftBank?: Finance_TransactionUpdateManyWithoutBankAccountNestedInput
+    ftOnline?: Finance_TransactionUpdateManyWithoutOnlineAccountNestedInput
+    ftCard?: Finance_TransactionUpdateManyWithoutCardAccountNestedInput
+    fmCash?: Finance_Money_TransactionUpdateManyWithoutCashAccountNestedInput
+    fmBank?: Finance_Money_TransactionUpdateManyWithoutBankAccountNestedInput
+    fmOnline?: Finance_Money_TransactionUpdateManyWithoutOnlineAccountNestedInput
+    fmCard?: Finance_Money_TransactionUpdateManyWithoutCardAccountNestedInput
+    fmDr?: Finance_Money_TransactionUpdateManyWithoutDrAccountNestedInput
+    jrtrCredit?: JournalTransactionUpdateManyWithoutCreditAccountNestedInput
+    jrtrDebit?: JournalTransactionUpdateManyWithoutDebitAccountNestedInput
+    girviFirstIntCr?: GirviUpdateManyWithoutFirstIntCrAccountNestedInput
+    girviFirstIntDr?: GirviUpdateManyWithoutFirstIntDrAccountNestedInput
+    girviCash?: GirviUpdateManyWithoutCashAccountNestedInput
+    girviBank?: GirviUpdateManyWithoutBankAccountNestedInput
+    girviOnline?: GirviUpdateManyWithoutOnlineAccountNestedInput
+    girviCard?: GirviUpdateManyWithoutCardAccountNestedInput
+    girviDr?: GirviUpdateManyWithoutDrAccountNestedInput
+    apCash?: AdditionalPrincipalUpdateManyWithoutCashAccountNestedInput
+    apOnline?: AdditionalPrincipalUpdateManyWithoutOnlineAccountNestedInput
+    apCard?: AdditionalPrincipalUpdateManyWithoutCardAccountNestedInput
+  }
+
+  export type AccountUncheckedUpdateWithoutApBankInput = {
+    acc_id?: IntFieldUpdateOperationsInput | number
+    acc_uuid?: StringFieldUpdateOperationsInput | string
+    acc_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    acc_own_id?: IntFieldUpdateOperationsInput | number
+    acc_firm_id?: IntFieldUpdateOperationsInput | number
+    acc_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_name?: StringFieldUpdateOperationsInput | string
+    acc_desc?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_pre_acc?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_bank_no?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_bsr_no?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_branch_name?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_opening_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    acc_address?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_country?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_state?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_city?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_cash_balance?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_balance_type?: EnumAccountBalanceTypeFieldUpdateOperationsInput | $Enums.AccountBalanceType
+    acc_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    acc_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    acc_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_is_system?: BoolFieldUpdateOperationsInput | boolean
+    acc_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    financeCash?: FinanceUncheckedUpdateManyWithoutCashAccountNestedInput
+    financeBank?: FinanceUncheckedUpdateManyWithoutBankAccountNestedInput
+    financeOnline?: FinanceUncheckedUpdateManyWithoutOnlineAccountNestedInput
+    financeCard?: FinanceUncheckedUpdateManyWithoutCardAccountNestedInput
+    financeDr?: FinanceUncheckedUpdateManyWithoutDrAccountNestedInput
+    ftCash?: Finance_TransactionUncheckedUpdateManyWithoutCashAccountNestedInput
+    ftBank?: Finance_TransactionUncheckedUpdateManyWithoutBankAccountNestedInput
+    ftOnline?: Finance_TransactionUncheckedUpdateManyWithoutOnlineAccountNestedInput
+    ftCard?: Finance_TransactionUncheckedUpdateManyWithoutCardAccountNestedInput
+    fmCash?: Finance_Money_TransactionUncheckedUpdateManyWithoutCashAccountNestedInput
+    fmBank?: Finance_Money_TransactionUncheckedUpdateManyWithoutBankAccountNestedInput
+    fmOnline?: Finance_Money_TransactionUncheckedUpdateManyWithoutOnlineAccountNestedInput
+    fmCard?: Finance_Money_TransactionUncheckedUpdateManyWithoutCardAccountNestedInput
+    fmDr?: Finance_Money_TransactionUncheckedUpdateManyWithoutDrAccountNestedInput
+    jrtrCredit?: JournalTransactionUncheckedUpdateManyWithoutCreditAccountNestedInput
+    jrtrDebit?: JournalTransactionUncheckedUpdateManyWithoutDebitAccountNestedInput
+    girviFirstIntCr?: GirviUncheckedUpdateManyWithoutFirstIntCrAccountNestedInput
+    girviFirstIntDr?: GirviUncheckedUpdateManyWithoutFirstIntDrAccountNestedInput
+    girviCash?: GirviUncheckedUpdateManyWithoutCashAccountNestedInput
+    girviBank?: GirviUncheckedUpdateManyWithoutBankAccountNestedInput
+    girviOnline?: GirviUncheckedUpdateManyWithoutOnlineAccountNestedInput
+    girviCard?: GirviUncheckedUpdateManyWithoutCardAccountNestedInput
+    girviDr?: GirviUncheckedUpdateManyWithoutDrAccountNestedInput
+    apCash?: AdditionalPrincipalUncheckedUpdateManyWithoutCashAccountNestedInput
+    apOnline?: AdditionalPrincipalUncheckedUpdateManyWithoutOnlineAccountNestedInput
+    apCard?: AdditionalPrincipalUncheckedUpdateManyWithoutCardAccountNestedInput
+  }
+
+  export type AccountUpsertWithoutApOnlineInput = {
+    update: XOR<AccountUpdateWithoutApOnlineInput, AccountUncheckedUpdateWithoutApOnlineInput>
+    create: XOR<AccountCreateWithoutApOnlineInput, AccountUncheckedCreateWithoutApOnlineInput>
+    where?: AccountWhereInput
+  }
+
+  export type AccountUpdateToOneWithWhereWithoutApOnlineInput = {
+    where?: AccountWhereInput
+    data: XOR<AccountUpdateWithoutApOnlineInput, AccountUncheckedUpdateWithoutApOnlineInput>
+  }
+
+  export type AccountUpdateWithoutApOnlineInput = {
+    acc_uuid?: StringFieldUpdateOperationsInput | string
+    acc_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    acc_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_name?: StringFieldUpdateOperationsInput | string
+    acc_desc?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_pre_acc?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_bank_no?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_bsr_no?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_branch_name?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_opening_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    acc_address?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_country?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_state?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_city?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_cash_balance?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_balance_type?: EnumAccountBalanceTypeFieldUpdateOperationsInput | $Enums.AccountBalanceType
+    acc_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    acc_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    acc_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_is_system?: BoolFieldUpdateOperationsInput | boolean
+    acc_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    owner?: OwnerUpdateOneRequiredWithoutAccountsNestedInput
+    firm?: FirmUpdateOneRequiredWithoutAccountsNestedInput
+    financeCash?: FinanceUpdateManyWithoutCashAccountNestedInput
+    financeBank?: FinanceUpdateManyWithoutBankAccountNestedInput
+    financeOnline?: FinanceUpdateManyWithoutOnlineAccountNestedInput
+    financeCard?: FinanceUpdateManyWithoutCardAccountNestedInput
+    financeDr?: FinanceUpdateManyWithoutDrAccountNestedInput
+    ftCash?: Finance_TransactionUpdateManyWithoutCashAccountNestedInput
+    ftBank?: Finance_TransactionUpdateManyWithoutBankAccountNestedInput
+    ftOnline?: Finance_TransactionUpdateManyWithoutOnlineAccountNestedInput
+    ftCard?: Finance_TransactionUpdateManyWithoutCardAccountNestedInput
+    fmCash?: Finance_Money_TransactionUpdateManyWithoutCashAccountNestedInput
+    fmBank?: Finance_Money_TransactionUpdateManyWithoutBankAccountNestedInput
+    fmOnline?: Finance_Money_TransactionUpdateManyWithoutOnlineAccountNestedInput
+    fmCard?: Finance_Money_TransactionUpdateManyWithoutCardAccountNestedInput
+    fmDr?: Finance_Money_TransactionUpdateManyWithoutDrAccountNestedInput
+    jrtrCredit?: JournalTransactionUpdateManyWithoutCreditAccountNestedInput
+    jrtrDebit?: JournalTransactionUpdateManyWithoutDebitAccountNestedInput
+    girviFirstIntCr?: GirviUpdateManyWithoutFirstIntCrAccountNestedInput
+    girviFirstIntDr?: GirviUpdateManyWithoutFirstIntDrAccountNestedInput
+    girviCash?: GirviUpdateManyWithoutCashAccountNestedInput
+    girviBank?: GirviUpdateManyWithoutBankAccountNestedInput
+    girviOnline?: GirviUpdateManyWithoutOnlineAccountNestedInput
+    girviCard?: GirviUpdateManyWithoutCardAccountNestedInput
+    girviDr?: GirviUpdateManyWithoutDrAccountNestedInput
+    apCash?: AdditionalPrincipalUpdateManyWithoutCashAccountNestedInput
+    apBank?: AdditionalPrincipalUpdateManyWithoutBankAccountNestedInput
+    apCard?: AdditionalPrincipalUpdateManyWithoutCardAccountNestedInput
+  }
+
+  export type AccountUncheckedUpdateWithoutApOnlineInput = {
+    acc_id?: IntFieldUpdateOperationsInput | number
+    acc_uuid?: StringFieldUpdateOperationsInput | string
+    acc_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    acc_own_id?: IntFieldUpdateOperationsInput | number
+    acc_firm_id?: IntFieldUpdateOperationsInput | number
+    acc_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_name?: StringFieldUpdateOperationsInput | string
+    acc_desc?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_pre_acc?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_bank_no?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_bsr_no?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_branch_name?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_opening_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    acc_address?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_country?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_state?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_city?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_cash_balance?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_balance_type?: EnumAccountBalanceTypeFieldUpdateOperationsInput | $Enums.AccountBalanceType
+    acc_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    acc_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    acc_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_is_system?: BoolFieldUpdateOperationsInput | boolean
+    acc_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    financeCash?: FinanceUncheckedUpdateManyWithoutCashAccountNestedInput
+    financeBank?: FinanceUncheckedUpdateManyWithoutBankAccountNestedInput
+    financeOnline?: FinanceUncheckedUpdateManyWithoutOnlineAccountNestedInput
+    financeCard?: FinanceUncheckedUpdateManyWithoutCardAccountNestedInput
+    financeDr?: FinanceUncheckedUpdateManyWithoutDrAccountNestedInput
+    ftCash?: Finance_TransactionUncheckedUpdateManyWithoutCashAccountNestedInput
+    ftBank?: Finance_TransactionUncheckedUpdateManyWithoutBankAccountNestedInput
+    ftOnline?: Finance_TransactionUncheckedUpdateManyWithoutOnlineAccountNestedInput
+    ftCard?: Finance_TransactionUncheckedUpdateManyWithoutCardAccountNestedInput
+    fmCash?: Finance_Money_TransactionUncheckedUpdateManyWithoutCashAccountNestedInput
+    fmBank?: Finance_Money_TransactionUncheckedUpdateManyWithoutBankAccountNestedInput
+    fmOnline?: Finance_Money_TransactionUncheckedUpdateManyWithoutOnlineAccountNestedInput
+    fmCard?: Finance_Money_TransactionUncheckedUpdateManyWithoutCardAccountNestedInput
+    fmDr?: Finance_Money_TransactionUncheckedUpdateManyWithoutDrAccountNestedInput
+    jrtrCredit?: JournalTransactionUncheckedUpdateManyWithoutCreditAccountNestedInput
+    jrtrDebit?: JournalTransactionUncheckedUpdateManyWithoutDebitAccountNestedInput
+    girviFirstIntCr?: GirviUncheckedUpdateManyWithoutFirstIntCrAccountNestedInput
+    girviFirstIntDr?: GirviUncheckedUpdateManyWithoutFirstIntDrAccountNestedInput
+    girviCash?: GirviUncheckedUpdateManyWithoutCashAccountNestedInput
+    girviBank?: GirviUncheckedUpdateManyWithoutBankAccountNestedInput
+    girviOnline?: GirviUncheckedUpdateManyWithoutOnlineAccountNestedInput
+    girviCard?: GirviUncheckedUpdateManyWithoutCardAccountNestedInput
+    girviDr?: GirviUncheckedUpdateManyWithoutDrAccountNestedInput
+    apCash?: AdditionalPrincipalUncheckedUpdateManyWithoutCashAccountNestedInput
+    apBank?: AdditionalPrincipalUncheckedUpdateManyWithoutBankAccountNestedInput
+    apCard?: AdditionalPrincipalUncheckedUpdateManyWithoutCardAccountNestedInput
+  }
+
+  export type AccountUpsertWithoutApCardInput = {
+    update: XOR<AccountUpdateWithoutApCardInput, AccountUncheckedUpdateWithoutApCardInput>
+    create: XOR<AccountCreateWithoutApCardInput, AccountUncheckedCreateWithoutApCardInput>
+    where?: AccountWhereInput
+  }
+
+  export type AccountUpdateToOneWithWhereWithoutApCardInput = {
+    where?: AccountWhereInput
+    data: XOR<AccountUpdateWithoutApCardInput, AccountUncheckedUpdateWithoutApCardInput>
+  }
+
+  export type AccountUpdateWithoutApCardInput = {
+    acc_uuid?: StringFieldUpdateOperationsInput | string
+    acc_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    acc_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_name?: StringFieldUpdateOperationsInput | string
+    acc_desc?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_pre_acc?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_bank_no?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_bsr_no?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_branch_name?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_opening_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    acc_address?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_country?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_state?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_city?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_cash_balance?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_balance_type?: EnumAccountBalanceTypeFieldUpdateOperationsInput | $Enums.AccountBalanceType
+    acc_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    acc_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    acc_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_is_system?: BoolFieldUpdateOperationsInput | boolean
+    acc_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    owner?: OwnerUpdateOneRequiredWithoutAccountsNestedInput
+    firm?: FirmUpdateOneRequiredWithoutAccountsNestedInput
+    financeCash?: FinanceUpdateManyWithoutCashAccountNestedInput
+    financeBank?: FinanceUpdateManyWithoutBankAccountNestedInput
+    financeOnline?: FinanceUpdateManyWithoutOnlineAccountNestedInput
+    financeCard?: FinanceUpdateManyWithoutCardAccountNestedInput
+    financeDr?: FinanceUpdateManyWithoutDrAccountNestedInput
+    ftCash?: Finance_TransactionUpdateManyWithoutCashAccountNestedInput
+    ftBank?: Finance_TransactionUpdateManyWithoutBankAccountNestedInput
+    ftOnline?: Finance_TransactionUpdateManyWithoutOnlineAccountNestedInput
+    ftCard?: Finance_TransactionUpdateManyWithoutCardAccountNestedInput
+    fmCash?: Finance_Money_TransactionUpdateManyWithoutCashAccountNestedInput
+    fmBank?: Finance_Money_TransactionUpdateManyWithoutBankAccountNestedInput
+    fmOnline?: Finance_Money_TransactionUpdateManyWithoutOnlineAccountNestedInput
+    fmCard?: Finance_Money_TransactionUpdateManyWithoutCardAccountNestedInput
+    fmDr?: Finance_Money_TransactionUpdateManyWithoutDrAccountNestedInput
+    jrtrCredit?: JournalTransactionUpdateManyWithoutCreditAccountNestedInput
+    jrtrDebit?: JournalTransactionUpdateManyWithoutDebitAccountNestedInput
+    girviFirstIntCr?: GirviUpdateManyWithoutFirstIntCrAccountNestedInput
+    girviFirstIntDr?: GirviUpdateManyWithoutFirstIntDrAccountNestedInput
+    girviCash?: GirviUpdateManyWithoutCashAccountNestedInput
+    girviBank?: GirviUpdateManyWithoutBankAccountNestedInput
+    girviOnline?: GirviUpdateManyWithoutOnlineAccountNestedInput
+    girviCard?: GirviUpdateManyWithoutCardAccountNestedInput
+    girviDr?: GirviUpdateManyWithoutDrAccountNestedInput
+    apCash?: AdditionalPrincipalUpdateManyWithoutCashAccountNestedInput
+    apBank?: AdditionalPrincipalUpdateManyWithoutBankAccountNestedInput
+    apOnline?: AdditionalPrincipalUpdateManyWithoutOnlineAccountNestedInput
+  }
+
+  export type AccountUncheckedUpdateWithoutApCardInput = {
+    acc_id?: IntFieldUpdateOperationsInput | number
+    acc_uuid?: StringFieldUpdateOperationsInput | string
+    acc_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    acc_own_id?: IntFieldUpdateOperationsInput | number
+    acc_firm_id?: IntFieldUpdateOperationsInput | number
+    acc_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_name?: StringFieldUpdateOperationsInput | string
+    acc_desc?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_pre_acc?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_bank_no?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_bsr_no?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_branch_name?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_opening_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    acc_address?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_country?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_state?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_city?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_cash_balance?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_balance_type?: EnumAccountBalanceTypeFieldUpdateOperationsInput | $Enums.AccountBalanceType
+    acc_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    acc_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    acc_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_is_system?: BoolFieldUpdateOperationsInput | boolean
+    acc_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    financeCash?: FinanceUncheckedUpdateManyWithoutCashAccountNestedInput
+    financeBank?: FinanceUncheckedUpdateManyWithoutBankAccountNestedInput
+    financeOnline?: FinanceUncheckedUpdateManyWithoutOnlineAccountNestedInput
+    financeCard?: FinanceUncheckedUpdateManyWithoutCardAccountNestedInput
+    financeDr?: FinanceUncheckedUpdateManyWithoutDrAccountNestedInput
+    ftCash?: Finance_TransactionUncheckedUpdateManyWithoutCashAccountNestedInput
+    ftBank?: Finance_TransactionUncheckedUpdateManyWithoutBankAccountNestedInput
+    ftOnline?: Finance_TransactionUncheckedUpdateManyWithoutOnlineAccountNestedInput
+    ftCard?: Finance_TransactionUncheckedUpdateManyWithoutCardAccountNestedInput
+    fmCash?: Finance_Money_TransactionUncheckedUpdateManyWithoutCashAccountNestedInput
+    fmBank?: Finance_Money_TransactionUncheckedUpdateManyWithoutBankAccountNestedInput
+    fmOnline?: Finance_Money_TransactionUncheckedUpdateManyWithoutOnlineAccountNestedInput
+    fmCard?: Finance_Money_TransactionUncheckedUpdateManyWithoutCardAccountNestedInput
+    fmDr?: Finance_Money_TransactionUncheckedUpdateManyWithoutDrAccountNestedInput
+    jrtrCredit?: JournalTransactionUncheckedUpdateManyWithoutCreditAccountNestedInput
+    jrtrDebit?: JournalTransactionUncheckedUpdateManyWithoutDebitAccountNestedInput
+    girviFirstIntCr?: GirviUncheckedUpdateManyWithoutFirstIntCrAccountNestedInput
+    girviFirstIntDr?: GirviUncheckedUpdateManyWithoutFirstIntDrAccountNestedInput
+    girviCash?: GirviUncheckedUpdateManyWithoutCashAccountNestedInput
+    girviBank?: GirviUncheckedUpdateManyWithoutBankAccountNestedInput
+    girviOnline?: GirviUncheckedUpdateManyWithoutOnlineAccountNestedInput
+    girviCard?: GirviUncheckedUpdateManyWithoutCardAccountNestedInput
+    girviDr?: GirviUncheckedUpdateManyWithoutDrAccountNestedInput
+    apCash?: AdditionalPrincipalUncheckedUpdateManyWithoutCashAccountNestedInput
+    apBank?: AdditionalPrincipalUncheckedUpdateManyWithoutBankAccountNestedInput
+    apOnline?: AdditionalPrincipalUncheckedUpdateManyWithoutOnlineAccountNestedInput
   }
 
   export type UserCreateManyOwnerInput = {
@@ -49788,6 +55971,40 @@ export namespace Prisma {
     st_is_deleted?: boolean
   }
 
+  export type AdditionalPrincipalCreateManyOwnerInput = {
+    ap_id?: number
+    ap_uuid?: string
+    ap_firm_id?: number
+    ap_user_id?: number
+    ap_girv_id?: number
+    ap_staff_id?: number
+    ap_trans_date: string
+    ap_prin_amt: number
+    ap_roi: number
+    ap_payable_amt: number
+    ap_cash_amt?: number | null
+    ap_cash_acc_id?: number | null
+    ap_cash_info?: string | null
+    ap_bank_amt?: number | null
+    ap_bank_acc_id?: number | null
+    ap_bank_info?: string | null
+    ap_online_amt?: number | null
+    ap_online_acc_id?: number | null
+    ap_online_info?: string | null
+    ap_card_amt?: number | null
+    ap_card_acc_id?: number | null
+    ap_card_info?: string | null
+    ap_pay_info?: string | null
+    ap_other_info?: string | null
+    ap_created_at?: Date | string
+    ap_created_by?: string | null
+    ap_updated_at?: Date | string
+    ap_updated_by?: string | null
+    ap_deleted_at?: Date | string | null
+    ap_deleted_by?: string | null
+    ap_is_deleted?: boolean
+  }
+
   export type UserUpdateWithoutOwnerInput = {
     user_uuid?: StringFieldUpdateOperationsInput | string
     user_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -49840,6 +56057,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionUpdateManyWithoutUserNestedInput
     girvis?: GirviUpdateManyWithoutUserNestedInput
     stocks?: StockUpdateManyWithoutUserNestedInput
+    additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutOwnerInput = {
@@ -49895,6 +56113,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutUserNestedInput
     girvis?: GirviUncheckedUpdateManyWithoutUserNestedInput
     stocks?: StockUncheckedUpdateManyWithoutUserNestedInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutOwnerInput = {
@@ -50002,6 +56221,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionUpdateManyWithoutFirmNestedInput
     girvis?: GirviUpdateManyWithoutFirmNestedInput
     stocks?: StockUpdateManyWithoutFirmNestedInput
+    additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutFirmNestedInput
   }
 
   export type FirmUncheckedUpdateWithoutOwnerInput = {
@@ -50062,6 +56282,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutFirmNestedInput
     girvis?: GirviUncheckedUpdateManyWithoutFirmNestedInput
     stocks?: StockUncheckedUpdateManyWithoutFirmNestedInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutFirmNestedInput
   }
 
   export type FirmUncheckedUpdateManyWithoutOwnerInput = {
@@ -50166,6 +56387,10 @@ export namespace Prisma {
     girviOnline?: GirviUpdateManyWithoutOnlineAccountNestedInput
     girviCard?: GirviUpdateManyWithoutCardAccountNestedInput
     girviDr?: GirviUpdateManyWithoutDrAccountNestedInput
+    apCash?: AdditionalPrincipalUpdateManyWithoutCashAccountNestedInput
+    apBank?: AdditionalPrincipalUpdateManyWithoutBankAccountNestedInput
+    apOnline?: AdditionalPrincipalUpdateManyWithoutOnlineAccountNestedInput
+    apCard?: AdditionalPrincipalUpdateManyWithoutCardAccountNestedInput
   }
 
   export type AccountUncheckedUpdateWithoutOwnerInput = {
@@ -50220,6 +56445,10 @@ export namespace Prisma {
     girviOnline?: GirviUncheckedUpdateManyWithoutOnlineAccountNestedInput
     girviCard?: GirviUncheckedUpdateManyWithoutCardAccountNestedInput
     girviDr?: GirviUncheckedUpdateManyWithoutDrAccountNestedInput
+    apCash?: AdditionalPrincipalUncheckedUpdateManyWithoutCashAccountNestedInput
+    apBank?: AdditionalPrincipalUncheckedUpdateManyWithoutBankAccountNestedInput
+    apOnline?: AdditionalPrincipalUncheckedUpdateManyWithoutOnlineAccountNestedInput
+    apCard?: AdditionalPrincipalUncheckedUpdateManyWithoutCardAccountNestedInput
   }
 
   export type AccountUncheckedUpdateManyWithoutOwnerInput = {
@@ -50773,6 +57002,7 @@ export namespace Prisma {
     onlineAccount?: AccountUpdateOneWithoutGirviOnlineNestedInput
     cardAccount?: AccountUpdateOneWithoutGirviCardNestedInput
     drAccount?: AccountUpdateOneWithoutGirviDrNestedInput
+    additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutGirviNestedInput
   }
 
   export type GirviUncheckedUpdateWithoutOwnerInput = {
@@ -50822,6 +57052,7 @@ export namespace Prisma {
     girv_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     girv_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     girv_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutGirviNestedInput
   }
 
   export type GirviUncheckedUpdateManyWithoutOwnerInput = {
@@ -50966,6 +57197,107 @@ export namespace Prisma {
     st_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     st_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     st_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type AdditionalPrincipalUpdateWithoutOwnerInput = {
+    ap_uuid?: StringFieldUpdateOperationsInput | string
+    ap_staff_id?: IntFieldUpdateOperationsInput | number
+    ap_trans_date?: StringFieldUpdateOperationsInput | string
+    ap_prin_amt?: FloatFieldUpdateOperationsInput | number
+    ap_roi?: FloatFieldUpdateOperationsInput | number
+    ap_payable_amt?: FloatFieldUpdateOperationsInput | number
+    ap_cash_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_cash_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_bank_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_bank_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_online_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_online_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_card_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_card_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    ap_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    ap_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ap_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    firm?: FirmUpdateOneRequiredWithoutAdditionalPrincipalsNestedInput
+    user?: UserUpdateOneRequiredWithoutAdditionalPrincipalsNestedInput
+    girvi?: GirviUpdateOneRequiredWithoutAdditionalPrincipalsNestedInput
+    cashAccount?: AccountUpdateOneWithoutApCashNestedInput
+    bankAccount?: AccountUpdateOneWithoutApBankNestedInput
+    onlineAccount?: AccountUpdateOneWithoutApOnlineNestedInput
+    cardAccount?: AccountUpdateOneWithoutApCardNestedInput
+  }
+
+  export type AdditionalPrincipalUncheckedUpdateWithoutOwnerInput = {
+    ap_id?: IntFieldUpdateOperationsInput | number
+    ap_uuid?: StringFieldUpdateOperationsInput | string
+    ap_firm_id?: IntFieldUpdateOperationsInput | number
+    ap_user_id?: IntFieldUpdateOperationsInput | number
+    ap_girv_id?: IntFieldUpdateOperationsInput | number
+    ap_staff_id?: IntFieldUpdateOperationsInput | number
+    ap_trans_date?: StringFieldUpdateOperationsInput | string
+    ap_prin_amt?: FloatFieldUpdateOperationsInput | number
+    ap_roi?: FloatFieldUpdateOperationsInput | number
+    ap_payable_amt?: FloatFieldUpdateOperationsInput | number
+    ap_cash_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_cash_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    ap_cash_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_bank_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_bank_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    ap_bank_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_online_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_online_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    ap_online_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_card_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_card_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    ap_card_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    ap_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    ap_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ap_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type AdditionalPrincipalUncheckedUpdateManyWithoutOwnerInput = {
+    ap_id?: IntFieldUpdateOperationsInput | number
+    ap_uuid?: StringFieldUpdateOperationsInput | string
+    ap_firm_id?: IntFieldUpdateOperationsInput | number
+    ap_user_id?: IntFieldUpdateOperationsInput | number
+    ap_girv_id?: IntFieldUpdateOperationsInput | number
+    ap_staff_id?: IntFieldUpdateOperationsInput | number
+    ap_trans_date?: StringFieldUpdateOperationsInput | string
+    ap_prin_amt?: FloatFieldUpdateOperationsInput | number
+    ap_roi?: FloatFieldUpdateOperationsInput | number
+    ap_payable_amt?: FloatFieldUpdateOperationsInput | number
+    ap_cash_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_cash_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    ap_cash_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_bank_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_bank_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    ap_bank_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_online_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_online_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    ap_online_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_card_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_card_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    ap_card_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    ap_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    ap_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ap_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_is_deleted?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type UserCreateManyFirmInput = {
@@ -51285,6 +57617,40 @@ export namespace Prisma {
     st_is_deleted?: boolean
   }
 
+  export type AdditionalPrincipalCreateManyFirmInput = {
+    ap_id?: number
+    ap_uuid?: string
+    ap_own_id?: number
+    ap_user_id?: number
+    ap_girv_id?: number
+    ap_staff_id?: number
+    ap_trans_date: string
+    ap_prin_amt: number
+    ap_roi: number
+    ap_payable_amt: number
+    ap_cash_amt?: number | null
+    ap_cash_acc_id?: number | null
+    ap_cash_info?: string | null
+    ap_bank_amt?: number | null
+    ap_bank_acc_id?: number | null
+    ap_bank_info?: string | null
+    ap_online_amt?: number | null
+    ap_online_acc_id?: number | null
+    ap_online_info?: string | null
+    ap_card_amt?: number | null
+    ap_card_acc_id?: number | null
+    ap_card_info?: string | null
+    ap_pay_info?: string | null
+    ap_other_info?: string | null
+    ap_created_at?: Date | string
+    ap_created_by?: string | null
+    ap_updated_at?: Date | string
+    ap_updated_by?: string | null
+    ap_deleted_at?: Date | string | null
+    ap_deleted_by?: string | null
+    ap_is_deleted?: boolean
+  }
+
   export type UserUpdateWithoutFirmInput = {
     user_uuid?: StringFieldUpdateOperationsInput | string
     user_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -51337,6 +57703,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionUpdateManyWithoutUserNestedInput
     girvis?: GirviUpdateManyWithoutUserNestedInput
     stocks?: StockUpdateManyWithoutUserNestedInput
+    additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutFirmInput = {
@@ -51392,6 +57759,7 @@ export namespace Prisma {
     journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutUserNestedInput
     girvis?: GirviUncheckedUpdateManyWithoutUserNestedInput
     stocks?: StockUncheckedUpdateManyWithoutUserNestedInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutFirmInput = {
@@ -51493,6 +57861,10 @@ export namespace Prisma {
     girviOnline?: GirviUpdateManyWithoutOnlineAccountNestedInput
     girviCard?: GirviUpdateManyWithoutCardAccountNestedInput
     girviDr?: GirviUpdateManyWithoutDrAccountNestedInput
+    apCash?: AdditionalPrincipalUpdateManyWithoutCashAccountNestedInput
+    apBank?: AdditionalPrincipalUpdateManyWithoutBankAccountNestedInput
+    apOnline?: AdditionalPrincipalUpdateManyWithoutOnlineAccountNestedInput
+    apCard?: AdditionalPrincipalUpdateManyWithoutCardAccountNestedInput
   }
 
   export type AccountUncheckedUpdateWithoutFirmInput = {
@@ -51547,6 +57919,10 @@ export namespace Prisma {
     girviOnline?: GirviUncheckedUpdateManyWithoutOnlineAccountNestedInput
     girviCard?: GirviUncheckedUpdateManyWithoutCardAccountNestedInput
     girviDr?: GirviUncheckedUpdateManyWithoutDrAccountNestedInput
+    apCash?: AdditionalPrincipalUncheckedUpdateManyWithoutCashAccountNestedInput
+    apBank?: AdditionalPrincipalUncheckedUpdateManyWithoutBankAccountNestedInput
+    apOnline?: AdditionalPrincipalUncheckedUpdateManyWithoutOnlineAccountNestedInput
+    apCard?: AdditionalPrincipalUncheckedUpdateManyWithoutCardAccountNestedInput
   }
 
   export type AccountUncheckedUpdateManyWithoutFirmInput = {
@@ -52100,6 +58476,7 @@ export namespace Prisma {
     onlineAccount?: AccountUpdateOneWithoutGirviOnlineNestedInput
     cardAccount?: AccountUpdateOneWithoutGirviCardNestedInput
     drAccount?: AccountUpdateOneWithoutGirviDrNestedInput
+    additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutGirviNestedInput
   }
 
   export type GirviUncheckedUpdateWithoutFirmInput = {
@@ -52149,6 +58526,7 @@ export namespace Prisma {
     girv_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     girv_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     girv_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutGirviNestedInput
   }
 
   export type GirviUncheckedUpdateManyWithoutFirmInput = {
@@ -52293,6 +58671,107 @@ export namespace Prisma {
     st_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     st_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     st_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type AdditionalPrincipalUpdateWithoutFirmInput = {
+    ap_uuid?: StringFieldUpdateOperationsInput | string
+    ap_staff_id?: IntFieldUpdateOperationsInput | number
+    ap_trans_date?: StringFieldUpdateOperationsInput | string
+    ap_prin_amt?: FloatFieldUpdateOperationsInput | number
+    ap_roi?: FloatFieldUpdateOperationsInput | number
+    ap_payable_amt?: FloatFieldUpdateOperationsInput | number
+    ap_cash_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_cash_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_bank_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_bank_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_online_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_online_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_card_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_card_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    ap_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    ap_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ap_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    owner?: OwnerUpdateOneRequiredWithoutAdditionalPrincipalsNestedInput
+    user?: UserUpdateOneRequiredWithoutAdditionalPrincipalsNestedInput
+    girvi?: GirviUpdateOneRequiredWithoutAdditionalPrincipalsNestedInput
+    cashAccount?: AccountUpdateOneWithoutApCashNestedInput
+    bankAccount?: AccountUpdateOneWithoutApBankNestedInput
+    onlineAccount?: AccountUpdateOneWithoutApOnlineNestedInput
+    cardAccount?: AccountUpdateOneWithoutApCardNestedInput
+  }
+
+  export type AdditionalPrincipalUncheckedUpdateWithoutFirmInput = {
+    ap_id?: IntFieldUpdateOperationsInput | number
+    ap_uuid?: StringFieldUpdateOperationsInput | string
+    ap_own_id?: IntFieldUpdateOperationsInput | number
+    ap_user_id?: IntFieldUpdateOperationsInput | number
+    ap_girv_id?: IntFieldUpdateOperationsInput | number
+    ap_staff_id?: IntFieldUpdateOperationsInput | number
+    ap_trans_date?: StringFieldUpdateOperationsInput | string
+    ap_prin_amt?: FloatFieldUpdateOperationsInput | number
+    ap_roi?: FloatFieldUpdateOperationsInput | number
+    ap_payable_amt?: FloatFieldUpdateOperationsInput | number
+    ap_cash_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_cash_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    ap_cash_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_bank_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_bank_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    ap_bank_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_online_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_online_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    ap_online_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_card_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_card_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    ap_card_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    ap_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    ap_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ap_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type AdditionalPrincipalUncheckedUpdateManyWithoutFirmInput = {
+    ap_id?: IntFieldUpdateOperationsInput | number
+    ap_uuid?: StringFieldUpdateOperationsInput | string
+    ap_own_id?: IntFieldUpdateOperationsInput | number
+    ap_user_id?: IntFieldUpdateOperationsInput | number
+    ap_girv_id?: IntFieldUpdateOperationsInput | number
+    ap_staff_id?: IntFieldUpdateOperationsInput | number
+    ap_trans_date?: StringFieldUpdateOperationsInput | string
+    ap_prin_amt?: FloatFieldUpdateOperationsInput | number
+    ap_roi?: FloatFieldUpdateOperationsInput | number
+    ap_payable_amt?: FloatFieldUpdateOperationsInput | number
+    ap_cash_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_cash_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    ap_cash_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_bank_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_bank_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    ap_bank_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_online_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_online_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    ap_online_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_card_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_card_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    ap_card_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    ap_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    ap_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ap_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_is_deleted?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type FinanceCreateManyCashAccountInput = {
@@ -53222,6 +59701,142 @@ export namespace Prisma {
     girv_deleted_at?: Date | string | null
     girv_deleted_by?: string | null
     girv_is_deleted?: boolean
+  }
+
+  export type AdditionalPrincipalCreateManyCashAccountInput = {
+    ap_id?: number
+    ap_uuid?: string
+    ap_own_id?: number
+    ap_firm_id?: number
+    ap_user_id?: number
+    ap_girv_id?: number
+    ap_staff_id?: number
+    ap_trans_date: string
+    ap_prin_amt: number
+    ap_roi: number
+    ap_payable_amt: number
+    ap_cash_amt?: number | null
+    ap_cash_info?: string | null
+    ap_bank_amt?: number | null
+    ap_bank_acc_id?: number | null
+    ap_bank_info?: string | null
+    ap_online_amt?: number | null
+    ap_online_acc_id?: number | null
+    ap_online_info?: string | null
+    ap_card_amt?: number | null
+    ap_card_acc_id?: number | null
+    ap_card_info?: string | null
+    ap_pay_info?: string | null
+    ap_other_info?: string | null
+    ap_created_at?: Date | string
+    ap_created_by?: string | null
+    ap_updated_at?: Date | string
+    ap_updated_by?: string | null
+    ap_deleted_at?: Date | string | null
+    ap_deleted_by?: string | null
+    ap_is_deleted?: boolean
+  }
+
+  export type AdditionalPrincipalCreateManyBankAccountInput = {
+    ap_id?: number
+    ap_uuid?: string
+    ap_own_id?: number
+    ap_firm_id?: number
+    ap_user_id?: number
+    ap_girv_id?: number
+    ap_staff_id?: number
+    ap_trans_date: string
+    ap_prin_amt: number
+    ap_roi: number
+    ap_payable_amt: number
+    ap_cash_amt?: number | null
+    ap_cash_acc_id?: number | null
+    ap_cash_info?: string | null
+    ap_bank_amt?: number | null
+    ap_bank_info?: string | null
+    ap_online_amt?: number | null
+    ap_online_acc_id?: number | null
+    ap_online_info?: string | null
+    ap_card_amt?: number | null
+    ap_card_acc_id?: number | null
+    ap_card_info?: string | null
+    ap_pay_info?: string | null
+    ap_other_info?: string | null
+    ap_created_at?: Date | string
+    ap_created_by?: string | null
+    ap_updated_at?: Date | string
+    ap_updated_by?: string | null
+    ap_deleted_at?: Date | string | null
+    ap_deleted_by?: string | null
+    ap_is_deleted?: boolean
+  }
+
+  export type AdditionalPrincipalCreateManyOnlineAccountInput = {
+    ap_id?: number
+    ap_uuid?: string
+    ap_own_id?: number
+    ap_firm_id?: number
+    ap_user_id?: number
+    ap_girv_id?: number
+    ap_staff_id?: number
+    ap_trans_date: string
+    ap_prin_amt: number
+    ap_roi: number
+    ap_payable_amt: number
+    ap_cash_amt?: number | null
+    ap_cash_acc_id?: number | null
+    ap_cash_info?: string | null
+    ap_bank_amt?: number | null
+    ap_bank_acc_id?: number | null
+    ap_bank_info?: string | null
+    ap_online_amt?: number | null
+    ap_online_info?: string | null
+    ap_card_amt?: number | null
+    ap_card_acc_id?: number | null
+    ap_card_info?: string | null
+    ap_pay_info?: string | null
+    ap_other_info?: string | null
+    ap_created_at?: Date | string
+    ap_created_by?: string | null
+    ap_updated_at?: Date | string
+    ap_updated_by?: string | null
+    ap_deleted_at?: Date | string | null
+    ap_deleted_by?: string | null
+    ap_is_deleted?: boolean
+  }
+
+  export type AdditionalPrincipalCreateManyCardAccountInput = {
+    ap_id?: number
+    ap_uuid?: string
+    ap_own_id?: number
+    ap_firm_id?: number
+    ap_user_id?: number
+    ap_girv_id?: number
+    ap_staff_id?: number
+    ap_trans_date: string
+    ap_prin_amt: number
+    ap_roi: number
+    ap_payable_amt: number
+    ap_cash_amt?: number | null
+    ap_cash_acc_id?: number | null
+    ap_cash_info?: string | null
+    ap_bank_amt?: number | null
+    ap_bank_acc_id?: number | null
+    ap_bank_info?: string | null
+    ap_online_amt?: number | null
+    ap_online_acc_id?: number | null
+    ap_online_info?: string | null
+    ap_card_amt?: number | null
+    ap_card_info?: string | null
+    ap_pay_info?: string | null
+    ap_other_info?: string | null
+    ap_created_at?: Date | string
+    ap_created_by?: string | null
+    ap_updated_at?: Date | string
+    ap_updated_by?: string | null
+    ap_deleted_at?: Date | string | null
+    ap_deleted_by?: string | null
+    ap_is_deleted?: boolean
   }
 
   export type FinanceUpdateWithoutCashAccountInput = {
@@ -55032,6 +61647,7 @@ export namespace Prisma {
     onlineAccount?: AccountUpdateOneWithoutGirviOnlineNestedInput
     cardAccount?: AccountUpdateOneWithoutGirviCardNestedInput
     drAccount?: AccountUpdateOneWithoutGirviDrNestedInput
+    additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutGirviNestedInput
   }
 
   export type GirviUncheckedUpdateWithoutFirstIntCrAccountInput = {
@@ -55081,6 +61697,7 @@ export namespace Prisma {
     girv_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     girv_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     girv_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutGirviNestedInput
   }
 
   export type GirviUncheckedUpdateManyWithoutFirstIntCrAccountInput = {
@@ -55178,6 +61795,7 @@ export namespace Prisma {
     onlineAccount?: AccountUpdateOneWithoutGirviOnlineNestedInput
     cardAccount?: AccountUpdateOneWithoutGirviCardNestedInput
     drAccount?: AccountUpdateOneWithoutGirviDrNestedInput
+    additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutGirviNestedInput
   }
 
   export type GirviUncheckedUpdateWithoutFirstIntDrAccountInput = {
@@ -55227,6 +61845,7 @@ export namespace Prisma {
     girv_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     girv_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     girv_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutGirviNestedInput
   }
 
   export type GirviUncheckedUpdateManyWithoutFirstIntDrAccountInput = {
@@ -55324,6 +61943,7 @@ export namespace Prisma {
     onlineAccount?: AccountUpdateOneWithoutGirviOnlineNestedInput
     cardAccount?: AccountUpdateOneWithoutGirviCardNestedInput
     drAccount?: AccountUpdateOneWithoutGirviDrNestedInput
+    additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutGirviNestedInput
   }
 
   export type GirviUncheckedUpdateWithoutCashAccountInput = {
@@ -55373,6 +61993,7 @@ export namespace Prisma {
     girv_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     girv_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     girv_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutGirviNestedInput
   }
 
   export type GirviUncheckedUpdateManyWithoutCashAccountInput = {
@@ -55470,6 +62091,7 @@ export namespace Prisma {
     onlineAccount?: AccountUpdateOneWithoutGirviOnlineNestedInput
     cardAccount?: AccountUpdateOneWithoutGirviCardNestedInput
     drAccount?: AccountUpdateOneWithoutGirviDrNestedInput
+    additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutGirviNestedInput
   }
 
   export type GirviUncheckedUpdateWithoutBankAccountInput = {
@@ -55519,6 +62141,7 @@ export namespace Prisma {
     girv_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     girv_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     girv_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutGirviNestedInput
   }
 
   export type GirviUncheckedUpdateManyWithoutBankAccountInput = {
@@ -55616,6 +62239,7 @@ export namespace Prisma {
     bankAccount?: AccountUpdateOneWithoutGirviBankNestedInput
     cardAccount?: AccountUpdateOneWithoutGirviCardNestedInput
     drAccount?: AccountUpdateOneWithoutGirviDrNestedInput
+    additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutGirviNestedInput
   }
 
   export type GirviUncheckedUpdateWithoutOnlineAccountInput = {
@@ -55665,6 +62289,7 @@ export namespace Prisma {
     girv_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     girv_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     girv_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutGirviNestedInput
   }
 
   export type GirviUncheckedUpdateManyWithoutOnlineAccountInput = {
@@ -55762,6 +62387,7 @@ export namespace Prisma {
     bankAccount?: AccountUpdateOneWithoutGirviBankNestedInput
     onlineAccount?: AccountUpdateOneWithoutGirviOnlineNestedInput
     drAccount?: AccountUpdateOneWithoutGirviDrNestedInput
+    additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutGirviNestedInput
   }
 
   export type GirviUncheckedUpdateWithoutCardAccountInput = {
@@ -55811,6 +62437,7 @@ export namespace Prisma {
     girv_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     girv_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     girv_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutGirviNestedInput
   }
 
   export type GirviUncheckedUpdateManyWithoutCardAccountInput = {
@@ -55908,6 +62535,7 @@ export namespace Prisma {
     bankAccount?: AccountUpdateOneWithoutGirviBankNestedInput
     onlineAccount?: AccountUpdateOneWithoutGirviOnlineNestedInput
     cardAccount?: AccountUpdateOneWithoutGirviCardNestedInput
+    additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutGirviNestedInput
   }
 
   export type GirviUncheckedUpdateWithoutDrAccountInput = {
@@ -55957,6 +62585,7 @@ export namespace Prisma {
     girv_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     girv_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     girv_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutGirviNestedInput
   }
 
   export type GirviUncheckedUpdateManyWithoutDrAccountInput = {
@@ -56006,6 +62635,410 @@ export namespace Prisma {
     girv_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     girv_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     girv_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type AdditionalPrincipalUpdateWithoutCashAccountInput = {
+    ap_uuid?: StringFieldUpdateOperationsInput | string
+    ap_staff_id?: IntFieldUpdateOperationsInput | number
+    ap_trans_date?: StringFieldUpdateOperationsInput | string
+    ap_prin_amt?: FloatFieldUpdateOperationsInput | number
+    ap_roi?: FloatFieldUpdateOperationsInput | number
+    ap_payable_amt?: FloatFieldUpdateOperationsInput | number
+    ap_cash_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_cash_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_bank_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_bank_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_online_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_online_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_card_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_card_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    ap_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    ap_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ap_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    owner?: OwnerUpdateOneRequiredWithoutAdditionalPrincipalsNestedInput
+    firm?: FirmUpdateOneRequiredWithoutAdditionalPrincipalsNestedInput
+    user?: UserUpdateOneRequiredWithoutAdditionalPrincipalsNestedInput
+    girvi?: GirviUpdateOneRequiredWithoutAdditionalPrincipalsNestedInput
+    bankAccount?: AccountUpdateOneWithoutApBankNestedInput
+    onlineAccount?: AccountUpdateOneWithoutApOnlineNestedInput
+    cardAccount?: AccountUpdateOneWithoutApCardNestedInput
+  }
+
+  export type AdditionalPrincipalUncheckedUpdateWithoutCashAccountInput = {
+    ap_id?: IntFieldUpdateOperationsInput | number
+    ap_uuid?: StringFieldUpdateOperationsInput | string
+    ap_own_id?: IntFieldUpdateOperationsInput | number
+    ap_firm_id?: IntFieldUpdateOperationsInput | number
+    ap_user_id?: IntFieldUpdateOperationsInput | number
+    ap_girv_id?: IntFieldUpdateOperationsInput | number
+    ap_staff_id?: IntFieldUpdateOperationsInput | number
+    ap_trans_date?: StringFieldUpdateOperationsInput | string
+    ap_prin_amt?: FloatFieldUpdateOperationsInput | number
+    ap_roi?: FloatFieldUpdateOperationsInput | number
+    ap_payable_amt?: FloatFieldUpdateOperationsInput | number
+    ap_cash_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_cash_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_bank_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_bank_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    ap_bank_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_online_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_online_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    ap_online_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_card_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_card_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    ap_card_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    ap_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    ap_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ap_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type AdditionalPrincipalUncheckedUpdateManyWithoutCashAccountInput = {
+    ap_id?: IntFieldUpdateOperationsInput | number
+    ap_uuid?: StringFieldUpdateOperationsInput | string
+    ap_own_id?: IntFieldUpdateOperationsInput | number
+    ap_firm_id?: IntFieldUpdateOperationsInput | number
+    ap_user_id?: IntFieldUpdateOperationsInput | number
+    ap_girv_id?: IntFieldUpdateOperationsInput | number
+    ap_staff_id?: IntFieldUpdateOperationsInput | number
+    ap_trans_date?: StringFieldUpdateOperationsInput | string
+    ap_prin_amt?: FloatFieldUpdateOperationsInput | number
+    ap_roi?: FloatFieldUpdateOperationsInput | number
+    ap_payable_amt?: FloatFieldUpdateOperationsInput | number
+    ap_cash_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_cash_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_bank_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_bank_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    ap_bank_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_online_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_online_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    ap_online_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_card_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_card_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    ap_card_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    ap_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    ap_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ap_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type AdditionalPrincipalUpdateWithoutBankAccountInput = {
+    ap_uuid?: StringFieldUpdateOperationsInput | string
+    ap_staff_id?: IntFieldUpdateOperationsInput | number
+    ap_trans_date?: StringFieldUpdateOperationsInput | string
+    ap_prin_amt?: FloatFieldUpdateOperationsInput | number
+    ap_roi?: FloatFieldUpdateOperationsInput | number
+    ap_payable_amt?: FloatFieldUpdateOperationsInput | number
+    ap_cash_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_cash_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_bank_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_bank_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_online_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_online_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_card_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_card_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    ap_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    ap_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ap_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    owner?: OwnerUpdateOneRequiredWithoutAdditionalPrincipalsNestedInput
+    firm?: FirmUpdateOneRequiredWithoutAdditionalPrincipalsNestedInput
+    user?: UserUpdateOneRequiredWithoutAdditionalPrincipalsNestedInput
+    girvi?: GirviUpdateOneRequiredWithoutAdditionalPrincipalsNestedInput
+    cashAccount?: AccountUpdateOneWithoutApCashNestedInput
+    onlineAccount?: AccountUpdateOneWithoutApOnlineNestedInput
+    cardAccount?: AccountUpdateOneWithoutApCardNestedInput
+  }
+
+  export type AdditionalPrincipalUncheckedUpdateWithoutBankAccountInput = {
+    ap_id?: IntFieldUpdateOperationsInput | number
+    ap_uuid?: StringFieldUpdateOperationsInput | string
+    ap_own_id?: IntFieldUpdateOperationsInput | number
+    ap_firm_id?: IntFieldUpdateOperationsInput | number
+    ap_user_id?: IntFieldUpdateOperationsInput | number
+    ap_girv_id?: IntFieldUpdateOperationsInput | number
+    ap_staff_id?: IntFieldUpdateOperationsInput | number
+    ap_trans_date?: StringFieldUpdateOperationsInput | string
+    ap_prin_amt?: FloatFieldUpdateOperationsInput | number
+    ap_roi?: FloatFieldUpdateOperationsInput | number
+    ap_payable_amt?: FloatFieldUpdateOperationsInput | number
+    ap_cash_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_cash_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    ap_cash_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_bank_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_bank_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_online_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_online_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    ap_online_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_card_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_card_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    ap_card_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    ap_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    ap_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ap_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type AdditionalPrincipalUncheckedUpdateManyWithoutBankAccountInput = {
+    ap_id?: IntFieldUpdateOperationsInput | number
+    ap_uuid?: StringFieldUpdateOperationsInput | string
+    ap_own_id?: IntFieldUpdateOperationsInput | number
+    ap_firm_id?: IntFieldUpdateOperationsInput | number
+    ap_user_id?: IntFieldUpdateOperationsInput | number
+    ap_girv_id?: IntFieldUpdateOperationsInput | number
+    ap_staff_id?: IntFieldUpdateOperationsInput | number
+    ap_trans_date?: StringFieldUpdateOperationsInput | string
+    ap_prin_amt?: FloatFieldUpdateOperationsInput | number
+    ap_roi?: FloatFieldUpdateOperationsInput | number
+    ap_payable_amt?: FloatFieldUpdateOperationsInput | number
+    ap_cash_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_cash_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    ap_cash_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_bank_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_bank_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_online_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_online_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    ap_online_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_card_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_card_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    ap_card_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    ap_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    ap_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ap_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type AdditionalPrincipalUpdateWithoutOnlineAccountInput = {
+    ap_uuid?: StringFieldUpdateOperationsInput | string
+    ap_staff_id?: IntFieldUpdateOperationsInput | number
+    ap_trans_date?: StringFieldUpdateOperationsInput | string
+    ap_prin_amt?: FloatFieldUpdateOperationsInput | number
+    ap_roi?: FloatFieldUpdateOperationsInput | number
+    ap_payable_amt?: FloatFieldUpdateOperationsInput | number
+    ap_cash_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_cash_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_bank_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_bank_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_online_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_online_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_card_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_card_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    ap_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    ap_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ap_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    owner?: OwnerUpdateOneRequiredWithoutAdditionalPrincipalsNestedInput
+    firm?: FirmUpdateOneRequiredWithoutAdditionalPrincipalsNestedInput
+    user?: UserUpdateOneRequiredWithoutAdditionalPrincipalsNestedInput
+    girvi?: GirviUpdateOneRequiredWithoutAdditionalPrincipalsNestedInput
+    cashAccount?: AccountUpdateOneWithoutApCashNestedInput
+    bankAccount?: AccountUpdateOneWithoutApBankNestedInput
+    cardAccount?: AccountUpdateOneWithoutApCardNestedInput
+  }
+
+  export type AdditionalPrincipalUncheckedUpdateWithoutOnlineAccountInput = {
+    ap_id?: IntFieldUpdateOperationsInput | number
+    ap_uuid?: StringFieldUpdateOperationsInput | string
+    ap_own_id?: IntFieldUpdateOperationsInput | number
+    ap_firm_id?: IntFieldUpdateOperationsInput | number
+    ap_user_id?: IntFieldUpdateOperationsInput | number
+    ap_girv_id?: IntFieldUpdateOperationsInput | number
+    ap_staff_id?: IntFieldUpdateOperationsInput | number
+    ap_trans_date?: StringFieldUpdateOperationsInput | string
+    ap_prin_amt?: FloatFieldUpdateOperationsInput | number
+    ap_roi?: FloatFieldUpdateOperationsInput | number
+    ap_payable_amt?: FloatFieldUpdateOperationsInput | number
+    ap_cash_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_cash_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    ap_cash_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_bank_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_bank_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    ap_bank_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_online_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_online_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_card_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_card_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    ap_card_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    ap_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    ap_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ap_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type AdditionalPrincipalUncheckedUpdateManyWithoutOnlineAccountInput = {
+    ap_id?: IntFieldUpdateOperationsInput | number
+    ap_uuid?: StringFieldUpdateOperationsInput | string
+    ap_own_id?: IntFieldUpdateOperationsInput | number
+    ap_firm_id?: IntFieldUpdateOperationsInput | number
+    ap_user_id?: IntFieldUpdateOperationsInput | number
+    ap_girv_id?: IntFieldUpdateOperationsInput | number
+    ap_staff_id?: IntFieldUpdateOperationsInput | number
+    ap_trans_date?: StringFieldUpdateOperationsInput | string
+    ap_prin_amt?: FloatFieldUpdateOperationsInput | number
+    ap_roi?: FloatFieldUpdateOperationsInput | number
+    ap_payable_amt?: FloatFieldUpdateOperationsInput | number
+    ap_cash_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_cash_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    ap_cash_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_bank_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_bank_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    ap_bank_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_online_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_online_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_card_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_card_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    ap_card_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    ap_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    ap_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ap_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type AdditionalPrincipalUpdateWithoutCardAccountInput = {
+    ap_uuid?: StringFieldUpdateOperationsInput | string
+    ap_staff_id?: IntFieldUpdateOperationsInput | number
+    ap_trans_date?: StringFieldUpdateOperationsInput | string
+    ap_prin_amt?: FloatFieldUpdateOperationsInput | number
+    ap_roi?: FloatFieldUpdateOperationsInput | number
+    ap_payable_amt?: FloatFieldUpdateOperationsInput | number
+    ap_cash_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_cash_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_bank_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_bank_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_online_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_online_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_card_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_card_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    ap_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    ap_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ap_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    owner?: OwnerUpdateOneRequiredWithoutAdditionalPrincipalsNestedInput
+    firm?: FirmUpdateOneRequiredWithoutAdditionalPrincipalsNestedInput
+    user?: UserUpdateOneRequiredWithoutAdditionalPrincipalsNestedInput
+    girvi?: GirviUpdateOneRequiredWithoutAdditionalPrincipalsNestedInput
+    cashAccount?: AccountUpdateOneWithoutApCashNestedInput
+    bankAccount?: AccountUpdateOneWithoutApBankNestedInput
+    onlineAccount?: AccountUpdateOneWithoutApOnlineNestedInput
+  }
+
+  export type AdditionalPrincipalUncheckedUpdateWithoutCardAccountInput = {
+    ap_id?: IntFieldUpdateOperationsInput | number
+    ap_uuid?: StringFieldUpdateOperationsInput | string
+    ap_own_id?: IntFieldUpdateOperationsInput | number
+    ap_firm_id?: IntFieldUpdateOperationsInput | number
+    ap_user_id?: IntFieldUpdateOperationsInput | number
+    ap_girv_id?: IntFieldUpdateOperationsInput | number
+    ap_staff_id?: IntFieldUpdateOperationsInput | number
+    ap_trans_date?: StringFieldUpdateOperationsInput | string
+    ap_prin_amt?: FloatFieldUpdateOperationsInput | number
+    ap_roi?: FloatFieldUpdateOperationsInput | number
+    ap_payable_amt?: FloatFieldUpdateOperationsInput | number
+    ap_cash_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_cash_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    ap_cash_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_bank_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_bank_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    ap_bank_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_online_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_online_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    ap_online_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_card_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_card_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    ap_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    ap_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ap_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type AdditionalPrincipalUncheckedUpdateManyWithoutCardAccountInput = {
+    ap_id?: IntFieldUpdateOperationsInput | number
+    ap_uuid?: StringFieldUpdateOperationsInput | string
+    ap_own_id?: IntFieldUpdateOperationsInput | number
+    ap_firm_id?: IntFieldUpdateOperationsInput | number
+    ap_user_id?: IntFieldUpdateOperationsInput | number
+    ap_girv_id?: IntFieldUpdateOperationsInput | number
+    ap_staff_id?: IntFieldUpdateOperationsInput | number
+    ap_trans_date?: StringFieldUpdateOperationsInput | string
+    ap_prin_amt?: FloatFieldUpdateOperationsInput | number
+    ap_roi?: FloatFieldUpdateOperationsInput | number
+    ap_payable_amt?: FloatFieldUpdateOperationsInput | number
+    ap_cash_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_cash_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    ap_cash_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_bank_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_bank_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    ap_bank_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_online_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_online_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    ap_online_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_card_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_card_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    ap_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    ap_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ap_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_is_deleted?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type FinanceCreateManyUserInput = {
@@ -56244,6 +63277,40 @@ export namespace Prisma {
     st_deleted_at?: Date | string | null
     st_deleted_by?: string | null
     st_is_deleted?: boolean
+  }
+
+  export type AdditionalPrincipalCreateManyUserInput = {
+    ap_id?: number
+    ap_uuid?: string
+    ap_own_id?: number
+    ap_firm_id?: number
+    ap_girv_id?: number
+    ap_staff_id?: number
+    ap_trans_date: string
+    ap_prin_amt: number
+    ap_roi: number
+    ap_payable_amt: number
+    ap_cash_amt?: number | null
+    ap_cash_acc_id?: number | null
+    ap_cash_info?: string | null
+    ap_bank_amt?: number | null
+    ap_bank_acc_id?: number | null
+    ap_bank_info?: string | null
+    ap_online_amt?: number | null
+    ap_online_acc_id?: number | null
+    ap_online_info?: string | null
+    ap_card_amt?: number | null
+    ap_card_acc_id?: number | null
+    ap_card_info?: string | null
+    ap_pay_info?: string | null
+    ap_other_info?: string | null
+    ap_created_at?: Date | string
+    ap_created_by?: string | null
+    ap_updated_at?: Date | string
+    ap_updated_by?: string | null
+    ap_deleted_at?: Date | string | null
+    ap_deleted_by?: string | null
+    ap_is_deleted?: boolean
   }
 
   export type FinanceUpdateWithoutUserInput = {
@@ -56766,6 +63833,7 @@ export namespace Prisma {
     onlineAccount?: AccountUpdateOneWithoutGirviOnlineNestedInput
     cardAccount?: AccountUpdateOneWithoutGirviCardNestedInput
     drAccount?: AccountUpdateOneWithoutGirviDrNestedInput
+    additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutGirviNestedInput
   }
 
   export type GirviUncheckedUpdateWithoutUserInput = {
@@ -56815,6 +63883,7 @@ export namespace Prisma {
     girv_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     girv_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     girv_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutGirviNestedInput
   }
 
   export type GirviUncheckedUpdateManyWithoutUserInput = {
@@ -56959,6 +64028,107 @@ export namespace Prisma {
     st_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     st_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     st_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type AdditionalPrincipalUpdateWithoutUserInput = {
+    ap_uuid?: StringFieldUpdateOperationsInput | string
+    ap_staff_id?: IntFieldUpdateOperationsInput | number
+    ap_trans_date?: StringFieldUpdateOperationsInput | string
+    ap_prin_amt?: FloatFieldUpdateOperationsInput | number
+    ap_roi?: FloatFieldUpdateOperationsInput | number
+    ap_payable_amt?: FloatFieldUpdateOperationsInput | number
+    ap_cash_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_cash_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_bank_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_bank_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_online_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_online_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_card_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_card_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    ap_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    ap_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ap_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    owner?: OwnerUpdateOneRequiredWithoutAdditionalPrincipalsNestedInput
+    firm?: FirmUpdateOneRequiredWithoutAdditionalPrincipalsNestedInput
+    girvi?: GirviUpdateOneRequiredWithoutAdditionalPrincipalsNestedInput
+    cashAccount?: AccountUpdateOneWithoutApCashNestedInput
+    bankAccount?: AccountUpdateOneWithoutApBankNestedInput
+    onlineAccount?: AccountUpdateOneWithoutApOnlineNestedInput
+    cardAccount?: AccountUpdateOneWithoutApCardNestedInput
+  }
+
+  export type AdditionalPrincipalUncheckedUpdateWithoutUserInput = {
+    ap_id?: IntFieldUpdateOperationsInput | number
+    ap_uuid?: StringFieldUpdateOperationsInput | string
+    ap_own_id?: IntFieldUpdateOperationsInput | number
+    ap_firm_id?: IntFieldUpdateOperationsInput | number
+    ap_girv_id?: IntFieldUpdateOperationsInput | number
+    ap_staff_id?: IntFieldUpdateOperationsInput | number
+    ap_trans_date?: StringFieldUpdateOperationsInput | string
+    ap_prin_amt?: FloatFieldUpdateOperationsInput | number
+    ap_roi?: FloatFieldUpdateOperationsInput | number
+    ap_payable_amt?: FloatFieldUpdateOperationsInput | number
+    ap_cash_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_cash_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    ap_cash_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_bank_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_bank_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    ap_bank_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_online_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_online_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    ap_online_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_card_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_card_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    ap_card_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    ap_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    ap_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ap_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type AdditionalPrincipalUncheckedUpdateManyWithoutUserInput = {
+    ap_id?: IntFieldUpdateOperationsInput | number
+    ap_uuid?: StringFieldUpdateOperationsInput | string
+    ap_own_id?: IntFieldUpdateOperationsInput | number
+    ap_firm_id?: IntFieldUpdateOperationsInput | number
+    ap_girv_id?: IntFieldUpdateOperationsInput | number
+    ap_staff_id?: IntFieldUpdateOperationsInput | number
+    ap_trans_date?: StringFieldUpdateOperationsInput | string
+    ap_prin_amt?: FloatFieldUpdateOperationsInput | number
+    ap_roi?: FloatFieldUpdateOperationsInput | number
+    ap_payable_amt?: FloatFieldUpdateOperationsInput | number
+    ap_cash_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_cash_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    ap_cash_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_bank_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_bank_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    ap_bank_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_online_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_online_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    ap_online_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_card_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_card_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    ap_card_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    ap_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    ap_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ap_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_is_deleted?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type Finance_TransactionCreateManyFinanceInput = {
@@ -57469,6 +64639,141 @@ export namespace Prisma {
     jrtr_is_deleted?: BoolFieldUpdateOperationsInput | boolean
   }
 
+  export type AdditionalPrincipalCreateManyGirviInput = {
+    ap_id?: number
+    ap_uuid?: string
+    ap_own_id?: number
+    ap_firm_id?: number
+    ap_user_id?: number
+    ap_staff_id?: number
+    ap_trans_date: string
+    ap_prin_amt: number
+    ap_roi: number
+    ap_payable_amt: number
+    ap_cash_amt?: number | null
+    ap_cash_acc_id?: number | null
+    ap_cash_info?: string | null
+    ap_bank_amt?: number | null
+    ap_bank_acc_id?: number | null
+    ap_bank_info?: string | null
+    ap_online_amt?: number | null
+    ap_online_acc_id?: number | null
+    ap_online_info?: string | null
+    ap_card_amt?: number | null
+    ap_card_acc_id?: number | null
+    ap_card_info?: string | null
+    ap_pay_info?: string | null
+    ap_other_info?: string | null
+    ap_created_at?: Date | string
+    ap_created_by?: string | null
+    ap_updated_at?: Date | string
+    ap_updated_by?: string | null
+    ap_deleted_at?: Date | string | null
+    ap_deleted_by?: string | null
+    ap_is_deleted?: boolean
+  }
+
+  export type AdditionalPrincipalUpdateWithoutGirviInput = {
+    ap_uuid?: StringFieldUpdateOperationsInput | string
+    ap_staff_id?: IntFieldUpdateOperationsInput | number
+    ap_trans_date?: StringFieldUpdateOperationsInput | string
+    ap_prin_amt?: FloatFieldUpdateOperationsInput | number
+    ap_roi?: FloatFieldUpdateOperationsInput | number
+    ap_payable_amt?: FloatFieldUpdateOperationsInput | number
+    ap_cash_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_cash_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_bank_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_bank_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_online_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_online_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_card_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_card_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    ap_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    ap_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ap_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    owner?: OwnerUpdateOneRequiredWithoutAdditionalPrincipalsNestedInput
+    firm?: FirmUpdateOneRequiredWithoutAdditionalPrincipalsNestedInput
+    user?: UserUpdateOneRequiredWithoutAdditionalPrincipalsNestedInput
+    cashAccount?: AccountUpdateOneWithoutApCashNestedInput
+    bankAccount?: AccountUpdateOneWithoutApBankNestedInput
+    onlineAccount?: AccountUpdateOneWithoutApOnlineNestedInput
+    cardAccount?: AccountUpdateOneWithoutApCardNestedInput
+  }
+
+  export type AdditionalPrincipalUncheckedUpdateWithoutGirviInput = {
+    ap_id?: IntFieldUpdateOperationsInput | number
+    ap_uuid?: StringFieldUpdateOperationsInput | string
+    ap_own_id?: IntFieldUpdateOperationsInput | number
+    ap_firm_id?: IntFieldUpdateOperationsInput | number
+    ap_user_id?: IntFieldUpdateOperationsInput | number
+    ap_staff_id?: IntFieldUpdateOperationsInput | number
+    ap_trans_date?: StringFieldUpdateOperationsInput | string
+    ap_prin_amt?: FloatFieldUpdateOperationsInput | number
+    ap_roi?: FloatFieldUpdateOperationsInput | number
+    ap_payable_amt?: FloatFieldUpdateOperationsInput | number
+    ap_cash_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_cash_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    ap_cash_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_bank_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_bank_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    ap_bank_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_online_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_online_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    ap_online_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_card_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_card_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    ap_card_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    ap_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    ap_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ap_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type AdditionalPrincipalUncheckedUpdateManyWithoutGirviInput = {
+    ap_id?: IntFieldUpdateOperationsInput | number
+    ap_uuid?: StringFieldUpdateOperationsInput | string
+    ap_own_id?: IntFieldUpdateOperationsInput | number
+    ap_firm_id?: IntFieldUpdateOperationsInput | number
+    ap_user_id?: IntFieldUpdateOperationsInput | number
+    ap_staff_id?: IntFieldUpdateOperationsInput | number
+    ap_trans_date?: StringFieldUpdateOperationsInput | string
+    ap_prin_amt?: FloatFieldUpdateOperationsInput | number
+    ap_roi?: FloatFieldUpdateOperationsInput | number
+    ap_payable_amt?: FloatFieldUpdateOperationsInput | number
+    ap_cash_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_cash_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    ap_cash_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_bank_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_bank_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    ap_bank_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_online_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_online_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    ap_online_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_card_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    ap_card_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    ap_card_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    ap_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    ap_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ap_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ap_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
 
 
   /**
@@ -57498,6 +64803,10 @@ export namespace Prisma {
      * @deprecated Use JournalCountOutputTypeDefaultArgs instead
      */
     export type JournalCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = JournalCountOutputTypeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use GirviCountOutputTypeDefaultArgs instead
+     */
+    export type GirviCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = GirviCountOutputTypeDefaultArgs<ExtArgs>
     /**
      * @deprecated Use OwnerDefaultArgs instead
      */
@@ -57542,6 +64851,10 @@ export namespace Prisma {
      * @deprecated Use StockDefaultArgs instead
      */
     export type StockArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = StockDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use AdditionalPrincipalDefaultArgs instead
+     */
+    export type AdditionalPrincipalArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = AdditionalPrincipalDefaultArgs<ExtArgs>
 
   /**
    * Batch Payload for updateMany & deleteMany & createMany

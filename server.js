@@ -62,6 +62,7 @@ v1Router.use("/balance-sheet", require("./modules/balance_sheet/routes/balance_s
 v1Router.use("/profit-loss", require("./modules/profit_loss/routes/profit_loss.routes"));
 v1Router.use("/girvi", require("./modules/girvi/routes/girvi.routes"));
 v1Router.use("/stock", require("./modules/stock/routes/stock.routes"));
+v1Router.use("/add-prin", require("./modules/add_principal/routes/add_principal.routes"));
 app.use("/api/v1", v1Router);
 
 module.exports = app;
