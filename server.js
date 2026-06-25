@@ -14,7 +14,8 @@ const allowedOrigins = [
   "http://localhost:3001",
   "http://localhost:9000",
   "https://khataboss.com",
-  "https://carlie-atavic-tonita.ngrok-free.dev"
+  "https://carlie-atavic-tonita.ngrok-free.dev",
+  "https://khataboss.in",
 ];
 
 app.use(

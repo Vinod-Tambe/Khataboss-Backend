@@ -1,8 +1,8 @@
 const { Client } = require("pg");
-require("dotenv").config();
+const { BASE_URL } = require("../config/db");
 
 async function run() {
-  const masterUrl = `${process.env.DB_URL}/master`;
+  const masterUrl = `${BASE_URL}/master`;
   console.log("Connecting to master database:", masterUrl);
   const client = new Client({ connectionString: masterUrl });
   try {
@@ -14,7 +14,7 @@ async function run() {
     console.log(ownersRes.rows);
 
     for (const owner of ownersRes.rows) {
-      const ownDbUrl = `${process.env.DB_URL}/${owner.own_db}`;
+      const ownDbUrl = `${BASE_URL}/${owner.own_db}`;
       console.log(`\nConnecting to owner database: ${owner.own_db} (${ownDbUrl})`);
       const ownerClient = new Client({ connectionString: ownDbUrl });
       try {

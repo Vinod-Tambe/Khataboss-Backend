@@ -6,11 +6,57 @@ const { Client } = require("pg");
 const { execSync } = require("child_process");
 require("dotenv").config();
 
-// ─── Parse base URL & DB name from MASTER_DB_URL ─────────────────────────────
-// Expected format: postgresql://user:pass@host:port  (no trailing /dbname)
-// We always target the database named "master"
+// ─── Resolve Database URL based on Environment ────────────────────────────────
 const TARGET_DB = process.env.MASTER_DB_NAME || "master";
-const BASE_URL = (process.env.DB_URL || "").replace(/\/$/, ""); // strip trailing slash
+
+let rawDbUrl = "";
+let dbMode = "";
+
+if (process.env.ONLINE_DB === "true") {
+  rawDbUrl = process.env.DATABASE_URL || "";
+  dbMode = "ONLINE (DATABASE_URL)";
+} else if (process.env.OFFLINE_DB === "true") {
+  rawDbUrl = process.env.DB_URL || "";
+  dbMode = "OFFLINE (DB_URL)";
+} else {
+  // Default fallback if neither is explicitly true
+  rawDbUrl = process.env.DB_URL || process.env.DATABASE_URL || "";
+  dbMode = process.env.DB_URL ? "Fallback (DB_URL)" : "Fallback (DATABASE_URL)";
+}
+
+// Mask connection string passwords for secure logging
+const maskConnectionString = (str) => {
+  if (!str) return "";
+  try {
+    const parsed = new URL(str);
+    if (parsed.password) {
+      parsed.password = "********";
+    }
+    return parsed.toString();
+  } catch (e) {
+    return str.replace(/(postgresql:\/\/.*?):(.*?)@/, "$1:********@");
+  }
+};
+
+console.log(`🔌 Database Mode selected: ${dbMode}`);
+console.log(`🔗 Target Base Database URL: ${maskConnectionString(rawDbUrl)}`);
+
+// Helper to strip the database name/pathname from the connection string to get the base URL
+const getBaseUrl = (connectionString) => {
+  if (!connectionString) return "";
+  try {
+    const parsed = new URL(connectionString);
+    parsed.pathname = "";
+    parsed.search = "";
+    parsed.hash = "";
+    return parsed.toString().replace(/\/$/, "");
+  } catch (e) {
+    const match = connectionString.match(/^(postgresql:\/\/[^/]+)/);
+    return match ? match[1] : connectionString.replace(/\/$/, "");
+  }
+};
+
+const BASE_URL = getBaseUrl(rawDbUrl);
 const MASTER_DB_URL = `${BASE_URL}/${TARGET_DB}`;
 
 // Ensure DATABASE_MASTER_URL is set in process.env so Prisma CLI and Client pick it up
