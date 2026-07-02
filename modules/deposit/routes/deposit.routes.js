@@ -2,13 +2,13 @@
 
 const express = require("express");
 const router = express.Router();
-const addPrincipalController = require("../controller/add_principal.controller");
+const depositController = require("../controller/deposit.controller");
 const authenticateOwner = require("../../../middlewares/auth.middleware");
 
 router.post(
   "/",
   authenticateOwner,
-  (req, res) => addPrincipalController.addAdditionalPrincipal(req, res)
+  (req, res) => depositController.addDeposit(req, res)
 );
 
 module.exports = router;

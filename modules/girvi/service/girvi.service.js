@@ -168,7 +168,25 @@ class GirviService {
         }
       });
 
-      return { ...girvi, items };
+      const additionalPrincipals = await prisma.additionalPrincipal.findMany({
+        where: {
+          ap_girv_id: parseInt(girvId)
+        },
+        orderBy: {
+          ap_trans_date: 'asc'
+        }
+      });
+
+      const deposits = await prisma.girviDeposit.findMany({
+        where: {
+          dep_girv_id: parseInt(girvId)
+        },
+        orderBy: {
+          dep_trans_date: 'asc'
+        }
+      });
+
+      return { ...girvi, items, additionalPrincipals, deposits };
     } finally {
       await prisma.$disconnect();
     }

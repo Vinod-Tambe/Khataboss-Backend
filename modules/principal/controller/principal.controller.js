@@ -1,6 +1,6 @@
 "use strict";
 
-const addPrincipalService = require("../service/add_principal.service");
+const addPrincipalService = require("../service/principal.service");
 const { BASE_URL } = require("../../../config/db");
 
 class AddPrincipalController {

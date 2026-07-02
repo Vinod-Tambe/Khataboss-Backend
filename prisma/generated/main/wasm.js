@@ -573,6 +573,47 @@ exports.Prisma.AdditionalPrincipalScalarFieldEnum = {
   ap_is_deleted: 'ap_is_deleted'
 };
 
+exports.Prisma.GirviDepositScalarFieldEnum = {
+  dep_id: 'dep_id',
+  dep_uuid: 'dep_uuid',
+  dep_own_id: 'dep_own_id',
+  dep_firm_id: 'dep_firm_id',
+  dep_user_id: 'dep_user_id',
+  dep_girv_id: 'dep_girv_id',
+  dep_staff_id: 'dep_staff_id',
+  dep_trans_date: 'dep_trans_date',
+  dep_prin_amt: 'dep_prin_amt',
+  dep_int_amt: 'dep_int_amt',
+  dep_disc_amt: 'dep_disc_amt',
+  dep_extra_amt: 'dep_extra_amt',
+  dep_payable_amt: 'dep_payable_amt',
+  dep_prin_acc_id: 'dep_prin_acc_id',
+  dep_int_acc_id: 'dep_int_acc_id',
+  dep_disc_acc_id: 'dep_disc_acc_id',
+  dep_extra_acc_id: 'dep_extra_acc_id',
+  dep_cash_amt: 'dep_cash_amt',
+  dep_cash_acc_id: 'dep_cash_acc_id',
+  dep_cash_info: 'dep_cash_info',
+  dep_bank_amt: 'dep_bank_amt',
+  dep_bank_acc_id: 'dep_bank_acc_id',
+  dep_bank_info: 'dep_bank_info',
+  dep_online_amt: 'dep_online_amt',
+  dep_online_acc_id: 'dep_online_acc_id',
+  dep_online_info: 'dep_online_info',
+  dep_card_amt: 'dep_card_amt',
+  dep_card_acc_id: 'dep_card_acc_id',
+  dep_card_info: 'dep_card_info',
+  dep_pay_info: 'dep_pay_info',
+  dep_other_info: 'dep_other_info',
+  dep_created_at: 'dep_created_at',
+  dep_created_by: 'dep_created_by',
+  dep_updated_at: 'dep_updated_at',
+  dep_updated_by: 'dep_updated_by',
+  dep_deleted_at: 'dep_deleted_at',
+  dep_deleted_by: 'dep_deleted_by',
+  dep_is_deleted: 'dep_is_deleted'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -712,7 +753,8 @@ exports.Prisma.ModelName = {
   JournalTransaction: 'JournalTransaction',
   Girvi: 'Girvi',
   Stock: 'Stock',
-  AdditionalPrincipal: 'AdditionalPrincipal'
+  AdditionalPrincipal: 'AdditionalPrincipal',
+  GirviDeposit: 'GirviDeposit'
 };
 
 /**
