@@ -65,6 +65,7 @@ v1Router.use("/girvi", require("./modules/girvi/routes/girvi.routes"));
 v1Router.use("/stock", require("./modules/stock/routes/stock.routes"));
 v1Router.use("/add-prin", require("./modules/principal/routes/principal.routes"));
 v1Router.use("/deposit", require("./modules/deposit/routes/deposit.routes"));
+v1Router.use("/release", require("./modules/release/routes/release.routes"));
 app.use("/api/v1", v1Router);
 
 module.exports = app;

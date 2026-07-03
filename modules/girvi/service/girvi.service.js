@@ -186,7 +186,16 @@ class GirviService {
         }
       });
 
-      return { ...girvi, items, additionalPrincipals, deposits };
+      const releases = await prisma.girviRelease.findMany({
+        where: {
+          rel_girv_id: parseInt(girvId)
+        },
+        orderBy: {
+          rel_trans_date: 'asc'
+        }
+      });
+
+      return { ...girvi, items, additionalPrincipals, deposits, releases };
     } finally {
       await prisma.$disconnect();
     }

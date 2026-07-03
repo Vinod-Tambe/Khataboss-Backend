@@ -614,6 +614,47 @@ exports.Prisma.GirviDepositScalarFieldEnum = {
   dep_is_deleted: 'dep_is_deleted'
 };
 
+exports.Prisma.GirviReleaseScalarFieldEnum = {
+  rel_id: 'rel_id',
+  rel_uuid: 'rel_uuid',
+  rel_own_id: 'rel_own_id',
+  rel_firm_id: 'rel_firm_id',
+  rel_user_id: 'rel_user_id',
+  rel_girv_id: 'rel_girv_id',
+  rel_staff_id: 'rel_staff_id',
+  rel_trans_date: 'rel_trans_date',
+  rel_prin_amt: 'rel_prin_amt',
+  rel_int_amt: 'rel_int_amt',
+  rel_disc_amt: 'rel_disc_amt',
+  rel_extra_amt: 'rel_extra_amt',
+  rel_payable_amt: 'rel_payable_amt',
+  rel_prin_acc_id: 'rel_prin_acc_id',
+  rel_int_acc_id: 'rel_int_acc_id',
+  rel_disc_acc_id: 'rel_disc_acc_id',
+  rel_extra_acc_id: 'rel_extra_acc_id',
+  rel_cash_amt: 'rel_cash_amt',
+  rel_cash_acc_id: 'rel_cash_acc_id',
+  rel_cash_info: 'rel_cash_info',
+  rel_bank_amt: 'rel_bank_amt',
+  rel_bank_acc_id: 'rel_bank_acc_id',
+  rel_bank_info: 'rel_bank_info',
+  rel_online_amt: 'rel_online_amt',
+  rel_online_acc_id: 'rel_online_acc_id',
+  rel_online_info: 'rel_online_info',
+  rel_card_amt: 'rel_card_amt',
+  rel_card_acc_id: 'rel_card_acc_id',
+  rel_card_info: 'rel_card_info',
+  rel_pay_info: 'rel_pay_info',
+  rel_other_info: 'rel_other_info',
+  rel_created_at: 'rel_created_at',
+  rel_created_by: 'rel_created_by',
+  rel_updated_at: 'rel_updated_at',
+  rel_updated_by: 'rel_updated_by',
+  rel_deleted_at: 'rel_deleted_at',
+  rel_deleted_by: 'rel_deleted_by',
+  rel_is_deleted: 'rel_is_deleted'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -754,7 +795,8 @@ exports.Prisma.ModelName = {
   Girvi: 'Girvi',
   Stock: 'Stock',
   AdditionalPrincipal: 'AdditionalPrincipal',
-  GirviDeposit: 'GirviDeposit'
+  GirviDeposit: 'GirviDeposit',
+  GirviRelease: 'GirviRelease'
 };
 
 /**

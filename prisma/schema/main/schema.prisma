@@ -82,15 +82,17 @@ model Owner {
   firms    Firm[]    @relation("OwnerFirm")
   accounts Account[] @relation("OwnerAccount")
 
-  finances            Finance[]                   @relation("OwnerFinance")
-  financeTransactions Finance_Transaction[]       @relation("OwnerFT")
-  financeMoneyTrans   Finance_Money_Transaction[] @relation("OwnerFMT")
-  journals            Journal[]                   @relation("OwnerJournal")
-  journalTransactions JournalTransaction[]        @relation("OwnerJRTR")
-  girvis              Girvi[]                     @relation("OwnerGirvi")
-  stocks              Stock[]                     @relation("OwnerStock")
-  additionalPrincipals AdditionalPrincipal[]     @relation("OwnerAP")
-  deposits             GirviDeposit[]            @relation("OwnerGirviDeposit")
+  finances             Finance[]                   @relation("OwnerFinance")
+  financeTransactions  Finance_Transaction[]       @relation("OwnerFT")
+  financeMoneyTrans    Finance_Money_Transaction[] @relation("OwnerFMT")
+  journals             Journal[]                   @relation("OwnerJournal")
+  journalTransactions  JournalTransaction[]        @relation("OwnerJRTR")
+  girvis               Girvi[]                     @relation("OwnerGirvi")
+  stocks               Stock[]                     @relation("OwnerStock")
+  additionalPrincipals AdditionalPrincipal[]       @relation("OwnerAP")
+  deposits             GirviDeposit[]              @relation("OwnerGirviDeposit")
+  releases             GirviRelease[]              @relation("OwnerGirviRelease")
+
   // ===============================
   // Indexes
   // ===============================
@@ -216,15 +218,16 @@ model Firm {
   accounts Account[] @relation("FirmAccount")
   owner    Owner     @relation("OwnerFirm", fields: [firm_own_id], references: [own_id], onDelete: Cascade)
 
-  finances            Finance[]                   @relation("FinanceFirm")
-  financeTransactions Finance_Transaction[]
-  financeMoneyTrans   Finance_Money_Transaction[]
-  journals            Journal[]
-  journalTransactions JournalTransaction[]
-  girvis              Girvi[]                     @relation("FirmGirvi")
-  stocks              Stock[]                     @relation("FirmStock")
-  additionalPrincipals AdditionalPrincipal[]     @relation("FirmAP")
-  deposits             GirviDeposit[]            @relation("FirmGirviDeposit")
+  finances             Finance[]                   @relation("FinanceFirm")
+  financeTransactions  Finance_Transaction[]
+  financeMoneyTrans    Finance_Money_Transaction[]
+  journals             Journal[]
+  journalTransactions  JournalTransaction[]
+  girvis               Girvi[]                     @relation("FirmGirvi")
+  stocks               Stock[]                     @relation("FirmStock")
+  additionalPrincipals AdditionalPrincipal[]       @relation("FirmAP")
+  deposits             GirviDeposit[]              @relation("FirmGirviDeposit")
+  releases             GirviRelease[]              @relation("FirmGirviRelease")
 }
 
 // Enum for balance type
@@ -311,15 +314,25 @@ model Account {
   apOnline AdditionalPrincipal[] @relation("APOnlineAccount")
   apCard   AdditionalPrincipal[] @relation("APCardAccount")
 
-  depPrin   GirviDeposit[] @relation("GirviDepositPrinAccount")
-  depInt    GirviDeposit[] @relation("GirviDepositIntAccount")
-  depDisc   GirviDeposit[] @relation("GirviDepositDiscAccount")
-  depExtra  GirviDeposit[] @relation("GirviDepositExtraAccount")
+  depPrin  GirviDeposit[] @relation("GirviDepositPrinAccount")
+  depInt   GirviDeposit[] @relation("GirviDepositIntAccount")
+  depDisc  GirviDeposit[] @relation("GirviDepositDiscAccount")
+  depExtra GirviDeposit[] @relation("GirviDepositExtraAccount")
 
   depCash   GirviDeposit[] @relation("GirviDepositCashAccount")
   depBank   GirviDeposit[] @relation("GirviDepositBankAccount")
   depOnline GirviDeposit[] @relation("GirviDepositOnlineAccount")
   depCard   GirviDeposit[] @relation("GirviDepositCardAccount")
+
+  relPrin  GirviRelease[] @relation("GirviReleasePrinAccount")
+  relInt   GirviRelease[] @relation("GirviReleaseIntAccount")
+  relDisc  GirviRelease[] @relation("GirviReleaseDiscAccount")
+  relExtra GirviRelease[] @relation("GirviReleaseExtraAccount")
+
+  relCash   GirviRelease[] @relation("GirviReleaseCashAccount")
+  relBank   GirviRelease[] @relation("GirviReleaseBankAccount")
+  relOnline GirviRelease[] @relation("GirviReleaseOnlineAccount")
+  relCard   GirviRelease[] @relation("GirviReleaseCardAccount")
 }
 
 enum UserGender {
@@ -412,15 +425,17 @@ model User {
   owner Owner @relation("OwnerUser", fields: [user_own_id], references: [own_id], onDelete: Cascade)
   firm  Firm  @relation("FirmUser", fields: [user_firm_id], references: [firm_id], onDelete: Cascade)
 
-  finances            Finance[]                   @relation("FinanceUser")
-  financeTransactions Finance_Transaction[]
-  financeMoneyTrans   Finance_Money_Transaction[]
-  journals            Journal[]
-  journalTransactions JournalTransaction[]
-  girvis              Girvi[]                     @relation("UserGirvi")
-  stocks              Stock[]                     @relation("UserStock")
-  additionalPrincipals AdditionalPrincipal[]     @relation("UserAP")
-  deposits             GirviDeposit[]            @relation("UserGirviDeposit")
+  finances             Finance[]                   @relation("FinanceUser")
+  financeTransactions  Finance_Transaction[]
+  financeMoneyTrans    Finance_Money_Transaction[]
+  journals             Journal[]
+  journalTransactions  JournalTransaction[]
+  girvis               Girvi[]                     @relation("UserGirvi")
+  stocks               Stock[]                     @relation("UserStock")
+  additionalPrincipals AdditionalPrincipal[]       @relation("UserAP")
+  deposits             GirviDeposit[]              @relation("UserGirviDeposit")
+  releases             GirviRelease[]              @relation("UserGirviRelease")
+
   @@index([user_mobile_no])
   @@index([user_email_id])
   @@index([user_firm_id])
@@ -864,6 +879,8 @@ model Girvi {
 
   additionalPrincipals AdditionalPrincipal[] @relation("GirviAP")
   deposits             GirviDeposit[]        @relation("GirviGirviDeposit")
+  releases             GirviRelease[]        @relation("GirviGirviRelease")
+
   @@map("girvi")
 }
 
@@ -942,62 +959,62 @@ model Stock {
 // MODEL: AdditionalPrincipal (additional_principal)
 // =============================================================================
 model AdditionalPrincipal {
-  ap_id           Int       @id @default(autoincrement())
-  ap_uuid         String    @unique @default(uuid())
+  ap_id   Int    @id @default(autoincrement())
+  ap_uuid String @unique @default(uuid())
 
   // 🔗 Foreign Keys & Relationships
-  ap_own_id       Int       @default(1)
-  ap_firm_id      Int       @default(0)
-  ap_user_id      Int       @default(0)
-  ap_girv_id      Int       @default(0)
-  ap_staff_id     Int       @default(0)
+  ap_own_id   Int @default(1)
+  ap_firm_id  Int @default(0)
+  ap_user_id  Int @default(0)
+  ap_girv_id  Int @default(0)
+  ap_staff_id Int @default(0)
 
   // 💰 Principal Information
-  ap_trans_date   String
-  ap_prin_amt     Float
-  ap_roi          Float
-  ap_payable_amt  Float
+  ap_trans_date  String
+  ap_prin_amt    Float
+  ap_roi         Float
+  ap_payable_amt Float
 
   // 🏦 Payment Details & Account Associations
-  ap_cash_amt     Float?    @default(0)
-  ap_cash_acc_id  Int?      @default(0)
-  ap_cash_info    String?   @default("")
+  ap_cash_amt    Float?  @default(0)
+  ap_cash_acc_id Int?    @default(0)
+  ap_cash_info   String? @default("")
 
-  ap_bank_amt     Float?    @default(0)
-  ap_bank_acc_id  Int?      @default(0)
-  ap_bank_info    String?   @default("")
+  ap_bank_amt    Float?  @default(0)
+  ap_bank_acc_id Int?    @default(0)
+  ap_bank_info   String? @default("")
 
-  ap_online_amt   Float?    @default(0)
-  ap_online_acc_id Int?     @default(0)
-  ap_online_info  String?   @default("")
+  ap_online_amt    Float?  @default(0)
+  ap_online_acc_id Int?    @default(0)
+  ap_online_info   String? @default("")
 
-  ap_card_amt     Float?    @default(0)
-  ap_card_acc_id  Int?      @default(0)
-  ap_card_info    String?   @default("")
+  ap_card_amt    Float?  @default(0)
+  ap_card_acc_id Int?    @default(0)
+  ap_card_info   String? @default("")
 
   // 📝 Other Remarks & Audit
-  ap_pay_info     String?   @default("")
-  ap_other_info   String?   @default("")
+  ap_pay_info   String? @default("")
+  ap_other_info String? @default("")
 
   // 🛡️ Audit Fields
-  ap_created_at   DateTime  @default(now())
-  ap_created_by   String?
-  ap_updated_at   DateTime  @updatedAt
-  ap_updated_by   String?
-  ap_deleted_at   DateTime?
-  ap_deleted_by   String?
-  ap_is_deleted   Boolean   @default(false)
+  ap_created_at DateTime  @default(now())
+  ap_created_by String?
+  ap_updated_at DateTime  @updatedAt
+  ap_updated_by String?
+  ap_deleted_at DateTime?
+  ap_deleted_by String?
+  ap_is_deleted Boolean   @default(false)
 
   // Relations
-  owner         Owner     @relation("OwnerAP", fields: [ap_own_id], references: [own_id], onDelete: Cascade)
-  firm          Firm      @relation("FirmAP", fields: [ap_firm_id], references: [firm_id], onDelete: Cascade)
-  user          User      @relation("UserAP", fields: [ap_user_id], references: [user_id], onDelete: Cascade)
-  girvi         Girvi     @relation("GirviAP", fields: [ap_girv_id], references: [girv_id], onDelete: Cascade)
+  owner Owner @relation("OwnerAP", fields: [ap_own_id], references: [own_id], onDelete: Cascade)
+  firm  Firm  @relation("FirmAP", fields: [ap_firm_id], references: [firm_id], onDelete: Cascade)
+  user  User  @relation("UserAP", fields: [ap_user_id], references: [user_id], onDelete: Cascade)
+  girvi Girvi @relation("GirviAP", fields: [ap_girv_id], references: [girv_id], onDelete: Cascade)
 
-  cashAccount   Account?  @relation("APCashAccount", fields: [ap_cash_acc_id], references: [acc_id])
-  bankAccount   Account?  @relation("APBankAccount", fields: [ap_bank_acc_id], references: [acc_id])
-  onlineAccount Account?  @relation("APOnlineAccount", fields: [ap_online_acc_id], references: [acc_id])
-  cardAccount   Account?  @relation("APCardAccount", fields: [ap_card_acc_id], references: [acc_id])
+  cashAccount   Account? @relation("APCashAccount", fields: [ap_cash_acc_id], references: [acc_id])
+  bankAccount   Account? @relation("APBankAccount", fields: [ap_bank_acc_id], references: [acc_id])
+  onlineAccount Account? @relation("APOnlineAccount", fields: [ap_online_acc_id], references: [acc_id])
+  cardAccount   Account? @relation("APCardAccount", fields: [ap_card_acc_id], references: [acc_id])
 
   @@map("additional_principal")
 }
@@ -1006,75 +1023,149 @@ model AdditionalPrincipal {
 // MODEL: GirviDeposit (girvi_deposit)
 // =============================================================================
 model GirviDeposit {
-  dep_id           Int       @id @default(autoincrement())
-  dep_uuid         String    @unique @default(uuid())
+  dep_id   Int    @id @default(autoincrement())
+  dep_uuid String @unique @default(uuid())
 
   // 🔗 Foreign Keys & Relationships
-  dep_own_id       Int       @default(1)
-  dep_firm_id      Int       @default(0)
-  dep_user_id      Int       @default(0)
-  dep_girv_id      Int       @default(0)
-  dep_staff_id     Int       @default(0)
+  dep_own_id   Int @default(1)
+  dep_firm_id  Int @default(0)
+  dep_user_id  Int @default(0)
+  dep_girv_id  Int @default(0)
+  dep_staff_id Int @default(0)
 
   // 💰 Deposit / Transaction Information
-  dep_trans_date   String
-  dep_prin_amt     Float     @default(0)
-  dep_int_amt      Float     @default(0)
-  dep_disc_amt     Float     @default(0)
-  dep_extra_amt    Float     @default(0)
-  dep_payable_amt  Float     @default(0)
+  dep_trans_date  String
+  dep_prin_amt    Float  @default(0)
+  dep_int_amt     Float  @default(0)
+  dep_disc_amt    Float  @default(0)
+  dep_extra_amt   Float  @default(0)
+  dep_payable_amt Float  @default(0)
 
   // 🗂️ Associated Accounts
-  dep_prin_acc_id  Int?      @default(0)
-  dep_int_acc_id   Int?      @default(0)
-  dep_disc_acc_id  Int?      @default(0)
-  dep_extra_acc_id Int?      @default(0)
+  dep_prin_acc_id  Int? @default(0)
+  dep_int_acc_id   Int? @default(0)
+  dep_disc_acc_id  Int? @default(0)
+  dep_extra_acc_id Int? @default(0)
 
   // 🏦 Payment Details & Account Associations
-  dep_cash_amt     Float?    @default(0)
-  dep_cash_acc_id  Int?      @default(0)
-  dep_cash_info    String?   @default("")
+  dep_cash_amt    Float?  @default(0)
+  dep_cash_acc_id Int?    @default(0)
+  dep_cash_info   String? @default("")
 
-  dep_bank_amt     Float?    @default(0)
-  dep_bank_acc_id  Int?      @default(0)
-  dep_bank_info    String?   @default("")
+  dep_bank_amt    Float?  @default(0)
+  dep_bank_acc_id Int?    @default(0)
+  dep_bank_info   String? @default("")
 
-  dep_online_amt   Float?    @default(0)
-  dep_online_acc_id Int?     @default(0)
-  dep_online_info  String?   @default("")
+  dep_online_amt    Float?  @default(0)
+  dep_online_acc_id Int?    @default(0)
+  dep_online_info   String? @default("")
 
-  dep_card_amt     Float?    @default(0)
-  dep_card_acc_id  Int?      @default(0)
-  dep_card_info    String?   @default("")
+  dep_card_amt    Float?  @default(0)
+  dep_card_acc_id Int?    @default(0)
+  dep_card_info   String? @default("")
 
   // 📝 Other Remarks & Audit
-  dep_pay_info     String?   @default("")
-  dep_other_info   String?   @default("")
+  dep_pay_info   String? @default("")
+  dep_other_info String? @default("")
 
   // 🛡️ Audit Fields
-  dep_created_at   DateTime  @default(now())
-  dep_created_by   String?
-  dep_updated_at   DateTime  @updatedAt
-  dep_updated_by   String?
-  dep_deleted_at   DateTime?
-  dep_deleted_by   String?
-  dep_is_deleted   Boolean   @default(false)
+  dep_created_at DateTime  @default(now())
+  dep_created_by String?
+  dep_updated_at DateTime  @updatedAt
+  dep_updated_by String?
+  dep_deleted_at DateTime?
+  dep_deleted_by String?
+  dep_is_deleted Boolean   @default(false)
 
   // Relations
-  owner         Owner     @relation("OwnerGirviDeposit", fields: [dep_own_id], references: [own_id], onDelete: Cascade)
-  firm          Firm      @relation("FirmGirviDeposit", fields: [dep_firm_id], references: [firm_id], onDelete: Cascade)
-  user          User      @relation("UserGirviDeposit", fields: [dep_user_id], references: [user_id], onDelete: Cascade)
-  girvi         Girvi     @relation("GirviGirviDeposit", fields: [dep_girv_id], references: [girv_id], onDelete: Cascade)
+  owner Owner @relation("OwnerGirviDeposit", fields: [dep_own_id], references: [own_id], onDelete: Cascade)
+  firm  Firm  @relation("FirmGirviDeposit", fields: [dep_firm_id], references: [firm_id], onDelete: Cascade)
+  user  User  @relation("UserGirviDeposit", fields: [dep_user_id], references: [user_id], onDelete: Cascade)
+  girvi Girvi @relation("GirviGirviDeposit", fields: [dep_girv_id], references: [girv_id], onDelete: Cascade)
 
-  prinAccount   Account?  @relation("GirviDepositPrinAccount", fields: [dep_prin_acc_id], references: [acc_id])
-  intAccount    Account?  @relation("GirviDepositIntAccount", fields: [dep_int_acc_id], references: [acc_id])
-  discAccount   Account?  @relation("GirviDepositDiscAccount", fields: [dep_disc_acc_id], references: [acc_id])
-  extraAccount  Account?  @relation("GirviDepositExtraAccount", fields: [dep_extra_acc_id], references: [acc_id])
+  prinAccount  Account? @relation("GirviDepositPrinAccount", fields: [dep_prin_acc_id], references: [acc_id])
+  intAccount   Account? @relation("GirviDepositIntAccount", fields: [dep_int_acc_id], references: [acc_id])
+  discAccount  Account? @relation("GirviDepositDiscAccount", fields: [dep_disc_acc_id], references: [acc_id])
+  extraAccount Account? @relation("GirviDepositExtraAccount", fields: [dep_extra_acc_id], references: [acc_id])
 
-  cashAccount   Account?  @relation("GirviDepositCashAccount", fields: [dep_cash_acc_id], references: [acc_id])
-  bankAccount   Account?  @relation("GirviDepositBankAccount", fields: [dep_bank_acc_id], references: [acc_id])
-  onlineAccount Account?  @relation("GirviDepositOnlineAccount", fields: [dep_online_acc_id], references: [acc_id])
-  cardAccount   Account?  @relation("GirviDepositCardAccount", fields: [dep_card_acc_id], references: [acc_id])
+  cashAccount   Account? @relation("GirviDepositCashAccount", fields: [dep_cash_acc_id], references: [acc_id])
+  bankAccount   Account? @relation("GirviDepositBankAccount", fields: [dep_bank_acc_id], references: [acc_id])
+  onlineAccount Account? @relation("GirviDepositOnlineAccount", fields: [dep_online_acc_id], references: [acc_id])
+  cardAccount   Account? @relation("GirviDepositCardAccount", fields: [dep_card_acc_id], references: [acc_id])
 
   @@map("girvi_deposit")
+}
+
+model GirviRelease {
+  rel_id   Int    @id @default(autoincrement())
+  rel_uuid String @unique @default(uuid())
+
+  // 🔗 Foreign Keys & Relationships
+  rel_own_id   Int @default(1)
+  rel_firm_id  Int @default(0)
+  rel_user_id  Int @default(0)
+  rel_girv_id  Int @default(0)
+  rel_staff_id Int @default(0)
+
+  // 💰 Release / Transaction Information
+  rel_trans_date  String
+  rel_prin_amt    Float  @default(0)
+  rel_int_amt     Float  @default(0)
+  rel_disc_amt    Float  @default(0)
+  rel_extra_amt   Float  @default(0)
+  rel_payable_amt Float  @default(0)
+
+  // 🗂️ Associated Accounts
+  rel_prin_acc_id  Int? @default(0)
+  rel_int_acc_id   Int? @default(0)
+  rel_disc_acc_id  Int? @default(0)
+  rel_extra_acc_id Int? @default(0)
+
+  // 🏦 Payment Details & Account Associations
+  rel_cash_amt    Float?  @default(0)
+  rel_cash_acc_id Int?    @default(0)
+  rel_cash_info   String? @default("")
+
+  rel_bank_amt    Float?  @default(0)
+  rel_bank_acc_id Int?    @default(0)
+  rel_bank_info   String? @default("")
+
+  rel_online_amt    Float?  @default(0)
+  rel_online_acc_id Int?    @default(0)
+  rel_online_info   String? @default("")
+
+  rel_card_amt    Float?  @default(0)
+  rel_card_acc_id Int?    @default(0)
+  rel_card_info   String? @default("")
+
+  // 📝 Other Remarks & Audit
+  rel_pay_info   String? @default("")
+  rel_other_info String? @default("")
+
+  // 🛡️ Audit Fields
+  rel_created_at DateTime  @default(now())
+  rel_created_by String?
+  rel_updated_at DateTime  @updatedAt
+  rel_updated_by String?
+  rel_deleted_at DateTime?
+  rel_deleted_by String?
+  rel_is_deleted Boolean   @default(false)
+
+  // Relations
+  owner Owner @relation("OwnerGirviRelease", fields: [rel_own_id], references: [own_id], onDelete: Cascade)
+  firm  Firm  @relation("FirmGirviRelease", fields: [rel_firm_id], references: [firm_id], onDelete: Cascade)
+  user  User  @relation("UserGirviRelease", fields: [rel_user_id], references: [user_id], onDelete: Cascade)
+  girvi Girvi @relation("GirviGirviRelease", fields: [rel_girv_id], references: [girv_id], onDelete: Cascade)
+
+  prinAccount  Account? @relation("GirviReleasePrinAccount", fields: [rel_prin_acc_id], references: [acc_id])
+  intAccount   Account? @relation("GirviReleaseIntAccount", fields: [rel_int_acc_id], references: [acc_id])
+  discAccount  Account? @relation("GirviReleaseDiscAccount", fields: [rel_disc_acc_id], references: [acc_id])
+  extraAccount Account? @relation("GirviReleaseExtraAccount", fields: [rel_extra_acc_id], references: [acc_id])
+
+  cashAccount   Account? @relation("GirviReleaseCashAccount", fields: [rel_cash_acc_id], references: [acc_id])
+  bankAccount   Account? @relation("GirviReleaseBankAccount", fields: [rel_bank_acc_id], references: [acc_id])
+  onlineAccount Account? @relation("GirviReleaseOnlineAccount", fields: [rel_online_acc_id], references: [acc_id])
+  cardAccount   Account? @relation("GirviReleaseCardAccount", fields: [rel_card_acc_id], references: [acc_id])
+
+  @@map("girvi_release")
 }

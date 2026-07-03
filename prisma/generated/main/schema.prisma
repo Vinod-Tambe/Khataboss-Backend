@@ -91,6 +91,7 @@ model Owner {
   stocks               Stock[]                     @relation("OwnerStock")
   additionalPrincipals AdditionalPrincipal[]       @relation("OwnerAP")
   deposits             GirviDeposit[]              @relation("OwnerGirviDeposit")
+  releases             GirviRelease[]              @relation("OwnerGirviRelease")
 
   // ===============================
   // Indexes
@@ -226,6 +227,7 @@ model Firm {
   stocks               Stock[]                     @relation("FirmStock")
   additionalPrincipals AdditionalPrincipal[]       @relation("FirmAP")
   deposits             GirviDeposit[]              @relation("FirmGirviDeposit")
+  releases             GirviRelease[]              @relation("FirmGirviRelease")
 }
 
 // Enum for balance type
@@ -321,6 +323,16 @@ model Account {
   depBank   GirviDeposit[] @relation("GirviDepositBankAccount")
   depOnline GirviDeposit[] @relation("GirviDepositOnlineAccount")
   depCard   GirviDeposit[] @relation("GirviDepositCardAccount")
+
+  relPrin  GirviRelease[] @relation("GirviReleasePrinAccount")
+  relInt   GirviRelease[] @relation("GirviReleaseIntAccount")
+  relDisc  GirviRelease[] @relation("GirviReleaseDiscAccount")
+  relExtra GirviRelease[] @relation("GirviReleaseExtraAccount")
+
+  relCash   GirviRelease[] @relation("GirviReleaseCashAccount")
+  relBank   GirviRelease[] @relation("GirviReleaseBankAccount")
+  relOnline GirviRelease[] @relation("GirviReleaseOnlineAccount")
+  relCard   GirviRelease[] @relation("GirviReleaseCardAccount")
 }
 
 enum UserGender {
@@ -422,6 +434,7 @@ model User {
   stocks               Stock[]                     @relation("UserStock")
   additionalPrincipals AdditionalPrincipal[]       @relation("UserAP")
   deposits             GirviDeposit[]              @relation("UserGirviDeposit")
+  releases             GirviRelease[]              @relation("UserGirviRelease")
 
   @@index([user_mobile_no])
   @@index([user_email_id])
@@ -866,6 +879,7 @@ model Girvi {
 
   additionalPrincipals AdditionalPrincipal[] @relation("GirviAP")
   deposits             GirviDeposit[]        @relation("GirviGirviDeposit")
+  releases             GirviRelease[]        @relation("GirviGirviRelease")
 
   @@map("girvi")
 }
@@ -1080,4 +1094,78 @@ model GirviDeposit {
   cardAccount   Account? @relation("GirviDepositCardAccount", fields: [dep_card_acc_id], references: [acc_id])
 
   @@map("girvi_deposit")
+}
+
+model GirviRelease {
+  rel_id   Int    @id @default(autoincrement())
+  rel_uuid String @unique @default(uuid())
+
+  // 🔗 Foreign Keys & Relationships
+  rel_own_id   Int @default(1)
+  rel_firm_id  Int @default(0)
+  rel_user_id  Int @default(0)
+  rel_girv_id  Int @default(0)
+  rel_staff_id Int @default(0)
+
+  // 💰 Release / Transaction Information
+  rel_trans_date  String
+  rel_prin_amt    Float  @default(0)
+  rel_int_amt     Float  @default(0)
+  rel_disc_amt    Float  @default(0)
+  rel_extra_amt   Float  @default(0)
+  rel_payable_amt Float  @default(0)
+
+  // 🗂️ Associated Accounts
+  rel_prin_acc_id  Int? @default(0)
+  rel_int_acc_id   Int? @default(0)
+  rel_disc_acc_id  Int? @default(0)
+  rel_extra_acc_id Int? @default(0)
+
+  // 🏦 Payment Details & Account Associations
+  rel_cash_amt    Float?  @default(0)
+  rel_cash_acc_id Int?    @default(0)
+  rel_cash_info   String? @default("")
+
+  rel_bank_amt    Float?  @default(0)
+  rel_bank_acc_id Int?    @default(0)
+  rel_bank_info   String? @default("")
+
+  rel_online_amt    Float?  @default(0)
+  rel_online_acc_id Int?    @default(0)
+  rel_online_info   String? @default("")
+
+  rel_card_amt    Float?  @default(0)
+  rel_card_acc_id Int?    @default(0)
+  rel_card_info   String? @default("")
+
+  // 📝 Other Remarks & Audit
+  rel_pay_info   String? @default("")
+  rel_other_info String? @default("")
+
+  // 🛡️ Audit Fields
+  rel_created_at DateTime  @default(now())
+  rel_created_by String?
+  rel_updated_at DateTime  @updatedAt
+  rel_updated_by String?
+  rel_deleted_at DateTime?
+  rel_deleted_by String?
+  rel_is_deleted Boolean   @default(false)
+
+  // Relations
+  owner Owner @relation("OwnerGirviRelease", fields: [rel_own_id], references: [own_id], onDelete: Cascade)
+  firm  Firm  @relation("FirmGirviRelease", fields: [rel_firm_id], references: [firm_id], onDelete: Cascade)
+  user  User  @relation("UserGirviRelease", fields: [rel_user_id], references: [user_id], onDelete: Cascade)
+  girvi Girvi @relation("GirviGirviRelease", fields: [rel_girv_id], references: [girv_id], onDelete: Cascade)
+
+  prinAccount  Account? @relation("GirviReleasePrinAccount", fields: [rel_prin_acc_id], references: [acc_id])
+  intAccount   Account? @relation("GirviReleaseIntAccount", fields: [rel_int_acc_id], references: [acc_id])
+  discAccount  Account? @relation("GirviReleaseDiscAccount", fields: [rel_disc_acc_id], references: [acc_id])
+  extraAccount Account? @relation("GirviReleaseExtraAccount", fields: [rel_extra_acc_id], references: [acc_id])
+
+  cashAccount   Account? @relation("GirviReleaseCashAccount", fields: [rel_cash_acc_id], references: [acc_id])
+  bankAccount   Account? @relation("GirviReleaseBankAccount", fields: [rel_bank_acc_id], references: [acc_id])
+  onlineAccount Account? @relation("GirviReleaseOnlineAccount", fields: [rel_online_acc_id], references: [acc_id])
+  cardAccount   Account? @relation("GirviReleaseCardAccount", fields: [rel_card_acc_id], references: [acc_id])
+
+  @@map("girvi_release")
 }
