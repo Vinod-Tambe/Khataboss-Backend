@@ -25,4 +25,16 @@ router.get(
   (req, res) => girviController.getGirviById(req, res)
 );
 
+router.put(
+  "/:id",
+  authenticateOwner,
+  (req, res) => girviController.updateGirvi(req, res)
+);
+
+router.post(
+  "/:id/transfer",
+  authenticateOwner,
+  (req, res) => girviController.transferLoan(req, res)
+);
+
 module.exports = router;

@@ -476,6 +476,8 @@ exports.Prisma.GirviScalarFieldEnum = {
   girv_roi: 'girv_roi',
   girv_roi_type: 'girv_roi_type',
   girv_type: 'girv_type',
+  girv_interest_method: 'girv_interest_method',
+  girv_compound_freq: 'girv_compound_freq',
   girv_final_amt: 'girv_final_amt',
   girv_status: 'girv_status',
   girv_first_int: 'girv_first_int',
@@ -496,6 +498,8 @@ exports.Prisma.GirviScalarFieldEnum = {
   girv_dr_acc_id: 'girv_dr_acc_id',
   girv_other_info: 'girv_other_info',
   girv_pay_info: 'girv_pay_info',
+  girv_transfer_firm_id: 'girv_transfer_firm_id',
+  girv_transfer_girv_id: 'girv_transfer_girv_id',
   girv_created_at: 'girv_created_at',
   girv_created_by: 'girv_created_by',
   girv_updated_at: 'girv_updated_at',
@@ -758,10 +762,23 @@ exports.GirviType = exports.$Enums.GirviType = {
   secured: 'secured'
 };
 
+exports.GirviInterestMethod = exports.$Enums.GirviInterestMethod = {
+  simple: 'simple',
+  compound: 'compound'
+};
+
+exports.GirviCompoundFreq = exports.$Enums.GirviCompoundFreq = {
+  monthly: 'monthly',
+  quarterly: 'quarterly',
+  half_yearly: 'half_yearly',
+  yearly: 'yearly'
+};
+
 exports.GirviStatus = exports.$Enums.GirviStatus = {
   ACTIVE: 'ACTIVE',
   RELEASED: 'RELEASED',
-  CLOSED: 'CLOSED'
+  CLOSED: 'CLOSED',
+  TRANSFERRED: 'TRANSFERRED'
 };
 
 exports.StockMetalType = exports.$Enums.StockMetalType = {

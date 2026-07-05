@@ -796,6 +796,19 @@ enum GirviStatus {
   ACTIVE
   RELEASED
   CLOSED
+  TRANSFERRED
+}
+
+enum GirviInterestMethod {
+  simple
+  compound
+}
+
+enum GirviCompoundFreq {
+  monthly
+  quarterly
+  half_yearly
+  yearly
 }
 
 model Girvi {
@@ -827,6 +840,9 @@ model Girvi {
   girv_roi_type GirviRoiType
   girv_type     GirviType
 
+  girv_interest_method GirviInterestMethod @default(simple)
+  girv_compound_freq   GirviCompoundFreq?
+
   girv_final_amt Float @default(0)
 
   girv_status GirviStatus @default(ACTIVE)
@@ -854,6 +870,9 @@ model Girvi {
 
   girv_other_info String? @default("")
   girv_pay_info   String? @default("")
+
+  girv_transfer_firm_id Int?
+  girv_transfer_girv_id Int?
 
   // Audit Fields
   girv_created_at DateTime  @default(now())
