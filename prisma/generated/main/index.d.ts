@@ -83,6 +83,16 @@ export type GirviDeposit = $Result.DefaultSelection<Prisma.$GirviDepositPayload>
  * 
  */
 export type GirviRelease = $Result.DefaultSelection<Prisma.$GirviReleasePayload>
+/**
+ * Model Rate
+ * 
+ */
+export type Rate = $Result.DefaultSelection<Prisma.$RatePayload>
+/**
+ * Model Purity
+ * 
+ */
+export type Purity = $Result.DefaultSelection<Prisma.$PurityPayload>
 
 /**
  * Enums
@@ -599,6 +609,26 @@ export class PrismaClient<
     * ```
     */
   get girviRelease(): Prisma.GirviReleaseDelegate<ExtArgs>;
+
+  /**
+   * `prisma.rate`: Exposes CRUD operations for the **Rate** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Rates
+    * const rates = await prisma.rate.findMany()
+    * ```
+    */
+  get rate(): Prisma.RateDelegate<ExtArgs>;
+
+  /**
+   * `prisma.purity`: Exposes CRUD operations for the **Purity** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Purities
+    * const purities = await prisma.purity.findMany()
+    * ```
+    */
+  get purity(): Prisma.PurityDelegate<ExtArgs>;
 }
 
 export namespace Prisma {
@@ -1053,7 +1083,9 @@ export namespace Prisma {
     Stock: 'Stock',
     AdditionalPrincipal: 'AdditionalPrincipal',
     GirviDeposit: 'GirviDeposit',
-    GirviRelease: 'GirviRelease'
+    GirviRelease: 'GirviRelease',
+    Rate: 'Rate',
+    Purity: 'Purity'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1069,7 +1101,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "owner" | "firm" | "account" | "user" | "finance" | "finance_Transaction" | "finance_Money_Transaction" | "journal" | "journalTransaction" | "girvi" | "stock" | "additionalPrincipal" | "girviDeposit" | "girviRelease"
+      modelProps: "owner" | "firm" | "account" | "user" | "finance" | "finance_Transaction" | "finance_Money_Transaction" | "journal" | "journalTransaction" | "girvi" | "stock" | "additionalPrincipal" | "girviDeposit" | "girviRelease" | "rate" | "purity"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -2053,6 +2085,146 @@ export namespace Prisma {
           }
         }
       }
+      Rate: {
+        payload: Prisma.$RatePayload<ExtArgs>
+        fields: Prisma.RateFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.RateFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RatePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.RateFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RatePayload>
+          }
+          findFirst: {
+            args: Prisma.RateFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RatePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.RateFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RatePayload>
+          }
+          findMany: {
+            args: Prisma.RateFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RatePayload>[]
+          }
+          create: {
+            args: Prisma.RateCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RatePayload>
+          }
+          createMany: {
+            args: Prisma.RateCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.RateCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RatePayload>[]
+          }
+          delete: {
+            args: Prisma.RateDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RatePayload>
+          }
+          update: {
+            args: Prisma.RateUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RatePayload>
+          }
+          deleteMany: {
+            args: Prisma.RateDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.RateUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.RateUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RatePayload>
+          }
+          aggregate: {
+            args: Prisma.RateAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateRate>
+          }
+          groupBy: {
+            args: Prisma.RateGroupByArgs<ExtArgs>
+            result: $Utils.Optional<RateGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.RateCountArgs<ExtArgs>
+            result: $Utils.Optional<RateCountAggregateOutputType> | number
+          }
+        }
+      }
+      Purity: {
+        payload: Prisma.$PurityPayload<ExtArgs>
+        fields: Prisma.PurityFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.PurityFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PurityPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.PurityFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PurityPayload>
+          }
+          findFirst: {
+            args: Prisma.PurityFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PurityPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.PurityFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PurityPayload>
+          }
+          findMany: {
+            args: Prisma.PurityFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PurityPayload>[]
+          }
+          create: {
+            args: Prisma.PurityCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PurityPayload>
+          }
+          createMany: {
+            args: Prisma.PurityCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.PurityCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PurityPayload>[]
+          }
+          delete: {
+            args: Prisma.PurityDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PurityPayload>
+          }
+          update: {
+            args: Prisma.PurityUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PurityPayload>
+          }
+          deleteMany: {
+            args: Prisma.PurityDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.PurityUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.PurityUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PurityPayload>
+          }
+          aggregate: {
+            args: Prisma.PurityAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePurity>
+          }
+          groupBy: {
+            args: Prisma.PurityGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PurityGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.PurityCountArgs<ExtArgs>
+            result: $Utils.Optional<PurityCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -2227,6 +2399,8 @@ export namespace Prisma {
     additionalPrincipals: number
     deposits: number
     releases: number
+    rates: number
+    purities: number
   }
 
   export type OwnerCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2243,6 +2417,8 @@ export namespace Prisma {
     additionalPrincipals?: boolean | OwnerCountOutputTypeCountAdditionalPrincipalsArgs
     deposits?: boolean | OwnerCountOutputTypeCountDepositsArgs
     releases?: boolean | OwnerCountOutputTypeCountReleasesArgs
+    rates?: boolean | OwnerCountOutputTypeCountRatesArgs
+    purities?: boolean | OwnerCountOutputTypeCountPuritiesArgs
   }
 
   // Custom InputTypes
@@ -2347,6 +2523,20 @@ export namespace Prisma {
     where?: GirviReleaseWhereInput
   }
 
+  /**
+   * OwnerCountOutputType without action
+   */
+  export type OwnerCountOutputTypeCountRatesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RateWhereInput
+  }
+
+  /**
+   * OwnerCountOutputType without action
+   */
+  export type OwnerCountOutputTypeCountPuritiesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PurityWhereInput
+  }
+
 
   /**
    * Count Type FirmCountOutputType
@@ -2365,6 +2555,7 @@ export namespace Prisma {
     additionalPrincipals: number
     deposits: number
     releases: number
+    rates: number
   }
 
   export type FirmCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2380,6 +2571,7 @@ export namespace Prisma {
     additionalPrincipals?: boolean | FirmCountOutputTypeCountAdditionalPrincipalsArgs
     deposits?: boolean | FirmCountOutputTypeCountDepositsArgs
     releases?: boolean | FirmCountOutputTypeCountReleasesArgs
+    rates?: boolean | FirmCountOutputTypeCountRatesArgs
   }
 
   // Custom InputTypes
@@ -2475,6 +2667,13 @@ export namespace Prisma {
    */
   export type FirmCountOutputTypeCountReleasesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: GirviReleaseWhereInput
+  }
+
+  /**
+   * FirmCountOutputType without action
+   */
+  export type FirmCountOutputTypeCountRatesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RateWhereInput
   }
 
 
@@ -3579,6 +3778,8 @@ export namespace Prisma {
     additionalPrincipals?: boolean | Owner$additionalPrincipalsArgs<ExtArgs>
     deposits?: boolean | Owner$depositsArgs<ExtArgs>
     releases?: boolean | Owner$releasesArgs<ExtArgs>
+    rates?: boolean | Owner$ratesArgs<ExtArgs>
+    purities?: boolean | Owner$puritiesArgs<ExtArgs>
     _count?: boolean | OwnerCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["owner"]>
 
@@ -3672,6 +3873,8 @@ export namespace Prisma {
     additionalPrincipals?: boolean | Owner$additionalPrincipalsArgs<ExtArgs>
     deposits?: boolean | Owner$depositsArgs<ExtArgs>
     releases?: boolean | Owner$releasesArgs<ExtArgs>
+    rates?: boolean | Owner$ratesArgs<ExtArgs>
+    purities?: boolean | Owner$puritiesArgs<ExtArgs>
     _count?: boolean | OwnerCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type OwnerIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -3692,6 +3895,8 @@ export namespace Prisma {
       additionalPrincipals: Prisma.$AdditionalPrincipalPayload<ExtArgs>[]
       deposits: Prisma.$GirviDepositPayload<ExtArgs>[]
       releases: Prisma.$GirviReleasePayload<ExtArgs>[]
+      rates: Prisma.$RatePayload<ExtArgs>[]
+      purities: Prisma.$PurityPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       own_id: number
@@ -4106,6 +4311,8 @@ export namespace Prisma {
     additionalPrincipals<T extends Owner$additionalPrincipalsArgs<ExtArgs> = {}>(args?: Subset<T, Owner$additionalPrincipalsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AdditionalPrincipalPayload<ExtArgs>, T, "findMany"> | Null>
     deposits<T extends Owner$depositsArgs<ExtArgs> = {}>(args?: Subset<T, Owner$depositsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GirviDepositPayload<ExtArgs>, T, "findMany"> | Null>
     releases<T extends Owner$releasesArgs<ExtArgs> = {}>(args?: Subset<T, Owner$releasesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GirviReleasePayload<ExtArgs>, T, "findMany"> | Null>
+    rates<T extends Owner$ratesArgs<ExtArgs> = {}>(args?: Subset<T, Owner$ratesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RatePayload<ExtArgs>, T, "findMany"> | Null>
+    purities<T extends Owner$puritiesArgs<ExtArgs> = {}>(args?: Subset<T, Owner$puritiesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PurityPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4744,6 +4951,46 @@ export namespace Prisma {
   }
 
   /**
+   * Owner.rates
+   */
+  export type Owner$ratesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rate
+     */
+    select?: RateSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RateInclude<ExtArgs> | null
+    where?: RateWhereInput
+    orderBy?: RateOrderByWithRelationInput | RateOrderByWithRelationInput[]
+    cursor?: RateWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: RateScalarFieldEnum | RateScalarFieldEnum[]
+  }
+
+  /**
+   * Owner.purities
+   */
+  export type Owner$puritiesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Purity
+     */
+    select?: PuritySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PurityInclude<ExtArgs> | null
+    where?: PurityWhereInput
+    orderBy?: PurityOrderByWithRelationInput | PurityOrderByWithRelationInput[]
+    cursor?: PurityWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PurityScalarFieldEnum | PurityScalarFieldEnum[]
+  }
+
+  /**
    * Owner without action
    */
   export type OwnerDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5305,6 +5552,7 @@ export namespace Prisma {
     additionalPrincipals?: boolean | Firm$additionalPrincipalsArgs<ExtArgs>
     deposits?: boolean | Firm$depositsArgs<ExtArgs>
     releases?: boolean | Firm$releasesArgs<ExtArgs>
+    rates?: boolean | Firm$ratesArgs<ExtArgs>
     _count?: boolean | FirmCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["firm"]>
 
@@ -5427,6 +5675,7 @@ export namespace Prisma {
     additionalPrincipals?: boolean | Firm$additionalPrincipalsArgs<ExtArgs>
     deposits?: boolean | Firm$depositsArgs<ExtArgs>
     releases?: boolean | Firm$releasesArgs<ExtArgs>
+    rates?: boolean | Firm$ratesArgs<ExtArgs>
     _count?: boolean | FirmCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type FirmIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5449,6 +5698,7 @@ export namespace Prisma {
       additionalPrincipals: Prisma.$AdditionalPrincipalPayload<ExtArgs>[]
       deposits: Prisma.$GirviDepositPayload<ExtArgs>[]
       releases: Prisma.$GirviReleasePayload<ExtArgs>[]
+      rates: Prisma.$RatePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       firm_id: number
@@ -5877,6 +6127,7 @@ export namespace Prisma {
     additionalPrincipals<T extends Firm$additionalPrincipalsArgs<ExtArgs> = {}>(args?: Subset<T, Firm$additionalPrincipalsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AdditionalPrincipalPayload<ExtArgs>, T, "findMany"> | Null>
     deposits<T extends Firm$depositsArgs<ExtArgs> = {}>(args?: Subset<T, Firm$depositsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GirviDepositPayload<ExtArgs>, T, "findMany"> | Null>
     releases<T extends Firm$releasesArgs<ExtArgs> = {}>(args?: Subset<T, Firm$releasesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GirviReleasePayload<ExtArgs>, T, "findMany"> | Null>
+    rates<T extends Firm$ratesArgs<ExtArgs> = {}>(args?: Subset<T, Firm$ratesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RatePayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6510,6 +6761,26 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: GirviReleaseScalarFieldEnum | GirviReleaseScalarFieldEnum[]
+  }
+
+  /**
+   * Firm.rates
+   */
+  export type Firm$ratesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rate
+     */
+    select?: RateSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RateInclude<ExtArgs> | null
+    where?: RateWhereInput
+    orderBy?: RateOrderByWithRelationInput | RateOrderByWithRelationInput[]
+    cursor?: RateWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: RateScalarFieldEnum | RateScalarFieldEnum[]
   }
 
   /**
@@ -25536,6 +25807,2206 @@ export namespace Prisma {
 
 
   /**
+   * Model Rate
+   */
+
+  export type AggregateRate = {
+    _count: RateCountAggregateOutputType | null
+    _avg: RateAvgAggregateOutputType | null
+    _sum: RateSumAggregateOutputType | null
+    _min: RateMinAggregateOutputType | null
+    _max: RateMaxAggregateOutputType | null
+  }
+
+  export type RateAvgAggregateOutputType = {
+    rate_id: number | null
+    rate_own_id: number | null
+    rate_firm_id: number | null
+    rate_amount: number | null
+  }
+
+  export type RateSumAggregateOutputType = {
+    rate_id: number | null
+    rate_own_id: number | null
+    rate_firm_id: number | null
+    rate_amount: number | null
+  }
+
+  export type RateMinAggregateOutputType = {
+    rate_id: number | null
+    rate_uuid: string | null
+    rate_own_id: number | null
+    rate_firm_id: number | null
+    rate_metal: string | null
+    rate_purity: string | null
+    rate_amount: number | null
+    rate_unit: string | null
+    rate_date: string | null
+    rate_time: string | null
+    rate_desc: string | null
+    rate_created_at: Date | null
+    rate_created_by: string | null
+    rate_updated_at: Date | null
+    rate_updated_by: string | null
+    rate_deleted_at: Date | null
+    rate_deleted_by: string | null
+    rate_is_deleted: boolean | null
+  }
+
+  export type RateMaxAggregateOutputType = {
+    rate_id: number | null
+    rate_uuid: string | null
+    rate_own_id: number | null
+    rate_firm_id: number | null
+    rate_metal: string | null
+    rate_purity: string | null
+    rate_amount: number | null
+    rate_unit: string | null
+    rate_date: string | null
+    rate_time: string | null
+    rate_desc: string | null
+    rate_created_at: Date | null
+    rate_created_by: string | null
+    rate_updated_at: Date | null
+    rate_updated_by: string | null
+    rate_deleted_at: Date | null
+    rate_deleted_by: string | null
+    rate_is_deleted: boolean | null
+  }
+
+  export type RateCountAggregateOutputType = {
+    rate_id: number
+    rate_uuid: number
+    rate_own_id: number
+    rate_firm_id: number
+    rate_metal: number
+    rate_purity: number
+    rate_amount: number
+    rate_unit: number
+    rate_date: number
+    rate_time: number
+    rate_desc: number
+    rate_created_at: number
+    rate_created_by: number
+    rate_updated_at: number
+    rate_updated_by: number
+    rate_deleted_at: number
+    rate_deleted_by: number
+    rate_is_deleted: number
+    _all: number
+  }
+
+
+  export type RateAvgAggregateInputType = {
+    rate_id?: true
+    rate_own_id?: true
+    rate_firm_id?: true
+    rate_amount?: true
+  }
+
+  export type RateSumAggregateInputType = {
+    rate_id?: true
+    rate_own_id?: true
+    rate_firm_id?: true
+    rate_amount?: true
+  }
+
+  export type RateMinAggregateInputType = {
+    rate_id?: true
+    rate_uuid?: true
+    rate_own_id?: true
+    rate_firm_id?: true
+    rate_metal?: true
+    rate_purity?: true
+    rate_amount?: true
+    rate_unit?: true
+    rate_date?: true
+    rate_time?: true
+    rate_desc?: true
+    rate_created_at?: true
+    rate_created_by?: true
+    rate_updated_at?: true
+    rate_updated_by?: true
+    rate_deleted_at?: true
+    rate_deleted_by?: true
+    rate_is_deleted?: true
+  }
+
+  export type RateMaxAggregateInputType = {
+    rate_id?: true
+    rate_uuid?: true
+    rate_own_id?: true
+    rate_firm_id?: true
+    rate_metal?: true
+    rate_purity?: true
+    rate_amount?: true
+    rate_unit?: true
+    rate_date?: true
+    rate_time?: true
+    rate_desc?: true
+    rate_created_at?: true
+    rate_created_by?: true
+    rate_updated_at?: true
+    rate_updated_by?: true
+    rate_deleted_at?: true
+    rate_deleted_by?: true
+    rate_is_deleted?: true
+  }
+
+  export type RateCountAggregateInputType = {
+    rate_id?: true
+    rate_uuid?: true
+    rate_own_id?: true
+    rate_firm_id?: true
+    rate_metal?: true
+    rate_purity?: true
+    rate_amount?: true
+    rate_unit?: true
+    rate_date?: true
+    rate_time?: true
+    rate_desc?: true
+    rate_created_at?: true
+    rate_created_by?: true
+    rate_updated_at?: true
+    rate_updated_by?: true
+    rate_deleted_at?: true
+    rate_deleted_by?: true
+    rate_is_deleted?: true
+    _all?: true
+  }
+
+  export type RateAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Rate to aggregate.
+     */
+    where?: RateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Rates to fetch.
+     */
+    orderBy?: RateOrderByWithRelationInput | RateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: RateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Rates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Rates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Rates
+    **/
+    _count?: true | RateCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: RateAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: RateSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: RateMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: RateMaxAggregateInputType
+  }
+
+  export type GetRateAggregateType<T extends RateAggregateArgs> = {
+        [P in keyof T & keyof AggregateRate]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateRate[P]>
+      : GetScalarType<T[P], AggregateRate[P]>
+  }
+
+
+
+
+  export type RateGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RateWhereInput
+    orderBy?: RateOrderByWithAggregationInput | RateOrderByWithAggregationInput[]
+    by: RateScalarFieldEnum[] | RateScalarFieldEnum
+    having?: RateScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: RateCountAggregateInputType | true
+    _avg?: RateAvgAggregateInputType
+    _sum?: RateSumAggregateInputType
+    _min?: RateMinAggregateInputType
+    _max?: RateMaxAggregateInputType
+  }
+
+  export type RateGroupByOutputType = {
+    rate_id: number
+    rate_uuid: string
+    rate_own_id: number
+    rate_firm_id: number
+    rate_metal: string
+    rate_purity: string
+    rate_amount: number
+    rate_unit: string
+    rate_date: string
+    rate_time: string
+    rate_desc: string | null
+    rate_created_at: Date
+    rate_created_by: string | null
+    rate_updated_at: Date
+    rate_updated_by: string | null
+    rate_deleted_at: Date | null
+    rate_deleted_by: string | null
+    rate_is_deleted: boolean
+    _count: RateCountAggregateOutputType | null
+    _avg: RateAvgAggregateOutputType | null
+    _sum: RateSumAggregateOutputType | null
+    _min: RateMinAggregateOutputType | null
+    _max: RateMaxAggregateOutputType | null
+  }
+
+  type GetRateGroupByPayload<T extends RateGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<RateGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof RateGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], RateGroupByOutputType[P]>
+            : GetScalarType<T[P], RateGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type RateSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    rate_id?: boolean
+    rate_uuid?: boolean
+    rate_own_id?: boolean
+    rate_firm_id?: boolean
+    rate_metal?: boolean
+    rate_purity?: boolean
+    rate_amount?: boolean
+    rate_unit?: boolean
+    rate_date?: boolean
+    rate_time?: boolean
+    rate_desc?: boolean
+    rate_created_at?: boolean
+    rate_created_by?: boolean
+    rate_updated_at?: boolean
+    rate_updated_by?: boolean
+    rate_deleted_at?: boolean
+    rate_deleted_by?: boolean
+    rate_is_deleted?: boolean
+    owner?: boolean | OwnerDefaultArgs<ExtArgs>
+    firm?: boolean | FirmDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["rate"]>
+
+  export type RateSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    rate_id?: boolean
+    rate_uuid?: boolean
+    rate_own_id?: boolean
+    rate_firm_id?: boolean
+    rate_metal?: boolean
+    rate_purity?: boolean
+    rate_amount?: boolean
+    rate_unit?: boolean
+    rate_date?: boolean
+    rate_time?: boolean
+    rate_desc?: boolean
+    rate_created_at?: boolean
+    rate_created_by?: boolean
+    rate_updated_at?: boolean
+    rate_updated_by?: boolean
+    rate_deleted_at?: boolean
+    rate_deleted_by?: boolean
+    rate_is_deleted?: boolean
+    owner?: boolean | OwnerDefaultArgs<ExtArgs>
+    firm?: boolean | FirmDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["rate"]>
+
+  export type RateSelectScalar = {
+    rate_id?: boolean
+    rate_uuid?: boolean
+    rate_own_id?: boolean
+    rate_firm_id?: boolean
+    rate_metal?: boolean
+    rate_purity?: boolean
+    rate_amount?: boolean
+    rate_unit?: boolean
+    rate_date?: boolean
+    rate_time?: boolean
+    rate_desc?: boolean
+    rate_created_at?: boolean
+    rate_created_by?: boolean
+    rate_updated_at?: boolean
+    rate_updated_by?: boolean
+    rate_deleted_at?: boolean
+    rate_deleted_by?: boolean
+    rate_is_deleted?: boolean
+  }
+
+  export type RateInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    owner?: boolean | OwnerDefaultArgs<ExtArgs>
+    firm?: boolean | FirmDefaultArgs<ExtArgs>
+  }
+  export type RateIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    owner?: boolean | OwnerDefaultArgs<ExtArgs>
+    firm?: boolean | FirmDefaultArgs<ExtArgs>
+  }
+
+  export type $RatePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Rate"
+    objects: {
+      owner: Prisma.$OwnerPayload<ExtArgs>
+      firm: Prisma.$FirmPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      rate_id: number
+      rate_uuid: string
+      rate_own_id: number
+      rate_firm_id: number
+      rate_metal: string
+      rate_purity: string
+      rate_amount: number
+      rate_unit: string
+      rate_date: string
+      rate_time: string
+      rate_desc: string | null
+      rate_created_at: Date
+      rate_created_by: string | null
+      rate_updated_at: Date
+      rate_updated_by: string | null
+      rate_deleted_at: Date | null
+      rate_deleted_by: string | null
+      rate_is_deleted: boolean
+    }, ExtArgs["result"]["rate"]>
+    composites: {}
+  }
+
+  type RateGetPayload<S extends boolean | null | undefined | RateDefaultArgs> = $Result.GetResult<Prisma.$RatePayload, S>
+
+  type RateCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<RateFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: RateCountAggregateInputType | true
+    }
+
+  export interface RateDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Rate'], meta: { name: 'Rate' } }
+    /**
+     * Find zero or one Rate that matches the filter.
+     * @param {RateFindUniqueArgs} args - Arguments to find a Rate
+     * @example
+     * // Get one Rate
+     * const rate = await prisma.rate.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends RateFindUniqueArgs>(args: SelectSubset<T, RateFindUniqueArgs<ExtArgs>>): Prisma__RateClient<$Result.GetResult<Prisma.$RatePayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one Rate that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {RateFindUniqueOrThrowArgs} args - Arguments to find a Rate
+     * @example
+     * // Get one Rate
+     * const rate = await prisma.rate.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends RateFindUniqueOrThrowArgs>(args: SelectSubset<T, RateFindUniqueOrThrowArgs<ExtArgs>>): Prisma__RateClient<$Result.GetResult<Prisma.$RatePayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first Rate that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RateFindFirstArgs} args - Arguments to find a Rate
+     * @example
+     * // Get one Rate
+     * const rate = await prisma.rate.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends RateFindFirstArgs>(args?: SelectSubset<T, RateFindFirstArgs<ExtArgs>>): Prisma__RateClient<$Result.GetResult<Prisma.$RatePayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first Rate that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RateFindFirstOrThrowArgs} args - Arguments to find a Rate
+     * @example
+     * // Get one Rate
+     * const rate = await prisma.rate.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends RateFindFirstOrThrowArgs>(args?: SelectSubset<T, RateFindFirstOrThrowArgs<ExtArgs>>): Prisma__RateClient<$Result.GetResult<Prisma.$RatePayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more Rates that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RateFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Rates
+     * const rates = await prisma.rate.findMany()
+     * 
+     * // Get first 10 Rates
+     * const rates = await prisma.rate.findMany({ take: 10 })
+     * 
+     * // Only select the `rate_id`
+     * const rateWithRate_idOnly = await prisma.rate.findMany({ select: { rate_id: true } })
+     * 
+     */
+    findMany<T extends RateFindManyArgs>(args?: SelectSubset<T, RateFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RatePayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a Rate.
+     * @param {RateCreateArgs} args - Arguments to create a Rate.
+     * @example
+     * // Create one Rate
+     * const Rate = await prisma.rate.create({
+     *   data: {
+     *     // ... data to create a Rate
+     *   }
+     * })
+     * 
+     */
+    create<T extends RateCreateArgs>(args: SelectSubset<T, RateCreateArgs<ExtArgs>>): Prisma__RateClient<$Result.GetResult<Prisma.$RatePayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many Rates.
+     * @param {RateCreateManyArgs} args - Arguments to create many Rates.
+     * @example
+     * // Create many Rates
+     * const rate = await prisma.rate.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends RateCreateManyArgs>(args?: SelectSubset<T, RateCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Rates and returns the data saved in the database.
+     * @param {RateCreateManyAndReturnArgs} args - Arguments to create many Rates.
+     * @example
+     * // Create many Rates
+     * const rate = await prisma.rate.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Rates and only return the `rate_id`
+     * const rateWithRate_idOnly = await prisma.rate.createManyAndReturn({ 
+     *   select: { rate_id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends RateCreateManyAndReturnArgs>(args?: SelectSubset<T, RateCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RatePayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a Rate.
+     * @param {RateDeleteArgs} args - Arguments to delete one Rate.
+     * @example
+     * // Delete one Rate
+     * const Rate = await prisma.rate.delete({
+     *   where: {
+     *     // ... filter to delete one Rate
+     *   }
+     * })
+     * 
+     */
+    delete<T extends RateDeleteArgs>(args: SelectSubset<T, RateDeleteArgs<ExtArgs>>): Prisma__RateClient<$Result.GetResult<Prisma.$RatePayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one Rate.
+     * @param {RateUpdateArgs} args - Arguments to update one Rate.
+     * @example
+     * // Update one Rate
+     * const rate = await prisma.rate.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends RateUpdateArgs>(args: SelectSubset<T, RateUpdateArgs<ExtArgs>>): Prisma__RateClient<$Result.GetResult<Prisma.$RatePayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more Rates.
+     * @param {RateDeleteManyArgs} args - Arguments to filter Rates to delete.
+     * @example
+     * // Delete a few Rates
+     * const { count } = await prisma.rate.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends RateDeleteManyArgs>(args?: SelectSubset<T, RateDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Rates.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RateUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Rates
+     * const rate = await prisma.rate.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends RateUpdateManyArgs>(args: SelectSubset<T, RateUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Rate.
+     * @param {RateUpsertArgs} args - Arguments to update or create a Rate.
+     * @example
+     * // Update or create a Rate
+     * const rate = await prisma.rate.upsert({
+     *   create: {
+     *     // ... data to create a Rate
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Rate we want to update
+     *   }
+     * })
+     */
+    upsert<T extends RateUpsertArgs>(args: SelectSubset<T, RateUpsertArgs<ExtArgs>>): Prisma__RateClient<$Result.GetResult<Prisma.$RatePayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of Rates.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RateCountArgs} args - Arguments to filter Rates to count.
+     * @example
+     * // Count the number of Rates
+     * const count = await prisma.rate.count({
+     *   where: {
+     *     // ... the filter for the Rates we want to count
+     *   }
+     * })
+    **/
+    count<T extends RateCountArgs>(
+      args?: Subset<T, RateCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], RateCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Rate.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RateAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends RateAggregateArgs>(args: Subset<T, RateAggregateArgs>): Prisma.PrismaPromise<GetRateAggregateType<T>>
+
+    /**
+     * Group by Rate.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RateGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends RateGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: RateGroupByArgs['orderBy'] }
+        : { orderBy?: RateGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, RateGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetRateGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Rate model
+   */
+  readonly fields: RateFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Rate.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__RateClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    owner<T extends OwnerDefaultArgs<ExtArgs> = {}>(args?: Subset<T, OwnerDefaultArgs<ExtArgs>>): Prisma__OwnerClient<$Result.GetResult<Prisma.$OwnerPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    firm<T extends FirmDefaultArgs<ExtArgs> = {}>(args?: Subset<T, FirmDefaultArgs<ExtArgs>>): Prisma__FirmClient<$Result.GetResult<Prisma.$FirmPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Rate model
+   */ 
+  interface RateFieldRefs {
+    readonly rate_id: FieldRef<"Rate", 'Int'>
+    readonly rate_uuid: FieldRef<"Rate", 'String'>
+    readonly rate_own_id: FieldRef<"Rate", 'Int'>
+    readonly rate_firm_id: FieldRef<"Rate", 'Int'>
+    readonly rate_metal: FieldRef<"Rate", 'String'>
+    readonly rate_purity: FieldRef<"Rate", 'String'>
+    readonly rate_amount: FieldRef<"Rate", 'Float'>
+    readonly rate_unit: FieldRef<"Rate", 'String'>
+    readonly rate_date: FieldRef<"Rate", 'String'>
+    readonly rate_time: FieldRef<"Rate", 'String'>
+    readonly rate_desc: FieldRef<"Rate", 'String'>
+    readonly rate_created_at: FieldRef<"Rate", 'DateTime'>
+    readonly rate_created_by: FieldRef<"Rate", 'String'>
+    readonly rate_updated_at: FieldRef<"Rate", 'DateTime'>
+    readonly rate_updated_by: FieldRef<"Rate", 'String'>
+    readonly rate_deleted_at: FieldRef<"Rate", 'DateTime'>
+    readonly rate_deleted_by: FieldRef<"Rate", 'String'>
+    readonly rate_is_deleted: FieldRef<"Rate", 'Boolean'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Rate findUnique
+   */
+  export type RateFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rate
+     */
+    select?: RateSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RateInclude<ExtArgs> | null
+    /**
+     * Filter, which Rate to fetch.
+     */
+    where: RateWhereUniqueInput
+  }
+
+  /**
+   * Rate findUniqueOrThrow
+   */
+  export type RateFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rate
+     */
+    select?: RateSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RateInclude<ExtArgs> | null
+    /**
+     * Filter, which Rate to fetch.
+     */
+    where: RateWhereUniqueInput
+  }
+
+  /**
+   * Rate findFirst
+   */
+  export type RateFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rate
+     */
+    select?: RateSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RateInclude<ExtArgs> | null
+    /**
+     * Filter, which Rate to fetch.
+     */
+    where?: RateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Rates to fetch.
+     */
+    orderBy?: RateOrderByWithRelationInput | RateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Rates.
+     */
+    cursor?: RateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Rates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Rates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Rates.
+     */
+    distinct?: RateScalarFieldEnum | RateScalarFieldEnum[]
+  }
+
+  /**
+   * Rate findFirstOrThrow
+   */
+  export type RateFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rate
+     */
+    select?: RateSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RateInclude<ExtArgs> | null
+    /**
+     * Filter, which Rate to fetch.
+     */
+    where?: RateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Rates to fetch.
+     */
+    orderBy?: RateOrderByWithRelationInput | RateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Rates.
+     */
+    cursor?: RateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Rates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Rates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Rates.
+     */
+    distinct?: RateScalarFieldEnum | RateScalarFieldEnum[]
+  }
+
+  /**
+   * Rate findMany
+   */
+  export type RateFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rate
+     */
+    select?: RateSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RateInclude<ExtArgs> | null
+    /**
+     * Filter, which Rates to fetch.
+     */
+    where?: RateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Rates to fetch.
+     */
+    orderBy?: RateOrderByWithRelationInput | RateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Rates.
+     */
+    cursor?: RateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Rates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Rates.
+     */
+    skip?: number
+    distinct?: RateScalarFieldEnum | RateScalarFieldEnum[]
+  }
+
+  /**
+   * Rate create
+   */
+  export type RateCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rate
+     */
+    select?: RateSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RateInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Rate.
+     */
+    data: XOR<RateCreateInput, RateUncheckedCreateInput>
+  }
+
+  /**
+   * Rate createMany
+   */
+  export type RateCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Rates.
+     */
+    data: RateCreateManyInput | RateCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Rate createManyAndReturn
+   */
+  export type RateCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rate
+     */
+    select?: RateSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many Rates.
+     */
+    data: RateCreateManyInput | RateCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RateIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Rate update
+   */
+  export type RateUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rate
+     */
+    select?: RateSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RateInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Rate.
+     */
+    data: XOR<RateUpdateInput, RateUncheckedUpdateInput>
+    /**
+     * Choose, which Rate to update.
+     */
+    where: RateWhereUniqueInput
+  }
+
+  /**
+   * Rate updateMany
+   */
+  export type RateUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Rates.
+     */
+    data: XOR<RateUpdateManyMutationInput, RateUncheckedUpdateManyInput>
+    /**
+     * Filter which Rates to update
+     */
+    where?: RateWhereInput
+  }
+
+  /**
+   * Rate upsert
+   */
+  export type RateUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rate
+     */
+    select?: RateSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RateInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Rate to update in case it exists.
+     */
+    where: RateWhereUniqueInput
+    /**
+     * In case the Rate found by the `where` argument doesn't exist, create a new Rate with this data.
+     */
+    create: XOR<RateCreateInput, RateUncheckedCreateInput>
+    /**
+     * In case the Rate was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<RateUpdateInput, RateUncheckedUpdateInput>
+  }
+
+  /**
+   * Rate delete
+   */
+  export type RateDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rate
+     */
+    select?: RateSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RateInclude<ExtArgs> | null
+    /**
+     * Filter which Rate to delete.
+     */
+    where: RateWhereUniqueInput
+  }
+
+  /**
+   * Rate deleteMany
+   */
+  export type RateDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Rates to delete
+     */
+    where?: RateWhereInput
+  }
+
+  /**
+   * Rate without action
+   */
+  export type RateDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rate
+     */
+    select?: RateSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RateInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Purity
+   */
+
+  export type AggregatePurity = {
+    _count: PurityCountAggregateOutputType | null
+    _avg: PurityAvgAggregateOutputType | null
+    _sum: PuritySumAggregateOutputType | null
+    _min: PurityMinAggregateOutputType | null
+    _max: PurityMaxAggregateOutputType | null
+  }
+
+  export type PurityAvgAggregateOutputType = {
+    purity_id: number | null
+    purity_own_id: number | null
+    purity_value: number | null
+  }
+
+  export type PuritySumAggregateOutputType = {
+    purity_id: number | null
+    purity_own_id: number | null
+    purity_value: number | null
+  }
+
+  export type PurityMinAggregateOutputType = {
+    purity_id: number | null
+    purity_uuid: string | null
+    purity_own_id: number | null
+    purity_metal: string | null
+    purity_name: string | null
+    purity_value: number | null
+    purity_desc: string | null
+    purity_is_deleted: boolean | null
+    purity_created_by: string | null
+    purity_updated_by: string | null
+    purity_created_at: Date | null
+    purity_updated_at: Date | null
+  }
+
+  export type PurityMaxAggregateOutputType = {
+    purity_id: number | null
+    purity_uuid: string | null
+    purity_own_id: number | null
+    purity_metal: string | null
+    purity_name: string | null
+    purity_value: number | null
+    purity_desc: string | null
+    purity_is_deleted: boolean | null
+    purity_created_by: string | null
+    purity_updated_by: string | null
+    purity_created_at: Date | null
+    purity_updated_at: Date | null
+  }
+
+  export type PurityCountAggregateOutputType = {
+    purity_id: number
+    purity_uuid: number
+    purity_own_id: number
+    purity_metal: number
+    purity_name: number
+    purity_value: number
+    purity_desc: number
+    purity_is_deleted: number
+    purity_created_by: number
+    purity_updated_by: number
+    purity_created_at: number
+    purity_updated_at: number
+    _all: number
+  }
+
+
+  export type PurityAvgAggregateInputType = {
+    purity_id?: true
+    purity_own_id?: true
+    purity_value?: true
+  }
+
+  export type PuritySumAggregateInputType = {
+    purity_id?: true
+    purity_own_id?: true
+    purity_value?: true
+  }
+
+  export type PurityMinAggregateInputType = {
+    purity_id?: true
+    purity_uuid?: true
+    purity_own_id?: true
+    purity_metal?: true
+    purity_name?: true
+    purity_value?: true
+    purity_desc?: true
+    purity_is_deleted?: true
+    purity_created_by?: true
+    purity_updated_by?: true
+    purity_created_at?: true
+    purity_updated_at?: true
+  }
+
+  export type PurityMaxAggregateInputType = {
+    purity_id?: true
+    purity_uuid?: true
+    purity_own_id?: true
+    purity_metal?: true
+    purity_name?: true
+    purity_value?: true
+    purity_desc?: true
+    purity_is_deleted?: true
+    purity_created_by?: true
+    purity_updated_by?: true
+    purity_created_at?: true
+    purity_updated_at?: true
+  }
+
+  export type PurityCountAggregateInputType = {
+    purity_id?: true
+    purity_uuid?: true
+    purity_own_id?: true
+    purity_metal?: true
+    purity_name?: true
+    purity_value?: true
+    purity_desc?: true
+    purity_is_deleted?: true
+    purity_created_by?: true
+    purity_updated_by?: true
+    purity_created_at?: true
+    purity_updated_at?: true
+    _all?: true
+  }
+
+  export type PurityAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Purity to aggregate.
+     */
+    where?: PurityWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Purities to fetch.
+     */
+    orderBy?: PurityOrderByWithRelationInput | PurityOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PurityWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Purities from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Purities.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Purities
+    **/
+    _count?: true | PurityCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: PurityAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: PuritySumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PurityMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PurityMaxAggregateInputType
+  }
+
+  export type GetPurityAggregateType<T extends PurityAggregateArgs> = {
+        [P in keyof T & keyof AggregatePurity]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePurity[P]>
+      : GetScalarType<T[P], AggregatePurity[P]>
+  }
+
+
+
+
+  export type PurityGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PurityWhereInput
+    orderBy?: PurityOrderByWithAggregationInput | PurityOrderByWithAggregationInput[]
+    by: PurityScalarFieldEnum[] | PurityScalarFieldEnum
+    having?: PurityScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PurityCountAggregateInputType | true
+    _avg?: PurityAvgAggregateInputType
+    _sum?: PuritySumAggregateInputType
+    _min?: PurityMinAggregateInputType
+    _max?: PurityMaxAggregateInputType
+  }
+
+  export type PurityGroupByOutputType = {
+    purity_id: number
+    purity_uuid: string
+    purity_own_id: number
+    purity_metal: string
+    purity_name: string
+    purity_value: number
+    purity_desc: string | null
+    purity_is_deleted: boolean
+    purity_created_by: string
+    purity_updated_by: string | null
+    purity_created_at: Date
+    purity_updated_at: Date
+    _count: PurityCountAggregateOutputType | null
+    _avg: PurityAvgAggregateOutputType | null
+    _sum: PuritySumAggregateOutputType | null
+    _min: PurityMinAggregateOutputType | null
+    _max: PurityMaxAggregateOutputType | null
+  }
+
+  type GetPurityGroupByPayload<T extends PurityGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PurityGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PurityGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PurityGroupByOutputType[P]>
+            : GetScalarType<T[P], PurityGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PuritySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    purity_id?: boolean
+    purity_uuid?: boolean
+    purity_own_id?: boolean
+    purity_metal?: boolean
+    purity_name?: boolean
+    purity_value?: boolean
+    purity_desc?: boolean
+    purity_is_deleted?: boolean
+    purity_created_by?: boolean
+    purity_updated_by?: boolean
+    purity_created_at?: boolean
+    purity_updated_at?: boolean
+    owner?: boolean | OwnerDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["purity"]>
+
+  export type PuritySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    purity_id?: boolean
+    purity_uuid?: boolean
+    purity_own_id?: boolean
+    purity_metal?: boolean
+    purity_name?: boolean
+    purity_value?: boolean
+    purity_desc?: boolean
+    purity_is_deleted?: boolean
+    purity_created_by?: boolean
+    purity_updated_by?: boolean
+    purity_created_at?: boolean
+    purity_updated_at?: boolean
+    owner?: boolean | OwnerDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["purity"]>
+
+  export type PuritySelectScalar = {
+    purity_id?: boolean
+    purity_uuid?: boolean
+    purity_own_id?: boolean
+    purity_metal?: boolean
+    purity_name?: boolean
+    purity_value?: boolean
+    purity_desc?: boolean
+    purity_is_deleted?: boolean
+    purity_created_by?: boolean
+    purity_updated_by?: boolean
+    purity_created_at?: boolean
+    purity_updated_at?: boolean
+  }
+
+  export type PurityInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    owner?: boolean | OwnerDefaultArgs<ExtArgs>
+  }
+  export type PurityIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    owner?: boolean | OwnerDefaultArgs<ExtArgs>
+  }
+
+  export type $PurityPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Purity"
+    objects: {
+      owner: Prisma.$OwnerPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      purity_id: number
+      purity_uuid: string
+      purity_own_id: number
+      purity_metal: string
+      purity_name: string
+      purity_value: number
+      purity_desc: string | null
+      purity_is_deleted: boolean
+      purity_created_by: string
+      purity_updated_by: string | null
+      purity_created_at: Date
+      purity_updated_at: Date
+    }, ExtArgs["result"]["purity"]>
+    composites: {}
+  }
+
+  type PurityGetPayload<S extends boolean | null | undefined | PurityDefaultArgs> = $Result.GetResult<Prisma.$PurityPayload, S>
+
+  type PurityCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<PurityFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: PurityCountAggregateInputType | true
+    }
+
+  export interface PurityDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Purity'], meta: { name: 'Purity' } }
+    /**
+     * Find zero or one Purity that matches the filter.
+     * @param {PurityFindUniqueArgs} args - Arguments to find a Purity
+     * @example
+     * // Get one Purity
+     * const purity = await prisma.purity.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends PurityFindUniqueArgs>(args: SelectSubset<T, PurityFindUniqueArgs<ExtArgs>>): Prisma__PurityClient<$Result.GetResult<Prisma.$PurityPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one Purity that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {PurityFindUniqueOrThrowArgs} args - Arguments to find a Purity
+     * @example
+     * // Get one Purity
+     * const purity = await prisma.purity.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends PurityFindUniqueOrThrowArgs>(args: SelectSubset<T, PurityFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PurityClient<$Result.GetResult<Prisma.$PurityPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first Purity that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PurityFindFirstArgs} args - Arguments to find a Purity
+     * @example
+     * // Get one Purity
+     * const purity = await prisma.purity.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends PurityFindFirstArgs>(args?: SelectSubset<T, PurityFindFirstArgs<ExtArgs>>): Prisma__PurityClient<$Result.GetResult<Prisma.$PurityPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first Purity that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PurityFindFirstOrThrowArgs} args - Arguments to find a Purity
+     * @example
+     * // Get one Purity
+     * const purity = await prisma.purity.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends PurityFindFirstOrThrowArgs>(args?: SelectSubset<T, PurityFindFirstOrThrowArgs<ExtArgs>>): Prisma__PurityClient<$Result.GetResult<Prisma.$PurityPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more Purities that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PurityFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Purities
+     * const purities = await prisma.purity.findMany()
+     * 
+     * // Get first 10 Purities
+     * const purities = await prisma.purity.findMany({ take: 10 })
+     * 
+     * // Only select the `purity_id`
+     * const purityWithPurity_idOnly = await prisma.purity.findMany({ select: { purity_id: true } })
+     * 
+     */
+    findMany<T extends PurityFindManyArgs>(args?: SelectSubset<T, PurityFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PurityPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a Purity.
+     * @param {PurityCreateArgs} args - Arguments to create a Purity.
+     * @example
+     * // Create one Purity
+     * const Purity = await prisma.purity.create({
+     *   data: {
+     *     // ... data to create a Purity
+     *   }
+     * })
+     * 
+     */
+    create<T extends PurityCreateArgs>(args: SelectSubset<T, PurityCreateArgs<ExtArgs>>): Prisma__PurityClient<$Result.GetResult<Prisma.$PurityPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many Purities.
+     * @param {PurityCreateManyArgs} args - Arguments to create many Purities.
+     * @example
+     * // Create many Purities
+     * const purity = await prisma.purity.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends PurityCreateManyArgs>(args?: SelectSubset<T, PurityCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Purities and returns the data saved in the database.
+     * @param {PurityCreateManyAndReturnArgs} args - Arguments to create many Purities.
+     * @example
+     * // Create many Purities
+     * const purity = await prisma.purity.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Purities and only return the `purity_id`
+     * const purityWithPurity_idOnly = await prisma.purity.createManyAndReturn({ 
+     *   select: { purity_id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends PurityCreateManyAndReturnArgs>(args?: SelectSubset<T, PurityCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PurityPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a Purity.
+     * @param {PurityDeleteArgs} args - Arguments to delete one Purity.
+     * @example
+     * // Delete one Purity
+     * const Purity = await prisma.purity.delete({
+     *   where: {
+     *     // ... filter to delete one Purity
+     *   }
+     * })
+     * 
+     */
+    delete<T extends PurityDeleteArgs>(args: SelectSubset<T, PurityDeleteArgs<ExtArgs>>): Prisma__PurityClient<$Result.GetResult<Prisma.$PurityPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one Purity.
+     * @param {PurityUpdateArgs} args - Arguments to update one Purity.
+     * @example
+     * // Update one Purity
+     * const purity = await prisma.purity.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends PurityUpdateArgs>(args: SelectSubset<T, PurityUpdateArgs<ExtArgs>>): Prisma__PurityClient<$Result.GetResult<Prisma.$PurityPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more Purities.
+     * @param {PurityDeleteManyArgs} args - Arguments to filter Purities to delete.
+     * @example
+     * // Delete a few Purities
+     * const { count } = await prisma.purity.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends PurityDeleteManyArgs>(args?: SelectSubset<T, PurityDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Purities.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PurityUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Purities
+     * const purity = await prisma.purity.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends PurityUpdateManyArgs>(args: SelectSubset<T, PurityUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Purity.
+     * @param {PurityUpsertArgs} args - Arguments to update or create a Purity.
+     * @example
+     * // Update or create a Purity
+     * const purity = await prisma.purity.upsert({
+     *   create: {
+     *     // ... data to create a Purity
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Purity we want to update
+     *   }
+     * })
+     */
+    upsert<T extends PurityUpsertArgs>(args: SelectSubset<T, PurityUpsertArgs<ExtArgs>>): Prisma__PurityClient<$Result.GetResult<Prisma.$PurityPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of Purities.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PurityCountArgs} args - Arguments to filter Purities to count.
+     * @example
+     * // Count the number of Purities
+     * const count = await prisma.purity.count({
+     *   where: {
+     *     // ... the filter for the Purities we want to count
+     *   }
+     * })
+    **/
+    count<T extends PurityCountArgs>(
+      args?: Subset<T, PurityCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PurityCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Purity.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PurityAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PurityAggregateArgs>(args: Subset<T, PurityAggregateArgs>): Prisma.PrismaPromise<GetPurityAggregateType<T>>
+
+    /**
+     * Group by Purity.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PurityGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PurityGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PurityGroupByArgs['orderBy'] }
+        : { orderBy?: PurityGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PurityGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPurityGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Purity model
+   */
+  readonly fields: PurityFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Purity.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PurityClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    owner<T extends OwnerDefaultArgs<ExtArgs> = {}>(args?: Subset<T, OwnerDefaultArgs<ExtArgs>>): Prisma__OwnerClient<$Result.GetResult<Prisma.$OwnerPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Purity model
+   */ 
+  interface PurityFieldRefs {
+    readonly purity_id: FieldRef<"Purity", 'Int'>
+    readonly purity_uuid: FieldRef<"Purity", 'String'>
+    readonly purity_own_id: FieldRef<"Purity", 'Int'>
+    readonly purity_metal: FieldRef<"Purity", 'String'>
+    readonly purity_name: FieldRef<"Purity", 'String'>
+    readonly purity_value: FieldRef<"Purity", 'Float'>
+    readonly purity_desc: FieldRef<"Purity", 'String'>
+    readonly purity_is_deleted: FieldRef<"Purity", 'Boolean'>
+    readonly purity_created_by: FieldRef<"Purity", 'String'>
+    readonly purity_updated_by: FieldRef<"Purity", 'String'>
+    readonly purity_created_at: FieldRef<"Purity", 'DateTime'>
+    readonly purity_updated_at: FieldRef<"Purity", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Purity findUnique
+   */
+  export type PurityFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Purity
+     */
+    select?: PuritySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PurityInclude<ExtArgs> | null
+    /**
+     * Filter, which Purity to fetch.
+     */
+    where: PurityWhereUniqueInput
+  }
+
+  /**
+   * Purity findUniqueOrThrow
+   */
+  export type PurityFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Purity
+     */
+    select?: PuritySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PurityInclude<ExtArgs> | null
+    /**
+     * Filter, which Purity to fetch.
+     */
+    where: PurityWhereUniqueInput
+  }
+
+  /**
+   * Purity findFirst
+   */
+  export type PurityFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Purity
+     */
+    select?: PuritySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PurityInclude<ExtArgs> | null
+    /**
+     * Filter, which Purity to fetch.
+     */
+    where?: PurityWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Purities to fetch.
+     */
+    orderBy?: PurityOrderByWithRelationInput | PurityOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Purities.
+     */
+    cursor?: PurityWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Purities from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Purities.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Purities.
+     */
+    distinct?: PurityScalarFieldEnum | PurityScalarFieldEnum[]
+  }
+
+  /**
+   * Purity findFirstOrThrow
+   */
+  export type PurityFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Purity
+     */
+    select?: PuritySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PurityInclude<ExtArgs> | null
+    /**
+     * Filter, which Purity to fetch.
+     */
+    where?: PurityWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Purities to fetch.
+     */
+    orderBy?: PurityOrderByWithRelationInput | PurityOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Purities.
+     */
+    cursor?: PurityWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Purities from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Purities.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Purities.
+     */
+    distinct?: PurityScalarFieldEnum | PurityScalarFieldEnum[]
+  }
+
+  /**
+   * Purity findMany
+   */
+  export type PurityFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Purity
+     */
+    select?: PuritySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PurityInclude<ExtArgs> | null
+    /**
+     * Filter, which Purities to fetch.
+     */
+    where?: PurityWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Purities to fetch.
+     */
+    orderBy?: PurityOrderByWithRelationInput | PurityOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Purities.
+     */
+    cursor?: PurityWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Purities from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Purities.
+     */
+    skip?: number
+    distinct?: PurityScalarFieldEnum | PurityScalarFieldEnum[]
+  }
+
+  /**
+   * Purity create
+   */
+  export type PurityCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Purity
+     */
+    select?: PuritySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PurityInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Purity.
+     */
+    data: XOR<PurityCreateInput, PurityUncheckedCreateInput>
+  }
+
+  /**
+   * Purity createMany
+   */
+  export type PurityCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Purities.
+     */
+    data: PurityCreateManyInput | PurityCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Purity createManyAndReturn
+   */
+  export type PurityCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Purity
+     */
+    select?: PuritySelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many Purities.
+     */
+    data: PurityCreateManyInput | PurityCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PurityIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Purity update
+   */
+  export type PurityUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Purity
+     */
+    select?: PuritySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PurityInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Purity.
+     */
+    data: XOR<PurityUpdateInput, PurityUncheckedUpdateInput>
+    /**
+     * Choose, which Purity to update.
+     */
+    where: PurityWhereUniqueInput
+  }
+
+  /**
+   * Purity updateMany
+   */
+  export type PurityUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Purities.
+     */
+    data: XOR<PurityUpdateManyMutationInput, PurityUncheckedUpdateManyInput>
+    /**
+     * Filter which Purities to update
+     */
+    where?: PurityWhereInput
+  }
+
+  /**
+   * Purity upsert
+   */
+  export type PurityUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Purity
+     */
+    select?: PuritySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PurityInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Purity to update in case it exists.
+     */
+    where: PurityWhereUniqueInput
+    /**
+     * In case the Purity found by the `where` argument doesn't exist, create a new Purity with this data.
+     */
+    create: XOR<PurityCreateInput, PurityUncheckedCreateInput>
+    /**
+     * In case the Purity was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PurityUpdateInput, PurityUncheckedUpdateInput>
+  }
+
+  /**
+   * Purity delete
+   */
+  export type PurityDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Purity
+     */
+    select?: PuritySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PurityInclude<ExtArgs> | null
+    /**
+     * Filter which Purity to delete.
+     */
+    where: PurityWhereUniqueInput
+  }
+
+  /**
+   * Purity deleteMany
+   */
+  export type PurityDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Purities to delete
+     */
+    where?: PurityWhereInput
+  }
+
+  /**
+   * Purity without action
+   */
+  export type PurityDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Purity
+     */
+    select?: PuritySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PurityInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -26128,6 +28599,48 @@ export namespace Prisma {
   export type GirviReleaseScalarFieldEnum = (typeof GirviReleaseScalarFieldEnum)[keyof typeof GirviReleaseScalarFieldEnum]
 
 
+  export const RateScalarFieldEnum: {
+    rate_id: 'rate_id',
+    rate_uuid: 'rate_uuid',
+    rate_own_id: 'rate_own_id',
+    rate_firm_id: 'rate_firm_id',
+    rate_metal: 'rate_metal',
+    rate_purity: 'rate_purity',
+    rate_amount: 'rate_amount',
+    rate_unit: 'rate_unit',
+    rate_date: 'rate_date',
+    rate_time: 'rate_time',
+    rate_desc: 'rate_desc',
+    rate_created_at: 'rate_created_at',
+    rate_created_by: 'rate_created_by',
+    rate_updated_at: 'rate_updated_at',
+    rate_updated_by: 'rate_updated_by',
+    rate_deleted_at: 'rate_deleted_at',
+    rate_deleted_by: 'rate_deleted_by',
+    rate_is_deleted: 'rate_is_deleted'
+  };
+
+  export type RateScalarFieldEnum = (typeof RateScalarFieldEnum)[keyof typeof RateScalarFieldEnum]
+
+
+  export const PurityScalarFieldEnum: {
+    purity_id: 'purity_id',
+    purity_uuid: 'purity_uuid',
+    purity_own_id: 'purity_own_id',
+    purity_metal: 'purity_metal',
+    purity_name: 'purity_name',
+    purity_value: 'purity_value',
+    purity_desc: 'purity_desc',
+    purity_is_deleted: 'purity_is_deleted',
+    purity_created_by: 'purity_created_by',
+    purity_updated_by: 'purity_updated_by',
+    purity_created_at: 'purity_created_at',
+    purity_updated_at: 'purity_updated_at'
+  };
+
+  export type PurityScalarFieldEnum = (typeof PurityScalarFieldEnum)[keyof typeof PurityScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -26565,6 +29078,8 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalListRelationFilter
     deposits?: GirviDepositListRelationFilter
     releases?: GirviReleaseListRelationFilter
+    rates?: RateListRelationFilter
+    purities?: PurityListRelationFilter
   }
 
   export type OwnerOrderByWithRelationInput = {
@@ -26616,6 +29131,8 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalOrderByRelationAggregateInput
     deposits?: GirviDepositOrderByRelationAggregateInput
     releases?: GirviReleaseOrderByRelationAggregateInput
+    rates?: RateOrderByRelationAggregateInput
+    purities?: PurityOrderByRelationAggregateInput
   }
 
   export type OwnerWhereUniqueInput = Prisma.AtLeast<{
@@ -26670,6 +29187,8 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalListRelationFilter
     deposits?: GirviDepositListRelationFilter
     releases?: GirviReleaseListRelationFilter
+    rates?: RateListRelationFilter
+    purities?: PurityListRelationFilter
   }, "own_id" | "own_uuid" | "own_product_key" | "own_db" | "own_mobile_no" | "own_email" | "own_login_id">
 
   export type OwnerOrderByWithAggregationInput = {
@@ -26822,6 +29341,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalListRelationFilter
     deposits?: GirviDepositListRelationFilter
     releases?: GirviReleaseListRelationFilter
+    rates?: RateListRelationFilter
   }
 
   export type FirmOrderByWithRelationInput = {
@@ -26887,6 +29407,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalOrderByRelationAggregateInput
     deposits?: GirviDepositOrderByRelationAggregateInput
     releases?: GirviReleaseOrderByRelationAggregateInput
+    rates?: RateOrderByRelationAggregateInput
   }
 
   export type FirmWhereUniqueInput = Prisma.AtLeast<{
@@ -26955,6 +29476,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalListRelationFilter
     deposits?: GirviDepositListRelationFilter
     releases?: GirviReleaseListRelationFilter
+    rates?: RateListRelationFilter
   }, "firm_id" | "firm_uuid" | "firm_name" | "firm_reg_no">
 
   export type FirmOrderByWithAggregationInput = {
@@ -29904,6 +32426,223 @@ export namespace Prisma {
     rel_is_deleted?: BoolWithAggregatesFilter<"GirviRelease"> | boolean
   }
 
+  export type RateWhereInput = {
+    AND?: RateWhereInput | RateWhereInput[]
+    OR?: RateWhereInput[]
+    NOT?: RateWhereInput | RateWhereInput[]
+    rate_id?: IntFilter<"Rate"> | number
+    rate_uuid?: StringFilter<"Rate"> | string
+    rate_own_id?: IntFilter<"Rate"> | number
+    rate_firm_id?: IntFilter<"Rate"> | number
+    rate_metal?: StringFilter<"Rate"> | string
+    rate_purity?: StringFilter<"Rate"> | string
+    rate_amount?: FloatFilter<"Rate"> | number
+    rate_unit?: StringFilter<"Rate"> | string
+    rate_date?: StringFilter<"Rate"> | string
+    rate_time?: StringFilter<"Rate"> | string
+    rate_desc?: StringNullableFilter<"Rate"> | string | null
+    rate_created_at?: DateTimeFilter<"Rate"> | Date | string
+    rate_created_by?: StringNullableFilter<"Rate"> | string | null
+    rate_updated_at?: DateTimeFilter<"Rate"> | Date | string
+    rate_updated_by?: StringNullableFilter<"Rate"> | string | null
+    rate_deleted_at?: DateTimeNullableFilter<"Rate"> | Date | string | null
+    rate_deleted_by?: StringNullableFilter<"Rate"> | string | null
+    rate_is_deleted?: BoolFilter<"Rate"> | boolean
+    owner?: XOR<OwnerRelationFilter, OwnerWhereInput>
+    firm?: XOR<FirmRelationFilter, FirmWhereInput>
+  }
+
+  export type RateOrderByWithRelationInput = {
+    rate_id?: SortOrder
+    rate_uuid?: SortOrder
+    rate_own_id?: SortOrder
+    rate_firm_id?: SortOrder
+    rate_metal?: SortOrder
+    rate_purity?: SortOrder
+    rate_amount?: SortOrder
+    rate_unit?: SortOrder
+    rate_date?: SortOrder
+    rate_time?: SortOrder
+    rate_desc?: SortOrderInput | SortOrder
+    rate_created_at?: SortOrder
+    rate_created_by?: SortOrderInput | SortOrder
+    rate_updated_at?: SortOrder
+    rate_updated_by?: SortOrderInput | SortOrder
+    rate_deleted_at?: SortOrderInput | SortOrder
+    rate_deleted_by?: SortOrderInput | SortOrder
+    rate_is_deleted?: SortOrder
+    owner?: OwnerOrderByWithRelationInput
+    firm?: FirmOrderByWithRelationInput
+  }
+
+  export type RateWhereUniqueInput = Prisma.AtLeast<{
+    rate_id?: number
+    rate_uuid?: string
+    AND?: RateWhereInput | RateWhereInput[]
+    OR?: RateWhereInput[]
+    NOT?: RateWhereInput | RateWhereInput[]
+    rate_own_id?: IntFilter<"Rate"> | number
+    rate_firm_id?: IntFilter<"Rate"> | number
+    rate_metal?: StringFilter<"Rate"> | string
+    rate_purity?: StringFilter<"Rate"> | string
+    rate_amount?: FloatFilter<"Rate"> | number
+    rate_unit?: StringFilter<"Rate"> | string
+    rate_date?: StringFilter<"Rate"> | string
+    rate_time?: StringFilter<"Rate"> | string
+    rate_desc?: StringNullableFilter<"Rate"> | string | null
+    rate_created_at?: DateTimeFilter<"Rate"> | Date | string
+    rate_created_by?: StringNullableFilter<"Rate"> | string | null
+    rate_updated_at?: DateTimeFilter<"Rate"> | Date | string
+    rate_updated_by?: StringNullableFilter<"Rate"> | string | null
+    rate_deleted_at?: DateTimeNullableFilter<"Rate"> | Date | string | null
+    rate_deleted_by?: StringNullableFilter<"Rate"> | string | null
+    rate_is_deleted?: BoolFilter<"Rate"> | boolean
+    owner?: XOR<OwnerRelationFilter, OwnerWhereInput>
+    firm?: XOR<FirmRelationFilter, FirmWhereInput>
+  }, "rate_id" | "rate_uuid">
+
+  export type RateOrderByWithAggregationInput = {
+    rate_id?: SortOrder
+    rate_uuid?: SortOrder
+    rate_own_id?: SortOrder
+    rate_firm_id?: SortOrder
+    rate_metal?: SortOrder
+    rate_purity?: SortOrder
+    rate_amount?: SortOrder
+    rate_unit?: SortOrder
+    rate_date?: SortOrder
+    rate_time?: SortOrder
+    rate_desc?: SortOrderInput | SortOrder
+    rate_created_at?: SortOrder
+    rate_created_by?: SortOrderInput | SortOrder
+    rate_updated_at?: SortOrder
+    rate_updated_by?: SortOrderInput | SortOrder
+    rate_deleted_at?: SortOrderInput | SortOrder
+    rate_deleted_by?: SortOrderInput | SortOrder
+    rate_is_deleted?: SortOrder
+    _count?: RateCountOrderByAggregateInput
+    _avg?: RateAvgOrderByAggregateInput
+    _max?: RateMaxOrderByAggregateInput
+    _min?: RateMinOrderByAggregateInput
+    _sum?: RateSumOrderByAggregateInput
+  }
+
+  export type RateScalarWhereWithAggregatesInput = {
+    AND?: RateScalarWhereWithAggregatesInput | RateScalarWhereWithAggregatesInput[]
+    OR?: RateScalarWhereWithAggregatesInput[]
+    NOT?: RateScalarWhereWithAggregatesInput | RateScalarWhereWithAggregatesInput[]
+    rate_id?: IntWithAggregatesFilter<"Rate"> | number
+    rate_uuid?: StringWithAggregatesFilter<"Rate"> | string
+    rate_own_id?: IntWithAggregatesFilter<"Rate"> | number
+    rate_firm_id?: IntWithAggregatesFilter<"Rate"> | number
+    rate_metal?: StringWithAggregatesFilter<"Rate"> | string
+    rate_purity?: StringWithAggregatesFilter<"Rate"> | string
+    rate_amount?: FloatWithAggregatesFilter<"Rate"> | number
+    rate_unit?: StringWithAggregatesFilter<"Rate"> | string
+    rate_date?: StringWithAggregatesFilter<"Rate"> | string
+    rate_time?: StringWithAggregatesFilter<"Rate"> | string
+    rate_desc?: StringNullableWithAggregatesFilter<"Rate"> | string | null
+    rate_created_at?: DateTimeWithAggregatesFilter<"Rate"> | Date | string
+    rate_created_by?: StringNullableWithAggregatesFilter<"Rate"> | string | null
+    rate_updated_at?: DateTimeWithAggregatesFilter<"Rate"> | Date | string
+    rate_updated_by?: StringNullableWithAggregatesFilter<"Rate"> | string | null
+    rate_deleted_at?: DateTimeNullableWithAggregatesFilter<"Rate"> | Date | string | null
+    rate_deleted_by?: StringNullableWithAggregatesFilter<"Rate"> | string | null
+    rate_is_deleted?: BoolWithAggregatesFilter<"Rate"> | boolean
+  }
+
+  export type PurityWhereInput = {
+    AND?: PurityWhereInput | PurityWhereInput[]
+    OR?: PurityWhereInput[]
+    NOT?: PurityWhereInput | PurityWhereInput[]
+    purity_id?: IntFilter<"Purity"> | number
+    purity_uuid?: StringFilter<"Purity"> | string
+    purity_own_id?: IntFilter<"Purity"> | number
+    purity_metal?: StringFilter<"Purity"> | string
+    purity_name?: StringFilter<"Purity"> | string
+    purity_value?: FloatFilter<"Purity"> | number
+    purity_desc?: StringNullableFilter<"Purity"> | string | null
+    purity_is_deleted?: BoolFilter<"Purity"> | boolean
+    purity_created_by?: StringFilter<"Purity"> | string
+    purity_updated_by?: StringNullableFilter<"Purity"> | string | null
+    purity_created_at?: DateTimeFilter<"Purity"> | Date | string
+    purity_updated_at?: DateTimeFilter<"Purity"> | Date | string
+    owner?: XOR<OwnerRelationFilter, OwnerWhereInput>
+  }
+
+  export type PurityOrderByWithRelationInput = {
+    purity_id?: SortOrder
+    purity_uuid?: SortOrder
+    purity_own_id?: SortOrder
+    purity_metal?: SortOrder
+    purity_name?: SortOrder
+    purity_value?: SortOrder
+    purity_desc?: SortOrderInput | SortOrder
+    purity_is_deleted?: SortOrder
+    purity_created_by?: SortOrder
+    purity_updated_by?: SortOrderInput | SortOrder
+    purity_created_at?: SortOrder
+    purity_updated_at?: SortOrder
+    owner?: OwnerOrderByWithRelationInput
+  }
+
+  export type PurityWhereUniqueInput = Prisma.AtLeast<{
+    purity_id?: number
+    purity_uuid?: string
+    AND?: PurityWhereInput | PurityWhereInput[]
+    OR?: PurityWhereInput[]
+    NOT?: PurityWhereInput | PurityWhereInput[]
+    purity_own_id?: IntFilter<"Purity"> | number
+    purity_metal?: StringFilter<"Purity"> | string
+    purity_name?: StringFilter<"Purity"> | string
+    purity_value?: FloatFilter<"Purity"> | number
+    purity_desc?: StringNullableFilter<"Purity"> | string | null
+    purity_is_deleted?: BoolFilter<"Purity"> | boolean
+    purity_created_by?: StringFilter<"Purity"> | string
+    purity_updated_by?: StringNullableFilter<"Purity"> | string | null
+    purity_created_at?: DateTimeFilter<"Purity"> | Date | string
+    purity_updated_at?: DateTimeFilter<"Purity"> | Date | string
+    owner?: XOR<OwnerRelationFilter, OwnerWhereInput>
+  }, "purity_id" | "purity_uuid">
+
+  export type PurityOrderByWithAggregationInput = {
+    purity_id?: SortOrder
+    purity_uuid?: SortOrder
+    purity_own_id?: SortOrder
+    purity_metal?: SortOrder
+    purity_name?: SortOrder
+    purity_value?: SortOrder
+    purity_desc?: SortOrderInput | SortOrder
+    purity_is_deleted?: SortOrder
+    purity_created_by?: SortOrder
+    purity_updated_by?: SortOrderInput | SortOrder
+    purity_created_at?: SortOrder
+    purity_updated_at?: SortOrder
+    _count?: PurityCountOrderByAggregateInput
+    _avg?: PurityAvgOrderByAggregateInput
+    _max?: PurityMaxOrderByAggregateInput
+    _min?: PurityMinOrderByAggregateInput
+    _sum?: PuritySumOrderByAggregateInput
+  }
+
+  export type PurityScalarWhereWithAggregatesInput = {
+    AND?: PurityScalarWhereWithAggregatesInput | PurityScalarWhereWithAggregatesInput[]
+    OR?: PurityScalarWhereWithAggregatesInput[]
+    NOT?: PurityScalarWhereWithAggregatesInput | PurityScalarWhereWithAggregatesInput[]
+    purity_id?: IntWithAggregatesFilter<"Purity"> | number
+    purity_uuid?: StringWithAggregatesFilter<"Purity"> | string
+    purity_own_id?: IntWithAggregatesFilter<"Purity"> | number
+    purity_metal?: StringWithAggregatesFilter<"Purity"> | string
+    purity_name?: StringWithAggregatesFilter<"Purity"> | string
+    purity_value?: FloatWithAggregatesFilter<"Purity"> | number
+    purity_desc?: StringNullableWithAggregatesFilter<"Purity"> | string | null
+    purity_is_deleted?: BoolWithAggregatesFilter<"Purity"> | boolean
+    purity_created_by?: StringWithAggregatesFilter<"Purity"> | string
+    purity_updated_by?: StringNullableWithAggregatesFilter<"Purity"> | string | null
+    purity_created_at?: DateTimeWithAggregatesFilter<"Purity"> | Date | string
+    purity_updated_at?: DateTimeWithAggregatesFilter<"Purity"> | Date | string
+  }
+
   export type OwnerCreateInput = {
     own_uuid?: string
     own_product_key?: number
@@ -29952,6 +32691,8 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutOwnerInput
     deposits?: GirviDepositCreateNestedManyWithoutOwnerInput
     releases?: GirviReleaseCreateNestedManyWithoutOwnerInput
+    rates?: RateCreateNestedManyWithoutOwnerInput
+    purities?: PurityCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerUncheckedCreateInput = {
@@ -30003,6 +32744,8 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutOwnerInput
     deposits?: GirviDepositUncheckedCreateNestedManyWithoutOwnerInput
     releases?: GirviReleaseUncheckedCreateNestedManyWithoutOwnerInput
+    rates?: RateUncheckedCreateNestedManyWithoutOwnerInput
+    purities?: PurityUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerUpdateInput = {
@@ -30052,6 +32795,8 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutOwnerNestedInput
     deposits?: GirviDepositUpdateManyWithoutOwnerNestedInput
     releases?: GirviReleaseUpdateManyWithoutOwnerNestedInput
+    rates?: RateUpdateManyWithoutOwnerNestedInput
+    purities?: PurityUpdateManyWithoutOwnerNestedInput
   }
 
   export type OwnerUncheckedUpdateInput = {
@@ -30103,6 +32848,8 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutOwnerNestedInput
     deposits?: GirviDepositUncheckedUpdateManyWithoutOwnerNestedInput
     releases?: GirviReleaseUncheckedUpdateManyWithoutOwnerNestedInput
+    rates?: RateUncheckedUpdateManyWithoutOwnerNestedInput
+    purities?: PurityUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
   export type OwnerCreateManyInput = {
@@ -30278,6 +33025,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutFirmInput
     deposits?: GirviDepositCreateNestedManyWithoutFirmInput
     releases?: GirviReleaseCreateNestedManyWithoutFirmInput
+    rates?: RateCreateNestedManyWithoutFirmInput
   }
 
   export type FirmUncheckedCreateInput = {
@@ -30342,6 +33090,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutFirmInput
     deposits?: GirviDepositUncheckedCreateNestedManyWithoutFirmInput
     releases?: GirviReleaseUncheckedCreateNestedManyWithoutFirmInput
+    rates?: RateUncheckedCreateNestedManyWithoutFirmInput
   }
 
   export type FirmUpdateInput = {
@@ -30405,6 +33154,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutFirmNestedInput
     deposits?: GirviDepositUpdateManyWithoutFirmNestedInput
     releases?: GirviReleaseUpdateManyWithoutFirmNestedInput
+    rates?: RateUpdateManyWithoutFirmNestedInput
   }
 
   export type FirmUncheckedUpdateInput = {
@@ -30469,6 +33219,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutFirmNestedInput
     deposits?: GirviDepositUncheckedUpdateManyWithoutFirmNestedInput
     releases?: GirviReleaseUncheckedUpdateManyWithoutFirmNestedInput
+    rates?: RateUncheckedUpdateManyWithoutFirmNestedInput
   }
 
   export type FirmCreateManyInput = {
@@ -33874,6 +36625,249 @@ export namespace Prisma {
     rel_is_deleted?: BoolFieldUpdateOperationsInput | boolean
   }
 
+  export type RateCreateInput = {
+    rate_uuid?: string
+    rate_metal: string
+    rate_purity: string
+    rate_amount: number
+    rate_unit: string
+    rate_date: string
+    rate_time: string
+    rate_desc?: string | null
+    rate_created_at?: Date | string
+    rate_created_by?: string | null
+    rate_updated_at?: Date | string
+    rate_updated_by?: string | null
+    rate_deleted_at?: Date | string | null
+    rate_deleted_by?: string | null
+    rate_is_deleted?: boolean
+    owner?: OwnerCreateNestedOneWithoutRatesInput
+    firm?: FirmCreateNestedOneWithoutRatesInput
+  }
+
+  export type RateUncheckedCreateInput = {
+    rate_id?: number
+    rate_uuid?: string
+    rate_own_id?: number
+    rate_firm_id?: number
+    rate_metal: string
+    rate_purity: string
+    rate_amount: number
+    rate_unit: string
+    rate_date: string
+    rate_time: string
+    rate_desc?: string | null
+    rate_created_at?: Date | string
+    rate_created_by?: string | null
+    rate_updated_at?: Date | string
+    rate_updated_by?: string | null
+    rate_deleted_at?: Date | string | null
+    rate_deleted_by?: string | null
+    rate_is_deleted?: boolean
+  }
+
+  export type RateUpdateInput = {
+    rate_uuid?: StringFieldUpdateOperationsInput | string
+    rate_metal?: StringFieldUpdateOperationsInput | string
+    rate_purity?: StringFieldUpdateOperationsInput | string
+    rate_amount?: FloatFieldUpdateOperationsInput | number
+    rate_unit?: StringFieldUpdateOperationsInput | string
+    rate_date?: StringFieldUpdateOperationsInput | string
+    rate_time?: StringFieldUpdateOperationsInput | string
+    rate_desc?: NullableStringFieldUpdateOperationsInput | string | null
+    rate_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    rate_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    rate_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    rate_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    rate_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rate_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    rate_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    owner?: OwnerUpdateOneRequiredWithoutRatesNestedInput
+    firm?: FirmUpdateOneRequiredWithoutRatesNestedInput
+  }
+
+  export type RateUncheckedUpdateInput = {
+    rate_id?: IntFieldUpdateOperationsInput | number
+    rate_uuid?: StringFieldUpdateOperationsInput | string
+    rate_own_id?: IntFieldUpdateOperationsInput | number
+    rate_firm_id?: IntFieldUpdateOperationsInput | number
+    rate_metal?: StringFieldUpdateOperationsInput | string
+    rate_purity?: StringFieldUpdateOperationsInput | string
+    rate_amount?: FloatFieldUpdateOperationsInput | number
+    rate_unit?: StringFieldUpdateOperationsInput | string
+    rate_date?: StringFieldUpdateOperationsInput | string
+    rate_time?: StringFieldUpdateOperationsInput | string
+    rate_desc?: NullableStringFieldUpdateOperationsInput | string | null
+    rate_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    rate_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    rate_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    rate_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    rate_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rate_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    rate_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type RateCreateManyInput = {
+    rate_id?: number
+    rate_uuid?: string
+    rate_own_id?: number
+    rate_firm_id?: number
+    rate_metal: string
+    rate_purity: string
+    rate_amount: number
+    rate_unit: string
+    rate_date: string
+    rate_time: string
+    rate_desc?: string | null
+    rate_created_at?: Date | string
+    rate_created_by?: string | null
+    rate_updated_at?: Date | string
+    rate_updated_by?: string | null
+    rate_deleted_at?: Date | string | null
+    rate_deleted_by?: string | null
+    rate_is_deleted?: boolean
+  }
+
+  export type RateUpdateManyMutationInput = {
+    rate_uuid?: StringFieldUpdateOperationsInput | string
+    rate_metal?: StringFieldUpdateOperationsInput | string
+    rate_purity?: StringFieldUpdateOperationsInput | string
+    rate_amount?: FloatFieldUpdateOperationsInput | number
+    rate_unit?: StringFieldUpdateOperationsInput | string
+    rate_date?: StringFieldUpdateOperationsInput | string
+    rate_time?: StringFieldUpdateOperationsInput | string
+    rate_desc?: NullableStringFieldUpdateOperationsInput | string | null
+    rate_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    rate_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    rate_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    rate_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    rate_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rate_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    rate_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type RateUncheckedUpdateManyInput = {
+    rate_id?: IntFieldUpdateOperationsInput | number
+    rate_uuid?: StringFieldUpdateOperationsInput | string
+    rate_own_id?: IntFieldUpdateOperationsInput | number
+    rate_firm_id?: IntFieldUpdateOperationsInput | number
+    rate_metal?: StringFieldUpdateOperationsInput | string
+    rate_purity?: StringFieldUpdateOperationsInput | string
+    rate_amount?: FloatFieldUpdateOperationsInput | number
+    rate_unit?: StringFieldUpdateOperationsInput | string
+    rate_date?: StringFieldUpdateOperationsInput | string
+    rate_time?: StringFieldUpdateOperationsInput | string
+    rate_desc?: NullableStringFieldUpdateOperationsInput | string | null
+    rate_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    rate_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    rate_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    rate_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    rate_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rate_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    rate_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type PurityCreateInput = {
+    purity_uuid?: string
+    purity_metal: string
+    purity_name: string
+    purity_value: number
+    purity_desc?: string | null
+    purity_is_deleted?: boolean
+    purity_created_by?: string
+    purity_updated_by?: string | null
+    purity_created_at?: Date | string
+    purity_updated_at?: Date | string
+    owner: OwnerCreateNestedOneWithoutPuritiesInput
+  }
+
+  export type PurityUncheckedCreateInput = {
+    purity_id?: number
+    purity_uuid?: string
+    purity_own_id: number
+    purity_metal: string
+    purity_name: string
+    purity_value: number
+    purity_desc?: string | null
+    purity_is_deleted?: boolean
+    purity_created_by?: string
+    purity_updated_by?: string | null
+    purity_created_at?: Date | string
+    purity_updated_at?: Date | string
+  }
+
+  export type PurityUpdateInput = {
+    purity_uuid?: StringFieldUpdateOperationsInput | string
+    purity_metal?: StringFieldUpdateOperationsInput | string
+    purity_name?: StringFieldUpdateOperationsInput | string
+    purity_value?: FloatFieldUpdateOperationsInput | number
+    purity_desc?: NullableStringFieldUpdateOperationsInput | string | null
+    purity_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    purity_created_by?: StringFieldUpdateOperationsInput | string
+    purity_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    purity_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    purity_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    owner?: OwnerUpdateOneRequiredWithoutPuritiesNestedInput
+  }
+
+  export type PurityUncheckedUpdateInput = {
+    purity_id?: IntFieldUpdateOperationsInput | number
+    purity_uuid?: StringFieldUpdateOperationsInput | string
+    purity_own_id?: IntFieldUpdateOperationsInput | number
+    purity_metal?: StringFieldUpdateOperationsInput | string
+    purity_name?: StringFieldUpdateOperationsInput | string
+    purity_value?: FloatFieldUpdateOperationsInput | number
+    purity_desc?: NullableStringFieldUpdateOperationsInput | string | null
+    purity_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    purity_created_by?: StringFieldUpdateOperationsInput | string
+    purity_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    purity_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    purity_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PurityCreateManyInput = {
+    purity_id?: number
+    purity_uuid?: string
+    purity_own_id: number
+    purity_metal: string
+    purity_name: string
+    purity_value: number
+    purity_desc?: string | null
+    purity_is_deleted?: boolean
+    purity_created_by?: string
+    purity_updated_by?: string | null
+    purity_created_at?: Date | string
+    purity_updated_at?: Date | string
+  }
+
+  export type PurityUpdateManyMutationInput = {
+    purity_uuid?: StringFieldUpdateOperationsInput | string
+    purity_metal?: StringFieldUpdateOperationsInput | string
+    purity_name?: StringFieldUpdateOperationsInput | string
+    purity_value?: FloatFieldUpdateOperationsInput | number
+    purity_desc?: NullableStringFieldUpdateOperationsInput | string | null
+    purity_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    purity_created_by?: StringFieldUpdateOperationsInput | string
+    purity_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    purity_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    purity_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PurityUncheckedUpdateManyInput = {
+    purity_id?: IntFieldUpdateOperationsInput | number
+    purity_uuid?: StringFieldUpdateOperationsInput | string
+    purity_own_id?: IntFieldUpdateOperationsInput | number
+    purity_metal?: StringFieldUpdateOperationsInput | string
+    purity_name?: StringFieldUpdateOperationsInput | string
+    purity_value?: FloatFieldUpdateOperationsInput | number
+    purity_desc?: NullableStringFieldUpdateOperationsInput | string | null
+    purity_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    purity_created_by?: StringFieldUpdateOperationsInput | string
+    purity_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    purity_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    purity_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type IntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -34049,6 +37043,18 @@ export namespace Prisma {
     none?: GirviReleaseWhereInput
   }
 
+  export type RateListRelationFilter = {
+    every?: RateWhereInput
+    some?: RateWhereInput
+    none?: RateWhereInput
+  }
+
+  export type PurityListRelationFilter = {
+    every?: PurityWhereInput
+    some?: PurityWhereInput
+    none?: PurityWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -34103,6 +37109,14 @@ export namespace Prisma {
   }
 
   export type GirviReleaseOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type RateOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type PurityOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -36684,6 +39698,140 @@ export namespace Prisma {
     rel_card_acc_id?: SortOrder
   }
 
+  export type RateCountOrderByAggregateInput = {
+    rate_id?: SortOrder
+    rate_uuid?: SortOrder
+    rate_own_id?: SortOrder
+    rate_firm_id?: SortOrder
+    rate_metal?: SortOrder
+    rate_purity?: SortOrder
+    rate_amount?: SortOrder
+    rate_unit?: SortOrder
+    rate_date?: SortOrder
+    rate_time?: SortOrder
+    rate_desc?: SortOrder
+    rate_created_at?: SortOrder
+    rate_created_by?: SortOrder
+    rate_updated_at?: SortOrder
+    rate_updated_by?: SortOrder
+    rate_deleted_at?: SortOrder
+    rate_deleted_by?: SortOrder
+    rate_is_deleted?: SortOrder
+  }
+
+  export type RateAvgOrderByAggregateInput = {
+    rate_id?: SortOrder
+    rate_own_id?: SortOrder
+    rate_firm_id?: SortOrder
+    rate_amount?: SortOrder
+  }
+
+  export type RateMaxOrderByAggregateInput = {
+    rate_id?: SortOrder
+    rate_uuid?: SortOrder
+    rate_own_id?: SortOrder
+    rate_firm_id?: SortOrder
+    rate_metal?: SortOrder
+    rate_purity?: SortOrder
+    rate_amount?: SortOrder
+    rate_unit?: SortOrder
+    rate_date?: SortOrder
+    rate_time?: SortOrder
+    rate_desc?: SortOrder
+    rate_created_at?: SortOrder
+    rate_created_by?: SortOrder
+    rate_updated_at?: SortOrder
+    rate_updated_by?: SortOrder
+    rate_deleted_at?: SortOrder
+    rate_deleted_by?: SortOrder
+    rate_is_deleted?: SortOrder
+  }
+
+  export type RateMinOrderByAggregateInput = {
+    rate_id?: SortOrder
+    rate_uuid?: SortOrder
+    rate_own_id?: SortOrder
+    rate_firm_id?: SortOrder
+    rate_metal?: SortOrder
+    rate_purity?: SortOrder
+    rate_amount?: SortOrder
+    rate_unit?: SortOrder
+    rate_date?: SortOrder
+    rate_time?: SortOrder
+    rate_desc?: SortOrder
+    rate_created_at?: SortOrder
+    rate_created_by?: SortOrder
+    rate_updated_at?: SortOrder
+    rate_updated_by?: SortOrder
+    rate_deleted_at?: SortOrder
+    rate_deleted_by?: SortOrder
+    rate_is_deleted?: SortOrder
+  }
+
+  export type RateSumOrderByAggregateInput = {
+    rate_id?: SortOrder
+    rate_own_id?: SortOrder
+    rate_firm_id?: SortOrder
+    rate_amount?: SortOrder
+  }
+
+  export type PurityCountOrderByAggregateInput = {
+    purity_id?: SortOrder
+    purity_uuid?: SortOrder
+    purity_own_id?: SortOrder
+    purity_metal?: SortOrder
+    purity_name?: SortOrder
+    purity_value?: SortOrder
+    purity_desc?: SortOrder
+    purity_is_deleted?: SortOrder
+    purity_created_by?: SortOrder
+    purity_updated_by?: SortOrder
+    purity_created_at?: SortOrder
+    purity_updated_at?: SortOrder
+  }
+
+  export type PurityAvgOrderByAggregateInput = {
+    purity_id?: SortOrder
+    purity_own_id?: SortOrder
+    purity_value?: SortOrder
+  }
+
+  export type PurityMaxOrderByAggregateInput = {
+    purity_id?: SortOrder
+    purity_uuid?: SortOrder
+    purity_own_id?: SortOrder
+    purity_metal?: SortOrder
+    purity_name?: SortOrder
+    purity_value?: SortOrder
+    purity_desc?: SortOrder
+    purity_is_deleted?: SortOrder
+    purity_created_by?: SortOrder
+    purity_updated_by?: SortOrder
+    purity_created_at?: SortOrder
+    purity_updated_at?: SortOrder
+  }
+
+  export type PurityMinOrderByAggregateInput = {
+    purity_id?: SortOrder
+    purity_uuid?: SortOrder
+    purity_own_id?: SortOrder
+    purity_metal?: SortOrder
+    purity_name?: SortOrder
+    purity_value?: SortOrder
+    purity_desc?: SortOrder
+    purity_is_deleted?: SortOrder
+    purity_created_by?: SortOrder
+    purity_updated_by?: SortOrder
+    purity_created_at?: SortOrder
+    purity_updated_at?: SortOrder
+  }
+
+  export type PuritySumOrderByAggregateInput = {
+    purity_id?: SortOrder
+    purity_own_id?: SortOrder
+    purity_value?: SortOrder
+  }
+
   export type UserCreateNestedManyWithoutOwnerInput = {
     create?: XOR<UserCreateWithoutOwnerInput, UserUncheckedCreateWithoutOwnerInput> | UserCreateWithoutOwnerInput[] | UserUncheckedCreateWithoutOwnerInput[]
     connectOrCreate?: UserCreateOrConnectWithoutOwnerInput | UserCreateOrConnectWithoutOwnerInput[]
@@ -36775,6 +39923,20 @@ export namespace Prisma {
     connect?: GirviReleaseWhereUniqueInput | GirviReleaseWhereUniqueInput[]
   }
 
+  export type RateCreateNestedManyWithoutOwnerInput = {
+    create?: XOR<RateCreateWithoutOwnerInput, RateUncheckedCreateWithoutOwnerInput> | RateCreateWithoutOwnerInput[] | RateUncheckedCreateWithoutOwnerInput[]
+    connectOrCreate?: RateCreateOrConnectWithoutOwnerInput | RateCreateOrConnectWithoutOwnerInput[]
+    createMany?: RateCreateManyOwnerInputEnvelope
+    connect?: RateWhereUniqueInput | RateWhereUniqueInput[]
+  }
+
+  export type PurityCreateNestedManyWithoutOwnerInput = {
+    create?: XOR<PurityCreateWithoutOwnerInput, PurityUncheckedCreateWithoutOwnerInput> | PurityCreateWithoutOwnerInput[] | PurityUncheckedCreateWithoutOwnerInput[]
+    connectOrCreate?: PurityCreateOrConnectWithoutOwnerInput | PurityCreateOrConnectWithoutOwnerInput[]
+    createMany?: PurityCreateManyOwnerInputEnvelope
+    connect?: PurityWhereUniqueInput | PurityWhereUniqueInput[]
+  }
+
   export type UserUncheckedCreateNestedManyWithoutOwnerInput = {
     create?: XOR<UserCreateWithoutOwnerInput, UserUncheckedCreateWithoutOwnerInput> | UserCreateWithoutOwnerInput[] | UserUncheckedCreateWithoutOwnerInput[]
     connectOrCreate?: UserCreateOrConnectWithoutOwnerInput | UserCreateOrConnectWithoutOwnerInput[]
@@ -36864,6 +40026,20 @@ export namespace Prisma {
     connectOrCreate?: GirviReleaseCreateOrConnectWithoutOwnerInput | GirviReleaseCreateOrConnectWithoutOwnerInput[]
     createMany?: GirviReleaseCreateManyOwnerInputEnvelope
     connect?: GirviReleaseWhereUniqueInput | GirviReleaseWhereUniqueInput[]
+  }
+
+  export type RateUncheckedCreateNestedManyWithoutOwnerInput = {
+    create?: XOR<RateCreateWithoutOwnerInput, RateUncheckedCreateWithoutOwnerInput> | RateCreateWithoutOwnerInput[] | RateUncheckedCreateWithoutOwnerInput[]
+    connectOrCreate?: RateCreateOrConnectWithoutOwnerInput | RateCreateOrConnectWithoutOwnerInput[]
+    createMany?: RateCreateManyOwnerInputEnvelope
+    connect?: RateWhereUniqueInput | RateWhereUniqueInput[]
+  }
+
+  export type PurityUncheckedCreateNestedManyWithoutOwnerInput = {
+    create?: XOR<PurityCreateWithoutOwnerInput, PurityUncheckedCreateWithoutOwnerInput> | PurityCreateWithoutOwnerInput[] | PurityUncheckedCreateWithoutOwnerInput[]
+    connectOrCreate?: PurityCreateOrConnectWithoutOwnerInput | PurityCreateOrConnectWithoutOwnerInput[]
+    createMany?: PurityCreateManyOwnerInputEnvelope
+    connect?: PurityWhereUniqueInput | PurityWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -37072,6 +40248,34 @@ export namespace Prisma {
     deleteMany?: GirviReleaseScalarWhereInput | GirviReleaseScalarWhereInput[]
   }
 
+  export type RateUpdateManyWithoutOwnerNestedInput = {
+    create?: XOR<RateCreateWithoutOwnerInput, RateUncheckedCreateWithoutOwnerInput> | RateCreateWithoutOwnerInput[] | RateUncheckedCreateWithoutOwnerInput[]
+    connectOrCreate?: RateCreateOrConnectWithoutOwnerInput | RateCreateOrConnectWithoutOwnerInput[]
+    upsert?: RateUpsertWithWhereUniqueWithoutOwnerInput | RateUpsertWithWhereUniqueWithoutOwnerInput[]
+    createMany?: RateCreateManyOwnerInputEnvelope
+    set?: RateWhereUniqueInput | RateWhereUniqueInput[]
+    disconnect?: RateWhereUniqueInput | RateWhereUniqueInput[]
+    delete?: RateWhereUniqueInput | RateWhereUniqueInput[]
+    connect?: RateWhereUniqueInput | RateWhereUniqueInput[]
+    update?: RateUpdateWithWhereUniqueWithoutOwnerInput | RateUpdateWithWhereUniqueWithoutOwnerInput[]
+    updateMany?: RateUpdateManyWithWhereWithoutOwnerInput | RateUpdateManyWithWhereWithoutOwnerInput[]
+    deleteMany?: RateScalarWhereInput | RateScalarWhereInput[]
+  }
+
+  export type PurityUpdateManyWithoutOwnerNestedInput = {
+    create?: XOR<PurityCreateWithoutOwnerInput, PurityUncheckedCreateWithoutOwnerInput> | PurityCreateWithoutOwnerInput[] | PurityUncheckedCreateWithoutOwnerInput[]
+    connectOrCreate?: PurityCreateOrConnectWithoutOwnerInput | PurityCreateOrConnectWithoutOwnerInput[]
+    upsert?: PurityUpsertWithWhereUniqueWithoutOwnerInput | PurityUpsertWithWhereUniqueWithoutOwnerInput[]
+    createMany?: PurityCreateManyOwnerInputEnvelope
+    set?: PurityWhereUniqueInput | PurityWhereUniqueInput[]
+    disconnect?: PurityWhereUniqueInput | PurityWhereUniqueInput[]
+    delete?: PurityWhereUniqueInput | PurityWhereUniqueInput[]
+    connect?: PurityWhereUniqueInput | PurityWhereUniqueInput[]
+    update?: PurityUpdateWithWhereUniqueWithoutOwnerInput | PurityUpdateWithWhereUniqueWithoutOwnerInput[]
+    updateMany?: PurityUpdateManyWithWhereWithoutOwnerInput | PurityUpdateManyWithWhereWithoutOwnerInput[]
+    deleteMany?: PurityScalarWhereInput | PurityScalarWhereInput[]
+  }
+
   export type IntFieldUpdateOperationsInput = {
     set?: number
     increment?: number
@@ -37262,6 +40466,34 @@ export namespace Prisma {
     deleteMany?: GirviReleaseScalarWhereInput | GirviReleaseScalarWhereInput[]
   }
 
+  export type RateUncheckedUpdateManyWithoutOwnerNestedInput = {
+    create?: XOR<RateCreateWithoutOwnerInput, RateUncheckedCreateWithoutOwnerInput> | RateCreateWithoutOwnerInput[] | RateUncheckedCreateWithoutOwnerInput[]
+    connectOrCreate?: RateCreateOrConnectWithoutOwnerInput | RateCreateOrConnectWithoutOwnerInput[]
+    upsert?: RateUpsertWithWhereUniqueWithoutOwnerInput | RateUpsertWithWhereUniqueWithoutOwnerInput[]
+    createMany?: RateCreateManyOwnerInputEnvelope
+    set?: RateWhereUniqueInput | RateWhereUniqueInput[]
+    disconnect?: RateWhereUniqueInput | RateWhereUniqueInput[]
+    delete?: RateWhereUniqueInput | RateWhereUniqueInput[]
+    connect?: RateWhereUniqueInput | RateWhereUniqueInput[]
+    update?: RateUpdateWithWhereUniqueWithoutOwnerInput | RateUpdateWithWhereUniqueWithoutOwnerInput[]
+    updateMany?: RateUpdateManyWithWhereWithoutOwnerInput | RateUpdateManyWithWhereWithoutOwnerInput[]
+    deleteMany?: RateScalarWhereInput | RateScalarWhereInput[]
+  }
+
+  export type PurityUncheckedUpdateManyWithoutOwnerNestedInput = {
+    create?: XOR<PurityCreateWithoutOwnerInput, PurityUncheckedCreateWithoutOwnerInput> | PurityCreateWithoutOwnerInput[] | PurityUncheckedCreateWithoutOwnerInput[]
+    connectOrCreate?: PurityCreateOrConnectWithoutOwnerInput | PurityCreateOrConnectWithoutOwnerInput[]
+    upsert?: PurityUpsertWithWhereUniqueWithoutOwnerInput | PurityUpsertWithWhereUniqueWithoutOwnerInput[]
+    createMany?: PurityCreateManyOwnerInputEnvelope
+    set?: PurityWhereUniqueInput | PurityWhereUniqueInput[]
+    disconnect?: PurityWhereUniqueInput | PurityWhereUniqueInput[]
+    delete?: PurityWhereUniqueInput | PurityWhereUniqueInput[]
+    connect?: PurityWhereUniqueInput | PurityWhereUniqueInput[]
+    update?: PurityUpdateWithWhereUniqueWithoutOwnerInput | PurityUpdateWithWhereUniqueWithoutOwnerInput[]
+    updateMany?: PurityUpdateManyWithWhereWithoutOwnerInput | PurityUpdateManyWithWhereWithoutOwnerInput[]
+    deleteMany?: PurityScalarWhereInput | PurityScalarWhereInput[]
+  }
+
   export type UserCreateNestedManyWithoutFirmInput = {
     create?: XOR<UserCreateWithoutFirmInput, UserUncheckedCreateWithoutFirmInput> | UserCreateWithoutFirmInput[] | UserUncheckedCreateWithoutFirmInput[]
     connectOrCreate?: UserCreateOrConnectWithoutFirmInput | UserCreateOrConnectWithoutFirmInput[]
@@ -37352,6 +40584,13 @@ export namespace Prisma {
     connect?: GirviReleaseWhereUniqueInput | GirviReleaseWhereUniqueInput[]
   }
 
+  export type RateCreateNestedManyWithoutFirmInput = {
+    create?: XOR<RateCreateWithoutFirmInput, RateUncheckedCreateWithoutFirmInput> | RateCreateWithoutFirmInput[] | RateUncheckedCreateWithoutFirmInput[]
+    connectOrCreate?: RateCreateOrConnectWithoutFirmInput | RateCreateOrConnectWithoutFirmInput[]
+    createMany?: RateCreateManyFirmInputEnvelope
+    connect?: RateWhereUniqueInput | RateWhereUniqueInput[]
+  }
+
   export type UserUncheckedCreateNestedManyWithoutFirmInput = {
     create?: XOR<UserCreateWithoutFirmInput, UserUncheckedCreateWithoutFirmInput> | UserCreateWithoutFirmInput[] | UserUncheckedCreateWithoutFirmInput[]
     connectOrCreate?: UserCreateOrConnectWithoutFirmInput | UserCreateOrConnectWithoutFirmInput[]
@@ -37434,6 +40673,13 @@ export namespace Prisma {
     connectOrCreate?: GirviReleaseCreateOrConnectWithoutFirmInput | GirviReleaseCreateOrConnectWithoutFirmInput[]
     createMany?: GirviReleaseCreateManyFirmInputEnvelope
     connect?: GirviReleaseWhereUniqueInput | GirviReleaseWhereUniqueInput[]
+  }
+
+  export type RateUncheckedCreateNestedManyWithoutFirmInput = {
+    create?: XOR<RateCreateWithoutFirmInput, RateUncheckedCreateWithoutFirmInput> | RateCreateWithoutFirmInput[] | RateUncheckedCreateWithoutFirmInput[]
+    connectOrCreate?: RateCreateOrConnectWithoutFirmInput | RateCreateOrConnectWithoutFirmInput[]
+    createMany?: RateCreateManyFirmInputEnvelope
+    connect?: RateWhereUniqueInput | RateWhereUniqueInput[]
   }
 
   export type EnumFirmTypeFieldUpdateOperationsInput = {
@@ -37620,6 +40866,20 @@ export namespace Prisma {
     deleteMany?: GirviReleaseScalarWhereInput | GirviReleaseScalarWhereInput[]
   }
 
+  export type RateUpdateManyWithoutFirmNestedInput = {
+    create?: XOR<RateCreateWithoutFirmInput, RateUncheckedCreateWithoutFirmInput> | RateCreateWithoutFirmInput[] | RateUncheckedCreateWithoutFirmInput[]
+    connectOrCreate?: RateCreateOrConnectWithoutFirmInput | RateCreateOrConnectWithoutFirmInput[]
+    upsert?: RateUpsertWithWhereUniqueWithoutFirmInput | RateUpsertWithWhereUniqueWithoutFirmInput[]
+    createMany?: RateCreateManyFirmInputEnvelope
+    set?: RateWhereUniqueInput | RateWhereUniqueInput[]
+    disconnect?: RateWhereUniqueInput | RateWhereUniqueInput[]
+    delete?: RateWhereUniqueInput | RateWhereUniqueInput[]
+    connect?: RateWhereUniqueInput | RateWhereUniqueInput[]
+    update?: RateUpdateWithWhereUniqueWithoutFirmInput | RateUpdateWithWhereUniqueWithoutFirmInput[]
+    updateMany?: RateUpdateManyWithWhereWithoutFirmInput | RateUpdateManyWithWhereWithoutFirmInput[]
+    deleteMany?: RateScalarWhereInput | RateScalarWhereInput[]
+  }
+
   export type UserUncheckedUpdateManyWithoutFirmNestedInput = {
     create?: XOR<UserCreateWithoutFirmInput, UserUncheckedCreateWithoutFirmInput> | UserCreateWithoutFirmInput[] | UserUncheckedCreateWithoutFirmInput[]
     connectOrCreate?: UserCreateOrConnectWithoutFirmInput | UserCreateOrConnectWithoutFirmInput[]
@@ -37786,6 +41046,20 @@ export namespace Prisma {
     update?: GirviReleaseUpdateWithWhereUniqueWithoutFirmInput | GirviReleaseUpdateWithWhereUniqueWithoutFirmInput[]
     updateMany?: GirviReleaseUpdateManyWithWhereWithoutFirmInput | GirviReleaseUpdateManyWithWhereWithoutFirmInput[]
     deleteMany?: GirviReleaseScalarWhereInput | GirviReleaseScalarWhereInput[]
+  }
+
+  export type RateUncheckedUpdateManyWithoutFirmNestedInput = {
+    create?: XOR<RateCreateWithoutFirmInput, RateUncheckedCreateWithoutFirmInput> | RateCreateWithoutFirmInput[] | RateUncheckedCreateWithoutFirmInput[]
+    connectOrCreate?: RateCreateOrConnectWithoutFirmInput | RateCreateOrConnectWithoutFirmInput[]
+    upsert?: RateUpsertWithWhereUniqueWithoutFirmInput | RateUpsertWithWhereUniqueWithoutFirmInput[]
+    createMany?: RateCreateManyFirmInputEnvelope
+    set?: RateWhereUniqueInput | RateWhereUniqueInput[]
+    disconnect?: RateWhereUniqueInput | RateWhereUniqueInput[]
+    delete?: RateWhereUniqueInput | RateWhereUniqueInput[]
+    connect?: RateWhereUniqueInput | RateWhereUniqueInput[]
+    update?: RateUpdateWithWhereUniqueWithoutFirmInput | RateUpdateWithWhereUniqueWithoutFirmInput[]
+    updateMany?: RateUpdateManyWithWhereWithoutFirmInput | RateUpdateManyWithWhereWithoutFirmInput[]
+    deleteMany?: RateScalarWhereInput | RateScalarWhereInput[]
   }
 
   export type OwnerCreateNestedOneWithoutAccountsInput = {
@@ -41664,6 +44938,48 @@ export namespace Prisma {
     update?: XOR<XOR<AccountUpdateToOneWithWhereWithoutRelCardInput, AccountUpdateWithoutRelCardInput>, AccountUncheckedUpdateWithoutRelCardInput>
   }
 
+  export type OwnerCreateNestedOneWithoutRatesInput = {
+    create?: XOR<OwnerCreateWithoutRatesInput, OwnerUncheckedCreateWithoutRatesInput>
+    connectOrCreate?: OwnerCreateOrConnectWithoutRatesInput
+    connect?: OwnerWhereUniqueInput
+  }
+
+  export type FirmCreateNestedOneWithoutRatesInput = {
+    create?: XOR<FirmCreateWithoutRatesInput, FirmUncheckedCreateWithoutRatesInput>
+    connectOrCreate?: FirmCreateOrConnectWithoutRatesInput
+    connect?: FirmWhereUniqueInput
+  }
+
+  export type OwnerUpdateOneRequiredWithoutRatesNestedInput = {
+    create?: XOR<OwnerCreateWithoutRatesInput, OwnerUncheckedCreateWithoutRatesInput>
+    connectOrCreate?: OwnerCreateOrConnectWithoutRatesInput
+    upsert?: OwnerUpsertWithoutRatesInput
+    connect?: OwnerWhereUniqueInput
+    update?: XOR<XOR<OwnerUpdateToOneWithWhereWithoutRatesInput, OwnerUpdateWithoutRatesInput>, OwnerUncheckedUpdateWithoutRatesInput>
+  }
+
+  export type FirmUpdateOneRequiredWithoutRatesNestedInput = {
+    create?: XOR<FirmCreateWithoutRatesInput, FirmUncheckedCreateWithoutRatesInput>
+    connectOrCreate?: FirmCreateOrConnectWithoutRatesInput
+    upsert?: FirmUpsertWithoutRatesInput
+    connect?: FirmWhereUniqueInput
+    update?: XOR<XOR<FirmUpdateToOneWithWhereWithoutRatesInput, FirmUpdateWithoutRatesInput>, FirmUncheckedUpdateWithoutRatesInput>
+  }
+
+  export type OwnerCreateNestedOneWithoutPuritiesInput = {
+    create?: XOR<OwnerCreateWithoutPuritiesInput, OwnerUncheckedCreateWithoutPuritiesInput>
+    connectOrCreate?: OwnerCreateOrConnectWithoutPuritiesInput
+    connect?: OwnerWhereUniqueInput
+  }
+
+  export type OwnerUpdateOneRequiredWithoutPuritiesNestedInput = {
+    create?: XOR<OwnerCreateWithoutPuritiesInput, OwnerUncheckedCreateWithoutPuritiesInput>
+    connectOrCreate?: OwnerCreateOrConnectWithoutPuritiesInput
+    upsert?: OwnerUpsertWithoutPuritiesInput
+    connect?: OwnerWhereUniqueInput
+    update?: XOR<XOR<OwnerUpdateToOneWithWhereWithoutPuritiesInput, OwnerUpdateWithoutPuritiesInput>, OwnerUncheckedUpdateWithoutPuritiesInput>
+  }
+
   export type NestedIntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -42427,6 +45743,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutFirmInput
     deposits?: GirviDepositCreateNestedManyWithoutFirmInput
     releases?: GirviReleaseCreateNestedManyWithoutFirmInput
+    rates?: RateCreateNestedManyWithoutFirmInput
   }
 
   export type FirmUncheckedCreateWithoutOwnerInput = {
@@ -42490,6 +45807,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutFirmInput
     deposits?: GirviDepositUncheckedCreateNestedManyWithoutFirmInput
     releases?: GirviReleaseUncheckedCreateNestedManyWithoutFirmInput
+    rates?: RateUncheckedCreateNestedManyWithoutFirmInput
   }
 
   export type FirmCreateOrConnectWithoutOwnerInput = {
@@ -43475,6 +46793,92 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type RateCreateWithoutOwnerInput = {
+    rate_uuid?: string
+    rate_metal: string
+    rate_purity: string
+    rate_amount: number
+    rate_unit: string
+    rate_date: string
+    rate_time: string
+    rate_desc?: string | null
+    rate_created_at?: Date | string
+    rate_created_by?: string | null
+    rate_updated_at?: Date | string
+    rate_updated_by?: string | null
+    rate_deleted_at?: Date | string | null
+    rate_deleted_by?: string | null
+    rate_is_deleted?: boolean
+    firm?: FirmCreateNestedOneWithoutRatesInput
+  }
+
+  export type RateUncheckedCreateWithoutOwnerInput = {
+    rate_id?: number
+    rate_uuid?: string
+    rate_firm_id?: number
+    rate_metal: string
+    rate_purity: string
+    rate_amount: number
+    rate_unit: string
+    rate_date: string
+    rate_time: string
+    rate_desc?: string | null
+    rate_created_at?: Date | string
+    rate_created_by?: string | null
+    rate_updated_at?: Date | string
+    rate_updated_by?: string | null
+    rate_deleted_at?: Date | string | null
+    rate_deleted_by?: string | null
+    rate_is_deleted?: boolean
+  }
+
+  export type RateCreateOrConnectWithoutOwnerInput = {
+    where: RateWhereUniqueInput
+    create: XOR<RateCreateWithoutOwnerInput, RateUncheckedCreateWithoutOwnerInput>
+  }
+
+  export type RateCreateManyOwnerInputEnvelope = {
+    data: RateCreateManyOwnerInput | RateCreateManyOwnerInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type PurityCreateWithoutOwnerInput = {
+    purity_uuid?: string
+    purity_metal: string
+    purity_name: string
+    purity_value: number
+    purity_desc?: string | null
+    purity_is_deleted?: boolean
+    purity_created_by?: string
+    purity_updated_by?: string | null
+    purity_created_at?: Date | string
+    purity_updated_at?: Date | string
+  }
+
+  export type PurityUncheckedCreateWithoutOwnerInput = {
+    purity_id?: number
+    purity_uuid?: string
+    purity_metal: string
+    purity_name: string
+    purity_value: number
+    purity_desc?: string | null
+    purity_is_deleted?: boolean
+    purity_created_by?: string
+    purity_updated_by?: string | null
+    purity_created_at?: Date | string
+    purity_updated_at?: Date | string
+  }
+
+  export type PurityCreateOrConnectWithoutOwnerInput = {
+    where: PurityWhereUniqueInput
+    create: XOR<PurityCreateWithoutOwnerInput, PurityUncheckedCreateWithoutOwnerInput>
+  }
+
+  export type PurityCreateManyOwnerInputEnvelope = {
+    data: PurityCreateManyOwnerInput | PurityCreateManyOwnerInput[]
+    skipDuplicates?: boolean
+  }
+
   export type UserUpsertWithWhereUniqueWithoutOwnerInput = {
     where: UserWhereUniqueInput
     update: XOR<UserUpdateWithoutOwnerInput, UserUncheckedUpdateWithoutOwnerInput>
@@ -44221,6 +47625,80 @@ export namespace Prisma {
     rel_is_deleted?: BoolFilter<"GirviRelease"> | boolean
   }
 
+  export type RateUpsertWithWhereUniqueWithoutOwnerInput = {
+    where: RateWhereUniqueInput
+    update: XOR<RateUpdateWithoutOwnerInput, RateUncheckedUpdateWithoutOwnerInput>
+    create: XOR<RateCreateWithoutOwnerInput, RateUncheckedCreateWithoutOwnerInput>
+  }
+
+  export type RateUpdateWithWhereUniqueWithoutOwnerInput = {
+    where: RateWhereUniqueInput
+    data: XOR<RateUpdateWithoutOwnerInput, RateUncheckedUpdateWithoutOwnerInput>
+  }
+
+  export type RateUpdateManyWithWhereWithoutOwnerInput = {
+    where: RateScalarWhereInput
+    data: XOR<RateUpdateManyMutationInput, RateUncheckedUpdateManyWithoutOwnerInput>
+  }
+
+  export type RateScalarWhereInput = {
+    AND?: RateScalarWhereInput | RateScalarWhereInput[]
+    OR?: RateScalarWhereInput[]
+    NOT?: RateScalarWhereInput | RateScalarWhereInput[]
+    rate_id?: IntFilter<"Rate"> | number
+    rate_uuid?: StringFilter<"Rate"> | string
+    rate_own_id?: IntFilter<"Rate"> | number
+    rate_firm_id?: IntFilter<"Rate"> | number
+    rate_metal?: StringFilter<"Rate"> | string
+    rate_purity?: StringFilter<"Rate"> | string
+    rate_amount?: FloatFilter<"Rate"> | number
+    rate_unit?: StringFilter<"Rate"> | string
+    rate_date?: StringFilter<"Rate"> | string
+    rate_time?: StringFilter<"Rate"> | string
+    rate_desc?: StringNullableFilter<"Rate"> | string | null
+    rate_created_at?: DateTimeFilter<"Rate"> | Date | string
+    rate_created_by?: StringNullableFilter<"Rate"> | string | null
+    rate_updated_at?: DateTimeFilter<"Rate"> | Date | string
+    rate_updated_by?: StringNullableFilter<"Rate"> | string | null
+    rate_deleted_at?: DateTimeNullableFilter<"Rate"> | Date | string | null
+    rate_deleted_by?: StringNullableFilter<"Rate"> | string | null
+    rate_is_deleted?: BoolFilter<"Rate"> | boolean
+  }
+
+  export type PurityUpsertWithWhereUniqueWithoutOwnerInput = {
+    where: PurityWhereUniqueInput
+    update: XOR<PurityUpdateWithoutOwnerInput, PurityUncheckedUpdateWithoutOwnerInput>
+    create: XOR<PurityCreateWithoutOwnerInput, PurityUncheckedCreateWithoutOwnerInput>
+  }
+
+  export type PurityUpdateWithWhereUniqueWithoutOwnerInput = {
+    where: PurityWhereUniqueInput
+    data: XOR<PurityUpdateWithoutOwnerInput, PurityUncheckedUpdateWithoutOwnerInput>
+  }
+
+  export type PurityUpdateManyWithWhereWithoutOwnerInput = {
+    where: PurityScalarWhereInput
+    data: XOR<PurityUpdateManyMutationInput, PurityUncheckedUpdateManyWithoutOwnerInput>
+  }
+
+  export type PurityScalarWhereInput = {
+    AND?: PurityScalarWhereInput | PurityScalarWhereInput[]
+    OR?: PurityScalarWhereInput[]
+    NOT?: PurityScalarWhereInput | PurityScalarWhereInput[]
+    purity_id?: IntFilter<"Purity"> | number
+    purity_uuid?: StringFilter<"Purity"> | string
+    purity_own_id?: IntFilter<"Purity"> | number
+    purity_metal?: StringFilter<"Purity"> | string
+    purity_name?: StringFilter<"Purity"> | string
+    purity_value?: FloatFilter<"Purity"> | number
+    purity_desc?: StringNullableFilter<"Purity"> | string | null
+    purity_is_deleted?: BoolFilter<"Purity"> | boolean
+    purity_created_by?: StringFilter<"Purity"> | string
+    purity_updated_by?: StringNullableFilter<"Purity"> | string | null
+    purity_created_at?: DateTimeFilter<"Purity"> | Date | string
+    purity_updated_at?: DateTimeFilter<"Purity"> | Date | string
+  }
+
   export type UserCreateWithoutFirmInput = {
     user_uuid?: string
     user_add_date?: Date | string
@@ -44550,6 +48028,8 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutOwnerInput
     deposits?: GirviDepositCreateNestedManyWithoutOwnerInput
     releases?: GirviReleaseCreateNestedManyWithoutOwnerInput
+    rates?: RateCreateNestedManyWithoutOwnerInput
+    purities?: PurityCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerUncheckedCreateWithoutFirmsInput = {
@@ -44600,6 +48080,8 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutOwnerInput
     deposits?: GirviDepositUncheckedCreateNestedManyWithoutOwnerInput
     releases?: GirviReleaseUncheckedCreateNestedManyWithoutOwnerInput
+    rates?: RateUncheckedCreateNestedManyWithoutOwnerInput
+    purities?: PurityUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerCreateOrConnectWithoutFirmsInput = {
@@ -45423,6 +48905,55 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type RateCreateWithoutFirmInput = {
+    rate_uuid?: string
+    rate_metal: string
+    rate_purity: string
+    rate_amount: number
+    rate_unit: string
+    rate_date: string
+    rate_time: string
+    rate_desc?: string | null
+    rate_created_at?: Date | string
+    rate_created_by?: string | null
+    rate_updated_at?: Date | string
+    rate_updated_by?: string | null
+    rate_deleted_at?: Date | string | null
+    rate_deleted_by?: string | null
+    rate_is_deleted?: boolean
+    owner?: OwnerCreateNestedOneWithoutRatesInput
+  }
+
+  export type RateUncheckedCreateWithoutFirmInput = {
+    rate_id?: number
+    rate_uuid?: string
+    rate_own_id?: number
+    rate_metal: string
+    rate_purity: string
+    rate_amount: number
+    rate_unit: string
+    rate_date: string
+    rate_time: string
+    rate_desc?: string | null
+    rate_created_at?: Date | string
+    rate_created_by?: string | null
+    rate_updated_at?: Date | string
+    rate_updated_by?: string | null
+    rate_deleted_at?: Date | string | null
+    rate_deleted_by?: string | null
+    rate_is_deleted?: boolean
+  }
+
+  export type RateCreateOrConnectWithoutFirmInput = {
+    where: RateWhereUniqueInput
+    create: XOR<RateCreateWithoutFirmInput, RateUncheckedCreateWithoutFirmInput>
+  }
+
+  export type RateCreateManyFirmInputEnvelope = {
+    data: RateCreateManyFirmInput | RateCreateManyFirmInput[]
+    skipDuplicates?: boolean
+  }
+
   export type UserUpsertWithWhereUniqueWithoutFirmInput = {
     where: UserWhereUniqueInput
     update: XOR<UserUpdateWithoutFirmInput, UserUncheckedUpdateWithoutFirmInput>
@@ -45512,6 +49043,8 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutOwnerNestedInput
     deposits?: GirviDepositUpdateManyWithoutOwnerNestedInput
     releases?: GirviReleaseUpdateManyWithoutOwnerNestedInput
+    rates?: RateUpdateManyWithoutOwnerNestedInput
+    purities?: PurityUpdateManyWithoutOwnerNestedInput
   }
 
   export type OwnerUncheckedUpdateWithoutFirmsInput = {
@@ -45562,6 +49095,8 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutOwnerNestedInput
     deposits?: GirviDepositUncheckedUpdateManyWithoutOwnerNestedInput
     releases?: GirviReleaseUncheckedUpdateManyWithoutOwnerNestedInput
+    rates?: RateUncheckedUpdateManyWithoutOwnerNestedInput
+    purities?: PurityUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
   export type FinanceUpsertWithWhereUniqueWithoutFirmInput = {
@@ -45724,6 +49259,22 @@ export namespace Prisma {
     data: XOR<GirviReleaseUpdateManyMutationInput, GirviReleaseUncheckedUpdateManyWithoutFirmInput>
   }
 
+  export type RateUpsertWithWhereUniqueWithoutFirmInput = {
+    where: RateWhereUniqueInput
+    update: XOR<RateUpdateWithoutFirmInput, RateUncheckedUpdateWithoutFirmInput>
+    create: XOR<RateCreateWithoutFirmInput, RateUncheckedCreateWithoutFirmInput>
+  }
+
+  export type RateUpdateWithWhereUniqueWithoutFirmInput = {
+    where: RateWhereUniqueInput
+    data: XOR<RateUpdateWithoutFirmInput, RateUncheckedUpdateWithoutFirmInput>
+  }
+
+  export type RateUpdateManyWithWhereWithoutFirmInput = {
+    where: RateScalarWhereInput
+    data: XOR<RateUpdateManyMutationInput, RateUncheckedUpdateManyWithoutFirmInput>
+  }
+
   export type OwnerCreateWithoutAccountsInput = {
     own_uuid?: string
     own_product_key?: number
@@ -45771,6 +49322,8 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutOwnerInput
     deposits?: GirviDepositCreateNestedManyWithoutOwnerInput
     releases?: GirviReleaseCreateNestedManyWithoutOwnerInput
+    rates?: RateCreateNestedManyWithoutOwnerInput
+    purities?: PurityCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerUncheckedCreateWithoutAccountsInput = {
@@ -45821,6 +49374,8 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutOwnerInput
     deposits?: GirviDepositUncheckedCreateNestedManyWithoutOwnerInput
     releases?: GirviReleaseUncheckedCreateNestedManyWithoutOwnerInput
+    rates?: RateUncheckedCreateNestedManyWithoutOwnerInput
+    purities?: PurityUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerCreateOrConnectWithoutAccountsInput = {
@@ -45888,6 +49443,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutFirmInput
     deposits?: GirviDepositCreateNestedManyWithoutFirmInput
     releases?: GirviReleaseCreateNestedManyWithoutFirmInput
+    rates?: RateCreateNestedManyWithoutFirmInput
   }
 
   export type FirmUncheckedCreateWithoutAccountsInput = {
@@ -45951,6 +49507,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutFirmInput
     deposits?: GirviDepositUncheckedCreateNestedManyWithoutFirmInput
     releases?: GirviReleaseUncheckedCreateNestedManyWithoutFirmInput
+    rates?: RateUncheckedCreateNestedManyWithoutFirmInput
   }
 
   export type FirmCreateOrConnectWithoutAccountsInput = {
@@ -49930,6 +53487,8 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutOwnerNestedInput
     deposits?: GirviDepositUpdateManyWithoutOwnerNestedInput
     releases?: GirviReleaseUpdateManyWithoutOwnerNestedInput
+    rates?: RateUpdateManyWithoutOwnerNestedInput
+    purities?: PurityUpdateManyWithoutOwnerNestedInput
   }
 
   export type OwnerUncheckedUpdateWithoutAccountsInput = {
@@ -49980,6 +53539,8 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutOwnerNestedInput
     deposits?: GirviDepositUncheckedUpdateManyWithoutOwnerNestedInput
     releases?: GirviReleaseUncheckedUpdateManyWithoutOwnerNestedInput
+    rates?: RateUncheckedUpdateManyWithoutOwnerNestedInput
+    purities?: PurityUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
   export type FirmUpsertWithoutAccountsInput = {
@@ -50053,6 +53614,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutFirmNestedInput
     deposits?: GirviDepositUpdateManyWithoutFirmNestedInput
     releases?: GirviReleaseUpdateManyWithoutFirmNestedInput
+    rates?: RateUpdateManyWithoutFirmNestedInput
   }
 
   export type FirmUncheckedUpdateWithoutAccountsInput = {
@@ -50116,6 +53678,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutFirmNestedInput
     deposits?: GirviDepositUncheckedUpdateManyWithoutFirmNestedInput
     releases?: GirviReleaseUncheckedUpdateManyWithoutFirmNestedInput
+    rates?: RateUncheckedUpdateManyWithoutFirmNestedInput
   }
 
   export type FinanceUpsertWithWhereUniqueWithoutCashAccountInput = {
@@ -50853,6 +54416,8 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutOwnerInput
     deposits?: GirviDepositCreateNestedManyWithoutOwnerInput
     releases?: GirviReleaseCreateNestedManyWithoutOwnerInput
+    rates?: RateCreateNestedManyWithoutOwnerInput
+    purities?: PurityCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerUncheckedCreateWithoutUsersInput = {
@@ -50903,6 +54468,8 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutOwnerInput
     deposits?: GirviDepositUncheckedCreateNestedManyWithoutOwnerInput
     releases?: GirviReleaseUncheckedCreateNestedManyWithoutOwnerInput
+    rates?: RateUncheckedCreateNestedManyWithoutOwnerInput
+    purities?: PurityUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerCreateOrConnectWithoutUsersInput = {
@@ -50970,6 +54537,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutFirmInput
     deposits?: GirviDepositCreateNestedManyWithoutFirmInput
     releases?: GirviReleaseCreateNestedManyWithoutFirmInput
+    rates?: RateCreateNestedManyWithoutFirmInput
   }
 
   export type FirmUncheckedCreateWithoutUsersInput = {
@@ -51033,6 +54601,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutFirmInput
     deposits?: GirviDepositUncheckedCreateNestedManyWithoutFirmInput
     releases?: GirviReleaseUncheckedCreateNestedManyWithoutFirmInput
+    rates?: RateUncheckedCreateNestedManyWithoutFirmInput
   }
 
   export type FirmCreateOrConnectWithoutUsersInput = {
@@ -51913,6 +55482,8 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutOwnerNestedInput
     deposits?: GirviDepositUpdateManyWithoutOwnerNestedInput
     releases?: GirviReleaseUpdateManyWithoutOwnerNestedInput
+    rates?: RateUpdateManyWithoutOwnerNestedInput
+    purities?: PurityUpdateManyWithoutOwnerNestedInput
   }
 
   export type OwnerUncheckedUpdateWithoutUsersInput = {
@@ -51963,6 +55534,8 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutOwnerNestedInput
     deposits?: GirviDepositUncheckedUpdateManyWithoutOwnerNestedInput
     releases?: GirviReleaseUncheckedUpdateManyWithoutOwnerNestedInput
+    rates?: RateUncheckedUpdateManyWithoutOwnerNestedInput
+    purities?: PurityUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
   export type FirmUpsertWithoutUsersInput = {
@@ -52036,6 +55609,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutFirmNestedInput
     deposits?: GirviDepositUpdateManyWithoutFirmNestedInput
     releases?: GirviReleaseUpdateManyWithoutFirmNestedInput
+    rates?: RateUpdateManyWithoutFirmNestedInput
   }
 
   export type FirmUncheckedUpdateWithoutUsersInput = {
@@ -52099,6 +55673,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutFirmNestedInput
     deposits?: GirviDepositUncheckedUpdateManyWithoutFirmNestedInput
     releases?: GirviReleaseUncheckedUpdateManyWithoutFirmNestedInput
+    rates?: RateUncheckedUpdateManyWithoutFirmNestedInput
   }
 
   export type FinanceUpsertWithWhereUniqueWithoutUserInput = {
@@ -52321,6 +55896,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutFirmInput
     deposits?: GirviDepositCreateNestedManyWithoutFirmInput
     releases?: GirviReleaseCreateNestedManyWithoutFirmInput
+    rates?: RateCreateNestedManyWithoutFirmInput
   }
 
   export type FirmUncheckedCreateWithoutFinancesInput = {
@@ -52384,6 +55960,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutFirmInput
     deposits?: GirviDepositUncheckedCreateNestedManyWithoutFirmInput
     releases?: GirviReleaseUncheckedCreateNestedManyWithoutFirmInput
+    rates?: RateUncheckedCreateNestedManyWithoutFirmInput
   }
 
   export type FirmCreateOrConnectWithoutFinancesInput = {
@@ -53468,6 +57045,8 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutOwnerInput
     deposits?: GirviDepositCreateNestedManyWithoutOwnerInput
     releases?: GirviReleaseCreateNestedManyWithoutOwnerInput
+    rates?: RateCreateNestedManyWithoutOwnerInput
+    purities?: PurityCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerUncheckedCreateWithoutFinancesInput = {
@@ -53518,6 +57097,8 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutOwnerInput
     deposits?: GirviDepositUncheckedCreateNestedManyWithoutOwnerInput
     releases?: GirviReleaseUncheckedCreateNestedManyWithoutOwnerInput
+    rates?: RateUncheckedCreateNestedManyWithoutOwnerInput
+    purities?: PurityUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerCreateOrConnectWithoutFinancesInput = {
@@ -53596,6 +57177,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutFirmNestedInput
     deposits?: GirviDepositUpdateManyWithoutFirmNestedInput
     releases?: GirviReleaseUpdateManyWithoutFirmNestedInput
+    rates?: RateUpdateManyWithoutFirmNestedInput
   }
 
   export type FirmUncheckedUpdateWithoutFinancesInput = {
@@ -53659,6 +57241,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutFirmNestedInput
     deposits?: GirviDepositUncheckedUpdateManyWithoutFirmNestedInput
     releases?: GirviReleaseUncheckedUpdateManyWithoutFirmNestedInput
+    rates?: RateUncheckedUpdateManyWithoutFirmNestedInput
   }
 
   export type UserUpsertWithoutFinancesInput = {
@@ -54666,6 +58249,8 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutOwnerNestedInput
     deposits?: GirviDepositUpdateManyWithoutOwnerNestedInput
     releases?: GirviReleaseUpdateManyWithoutOwnerNestedInput
+    rates?: RateUpdateManyWithoutOwnerNestedInput
+    purities?: PurityUpdateManyWithoutOwnerNestedInput
   }
 
   export type OwnerUncheckedUpdateWithoutFinancesInput = {
@@ -54716,6 +58301,8 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutOwnerNestedInput
     deposits?: GirviDepositUncheckedUpdateManyWithoutOwnerNestedInput
     releases?: GirviReleaseUncheckedUpdateManyWithoutOwnerNestedInput
+    rates?: RateUncheckedUpdateManyWithoutOwnerNestedInput
+    purities?: PurityUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
   export type FirmCreateWithoutFinanceTransactionsInput = {
@@ -54778,6 +58365,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutFirmInput
     deposits?: GirviDepositCreateNestedManyWithoutFirmInput
     releases?: GirviReleaseCreateNestedManyWithoutFirmInput
+    rates?: RateCreateNestedManyWithoutFirmInput
   }
 
   export type FirmUncheckedCreateWithoutFinanceTransactionsInput = {
@@ -54841,6 +58429,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutFirmInput
     deposits?: GirviDepositUncheckedCreateNestedManyWithoutFirmInput
     releases?: GirviReleaseUncheckedCreateNestedManyWithoutFirmInput
+    rates?: RateUncheckedCreateNestedManyWithoutFirmInput
   }
 
   export type FirmCreateOrConnectWithoutFinanceTransactionsInput = {
@@ -55015,6 +58604,8 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutOwnerInput
     deposits?: GirviDepositCreateNestedManyWithoutOwnerInput
     releases?: GirviReleaseCreateNestedManyWithoutOwnerInput
+    rates?: RateCreateNestedManyWithoutOwnerInput
+    purities?: PurityCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerUncheckedCreateWithoutFinanceTransactionsInput = {
@@ -55065,6 +58656,8 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutOwnerInput
     deposits?: GirviDepositUncheckedCreateNestedManyWithoutOwnerInput
     releases?: GirviReleaseUncheckedCreateNestedManyWithoutOwnerInput
+    rates?: RateUncheckedCreateNestedManyWithoutOwnerInput
+    purities?: PurityUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerCreateOrConnectWithoutFinanceTransactionsInput = {
@@ -55853,6 +59446,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutFirmNestedInput
     deposits?: GirviDepositUpdateManyWithoutFirmNestedInput
     releases?: GirviReleaseUpdateManyWithoutFirmNestedInput
+    rates?: RateUpdateManyWithoutFirmNestedInput
   }
 
   export type FirmUncheckedUpdateWithoutFinanceTransactionsInput = {
@@ -55916,6 +59510,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutFirmNestedInput
     deposits?: GirviDepositUncheckedUpdateManyWithoutFirmNestedInput
     releases?: GirviReleaseUncheckedUpdateManyWithoutFirmNestedInput
+    rates?: RateUncheckedUpdateManyWithoutFirmNestedInput
   }
 
   export type UserUpsertWithoutFinanceTransactionsInput = {
@@ -56101,6 +59696,8 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutOwnerNestedInput
     deposits?: GirviDepositUpdateManyWithoutOwnerNestedInput
     releases?: GirviReleaseUpdateManyWithoutOwnerNestedInput
+    rates?: RateUpdateManyWithoutOwnerNestedInput
+    purities?: PurityUpdateManyWithoutOwnerNestedInput
   }
 
   export type OwnerUncheckedUpdateWithoutFinanceTransactionsInput = {
@@ -56151,6 +59748,8 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutOwnerNestedInput
     deposits?: GirviDepositUncheckedUpdateManyWithoutOwnerNestedInput
     releases?: GirviReleaseUncheckedUpdateManyWithoutOwnerNestedInput
+    rates?: RateUncheckedUpdateManyWithoutOwnerNestedInput
+    purities?: PurityUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
   export type FinanceUpsertWithoutFinance_transInput = {
@@ -56953,6 +60552,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutFirmInput
     deposits?: GirviDepositCreateNestedManyWithoutFirmInput
     releases?: GirviReleaseCreateNestedManyWithoutFirmInput
+    rates?: RateCreateNestedManyWithoutFirmInput
   }
 
   export type FirmUncheckedCreateWithoutFinanceMoneyTransInput = {
@@ -57016,6 +60616,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutFirmInput
     deposits?: GirviDepositUncheckedCreateNestedManyWithoutFirmInput
     releases?: GirviReleaseUncheckedCreateNestedManyWithoutFirmInput
+    rates?: RateUncheckedCreateNestedManyWithoutFirmInput
   }
 
   export type FirmCreateOrConnectWithoutFinanceMoneyTransInput = {
@@ -57190,6 +60791,8 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutOwnerInput
     deposits?: GirviDepositCreateNestedManyWithoutOwnerInput
     releases?: GirviReleaseCreateNestedManyWithoutOwnerInput
+    rates?: RateCreateNestedManyWithoutOwnerInput
+    purities?: PurityCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerUncheckedCreateWithoutFinanceMoneyTransInput = {
@@ -57240,6 +60843,8 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutOwnerInput
     deposits?: GirviDepositUncheckedCreateNestedManyWithoutOwnerInput
     releases?: GirviReleaseUncheckedCreateNestedManyWithoutOwnerInput
+    rates?: RateUncheckedCreateNestedManyWithoutOwnerInput
+    purities?: PurityUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerCreateOrConnectWithoutFinanceMoneyTransInput = {
@@ -58226,6 +61831,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutFirmNestedInput
     deposits?: GirviDepositUpdateManyWithoutFirmNestedInput
     releases?: GirviReleaseUpdateManyWithoutFirmNestedInput
+    rates?: RateUpdateManyWithoutFirmNestedInput
   }
 
   export type FirmUncheckedUpdateWithoutFinanceMoneyTransInput = {
@@ -58289,6 +61895,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutFirmNestedInput
     deposits?: GirviDepositUncheckedUpdateManyWithoutFirmNestedInput
     releases?: GirviReleaseUncheckedUpdateManyWithoutFirmNestedInput
+    rates?: RateUncheckedUpdateManyWithoutFirmNestedInput
   }
 
   export type UserUpsertWithoutFinanceMoneyTransInput = {
@@ -58474,6 +62081,8 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutOwnerNestedInput
     deposits?: GirviDepositUpdateManyWithoutOwnerNestedInput
     releases?: GirviReleaseUpdateManyWithoutOwnerNestedInput
+    rates?: RateUpdateManyWithoutOwnerNestedInput
+    purities?: PurityUpdateManyWithoutOwnerNestedInput
   }
 
   export type OwnerUncheckedUpdateWithoutFinanceMoneyTransInput = {
@@ -58524,6 +62133,8 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutOwnerNestedInput
     deposits?: GirviDepositUncheckedUpdateManyWithoutOwnerNestedInput
     releases?: GirviReleaseUncheckedUpdateManyWithoutOwnerNestedInput
+    rates?: RateUncheckedUpdateManyWithoutOwnerNestedInput
+    purities?: PurityUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
   export type FinanceUpsertWithoutFinance_money_transInput = {
@@ -59619,6 +63230,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutFirmInput
     deposits?: GirviDepositCreateNestedManyWithoutFirmInput
     releases?: GirviReleaseCreateNestedManyWithoutFirmInput
+    rates?: RateCreateNestedManyWithoutFirmInput
   }
 
   export type FirmUncheckedCreateWithoutJournalsInput = {
@@ -59682,6 +63294,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutFirmInput
     deposits?: GirviDepositUncheckedCreateNestedManyWithoutFirmInput
     releases?: GirviReleaseUncheckedCreateNestedManyWithoutFirmInput
+    rates?: RateUncheckedCreateNestedManyWithoutFirmInput
   }
 
   export type FirmCreateOrConnectWithoutJournalsInput = {
@@ -59856,6 +63469,8 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutOwnerInput
     deposits?: GirviDepositCreateNestedManyWithoutOwnerInput
     releases?: GirviReleaseCreateNestedManyWithoutOwnerInput
+    rates?: RateCreateNestedManyWithoutOwnerInput
+    purities?: PurityCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerUncheckedCreateWithoutJournalsInput = {
@@ -59906,6 +63521,8 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutOwnerInput
     deposits?: GirviDepositUncheckedCreateNestedManyWithoutOwnerInput
     releases?: GirviReleaseUncheckedCreateNestedManyWithoutOwnerInput
+    rates?: RateUncheckedCreateNestedManyWithoutOwnerInput
+    purities?: PurityUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerCreateOrConnectWithoutJournalsInput = {
@@ -60059,6 +63676,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutFirmNestedInput
     deposits?: GirviDepositUpdateManyWithoutFirmNestedInput
     releases?: GirviReleaseUpdateManyWithoutFirmNestedInput
+    rates?: RateUpdateManyWithoutFirmNestedInput
   }
 
   export type FirmUncheckedUpdateWithoutJournalsInput = {
@@ -60122,6 +63740,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutFirmNestedInput
     deposits?: GirviDepositUncheckedUpdateManyWithoutFirmNestedInput
     releases?: GirviReleaseUncheckedUpdateManyWithoutFirmNestedInput
+    rates?: RateUncheckedUpdateManyWithoutFirmNestedInput
   }
 
   export type UserUpsertWithoutJournalsInput = {
@@ -60307,6 +63926,8 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutOwnerNestedInput
     deposits?: GirviDepositUpdateManyWithoutOwnerNestedInput
     releases?: GirviReleaseUpdateManyWithoutOwnerNestedInput
+    rates?: RateUpdateManyWithoutOwnerNestedInput
+    purities?: PurityUpdateManyWithoutOwnerNestedInput
   }
 
   export type OwnerUncheckedUpdateWithoutJournalsInput = {
@@ -60357,6 +63978,8 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutOwnerNestedInput
     deposits?: GirviDepositUncheckedUpdateManyWithoutOwnerNestedInput
     releases?: GirviReleaseUncheckedUpdateManyWithoutOwnerNestedInput
+    rates?: RateUncheckedUpdateManyWithoutOwnerNestedInput
+    purities?: PurityUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
   export type JournalTransactionUpsertWithWhereUniqueWithoutJournalInput = {
@@ -60481,6 +64104,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutFirmInput
     deposits?: GirviDepositCreateNestedManyWithoutFirmInput
     releases?: GirviReleaseCreateNestedManyWithoutFirmInput
+    rates?: RateCreateNestedManyWithoutFirmInput
   }
 
   export type FirmUncheckedCreateWithoutJournalTransactionsInput = {
@@ -60544,6 +64168,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutFirmInput
     deposits?: GirviDepositUncheckedCreateNestedManyWithoutFirmInput
     releases?: GirviReleaseUncheckedCreateNestedManyWithoutFirmInput
+    rates?: RateUncheckedCreateNestedManyWithoutFirmInput
   }
 
   export type FirmCreateOrConnectWithoutJournalTransactionsInput = {
@@ -60718,6 +64343,8 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutOwnerInput
     deposits?: GirviDepositCreateNestedManyWithoutOwnerInput
     releases?: GirviReleaseCreateNestedManyWithoutOwnerInput
+    rates?: RateCreateNestedManyWithoutOwnerInput
+    purities?: PurityCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerUncheckedCreateWithoutJournalTransactionsInput = {
@@ -60768,6 +64395,8 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutOwnerInput
     deposits?: GirviDepositUncheckedCreateNestedManyWithoutOwnerInput
     releases?: GirviReleaseUncheckedCreateNestedManyWithoutOwnerInput
+    rates?: RateUncheckedCreateNestedManyWithoutOwnerInput
+    purities?: PurityUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerCreateOrConnectWithoutJournalTransactionsInput = {
@@ -61202,6 +64831,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutFirmNestedInput
     deposits?: GirviDepositUpdateManyWithoutFirmNestedInput
     releases?: GirviReleaseUpdateManyWithoutFirmNestedInput
+    rates?: RateUpdateManyWithoutFirmNestedInput
   }
 
   export type FirmUncheckedUpdateWithoutJournalTransactionsInput = {
@@ -61265,6 +64895,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutFirmNestedInput
     deposits?: GirviDepositUncheckedUpdateManyWithoutFirmNestedInput
     releases?: GirviReleaseUncheckedUpdateManyWithoutFirmNestedInput
+    rates?: RateUncheckedUpdateManyWithoutFirmNestedInput
   }
 
   export type UserUpsertWithoutJournalTransactionsInput = {
@@ -61450,6 +65081,8 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutOwnerNestedInput
     deposits?: GirviDepositUpdateManyWithoutOwnerNestedInput
     releases?: GirviReleaseUpdateManyWithoutOwnerNestedInput
+    rates?: RateUpdateManyWithoutOwnerNestedInput
+    purities?: PurityUpdateManyWithoutOwnerNestedInput
   }
 
   export type OwnerUncheckedUpdateWithoutJournalTransactionsInput = {
@@ -61500,6 +65133,8 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutOwnerNestedInput
     deposits?: GirviDepositUncheckedUpdateManyWithoutOwnerNestedInput
     releases?: GirviReleaseUncheckedUpdateManyWithoutOwnerNestedInput
+    rates?: RateUncheckedUpdateManyWithoutOwnerNestedInput
+    purities?: PurityUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
   export type AccountUpsertWithoutJrtrCreditInput = {
@@ -61865,6 +65500,8 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutOwnerInput
     deposits?: GirviDepositCreateNestedManyWithoutOwnerInput
     releases?: GirviReleaseCreateNestedManyWithoutOwnerInput
+    rates?: RateCreateNestedManyWithoutOwnerInput
+    purities?: PurityCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerUncheckedCreateWithoutGirvisInput = {
@@ -61915,6 +65552,8 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutOwnerInput
     deposits?: GirviDepositUncheckedCreateNestedManyWithoutOwnerInput
     releases?: GirviReleaseUncheckedCreateNestedManyWithoutOwnerInput
+    rates?: RateUncheckedCreateNestedManyWithoutOwnerInput
+    purities?: PurityUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerCreateOrConnectWithoutGirvisInput = {
@@ -61982,6 +65621,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutFirmInput
     deposits?: GirviDepositCreateNestedManyWithoutFirmInput
     releases?: GirviReleaseCreateNestedManyWithoutFirmInput
+    rates?: RateCreateNestedManyWithoutFirmInput
   }
 
   export type FirmUncheckedCreateWithoutGirvisInput = {
@@ -62045,6 +65685,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutFirmInput
     deposits?: GirviDepositUncheckedCreateNestedManyWithoutFirmInput
     releases?: GirviReleaseUncheckedCreateNestedManyWithoutFirmInput
+    rates?: RateUncheckedCreateNestedManyWithoutFirmInput
   }
 
   export type FirmCreateOrConnectWithoutGirvisInput = {
@@ -63548,6 +67189,8 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutOwnerNestedInput
     deposits?: GirviDepositUpdateManyWithoutOwnerNestedInput
     releases?: GirviReleaseUpdateManyWithoutOwnerNestedInput
+    rates?: RateUpdateManyWithoutOwnerNestedInput
+    purities?: PurityUpdateManyWithoutOwnerNestedInput
   }
 
   export type OwnerUncheckedUpdateWithoutGirvisInput = {
@@ -63598,6 +67241,8 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutOwnerNestedInput
     deposits?: GirviDepositUncheckedUpdateManyWithoutOwnerNestedInput
     releases?: GirviReleaseUncheckedUpdateManyWithoutOwnerNestedInput
+    rates?: RateUncheckedUpdateManyWithoutOwnerNestedInput
+    purities?: PurityUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
   export type FirmUpsertWithoutGirvisInput = {
@@ -63671,6 +67316,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutFirmNestedInput
     deposits?: GirviDepositUpdateManyWithoutFirmNestedInput
     releases?: GirviReleaseUpdateManyWithoutFirmNestedInput
+    rates?: RateUpdateManyWithoutFirmNestedInput
   }
 
   export type FirmUncheckedUpdateWithoutGirvisInput = {
@@ -63734,6 +67380,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutFirmNestedInput
     deposits?: GirviDepositUncheckedUpdateManyWithoutFirmNestedInput
     releases?: GirviReleaseUncheckedUpdateManyWithoutFirmNestedInput
+    rates?: RateUncheckedUpdateManyWithoutFirmNestedInput
   }
 
   export type UserUpsertWithoutGirvisInput = {
@@ -65063,6 +68710,8 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutOwnerInput
     deposits?: GirviDepositCreateNestedManyWithoutOwnerInput
     releases?: GirviReleaseCreateNestedManyWithoutOwnerInput
+    rates?: RateCreateNestedManyWithoutOwnerInput
+    purities?: PurityCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerUncheckedCreateWithoutStocksInput = {
@@ -65113,6 +68762,8 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutOwnerInput
     deposits?: GirviDepositUncheckedCreateNestedManyWithoutOwnerInput
     releases?: GirviReleaseUncheckedCreateNestedManyWithoutOwnerInput
+    rates?: RateUncheckedCreateNestedManyWithoutOwnerInput
+    purities?: PurityUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerCreateOrConnectWithoutStocksInput = {
@@ -65180,6 +68831,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutFirmInput
     deposits?: GirviDepositCreateNestedManyWithoutFirmInput
     releases?: GirviReleaseCreateNestedManyWithoutFirmInput
+    rates?: RateCreateNestedManyWithoutFirmInput
   }
 
   export type FirmUncheckedCreateWithoutStocksInput = {
@@ -65243,6 +68895,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutFirmInput
     deposits?: GirviDepositUncheckedCreateNestedManyWithoutFirmInput
     releases?: GirviReleaseUncheckedCreateNestedManyWithoutFirmInput
+    rates?: RateUncheckedCreateNestedManyWithoutFirmInput
   }
 
   export type FirmCreateOrConnectWithoutStocksInput = {
@@ -65427,6 +69080,8 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutOwnerNestedInput
     deposits?: GirviDepositUpdateManyWithoutOwnerNestedInput
     releases?: GirviReleaseUpdateManyWithoutOwnerNestedInput
+    rates?: RateUpdateManyWithoutOwnerNestedInput
+    purities?: PurityUpdateManyWithoutOwnerNestedInput
   }
 
   export type OwnerUncheckedUpdateWithoutStocksInput = {
@@ -65477,6 +69132,8 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutOwnerNestedInput
     deposits?: GirviDepositUncheckedUpdateManyWithoutOwnerNestedInput
     releases?: GirviReleaseUncheckedUpdateManyWithoutOwnerNestedInput
+    rates?: RateUncheckedUpdateManyWithoutOwnerNestedInput
+    purities?: PurityUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
   export type FirmUpsertWithoutStocksInput = {
@@ -65550,6 +69207,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutFirmNestedInput
     deposits?: GirviDepositUpdateManyWithoutFirmNestedInput
     releases?: GirviReleaseUpdateManyWithoutFirmNestedInput
+    rates?: RateUpdateManyWithoutFirmNestedInput
   }
 
   export type FirmUncheckedUpdateWithoutStocksInput = {
@@ -65613,6 +69271,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutFirmNestedInput
     deposits?: GirviDepositUncheckedUpdateManyWithoutFirmNestedInput
     releases?: GirviReleaseUncheckedUpdateManyWithoutFirmNestedInput
+    rates?: RateUncheckedUpdateManyWithoutFirmNestedInput
   }
 
   export type UserUpsertWithoutStocksInput = {
@@ -65788,6 +69447,8 @@ export namespace Prisma {
     stocks?: StockCreateNestedManyWithoutOwnerInput
     deposits?: GirviDepositCreateNestedManyWithoutOwnerInput
     releases?: GirviReleaseCreateNestedManyWithoutOwnerInput
+    rates?: RateCreateNestedManyWithoutOwnerInput
+    purities?: PurityCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerUncheckedCreateWithoutAdditionalPrincipalsInput = {
@@ -65838,6 +69499,8 @@ export namespace Prisma {
     stocks?: StockUncheckedCreateNestedManyWithoutOwnerInput
     deposits?: GirviDepositUncheckedCreateNestedManyWithoutOwnerInput
     releases?: GirviReleaseUncheckedCreateNestedManyWithoutOwnerInput
+    rates?: RateUncheckedCreateNestedManyWithoutOwnerInput
+    purities?: PurityUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerCreateOrConnectWithoutAdditionalPrincipalsInput = {
@@ -65905,6 +69568,7 @@ export namespace Prisma {
     stocks?: StockCreateNestedManyWithoutFirmInput
     deposits?: GirviDepositCreateNestedManyWithoutFirmInput
     releases?: GirviReleaseCreateNestedManyWithoutFirmInput
+    rates?: RateCreateNestedManyWithoutFirmInput
   }
 
   export type FirmUncheckedCreateWithoutAdditionalPrincipalsInput = {
@@ -65968,6 +69632,7 @@ export namespace Prisma {
     stocks?: StockUncheckedCreateNestedManyWithoutFirmInput
     deposits?: GirviDepositUncheckedCreateNestedManyWithoutFirmInput
     releases?: GirviReleaseUncheckedCreateNestedManyWithoutFirmInput
+    rates?: RateUncheckedCreateNestedManyWithoutFirmInput
   }
 
   export type FirmCreateOrConnectWithoutAdditionalPrincipalsInput = {
@@ -66876,6 +70541,8 @@ export namespace Prisma {
     stocks?: StockUpdateManyWithoutOwnerNestedInput
     deposits?: GirviDepositUpdateManyWithoutOwnerNestedInput
     releases?: GirviReleaseUpdateManyWithoutOwnerNestedInput
+    rates?: RateUpdateManyWithoutOwnerNestedInput
+    purities?: PurityUpdateManyWithoutOwnerNestedInput
   }
 
   export type OwnerUncheckedUpdateWithoutAdditionalPrincipalsInput = {
@@ -66926,6 +70593,8 @@ export namespace Prisma {
     stocks?: StockUncheckedUpdateManyWithoutOwnerNestedInput
     deposits?: GirviDepositUncheckedUpdateManyWithoutOwnerNestedInput
     releases?: GirviReleaseUncheckedUpdateManyWithoutOwnerNestedInput
+    rates?: RateUncheckedUpdateManyWithoutOwnerNestedInput
+    purities?: PurityUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
   export type FirmUpsertWithoutAdditionalPrincipalsInput = {
@@ -66999,6 +70668,7 @@ export namespace Prisma {
     stocks?: StockUpdateManyWithoutFirmNestedInput
     deposits?: GirviDepositUpdateManyWithoutFirmNestedInput
     releases?: GirviReleaseUpdateManyWithoutFirmNestedInput
+    rates?: RateUpdateManyWithoutFirmNestedInput
   }
 
   export type FirmUncheckedUpdateWithoutAdditionalPrincipalsInput = {
@@ -67062,6 +70732,7 @@ export namespace Prisma {
     stocks?: StockUncheckedUpdateManyWithoutFirmNestedInput
     deposits?: GirviDepositUncheckedUpdateManyWithoutFirmNestedInput
     releases?: GirviReleaseUncheckedUpdateManyWithoutFirmNestedInput
+    rates?: RateUncheckedUpdateManyWithoutFirmNestedInput
   }
 
   export type UserUpsertWithoutAdditionalPrincipalsInput = {
@@ -67991,6 +71662,8 @@ export namespace Prisma {
     stocks?: StockCreateNestedManyWithoutOwnerInput
     additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutOwnerInput
     releases?: GirviReleaseCreateNestedManyWithoutOwnerInput
+    rates?: RateCreateNestedManyWithoutOwnerInput
+    purities?: PurityCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerUncheckedCreateWithoutDepositsInput = {
@@ -68041,6 +71714,8 @@ export namespace Prisma {
     stocks?: StockUncheckedCreateNestedManyWithoutOwnerInput
     additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutOwnerInput
     releases?: GirviReleaseUncheckedCreateNestedManyWithoutOwnerInput
+    rates?: RateUncheckedCreateNestedManyWithoutOwnerInput
+    purities?: PurityUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerCreateOrConnectWithoutDepositsInput = {
@@ -68108,6 +71783,7 @@ export namespace Prisma {
     stocks?: StockCreateNestedManyWithoutFirmInput
     additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutFirmInput
     releases?: GirviReleaseCreateNestedManyWithoutFirmInput
+    rates?: RateCreateNestedManyWithoutFirmInput
   }
 
   export type FirmUncheckedCreateWithoutDepositsInput = {
@@ -68171,6 +71847,7 @@ export namespace Prisma {
     stocks?: StockUncheckedCreateNestedManyWithoutFirmInput
     additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutFirmInput
     releases?: GirviReleaseUncheckedCreateNestedManyWithoutFirmInput
+    rates?: RateUncheckedCreateNestedManyWithoutFirmInput
   }
 
   export type FirmCreateOrConnectWithoutDepositsInput = {
@@ -69687,6 +73364,8 @@ export namespace Prisma {
     stocks?: StockUpdateManyWithoutOwnerNestedInput
     additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutOwnerNestedInput
     releases?: GirviReleaseUpdateManyWithoutOwnerNestedInput
+    rates?: RateUpdateManyWithoutOwnerNestedInput
+    purities?: PurityUpdateManyWithoutOwnerNestedInput
   }
 
   export type OwnerUncheckedUpdateWithoutDepositsInput = {
@@ -69737,6 +73416,8 @@ export namespace Prisma {
     stocks?: StockUncheckedUpdateManyWithoutOwnerNestedInput
     additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutOwnerNestedInput
     releases?: GirviReleaseUncheckedUpdateManyWithoutOwnerNestedInput
+    rates?: RateUncheckedUpdateManyWithoutOwnerNestedInput
+    purities?: PurityUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
   export type FirmUpsertWithoutDepositsInput = {
@@ -69810,6 +73491,7 @@ export namespace Prisma {
     stocks?: StockUpdateManyWithoutFirmNestedInput
     additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutFirmNestedInput
     releases?: GirviReleaseUpdateManyWithoutFirmNestedInput
+    rates?: RateUpdateManyWithoutFirmNestedInput
   }
 
   export type FirmUncheckedUpdateWithoutDepositsInput = {
@@ -69873,6 +73555,7 @@ export namespace Prisma {
     stocks?: StockUncheckedUpdateManyWithoutFirmNestedInput
     additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutFirmNestedInput
     releases?: GirviReleaseUncheckedUpdateManyWithoutFirmNestedInput
+    rates?: RateUncheckedUpdateManyWithoutFirmNestedInput
   }
 
   export type UserUpsertWithoutDepositsInput = {
@@ -71434,6 +75117,8 @@ export namespace Prisma {
     stocks?: StockCreateNestedManyWithoutOwnerInput
     additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutOwnerInput
     deposits?: GirviDepositCreateNestedManyWithoutOwnerInput
+    rates?: RateCreateNestedManyWithoutOwnerInput
+    purities?: PurityCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerUncheckedCreateWithoutReleasesInput = {
@@ -71484,6 +75169,8 @@ export namespace Prisma {
     stocks?: StockUncheckedCreateNestedManyWithoutOwnerInput
     additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutOwnerInput
     deposits?: GirviDepositUncheckedCreateNestedManyWithoutOwnerInput
+    rates?: RateUncheckedCreateNestedManyWithoutOwnerInput
+    purities?: PurityUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerCreateOrConnectWithoutReleasesInput = {
@@ -71551,6 +75238,7 @@ export namespace Prisma {
     stocks?: StockCreateNestedManyWithoutFirmInput
     additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutFirmInput
     deposits?: GirviDepositCreateNestedManyWithoutFirmInput
+    rates?: RateCreateNestedManyWithoutFirmInput
   }
 
   export type FirmUncheckedCreateWithoutReleasesInput = {
@@ -71614,6 +75302,7 @@ export namespace Prisma {
     stocks?: StockUncheckedCreateNestedManyWithoutFirmInput
     additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutFirmInput
     deposits?: GirviDepositUncheckedCreateNestedManyWithoutFirmInput
+    rates?: RateUncheckedCreateNestedManyWithoutFirmInput
   }
 
   export type FirmCreateOrConnectWithoutReleasesInput = {
@@ -73130,6 +76819,8 @@ export namespace Prisma {
     stocks?: StockUpdateManyWithoutOwnerNestedInput
     additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutOwnerNestedInput
     deposits?: GirviDepositUpdateManyWithoutOwnerNestedInput
+    rates?: RateUpdateManyWithoutOwnerNestedInput
+    purities?: PurityUpdateManyWithoutOwnerNestedInput
   }
 
   export type OwnerUncheckedUpdateWithoutReleasesInput = {
@@ -73180,6 +76871,8 @@ export namespace Prisma {
     stocks?: StockUncheckedUpdateManyWithoutOwnerNestedInput
     additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutOwnerNestedInput
     deposits?: GirviDepositUncheckedUpdateManyWithoutOwnerNestedInput
+    rates?: RateUncheckedUpdateManyWithoutOwnerNestedInput
+    purities?: PurityUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
   export type FirmUpsertWithoutReleasesInput = {
@@ -73253,6 +76946,7 @@ export namespace Prisma {
     stocks?: StockUpdateManyWithoutFirmNestedInput
     additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutFirmNestedInput
     deposits?: GirviDepositUpdateManyWithoutFirmNestedInput
+    rates?: RateUpdateManyWithoutFirmNestedInput
   }
 
   export type FirmUncheckedUpdateWithoutReleasesInput = {
@@ -73316,6 +77010,7 @@ export namespace Prisma {
     stocks?: StockUncheckedUpdateManyWithoutFirmNestedInput
     additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutFirmNestedInput
     deposits?: GirviDepositUncheckedUpdateManyWithoutFirmNestedInput
+    rates?: RateUncheckedUpdateManyWithoutFirmNestedInput
   }
 
   export type UserUpsertWithoutReleasesInput = {
@@ -74830,6 +78525,718 @@ export namespace Prisma {
     relOnline?: GirviReleaseUncheckedUpdateManyWithoutOnlineAccountNestedInput
   }
 
+  export type OwnerCreateWithoutRatesInput = {
+    own_uuid?: string
+    own_product_key?: number
+    own_db: string
+    own_add_date?: Date | string
+    own_first_name: string
+    own_middle_name?: string | null
+    own_last_name: string
+    own_phone_no?: string | null
+    own_mobile_no: string
+    own_email: string
+    own_login_id: string
+    own_password: string
+    own_status?: $Enums.OwnerStatus
+    own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_refresh_token?: string | null
+    own_refresh_expiry?: Date | string | null
+    own_jwt_token?: string | null
+    own_jwt_expiry?: Date | string | null
+    own_login_status?: boolean
+    own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
+    own_otp?: string | null
+    own_otp_expiry?: Date | string | null
+    own_address?: string | null
+    own_village?: string | null
+    own_city?: string | null
+    own_state?: string | null
+    own_pincode?: string | null
+    own_created_at?: Date | string
+    own_created_by?: string | null
+    own_updated_at?: Date | string
+    own_updated_by?: string | null
+    own_deleted_at?: Date | string | null
+    own_deleted_by?: string | null
+    own_is_deleted?: boolean
+    users?: UserCreateNestedManyWithoutOwnerInput
+    firms?: FirmCreateNestedManyWithoutOwnerInput
+    accounts?: AccountCreateNestedManyWithoutOwnerInput
+    finances?: FinanceCreateNestedManyWithoutOwnerInput
+    financeTransactions?: Finance_TransactionCreateNestedManyWithoutOwnerInput
+    financeMoneyTrans?: Finance_Money_TransactionCreateNestedManyWithoutOwnerInput
+    journals?: JournalCreateNestedManyWithoutOwnerInput
+    journalTransactions?: JournalTransactionCreateNestedManyWithoutOwnerInput
+    girvis?: GirviCreateNestedManyWithoutOwnerInput
+    stocks?: StockCreateNestedManyWithoutOwnerInput
+    additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutOwnerInput
+    deposits?: GirviDepositCreateNestedManyWithoutOwnerInput
+    releases?: GirviReleaseCreateNestedManyWithoutOwnerInput
+    purities?: PurityCreateNestedManyWithoutOwnerInput
+  }
+
+  export type OwnerUncheckedCreateWithoutRatesInput = {
+    own_id?: number
+    own_uuid?: string
+    own_product_key?: number
+    own_db: string
+    own_add_date?: Date | string
+    own_first_name: string
+    own_middle_name?: string | null
+    own_last_name: string
+    own_phone_no?: string | null
+    own_mobile_no: string
+    own_email: string
+    own_login_id: string
+    own_password: string
+    own_status?: $Enums.OwnerStatus
+    own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_refresh_token?: string | null
+    own_refresh_expiry?: Date | string | null
+    own_jwt_token?: string | null
+    own_jwt_expiry?: Date | string | null
+    own_login_status?: boolean
+    own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
+    own_otp?: string | null
+    own_otp_expiry?: Date | string | null
+    own_address?: string | null
+    own_village?: string | null
+    own_city?: string | null
+    own_state?: string | null
+    own_pincode?: string | null
+    own_created_at?: Date | string
+    own_created_by?: string | null
+    own_updated_at?: Date | string
+    own_updated_by?: string | null
+    own_deleted_at?: Date | string | null
+    own_deleted_by?: string | null
+    own_is_deleted?: boolean
+    users?: UserUncheckedCreateNestedManyWithoutOwnerInput
+    firms?: FirmUncheckedCreateNestedManyWithoutOwnerInput
+    accounts?: AccountUncheckedCreateNestedManyWithoutOwnerInput
+    finances?: FinanceUncheckedCreateNestedManyWithoutOwnerInput
+    financeTransactions?: Finance_TransactionUncheckedCreateNestedManyWithoutOwnerInput
+    financeMoneyTrans?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutOwnerInput
+    journals?: JournalUncheckedCreateNestedManyWithoutOwnerInput
+    journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutOwnerInput
+    girvis?: GirviUncheckedCreateNestedManyWithoutOwnerInput
+    stocks?: StockUncheckedCreateNestedManyWithoutOwnerInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutOwnerInput
+    deposits?: GirviDepositUncheckedCreateNestedManyWithoutOwnerInput
+    releases?: GirviReleaseUncheckedCreateNestedManyWithoutOwnerInput
+    purities?: PurityUncheckedCreateNestedManyWithoutOwnerInput
+  }
+
+  export type OwnerCreateOrConnectWithoutRatesInput = {
+    where: OwnerWhereUniqueInput
+    create: XOR<OwnerCreateWithoutRatesInput, OwnerUncheckedCreateWithoutRatesInput>
+  }
+
+  export type FirmCreateWithoutRatesInput = {
+    firm_uuid?: string
+    firm_add_date?: Date | string
+    firm_name: string
+    firm_reg_no: string
+    firm_shop_name: string
+    firm_desc?: string | null
+    firm_address?: string | null
+    firm_city?: string | null
+    firm_pincode?: string | null
+    firm_phone_no?: string | null
+    firm_email_id?: string | null
+    firm_website_link?: string | null
+    firm_type?: $Enums.FirmType
+    firm_owner?: string | null
+    firm_other_info?: string | null
+    firm_geo_latitude?: string | null
+    firm_geo_longitude?: string | null
+    firm_whatsapp_link?: string | null
+    firm_facebook_link?: string | null
+    firm_insta_link?: string | null
+    firm_bank_name?: string | null
+    firm_bank_acc_no?: string | null
+    firm_bank_branch?: string | null
+    firm_bank_address?: string | null
+    firm_acc_holder?: string | null
+    firm_acc_type?: string | null
+    firm_ifsc_code?: string | null
+    firm_start_date?: Date | string | null
+    firm_balance?: string | null
+    firm_balance_type?: $Enums.FirmBalanceType
+    firm_gstin_no?: string | null
+    firm_pan_no?: string | null
+    firm_adhaar_no?: string | null
+    firm_form_header?: string | null
+    firm_form_footer?: string | null
+    firm_own_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_left_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_right_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_qr_code_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_pan_no_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_created_at?: Date | string
+    firm_created_by?: string | null
+    firm_updated_at?: Date | string
+    firm_updated_by?: string | null
+    firm_deleted_at?: Date | string | null
+    firm_deleted_by?: string | null
+    firm_is_deleted?: boolean
+    users?: UserCreateNestedManyWithoutFirmInput
+    accounts?: AccountCreateNestedManyWithoutFirmInput
+    owner?: OwnerCreateNestedOneWithoutFirmsInput
+    finances?: FinanceCreateNestedManyWithoutFirmInput
+    financeTransactions?: Finance_TransactionCreateNestedManyWithoutFirmInput
+    financeMoneyTrans?: Finance_Money_TransactionCreateNestedManyWithoutFirmInput
+    journals?: JournalCreateNestedManyWithoutFirmInput
+    journalTransactions?: JournalTransactionCreateNestedManyWithoutFirmInput
+    girvis?: GirviCreateNestedManyWithoutFirmInput
+    stocks?: StockCreateNestedManyWithoutFirmInput
+    additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutFirmInput
+    deposits?: GirviDepositCreateNestedManyWithoutFirmInput
+    releases?: GirviReleaseCreateNestedManyWithoutFirmInput
+  }
+
+  export type FirmUncheckedCreateWithoutRatesInput = {
+    firm_id?: number
+    firm_uuid?: string
+    firm_add_date?: Date | string
+    firm_own_id?: number
+    firm_name: string
+    firm_reg_no: string
+    firm_shop_name: string
+    firm_desc?: string | null
+    firm_address?: string | null
+    firm_city?: string | null
+    firm_pincode?: string | null
+    firm_phone_no?: string | null
+    firm_email_id?: string | null
+    firm_website_link?: string | null
+    firm_type?: $Enums.FirmType
+    firm_owner?: string | null
+    firm_other_info?: string | null
+    firm_geo_latitude?: string | null
+    firm_geo_longitude?: string | null
+    firm_whatsapp_link?: string | null
+    firm_facebook_link?: string | null
+    firm_insta_link?: string | null
+    firm_bank_name?: string | null
+    firm_bank_acc_no?: string | null
+    firm_bank_branch?: string | null
+    firm_bank_address?: string | null
+    firm_acc_holder?: string | null
+    firm_acc_type?: string | null
+    firm_ifsc_code?: string | null
+    firm_start_date?: Date | string | null
+    firm_balance?: string | null
+    firm_balance_type?: $Enums.FirmBalanceType
+    firm_gstin_no?: string | null
+    firm_pan_no?: string | null
+    firm_adhaar_no?: string | null
+    firm_form_header?: string | null
+    firm_form_footer?: string | null
+    firm_own_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_left_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_right_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_qr_code_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_pan_no_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_created_at?: Date | string
+    firm_created_by?: string | null
+    firm_updated_at?: Date | string
+    firm_updated_by?: string | null
+    firm_deleted_at?: Date | string | null
+    firm_deleted_by?: string | null
+    firm_is_deleted?: boolean
+    users?: UserUncheckedCreateNestedManyWithoutFirmInput
+    accounts?: AccountUncheckedCreateNestedManyWithoutFirmInput
+    finances?: FinanceUncheckedCreateNestedManyWithoutFirmInput
+    financeTransactions?: Finance_TransactionUncheckedCreateNestedManyWithoutFirmInput
+    financeMoneyTrans?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutFirmInput
+    journals?: JournalUncheckedCreateNestedManyWithoutFirmInput
+    journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutFirmInput
+    girvis?: GirviUncheckedCreateNestedManyWithoutFirmInput
+    stocks?: StockUncheckedCreateNestedManyWithoutFirmInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutFirmInput
+    deposits?: GirviDepositUncheckedCreateNestedManyWithoutFirmInput
+    releases?: GirviReleaseUncheckedCreateNestedManyWithoutFirmInput
+  }
+
+  export type FirmCreateOrConnectWithoutRatesInput = {
+    where: FirmWhereUniqueInput
+    create: XOR<FirmCreateWithoutRatesInput, FirmUncheckedCreateWithoutRatesInput>
+  }
+
+  export type OwnerUpsertWithoutRatesInput = {
+    update: XOR<OwnerUpdateWithoutRatesInput, OwnerUncheckedUpdateWithoutRatesInput>
+    create: XOR<OwnerCreateWithoutRatesInput, OwnerUncheckedCreateWithoutRatesInput>
+    where?: OwnerWhereInput
+  }
+
+  export type OwnerUpdateToOneWithWhereWithoutRatesInput = {
+    where?: OwnerWhereInput
+    data: XOR<OwnerUpdateWithoutRatesInput, OwnerUncheckedUpdateWithoutRatesInput>
+  }
+
+  export type OwnerUpdateWithoutRatesInput = {
+    own_uuid?: StringFieldUpdateOperationsInput | string
+    own_db?: StringFieldUpdateOperationsInput | string
+    own_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    own_first_name?: StringFieldUpdateOperationsInput | string
+    own_middle_name?: NullableStringFieldUpdateOperationsInput | string | null
+    own_last_name?: StringFieldUpdateOperationsInput | string
+    own_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mobile_no?: StringFieldUpdateOperationsInput | string
+    own_email?: StringFieldUpdateOperationsInput | string
+    own_login_id?: StringFieldUpdateOperationsInput | string
+    own_password?: StringFieldUpdateOperationsInput | string
+    own_status?: EnumOwnerStatusFieldUpdateOperationsInput | $Enums.OwnerStatus
+    own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
+    own_refresh_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_jwt_token?: NullableStringFieldUpdateOperationsInput | string | null
+    own_jwt_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_login_status?: BoolFieldUpdateOperationsInput | boolean
+    own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
+    own_otp?: NullableStringFieldUpdateOperationsInput | string | null
+    own_otp_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_address?: NullableStringFieldUpdateOperationsInput | string | null
+    own_village?: NullableStringFieldUpdateOperationsInput | string | null
+    own_city?: NullableStringFieldUpdateOperationsInput | string | null
+    own_state?: NullableStringFieldUpdateOperationsInput | string | null
+    own_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    own_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    own_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    own_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    own_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    own_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    own_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    users?: UserUpdateManyWithoutOwnerNestedInput
+    firms?: FirmUpdateManyWithoutOwnerNestedInput
+    accounts?: AccountUpdateManyWithoutOwnerNestedInput
+    finances?: FinanceUpdateManyWithoutOwnerNestedInput
+    financeTransactions?: Finance_TransactionUpdateManyWithoutOwnerNestedInput
+    financeMoneyTrans?: Finance_Money_TransactionUpdateManyWithoutOwnerNestedInput
+    journals?: JournalUpdateManyWithoutOwnerNestedInput
+    journalTransactions?: JournalTransactionUpdateManyWithoutOwnerNestedInput
+    girvis?: GirviUpdateManyWithoutOwnerNestedInput
+    stocks?: StockUpdateManyWithoutOwnerNestedInput
+    additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutOwnerNestedInput
+    deposits?: GirviDepositUpdateManyWithoutOwnerNestedInput
+    releases?: GirviReleaseUpdateManyWithoutOwnerNestedInput
+    purities?: PurityUpdateManyWithoutOwnerNestedInput
+  }
+
+  export type OwnerUncheckedUpdateWithoutRatesInput = {
+    own_id?: IntFieldUpdateOperationsInput | number
+    own_uuid?: StringFieldUpdateOperationsInput | string
+    own_product_key?: IntFieldUpdateOperationsInput | number
+    own_db?: StringFieldUpdateOperationsInput | string
+    own_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    own_first_name?: StringFieldUpdateOperationsInput | string
+    own_middle_name?: NullableStringFieldUpdateOperationsInput | string | null
+    own_last_name?: StringFieldUpdateOperationsInput | string
+    own_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mobile_no?: StringFieldUpdateOperationsInput | string
+    own_email?: StringFieldUpdateOperationsInput | string
+    own_login_id?: StringFieldUpdateOperationsInput | string
+    own_password?: StringFieldUpdateOperationsInput | string
+    own_status?: EnumOwnerStatusFieldUpdateOperationsInput | $Enums.OwnerStatus
+    own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
+    own_refresh_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_jwt_token?: NullableStringFieldUpdateOperationsInput | string | null
+    own_jwt_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_login_status?: BoolFieldUpdateOperationsInput | boolean
+    own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
+    own_otp?: NullableStringFieldUpdateOperationsInput | string | null
+    own_otp_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_address?: NullableStringFieldUpdateOperationsInput | string | null
+    own_village?: NullableStringFieldUpdateOperationsInput | string | null
+    own_city?: NullableStringFieldUpdateOperationsInput | string | null
+    own_state?: NullableStringFieldUpdateOperationsInput | string | null
+    own_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    own_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    own_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    own_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    own_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    own_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    own_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    users?: UserUncheckedUpdateManyWithoutOwnerNestedInput
+    firms?: FirmUncheckedUpdateManyWithoutOwnerNestedInput
+    accounts?: AccountUncheckedUpdateManyWithoutOwnerNestedInput
+    finances?: FinanceUncheckedUpdateManyWithoutOwnerNestedInput
+    financeTransactions?: Finance_TransactionUncheckedUpdateManyWithoutOwnerNestedInput
+    financeMoneyTrans?: Finance_Money_TransactionUncheckedUpdateManyWithoutOwnerNestedInput
+    journals?: JournalUncheckedUpdateManyWithoutOwnerNestedInput
+    journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutOwnerNestedInput
+    girvis?: GirviUncheckedUpdateManyWithoutOwnerNestedInput
+    stocks?: StockUncheckedUpdateManyWithoutOwnerNestedInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutOwnerNestedInput
+    deposits?: GirviDepositUncheckedUpdateManyWithoutOwnerNestedInput
+    releases?: GirviReleaseUncheckedUpdateManyWithoutOwnerNestedInput
+    purities?: PurityUncheckedUpdateManyWithoutOwnerNestedInput
+  }
+
+  export type FirmUpsertWithoutRatesInput = {
+    update: XOR<FirmUpdateWithoutRatesInput, FirmUncheckedUpdateWithoutRatesInput>
+    create: XOR<FirmCreateWithoutRatesInput, FirmUncheckedCreateWithoutRatesInput>
+    where?: FirmWhereInput
+  }
+
+  export type FirmUpdateToOneWithWhereWithoutRatesInput = {
+    where?: FirmWhereInput
+    data: XOR<FirmUpdateWithoutRatesInput, FirmUncheckedUpdateWithoutRatesInput>
+  }
+
+  export type FirmUpdateWithoutRatesInput = {
+    firm_uuid?: StringFieldUpdateOperationsInput | string
+    firm_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    firm_name?: StringFieldUpdateOperationsInput | string
+    firm_reg_no?: StringFieldUpdateOperationsInput | string
+    firm_shop_name?: StringFieldUpdateOperationsInput | string
+    firm_desc?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_address?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_city?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_email_id?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_website_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_type?: EnumFirmTypeFieldUpdateOperationsInput | $Enums.FirmType
+    firm_owner?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_geo_latitude?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_geo_longitude?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_whatsapp_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_facebook_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_insta_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_name?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_acc_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_branch?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_address?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_acc_holder?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_acc_type?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firm_balance?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_balance_type?: EnumFirmBalanceTypeFieldUpdateOperationsInput | $Enums.FirmBalanceType
+    firm_gstin_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_adhaar_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_form_header?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_form_footer?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_own_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_left_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_right_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_qr_code_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_pan_no_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    firm_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    firm_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firm_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    users?: UserUpdateManyWithoutFirmNestedInput
+    accounts?: AccountUpdateManyWithoutFirmNestedInput
+    owner?: OwnerUpdateOneRequiredWithoutFirmsNestedInput
+    finances?: FinanceUpdateManyWithoutFirmNestedInput
+    financeTransactions?: Finance_TransactionUpdateManyWithoutFirmNestedInput
+    financeMoneyTrans?: Finance_Money_TransactionUpdateManyWithoutFirmNestedInput
+    journals?: JournalUpdateManyWithoutFirmNestedInput
+    journalTransactions?: JournalTransactionUpdateManyWithoutFirmNestedInput
+    girvis?: GirviUpdateManyWithoutFirmNestedInput
+    stocks?: StockUpdateManyWithoutFirmNestedInput
+    additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutFirmNestedInput
+    deposits?: GirviDepositUpdateManyWithoutFirmNestedInput
+    releases?: GirviReleaseUpdateManyWithoutFirmNestedInput
+  }
+
+  export type FirmUncheckedUpdateWithoutRatesInput = {
+    firm_id?: IntFieldUpdateOperationsInput | number
+    firm_uuid?: StringFieldUpdateOperationsInput | string
+    firm_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    firm_own_id?: IntFieldUpdateOperationsInput | number
+    firm_name?: StringFieldUpdateOperationsInput | string
+    firm_reg_no?: StringFieldUpdateOperationsInput | string
+    firm_shop_name?: StringFieldUpdateOperationsInput | string
+    firm_desc?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_address?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_city?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_email_id?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_website_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_type?: EnumFirmTypeFieldUpdateOperationsInput | $Enums.FirmType
+    firm_owner?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_geo_latitude?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_geo_longitude?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_whatsapp_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_facebook_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_insta_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_name?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_acc_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_branch?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_address?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_acc_holder?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_acc_type?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firm_balance?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_balance_type?: EnumFirmBalanceTypeFieldUpdateOperationsInput | $Enums.FirmBalanceType
+    firm_gstin_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_adhaar_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_form_header?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_form_footer?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_own_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_left_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_right_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_qr_code_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_pan_no_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    firm_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    firm_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firm_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    users?: UserUncheckedUpdateManyWithoutFirmNestedInput
+    accounts?: AccountUncheckedUpdateManyWithoutFirmNestedInput
+    finances?: FinanceUncheckedUpdateManyWithoutFirmNestedInput
+    financeTransactions?: Finance_TransactionUncheckedUpdateManyWithoutFirmNestedInput
+    financeMoneyTrans?: Finance_Money_TransactionUncheckedUpdateManyWithoutFirmNestedInput
+    journals?: JournalUncheckedUpdateManyWithoutFirmNestedInput
+    journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutFirmNestedInput
+    girvis?: GirviUncheckedUpdateManyWithoutFirmNestedInput
+    stocks?: StockUncheckedUpdateManyWithoutFirmNestedInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutFirmNestedInput
+    deposits?: GirviDepositUncheckedUpdateManyWithoutFirmNestedInput
+    releases?: GirviReleaseUncheckedUpdateManyWithoutFirmNestedInput
+  }
+
+  export type OwnerCreateWithoutPuritiesInput = {
+    own_uuid?: string
+    own_product_key?: number
+    own_db: string
+    own_add_date?: Date | string
+    own_first_name: string
+    own_middle_name?: string | null
+    own_last_name: string
+    own_phone_no?: string | null
+    own_mobile_no: string
+    own_email: string
+    own_login_id: string
+    own_password: string
+    own_status?: $Enums.OwnerStatus
+    own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_refresh_token?: string | null
+    own_refresh_expiry?: Date | string | null
+    own_jwt_token?: string | null
+    own_jwt_expiry?: Date | string | null
+    own_login_status?: boolean
+    own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
+    own_otp?: string | null
+    own_otp_expiry?: Date | string | null
+    own_address?: string | null
+    own_village?: string | null
+    own_city?: string | null
+    own_state?: string | null
+    own_pincode?: string | null
+    own_created_at?: Date | string
+    own_created_by?: string | null
+    own_updated_at?: Date | string
+    own_updated_by?: string | null
+    own_deleted_at?: Date | string | null
+    own_deleted_by?: string | null
+    own_is_deleted?: boolean
+    users?: UserCreateNestedManyWithoutOwnerInput
+    firms?: FirmCreateNestedManyWithoutOwnerInput
+    accounts?: AccountCreateNestedManyWithoutOwnerInput
+    finances?: FinanceCreateNestedManyWithoutOwnerInput
+    financeTransactions?: Finance_TransactionCreateNestedManyWithoutOwnerInput
+    financeMoneyTrans?: Finance_Money_TransactionCreateNestedManyWithoutOwnerInput
+    journals?: JournalCreateNestedManyWithoutOwnerInput
+    journalTransactions?: JournalTransactionCreateNestedManyWithoutOwnerInput
+    girvis?: GirviCreateNestedManyWithoutOwnerInput
+    stocks?: StockCreateNestedManyWithoutOwnerInput
+    additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutOwnerInput
+    deposits?: GirviDepositCreateNestedManyWithoutOwnerInput
+    releases?: GirviReleaseCreateNestedManyWithoutOwnerInput
+    rates?: RateCreateNestedManyWithoutOwnerInput
+  }
+
+  export type OwnerUncheckedCreateWithoutPuritiesInput = {
+    own_id?: number
+    own_uuid?: string
+    own_product_key?: number
+    own_db: string
+    own_add_date?: Date | string
+    own_first_name: string
+    own_middle_name?: string | null
+    own_last_name: string
+    own_phone_no?: string | null
+    own_mobile_no: string
+    own_email: string
+    own_login_id: string
+    own_password: string
+    own_status?: $Enums.OwnerStatus
+    own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_refresh_token?: string | null
+    own_refresh_expiry?: Date | string | null
+    own_jwt_token?: string | null
+    own_jwt_expiry?: Date | string | null
+    own_login_status?: boolean
+    own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
+    own_otp?: string | null
+    own_otp_expiry?: Date | string | null
+    own_address?: string | null
+    own_village?: string | null
+    own_city?: string | null
+    own_state?: string | null
+    own_pincode?: string | null
+    own_created_at?: Date | string
+    own_created_by?: string | null
+    own_updated_at?: Date | string
+    own_updated_by?: string | null
+    own_deleted_at?: Date | string | null
+    own_deleted_by?: string | null
+    own_is_deleted?: boolean
+    users?: UserUncheckedCreateNestedManyWithoutOwnerInput
+    firms?: FirmUncheckedCreateNestedManyWithoutOwnerInput
+    accounts?: AccountUncheckedCreateNestedManyWithoutOwnerInput
+    finances?: FinanceUncheckedCreateNestedManyWithoutOwnerInput
+    financeTransactions?: Finance_TransactionUncheckedCreateNestedManyWithoutOwnerInput
+    financeMoneyTrans?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutOwnerInput
+    journals?: JournalUncheckedCreateNestedManyWithoutOwnerInput
+    journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutOwnerInput
+    girvis?: GirviUncheckedCreateNestedManyWithoutOwnerInput
+    stocks?: StockUncheckedCreateNestedManyWithoutOwnerInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutOwnerInput
+    deposits?: GirviDepositUncheckedCreateNestedManyWithoutOwnerInput
+    releases?: GirviReleaseUncheckedCreateNestedManyWithoutOwnerInput
+    rates?: RateUncheckedCreateNestedManyWithoutOwnerInput
+  }
+
+  export type OwnerCreateOrConnectWithoutPuritiesInput = {
+    where: OwnerWhereUniqueInput
+    create: XOR<OwnerCreateWithoutPuritiesInput, OwnerUncheckedCreateWithoutPuritiesInput>
+  }
+
+  export type OwnerUpsertWithoutPuritiesInput = {
+    update: XOR<OwnerUpdateWithoutPuritiesInput, OwnerUncheckedUpdateWithoutPuritiesInput>
+    create: XOR<OwnerCreateWithoutPuritiesInput, OwnerUncheckedCreateWithoutPuritiesInput>
+    where?: OwnerWhereInput
+  }
+
+  export type OwnerUpdateToOneWithWhereWithoutPuritiesInput = {
+    where?: OwnerWhereInput
+    data: XOR<OwnerUpdateWithoutPuritiesInput, OwnerUncheckedUpdateWithoutPuritiesInput>
+  }
+
+  export type OwnerUpdateWithoutPuritiesInput = {
+    own_uuid?: StringFieldUpdateOperationsInput | string
+    own_db?: StringFieldUpdateOperationsInput | string
+    own_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    own_first_name?: StringFieldUpdateOperationsInput | string
+    own_middle_name?: NullableStringFieldUpdateOperationsInput | string | null
+    own_last_name?: StringFieldUpdateOperationsInput | string
+    own_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mobile_no?: StringFieldUpdateOperationsInput | string
+    own_email?: StringFieldUpdateOperationsInput | string
+    own_login_id?: StringFieldUpdateOperationsInput | string
+    own_password?: StringFieldUpdateOperationsInput | string
+    own_status?: EnumOwnerStatusFieldUpdateOperationsInput | $Enums.OwnerStatus
+    own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
+    own_refresh_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_jwt_token?: NullableStringFieldUpdateOperationsInput | string | null
+    own_jwt_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_login_status?: BoolFieldUpdateOperationsInput | boolean
+    own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
+    own_otp?: NullableStringFieldUpdateOperationsInput | string | null
+    own_otp_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_address?: NullableStringFieldUpdateOperationsInput | string | null
+    own_village?: NullableStringFieldUpdateOperationsInput | string | null
+    own_city?: NullableStringFieldUpdateOperationsInput | string | null
+    own_state?: NullableStringFieldUpdateOperationsInput | string | null
+    own_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    own_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    own_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    own_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    own_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    own_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    own_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    users?: UserUpdateManyWithoutOwnerNestedInput
+    firms?: FirmUpdateManyWithoutOwnerNestedInput
+    accounts?: AccountUpdateManyWithoutOwnerNestedInput
+    finances?: FinanceUpdateManyWithoutOwnerNestedInput
+    financeTransactions?: Finance_TransactionUpdateManyWithoutOwnerNestedInput
+    financeMoneyTrans?: Finance_Money_TransactionUpdateManyWithoutOwnerNestedInput
+    journals?: JournalUpdateManyWithoutOwnerNestedInput
+    journalTransactions?: JournalTransactionUpdateManyWithoutOwnerNestedInput
+    girvis?: GirviUpdateManyWithoutOwnerNestedInput
+    stocks?: StockUpdateManyWithoutOwnerNestedInput
+    additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutOwnerNestedInput
+    deposits?: GirviDepositUpdateManyWithoutOwnerNestedInput
+    releases?: GirviReleaseUpdateManyWithoutOwnerNestedInput
+    rates?: RateUpdateManyWithoutOwnerNestedInput
+  }
+
+  export type OwnerUncheckedUpdateWithoutPuritiesInput = {
+    own_id?: IntFieldUpdateOperationsInput | number
+    own_uuid?: StringFieldUpdateOperationsInput | string
+    own_product_key?: IntFieldUpdateOperationsInput | number
+    own_db?: StringFieldUpdateOperationsInput | string
+    own_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    own_first_name?: StringFieldUpdateOperationsInput | string
+    own_middle_name?: NullableStringFieldUpdateOperationsInput | string | null
+    own_last_name?: StringFieldUpdateOperationsInput | string
+    own_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mobile_no?: StringFieldUpdateOperationsInput | string
+    own_email?: StringFieldUpdateOperationsInput | string
+    own_login_id?: StringFieldUpdateOperationsInput | string
+    own_password?: StringFieldUpdateOperationsInput | string
+    own_status?: EnumOwnerStatusFieldUpdateOperationsInput | $Enums.OwnerStatus
+    own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
+    own_refresh_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_jwt_token?: NullableStringFieldUpdateOperationsInput | string | null
+    own_jwt_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_login_status?: BoolFieldUpdateOperationsInput | boolean
+    own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
+    own_otp?: NullableStringFieldUpdateOperationsInput | string | null
+    own_otp_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_address?: NullableStringFieldUpdateOperationsInput | string | null
+    own_village?: NullableStringFieldUpdateOperationsInput | string | null
+    own_city?: NullableStringFieldUpdateOperationsInput | string | null
+    own_state?: NullableStringFieldUpdateOperationsInput | string | null
+    own_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    own_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    own_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    own_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    own_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    own_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    own_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    users?: UserUncheckedUpdateManyWithoutOwnerNestedInput
+    firms?: FirmUncheckedUpdateManyWithoutOwnerNestedInput
+    accounts?: AccountUncheckedUpdateManyWithoutOwnerNestedInput
+    finances?: FinanceUncheckedUpdateManyWithoutOwnerNestedInput
+    financeTransactions?: Finance_TransactionUncheckedUpdateManyWithoutOwnerNestedInput
+    financeMoneyTrans?: Finance_Money_TransactionUncheckedUpdateManyWithoutOwnerNestedInput
+    journals?: JournalUncheckedUpdateManyWithoutOwnerNestedInput
+    journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutOwnerNestedInput
+    girvis?: GirviUncheckedUpdateManyWithoutOwnerNestedInput
+    stocks?: StockUncheckedUpdateManyWithoutOwnerNestedInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutOwnerNestedInput
+    deposits?: GirviDepositUncheckedUpdateManyWithoutOwnerNestedInput
+    releases?: GirviReleaseUncheckedUpdateManyWithoutOwnerNestedInput
+    rates?: RateUncheckedUpdateManyWithoutOwnerNestedInput
+  }
+
   export type UserCreateManyOwnerInput = {
     user_id?: number
     user_uuid?: string
@@ -75316,6 +79723,40 @@ export namespace Prisma {
     rel_is_deleted?: boolean
   }
 
+  export type RateCreateManyOwnerInput = {
+    rate_id?: number
+    rate_uuid?: string
+    rate_firm_id?: number
+    rate_metal: string
+    rate_purity: string
+    rate_amount: number
+    rate_unit: string
+    rate_date: string
+    rate_time: string
+    rate_desc?: string | null
+    rate_created_at?: Date | string
+    rate_created_by?: string | null
+    rate_updated_at?: Date | string
+    rate_updated_by?: string | null
+    rate_deleted_at?: Date | string | null
+    rate_deleted_by?: string | null
+    rate_is_deleted?: boolean
+  }
+
+  export type PurityCreateManyOwnerInput = {
+    purity_id?: number
+    purity_uuid?: string
+    purity_metal: string
+    purity_name: string
+    purity_value: number
+    purity_desc?: string | null
+    purity_is_deleted?: boolean
+    purity_created_by?: string
+    purity_updated_by?: string | null
+    purity_created_at?: Date | string
+    purity_updated_at?: Date | string
+  }
+
   export type UserUpdateWithoutOwnerInput = {
     user_uuid?: StringFieldUpdateOperationsInput | string
     user_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -75539,6 +79980,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutFirmNestedInput
     deposits?: GirviDepositUpdateManyWithoutFirmNestedInput
     releases?: GirviReleaseUpdateManyWithoutFirmNestedInput
+    rates?: RateUpdateManyWithoutFirmNestedInput
   }
 
   export type FirmUncheckedUpdateWithoutOwnerInput = {
@@ -75602,6 +80044,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutFirmNestedInput
     deposits?: GirviDepositUncheckedUpdateManyWithoutFirmNestedInput
     releases?: GirviReleaseUncheckedUpdateManyWithoutFirmNestedInput
+    rates?: RateUncheckedUpdateManyWithoutFirmNestedInput
   }
 
   export type FirmUncheckedUpdateManyWithoutOwnerInput = {
@@ -76905,6 +81348,106 @@ export namespace Prisma {
     rel_is_deleted?: BoolFieldUpdateOperationsInput | boolean
   }
 
+  export type RateUpdateWithoutOwnerInput = {
+    rate_uuid?: StringFieldUpdateOperationsInput | string
+    rate_metal?: StringFieldUpdateOperationsInput | string
+    rate_purity?: StringFieldUpdateOperationsInput | string
+    rate_amount?: FloatFieldUpdateOperationsInput | number
+    rate_unit?: StringFieldUpdateOperationsInput | string
+    rate_date?: StringFieldUpdateOperationsInput | string
+    rate_time?: StringFieldUpdateOperationsInput | string
+    rate_desc?: NullableStringFieldUpdateOperationsInput | string | null
+    rate_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    rate_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    rate_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    rate_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    rate_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rate_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    rate_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    firm?: FirmUpdateOneRequiredWithoutRatesNestedInput
+  }
+
+  export type RateUncheckedUpdateWithoutOwnerInput = {
+    rate_id?: IntFieldUpdateOperationsInput | number
+    rate_uuid?: StringFieldUpdateOperationsInput | string
+    rate_firm_id?: IntFieldUpdateOperationsInput | number
+    rate_metal?: StringFieldUpdateOperationsInput | string
+    rate_purity?: StringFieldUpdateOperationsInput | string
+    rate_amount?: FloatFieldUpdateOperationsInput | number
+    rate_unit?: StringFieldUpdateOperationsInput | string
+    rate_date?: StringFieldUpdateOperationsInput | string
+    rate_time?: StringFieldUpdateOperationsInput | string
+    rate_desc?: NullableStringFieldUpdateOperationsInput | string | null
+    rate_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    rate_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    rate_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    rate_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    rate_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rate_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    rate_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type RateUncheckedUpdateManyWithoutOwnerInput = {
+    rate_id?: IntFieldUpdateOperationsInput | number
+    rate_uuid?: StringFieldUpdateOperationsInput | string
+    rate_firm_id?: IntFieldUpdateOperationsInput | number
+    rate_metal?: StringFieldUpdateOperationsInput | string
+    rate_purity?: StringFieldUpdateOperationsInput | string
+    rate_amount?: FloatFieldUpdateOperationsInput | number
+    rate_unit?: StringFieldUpdateOperationsInput | string
+    rate_date?: StringFieldUpdateOperationsInput | string
+    rate_time?: StringFieldUpdateOperationsInput | string
+    rate_desc?: NullableStringFieldUpdateOperationsInput | string | null
+    rate_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    rate_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    rate_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    rate_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    rate_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rate_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    rate_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type PurityUpdateWithoutOwnerInput = {
+    purity_uuid?: StringFieldUpdateOperationsInput | string
+    purity_metal?: StringFieldUpdateOperationsInput | string
+    purity_name?: StringFieldUpdateOperationsInput | string
+    purity_value?: FloatFieldUpdateOperationsInput | number
+    purity_desc?: NullableStringFieldUpdateOperationsInput | string | null
+    purity_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    purity_created_by?: StringFieldUpdateOperationsInput | string
+    purity_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    purity_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    purity_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PurityUncheckedUpdateWithoutOwnerInput = {
+    purity_id?: IntFieldUpdateOperationsInput | number
+    purity_uuid?: StringFieldUpdateOperationsInput | string
+    purity_metal?: StringFieldUpdateOperationsInput | string
+    purity_name?: StringFieldUpdateOperationsInput | string
+    purity_value?: FloatFieldUpdateOperationsInput | number
+    purity_desc?: NullableStringFieldUpdateOperationsInput | string | null
+    purity_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    purity_created_by?: StringFieldUpdateOperationsInput | string
+    purity_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    purity_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    purity_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PurityUncheckedUpdateManyWithoutOwnerInput = {
+    purity_id?: IntFieldUpdateOperationsInput | number
+    purity_uuid?: StringFieldUpdateOperationsInput | string
+    purity_metal?: StringFieldUpdateOperationsInput | string
+    purity_name?: StringFieldUpdateOperationsInput | string
+    purity_value?: FloatFieldUpdateOperationsInput | number
+    purity_desc?: NullableStringFieldUpdateOperationsInput | string | null
+    purity_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    purity_created_by?: StringFieldUpdateOperationsInput | string
+    purity_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    purity_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    purity_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type UserCreateManyFirmInput = {
     user_id?: number
     user_uuid?: string
@@ -77338,6 +81881,26 @@ export namespace Prisma {
     rel_deleted_at?: Date | string | null
     rel_deleted_by?: string | null
     rel_is_deleted?: boolean
+  }
+
+  export type RateCreateManyFirmInput = {
+    rate_id?: number
+    rate_uuid?: string
+    rate_own_id?: number
+    rate_metal: string
+    rate_purity: string
+    rate_amount: number
+    rate_unit: string
+    rate_date: string
+    rate_time: string
+    rate_desc?: string | null
+    rate_created_at?: Date | string
+    rate_created_by?: string | null
+    rate_updated_at?: Date | string
+    rate_updated_by?: string | null
+    rate_deleted_at?: Date | string | null
+    rate_deleted_by?: string | null
+    rate_is_deleted?: boolean
   }
 
   export type UserUpdateWithoutFirmInput = {
@@ -78751,6 +83314,65 @@ export namespace Prisma {
     rel_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     rel_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     rel_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type RateUpdateWithoutFirmInput = {
+    rate_uuid?: StringFieldUpdateOperationsInput | string
+    rate_metal?: StringFieldUpdateOperationsInput | string
+    rate_purity?: StringFieldUpdateOperationsInput | string
+    rate_amount?: FloatFieldUpdateOperationsInput | number
+    rate_unit?: StringFieldUpdateOperationsInput | string
+    rate_date?: StringFieldUpdateOperationsInput | string
+    rate_time?: StringFieldUpdateOperationsInput | string
+    rate_desc?: NullableStringFieldUpdateOperationsInput | string | null
+    rate_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    rate_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    rate_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    rate_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    rate_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rate_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    rate_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    owner?: OwnerUpdateOneRequiredWithoutRatesNestedInput
+  }
+
+  export type RateUncheckedUpdateWithoutFirmInput = {
+    rate_id?: IntFieldUpdateOperationsInput | number
+    rate_uuid?: StringFieldUpdateOperationsInput | string
+    rate_own_id?: IntFieldUpdateOperationsInput | number
+    rate_metal?: StringFieldUpdateOperationsInput | string
+    rate_purity?: StringFieldUpdateOperationsInput | string
+    rate_amount?: FloatFieldUpdateOperationsInput | number
+    rate_unit?: StringFieldUpdateOperationsInput | string
+    rate_date?: StringFieldUpdateOperationsInput | string
+    rate_time?: StringFieldUpdateOperationsInput | string
+    rate_desc?: NullableStringFieldUpdateOperationsInput | string | null
+    rate_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    rate_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    rate_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    rate_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    rate_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rate_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    rate_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type RateUncheckedUpdateManyWithoutFirmInput = {
+    rate_id?: IntFieldUpdateOperationsInput | number
+    rate_uuid?: StringFieldUpdateOperationsInput | string
+    rate_own_id?: IntFieldUpdateOperationsInput | number
+    rate_metal?: StringFieldUpdateOperationsInput | string
+    rate_purity?: StringFieldUpdateOperationsInput | string
+    rate_amount?: FloatFieldUpdateOperationsInput | number
+    rate_unit?: StringFieldUpdateOperationsInput | string
+    rate_date?: StringFieldUpdateOperationsInput | string
+    rate_time?: StringFieldUpdateOperationsInput | string
+    rate_desc?: NullableStringFieldUpdateOperationsInput | string | null
+    rate_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    rate_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    rate_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    rate_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    rate_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rate_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    rate_is_deleted?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type FinanceCreateManyCashAccountInput = {
@@ -88182,6 +92804,14 @@ export namespace Prisma {
      * @deprecated Use GirviReleaseDefaultArgs instead
      */
     export type GirviReleaseArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = GirviReleaseDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use RateDefaultArgs instead
+     */
+    export type RateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = RateDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use PurityDefaultArgs instead
+     */
+    export type PurityArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = PurityDefaultArgs<ExtArgs>
 
   /**
    * Batch Payload for updateMany & deleteMany & createMany

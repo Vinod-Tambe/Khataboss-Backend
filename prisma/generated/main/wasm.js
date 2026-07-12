@@ -659,6 +659,42 @@ exports.Prisma.GirviReleaseScalarFieldEnum = {
   rel_is_deleted: 'rel_is_deleted'
 };
 
+exports.Prisma.RateScalarFieldEnum = {
+  rate_id: 'rate_id',
+  rate_uuid: 'rate_uuid',
+  rate_own_id: 'rate_own_id',
+  rate_firm_id: 'rate_firm_id',
+  rate_metal: 'rate_metal',
+  rate_purity: 'rate_purity',
+  rate_amount: 'rate_amount',
+  rate_unit: 'rate_unit',
+  rate_date: 'rate_date',
+  rate_time: 'rate_time',
+  rate_desc: 'rate_desc',
+  rate_created_at: 'rate_created_at',
+  rate_created_by: 'rate_created_by',
+  rate_updated_at: 'rate_updated_at',
+  rate_updated_by: 'rate_updated_by',
+  rate_deleted_at: 'rate_deleted_at',
+  rate_deleted_by: 'rate_deleted_by',
+  rate_is_deleted: 'rate_is_deleted'
+};
+
+exports.Prisma.PurityScalarFieldEnum = {
+  purity_id: 'purity_id',
+  purity_uuid: 'purity_uuid',
+  purity_own_id: 'purity_own_id',
+  purity_metal: 'purity_metal',
+  purity_name: 'purity_name',
+  purity_value: 'purity_value',
+  purity_desc: 'purity_desc',
+  purity_is_deleted: 'purity_is_deleted',
+  purity_created_by: 'purity_created_by',
+  purity_updated_by: 'purity_updated_by',
+  purity_created_at: 'purity_created_at',
+  purity_updated_at: 'purity_updated_at'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -813,7 +849,9 @@ exports.Prisma.ModelName = {
   Stock: 'Stock',
   AdditionalPrincipal: 'AdditionalPrincipal',
   GirviDeposit: 'GirviDeposit',
-  GirviRelease: 'GirviRelease'
+  GirviRelease: 'GirviRelease',
+  Rate: 'Rate',
+  Purity: 'Purity'
 };
 
 /**
