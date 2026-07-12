@@ -92,6 +92,8 @@ model Owner {
   additionalPrincipals AdditionalPrincipal[]       @relation("OwnerAP")
   deposits             GirviDeposit[]              @relation("OwnerGirviDeposit")
   releases             GirviRelease[]              @relation("OwnerGirviRelease")
+  rates                Rate[]                      @relation("OwnerRates")
+  purities             Purity[]                    @relation("OwnerPurities")
 
   // ===============================
   // Indexes
@@ -228,6 +230,7 @@ model Firm {
   additionalPrincipals AdditionalPrincipal[]       @relation("FirmAP")
   deposits             GirviDeposit[]              @relation("FirmGirviDeposit")
   releases             GirviRelease[]              @relation("FirmGirviRelease")
+  rates                Rate[]                      @relation("FirmRates")
 }
 
 // Enum for balance type
@@ -1187,4 +1190,59 @@ model GirviRelease {
   cardAccount   Account? @relation("GirviReleaseCardAccount", fields: [rel_card_acc_id], references: [acc_id])
 
   @@map("girvi_release")
+}
+
+// =============================================================================
+// MODEL: Rate (rate)
+// =============================================================================
+model Rate {
+  rate_id   Int    @id @default(autoincrement())
+  rate_uuid String @unique @default(uuid())
+
+  rate_own_id  Int @default(1)
+  rate_firm_id Int @default(0)
+
+  rate_metal  String
+  rate_purity String
+  rate_amount Float
+  rate_unit   String
+  rate_date   String
+  rate_time   String
+  rate_desc   String?
+
+  rate_created_at DateTime  @default(now())
+  rate_created_by String?
+  rate_updated_at DateTime  @updatedAt
+  rate_updated_by String?
+  rate_deleted_at DateTime?
+  rate_deleted_by String?
+  rate_is_deleted Boolean   @default(false)
+
+  owner Owner @relation("OwnerRates", fields: [rate_own_id], references: [own_id], onDelete: Cascade)
+  firm  Firm  @relation("FirmRates", fields: [rate_firm_id], references: [firm_id], onDelete: Cascade)
+
+  @@map("rate")
+}
+
+// =============================================================================
+// Purity (For Dynamic Purity Options)
+// =============================================================================
+model Purity {
+  purity_id     Int     @id @default(autoincrement())
+  purity_uuid   String  @unique @default(uuid())
+  purity_own_id Int
+  purity_metal  String
+  purity_name   String
+  purity_value  Float
+  purity_desc   String?
+
+  purity_is_deleted Boolean  @default(false)
+  purity_created_by String   @default("System")
+  purity_updated_by String?
+  purity_created_at DateTime @default(now())
+  purity_updated_at DateTime @updatedAt
+
+  owner Owner @relation("OwnerPurities", fields: [purity_own_id], references: [own_id], onDelete: Cascade)
+
+  @@map("purity")
 }
