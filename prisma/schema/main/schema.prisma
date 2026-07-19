@@ -94,6 +94,7 @@ model Owner {
   releases             GirviRelease[]              @relation("OwnerGirviRelease")
   rates                Rate[]                      @relation("OwnerRates")
   purities             Purity[]                    @relation("OwnerPurities")
+  moneyLenders         MoneyLender[]               @relation("OwnerMoneyLenders")
 
   // ===============================
   // Indexes
@@ -231,6 +232,7 @@ model Firm {
   deposits             GirviDeposit[]              @relation("FirmGirviDeposit")
   releases             GirviRelease[]              @relation("FirmGirviRelease")
   rates                Rate[]                      @relation("FirmRates")
+  moneyLenders         MoneyLender[]               @relation("FirmMoneyLenders")
 }
 
 // Enum for balance type
@@ -1245,4 +1247,64 @@ model Purity {
   owner Owner @relation("OwnerPurities", fields: [purity_own_id], references: [own_id], onDelete: Cascade)
 
   @@map("purity")
+}
+
+// =============================================================================
+// Money Lender
+// =============================================================================
+model MoneyLender {
+  ml_id               Int      @id @default(autoincrement())
+  ml_uuid             String   @unique @default(uuid())
+  ml_own_id           Int
+  
+  // Personal Details
+  ml_first_name       String
+  ml_last_name        String?
+  ml_father_name      String?
+  ml_gender           String?
+  ml_dob              DateTime?
+  
+  // Firm & Contact
+  ml_firm_id          Int?
+  ml_phone            String?
+  ml_email            String?
+
+  // Tax & ID Details
+  ml_aadhaar          String?
+  ml_pan              String?
+  ml_gstin            String?
+  ml_tax_no           String?
+
+  // Bank Details
+  ml_bank_name        String?
+  ml_account_number   String?
+  ml_ifsc             String?
+  ml_branch           String?
+
+  // Address Details
+  ml_village          String?
+  ml_city             String?
+  ml_state            String?
+  ml_country          String?
+  ml_pincode          String?
+  ml_address          String?  @db.Text
+
+  // Additional Information
+  ml_notes            String?  @db.Text
+
+  // Documents (Stored as JSON objects representing { path, filename, mimetype })
+  ml_profile_img        Json?
+  ml_adhaar_front_img   Json?
+  ml_adhaar_back_img    Json?
+  ml_pan_img            Json?
+
+  // Timestamps & Meta
+  is_active           Boolean  @default(true)
+  created_at          DateTime @default(now())
+  updated_at          DateTime @updatedAt
+
+  owner Owner  @relation("OwnerMoneyLenders", fields: [ml_own_id], references: [own_id], onDelete: Cascade)
+  firm  Firm?  @relation("FirmMoneyLenders", fields: [ml_firm_id], references: [firm_id], onDelete: Cascade)
+
+  @@map("money_lenders")
 }

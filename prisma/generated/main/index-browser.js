@@ -695,6 +695,42 @@ exports.Prisma.PurityScalarFieldEnum = {
   purity_updated_at: 'purity_updated_at'
 };
 
+exports.Prisma.MoneyLenderScalarFieldEnum = {
+  ml_id: 'ml_id',
+  ml_uuid: 'ml_uuid',
+  ml_own_id: 'ml_own_id',
+  ml_first_name: 'ml_first_name',
+  ml_last_name: 'ml_last_name',
+  ml_father_name: 'ml_father_name',
+  ml_gender: 'ml_gender',
+  ml_dob: 'ml_dob',
+  ml_firm_id: 'ml_firm_id',
+  ml_phone: 'ml_phone',
+  ml_email: 'ml_email',
+  ml_aadhaar: 'ml_aadhaar',
+  ml_pan: 'ml_pan',
+  ml_gstin: 'ml_gstin',
+  ml_tax_no: 'ml_tax_no',
+  ml_bank_name: 'ml_bank_name',
+  ml_account_number: 'ml_account_number',
+  ml_ifsc: 'ml_ifsc',
+  ml_branch: 'ml_branch',
+  ml_village: 'ml_village',
+  ml_city: 'ml_city',
+  ml_state: 'ml_state',
+  ml_country: 'ml_country',
+  ml_pincode: 'ml_pincode',
+  ml_address: 'ml_address',
+  ml_notes: 'ml_notes',
+  ml_profile_img: 'ml_profile_img',
+  ml_adhaar_front_img: 'ml_adhaar_front_img',
+  ml_adhaar_back_img: 'ml_adhaar_back_img',
+  ml_pan_img: 'ml_pan_img',
+  is_active: 'is_active',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -851,7 +887,8 @@ exports.Prisma.ModelName = {
   GirviDeposit: 'GirviDeposit',
   GirviRelease: 'GirviRelease',
   Rate: 'Rate',
-  Purity: 'Purity'
+  Purity: 'Purity',
+  MoneyLender: 'MoneyLender'
 };
 
 /**

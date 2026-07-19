@@ -93,6 +93,11 @@ export type Rate = $Result.DefaultSelection<Prisma.$RatePayload>
  * 
  */
 export type Purity = $Result.DefaultSelection<Prisma.$PurityPayload>
+/**
+ * Model MoneyLender
+ * 
+ */
+export type MoneyLender = $Result.DefaultSelection<Prisma.$MoneyLenderPayload>
 
 /**
  * Enums
@@ -629,6 +634,16 @@ export class PrismaClient<
     * ```
     */
   get purity(): Prisma.PurityDelegate<ExtArgs>;
+
+  /**
+   * `prisma.moneyLender`: Exposes CRUD operations for the **MoneyLender** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more MoneyLenders
+    * const moneyLenders = await prisma.moneyLender.findMany()
+    * ```
+    */
+  get moneyLender(): Prisma.MoneyLenderDelegate<ExtArgs>;
 }
 
 export namespace Prisma {
@@ -1085,7 +1100,8 @@ export namespace Prisma {
     GirviDeposit: 'GirviDeposit',
     GirviRelease: 'GirviRelease',
     Rate: 'Rate',
-    Purity: 'Purity'
+    Purity: 'Purity',
+    MoneyLender: 'MoneyLender'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1101,7 +1117,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "owner" | "firm" | "account" | "user" | "finance" | "finance_Transaction" | "finance_Money_Transaction" | "journal" | "journalTransaction" | "girvi" | "stock" | "additionalPrincipal" | "girviDeposit" | "girviRelease" | "rate" | "purity"
+      modelProps: "owner" | "firm" | "account" | "user" | "finance" | "finance_Transaction" | "finance_Money_Transaction" | "journal" | "journalTransaction" | "girvi" | "stock" | "additionalPrincipal" | "girviDeposit" | "girviRelease" | "rate" | "purity" | "moneyLender"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -2225,6 +2241,76 @@ export namespace Prisma {
           }
         }
       }
+      MoneyLender: {
+        payload: Prisma.$MoneyLenderPayload<ExtArgs>
+        fields: Prisma.MoneyLenderFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.MoneyLenderFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MoneyLenderPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.MoneyLenderFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MoneyLenderPayload>
+          }
+          findFirst: {
+            args: Prisma.MoneyLenderFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MoneyLenderPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.MoneyLenderFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MoneyLenderPayload>
+          }
+          findMany: {
+            args: Prisma.MoneyLenderFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MoneyLenderPayload>[]
+          }
+          create: {
+            args: Prisma.MoneyLenderCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MoneyLenderPayload>
+          }
+          createMany: {
+            args: Prisma.MoneyLenderCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.MoneyLenderCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MoneyLenderPayload>[]
+          }
+          delete: {
+            args: Prisma.MoneyLenderDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MoneyLenderPayload>
+          }
+          update: {
+            args: Prisma.MoneyLenderUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MoneyLenderPayload>
+          }
+          deleteMany: {
+            args: Prisma.MoneyLenderDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.MoneyLenderUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.MoneyLenderUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MoneyLenderPayload>
+          }
+          aggregate: {
+            args: Prisma.MoneyLenderAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateMoneyLender>
+          }
+          groupBy: {
+            args: Prisma.MoneyLenderGroupByArgs<ExtArgs>
+            result: $Utils.Optional<MoneyLenderGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.MoneyLenderCountArgs<ExtArgs>
+            result: $Utils.Optional<MoneyLenderCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -2401,6 +2487,7 @@ export namespace Prisma {
     releases: number
     rates: number
     purities: number
+    moneyLenders: number
   }
 
   export type OwnerCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2419,6 +2506,7 @@ export namespace Prisma {
     releases?: boolean | OwnerCountOutputTypeCountReleasesArgs
     rates?: boolean | OwnerCountOutputTypeCountRatesArgs
     purities?: boolean | OwnerCountOutputTypeCountPuritiesArgs
+    moneyLenders?: boolean | OwnerCountOutputTypeCountMoneyLendersArgs
   }
 
   // Custom InputTypes
@@ -2537,6 +2625,13 @@ export namespace Prisma {
     where?: PurityWhereInput
   }
 
+  /**
+   * OwnerCountOutputType without action
+   */
+  export type OwnerCountOutputTypeCountMoneyLendersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MoneyLenderWhereInput
+  }
+
 
   /**
    * Count Type FirmCountOutputType
@@ -2556,6 +2651,7 @@ export namespace Prisma {
     deposits: number
     releases: number
     rates: number
+    moneyLenders: number
   }
 
   export type FirmCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2572,6 +2668,7 @@ export namespace Prisma {
     deposits?: boolean | FirmCountOutputTypeCountDepositsArgs
     releases?: boolean | FirmCountOutputTypeCountReleasesArgs
     rates?: boolean | FirmCountOutputTypeCountRatesArgs
+    moneyLenders?: boolean | FirmCountOutputTypeCountMoneyLendersArgs
   }
 
   // Custom InputTypes
@@ -2674,6 +2771,13 @@ export namespace Prisma {
    */
   export type FirmCountOutputTypeCountRatesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: RateWhereInput
+  }
+
+  /**
+   * FirmCountOutputType without action
+   */
+  export type FirmCountOutputTypeCountMoneyLendersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MoneyLenderWhereInput
   }
 
 
@@ -3780,6 +3884,7 @@ export namespace Prisma {
     releases?: boolean | Owner$releasesArgs<ExtArgs>
     rates?: boolean | Owner$ratesArgs<ExtArgs>
     purities?: boolean | Owner$puritiesArgs<ExtArgs>
+    moneyLenders?: boolean | Owner$moneyLendersArgs<ExtArgs>
     _count?: boolean | OwnerCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["owner"]>
 
@@ -3875,6 +3980,7 @@ export namespace Prisma {
     releases?: boolean | Owner$releasesArgs<ExtArgs>
     rates?: boolean | Owner$ratesArgs<ExtArgs>
     purities?: boolean | Owner$puritiesArgs<ExtArgs>
+    moneyLenders?: boolean | Owner$moneyLendersArgs<ExtArgs>
     _count?: boolean | OwnerCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type OwnerIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -3897,6 +4003,7 @@ export namespace Prisma {
       releases: Prisma.$GirviReleasePayload<ExtArgs>[]
       rates: Prisma.$RatePayload<ExtArgs>[]
       purities: Prisma.$PurityPayload<ExtArgs>[]
+      moneyLenders: Prisma.$MoneyLenderPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       own_id: number
@@ -4313,6 +4420,7 @@ export namespace Prisma {
     releases<T extends Owner$releasesArgs<ExtArgs> = {}>(args?: Subset<T, Owner$releasesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GirviReleasePayload<ExtArgs>, T, "findMany"> | Null>
     rates<T extends Owner$ratesArgs<ExtArgs> = {}>(args?: Subset<T, Owner$ratesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RatePayload<ExtArgs>, T, "findMany"> | Null>
     purities<T extends Owner$puritiesArgs<ExtArgs> = {}>(args?: Subset<T, Owner$puritiesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PurityPayload<ExtArgs>, T, "findMany"> | Null>
+    moneyLenders<T extends Owner$moneyLendersArgs<ExtArgs> = {}>(args?: Subset<T, Owner$moneyLendersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MoneyLenderPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4991,6 +5099,26 @@ export namespace Prisma {
   }
 
   /**
+   * Owner.moneyLenders
+   */
+  export type Owner$moneyLendersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MoneyLender
+     */
+    select?: MoneyLenderSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MoneyLenderInclude<ExtArgs> | null
+    where?: MoneyLenderWhereInput
+    orderBy?: MoneyLenderOrderByWithRelationInput | MoneyLenderOrderByWithRelationInput[]
+    cursor?: MoneyLenderWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MoneyLenderScalarFieldEnum | MoneyLenderScalarFieldEnum[]
+  }
+
+  /**
    * Owner without action
    */
   export type OwnerDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5553,6 +5681,7 @@ export namespace Prisma {
     deposits?: boolean | Firm$depositsArgs<ExtArgs>
     releases?: boolean | Firm$releasesArgs<ExtArgs>
     rates?: boolean | Firm$ratesArgs<ExtArgs>
+    moneyLenders?: boolean | Firm$moneyLendersArgs<ExtArgs>
     _count?: boolean | FirmCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["firm"]>
 
@@ -5676,6 +5805,7 @@ export namespace Prisma {
     deposits?: boolean | Firm$depositsArgs<ExtArgs>
     releases?: boolean | Firm$releasesArgs<ExtArgs>
     rates?: boolean | Firm$ratesArgs<ExtArgs>
+    moneyLenders?: boolean | Firm$moneyLendersArgs<ExtArgs>
     _count?: boolean | FirmCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type FirmIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5699,6 +5829,7 @@ export namespace Prisma {
       deposits: Prisma.$GirviDepositPayload<ExtArgs>[]
       releases: Prisma.$GirviReleasePayload<ExtArgs>[]
       rates: Prisma.$RatePayload<ExtArgs>[]
+      moneyLenders: Prisma.$MoneyLenderPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       firm_id: number
@@ -6128,6 +6259,7 @@ export namespace Prisma {
     deposits<T extends Firm$depositsArgs<ExtArgs> = {}>(args?: Subset<T, Firm$depositsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GirviDepositPayload<ExtArgs>, T, "findMany"> | Null>
     releases<T extends Firm$releasesArgs<ExtArgs> = {}>(args?: Subset<T, Firm$releasesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GirviReleasePayload<ExtArgs>, T, "findMany"> | Null>
     rates<T extends Firm$ratesArgs<ExtArgs> = {}>(args?: Subset<T, Firm$ratesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RatePayload<ExtArgs>, T, "findMany"> | Null>
+    moneyLenders<T extends Firm$moneyLendersArgs<ExtArgs> = {}>(args?: Subset<T, Firm$moneyLendersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MoneyLenderPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6781,6 +6913,26 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: RateScalarFieldEnum | RateScalarFieldEnum[]
+  }
+
+  /**
+   * Firm.moneyLenders
+   */
+  export type Firm$moneyLendersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MoneyLender
+     */
+    select?: MoneyLenderSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MoneyLenderInclude<ExtArgs> | null
+    where?: MoneyLenderWhereInput
+    orderBy?: MoneyLenderOrderByWithRelationInput | MoneyLenderOrderByWithRelationInput[]
+    cursor?: MoneyLenderWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MoneyLenderScalarFieldEnum | MoneyLenderScalarFieldEnum[]
   }
 
   /**
@@ -28007,6 +28159,1322 @@ export namespace Prisma {
 
 
   /**
+   * Model MoneyLender
+   */
+
+  export type AggregateMoneyLender = {
+    _count: MoneyLenderCountAggregateOutputType | null
+    _avg: MoneyLenderAvgAggregateOutputType | null
+    _sum: MoneyLenderSumAggregateOutputType | null
+    _min: MoneyLenderMinAggregateOutputType | null
+    _max: MoneyLenderMaxAggregateOutputType | null
+  }
+
+  export type MoneyLenderAvgAggregateOutputType = {
+    ml_id: number | null
+    ml_own_id: number | null
+    ml_firm_id: number | null
+  }
+
+  export type MoneyLenderSumAggregateOutputType = {
+    ml_id: number | null
+    ml_own_id: number | null
+    ml_firm_id: number | null
+  }
+
+  export type MoneyLenderMinAggregateOutputType = {
+    ml_id: number | null
+    ml_uuid: string | null
+    ml_own_id: number | null
+    ml_first_name: string | null
+    ml_last_name: string | null
+    ml_father_name: string | null
+    ml_gender: string | null
+    ml_dob: Date | null
+    ml_firm_id: number | null
+    ml_phone: string | null
+    ml_email: string | null
+    ml_aadhaar: string | null
+    ml_pan: string | null
+    ml_gstin: string | null
+    ml_tax_no: string | null
+    ml_bank_name: string | null
+    ml_account_number: string | null
+    ml_ifsc: string | null
+    ml_branch: string | null
+    ml_village: string | null
+    ml_city: string | null
+    ml_state: string | null
+    ml_country: string | null
+    ml_pincode: string | null
+    ml_address: string | null
+    ml_notes: string | null
+    is_active: boolean | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type MoneyLenderMaxAggregateOutputType = {
+    ml_id: number | null
+    ml_uuid: string | null
+    ml_own_id: number | null
+    ml_first_name: string | null
+    ml_last_name: string | null
+    ml_father_name: string | null
+    ml_gender: string | null
+    ml_dob: Date | null
+    ml_firm_id: number | null
+    ml_phone: string | null
+    ml_email: string | null
+    ml_aadhaar: string | null
+    ml_pan: string | null
+    ml_gstin: string | null
+    ml_tax_no: string | null
+    ml_bank_name: string | null
+    ml_account_number: string | null
+    ml_ifsc: string | null
+    ml_branch: string | null
+    ml_village: string | null
+    ml_city: string | null
+    ml_state: string | null
+    ml_country: string | null
+    ml_pincode: string | null
+    ml_address: string | null
+    ml_notes: string | null
+    is_active: boolean | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type MoneyLenderCountAggregateOutputType = {
+    ml_id: number
+    ml_uuid: number
+    ml_own_id: number
+    ml_first_name: number
+    ml_last_name: number
+    ml_father_name: number
+    ml_gender: number
+    ml_dob: number
+    ml_firm_id: number
+    ml_phone: number
+    ml_email: number
+    ml_aadhaar: number
+    ml_pan: number
+    ml_gstin: number
+    ml_tax_no: number
+    ml_bank_name: number
+    ml_account_number: number
+    ml_ifsc: number
+    ml_branch: number
+    ml_village: number
+    ml_city: number
+    ml_state: number
+    ml_country: number
+    ml_pincode: number
+    ml_address: number
+    ml_notes: number
+    ml_profile_img: number
+    ml_adhaar_front_img: number
+    ml_adhaar_back_img: number
+    ml_pan_img: number
+    is_active: number
+    created_at: number
+    updated_at: number
+    _all: number
+  }
+
+
+  export type MoneyLenderAvgAggregateInputType = {
+    ml_id?: true
+    ml_own_id?: true
+    ml_firm_id?: true
+  }
+
+  export type MoneyLenderSumAggregateInputType = {
+    ml_id?: true
+    ml_own_id?: true
+    ml_firm_id?: true
+  }
+
+  export type MoneyLenderMinAggregateInputType = {
+    ml_id?: true
+    ml_uuid?: true
+    ml_own_id?: true
+    ml_first_name?: true
+    ml_last_name?: true
+    ml_father_name?: true
+    ml_gender?: true
+    ml_dob?: true
+    ml_firm_id?: true
+    ml_phone?: true
+    ml_email?: true
+    ml_aadhaar?: true
+    ml_pan?: true
+    ml_gstin?: true
+    ml_tax_no?: true
+    ml_bank_name?: true
+    ml_account_number?: true
+    ml_ifsc?: true
+    ml_branch?: true
+    ml_village?: true
+    ml_city?: true
+    ml_state?: true
+    ml_country?: true
+    ml_pincode?: true
+    ml_address?: true
+    ml_notes?: true
+    is_active?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type MoneyLenderMaxAggregateInputType = {
+    ml_id?: true
+    ml_uuid?: true
+    ml_own_id?: true
+    ml_first_name?: true
+    ml_last_name?: true
+    ml_father_name?: true
+    ml_gender?: true
+    ml_dob?: true
+    ml_firm_id?: true
+    ml_phone?: true
+    ml_email?: true
+    ml_aadhaar?: true
+    ml_pan?: true
+    ml_gstin?: true
+    ml_tax_no?: true
+    ml_bank_name?: true
+    ml_account_number?: true
+    ml_ifsc?: true
+    ml_branch?: true
+    ml_village?: true
+    ml_city?: true
+    ml_state?: true
+    ml_country?: true
+    ml_pincode?: true
+    ml_address?: true
+    ml_notes?: true
+    is_active?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type MoneyLenderCountAggregateInputType = {
+    ml_id?: true
+    ml_uuid?: true
+    ml_own_id?: true
+    ml_first_name?: true
+    ml_last_name?: true
+    ml_father_name?: true
+    ml_gender?: true
+    ml_dob?: true
+    ml_firm_id?: true
+    ml_phone?: true
+    ml_email?: true
+    ml_aadhaar?: true
+    ml_pan?: true
+    ml_gstin?: true
+    ml_tax_no?: true
+    ml_bank_name?: true
+    ml_account_number?: true
+    ml_ifsc?: true
+    ml_branch?: true
+    ml_village?: true
+    ml_city?: true
+    ml_state?: true
+    ml_country?: true
+    ml_pincode?: true
+    ml_address?: true
+    ml_notes?: true
+    ml_profile_img?: true
+    ml_adhaar_front_img?: true
+    ml_adhaar_back_img?: true
+    ml_pan_img?: true
+    is_active?: true
+    created_at?: true
+    updated_at?: true
+    _all?: true
+  }
+
+  export type MoneyLenderAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MoneyLender to aggregate.
+     */
+    where?: MoneyLenderWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MoneyLenders to fetch.
+     */
+    orderBy?: MoneyLenderOrderByWithRelationInput | MoneyLenderOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: MoneyLenderWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MoneyLenders from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MoneyLenders.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned MoneyLenders
+    **/
+    _count?: true | MoneyLenderCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: MoneyLenderAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: MoneyLenderSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: MoneyLenderMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: MoneyLenderMaxAggregateInputType
+  }
+
+  export type GetMoneyLenderAggregateType<T extends MoneyLenderAggregateArgs> = {
+        [P in keyof T & keyof AggregateMoneyLender]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMoneyLender[P]>
+      : GetScalarType<T[P], AggregateMoneyLender[P]>
+  }
+
+
+
+
+  export type MoneyLenderGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MoneyLenderWhereInput
+    orderBy?: MoneyLenderOrderByWithAggregationInput | MoneyLenderOrderByWithAggregationInput[]
+    by: MoneyLenderScalarFieldEnum[] | MoneyLenderScalarFieldEnum
+    having?: MoneyLenderScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: MoneyLenderCountAggregateInputType | true
+    _avg?: MoneyLenderAvgAggregateInputType
+    _sum?: MoneyLenderSumAggregateInputType
+    _min?: MoneyLenderMinAggregateInputType
+    _max?: MoneyLenderMaxAggregateInputType
+  }
+
+  export type MoneyLenderGroupByOutputType = {
+    ml_id: number
+    ml_uuid: string
+    ml_own_id: number
+    ml_first_name: string
+    ml_last_name: string | null
+    ml_father_name: string | null
+    ml_gender: string | null
+    ml_dob: Date | null
+    ml_firm_id: number | null
+    ml_phone: string | null
+    ml_email: string | null
+    ml_aadhaar: string | null
+    ml_pan: string | null
+    ml_gstin: string | null
+    ml_tax_no: string | null
+    ml_bank_name: string | null
+    ml_account_number: string | null
+    ml_ifsc: string | null
+    ml_branch: string | null
+    ml_village: string | null
+    ml_city: string | null
+    ml_state: string | null
+    ml_country: string | null
+    ml_pincode: string | null
+    ml_address: string | null
+    ml_notes: string | null
+    ml_profile_img: JsonValue | null
+    ml_adhaar_front_img: JsonValue | null
+    ml_adhaar_back_img: JsonValue | null
+    ml_pan_img: JsonValue | null
+    is_active: boolean
+    created_at: Date
+    updated_at: Date
+    _count: MoneyLenderCountAggregateOutputType | null
+    _avg: MoneyLenderAvgAggregateOutputType | null
+    _sum: MoneyLenderSumAggregateOutputType | null
+    _min: MoneyLenderMinAggregateOutputType | null
+    _max: MoneyLenderMaxAggregateOutputType | null
+  }
+
+  type GetMoneyLenderGroupByPayload<T extends MoneyLenderGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<MoneyLenderGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof MoneyLenderGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], MoneyLenderGroupByOutputType[P]>
+            : GetScalarType<T[P], MoneyLenderGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type MoneyLenderSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    ml_id?: boolean
+    ml_uuid?: boolean
+    ml_own_id?: boolean
+    ml_first_name?: boolean
+    ml_last_name?: boolean
+    ml_father_name?: boolean
+    ml_gender?: boolean
+    ml_dob?: boolean
+    ml_firm_id?: boolean
+    ml_phone?: boolean
+    ml_email?: boolean
+    ml_aadhaar?: boolean
+    ml_pan?: boolean
+    ml_gstin?: boolean
+    ml_tax_no?: boolean
+    ml_bank_name?: boolean
+    ml_account_number?: boolean
+    ml_ifsc?: boolean
+    ml_branch?: boolean
+    ml_village?: boolean
+    ml_city?: boolean
+    ml_state?: boolean
+    ml_country?: boolean
+    ml_pincode?: boolean
+    ml_address?: boolean
+    ml_notes?: boolean
+    ml_profile_img?: boolean
+    ml_adhaar_front_img?: boolean
+    ml_adhaar_back_img?: boolean
+    ml_pan_img?: boolean
+    is_active?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    owner?: boolean | OwnerDefaultArgs<ExtArgs>
+    firm?: boolean | MoneyLender$firmArgs<ExtArgs>
+  }, ExtArgs["result"]["moneyLender"]>
+
+  export type MoneyLenderSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    ml_id?: boolean
+    ml_uuid?: boolean
+    ml_own_id?: boolean
+    ml_first_name?: boolean
+    ml_last_name?: boolean
+    ml_father_name?: boolean
+    ml_gender?: boolean
+    ml_dob?: boolean
+    ml_firm_id?: boolean
+    ml_phone?: boolean
+    ml_email?: boolean
+    ml_aadhaar?: boolean
+    ml_pan?: boolean
+    ml_gstin?: boolean
+    ml_tax_no?: boolean
+    ml_bank_name?: boolean
+    ml_account_number?: boolean
+    ml_ifsc?: boolean
+    ml_branch?: boolean
+    ml_village?: boolean
+    ml_city?: boolean
+    ml_state?: boolean
+    ml_country?: boolean
+    ml_pincode?: boolean
+    ml_address?: boolean
+    ml_notes?: boolean
+    ml_profile_img?: boolean
+    ml_adhaar_front_img?: boolean
+    ml_adhaar_back_img?: boolean
+    ml_pan_img?: boolean
+    is_active?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    owner?: boolean | OwnerDefaultArgs<ExtArgs>
+    firm?: boolean | MoneyLender$firmArgs<ExtArgs>
+  }, ExtArgs["result"]["moneyLender"]>
+
+  export type MoneyLenderSelectScalar = {
+    ml_id?: boolean
+    ml_uuid?: boolean
+    ml_own_id?: boolean
+    ml_first_name?: boolean
+    ml_last_name?: boolean
+    ml_father_name?: boolean
+    ml_gender?: boolean
+    ml_dob?: boolean
+    ml_firm_id?: boolean
+    ml_phone?: boolean
+    ml_email?: boolean
+    ml_aadhaar?: boolean
+    ml_pan?: boolean
+    ml_gstin?: boolean
+    ml_tax_no?: boolean
+    ml_bank_name?: boolean
+    ml_account_number?: boolean
+    ml_ifsc?: boolean
+    ml_branch?: boolean
+    ml_village?: boolean
+    ml_city?: boolean
+    ml_state?: boolean
+    ml_country?: boolean
+    ml_pincode?: boolean
+    ml_address?: boolean
+    ml_notes?: boolean
+    ml_profile_img?: boolean
+    ml_adhaar_front_img?: boolean
+    ml_adhaar_back_img?: boolean
+    ml_pan_img?: boolean
+    is_active?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+  }
+
+  export type MoneyLenderInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    owner?: boolean | OwnerDefaultArgs<ExtArgs>
+    firm?: boolean | MoneyLender$firmArgs<ExtArgs>
+  }
+  export type MoneyLenderIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    owner?: boolean | OwnerDefaultArgs<ExtArgs>
+    firm?: boolean | MoneyLender$firmArgs<ExtArgs>
+  }
+
+  export type $MoneyLenderPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "MoneyLender"
+    objects: {
+      owner: Prisma.$OwnerPayload<ExtArgs>
+      firm: Prisma.$FirmPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      ml_id: number
+      ml_uuid: string
+      ml_own_id: number
+      ml_first_name: string
+      ml_last_name: string | null
+      ml_father_name: string | null
+      ml_gender: string | null
+      ml_dob: Date | null
+      ml_firm_id: number | null
+      ml_phone: string | null
+      ml_email: string | null
+      ml_aadhaar: string | null
+      ml_pan: string | null
+      ml_gstin: string | null
+      ml_tax_no: string | null
+      ml_bank_name: string | null
+      ml_account_number: string | null
+      ml_ifsc: string | null
+      ml_branch: string | null
+      ml_village: string | null
+      ml_city: string | null
+      ml_state: string | null
+      ml_country: string | null
+      ml_pincode: string | null
+      ml_address: string | null
+      ml_notes: string | null
+      ml_profile_img: Prisma.JsonValue | null
+      ml_adhaar_front_img: Prisma.JsonValue | null
+      ml_adhaar_back_img: Prisma.JsonValue | null
+      ml_pan_img: Prisma.JsonValue | null
+      is_active: boolean
+      created_at: Date
+      updated_at: Date
+    }, ExtArgs["result"]["moneyLender"]>
+    composites: {}
+  }
+
+  type MoneyLenderGetPayload<S extends boolean | null | undefined | MoneyLenderDefaultArgs> = $Result.GetResult<Prisma.$MoneyLenderPayload, S>
+
+  type MoneyLenderCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<MoneyLenderFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: MoneyLenderCountAggregateInputType | true
+    }
+
+  export interface MoneyLenderDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['MoneyLender'], meta: { name: 'MoneyLender' } }
+    /**
+     * Find zero or one MoneyLender that matches the filter.
+     * @param {MoneyLenderFindUniqueArgs} args - Arguments to find a MoneyLender
+     * @example
+     * // Get one MoneyLender
+     * const moneyLender = await prisma.moneyLender.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends MoneyLenderFindUniqueArgs>(args: SelectSubset<T, MoneyLenderFindUniqueArgs<ExtArgs>>): Prisma__MoneyLenderClient<$Result.GetResult<Prisma.$MoneyLenderPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one MoneyLender that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {MoneyLenderFindUniqueOrThrowArgs} args - Arguments to find a MoneyLender
+     * @example
+     * // Get one MoneyLender
+     * const moneyLender = await prisma.moneyLender.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends MoneyLenderFindUniqueOrThrowArgs>(args: SelectSubset<T, MoneyLenderFindUniqueOrThrowArgs<ExtArgs>>): Prisma__MoneyLenderClient<$Result.GetResult<Prisma.$MoneyLenderPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first MoneyLender that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MoneyLenderFindFirstArgs} args - Arguments to find a MoneyLender
+     * @example
+     * // Get one MoneyLender
+     * const moneyLender = await prisma.moneyLender.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends MoneyLenderFindFirstArgs>(args?: SelectSubset<T, MoneyLenderFindFirstArgs<ExtArgs>>): Prisma__MoneyLenderClient<$Result.GetResult<Prisma.$MoneyLenderPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first MoneyLender that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MoneyLenderFindFirstOrThrowArgs} args - Arguments to find a MoneyLender
+     * @example
+     * // Get one MoneyLender
+     * const moneyLender = await prisma.moneyLender.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends MoneyLenderFindFirstOrThrowArgs>(args?: SelectSubset<T, MoneyLenderFindFirstOrThrowArgs<ExtArgs>>): Prisma__MoneyLenderClient<$Result.GetResult<Prisma.$MoneyLenderPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more MoneyLenders that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MoneyLenderFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all MoneyLenders
+     * const moneyLenders = await prisma.moneyLender.findMany()
+     * 
+     * // Get first 10 MoneyLenders
+     * const moneyLenders = await prisma.moneyLender.findMany({ take: 10 })
+     * 
+     * // Only select the `ml_id`
+     * const moneyLenderWithMl_idOnly = await prisma.moneyLender.findMany({ select: { ml_id: true } })
+     * 
+     */
+    findMany<T extends MoneyLenderFindManyArgs>(args?: SelectSubset<T, MoneyLenderFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MoneyLenderPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a MoneyLender.
+     * @param {MoneyLenderCreateArgs} args - Arguments to create a MoneyLender.
+     * @example
+     * // Create one MoneyLender
+     * const MoneyLender = await prisma.moneyLender.create({
+     *   data: {
+     *     // ... data to create a MoneyLender
+     *   }
+     * })
+     * 
+     */
+    create<T extends MoneyLenderCreateArgs>(args: SelectSubset<T, MoneyLenderCreateArgs<ExtArgs>>): Prisma__MoneyLenderClient<$Result.GetResult<Prisma.$MoneyLenderPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many MoneyLenders.
+     * @param {MoneyLenderCreateManyArgs} args - Arguments to create many MoneyLenders.
+     * @example
+     * // Create many MoneyLenders
+     * const moneyLender = await prisma.moneyLender.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends MoneyLenderCreateManyArgs>(args?: SelectSubset<T, MoneyLenderCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many MoneyLenders and returns the data saved in the database.
+     * @param {MoneyLenderCreateManyAndReturnArgs} args - Arguments to create many MoneyLenders.
+     * @example
+     * // Create many MoneyLenders
+     * const moneyLender = await prisma.moneyLender.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many MoneyLenders and only return the `ml_id`
+     * const moneyLenderWithMl_idOnly = await prisma.moneyLender.createManyAndReturn({ 
+     *   select: { ml_id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends MoneyLenderCreateManyAndReturnArgs>(args?: SelectSubset<T, MoneyLenderCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MoneyLenderPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a MoneyLender.
+     * @param {MoneyLenderDeleteArgs} args - Arguments to delete one MoneyLender.
+     * @example
+     * // Delete one MoneyLender
+     * const MoneyLender = await prisma.moneyLender.delete({
+     *   where: {
+     *     // ... filter to delete one MoneyLender
+     *   }
+     * })
+     * 
+     */
+    delete<T extends MoneyLenderDeleteArgs>(args: SelectSubset<T, MoneyLenderDeleteArgs<ExtArgs>>): Prisma__MoneyLenderClient<$Result.GetResult<Prisma.$MoneyLenderPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one MoneyLender.
+     * @param {MoneyLenderUpdateArgs} args - Arguments to update one MoneyLender.
+     * @example
+     * // Update one MoneyLender
+     * const moneyLender = await prisma.moneyLender.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends MoneyLenderUpdateArgs>(args: SelectSubset<T, MoneyLenderUpdateArgs<ExtArgs>>): Prisma__MoneyLenderClient<$Result.GetResult<Prisma.$MoneyLenderPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more MoneyLenders.
+     * @param {MoneyLenderDeleteManyArgs} args - Arguments to filter MoneyLenders to delete.
+     * @example
+     * // Delete a few MoneyLenders
+     * const { count } = await prisma.moneyLender.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends MoneyLenderDeleteManyArgs>(args?: SelectSubset<T, MoneyLenderDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MoneyLenders.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MoneyLenderUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many MoneyLenders
+     * const moneyLender = await prisma.moneyLender.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends MoneyLenderUpdateManyArgs>(args: SelectSubset<T, MoneyLenderUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one MoneyLender.
+     * @param {MoneyLenderUpsertArgs} args - Arguments to update or create a MoneyLender.
+     * @example
+     * // Update or create a MoneyLender
+     * const moneyLender = await prisma.moneyLender.upsert({
+     *   create: {
+     *     // ... data to create a MoneyLender
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the MoneyLender we want to update
+     *   }
+     * })
+     */
+    upsert<T extends MoneyLenderUpsertArgs>(args: SelectSubset<T, MoneyLenderUpsertArgs<ExtArgs>>): Prisma__MoneyLenderClient<$Result.GetResult<Prisma.$MoneyLenderPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of MoneyLenders.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MoneyLenderCountArgs} args - Arguments to filter MoneyLenders to count.
+     * @example
+     * // Count the number of MoneyLenders
+     * const count = await prisma.moneyLender.count({
+     *   where: {
+     *     // ... the filter for the MoneyLenders we want to count
+     *   }
+     * })
+    **/
+    count<T extends MoneyLenderCountArgs>(
+      args?: Subset<T, MoneyLenderCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], MoneyLenderCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a MoneyLender.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MoneyLenderAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends MoneyLenderAggregateArgs>(args: Subset<T, MoneyLenderAggregateArgs>): Prisma.PrismaPromise<GetMoneyLenderAggregateType<T>>
+
+    /**
+     * Group by MoneyLender.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MoneyLenderGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends MoneyLenderGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: MoneyLenderGroupByArgs['orderBy'] }
+        : { orderBy?: MoneyLenderGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, MoneyLenderGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMoneyLenderGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the MoneyLender model
+   */
+  readonly fields: MoneyLenderFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for MoneyLender.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__MoneyLenderClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    owner<T extends OwnerDefaultArgs<ExtArgs> = {}>(args?: Subset<T, OwnerDefaultArgs<ExtArgs>>): Prisma__OwnerClient<$Result.GetResult<Prisma.$OwnerPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    firm<T extends MoneyLender$firmArgs<ExtArgs> = {}>(args?: Subset<T, MoneyLender$firmArgs<ExtArgs>>): Prisma__FirmClient<$Result.GetResult<Prisma.$FirmPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the MoneyLender model
+   */ 
+  interface MoneyLenderFieldRefs {
+    readonly ml_id: FieldRef<"MoneyLender", 'Int'>
+    readonly ml_uuid: FieldRef<"MoneyLender", 'String'>
+    readonly ml_own_id: FieldRef<"MoneyLender", 'Int'>
+    readonly ml_first_name: FieldRef<"MoneyLender", 'String'>
+    readonly ml_last_name: FieldRef<"MoneyLender", 'String'>
+    readonly ml_father_name: FieldRef<"MoneyLender", 'String'>
+    readonly ml_gender: FieldRef<"MoneyLender", 'String'>
+    readonly ml_dob: FieldRef<"MoneyLender", 'DateTime'>
+    readonly ml_firm_id: FieldRef<"MoneyLender", 'Int'>
+    readonly ml_phone: FieldRef<"MoneyLender", 'String'>
+    readonly ml_email: FieldRef<"MoneyLender", 'String'>
+    readonly ml_aadhaar: FieldRef<"MoneyLender", 'String'>
+    readonly ml_pan: FieldRef<"MoneyLender", 'String'>
+    readonly ml_gstin: FieldRef<"MoneyLender", 'String'>
+    readonly ml_tax_no: FieldRef<"MoneyLender", 'String'>
+    readonly ml_bank_name: FieldRef<"MoneyLender", 'String'>
+    readonly ml_account_number: FieldRef<"MoneyLender", 'String'>
+    readonly ml_ifsc: FieldRef<"MoneyLender", 'String'>
+    readonly ml_branch: FieldRef<"MoneyLender", 'String'>
+    readonly ml_village: FieldRef<"MoneyLender", 'String'>
+    readonly ml_city: FieldRef<"MoneyLender", 'String'>
+    readonly ml_state: FieldRef<"MoneyLender", 'String'>
+    readonly ml_country: FieldRef<"MoneyLender", 'String'>
+    readonly ml_pincode: FieldRef<"MoneyLender", 'String'>
+    readonly ml_address: FieldRef<"MoneyLender", 'String'>
+    readonly ml_notes: FieldRef<"MoneyLender", 'String'>
+    readonly ml_profile_img: FieldRef<"MoneyLender", 'Json'>
+    readonly ml_adhaar_front_img: FieldRef<"MoneyLender", 'Json'>
+    readonly ml_adhaar_back_img: FieldRef<"MoneyLender", 'Json'>
+    readonly ml_pan_img: FieldRef<"MoneyLender", 'Json'>
+    readonly is_active: FieldRef<"MoneyLender", 'Boolean'>
+    readonly created_at: FieldRef<"MoneyLender", 'DateTime'>
+    readonly updated_at: FieldRef<"MoneyLender", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * MoneyLender findUnique
+   */
+  export type MoneyLenderFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MoneyLender
+     */
+    select?: MoneyLenderSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MoneyLenderInclude<ExtArgs> | null
+    /**
+     * Filter, which MoneyLender to fetch.
+     */
+    where: MoneyLenderWhereUniqueInput
+  }
+
+  /**
+   * MoneyLender findUniqueOrThrow
+   */
+  export type MoneyLenderFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MoneyLender
+     */
+    select?: MoneyLenderSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MoneyLenderInclude<ExtArgs> | null
+    /**
+     * Filter, which MoneyLender to fetch.
+     */
+    where: MoneyLenderWhereUniqueInput
+  }
+
+  /**
+   * MoneyLender findFirst
+   */
+  export type MoneyLenderFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MoneyLender
+     */
+    select?: MoneyLenderSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MoneyLenderInclude<ExtArgs> | null
+    /**
+     * Filter, which MoneyLender to fetch.
+     */
+    where?: MoneyLenderWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MoneyLenders to fetch.
+     */
+    orderBy?: MoneyLenderOrderByWithRelationInput | MoneyLenderOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MoneyLenders.
+     */
+    cursor?: MoneyLenderWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MoneyLenders from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MoneyLenders.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MoneyLenders.
+     */
+    distinct?: MoneyLenderScalarFieldEnum | MoneyLenderScalarFieldEnum[]
+  }
+
+  /**
+   * MoneyLender findFirstOrThrow
+   */
+  export type MoneyLenderFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MoneyLender
+     */
+    select?: MoneyLenderSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MoneyLenderInclude<ExtArgs> | null
+    /**
+     * Filter, which MoneyLender to fetch.
+     */
+    where?: MoneyLenderWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MoneyLenders to fetch.
+     */
+    orderBy?: MoneyLenderOrderByWithRelationInput | MoneyLenderOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MoneyLenders.
+     */
+    cursor?: MoneyLenderWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MoneyLenders from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MoneyLenders.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MoneyLenders.
+     */
+    distinct?: MoneyLenderScalarFieldEnum | MoneyLenderScalarFieldEnum[]
+  }
+
+  /**
+   * MoneyLender findMany
+   */
+  export type MoneyLenderFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MoneyLender
+     */
+    select?: MoneyLenderSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MoneyLenderInclude<ExtArgs> | null
+    /**
+     * Filter, which MoneyLenders to fetch.
+     */
+    where?: MoneyLenderWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MoneyLenders to fetch.
+     */
+    orderBy?: MoneyLenderOrderByWithRelationInput | MoneyLenderOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing MoneyLenders.
+     */
+    cursor?: MoneyLenderWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MoneyLenders from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MoneyLenders.
+     */
+    skip?: number
+    distinct?: MoneyLenderScalarFieldEnum | MoneyLenderScalarFieldEnum[]
+  }
+
+  /**
+   * MoneyLender create
+   */
+  export type MoneyLenderCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MoneyLender
+     */
+    select?: MoneyLenderSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MoneyLenderInclude<ExtArgs> | null
+    /**
+     * The data needed to create a MoneyLender.
+     */
+    data: XOR<MoneyLenderCreateInput, MoneyLenderUncheckedCreateInput>
+  }
+
+  /**
+   * MoneyLender createMany
+   */
+  export type MoneyLenderCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many MoneyLenders.
+     */
+    data: MoneyLenderCreateManyInput | MoneyLenderCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * MoneyLender createManyAndReturn
+   */
+  export type MoneyLenderCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MoneyLender
+     */
+    select?: MoneyLenderSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many MoneyLenders.
+     */
+    data: MoneyLenderCreateManyInput | MoneyLenderCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MoneyLenderIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * MoneyLender update
+   */
+  export type MoneyLenderUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MoneyLender
+     */
+    select?: MoneyLenderSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MoneyLenderInclude<ExtArgs> | null
+    /**
+     * The data needed to update a MoneyLender.
+     */
+    data: XOR<MoneyLenderUpdateInput, MoneyLenderUncheckedUpdateInput>
+    /**
+     * Choose, which MoneyLender to update.
+     */
+    where: MoneyLenderWhereUniqueInput
+  }
+
+  /**
+   * MoneyLender updateMany
+   */
+  export type MoneyLenderUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update MoneyLenders.
+     */
+    data: XOR<MoneyLenderUpdateManyMutationInput, MoneyLenderUncheckedUpdateManyInput>
+    /**
+     * Filter which MoneyLenders to update
+     */
+    where?: MoneyLenderWhereInput
+  }
+
+  /**
+   * MoneyLender upsert
+   */
+  export type MoneyLenderUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MoneyLender
+     */
+    select?: MoneyLenderSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MoneyLenderInclude<ExtArgs> | null
+    /**
+     * The filter to search for the MoneyLender to update in case it exists.
+     */
+    where: MoneyLenderWhereUniqueInput
+    /**
+     * In case the MoneyLender found by the `where` argument doesn't exist, create a new MoneyLender with this data.
+     */
+    create: XOR<MoneyLenderCreateInput, MoneyLenderUncheckedCreateInput>
+    /**
+     * In case the MoneyLender was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<MoneyLenderUpdateInput, MoneyLenderUncheckedUpdateInput>
+  }
+
+  /**
+   * MoneyLender delete
+   */
+  export type MoneyLenderDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MoneyLender
+     */
+    select?: MoneyLenderSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MoneyLenderInclude<ExtArgs> | null
+    /**
+     * Filter which MoneyLender to delete.
+     */
+    where: MoneyLenderWhereUniqueInput
+  }
+
+  /**
+   * MoneyLender deleteMany
+   */
+  export type MoneyLenderDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MoneyLenders to delete
+     */
+    where?: MoneyLenderWhereInput
+  }
+
+  /**
+   * MoneyLender.firm
+   */
+  export type MoneyLender$firmArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Firm
+     */
+    select?: FirmSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FirmInclude<ExtArgs> | null
+    where?: FirmWhereInput
+  }
+
+  /**
+   * MoneyLender without action
+   */
+  export type MoneyLenderDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MoneyLender
+     */
+    select?: MoneyLenderSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MoneyLenderInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -28641,6 +30109,45 @@ export namespace Prisma {
   export type PurityScalarFieldEnum = (typeof PurityScalarFieldEnum)[keyof typeof PurityScalarFieldEnum]
 
 
+  export const MoneyLenderScalarFieldEnum: {
+    ml_id: 'ml_id',
+    ml_uuid: 'ml_uuid',
+    ml_own_id: 'ml_own_id',
+    ml_first_name: 'ml_first_name',
+    ml_last_name: 'ml_last_name',
+    ml_father_name: 'ml_father_name',
+    ml_gender: 'ml_gender',
+    ml_dob: 'ml_dob',
+    ml_firm_id: 'ml_firm_id',
+    ml_phone: 'ml_phone',
+    ml_email: 'ml_email',
+    ml_aadhaar: 'ml_aadhaar',
+    ml_pan: 'ml_pan',
+    ml_gstin: 'ml_gstin',
+    ml_tax_no: 'ml_tax_no',
+    ml_bank_name: 'ml_bank_name',
+    ml_account_number: 'ml_account_number',
+    ml_ifsc: 'ml_ifsc',
+    ml_branch: 'ml_branch',
+    ml_village: 'ml_village',
+    ml_city: 'ml_city',
+    ml_state: 'ml_state',
+    ml_country: 'ml_country',
+    ml_pincode: 'ml_pincode',
+    ml_address: 'ml_address',
+    ml_notes: 'ml_notes',
+    ml_profile_img: 'ml_profile_img',
+    ml_adhaar_front_img: 'ml_adhaar_front_img',
+    ml_adhaar_back_img: 'ml_adhaar_back_img',
+    ml_pan_img: 'ml_pan_img',
+    is_active: 'is_active',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
+  };
+
+  export type MoneyLenderScalarFieldEnum = (typeof MoneyLenderScalarFieldEnum)[keyof typeof MoneyLenderScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -29080,6 +30587,7 @@ export namespace Prisma {
     releases?: GirviReleaseListRelationFilter
     rates?: RateListRelationFilter
     purities?: PurityListRelationFilter
+    moneyLenders?: MoneyLenderListRelationFilter
   }
 
   export type OwnerOrderByWithRelationInput = {
@@ -29133,6 +30641,7 @@ export namespace Prisma {
     releases?: GirviReleaseOrderByRelationAggregateInput
     rates?: RateOrderByRelationAggregateInput
     purities?: PurityOrderByRelationAggregateInput
+    moneyLenders?: MoneyLenderOrderByRelationAggregateInput
   }
 
   export type OwnerWhereUniqueInput = Prisma.AtLeast<{
@@ -29189,6 +30698,7 @@ export namespace Prisma {
     releases?: GirviReleaseListRelationFilter
     rates?: RateListRelationFilter
     purities?: PurityListRelationFilter
+    moneyLenders?: MoneyLenderListRelationFilter
   }, "own_id" | "own_uuid" | "own_product_key" | "own_db" | "own_mobile_no" | "own_email" | "own_login_id">
 
   export type OwnerOrderByWithAggregationInput = {
@@ -29342,6 +30852,7 @@ export namespace Prisma {
     deposits?: GirviDepositListRelationFilter
     releases?: GirviReleaseListRelationFilter
     rates?: RateListRelationFilter
+    moneyLenders?: MoneyLenderListRelationFilter
   }
 
   export type FirmOrderByWithRelationInput = {
@@ -29408,6 +30919,7 @@ export namespace Prisma {
     deposits?: GirviDepositOrderByRelationAggregateInput
     releases?: GirviReleaseOrderByRelationAggregateInput
     rates?: RateOrderByRelationAggregateInput
+    moneyLenders?: MoneyLenderOrderByRelationAggregateInput
   }
 
   export type FirmWhereUniqueInput = Prisma.AtLeast<{
@@ -29477,6 +30989,7 @@ export namespace Prisma {
     deposits?: GirviDepositListRelationFilter
     releases?: GirviReleaseListRelationFilter
     rates?: RateListRelationFilter
+    moneyLenders?: MoneyLenderListRelationFilter
   }, "firm_id" | "firm_uuid" | "firm_name" | "firm_reg_no">
 
   export type FirmOrderByWithAggregationInput = {
@@ -32643,6 +34156,206 @@ export namespace Prisma {
     purity_updated_at?: DateTimeWithAggregatesFilter<"Purity"> | Date | string
   }
 
+  export type MoneyLenderWhereInput = {
+    AND?: MoneyLenderWhereInput | MoneyLenderWhereInput[]
+    OR?: MoneyLenderWhereInput[]
+    NOT?: MoneyLenderWhereInput | MoneyLenderWhereInput[]
+    ml_id?: IntFilter<"MoneyLender"> | number
+    ml_uuid?: StringFilter<"MoneyLender"> | string
+    ml_own_id?: IntFilter<"MoneyLender"> | number
+    ml_first_name?: StringFilter<"MoneyLender"> | string
+    ml_last_name?: StringNullableFilter<"MoneyLender"> | string | null
+    ml_father_name?: StringNullableFilter<"MoneyLender"> | string | null
+    ml_gender?: StringNullableFilter<"MoneyLender"> | string | null
+    ml_dob?: DateTimeNullableFilter<"MoneyLender"> | Date | string | null
+    ml_firm_id?: IntNullableFilter<"MoneyLender"> | number | null
+    ml_phone?: StringNullableFilter<"MoneyLender"> | string | null
+    ml_email?: StringNullableFilter<"MoneyLender"> | string | null
+    ml_aadhaar?: StringNullableFilter<"MoneyLender"> | string | null
+    ml_pan?: StringNullableFilter<"MoneyLender"> | string | null
+    ml_gstin?: StringNullableFilter<"MoneyLender"> | string | null
+    ml_tax_no?: StringNullableFilter<"MoneyLender"> | string | null
+    ml_bank_name?: StringNullableFilter<"MoneyLender"> | string | null
+    ml_account_number?: StringNullableFilter<"MoneyLender"> | string | null
+    ml_ifsc?: StringNullableFilter<"MoneyLender"> | string | null
+    ml_branch?: StringNullableFilter<"MoneyLender"> | string | null
+    ml_village?: StringNullableFilter<"MoneyLender"> | string | null
+    ml_city?: StringNullableFilter<"MoneyLender"> | string | null
+    ml_state?: StringNullableFilter<"MoneyLender"> | string | null
+    ml_country?: StringNullableFilter<"MoneyLender"> | string | null
+    ml_pincode?: StringNullableFilter<"MoneyLender"> | string | null
+    ml_address?: StringNullableFilter<"MoneyLender"> | string | null
+    ml_notes?: StringNullableFilter<"MoneyLender"> | string | null
+    ml_profile_img?: JsonNullableFilter<"MoneyLender">
+    ml_adhaar_front_img?: JsonNullableFilter<"MoneyLender">
+    ml_adhaar_back_img?: JsonNullableFilter<"MoneyLender">
+    ml_pan_img?: JsonNullableFilter<"MoneyLender">
+    is_active?: BoolFilter<"MoneyLender"> | boolean
+    created_at?: DateTimeFilter<"MoneyLender"> | Date | string
+    updated_at?: DateTimeFilter<"MoneyLender"> | Date | string
+    owner?: XOR<OwnerRelationFilter, OwnerWhereInput>
+    firm?: XOR<FirmNullableRelationFilter, FirmWhereInput> | null
+  }
+
+  export type MoneyLenderOrderByWithRelationInput = {
+    ml_id?: SortOrder
+    ml_uuid?: SortOrder
+    ml_own_id?: SortOrder
+    ml_first_name?: SortOrder
+    ml_last_name?: SortOrderInput | SortOrder
+    ml_father_name?: SortOrderInput | SortOrder
+    ml_gender?: SortOrderInput | SortOrder
+    ml_dob?: SortOrderInput | SortOrder
+    ml_firm_id?: SortOrderInput | SortOrder
+    ml_phone?: SortOrderInput | SortOrder
+    ml_email?: SortOrderInput | SortOrder
+    ml_aadhaar?: SortOrderInput | SortOrder
+    ml_pan?: SortOrderInput | SortOrder
+    ml_gstin?: SortOrderInput | SortOrder
+    ml_tax_no?: SortOrderInput | SortOrder
+    ml_bank_name?: SortOrderInput | SortOrder
+    ml_account_number?: SortOrderInput | SortOrder
+    ml_ifsc?: SortOrderInput | SortOrder
+    ml_branch?: SortOrderInput | SortOrder
+    ml_village?: SortOrderInput | SortOrder
+    ml_city?: SortOrderInput | SortOrder
+    ml_state?: SortOrderInput | SortOrder
+    ml_country?: SortOrderInput | SortOrder
+    ml_pincode?: SortOrderInput | SortOrder
+    ml_address?: SortOrderInput | SortOrder
+    ml_notes?: SortOrderInput | SortOrder
+    ml_profile_img?: SortOrderInput | SortOrder
+    ml_adhaar_front_img?: SortOrderInput | SortOrder
+    ml_adhaar_back_img?: SortOrderInput | SortOrder
+    ml_pan_img?: SortOrderInput | SortOrder
+    is_active?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    owner?: OwnerOrderByWithRelationInput
+    firm?: FirmOrderByWithRelationInput
+  }
+
+  export type MoneyLenderWhereUniqueInput = Prisma.AtLeast<{
+    ml_id?: number
+    ml_uuid?: string
+    AND?: MoneyLenderWhereInput | MoneyLenderWhereInput[]
+    OR?: MoneyLenderWhereInput[]
+    NOT?: MoneyLenderWhereInput | MoneyLenderWhereInput[]
+    ml_own_id?: IntFilter<"MoneyLender"> | number
+    ml_first_name?: StringFilter<"MoneyLender"> | string
+    ml_last_name?: StringNullableFilter<"MoneyLender"> | string | null
+    ml_father_name?: StringNullableFilter<"MoneyLender"> | string | null
+    ml_gender?: StringNullableFilter<"MoneyLender"> | string | null
+    ml_dob?: DateTimeNullableFilter<"MoneyLender"> | Date | string | null
+    ml_firm_id?: IntNullableFilter<"MoneyLender"> | number | null
+    ml_phone?: StringNullableFilter<"MoneyLender"> | string | null
+    ml_email?: StringNullableFilter<"MoneyLender"> | string | null
+    ml_aadhaar?: StringNullableFilter<"MoneyLender"> | string | null
+    ml_pan?: StringNullableFilter<"MoneyLender"> | string | null
+    ml_gstin?: StringNullableFilter<"MoneyLender"> | string | null
+    ml_tax_no?: StringNullableFilter<"MoneyLender"> | string | null
+    ml_bank_name?: StringNullableFilter<"MoneyLender"> | string | null
+    ml_account_number?: StringNullableFilter<"MoneyLender"> | string | null
+    ml_ifsc?: StringNullableFilter<"MoneyLender"> | string | null
+    ml_branch?: StringNullableFilter<"MoneyLender"> | string | null
+    ml_village?: StringNullableFilter<"MoneyLender"> | string | null
+    ml_city?: StringNullableFilter<"MoneyLender"> | string | null
+    ml_state?: StringNullableFilter<"MoneyLender"> | string | null
+    ml_country?: StringNullableFilter<"MoneyLender"> | string | null
+    ml_pincode?: StringNullableFilter<"MoneyLender"> | string | null
+    ml_address?: StringNullableFilter<"MoneyLender"> | string | null
+    ml_notes?: StringNullableFilter<"MoneyLender"> | string | null
+    ml_profile_img?: JsonNullableFilter<"MoneyLender">
+    ml_adhaar_front_img?: JsonNullableFilter<"MoneyLender">
+    ml_adhaar_back_img?: JsonNullableFilter<"MoneyLender">
+    ml_pan_img?: JsonNullableFilter<"MoneyLender">
+    is_active?: BoolFilter<"MoneyLender"> | boolean
+    created_at?: DateTimeFilter<"MoneyLender"> | Date | string
+    updated_at?: DateTimeFilter<"MoneyLender"> | Date | string
+    owner?: XOR<OwnerRelationFilter, OwnerWhereInput>
+    firm?: XOR<FirmNullableRelationFilter, FirmWhereInput> | null
+  }, "ml_id" | "ml_uuid">
+
+  export type MoneyLenderOrderByWithAggregationInput = {
+    ml_id?: SortOrder
+    ml_uuid?: SortOrder
+    ml_own_id?: SortOrder
+    ml_first_name?: SortOrder
+    ml_last_name?: SortOrderInput | SortOrder
+    ml_father_name?: SortOrderInput | SortOrder
+    ml_gender?: SortOrderInput | SortOrder
+    ml_dob?: SortOrderInput | SortOrder
+    ml_firm_id?: SortOrderInput | SortOrder
+    ml_phone?: SortOrderInput | SortOrder
+    ml_email?: SortOrderInput | SortOrder
+    ml_aadhaar?: SortOrderInput | SortOrder
+    ml_pan?: SortOrderInput | SortOrder
+    ml_gstin?: SortOrderInput | SortOrder
+    ml_tax_no?: SortOrderInput | SortOrder
+    ml_bank_name?: SortOrderInput | SortOrder
+    ml_account_number?: SortOrderInput | SortOrder
+    ml_ifsc?: SortOrderInput | SortOrder
+    ml_branch?: SortOrderInput | SortOrder
+    ml_village?: SortOrderInput | SortOrder
+    ml_city?: SortOrderInput | SortOrder
+    ml_state?: SortOrderInput | SortOrder
+    ml_country?: SortOrderInput | SortOrder
+    ml_pincode?: SortOrderInput | SortOrder
+    ml_address?: SortOrderInput | SortOrder
+    ml_notes?: SortOrderInput | SortOrder
+    ml_profile_img?: SortOrderInput | SortOrder
+    ml_adhaar_front_img?: SortOrderInput | SortOrder
+    ml_adhaar_back_img?: SortOrderInput | SortOrder
+    ml_pan_img?: SortOrderInput | SortOrder
+    is_active?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    _count?: MoneyLenderCountOrderByAggregateInput
+    _avg?: MoneyLenderAvgOrderByAggregateInput
+    _max?: MoneyLenderMaxOrderByAggregateInput
+    _min?: MoneyLenderMinOrderByAggregateInput
+    _sum?: MoneyLenderSumOrderByAggregateInput
+  }
+
+  export type MoneyLenderScalarWhereWithAggregatesInput = {
+    AND?: MoneyLenderScalarWhereWithAggregatesInput | MoneyLenderScalarWhereWithAggregatesInput[]
+    OR?: MoneyLenderScalarWhereWithAggregatesInput[]
+    NOT?: MoneyLenderScalarWhereWithAggregatesInput | MoneyLenderScalarWhereWithAggregatesInput[]
+    ml_id?: IntWithAggregatesFilter<"MoneyLender"> | number
+    ml_uuid?: StringWithAggregatesFilter<"MoneyLender"> | string
+    ml_own_id?: IntWithAggregatesFilter<"MoneyLender"> | number
+    ml_first_name?: StringWithAggregatesFilter<"MoneyLender"> | string
+    ml_last_name?: StringNullableWithAggregatesFilter<"MoneyLender"> | string | null
+    ml_father_name?: StringNullableWithAggregatesFilter<"MoneyLender"> | string | null
+    ml_gender?: StringNullableWithAggregatesFilter<"MoneyLender"> | string | null
+    ml_dob?: DateTimeNullableWithAggregatesFilter<"MoneyLender"> | Date | string | null
+    ml_firm_id?: IntNullableWithAggregatesFilter<"MoneyLender"> | number | null
+    ml_phone?: StringNullableWithAggregatesFilter<"MoneyLender"> | string | null
+    ml_email?: StringNullableWithAggregatesFilter<"MoneyLender"> | string | null
+    ml_aadhaar?: StringNullableWithAggregatesFilter<"MoneyLender"> | string | null
+    ml_pan?: StringNullableWithAggregatesFilter<"MoneyLender"> | string | null
+    ml_gstin?: StringNullableWithAggregatesFilter<"MoneyLender"> | string | null
+    ml_tax_no?: StringNullableWithAggregatesFilter<"MoneyLender"> | string | null
+    ml_bank_name?: StringNullableWithAggregatesFilter<"MoneyLender"> | string | null
+    ml_account_number?: StringNullableWithAggregatesFilter<"MoneyLender"> | string | null
+    ml_ifsc?: StringNullableWithAggregatesFilter<"MoneyLender"> | string | null
+    ml_branch?: StringNullableWithAggregatesFilter<"MoneyLender"> | string | null
+    ml_village?: StringNullableWithAggregatesFilter<"MoneyLender"> | string | null
+    ml_city?: StringNullableWithAggregatesFilter<"MoneyLender"> | string | null
+    ml_state?: StringNullableWithAggregatesFilter<"MoneyLender"> | string | null
+    ml_country?: StringNullableWithAggregatesFilter<"MoneyLender"> | string | null
+    ml_pincode?: StringNullableWithAggregatesFilter<"MoneyLender"> | string | null
+    ml_address?: StringNullableWithAggregatesFilter<"MoneyLender"> | string | null
+    ml_notes?: StringNullableWithAggregatesFilter<"MoneyLender"> | string | null
+    ml_profile_img?: JsonNullableWithAggregatesFilter<"MoneyLender">
+    ml_adhaar_front_img?: JsonNullableWithAggregatesFilter<"MoneyLender">
+    ml_adhaar_back_img?: JsonNullableWithAggregatesFilter<"MoneyLender">
+    ml_pan_img?: JsonNullableWithAggregatesFilter<"MoneyLender">
+    is_active?: BoolWithAggregatesFilter<"MoneyLender"> | boolean
+    created_at?: DateTimeWithAggregatesFilter<"MoneyLender"> | Date | string
+    updated_at?: DateTimeWithAggregatesFilter<"MoneyLender"> | Date | string
+  }
+
   export type OwnerCreateInput = {
     own_uuid?: string
     own_product_key?: number
@@ -32693,6 +34406,7 @@ export namespace Prisma {
     releases?: GirviReleaseCreateNestedManyWithoutOwnerInput
     rates?: RateCreateNestedManyWithoutOwnerInput
     purities?: PurityCreateNestedManyWithoutOwnerInput
+    moneyLenders?: MoneyLenderCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerUncheckedCreateInput = {
@@ -32746,6 +34460,7 @@ export namespace Prisma {
     releases?: GirviReleaseUncheckedCreateNestedManyWithoutOwnerInput
     rates?: RateUncheckedCreateNestedManyWithoutOwnerInput
     purities?: PurityUncheckedCreateNestedManyWithoutOwnerInput
+    moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerUpdateInput = {
@@ -32797,6 +34512,7 @@ export namespace Prisma {
     releases?: GirviReleaseUpdateManyWithoutOwnerNestedInput
     rates?: RateUpdateManyWithoutOwnerNestedInput
     purities?: PurityUpdateManyWithoutOwnerNestedInput
+    moneyLenders?: MoneyLenderUpdateManyWithoutOwnerNestedInput
   }
 
   export type OwnerUncheckedUpdateInput = {
@@ -32850,6 +34566,7 @@ export namespace Prisma {
     releases?: GirviReleaseUncheckedUpdateManyWithoutOwnerNestedInput
     rates?: RateUncheckedUpdateManyWithoutOwnerNestedInput
     purities?: PurityUncheckedUpdateManyWithoutOwnerNestedInput
+    moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
   export type OwnerCreateManyInput = {
@@ -33026,6 +34743,7 @@ export namespace Prisma {
     deposits?: GirviDepositCreateNestedManyWithoutFirmInput
     releases?: GirviReleaseCreateNestedManyWithoutFirmInput
     rates?: RateCreateNestedManyWithoutFirmInput
+    moneyLenders?: MoneyLenderCreateNestedManyWithoutFirmInput
   }
 
   export type FirmUncheckedCreateInput = {
@@ -33091,6 +34809,7 @@ export namespace Prisma {
     deposits?: GirviDepositUncheckedCreateNestedManyWithoutFirmInput
     releases?: GirviReleaseUncheckedCreateNestedManyWithoutFirmInput
     rates?: RateUncheckedCreateNestedManyWithoutFirmInput
+    moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutFirmInput
   }
 
   export type FirmUpdateInput = {
@@ -33155,6 +34874,7 @@ export namespace Prisma {
     deposits?: GirviDepositUpdateManyWithoutFirmNestedInput
     releases?: GirviReleaseUpdateManyWithoutFirmNestedInput
     rates?: RateUpdateManyWithoutFirmNestedInput
+    moneyLenders?: MoneyLenderUpdateManyWithoutFirmNestedInput
   }
 
   export type FirmUncheckedUpdateInput = {
@@ -33220,6 +34940,7 @@ export namespace Prisma {
     deposits?: GirviDepositUncheckedUpdateManyWithoutFirmNestedInput
     releases?: GirviReleaseUncheckedUpdateManyWithoutFirmNestedInput
     rates?: RateUncheckedUpdateManyWithoutFirmNestedInput
+    moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutFirmNestedInput
   }
 
   export type FirmCreateManyInput = {
@@ -36868,6 +38589,253 @@ export namespace Prisma {
     purity_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type MoneyLenderCreateInput = {
+    ml_uuid?: string
+    ml_first_name: string
+    ml_last_name?: string | null
+    ml_father_name?: string | null
+    ml_gender?: string | null
+    ml_dob?: Date | string | null
+    ml_phone?: string | null
+    ml_email?: string | null
+    ml_aadhaar?: string | null
+    ml_pan?: string | null
+    ml_gstin?: string | null
+    ml_tax_no?: string | null
+    ml_bank_name?: string | null
+    ml_account_number?: string | null
+    ml_ifsc?: string | null
+    ml_branch?: string | null
+    ml_village?: string | null
+    ml_city?: string | null
+    ml_state?: string | null
+    ml_country?: string | null
+    ml_pincode?: string | null
+    ml_address?: string | null
+    ml_notes?: string | null
+    ml_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    ml_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
+    ml_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
+    ml_pan_img?: NullableJsonNullValueInput | InputJsonValue
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    owner: OwnerCreateNestedOneWithoutMoneyLendersInput
+    firm?: FirmCreateNestedOneWithoutMoneyLendersInput
+  }
+
+  export type MoneyLenderUncheckedCreateInput = {
+    ml_id?: number
+    ml_uuid?: string
+    ml_own_id: number
+    ml_first_name: string
+    ml_last_name?: string | null
+    ml_father_name?: string | null
+    ml_gender?: string | null
+    ml_dob?: Date | string | null
+    ml_firm_id?: number | null
+    ml_phone?: string | null
+    ml_email?: string | null
+    ml_aadhaar?: string | null
+    ml_pan?: string | null
+    ml_gstin?: string | null
+    ml_tax_no?: string | null
+    ml_bank_name?: string | null
+    ml_account_number?: string | null
+    ml_ifsc?: string | null
+    ml_branch?: string | null
+    ml_village?: string | null
+    ml_city?: string | null
+    ml_state?: string | null
+    ml_country?: string | null
+    ml_pincode?: string | null
+    ml_address?: string | null
+    ml_notes?: string | null
+    ml_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    ml_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
+    ml_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
+    ml_pan_img?: NullableJsonNullValueInput | InputJsonValue
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type MoneyLenderUpdateInput = {
+    ml_uuid?: StringFieldUpdateOperationsInput | string
+    ml_first_name?: StringFieldUpdateOperationsInput | string
+    ml_last_name?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_father_name?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_gender?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ml_phone?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_email?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_aadhaar?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_pan?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_gstin?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_tax_no?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_bank_name?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_account_number?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_ifsc?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_branch?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_village?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_city?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_state?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_country?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_address?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_notes?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    ml_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
+    ml_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
+    ml_pan_img?: NullableJsonNullValueInput | InputJsonValue
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    owner?: OwnerUpdateOneRequiredWithoutMoneyLendersNestedInput
+    firm?: FirmUpdateOneWithoutMoneyLendersNestedInput
+  }
+
+  export type MoneyLenderUncheckedUpdateInput = {
+    ml_id?: IntFieldUpdateOperationsInput | number
+    ml_uuid?: StringFieldUpdateOperationsInput | string
+    ml_own_id?: IntFieldUpdateOperationsInput | number
+    ml_first_name?: StringFieldUpdateOperationsInput | string
+    ml_last_name?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_father_name?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_gender?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ml_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
+    ml_phone?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_email?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_aadhaar?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_pan?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_gstin?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_tax_no?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_bank_name?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_account_number?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_ifsc?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_branch?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_village?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_city?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_state?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_country?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_address?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_notes?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    ml_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
+    ml_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
+    ml_pan_img?: NullableJsonNullValueInput | InputJsonValue
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MoneyLenderCreateManyInput = {
+    ml_id?: number
+    ml_uuid?: string
+    ml_own_id: number
+    ml_first_name: string
+    ml_last_name?: string | null
+    ml_father_name?: string | null
+    ml_gender?: string | null
+    ml_dob?: Date | string | null
+    ml_firm_id?: number | null
+    ml_phone?: string | null
+    ml_email?: string | null
+    ml_aadhaar?: string | null
+    ml_pan?: string | null
+    ml_gstin?: string | null
+    ml_tax_no?: string | null
+    ml_bank_name?: string | null
+    ml_account_number?: string | null
+    ml_ifsc?: string | null
+    ml_branch?: string | null
+    ml_village?: string | null
+    ml_city?: string | null
+    ml_state?: string | null
+    ml_country?: string | null
+    ml_pincode?: string | null
+    ml_address?: string | null
+    ml_notes?: string | null
+    ml_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    ml_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
+    ml_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
+    ml_pan_img?: NullableJsonNullValueInput | InputJsonValue
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type MoneyLenderUpdateManyMutationInput = {
+    ml_uuid?: StringFieldUpdateOperationsInput | string
+    ml_first_name?: StringFieldUpdateOperationsInput | string
+    ml_last_name?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_father_name?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_gender?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ml_phone?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_email?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_aadhaar?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_pan?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_gstin?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_tax_no?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_bank_name?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_account_number?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_ifsc?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_branch?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_village?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_city?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_state?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_country?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_address?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_notes?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    ml_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
+    ml_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
+    ml_pan_img?: NullableJsonNullValueInput | InputJsonValue
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MoneyLenderUncheckedUpdateManyInput = {
+    ml_id?: IntFieldUpdateOperationsInput | number
+    ml_uuid?: StringFieldUpdateOperationsInput | string
+    ml_own_id?: IntFieldUpdateOperationsInput | number
+    ml_first_name?: StringFieldUpdateOperationsInput | string
+    ml_last_name?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_father_name?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_gender?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ml_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
+    ml_phone?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_email?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_aadhaar?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_pan?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_gstin?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_tax_no?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_bank_name?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_account_number?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_ifsc?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_branch?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_village?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_city?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_state?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_country?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_address?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_notes?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    ml_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
+    ml_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
+    ml_pan_img?: NullableJsonNullValueInput | InputJsonValue
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type IntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -37055,6 +39023,12 @@ export namespace Prisma {
     none?: PurityWhereInput
   }
 
+  export type MoneyLenderListRelationFilter = {
+    every?: MoneyLenderWhereInput
+    some?: MoneyLenderWhereInput
+    none?: MoneyLenderWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -37117,6 +39091,10 @@ export namespace Prisma {
   }
 
   export type PurityOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type MoneyLenderOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -39832,6 +41810,123 @@ export namespace Prisma {
     purity_value?: SortOrder
   }
 
+  export type FirmNullableRelationFilter = {
+    is?: FirmWhereInput | null
+    isNot?: FirmWhereInput | null
+  }
+
+  export type MoneyLenderCountOrderByAggregateInput = {
+    ml_id?: SortOrder
+    ml_uuid?: SortOrder
+    ml_own_id?: SortOrder
+    ml_first_name?: SortOrder
+    ml_last_name?: SortOrder
+    ml_father_name?: SortOrder
+    ml_gender?: SortOrder
+    ml_dob?: SortOrder
+    ml_firm_id?: SortOrder
+    ml_phone?: SortOrder
+    ml_email?: SortOrder
+    ml_aadhaar?: SortOrder
+    ml_pan?: SortOrder
+    ml_gstin?: SortOrder
+    ml_tax_no?: SortOrder
+    ml_bank_name?: SortOrder
+    ml_account_number?: SortOrder
+    ml_ifsc?: SortOrder
+    ml_branch?: SortOrder
+    ml_village?: SortOrder
+    ml_city?: SortOrder
+    ml_state?: SortOrder
+    ml_country?: SortOrder
+    ml_pincode?: SortOrder
+    ml_address?: SortOrder
+    ml_notes?: SortOrder
+    ml_profile_img?: SortOrder
+    ml_adhaar_front_img?: SortOrder
+    ml_adhaar_back_img?: SortOrder
+    ml_pan_img?: SortOrder
+    is_active?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type MoneyLenderAvgOrderByAggregateInput = {
+    ml_id?: SortOrder
+    ml_own_id?: SortOrder
+    ml_firm_id?: SortOrder
+  }
+
+  export type MoneyLenderMaxOrderByAggregateInput = {
+    ml_id?: SortOrder
+    ml_uuid?: SortOrder
+    ml_own_id?: SortOrder
+    ml_first_name?: SortOrder
+    ml_last_name?: SortOrder
+    ml_father_name?: SortOrder
+    ml_gender?: SortOrder
+    ml_dob?: SortOrder
+    ml_firm_id?: SortOrder
+    ml_phone?: SortOrder
+    ml_email?: SortOrder
+    ml_aadhaar?: SortOrder
+    ml_pan?: SortOrder
+    ml_gstin?: SortOrder
+    ml_tax_no?: SortOrder
+    ml_bank_name?: SortOrder
+    ml_account_number?: SortOrder
+    ml_ifsc?: SortOrder
+    ml_branch?: SortOrder
+    ml_village?: SortOrder
+    ml_city?: SortOrder
+    ml_state?: SortOrder
+    ml_country?: SortOrder
+    ml_pincode?: SortOrder
+    ml_address?: SortOrder
+    ml_notes?: SortOrder
+    is_active?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type MoneyLenderMinOrderByAggregateInput = {
+    ml_id?: SortOrder
+    ml_uuid?: SortOrder
+    ml_own_id?: SortOrder
+    ml_first_name?: SortOrder
+    ml_last_name?: SortOrder
+    ml_father_name?: SortOrder
+    ml_gender?: SortOrder
+    ml_dob?: SortOrder
+    ml_firm_id?: SortOrder
+    ml_phone?: SortOrder
+    ml_email?: SortOrder
+    ml_aadhaar?: SortOrder
+    ml_pan?: SortOrder
+    ml_gstin?: SortOrder
+    ml_tax_no?: SortOrder
+    ml_bank_name?: SortOrder
+    ml_account_number?: SortOrder
+    ml_ifsc?: SortOrder
+    ml_branch?: SortOrder
+    ml_village?: SortOrder
+    ml_city?: SortOrder
+    ml_state?: SortOrder
+    ml_country?: SortOrder
+    ml_pincode?: SortOrder
+    ml_address?: SortOrder
+    ml_notes?: SortOrder
+    is_active?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type MoneyLenderSumOrderByAggregateInput = {
+    ml_id?: SortOrder
+    ml_own_id?: SortOrder
+    ml_firm_id?: SortOrder
+  }
+
   export type UserCreateNestedManyWithoutOwnerInput = {
     create?: XOR<UserCreateWithoutOwnerInput, UserUncheckedCreateWithoutOwnerInput> | UserCreateWithoutOwnerInput[] | UserUncheckedCreateWithoutOwnerInput[]
     connectOrCreate?: UserCreateOrConnectWithoutOwnerInput | UserCreateOrConnectWithoutOwnerInput[]
@@ -39937,6 +42032,13 @@ export namespace Prisma {
     connect?: PurityWhereUniqueInput | PurityWhereUniqueInput[]
   }
 
+  export type MoneyLenderCreateNestedManyWithoutOwnerInput = {
+    create?: XOR<MoneyLenderCreateWithoutOwnerInput, MoneyLenderUncheckedCreateWithoutOwnerInput> | MoneyLenderCreateWithoutOwnerInput[] | MoneyLenderUncheckedCreateWithoutOwnerInput[]
+    connectOrCreate?: MoneyLenderCreateOrConnectWithoutOwnerInput | MoneyLenderCreateOrConnectWithoutOwnerInput[]
+    createMany?: MoneyLenderCreateManyOwnerInputEnvelope
+    connect?: MoneyLenderWhereUniqueInput | MoneyLenderWhereUniqueInput[]
+  }
+
   export type UserUncheckedCreateNestedManyWithoutOwnerInput = {
     create?: XOR<UserCreateWithoutOwnerInput, UserUncheckedCreateWithoutOwnerInput> | UserCreateWithoutOwnerInput[] | UserUncheckedCreateWithoutOwnerInput[]
     connectOrCreate?: UserCreateOrConnectWithoutOwnerInput | UserCreateOrConnectWithoutOwnerInput[]
@@ -40040,6 +42142,13 @@ export namespace Prisma {
     connectOrCreate?: PurityCreateOrConnectWithoutOwnerInput | PurityCreateOrConnectWithoutOwnerInput[]
     createMany?: PurityCreateManyOwnerInputEnvelope
     connect?: PurityWhereUniqueInput | PurityWhereUniqueInput[]
+  }
+
+  export type MoneyLenderUncheckedCreateNestedManyWithoutOwnerInput = {
+    create?: XOR<MoneyLenderCreateWithoutOwnerInput, MoneyLenderUncheckedCreateWithoutOwnerInput> | MoneyLenderCreateWithoutOwnerInput[] | MoneyLenderUncheckedCreateWithoutOwnerInput[]
+    connectOrCreate?: MoneyLenderCreateOrConnectWithoutOwnerInput | MoneyLenderCreateOrConnectWithoutOwnerInput[]
+    createMany?: MoneyLenderCreateManyOwnerInputEnvelope
+    connect?: MoneyLenderWhereUniqueInput | MoneyLenderWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -40276,6 +42385,20 @@ export namespace Prisma {
     deleteMany?: PurityScalarWhereInput | PurityScalarWhereInput[]
   }
 
+  export type MoneyLenderUpdateManyWithoutOwnerNestedInput = {
+    create?: XOR<MoneyLenderCreateWithoutOwnerInput, MoneyLenderUncheckedCreateWithoutOwnerInput> | MoneyLenderCreateWithoutOwnerInput[] | MoneyLenderUncheckedCreateWithoutOwnerInput[]
+    connectOrCreate?: MoneyLenderCreateOrConnectWithoutOwnerInput | MoneyLenderCreateOrConnectWithoutOwnerInput[]
+    upsert?: MoneyLenderUpsertWithWhereUniqueWithoutOwnerInput | MoneyLenderUpsertWithWhereUniqueWithoutOwnerInput[]
+    createMany?: MoneyLenderCreateManyOwnerInputEnvelope
+    set?: MoneyLenderWhereUniqueInput | MoneyLenderWhereUniqueInput[]
+    disconnect?: MoneyLenderWhereUniqueInput | MoneyLenderWhereUniqueInput[]
+    delete?: MoneyLenderWhereUniqueInput | MoneyLenderWhereUniqueInput[]
+    connect?: MoneyLenderWhereUniqueInput | MoneyLenderWhereUniqueInput[]
+    update?: MoneyLenderUpdateWithWhereUniqueWithoutOwnerInput | MoneyLenderUpdateWithWhereUniqueWithoutOwnerInput[]
+    updateMany?: MoneyLenderUpdateManyWithWhereWithoutOwnerInput | MoneyLenderUpdateManyWithWhereWithoutOwnerInput[]
+    deleteMany?: MoneyLenderScalarWhereInput | MoneyLenderScalarWhereInput[]
+  }
+
   export type IntFieldUpdateOperationsInput = {
     set?: number
     increment?: number
@@ -40494,6 +42617,20 @@ export namespace Prisma {
     deleteMany?: PurityScalarWhereInput | PurityScalarWhereInput[]
   }
 
+  export type MoneyLenderUncheckedUpdateManyWithoutOwnerNestedInput = {
+    create?: XOR<MoneyLenderCreateWithoutOwnerInput, MoneyLenderUncheckedCreateWithoutOwnerInput> | MoneyLenderCreateWithoutOwnerInput[] | MoneyLenderUncheckedCreateWithoutOwnerInput[]
+    connectOrCreate?: MoneyLenderCreateOrConnectWithoutOwnerInput | MoneyLenderCreateOrConnectWithoutOwnerInput[]
+    upsert?: MoneyLenderUpsertWithWhereUniqueWithoutOwnerInput | MoneyLenderUpsertWithWhereUniqueWithoutOwnerInput[]
+    createMany?: MoneyLenderCreateManyOwnerInputEnvelope
+    set?: MoneyLenderWhereUniqueInput | MoneyLenderWhereUniqueInput[]
+    disconnect?: MoneyLenderWhereUniqueInput | MoneyLenderWhereUniqueInput[]
+    delete?: MoneyLenderWhereUniqueInput | MoneyLenderWhereUniqueInput[]
+    connect?: MoneyLenderWhereUniqueInput | MoneyLenderWhereUniqueInput[]
+    update?: MoneyLenderUpdateWithWhereUniqueWithoutOwnerInput | MoneyLenderUpdateWithWhereUniqueWithoutOwnerInput[]
+    updateMany?: MoneyLenderUpdateManyWithWhereWithoutOwnerInput | MoneyLenderUpdateManyWithWhereWithoutOwnerInput[]
+    deleteMany?: MoneyLenderScalarWhereInput | MoneyLenderScalarWhereInput[]
+  }
+
   export type UserCreateNestedManyWithoutFirmInput = {
     create?: XOR<UserCreateWithoutFirmInput, UserUncheckedCreateWithoutFirmInput> | UserCreateWithoutFirmInput[] | UserUncheckedCreateWithoutFirmInput[]
     connectOrCreate?: UserCreateOrConnectWithoutFirmInput | UserCreateOrConnectWithoutFirmInput[]
@@ -40591,6 +42728,13 @@ export namespace Prisma {
     connect?: RateWhereUniqueInput | RateWhereUniqueInput[]
   }
 
+  export type MoneyLenderCreateNestedManyWithoutFirmInput = {
+    create?: XOR<MoneyLenderCreateWithoutFirmInput, MoneyLenderUncheckedCreateWithoutFirmInput> | MoneyLenderCreateWithoutFirmInput[] | MoneyLenderUncheckedCreateWithoutFirmInput[]
+    connectOrCreate?: MoneyLenderCreateOrConnectWithoutFirmInput | MoneyLenderCreateOrConnectWithoutFirmInput[]
+    createMany?: MoneyLenderCreateManyFirmInputEnvelope
+    connect?: MoneyLenderWhereUniqueInput | MoneyLenderWhereUniqueInput[]
+  }
+
   export type UserUncheckedCreateNestedManyWithoutFirmInput = {
     create?: XOR<UserCreateWithoutFirmInput, UserUncheckedCreateWithoutFirmInput> | UserCreateWithoutFirmInput[] | UserUncheckedCreateWithoutFirmInput[]
     connectOrCreate?: UserCreateOrConnectWithoutFirmInput | UserCreateOrConnectWithoutFirmInput[]
@@ -40680,6 +42824,13 @@ export namespace Prisma {
     connectOrCreate?: RateCreateOrConnectWithoutFirmInput | RateCreateOrConnectWithoutFirmInput[]
     createMany?: RateCreateManyFirmInputEnvelope
     connect?: RateWhereUniqueInput | RateWhereUniqueInput[]
+  }
+
+  export type MoneyLenderUncheckedCreateNestedManyWithoutFirmInput = {
+    create?: XOR<MoneyLenderCreateWithoutFirmInput, MoneyLenderUncheckedCreateWithoutFirmInput> | MoneyLenderCreateWithoutFirmInput[] | MoneyLenderUncheckedCreateWithoutFirmInput[]
+    connectOrCreate?: MoneyLenderCreateOrConnectWithoutFirmInput | MoneyLenderCreateOrConnectWithoutFirmInput[]
+    createMany?: MoneyLenderCreateManyFirmInputEnvelope
+    connect?: MoneyLenderWhereUniqueInput | MoneyLenderWhereUniqueInput[]
   }
 
   export type EnumFirmTypeFieldUpdateOperationsInput = {
@@ -40880,6 +43031,20 @@ export namespace Prisma {
     deleteMany?: RateScalarWhereInput | RateScalarWhereInput[]
   }
 
+  export type MoneyLenderUpdateManyWithoutFirmNestedInput = {
+    create?: XOR<MoneyLenderCreateWithoutFirmInput, MoneyLenderUncheckedCreateWithoutFirmInput> | MoneyLenderCreateWithoutFirmInput[] | MoneyLenderUncheckedCreateWithoutFirmInput[]
+    connectOrCreate?: MoneyLenderCreateOrConnectWithoutFirmInput | MoneyLenderCreateOrConnectWithoutFirmInput[]
+    upsert?: MoneyLenderUpsertWithWhereUniqueWithoutFirmInput | MoneyLenderUpsertWithWhereUniqueWithoutFirmInput[]
+    createMany?: MoneyLenderCreateManyFirmInputEnvelope
+    set?: MoneyLenderWhereUniqueInput | MoneyLenderWhereUniqueInput[]
+    disconnect?: MoneyLenderWhereUniqueInput | MoneyLenderWhereUniqueInput[]
+    delete?: MoneyLenderWhereUniqueInput | MoneyLenderWhereUniqueInput[]
+    connect?: MoneyLenderWhereUniqueInput | MoneyLenderWhereUniqueInput[]
+    update?: MoneyLenderUpdateWithWhereUniqueWithoutFirmInput | MoneyLenderUpdateWithWhereUniqueWithoutFirmInput[]
+    updateMany?: MoneyLenderUpdateManyWithWhereWithoutFirmInput | MoneyLenderUpdateManyWithWhereWithoutFirmInput[]
+    deleteMany?: MoneyLenderScalarWhereInput | MoneyLenderScalarWhereInput[]
+  }
+
   export type UserUncheckedUpdateManyWithoutFirmNestedInput = {
     create?: XOR<UserCreateWithoutFirmInput, UserUncheckedCreateWithoutFirmInput> | UserCreateWithoutFirmInput[] | UserUncheckedCreateWithoutFirmInput[]
     connectOrCreate?: UserCreateOrConnectWithoutFirmInput | UserCreateOrConnectWithoutFirmInput[]
@@ -41060,6 +43225,20 @@ export namespace Prisma {
     update?: RateUpdateWithWhereUniqueWithoutFirmInput | RateUpdateWithWhereUniqueWithoutFirmInput[]
     updateMany?: RateUpdateManyWithWhereWithoutFirmInput | RateUpdateManyWithWhereWithoutFirmInput[]
     deleteMany?: RateScalarWhereInput | RateScalarWhereInput[]
+  }
+
+  export type MoneyLenderUncheckedUpdateManyWithoutFirmNestedInput = {
+    create?: XOR<MoneyLenderCreateWithoutFirmInput, MoneyLenderUncheckedCreateWithoutFirmInput> | MoneyLenderCreateWithoutFirmInput[] | MoneyLenderUncheckedCreateWithoutFirmInput[]
+    connectOrCreate?: MoneyLenderCreateOrConnectWithoutFirmInput | MoneyLenderCreateOrConnectWithoutFirmInput[]
+    upsert?: MoneyLenderUpsertWithWhereUniqueWithoutFirmInput | MoneyLenderUpsertWithWhereUniqueWithoutFirmInput[]
+    createMany?: MoneyLenderCreateManyFirmInputEnvelope
+    set?: MoneyLenderWhereUniqueInput | MoneyLenderWhereUniqueInput[]
+    disconnect?: MoneyLenderWhereUniqueInput | MoneyLenderWhereUniqueInput[]
+    delete?: MoneyLenderWhereUniqueInput | MoneyLenderWhereUniqueInput[]
+    connect?: MoneyLenderWhereUniqueInput | MoneyLenderWhereUniqueInput[]
+    update?: MoneyLenderUpdateWithWhereUniqueWithoutFirmInput | MoneyLenderUpdateWithWhereUniqueWithoutFirmInput[]
+    updateMany?: MoneyLenderUpdateManyWithWhereWithoutFirmInput | MoneyLenderUpdateManyWithWhereWithoutFirmInput[]
+    deleteMany?: MoneyLenderScalarWhereInput | MoneyLenderScalarWhereInput[]
   }
 
   export type OwnerCreateNestedOneWithoutAccountsInput = {
@@ -44980,6 +47159,36 @@ export namespace Prisma {
     update?: XOR<XOR<OwnerUpdateToOneWithWhereWithoutPuritiesInput, OwnerUpdateWithoutPuritiesInput>, OwnerUncheckedUpdateWithoutPuritiesInput>
   }
 
+  export type OwnerCreateNestedOneWithoutMoneyLendersInput = {
+    create?: XOR<OwnerCreateWithoutMoneyLendersInput, OwnerUncheckedCreateWithoutMoneyLendersInput>
+    connectOrCreate?: OwnerCreateOrConnectWithoutMoneyLendersInput
+    connect?: OwnerWhereUniqueInput
+  }
+
+  export type FirmCreateNestedOneWithoutMoneyLendersInput = {
+    create?: XOR<FirmCreateWithoutMoneyLendersInput, FirmUncheckedCreateWithoutMoneyLendersInput>
+    connectOrCreate?: FirmCreateOrConnectWithoutMoneyLendersInput
+    connect?: FirmWhereUniqueInput
+  }
+
+  export type OwnerUpdateOneRequiredWithoutMoneyLendersNestedInput = {
+    create?: XOR<OwnerCreateWithoutMoneyLendersInput, OwnerUncheckedCreateWithoutMoneyLendersInput>
+    connectOrCreate?: OwnerCreateOrConnectWithoutMoneyLendersInput
+    upsert?: OwnerUpsertWithoutMoneyLendersInput
+    connect?: OwnerWhereUniqueInput
+    update?: XOR<XOR<OwnerUpdateToOneWithWhereWithoutMoneyLendersInput, OwnerUpdateWithoutMoneyLendersInput>, OwnerUncheckedUpdateWithoutMoneyLendersInput>
+  }
+
+  export type FirmUpdateOneWithoutMoneyLendersNestedInput = {
+    create?: XOR<FirmCreateWithoutMoneyLendersInput, FirmUncheckedCreateWithoutMoneyLendersInput>
+    connectOrCreate?: FirmCreateOrConnectWithoutMoneyLendersInput
+    upsert?: FirmUpsertWithoutMoneyLendersInput
+    disconnect?: FirmWhereInput | boolean
+    delete?: FirmWhereInput | boolean
+    connect?: FirmWhereUniqueInput
+    update?: XOR<XOR<FirmUpdateToOneWithWhereWithoutMoneyLendersInput, FirmUpdateWithoutMoneyLendersInput>, FirmUncheckedUpdateWithoutMoneyLendersInput>
+  }
+
   export type NestedIntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -45744,6 +47953,7 @@ export namespace Prisma {
     deposits?: GirviDepositCreateNestedManyWithoutFirmInput
     releases?: GirviReleaseCreateNestedManyWithoutFirmInput
     rates?: RateCreateNestedManyWithoutFirmInput
+    moneyLenders?: MoneyLenderCreateNestedManyWithoutFirmInput
   }
 
   export type FirmUncheckedCreateWithoutOwnerInput = {
@@ -45808,6 +48018,7 @@ export namespace Prisma {
     deposits?: GirviDepositUncheckedCreateNestedManyWithoutFirmInput
     releases?: GirviReleaseUncheckedCreateNestedManyWithoutFirmInput
     rates?: RateUncheckedCreateNestedManyWithoutFirmInput
+    moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutFirmInput
   }
 
   export type FirmCreateOrConnectWithoutOwnerInput = {
@@ -46879,6 +49090,85 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type MoneyLenderCreateWithoutOwnerInput = {
+    ml_uuid?: string
+    ml_first_name: string
+    ml_last_name?: string | null
+    ml_father_name?: string | null
+    ml_gender?: string | null
+    ml_dob?: Date | string | null
+    ml_phone?: string | null
+    ml_email?: string | null
+    ml_aadhaar?: string | null
+    ml_pan?: string | null
+    ml_gstin?: string | null
+    ml_tax_no?: string | null
+    ml_bank_name?: string | null
+    ml_account_number?: string | null
+    ml_ifsc?: string | null
+    ml_branch?: string | null
+    ml_village?: string | null
+    ml_city?: string | null
+    ml_state?: string | null
+    ml_country?: string | null
+    ml_pincode?: string | null
+    ml_address?: string | null
+    ml_notes?: string | null
+    ml_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    ml_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
+    ml_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
+    ml_pan_img?: NullableJsonNullValueInput | InputJsonValue
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    firm?: FirmCreateNestedOneWithoutMoneyLendersInput
+  }
+
+  export type MoneyLenderUncheckedCreateWithoutOwnerInput = {
+    ml_id?: number
+    ml_uuid?: string
+    ml_first_name: string
+    ml_last_name?: string | null
+    ml_father_name?: string | null
+    ml_gender?: string | null
+    ml_dob?: Date | string | null
+    ml_firm_id?: number | null
+    ml_phone?: string | null
+    ml_email?: string | null
+    ml_aadhaar?: string | null
+    ml_pan?: string | null
+    ml_gstin?: string | null
+    ml_tax_no?: string | null
+    ml_bank_name?: string | null
+    ml_account_number?: string | null
+    ml_ifsc?: string | null
+    ml_branch?: string | null
+    ml_village?: string | null
+    ml_city?: string | null
+    ml_state?: string | null
+    ml_country?: string | null
+    ml_pincode?: string | null
+    ml_address?: string | null
+    ml_notes?: string | null
+    ml_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    ml_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
+    ml_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
+    ml_pan_img?: NullableJsonNullValueInput | InputJsonValue
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type MoneyLenderCreateOrConnectWithoutOwnerInput = {
+    where: MoneyLenderWhereUniqueInput
+    create: XOR<MoneyLenderCreateWithoutOwnerInput, MoneyLenderUncheckedCreateWithoutOwnerInput>
+  }
+
+  export type MoneyLenderCreateManyOwnerInputEnvelope = {
+    data: MoneyLenderCreateManyOwnerInput | MoneyLenderCreateManyOwnerInput[]
+    skipDuplicates?: boolean
+  }
+
   export type UserUpsertWithWhereUniqueWithoutOwnerInput = {
     where: UserWhereUniqueInput
     update: XOR<UserUpdateWithoutOwnerInput, UserUncheckedUpdateWithoutOwnerInput>
@@ -47699,6 +49989,61 @@ export namespace Prisma {
     purity_updated_at?: DateTimeFilter<"Purity"> | Date | string
   }
 
+  export type MoneyLenderUpsertWithWhereUniqueWithoutOwnerInput = {
+    where: MoneyLenderWhereUniqueInput
+    update: XOR<MoneyLenderUpdateWithoutOwnerInput, MoneyLenderUncheckedUpdateWithoutOwnerInput>
+    create: XOR<MoneyLenderCreateWithoutOwnerInput, MoneyLenderUncheckedCreateWithoutOwnerInput>
+  }
+
+  export type MoneyLenderUpdateWithWhereUniqueWithoutOwnerInput = {
+    where: MoneyLenderWhereUniqueInput
+    data: XOR<MoneyLenderUpdateWithoutOwnerInput, MoneyLenderUncheckedUpdateWithoutOwnerInput>
+  }
+
+  export type MoneyLenderUpdateManyWithWhereWithoutOwnerInput = {
+    where: MoneyLenderScalarWhereInput
+    data: XOR<MoneyLenderUpdateManyMutationInput, MoneyLenderUncheckedUpdateManyWithoutOwnerInput>
+  }
+
+  export type MoneyLenderScalarWhereInput = {
+    AND?: MoneyLenderScalarWhereInput | MoneyLenderScalarWhereInput[]
+    OR?: MoneyLenderScalarWhereInput[]
+    NOT?: MoneyLenderScalarWhereInput | MoneyLenderScalarWhereInput[]
+    ml_id?: IntFilter<"MoneyLender"> | number
+    ml_uuid?: StringFilter<"MoneyLender"> | string
+    ml_own_id?: IntFilter<"MoneyLender"> | number
+    ml_first_name?: StringFilter<"MoneyLender"> | string
+    ml_last_name?: StringNullableFilter<"MoneyLender"> | string | null
+    ml_father_name?: StringNullableFilter<"MoneyLender"> | string | null
+    ml_gender?: StringNullableFilter<"MoneyLender"> | string | null
+    ml_dob?: DateTimeNullableFilter<"MoneyLender"> | Date | string | null
+    ml_firm_id?: IntNullableFilter<"MoneyLender"> | number | null
+    ml_phone?: StringNullableFilter<"MoneyLender"> | string | null
+    ml_email?: StringNullableFilter<"MoneyLender"> | string | null
+    ml_aadhaar?: StringNullableFilter<"MoneyLender"> | string | null
+    ml_pan?: StringNullableFilter<"MoneyLender"> | string | null
+    ml_gstin?: StringNullableFilter<"MoneyLender"> | string | null
+    ml_tax_no?: StringNullableFilter<"MoneyLender"> | string | null
+    ml_bank_name?: StringNullableFilter<"MoneyLender"> | string | null
+    ml_account_number?: StringNullableFilter<"MoneyLender"> | string | null
+    ml_ifsc?: StringNullableFilter<"MoneyLender"> | string | null
+    ml_branch?: StringNullableFilter<"MoneyLender"> | string | null
+    ml_village?: StringNullableFilter<"MoneyLender"> | string | null
+    ml_city?: StringNullableFilter<"MoneyLender"> | string | null
+    ml_state?: StringNullableFilter<"MoneyLender"> | string | null
+    ml_country?: StringNullableFilter<"MoneyLender"> | string | null
+    ml_pincode?: StringNullableFilter<"MoneyLender"> | string | null
+    ml_address?: StringNullableFilter<"MoneyLender"> | string | null
+    ml_notes?: StringNullableFilter<"MoneyLender"> | string | null
+    ml_profile_img?: JsonNullableFilter<"MoneyLender">
+    ml_adhaar_front_img?: JsonNullableFilter<"MoneyLender">
+    ml_adhaar_back_img?: JsonNullableFilter<"MoneyLender">
+    ml_pan_img?: JsonNullableFilter<"MoneyLender">
+    is_active?: BoolFilter<"MoneyLender"> | boolean
+    created_at?: DateTimeFilter<"MoneyLender"> | Date | string
+    updated_at?: DateTimeFilter<"MoneyLender"> | Date | string
+  }
+
   export type UserCreateWithoutFirmInput = {
     user_uuid?: string
     user_add_date?: Date | string
@@ -48030,6 +50375,7 @@ export namespace Prisma {
     releases?: GirviReleaseCreateNestedManyWithoutOwnerInput
     rates?: RateCreateNestedManyWithoutOwnerInput
     purities?: PurityCreateNestedManyWithoutOwnerInput
+    moneyLenders?: MoneyLenderCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerUncheckedCreateWithoutFirmsInput = {
@@ -48082,6 +50428,7 @@ export namespace Prisma {
     releases?: GirviReleaseUncheckedCreateNestedManyWithoutOwnerInput
     rates?: RateUncheckedCreateNestedManyWithoutOwnerInput
     purities?: PurityUncheckedCreateNestedManyWithoutOwnerInput
+    moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerCreateOrConnectWithoutFirmsInput = {
@@ -48954,6 +51301,85 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type MoneyLenderCreateWithoutFirmInput = {
+    ml_uuid?: string
+    ml_first_name: string
+    ml_last_name?: string | null
+    ml_father_name?: string | null
+    ml_gender?: string | null
+    ml_dob?: Date | string | null
+    ml_phone?: string | null
+    ml_email?: string | null
+    ml_aadhaar?: string | null
+    ml_pan?: string | null
+    ml_gstin?: string | null
+    ml_tax_no?: string | null
+    ml_bank_name?: string | null
+    ml_account_number?: string | null
+    ml_ifsc?: string | null
+    ml_branch?: string | null
+    ml_village?: string | null
+    ml_city?: string | null
+    ml_state?: string | null
+    ml_country?: string | null
+    ml_pincode?: string | null
+    ml_address?: string | null
+    ml_notes?: string | null
+    ml_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    ml_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
+    ml_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
+    ml_pan_img?: NullableJsonNullValueInput | InputJsonValue
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    owner: OwnerCreateNestedOneWithoutMoneyLendersInput
+  }
+
+  export type MoneyLenderUncheckedCreateWithoutFirmInput = {
+    ml_id?: number
+    ml_uuid?: string
+    ml_own_id: number
+    ml_first_name: string
+    ml_last_name?: string | null
+    ml_father_name?: string | null
+    ml_gender?: string | null
+    ml_dob?: Date | string | null
+    ml_phone?: string | null
+    ml_email?: string | null
+    ml_aadhaar?: string | null
+    ml_pan?: string | null
+    ml_gstin?: string | null
+    ml_tax_no?: string | null
+    ml_bank_name?: string | null
+    ml_account_number?: string | null
+    ml_ifsc?: string | null
+    ml_branch?: string | null
+    ml_village?: string | null
+    ml_city?: string | null
+    ml_state?: string | null
+    ml_country?: string | null
+    ml_pincode?: string | null
+    ml_address?: string | null
+    ml_notes?: string | null
+    ml_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    ml_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
+    ml_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
+    ml_pan_img?: NullableJsonNullValueInput | InputJsonValue
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type MoneyLenderCreateOrConnectWithoutFirmInput = {
+    where: MoneyLenderWhereUniqueInput
+    create: XOR<MoneyLenderCreateWithoutFirmInput, MoneyLenderUncheckedCreateWithoutFirmInput>
+  }
+
+  export type MoneyLenderCreateManyFirmInputEnvelope = {
+    data: MoneyLenderCreateManyFirmInput | MoneyLenderCreateManyFirmInput[]
+    skipDuplicates?: boolean
+  }
+
   export type UserUpsertWithWhereUniqueWithoutFirmInput = {
     where: UserWhereUniqueInput
     update: XOR<UserUpdateWithoutFirmInput, UserUncheckedUpdateWithoutFirmInput>
@@ -49045,6 +51471,7 @@ export namespace Prisma {
     releases?: GirviReleaseUpdateManyWithoutOwnerNestedInput
     rates?: RateUpdateManyWithoutOwnerNestedInput
     purities?: PurityUpdateManyWithoutOwnerNestedInput
+    moneyLenders?: MoneyLenderUpdateManyWithoutOwnerNestedInput
   }
 
   export type OwnerUncheckedUpdateWithoutFirmsInput = {
@@ -49097,6 +51524,7 @@ export namespace Prisma {
     releases?: GirviReleaseUncheckedUpdateManyWithoutOwnerNestedInput
     rates?: RateUncheckedUpdateManyWithoutOwnerNestedInput
     purities?: PurityUncheckedUpdateManyWithoutOwnerNestedInput
+    moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
   export type FinanceUpsertWithWhereUniqueWithoutFirmInput = {
@@ -49275,6 +51703,22 @@ export namespace Prisma {
     data: XOR<RateUpdateManyMutationInput, RateUncheckedUpdateManyWithoutFirmInput>
   }
 
+  export type MoneyLenderUpsertWithWhereUniqueWithoutFirmInput = {
+    where: MoneyLenderWhereUniqueInput
+    update: XOR<MoneyLenderUpdateWithoutFirmInput, MoneyLenderUncheckedUpdateWithoutFirmInput>
+    create: XOR<MoneyLenderCreateWithoutFirmInput, MoneyLenderUncheckedCreateWithoutFirmInput>
+  }
+
+  export type MoneyLenderUpdateWithWhereUniqueWithoutFirmInput = {
+    where: MoneyLenderWhereUniqueInput
+    data: XOR<MoneyLenderUpdateWithoutFirmInput, MoneyLenderUncheckedUpdateWithoutFirmInput>
+  }
+
+  export type MoneyLenderUpdateManyWithWhereWithoutFirmInput = {
+    where: MoneyLenderScalarWhereInput
+    data: XOR<MoneyLenderUpdateManyMutationInput, MoneyLenderUncheckedUpdateManyWithoutFirmInput>
+  }
+
   export type OwnerCreateWithoutAccountsInput = {
     own_uuid?: string
     own_product_key?: number
@@ -49324,6 +51768,7 @@ export namespace Prisma {
     releases?: GirviReleaseCreateNestedManyWithoutOwnerInput
     rates?: RateCreateNestedManyWithoutOwnerInput
     purities?: PurityCreateNestedManyWithoutOwnerInput
+    moneyLenders?: MoneyLenderCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerUncheckedCreateWithoutAccountsInput = {
@@ -49376,6 +51821,7 @@ export namespace Prisma {
     releases?: GirviReleaseUncheckedCreateNestedManyWithoutOwnerInput
     rates?: RateUncheckedCreateNestedManyWithoutOwnerInput
     purities?: PurityUncheckedCreateNestedManyWithoutOwnerInput
+    moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerCreateOrConnectWithoutAccountsInput = {
@@ -49444,6 +51890,7 @@ export namespace Prisma {
     deposits?: GirviDepositCreateNestedManyWithoutFirmInput
     releases?: GirviReleaseCreateNestedManyWithoutFirmInput
     rates?: RateCreateNestedManyWithoutFirmInput
+    moneyLenders?: MoneyLenderCreateNestedManyWithoutFirmInput
   }
 
   export type FirmUncheckedCreateWithoutAccountsInput = {
@@ -49508,6 +51955,7 @@ export namespace Prisma {
     deposits?: GirviDepositUncheckedCreateNestedManyWithoutFirmInput
     releases?: GirviReleaseUncheckedCreateNestedManyWithoutFirmInput
     rates?: RateUncheckedCreateNestedManyWithoutFirmInput
+    moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutFirmInput
   }
 
   export type FirmCreateOrConnectWithoutAccountsInput = {
@@ -53489,6 +55937,7 @@ export namespace Prisma {
     releases?: GirviReleaseUpdateManyWithoutOwnerNestedInput
     rates?: RateUpdateManyWithoutOwnerNestedInput
     purities?: PurityUpdateManyWithoutOwnerNestedInput
+    moneyLenders?: MoneyLenderUpdateManyWithoutOwnerNestedInput
   }
 
   export type OwnerUncheckedUpdateWithoutAccountsInput = {
@@ -53541,6 +55990,7 @@ export namespace Prisma {
     releases?: GirviReleaseUncheckedUpdateManyWithoutOwnerNestedInput
     rates?: RateUncheckedUpdateManyWithoutOwnerNestedInput
     purities?: PurityUncheckedUpdateManyWithoutOwnerNestedInput
+    moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
   export type FirmUpsertWithoutAccountsInput = {
@@ -53615,6 +56065,7 @@ export namespace Prisma {
     deposits?: GirviDepositUpdateManyWithoutFirmNestedInput
     releases?: GirviReleaseUpdateManyWithoutFirmNestedInput
     rates?: RateUpdateManyWithoutFirmNestedInput
+    moneyLenders?: MoneyLenderUpdateManyWithoutFirmNestedInput
   }
 
   export type FirmUncheckedUpdateWithoutAccountsInput = {
@@ -53679,6 +56130,7 @@ export namespace Prisma {
     deposits?: GirviDepositUncheckedUpdateManyWithoutFirmNestedInput
     releases?: GirviReleaseUncheckedUpdateManyWithoutFirmNestedInput
     rates?: RateUncheckedUpdateManyWithoutFirmNestedInput
+    moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutFirmNestedInput
   }
 
   export type FinanceUpsertWithWhereUniqueWithoutCashAccountInput = {
@@ -54418,6 +56870,7 @@ export namespace Prisma {
     releases?: GirviReleaseCreateNestedManyWithoutOwnerInput
     rates?: RateCreateNestedManyWithoutOwnerInput
     purities?: PurityCreateNestedManyWithoutOwnerInput
+    moneyLenders?: MoneyLenderCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerUncheckedCreateWithoutUsersInput = {
@@ -54470,6 +56923,7 @@ export namespace Prisma {
     releases?: GirviReleaseUncheckedCreateNestedManyWithoutOwnerInput
     rates?: RateUncheckedCreateNestedManyWithoutOwnerInput
     purities?: PurityUncheckedCreateNestedManyWithoutOwnerInput
+    moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerCreateOrConnectWithoutUsersInput = {
@@ -54538,6 +56992,7 @@ export namespace Prisma {
     deposits?: GirviDepositCreateNestedManyWithoutFirmInput
     releases?: GirviReleaseCreateNestedManyWithoutFirmInput
     rates?: RateCreateNestedManyWithoutFirmInput
+    moneyLenders?: MoneyLenderCreateNestedManyWithoutFirmInput
   }
 
   export type FirmUncheckedCreateWithoutUsersInput = {
@@ -54602,6 +57057,7 @@ export namespace Prisma {
     deposits?: GirviDepositUncheckedCreateNestedManyWithoutFirmInput
     releases?: GirviReleaseUncheckedCreateNestedManyWithoutFirmInput
     rates?: RateUncheckedCreateNestedManyWithoutFirmInput
+    moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutFirmInput
   }
 
   export type FirmCreateOrConnectWithoutUsersInput = {
@@ -55484,6 +57940,7 @@ export namespace Prisma {
     releases?: GirviReleaseUpdateManyWithoutOwnerNestedInput
     rates?: RateUpdateManyWithoutOwnerNestedInput
     purities?: PurityUpdateManyWithoutOwnerNestedInput
+    moneyLenders?: MoneyLenderUpdateManyWithoutOwnerNestedInput
   }
 
   export type OwnerUncheckedUpdateWithoutUsersInput = {
@@ -55536,6 +57993,7 @@ export namespace Prisma {
     releases?: GirviReleaseUncheckedUpdateManyWithoutOwnerNestedInput
     rates?: RateUncheckedUpdateManyWithoutOwnerNestedInput
     purities?: PurityUncheckedUpdateManyWithoutOwnerNestedInput
+    moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
   export type FirmUpsertWithoutUsersInput = {
@@ -55610,6 +58068,7 @@ export namespace Prisma {
     deposits?: GirviDepositUpdateManyWithoutFirmNestedInput
     releases?: GirviReleaseUpdateManyWithoutFirmNestedInput
     rates?: RateUpdateManyWithoutFirmNestedInput
+    moneyLenders?: MoneyLenderUpdateManyWithoutFirmNestedInput
   }
 
   export type FirmUncheckedUpdateWithoutUsersInput = {
@@ -55674,6 +58133,7 @@ export namespace Prisma {
     deposits?: GirviDepositUncheckedUpdateManyWithoutFirmNestedInput
     releases?: GirviReleaseUncheckedUpdateManyWithoutFirmNestedInput
     rates?: RateUncheckedUpdateManyWithoutFirmNestedInput
+    moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutFirmNestedInput
   }
 
   export type FinanceUpsertWithWhereUniqueWithoutUserInput = {
@@ -55897,6 +58357,7 @@ export namespace Prisma {
     deposits?: GirviDepositCreateNestedManyWithoutFirmInput
     releases?: GirviReleaseCreateNestedManyWithoutFirmInput
     rates?: RateCreateNestedManyWithoutFirmInput
+    moneyLenders?: MoneyLenderCreateNestedManyWithoutFirmInput
   }
 
   export type FirmUncheckedCreateWithoutFinancesInput = {
@@ -55961,6 +58422,7 @@ export namespace Prisma {
     deposits?: GirviDepositUncheckedCreateNestedManyWithoutFirmInput
     releases?: GirviReleaseUncheckedCreateNestedManyWithoutFirmInput
     rates?: RateUncheckedCreateNestedManyWithoutFirmInput
+    moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutFirmInput
   }
 
   export type FirmCreateOrConnectWithoutFinancesInput = {
@@ -57047,6 +59509,7 @@ export namespace Prisma {
     releases?: GirviReleaseCreateNestedManyWithoutOwnerInput
     rates?: RateCreateNestedManyWithoutOwnerInput
     purities?: PurityCreateNestedManyWithoutOwnerInput
+    moneyLenders?: MoneyLenderCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerUncheckedCreateWithoutFinancesInput = {
@@ -57099,6 +59562,7 @@ export namespace Prisma {
     releases?: GirviReleaseUncheckedCreateNestedManyWithoutOwnerInput
     rates?: RateUncheckedCreateNestedManyWithoutOwnerInput
     purities?: PurityUncheckedCreateNestedManyWithoutOwnerInput
+    moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerCreateOrConnectWithoutFinancesInput = {
@@ -57178,6 +59642,7 @@ export namespace Prisma {
     deposits?: GirviDepositUpdateManyWithoutFirmNestedInput
     releases?: GirviReleaseUpdateManyWithoutFirmNestedInput
     rates?: RateUpdateManyWithoutFirmNestedInput
+    moneyLenders?: MoneyLenderUpdateManyWithoutFirmNestedInput
   }
 
   export type FirmUncheckedUpdateWithoutFinancesInput = {
@@ -57242,6 +59707,7 @@ export namespace Prisma {
     deposits?: GirviDepositUncheckedUpdateManyWithoutFirmNestedInput
     releases?: GirviReleaseUncheckedUpdateManyWithoutFirmNestedInput
     rates?: RateUncheckedUpdateManyWithoutFirmNestedInput
+    moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutFirmNestedInput
   }
 
   export type UserUpsertWithoutFinancesInput = {
@@ -58251,6 +60717,7 @@ export namespace Prisma {
     releases?: GirviReleaseUpdateManyWithoutOwnerNestedInput
     rates?: RateUpdateManyWithoutOwnerNestedInput
     purities?: PurityUpdateManyWithoutOwnerNestedInput
+    moneyLenders?: MoneyLenderUpdateManyWithoutOwnerNestedInput
   }
 
   export type OwnerUncheckedUpdateWithoutFinancesInput = {
@@ -58303,6 +60770,7 @@ export namespace Prisma {
     releases?: GirviReleaseUncheckedUpdateManyWithoutOwnerNestedInput
     rates?: RateUncheckedUpdateManyWithoutOwnerNestedInput
     purities?: PurityUncheckedUpdateManyWithoutOwnerNestedInput
+    moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
   export type FirmCreateWithoutFinanceTransactionsInput = {
@@ -58366,6 +60834,7 @@ export namespace Prisma {
     deposits?: GirviDepositCreateNestedManyWithoutFirmInput
     releases?: GirviReleaseCreateNestedManyWithoutFirmInput
     rates?: RateCreateNestedManyWithoutFirmInput
+    moneyLenders?: MoneyLenderCreateNestedManyWithoutFirmInput
   }
 
   export type FirmUncheckedCreateWithoutFinanceTransactionsInput = {
@@ -58430,6 +60899,7 @@ export namespace Prisma {
     deposits?: GirviDepositUncheckedCreateNestedManyWithoutFirmInput
     releases?: GirviReleaseUncheckedCreateNestedManyWithoutFirmInput
     rates?: RateUncheckedCreateNestedManyWithoutFirmInput
+    moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutFirmInput
   }
 
   export type FirmCreateOrConnectWithoutFinanceTransactionsInput = {
@@ -58606,6 +61076,7 @@ export namespace Prisma {
     releases?: GirviReleaseCreateNestedManyWithoutOwnerInput
     rates?: RateCreateNestedManyWithoutOwnerInput
     purities?: PurityCreateNestedManyWithoutOwnerInput
+    moneyLenders?: MoneyLenderCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerUncheckedCreateWithoutFinanceTransactionsInput = {
@@ -58658,6 +61129,7 @@ export namespace Prisma {
     releases?: GirviReleaseUncheckedCreateNestedManyWithoutOwnerInput
     rates?: RateUncheckedCreateNestedManyWithoutOwnerInput
     purities?: PurityUncheckedCreateNestedManyWithoutOwnerInput
+    moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerCreateOrConnectWithoutFinanceTransactionsInput = {
@@ -59447,6 +61919,7 @@ export namespace Prisma {
     deposits?: GirviDepositUpdateManyWithoutFirmNestedInput
     releases?: GirviReleaseUpdateManyWithoutFirmNestedInput
     rates?: RateUpdateManyWithoutFirmNestedInput
+    moneyLenders?: MoneyLenderUpdateManyWithoutFirmNestedInput
   }
 
   export type FirmUncheckedUpdateWithoutFinanceTransactionsInput = {
@@ -59511,6 +61984,7 @@ export namespace Prisma {
     deposits?: GirviDepositUncheckedUpdateManyWithoutFirmNestedInput
     releases?: GirviReleaseUncheckedUpdateManyWithoutFirmNestedInput
     rates?: RateUncheckedUpdateManyWithoutFirmNestedInput
+    moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutFirmNestedInput
   }
 
   export type UserUpsertWithoutFinanceTransactionsInput = {
@@ -59698,6 +62172,7 @@ export namespace Prisma {
     releases?: GirviReleaseUpdateManyWithoutOwnerNestedInput
     rates?: RateUpdateManyWithoutOwnerNestedInput
     purities?: PurityUpdateManyWithoutOwnerNestedInput
+    moneyLenders?: MoneyLenderUpdateManyWithoutOwnerNestedInput
   }
 
   export type OwnerUncheckedUpdateWithoutFinanceTransactionsInput = {
@@ -59750,6 +62225,7 @@ export namespace Prisma {
     releases?: GirviReleaseUncheckedUpdateManyWithoutOwnerNestedInput
     rates?: RateUncheckedUpdateManyWithoutOwnerNestedInput
     purities?: PurityUncheckedUpdateManyWithoutOwnerNestedInput
+    moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
   export type FinanceUpsertWithoutFinance_transInput = {
@@ -60553,6 +63029,7 @@ export namespace Prisma {
     deposits?: GirviDepositCreateNestedManyWithoutFirmInput
     releases?: GirviReleaseCreateNestedManyWithoutFirmInput
     rates?: RateCreateNestedManyWithoutFirmInput
+    moneyLenders?: MoneyLenderCreateNestedManyWithoutFirmInput
   }
 
   export type FirmUncheckedCreateWithoutFinanceMoneyTransInput = {
@@ -60617,6 +63094,7 @@ export namespace Prisma {
     deposits?: GirviDepositUncheckedCreateNestedManyWithoutFirmInput
     releases?: GirviReleaseUncheckedCreateNestedManyWithoutFirmInput
     rates?: RateUncheckedCreateNestedManyWithoutFirmInput
+    moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutFirmInput
   }
 
   export type FirmCreateOrConnectWithoutFinanceMoneyTransInput = {
@@ -60793,6 +63271,7 @@ export namespace Prisma {
     releases?: GirviReleaseCreateNestedManyWithoutOwnerInput
     rates?: RateCreateNestedManyWithoutOwnerInput
     purities?: PurityCreateNestedManyWithoutOwnerInput
+    moneyLenders?: MoneyLenderCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerUncheckedCreateWithoutFinanceMoneyTransInput = {
@@ -60845,6 +63324,7 @@ export namespace Prisma {
     releases?: GirviReleaseUncheckedCreateNestedManyWithoutOwnerInput
     rates?: RateUncheckedCreateNestedManyWithoutOwnerInput
     purities?: PurityUncheckedCreateNestedManyWithoutOwnerInput
+    moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerCreateOrConnectWithoutFinanceMoneyTransInput = {
@@ -61832,6 +64312,7 @@ export namespace Prisma {
     deposits?: GirviDepositUpdateManyWithoutFirmNestedInput
     releases?: GirviReleaseUpdateManyWithoutFirmNestedInput
     rates?: RateUpdateManyWithoutFirmNestedInput
+    moneyLenders?: MoneyLenderUpdateManyWithoutFirmNestedInput
   }
 
   export type FirmUncheckedUpdateWithoutFinanceMoneyTransInput = {
@@ -61896,6 +64377,7 @@ export namespace Prisma {
     deposits?: GirviDepositUncheckedUpdateManyWithoutFirmNestedInput
     releases?: GirviReleaseUncheckedUpdateManyWithoutFirmNestedInput
     rates?: RateUncheckedUpdateManyWithoutFirmNestedInput
+    moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutFirmNestedInput
   }
 
   export type UserUpsertWithoutFinanceMoneyTransInput = {
@@ -62083,6 +64565,7 @@ export namespace Prisma {
     releases?: GirviReleaseUpdateManyWithoutOwnerNestedInput
     rates?: RateUpdateManyWithoutOwnerNestedInput
     purities?: PurityUpdateManyWithoutOwnerNestedInput
+    moneyLenders?: MoneyLenderUpdateManyWithoutOwnerNestedInput
   }
 
   export type OwnerUncheckedUpdateWithoutFinanceMoneyTransInput = {
@@ -62135,6 +64618,7 @@ export namespace Prisma {
     releases?: GirviReleaseUncheckedUpdateManyWithoutOwnerNestedInput
     rates?: RateUncheckedUpdateManyWithoutOwnerNestedInput
     purities?: PurityUncheckedUpdateManyWithoutOwnerNestedInput
+    moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
   export type FinanceUpsertWithoutFinance_money_transInput = {
@@ -63231,6 +65715,7 @@ export namespace Prisma {
     deposits?: GirviDepositCreateNestedManyWithoutFirmInput
     releases?: GirviReleaseCreateNestedManyWithoutFirmInput
     rates?: RateCreateNestedManyWithoutFirmInput
+    moneyLenders?: MoneyLenderCreateNestedManyWithoutFirmInput
   }
 
   export type FirmUncheckedCreateWithoutJournalsInput = {
@@ -63295,6 +65780,7 @@ export namespace Prisma {
     deposits?: GirviDepositUncheckedCreateNestedManyWithoutFirmInput
     releases?: GirviReleaseUncheckedCreateNestedManyWithoutFirmInput
     rates?: RateUncheckedCreateNestedManyWithoutFirmInput
+    moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutFirmInput
   }
 
   export type FirmCreateOrConnectWithoutJournalsInput = {
@@ -63471,6 +65957,7 @@ export namespace Prisma {
     releases?: GirviReleaseCreateNestedManyWithoutOwnerInput
     rates?: RateCreateNestedManyWithoutOwnerInput
     purities?: PurityCreateNestedManyWithoutOwnerInput
+    moneyLenders?: MoneyLenderCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerUncheckedCreateWithoutJournalsInput = {
@@ -63523,6 +66010,7 @@ export namespace Prisma {
     releases?: GirviReleaseUncheckedCreateNestedManyWithoutOwnerInput
     rates?: RateUncheckedCreateNestedManyWithoutOwnerInput
     purities?: PurityUncheckedCreateNestedManyWithoutOwnerInput
+    moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerCreateOrConnectWithoutJournalsInput = {
@@ -63677,6 +66165,7 @@ export namespace Prisma {
     deposits?: GirviDepositUpdateManyWithoutFirmNestedInput
     releases?: GirviReleaseUpdateManyWithoutFirmNestedInput
     rates?: RateUpdateManyWithoutFirmNestedInput
+    moneyLenders?: MoneyLenderUpdateManyWithoutFirmNestedInput
   }
 
   export type FirmUncheckedUpdateWithoutJournalsInput = {
@@ -63741,6 +66230,7 @@ export namespace Prisma {
     deposits?: GirviDepositUncheckedUpdateManyWithoutFirmNestedInput
     releases?: GirviReleaseUncheckedUpdateManyWithoutFirmNestedInput
     rates?: RateUncheckedUpdateManyWithoutFirmNestedInput
+    moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutFirmNestedInput
   }
 
   export type UserUpsertWithoutJournalsInput = {
@@ -63928,6 +66418,7 @@ export namespace Prisma {
     releases?: GirviReleaseUpdateManyWithoutOwnerNestedInput
     rates?: RateUpdateManyWithoutOwnerNestedInput
     purities?: PurityUpdateManyWithoutOwnerNestedInput
+    moneyLenders?: MoneyLenderUpdateManyWithoutOwnerNestedInput
   }
 
   export type OwnerUncheckedUpdateWithoutJournalsInput = {
@@ -63980,6 +66471,7 @@ export namespace Prisma {
     releases?: GirviReleaseUncheckedUpdateManyWithoutOwnerNestedInput
     rates?: RateUncheckedUpdateManyWithoutOwnerNestedInput
     purities?: PurityUncheckedUpdateManyWithoutOwnerNestedInput
+    moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
   export type JournalTransactionUpsertWithWhereUniqueWithoutJournalInput = {
@@ -64105,6 +66597,7 @@ export namespace Prisma {
     deposits?: GirviDepositCreateNestedManyWithoutFirmInput
     releases?: GirviReleaseCreateNestedManyWithoutFirmInput
     rates?: RateCreateNestedManyWithoutFirmInput
+    moneyLenders?: MoneyLenderCreateNestedManyWithoutFirmInput
   }
 
   export type FirmUncheckedCreateWithoutJournalTransactionsInput = {
@@ -64169,6 +66662,7 @@ export namespace Prisma {
     deposits?: GirviDepositUncheckedCreateNestedManyWithoutFirmInput
     releases?: GirviReleaseUncheckedCreateNestedManyWithoutFirmInput
     rates?: RateUncheckedCreateNestedManyWithoutFirmInput
+    moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutFirmInput
   }
 
   export type FirmCreateOrConnectWithoutJournalTransactionsInput = {
@@ -64345,6 +66839,7 @@ export namespace Prisma {
     releases?: GirviReleaseCreateNestedManyWithoutOwnerInput
     rates?: RateCreateNestedManyWithoutOwnerInput
     purities?: PurityCreateNestedManyWithoutOwnerInput
+    moneyLenders?: MoneyLenderCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerUncheckedCreateWithoutJournalTransactionsInput = {
@@ -64397,6 +66892,7 @@ export namespace Prisma {
     releases?: GirviReleaseUncheckedCreateNestedManyWithoutOwnerInput
     rates?: RateUncheckedCreateNestedManyWithoutOwnerInput
     purities?: PurityUncheckedCreateNestedManyWithoutOwnerInput
+    moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerCreateOrConnectWithoutJournalTransactionsInput = {
@@ -64832,6 +67328,7 @@ export namespace Prisma {
     deposits?: GirviDepositUpdateManyWithoutFirmNestedInput
     releases?: GirviReleaseUpdateManyWithoutFirmNestedInput
     rates?: RateUpdateManyWithoutFirmNestedInput
+    moneyLenders?: MoneyLenderUpdateManyWithoutFirmNestedInput
   }
 
   export type FirmUncheckedUpdateWithoutJournalTransactionsInput = {
@@ -64896,6 +67393,7 @@ export namespace Prisma {
     deposits?: GirviDepositUncheckedUpdateManyWithoutFirmNestedInput
     releases?: GirviReleaseUncheckedUpdateManyWithoutFirmNestedInput
     rates?: RateUncheckedUpdateManyWithoutFirmNestedInput
+    moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutFirmNestedInput
   }
 
   export type UserUpsertWithoutJournalTransactionsInput = {
@@ -65083,6 +67581,7 @@ export namespace Prisma {
     releases?: GirviReleaseUpdateManyWithoutOwnerNestedInput
     rates?: RateUpdateManyWithoutOwnerNestedInput
     purities?: PurityUpdateManyWithoutOwnerNestedInput
+    moneyLenders?: MoneyLenderUpdateManyWithoutOwnerNestedInput
   }
 
   export type OwnerUncheckedUpdateWithoutJournalTransactionsInput = {
@@ -65135,6 +67634,7 @@ export namespace Prisma {
     releases?: GirviReleaseUncheckedUpdateManyWithoutOwnerNestedInput
     rates?: RateUncheckedUpdateManyWithoutOwnerNestedInput
     purities?: PurityUncheckedUpdateManyWithoutOwnerNestedInput
+    moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
   export type AccountUpsertWithoutJrtrCreditInput = {
@@ -65502,6 +68002,7 @@ export namespace Prisma {
     releases?: GirviReleaseCreateNestedManyWithoutOwnerInput
     rates?: RateCreateNestedManyWithoutOwnerInput
     purities?: PurityCreateNestedManyWithoutOwnerInput
+    moneyLenders?: MoneyLenderCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerUncheckedCreateWithoutGirvisInput = {
@@ -65554,6 +68055,7 @@ export namespace Prisma {
     releases?: GirviReleaseUncheckedCreateNestedManyWithoutOwnerInput
     rates?: RateUncheckedCreateNestedManyWithoutOwnerInput
     purities?: PurityUncheckedCreateNestedManyWithoutOwnerInput
+    moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerCreateOrConnectWithoutGirvisInput = {
@@ -65622,6 +68124,7 @@ export namespace Prisma {
     deposits?: GirviDepositCreateNestedManyWithoutFirmInput
     releases?: GirviReleaseCreateNestedManyWithoutFirmInput
     rates?: RateCreateNestedManyWithoutFirmInput
+    moneyLenders?: MoneyLenderCreateNestedManyWithoutFirmInput
   }
 
   export type FirmUncheckedCreateWithoutGirvisInput = {
@@ -65686,6 +68189,7 @@ export namespace Prisma {
     deposits?: GirviDepositUncheckedCreateNestedManyWithoutFirmInput
     releases?: GirviReleaseUncheckedCreateNestedManyWithoutFirmInput
     rates?: RateUncheckedCreateNestedManyWithoutFirmInput
+    moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutFirmInput
   }
 
   export type FirmCreateOrConnectWithoutGirvisInput = {
@@ -67191,6 +69695,7 @@ export namespace Prisma {
     releases?: GirviReleaseUpdateManyWithoutOwnerNestedInput
     rates?: RateUpdateManyWithoutOwnerNestedInput
     purities?: PurityUpdateManyWithoutOwnerNestedInput
+    moneyLenders?: MoneyLenderUpdateManyWithoutOwnerNestedInput
   }
 
   export type OwnerUncheckedUpdateWithoutGirvisInput = {
@@ -67243,6 +69748,7 @@ export namespace Prisma {
     releases?: GirviReleaseUncheckedUpdateManyWithoutOwnerNestedInput
     rates?: RateUncheckedUpdateManyWithoutOwnerNestedInput
     purities?: PurityUncheckedUpdateManyWithoutOwnerNestedInput
+    moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
   export type FirmUpsertWithoutGirvisInput = {
@@ -67317,6 +69823,7 @@ export namespace Prisma {
     deposits?: GirviDepositUpdateManyWithoutFirmNestedInput
     releases?: GirviReleaseUpdateManyWithoutFirmNestedInput
     rates?: RateUpdateManyWithoutFirmNestedInput
+    moneyLenders?: MoneyLenderUpdateManyWithoutFirmNestedInput
   }
 
   export type FirmUncheckedUpdateWithoutGirvisInput = {
@@ -67381,6 +69888,7 @@ export namespace Prisma {
     deposits?: GirviDepositUncheckedUpdateManyWithoutFirmNestedInput
     releases?: GirviReleaseUncheckedUpdateManyWithoutFirmNestedInput
     rates?: RateUncheckedUpdateManyWithoutFirmNestedInput
+    moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutFirmNestedInput
   }
 
   export type UserUpsertWithoutGirvisInput = {
@@ -68712,6 +71220,7 @@ export namespace Prisma {
     releases?: GirviReleaseCreateNestedManyWithoutOwnerInput
     rates?: RateCreateNestedManyWithoutOwnerInput
     purities?: PurityCreateNestedManyWithoutOwnerInput
+    moneyLenders?: MoneyLenderCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerUncheckedCreateWithoutStocksInput = {
@@ -68764,6 +71273,7 @@ export namespace Prisma {
     releases?: GirviReleaseUncheckedCreateNestedManyWithoutOwnerInput
     rates?: RateUncheckedCreateNestedManyWithoutOwnerInput
     purities?: PurityUncheckedCreateNestedManyWithoutOwnerInput
+    moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerCreateOrConnectWithoutStocksInput = {
@@ -68832,6 +71342,7 @@ export namespace Prisma {
     deposits?: GirviDepositCreateNestedManyWithoutFirmInput
     releases?: GirviReleaseCreateNestedManyWithoutFirmInput
     rates?: RateCreateNestedManyWithoutFirmInput
+    moneyLenders?: MoneyLenderCreateNestedManyWithoutFirmInput
   }
 
   export type FirmUncheckedCreateWithoutStocksInput = {
@@ -68896,6 +71407,7 @@ export namespace Prisma {
     deposits?: GirviDepositUncheckedCreateNestedManyWithoutFirmInput
     releases?: GirviReleaseUncheckedCreateNestedManyWithoutFirmInput
     rates?: RateUncheckedCreateNestedManyWithoutFirmInput
+    moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutFirmInput
   }
 
   export type FirmCreateOrConnectWithoutStocksInput = {
@@ -69082,6 +71594,7 @@ export namespace Prisma {
     releases?: GirviReleaseUpdateManyWithoutOwnerNestedInput
     rates?: RateUpdateManyWithoutOwnerNestedInput
     purities?: PurityUpdateManyWithoutOwnerNestedInput
+    moneyLenders?: MoneyLenderUpdateManyWithoutOwnerNestedInput
   }
 
   export type OwnerUncheckedUpdateWithoutStocksInput = {
@@ -69134,6 +71647,7 @@ export namespace Prisma {
     releases?: GirviReleaseUncheckedUpdateManyWithoutOwnerNestedInput
     rates?: RateUncheckedUpdateManyWithoutOwnerNestedInput
     purities?: PurityUncheckedUpdateManyWithoutOwnerNestedInput
+    moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
   export type FirmUpsertWithoutStocksInput = {
@@ -69208,6 +71722,7 @@ export namespace Prisma {
     deposits?: GirviDepositUpdateManyWithoutFirmNestedInput
     releases?: GirviReleaseUpdateManyWithoutFirmNestedInput
     rates?: RateUpdateManyWithoutFirmNestedInput
+    moneyLenders?: MoneyLenderUpdateManyWithoutFirmNestedInput
   }
 
   export type FirmUncheckedUpdateWithoutStocksInput = {
@@ -69272,6 +71787,7 @@ export namespace Prisma {
     deposits?: GirviDepositUncheckedUpdateManyWithoutFirmNestedInput
     releases?: GirviReleaseUncheckedUpdateManyWithoutFirmNestedInput
     rates?: RateUncheckedUpdateManyWithoutFirmNestedInput
+    moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutFirmNestedInput
   }
 
   export type UserUpsertWithoutStocksInput = {
@@ -69449,6 +71965,7 @@ export namespace Prisma {
     releases?: GirviReleaseCreateNestedManyWithoutOwnerInput
     rates?: RateCreateNestedManyWithoutOwnerInput
     purities?: PurityCreateNestedManyWithoutOwnerInput
+    moneyLenders?: MoneyLenderCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerUncheckedCreateWithoutAdditionalPrincipalsInput = {
@@ -69501,6 +72018,7 @@ export namespace Prisma {
     releases?: GirviReleaseUncheckedCreateNestedManyWithoutOwnerInput
     rates?: RateUncheckedCreateNestedManyWithoutOwnerInput
     purities?: PurityUncheckedCreateNestedManyWithoutOwnerInput
+    moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerCreateOrConnectWithoutAdditionalPrincipalsInput = {
@@ -69569,6 +72087,7 @@ export namespace Prisma {
     deposits?: GirviDepositCreateNestedManyWithoutFirmInput
     releases?: GirviReleaseCreateNestedManyWithoutFirmInput
     rates?: RateCreateNestedManyWithoutFirmInput
+    moneyLenders?: MoneyLenderCreateNestedManyWithoutFirmInput
   }
 
   export type FirmUncheckedCreateWithoutAdditionalPrincipalsInput = {
@@ -69633,6 +72152,7 @@ export namespace Prisma {
     deposits?: GirviDepositUncheckedCreateNestedManyWithoutFirmInput
     releases?: GirviReleaseUncheckedCreateNestedManyWithoutFirmInput
     rates?: RateUncheckedCreateNestedManyWithoutFirmInput
+    moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutFirmInput
   }
 
   export type FirmCreateOrConnectWithoutAdditionalPrincipalsInput = {
@@ -70543,6 +73063,7 @@ export namespace Prisma {
     releases?: GirviReleaseUpdateManyWithoutOwnerNestedInput
     rates?: RateUpdateManyWithoutOwnerNestedInput
     purities?: PurityUpdateManyWithoutOwnerNestedInput
+    moneyLenders?: MoneyLenderUpdateManyWithoutOwnerNestedInput
   }
 
   export type OwnerUncheckedUpdateWithoutAdditionalPrincipalsInput = {
@@ -70595,6 +73116,7 @@ export namespace Prisma {
     releases?: GirviReleaseUncheckedUpdateManyWithoutOwnerNestedInput
     rates?: RateUncheckedUpdateManyWithoutOwnerNestedInput
     purities?: PurityUncheckedUpdateManyWithoutOwnerNestedInput
+    moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
   export type FirmUpsertWithoutAdditionalPrincipalsInput = {
@@ -70669,6 +73191,7 @@ export namespace Prisma {
     deposits?: GirviDepositUpdateManyWithoutFirmNestedInput
     releases?: GirviReleaseUpdateManyWithoutFirmNestedInput
     rates?: RateUpdateManyWithoutFirmNestedInput
+    moneyLenders?: MoneyLenderUpdateManyWithoutFirmNestedInput
   }
 
   export type FirmUncheckedUpdateWithoutAdditionalPrincipalsInput = {
@@ -70733,6 +73256,7 @@ export namespace Prisma {
     deposits?: GirviDepositUncheckedUpdateManyWithoutFirmNestedInput
     releases?: GirviReleaseUncheckedUpdateManyWithoutFirmNestedInput
     rates?: RateUncheckedUpdateManyWithoutFirmNestedInput
+    moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutFirmNestedInput
   }
 
   export type UserUpsertWithoutAdditionalPrincipalsInput = {
@@ -71664,6 +74188,7 @@ export namespace Prisma {
     releases?: GirviReleaseCreateNestedManyWithoutOwnerInput
     rates?: RateCreateNestedManyWithoutOwnerInput
     purities?: PurityCreateNestedManyWithoutOwnerInput
+    moneyLenders?: MoneyLenderCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerUncheckedCreateWithoutDepositsInput = {
@@ -71716,6 +74241,7 @@ export namespace Prisma {
     releases?: GirviReleaseUncheckedCreateNestedManyWithoutOwnerInput
     rates?: RateUncheckedCreateNestedManyWithoutOwnerInput
     purities?: PurityUncheckedCreateNestedManyWithoutOwnerInput
+    moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerCreateOrConnectWithoutDepositsInput = {
@@ -71784,6 +74310,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutFirmInput
     releases?: GirviReleaseCreateNestedManyWithoutFirmInput
     rates?: RateCreateNestedManyWithoutFirmInput
+    moneyLenders?: MoneyLenderCreateNestedManyWithoutFirmInput
   }
 
   export type FirmUncheckedCreateWithoutDepositsInput = {
@@ -71848,6 +74375,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutFirmInput
     releases?: GirviReleaseUncheckedCreateNestedManyWithoutFirmInput
     rates?: RateUncheckedCreateNestedManyWithoutFirmInput
+    moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutFirmInput
   }
 
   export type FirmCreateOrConnectWithoutDepositsInput = {
@@ -73366,6 +75894,7 @@ export namespace Prisma {
     releases?: GirviReleaseUpdateManyWithoutOwnerNestedInput
     rates?: RateUpdateManyWithoutOwnerNestedInput
     purities?: PurityUpdateManyWithoutOwnerNestedInput
+    moneyLenders?: MoneyLenderUpdateManyWithoutOwnerNestedInput
   }
 
   export type OwnerUncheckedUpdateWithoutDepositsInput = {
@@ -73418,6 +75947,7 @@ export namespace Prisma {
     releases?: GirviReleaseUncheckedUpdateManyWithoutOwnerNestedInput
     rates?: RateUncheckedUpdateManyWithoutOwnerNestedInput
     purities?: PurityUncheckedUpdateManyWithoutOwnerNestedInput
+    moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
   export type FirmUpsertWithoutDepositsInput = {
@@ -73492,6 +76022,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutFirmNestedInput
     releases?: GirviReleaseUpdateManyWithoutFirmNestedInput
     rates?: RateUpdateManyWithoutFirmNestedInput
+    moneyLenders?: MoneyLenderUpdateManyWithoutFirmNestedInput
   }
 
   export type FirmUncheckedUpdateWithoutDepositsInput = {
@@ -73556,6 +76087,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutFirmNestedInput
     releases?: GirviReleaseUncheckedUpdateManyWithoutFirmNestedInput
     rates?: RateUncheckedUpdateManyWithoutFirmNestedInput
+    moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutFirmNestedInput
   }
 
   export type UserUpsertWithoutDepositsInput = {
@@ -75119,6 +77651,7 @@ export namespace Prisma {
     deposits?: GirviDepositCreateNestedManyWithoutOwnerInput
     rates?: RateCreateNestedManyWithoutOwnerInput
     purities?: PurityCreateNestedManyWithoutOwnerInput
+    moneyLenders?: MoneyLenderCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerUncheckedCreateWithoutReleasesInput = {
@@ -75171,6 +77704,7 @@ export namespace Prisma {
     deposits?: GirviDepositUncheckedCreateNestedManyWithoutOwnerInput
     rates?: RateUncheckedCreateNestedManyWithoutOwnerInput
     purities?: PurityUncheckedCreateNestedManyWithoutOwnerInput
+    moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerCreateOrConnectWithoutReleasesInput = {
@@ -75239,6 +77773,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutFirmInput
     deposits?: GirviDepositCreateNestedManyWithoutFirmInput
     rates?: RateCreateNestedManyWithoutFirmInput
+    moneyLenders?: MoneyLenderCreateNestedManyWithoutFirmInput
   }
 
   export type FirmUncheckedCreateWithoutReleasesInput = {
@@ -75303,6 +77838,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutFirmInput
     deposits?: GirviDepositUncheckedCreateNestedManyWithoutFirmInput
     rates?: RateUncheckedCreateNestedManyWithoutFirmInput
+    moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutFirmInput
   }
 
   export type FirmCreateOrConnectWithoutReleasesInput = {
@@ -76821,6 +79357,7 @@ export namespace Prisma {
     deposits?: GirviDepositUpdateManyWithoutOwnerNestedInput
     rates?: RateUpdateManyWithoutOwnerNestedInput
     purities?: PurityUpdateManyWithoutOwnerNestedInput
+    moneyLenders?: MoneyLenderUpdateManyWithoutOwnerNestedInput
   }
 
   export type OwnerUncheckedUpdateWithoutReleasesInput = {
@@ -76873,6 +79410,7 @@ export namespace Prisma {
     deposits?: GirviDepositUncheckedUpdateManyWithoutOwnerNestedInput
     rates?: RateUncheckedUpdateManyWithoutOwnerNestedInput
     purities?: PurityUncheckedUpdateManyWithoutOwnerNestedInput
+    moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
   export type FirmUpsertWithoutReleasesInput = {
@@ -76947,6 +79485,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutFirmNestedInput
     deposits?: GirviDepositUpdateManyWithoutFirmNestedInput
     rates?: RateUpdateManyWithoutFirmNestedInput
+    moneyLenders?: MoneyLenderUpdateManyWithoutFirmNestedInput
   }
 
   export type FirmUncheckedUpdateWithoutReleasesInput = {
@@ -77011,6 +79550,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutFirmNestedInput
     deposits?: GirviDepositUncheckedUpdateManyWithoutFirmNestedInput
     rates?: RateUncheckedUpdateManyWithoutFirmNestedInput
+    moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutFirmNestedInput
   }
 
   export type UserUpsertWithoutReleasesInput = {
@@ -78574,6 +81114,7 @@ export namespace Prisma {
     deposits?: GirviDepositCreateNestedManyWithoutOwnerInput
     releases?: GirviReleaseCreateNestedManyWithoutOwnerInput
     purities?: PurityCreateNestedManyWithoutOwnerInput
+    moneyLenders?: MoneyLenderCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerUncheckedCreateWithoutRatesInput = {
@@ -78626,6 +81167,7 @@ export namespace Prisma {
     deposits?: GirviDepositUncheckedCreateNestedManyWithoutOwnerInput
     releases?: GirviReleaseUncheckedCreateNestedManyWithoutOwnerInput
     purities?: PurityUncheckedCreateNestedManyWithoutOwnerInput
+    moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerCreateOrConnectWithoutRatesInput = {
@@ -78694,6 +81236,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutFirmInput
     deposits?: GirviDepositCreateNestedManyWithoutFirmInput
     releases?: GirviReleaseCreateNestedManyWithoutFirmInput
+    moneyLenders?: MoneyLenderCreateNestedManyWithoutFirmInput
   }
 
   export type FirmUncheckedCreateWithoutRatesInput = {
@@ -78758,6 +81301,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutFirmInput
     deposits?: GirviDepositUncheckedCreateNestedManyWithoutFirmInput
     releases?: GirviReleaseUncheckedCreateNestedManyWithoutFirmInput
+    moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutFirmInput
   }
 
   export type FirmCreateOrConnectWithoutRatesInput = {
@@ -78824,6 +81368,7 @@ export namespace Prisma {
     deposits?: GirviDepositUpdateManyWithoutOwnerNestedInput
     releases?: GirviReleaseUpdateManyWithoutOwnerNestedInput
     purities?: PurityUpdateManyWithoutOwnerNestedInput
+    moneyLenders?: MoneyLenderUpdateManyWithoutOwnerNestedInput
   }
 
   export type OwnerUncheckedUpdateWithoutRatesInput = {
@@ -78876,6 +81421,7 @@ export namespace Prisma {
     deposits?: GirviDepositUncheckedUpdateManyWithoutOwnerNestedInput
     releases?: GirviReleaseUncheckedUpdateManyWithoutOwnerNestedInput
     purities?: PurityUncheckedUpdateManyWithoutOwnerNestedInput
+    moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
   export type FirmUpsertWithoutRatesInput = {
@@ -78950,6 +81496,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutFirmNestedInput
     deposits?: GirviDepositUpdateManyWithoutFirmNestedInput
     releases?: GirviReleaseUpdateManyWithoutFirmNestedInput
+    moneyLenders?: MoneyLenderUpdateManyWithoutFirmNestedInput
   }
 
   export type FirmUncheckedUpdateWithoutRatesInput = {
@@ -79014,6 +81561,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutFirmNestedInput
     deposits?: GirviDepositUncheckedUpdateManyWithoutFirmNestedInput
     releases?: GirviReleaseUncheckedUpdateManyWithoutFirmNestedInput
+    moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutFirmNestedInput
   }
 
   export type OwnerCreateWithoutPuritiesInput = {
@@ -79065,6 +81613,7 @@ export namespace Prisma {
     deposits?: GirviDepositCreateNestedManyWithoutOwnerInput
     releases?: GirviReleaseCreateNestedManyWithoutOwnerInput
     rates?: RateCreateNestedManyWithoutOwnerInput
+    moneyLenders?: MoneyLenderCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerUncheckedCreateWithoutPuritiesInput = {
@@ -79117,6 +81666,7 @@ export namespace Prisma {
     deposits?: GirviDepositUncheckedCreateNestedManyWithoutOwnerInput
     releases?: GirviReleaseUncheckedCreateNestedManyWithoutOwnerInput
     rates?: RateUncheckedCreateNestedManyWithoutOwnerInput
+    moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerCreateOrConnectWithoutPuritiesInput = {
@@ -79183,6 +81733,7 @@ export namespace Prisma {
     deposits?: GirviDepositUpdateManyWithoutOwnerNestedInput
     releases?: GirviReleaseUpdateManyWithoutOwnerNestedInput
     rates?: RateUpdateManyWithoutOwnerNestedInput
+    moneyLenders?: MoneyLenderUpdateManyWithoutOwnerNestedInput
   }
 
   export type OwnerUncheckedUpdateWithoutPuritiesInput = {
@@ -79235,6 +81786,506 @@ export namespace Prisma {
     deposits?: GirviDepositUncheckedUpdateManyWithoutOwnerNestedInput
     releases?: GirviReleaseUncheckedUpdateManyWithoutOwnerNestedInput
     rates?: RateUncheckedUpdateManyWithoutOwnerNestedInput
+    moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutOwnerNestedInput
+  }
+
+  export type OwnerCreateWithoutMoneyLendersInput = {
+    own_uuid?: string
+    own_product_key?: number
+    own_db: string
+    own_add_date?: Date | string
+    own_first_name: string
+    own_middle_name?: string | null
+    own_last_name: string
+    own_phone_no?: string | null
+    own_mobile_no: string
+    own_email: string
+    own_login_id: string
+    own_password: string
+    own_status?: $Enums.OwnerStatus
+    own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_refresh_token?: string | null
+    own_refresh_expiry?: Date | string | null
+    own_jwt_token?: string | null
+    own_jwt_expiry?: Date | string | null
+    own_login_status?: boolean
+    own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
+    own_otp?: string | null
+    own_otp_expiry?: Date | string | null
+    own_address?: string | null
+    own_village?: string | null
+    own_city?: string | null
+    own_state?: string | null
+    own_pincode?: string | null
+    own_created_at?: Date | string
+    own_created_by?: string | null
+    own_updated_at?: Date | string
+    own_updated_by?: string | null
+    own_deleted_at?: Date | string | null
+    own_deleted_by?: string | null
+    own_is_deleted?: boolean
+    users?: UserCreateNestedManyWithoutOwnerInput
+    firms?: FirmCreateNestedManyWithoutOwnerInput
+    accounts?: AccountCreateNestedManyWithoutOwnerInput
+    finances?: FinanceCreateNestedManyWithoutOwnerInput
+    financeTransactions?: Finance_TransactionCreateNestedManyWithoutOwnerInput
+    financeMoneyTrans?: Finance_Money_TransactionCreateNestedManyWithoutOwnerInput
+    journals?: JournalCreateNestedManyWithoutOwnerInput
+    journalTransactions?: JournalTransactionCreateNestedManyWithoutOwnerInput
+    girvis?: GirviCreateNestedManyWithoutOwnerInput
+    stocks?: StockCreateNestedManyWithoutOwnerInput
+    additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutOwnerInput
+    deposits?: GirviDepositCreateNestedManyWithoutOwnerInput
+    releases?: GirviReleaseCreateNestedManyWithoutOwnerInput
+    rates?: RateCreateNestedManyWithoutOwnerInput
+    purities?: PurityCreateNestedManyWithoutOwnerInput
+  }
+
+  export type OwnerUncheckedCreateWithoutMoneyLendersInput = {
+    own_id?: number
+    own_uuid?: string
+    own_product_key?: number
+    own_db: string
+    own_add_date?: Date | string
+    own_first_name: string
+    own_middle_name?: string | null
+    own_last_name: string
+    own_phone_no?: string | null
+    own_mobile_no: string
+    own_email: string
+    own_login_id: string
+    own_password: string
+    own_status?: $Enums.OwnerStatus
+    own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_refresh_token?: string | null
+    own_refresh_expiry?: Date | string | null
+    own_jwt_token?: string | null
+    own_jwt_expiry?: Date | string | null
+    own_login_status?: boolean
+    own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
+    own_otp?: string | null
+    own_otp_expiry?: Date | string | null
+    own_address?: string | null
+    own_village?: string | null
+    own_city?: string | null
+    own_state?: string | null
+    own_pincode?: string | null
+    own_created_at?: Date | string
+    own_created_by?: string | null
+    own_updated_at?: Date | string
+    own_updated_by?: string | null
+    own_deleted_at?: Date | string | null
+    own_deleted_by?: string | null
+    own_is_deleted?: boolean
+    users?: UserUncheckedCreateNestedManyWithoutOwnerInput
+    firms?: FirmUncheckedCreateNestedManyWithoutOwnerInput
+    accounts?: AccountUncheckedCreateNestedManyWithoutOwnerInput
+    finances?: FinanceUncheckedCreateNestedManyWithoutOwnerInput
+    financeTransactions?: Finance_TransactionUncheckedCreateNestedManyWithoutOwnerInput
+    financeMoneyTrans?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutOwnerInput
+    journals?: JournalUncheckedCreateNestedManyWithoutOwnerInput
+    journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutOwnerInput
+    girvis?: GirviUncheckedCreateNestedManyWithoutOwnerInput
+    stocks?: StockUncheckedCreateNestedManyWithoutOwnerInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutOwnerInput
+    deposits?: GirviDepositUncheckedCreateNestedManyWithoutOwnerInput
+    releases?: GirviReleaseUncheckedCreateNestedManyWithoutOwnerInput
+    rates?: RateUncheckedCreateNestedManyWithoutOwnerInput
+    purities?: PurityUncheckedCreateNestedManyWithoutOwnerInput
+  }
+
+  export type OwnerCreateOrConnectWithoutMoneyLendersInput = {
+    where: OwnerWhereUniqueInput
+    create: XOR<OwnerCreateWithoutMoneyLendersInput, OwnerUncheckedCreateWithoutMoneyLendersInput>
+  }
+
+  export type FirmCreateWithoutMoneyLendersInput = {
+    firm_uuid?: string
+    firm_add_date?: Date | string
+    firm_name: string
+    firm_reg_no: string
+    firm_shop_name: string
+    firm_desc?: string | null
+    firm_address?: string | null
+    firm_city?: string | null
+    firm_pincode?: string | null
+    firm_phone_no?: string | null
+    firm_email_id?: string | null
+    firm_website_link?: string | null
+    firm_type?: $Enums.FirmType
+    firm_owner?: string | null
+    firm_other_info?: string | null
+    firm_geo_latitude?: string | null
+    firm_geo_longitude?: string | null
+    firm_whatsapp_link?: string | null
+    firm_facebook_link?: string | null
+    firm_insta_link?: string | null
+    firm_bank_name?: string | null
+    firm_bank_acc_no?: string | null
+    firm_bank_branch?: string | null
+    firm_bank_address?: string | null
+    firm_acc_holder?: string | null
+    firm_acc_type?: string | null
+    firm_ifsc_code?: string | null
+    firm_start_date?: Date | string | null
+    firm_balance?: string | null
+    firm_balance_type?: $Enums.FirmBalanceType
+    firm_gstin_no?: string | null
+    firm_pan_no?: string | null
+    firm_adhaar_no?: string | null
+    firm_form_header?: string | null
+    firm_form_footer?: string | null
+    firm_own_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_left_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_right_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_qr_code_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_pan_no_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_created_at?: Date | string
+    firm_created_by?: string | null
+    firm_updated_at?: Date | string
+    firm_updated_by?: string | null
+    firm_deleted_at?: Date | string | null
+    firm_deleted_by?: string | null
+    firm_is_deleted?: boolean
+    users?: UserCreateNestedManyWithoutFirmInput
+    accounts?: AccountCreateNestedManyWithoutFirmInput
+    owner?: OwnerCreateNestedOneWithoutFirmsInput
+    finances?: FinanceCreateNestedManyWithoutFirmInput
+    financeTransactions?: Finance_TransactionCreateNestedManyWithoutFirmInput
+    financeMoneyTrans?: Finance_Money_TransactionCreateNestedManyWithoutFirmInput
+    journals?: JournalCreateNestedManyWithoutFirmInput
+    journalTransactions?: JournalTransactionCreateNestedManyWithoutFirmInput
+    girvis?: GirviCreateNestedManyWithoutFirmInput
+    stocks?: StockCreateNestedManyWithoutFirmInput
+    additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutFirmInput
+    deposits?: GirviDepositCreateNestedManyWithoutFirmInput
+    releases?: GirviReleaseCreateNestedManyWithoutFirmInput
+    rates?: RateCreateNestedManyWithoutFirmInput
+  }
+
+  export type FirmUncheckedCreateWithoutMoneyLendersInput = {
+    firm_id?: number
+    firm_uuid?: string
+    firm_add_date?: Date | string
+    firm_own_id?: number
+    firm_name: string
+    firm_reg_no: string
+    firm_shop_name: string
+    firm_desc?: string | null
+    firm_address?: string | null
+    firm_city?: string | null
+    firm_pincode?: string | null
+    firm_phone_no?: string | null
+    firm_email_id?: string | null
+    firm_website_link?: string | null
+    firm_type?: $Enums.FirmType
+    firm_owner?: string | null
+    firm_other_info?: string | null
+    firm_geo_latitude?: string | null
+    firm_geo_longitude?: string | null
+    firm_whatsapp_link?: string | null
+    firm_facebook_link?: string | null
+    firm_insta_link?: string | null
+    firm_bank_name?: string | null
+    firm_bank_acc_no?: string | null
+    firm_bank_branch?: string | null
+    firm_bank_address?: string | null
+    firm_acc_holder?: string | null
+    firm_acc_type?: string | null
+    firm_ifsc_code?: string | null
+    firm_start_date?: Date | string | null
+    firm_balance?: string | null
+    firm_balance_type?: $Enums.FirmBalanceType
+    firm_gstin_no?: string | null
+    firm_pan_no?: string | null
+    firm_adhaar_no?: string | null
+    firm_form_header?: string | null
+    firm_form_footer?: string | null
+    firm_own_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_left_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_right_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_qr_code_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_pan_no_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_created_at?: Date | string
+    firm_created_by?: string | null
+    firm_updated_at?: Date | string
+    firm_updated_by?: string | null
+    firm_deleted_at?: Date | string | null
+    firm_deleted_by?: string | null
+    firm_is_deleted?: boolean
+    users?: UserUncheckedCreateNestedManyWithoutFirmInput
+    accounts?: AccountUncheckedCreateNestedManyWithoutFirmInput
+    finances?: FinanceUncheckedCreateNestedManyWithoutFirmInput
+    financeTransactions?: Finance_TransactionUncheckedCreateNestedManyWithoutFirmInput
+    financeMoneyTrans?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutFirmInput
+    journals?: JournalUncheckedCreateNestedManyWithoutFirmInput
+    journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutFirmInput
+    girvis?: GirviUncheckedCreateNestedManyWithoutFirmInput
+    stocks?: StockUncheckedCreateNestedManyWithoutFirmInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutFirmInput
+    deposits?: GirviDepositUncheckedCreateNestedManyWithoutFirmInput
+    releases?: GirviReleaseUncheckedCreateNestedManyWithoutFirmInput
+    rates?: RateUncheckedCreateNestedManyWithoutFirmInput
+  }
+
+  export type FirmCreateOrConnectWithoutMoneyLendersInput = {
+    where: FirmWhereUniqueInput
+    create: XOR<FirmCreateWithoutMoneyLendersInput, FirmUncheckedCreateWithoutMoneyLendersInput>
+  }
+
+  export type OwnerUpsertWithoutMoneyLendersInput = {
+    update: XOR<OwnerUpdateWithoutMoneyLendersInput, OwnerUncheckedUpdateWithoutMoneyLendersInput>
+    create: XOR<OwnerCreateWithoutMoneyLendersInput, OwnerUncheckedCreateWithoutMoneyLendersInput>
+    where?: OwnerWhereInput
+  }
+
+  export type OwnerUpdateToOneWithWhereWithoutMoneyLendersInput = {
+    where?: OwnerWhereInput
+    data: XOR<OwnerUpdateWithoutMoneyLendersInput, OwnerUncheckedUpdateWithoutMoneyLendersInput>
+  }
+
+  export type OwnerUpdateWithoutMoneyLendersInput = {
+    own_uuid?: StringFieldUpdateOperationsInput | string
+    own_db?: StringFieldUpdateOperationsInput | string
+    own_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    own_first_name?: StringFieldUpdateOperationsInput | string
+    own_middle_name?: NullableStringFieldUpdateOperationsInput | string | null
+    own_last_name?: StringFieldUpdateOperationsInput | string
+    own_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mobile_no?: StringFieldUpdateOperationsInput | string
+    own_email?: StringFieldUpdateOperationsInput | string
+    own_login_id?: StringFieldUpdateOperationsInput | string
+    own_password?: StringFieldUpdateOperationsInput | string
+    own_status?: EnumOwnerStatusFieldUpdateOperationsInput | $Enums.OwnerStatus
+    own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
+    own_refresh_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_jwt_token?: NullableStringFieldUpdateOperationsInput | string | null
+    own_jwt_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_login_status?: BoolFieldUpdateOperationsInput | boolean
+    own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
+    own_otp?: NullableStringFieldUpdateOperationsInput | string | null
+    own_otp_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_address?: NullableStringFieldUpdateOperationsInput | string | null
+    own_village?: NullableStringFieldUpdateOperationsInput | string | null
+    own_city?: NullableStringFieldUpdateOperationsInput | string | null
+    own_state?: NullableStringFieldUpdateOperationsInput | string | null
+    own_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    own_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    own_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    own_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    own_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    own_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    own_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    users?: UserUpdateManyWithoutOwnerNestedInput
+    firms?: FirmUpdateManyWithoutOwnerNestedInput
+    accounts?: AccountUpdateManyWithoutOwnerNestedInput
+    finances?: FinanceUpdateManyWithoutOwnerNestedInput
+    financeTransactions?: Finance_TransactionUpdateManyWithoutOwnerNestedInput
+    financeMoneyTrans?: Finance_Money_TransactionUpdateManyWithoutOwnerNestedInput
+    journals?: JournalUpdateManyWithoutOwnerNestedInput
+    journalTransactions?: JournalTransactionUpdateManyWithoutOwnerNestedInput
+    girvis?: GirviUpdateManyWithoutOwnerNestedInput
+    stocks?: StockUpdateManyWithoutOwnerNestedInput
+    additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutOwnerNestedInput
+    deposits?: GirviDepositUpdateManyWithoutOwnerNestedInput
+    releases?: GirviReleaseUpdateManyWithoutOwnerNestedInput
+    rates?: RateUpdateManyWithoutOwnerNestedInput
+    purities?: PurityUpdateManyWithoutOwnerNestedInput
+  }
+
+  export type OwnerUncheckedUpdateWithoutMoneyLendersInput = {
+    own_id?: IntFieldUpdateOperationsInput | number
+    own_uuid?: StringFieldUpdateOperationsInput | string
+    own_product_key?: IntFieldUpdateOperationsInput | number
+    own_db?: StringFieldUpdateOperationsInput | string
+    own_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    own_first_name?: StringFieldUpdateOperationsInput | string
+    own_middle_name?: NullableStringFieldUpdateOperationsInput | string | null
+    own_last_name?: StringFieldUpdateOperationsInput | string
+    own_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mobile_no?: StringFieldUpdateOperationsInput | string
+    own_email?: StringFieldUpdateOperationsInput | string
+    own_login_id?: StringFieldUpdateOperationsInput | string
+    own_password?: StringFieldUpdateOperationsInput | string
+    own_status?: EnumOwnerStatusFieldUpdateOperationsInput | $Enums.OwnerStatus
+    own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
+    own_refresh_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_jwt_token?: NullableStringFieldUpdateOperationsInput | string | null
+    own_jwt_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_login_status?: BoolFieldUpdateOperationsInput | boolean
+    own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
+    own_otp?: NullableStringFieldUpdateOperationsInput | string | null
+    own_otp_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_address?: NullableStringFieldUpdateOperationsInput | string | null
+    own_village?: NullableStringFieldUpdateOperationsInput | string | null
+    own_city?: NullableStringFieldUpdateOperationsInput | string | null
+    own_state?: NullableStringFieldUpdateOperationsInput | string | null
+    own_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    own_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    own_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    own_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    own_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    own_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    own_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    users?: UserUncheckedUpdateManyWithoutOwnerNestedInput
+    firms?: FirmUncheckedUpdateManyWithoutOwnerNestedInput
+    accounts?: AccountUncheckedUpdateManyWithoutOwnerNestedInput
+    finances?: FinanceUncheckedUpdateManyWithoutOwnerNestedInput
+    financeTransactions?: Finance_TransactionUncheckedUpdateManyWithoutOwnerNestedInput
+    financeMoneyTrans?: Finance_Money_TransactionUncheckedUpdateManyWithoutOwnerNestedInput
+    journals?: JournalUncheckedUpdateManyWithoutOwnerNestedInput
+    journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutOwnerNestedInput
+    girvis?: GirviUncheckedUpdateManyWithoutOwnerNestedInput
+    stocks?: StockUncheckedUpdateManyWithoutOwnerNestedInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutOwnerNestedInput
+    deposits?: GirviDepositUncheckedUpdateManyWithoutOwnerNestedInput
+    releases?: GirviReleaseUncheckedUpdateManyWithoutOwnerNestedInput
+    rates?: RateUncheckedUpdateManyWithoutOwnerNestedInput
+    purities?: PurityUncheckedUpdateManyWithoutOwnerNestedInput
+  }
+
+  export type FirmUpsertWithoutMoneyLendersInput = {
+    update: XOR<FirmUpdateWithoutMoneyLendersInput, FirmUncheckedUpdateWithoutMoneyLendersInput>
+    create: XOR<FirmCreateWithoutMoneyLendersInput, FirmUncheckedCreateWithoutMoneyLendersInput>
+    where?: FirmWhereInput
+  }
+
+  export type FirmUpdateToOneWithWhereWithoutMoneyLendersInput = {
+    where?: FirmWhereInput
+    data: XOR<FirmUpdateWithoutMoneyLendersInput, FirmUncheckedUpdateWithoutMoneyLendersInput>
+  }
+
+  export type FirmUpdateWithoutMoneyLendersInput = {
+    firm_uuid?: StringFieldUpdateOperationsInput | string
+    firm_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    firm_name?: StringFieldUpdateOperationsInput | string
+    firm_reg_no?: StringFieldUpdateOperationsInput | string
+    firm_shop_name?: StringFieldUpdateOperationsInput | string
+    firm_desc?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_address?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_city?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_email_id?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_website_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_type?: EnumFirmTypeFieldUpdateOperationsInput | $Enums.FirmType
+    firm_owner?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_geo_latitude?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_geo_longitude?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_whatsapp_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_facebook_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_insta_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_name?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_acc_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_branch?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_address?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_acc_holder?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_acc_type?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firm_balance?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_balance_type?: EnumFirmBalanceTypeFieldUpdateOperationsInput | $Enums.FirmBalanceType
+    firm_gstin_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_adhaar_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_form_header?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_form_footer?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_own_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_left_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_right_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_qr_code_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_pan_no_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    firm_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    firm_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firm_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    users?: UserUpdateManyWithoutFirmNestedInput
+    accounts?: AccountUpdateManyWithoutFirmNestedInput
+    owner?: OwnerUpdateOneRequiredWithoutFirmsNestedInput
+    finances?: FinanceUpdateManyWithoutFirmNestedInput
+    financeTransactions?: Finance_TransactionUpdateManyWithoutFirmNestedInput
+    financeMoneyTrans?: Finance_Money_TransactionUpdateManyWithoutFirmNestedInput
+    journals?: JournalUpdateManyWithoutFirmNestedInput
+    journalTransactions?: JournalTransactionUpdateManyWithoutFirmNestedInput
+    girvis?: GirviUpdateManyWithoutFirmNestedInput
+    stocks?: StockUpdateManyWithoutFirmNestedInput
+    additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutFirmNestedInput
+    deposits?: GirviDepositUpdateManyWithoutFirmNestedInput
+    releases?: GirviReleaseUpdateManyWithoutFirmNestedInput
+    rates?: RateUpdateManyWithoutFirmNestedInput
+  }
+
+  export type FirmUncheckedUpdateWithoutMoneyLendersInput = {
+    firm_id?: IntFieldUpdateOperationsInput | number
+    firm_uuid?: StringFieldUpdateOperationsInput | string
+    firm_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    firm_own_id?: IntFieldUpdateOperationsInput | number
+    firm_name?: StringFieldUpdateOperationsInput | string
+    firm_reg_no?: StringFieldUpdateOperationsInput | string
+    firm_shop_name?: StringFieldUpdateOperationsInput | string
+    firm_desc?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_address?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_city?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_email_id?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_website_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_type?: EnumFirmTypeFieldUpdateOperationsInput | $Enums.FirmType
+    firm_owner?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_geo_latitude?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_geo_longitude?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_whatsapp_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_facebook_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_insta_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_name?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_acc_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_branch?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_address?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_acc_holder?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_acc_type?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firm_balance?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_balance_type?: EnumFirmBalanceTypeFieldUpdateOperationsInput | $Enums.FirmBalanceType
+    firm_gstin_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_adhaar_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_form_header?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_form_footer?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_own_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_left_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_right_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_qr_code_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_pan_no_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    firm_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    firm_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firm_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    users?: UserUncheckedUpdateManyWithoutFirmNestedInput
+    accounts?: AccountUncheckedUpdateManyWithoutFirmNestedInput
+    finances?: FinanceUncheckedUpdateManyWithoutFirmNestedInput
+    financeTransactions?: Finance_TransactionUncheckedUpdateManyWithoutFirmNestedInput
+    financeMoneyTrans?: Finance_Money_TransactionUncheckedUpdateManyWithoutFirmNestedInput
+    journals?: JournalUncheckedUpdateManyWithoutFirmNestedInput
+    journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutFirmNestedInput
+    girvis?: GirviUncheckedUpdateManyWithoutFirmNestedInput
+    stocks?: StockUncheckedUpdateManyWithoutFirmNestedInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutFirmNestedInput
+    deposits?: GirviDepositUncheckedUpdateManyWithoutFirmNestedInput
+    releases?: GirviReleaseUncheckedUpdateManyWithoutFirmNestedInput
+    rates?: RateUncheckedUpdateManyWithoutFirmNestedInput
   }
 
   export type UserCreateManyOwnerInput = {
@@ -79757,6 +82808,41 @@ export namespace Prisma {
     purity_updated_at?: Date | string
   }
 
+  export type MoneyLenderCreateManyOwnerInput = {
+    ml_id?: number
+    ml_uuid?: string
+    ml_first_name: string
+    ml_last_name?: string | null
+    ml_father_name?: string | null
+    ml_gender?: string | null
+    ml_dob?: Date | string | null
+    ml_firm_id?: number | null
+    ml_phone?: string | null
+    ml_email?: string | null
+    ml_aadhaar?: string | null
+    ml_pan?: string | null
+    ml_gstin?: string | null
+    ml_tax_no?: string | null
+    ml_bank_name?: string | null
+    ml_account_number?: string | null
+    ml_ifsc?: string | null
+    ml_branch?: string | null
+    ml_village?: string | null
+    ml_city?: string | null
+    ml_state?: string | null
+    ml_country?: string | null
+    ml_pincode?: string | null
+    ml_address?: string | null
+    ml_notes?: string | null
+    ml_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    ml_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
+    ml_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
+    ml_pan_img?: NullableJsonNullValueInput | InputJsonValue
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
   export type UserUpdateWithoutOwnerInput = {
     user_uuid?: StringFieldUpdateOperationsInput | string
     user_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -79981,6 +83067,7 @@ export namespace Prisma {
     deposits?: GirviDepositUpdateManyWithoutFirmNestedInput
     releases?: GirviReleaseUpdateManyWithoutFirmNestedInput
     rates?: RateUpdateManyWithoutFirmNestedInput
+    moneyLenders?: MoneyLenderUpdateManyWithoutFirmNestedInput
   }
 
   export type FirmUncheckedUpdateWithoutOwnerInput = {
@@ -80045,6 +83132,7 @@ export namespace Prisma {
     deposits?: GirviDepositUncheckedUpdateManyWithoutFirmNestedInput
     releases?: GirviReleaseUncheckedUpdateManyWithoutFirmNestedInput
     rates?: RateUncheckedUpdateManyWithoutFirmNestedInput
+    moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutFirmNestedInput
   }
 
   export type FirmUncheckedUpdateManyWithoutOwnerInput = {
@@ -81448,6 +84536,110 @@ export namespace Prisma {
     purity_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type MoneyLenderUpdateWithoutOwnerInput = {
+    ml_uuid?: StringFieldUpdateOperationsInput | string
+    ml_first_name?: StringFieldUpdateOperationsInput | string
+    ml_last_name?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_father_name?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_gender?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ml_phone?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_email?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_aadhaar?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_pan?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_gstin?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_tax_no?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_bank_name?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_account_number?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_ifsc?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_branch?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_village?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_city?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_state?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_country?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_address?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_notes?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    ml_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
+    ml_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
+    ml_pan_img?: NullableJsonNullValueInput | InputJsonValue
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    firm?: FirmUpdateOneWithoutMoneyLendersNestedInput
+  }
+
+  export type MoneyLenderUncheckedUpdateWithoutOwnerInput = {
+    ml_id?: IntFieldUpdateOperationsInput | number
+    ml_uuid?: StringFieldUpdateOperationsInput | string
+    ml_first_name?: StringFieldUpdateOperationsInput | string
+    ml_last_name?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_father_name?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_gender?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ml_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
+    ml_phone?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_email?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_aadhaar?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_pan?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_gstin?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_tax_no?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_bank_name?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_account_number?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_ifsc?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_branch?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_village?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_city?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_state?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_country?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_address?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_notes?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    ml_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
+    ml_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
+    ml_pan_img?: NullableJsonNullValueInput | InputJsonValue
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MoneyLenderUncheckedUpdateManyWithoutOwnerInput = {
+    ml_id?: IntFieldUpdateOperationsInput | number
+    ml_uuid?: StringFieldUpdateOperationsInput | string
+    ml_first_name?: StringFieldUpdateOperationsInput | string
+    ml_last_name?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_father_name?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_gender?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ml_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
+    ml_phone?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_email?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_aadhaar?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_pan?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_gstin?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_tax_no?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_bank_name?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_account_number?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_ifsc?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_branch?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_village?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_city?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_state?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_country?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_address?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_notes?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    ml_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
+    ml_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
+    ml_pan_img?: NullableJsonNullValueInput | InputJsonValue
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type UserCreateManyFirmInput = {
     user_id?: number
     user_uuid?: string
@@ -81901,6 +85093,41 @@ export namespace Prisma {
     rate_deleted_at?: Date | string | null
     rate_deleted_by?: string | null
     rate_is_deleted?: boolean
+  }
+
+  export type MoneyLenderCreateManyFirmInput = {
+    ml_id?: number
+    ml_uuid?: string
+    ml_own_id: number
+    ml_first_name: string
+    ml_last_name?: string | null
+    ml_father_name?: string | null
+    ml_gender?: string | null
+    ml_dob?: Date | string | null
+    ml_phone?: string | null
+    ml_email?: string | null
+    ml_aadhaar?: string | null
+    ml_pan?: string | null
+    ml_gstin?: string | null
+    ml_tax_no?: string | null
+    ml_bank_name?: string | null
+    ml_account_number?: string | null
+    ml_ifsc?: string | null
+    ml_branch?: string | null
+    ml_village?: string | null
+    ml_city?: string | null
+    ml_state?: string | null
+    ml_country?: string | null
+    ml_pincode?: string | null
+    ml_address?: string | null
+    ml_notes?: string | null
+    ml_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    ml_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
+    ml_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
+    ml_pan_img?: NullableJsonNullValueInput | InputJsonValue
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type UserUpdateWithoutFirmInput = {
@@ -83373,6 +86600,110 @@ export namespace Prisma {
     rate_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     rate_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     rate_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type MoneyLenderUpdateWithoutFirmInput = {
+    ml_uuid?: StringFieldUpdateOperationsInput | string
+    ml_first_name?: StringFieldUpdateOperationsInput | string
+    ml_last_name?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_father_name?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_gender?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ml_phone?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_email?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_aadhaar?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_pan?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_gstin?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_tax_no?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_bank_name?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_account_number?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_ifsc?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_branch?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_village?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_city?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_state?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_country?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_address?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_notes?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    ml_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
+    ml_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
+    ml_pan_img?: NullableJsonNullValueInput | InputJsonValue
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    owner?: OwnerUpdateOneRequiredWithoutMoneyLendersNestedInput
+  }
+
+  export type MoneyLenderUncheckedUpdateWithoutFirmInput = {
+    ml_id?: IntFieldUpdateOperationsInput | number
+    ml_uuid?: StringFieldUpdateOperationsInput | string
+    ml_own_id?: IntFieldUpdateOperationsInput | number
+    ml_first_name?: StringFieldUpdateOperationsInput | string
+    ml_last_name?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_father_name?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_gender?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ml_phone?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_email?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_aadhaar?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_pan?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_gstin?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_tax_no?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_bank_name?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_account_number?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_ifsc?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_branch?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_village?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_city?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_state?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_country?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_address?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_notes?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    ml_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
+    ml_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
+    ml_pan_img?: NullableJsonNullValueInput | InputJsonValue
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MoneyLenderUncheckedUpdateManyWithoutFirmInput = {
+    ml_id?: IntFieldUpdateOperationsInput | number
+    ml_uuid?: StringFieldUpdateOperationsInput | string
+    ml_own_id?: IntFieldUpdateOperationsInput | number
+    ml_first_name?: StringFieldUpdateOperationsInput | string
+    ml_last_name?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_father_name?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_gender?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ml_phone?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_email?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_aadhaar?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_pan?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_gstin?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_tax_no?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_bank_name?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_account_number?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_ifsc?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_branch?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_village?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_city?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_state?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_country?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_address?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_notes?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    ml_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
+    ml_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
+    ml_pan_img?: NullableJsonNullValueInput | InputJsonValue
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type FinanceCreateManyCashAccountInput = {
@@ -92812,6 +96143,10 @@ export namespace Prisma {
      * @deprecated Use PurityDefaultArgs instead
      */
     export type PurityArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = PurityDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use MoneyLenderDefaultArgs instead
+     */
+    export type MoneyLenderArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = MoneyLenderDefaultArgs<ExtArgs>
 
   /**
    * Batch Payload for updateMany & deleteMany & createMany
