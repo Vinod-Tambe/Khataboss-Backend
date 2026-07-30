@@ -12,7 +12,7 @@ const app = express();
 // ─── Middleware ───────────────────────────────────────────────────────────────
 const allowedOrigins = [
   "http://localhost:3001",
-  "http://192.168.2.119:3001",
+  "http://192.168.2.173:3001",
   "https://khataboss.com",
   "https://carlie-atavic-tonita.ngrok-free.dev",
   "https://khataboss.in",
