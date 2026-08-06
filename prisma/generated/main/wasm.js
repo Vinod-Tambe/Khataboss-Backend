@@ -731,6 +731,53 @@ exports.Prisma.MoneyLenderScalarFieldEnum = {
   updated_at: 'updated_at'
 };
 
+exports.Prisma.AuctionUserScalarFieldEnum = {
+  au_id: 'au_id',
+  au_uuid: 'au_uuid',
+  au_date: 'au_date',
+  au_firm_id: 'au_firm_id',
+  au_full_name: 'au_full_name',
+  au_mobile: 'au_mobile',
+  au_email: 'au_email',
+  au_aadhaar: 'au_aadhaar',
+  au_gender: 'au_gender',
+  au_pan: 'au_pan',
+  au_address: 'au_address',
+  au_state: 'au_state',
+  au_city: 'au_city',
+  au_country: 'au_country',
+  au_village: 'au_village',
+  au_pincode: 'au_pincode',
+  au_image: 'au_image'
+};
+
+exports.Prisma.AuctionLoanScalarFieldEnum = {
+  al_id: 'al_id',
+  al_uuid: 'al_uuid',
+  al_date: 'al_date',
+  al_girv_id: 'al_girv_id',
+  al_firm_id: 'al_firm_id',
+  al_buyer_id: 'al_buyer_id',
+  al_prin_amt: 'al_prin_amt',
+  al_int_amt: 'al_int_amt',
+  al_dep_amt: 'al_dep_amt',
+  al_payable_amt: 'al_payable_amt',
+  al_cash_acc_id: 'al_cash_acc_id',
+  al_cash_info: 'al_cash_info',
+  al_cash_amt: 'al_cash_amt',
+  al_bank_acc_id: 'al_bank_acc_id',
+  al_bank_info: 'al_bank_info',
+  al_bank_amt: 'al_bank_amt',
+  al_online_acc_id: 'al_online_acc_id',
+  al_online_info: 'al_online_info',
+  al_online_amt: 'al_online_amt',
+  al_card_acc_id: 'al_card_acc_id',
+  al_card_info: 'al_card_info',
+  al_card_amt: 'al_card_amt',
+  al_pay_info: 'al_pay_info',
+  al_other_info: 'al_other_info'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -796,7 +843,8 @@ exports.UserMaritalStatus = exports.$Enums.UserMaritalStatus = {
 exports.FrequencyType = exports.$Enums.FrequencyType = {
   MONTHLY: 'MONTHLY',
   YEARLY: 'YEARLY',
-  WEEKLY: 'WEEKLY'
+  WEEKLY: 'WEEKLY',
+  DAILY: 'DAILY'
 };
 
 exports.FinanceStatus = exports.$Enums.FinanceStatus = {
@@ -850,7 +898,8 @@ exports.GirviStatus = exports.$Enums.GirviStatus = {
   ACTIVE: 'ACTIVE',
   RELEASED: 'RELEASED',
   CLOSED: 'CLOSED',
-  TRANSFERRED: 'TRANSFERRED'
+  TRANSFERRED: 'TRANSFERRED',
+  AUCTION: 'AUCTION'
 };
 
 exports.StockMetalType = exports.$Enums.StockMetalType = {
@@ -888,7 +937,9 @@ exports.Prisma.ModelName = {
   GirviRelease: 'GirviRelease',
   Rate: 'Rate',
   Purity: 'Purity',
-  MoneyLender: 'MoneyLender'
+  MoneyLender: 'MoneyLender',
+  AuctionUser: 'AuctionUser',
+  AuctionLoan: 'AuctionLoan'
 };
 
 /**

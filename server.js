@@ -62,6 +62,7 @@ v1Router.use("/trial-balance", require("./modules/trial_balance/routes/trial_bal
 v1Router.use("/balance-sheet", require("./modules/balance_sheet/routes/balance_sheet.routes"));
 v1Router.use("/profit-loss", require("./modules/profit_loss/routes/profit_loss.routes"));
 v1Router.use("/girvi", require("./modules/girvi/routes/girvi.routes"));
+v1Router.use("/auction", require("./modules/auction/routes/auction.routes"));
 v1Router.use("/stock", require("./modules/stock/routes/stock.routes"));
 v1Router.use("/add-prin", require("./modules/principal/routes/principal.routes"));
 v1Router.use("/deposit", require("./modules/deposit/routes/deposit.routes"));

@@ -147,6 +147,31 @@ class GirviService {
     }
   }
 
+  async getGirvisDropdown(dbUrl, firmId, userId) {
+    const prisma = this.getPrisma(dbUrl);
+    try {
+      const where = { 
+        girv_is_deleted: false,
+        girv_user_id: parseInt(userId),
+        girv_status: 'ACTIVE'
+      };
+      if (firmId) {
+        where.girv_firm_id = parseInt(firmId);
+      }
+      return await prisma.girvi.findMany({
+        where,
+        select: {
+          girv_id: true,
+          girv_prin_amt: true,
+          girv_status: true,
+        },
+        orderBy: { girv_created_at: "desc" },
+      });
+    } finally {
+      await prisma.$disconnect();
+    }
+  }
+
   async getGirviById(dbUrl, girvId) {
     const prisma = this.getPrisma(dbUrl);
     try {

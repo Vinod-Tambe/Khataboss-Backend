@@ -184,7 +184,17 @@ class FinanceService {
       }
       
       if (status && status !== 'ALL') {
-        where.fin_status = status;
+        if (status === 'TODAY_PENDING_EMI') {
+          const todayStr = new Date().toISOString().split('T')[0];
+          where.finance_trans = {
+            some: {
+              ft_due_date: { lte: todayStr },
+              ft_emi_status: { in: ['PENDING', 'PARTIAL', 'DUE'] }
+            }
+          };
+        } else {
+          where.fin_status = status;
+        }
       }
 
       return await prisma.finance.findMany({
@@ -198,6 +208,36 @@ class FinanceService {
             select: { firm_name: true }
           }
         }
+      });
+    } finally {
+      await prisma.$disconnect();
+    }
+  }
+
+  async getFinancesDropdown(dbUrl, firmId = null, userId = null) {
+    const prisma = this.getPrisma(dbUrl);
+    try {
+      const where = { 
+        fin_is_deleted: false,
+        fin_status: 'ACTIVE'
+      };
+      
+      if (firmId && firmId !== 'all') {
+        where.fin_firm_id = parseInt(firmId);
+      }
+      
+      if (userId && userId !== 'all') {
+        where.fin_user_id = parseInt(userId);
+      }
+
+      return await prisma.finance.findMany({
+        where: where,
+        select: {
+          fin_id: true,
+          fin_prin_amt: true,
+          fin_status: true,
+        },
+        orderBy: { fin_created_at: "desc" },
       });
     } finally {
       await prisma.$disconnect();
@@ -306,7 +346,7 @@ class FinanceService {
           fm_fin_id: finance.fin_id,
           fm_trans_crdr: isRollback ? "CR" : "DR",
           fm_trans_date: data.fm_trans_date,
-          fm_trans_type: isRollback ? "ROLLBACK" : "PAID",
+          fm_trans_type: data.fm_trans_type,
           fm_trans_amt: paymentAmt,
           fm_cash_amt: fm_cash_amt,
           fm_bank_amt: fm_bank_amt,
@@ -367,6 +407,32 @@ class FinanceService {
         }
 
         remainingAmt -= toApply;
+      }
+
+      // Update Finance status
+      const allEmis = await prisma.finance_Transaction.findMany({
+        where: { ft_fin_id: finance.fin_id }
+      });
+      const allPaid = allEmis.length > 0 && allEmis.every(emi => emi.ft_emi_status === "PAID");
+      
+      let newFinanceStatus = finance.fin_status;
+      if (data.fm_trans_type === "CLOSE") {
+        newFinanceStatus = "CLOSED";
+      } else if (allPaid) {
+        if (finance.fin_status !== "CLOSED") {
+            newFinanceStatus = "COMPLETED";
+        }
+      } else {
+        if (finance.fin_status === "COMPLETED" || finance.fin_status === "CLOSED") {
+            newFinanceStatus = "ACTIVE";
+        }
+      }
+
+      if (newFinanceStatus !== finance.fin_status) {
+        await prisma.finance.update({
+          where: { fin_id: finance.fin_id },
+          data: { fin_status: newFinanceStatus }
+        });
       }
 
       // 4. Create Journal Entry

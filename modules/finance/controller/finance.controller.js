@@ -42,6 +42,21 @@ class FinanceController {
     }
   }
 
+  async getFinancesDropdown(req, res) {
+    try {
+      const { userId } = req.params;
+      const { firmId } = req.query;
+      const dbUrl = this.getDbUrl(req.user.own_db);
+      const result = await financeService.getFinancesDropdown(dbUrl, firmId, userId);
+      return res.status(200).json({
+        message: "Finances dropdown fetched successfully.",
+        data: result,
+      });
+    } catch (error) {
+      return res.status(500).json({ error: error.message });
+    }
+  }
+
   async getTransactions(req, res) {
     try {
       const { firmId, userId } = req.query;

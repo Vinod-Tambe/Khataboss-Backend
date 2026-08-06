@@ -20,6 +20,12 @@ router.get(
 );
 
 router.get(
+  "/dropdown/:userId",
+  authenticateOwner,
+  (req, res) => girviController.getGirvisDropdown(req, res)
+);
+
+router.get(
   "/:id",
   authenticateOwner,
   (req, res) => girviController.getGirviById(req, res)

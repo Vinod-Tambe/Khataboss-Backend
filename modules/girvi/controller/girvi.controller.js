@@ -157,6 +157,23 @@ class GirviController {
     }
   }
 
+  async getGirvisDropdown(req, res) {
+    try {
+      const { userId } = req.params;
+      const { firmId } = req.query;
+      const dbUrl = this.getDbUrl(req.user.own_db);
+      const girvis = await girviService.getGirvisDropdown(dbUrl, firmId, userId);
+
+      return res.status(200).json({
+        message: "Loans dropdown fetched successfully.",
+        data: girvis,
+      });
+    } catch (error) {
+      console.error("❌ Error fetching girvis dropdown:", error.message);
+      return res.status(500).json({ error: error.message });
+    }
+  }
+
   async getGirviById(req, res) {
     try {
       const dbUrl = this.getDbUrl(req.user.own_db);

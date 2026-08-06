@@ -98,6 +98,16 @@ export type Purity = $Result.DefaultSelection<Prisma.$PurityPayload>
  * 
  */
 export type MoneyLender = $Result.DefaultSelection<Prisma.$MoneyLenderPayload>
+/**
+ * Model AuctionUser
+ * 
+ */
+export type AuctionUser = $Result.DefaultSelection<Prisma.$AuctionUserPayload>
+/**
+ * Model AuctionLoan
+ * 
+ */
+export type AuctionLoan = $Result.DefaultSelection<Prisma.$AuctionLoanPayload>
 
 /**
  * Enums
@@ -161,7 +171,8 @@ export type UserMaritalStatus = (typeof UserMaritalStatus)[keyof typeof UserMari
 export const FrequencyType: {
   MONTHLY: 'MONTHLY',
   YEARLY: 'YEARLY',
-  WEEKLY: 'WEEKLY'
+  WEEKLY: 'WEEKLY',
+  DAILY: 'DAILY'
 };
 
 export type FrequencyType = (typeof FrequencyType)[keyof typeof FrequencyType]
@@ -242,7 +253,8 @@ export const GirviStatus: {
   ACTIVE: 'ACTIVE',
   RELEASED: 'RELEASED',
   CLOSED: 'CLOSED',
-  TRANSFERRED: 'TRANSFERRED'
+  TRANSFERRED: 'TRANSFERRED',
+  AUCTION: 'AUCTION'
 };
 
 export type GirviStatus = (typeof GirviStatus)[keyof typeof GirviStatus]
@@ -644,6 +656,26 @@ export class PrismaClient<
     * ```
     */
   get moneyLender(): Prisma.MoneyLenderDelegate<ExtArgs>;
+
+  /**
+   * `prisma.auctionUser`: Exposes CRUD operations for the **AuctionUser** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more AuctionUsers
+    * const auctionUsers = await prisma.auctionUser.findMany()
+    * ```
+    */
+  get auctionUser(): Prisma.AuctionUserDelegate<ExtArgs>;
+
+  /**
+   * `prisma.auctionLoan`: Exposes CRUD operations for the **AuctionLoan** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more AuctionLoans
+    * const auctionLoans = await prisma.auctionLoan.findMany()
+    * ```
+    */
+  get auctionLoan(): Prisma.AuctionLoanDelegate<ExtArgs>;
 }
 
 export namespace Prisma {
@@ -1101,7 +1133,9 @@ export namespace Prisma {
     GirviRelease: 'GirviRelease',
     Rate: 'Rate',
     Purity: 'Purity',
-    MoneyLender: 'MoneyLender'
+    MoneyLender: 'MoneyLender',
+    AuctionUser: 'AuctionUser',
+    AuctionLoan: 'AuctionLoan'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1117,7 +1151,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "owner" | "firm" | "account" | "user" | "finance" | "finance_Transaction" | "finance_Money_Transaction" | "journal" | "journalTransaction" | "girvi" | "stock" | "additionalPrincipal" | "girviDeposit" | "girviRelease" | "rate" | "purity" | "moneyLender"
+      modelProps: "owner" | "firm" | "account" | "user" | "finance" | "finance_Transaction" | "finance_Money_Transaction" | "journal" | "journalTransaction" | "girvi" | "stock" | "additionalPrincipal" | "girviDeposit" | "girviRelease" | "rate" | "purity" | "moneyLender" | "auctionUser" | "auctionLoan"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -2308,6 +2342,146 @@ export namespace Prisma {
           count: {
             args: Prisma.MoneyLenderCountArgs<ExtArgs>
             result: $Utils.Optional<MoneyLenderCountAggregateOutputType> | number
+          }
+        }
+      }
+      AuctionUser: {
+        payload: Prisma.$AuctionUserPayload<ExtArgs>
+        fields: Prisma.AuctionUserFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.AuctionUserFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuctionUserPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.AuctionUserFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuctionUserPayload>
+          }
+          findFirst: {
+            args: Prisma.AuctionUserFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuctionUserPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.AuctionUserFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuctionUserPayload>
+          }
+          findMany: {
+            args: Prisma.AuctionUserFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuctionUserPayload>[]
+          }
+          create: {
+            args: Prisma.AuctionUserCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuctionUserPayload>
+          }
+          createMany: {
+            args: Prisma.AuctionUserCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.AuctionUserCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuctionUserPayload>[]
+          }
+          delete: {
+            args: Prisma.AuctionUserDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuctionUserPayload>
+          }
+          update: {
+            args: Prisma.AuctionUserUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuctionUserPayload>
+          }
+          deleteMany: {
+            args: Prisma.AuctionUserDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.AuctionUserUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.AuctionUserUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuctionUserPayload>
+          }
+          aggregate: {
+            args: Prisma.AuctionUserAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateAuctionUser>
+          }
+          groupBy: {
+            args: Prisma.AuctionUserGroupByArgs<ExtArgs>
+            result: $Utils.Optional<AuctionUserGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.AuctionUserCountArgs<ExtArgs>
+            result: $Utils.Optional<AuctionUserCountAggregateOutputType> | number
+          }
+        }
+      }
+      AuctionLoan: {
+        payload: Prisma.$AuctionLoanPayload<ExtArgs>
+        fields: Prisma.AuctionLoanFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.AuctionLoanFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuctionLoanPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.AuctionLoanFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuctionLoanPayload>
+          }
+          findFirst: {
+            args: Prisma.AuctionLoanFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuctionLoanPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.AuctionLoanFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuctionLoanPayload>
+          }
+          findMany: {
+            args: Prisma.AuctionLoanFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuctionLoanPayload>[]
+          }
+          create: {
+            args: Prisma.AuctionLoanCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuctionLoanPayload>
+          }
+          createMany: {
+            args: Prisma.AuctionLoanCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.AuctionLoanCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuctionLoanPayload>[]
+          }
+          delete: {
+            args: Prisma.AuctionLoanDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuctionLoanPayload>
+          }
+          update: {
+            args: Prisma.AuctionLoanUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuctionLoanPayload>
+          }
+          deleteMany: {
+            args: Prisma.AuctionLoanDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.AuctionLoanUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.AuctionLoanUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuctionLoanPayload>
+          }
+          aggregate: {
+            args: Prisma.AuctionLoanAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateAuctionLoan>
+          }
+          groupBy: {
+            args: Prisma.AuctionLoanGroupByArgs<ExtArgs>
+            result: $Utils.Optional<AuctionLoanGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.AuctionLoanCountArgs<ExtArgs>
+            result: $Utils.Optional<AuctionLoanCountAggregateOutputType> | number
           }
         }
       }
@@ -29475,6 +29649,2266 @@ export namespace Prisma {
 
 
   /**
+   * Model AuctionUser
+   */
+
+  export type AggregateAuctionUser = {
+    _count: AuctionUserCountAggregateOutputType | null
+    _avg: AuctionUserAvgAggregateOutputType | null
+    _sum: AuctionUserSumAggregateOutputType | null
+    _min: AuctionUserMinAggregateOutputType | null
+    _max: AuctionUserMaxAggregateOutputType | null
+  }
+
+  export type AuctionUserAvgAggregateOutputType = {
+    au_id: number | null
+    au_firm_id: number | null
+  }
+
+  export type AuctionUserSumAggregateOutputType = {
+    au_id: number | null
+    au_firm_id: number | null
+  }
+
+  export type AuctionUserMinAggregateOutputType = {
+    au_id: number | null
+    au_uuid: string | null
+    au_date: string | null
+    au_firm_id: number | null
+    au_full_name: string | null
+    au_mobile: string | null
+    au_email: string | null
+    au_aadhaar: string | null
+    au_gender: string | null
+    au_pan: string | null
+    au_address: string | null
+    au_state: string | null
+    au_city: string | null
+    au_country: string | null
+    au_village: string | null
+    au_pincode: string | null
+    au_image: string | null
+  }
+
+  export type AuctionUserMaxAggregateOutputType = {
+    au_id: number | null
+    au_uuid: string | null
+    au_date: string | null
+    au_firm_id: number | null
+    au_full_name: string | null
+    au_mobile: string | null
+    au_email: string | null
+    au_aadhaar: string | null
+    au_gender: string | null
+    au_pan: string | null
+    au_address: string | null
+    au_state: string | null
+    au_city: string | null
+    au_country: string | null
+    au_village: string | null
+    au_pincode: string | null
+    au_image: string | null
+  }
+
+  export type AuctionUserCountAggregateOutputType = {
+    au_id: number
+    au_uuid: number
+    au_date: number
+    au_firm_id: number
+    au_full_name: number
+    au_mobile: number
+    au_email: number
+    au_aadhaar: number
+    au_gender: number
+    au_pan: number
+    au_address: number
+    au_state: number
+    au_city: number
+    au_country: number
+    au_village: number
+    au_pincode: number
+    au_image: number
+    _all: number
+  }
+
+
+  export type AuctionUserAvgAggregateInputType = {
+    au_id?: true
+    au_firm_id?: true
+  }
+
+  export type AuctionUserSumAggregateInputType = {
+    au_id?: true
+    au_firm_id?: true
+  }
+
+  export type AuctionUserMinAggregateInputType = {
+    au_id?: true
+    au_uuid?: true
+    au_date?: true
+    au_firm_id?: true
+    au_full_name?: true
+    au_mobile?: true
+    au_email?: true
+    au_aadhaar?: true
+    au_gender?: true
+    au_pan?: true
+    au_address?: true
+    au_state?: true
+    au_city?: true
+    au_country?: true
+    au_village?: true
+    au_pincode?: true
+    au_image?: true
+  }
+
+  export type AuctionUserMaxAggregateInputType = {
+    au_id?: true
+    au_uuid?: true
+    au_date?: true
+    au_firm_id?: true
+    au_full_name?: true
+    au_mobile?: true
+    au_email?: true
+    au_aadhaar?: true
+    au_gender?: true
+    au_pan?: true
+    au_address?: true
+    au_state?: true
+    au_city?: true
+    au_country?: true
+    au_village?: true
+    au_pincode?: true
+    au_image?: true
+  }
+
+  export type AuctionUserCountAggregateInputType = {
+    au_id?: true
+    au_uuid?: true
+    au_date?: true
+    au_firm_id?: true
+    au_full_name?: true
+    au_mobile?: true
+    au_email?: true
+    au_aadhaar?: true
+    au_gender?: true
+    au_pan?: true
+    au_address?: true
+    au_state?: true
+    au_city?: true
+    au_country?: true
+    au_village?: true
+    au_pincode?: true
+    au_image?: true
+    _all?: true
+  }
+
+  export type AuctionUserAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AuctionUser to aggregate.
+     */
+    where?: AuctionUserWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AuctionUsers to fetch.
+     */
+    orderBy?: AuctionUserOrderByWithRelationInput | AuctionUserOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: AuctionUserWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AuctionUsers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AuctionUsers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned AuctionUsers
+    **/
+    _count?: true | AuctionUserCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: AuctionUserAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: AuctionUserSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AuctionUserMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AuctionUserMaxAggregateInputType
+  }
+
+  export type GetAuctionUserAggregateType<T extends AuctionUserAggregateArgs> = {
+        [P in keyof T & keyof AggregateAuctionUser]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAuctionUser[P]>
+      : GetScalarType<T[P], AggregateAuctionUser[P]>
+  }
+
+
+
+
+  export type AuctionUserGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AuctionUserWhereInput
+    orderBy?: AuctionUserOrderByWithAggregationInput | AuctionUserOrderByWithAggregationInput[]
+    by: AuctionUserScalarFieldEnum[] | AuctionUserScalarFieldEnum
+    having?: AuctionUserScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AuctionUserCountAggregateInputType | true
+    _avg?: AuctionUserAvgAggregateInputType
+    _sum?: AuctionUserSumAggregateInputType
+    _min?: AuctionUserMinAggregateInputType
+    _max?: AuctionUserMaxAggregateInputType
+  }
+
+  export type AuctionUserGroupByOutputType = {
+    au_id: number
+    au_uuid: string
+    au_date: string | null
+    au_firm_id: number
+    au_full_name: string | null
+    au_mobile: string | null
+    au_email: string | null
+    au_aadhaar: string | null
+    au_gender: string | null
+    au_pan: string | null
+    au_address: string | null
+    au_state: string | null
+    au_city: string | null
+    au_country: string | null
+    au_village: string | null
+    au_pincode: string | null
+    au_image: string | null
+    _count: AuctionUserCountAggregateOutputType | null
+    _avg: AuctionUserAvgAggregateOutputType | null
+    _sum: AuctionUserSumAggregateOutputType | null
+    _min: AuctionUserMinAggregateOutputType | null
+    _max: AuctionUserMaxAggregateOutputType | null
+  }
+
+  type GetAuctionUserGroupByPayload<T extends AuctionUserGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<AuctionUserGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AuctionUserGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AuctionUserGroupByOutputType[P]>
+            : GetScalarType<T[P], AuctionUserGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type AuctionUserSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    au_id?: boolean
+    au_uuid?: boolean
+    au_date?: boolean
+    au_firm_id?: boolean
+    au_full_name?: boolean
+    au_mobile?: boolean
+    au_email?: boolean
+    au_aadhaar?: boolean
+    au_gender?: boolean
+    au_pan?: boolean
+    au_address?: boolean
+    au_state?: boolean
+    au_city?: boolean
+    au_country?: boolean
+    au_village?: boolean
+    au_pincode?: boolean
+    au_image?: boolean
+  }, ExtArgs["result"]["auctionUser"]>
+
+  export type AuctionUserSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    au_id?: boolean
+    au_uuid?: boolean
+    au_date?: boolean
+    au_firm_id?: boolean
+    au_full_name?: boolean
+    au_mobile?: boolean
+    au_email?: boolean
+    au_aadhaar?: boolean
+    au_gender?: boolean
+    au_pan?: boolean
+    au_address?: boolean
+    au_state?: boolean
+    au_city?: boolean
+    au_country?: boolean
+    au_village?: boolean
+    au_pincode?: boolean
+    au_image?: boolean
+  }, ExtArgs["result"]["auctionUser"]>
+
+  export type AuctionUserSelectScalar = {
+    au_id?: boolean
+    au_uuid?: boolean
+    au_date?: boolean
+    au_firm_id?: boolean
+    au_full_name?: boolean
+    au_mobile?: boolean
+    au_email?: boolean
+    au_aadhaar?: boolean
+    au_gender?: boolean
+    au_pan?: boolean
+    au_address?: boolean
+    au_state?: boolean
+    au_city?: boolean
+    au_country?: boolean
+    au_village?: boolean
+    au_pincode?: boolean
+    au_image?: boolean
+  }
+
+
+  export type $AuctionUserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "AuctionUser"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      au_id: number
+      au_uuid: string
+      au_date: string | null
+      au_firm_id: number
+      au_full_name: string | null
+      au_mobile: string | null
+      au_email: string | null
+      au_aadhaar: string | null
+      au_gender: string | null
+      au_pan: string | null
+      au_address: string | null
+      au_state: string | null
+      au_city: string | null
+      au_country: string | null
+      au_village: string | null
+      au_pincode: string | null
+      au_image: string | null
+    }, ExtArgs["result"]["auctionUser"]>
+    composites: {}
+  }
+
+  type AuctionUserGetPayload<S extends boolean | null | undefined | AuctionUserDefaultArgs> = $Result.GetResult<Prisma.$AuctionUserPayload, S>
+
+  type AuctionUserCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<AuctionUserFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: AuctionUserCountAggregateInputType | true
+    }
+
+  export interface AuctionUserDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['AuctionUser'], meta: { name: 'AuctionUser' } }
+    /**
+     * Find zero or one AuctionUser that matches the filter.
+     * @param {AuctionUserFindUniqueArgs} args - Arguments to find a AuctionUser
+     * @example
+     * // Get one AuctionUser
+     * const auctionUser = await prisma.auctionUser.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends AuctionUserFindUniqueArgs>(args: SelectSubset<T, AuctionUserFindUniqueArgs<ExtArgs>>): Prisma__AuctionUserClient<$Result.GetResult<Prisma.$AuctionUserPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one AuctionUser that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {AuctionUserFindUniqueOrThrowArgs} args - Arguments to find a AuctionUser
+     * @example
+     * // Get one AuctionUser
+     * const auctionUser = await prisma.auctionUser.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends AuctionUserFindUniqueOrThrowArgs>(args: SelectSubset<T, AuctionUserFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AuctionUserClient<$Result.GetResult<Prisma.$AuctionUserPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first AuctionUser that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AuctionUserFindFirstArgs} args - Arguments to find a AuctionUser
+     * @example
+     * // Get one AuctionUser
+     * const auctionUser = await prisma.auctionUser.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends AuctionUserFindFirstArgs>(args?: SelectSubset<T, AuctionUserFindFirstArgs<ExtArgs>>): Prisma__AuctionUserClient<$Result.GetResult<Prisma.$AuctionUserPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first AuctionUser that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AuctionUserFindFirstOrThrowArgs} args - Arguments to find a AuctionUser
+     * @example
+     * // Get one AuctionUser
+     * const auctionUser = await prisma.auctionUser.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends AuctionUserFindFirstOrThrowArgs>(args?: SelectSubset<T, AuctionUserFindFirstOrThrowArgs<ExtArgs>>): Prisma__AuctionUserClient<$Result.GetResult<Prisma.$AuctionUserPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more AuctionUsers that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AuctionUserFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all AuctionUsers
+     * const auctionUsers = await prisma.auctionUser.findMany()
+     * 
+     * // Get first 10 AuctionUsers
+     * const auctionUsers = await prisma.auctionUser.findMany({ take: 10 })
+     * 
+     * // Only select the `au_id`
+     * const auctionUserWithAu_idOnly = await prisma.auctionUser.findMany({ select: { au_id: true } })
+     * 
+     */
+    findMany<T extends AuctionUserFindManyArgs>(args?: SelectSubset<T, AuctionUserFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AuctionUserPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a AuctionUser.
+     * @param {AuctionUserCreateArgs} args - Arguments to create a AuctionUser.
+     * @example
+     * // Create one AuctionUser
+     * const AuctionUser = await prisma.auctionUser.create({
+     *   data: {
+     *     // ... data to create a AuctionUser
+     *   }
+     * })
+     * 
+     */
+    create<T extends AuctionUserCreateArgs>(args: SelectSubset<T, AuctionUserCreateArgs<ExtArgs>>): Prisma__AuctionUserClient<$Result.GetResult<Prisma.$AuctionUserPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many AuctionUsers.
+     * @param {AuctionUserCreateManyArgs} args - Arguments to create many AuctionUsers.
+     * @example
+     * // Create many AuctionUsers
+     * const auctionUser = await prisma.auctionUser.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends AuctionUserCreateManyArgs>(args?: SelectSubset<T, AuctionUserCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many AuctionUsers and returns the data saved in the database.
+     * @param {AuctionUserCreateManyAndReturnArgs} args - Arguments to create many AuctionUsers.
+     * @example
+     * // Create many AuctionUsers
+     * const auctionUser = await prisma.auctionUser.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many AuctionUsers and only return the `au_id`
+     * const auctionUserWithAu_idOnly = await prisma.auctionUser.createManyAndReturn({ 
+     *   select: { au_id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends AuctionUserCreateManyAndReturnArgs>(args?: SelectSubset<T, AuctionUserCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AuctionUserPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a AuctionUser.
+     * @param {AuctionUserDeleteArgs} args - Arguments to delete one AuctionUser.
+     * @example
+     * // Delete one AuctionUser
+     * const AuctionUser = await prisma.auctionUser.delete({
+     *   where: {
+     *     // ... filter to delete one AuctionUser
+     *   }
+     * })
+     * 
+     */
+    delete<T extends AuctionUserDeleteArgs>(args: SelectSubset<T, AuctionUserDeleteArgs<ExtArgs>>): Prisma__AuctionUserClient<$Result.GetResult<Prisma.$AuctionUserPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one AuctionUser.
+     * @param {AuctionUserUpdateArgs} args - Arguments to update one AuctionUser.
+     * @example
+     * // Update one AuctionUser
+     * const auctionUser = await prisma.auctionUser.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends AuctionUserUpdateArgs>(args: SelectSubset<T, AuctionUserUpdateArgs<ExtArgs>>): Prisma__AuctionUserClient<$Result.GetResult<Prisma.$AuctionUserPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more AuctionUsers.
+     * @param {AuctionUserDeleteManyArgs} args - Arguments to filter AuctionUsers to delete.
+     * @example
+     * // Delete a few AuctionUsers
+     * const { count } = await prisma.auctionUser.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends AuctionUserDeleteManyArgs>(args?: SelectSubset<T, AuctionUserDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AuctionUsers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AuctionUserUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many AuctionUsers
+     * const auctionUser = await prisma.auctionUser.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends AuctionUserUpdateManyArgs>(args: SelectSubset<T, AuctionUserUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one AuctionUser.
+     * @param {AuctionUserUpsertArgs} args - Arguments to update or create a AuctionUser.
+     * @example
+     * // Update or create a AuctionUser
+     * const auctionUser = await prisma.auctionUser.upsert({
+     *   create: {
+     *     // ... data to create a AuctionUser
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the AuctionUser we want to update
+     *   }
+     * })
+     */
+    upsert<T extends AuctionUserUpsertArgs>(args: SelectSubset<T, AuctionUserUpsertArgs<ExtArgs>>): Prisma__AuctionUserClient<$Result.GetResult<Prisma.$AuctionUserPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of AuctionUsers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AuctionUserCountArgs} args - Arguments to filter AuctionUsers to count.
+     * @example
+     * // Count the number of AuctionUsers
+     * const count = await prisma.auctionUser.count({
+     *   where: {
+     *     // ... the filter for the AuctionUsers we want to count
+     *   }
+     * })
+    **/
+    count<T extends AuctionUserCountArgs>(
+      args?: Subset<T, AuctionUserCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AuctionUserCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a AuctionUser.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AuctionUserAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AuctionUserAggregateArgs>(args: Subset<T, AuctionUserAggregateArgs>): Prisma.PrismaPromise<GetAuctionUserAggregateType<T>>
+
+    /**
+     * Group by AuctionUser.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AuctionUserGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends AuctionUserGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: AuctionUserGroupByArgs['orderBy'] }
+        : { orderBy?: AuctionUserGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, AuctionUserGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAuctionUserGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the AuctionUser model
+   */
+  readonly fields: AuctionUserFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for AuctionUser.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__AuctionUserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the AuctionUser model
+   */ 
+  interface AuctionUserFieldRefs {
+    readonly au_id: FieldRef<"AuctionUser", 'Int'>
+    readonly au_uuid: FieldRef<"AuctionUser", 'String'>
+    readonly au_date: FieldRef<"AuctionUser", 'String'>
+    readonly au_firm_id: FieldRef<"AuctionUser", 'Int'>
+    readonly au_full_name: FieldRef<"AuctionUser", 'String'>
+    readonly au_mobile: FieldRef<"AuctionUser", 'String'>
+    readonly au_email: FieldRef<"AuctionUser", 'String'>
+    readonly au_aadhaar: FieldRef<"AuctionUser", 'String'>
+    readonly au_gender: FieldRef<"AuctionUser", 'String'>
+    readonly au_pan: FieldRef<"AuctionUser", 'String'>
+    readonly au_address: FieldRef<"AuctionUser", 'String'>
+    readonly au_state: FieldRef<"AuctionUser", 'String'>
+    readonly au_city: FieldRef<"AuctionUser", 'String'>
+    readonly au_country: FieldRef<"AuctionUser", 'String'>
+    readonly au_village: FieldRef<"AuctionUser", 'String'>
+    readonly au_pincode: FieldRef<"AuctionUser", 'String'>
+    readonly au_image: FieldRef<"AuctionUser", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * AuctionUser findUnique
+   */
+  export type AuctionUserFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuctionUser
+     */
+    select?: AuctionUserSelect<ExtArgs> | null
+    /**
+     * Filter, which AuctionUser to fetch.
+     */
+    where: AuctionUserWhereUniqueInput
+  }
+
+  /**
+   * AuctionUser findUniqueOrThrow
+   */
+  export type AuctionUserFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuctionUser
+     */
+    select?: AuctionUserSelect<ExtArgs> | null
+    /**
+     * Filter, which AuctionUser to fetch.
+     */
+    where: AuctionUserWhereUniqueInput
+  }
+
+  /**
+   * AuctionUser findFirst
+   */
+  export type AuctionUserFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuctionUser
+     */
+    select?: AuctionUserSelect<ExtArgs> | null
+    /**
+     * Filter, which AuctionUser to fetch.
+     */
+    where?: AuctionUserWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AuctionUsers to fetch.
+     */
+    orderBy?: AuctionUserOrderByWithRelationInput | AuctionUserOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AuctionUsers.
+     */
+    cursor?: AuctionUserWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AuctionUsers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AuctionUsers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AuctionUsers.
+     */
+    distinct?: AuctionUserScalarFieldEnum | AuctionUserScalarFieldEnum[]
+  }
+
+  /**
+   * AuctionUser findFirstOrThrow
+   */
+  export type AuctionUserFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuctionUser
+     */
+    select?: AuctionUserSelect<ExtArgs> | null
+    /**
+     * Filter, which AuctionUser to fetch.
+     */
+    where?: AuctionUserWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AuctionUsers to fetch.
+     */
+    orderBy?: AuctionUserOrderByWithRelationInput | AuctionUserOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AuctionUsers.
+     */
+    cursor?: AuctionUserWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AuctionUsers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AuctionUsers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AuctionUsers.
+     */
+    distinct?: AuctionUserScalarFieldEnum | AuctionUserScalarFieldEnum[]
+  }
+
+  /**
+   * AuctionUser findMany
+   */
+  export type AuctionUserFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuctionUser
+     */
+    select?: AuctionUserSelect<ExtArgs> | null
+    /**
+     * Filter, which AuctionUsers to fetch.
+     */
+    where?: AuctionUserWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AuctionUsers to fetch.
+     */
+    orderBy?: AuctionUserOrderByWithRelationInput | AuctionUserOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing AuctionUsers.
+     */
+    cursor?: AuctionUserWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AuctionUsers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AuctionUsers.
+     */
+    skip?: number
+    distinct?: AuctionUserScalarFieldEnum | AuctionUserScalarFieldEnum[]
+  }
+
+  /**
+   * AuctionUser create
+   */
+  export type AuctionUserCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuctionUser
+     */
+    select?: AuctionUserSelect<ExtArgs> | null
+    /**
+     * The data needed to create a AuctionUser.
+     */
+    data: XOR<AuctionUserCreateInput, AuctionUserUncheckedCreateInput>
+  }
+
+  /**
+   * AuctionUser createMany
+   */
+  export type AuctionUserCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many AuctionUsers.
+     */
+    data: AuctionUserCreateManyInput | AuctionUserCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * AuctionUser createManyAndReturn
+   */
+  export type AuctionUserCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuctionUser
+     */
+    select?: AuctionUserSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many AuctionUsers.
+     */
+    data: AuctionUserCreateManyInput | AuctionUserCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * AuctionUser update
+   */
+  export type AuctionUserUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuctionUser
+     */
+    select?: AuctionUserSelect<ExtArgs> | null
+    /**
+     * The data needed to update a AuctionUser.
+     */
+    data: XOR<AuctionUserUpdateInput, AuctionUserUncheckedUpdateInput>
+    /**
+     * Choose, which AuctionUser to update.
+     */
+    where: AuctionUserWhereUniqueInput
+  }
+
+  /**
+   * AuctionUser updateMany
+   */
+  export type AuctionUserUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update AuctionUsers.
+     */
+    data: XOR<AuctionUserUpdateManyMutationInput, AuctionUserUncheckedUpdateManyInput>
+    /**
+     * Filter which AuctionUsers to update
+     */
+    where?: AuctionUserWhereInput
+  }
+
+  /**
+   * AuctionUser upsert
+   */
+  export type AuctionUserUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuctionUser
+     */
+    select?: AuctionUserSelect<ExtArgs> | null
+    /**
+     * The filter to search for the AuctionUser to update in case it exists.
+     */
+    where: AuctionUserWhereUniqueInput
+    /**
+     * In case the AuctionUser found by the `where` argument doesn't exist, create a new AuctionUser with this data.
+     */
+    create: XOR<AuctionUserCreateInput, AuctionUserUncheckedCreateInput>
+    /**
+     * In case the AuctionUser was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<AuctionUserUpdateInput, AuctionUserUncheckedUpdateInput>
+  }
+
+  /**
+   * AuctionUser delete
+   */
+  export type AuctionUserDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuctionUser
+     */
+    select?: AuctionUserSelect<ExtArgs> | null
+    /**
+     * Filter which AuctionUser to delete.
+     */
+    where: AuctionUserWhereUniqueInput
+  }
+
+  /**
+   * AuctionUser deleteMany
+   */
+  export type AuctionUserDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AuctionUsers to delete
+     */
+    where?: AuctionUserWhereInput
+  }
+
+  /**
+   * AuctionUser without action
+   */
+  export type AuctionUserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuctionUser
+     */
+    select?: AuctionUserSelect<ExtArgs> | null
+  }
+
+
+  /**
+   * Model AuctionLoan
+   */
+
+  export type AggregateAuctionLoan = {
+    _count: AuctionLoanCountAggregateOutputType | null
+    _avg: AuctionLoanAvgAggregateOutputType | null
+    _sum: AuctionLoanSumAggregateOutputType | null
+    _min: AuctionLoanMinAggregateOutputType | null
+    _max: AuctionLoanMaxAggregateOutputType | null
+  }
+
+  export type AuctionLoanAvgAggregateOutputType = {
+    al_id: number | null
+    al_girv_id: number | null
+    al_firm_id: number | null
+    al_buyer_id: number | null
+    al_prin_amt: number | null
+    al_int_amt: number | null
+    al_dep_amt: number | null
+    al_payable_amt: number | null
+    al_cash_acc_id: number | null
+    al_cash_amt: number | null
+    al_bank_acc_id: number | null
+    al_bank_amt: number | null
+    al_online_acc_id: number | null
+    al_online_amt: number | null
+    al_card_acc_id: number | null
+    al_card_amt: number | null
+  }
+
+  export type AuctionLoanSumAggregateOutputType = {
+    al_id: number | null
+    al_girv_id: number | null
+    al_firm_id: number | null
+    al_buyer_id: number | null
+    al_prin_amt: number | null
+    al_int_amt: number | null
+    al_dep_amt: number | null
+    al_payable_amt: number | null
+    al_cash_acc_id: number | null
+    al_cash_amt: number | null
+    al_bank_acc_id: number | null
+    al_bank_amt: number | null
+    al_online_acc_id: number | null
+    al_online_amt: number | null
+    al_card_acc_id: number | null
+    al_card_amt: number | null
+  }
+
+  export type AuctionLoanMinAggregateOutputType = {
+    al_id: number | null
+    al_uuid: string | null
+    al_date: string | null
+    al_girv_id: number | null
+    al_firm_id: number | null
+    al_buyer_id: number | null
+    al_prin_amt: number | null
+    al_int_amt: number | null
+    al_dep_amt: number | null
+    al_payable_amt: number | null
+    al_cash_acc_id: number | null
+    al_cash_info: string | null
+    al_cash_amt: number | null
+    al_bank_acc_id: number | null
+    al_bank_info: string | null
+    al_bank_amt: number | null
+    al_online_acc_id: number | null
+    al_online_info: string | null
+    al_online_amt: number | null
+    al_card_acc_id: number | null
+    al_card_info: string | null
+    al_card_amt: number | null
+    al_pay_info: string | null
+    al_other_info: string | null
+  }
+
+  export type AuctionLoanMaxAggregateOutputType = {
+    al_id: number | null
+    al_uuid: string | null
+    al_date: string | null
+    al_girv_id: number | null
+    al_firm_id: number | null
+    al_buyer_id: number | null
+    al_prin_amt: number | null
+    al_int_amt: number | null
+    al_dep_amt: number | null
+    al_payable_amt: number | null
+    al_cash_acc_id: number | null
+    al_cash_info: string | null
+    al_cash_amt: number | null
+    al_bank_acc_id: number | null
+    al_bank_info: string | null
+    al_bank_amt: number | null
+    al_online_acc_id: number | null
+    al_online_info: string | null
+    al_online_amt: number | null
+    al_card_acc_id: number | null
+    al_card_info: string | null
+    al_card_amt: number | null
+    al_pay_info: string | null
+    al_other_info: string | null
+  }
+
+  export type AuctionLoanCountAggregateOutputType = {
+    al_id: number
+    al_uuid: number
+    al_date: number
+    al_girv_id: number
+    al_firm_id: number
+    al_buyer_id: number
+    al_prin_amt: number
+    al_int_amt: number
+    al_dep_amt: number
+    al_payable_amt: number
+    al_cash_acc_id: number
+    al_cash_info: number
+    al_cash_amt: number
+    al_bank_acc_id: number
+    al_bank_info: number
+    al_bank_amt: number
+    al_online_acc_id: number
+    al_online_info: number
+    al_online_amt: number
+    al_card_acc_id: number
+    al_card_info: number
+    al_card_amt: number
+    al_pay_info: number
+    al_other_info: number
+    _all: number
+  }
+
+
+  export type AuctionLoanAvgAggregateInputType = {
+    al_id?: true
+    al_girv_id?: true
+    al_firm_id?: true
+    al_buyer_id?: true
+    al_prin_amt?: true
+    al_int_amt?: true
+    al_dep_amt?: true
+    al_payable_amt?: true
+    al_cash_acc_id?: true
+    al_cash_amt?: true
+    al_bank_acc_id?: true
+    al_bank_amt?: true
+    al_online_acc_id?: true
+    al_online_amt?: true
+    al_card_acc_id?: true
+    al_card_amt?: true
+  }
+
+  export type AuctionLoanSumAggregateInputType = {
+    al_id?: true
+    al_girv_id?: true
+    al_firm_id?: true
+    al_buyer_id?: true
+    al_prin_amt?: true
+    al_int_amt?: true
+    al_dep_amt?: true
+    al_payable_amt?: true
+    al_cash_acc_id?: true
+    al_cash_amt?: true
+    al_bank_acc_id?: true
+    al_bank_amt?: true
+    al_online_acc_id?: true
+    al_online_amt?: true
+    al_card_acc_id?: true
+    al_card_amt?: true
+  }
+
+  export type AuctionLoanMinAggregateInputType = {
+    al_id?: true
+    al_uuid?: true
+    al_date?: true
+    al_girv_id?: true
+    al_firm_id?: true
+    al_buyer_id?: true
+    al_prin_amt?: true
+    al_int_amt?: true
+    al_dep_amt?: true
+    al_payable_amt?: true
+    al_cash_acc_id?: true
+    al_cash_info?: true
+    al_cash_amt?: true
+    al_bank_acc_id?: true
+    al_bank_info?: true
+    al_bank_amt?: true
+    al_online_acc_id?: true
+    al_online_info?: true
+    al_online_amt?: true
+    al_card_acc_id?: true
+    al_card_info?: true
+    al_card_amt?: true
+    al_pay_info?: true
+    al_other_info?: true
+  }
+
+  export type AuctionLoanMaxAggregateInputType = {
+    al_id?: true
+    al_uuid?: true
+    al_date?: true
+    al_girv_id?: true
+    al_firm_id?: true
+    al_buyer_id?: true
+    al_prin_amt?: true
+    al_int_amt?: true
+    al_dep_amt?: true
+    al_payable_amt?: true
+    al_cash_acc_id?: true
+    al_cash_info?: true
+    al_cash_amt?: true
+    al_bank_acc_id?: true
+    al_bank_info?: true
+    al_bank_amt?: true
+    al_online_acc_id?: true
+    al_online_info?: true
+    al_online_amt?: true
+    al_card_acc_id?: true
+    al_card_info?: true
+    al_card_amt?: true
+    al_pay_info?: true
+    al_other_info?: true
+  }
+
+  export type AuctionLoanCountAggregateInputType = {
+    al_id?: true
+    al_uuid?: true
+    al_date?: true
+    al_girv_id?: true
+    al_firm_id?: true
+    al_buyer_id?: true
+    al_prin_amt?: true
+    al_int_amt?: true
+    al_dep_amt?: true
+    al_payable_amt?: true
+    al_cash_acc_id?: true
+    al_cash_info?: true
+    al_cash_amt?: true
+    al_bank_acc_id?: true
+    al_bank_info?: true
+    al_bank_amt?: true
+    al_online_acc_id?: true
+    al_online_info?: true
+    al_online_amt?: true
+    al_card_acc_id?: true
+    al_card_info?: true
+    al_card_amt?: true
+    al_pay_info?: true
+    al_other_info?: true
+    _all?: true
+  }
+
+  export type AuctionLoanAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AuctionLoan to aggregate.
+     */
+    where?: AuctionLoanWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AuctionLoans to fetch.
+     */
+    orderBy?: AuctionLoanOrderByWithRelationInput | AuctionLoanOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: AuctionLoanWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AuctionLoans from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AuctionLoans.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned AuctionLoans
+    **/
+    _count?: true | AuctionLoanCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: AuctionLoanAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: AuctionLoanSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AuctionLoanMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AuctionLoanMaxAggregateInputType
+  }
+
+  export type GetAuctionLoanAggregateType<T extends AuctionLoanAggregateArgs> = {
+        [P in keyof T & keyof AggregateAuctionLoan]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAuctionLoan[P]>
+      : GetScalarType<T[P], AggregateAuctionLoan[P]>
+  }
+
+
+
+
+  export type AuctionLoanGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AuctionLoanWhereInput
+    orderBy?: AuctionLoanOrderByWithAggregationInput | AuctionLoanOrderByWithAggregationInput[]
+    by: AuctionLoanScalarFieldEnum[] | AuctionLoanScalarFieldEnum
+    having?: AuctionLoanScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AuctionLoanCountAggregateInputType | true
+    _avg?: AuctionLoanAvgAggregateInputType
+    _sum?: AuctionLoanSumAggregateInputType
+    _min?: AuctionLoanMinAggregateInputType
+    _max?: AuctionLoanMaxAggregateInputType
+  }
+
+  export type AuctionLoanGroupByOutputType = {
+    al_id: number
+    al_uuid: string
+    al_date: string | null
+    al_girv_id: number
+    al_firm_id: number
+    al_buyer_id: number
+    al_prin_amt: number
+    al_int_amt: number
+    al_dep_amt: number
+    al_payable_amt: number
+    al_cash_acc_id: number | null
+    al_cash_info: string | null
+    al_cash_amt: number | null
+    al_bank_acc_id: number | null
+    al_bank_info: string | null
+    al_bank_amt: number | null
+    al_online_acc_id: number | null
+    al_online_info: string | null
+    al_online_amt: number | null
+    al_card_acc_id: number | null
+    al_card_info: string | null
+    al_card_amt: number | null
+    al_pay_info: string | null
+    al_other_info: string | null
+    _count: AuctionLoanCountAggregateOutputType | null
+    _avg: AuctionLoanAvgAggregateOutputType | null
+    _sum: AuctionLoanSumAggregateOutputType | null
+    _min: AuctionLoanMinAggregateOutputType | null
+    _max: AuctionLoanMaxAggregateOutputType | null
+  }
+
+  type GetAuctionLoanGroupByPayload<T extends AuctionLoanGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<AuctionLoanGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AuctionLoanGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AuctionLoanGroupByOutputType[P]>
+            : GetScalarType<T[P], AuctionLoanGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type AuctionLoanSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    al_id?: boolean
+    al_uuid?: boolean
+    al_date?: boolean
+    al_girv_id?: boolean
+    al_firm_id?: boolean
+    al_buyer_id?: boolean
+    al_prin_amt?: boolean
+    al_int_amt?: boolean
+    al_dep_amt?: boolean
+    al_payable_amt?: boolean
+    al_cash_acc_id?: boolean
+    al_cash_info?: boolean
+    al_cash_amt?: boolean
+    al_bank_acc_id?: boolean
+    al_bank_info?: boolean
+    al_bank_amt?: boolean
+    al_online_acc_id?: boolean
+    al_online_info?: boolean
+    al_online_amt?: boolean
+    al_card_acc_id?: boolean
+    al_card_info?: boolean
+    al_card_amt?: boolean
+    al_pay_info?: boolean
+    al_other_info?: boolean
+  }, ExtArgs["result"]["auctionLoan"]>
+
+  export type AuctionLoanSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    al_id?: boolean
+    al_uuid?: boolean
+    al_date?: boolean
+    al_girv_id?: boolean
+    al_firm_id?: boolean
+    al_buyer_id?: boolean
+    al_prin_amt?: boolean
+    al_int_amt?: boolean
+    al_dep_amt?: boolean
+    al_payable_amt?: boolean
+    al_cash_acc_id?: boolean
+    al_cash_info?: boolean
+    al_cash_amt?: boolean
+    al_bank_acc_id?: boolean
+    al_bank_info?: boolean
+    al_bank_amt?: boolean
+    al_online_acc_id?: boolean
+    al_online_info?: boolean
+    al_online_amt?: boolean
+    al_card_acc_id?: boolean
+    al_card_info?: boolean
+    al_card_amt?: boolean
+    al_pay_info?: boolean
+    al_other_info?: boolean
+  }, ExtArgs["result"]["auctionLoan"]>
+
+  export type AuctionLoanSelectScalar = {
+    al_id?: boolean
+    al_uuid?: boolean
+    al_date?: boolean
+    al_girv_id?: boolean
+    al_firm_id?: boolean
+    al_buyer_id?: boolean
+    al_prin_amt?: boolean
+    al_int_amt?: boolean
+    al_dep_amt?: boolean
+    al_payable_amt?: boolean
+    al_cash_acc_id?: boolean
+    al_cash_info?: boolean
+    al_cash_amt?: boolean
+    al_bank_acc_id?: boolean
+    al_bank_info?: boolean
+    al_bank_amt?: boolean
+    al_online_acc_id?: boolean
+    al_online_info?: boolean
+    al_online_amt?: boolean
+    al_card_acc_id?: boolean
+    al_card_info?: boolean
+    al_card_amt?: boolean
+    al_pay_info?: boolean
+    al_other_info?: boolean
+  }
+
+
+  export type $AuctionLoanPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "AuctionLoan"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      al_id: number
+      al_uuid: string
+      al_date: string | null
+      al_girv_id: number
+      al_firm_id: number
+      al_buyer_id: number
+      al_prin_amt: number
+      al_int_amt: number
+      al_dep_amt: number
+      al_payable_amt: number
+      al_cash_acc_id: number | null
+      al_cash_info: string | null
+      al_cash_amt: number | null
+      al_bank_acc_id: number | null
+      al_bank_info: string | null
+      al_bank_amt: number | null
+      al_online_acc_id: number | null
+      al_online_info: string | null
+      al_online_amt: number | null
+      al_card_acc_id: number | null
+      al_card_info: string | null
+      al_card_amt: number | null
+      al_pay_info: string | null
+      al_other_info: string | null
+    }, ExtArgs["result"]["auctionLoan"]>
+    composites: {}
+  }
+
+  type AuctionLoanGetPayload<S extends boolean | null | undefined | AuctionLoanDefaultArgs> = $Result.GetResult<Prisma.$AuctionLoanPayload, S>
+
+  type AuctionLoanCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<AuctionLoanFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: AuctionLoanCountAggregateInputType | true
+    }
+
+  export interface AuctionLoanDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['AuctionLoan'], meta: { name: 'AuctionLoan' } }
+    /**
+     * Find zero or one AuctionLoan that matches the filter.
+     * @param {AuctionLoanFindUniqueArgs} args - Arguments to find a AuctionLoan
+     * @example
+     * // Get one AuctionLoan
+     * const auctionLoan = await prisma.auctionLoan.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends AuctionLoanFindUniqueArgs>(args: SelectSubset<T, AuctionLoanFindUniqueArgs<ExtArgs>>): Prisma__AuctionLoanClient<$Result.GetResult<Prisma.$AuctionLoanPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one AuctionLoan that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {AuctionLoanFindUniqueOrThrowArgs} args - Arguments to find a AuctionLoan
+     * @example
+     * // Get one AuctionLoan
+     * const auctionLoan = await prisma.auctionLoan.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends AuctionLoanFindUniqueOrThrowArgs>(args: SelectSubset<T, AuctionLoanFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AuctionLoanClient<$Result.GetResult<Prisma.$AuctionLoanPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first AuctionLoan that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AuctionLoanFindFirstArgs} args - Arguments to find a AuctionLoan
+     * @example
+     * // Get one AuctionLoan
+     * const auctionLoan = await prisma.auctionLoan.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends AuctionLoanFindFirstArgs>(args?: SelectSubset<T, AuctionLoanFindFirstArgs<ExtArgs>>): Prisma__AuctionLoanClient<$Result.GetResult<Prisma.$AuctionLoanPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first AuctionLoan that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AuctionLoanFindFirstOrThrowArgs} args - Arguments to find a AuctionLoan
+     * @example
+     * // Get one AuctionLoan
+     * const auctionLoan = await prisma.auctionLoan.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends AuctionLoanFindFirstOrThrowArgs>(args?: SelectSubset<T, AuctionLoanFindFirstOrThrowArgs<ExtArgs>>): Prisma__AuctionLoanClient<$Result.GetResult<Prisma.$AuctionLoanPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more AuctionLoans that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AuctionLoanFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all AuctionLoans
+     * const auctionLoans = await prisma.auctionLoan.findMany()
+     * 
+     * // Get first 10 AuctionLoans
+     * const auctionLoans = await prisma.auctionLoan.findMany({ take: 10 })
+     * 
+     * // Only select the `al_id`
+     * const auctionLoanWithAl_idOnly = await prisma.auctionLoan.findMany({ select: { al_id: true } })
+     * 
+     */
+    findMany<T extends AuctionLoanFindManyArgs>(args?: SelectSubset<T, AuctionLoanFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AuctionLoanPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a AuctionLoan.
+     * @param {AuctionLoanCreateArgs} args - Arguments to create a AuctionLoan.
+     * @example
+     * // Create one AuctionLoan
+     * const AuctionLoan = await prisma.auctionLoan.create({
+     *   data: {
+     *     // ... data to create a AuctionLoan
+     *   }
+     * })
+     * 
+     */
+    create<T extends AuctionLoanCreateArgs>(args: SelectSubset<T, AuctionLoanCreateArgs<ExtArgs>>): Prisma__AuctionLoanClient<$Result.GetResult<Prisma.$AuctionLoanPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many AuctionLoans.
+     * @param {AuctionLoanCreateManyArgs} args - Arguments to create many AuctionLoans.
+     * @example
+     * // Create many AuctionLoans
+     * const auctionLoan = await prisma.auctionLoan.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends AuctionLoanCreateManyArgs>(args?: SelectSubset<T, AuctionLoanCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many AuctionLoans and returns the data saved in the database.
+     * @param {AuctionLoanCreateManyAndReturnArgs} args - Arguments to create many AuctionLoans.
+     * @example
+     * // Create many AuctionLoans
+     * const auctionLoan = await prisma.auctionLoan.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many AuctionLoans and only return the `al_id`
+     * const auctionLoanWithAl_idOnly = await prisma.auctionLoan.createManyAndReturn({ 
+     *   select: { al_id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends AuctionLoanCreateManyAndReturnArgs>(args?: SelectSubset<T, AuctionLoanCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AuctionLoanPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a AuctionLoan.
+     * @param {AuctionLoanDeleteArgs} args - Arguments to delete one AuctionLoan.
+     * @example
+     * // Delete one AuctionLoan
+     * const AuctionLoan = await prisma.auctionLoan.delete({
+     *   where: {
+     *     // ... filter to delete one AuctionLoan
+     *   }
+     * })
+     * 
+     */
+    delete<T extends AuctionLoanDeleteArgs>(args: SelectSubset<T, AuctionLoanDeleteArgs<ExtArgs>>): Prisma__AuctionLoanClient<$Result.GetResult<Prisma.$AuctionLoanPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one AuctionLoan.
+     * @param {AuctionLoanUpdateArgs} args - Arguments to update one AuctionLoan.
+     * @example
+     * // Update one AuctionLoan
+     * const auctionLoan = await prisma.auctionLoan.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends AuctionLoanUpdateArgs>(args: SelectSubset<T, AuctionLoanUpdateArgs<ExtArgs>>): Prisma__AuctionLoanClient<$Result.GetResult<Prisma.$AuctionLoanPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more AuctionLoans.
+     * @param {AuctionLoanDeleteManyArgs} args - Arguments to filter AuctionLoans to delete.
+     * @example
+     * // Delete a few AuctionLoans
+     * const { count } = await prisma.auctionLoan.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends AuctionLoanDeleteManyArgs>(args?: SelectSubset<T, AuctionLoanDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AuctionLoans.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AuctionLoanUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many AuctionLoans
+     * const auctionLoan = await prisma.auctionLoan.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends AuctionLoanUpdateManyArgs>(args: SelectSubset<T, AuctionLoanUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one AuctionLoan.
+     * @param {AuctionLoanUpsertArgs} args - Arguments to update or create a AuctionLoan.
+     * @example
+     * // Update or create a AuctionLoan
+     * const auctionLoan = await prisma.auctionLoan.upsert({
+     *   create: {
+     *     // ... data to create a AuctionLoan
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the AuctionLoan we want to update
+     *   }
+     * })
+     */
+    upsert<T extends AuctionLoanUpsertArgs>(args: SelectSubset<T, AuctionLoanUpsertArgs<ExtArgs>>): Prisma__AuctionLoanClient<$Result.GetResult<Prisma.$AuctionLoanPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of AuctionLoans.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AuctionLoanCountArgs} args - Arguments to filter AuctionLoans to count.
+     * @example
+     * // Count the number of AuctionLoans
+     * const count = await prisma.auctionLoan.count({
+     *   where: {
+     *     // ... the filter for the AuctionLoans we want to count
+     *   }
+     * })
+    **/
+    count<T extends AuctionLoanCountArgs>(
+      args?: Subset<T, AuctionLoanCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AuctionLoanCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a AuctionLoan.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AuctionLoanAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AuctionLoanAggregateArgs>(args: Subset<T, AuctionLoanAggregateArgs>): Prisma.PrismaPromise<GetAuctionLoanAggregateType<T>>
+
+    /**
+     * Group by AuctionLoan.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AuctionLoanGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends AuctionLoanGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: AuctionLoanGroupByArgs['orderBy'] }
+        : { orderBy?: AuctionLoanGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, AuctionLoanGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAuctionLoanGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the AuctionLoan model
+   */
+  readonly fields: AuctionLoanFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for AuctionLoan.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__AuctionLoanClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the AuctionLoan model
+   */ 
+  interface AuctionLoanFieldRefs {
+    readonly al_id: FieldRef<"AuctionLoan", 'Int'>
+    readonly al_uuid: FieldRef<"AuctionLoan", 'String'>
+    readonly al_date: FieldRef<"AuctionLoan", 'String'>
+    readonly al_girv_id: FieldRef<"AuctionLoan", 'Int'>
+    readonly al_firm_id: FieldRef<"AuctionLoan", 'Int'>
+    readonly al_buyer_id: FieldRef<"AuctionLoan", 'Int'>
+    readonly al_prin_amt: FieldRef<"AuctionLoan", 'Float'>
+    readonly al_int_amt: FieldRef<"AuctionLoan", 'Float'>
+    readonly al_dep_amt: FieldRef<"AuctionLoan", 'Float'>
+    readonly al_payable_amt: FieldRef<"AuctionLoan", 'Float'>
+    readonly al_cash_acc_id: FieldRef<"AuctionLoan", 'Int'>
+    readonly al_cash_info: FieldRef<"AuctionLoan", 'String'>
+    readonly al_cash_amt: FieldRef<"AuctionLoan", 'Float'>
+    readonly al_bank_acc_id: FieldRef<"AuctionLoan", 'Int'>
+    readonly al_bank_info: FieldRef<"AuctionLoan", 'String'>
+    readonly al_bank_amt: FieldRef<"AuctionLoan", 'Float'>
+    readonly al_online_acc_id: FieldRef<"AuctionLoan", 'Int'>
+    readonly al_online_info: FieldRef<"AuctionLoan", 'String'>
+    readonly al_online_amt: FieldRef<"AuctionLoan", 'Float'>
+    readonly al_card_acc_id: FieldRef<"AuctionLoan", 'Int'>
+    readonly al_card_info: FieldRef<"AuctionLoan", 'String'>
+    readonly al_card_amt: FieldRef<"AuctionLoan", 'Float'>
+    readonly al_pay_info: FieldRef<"AuctionLoan", 'String'>
+    readonly al_other_info: FieldRef<"AuctionLoan", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * AuctionLoan findUnique
+   */
+  export type AuctionLoanFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuctionLoan
+     */
+    select?: AuctionLoanSelect<ExtArgs> | null
+    /**
+     * Filter, which AuctionLoan to fetch.
+     */
+    where: AuctionLoanWhereUniqueInput
+  }
+
+  /**
+   * AuctionLoan findUniqueOrThrow
+   */
+  export type AuctionLoanFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuctionLoan
+     */
+    select?: AuctionLoanSelect<ExtArgs> | null
+    /**
+     * Filter, which AuctionLoan to fetch.
+     */
+    where: AuctionLoanWhereUniqueInput
+  }
+
+  /**
+   * AuctionLoan findFirst
+   */
+  export type AuctionLoanFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuctionLoan
+     */
+    select?: AuctionLoanSelect<ExtArgs> | null
+    /**
+     * Filter, which AuctionLoan to fetch.
+     */
+    where?: AuctionLoanWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AuctionLoans to fetch.
+     */
+    orderBy?: AuctionLoanOrderByWithRelationInput | AuctionLoanOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AuctionLoans.
+     */
+    cursor?: AuctionLoanWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AuctionLoans from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AuctionLoans.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AuctionLoans.
+     */
+    distinct?: AuctionLoanScalarFieldEnum | AuctionLoanScalarFieldEnum[]
+  }
+
+  /**
+   * AuctionLoan findFirstOrThrow
+   */
+  export type AuctionLoanFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuctionLoan
+     */
+    select?: AuctionLoanSelect<ExtArgs> | null
+    /**
+     * Filter, which AuctionLoan to fetch.
+     */
+    where?: AuctionLoanWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AuctionLoans to fetch.
+     */
+    orderBy?: AuctionLoanOrderByWithRelationInput | AuctionLoanOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AuctionLoans.
+     */
+    cursor?: AuctionLoanWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AuctionLoans from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AuctionLoans.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AuctionLoans.
+     */
+    distinct?: AuctionLoanScalarFieldEnum | AuctionLoanScalarFieldEnum[]
+  }
+
+  /**
+   * AuctionLoan findMany
+   */
+  export type AuctionLoanFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuctionLoan
+     */
+    select?: AuctionLoanSelect<ExtArgs> | null
+    /**
+     * Filter, which AuctionLoans to fetch.
+     */
+    where?: AuctionLoanWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AuctionLoans to fetch.
+     */
+    orderBy?: AuctionLoanOrderByWithRelationInput | AuctionLoanOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing AuctionLoans.
+     */
+    cursor?: AuctionLoanWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AuctionLoans from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AuctionLoans.
+     */
+    skip?: number
+    distinct?: AuctionLoanScalarFieldEnum | AuctionLoanScalarFieldEnum[]
+  }
+
+  /**
+   * AuctionLoan create
+   */
+  export type AuctionLoanCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuctionLoan
+     */
+    select?: AuctionLoanSelect<ExtArgs> | null
+    /**
+     * The data needed to create a AuctionLoan.
+     */
+    data: XOR<AuctionLoanCreateInput, AuctionLoanUncheckedCreateInput>
+  }
+
+  /**
+   * AuctionLoan createMany
+   */
+  export type AuctionLoanCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many AuctionLoans.
+     */
+    data: AuctionLoanCreateManyInput | AuctionLoanCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * AuctionLoan createManyAndReturn
+   */
+  export type AuctionLoanCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuctionLoan
+     */
+    select?: AuctionLoanSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many AuctionLoans.
+     */
+    data: AuctionLoanCreateManyInput | AuctionLoanCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * AuctionLoan update
+   */
+  export type AuctionLoanUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuctionLoan
+     */
+    select?: AuctionLoanSelect<ExtArgs> | null
+    /**
+     * The data needed to update a AuctionLoan.
+     */
+    data: XOR<AuctionLoanUpdateInput, AuctionLoanUncheckedUpdateInput>
+    /**
+     * Choose, which AuctionLoan to update.
+     */
+    where: AuctionLoanWhereUniqueInput
+  }
+
+  /**
+   * AuctionLoan updateMany
+   */
+  export type AuctionLoanUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update AuctionLoans.
+     */
+    data: XOR<AuctionLoanUpdateManyMutationInput, AuctionLoanUncheckedUpdateManyInput>
+    /**
+     * Filter which AuctionLoans to update
+     */
+    where?: AuctionLoanWhereInput
+  }
+
+  /**
+   * AuctionLoan upsert
+   */
+  export type AuctionLoanUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuctionLoan
+     */
+    select?: AuctionLoanSelect<ExtArgs> | null
+    /**
+     * The filter to search for the AuctionLoan to update in case it exists.
+     */
+    where: AuctionLoanWhereUniqueInput
+    /**
+     * In case the AuctionLoan found by the `where` argument doesn't exist, create a new AuctionLoan with this data.
+     */
+    create: XOR<AuctionLoanCreateInput, AuctionLoanUncheckedCreateInput>
+    /**
+     * In case the AuctionLoan was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<AuctionLoanUpdateInput, AuctionLoanUncheckedUpdateInput>
+  }
+
+  /**
+   * AuctionLoan delete
+   */
+  export type AuctionLoanDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuctionLoan
+     */
+    select?: AuctionLoanSelect<ExtArgs> | null
+    /**
+     * Filter which AuctionLoan to delete.
+     */
+    where: AuctionLoanWhereUniqueInput
+  }
+
+  /**
+   * AuctionLoan deleteMany
+   */
+  export type AuctionLoanDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AuctionLoans to delete
+     */
+    where?: AuctionLoanWhereInput
+  }
+
+  /**
+   * AuctionLoan without action
+   */
+  export type AuctionLoanDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuctionLoan
+     */
+    select?: AuctionLoanSelect<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -30146,6 +32580,59 @@ export namespace Prisma {
   };
 
   export type MoneyLenderScalarFieldEnum = (typeof MoneyLenderScalarFieldEnum)[keyof typeof MoneyLenderScalarFieldEnum]
+
+
+  export const AuctionUserScalarFieldEnum: {
+    au_id: 'au_id',
+    au_uuid: 'au_uuid',
+    au_date: 'au_date',
+    au_firm_id: 'au_firm_id',
+    au_full_name: 'au_full_name',
+    au_mobile: 'au_mobile',
+    au_email: 'au_email',
+    au_aadhaar: 'au_aadhaar',
+    au_gender: 'au_gender',
+    au_pan: 'au_pan',
+    au_address: 'au_address',
+    au_state: 'au_state',
+    au_city: 'au_city',
+    au_country: 'au_country',
+    au_village: 'au_village',
+    au_pincode: 'au_pincode',
+    au_image: 'au_image'
+  };
+
+  export type AuctionUserScalarFieldEnum = (typeof AuctionUserScalarFieldEnum)[keyof typeof AuctionUserScalarFieldEnum]
+
+
+  export const AuctionLoanScalarFieldEnum: {
+    al_id: 'al_id',
+    al_uuid: 'al_uuid',
+    al_date: 'al_date',
+    al_girv_id: 'al_girv_id',
+    al_firm_id: 'al_firm_id',
+    al_buyer_id: 'al_buyer_id',
+    al_prin_amt: 'al_prin_amt',
+    al_int_amt: 'al_int_amt',
+    al_dep_amt: 'al_dep_amt',
+    al_payable_amt: 'al_payable_amt',
+    al_cash_acc_id: 'al_cash_acc_id',
+    al_cash_info: 'al_cash_info',
+    al_cash_amt: 'al_cash_amt',
+    al_bank_acc_id: 'al_bank_acc_id',
+    al_bank_info: 'al_bank_info',
+    al_bank_amt: 'al_bank_amt',
+    al_online_acc_id: 'al_online_acc_id',
+    al_online_info: 'al_online_info',
+    al_online_amt: 'al_online_amt',
+    al_card_acc_id: 'al_card_acc_id',
+    al_card_info: 'al_card_info',
+    al_card_amt: 'al_card_amt',
+    al_pay_info: 'al_pay_info',
+    al_other_info: 'al_other_info'
+  };
+
+  export type AuctionLoanScalarFieldEnum = (typeof AuctionLoanScalarFieldEnum)[keyof typeof AuctionLoanScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -34354,6 +36841,269 @@ export namespace Prisma {
     is_active?: BoolWithAggregatesFilter<"MoneyLender"> | boolean
     created_at?: DateTimeWithAggregatesFilter<"MoneyLender"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"MoneyLender"> | Date | string
+  }
+
+  export type AuctionUserWhereInput = {
+    AND?: AuctionUserWhereInput | AuctionUserWhereInput[]
+    OR?: AuctionUserWhereInput[]
+    NOT?: AuctionUserWhereInput | AuctionUserWhereInput[]
+    au_id?: IntFilter<"AuctionUser"> | number
+    au_uuid?: StringFilter<"AuctionUser"> | string
+    au_date?: StringNullableFilter<"AuctionUser"> | string | null
+    au_firm_id?: IntFilter<"AuctionUser"> | number
+    au_full_name?: StringNullableFilter<"AuctionUser"> | string | null
+    au_mobile?: StringNullableFilter<"AuctionUser"> | string | null
+    au_email?: StringNullableFilter<"AuctionUser"> | string | null
+    au_aadhaar?: StringNullableFilter<"AuctionUser"> | string | null
+    au_gender?: StringNullableFilter<"AuctionUser"> | string | null
+    au_pan?: StringNullableFilter<"AuctionUser"> | string | null
+    au_address?: StringNullableFilter<"AuctionUser"> | string | null
+    au_state?: StringNullableFilter<"AuctionUser"> | string | null
+    au_city?: StringNullableFilter<"AuctionUser"> | string | null
+    au_country?: StringNullableFilter<"AuctionUser"> | string | null
+    au_village?: StringNullableFilter<"AuctionUser"> | string | null
+    au_pincode?: StringNullableFilter<"AuctionUser"> | string | null
+    au_image?: StringNullableFilter<"AuctionUser"> | string | null
+  }
+
+  export type AuctionUserOrderByWithRelationInput = {
+    au_id?: SortOrder
+    au_uuid?: SortOrder
+    au_date?: SortOrderInput | SortOrder
+    au_firm_id?: SortOrder
+    au_full_name?: SortOrderInput | SortOrder
+    au_mobile?: SortOrderInput | SortOrder
+    au_email?: SortOrderInput | SortOrder
+    au_aadhaar?: SortOrderInput | SortOrder
+    au_gender?: SortOrderInput | SortOrder
+    au_pan?: SortOrderInput | SortOrder
+    au_address?: SortOrderInput | SortOrder
+    au_state?: SortOrderInput | SortOrder
+    au_city?: SortOrderInput | SortOrder
+    au_country?: SortOrderInput | SortOrder
+    au_village?: SortOrderInput | SortOrder
+    au_pincode?: SortOrderInput | SortOrder
+    au_image?: SortOrderInput | SortOrder
+  }
+
+  export type AuctionUserWhereUniqueInput = Prisma.AtLeast<{
+    au_id?: number
+    au_uuid?: string
+    AND?: AuctionUserWhereInput | AuctionUserWhereInput[]
+    OR?: AuctionUserWhereInput[]
+    NOT?: AuctionUserWhereInput | AuctionUserWhereInput[]
+    au_date?: StringNullableFilter<"AuctionUser"> | string | null
+    au_firm_id?: IntFilter<"AuctionUser"> | number
+    au_full_name?: StringNullableFilter<"AuctionUser"> | string | null
+    au_mobile?: StringNullableFilter<"AuctionUser"> | string | null
+    au_email?: StringNullableFilter<"AuctionUser"> | string | null
+    au_aadhaar?: StringNullableFilter<"AuctionUser"> | string | null
+    au_gender?: StringNullableFilter<"AuctionUser"> | string | null
+    au_pan?: StringNullableFilter<"AuctionUser"> | string | null
+    au_address?: StringNullableFilter<"AuctionUser"> | string | null
+    au_state?: StringNullableFilter<"AuctionUser"> | string | null
+    au_city?: StringNullableFilter<"AuctionUser"> | string | null
+    au_country?: StringNullableFilter<"AuctionUser"> | string | null
+    au_village?: StringNullableFilter<"AuctionUser"> | string | null
+    au_pincode?: StringNullableFilter<"AuctionUser"> | string | null
+    au_image?: StringNullableFilter<"AuctionUser"> | string | null
+  }, "au_id" | "au_uuid">
+
+  export type AuctionUserOrderByWithAggregationInput = {
+    au_id?: SortOrder
+    au_uuid?: SortOrder
+    au_date?: SortOrderInput | SortOrder
+    au_firm_id?: SortOrder
+    au_full_name?: SortOrderInput | SortOrder
+    au_mobile?: SortOrderInput | SortOrder
+    au_email?: SortOrderInput | SortOrder
+    au_aadhaar?: SortOrderInput | SortOrder
+    au_gender?: SortOrderInput | SortOrder
+    au_pan?: SortOrderInput | SortOrder
+    au_address?: SortOrderInput | SortOrder
+    au_state?: SortOrderInput | SortOrder
+    au_city?: SortOrderInput | SortOrder
+    au_country?: SortOrderInput | SortOrder
+    au_village?: SortOrderInput | SortOrder
+    au_pincode?: SortOrderInput | SortOrder
+    au_image?: SortOrderInput | SortOrder
+    _count?: AuctionUserCountOrderByAggregateInput
+    _avg?: AuctionUserAvgOrderByAggregateInput
+    _max?: AuctionUserMaxOrderByAggregateInput
+    _min?: AuctionUserMinOrderByAggregateInput
+    _sum?: AuctionUserSumOrderByAggregateInput
+  }
+
+  export type AuctionUserScalarWhereWithAggregatesInput = {
+    AND?: AuctionUserScalarWhereWithAggregatesInput | AuctionUserScalarWhereWithAggregatesInput[]
+    OR?: AuctionUserScalarWhereWithAggregatesInput[]
+    NOT?: AuctionUserScalarWhereWithAggregatesInput | AuctionUserScalarWhereWithAggregatesInput[]
+    au_id?: IntWithAggregatesFilter<"AuctionUser"> | number
+    au_uuid?: StringWithAggregatesFilter<"AuctionUser"> | string
+    au_date?: StringNullableWithAggregatesFilter<"AuctionUser"> | string | null
+    au_firm_id?: IntWithAggregatesFilter<"AuctionUser"> | number
+    au_full_name?: StringNullableWithAggregatesFilter<"AuctionUser"> | string | null
+    au_mobile?: StringNullableWithAggregatesFilter<"AuctionUser"> | string | null
+    au_email?: StringNullableWithAggregatesFilter<"AuctionUser"> | string | null
+    au_aadhaar?: StringNullableWithAggregatesFilter<"AuctionUser"> | string | null
+    au_gender?: StringNullableWithAggregatesFilter<"AuctionUser"> | string | null
+    au_pan?: StringNullableWithAggregatesFilter<"AuctionUser"> | string | null
+    au_address?: StringNullableWithAggregatesFilter<"AuctionUser"> | string | null
+    au_state?: StringNullableWithAggregatesFilter<"AuctionUser"> | string | null
+    au_city?: StringNullableWithAggregatesFilter<"AuctionUser"> | string | null
+    au_country?: StringNullableWithAggregatesFilter<"AuctionUser"> | string | null
+    au_village?: StringNullableWithAggregatesFilter<"AuctionUser"> | string | null
+    au_pincode?: StringNullableWithAggregatesFilter<"AuctionUser"> | string | null
+    au_image?: StringNullableWithAggregatesFilter<"AuctionUser"> | string | null
+  }
+
+  export type AuctionLoanWhereInput = {
+    AND?: AuctionLoanWhereInput | AuctionLoanWhereInput[]
+    OR?: AuctionLoanWhereInput[]
+    NOT?: AuctionLoanWhereInput | AuctionLoanWhereInput[]
+    al_id?: IntFilter<"AuctionLoan"> | number
+    al_uuid?: StringFilter<"AuctionLoan"> | string
+    al_date?: StringNullableFilter<"AuctionLoan"> | string | null
+    al_girv_id?: IntFilter<"AuctionLoan"> | number
+    al_firm_id?: IntFilter<"AuctionLoan"> | number
+    al_buyer_id?: IntFilter<"AuctionLoan"> | number
+    al_prin_amt?: FloatFilter<"AuctionLoan"> | number
+    al_int_amt?: FloatFilter<"AuctionLoan"> | number
+    al_dep_amt?: FloatFilter<"AuctionLoan"> | number
+    al_payable_amt?: FloatFilter<"AuctionLoan"> | number
+    al_cash_acc_id?: IntNullableFilter<"AuctionLoan"> | number | null
+    al_cash_info?: StringNullableFilter<"AuctionLoan"> | string | null
+    al_cash_amt?: FloatNullableFilter<"AuctionLoan"> | number | null
+    al_bank_acc_id?: IntNullableFilter<"AuctionLoan"> | number | null
+    al_bank_info?: StringNullableFilter<"AuctionLoan"> | string | null
+    al_bank_amt?: FloatNullableFilter<"AuctionLoan"> | number | null
+    al_online_acc_id?: IntNullableFilter<"AuctionLoan"> | number | null
+    al_online_info?: StringNullableFilter<"AuctionLoan"> | string | null
+    al_online_amt?: FloatNullableFilter<"AuctionLoan"> | number | null
+    al_card_acc_id?: IntNullableFilter<"AuctionLoan"> | number | null
+    al_card_info?: StringNullableFilter<"AuctionLoan"> | string | null
+    al_card_amt?: FloatNullableFilter<"AuctionLoan"> | number | null
+    al_pay_info?: StringNullableFilter<"AuctionLoan"> | string | null
+    al_other_info?: StringNullableFilter<"AuctionLoan"> | string | null
+  }
+
+  export type AuctionLoanOrderByWithRelationInput = {
+    al_id?: SortOrder
+    al_uuid?: SortOrder
+    al_date?: SortOrderInput | SortOrder
+    al_girv_id?: SortOrder
+    al_firm_id?: SortOrder
+    al_buyer_id?: SortOrder
+    al_prin_amt?: SortOrder
+    al_int_amt?: SortOrder
+    al_dep_amt?: SortOrder
+    al_payable_amt?: SortOrder
+    al_cash_acc_id?: SortOrderInput | SortOrder
+    al_cash_info?: SortOrderInput | SortOrder
+    al_cash_amt?: SortOrderInput | SortOrder
+    al_bank_acc_id?: SortOrderInput | SortOrder
+    al_bank_info?: SortOrderInput | SortOrder
+    al_bank_amt?: SortOrderInput | SortOrder
+    al_online_acc_id?: SortOrderInput | SortOrder
+    al_online_info?: SortOrderInput | SortOrder
+    al_online_amt?: SortOrderInput | SortOrder
+    al_card_acc_id?: SortOrderInput | SortOrder
+    al_card_info?: SortOrderInput | SortOrder
+    al_card_amt?: SortOrderInput | SortOrder
+    al_pay_info?: SortOrderInput | SortOrder
+    al_other_info?: SortOrderInput | SortOrder
+  }
+
+  export type AuctionLoanWhereUniqueInput = Prisma.AtLeast<{
+    al_id?: number
+    al_uuid?: string
+    AND?: AuctionLoanWhereInput | AuctionLoanWhereInput[]
+    OR?: AuctionLoanWhereInput[]
+    NOT?: AuctionLoanWhereInput | AuctionLoanWhereInput[]
+    al_date?: StringNullableFilter<"AuctionLoan"> | string | null
+    al_girv_id?: IntFilter<"AuctionLoan"> | number
+    al_firm_id?: IntFilter<"AuctionLoan"> | number
+    al_buyer_id?: IntFilter<"AuctionLoan"> | number
+    al_prin_amt?: FloatFilter<"AuctionLoan"> | number
+    al_int_amt?: FloatFilter<"AuctionLoan"> | number
+    al_dep_amt?: FloatFilter<"AuctionLoan"> | number
+    al_payable_amt?: FloatFilter<"AuctionLoan"> | number
+    al_cash_acc_id?: IntNullableFilter<"AuctionLoan"> | number | null
+    al_cash_info?: StringNullableFilter<"AuctionLoan"> | string | null
+    al_cash_amt?: FloatNullableFilter<"AuctionLoan"> | number | null
+    al_bank_acc_id?: IntNullableFilter<"AuctionLoan"> | number | null
+    al_bank_info?: StringNullableFilter<"AuctionLoan"> | string | null
+    al_bank_amt?: FloatNullableFilter<"AuctionLoan"> | number | null
+    al_online_acc_id?: IntNullableFilter<"AuctionLoan"> | number | null
+    al_online_info?: StringNullableFilter<"AuctionLoan"> | string | null
+    al_online_amt?: FloatNullableFilter<"AuctionLoan"> | number | null
+    al_card_acc_id?: IntNullableFilter<"AuctionLoan"> | number | null
+    al_card_info?: StringNullableFilter<"AuctionLoan"> | string | null
+    al_card_amt?: FloatNullableFilter<"AuctionLoan"> | number | null
+    al_pay_info?: StringNullableFilter<"AuctionLoan"> | string | null
+    al_other_info?: StringNullableFilter<"AuctionLoan"> | string | null
+  }, "al_id" | "al_uuid">
+
+  export type AuctionLoanOrderByWithAggregationInput = {
+    al_id?: SortOrder
+    al_uuid?: SortOrder
+    al_date?: SortOrderInput | SortOrder
+    al_girv_id?: SortOrder
+    al_firm_id?: SortOrder
+    al_buyer_id?: SortOrder
+    al_prin_amt?: SortOrder
+    al_int_amt?: SortOrder
+    al_dep_amt?: SortOrder
+    al_payable_amt?: SortOrder
+    al_cash_acc_id?: SortOrderInput | SortOrder
+    al_cash_info?: SortOrderInput | SortOrder
+    al_cash_amt?: SortOrderInput | SortOrder
+    al_bank_acc_id?: SortOrderInput | SortOrder
+    al_bank_info?: SortOrderInput | SortOrder
+    al_bank_amt?: SortOrderInput | SortOrder
+    al_online_acc_id?: SortOrderInput | SortOrder
+    al_online_info?: SortOrderInput | SortOrder
+    al_online_amt?: SortOrderInput | SortOrder
+    al_card_acc_id?: SortOrderInput | SortOrder
+    al_card_info?: SortOrderInput | SortOrder
+    al_card_amt?: SortOrderInput | SortOrder
+    al_pay_info?: SortOrderInput | SortOrder
+    al_other_info?: SortOrderInput | SortOrder
+    _count?: AuctionLoanCountOrderByAggregateInput
+    _avg?: AuctionLoanAvgOrderByAggregateInput
+    _max?: AuctionLoanMaxOrderByAggregateInput
+    _min?: AuctionLoanMinOrderByAggregateInput
+    _sum?: AuctionLoanSumOrderByAggregateInput
+  }
+
+  export type AuctionLoanScalarWhereWithAggregatesInput = {
+    AND?: AuctionLoanScalarWhereWithAggregatesInput | AuctionLoanScalarWhereWithAggregatesInput[]
+    OR?: AuctionLoanScalarWhereWithAggregatesInput[]
+    NOT?: AuctionLoanScalarWhereWithAggregatesInput | AuctionLoanScalarWhereWithAggregatesInput[]
+    al_id?: IntWithAggregatesFilter<"AuctionLoan"> | number
+    al_uuid?: StringWithAggregatesFilter<"AuctionLoan"> | string
+    al_date?: StringNullableWithAggregatesFilter<"AuctionLoan"> | string | null
+    al_girv_id?: IntWithAggregatesFilter<"AuctionLoan"> | number
+    al_firm_id?: IntWithAggregatesFilter<"AuctionLoan"> | number
+    al_buyer_id?: IntWithAggregatesFilter<"AuctionLoan"> | number
+    al_prin_amt?: FloatWithAggregatesFilter<"AuctionLoan"> | number
+    al_int_amt?: FloatWithAggregatesFilter<"AuctionLoan"> | number
+    al_dep_amt?: FloatWithAggregatesFilter<"AuctionLoan"> | number
+    al_payable_amt?: FloatWithAggregatesFilter<"AuctionLoan"> | number
+    al_cash_acc_id?: IntNullableWithAggregatesFilter<"AuctionLoan"> | number | null
+    al_cash_info?: StringNullableWithAggregatesFilter<"AuctionLoan"> | string | null
+    al_cash_amt?: FloatNullableWithAggregatesFilter<"AuctionLoan"> | number | null
+    al_bank_acc_id?: IntNullableWithAggregatesFilter<"AuctionLoan"> | number | null
+    al_bank_info?: StringNullableWithAggregatesFilter<"AuctionLoan"> | string | null
+    al_bank_amt?: FloatNullableWithAggregatesFilter<"AuctionLoan"> | number | null
+    al_online_acc_id?: IntNullableWithAggregatesFilter<"AuctionLoan"> | number | null
+    al_online_info?: StringNullableWithAggregatesFilter<"AuctionLoan"> | string | null
+    al_online_amt?: FloatNullableWithAggregatesFilter<"AuctionLoan"> | number | null
+    al_card_acc_id?: IntNullableWithAggregatesFilter<"AuctionLoan"> | number | null
+    al_card_info?: StringNullableWithAggregatesFilter<"AuctionLoan"> | string | null
+    al_card_amt?: FloatNullableWithAggregatesFilter<"AuctionLoan"> | number | null
+    al_pay_info?: StringNullableWithAggregatesFilter<"AuctionLoan"> | string | null
+    al_other_info?: StringNullableWithAggregatesFilter<"AuctionLoan"> | string | null
   }
 
   export type OwnerCreateInput = {
@@ -38836,6 +41586,329 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type AuctionUserCreateInput = {
+    au_uuid?: string
+    au_date?: string | null
+    au_firm_id: number
+    au_full_name?: string | null
+    au_mobile?: string | null
+    au_email?: string | null
+    au_aadhaar?: string | null
+    au_gender?: string | null
+    au_pan?: string | null
+    au_address?: string | null
+    au_state?: string | null
+    au_city?: string | null
+    au_country?: string | null
+    au_village?: string | null
+    au_pincode?: string | null
+    au_image?: string | null
+  }
+
+  export type AuctionUserUncheckedCreateInput = {
+    au_id?: number
+    au_uuid?: string
+    au_date?: string | null
+    au_firm_id: number
+    au_full_name?: string | null
+    au_mobile?: string | null
+    au_email?: string | null
+    au_aadhaar?: string | null
+    au_gender?: string | null
+    au_pan?: string | null
+    au_address?: string | null
+    au_state?: string | null
+    au_city?: string | null
+    au_country?: string | null
+    au_village?: string | null
+    au_pincode?: string | null
+    au_image?: string | null
+  }
+
+  export type AuctionUserUpdateInput = {
+    au_uuid?: StringFieldUpdateOperationsInput | string
+    au_date?: NullableStringFieldUpdateOperationsInput | string | null
+    au_firm_id?: IntFieldUpdateOperationsInput | number
+    au_full_name?: NullableStringFieldUpdateOperationsInput | string | null
+    au_mobile?: NullableStringFieldUpdateOperationsInput | string | null
+    au_email?: NullableStringFieldUpdateOperationsInput | string | null
+    au_aadhaar?: NullableStringFieldUpdateOperationsInput | string | null
+    au_gender?: NullableStringFieldUpdateOperationsInput | string | null
+    au_pan?: NullableStringFieldUpdateOperationsInput | string | null
+    au_address?: NullableStringFieldUpdateOperationsInput | string | null
+    au_state?: NullableStringFieldUpdateOperationsInput | string | null
+    au_city?: NullableStringFieldUpdateOperationsInput | string | null
+    au_country?: NullableStringFieldUpdateOperationsInput | string | null
+    au_village?: NullableStringFieldUpdateOperationsInput | string | null
+    au_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    au_image?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type AuctionUserUncheckedUpdateInput = {
+    au_id?: IntFieldUpdateOperationsInput | number
+    au_uuid?: StringFieldUpdateOperationsInput | string
+    au_date?: NullableStringFieldUpdateOperationsInput | string | null
+    au_firm_id?: IntFieldUpdateOperationsInput | number
+    au_full_name?: NullableStringFieldUpdateOperationsInput | string | null
+    au_mobile?: NullableStringFieldUpdateOperationsInput | string | null
+    au_email?: NullableStringFieldUpdateOperationsInput | string | null
+    au_aadhaar?: NullableStringFieldUpdateOperationsInput | string | null
+    au_gender?: NullableStringFieldUpdateOperationsInput | string | null
+    au_pan?: NullableStringFieldUpdateOperationsInput | string | null
+    au_address?: NullableStringFieldUpdateOperationsInput | string | null
+    au_state?: NullableStringFieldUpdateOperationsInput | string | null
+    au_city?: NullableStringFieldUpdateOperationsInput | string | null
+    au_country?: NullableStringFieldUpdateOperationsInput | string | null
+    au_village?: NullableStringFieldUpdateOperationsInput | string | null
+    au_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    au_image?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type AuctionUserCreateManyInput = {
+    au_id?: number
+    au_uuid?: string
+    au_date?: string | null
+    au_firm_id: number
+    au_full_name?: string | null
+    au_mobile?: string | null
+    au_email?: string | null
+    au_aadhaar?: string | null
+    au_gender?: string | null
+    au_pan?: string | null
+    au_address?: string | null
+    au_state?: string | null
+    au_city?: string | null
+    au_country?: string | null
+    au_village?: string | null
+    au_pincode?: string | null
+    au_image?: string | null
+  }
+
+  export type AuctionUserUpdateManyMutationInput = {
+    au_uuid?: StringFieldUpdateOperationsInput | string
+    au_date?: NullableStringFieldUpdateOperationsInput | string | null
+    au_firm_id?: IntFieldUpdateOperationsInput | number
+    au_full_name?: NullableStringFieldUpdateOperationsInput | string | null
+    au_mobile?: NullableStringFieldUpdateOperationsInput | string | null
+    au_email?: NullableStringFieldUpdateOperationsInput | string | null
+    au_aadhaar?: NullableStringFieldUpdateOperationsInput | string | null
+    au_gender?: NullableStringFieldUpdateOperationsInput | string | null
+    au_pan?: NullableStringFieldUpdateOperationsInput | string | null
+    au_address?: NullableStringFieldUpdateOperationsInput | string | null
+    au_state?: NullableStringFieldUpdateOperationsInput | string | null
+    au_city?: NullableStringFieldUpdateOperationsInput | string | null
+    au_country?: NullableStringFieldUpdateOperationsInput | string | null
+    au_village?: NullableStringFieldUpdateOperationsInput | string | null
+    au_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    au_image?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type AuctionUserUncheckedUpdateManyInput = {
+    au_id?: IntFieldUpdateOperationsInput | number
+    au_uuid?: StringFieldUpdateOperationsInput | string
+    au_date?: NullableStringFieldUpdateOperationsInput | string | null
+    au_firm_id?: IntFieldUpdateOperationsInput | number
+    au_full_name?: NullableStringFieldUpdateOperationsInput | string | null
+    au_mobile?: NullableStringFieldUpdateOperationsInput | string | null
+    au_email?: NullableStringFieldUpdateOperationsInput | string | null
+    au_aadhaar?: NullableStringFieldUpdateOperationsInput | string | null
+    au_gender?: NullableStringFieldUpdateOperationsInput | string | null
+    au_pan?: NullableStringFieldUpdateOperationsInput | string | null
+    au_address?: NullableStringFieldUpdateOperationsInput | string | null
+    au_state?: NullableStringFieldUpdateOperationsInput | string | null
+    au_city?: NullableStringFieldUpdateOperationsInput | string | null
+    au_country?: NullableStringFieldUpdateOperationsInput | string | null
+    au_village?: NullableStringFieldUpdateOperationsInput | string | null
+    au_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    au_image?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type AuctionLoanCreateInput = {
+    al_uuid?: string
+    al_date?: string | null
+    al_girv_id: number
+    al_firm_id: number
+    al_buyer_id: number
+    al_prin_amt?: number
+    al_int_amt?: number
+    al_dep_amt?: number
+    al_payable_amt?: number
+    al_cash_acc_id?: number | null
+    al_cash_info?: string | null
+    al_cash_amt?: number | null
+    al_bank_acc_id?: number | null
+    al_bank_info?: string | null
+    al_bank_amt?: number | null
+    al_online_acc_id?: number | null
+    al_online_info?: string | null
+    al_online_amt?: number | null
+    al_card_acc_id?: number | null
+    al_card_info?: string | null
+    al_card_amt?: number | null
+    al_pay_info?: string | null
+    al_other_info?: string | null
+  }
+
+  export type AuctionLoanUncheckedCreateInput = {
+    al_id?: number
+    al_uuid?: string
+    al_date?: string | null
+    al_girv_id: number
+    al_firm_id: number
+    al_buyer_id: number
+    al_prin_amt?: number
+    al_int_amt?: number
+    al_dep_amt?: number
+    al_payable_amt?: number
+    al_cash_acc_id?: number | null
+    al_cash_info?: string | null
+    al_cash_amt?: number | null
+    al_bank_acc_id?: number | null
+    al_bank_info?: string | null
+    al_bank_amt?: number | null
+    al_online_acc_id?: number | null
+    al_online_info?: string | null
+    al_online_amt?: number | null
+    al_card_acc_id?: number | null
+    al_card_info?: string | null
+    al_card_amt?: number | null
+    al_pay_info?: string | null
+    al_other_info?: string | null
+  }
+
+  export type AuctionLoanUpdateInput = {
+    al_uuid?: StringFieldUpdateOperationsInput | string
+    al_date?: NullableStringFieldUpdateOperationsInput | string | null
+    al_girv_id?: IntFieldUpdateOperationsInput | number
+    al_firm_id?: IntFieldUpdateOperationsInput | number
+    al_buyer_id?: IntFieldUpdateOperationsInput | number
+    al_prin_amt?: FloatFieldUpdateOperationsInput | number
+    al_int_amt?: FloatFieldUpdateOperationsInput | number
+    al_dep_amt?: FloatFieldUpdateOperationsInput | number
+    al_payable_amt?: FloatFieldUpdateOperationsInput | number
+    al_cash_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    al_cash_info?: NullableStringFieldUpdateOperationsInput | string | null
+    al_cash_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    al_bank_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    al_bank_info?: NullableStringFieldUpdateOperationsInput | string | null
+    al_bank_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    al_online_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    al_online_info?: NullableStringFieldUpdateOperationsInput | string | null
+    al_online_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    al_card_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    al_card_info?: NullableStringFieldUpdateOperationsInput | string | null
+    al_card_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    al_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
+    al_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type AuctionLoanUncheckedUpdateInput = {
+    al_id?: IntFieldUpdateOperationsInput | number
+    al_uuid?: StringFieldUpdateOperationsInput | string
+    al_date?: NullableStringFieldUpdateOperationsInput | string | null
+    al_girv_id?: IntFieldUpdateOperationsInput | number
+    al_firm_id?: IntFieldUpdateOperationsInput | number
+    al_buyer_id?: IntFieldUpdateOperationsInput | number
+    al_prin_amt?: FloatFieldUpdateOperationsInput | number
+    al_int_amt?: FloatFieldUpdateOperationsInput | number
+    al_dep_amt?: FloatFieldUpdateOperationsInput | number
+    al_payable_amt?: FloatFieldUpdateOperationsInput | number
+    al_cash_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    al_cash_info?: NullableStringFieldUpdateOperationsInput | string | null
+    al_cash_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    al_bank_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    al_bank_info?: NullableStringFieldUpdateOperationsInput | string | null
+    al_bank_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    al_online_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    al_online_info?: NullableStringFieldUpdateOperationsInput | string | null
+    al_online_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    al_card_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    al_card_info?: NullableStringFieldUpdateOperationsInput | string | null
+    al_card_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    al_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
+    al_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type AuctionLoanCreateManyInput = {
+    al_id?: number
+    al_uuid?: string
+    al_date?: string | null
+    al_girv_id: number
+    al_firm_id: number
+    al_buyer_id: number
+    al_prin_amt?: number
+    al_int_amt?: number
+    al_dep_amt?: number
+    al_payable_amt?: number
+    al_cash_acc_id?: number | null
+    al_cash_info?: string | null
+    al_cash_amt?: number | null
+    al_bank_acc_id?: number | null
+    al_bank_info?: string | null
+    al_bank_amt?: number | null
+    al_online_acc_id?: number | null
+    al_online_info?: string | null
+    al_online_amt?: number | null
+    al_card_acc_id?: number | null
+    al_card_info?: string | null
+    al_card_amt?: number | null
+    al_pay_info?: string | null
+    al_other_info?: string | null
+  }
+
+  export type AuctionLoanUpdateManyMutationInput = {
+    al_uuid?: StringFieldUpdateOperationsInput | string
+    al_date?: NullableStringFieldUpdateOperationsInput | string | null
+    al_girv_id?: IntFieldUpdateOperationsInput | number
+    al_firm_id?: IntFieldUpdateOperationsInput | number
+    al_buyer_id?: IntFieldUpdateOperationsInput | number
+    al_prin_amt?: FloatFieldUpdateOperationsInput | number
+    al_int_amt?: FloatFieldUpdateOperationsInput | number
+    al_dep_amt?: FloatFieldUpdateOperationsInput | number
+    al_payable_amt?: FloatFieldUpdateOperationsInput | number
+    al_cash_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    al_cash_info?: NullableStringFieldUpdateOperationsInput | string | null
+    al_cash_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    al_bank_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    al_bank_info?: NullableStringFieldUpdateOperationsInput | string | null
+    al_bank_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    al_online_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    al_online_info?: NullableStringFieldUpdateOperationsInput | string | null
+    al_online_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    al_card_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    al_card_info?: NullableStringFieldUpdateOperationsInput | string | null
+    al_card_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    al_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
+    al_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type AuctionLoanUncheckedUpdateManyInput = {
+    al_id?: IntFieldUpdateOperationsInput | number
+    al_uuid?: StringFieldUpdateOperationsInput | string
+    al_date?: NullableStringFieldUpdateOperationsInput | string | null
+    al_girv_id?: IntFieldUpdateOperationsInput | number
+    al_firm_id?: IntFieldUpdateOperationsInput | number
+    al_buyer_id?: IntFieldUpdateOperationsInput | number
+    al_prin_amt?: FloatFieldUpdateOperationsInput | number
+    al_int_amt?: FloatFieldUpdateOperationsInput | number
+    al_dep_amt?: FloatFieldUpdateOperationsInput | number
+    al_payable_amt?: FloatFieldUpdateOperationsInput | number
+    al_cash_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    al_cash_info?: NullableStringFieldUpdateOperationsInput | string | null
+    al_cash_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    al_bank_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    al_bank_info?: NullableStringFieldUpdateOperationsInput | string | null
+    al_bank_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    al_online_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    al_online_info?: NullableStringFieldUpdateOperationsInput | string | null
+    al_online_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    al_card_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    al_card_info?: NullableStringFieldUpdateOperationsInput | string | null
+    al_card_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    al_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
+    al_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
   export type IntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -41925,6 +44998,195 @@ export namespace Prisma {
     ml_id?: SortOrder
     ml_own_id?: SortOrder
     ml_firm_id?: SortOrder
+  }
+
+  export type AuctionUserCountOrderByAggregateInput = {
+    au_id?: SortOrder
+    au_uuid?: SortOrder
+    au_date?: SortOrder
+    au_firm_id?: SortOrder
+    au_full_name?: SortOrder
+    au_mobile?: SortOrder
+    au_email?: SortOrder
+    au_aadhaar?: SortOrder
+    au_gender?: SortOrder
+    au_pan?: SortOrder
+    au_address?: SortOrder
+    au_state?: SortOrder
+    au_city?: SortOrder
+    au_country?: SortOrder
+    au_village?: SortOrder
+    au_pincode?: SortOrder
+    au_image?: SortOrder
+  }
+
+  export type AuctionUserAvgOrderByAggregateInput = {
+    au_id?: SortOrder
+    au_firm_id?: SortOrder
+  }
+
+  export type AuctionUserMaxOrderByAggregateInput = {
+    au_id?: SortOrder
+    au_uuid?: SortOrder
+    au_date?: SortOrder
+    au_firm_id?: SortOrder
+    au_full_name?: SortOrder
+    au_mobile?: SortOrder
+    au_email?: SortOrder
+    au_aadhaar?: SortOrder
+    au_gender?: SortOrder
+    au_pan?: SortOrder
+    au_address?: SortOrder
+    au_state?: SortOrder
+    au_city?: SortOrder
+    au_country?: SortOrder
+    au_village?: SortOrder
+    au_pincode?: SortOrder
+    au_image?: SortOrder
+  }
+
+  export type AuctionUserMinOrderByAggregateInput = {
+    au_id?: SortOrder
+    au_uuid?: SortOrder
+    au_date?: SortOrder
+    au_firm_id?: SortOrder
+    au_full_name?: SortOrder
+    au_mobile?: SortOrder
+    au_email?: SortOrder
+    au_aadhaar?: SortOrder
+    au_gender?: SortOrder
+    au_pan?: SortOrder
+    au_address?: SortOrder
+    au_state?: SortOrder
+    au_city?: SortOrder
+    au_country?: SortOrder
+    au_village?: SortOrder
+    au_pincode?: SortOrder
+    au_image?: SortOrder
+  }
+
+  export type AuctionUserSumOrderByAggregateInput = {
+    au_id?: SortOrder
+    au_firm_id?: SortOrder
+  }
+
+  export type AuctionLoanCountOrderByAggregateInput = {
+    al_id?: SortOrder
+    al_uuid?: SortOrder
+    al_date?: SortOrder
+    al_girv_id?: SortOrder
+    al_firm_id?: SortOrder
+    al_buyer_id?: SortOrder
+    al_prin_amt?: SortOrder
+    al_int_amt?: SortOrder
+    al_dep_amt?: SortOrder
+    al_payable_amt?: SortOrder
+    al_cash_acc_id?: SortOrder
+    al_cash_info?: SortOrder
+    al_cash_amt?: SortOrder
+    al_bank_acc_id?: SortOrder
+    al_bank_info?: SortOrder
+    al_bank_amt?: SortOrder
+    al_online_acc_id?: SortOrder
+    al_online_info?: SortOrder
+    al_online_amt?: SortOrder
+    al_card_acc_id?: SortOrder
+    al_card_info?: SortOrder
+    al_card_amt?: SortOrder
+    al_pay_info?: SortOrder
+    al_other_info?: SortOrder
+  }
+
+  export type AuctionLoanAvgOrderByAggregateInput = {
+    al_id?: SortOrder
+    al_girv_id?: SortOrder
+    al_firm_id?: SortOrder
+    al_buyer_id?: SortOrder
+    al_prin_amt?: SortOrder
+    al_int_amt?: SortOrder
+    al_dep_amt?: SortOrder
+    al_payable_amt?: SortOrder
+    al_cash_acc_id?: SortOrder
+    al_cash_amt?: SortOrder
+    al_bank_acc_id?: SortOrder
+    al_bank_amt?: SortOrder
+    al_online_acc_id?: SortOrder
+    al_online_amt?: SortOrder
+    al_card_acc_id?: SortOrder
+    al_card_amt?: SortOrder
+  }
+
+  export type AuctionLoanMaxOrderByAggregateInput = {
+    al_id?: SortOrder
+    al_uuid?: SortOrder
+    al_date?: SortOrder
+    al_girv_id?: SortOrder
+    al_firm_id?: SortOrder
+    al_buyer_id?: SortOrder
+    al_prin_amt?: SortOrder
+    al_int_amt?: SortOrder
+    al_dep_amt?: SortOrder
+    al_payable_amt?: SortOrder
+    al_cash_acc_id?: SortOrder
+    al_cash_info?: SortOrder
+    al_cash_amt?: SortOrder
+    al_bank_acc_id?: SortOrder
+    al_bank_info?: SortOrder
+    al_bank_amt?: SortOrder
+    al_online_acc_id?: SortOrder
+    al_online_info?: SortOrder
+    al_online_amt?: SortOrder
+    al_card_acc_id?: SortOrder
+    al_card_info?: SortOrder
+    al_card_amt?: SortOrder
+    al_pay_info?: SortOrder
+    al_other_info?: SortOrder
+  }
+
+  export type AuctionLoanMinOrderByAggregateInput = {
+    al_id?: SortOrder
+    al_uuid?: SortOrder
+    al_date?: SortOrder
+    al_girv_id?: SortOrder
+    al_firm_id?: SortOrder
+    al_buyer_id?: SortOrder
+    al_prin_amt?: SortOrder
+    al_int_amt?: SortOrder
+    al_dep_amt?: SortOrder
+    al_payable_amt?: SortOrder
+    al_cash_acc_id?: SortOrder
+    al_cash_info?: SortOrder
+    al_cash_amt?: SortOrder
+    al_bank_acc_id?: SortOrder
+    al_bank_info?: SortOrder
+    al_bank_amt?: SortOrder
+    al_online_acc_id?: SortOrder
+    al_online_info?: SortOrder
+    al_online_amt?: SortOrder
+    al_card_acc_id?: SortOrder
+    al_card_info?: SortOrder
+    al_card_amt?: SortOrder
+    al_pay_info?: SortOrder
+    al_other_info?: SortOrder
+  }
+
+  export type AuctionLoanSumOrderByAggregateInput = {
+    al_id?: SortOrder
+    al_girv_id?: SortOrder
+    al_firm_id?: SortOrder
+    al_buyer_id?: SortOrder
+    al_prin_amt?: SortOrder
+    al_int_amt?: SortOrder
+    al_dep_amt?: SortOrder
+    al_payable_amt?: SortOrder
+    al_cash_acc_id?: SortOrder
+    al_cash_amt?: SortOrder
+    al_bank_acc_id?: SortOrder
+    al_bank_amt?: SortOrder
+    al_online_acc_id?: SortOrder
+    al_online_amt?: SortOrder
+    al_card_acc_id?: SortOrder
+    al_card_amt?: SortOrder
   }
 
   export type UserCreateNestedManyWithoutOwnerInput = {
@@ -96147,6 +99409,14 @@ export namespace Prisma {
      * @deprecated Use MoneyLenderDefaultArgs instead
      */
     export type MoneyLenderArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = MoneyLenderDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use AuctionUserDefaultArgs instead
+     */
+    export type AuctionUserArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = AuctionUserDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use AuctionLoanDefaultArgs instead
+     */
+    export type AuctionLoanArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = AuctionLoanDefaultArgs<ExtArgs>
 
   /**
    * Batch Payload for updateMany & deleteMany & createMany

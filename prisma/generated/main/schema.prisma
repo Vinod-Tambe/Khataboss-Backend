@@ -458,6 +458,7 @@ enum FrequencyType {
   MONTHLY
   YEARLY
   WEEKLY
+  DAILY
 }
 
 model Finance {
@@ -802,6 +803,7 @@ enum GirviStatus {
   RELEASED
   CLOSED
   TRANSFERRED
+  AUCTION
 }
 
 enum GirviInterestMethod {
@@ -1307,4 +1309,65 @@ model MoneyLender {
   firm  Firm? @relation("FirmMoneyLenders", fields: [ml_firm_id], references: [firm_id], onDelete: Cascade)
 
   @@map("money_lenders")
+}
+
+// MODEL: LoanAuctionUser (loan_auction_users)
+model AuctionUser {
+  au_id   Int     @id @default(autoincrement())
+  au_uuid String  @unique @default(uuid())
+  au_date String? @default("")
+
+  au_firm_id Int
+
+  au_full_name String?
+  au_mobile    String?
+  au_email     String?
+  au_aadhaar   String?
+  au_gender    String?
+  au_pan       String?
+  au_address   String?
+  au_state     String?
+  au_city      String?
+  au_country   String?
+  au_village   String?
+  au_pincode   String?
+  au_image     String?
+
+  @@map("auction_users")
+}
+
+model AuctionLoan {
+  al_id   Int     @id @default(autoincrement())
+  al_uuid String  @unique @default(uuid())
+  al_date String? @default("")
+
+  al_girv_id  Int
+  al_firm_id  Int
+  al_buyer_id Int
+
+  al_prin_amt    Float @default(0)
+  al_int_amt     Float @default(0)
+  al_dep_amt     Float @default(0)
+  al_payable_amt Float @default(0)
+
+  al_cash_acc_id Int?
+  al_cash_info   String?
+  al_cash_amt    Float?  @default(0)
+
+  al_bank_acc_id Int?
+  al_bank_info   String?
+  al_bank_amt    Float?  @default(0)
+
+  al_online_acc_id Int?
+  al_online_info   String?
+  al_online_amt    Float?  @default(0)
+
+  al_card_acc_id Int?
+  al_card_info   String?
+  al_card_amt    Float?  @default(0)
+
+  al_pay_info   String?
+  al_other_info String?
+
+  @@map("auction_loans")
 }
