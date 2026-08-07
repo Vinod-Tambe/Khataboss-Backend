@@ -54,6 +54,7 @@ v1Router.use("/owner", require("./modules/owner/routes/owner.routes"));
 v1Router.use("/firm", require("./modules/firm/routes/firm.routes"));
 v1Router.use("/account", require("./modules/account/routes/account.routes"));
 v1Router.use("/user", require("./modules/user/routes/user.routes"));
+v1Router.use("/staff", require("./modules/staff/routes/staff.routes"));
 v1Router.use("/finance", require("./modules/finance/routes/finance.routes"));
 v1Router.use("/journal", require("./modules/journal/routes/journal.routes"));
 v1Router.use("/dashboard", require("./modules/dashboard/routes/dashboard.routes"));

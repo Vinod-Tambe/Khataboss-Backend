@@ -108,6 +108,22 @@ export type AuctionUser = $Result.DefaultSelection<Prisma.$AuctionUserPayload>
  * 
  */
 export type AuctionLoan = $Result.DefaultSelection<Prisma.$AuctionLoanPayload>
+/**
+ * Model Staff
+ * Staff login ID is stored as the staff-only part (e.g. "dev").
+ * Full app login is: owner_login_id + "+" + staff_login_id (e.g. "admin+dev").
+ */
+export type Staff = $Result.DefaultSelection<Prisma.$StaffPayload>
+/**
+ * Model Permission
+ * 
+ */
+export type Permission = $Result.DefaultSelection<Prisma.$PermissionPayload>
+/**
+ * Model StaffPermission
+ * 
+ */
+export type StaffPermission = $Result.DefaultSelection<Prisma.$StaffPermissionPayload>
 
 /**
  * Enums
@@ -286,6 +302,34 @@ export const StockStatus: {
 
 export type StockStatus = (typeof StockStatus)[keyof typeof StockStatus]
 
+
+export const StaffGender: {
+  Male: 'Male',
+  Female: 'Female',
+  Other: 'Other'
+};
+
+export type StaffGender = (typeof StaffGender)[keyof typeof StaffGender]
+
+
+export const StaffMaritalStatus: {
+  Single: 'Single',
+  Married: 'Married',
+  Divorced: 'Divorced',
+  Widowed: 'Widowed',
+  Other: 'Other'
+};
+
+export type StaffMaritalStatus = (typeof StaffMaritalStatus)[keyof typeof StaffMaritalStatus]
+
+
+export const StaffStatus: {
+  Active: 'Active',
+  Inactive: 'Inactive'
+};
+
+export type StaffStatus = (typeof StaffStatus)[keyof typeof StaffStatus]
+
 }
 
 export type OwnerStatus = $Enums.OwnerStatus
@@ -363,6 +407,18 @@ export const StockWeightType: typeof $Enums.StockWeightType
 export type StockStatus = $Enums.StockStatus
 
 export const StockStatus: typeof $Enums.StockStatus
+
+export type StaffGender = $Enums.StaffGender
+
+export const StaffGender: typeof $Enums.StaffGender
+
+export type StaffMaritalStatus = $Enums.StaffMaritalStatus
+
+export const StaffMaritalStatus: typeof $Enums.StaffMaritalStatus
+
+export type StaffStatus = $Enums.StaffStatus
+
+export const StaffStatus: typeof $Enums.StaffStatus
 
 /**
  * ##  Prisma Client ʲˢ
@@ -676,6 +732,36 @@ export class PrismaClient<
     * ```
     */
   get auctionLoan(): Prisma.AuctionLoanDelegate<ExtArgs>;
+
+  /**
+   * `prisma.staff`: Exposes CRUD operations for the **Staff** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Staff
+    * const staff = await prisma.staff.findMany()
+    * ```
+    */
+  get staff(): Prisma.StaffDelegate<ExtArgs>;
+
+  /**
+   * `prisma.permission`: Exposes CRUD operations for the **Permission** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Permissions
+    * const permissions = await prisma.permission.findMany()
+    * ```
+    */
+  get permission(): Prisma.PermissionDelegate<ExtArgs>;
+
+  /**
+   * `prisma.staffPermission`: Exposes CRUD operations for the **StaffPermission** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more StaffPermissions
+    * const staffPermissions = await prisma.staffPermission.findMany()
+    * ```
+    */
+  get staffPermission(): Prisma.StaffPermissionDelegate<ExtArgs>;
 }
 
 export namespace Prisma {
@@ -1135,7 +1221,10 @@ export namespace Prisma {
     Purity: 'Purity',
     MoneyLender: 'MoneyLender',
     AuctionUser: 'AuctionUser',
-    AuctionLoan: 'AuctionLoan'
+    AuctionLoan: 'AuctionLoan',
+    Staff: 'Staff',
+    Permission: 'Permission',
+    StaffPermission: 'StaffPermission'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1151,7 +1240,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "owner" | "firm" | "account" | "user" | "finance" | "finance_Transaction" | "finance_Money_Transaction" | "journal" | "journalTransaction" | "girvi" | "stock" | "additionalPrincipal" | "girviDeposit" | "girviRelease" | "rate" | "purity" | "moneyLender" | "auctionUser" | "auctionLoan"
+      modelProps: "owner" | "firm" | "account" | "user" | "finance" | "finance_Transaction" | "finance_Money_Transaction" | "journal" | "journalTransaction" | "girvi" | "stock" | "additionalPrincipal" | "girviDeposit" | "girviRelease" | "rate" | "purity" | "moneyLender" | "auctionUser" | "auctionLoan" | "staff" | "permission" | "staffPermission"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -2485,6 +2574,216 @@ export namespace Prisma {
           }
         }
       }
+      Staff: {
+        payload: Prisma.$StaffPayload<ExtArgs>
+        fields: Prisma.StaffFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.StaffFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StaffPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.StaffFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StaffPayload>
+          }
+          findFirst: {
+            args: Prisma.StaffFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StaffPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.StaffFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StaffPayload>
+          }
+          findMany: {
+            args: Prisma.StaffFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StaffPayload>[]
+          }
+          create: {
+            args: Prisma.StaffCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StaffPayload>
+          }
+          createMany: {
+            args: Prisma.StaffCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.StaffCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StaffPayload>[]
+          }
+          delete: {
+            args: Prisma.StaffDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StaffPayload>
+          }
+          update: {
+            args: Prisma.StaffUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StaffPayload>
+          }
+          deleteMany: {
+            args: Prisma.StaffDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.StaffUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.StaffUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StaffPayload>
+          }
+          aggregate: {
+            args: Prisma.StaffAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateStaff>
+          }
+          groupBy: {
+            args: Prisma.StaffGroupByArgs<ExtArgs>
+            result: $Utils.Optional<StaffGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.StaffCountArgs<ExtArgs>
+            result: $Utils.Optional<StaffCountAggregateOutputType> | number
+          }
+        }
+      }
+      Permission: {
+        payload: Prisma.$PermissionPayload<ExtArgs>
+        fields: Prisma.PermissionFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.PermissionFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PermissionPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.PermissionFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PermissionPayload>
+          }
+          findFirst: {
+            args: Prisma.PermissionFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PermissionPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.PermissionFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PermissionPayload>
+          }
+          findMany: {
+            args: Prisma.PermissionFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PermissionPayload>[]
+          }
+          create: {
+            args: Prisma.PermissionCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PermissionPayload>
+          }
+          createMany: {
+            args: Prisma.PermissionCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.PermissionCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PermissionPayload>[]
+          }
+          delete: {
+            args: Prisma.PermissionDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PermissionPayload>
+          }
+          update: {
+            args: Prisma.PermissionUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PermissionPayload>
+          }
+          deleteMany: {
+            args: Prisma.PermissionDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.PermissionUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.PermissionUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PermissionPayload>
+          }
+          aggregate: {
+            args: Prisma.PermissionAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePermission>
+          }
+          groupBy: {
+            args: Prisma.PermissionGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PermissionGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.PermissionCountArgs<ExtArgs>
+            result: $Utils.Optional<PermissionCountAggregateOutputType> | number
+          }
+        }
+      }
+      StaffPermission: {
+        payload: Prisma.$StaffPermissionPayload<ExtArgs>
+        fields: Prisma.StaffPermissionFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.StaffPermissionFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StaffPermissionPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.StaffPermissionFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StaffPermissionPayload>
+          }
+          findFirst: {
+            args: Prisma.StaffPermissionFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StaffPermissionPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.StaffPermissionFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StaffPermissionPayload>
+          }
+          findMany: {
+            args: Prisma.StaffPermissionFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StaffPermissionPayload>[]
+          }
+          create: {
+            args: Prisma.StaffPermissionCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StaffPermissionPayload>
+          }
+          createMany: {
+            args: Prisma.StaffPermissionCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.StaffPermissionCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StaffPermissionPayload>[]
+          }
+          delete: {
+            args: Prisma.StaffPermissionDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StaffPermissionPayload>
+          }
+          update: {
+            args: Prisma.StaffPermissionUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StaffPermissionPayload>
+          }
+          deleteMany: {
+            args: Prisma.StaffPermissionDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.StaffPermissionUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.StaffPermissionUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StaffPermissionPayload>
+          }
+          aggregate: {
+            args: Prisma.StaffPermissionAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateStaffPermission>
+          }
+          groupBy: {
+            args: Prisma.StaffPermissionGroupByArgs<ExtArgs>
+            result: $Utils.Optional<StaffPermissionGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.StaffPermissionCountArgs<ExtArgs>
+            result: $Utils.Optional<StaffPermissionCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -2662,6 +2961,7 @@ export namespace Prisma {
     rates: number
     purities: number
     moneyLenders: number
+    staff: number
   }
 
   export type OwnerCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2681,6 +2981,7 @@ export namespace Prisma {
     rates?: boolean | OwnerCountOutputTypeCountRatesArgs
     purities?: boolean | OwnerCountOutputTypeCountPuritiesArgs
     moneyLenders?: boolean | OwnerCountOutputTypeCountMoneyLendersArgs
+    staff?: boolean | OwnerCountOutputTypeCountStaffArgs
   }
 
   // Custom InputTypes
@@ -2804,6 +3105,13 @@ export namespace Prisma {
    */
   export type OwnerCountOutputTypeCountMoneyLendersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: MoneyLenderWhereInput
+  }
+
+  /**
+   * OwnerCountOutputType without action
+   */
+  export type OwnerCountOutputTypeCountStaffArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: StaffWhereInput
   }
 
 
@@ -3637,6 +3945,68 @@ export namespace Prisma {
 
 
   /**
+   * Count Type StaffCountOutputType
+   */
+
+  export type StaffCountOutputType = {
+    permissions: number
+  }
+
+  export type StaffCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    permissions?: boolean | StaffCountOutputTypeCountPermissionsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * StaffCountOutputType without action
+   */
+  export type StaffCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StaffCountOutputType
+     */
+    select?: StaffCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * StaffCountOutputType without action
+   */
+  export type StaffCountOutputTypeCountPermissionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: StaffPermissionWhereInput
+  }
+
+
+  /**
+   * Count Type PermissionCountOutputType
+   */
+
+  export type PermissionCountOutputType = {
+    staffPermissions: number
+  }
+
+  export type PermissionCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    staffPermissions?: boolean | PermissionCountOutputTypeCountStaffPermissionsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * PermissionCountOutputType without action
+   */
+  export type PermissionCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PermissionCountOutputType
+     */
+    select?: PermissionCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * PermissionCountOutputType without action
+   */
+  export type PermissionCountOutputTypeCountStaffPermissionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: StaffPermissionWhereInput
+  }
+
+
+  /**
    * Models
    */
 
@@ -4090,6 +4460,7 @@ export namespace Prisma {
     rates?: boolean | Owner$ratesArgs<ExtArgs>
     purities?: boolean | Owner$puritiesArgs<ExtArgs>
     moneyLenders?: boolean | Owner$moneyLendersArgs<ExtArgs>
+    staff?: boolean | Owner$staffArgs<ExtArgs>
     _count?: boolean | OwnerCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["owner"]>
 
@@ -4186,6 +4557,7 @@ export namespace Prisma {
     rates?: boolean | Owner$ratesArgs<ExtArgs>
     purities?: boolean | Owner$puritiesArgs<ExtArgs>
     moneyLenders?: boolean | Owner$moneyLendersArgs<ExtArgs>
+    staff?: boolean | Owner$staffArgs<ExtArgs>
     _count?: boolean | OwnerCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type OwnerIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -4209,6 +4581,7 @@ export namespace Prisma {
       rates: Prisma.$RatePayload<ExtArgs>[]
       purities: Prisma.$PurityPayload<ExtArgs>[]
       moneyLenders: Prisma.$MoneyLenderPayload<ExtArgs>[]
+      staff: Prisma.$StaffPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       own_id: number
@@ -4626,6 +4999,7 @@ export namespace Prisma {
     rates<T extends Owner$ratesArgs<ExtArgs> = {}>(args?: Subset<T, Owner$ratesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RatePayload<ExtArgs>, T, "findMany"> | Null>
     purities<T extends Owner$puritiesArgs<ExtArgs> = {}>(args?: Subset<T, Owner$puritiesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PurityPayload<ExtArgs>, T, "findMany"> | Null>
     moneyLenders<T extends Owner$moneyLendersArgs<ExtArgs> = {}>(args?: Subset<T, Owner$moneyLendersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MoneyLenderPayload<ExtArgs>, T, "findMany"> | Null>
+    staff<T extends Owner$staffArgs<ExtArgs> = {}>(args?: Subset<T, Owner$staffArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StaffPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5321,6 +5695,26 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: MoneyLenderScalarFieldEnum | MoneyLenderScalarFieldEnum[]
+  }
+
+  /**
+   * Owner.staff
+   */
+  export type Owner$staffArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Staff
+     */
+    select?: StaffSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffInclude<ExtArgs> | null
+    where?: StaffWhereInput
+    orderBy?: StaffOrderByWithRelationInput | StaffOrderByWithRelationInput[]
+    cursor?: StaffWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: StaffScalarFieldEnum | StaffScalarFieldEnum[]
   }
 
   /**
@@ -32003,6 +32397,3582 @@ export namespace Prisma {
 
 
   /**
+   * Model Staff
+   */
+
+  export type AggregateStaff = {
+    _count: StaffCountAggregateOutputType | null
+    _avg: StaffAvgAggregateOutputType | null
+    _sum: StaffSumAggregateOutputType | null
+    _min: StaffMinAggregateOutputType | null
+    _max: StaffMaxAggregateOutputType | null
+  }
+
+  export type StaffAvgAggregateOutputType = {
+    staff_id: number | null
+    staff_own_id: number | null
+  }
+
+  export type StaffSumAggregateOutputType = {
+    staff_id: number | null
+    staff_own_id: number | null
+  }
+
+  export type StaffMinAggregateOutputType = {
+    staff_id: number | null
+    staff_uuid: string | null
+    staff_own_id: number | null
+    staff_add_date: Date | null
+    staff_first_name: string | null
+    staff_last_name: string | null
+    staff_father_name: string | null
+    staff_mother_name: string | null
+    staff_mobile_no: string | null
+    staff_phone_no: string | null
+    staff_email_id: string | null
+    staff_gender: $Enums.StaffGender | null
+    staff_cast: string | null
+    staff_marital_status: $Enums.StaffMaritalStatus | null
+    staff_occupation: string | null
+    staff_birth_date: Date | null
+    staff_gstin: string | null
+    staff_tax_no: string | null
+    staff_pan_no: string | null
+    staff_adhaar_no: string | null
+    staff_login_id: string | null
+    staff_password: string | null
+    staff_status: $Enums.StaffStatus | null
+    staff_per_address: string | null
+    staff_curr_address: string | null
+    staff_village: string | null
+    staff_ward_no: string | null
+    staff_tehsil: string | null
+    staff_city: string | null
+    staff_state: string | null
+    staff_country: string | null
+    staff_pincode: string | null
+    staff_bank_name: string | null
+    staff_bank_acc_no: string | null
+    staff_ifsc_code: string | null
+    staff_other_info: string | null
+    staff_refresh_token: string | null
+    staff_jwt_token: string | null
+    staff_login_status: boolean | null
+    staff_otp: string | null
+    staff_otp_expiry: Date | null
+    staff_created_at: Date | null
+    staff_created_by: string | null
+    staff_updated_at: Date | null
+    staff_updated_by: string | null
+    staff_deleted_at: Date | null
+    staff_deleted_by: string | null
+    staff_is_deleted: boolean | null
+  }
+
+  export type StaffMaxAggregateOutputType = {
+    staff_id: number | null
+    staff_uuid: string | null
+    staff_own_id: number | null
+    staff_add_date: Date | null
+    staff_first_name: string | null
+    staff_last_name: string | null
+    staff_father_name: string | null
+    staff_mother_name: string | null
+    staff_mobile_no: string | null
+    staff_phone_no: string | null
+    staff_email_id: string | null
+    staff_gender: $Enums.StaffGender | null
+    staff_cast: string | null
+    staff_marital_status: $Enums.StaffMaritalStatus | null
+    staff_occupation: string | null
+    staff_birth_date: Date | null
+    staff_gstin: string | null
+    staff_tax_no: string | null
+    staff_pan_no: string | null
+    staff_adhaar_no: string | null
+    staff_login_id: string | null
+    staff_password: string | null
+    staff_status: $Enums.StaffStatus | null
+    staff_per_address: string | null
+    staff_curr_address: string | null
+    staff_village: string | null
+    staff_ward_no: string | null
+    staff_tehsil: string | null
+    staff_city: string | null
+    staff_state: string | null
+    staff_country: string | null
+    staff_pincode: string | null
+    staff_bank_name: string | null
+    staff_bank_acc_no: string | null
+    staff_ifsc_code: string | null
+    staff_other_info: string | null
+    staff_refresh_token: string | null
+    staff_jwt_token: string | null
+    staff_login_status: boolean | null
+    staff_otp: string | null
+    staff_otp_expiry: Date | null
+    staff_created_at: Date | null
+    staff_created_by: string | null
+    staff_updated_at: Date | null
+    staff_updated_by: string | null
+    staff_deleted_at: Date | null
+    staff_deleted_by: string | null
+    staff_is_deleted: boolean | null
+  }
+
+  export type StaffCountAggregateOutputType = {
+    staff_id: number
+    staff_uuid: number
+    staff_own_id: number
+    staff_add_date: number
+    staff_first_name: number
+    staff_last_name: number
+    staff_father_name: number
+    staff_mother_name: number
+    staff_mobile_no: number
+    staff_phone_no: number
+    staff_email_id: number
+    staff_gender: number
+    staff_cast: number
+    staff_marital_status: number
+    staff_occupation: number
+    staff_birth_date: number
+    staff_gstin: number
+    staff_tax_no: number
+    staff_pan_no: number
+    staff_adhaar_no: number
+    staff_login_id: number
+    staff_password: number
+    staff_status: number
+    staff_profile_img: number
+    staff_adhaar_front_img: number
+    staff_adhaar_back_img: number
+    staff_pan_card_img: number
+    staff_sign_img: number
+    staff_per_address: number
+    staff_curr_address: number
+    staff_village: number
+    staff_ward_no: number
+    staff_tehsil: number
+    staff_city: number
+    staff_state: number
+    staff_country: number
+    staff_pincode: number
+    staff_bank_name: number
+    staff_bank_acc_no: number
+    staff_ifsc_code: number
+    staff_other_info: number
+    staff_refresh_token: number
+    staff_jwt_token: number
+    staff_login_status: number
+    staff_last_login_system: number
+    staff_otp: number
+    staff_otp_expiry: number
+    staff_created_at: number
+    staff_created_by: number
+    staff_updated_at: number
+    staff_updated_by: number
+    staff_deleted_at: number
+    staff_deleted_by: number
+    staff_is_deleted: number
+    _all: number
+  }
+
+
+  export type StaffAvgAggregateInputType = {
+    staff_id?: true
+    staff_own_id?: true
+  }
+
+  export type StaffSumAggregateInputType = {
+    staff_id?: true
+    staff_own_id?: true
+  }
+
+  export type StaffMinAggregateInputType = {
+    staff_id?: true
+    staff_uuid?: true
+    staff_own_id?: true
+    staff_add_date?: true
+    staff_first_name?: true
+    staff_last_name?: true
+    staff_father_name?: true
+    staff_mother_name?: true
+    staff_mobile_no?: true
+    staff_phone_no?: true
+    staff_email_id?: true
+    staff_gender?: true
+    staff_cast?: true
+    staff_marital_status?: true
+    staff_occupation?: true
+    staff_birth_date?: true
+    staff_gstin?: true
+    staff_tax_no?: true
+    staff_pan_no?: true
+    staff_adhaar_no?: true
+    staff_login_id?: true
+    staff_password?: true
+    staff_status?: true
+    staff_per_address?: true
+    staff_curr_address?: true
+    staff_village?: true
+    staff_ward_no?: true
+    staff_tehsil?: true
+    staff_city?: true
+    staff_state?: true
+    staff_country?: true
+    staff_pincode?: true
+    staff_bank_name?: true
+    staff_bank_acc_no?: true
+    staff_ifsc_code?: true
+    staff_other_info?: true
+    staff_refresh_token?: true
+    staff_jwt_token?: true
+    staff_login_status?: true
+    staff_otp?: true
+    staff_otp_expiry?: true
+    staff_created_at?: true
+    staff_created_by?: true
+    staff_updated_at?: true
+    staff_updated_by?: true
+    staff_deleted_at?: true
+    staff_deleted_by?: true
+    staff_is_deleted?: true
+  }
+
+  export type StaffMaxAggregateInputType = {
+    staff_id?: true
+    staff_uuid?: true
+    staff_own_id?: true
+    staff_add_date?: true
+    staff_first_name?: true
+    staff_last_name?: true
+    staff_father_name?: true
+    staff_mother_name?: true
+    staff_mobile_no?: true
+    staff_phone_no?: true
+    staff_email_id?: true
+    staff_gender?: true
+    staff_cast?: true
+    staff_marital_status?: true
+    staff_occupation?: true
+    staff_birth_date?: true
+    staff_gstin?: true
+    staff_tax_no?: true
+    staff_pan_no?: true
+    staff_adhaar_no?: true
+    staff_login_id?: true
+    staff_password?: true
+    staff_status?: true
+    staff_per_address?: true
+    staff_curr_address?: true
+    staff_village?: true
+    staff_ward_no?: true
+    staff_tehsil?: true
+    staff_city?: true
+    staff_state?: true
+    staff_country?: true
+    staff_pincode?: true
+    staff_bank_name?: true
+    staff_bank_acc_no?: true
+    staff_ifsc_code?: true
+    staff_other_info?: true
+    staff_refresh_token?: true
+    staff_jwt_token?: true
+    staff_login_status?: true
+    staff_otp?: true
+    staff_otp_expiry?: true
+    staff_created_at?: true
+    staff_created_by?: true
+    staff_updated_at?: true
+    staff_updated_by?: true
+    staff_deleted_at?: true
+    staff_deleted_by?: true
+    staff_is_deleted?: true
+  }
+
+  export type StaffCountAggregateInputType = {
+    staff_id?: true
+    staff_uuid?: true
+    staff_own_id?: true
+    staff_add_date?: true
+    staff_first_name?: true
+    staff_last_name?: true
+    staff_father_name?: true
+    staff_mother_name?: true
+    staff_mobile_no?: true
+    staff_phone_no?: true
+    staff_email_id?: true
+    staff_gender?: true
+    staff_cast?: true
+    staff_marital_status?: true
+    staff_occupation?: true
+    staff_birth_date?: true
+    staff_gstin?: true
+    staff_tax_no?: true
+    staff_pan_no?: true
+    staff_adhaar_no?: true
+    staff_login_id?: true
+    staff_password?: true
+    staff_status?: true
+    staff_profile_img?: true
+    staff_adhaar_front_img?: true
+    staff_adhaar_back_img?: true
+    staff_pan_card_img?: true
+    staff_sign_img?: true
+    staff_per_address?: true
+    staff_curr_address?: true
+    staff_village?: true
+    staff_ward_no?: true
+    staff_tehsil?: true
+    staff_city?: true
+    staff_state?: true
+    staff_country?: true
+    staff_pincode?: true
+    staff_bank_name?: true
+    staff_bank_acc_no?: true
+    staff_ifsc_code?: true
+    staff_other_info?: true
+    staff_refresh_token?: true
+    staff_jwt_token?: true
+    staff_login_status?: true
+    staff_last_login_system?: true
+    staff_otp?: true
+    staff_otp_expiry?: true
+    staff_created_at?: true
+    staff_created_by?: true
+    staff_updated_at?: true
+    staff_updated_by?: true
+    staff_deleted_at?: true
+    staff_deleted_by?: true
+    staff_is_deleted?: true
+    _all?: true
+  }
+
+  export type StaffAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Staff to aggregate.
+     */
+    where?: StaffWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Staff to fetch.
+     */
+    orderBy?: StaffOrderByWithRelationInput | StaffOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: StaffWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Staff from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Staff.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Staff
+    **/
+    _count?: true | StaffCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: StaffAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: StaffSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: StaffMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: StaffMaxAggregateInputType
+  }
+
+  export type GetStaffAggregateType<T extends StaffAggregateArgs> = {
+        [P in keyof T & keyof AggregateStaff]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateStaff[P]>
+      : GetScalarType<T[P], AggregateStaff[P]>
+  }
+
+
+
+
+  export type StaffGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: StaffWhereInput
+    orderBy?: StaffOrderByWithAggregationInput | StaffOrderByWithAggregationInput[]
+    by: StaffScalarFieldEnum[] | StaffScalarFieldEnum
+    having?: StaffScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: StaffCountAggregateInputType | true
+    _avg?: StaffAvgAggregateInputType
+    _sum?: StaffSumAggregateInputType
+    _min?: StaffMinAggregateInputType
+    _max?: StaffMaxAggregateInputType
+  }
+
+  export type StaffGroupByOutputType = {
+    staff_id: number
+    staff_uuid: string
+    staff_own_id: number
+    staff_add_date: Date
+    staff_first_name: string
+    staff_last_name: string
+    staff_father_name: string | null
+    staff_mother_name: string | null
+    staff_mobile_no: string
+    staff_phone_no: string | null
+    staff_email_id: string | null
+    staff_gender: $Enums.StaffGender | null
+    staff_cast: string | null
+    staff_marital_status: $Enums.StaffMaritalStatus | null
+    staff_occupation: string | null
+    staff_birth_date: Date | null
+    staff_gstin: string | null
+    staff_tax_no: string | null
+    staff_pan_no: string | null
+    staff_adhaar_no: string | null
+    staff_login_id: string
+    staff_password: string
+    staff_status: $Enums.StaffStatus
+    staff_profile_img: JsonValue | null
+    staff_adhaar_front_img: JsonValue | null
+    staff_adhaar_back_img: JsonValue | null
+    staff_pan_card_img: JsonValue | null
+    staff_sign_img: JsonValue | null
+    staff_per_address: string | null
+    staff_curr_address: string | null
+    staff_village: string | null
+    staff_ward_no: string | null
+    staff_tehsil: string | null
+    staff_city: string | null
+    staff_state: string | null
+    staff_country: string | null
+    staff_pincode: string | null
+    staff_bank_name: string | null
+    staff_bank_acc_no: string | null
+    staff_ifsc_code: string | null
+    staff_other_info: string | null
+    staff_refresh_token: string | null
+    staff_jwt_token: string | null
+    staff_login_status: boolean
+    staff_last_login_system: JsonValue | null
+    staff_otp: string | null
+    staff_otp_expiry: Date | null
+    staff_created_at: Date
+    staff_created_by: string | null
+    staff_updated_at: Date
+    staff_updated_by: string | null
+    staff_deleted_at: Date | null
+    staff_deleted_by: string | null
+    staff_is_deleted: boolean
+    _count: StaffCountAggregateOutputType | null
+    _avg: StaffAvgAggregateOutputType | null
+    _sum: StaffSumAggregateOutputType | null
+    _min: StaffMinAggregateOutputType | null
+    _max: StaffMaxAggregateOutputType | null
+  }
+
+  type GetStaffGroupByPayload<T extends StaffGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<StaffGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof StaffGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], StaffGroupByOutputType[P]>
+            : GetScalarType<T[P], StaffGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type StaffSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    staff_id?: boolean
+    staff_uuid?: boolean
+    staff_own_id?: boolean
+    staff_add_date?: boolean
+    staff_first_name?: boolean
+    staff_last_name?: boolean
+    staff_father_name?: boolean
+    staff_mother_name?: boolean
+    staff_mobile_no?: boolean
+    staff_phone_no?: boolean
+    staff_email_id?: boolean
+    staff_gender?: boolean
+    staff_cast?: boolean
+    staff_marital_status?: boolean
+    staff_occupation?: boolean
+    staff_birth_date?: boolean
+    staff_gstin?: boolean
+    staff_tax_no?: boolean
+    staff_pan_no?: boolean
+    staff_adhaar_no?: boolean
+    staff_login_id?: boolean
+    staff_password?: boolean
+    staff_status?: boolean
+    staff_profile_img?: boolean
+    staff_adhaar_front_img?: boolean
+    staff_adhaar_back_img?: boolean
+    staff_pan_card_img?: boolean
+    staff_sign_img?: boolean
+    staff_per_address?: boolean
+    staff_curr_address?: boolean
+    staff_village?: boolean
+    staff_ward_no?: boolean
+    staff_tehsil?: boolean
+    staff_city?: boolean
+    staff_state?: boolean
+    staff_country?: boolean
+    staff_pincode?: boolean
+    staff_bank_name?: boolean
+    staff_bank_acc_no?: boolean
+    staff_ifsc_code?: boolean
+    staff_other_info?: boolean
+    staff_refresh_token?: boolean
+    staff_jwt_token?: boolean
+    staff_login_status?: boolean
+    staff_last_login_system?: boolean
+    staff_otp?: boolean
+    staff_otp_expiry?: boolean
+    staff_created_at?: boolean
+    staff_created_by?: boolean
+    staff_updated_at?: boolean
+    staff_updated_by?: boolean
+    staff_deleted_at?: boolean
+    staff_deleted_by?: boolean
+    staff_is_deleted?: boolean
+    owner?: boolean | OwnerDefaultArgs<ExtArgs>
+    permissions?: boolean | Staff$permissionsArgs<ExtArgs>
+    _count?: boolean | StaffCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["staff"]>
+
+  export type StaffSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    staff_id?: boolean
+    staff_uuid?: boolean
+    staff_own_id?: boolean
+    staff_add_date?: boolean
+    staff_first_name?: boolean
+    staff_last_name?: boolean
+    staff_father_name?: boolean
+    staff_mother_name?: boolean
+    staff_mobile_no?: boolean
+    staff_phone_no?: boolean
+    staff_email_id?: boolean
+    staff_gender?: boolean
+    staff_cast?: boolean
+    staff_marital_status?: boolean
+    staff_occupation?: boolean
+    staff_birth_date?: boolean
+    staff_gstin?: boolean
+    staff_tax_no?: boolean
+    staff_pan_no?: boolean
+    staff_adhaar_no?: boolean
+    staff_login_id?: boolean
+    staff_password?: boolean
+    staff_status?: boolean
+    staff_profile_img?: boolean
+    staff_adhaar_front_img?: boolean
+    staff_adhaar_back_img?: boolean
+    staff_pan_card_img?: boolean
+    staff_sign_img?: boolean
+    staff_per_address?: boolean
+    staff_curr_address?: boolean
+    staff_village?: boolean
+    staff_ward_no?: boolean
+    staff_tehsil?: boolean
+    staff_city?: boolean
+    staff_state?: boolean
+    staff_country?: boolean
+    staff_pincode?: boolean
+    staff_bank_name?: boolean
+    staff_bank_acc_no?: boolean
+    staff_ifsc_code?: boolean
+    staff_other_info?: boolean
+    staff_refresh_token?: boolean
+    staff_jwt_token?: boolean
+    staff_login_status?: boolean
+    staff_last_login_system?: boolean
+    staff_otp?: boolean
+    staff_otp_expiry?: boolean
+    staff_created_at?: boolean
+    staff_created_by?: boolean
+    staff_updated_at?: boolean
+    staff_updated_by?: boolean
+    staff_deleted_at?: boolean
+    staff_deleted_by?: boolean
+    staff_is_deleted?: boolean
+    owner?: boolean | OwnerDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["staff"]>
+
+  export type StaffSelectScalar = {
+    staff_id?: boolean
+    staff_uuid?: boolean
+    staff_own_id?: boolean
+    staff_add_date?: boolean
+    staff_first_name?: boolean
+    staff_last_name?: boolean
+    staff_father_name?: boolean
+    staff_mother_name?: boolean
+    staff_mobile_no?: boolean
+    staff_phone_no?: boolean
+    staff_email_id?: boolean
+    staff_gender?: boolean
+    staff_cast?: boolean
+    staff_marital_status?: boolean
+    staff_occupation?: boolean
+    staff_birth_date?: boolean
+    staff_gstin?: boolean
+    staff_tax_no?: boolean
+    staff_pan_no?: boolean
+    staff_adhaar_no?: boolean
+    staff_login_id?: boolean
+    staff_password?: boolean
+    staff_status?: boolean
+    staff_profile_img?: boolean
+    staff_adhaar_front_img?: boolean
+    staff_adhaar_back_img?: boolean
+    staff_pan_card_img?: boolean
+    staff_sign_img?: boolean
+    staff_per_address?: boolean
+    staff_curr_address?: boolean
+    staff_village?: boolean
+    staff_ward_no?: boolean
+    staff_tehsil?: boolean
+    staff_city?: boolean
+    staff_state?: boolean
+    staff_country?: boolean
+    staff_pincode?: boolean
+    staff_bank_name?: boolean
+    staff_bank_acc_no?: boolean
+    staff_ifsc_code?: boolean
+    staff_other_info?: boolean
+    staff_refresh_token?: boolean
+    staff_jwt_token?: boolean
+    staff_login_status?: boolean
+    staff_last_login_system?: boolean
+    staff_otp?: boolean
+    staff_otp_expiry?: boolean
+    staff_created_at?: boolean
+    staff_created_by?: boolean
+    staff_updated_at?: boolean
+    staff_updated_by?: boolean
+    staff_deleted_at?: boolean
+    staff_deleted_by?: boolean
+    staff_is_deleted?: boolean
+  }
+
+  export type StaffInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    owner?: boolean | OwnerDefaultArgs<ExtArgs>
+    permissions?: boolean | Staff$permissionsArgs<ExtArgs>
+    _count?: boolean | StaffCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type StaffIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    owner?: boolean | OwnerDefaultArgs<ExtArgs>
+  }
+
+  export type $StaffPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Staff"
+    objects: {
+      owner: Prisma.$OwnerPayload<ExtArgs>
+      permissions: Prisma.$StaffPermissionPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      staff_id: number
+      staff_uuid: string
+      staff_own_id: number
+      staff_add_date: Date
+      staff_first_name: string
+      staff_last_name: string
+      staff_father_name: string | null
+      staff_mother_name: string | null
+      staff_mobile_no: string
+      staff_phone_no: string | null
+      staff_email_id: string | null
+      staff_gender: $Enums.StaffGender | null
+      staff_cast: string | null
+      staff_marital_status: $Enums.StaffMaritalStatus | null
+      staff_occupation: string | null
+      staff_birth_date: Date | null
+      staff_gstin: string | null
+      staff_tax_no: string | null
+      staff_pan_no: string | null
+      staff_adhaar_no: string | null
+      staff_login_id: string
+      staff_password: string
+      staff_status: $Enums.StaffStatus
+      staff_profile_img: Prisma.JsonValue | null
+      staff_adhaar_front_img: Prisma.JsonValue | null
+      staff_adhaar_back_img: Prisma.JsonValue | null
+      staff_pan_card_img: Prisma.JsonValue | null
+      staff_sign_img: Prisma.JsonValue | null
+      staff_per_address: string | null
+      staff_curr_address: string | null
+      staff_village: string | null
+      staff_ward_no: string | null
+      staff_tehsil: string | null
+      staff_city: string | null
+      staff_state: string | null
+      staff_country: string | null
+      staff_pincode: string | null
+      staff_bank_name: string | null
+      staff_bank_acc_no: string | null
+      staff_ifsc_code: string | null
+      staff_other_info: string | null
+      staff_refresh_token: string | null
+      staff_jwt_token: string | null
+      staff_login_status: boolean
+      staff_last_login_system: Prisma.JsonValue | null
+      staff_otp: string | null
+      staff_otp_expiry: Date | null
+      staff_created_at: Date
+      staff_created_by: string | null
+      staff_updated_at: Date
+      staff_updated_by: string | null
+      staff_deleted_at: Date | null
+      staff_deleted_by: string | null
+      staff_is_deleted: boolean
+    }, ExtArgs["result"]["staff"]>
+    composites: {}
+  }
+
+  type StaffGetPayload<S extends boolean | null | undefined | StaffDefaultArgs> = $Result.GetResult<Prisma.$StaffPayload, S>
+
+  type StaffCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<StaffFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: StaffCountAggregateInputType | true
+    }
+
+  export interface StaffDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Staff'], meta: { name: 'Staff' } }
+    /**
+     * Find zero or one Staff that matches the filter.
+     * @param {StaffFindUniqueArgs} args - Arguments to find a Staff
+     * @example
+     * // Get one Staff
+     * const staff = await prisma.staff.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends StaffFindUniqueArgs>(args: SelectSubset<T, StaffFindUniqueArgs<ExtArgs>>): Prisma__StaffClient<$Result.GetResult<Prisma.$StaffPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one Staff that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {StaffFindUniqueOrThrowArgs} args - Arguments to find a Staff
+     * @example
+     * // Get one Staff
+     * const staff = await prisma.staff.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends StaffFindUniqueOrThrowArgs>(args: SelectSubset<T, StaffFindUniqueOrThrowArgs<ExtArgs>>): Prisma__StaffClient<$Result.GetResult<Prisma.$StaffPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first Staff that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StaffFindFirstArgs} args - Arguments to find a Staff
+     * @example
+     * // Get one Staff
+     * const staff = await prisma.staff.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends StaffFindFirstArgs>(args?: SelectSubset<T, StaffFindFirstArgs<ExtArgs>>): Prisma__StaffClient<$Result.GetResult<Prisma.$StaffPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first Staff that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StaffFindFirstOrThrowArgs} args - Arguments to find a Staff
+     * @example
+     * // Get one Staff
+     * const staff = await prisma.staff.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends StaffFindFirstOrThrowArgs>(args?: SelectSubset<T, StaffFindFirstOrThrowArgs<ExtArgs>>): Prisma__StaffClient<$Result.GetResult<Prisma.$StaffPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more Staff that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StaffFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Staff
+     * const staff = await prisma.staff.findMany()
+     * 
+     * // Get first 10 Staff
+     * const staff = await prisma.staff.findMany({ take: 10 })
+     * 
+     * // Only select the `staff_id`
+     * const staffWithStaff_idOnly = await prisma.staff.findMany({ select: { staff_id: true } })
+     * 
+     */
+    findMany<T extends StaffFindManyArgs>(args?: SelectSubset<T, StaffFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StaffPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a Staff.
+     * @param {StaffCreateArgs} args - Arguments to create a Staff.
+     * @example
+     * // Create one Staff
+     * const Staff = await prisma.staff.create({
+     *   data: {
+     *     // ... data to create a Staff
+     *   }
+     * })
+     * 
+     */
+    create<T extends StaffCreateArgs>(args: SelectSubset<T, StaffCreateArgs<ExtArgs>>): Prisma__StaffClient<$Result.GetResult<Prisma.$StaffPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many Staff.
+     * @param {StaffCreateManyArgs} args - Arguments to create many Staff.
+     * @example
+     * // Create many Staff
+     * const staff = await prisma.staff.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends StaffCreateManyArgs>(args?: SelectSubset<T, StaffCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Staff and returns the data saved in the database.
+     * @param {StaffCreateManyAndReturnArgs} args - Arguments to create many Staff.
+     * @example
+     * // Create many Staff
+     * const staff = await prisma.staff.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Staff and only return the `staff_id`
+     * const staffWithStaff_idOnly = await prisma.staff.createManyAndReturn({ 
+     *   select: { staff_id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends StaffCreateManyAndReturnArgs>(args?: SelectSubset<T, StaffCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StaffPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a Staff.
+     * @param {StaffDeleteArgs} args - Arguments to delete one Staff.
+     * @example
+     * // Delete one Staff
+     * const Staff = await prisma.staff.delete({
+     *   where: {
+     *     // ... filter to delete one Staff
+     *   }
+     * })
+     * 
+     */
+    delete<T extends StaffDeleteArgs>(args: SelectSubset<T, StaffDeleteArgs<ExtArgs>>): Prisma__StaffClient<$Result.GetResult<Prisma.$StaffPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one Staff.
+     * @param {StaffUpdateArgs} args - Arguments to update one Staff.
+     * @example
+     * // Update one Staff
+     * const staff = await prisma.staff.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends StaffUpdateArgs>(args: SelectSubset<T, StaffUpdateArgs<ExtArgs>>): Prisma__StaffClient<$Result.GetResult<Prisma.$StaffPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more Staff.
+     * @param {StaffDeleteManyArgs} args - Arguments to filter Staff to delete.
+     * @example
+     * // Delete a few Staff
+     * const { count } = await prisma.staff.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends StaffDeleteManyArgs>(args?: SelectSubset<T, StaffDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Staff.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StaffUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Staff
+     * const staff = await prisma.staff.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends StaffUpdateManyArgs>(args: SelectSubset<T, StaffUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Staff.
+     * @param {StaffUpsertArgs} args - Arguments to update or create a Staff.
+     * @example
+     * // Update or create a Staff
+     * const staff = await prisma.staff.upsert({
+     *   create: {
+     *     // ... data to create a Staff
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Staff we want to update
+     *   }
+     * })
+     */
+    upsert<T extends StaffUpsertArgs>(args: SelectSubset<T, StaffUpsertArgs<ExtArgs>>): Prisma__StaffClient<$Result.GetResult<Prisma.$StaffPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of Staff.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StaffCountArgs} args - Arguments to filter Staff to count.
+     * @example
+     * // Count the number of Staff
+     * const count = await prisma.staff.count({
+     *   where: {
+     *     // ... the filter for the Staff we want to count
+     *   }
+     * })
+    **/
+    count<T extends StaffCountArgs>(
+      args?: Subset<T, StaffCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], StaffCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Staff.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StaffAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends StaffAggregateArgs>(args: Subset<T, StaffAggregateArgs>): Prisma.PrismaPromise<GetStaffAggregateType<T>>
+
+    /**
+     * Group by Staff.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StaffGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends StaffGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: StaffGroupByArgs['orderBy'] }
+        : { orderBy?: StaffGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, StaffGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetStaffGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Staff model
+   */
+  readonly fields: StaffFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Staff.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__StaffClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    owner<T extends OwnerDefaultArgs<ExtArgs> = {}>(args?: Subset<T, OwnerDefaultArgs<ExtArgs>>): Prisma__OwnerClient<$Result.GetResult<Prisma.$OwnerPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    permissions<T extends Staff$permissionsArgs<ExtArgs> = {}>(args?: Subset<T, Staff$permissionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StaffPermissionPayload<ExtArgs>, T, "findMany"> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Staff model
+   */ 
+  interface StaffFieldRefs {
+    readonly staff_id: FieldRef<"Staff", 'Int'>
+    readonly staff_uuid: FieldRef<"Staff", 'String'>
+    readonly staff_own_id: FieldRef<"Staff", 'Int'>
+    readonly staff_add_date: FieldRef<"Staff", 'DateTime'>
+    readonly staff_first_name: FieldRef<"Staff", 'String'>
+    readonly staff_last_name: FieldRef<"Staff", 'String'>
+    readonly staff_father_name: FieldRef<"Staff", 'String'>
+    readonly staff_mother_name: FieldRef<"Staff", 'String'>
+    readonly staff_mobile_no: FieldRef<"Staff", 'String'>
+    readonly staff_phone_no: FieldRef<"Staff", 'String'>
+    readonly staff_email_id: FieldRef<"Staff", 'String'>
+    readonly staff_gender: FieldRef<"Staff", 'StaffGender'>
+    readonly staff_cast: FieldRef<"Staff", 'String'>
+    readonly staff_marital_status: FieldRef<"Staff", 'StaffMaritalStatus'>
+    readonly staff_occupation: FieldRef<"Staff", 'String'>
+    readonly staff_birth_date: FieldRef<"Staff", 'DateTime'>
+    readonly staff_gstin: FieldRef<"Staff", 'String'>
+    readonly staff_tax_no: FieldRef<"Staff", 'String'>
+    readonly staff_pan_no: FieldRef<"Staff", 'String'>
+    readonly staff_adhaar_no: FieldRef<"Staff", 'String'>
+    readonly staff_login_id: FieldRef<"Staff", 'String'>
+    readonly staff_password: FieldRef<"Staff", 'String'>
+    readonly staff_status: FieldRef<"Staff", 'StaffStatus'>
+    readonly staff_profile_img: FieldRef<"Staff", 'Json'>
+    readonly staff_adhaar_front_img: FieldRef<"Staff", 'Json'>
+    readonly staff_adhaar_back_img: FieldRef<"Staff", 'Json'>
+    readonly staff_pan_card_img: FieldRef<"Staff", 'Json'>
+    readonly staff_sign_img: FieldRef<"Staff", 'Json'>
+    readonly staff_per_address: FieldRef<"Staff", 'String'>
+    readonly staff_curr_address: FieldRef<"Staff", 'String'>
+    readonly staff_village: FieldRef<"Staff", 'String'>
+    readonly staff_ward_no: FieldRef<"Staff", 'String'>
+    readonly staff_tehsil: FieldRef<"Staff", 'String'>
+    readonly staff_city: FieldRef<"Staff", 'String'>
+    readonly staff_state: FieldRef<"Staff", 'String'>
+    readonly staff_country: FieldRef<"Staff", 'String'>
+    readonly staff_pincode: FieldRef<"Staff", 'String'>
+    readonly staff_bank_name: FieldRef<"Staff", 'String'>
+    readonly staff_bank_acc_no: FieldRef<"Staff", 'String'>
+    readonly staff_ifsc_code: FieldRef<"Staff", 'String'>
+    readonly staff_other_info: FieldRef<"Staff", 'String'>
+    readonly staff_refresh_token: FieldRef<"Staff", 'String'>
+    readonly staff_jwt_token: FieldRef<"Staff", 'String'>
+    readonly staff_login_status: FieldRef<"Staff", 'Boolean'>
+    readonly staff_last_login_system: FieldRef<"Staff", 'Json'>
+    readonly staff_otp: FieldRef<"Staff", 'String'>
+    readonly staff_otp_expiry: FieldRef<"Staff", 'DateTime'>
+    readonly staff_created_at: FieldRef<"Staff", 'DateTime'>
+    readonly staff_created_by: FieldRef<"Staff", 'String'>
+    readonly staff_updated_at: FieldRef<"Staff", 'DateTime'>
+    readonly staff_updated_by: FieldRef<"Staff", 'String'>
+    readonly staff_deleted_at: FieldRef<"Staff", 'DateTime'>
+    readonly staff_deleted_by: FieldRef<"Staff", 'String'>
+    readonly staff_is_deleted: FieldRef<"Staff", 'Boolean'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Staff findUnique
+   */
+  export type StaffFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Staff
+     */
+    select?: StaffSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffInclude<ExtArgs> | null
+    /**
+     * Filter, which Staff to fetch.
+     */
+    where: StaffWhereUniqueInput
+  }
+
+  /**
+   * Staff findUniqueOrThrow
+   */
+  export type StaffFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Staff
+     */
+    select?: StaffSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffInclude<ExtArgs> | null
+    /**
+     * Filter, which Staff to fetch.
+     */
+    where: StaffWhereUniqueInput
+  }
+
+  /**
+   * Staff findFirst
+   */
+  export type StaffFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Staff
+     */
+    select?: StaffSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffInclude<ExtArgs> | null
+    /**
+     * Filter, which Staff to fetch.
+     */
+    where?: StaffWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Staff to fetch.
+     */
+    orderBy?: StaffOrderByWithRelationInput | StaffOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Staff.
+     */
+    cursor?: StaffWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Staff from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Staff.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Staff.
+     */
+    distinct?: StaffScalarFieldEnum | StaffScalarFieldEnum[]
+  }
+
+  /**
+   * Staff findFirstOrThrow
+   */
+  export type StaffFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Staff
+     */
+    select?: StaffSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffInclude<ExtArgs> | null
+    /**
+     * Filter, which Staff to fetch.
+     */
+    where?: StaffWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Staff to fetch.
+     */
+    orderBy?: StaffOrderByWithRelationInput | StaffOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Staff.
+     */
+    cursor?: StaffWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Staff from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Staff.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Staff.
+     */
+    distinct?: StaffScalarFieldEnum | StaffScalarFieldEnum[]
+  }
+
+  /**
+   * Staff findMany
+   */
+  export type StaffFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Staff
+     */
+    select?: StaffSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffInclude<ExtArgs> | null
+    /**
+     * Filter, which Staff to fetch.
+     */
+    where?: StaffWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Staff to fetch.
+     */
+    orderBy?: StaffOrderByWithRelationInput | StaffOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Staff.
+     */
+    cursor?: StaffWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Staff from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Staff.
+     */
+    skip?: number
+    distinct?: StaffScalarFieldEnum | StaffScalarFieldEnum[]
+  }
+
+  /**
+   * Staff create
+   */
+  export type StaffCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Staff
+     */
+    select?: StaffSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Staff.
+     */
+    data: XOR<StaffCreateInput, StaffUncheckedCreateInput>
+  }
+
+  /**
+   * Staff createMany
+   */
+  export type StaffCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Staff.
+     */
+    data: StaffCreateManyInput | StaffCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Staff createManyAndReturn
+   */
+  export type StaffCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Staff
+     */
+    select?: StaffSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many Staff.
+     */
+    data: StaffCreateManyInput | StaffCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Staff update
+   */
+  export type StaffUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Staff
+     */
+    select?: StaffSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Staff.
+     */
+    data: XOR<StaffUpdateInput, StaffUncheckedUpdateInput>
+    /**
+     * Choose, which Staff to update.
+     */
+    where: StaffWhereUniqueInput
+  }
+
+  /**
+   * Staff updateMany
+   */
+  export type StaffUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Staff.
+     */
+    data: XOR<StaffUpdateManyMutationInput, StaffUncheckedUpdateManyInput>
+    /**
+     * Filter which Staff to update
+     */
+    where?: StaffWhereInput
+  }
+
+  /**
+   * Staff upsert
+   */
+  export type StaffUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Staff
+     */
+    select?: StaffSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Staff to update in case it exists.
+     */
+    where: StaffWhereUniqueInput
+    /**
+     * In case the Staff found by the `where` argument doesn't exist, create a new Staff with this data.
+     */
+    create: XOR<StaffCreateInput, StaffUncheckedCreateInput>
+    /**
+     * In case the Staff was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<StaffUpdateInput, StaffUncheckedUpdateInput>
+  }
+
+  /**
+   * Staff delete
+   */
+  export type StaffDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Staff
+     */
+    select?: StaffSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffInclude<ExtArgs> | null
+    /**
+     * Filter which Staff to delete.
+     */
+    where: StaffWhereUniqueInput
+  }
+
+  /**
+   * Staff deleteMany
+   */
+  export type StaffDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Staff to delete
+     */
+    where?: StaffWhereInput
+  }
+
+  /**
+   * Staff.permissions
+   */
+  export type Staff$permissionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StaffPermission
+     */
+    select?: StaffPermissionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffPermissionInclude<ExtArgs> | null
+    where?: StaffPermissionWhereInput
+    orderBy?: StaffPermissionOrderByWithRelationInput | StaffPermissionOrderByWithRelationInput[]
+    cursor?: StaffPermissionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: StaffPermissionScalarFieldEnum | StaffPermissionScalarFieldEnum[]
+  }
+
+  /**
+   * Staff without action
+   */
+  export type StaffDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Staff
+     */
+    select?: StaffSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Permission
+   */
+
+  export type AggregatePermission = {
+    _count: PermissionCountAggregateOutputType | null
+    _avg: PermissionAvgAggregateOutputType | null
+    _sum: PermissionSumAggregateOutputType | null
+    _min: PermissionMinAggregateOutputType | null
+    _max: PermissionMaxAggregateOutputType | null
+  }
+
+  export type PermissionAvgAggregateOutputType = {
+    perm_id: number | null
+    perm_sort_order: number | null
+  }
+
+  export type PermissionSumAggregateOutputType = {
+    perm_id: number | null
+    perm_sort_order: number | null
+  }
+
+  export type PermissionMinAggregateOutputType = {
+    perm_id: number | null
+    perm_key: string | null
+    perm_module: string | null
+    perm_action: string | null
+    perm_label: string | null
+    perm_sort_order: number | null
+    perm_created_at: Date | null
+    perm_updated_at: Date | null
+  }
+
+  export type PermissionMaxAggregateOutputType = {
+    perm_id: number | null
+    perm_key: string | null
+    perm_module: string | null
+    perm_action: string | null
+    perm_label: string | null
+    perm_sort_order: number | null
+    perm_created_at: Date | null
+    perm_updated_at: Date | null
+  }
+
+  export type PermissionCountAggregateOutputType = {
+    perm_id: number
+    perm_key: number
+    perm_module: number
+    perm_action: number
+    perm_label: number
+    perm_sort_order: number
+    perm_created_at: number
+    perm_updated_at: number
+    _all: number
+  }
+
+
+  export type PermissionAvgAggregateInputType = {
+    perm_id?: true
+    perm_sort_order?: true
+  }
+
+  export type PermissionSumAggregateInputType = {
+    perm_id?: true
+    perm_sort_order?: true
+  }
+
+  export type PermissionMinAggregateInputType = {
+    perm_id?: true
+    perm_key?: true
+    perm_module?: true
+    perm_action?: true
+    perm_label?: true
+    perm_sort_order?: true
+    perm_created_at?: true
+    perm_updated_at?: true
+  }
+
+  export type PermissionMaxAggregateInputType = {
+    perm_id?: true
+    perm_key?: true
+    perm_module?: true
+    perm_action?: true
+    perm_label?: true
+    perm_sort_order?: true
+    perm_created_at?: true
+    perm_updated_at?: true
+  }
+
+  export type PermissionCountAggregateInputType = {
+    perm_id?: true
+    perm_key?: true
+    perm_module?: true
+    perm_action?: true
+    perm_label?: true
+    perm_sort_order?: true
+    perm_created_at?: true
+    perm_updated_at?: true
+    _all?: true
+  }
+
+  export type PermissionAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Permission to aggregate.
+     */
+    where?: PermissionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Permissions to fetch.
+     */
+    orderBy?: PermissionOrderByWithRelationInput | PermissionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PermissionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Permissions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Permissions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Permissions
+    **/
+    _count?: true | PermissionCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: PermissionAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: PermissionSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PermissionMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PermissionMaxAggregateInputType
+  }
+
+  export type GetPermissionAggregateType<T extends PermissionAggregateArgs> = {
+        [P in keyof T & keyof AggregatePermission]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePermission[P]>
+      : GetScalarType<T[P], AggregatePermission[P]>
+  }
+
+
+
+
+  export type PermissionGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PermissionWhereInput
+    orderBy?: PermissionOrderByWithAggregationInput | PermissionOrderByWithAggregationInput[]
+    by: PermissionScalarFieldEnum[] | PermissionScalarFieldEnum
+    having?: PermissionScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PermissionCountAggregateInputType | true
+    _avg?: PermissionAvgAggregateInputType
+    _sum?: PermissionSumAggregateInputType
+    _min?: PermissionMinAggregateInputType
+    _max?: PermissionMaxAggregateInputType
+  }
+
+  export type PermissionGroupByOutputType = {
+    perm_id: number
+    perm_key: string
+    perm_module: string
+    perm_action: string
+    perm_label: string
+    perm_sort_order: number
+    perm_created_at: Date
+    perm_updated_at: Date
+    _count: PermissionCountAggregateOutputType | null
+    _avg: PermissionAvgAggregateOutputType | null
+    _sum: PermissionSumAggregateOutputType | null
+    _min: PermissionMinAggregateOutputType | null
+    _max: PermissionMaxAggregateOutputType | null
+  }
+
+  type GetPermissionGroupByPayload<T extends PermissionGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PermissionGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PermissionGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PermissionGroupByOutputType[P]>
+            : GetScalarType<T[P], PermissionGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PermissionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    perm_id?: boolean
+    perm_key?: boolean
+    perm_module?: boolean
+    perm_action?: boolean
+    perm_label?: boolean
+    perm_sort_order?: boolean
+    perm_created_at?: boolean
+    perm_updated_at?: boolean
+    staffPermissions?: boolean | Permission$staffPermissionsArgs<ExtArgs>
+    _count?: boolean | PermissionCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["permission"]>
+
+  export type PermissionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    perm_id?: boolean
+    perm_key?: boolean
+    perm_module?: boolean
+    perm_action?: boolean
+    perm_label?: boolean
+    perm_sort_order?: boolean
+    perm_created_at?: boolean
+    perm_updated_at?: boolean
+  }, ExtArgs["result"]["permission"]>
+
+  export type PermissionSelectScalar = {
+    perm_id?: boolean
+    perm_key?: boolean
+    perm_module?: boolean
+    perm_action?: boolean
+    perm_label?: boolean
+    perm_sort_order?: boolean
+    perm_created_at?: boolean
+    perm_updated_at?: boolean
+  }
+
+  export type PermissionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    staffPermissions?: boolean | Permission$staffPermissionsArgs<ExtArgs>
+    _count?: boolean | PermissionCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type PermissionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $PermissionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Permission"
+    objects: {
+      staffPermissions: Prisma.$StaffPermissionPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      perm_id: number
+      perm_key: string
+      perm_module: string
+      perm_action: string
+      perm_label: string
+      perm_sort_order: number
+      perm_created_at: Date
+      perm_updated_at: Date
+    }, ExtArgs["result"]["permission"]>
+    composites: {}
+  }
+
+  type PermissionGetPayload<S extends boolean | null | undefined | PermissionDefaultArgs> = $Result.GetResult<Prisma.$PermissionPayload, S>
+
+  type PermissionCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<PermissionFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: PermissionCountAggregateInputType | true
+    }
+
+  export interface PermissionDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Permission'], meta: { name: 'Permission' } }
+    /**
+     * Find zero or one Permission that matches the filter.
+     * @param {PermissionFindUniqueArgs} args - Arguments to find a Permission
+     * @example
+     * // Get one Permission
+     * const permission = await prisma.permission.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends PermissionFindUniqueArgs>(args: SelectSubset<T, PermissionFindUniqueArgs<ExtArgs>>): Prisma__PermissionClient<$Result.GetResult<Prisma.$PermissionPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one Permission that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {PermissionFindUniqueOrThrowArgs} args - Arguments to find a Permission
+     * @example
+     * // Get one Permission
+     * const permission = await prisma.permission.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends PermissionFindUniqueOrThrowArgs>(args: SelectSubset<T, PermissionFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PermissionClient<$Result.GetResult<Prisma.$PermissionPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first Permission that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PermissionFindFirstArgs} args - Arguments to find a Permission
+     * @example
+     * // Get one Permission
+     * const permission = await prisma.permission.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends PermissionFindFirstArgs>(args?: SelectSubset<T, PermissionFindFirstArgs<ExtArgs>>): Prisma__PermissionClient<$Result.GetResult<Prisma.$PermissionPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first Permission that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PermissionFindFirstOrThrowArgs} args - Arguments to find a Permission
+     * @example
+     * // Get one Permission
+     * const permission = await prisma.permission.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends PermissionFindFirstOrThrowArgs>(args?: SelectSubset<T, PermissionFindFirstOrThrowArgs<ExtArgs>>): Prisma__PermissionClient<$Result.GetResult<Prisma.$PermissionPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more Permissions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PermissionFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Permissions
+     * const permissions = await prisma.permission.findMany()
+     * 
+     * // Get first 10 Permissions
+     * const permissions = await prisma.permission.findMany({ take: 10 })
+     * 
+     * // Only select the `perm_id`
+     * const permissionWithPerm_idOnly = await prisma.permission.findMany({ select: { perm_id: true } })
+     * 
+     */
+    findMany<T extends PermissionFindManyArgs>(args?: SelectSubset<T, PermissionFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PermissionPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a Permission.
+     * @param {PermissionCreateArgs} args - Arguments to create a Permission.
+     * @example
+     * // Create one Permission
+     * const Permission = await prisma.permission.create({
+     *   data: {
+     *     // ... data to create a Permission
+     *   }
+     * })
+     * 
+     */
+    create<T extends PermissionCreateArgs>(args: SelectSubset<T, PermissionCreateArgs<ExtArgs>>): Prisma__PermissionClient<$Result.GetResult<Prisma.$PermissionPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many Permissions.
+     * @param {PermissionCreateManyArgs} args - Arguments to create many Permissions.
+     * @example
+     * // Create many Permissions
+     * const permission = await prisma.permission.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends PermissionCreateManyArgs>(args?: SelectSubset<T, PermissionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Permissions and returns the data saved in the database.
+     * @param {PermissionCreateManyAndReturnArgs} args - Arguments to create many Permissions.
+     * @example
+     * // Create many Permissions
+     * const permission = await prisma.permission.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Permissions and only return the `perm_id`
+     * const permissionWithPerm_idOnly = await prisma.permission.createManyAndReturn({ 
+     *   select: { perm_id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends PermissionCreateManyAndReturnArgs>(args?: SelectSubset<T, PermissionCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PermissionPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a Permission.
+     * @param {PermissionDeleteArgs} args - Arguments to delete one Permission.
+     * @example
+     * // Delete one Permission
+     * const Permission = await prisma.permission.delete({
+     *   where: {
+     *     // ... filter to delete one Permission
+     *   }
+     * })
+     * 
+     */
+    delete<T extends PermissionDeleteArgs>(args: SelectSubset<T, PermissionDeleteArgs<ExtArgs>>): Prisma__PermissionClient<$Result.GetResult<Prisma.$PermissionPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one Permission.
+     * @param {PermissionUpdateArgs} args - Arguments to update one Permission.
+     * @example
+     * // Update one Permission
+     * const permission = await prisma.permission.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends PermissionUpdateArgs>(args: SelectSubset<T, PermissionUpdateArgs<ExtArgs>>): Prisma__PermissionClient<$Result.GetResult<Prisma.$PermissionPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more Permissions.
+     * @param {PermissionDeleteManyArgs} args - Arguments to filter Permissions to delete.
+     * @example
+     * // Delete a few Permissions
+     * const { count } = await prisma.permission.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends PermissionDeleteManyArgs>(args?: SelectSubset<T, PermissionDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Permissions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PermissionUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Permissions
+     * const permission = await prisma.permission.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends PermissionUpdateManyArgs>(args: SelectSubset<T, PermissionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Permission.
+     * @param {PermissionUpsertArgs} args - Arguments to update or create a Permission.
+     * @example
+     * // Update or create a Permission
+     * const permission = await prisma.permission.upsert({
+     *   create: {
+     *     // ... data to create a Permission
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Permission we want to update
+     *   }
+     * })
+     */
+    upsert<T extends PermissionUpsertArgs>(args: SelectSubset<T, PermissionUpsertArgs<ExtArgs>>): Prisma__PermissionClient<$Result.GetResult<Prisma.$PermissionPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of Permissions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PermissionCountArgs} args - Arguments to filter Permissions to count.
+     * @example
+     * // Count the number of Permissions
+     * const count = await prisma.permission.count({
+     *   where: {
+     *     // ... the filter for the Permissions we want to count
+     *   }
+     * })
+    **/
+    count<T extends PermissionCountArgs>(
+      args?: Subset<T, PermissionCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PermissionCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Permission.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PermissionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PermissionAggregateArgs>(args: Subset<T, PermissionAggregateArgs>): Prisma.PrismaPromise<GetPermissionAggregateType<T>>
+
+    /**
+     * Group by Permission.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PermissionGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PermissionGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PermissionGroupByArgs['orderBy'] }
+        : { orderBy?: PermissionGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PermissionGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPermissionGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Permission model
+   */
+  readonly fields: PermissionFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Permission.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PermissionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    staffPermissions<T extends Permission$staffPermissionsArgs<ExtArgs> = {}>(args?: Subset<T, Permission$staffPermissionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StaffPermissionPayload<ExtArgs>, T, "findMany"> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Permission model
+   */ 
+  interface PermissionFieldRefs {
+    readonly perm_id: FieldRef<"Permission", 'Int'>
+    readonly perm_key: FieldRef<"Permission", 'String'>
+    readonly perm_module: FieldRef<"Permission", 'String'>
+    readonly perm_action: FieldRef<"Permission", 'String'>
+    readonly perm_label: FieldRef<"Permission", 'String'>
+    readonly perm_sort_order: FieldRef<"Permission", 'Int'>
+    readonly perm_created_at: FieldRef<"Permission", 'DateTime'>
+    readonly perm_updated_at: FieldRef<"Permission", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Permission findUnique
+   */
+  export type PermissionFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Permission
+     */
+    select?: PermissionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PermissionInclude<ExtArgs> | null
+    /**
+     * Filter, which Permission to fetch.
+     */
+    where: PermissionWhereUniqueInput
+  }
+
+  /**
+   * Permission findUniqueOrThrow
+   */
+  export type PermissionFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Permission
+     */
+    select?: PermissionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PermissionInclude<ExtArgs> | null
+    /**
+     * Filter, which Permission to fetch.
+     */
+    where: PermissionWhereUniqueInput
+  }
+
+  /**
+   * Permission findFirst
+   */
+  export type PermissionFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Permission
+     */
+    select?: PermissionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PermissionInclude<ExtArgs> | null
+    /**
+     * Filter, which Permission to fetch.
+     */
+    where?: PermissionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Permissions to fetch.
+     */
+    orderBy?: PermissionOrderByWithRelationInput | PermissionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Permissions.
+     */
+    cursor?: PermissionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Permissions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Permissions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Permissions.
+     */
+    distinct?: PermissionScalarFieldEnum | PermissionScalarFieldEnum[]
+  }
+
+  /**
+   * Permission findFirstOrThrow
+   */
+  export type PermissionFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Permission
+     */
+    select?: PermissionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PermissionInclude<ExtArgs> | null
+    /**
+     * Filter, which Permission to fetch.
+     */
+    where?: PermissionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Permissions to fetch.
+     */
+    orderBy?: PermissionOrderByWithRelationInput | PermissionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Permissions.
+     */
+    cursor?: PermissionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Permissions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Permissions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Permissions.
+     */
+    distinct?: PermissionScalarFieldEnum | PermissionScalarFieldEnum[]
+  }
+
+  /**
+   * Permission findMany
+   */
+  export type PermissionFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Permission
+     */
+    select?: PermissionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PermissionInclude<ExtArgs> | null
+    /**
+     * Filter, which Permissions to fetch.
+     */
+    where?: PermissionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Permissions to fetch.
+     */
+    orderBy?: PermissionOrderByWithRelationInput | PermissionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Permissions.
+     */
+    cursor?: PermissionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Permissions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Permissions.
+     */
+    skip?: number
+    distinct?: PermissionScalarFieldEnum | PermissionScalarFieldEnum[]
+  }
+
+  /**
+   * Permission create
+   */
+  export type PermissionCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Permission
+     */
+    select?: PermissionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PermissionInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Permission.
+     */
+    data: XOR<PermissionCreateInput, PermissionUncheckedCreateInput>
+  }
+
+  /**
+   * Permission createMany
+   */
+  export type PermissionCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Permissions.
+     */
+    data: PermissionCreateManyInput | PermissionCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Permission createManyAndReturn
+   */
+  export type PermissionCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Permission
+     */
+    select?: PermissionSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many Permissions.
+     */
+    data: PermissionCreateManyInput | PermissionCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Permission update
+   */
+  export type PermissionUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Permission
+     */
+    select?: PermissionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PermissionInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Permission.
+     */
+    data: XOR<PermissionUpdateInput, PermissionUncheckedUpdateInput>
+    /**
+     * Choose, which Permission to update.
+     */
+    where: PermissionWhereUniqueInput
+  }
+
+  /**
+   * Permission updateMany
+   */
+  export type PermissionUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Permissions.
+     */
+    data: XOR<PermissionUpdateManyMutationInput, PermissionUncheckedUpdateManyInput>
+    /**
+     * Filter which Permissions to update
+     */
+    where?: PermissionWhereInput
+  }
+
+  /**
+   * Permission upsert
+   */
+  export type PermissionUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Permission
+     */
+    select?: PermissionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PermissionInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Permission to update in case it exists.
+     */
+    where: PermissionWhereUniqueInput
+    /**
+     * In case the Permission found by the `where` argument doesn't exist, create a new Permission with this data.
+     */
+    create: XOR<PermissionCreateInput, PermissionUncheckedCreateInput>
+    /**
+     * In case the Permission was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PermissionUpdateInput, PermissionUncheckedUpdateInput>
+  }
+
+  /**
+   * Permission delete
+   */
+  export type PermissionDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Permission
+     */
+    select?: PermissionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PermissionInclude<ExtArgs> | null
+    /**
+     * Filter which Permission to delete.
+     */
+    where: PermissionWhereUniqueInput
+  }
+
+  /**
+   * Permission deleteMany
+   */
+  export type PermissionDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Permissions to delete
+     */
+    where?: PermissionWhereInput
+  }
+
+  /**
+   * Permission.staffPermissions
+   */
+  export type Permission$staffPermissionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StaffPermission
+     */
+    select?: StaffPermissionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffPermissionInclude<ExtArgs> | null
+    where?: StaffPermissionWhereInput
+    orderBy?: StaffPermissionOrderByWithRelationInput | StaffPermissionOrderByWithRelationInput[]
+    cursor?: StaffPermissionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: StaffPermissionScalarFieldEnum | StaffPermissionScalarFieldEnum[]
+  }
+
+  /**
+   * Permission without action
+   */
+  export type PermissionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Permission
+     */
+    select?: PermissionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PermissionInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model StaffPermission
+   */
+
+  export type AggregateStaffPermission = {
+    _count: StaffPermissionCountAggregateOutputType | null
+    _avg: StaffPermissionAvgAggregateOutputType | null
+    _sum: StaffPermissionSumAggregateOutputType | null
+    _min: StaffPermissionMinAggregateOutputType | null
+    _max: StaffPermissionMaxAggregateOutputType | null
+  }
+
+  export type StaffPermissionAvgAggregateOutputType = {
+    sp_id: number | null
+    sp_staff_id: number | null
+    sp_perm_id: number | null
+  }
+
+  export type StaffPermissionSumAggregateOutputType = {
+    sp_id: number | null
+    sp_staff_id: number | null
+    sp_perm_id: number | null
+  }
+
+  export type StaffPermissionMinAggregateOutputType = {
+    sp_id: number | null
+    sp_staff_id: number | null
+    sp_perm_id: number | null
+    sp_granted: boolean | null
+    sp_created_at: Date | null
+    sp_updated_at: Date | null
+  }
+
+  export type StaffPermissionMaxAggregateOutputType = {
+    sp_id: number | null
+    sp_staff_id: number | null
+    sp_perm_id: number | null
+    sp_granted: boolean | null
+    sp_created_at: Date | null
+    sp_updated_at: Date | null
+  }
+
+  export type StaffPermissionCountAggregateOutputType = {
+    sp_id: number
+    sp_staff_id: number
+    sp_perm_id: number
+    sp_granted: number
+    sp_created_at: number
+    sp_updated_at: number
+    _all: number
+  }
+
+
+  export type StaffPermissionAvgAggregateInputType = {
+    sp_id?: true
+    sp_staff_id?: true
+    sp_perm_id?: true
+  }
+
+  export type StaffPermissionSumAggregateInputType = {
+    sp_id?: true
+    sp_staff_id?: true
+    sp_perm_id?: true
+  }
+
+  export type StaffPermissionMinAggregateInputType = {
+    sp_id?: true
+    sp_staff_id?: true
+    sp_perm_id?: true
+    sp_granted?: true
+    sp_created_at?: true
+    sp_updated_at?: true
+  }
+
+  export type StaffPermissionMaxAggregateInputType = {
+    sp_id?: true
+    sp_staff_id?: true
+    sp_perm_id?: true
+    sp_granted?: true
+    sp_created_at?: true
+    sp_updated_at?: true
+  }
+
+  export type StaffPermissionCountAggregateInputType = {
+    sp_id?: true
+    sp_staff_id?: true
+    sp_perm_id?: true
+    sp_granted?: true
+    sp_created_at?: true
+    sp_updated_at?: true
+    _all?: true
+  }
+
+  export type StaffPermissionAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which StaffPermission to aggregate.
+     */
+    where?: StaffPermissionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of StaffPermissions to fetch.
+     */
+    orderBy?: StaffPermissionOrderByWithRelationInput | StaffPermissionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: StaffPermissionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` StaffPermissions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` StaffPermissions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned StaffPermissions
+    **/
+    _count?: true | StaffPermissionCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: StaffPermissionAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: StaffPermissionSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: StaffPermissionMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: StaffPermissionMaxAggregateInputType
+  }
+
+  export type GetStaffPermissionAggregateType<T extends StaffPermissionAggregateArgs> = {
+        [P in keyof T & keyof AggregateStaffPermission]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateStaffPermission[P]>
+      : GetScalarType<T[P], AggregateStaffPermission[P]>
+  }
+
+
+
+
+  export type StaffPermissionGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: StaffPermissionWhereInput
+    orderBy?: StaffPermissionOrderByWithAggregationInput | StaffPermissionOrderByWithAggregationInput[]
+    by: StaffPermissionScalarFieldEnum[] | StaffPermissionScalarFieldEnum
+    having?: StaffPermissionScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: StaffPermissionCountAggregateInputType | true
+    _avg?: StaffPermissionAvgAggregateInputType
+    _sum?: StaffPermissionSumAggregateInputType
+    _min?: StaffPermissionMinAggregateInputType
+    _max?: StaffPermissionMaxAggregateInputType
+  }
+
+  export type StaffPermissionGroupByOutputType = {
+    sp_id: number
+    sp_staff_id: number
+    sp_perm_id: number
+    sp_granted: boolean
+    sp_created_at: Date
+    sp_updated_at: Date
+    _count: StaffPermissionCountAggregateOutputType | null
+    _avg: StaffPermissionAvgAggregateOutputType | null
+    _sum: StaffPermissionSumAggregateOutputType | null
+    _min: StaffPermissionMinAggregateOutputType | null
+    _max: StaffPermissionMaxAggregateOutputType | null
+  }
+
+  type GetStaffPermissionGroupByPayload<T extends StaffPermissionGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<StaffPermissionGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof StaffPermissionGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], StaffPermissionGroupByOutputType[P]>
+            : GetScalarType<T[P], StaffPermissionGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type StaffPermissionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    sp_id?: boolean
+    sp_staff_id?: boolean
+    sp_perm_id?: boolean
+    sp_granted?: boolean
+    sp_created_at?: boolean
+    sp_updated_at?: boolean
+    staff?: boolean | StaffDefaultArgs<ExtArgs>
+    permission?: boolean | PermissionDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["staffPermission"]>
+
+  export type StaffPermissionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    sp_id?: boolean
+    sp_staff_id?: boolean
+    sp_perm_id?: boolean
+    sp_granted?: boolean
+    sp_created_at?: boolean
+    sp_updated_at?: boolean
+    staff?: boolean | StaffDefaultArgs<ExtArgs>
+    permission?: boolean | PermissionDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["staffPermission"]>
+
+  export type StaffPermissionSelectScalar = {
+    sp_id?: boolean
+    sp_staff_id?: boolean
+    sp_perm_id?: boolean
+    sp_granted?: boolean
+    sp_created_at?: boolean
+    sp_updated_at?: boolean
+  }
+
+  export type StaffPermissionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    staff?: boolean | StaffDefaultArgs<ExtArgs>
+    permission?: boolean | PermissionDefaultArgs<ExtArgs>
+  }
+  export type StaffPermissionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    staff?: boolean | StaffDefaultArgs<ExtArgs>
+    permission?: boolean | PermissionDefaultArgs<ExtArgs>
+  }
+
+  export type $StaffPermissionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "StaffPermission"
+    objects: {
+      staff: Prisma.$StaffPayload<ExtArgs>
+      permission: Prisma.$PermissionPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      sp_id: number
+      sp_staff_id: number
+      sp_perm_id: number
+      sp_granted: boolean
+      sp_created_at: Date
+      sp_updated_at: Date
+    }, ExtArgs["result"]["staffPermission"]>
+    composites: {}
+  }
+
+  type StaffPermissionGetPayload<S extends boolean | null | undefined | StaffPermissionDefaultArgs> = $Result.GetResult<Prisma.$StaffPermissionPayload, S>
+
+  type StaffPermissionCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<StaffPermissionFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: StaffPermissionCountAggregateInputType | true
+    }
+
+  export interface StaffPermissionDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['StaffPermission'], meta: { name: 'StaffPermission' } }
+    /**
+     * Find zero or one StaffPermission that matches the filter.
+     * @param {StaffPermissionFindUniqueArgs} args - Arguments to find a StaffPermission
+     * @example
+     * // Get one StaffPermission
+     * const staffPermission = await prisma.staffPermission.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends StaffPermissionFindUniqueArgs>(args: SelectSubset<T, StaffPermissionFindUniqueArgs<ExtArgs>>): Prisma__StaffPermissionClient<$Result.GetResult<Prisma.$StaffPermissionPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one StaffPermission that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {StaffPermissionFindUniqueOrThrowArgs} args - Arguments to find a StaffPermission
+     * @example
+     * // Get one StaffPermission
+     * const staffPermission = await prisma.staffPermission.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends StaffPermissionFindUniqueOrThrowArgs>(args: SelectSubset<T, StaffPermissionFindUniqueOrThrowArgs<ExtArgs>>): Prisma__StaffPermissionClient<$Result.GetResult<Prisma.$StaffPermissionPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first StaffPermission that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StaffPermissionFindFirstArgs} args - Arguments to find a StaffPermission
+     * @example
+     * // Get one StaffPermission
+     * const staffPermission = await prisma.staffPermission.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends StaffPermissionFindFirstArgs>(args?: SelectSubset<T, StaffPermissionFindFirstArgs<ExtArgs>>): Prisma__StaffPermissionClient<$Result.GetResult<Prisma.$StaffPermissionPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first StaffPermission that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StaffPermissionFindFirstOrThrowArgs} args - Arguments to find a StaffPermission
+     * @example
+     * // Get one StaffPermission
+     * const staffPermission = await prisma.staffPermission.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends StaffPermissionFindFirstOrThrowArgs>(args?: SelectSubset<T, StaffPermissionFindFirstOrThrowArgs<ExtArgs>>): Prisma__StaffPermissionClient<$Result.GetResult<Prisma.$StaffPermissionPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more StaffPermissions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StaffPermissionFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all StaffPermissions
+     * const staffPermissions = await prisma.staffPermission.findMany()
+     * 
+     * // Get first 10 StaffPermissions
+     * const staffPermissions = await prisma.staffPermission.findMany({ take: 10 })
+     * 
+     * // Only select the `sp_id`
+     * const staffPermissionWithSp_idOnly = await prisma.staffPermission.findMany({ select: { sp_id: true } })
+     * 
+     */
+    findMany<T extends StaffPermissionFindManyArgs>(args?: SelectSubset<T, StaffPermissionFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StaffPermissionPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a StaffPermission.
+     * @param {StaffPermissionCreateArgs} args - Arguments to create a StaffPermission.
+     * @example
+     * // Create one StaffPermission
+     * const StaffPermission = await prisma.staffPermission.create({
+     *   data: {
+     *     // ... data to create a StaffPermission
+     *   }
+     * })
+     * 
+     */
+    create<T extends StaffPermissionCreateArgs>(args: SelectSubset<T, StaffPermissionCreateArgs<ExtArgs>>): Prisma__StaffPermissionClient<$Result.GetResult<Prisma.$StaffPermissionPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many StaffPermissions.
+     * @param {StaffPermissionCreateManyArgs} args - Arguments to create many StaffPermissions.
+     * @example
+     * // Create many StaffPermissions
+     * const staffPermission = await prisma.staffPermission.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends StaffPermissionCreateManyArgs>(args?: SelectSubset<T, StaffPermissionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many StaffPermissions and returns the data saved in the database.
+     * @param {StaffPermissionCreateManyAndReturnArgs} args - Arguments to create many StaffPermissions.
+     * @example
+     * // Create many StaffPermissions
+     * const staffPermission = await prisma.staffPermission.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many StaffPermissions and only return the `sp_id`
+     * const staffPermissionWithSp_idOnly = await prisma.staffPermission.createManyAndReturn({ 
+     *   select: { sp_id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends StaffPermissionCreateManyAndReturnArgs>(args?: SelectSubset<T, StaffPermissionCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StaffPermissionPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a StaffPermission.
+     * @param {StaffPermissionDeleteArgs} args - Arguments to delete one StaffPermission.
+     * @example
+     * // Delete one StaffPermission
+     * const StaffPermission = await prisma.staffPermission.delete({
+     *   where: {
+     *     // ... filter to delete one StaffPermission
+     *   }
+     * })
+     * 
+     */
+    delete<T extends StaffPermissionDeleteArgs>(args: SelectSubset<T, StaffPermissionDeleteArgs<ExtArgs>>): Prisma__StaffPermissionClient<$Result.GetResult<Prisma.$StaffPermissionPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one StaffPermission.
+     * @param {StaffPermissionUpdateArgs} args - Arguments to update one StaffPermission.
+     * @example
+     * // Update one StaffPermission
+     * const staffPermission = await prisma.staffPermission.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends StaffPermissionUpdateArgs>(args: SelectSubset<T, StaffPermissionUpdateArgs<ExtArgs>>): Prisma__StaffPermissionClient<$Result.GetResult<Prisma.$StaffPermissionPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more StaffPermissions.
+     * @param {StaffPermissionDeleteManyArgs} args - Arguments to filter StaffPermissions to delete.
+     * @example
+     * // Delete a few StaffPermissions
+     * const { count } = await prisma.staffPermission.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends StaffPermissionDeleteManyArgs>(args?: SelectSubset<T, StaffPermissionDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more StaffPermissions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StaffPermissionUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many StaffPermissions
+     * const staffPermission = await prisma.staffPermission.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends StaffPermissionUpdateManyArgs>(args: SelectSubset<T, StaffPermissionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one StaffPermission.
+     * @param {StaffPermissionUpsertArgs} args - Arguments to update or create a StaffPermission.
+     * @example
+     * // Update or create a StaffPermission
+     * const staffPermission = await prisma.staffPermission.upsert({
+     *   create: {
+     *     // ... data to create a StaffPermission
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the StaffPermission we want to update
+     *   }
+     * })
+     */
+    upsert<T extends StaffPermissionUpsertArgs>(args: SelectSubset<T, StaffPermissionUpsertArgs<ExtArgs>>): Prisma__StaffPermissionClient<$Result.GetResult<Prisma.$StaffPermissionPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of StaffPermissions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StaffPermissionCountArgs} args - Arguments to filter StaffPermissions to count.
+     * @example
+     * // Count the number of StaffPermissions
+     * const count = await prisma.staffPermission.count({
+     *   where: {
+     *     // ... the filter for the StaffPermissions we want to count
+     *   }
+     * })
+    **/
+    count<T extends StaffPermissionCountArgs>(
+      args?: Subset<T, StaffPermissionCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], StaffPermissionCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a StaffPermission.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StaffPermissionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends StaffPermissionAggregateArgs>(args: Subset<T, StaffPermissionAggregateArgs>): Prisma.PrismaPromise<GetStaffPermissionAggregateType<T>>
+
+    /**
+     * Group by StaffPermission.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StaffPermissionGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends StaffPermissionGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: StaffPermissionGroupByArgs['orderBy'] }
+        : { orderBy?: StaffPermissionGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, StaffPermissionGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetStaffPermissionGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the StaffPermission model
+   */
+  readonly fields: StaffPermissionFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for StaffPermission.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__StaffPermissionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    staff<T extends StaffDefaultArgs<ExtArgs> = {}>(args?: Subset<T, StaffDefaultArgs<ExtArgs>>): Prisma__StaffClient<$Result.GetResult<Prisma.$StaffPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    permission<T extends PermissionDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PermissionDefaultArgs<ExtArgs>>): Prisma__PermissionClient<$Result.GetResult<Prisma.$PermissionPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the StaffPermission model
+   */ 
+  interface StaffPermissionFieldRefs {
+    readonly sp_id: FieldRef<"StaffPermission", 'Int'>
+    readonly sp_staff_id: FieldRef<"StaffPermission", 'Int'>
+    readonly sp_perm_id: FieldRef<"StaffPermission", 'Int'>
+    readonly sp_granted: FieldRef<"StaffPermission", 'Boolean'>
+    readonly sp_created_at: FieldRef<"StaffPermission", 'DateTime'>
+    readonly sp_updated_at: FieldRef<"StaffPermission", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * StaffPermission findUnique
+   */
+  export type StaffPermissionFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StaffPermission
+     */
+    select?: StaffPermissionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffPermissionInclude<ExtArgs> | null
+    /**
+     * Filter, which StaffPermission to fetch.
+     */
+    where: StaffPermissionWhereUniqueInput
+  }
+
+  /**
+   * StaffPermission findUniqueOrThrow
+   */
+  export type StaffPermissionFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StaffPermission
+     */
+    select?: StaffPermissionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffPermissionInclude<ExtArgs> | null
+    /**
+     * Filter, which StaffPermission to fetch.
+     */
+    where: StaffPermissionWhereUniqueInput
+  }
+
+  /**
+   * StaffPermission findFirst
+   */
+  export type StaffPermissionFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StaffPermission
+     */
+    select?: StaffPermissionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffPermissionInclude<ExtArgs> | null
+    /**
+     * Filter, which StaffPermission to fetch.
+     */
+    where?: StaffPermissionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of StaffPermissions to fetch.
+     */
+    orderBy?: StaffPermissionOrderByWithRelationInput | StaffPermissionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for StaffPermissions.
+     */
+    cursor?: StaffPermissionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` StaffPermissions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` StaffPermissions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of StaffPermissions.
+     */
+    distinct?: StaffPermissionScalarFieldEnum | StaffPermissionScalarFieldEnum[]
+  }
+
+  /**
+   * StaffPermission findFirstOrThrow
+   */
+  export type StaffPermissionFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StaffPermission
+     */
+    select?: StaffPermissionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffPermissionInclude<ExtArgs> | null
+    /**
+     * Filter, which StaffPermission to fetch.
+     */
+    where?: StaffPermissionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of StaffPermissions to fetch.
+     */
+    orderBy?: StaffPermissionOrderByWithRelationInput | StaffPermissionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for StaffPermissions.
+     */
+    cursor?: StaffPermissionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` StaffPermissions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` StaffPermissions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of StaffPermissions.
+     */
+    distinct?: StaffPermissionScalarFieldEnum | StaffPermissionScalarFieldEnum[]
+  }
+
+  /**
+   * StaffPermission findMany
+   */
+  export type StaffPermissionFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StaffPermission
+     */
+    select?: StaffPermissionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffPermissionInclude<ExtArgs> | null
+    /**
+     * Filter, which StaffPermissions to fetch.
+     */
+    where?: StaffPermissionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of StaffPermissions to fetch.
+     */
+    orderBy?: StaffPermissionOrderByWithRelationInput | StaffPermissionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing StaffPermissions.
+     */
+    cursor?: StaffPermissionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` StaffPermissions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` StaffPermissions.
+     */
+    skip?: number
+    distinct?: StaffPermissionScalarFieldEnum | StaffPermissionScalarFieldEnum[]
+  }
+
+  /**
+   * StaffPermission create
+   */
+  export type StaffPermissionCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StaffPermission
+     */
+    select?: StaffPermissionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffPermissionInclude<ExtArgs> | null
+    /**
+     * The data needed to create a StaffPermission.
+     */
+    data: XOR<StaffPermissionCreateInput, StaffPermissionUncheckedCreateInput>
+  }
+
+  /**
+   * StaffPermission createMany
+   */
+  export type StaffPermissionCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many StaffPermissions.
+     */
+    data: StaffPermissionCreateManyInput | StaffPermissionCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * StaffPermission createManyAndReturn
+   */
+  export type StaffPermissionCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StaffPermission
+     */
+    select?: StaffPermissionSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many StaffPermissions.
+     */
+    data: StaffPermissionCreateManyInput | StaffPermissionCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffPermissionIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * StaffPermission update
+   */
+  export type StaffPermissionUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StaffPermission
+     */
+    select?: StaffPermissionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffPermissionInclude<ExtArgs> | null
+    /**
+     * The data needed to update a StaffPermission.
+     */
+    data: XOR<StaffPermissionUpdateInput, StaffPermissionUncheckedUpdateInput>
+    /**
+     * Choose, which StaffPermission to update.
+     */
+    where: StaffPermissionWhereUniqueInput
+  }
+
+  /**
+   * StaffPermission updateMany
+   */
+  export type StaffPermissionUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update StaffPermissions.
+     */
+    data: XOR<StaffPermissionUpdateManyMutationInput, StaffPermissionUncheckedUpdateManyInput>
+    /**
+     * Filter which StaffPermissions to update
+     */
+    where?: StaffPermissionWhereInput
+  }
+
+  /**
+   * StaffPermission upsert
+   */
+  export type StaffPermissionUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StaffPermission
+     */
+    select?: StaffPermissionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffPermissionInclude<ExtArgs> | null
+    /**
+     * The filter to search for the StaffPermission to update in case it exists.
+     */
+    where: StaffPermissionWhereUniqueInput
+    /**
+     * In case the StaffPermission found by the `where` argument doesn't exist, create a new StaffPermission with this data.
+     */
+    create: XOR<StaffPermissionCreateInput, StaffPermissionUncheckedCreateInput>
+    /**
+     * In case the StaffPermission was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<StaffPermissionUpdateInput, StaffPermissionUncheckedUpdateInput>
+  }
+
+  /**
+   * StaffPermission delete
+   */
+  export type StaffPermissionDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StaffPermission
+     */
+    select?: StaffPermissionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffPermissionInclude<ExtArgs> | null
+    /**
+     * Filter which StaffPermission to delete.
+     */
+    where: StaffPermissionWhereUniqueInput
+  }
+
+  /**
+   * StaffPermission deleteMany
+   */
+  export type StaffPermissionDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which StaffPermissions to delete
+     */
+    where?: StaffPermissionWhereInput
+  }
+
+  /**
+   * StaffPermission without action
+   */
+  export type StaffPermissionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StaffPermission
+     */
+    select?: StaffPermissionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffPermissionInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -32730,6 +36700,92 @@ export namespace Prisma {
   export type AuctionLoanScalarFieldEnum = (typeof AuctionLoanScalarFieldEnum)[keyof typeof AuctionLoanScalarFieldEnum]
 
 
+  export const StaffScalarFieldEnum: {
+    staff_id: 'staff_id',
+    staff_uuid: 'staff_uuid',
+    staff_own_id: 'staff_own_id',
+    staff_add_date: 'staff_add_date',
+    staff_first_name: 'staff_first_name',
+    staff_last_name: 'staff_last_name',
+    staff_father_name: 'staff_father_name',
+    staff_mother_name: 'staff_mother_name',
+    staff_mobile_no: 'staff_mobile_no',
+    staff_phone_no: 'staff_phone_no',
+    staff_email_id: 'staff_email_id',
+    staff_gender: 'staff_gender',
+    staff_cast: 'staff_cast',
+    staff_marital_status: 'staff_marital_status',
+    staff_occupation: 'staff_occupation',
+    staff_birth_date: 'staff_birth_date',
+    staff_gstin: 'staff_gstin',
+    staff_tax_no: 'staff_tax_no',
+    staff_pan_no: 'staff_pan_no',
+    staff_adhaar_no: 'staff_adhaar_no',
+    staff_login_id: 'staff_login_id',
+    staff_password: 'staff_password',
+    staff_status: 'staff_status',
+    staff_profile_img: 'staff_profile_img',
+    staff_adhaar_front_img: 'staff_adhaar_front_img',
+    staff_adhaar_back_img: 'staff_adhaar_back_img',
+    staff_pan_card_img: 'staff_pan_card_img',
+    staff_sign_img: 'staff_sign_img',
+    staff_per_address: 'staff_per_address',
+    staff_curr_address: 'staff_curr_address',
+    staff_village: 'staff_village',
+    staff_ward_no: 'staff_ward_no',
+    staff_tehsil: 'staff_tehsil',
+    staff_city: 'staff_city',
+    staff_state: 'staff_state',
+    staff_country: 'staff_country',
+    staff_pincode: 'staff_pincode',
+    staff_bank_name: 'staff_bank_name',
+    staff_bank_acc_no: 'staff_bank_acc_no',
+    staff_ifsc_code: 'staff_ifsc_code',
+    staff_other_info: 'staff_other_info',
+    staff_refresh_token: 'staff_refresh_token',
+    staff_jwt_token: 'staff_jwt_token',
+    staff_login_status: 'staff_login_status',
+    staff_last_login_system: 'staff_last_login_system',
+    staff_otp: 'staff_otp',
+    staff_otp_expiry: 'staff_otp_expiry',
+    staff_created_at: 'staff_created_at',
+    staff_created_by: 'staff_created_by',
+    staff_updated_at: 'staff_updated_at',
+    staff_updated_by: 'staff_updated_by',
+    staff_deleted_at: 'staff_deleted_at',
+    staff_deleted_by: 'staff_deleted_by',
+    staff_is_deleted: 'staff_is_deleted'
+  };
+
+  export type StaffScalarFieldEnum = (typeof StaffScalarFieldEnum)[keyof typeof StaffScalarFieldEnum]
+
+
+  export const PermissionScalarFieldEnum: {
+    perm_id: 'perm_id',
+    perm_key: 'perm_key',
+    perm_module: 'perm_module',
+    perm_action: 'perm_action',
+    perm_label: 'perm_label',
+    perm_sort_order: 'perm_sort_order',
+    perm_created_at: 'perm_created_at',
+    perm_updated_at: 'perm_updated_at'
+  };
+
+  export type PermissionScalarFieldEnum = (typeof PermissionScalarFieldEnum)[keyof typeof PermissionScalarFieldEnum]
+
+
+  export const StaffPermissionScalarFieldEnum: {
+    sp_id: 'sp_id',
+    sp_staff_id: 'sp_staff_id',
+    sp_perm_id: 'sp_perm_id',
+    sp_granted: 'sp_granted',
+    sp_created_at: 'sp_created_at',
+    sp_updated_at: 'sp_updated_at'
+  };
+
+  export type StaffPermissionScalarFieldEnum = (typeof StaffPermissionScalarFieldEnum)[keyof typeof StaffPermissionScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -33110,6 +37166,48 @@ export namespace Prisma {
    */
   export type ListEnumStockStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StockStatus[]'>
     
+
+
+  /**
+   * Reference to a field of type 'StaffGender'
+   */
+  export type EnumStaffGenderFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StaffGender'>
+    
+
+
+  /**
+   * Reference to a field of type 'StaffGender[]'
+   */
+  export type ListEnumStaffGenderFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StaffGender[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'StaffMaritalStatus'
+   */
+  export type EnumStaffMaritalStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StaffMaritalStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'StaffMaritalStatus[]'
+   */
+  export type ListEnumStaffMaritalStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StaffMaritalStatus[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'StaffStatus'
+   */
+  export type EnumStaffStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StaffStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'StaffStatus[]'
+   */
+  export type ListEnumStaffStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StaffStatus[]'>
+    
   /**
    * Deep Input Types
    */
@@ -33170,6 +37268,7 @@ export namespace Prisma {
     rates?: RateListRelationFilter
     purities?: PurityListRelationFilter
     moneyLenders?: MoneyLenderListRelationFilter
+    staff?: StaffListRelationFilter
   }
 
   export type OwnerOrderByWithRelationInput = {
@@ -33224,6 +37323,7 @@ export namespace Prisma {
     rates?: RateOrderByRelationAggregateInput
     purities?: PurityOrderByRelationAggregateInput
     moneyLenders?: MoneyLenderOrderByRelationAggregateInput
+    staff?: StaffOrderByRelationAggregateInput
   }
 
   export type OwnerWhereUniqueInput = Prisma.AtLeast<{
@@ -33281,6 +37381,7 @@ export namespace Prisma {
     rates?: RateListRelationFilter
     purities?: PurityListRelationFilter
     moneyLenders?: MoneyLenderListRelationFilter
+    staff?: StaffListRelationFilter
   }, "own_id" | "own_uuid" | "own_product_key" | "own_db" | "own_mobile_no" | "own_email" | "own_login_id">
 
   export type OwnerOrderByWithAggregationInput = {
@@ -37212,6 +41313,449 @@ export namespace Prisma {
     al_other_info?: StringNullableWithAggregatesFilter<"AuctionLoan"> | string | null
   }
 
+  export type StaffWhereInput = {
+    AND?: StaffWhereInput | StaffWhereInput[]
+    OR?: StaffWhereInput[]
+    NOT?: StaffWhereInput | StaffWhereInput[]
+    staff_id?: IntFilter<"Staff"> | number
+    staff_uuid?: StringFilter<"Staff"> | string
+    staff_own_id?: IntFilter<"Staff"> | number
+    staff_add_date?: DateTimeFilter<"Staff"> | Date | string
+    staff_first_name?: StringFilter<"Staff"> | string
+    staff_last_name?: StringFilter<"Staff"> | string
+    staff_father_name?: StringNullableFilter<"Staff"> | string | null
+    staff_mother_name?: StringNullableFilter<"Staff"> | string | null
+    staff_mobile_no?: StringFilter<"Staff"> | string
+    staff_phone_no?: StringNullableFilter<"Staff"> | string | null
+    staff_email_id?: StringNullableFilter<"Staff"> | string | null
+    staff_gender?: EnumStaffGenderNullableFilter<"Staff"> | $Enums.StaffGender | null
+    staff_cast?: StringNullableFilter<"Staff"> | string | null
+    staff_marital_status?: EnumStaffMaritalStatusNullableFilter<"Staff"> | $Enums.StaffMaritalStatus | null
+    staff_occupation?: StringNullableFilter<"Staff"> | string | null
+    staff_birth_date?: DateTimeNullableFilter<"Staff"> | Date | string | null
+    staff_gstin?: StringNullableFilter<"Staff"> | string | null
+    staff_tax_no?: StringNullableFilter<"Staff"> | string | null
+    staff_pan_no?: StringNullableFilter<"Staff"> | string | null
+    staff_adhaar_no?: StringNullableFilter<"Staff"> | string | null
+    staff_login_id?: StringFilter<"Staff"> | string
+    staff_password?: StringFilter<"Staff"> | string
+    staff_status?: EnumStaffStatusFilter<"Staff"> | $Enums.StaffStatus
+    staff_profile_img?: JsonNullableFilter<"Staff">
+    staff_adhaar_front_img?: JsonNullableFilter<"Staff">
+    staff_adhaar_back_img?: JsonNullableFilter<"Staff">
+    staff_pan_card_img?: JsonNullableFilter<"Staff">
+    staff_sign_img?: JsonNullableFilter<"Staff">
+    staff_per_address?: StringNullableFilter<"Staff"> | string | null
+    staff_curr_address?: StringNullableFilter<"Staff"> | string | null
+    staff_village?: StringNullableFilter<"Staff"> | string | null
+    staff_ward_no?: StringNullableFilter<"Staff"> | string | null
+    staff_tehsil?: StringNullableFilter<"Staff"> | string | null
+    staff_city?: StringNullableFilter<"Staff"> | string | null
+    staff_state?: StringNullableFilter<"Staff"> | string | null
+    staff_country?: StringNullableFilter<"Staff"> | string | null
+    staff_pincode?: StringNullableFilter<"Staff"> | string | null
+    staff_bank_name?: StringNullableFilter<"Staff"> | string | null
+    staff_bank_acc_no?: StringNullableFilter<"Staff"> | string | null
+    staff_ifsc_code?: StringNullableFilter<"Staff"> | string | null
+    staff_other_info?: StringNullableFilter<"Staff"> | string | null
+    staff_refresh_token?: StringNullableFilter<"Staff"> | string | null
+    staff_jwt_token?: StringNullableFilter<"Staff"> | string | null
+    staff_login_status?: BoolFilter<"Staff"> | boolean
+    staff_last_login_system?: JsonNullableFilter<"Staff">
+    staff_otp?: StringNullableFilter<"Staff"> | string | null
+    staff_otp_expiry?: DateTimeNullableFilter<"Staff"> | Date | string | null
+    staff_created_at?: DateTimeFilter<"Staff"> | Date | string
+    staff_created_by?: StringNullableFilter<"Staff"> | string | null
+    staff_updated_at?: DateTimeFilter<"Staff"> | Date | string
+    staff_updated_by?: StringNullableFilter<"Staff"> | string | null
+    staff_deleted_at?: DateTimeNullableFilter<"Staff"> | Date | string | null
+    staff_deleted_by?: StringNullableFilter<"Staff"> | string | null
+    staff_is_deleted?: BoolFilter<"Staff"> | boolean
+    owner?: XOR<OwnerRelationFilter, OwnerWhereInput>
+    permissions?: StaffPermissionListRelationFilter
+  }
+
+  export type StaffOrderByWithRelationInput = {
+    staff_id?: SortOrder
+    staff_uuid?: SortOrder
+    staff_own_id?: SortOrder
+    staff_add_date?: SortOrder
+    staff_first_name?: SortOrder
+    staff_last_name?: SortOrder
+    staff_father_name?: SortOrderInput | SortOrder
+    staff_mother_name?: SortOrderInput | SortOrder
+    staff_mobile_no?: SortOrder
+    staff_phone_no?: SortOrderInput | SortOrder
+    staff_email_id?: SortOrderInput | SortOrder
+    staff_gender?: SortOrderInput | SortOrder
+    staff_cast?: SortOrderInput | SortOrder
+    staff_marital_status?: SortOrderInput | SortOrder
+    staff_occupation?: SortOrderInput | SortOrder
+    staff_birth_date?: SortOrderInput | SortOrder
+    staff_gstin?: SortOrderInput | SortOrder
+    staff_tax_no?: SortOrderInput | SortOrder
+    staff_pan_no?: SortOrderInput | SortOrder
+    staff_adhaar_no?: SortOrderInput | SortOrder
+    staff_login_id?: SortOrder
+    staff_password?: SortOrder
+    staff_status?: SortOrder
+    staff_profile_img?: SortOrderInput | SortOrder
+    staff_adhaar_front_img?: SortOrderInput | SortOrder
+    staff_adhaar_back_img?: SortOrderInput | SortOrder
+    staff_pan_card_img?: SortOrderInput | SortOrder
+    staff_sign_img?: SortOrderInput | SortOrder
+    staff_per_address?: SortOrderInput | SortOrder
+    staff_curr_address?: SortOrderInput | SortOrder
+    staff_village?: SortOrderInput | SortOrder
+    staff_ward_no?: SortOrderInput | SortOrder
+    staff_tehsil?: SortOrderInput | SortOrder
+    staff_city?: SortOrderInput | SortOrder
+    staff_state?: SortOrderInput | SortOrder
+    staff_country?: SortOrderInput | SortOrder
+    staff_pincode?: SortOrderInput | SortOrder
+    staff_bank_name?: SortOrderInput | SortOrder
+    staff_bank_acc_no?: SortOrderInput | SortOrder
+    staff_ifsc_code?: SortOrderInput | SortOrder
+    staff_other_info?: SortOrderInput | SortOrder
+    staff_refresh_token?: SortOrderInput | SortOrder
+    staff_jwt_token?: SortOrderInput | SortOrder
+    staff_login_status?: SortOrder
+    staff_last_login_system?: SortOrderInput | SortOrder
+    staff_otp?: SortOrderInput | SortOrder
+    staff_otp_expiry?: SortOrderInput | SortOrder
+    staff_created_at?: SortOrder
+    staff_created_by?: SortOrderInput | SortOrder
+    staff_updated_at?: SortOrder
+    staff_updated_by?: SortOrderInput | SortOrder
+    staff_deleted_at?: SortOrderInput | SortOrder
+    staff_deleted_by?: SortOrderInput | SortOrder
+    staff_is_deleted?: SortOrder
+    owner?: OwnerOrderByWithRelationInput
+    permissions?: StaffPermissionOrderByRelationAggregateInput
+  }
+
+  export type StaffWhereUniqueInput = Prisma.AtLeast<{
+    staff_id?: number
+    staff_uuid?: string
+    staff_login_id?: string
+    AND?: StaffWhereInput | StaffWhereInput[]
+    OR?: StaffWhereInput[]
+    NOT?: StaffWhereInput | StaffWhereInput[]
+    staff_own_id?: IntFilter<"Staff"> | number
+    staff_add_date?: DateTimeFilter<"Staff"> | Date | string
+    staff_first_name?: StringFilter<"Staff"> | string
+    staff_last_name?: StringFilter<"Staff"> | string
+    staff_father_name?: StringNullableFilter<"Staff"> | string | null
+    staff_mother_name?: StringNullableFilter<"Staff"> | string | null
+    staff_mobile_no?: StringFilter<"Staff"> | string
+    staff_phone_no?: StringNullableFilter<"Staff"> | string | null
+    staff_email_id?: StringNullableFilter<"Staff"> | string | null
+    staff_gender?: EnumStaffGenderNullableFilter<"Staff"> | $Enums.StaffGender | null
+    staff_cast?: StringNullableFilter<"Staff"> | string | null
+    staff_marital_status?: EnumStaffMaritalStatusNullableFilter<"Staff"> | $Enums.StaffMaritalStatus | null
+    staff_occupation?: StringNullableFilter<"Staff"> | string | null
+    staff_birth_date?: DateTimeNullableFilter<"Staff"> | Date | string | null
+    staff_gstin?: StringNullableFilter<"Staff"> | string | null
+    staff_tax_no?: StringNullableFilter<"Staff"> | string | null
+    staff_pan_no?: StringNullableFilter<"Staff"> | string | null
+    staff_adhaar_no?: StringNullableFilter<"Staff"> | string | null
+    staff_password?: StringFilter<"Staff"> | string
+    staff_status?: EnumStaffStatusFilter<"Staff"> | $Enums.StaffStatus
+    staff_profile_img?: JsonNullableFilter<"Staff">
+    staff_adhaar_front_img?: JsonNullableFilter<"Staff">
+    staff_adhaar_back_img?: JsonNullableFilter<"Staff">
+    staff_pan_card_img?: JsonNullableFilter<"Staff">
+    staff_sign_img?: JsonNullableFilter<"Staff">
+    staff_per_address?: StringNullableFilter<"Staff"> | string | null
+    staff_curr_address?: StringNullableFilter<"Staff"> | string | null
+    staff_village?: StringNullableFilter<"Staff"> | string | null
+    staff_ward_no?: StringNullableFilter<"Staff"> | string | null
+    staff_tehsil?: StringNullableFilter<"Staff"> | string | null
+    staff_city?: StringNullableFilter<"Staff"> | string | null
+    staff_state?: StringNullableFilter<"Staff"> | string | null
+    staff_country?: StringNullableFilter<"Staff"> | string | null
+    staff_pincode?: StringNullableFilter<"Staff"> | string | null
+    staff_bank_name?: StringNullableFilter<"Staff"> | string | null
+    staff_bank_acc_no?: StringNullableFilter<"Staff"> | string | null
+    staff_ifsc_code?: StringNullableFilter<"Staff"> | string | null
+    staff_other_info?: StringNullableFilter<"Staff"> | string | null
+    staff_refresh_token?: StringNullableFilter<"Staff"> | string | null
+    staff_jwt_token?: StringNullableFilter<"Staff"> | string | null
+    staff_login_status?: BoolFilter<"Staff"> | boolean
+    staff_last_login_system?: JsonNullableFilter<"Staff">
+    staff_otp?: StringNullableFilter<"Staff"> | string | null
+    staff_otp_expiry?: DateTimeNullableFilter<"Staff"> | Date | string | null
+    staff_created_at?: DateTimeFilter<"Staff"> | Date | string
+    staff_created_by?: StringNullableFilter<"Staff"> | string | null
+    staff_updated_at?: DateTimeFilter<"Staff"> | Date | string
+    staff_updated_by?: StringNullableFilter<"Staff"> | string | null
+    staff_deleted_at?: DateTimeNullableFilter<"Staff"> | Date | string | null
+    staff_deleted_by?: StringNullableFilter<"Staff"> | string | null
+    staff_is_deleted?: BoolFilter<"Staff"> | boolean
+    owner?: XOR<OwnerRelationFilter, OwnerWhereInput>
+    permissions?: StaffPermissionListRelationFilter
+  }, "staff_id" | "staff_uuid" | "staff_login_id">
+
+  export type StaffOrderByWithAggregationInput = {
+    staff_id?: SortOrder
+    staff_uuid?: SortOrder
+    staff_own_id?: SortOrder
+    staff_add_date?: SortOrder
+    staff_first_name?: SortOrder
+    staff_last_name?: SortOrder
+    staff_father_name?: SortOrderInput | SortOrder
+    staff_mother_name?: SortOrderInput | SortOrder
+    staff_mobile_no?: SortOrder
+    staff_phone_no?: SortOrderInput | SortOrder
+    staff_email_id?: SortOrderInput | SortOrder
+    staff_gender?: SortOrderInput | SortOrder
+    staff_cast?: SortOrderInput | SortOrder
+    staff_marital_status?: SortOrderInput | SortOrder
+    staff_occupation?: SortOrderInput | SortOrder
+    staff_birth_date?: SortOrderInput | SortOrder
+    staff_gstin?: SortOrderInput | SortOrder
+    staff_tax_no?: SortOrderInput | SortOrder
+    staff_pan_no?: SortOrderInput | SortOrder
+    staff_adhaar_no?: SortOrderInput | SortOrder
+    staff_login_id?: SortOrder
+    staff_password?: SortOrder
+    staff_status?: SortOrder
+    staff_profile_img?: SortOrderInput | SortOrder
+    staff_adhaar_front_img?: SortOrderInput | SortOrder
+    staff_adhaar_back_img?: SortOrderInput | SortOrder
+    staff_pan_card_img?: SortOrderInput | SortOrder
+    staff_sign_img?: SortOrderInput | SortOrder
+    staff_per_address?: SortOrderInput | SortOrder
+    staff_curr_address?: SortOrderInput | SortOrder
+    staff_village?: SortOrderInput | SortOrder
+    staff_ward_no?: SortOrderInput | SortOrder
+    staff_tehsil?: SortOrderInput | SortOrder
+    staff_city?: SortOrderInput | SortOrder
+    staff_state?: SortOrderInput | SortOrder
+    staff_country?: SortOrderInput | SortOrder
+    staff_pincode?: SortOrderInput | SortOrder
+    staff_bank_name?: SortOrderInput | SortOrder
+    staff_bank_acc_no?: SortOrderInput | SortOrder
+    staff_ifsc_code?: SortOrderInput | SortOrder
+    staff_other_info?: SortOrderInput | SortOrder
+    staff_refresh_token?: SortOrderInput | SortOrder
+    staff_jwt_token?: SortOrderInput | SortOrder
+    staff_login_status?: SortOrder
+    staff_last_login_system?: SortOrderInput | SortOrder
+    staff_otp?: SortOrderInput | SortOrder
+    staff_otp_expiry?: SortOrderInput | SortOrder
+    staff_created_at?: SortOrder
+    staff_created_by?: SortOrderInput | SortOrder
+    staff_updated_at?: SortOrder
+    staff_updated_by?: SortOrderInput | SortOrder
+    staff_deleted_at?: SortOrderInput | SortOrder
+    staff_deleted_by?: SortOrderInput | SortOrder
+    staff_is_deleted?: SortOrder
+    _count?: StaffCountOrderByAggregateInput
+    _avg?: StaffAvgOrderByAggregateInput
+    _max?: StaffMaxOrderByAggregateInput
+    _min?: StaffMinOrderByAggregateInput
+    _sum?: StaffSumOrderByAggregateInput
+  }
+
+  export type StaffScalarWhereWithAggregatesInput = {
+    AND?: StaffScalarWhereWithAggregatesInput | StaffScalarWhereWithAggregatesInput[]
+    OR?: StaffScalarWhereWithAggregatesInput[]
+    NOT?: StaffScalarWhereWithAggregatesInput | StaffScalarWhereWithAggregatesInput[]
+    staff_id?: IntWithAggregatesFilter<"Staff"> | number
+    staff_uuid?: StringWithAggregatesFilter<"Staff"> | string
+    staff_own_id?: IntWithAggregatesFilter<"Staff"> | number
+    staff_add_date?: DateTimeWithAggregatesFilter<"Staff"> | Date | string
+    staff_first_name?: StringWithAggregatesFilter<"Staff"> | string
+    staff_last_name?: StringWithAggregatesFilter<"Staff"> | string
+    staff_father_name?: StringNullableWithAggregatesFilter<"Staff"> | string | null
+    staff_mother_name?: StringNullableWithAggregatesFilter<"Staff"> | string | null
+    staff_mobile_no?: StringWithAggregatesFilter<"Staff"> | string
+    staff_phone_no?: StringNullableWithAggregatesFilter<"Staff"> | string | null
+    staff_email_id?: StringNullableWithAggregatesFilter<"Staff"> | string | null
+    staff_gender?: EnumStaffGenderNullableWithAggregatesFilter<"Staff"> | $Enums.StaffGender | null
+    staff_cast?: StringNullableWithAggregatesFilter<"Staff"> | string | null
+    staff_marital_status?: EnumStaffMaritalStatusNullableWithAggregatesFilter<"Staff"> | $Enums.StaffMaritalStatus | null
+    staff_occupation?: StringNullableWithAggregatesFilter<"Staff"> | string | null
+    staff_birth_date?: DateTimeNullableWithAggregatesFilter<"Staff"> | Date | string | null
+    staff_gstin?: StringNullableWithAggregatesFilter<"Staff"> | string | null
+    staff_tax_no?: StringNullableWithAggregatesFilter<"Staff"> | string | null
+    staff_pan_no?: StringNullableWithAggregatesFilter<"Staff"> | string | null
+    staff_adhaar_no?: StringNullableWithAggregatesFilter<"Staff"> | string | null
+    staff_login_id?: StringWithAggregatesFilter<"Staff"> | string
+    staff_password?: StringWithAggregatesFilter<"Staff"> | string
+    staff_status?: EnumStaffStatusWithAggregatesFilter<"Staff"> | $Enums.StaffStatus
+    staff_profile_img?: JsonNullableWithAggregatesFilter<"Staff">
+    staff_adhaar_front_img?: JsonNullableWithAggregatesFilter<"Staff">
+    staff_adhaar_back_img?: JsonNullableWithAggregatesFilter<"Staff">
+    staff_pan_card_img?: JsonNullableWithAggregatesFilter<"Staff">
+    staff_sign_img?: JsonNullableWithAggregatesFilter<"Staff">
+    staff_per_address?: StringNullableWithAggregatesFilter<"Staff"> | string | null
+    staff_curr_address?: StringNullableWithAggregatesFilter<"Staff"> | string | null
+    staff_village?: StringNullableWithAggregatesFilter<"Staff"> | string | null
+    staff_ward_no?: StringNullableWithAggregatesFilter<"Staff"> | string | null
+    staff_tehsil?: StringNullableWithAggregatesFilter<"Staff"> | string | null
+    staff_city?: StringNullableWithAggregatesFilter<"Staff"> | string | null
+    staff_state?: StringNullableWithAggregatesFilter<"Staff"> | string | null
+    staff_country?: StringNullableWithAggregatesFilter<"Staff"> | string | null
+    staff_pincode?: StringNullableWithAggregatesFilter<"Staff"> | string | null
+    staff_bank_name?: StringNullableWithAggregatesFilter<"Staff"> | string | null
+    staff_bank_acc_no?: StringNullableWithAggregatesFilter<"Staff"> | string | null
+    staff_ifsc_code?: StringNullableWithAggregatesFilter<"Staff"> | string | null
+    staff_other_info?: StringNullableWithAggregatesFilter<"Staff"> | string | null
+    staff_refresh_token?: StringNullableWithAggregatesFilter<"Staff"> | string | null
+    staff_jwt_token?: StringNullableWithAggregatesFilter<"Staff"> | string | null
+    staff_login_status?: BoolWithAggregatesFilter<"Staff"> | boolean
+    staff_last_login_system?: JsonNullableWithAggregatesFilter<"Staff">
+    staff_otp?: StringNullableWithAggregatesFilter<"Staff"> | string | null
+    staff_otp_expiry?: DateTimeNullableWithAggregatesFilter<"Staff"> | Date | string | null
+    staff_created_at?: DateTimeWithAggregatesFilter<"Staff"> | Date | string
+    staff_created_by?: StringNullableWithAggregatesFilter<"Staff"> | string | null
+    staff_updated_at?: DateTimeWithAggregatesFilter<"Staff"> | Date | string
+    staff_updated_by?: StringNullableWithAggregatesFilter<"Staff"> | string | null
+    staff_deleted_at?: DateTimeNullableWithAggregatesFilter<"Staff"> | Date | string | null
+    staff_deleted_by?: StringNullableWithAggregatesFilter<"Staff"> | string | null
+    staff_is_deleted?: BoolWithAggregatesFilter<"Staff"> | boolean
+  }
+
+  export type PermissionWhereInput = {
+    AND?: PermissionWhereInput | PermissionWhereInput[]
+    OR?: PermissionWhereInput[]
+    NOT?: PermissionWhereInput | PermissionWhereInput[]
+    perm_id?: IntFilter<"Permission"> | number
+    perm_key?: StringFilter<"Permission"> | string
+    perm_module?: StringFilter<"Permission"> | string
+    perm_action?: StringFilter<"Permission"> | string
+    perm_label?: StringFilter<"Permission"> | string
+    perm_sort_order?: IntFilter<"Permission"> | number
+    perm_created_at?: DateTimeFilter<"Permission"> | Date | string
+    perm_updated_at?: DateTimeFilter<"Permission"> | Date | string
+    staffPermissions?: StaffPermissionListRelationFilter
+  }
+
+  export type PermissionOrderByWithRelationInput = {
+    perm_id?: SortOrder
+    perm_key?: SortOrder
+    perm_module?: SortOrder
+    perm_action?: SortOrder
+    perm_label?: SortOrder
+    perm_sort_order?: SortOrder
+    perm_created_at?: SortOrder
+    perm_updated_at?: SortOrder
+    staffPermissions?: StaffPermissionOrderByRelationAggregateInput
+  }
+
+  export type PermissionWhereUniqueInput = Prisma.AtLeast<{
+    perm_id?: number
+    perm_key?: string
+    AND?: PermissionWhereInput | PermissionWhereInput[]
+    OR?: PermissionWhereInput[]
+    NOT?: PermissionWhereInput | PermissionWhereInput[]
+    perm_module?: StringFilter<"Permission"> | string
+    perm_action?: StringFilter<"Permission"> | string
+    perm_label?: StringFilter<"Permission"> | string
+    perm_sort_order?: IntFilter<"Permission"> | number
+    perm_created_at?: DateTimeFilter<"Permission"> | Date | string
+    perm_updated_at?: DateTimeFilter<"Permission"> | Date | string
+    staffPermissions?: StaffPermissionListRelationFilter
+  }, "perm_id" | "perm_key">
+
+  export type PermissionOrderByWithAggregationInput = {
+    perm_id?: SortOrder
+    perm_key?: SortOrder
+    perm_module?: SortOrder
+    perm_action?: SortOrder
+    perm_label?: SortOrder
+    perm_sort_order?: SortOrder
+    perm_created_at?: SortOrder
+    perm_updated_at?: SortOrder
+    _count?: PermissionCountOrderByAggregateInput
+    _avg?: PermissionAvgOrderByAggregateInput
+    _max?: PermissionMaxOrderByAggregateInput
+    _min?: PermissionMinOrderByAggregateInput
+    _sum?: PermissionSumOrderByAggregateInput
+  }
+
+  export type PermissionScalarWhereWithAggregatesInput = {
+    AND?: PermissionScalarWhereWithAggregatesInput | PermissionScalarWhereWithAggregatesInput[]
+    OR?: PermissionScalarWhereWithAggregatesInput[]
+    NOT?: PermissionScalarWhereWithAggregatesInput | PermissionScalarWhereWithAggregatesInput[]
+    perm_id?: IntWithAggregatesFilter<"Permission"> | number
+    perm_key?: StringWithAggregatesFilter<"Permission"> | string
+    perm_module?: StringWithAggregatesFilter<"Permission"> | string
+    perm_action?: StringWithAggregatesFilter<"Permission"> | string
+    perm_label?: StringWithAggregatesFilter<"Permission"> | string
+    perm_sort_order?: IntWithAggregatesFilter<"Permission"> | number
+    perm_created_at?: DateTimeWithAggregatesFilter<"Permission"> | Date | string
+    perm_updated_at?: DateTimeWithAggregatesFilter<"Permission"> | Date | string
+  }
+
+  export type StaffPermissionWhereInput = {
+    AND?: StaffPermissionWhereInput | StaffPermissionWhereInput[]
+    OR?: StaffPermissionWhereInput[]
+    NOT?: StaffPermissionWhereInput | StaffPermissionWhereInput[]
+    sp_id?: IntFilter<"StaffPermission"> | number
+    sp_staff_id?: IntFilter<"StaffPermission"> | number
+    sp_perm_id?: IntFilter<"StaffPermission"> | number
+    sp_granted?: BoolFilter<"StaffPermission"> | boolean
+    sp_created_at?: DateTimeFilter<"StaffPermission"> | Date | string
+    sp_updated_at?: DateTimeFilter<"StaffPermission"> | Date | string
+    staff?: XOR<StaffRelationFilter, StaffWhereInput>
+    permission?: XOR<PermissionRelationFilter, PermissionWhereInput>
+  }
+
+  export type StaffPermissionOrderByWithRelationInput = {
+    sp_id?: SortOrder
+    sp_staff_id?: SortOrder
+    sp_perm_id?: SortOrder
+    sp_granted?: SortOrder
+    sp_created_at?: SortOrder
+    sp_updated_at?: SortOrder
+    staff?: StaffOrderByWithRelationInput
+    permission?: PermissionOrderByWithRelationInput
+  }
+
+  export type StaffPermissionWhereUniqueInput = Prisma.AtLeast<{
+    sp_id?: number
+    sp_staff_id_sp_perm_id?: StaffPermissionSp_staff_idSp_perm_idCompoundUniqueInput
+    AND?: StaffPermissionWhereInput | StaffPermissionWhereInput[]
+    OR?: StaffPermissionWhereInput[]
+    NOT?: StaffPermissionWhereInput | StaffPermissionWhereInput[]
+    sp_staff_id?: IntFilter<"StaffPermission"> | number
+    sp_perm_id?: IntFilter<"StaffPermission"> | number
+    sp_granted?: BoolFilter<"StaffPermission"> | boolean
+    sp_created_at?: DateTimeFilter<"StaffPermission"> | Date | string
+    sp_updated_at?: DateTimeFilter<"StaffPermission"> | Date | string
+    staff?: XOR<StaffRelationFilter, StaffWhereInput>
+    permission?: XOR<PermissionRelationFilter, PermissionWhereInput>
+  }, "sp_id" | "sp_staff_id_sp_perm_id">
+
+  export type StaffPermissionOrderByWithAggregationInput = {
+    sp_id?: SortOrder
+    sp_staff_id?: SortOrder
+    sp_perm_id?: SortOrder
+    sp_granted?: SortOrder
+    sp_created_at?: SortOrder
+    sp_updated_at?: SortOrder
+    _count?: StaffPermissionCountOrderByAggregateInput
+    _avg?: StaffPermissionAvgOrderByAggregateInput
+    _max?: StaffPermissionMaxOrderByAggregateInput
+    _min?: StaffPermissionMinOrderByAggregateInput
+    _sum?: StaffPermissionSumOrderByAggregateInput
+  }
+
+  export type StaffPermissionScalarWhereWithAggregatesInput = {
+    AND?: StaffPermissionScalarWhereWithAggregatesInput | StaffPermissionScalarWhereWithAggregatesInput[]
+    OR?: StaffPermissionScalarWhereWithAggregatesInput[]
+    NOT?: StaffPermissionScalarWhereWithAggregatesInput | StaffPermissionScalarWhereWithAggregatesInput[]
+    sp_id?: IntWithAggregatesFilter<"StaffPermission"> | number
+    sp_staff_id?: IntWithAggregatesFilter<"StaffPermission"> | number
+    sp_perm_id?: IntWithAggregatesFilter<"StaffPermission"> | number
+    sp_granted?: BoolWithAggregatesFilter<"StaffPermission"> | boolean
+    sp_created_at?: DateTimeWithAggregatesFilter<"StaffPermission"> | Date | string
+    sp_updated_at?: DateTimeWithAggregatesFilter<"StaffPermission"> | Date | string
+  }
+
   export type OwnerCreateInput = {
     own_uuid?: string
     own_product_key?: number
@@ -37263,6 +41807,7 @@ export namespace Prisma {
     rates?: RateCreateNestedManyWithoutOwnerInput
     purities?: PurityCreateNestedManyWithoutOwnerInput
     moneyLenders?: MoneyLenderCreateNestedManyWithoutOwnerInput
+    staff?: StaffCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerUncheckedCreateInput = {
@@ -37317,6 +41862,7 @@ export namespace Prisma {
     rates?: RateUncheckedCreateNestedManyWithoutOwnerInput
     purities?: PurityUncheckedCreateNestedManyWithoutOwnerInput
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutOwnerInput
+    staff?: StaffUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerUpdateInput = {
@@ -37369,6 +41915,7 @@ export namespace Prisma {
     rates?: RateUpdateManyWithoutOwnerNestedInput
     purities?: PurityUpdateManyWithoutOwnerNestedInput
     moneyLenders?: MoneyLenderUpdateManyWithoutOwnerNestedInput
+    staff?: StaffUpdateManyWithoutOwnerNestedInput
   }
 
   export type OwnerUncheckedUpdateInput = {
@@ -37423,6 +41970,7 @@ export namespace Prisma {
     rates?: RateUncheckedUpdateManyWithoutOwnerNestedInput
     purities?: PurityUncheckedUpdateManyWithoutOwnerNestedInput
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutOwnerNestedInput
+    staff?: StaffUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
   export type OwnerCreateManyInput = {
@@ -42025,6 +46573,541 @@ export namespace Prisma {
     al_other_info?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
+  export type StaffCreateInput = {
+    staff_uuid?: string
+    staff_add_date?: Date | string
+    staff_first_name: string
+    staff_last_name: string
+    staff_father_name?: string | null
+    staff_mother_name?: string | null
+    staff_mobile_no: string
+    staff_phone_no?: string | null
+    staff_email_id?: string | null
+    staff_gender?: $Enums.StaffGender | null
+    staff_cast?: string | null
+    staff_marital_status?: $Enums.StaffMaritalStatus | null
+    staff_occupation?: string | null
+    staff_birth_date?: Date | string | null
+    staff_gstin?: string | null
+    staff_tax_no?: string | null
+    staff_pan_no?: string | null
+    staff_adhaar_no?: string | null
+    staff_login_id: string
+    staff_password: string
+    staff_status?: $Enums.StaffStatus
+    staff_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_per_address?: string | null
+    staff_curr_address?: string | null
+    staff_village?: string | null
+    staff_ward_no?: string | null
+    staff_tehsil?: string | null
+    staff_city?: string | null
+    staff_state?: string | null
+    staff_country?: string | null
+    staff_pincode?: string | null
+    staff_bank_name?: string | null
+    staff_bank_acc_no?: string | null
+    staff_ifsc_code?: string | null
+    staff_other_info?: string | null
+    staff_refresh_token?: string | null
+    staff_jwt_token?: string | null
+    staff_login_status?: boolean
+    staff_last_login_system?: NullableJsonNullValueInput | InputJsonValue
+    staff_otp?: string | null
+    staff_otp_expiry?: Date | string | null
+    staff_created_at?: Date | string
+    staff_created_by?: string | null
+    staff_updated_at?: Date | string
+    staff_updated_by?: string | null
+    staff_deleted_at?: Date | string | null
+    staff_deleted_by?: string | null
+    staff_is_deleted?: boolean
+    owner: OwnerCreateNestedOneWithoutStaffInput
+    permissions?: StaffPermissionCreateNestedManyWithoutStaffInput
+  }
+
+  export type StaffUncheckedCreateInput = {
+    staff_id?: number
+    staff_uuid?: string
+    staff_own_id: number
+    staff_add_date?: Date | string
+    staff_first_name: string
+    staff_last_name: string
+    staff_father_name?: string | null
+    staff_mother_name?: string | null
+    staff_mobile_no: string
+    staff_phone_no?: string | null
+    staff_email_id?: string | null
+    staff_gender?: $Enums.StaffGender | null
+    staff_cast?: string | null
+    staff_marital_status?: $Enums.StaffMaritalStatus | null
+    staff_occupation?: string | null
+    staff_birth_date?: Date | string | null
+    staff_gstin?: string | null
+    staff_tax_no?: string | null
+    staff_pan_no?: string | null
+    staff_adhaar_no?: string | null
+    staff_login_id: string
+    staff_password: string
+    staff_status?: $Enums.StaffStatus
+    staff_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_per_address?: string | null
+    staff_curr_address?: string | null
+    staff_village?: string | null
+    staff_ward_no?: string | null
+    staff_tehsil?: string | null
+    staff_city?: string | null
+    staff_state?: string | null
+    staff_country?: string | null
+    staff_pincode?: string | null
+    staff_bank_name?: string | null
+    staff_bank_acc_no?: string | null
+    staff_ifsc_code?: string | null
+    staff_other_info?: string | null
+    staff_refresh_token?: string | null
+    staff_jwt_token?: string | null
+    staff_login_status?: boolean
+    staff_last_login_system?: NullableJsonNullValueInput | InputJsonValue
+    staff_otp?: string | null
+    staff_otp_expiry?: Date | string | null
+    staff_created_at?: Date | string
+    staff_created_by?: string | null
+    staff_updated_at?: Date | string
+    staff_updated_by?: string | null
+    staff_deleted_at?: Date | string | null
+    staff_deleted_by?: string | null
+    staff_is_deleted?: boolean
+    permissions?: StaffPermissionUncheckedCreateNestedManyWithoutStaffInput
+  }
+
+  export type StaffUpdateInput = {
+    staff_uuid?: StringFieldUpdateOperationsInput | string
+    staff_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    staff_first_name?: StringFieldUpdateOperationsInput | string
+    staff_last_name?: StringFieldUpdateOperationsInput | string
+    staff_father_name?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_mother_name?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_mobile_no?: StringFieldUpdateOperationsInput | string
+    staff_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_email_id?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_gender?: NullableEnumStaffGenderFieldUpdateOperationsInput | $Enums.StaffGender | null
+    staff_cast?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_marital_status?: NullableEnumStaffMaritalStatusFieldUpdateOperationsInput | $Enums.StaffMaritalStatus | null
+    staff_occupation?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_birth_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    staff_gstin?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_tax_no?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_adhaar_no?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_login_id?: StringFieldUpdateOperationsInput | string
+    staff_password?: StringFieldUpdateOperationsInput | string
+    staff_status?: EnumStaffStatusFieldUpdateOperationsInput | $Enums.StaffStatus
+    staff_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_per_address?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_curr_address?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_village?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_ward_no?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_tehsil?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_city?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_state?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_country?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_bank_name?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_bank_acc_no?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_jwt_token?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_login_status?: BoolFieldUpdateOperationsInput | boolean
+    staff_last_login_system?: NullableJsonNullValueInput | InputJsonValue
+    staff_otp?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_otp_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    staff_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    staff_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    staff_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    staff_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    owner?: OwnerUpdateOneRequiredWithoutStaffNestedInput
+    permissions?: StaffPermissionUpdateManyWithoutStaffNestedInput
+  }
+
+  export type StaffUncheckedUpdateInput = {
+    staff_id?: IntFieldUpdateOperationsInput | number
+    staff_uuid?: StringFieldUpdateOperationsInput | string
+    staff_own_id?: IntFieldUpdateOperationsInput | number
+    staff_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    staff_first_name?: StringFieldUpdateOperationsInput | string
+    staff_last_name?: StringFieldUpdateOperationsInput | string
+    staff_father_name?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_mother_name?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_mobile_no?: StringFieldUpdateOperationsInput | string
+    staff_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_email_id?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_gender?: NullableEnumStaffGenderFieldUpdateOperationsInput | $Enums.StaffGender | null
+    staff_cast?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_marital_status?: NullableEnumStaffMaritalStatusFieldUpdateOperationsInput | $Enums.StaffMaritalStatus | null
+    staff_occupation?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_birth_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    staff_gstin?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_tax_no?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_adhaar_no?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_login_id?: StringFieldUpdateOperationsInput | string
+    staff_password?: StringFieldUpdateOperationsInput | string
+    staff_status?: EnumStaffStatusFieldUpdateOperationsInput | $Enums.StaffStatus
+    staff_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_per_address?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_curr_address?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_village?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_ward_no?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_tehsil?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_city?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_state?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_country?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_bank_name?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_bank_acc_no?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_jwt_token?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_login_status?: BoolFieldUpdateOperationsInput | boolean
+    staff_last_login_system?: NullableJsonNullValueInput | InputJsonValue
+    staff_otp?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_otp_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    staff_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    staff_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    staff_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    staff_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    permissions?: StaffPermissionUncheckedUpdateManyWithoutStaffNestedInput
+  }
+
+  export type StaffCreateManyInput = {
+    staff_id?: number
+    staff_uuid?: string
+    staff_own_id: number
+    staff_add_date?: Date | string
+    staff_first_name: string
+    staff_last_name: string
+    staff_father_name?: string | null
+    staff_mother_name?: string | null
+    staff_mobile_no: string
+    staff_phone_no?: string | null
+    staff_email_id?: string | null
+    staff_gender?: $Enums.StaffGender | null
+    staff_cast?: string | null
+    staff_marital_status?: $Enums.StaffMaritalStatus | null
+    staff_occupation?: string | null
+    staff_birth_date?: Date | string | null
+    staff_gstin?: string | null
+    staff_tax_no?: string | null
+    staff_pan_no?: string | null
+    staff_adhaar_no?: string | null
+    staff_login_id: string
+    staff_password: string
+    staff_status?: $Enums.StaffStatus
+    staff_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_per_address?: string | null
+    staff_curr_address?: string | null
+    staff_village?: string | null
+    staff_ward_no?: string | null
+    staff_tehsil?: string | null
+    staff_city?: string | null
+    staff_state?: string | null
+    staff_country?: string | null
+    staff_pincode?: string | null
+    staff_bank_name?: string | null
+    staff_bank_acc_no?: string | null
+    staff_ifsc_code?: string | null
+    staff_other_info?: string | null
+    staff_refresh_token?: string | null
+    staff_jwt_token?: string | null
+    staff_login_status?: boolean
+    staff_last_login_system?: NullableJsonNullValueInput | InputJsonValue
+    staff_otp?: string | null
+    staff_otp_expiry?: Date | string | null
+    staff_created_at?: Date | string
+    staff_created_by?: string | null
+    staff_updated_at?: Date | string
+    staff_updated_by?: string | null
+    staff_deleted_at?: Date | string | null
+    staff_deleted_by?: string | null
+    staff_is_deleted?: boolean
+  }
+
+  export type StaffUpdateManyMutationInput = {
+    staff_uuid?: StringFieldUpdateOperationsInput | string
+    staff_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    staff_first_name?: StringFieldUpdateOperationsInput | string
+    staff_last_name?: StringFieldUpdateOperationsInput | string
+    staff_father_name?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_mother_name?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_mobile_no?: StringFieldUpdateOperationsInput | string
+    staff_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_email_id?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_gender?: NullableEnumStaffGenderFieldUpdateOperationsInput | $Enums.StaffGender | null
+    staff_cast?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_marital_status?: NullableEnumStaffMaritalStatusFieldUpdateOperationsInput | $Enums.StaffMaritalStatus | null
+    staff_occupation?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_birth_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    staff_gstin?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_tax_no?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_adhaar_no?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_login_id?: StringFieldUpdateOperationsInput | string
+    staff_password?: StringFieldUpdateOperationsInput | string
+    staff_status?: EnumStaffStatusFieldUpdateOperationsInput | $Enums.StaffStatus
+    staff_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_per_address?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_curr_address?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_village?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_ward_no?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_tehsil?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_city?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_state?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_country?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_bank_name?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_bank_acc_no?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_jwt_token?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_login_status?: BoolFieldUpdateOperationsInput | boolean
+    staff_last_login_system?: NullableJsonNullValueInput | InputJsonValue
+    staff_otp?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_otp_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    staff_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    staff_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    staff_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    staff_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type StaffUncheckedUpdateManyInput = {
+    staff_id?: IntFieldUpdateOperationsInput | number
+    staff_uuid?: StringFieldUpdateOperationsInput | string
+    staff_own_id?: IntFieldUpdateOperationsInput | number
+    staff_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    staff_first_name?: StringFieldUpdateOperationsInput | string
+    staff_last_name?: StringFieldUpdateOperationsInput | string
+    staff_father_name?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_mother_name?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_mobile_no?: StringFieldUpdateOperationsInput | string
+    staff_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_email_id?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_gender?: NullableEnumStaffGenderFieldUpdateOperationsInput | $Enums.StaffGender | null
+    staff_cast?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_marital_status?: NullableEnumStaffMaritalStatusFieldUpdateOperationsInput | $Enums.StaffMaritalStatus | null
+    staff_occupation?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_birth_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    staff_gstin?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_tax_no?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_adhaar_no?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_login_id?: StringFieldUpdateOperationsInput | string
+    staff_password?: StringFieldUpdateOperationsInput | string
+    staff_status?: EnumStaffStatusFieldUpdateOperationsInput | $Enums.StaffStatus
+    staff_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_per_address?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_curr_address?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_village?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_ward_no?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_tehsil?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_city?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_state?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_country?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_bank_name?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_bank_acc_no?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_jwt_token?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_login_status?: BoolFieldUpdateOperationsInput | boolean
+    staff_last_login_system?: NullableJsonNullValueInput | InputJsonValue
+    staff_otp?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_otp_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    staff_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    staff_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    staff_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    staff_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type PermissionCreateInput = {
+    perm_key: string
+    perm_module: string
+    perm_action: string
+    perm_label: string
+    perm_sort_order?: number
+    perm_created_at?: Date | string
+    perm_updated_at?: Date | string
+    staffPermissions?: StaffPermissionCreateNestedManyWithoutPermissionInput
+  }
+
+  export type PermissionUncheckedCreateInput = {
+    perm_id?: number
+    perm_key: string
+    perm_module: string
+    perm_action: string
+    perm_label: string
+    perm_sort_order?: number
+    perm_created_at?: Date | string
+    perm_updated_at?: Date | string
+    staffPermissions?: StaffPermissionUncheckedCreateNestedManyWithoutPermissionInput
+  }
+
+  export type PermissionUpdateInput = {
+    perm_key?: StringFieldUpdateOperationsInput | string
+    perm_module?: StringFieldUpdateOperationsInput | string
+    perm_action?: StringFieldUpdateOperationsInput | string
+    perm_label?: StringFieldUpdateOperationsInput | string
+    perm_sort_order?: IntFieldUpdateOperationsInput | number
+    perm_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    perm_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    staffPermissions?: StaffPermissionUpdateManyWithoutPermissionNestedInput
+  }
+
+  export type PermissionUncheckedUpdateInput = {
+    perm_id?: IntFieldUpdateOperationsInput | number
+    perm_key?: StringFieldUpdateOperationsInput | string
+    perm_module?: StringFieldUpdateOperationsInput | string
+    perm_action?: StringFieldUpdateOperationsInput | string
+    perm_label?: StringFieldUpdateOperationsInput | string
+    perm_sort_order?: IntFieldUpdateOperationsInput | number
+    perm_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    perm_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    staffPermissions?: StaffPermissionUncheckedUpdateManyWithoutPermissionNestedInput
+  }
+
+  export type PermissionCreateManyInput = {
+    perm_id?: number
+    perm_key: string
+    perm_module: string
+    perm_action: string
+    perm_label: string
+    perm_sort_order?: number
+    perm_created_at?: Date | string
+    perm_updated_at?: Date | string
+  }
+
+  export type PermissionUpdateManyMutationInput = {
+    perm_key?: StringFieldUpdateOperationsInput | string
+    perm_module?: StringFieldUpdateOperationsInput | string
+    perm_action?: StringFieldUpdateOperationsInput | string
+    perm_label?: StringFieldUpdateOperationsInput | string
+    perm_sort_order?: IntFieldUpdateOperationsInput | number
+    perm_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    perm_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PermissionUncheckedUpdateManyInput = {
+    perm_id?: IntFieldUpdateOperationsInput | number
+    perm_key?: StringFieldUpdateOperationsInput | string
+    perm_module?: StringFieldUpdateOperationsInput | string
+    perm_action?: StringFieldUpdateOperationsInput | string
+    perm_label?: StringFieldUpdateOperationsInput | string
+    perm_sort_order?: IntFieldUpdateOperationsInput | number
+    perm_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    perm_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StaffPermissionCreateInput = {
+    sp_granted?: boolean
+    sp_created_at?: Date | string
+    sp_updated_at?: Date | string
+    staff: StaffCreateNestedOneWithoutPermissionsInput
+    permission: PermissionCreateNestedOneWithoutStaffPermissionsInput
+  }
+
+  export type StaffPermissionUncheckedCreateInput = {
+    sp_id?: number
+    sp_staff_id: number
+    sp_perm_id: number
+    sp_granted?: boolean
+    sp_created_at?: Date | string
+    sp_updated_at?: Date | string
+  }
+
+  export type StaffPermissionUpdateInput = {
+    sp_granted?: BoolFieldUpdateOperationsInput | boolean
+    sp_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    sp_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    staff?: StaffUpdateOneRequiredWithoutPermissionsNestedInput
+    permission?: PermissionUpdateOneRequiredWithoutStaffPermissionsNestedInput
+  }
+
+  export type StaffPermissionUncheckedUpdateInput = {
+    sp_id?: IntFieldUpdateOperationsInput | number
+    sp_staff_id?: IntFieldUpdateOperationsInput | number
+    sp_perm_id?: IntFieldUpdateOperationsInput | number
+    sp_granted?: BoolFieldUpdateOperationsInput | boolean
+    sp_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    sp_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StaffPermissionCreateManyInput = {
+    sp_id?: number
+    sp_staff_id: number
+    sp_perm_id: number
+    sp_granted?: boolean
+    sp_created_at?: Date | string
+    sp_updated_at?: Date | string
+  }
+
+  export type StaffPermissionUpdateManyMutationInput = {
+    sp_granted?: BoolFieldUpdateOperationsInput | boolean
+    sp_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    sp_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StaffPermissionUncheckedUpdateManyInput = {
+    sp_id?: IntFieldUpdateOperationsInput | number
+    sp_staff_id?: IntFieldUpdateOperationsInput | number
+    sp_perm_id?: IntFieldUpdateOperationsInput | number
+    sp_granted?: BoolFieldUpdateOperationsInput | boolean
+    sp_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    sp_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type IntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -42218,6 +47301,12 @@ export namespace Prisma {
     none?: MoneyLenderWhereInput
   }
 
+  export type StaffListRelationFilter = {
+    every?: StaffWhereInput
+    some?: StaffWhereInput
+    none?: StaffWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -42284,6 +47373,10 @@ export namespace Prisma {
   }
 
   export type MoneyLenderOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type StaffOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -45315,6 +50408,333 @@ export namespace Prisma {
     al_card_amt?: SortOrder
   }
 
+  export type EnumStaffGenderNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.StaffGender | EnumStaffGenderFieldRefInput<$PrismaModel> | null
+    in?: $Enums.StaffGender[] | ListEnumStaffGenderFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.StaffGender[] | ListEnumStaffGenderFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumStaffGenderNullableFilter<$PrismaModel> | $Enums.StaffGender | null
+  }
+
+  export type EnumStaffMaritalStatusNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.StaffMaritalStatus | EnumStaffMaritalStatusFieldRefInput<$PrismaModel> | null
+    in?: $Enums.StaffMaritalStatus[] | ListEnumStaffMaritalStatusFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.StaffMaritalStatus[] | ListEnumStaffMaritalStatusFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumStaffMaritalStatusNullableFilter<$PrismaModel> | $Enums.StaffMaritalStatus | null
+  }
+
+  export type EnumStaffStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.StaffStatus | EnumStaffStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.StaffStatus[] | ListEnumStaffStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.StaffStatus[] | ListEnumStaffStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumStaffStatusFilter<$PrismaModel> | $Enums.StaffStatus
+  }
+
+  export type StaffPermissionListRelationFilter = {
+    every?: StaffPermissionWhereInput
+    some?: StaffPermissionWhereInput
+    none?: StaffPermissionWhereInput
+  }
+
+  export type StaffPermissionOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type StaffCountOrderByAggregateInput = {
+    staff_id?: SortOrder
+    staff_uuid?: SortOrder
+    staff_own_id?: SortOrder
+    staff_add_date?: SortOrder
+    staff_first_name?: SortOrder
+    staff_last_name?: SortOrder
+    staff_father_name?: SortOrder
+    staff_mother_name?: SortOrder
+    staff_mobile_no?: SortOrder
+    staff_phone_no?: SortOrder
+    staff_email_id?: SortOrder
+    staff_gender?: SortOrder
+    staff_cast?: SortOrder
+    staff_marital_status?: SortOrder
+    staff_occupation?: SortOrder
+    staff_birth_date?: SortOrder
+    staff_gstin?: SortOrder
+    staff_tax_no?: SortOrder
+    staff_pan_no?: SortOrder
+    staff_adhaar_no?: SortOrder
+    staff_login_id?: SortOrder
+    staff_password?: SortOrder
+    staff_status?: SortOrder
+    staff_profile_img?: SortOrder
+    staff_adhaar_front_img?: SortOrder
+    staff_adhaar_back_img?: SortOrder
+    staff_pan_card_img?: SortOrder
+    staff_sign_img?: SortOrder
+    staff_per_address?: SortOrder
+    staff_curr_address?: SortOrder
+    staff_village?: SortOrder
+    staff_ward_no?: SortOrder
+    staff_tehsil?: SortOrder
+    staff_city?: SortOrder
+    staff_state?: SortOrder
+    staff_country?: SortOrder
+    staff_pincode?: SortOrder
+    staff_bank_name?: SortOrder
+    staff_bank_acc_no?: SortOrder
+    staff_ifsc_code?: SortOrder
+    staff_other_info?: SortOrder
+    staff_refresh_token?: SortOrder
+    staff_jwt_token?: SortOrder
+    staff_login_status?: SortOrder
+    staff_last_login_system?: SortOrder
+    staff_otp?: SortOrder
+    staff_otp_expiry?: SortOrder
+    staff_created_at?: SortOrder
+    staff_created_by?: SortOrder
+    staff_updated_at?: SortOrder
+    staff_updated_by?: SortOrder
+    staff_deleted_at?: SortOrder
+    staff_deleted_by?: SortOrder
+    staff_is_deleted?: SortOrder
+  }
+
+  export type StaffAvgOrderByAggregateInput = {
+    staff_id?: SortOrder
+    staff_own_id?: SortOrder
+  }
+
+  export type StaffMaxOrderByAggregateInput = {
+    staff_id?: SortOrder
+    staff_uuid?: SortOrder
+    staff_own_id?: SortOrder
+    staff_add_date?: SortOrder
+    staff_first_name?: SortOrder
+    staff_last_name?: SortOrder
+    staff_father_name?: SortOrder
+    staff_mother_name?: SortOrder
+    staff_mobile_no?: SortOrder
+    staff_phone_no?: SortOrder
+    staff_email_id?: SortOrder
+    staff_gender?: SortOrder
+    staff_cast?: SortOrder
+    staff_marital_status?: SortOrder
+    staff_occupation?: SortOrder
+    staff_birth_date?: SortOrder
+    staff_gstin?: SortOrder
+    staff_tax_no?: SortOrder
+    staff_pan_no?: SortOrder
+    staff_adhaar_no?: SortOrder
+    staff_login_id?: SortOrder
+    staff_password?: SortOrder
+    staff_status?: SortOrder
+    staff_per_address?: SortOrder
+    staff_curr_address?: SortOrder
+    staff_village?: SortOrder
+    staff_ward_no?: SortOrder
+    staff_tehsil?: SortOrder
+    staff_city?: SortOrder
+    staff_state?: SortOrder
+    staff_country?: SortOrder
+    staff_pincode?: SortOrder
+    staff_bank_name?: SortOrder
+    staff_bank_acc_no?: SortOrder
+    staff_ifsc_code?: SortOrder
+    staff_other_info?: SortOrder
+    staff_refresh_token?: SortOrder
+    staff_jwt_token?: SortOrder
+    staff_login_status?: SortOrder
+    staff_otp?: SortOrder
+    staff_otp_expiry?: SortOrder
+    staff_created_at?: SortOrder
+    staff_created_by?: SortOrder
+    staff_updated_at?: SortOrder
+    staff_updated_by?: SortOrder
+    staff_deleted_at?: SortOrder
+    staff_deleted_by?: SortOrder
+    staff_is_deleted?: SortOrder
+  }
+
+  export type StaffMinOrderByAggregateInput = {
+    staff_id?: SortOrder
+    staff_uuid?: SortOrder
+    staff_own_id?: SortOrder
+    staff_add_date?: SortOrder
+    staff_first_name?: SortOrder
+    staff_last_name?: SortOrder
+    staff_father_name?: SortOrder
+    staff_mother_name?: SortOrder
+    staff_mobile_no?: SortOrder
+    staff_phone_no?: SortOrder
+    staff_email_id?: SortOrder
+    staff_gender?: SortOrder
+    staff_cast?: SortOrder
+    staff_marital_status?: SortOrder
+    staff_occupation?: SortOrder
+    staff_birth_date?: SortOrder
+    staff_gstin?: SortOrder
+    staff_tax_no?: SortOrder
+    staff_pan_no?: SortOrder
+    staff_adhaar_no?: SortOrder
+    staff_login_id?: SortOrder
+    staff_password?: SortOrder
+    staff_status?: SortOrder
+    staff_per_address?: SortOrder
+    staff_curr_address?: SortOrder
+    staff_village?: SortOrder
+    staff_ward_no?: SortOrder
+    staff_tehsil?: SortOrder
+    staff_city?: SortOrder
+    staff_state?: SortOrder
+    staff_country?: SortOrder
+    staff_pincode?: SortOrder
+    staff_bank_name?: SortOrder
+    staff_bank_acc_no?: SortOrder
+    staff_ifsc_code?: SortOrder
+    staff_other_info?: SortOrder
+    staff_refresh_token?: SortOrder
+    staff_jwt_token?: SortOrder
+    staff_login_status?: SortOrder
+    staff_otp?: SortOrder
+    staff_otp_expiry?: SortOrder
+    staff_created_at?: SortOrder
+    staff_created_by?: SortOrder
+    staff_updated_at?: SortOrder
+    staff_updated_by?: SortOrder
+    staff_deleted_at?: SortOrder
+    staff_deleted_by?: SortOrder
+    staff_is_deleted?: SortOrder
+  }
+
+  export type StaffSumOrderByAggregateInput = {
+    staff_id?: SortOrder
+    staff_own_id?: SortOrder
+  }
+
+  export type EnumStaffGenderNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.StaffGender | EnumStaffGenderFieldRefInput<$PrismaModel> | null
+    in?: $Enums.StaffGender[] | ListEnumStaffGenderFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.StaffGender[] | ListEnumStaffGenderFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumStaffGenderNullableWithAggregatesFilter<$PrismaModel> | $Enums.StaffGender | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumStaffGenderNullableFilter<$PrismaModel>
+    _max?: NestedEnumStaffGenderNullableFilter<$PrismaModel>
+  }
+
+  export type EnumStaffMaritalStatusNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.StaffMaritalStatus | EnumStaffMaritalStatusFieldRefInput<$PrismaModel> | null
+    in?: $Enums.StaffMaritalStatus[] | ListEnumStaffMaritalStatusFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.StaffMaritalStatus[] | ListEnumStaffMaritalStatusFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumStaffMaritalStatusNullableWithAggregatesFilter<$PrismaModel> | $Enums.StaffMaritalStatus | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumStaffMaritalStatusNullableFilter<$PrismaModel>
+    _max?: NestedEnumStaffMaritalStatusNullableFilter<$PrismaModel>
+  }
+
+  export type EnumStaffStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.StaffStatus | EnumStaffStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.StaffStatus[] | ListEnumStaffStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.StaffStatus[] | ListEnumStaffStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumStaffStatusWithAggregatesFilter<$PrismaModel> | $Enums.StaffStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumStaffStatusFilter<$PrismaModel>
+    _max?: NestedEnumStaffStatusFilter<$PrismaModel>
+  }
+
+  export type PermissionCountOrderByAggregateInput = {
+    perm_id?: SortOrder
+    perm_key?: SortOrder
+    perm_module?: SortOrder
+    perm_action?: SortOrder
+    perm_label?: SortOrder
+    perm_sort_order?: SortOrder
+    perm_created_at?: SortOrder
+    perm_updated_at?: SortOrder
+  }
+
+  export type PermissionAvgOrderByAggregateInput = {
+    perm_id?: SortOrder
+    perm_sort_order?: SortOrder
+  }
+
+  export type PermissionMaxOrderByAggregateInput = {
+    perm_id?: SortOrder
+    perm_key?: SortOrder
+    perm_module?: SortOrder
+    perm_action?: SortOrder
+    perm_label?: SortOrder
+    perm_sort_order?: SortOrder
+    perm_created_at?: SortOrder
+    perm_updated_at?: SortOrder
+  }
+
+  export type PermissionMinOrderByAggregateInput = {
+    perm_id?: SortOrder
+    perm_key?: SortOrder
+    perm_module?: SortOrder
+    perm_action?: SortOrder
+    perm_label?: SortOrder
+    perm_sort_order?: SortOrder
+    perm_created_at?: SortOrder
+    perm_updated_at?: SortOrder
+  }
+
+  export type PermissionSumOrderByAggregateInput = {
+    perm_id?: SortOrder
+    perm_sort_order?: SortOrder
+  }
+
+  export type StaffRelationFilter = {
+    is?: StaffWhereInput
+    isNot?: StaffWhereInput
+  }
+
+  export type PermissionRelationFilter = {
+    is?: PermissionWhereInput
+    isNot?: PermissionWhereInput
+  }
+
+  export type StaffPermissionSp_staff_idSp_perm_idCompoundUniqueInput = {
+    sp_staff_id: number
+    sp_perm_id: number
+  }
+
+  export type StaffPermissionCountOrderByAggregateInput = {
+    sp_id?: SortOrder
+    sp_staff_id?: SortOrder
+    sp_perm_id?: SortOrder
+    sp_granted?: SortOrder
+    sp_created_at?: SortOrder
+    sp_updated_at?: SortOrder
+  }
+
+  export type StaffPermissionAvgOrderByAggregateInput = {
+    sp_id?: SortOrder
+    sp_staff_id?: SortOrder
+    sp_perm_id?: SortOrder
+  }
+
+  export type StaffPermissionMaxOrderByAggregateInput = {
+    sp_id?: SortOrder
+    sp_staff_id?: SortOrder
+    sp_perm_id?: SortOrder
+    sp_granted?: SortOrder
+    sp_created_at?: SortOrder
+    sp_updated_at?: SortOrder
+  }
+
+  export type StaffPermissionMinOrderByAggregateInput = {
+    sp_id?: SortOrder
+    sp_staff_id?: SortOrder
+    sp_perm_id?: SortOrder
+    sp_granted?: SortOrder
+    sp_created_at?: SortOrder
+    sp_updated_at?: SortOrder
+  }
+
+  export type StaffPermissionSumOrderByAggregateInput = {
+    sp_id?: SortOrder
+    sp_staff_id?: SortOrder
+    sp_perm_id?: SortOrder
+  }
+
   export type UserCreateNestedManyWithoutOwnerInput = {
     create?: XOR<UserCreateWithoutOwnerInput, UserUncheckedCreateWithoutOwnerInput> | UserCreateWithoutOwnerInput[] | UserUncheckedCreateWithoutOwnerInput[]
     connectOrCreate?: UserCreateOrConnectWithoutOwnerInput | UserCreateOrConnectWithoutOwnerInput[]
@@ -45427,6 +50847,13 @@ export namespace Prisma {
     connect?: MoneyLenderWhereUniqueInput | MoneyLenderWhereUniqueInput[]
   }
 
+  export type StaffCreateNestedManyWithoutOwnerInput = {
+    create?: XOR<StaffCreateWithoutOwnerInput, StaffUncheckedCreateWithoutOwnerInput> | StaffCreateWithoutOwnerInput[] | StaffUncheckedCreateWithoutOwnerInput[]
+    connectOrCreate?: StaffCreateOrConnectWithoutOwnerInput | StaffCreateOrConnectWithoutOwnerInput[]
+    createMany?: StaffCreateManyOwnerInputEnvelope
+    connect?: StaffWhereUniqueInput | StaffWhereUniqueInput[]
+  }
+
   export type UserUncheckedCreateNestedManyWithoutOwnerInput = {
     create?: XOR<UserCreateWithoutOwnerInput, UserUncheckedCreateWithoutOwnerInput> | UserCreateWithoutOwnerInput[] | UserUncheckedCreateWithoutOwnerInput[]
     connectOrCreate?: UserCreateOrConnectWithoutOwnerInput | UserCreateOrConnectWithoutOwnerInput[]
@@ -45537,6 +50964,13 @@ export namespace Prisma {
     connectOrCreate?: MoneyLenderCreateOrConnectWithoutOwnerInput | MoneyLenderCreateOrConnectWithoutOwnerInput[]
     createMany?: MoneyLenderCreateManyOwnerInputEnvelope
     connect?: MoneyLenderWhereUniqueInput | MoneyLenderWhereUniqueInput[]
+  }
+
+  export type StaffUncheckedCreateNestedManyWithoutOwnerInput = {
+    create?: XOR<StaffCreateWithoutOwnerInput, StaffUncheckedCreateWithoutOwnerInput> | StaffCreateWithoutOwnerInput[] | StaffUncheckedCreateWithoutOwnerInput[]
+    connectOrCreate?: StaffCreateOrConnectWithoutOwnerInput | StaffCreateOrConnectWithoutOwnerInput[]
+    createMany?: StaffCreateManyOwnerInputEnvelope
+    connect?: StaffWhereUniqueInput | StaffWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -45787,6 +51221,20 @@ export namespace Prisma {
     deleteMany?: MoneyLenderScalarWhereInput | MoneyLenderScalarWhereInput[]
   }
 
+  export type StaffUpdateManyWithoutOwnerNestedInput = {
+    create?: XOR<StaffCreateWithoutOwnerInput, StaffUncheckedCreateWithoutOwnerInput> | StaffCreateWithoutOwnerInput[] | StaffUncheckedCreateWithoutOwnerInput[]
+    connectOrCreate?: StaffCreateOrConnectWithoutOwnerInput | StaffCreateOrConnectWithoutOwnerInput[]
+    upsert?: StaffUpsertWithWhereUniqueWithoutOwnerInput | StaffUpsertWithWhereUniqueWithoutOwnerInput[]
+    createMany?: StaffCreateManyOwnerInputEnvelope
+    set?: StaffWhereUniqueInput | StaffWhereUniqueInput[]
+    disconnect?: StaffWhereUniqueInput | StaffWhereUniqueInput[]
+    delete?: StaffWhereUniqueInput | StaffWhereUniqueInput[]
+    connect?: StaffWhereUniqueInput | StaffWhereUniqueInput[]
+    update?: StaffUpdateWithWhereUniqueWithoutOwnerInput | StaffUpdateWithWhereUniqueWithoutOwnerInput[]
+    updateMany?: StaffUpdateManyWithWhereWithoutOwnerInput | StaffUpdateManyWithWhereWithoutOwnerInput[]
+    deleteMany?: StaffScalarWhereInput | StaffScalarWhereInput[]
+  }
+
   export type IntFieldUpdateOperationsInput = {
     set?: number
     increment?: number
@@ -46017,6 +51465,20 @@ export namespace Prisma {
     update?: MoneyLenderUpdateWithWhereUniqueWithoutOwnerInput | MoneyLenderUpdateWithWhereUniqueWithoutOwnerInput[]
     updateMany?: MoneyLenderUpdateManyWithWhereWithoutOwnerInput | MoneyLenderUpdateManyWithWhereWithoutOwnerInput[]
     deleteMany?: MoneyLenderScalarWhereInput | MoneyLenderScalarWhereInput[]
+  }
+
+  export type StaffUncheckedUpdateManyWithoutOwnerNestedInput = {
+    create?: XOR<StaffCreateWithoutOwnerInput, StaffUncheckedCreateWithoutOwnerInput> | StaffCreateWithoutOwnerInput[] | StaffUncheckedCreateWithoutOwnerInput[]
+    connectOrCreate?: StaffCreateOrConnectWithoutOwnerInput | StaffCreateOrConnectWithoutOwnerInput[]
+    upsert?: StaffUpsertWithWhereUniqueWithoutOwnerInput | StaffUpsertWithWhereUniqueWithoutOwnerInput[]
+    createMany?: StaffCreateManyOwnerInputEnvelope
+    set?: StaffWhereUniqueInput | StaffWhereUniqueInput[]
+    disconnect?: StaffWhereUniqueInput | StaffWhereUniqueInput[]
+    delete?: StaffWhereUniqueInput | StaffWhereUniqueInput[]
+    connect?: StaffWhereUniqueInput | StaffWhereUniqueInput[]
+    update?: StaffUpdateWithWhereUniqueWithoutOwnerInput | StaffUpdateWithWhereUniqueWithoutOwnerInput[]
+    updateMany?: StaffUpdateManyWithWhereWithoutOwnerInput | StaffUpdateManyWithWhereWithoutOwnerInput[]
+    deleteMany?: StaffScalarWhereInput | StaffScalarWhereInput[]
   }
 
   export type UserCreateNestedManyWithoutFirmInput = {
@@ -50635,6 +56097,144 @@ export namespace Prisma {
     deleteMany?: GirviScalarWhereInput | GirviScalarWhereInput[]
   }
 
+  export type OwnerCreateNestedOneWithoutStaffInput = {
+    create?: XOR<OwnerCreateWithoutStaffInput, OwnerUncheckedCreateWithoutStaffInput>
+    connectOrCreate?: OwnerCreateOrConnectWithoutStaffInput
+    connect?: OwnerWhereUniqueInput
+  }
+
+  export type StaffPermissionCreateNestedManyWithoutStaffInput = {
+    create?: XOR<StaffPermissionCreateWithoutStaffInput, StaffPermissionUncheckedCreateWithoutStaffInput> | StaffPermissionCreateWithoutStaffInput[] | StaffPermissionUncheckedCreateWithoutStaffInput[]
+    connectOrCreate?: StaffPermissionCreateOrConnectWithoutStaffInput | StaffPermissionCreateOrConnectWithoutStaffInput[]
+    createMany?: StaffPermissionCreateManyStaffInputEnvelope
+    connect?: StaffPermissionWhereUniqueInput | StaffPermissionWhereUniqueInput[]
+  }
+
+  export type StaffPermissionUncheckedCreateNestedManyWithoutStaffInput = {
+    create?: XOR<StaffPermissionCreateWithoutStaffInput, StaffPermissionUncheckedCreateWithoutStaffInput> | StaffPermissionCreateWithoutStaffInput[] | StaffPermissionUncheckedCreateWithoutStaffInput[]
+    connectOrCreate?: StaffPermissionCreateOrConnectWithoutStaffInput | StaffPermissionCreateOrConnectWithoutStaffInput[]
+    createMany?: StaffPermissionCreateManyStaffInputEnvelope
+    connect?: StaffPermissionWhereUniqueInput | StaffPermissionWhereUniqueInput[]
+  }
+
+  export type NullableEnumStaffGenderFieldUpdateOperationsInput = {
+    set?: $Enums.StaffGender | null
+  }
+
+  export type NullableEnumStaffMaritalStatusFieldUpdateOperationsInput = {
+    set?: $Enums.StaffMaritalStatus | null
+  }
+
+  export type EnumStaffStatusFieldUpdateOperationsInput = {
+    set?: $Enums.StaffStatus
+  }
+
+  export type OwnerUpdateOneRequiredWithoutStaffNestedInput = {
+    create?: XOR<OwnerCreateWithoutStaffInput, OwnerUncheckedCreateWithoutStaffInput>
+    connectOrCreate?: OwnerCreateOrConnectWithoutStaffInput
+    upsert?: OwnerUpsertWithoutStaffInput
+    connect?: OwnerWhereUniqueInput
+    update?: XOR<XOR<OwnerUpdateToOneWithWhereWithoutStaffInput, OwnerUpdateWithoutStaffInput>, OwnerUncheckedUpdateWithoutStaffInput>
+  }
+
+  export type StaffPermissionUpdateManyWithoutStaffNestedInput = {
+    create?: XOR<StaffPermissionCreateWithoutStaffInput, StaffPermissionUncheckedCreateWithoutStaffInput> | StaffPermissionCreateWithoutStaffInput[] | StaffPermissionUncheckedCreateWithoutStaffInput[]
+    connectOrCreate?: StaffPermissionCreateOrConnectWithoutStaffInput | StaffPermissionCreateOrConnectWithoutStaffInput[]
+    upsert?: StaffPermissionUpsertWithWhereUniqueWithoutStaffInput | StaffPermissionUpsertWithWhereUniqueWithoutStaffInput[]
+    createMany?: StaffPermissionCreateManyStaffInputEnvelope
+    set?: StaffPermissionWhereUniqueInput | StaffPermissionWhereUniqueInput[]
+    disconnect?: StaffPermissionWhereUniqueInput | StaffPermissionWhereUniqueInput[]
+    delete?: StaffPermissionWhereUniqueInput | StaffPermissionWhereUniqueInput[]
+    connect?: StaffPermissionWhereUniqueInput | StaffPermissionWhereUniqueInput[]
+    update?: StaffPermissionUpdateWithWhereUniqueWithoutStaffInput | StaffPermissionUpdateWithWhereUniqueWithoutStaffInput[]
+    updateMany?: StaffPermissionUpdateManyWithWhereWithoutStaffInput | StaffPermissionUpdateManyWithWhereWithoutStaffInput[]
+    deleteMany?: StaffPermissionScalarWhereInput | StaffPermissionScalarWhereInput[]
+  }
+
+  export type StaffPermissionUncheckedUpdateManyWithoutStaffNestedInput = {
+    create?: XOR<StaffPermissionCreateWithoutStaffInput, StaffPermissionUncheckedCreateWithoutStaffInput> | StaffPermissionCreateWithoutStaffInput[] | StaffPermissionUncheckedCreateWithoutStaffInput[]
+    connectOrCreate?: StaffPermissionCreateOrConnectWithoutStaffInput | StaffPermissionCreateOrConnectWithoutStaffInput[]
+    upsert?: StaffPermissionUpsertWithWhereUniqueWithoutStaffInput | StaffPermissionUpsertWithWhereUniqueWithoutStaffInput[]
+    createMany?: StaffPermissionCreateManyStaffInputEnvelope
+    set?: StaffPermissionWhereUniqueInput | StaffPermissionWhereUniqueInput[]
+    disconnect?: StaffPermissionWhereUniqueInput | StaffPermissionWhereUniqueInput[]
+    delete?: StaffPermissionWhereUniqueInput | StaffPermissionWhereUniqueInput[]
+    connect?: StaffPermissionWhereUniqueInput | StaffPermissionWhereUniqueInput[]
+    update?: StaffPermissionUpdateWithWhereUniqueWithoutStaffInput | StaffPermissionUpdateWithWhereUniqueWithoutStaffInput[]
+    updateMany?: StaffPermissionUpdateManyWithWhereWithoutStaffInput | StaffPermissionUpdateManyWithWhereWithoutStaffInput[]
+    deleteMany?: StaffPermissionScalarWhereInput | StaffPermissionScalarWhereInput[]
+  }
+
+  export type StaffPermissionCreateNestedManyWithoutPermissionInput = {
+    create?: XOR<StaffPermissionCreateWithoutPermissionInput, StaffPermissionUncheckedCreateWithoutPermissionInput> | StaffPermissionCreateWithoutPermissionInput[] | StaffPermissionUncheckedCreateWithoutPermissionInput[]
+    connectOrCreate?: StaffPermissionCreateOrConnectWithoutPermissionInput | StaffPermissionCreateOrConnectWithoutPermissionInput[]
+    createMany?: StaffPermissionCreateManyPermissionInputEnvelope
+    connect?: StaffPermissionWhereUniqueInput | StaffPermissionWhereUniqueInput[]
+  }
+
+  export type StaffPermissionUncheckedCreateNestedManyWithoutPermissionInput = {
+    create?: XOR<StaffPermissionCreateWithoutPermissionInput, StaffPermissionUncheckedCreateWithoutPermissionInput> | StaffPermissionCreateWithoutPermissionInput[] | StaffPermissionUncheckedCreateWithoutPermissionInput[]
+    connectOrCreate?: StaffPermissionCreateOrConnectWithoutPermissionInput | StaffPermissionCreateOrConnectWithoutPermissionInput[]
+    createMany?: StaffPermissionCreateManyPermissionInputEnvelope
+    connect?: StaffPermissionWhereUniqueInput | StaffPermissionWhereUniqueInput[]
+  }
+
+  export type StaffPermissionUpdateManyWithoutPermissionNestedInput = {
+    create?: XOR<StaffPermissionCreateWithoutPermissionInput, StaffPermissionUncheckedCreateWithoutPermissionInput> | StaffPermissionCreateWithoutPermissionInput[] | StaffPermissionUncheckedCreateWithoutPermissionInput[]
+    connectOrCreate?: StaffPermissionCreateOrConnectWithoutPermissionInput | StaffPermissionCreateOrConnectWithoutPermissionInput[]
+    upsert?: StaffPermissionUpsertWithWhereUniqueWithoutPermissionInput | StaffPermissionUpsertWithWhereUniqueWithoutPermissionInput[]
+    createMany?: StaffPermissionCreateManyPermissionInputEnvelope
+    set?: StaffPermissionWhereUniqueInput | StaffPermissionWhereUniqueInput[]
+    disconnect?: StaffPermissionWhereUniqueInput | StaffPermissionWhereUniqueInput[]
+    delete?: StaffPermissionWhereUniqueInput | StaffPermissionWhereUniqueInput[]
+    connect?: StaffPermissionWhereUniqueInput | StaffPermissionWhereUniqueInput[]
+    update?: StaffPermissionUpdateWithWhereUniqueWithoutPermissionInput | StaffPermissionUpdateWithWhereUniqueWithoutPermissionInput[]
+    updateMany?: StaffPermissionUpdateManyWithWhereWithoutPermissionInput | StaffPermissionUpdateManyWithWhereWithoutPermissionInput[]
+    deleteMany?: StaffPermissionScalarWhereInput | StaffPermissionScalarWhereInput[]
+  }
+
+  export type StaffPermissionUncheckedUpdateManyWithoutPermissionNestedInput = {
+    create?: XOR<StaffPermissionCreateWithoutPermissionInput, StaffPermissionUncheckedCreateWithoutPermissionInput> | StaffPermissionCreateWithoutPermissionInput[] | StaffPermissionUncheckedCreateWithoutPermissionInput[]
+    connectOrCreate?: StaffPermissionCreateOrConnectWithoutPermissionInput | StaffPermissionCreateOrConnectWithoutPermissionInput[]
+    upsert?: StaffPermissionUpsertWithWhereUniqueWithoutPermissionInput | StaffPermissionUpsertWithWhereUniqueWithoutPermissionInput[]
+    createMany?: StaffPermissionCreateManyPermissionInputEnvelope
+    set?: StaffPermissionWhereUniqueInput | StaffPermissionWhereUniqueInput[]
+    disconnect?: StaffPermissionWhereUniqueInput | StaffPermissionWhereUniqueInput[]
+    delete?: StaffPermissionWhereUniqueInput | StaffPermissionWhereUniqueInput[]
+    connect?: StaffPermissionWhereUniqueInput | StaffPermissionWhereUniqueInput[]
+    update?: StaffPermissionUpdateWithWhereUniqueWithoutPermissionInput | StaffPermissionUpdateWithWhereUniqueWithoutPermissionInput[]
+    updateMany?: StaffPermissionUpdateManyWithWhereWithoutPermissionInput | StaffPermissionUpdateManyWithWhereWithoutPermissionInput[]
+    deleteMany?: StaffPermissionScalarWhereInput | StaffPermissionScalarWhereInput[]
+  }
+
+  export type StaffCreateNestedOneWithoutPermissionsInput = {
+    create?: XOR<StaffCreateWithoutPermissionsInput, StaffUncheckedCreateWithoutPermissionsInput>
+    connectOrCreate?: StaffCreateOrConnectWithoutPermissionsInput
+    connect?: StaffWhereUniqueInput
+  }
+
+  export type PermissionCreateNestedOneWithoutStaffPermissionsInput = {
+    create?: XOR<PermissionCreateWithoutStaffPermissionsInput, PermissionUncheckedCreateWithoutStaffPermissionsInput>
+    connectOrCreate?: PermissionCreateOrConnectWithoutStaffPermissionsInput
+    connect?: PermissionWhereUniqueInput
+  }
+
+  export type StaffUpdateOneRequiredWithoutPermissionsNestedInput = {
+    create?: XOR<StaffCreateWithoutPermissionsInput, StaffUncheckedCreateWithoutPermissionsInput>
+    connectOrCreate?: StaffCreateOrConnectWithoutPermissionsInput
+    upsert?: StaffUpsertWithoutPermissionsInput
+    connect?: StaffWhereUniqueInput
+    update?: XOR<XOR<StaffUpdateToOneWithWhereWithoutPermissionsInput, StaffUpdateWithoutPermissionsInput>, StaffUncheckedUpdateWithoutPermissionsInput>
+  }
+
+  export type PermissionUpdateOneRequiredWithoutStaffPermissionsNestedInput = {
+    create?: XOR<PermissionCreateWithoutStaffPermissionsInput, PermissionUncheckedCreateWithoutStaffPermissionsInput>
+    connectOrCreate?: PermissionCreateOrConnectWithoutStaffPermissionsInput
+    upsert?: PermissionUpsertWithoutStaffPermissionsInput
+    connect?: PermissionWhereUniqueInput
+    update?: XOR<XOR<PermissionUpdateToOneWithWhereWithoutStaffPermissionsInput, PermissionUpdateWithoutStaffPermissionsInput>, PermissionUncheckedUpdateWithoutStaffPermissionsInput>
+  }
+
   export type NestedIntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -51211,6 +56811,57 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumStockStatusFilter<$PrismaModel>
     _max?: NestedEnumStockStatusFilter<$PrismaModel>
+  }
+
+  export type NestedEnumStaffGenderNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.StaffGender | EnumStaffGenderFieldRefInput<$PrismaModel> | null
+    in?: $Enums.StaffGender[] | ListEnumStaffGenderFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.StaffGender[] | ListEnumStaffGenderFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumStaffGenderNullableFilter<$PrismaModel> | $Enums.StaffGender | null
+  }
+
+  export type NestedEnumStaffMaritalStatusNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.StaffMaritalStatus | EnumStaffMaritalStatusFieldRefInput<$PrismaModel> | null
+    in?: $Enums.StaffMaritalStatus[] | ListEnumStaffMaritalStatusFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.StaffMaritalStatus[] | ListEnumStaffMaritalStatusFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumStaffMaritalStatusNullableFilter<$PrismaModel> | $Enums.StaffMaritalStatus | null
+  }
+
+  export type NestedEnumStaffStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.StaffStatus | EnumStaffStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.StaffStatus[] | ListEnumStaffStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.StaffStatus[] | ListEnumStaffStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumStaffStatusFilter<$PrismaModel> | $Enums.StaffStatus
+  }
+
+  export type NestedEnumStaffGenderNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.StaffGender | EnumStaffGenderFieldRefInput<$PrismaModel> | null
+    in?: $Enums.StaffGender[] | ListEnumStaffGenderFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.StaffGender[] | ListEnumStaffGenderFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumStaffGenderNullableWithAggregatesFilter<$PrismaModel> | $Enums.StaffGender | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumStaffGenderNullableFilter<$PrismaModel>
+    _max?: NestedEnumStaffGenderNullableFilter<$PrismaModel>
+  }
+
+  export type NestedEnumStaffMaritalStatusNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.StaffMaritalStatus | EnumStaffMaritalStatusFieldRefInput<$PrismaModel> | null
+    in?: $Enums.StaffMaritalStatus[] | ListEnumStaffMaritalStatusFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.StaffMaritalStatus[] | ListEnumStaffMaritalStatusFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumStaffMaritalStatusNullableWithAggregatesFilter<$PrismaModel> | $Enums.StaffMaritalStatus | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumStaffMaritalStatusNullableFilter<$PrismaModel>
+    _max?: NestedEnumStaffMaritalStatusNullableFilter<$PrismaModel>
+  }
+
+  export type NestedEnumStaffStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.StaffStatus | EnumStaffStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.StaffStatus[] | ListEnumStaffStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.StaffStatus[] | ListEnumStaffStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumStaffStatusWithAggregatesFilter<$PrismaModel> | $Enums.StaffStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumStaffStatusFilter<$PrismaModel>
+    _max?: NestedEnumStaffStatusFilter<$PrismaModel>
   }
 
   export type UserCreateWithoutOwnerInput = {
@@ -52619,6 +58270,129 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type StaffCreateWithoutOwnerInput = {
+    staff_uuid?: string
+    staff_add_date?: Date | string
+    staff_first_name: string
+    staff_last_name: string
+    staff_father_name?: string | null
+    staff_mother_name?: string | null
+    staff_mobile_no: string
+    staff_phone_no?: string | null
+    staff_email_id?: string | null
+    staff_gender?: $Enums.StaffGender | null
+    staff_cast?: string | null
+    staff_marital_status?: $Enums.StaffMaritalStatus | null
+    staff_occupation?: string | null
+    staff_birth_date?: Date | string | null
+    staff_gstin?: string | null
+    staff_tax_no?: string | null
+    staff_pan_no?: string | null
+    staff_adhaar_no?: string | null
+    staff_login_id: string
+    staff_password: string
+    staff_status?: $Enums.StaffStatus
+    staff_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_per_address?: string | null
+    staff_curr_address?: string | null
+    staff_village?: string | null
+    staff_ward_no?: string | null
+    staff_tehsil?: string | null
+    staff_city?: string | null
+    staff_state?: string | null
+    staff_country?: string | null
+    staff_pincode?: string | null
+    staff_bank_name?: string | null
+    staff_bank_acc_no?: string | null
+    staff_ifsc_code?: string | null
+    staff_other_info?: string | null
+    staff_refresh_token?: string | null
+    staff_jwt_token?: string | null
+    staff_login_status?: boolean
+    staff_last_login_system?: NullableJsonNullValueInput | InputJsonValue
+    staff_otp?: string | null
+    staff_otp_expiry?: Date | string | null
+    staff_created_at?: Date | string
+    staff_created_by?: string | null
+    staff_updated_at?: Date | string
+    staff_updated_by?: string | null
+    staff_deleted_at?: Date | string | null
+    staff_deleted_by?: string | null
+    staff_is_deleted?: boolean
+    permissions?: StaffPermissionCreateNestedManyWithoutStaffInput
+  }
+
+  export type StaffUncheckedCreateWithoutOwnerInput = {
+    staff_id?: number
+    staff_uuid?: string
+    staff_add_date?: Date | string
+    staff_first_name: string
+    staff_last_name: string
+    staff_father_name?: string | null
+    staff_mother_name?: string | null
+    staff_mobile_no: string
+    staff_phone_no?: string | null
+    staff_email_id?: string | null
+    staff_gender?: $Enums.StaffGender | null
+    staff_cast?: string | null
+    staff_marital_status?: $Enums.StaffMaritalStatus | null
+    staff_occupation?: string | null
+    staff_birth_date?: Date | string | null
+    staff_gstin?: string | null
+    staff_tax_no?: string | null
+    staff_pan_no?: string | null
+    staff_adhaar_no?: string | null
+    staff_login_id: string
+    staff_password: string
+    staff_status?: $Enums.StaffStatus
+    staff_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_per_address?: string | null
+    staff_curr_address?: string | null
+    staff_village?: string | null
+    staff_ward_no?: string | null
+    staff_tehsil?: string | null
+    staff_city?: string | null
+    staff_state?: string | null
+    staff_country?: string | null
+    staff_pincode?: string | null
+    staff_bank_name?: string | null
+    staff_bank_acc_no?: string | null
+    staff_ifsc_code?: string | null
+    staff_other_info?: string | null
+    staff_refresh_token?: string | null
+    staff_jwt_token?: string | null
+    staff_login_status?: boolean
+    staff_last_login_system?: NullableJsonNullValueInput | InputJsonValue
+    staff_otp?: string | null
+    staff_otp_expiry?: Date | string | null
+    staff_created_at?: Date | string
+    staff_created_by?: string | null
+    staff_updated_at?: Date | string
+    staff_updated_by?: string | null
+    staff_deleted_at?: Date | string | null
+    staff_deleted_by?: string | null
+    staff_is_deleted?: boolean
+    permissions?: StaffPermissionUncheckedCreateNestedManyWithoutStaffInput
+  }
+
+  export type StaffCreateOrConnectWithoutOwnerInput = {
+    where: StaffWhereUniqueInput
+    create: XOR<StaffCreateWithoutOwnerInput, StaffUncheckedCreateWithoutOwnerInput>
+  }
+
+  export type StaffCreateManyOwnerInputEnvelope = {
+    data: StaffCreateManyOwnerInput | StaffCreateManyOwnerInput[]
+    skipDuplicates?: boolean
+  }
+
   export type UserUpsertWithWhereUniqueWithoutOwnerInput = {
     where: UserWhereUniqueInput
     update: XOR<UserUpdateWithoutOwnerInput, UserUncheckedUpdateWithoutOwnerInput>
@@ -53495,6 +59269,82 @@ export namespace Prisma {
     updated_at?: DateTimeFilter<"MoneyLender"> | Date | string
   }
 
+  export type StaffUpsertWithWhereUniqueWithoutOwnerInput = {
+    where: StaffWhereUniqueInput
+    update: XOR<StaffUpdateWithoutOwnerInput, StaffUncheckedUpdateWithoutOwnerInput>
+    create: XOR<StaffCreateWithoutOwnerInput, StaffUncheckedCreateWithoutOwnerInput>
+  }
+
+  export type StaffUpdateWithWhereUniqueWithoutOwnerInput = {
+    where: StaffWhereUniqueInput
+    data: XOR<StaffUpdateWithoutOwnerInput, StaffUncheckedUpdateWithoutOwnerInput>
+  }
+
+  export type StaffUpdateManyWithWhereWithoutOwnerInput = {
+    where: StaffScalarWhereInput
+    data: XOR<StaffUpdateManyMutationInput, StaffUncheckedUpdateManyWithoutOwnerInput>
+  }
+
+  export type StaffScalarWhereInput = {
+    AND?: StaffScalarWhereInput | StaffScalarWhereInput[]
+    OR?: StaffScalarWhereInput[]
+    NOT?: StaffScalarWhereInput | StaffScalarWhereInput[]
+    staff_id?: IntFilter<"Staff"> | number
+    staff_uuid?: StringFilter<"Staff"> | string
+    staff_own_id?: IntFilter<"Staff"> | number
+    staff_add_date?: DateTimeFilter<"Staff"> | Date | string
+    staff_first_name?: StringFilter<"Staff"> | string
+    staff_last_name?: StringFilter<"Staff"> | string
+    staff_father_name?: StringNullableFilter<"Staff"> | string | null
+    staff_mother_name?: StringNullableFilter<"Staff"> | string | null
+    staff_mobile_no?: StringFilter<"Staff"> | string
+    staff_phone_no?: StringNullableFilter<"Staff"> | string | null
+    staff_email_id?: StringNullableFilter<"Staff"> | string | null
+    staff_gender?: EnumStaffGenderNullableFilter<"Staff"> | $Enums.StaffGender | null
+    staff_cast?: StringNullableFilter<"Staff"> | string | null
+    staff_marital_status?: EnumStaffMaritalStatusNullableFilter<"Staff"> | $Enums.StaffMaritalStatus | null
+    staff_occupation?: StringNullableFilter<"Staff"> | string | null
+    staff_birth_date?: DateTimeNullableFilter<"Staff"> | Date | string | null
+    staff_gstin?: StringNullableFilter<"Staff"> | string | null
+    staff_tax_no?: StringNullableFilter<"Staff"> | string | null
+    staff_pan_no?: StringNullableFilter<"Staff"> | string | null
+    staff_adhaar_no?: StringNullableFilter<"Staff"> | string | null
+    staff_login_id?: StringFilter<"Staff"> | string
+    staff_password?: StringFilter<"Staff"> | string
+    staff_status?: EnumStaffStatusFilter<"Staff"> | $Enums.StaffStatus
+    staff_profile_img?: JsonNullableFilter<"Staff">
+    staff_adhaar_front_img?: JsonNullableFilter<"Staff">
+    staff_adhaar_back_img?: JsonNullableFilter<"Staff">
+    staff_pan_card_img?: JsonNullableFilter<"Staff">
+    staff_sign_img?: JsonNullableFilter<"Staff">
+    staff_per_address?: StringNullableFilter<"Staff"> | string | null
+    staff_curr_address?: StringNullableFilter<"Staff"> | string | null
+    staff_village?: StringNullableFilter<"Staff"> | string | null
+    staff_ward_no?: StringNullableFilter<"Staff"> | string | null
+    staff_tehsil?: StringNullableFilter<"Staff"> | string | null
+    staff_city?: StringNullableFilter<"Staff"> | string | null
+    staff_state?: StringNullableFilter<"Staff"> | string | null
+    staff_country?: StringNullableFilter<"Staff"> | string | null
+    staff_pincode?: StringNullableFilter<"Staff"> | string | null
+    staff_bank_name?: StringNullableFilter<"Staff"> | string | null
+    staff_bank_acc_no?: StringNullableFilter<"Staff"> | string | null
+    staff_ifsc_code?: StringNullableFilter<"Staff"> | string | null
+    staff_other_info?: StringNullableFilter<"Staff"> | string | null
+    staff_refresh_token?: StringNullableFilter<"Staff"> | string | null
+    staff_jwt_token?: StringNullableFilter<"Staff"> | string | null
+    staff_login_status?: BoolFilter<"Staff"> | boolean
+    staff_last_login_system?: JsonNullableFilter<"Staff">
+    staff_otp?: StringNullableFilter<"Staff"> | string | null
+    staff_otp_expiry?: DateTimeNullableFilter<"Staff"> | Date | string | null
+    staff_created_at?: DateTimeFilter<"Staff"> | Date | string
+    staff_created_by?: StringNullableFilter<"Staff"> | string | null
+    staff_updated_at?: DateTimeFilter<"Staff"> | Date | string
+    staff_updated_by?: StringNullableFilter<"Staff"> | string | null
+    staff_deleted_at?: DateTimeNullableFilter<"Staff"> | Date | string | null
+    staff_deleted_by?: StringNullableFilter<"Staff"> | string | null
+    staff_is_deleted?: BoolFilter<"Staff"> | boolean
+  }
+
   export type UserCreateWithoutFirmInput = {
     user_uuid?: string
     user_add_date?: Date | string
@@ -53827,6 +59677,7 @@ export namespace Prisma {
     rates?: RateCreateNestedManyWithoutOwnerInput
     purities?: PurityCreateNestedManyWithoutOwnerInput
     moneyLenders?: MoneyLenderCreateNestedManyWithoutOwnerInput
+    staff?: StaffCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerUncheckedCreateWithoutFirmsInput = {
@@ -53880,6 +59731,7 @@ export namespace Prisma {
     rates?: RateUncheckedCreateNestedManyWithoutOwnerInput
     purities?: PurityUncheckedCreateNestedManyWithoutOwnerInput
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutOwnerInput
+    staff?: StaffUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerCreateOrConnectWithoutFirmsInput = {
@@ -54927,6 +60779,7 @@ export namespace Prisma {
     rates?: RateUpdateManyWithoutOwnerNestedInput
     purities?: PurityUpdateManyWithoutOwnerNestedInput
     moneyLenders?: MoneyLenderUpdateManyWithoutOwnerNestedInput
+    staff?: StaffUpdateManyWithoutOwnerNestedInput
   }
 
   export type OwnerUncheckedUpdateWithoutFirmsInput = {
@@ -54980,6 +60833,7 @@ export namespace Prisma {
     rates?: RateUncheckedUpdateManyWithoutOwnerNestedInput
     purities?: PurityUncheckedUpdateManyWithoutOwnerNestedInput
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutOwnerNestedInput
+    staff?: StaffUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
   export type FinanceUpsertWithWhereUniqueWithoutFirmInput = {
@@ -55224,6 +61078,7 @@ export namespace Prisma {
     rates?: RateCreateNestedManyWithoutOwnerInput
     purities?: PurityCreateNestedManyWithoutOwnerInput
     moneyLenders?: MoneyLenderCreateNestedManyWithoutOwnerInput
+    staff?: StaffCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerUncheckedCreateWithoutAccountsInput = {
@@ -55277,6 +61132,7 @@ export namespace Prisma {
     rates?: RateUncheckedCreateNestedManyWithoutOwnerInput
     purities?: PurityUncheckedCreateNestedManyWithoutOwnerInput
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutOwnerInput
+    staff?: StaffUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerCreateOrConnectWithoutAccountsInput = {
@@ -59407,6 +65263,7 @@ export namespace Prisma {
     rates?: RateUpdateManyWithoutOwnerNestedInput
     purities?: PurityUpdateManyWithoutOwnerNestedInput
     moneyLenders?: MoneyLenderUpdateManyWithoutOwnerNestedInput
+    staff?: StaffUpdateManyWithoutOwnerNestedInput
   }
 
   export type OwnerUncheckedUpdateWithoutAccountsInput = {
@@ -59460,6 +65317,7 @@ export namespace Prisma {
     rates?: RateUncheckedUpdateManyWithoutOwnerNestedInput
     purities?: PurityUncheckedUpdateManyWithoutOwnerNestedInput
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutOwnerNestedInput
+    staff?: StaffUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
   export type FirmUpsertWithoutAccountsInput = {
@@ -60340,6 +66198,7 @@ export namespace Prisma {
     rates?: RateCreateNestedManyWithoutOwnerInput
     purities?: PurityCreateNestedManyWithoutOwnerInput
     moneyLenders?: MoneyLenderCreateNestedManyWithoutOwnerInput
+    staff?: StaffCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerUncheckedCreateWithoutUsersInput = {
@@ -60393,6 +66252,7 @@ export namespace Prisma {
     rates?: RateUncheckedCreateNestedManyWithoutOwnerInput
     purities?: PurityUncheckedCreateNestedManyWithoutOwnerInput
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutOwnerInput
+    staff?: StaffUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerCreateOrConnectWithoutUsersInput = {
@@ -61412,6 +67272,7 @@ export namespace Prisma {
     rates?: RateUpdateManyWithoutOwnerNestedInput
     purities?: PurityUpdateManyWithoutOwnerNestedInput
     moneyLenders?: MoneyLenderUpdateManyWithoutOwnerNestedInput
+    staff?: StaffUpdateManyWithoutOwnerNestedInput
   }
 
   export type OwnerUncheckedUpdateWithoutUsersInput = {
@@ -61465,6 +67326,7 @@ export namespace Prisma {
     rates?: RateUncheckedUpdateManyWithoutOwnerNestedInput
     purities?: PurityUncheckedUpdateManyWithoutOwnerNestedInput
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutOwnerNestedInput
+    staff?: StaffUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
   export type FirmUpsertWithoutUsersInput = {
@@ -62981,6 +68843,7 @@ export namespace Prisma {
     rates?: RateCreateNestedManyWithoutOwnerInput
     purities?: PurityCreateNestedManyWithoutOwnerInput
     moneyLenders?: MoneyLenderCreateNestedManyWithoutOwnerInput
+    staff?: StaffCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerUncheckedCreateWithoutFinancesInput = {
@@ -63034,6 +68897,7 @@ export namespace Prisma {
     rates?: RateUncheckedCreateNestedManyWithoutOwnerInput
     purities?: PurityUncheckedCreateNestedManyWithoutOwnerInput
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutOwnerInput
+    staff?: StaffUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerCreateOrConnectWithoutFinancesInput = {
@@ -64189,6 +70053,7 @@ export namespace Prisma {
     rates?: RateUpdateManyWithoutOwnerNestedInput
     purities?: PurityUpdateManyWithoutOwnerNestedInput
     moneyLenders?: MoneyLenderUpdateManyWithoutOwnerNestedInput
+    staff?: StaffUpdateManyWithoutOwnerNestedInput
   }
 
   export type OwnerUncheckedUpdateWithoutFinancesInput = {
@@ -64242,6 +70107,7 @@ export namespace Prisma {
     rates?: RateUncheckedUpdateManyWithoutOwnerNestedInput
     purities?: PurityUncheckedUpdateManyWithoutOwnerNestedInput
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutOwnerNestedInput
+    staff?: StaffUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
   export type FirmCreateWithoutFinanceTransactionsInput = {
@@ -64548,6 +70414,7 @@ export namespace Prisma {
     rates?: RateCreateNestedManyWithoutOwnerInput
     purities?: PurityCreateNestedManyWithoutOwnerInput
     moneyLenders?: MoneyLenderCreateNestedManyWithoutOwnerInput
+    staff?: StaffCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerUncheckedCreateWithoutFinanceTransactionsInput = {
@@ -64601,6 +70468,7 @@ export namespace Prisma {
     rates?: RateUncheckedCreateNestedManyWithoutOwnerInput
     purities?: PurityUncheckedCreateNestedManyWithoutOwnerInput
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutOwnerInput
+    staff?: StaffUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerCreateOrConnectWithoutFinanceTransactionsInput = {
@@ -65644,6 +71512,7 @@ export namespace Prisma {
     rates?: RateUpdateManyWithoutOwnerNestedInput
     purities?: PurityUpdateManyWithoutOwnerNestedInput
     moneyLenders?: MoneyLenderUpdateManyWithoutOwnerNestedInput
+    staff?: StaffUpdateManyWithoutOwnerNestedInput
   }
 
   export type OwnerUncheckedUpdateWithoutFinanceTransactionsInput = {
@@ -65697,6 +71566,7 @@ export namespace Prisma {
     rates?: RateUncheckedUpdateManyWithoutOwnerNestedInput
     purities?: PurityUncheckedUpdateManyWithoutOwnerNestedInput
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutOwnerNestedInput
+    staff?: StaffUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
   export type FinanceUpsertWithoutFinance_transInput = {
@@ -66743,6 +72613,7 @@ export namespace Prisma {
     rates?: RateCreateNestedManyWithoutOwnerInput
     purities?: PurityCreateNestedManyWithoutOwnerInput
     moneyLenders?: MoneyLenderCreateNestedManyWithoutOwnerInput
+    staff?: StaffCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerUncheckedCreateWithoutFinanceMoneyTransInput = {
@@ -66796,6 +72667,7 @@ export namespace Prisma {
     rates?: RateUncheckedCreateNestedManyWithoutOwnerInput
     purities?: PurityUncheckedCreateNestedManyWithoutOwnerInput
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutOwnerInput
+    staff?: StaffUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerCreateOrConnectWithoutFinanceMoneyTransInput = {
@@ -68037,6 +73909,7 @@ export namespace Prisma {
     rates?: RateUpdateManyWithoutOwnerNestedInput
     purities?: PurityUpdateManyWithoutOwnerNestedInput
     moneyLenders?: MoneyLenderUpdateManyWithoutOwnerNestedInput
+    staff?: StaffUpdateManyWithoutOwnerNestedInput
   }
 
   export type OwnerUncheckedUpdateWithoutFinanceMoneyTransInput = {
@@ -68090,6 +73963,7 @@ export namespace Prisma {
     rates?: RateUncheckedUpdateManyWithoutOwnerNestedInput
     purities?: PurityUncheckedUpdateManyWithoutOwnerNestedInput
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutOwnerNestedInput
+    staff?: StaffUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
   export type FinanceUpsertWithoutFinance_money_transInput = {
@@ -69429,6 +75303,7 @@ export namespace Prisma {
     rates?: RateCreateNestedManyWithoutOwnerInput
     purities?: PurityCreateNestedManyWithoutOwnerInput
     moneyLenders?: MoneyLenderCreateNestedManyWithoutOwnerInput
+    staff?: StaffCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerUncheckedCreateWithoutJournalsInput = {
@@ -69482,6 +75357,7 @@ export namespace Prisma {
     rates?: RateUncheckedCreateNestedManyWithoutOwnerInput
     purities?: PurityUncheckedCreateNestedManyWithoutOwnerInput
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutOwnerInput
+    staff?: StaffUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerCreateOrConnectWithoutJournalsInput = {
@@ -69890,6 +75766,7 @@ export namespace Prisma {
     rates?: RateUpdateManyWithoutOwnerNestedInput
     purities?: PurityUpdateManyWithoutOwnerNestedInput
     moneyLenders?: MoneyLenderUpdateManyWithoutOwnerNestedInput
+    staff?: StaffUpdateManyWithoutOwnerNestedInput
   }
 
   export type OwnerUncheckedUpdateWithoutJournalsInput = {
@@ -69943,6 +75820,7 @@ export namespace Prisma {
     rates?: RateUncheckedUpdateManyWithoutOwnerNestedInput
     purities?: PurityUncheckedUpdateManyWithoutOwnerNestedInput
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutOwnerNestedInput
+    staff?: StaffUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
   export type JournalTransactionUpsertWithWhereUniqueWithoutJournalInput = {
@@ -70311,6 +76189,7 @@ export namespace Prisma {
     rates?: RateCreateNestedManyWithoutOwnerInput
     purities?: PurityCreateNestedManyWithoutOwnerInput
     moneyLenders?: MoneyLenderCreateNestedManyWithoutOwnerInput
+    staff?: StaffCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerUncheckedCreateWithoutJournalTransactionsInput = {
@@ -70364,6 +76243,7 @@ export namespace Prisma {
     rates?: RateUncheckedCreateNestedManyWithoutOwnerInput
     purities?: PurityUncheckedCreateNestedManyWithoutOwnerInput
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutOwnerInput
+    staff?: StaffUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerCreateOrConnectWithoutJournalTransactionsInput = {
@@ -71053,6 +76933,7 @@ export namespace Prisma {
     rates?: RateUpdateManyWithoutOwnerNestedInput
     purities?: PurityUpdateManyWithoutOwnerNestedInput
     moneyLenders?: MoneyLenderUpdateManyWithoutOwnerNestedInput
+    staff?: StaffUpdateManyWithoutOwnerNestedInput
   }
 
   export type OwnerUncheckedUpdateWithoutJournalTransactionsInput = {
@@ -71106,6 +76987,7 @@ export namespace Prisma {
     rates?: RateUncheckedUpdateManyWithoutOwnerNestedInput
     purities?: PurityUncheckedUpdateManyWithoutOwnerNestedInput
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutOwnerNestedInput
+    staff?: StaffUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
   export type AccountUpsertWithoutJrtrCreditInput = {
@@ -71474,6 +77356,7 @@ export namespace Prisma {
     rates?: RateCreateNestedManyWithoutOwnerInput
     purities?: PurityCreateNestedManyWithoutOwnerInput
     moneyLenders?: MoneyLenderCreateNestedManyWithoutOwnerInput
+    staff?: StaffCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerUncheckedCreateWithoutGirvisInput = {
@@ -71527,6 +77410,7 @@ export namespace Prisma {
     rates?: RateUncheckedCreateNestedManyWithoutOwnerInput
     purities?: PurityUncheckedCreateNestedManyWithoutOwnerInput
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutOwnerInput
+    staff?: StaffUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerCreateOrConnectWithoutGirvisInput = {
@@ -73243,6 +79127,7 @@ export namespace Prisma {
     rates?: RateUpdateManyWithoutOwnerNestedInput
     purities?: PurityUpdateManyWithoutOwnerNestedInput
     moneyLenders?: MoneyLenderUpdateManyWithoutOwnerNestedInput
+    staff?: StaffUpdateManyWithoutOwnerNestedInput
   }
 
   export type OwnerUncheckedUpdateWithoutGirvisInput = {
@@ -73296,6 +79181,7 @@ export namespace Prisma {
     rates?: RateUncheckedUpdateManyWithoutOwnerNestedInput
     purities?: PurityUncheckedUpdateManyWithoutOwnerNestedInput
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutOwnerNestedInput
+    staff?: StaffUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
   export type FirmUpsertWithoutGirvisInput = {
@@ -74850,6 +80736,7 @@ export namespace Prisma {
     rates?: RateCreateNestedManyWithoutOwnerInput
     purities?: PurityCreateNestedManyWithoutOwnerInput
     moneyLenders?: MoneyLenderCreateNestedManyWithoutOwnerInput
+    staff?: StaffCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerUncheckedCreateWithoutStocksInput = {
@@ -74903,6 +80790,7 @@ export namespace Prisma {
     rates?: RateUncheckedCreateNestedManyWithoutOwnerInput
     purities?: PurityUncheckedCreateNestedManyWithoutOwnerInput
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutOwnerInput
+    staff?: StaffUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerCreateOrConnectWithoutStocksInput = {
@@ -75224,6 +81112,7 @@ export namespace Prisma {
     rates?: RateUpdateManyWithoutOwnerNestedInput
     purities?: PurityUpdateManyWithoutOwnerNestedInput
     moneyLenders?: MoneyLenderUpdateManyWithoutOwnerNestedInput
+    staff?: StaffUpdateManyWithoutOwnerNestedInput
   }
 
   export type OwnerUncheckedUpdateWithoutStocksInput = {
@@ -75277,6 +81166,7 @@ export namespace Prisma {
     rates?: RateUncheckedUpdateManyWithoutOwnerNestedInput
     purities?: PurityUncheckedUpdateManyWithoutOwnerNestedInput
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutOwnerNestedInput
+    staff?: StaffUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
   export type FirmUpsertWithoutStocksInput = {
@@ -75595,6 +81485,7 @@ export namespace Prisma {
     rates?: RateCreateNestedManyWithoutOwnerInput
     purities?: PurityCreateNestedManyWithoutOwnerInput
     moneyLenders?: MoneyLenderCreateNestedManyWithoutOwnerInput
+    staff?: StaffCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerUncheckedCreateWithoutAdditionalPrincipalsInput = {
@@ -75648,6 +81539,7 @@ export namespace Prisma {
     rates?: RateUncheckedCreateNestedManyWithoutOwnerInput
     purities?: PurityUncheckedCreateNestedManyWithoutOwnerInput
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutOwnerInput
+    staff?: StaffUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerCreateOrConnectWithoutAdditionalPrincipalsInput = {
@@ -76695,6 +82587,7 @@ export namespace Prisma {
     rates?: RateUpdateManyWithoutOwnerNestedInput
     purities?: PurityUpdateManyWithoutOwnerNestedInput
     moneyLenders?: MoneyLenderUpdateManyWithoutOwnerNestedInput
+    staff?: StaffUpdateManyWithoutOwnerNestedInput
   }
 
   export type OwnerUncheckedUpdateWithoutAdditionalPrincipalsInput = {
@@ -76748,6 +82641,7 @@ export namespace Prisma {
     rates?: RateUncheckedUpdateManyWithoutOwnerNestedInput
     purities?: PurityUncheckedUpdateManyWithoutOwnerNestedInput
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutOwnerNestedInput
+    staff?: StaffUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
   export type FirmUpsertWithoutAdditionalPrincipalsInput = {
@@ -77822,6 +83716,7 @@ export namespace Prisma {
     rates?: RateCreateNestedManyWithoutOwnerInput
     purities?: PurityCreateNestedManyWithoutOwnerInput
     moneyLenders?: MoneyLenderCreateNestedManyWithoutOwnerInput
+    staff?: StaffCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerUncheckedCreateWithoutDepositsInput = {
@@ -77875,6 +83770,7 @@ export namespace Prisma {
     rates?: RateUncheckedCreateNestedManyWithoutOwnerInput
     purities?: PurityUncheckedCreateNestedManyWithoutOwnerInput
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutOwnerInput
+    staff?: StaffUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerCreateOrConnectWithoutDepositsInput = {
@@ -79530,6 +85426,7 @@ export namespace Prisma {
     rates?: RateUpdateManyWithoutOwnerNestedInput
     purities?: PurityUpdateManyWithoutOwnerNestedInput
     moneyLenders?: MoneyLenderUpdateManyWithoutOwnerNestedInput
+    staff?: StaffUpdateManyWithoutOwnerNestedInput
   }
 
   export type OwnerUncheckedUpdateWithoutDepositsInput = {
@@ -79583,6 +85480,7 @@ export namespace Prisma {
     rates?: RateUncheckedUpdateManyWithoutOwnerNestedInput
     purities?: PurityUncheckedUpdateManyWithoutOwnerNestedInput
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutOwnerNestedInput
+    staff?: StaffUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
   export type FirmUpsertWithoutDepositsInput = {
@@ -81289,6 +87187,7 @@ export namespace Prisma {
     rates?: RateCreateNestedManyWithoutOwnerInput
     purities?: PurityCreateNestedManyWithoutOwnerInput
     moneyLenders?: MoneyLenderCreateNestedManyWithoutOwnerInput
+    staff?: StaffCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerUncheckedCreateWithoutReleasesInput = {
@@ -81342,6 +87241,7 @@ export namespace Prisma {
     rates?: RateUncheckedCreateNestedManyWithoutOwnerInput
     purities?: PurityUncheckedCreateNestedManyWithoutOwnerInput
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutOwnerInput
+    staff?: StaffUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerCreateOrConnectWithoutReleasesInput = {
@@ -82997,6 +88897,7 @@ export namespace Prisma {
     rates?: RateUpdateManyWithoutOwnerNestedInput
     purities?: PurityUpdateManyWithoutOwnerNestedInput
     moneyLenders?: MoneyLenderUpdateManyWithoutOwnerNestedInput
+    staff?: StaffUpdateManyWithoutOwnerNestedInput
   }
 
   export type OwnerUncheckedUpdateWithoutReleasesInput = {
@@ -83050,6 +88951,7 @@ export namespace Prisma {
     rates?: RateUncheckedUpdateManyWithoutOwnerNestedInput
     purities?: PurityUncheckedUpdateManyWithoutOwnerNestedInput
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutOwnerNestedInput
+    staff?: StaffUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
   export type FirmUpsertWithoutReleasesInput = {
@@ -84756,6 +90658,7 @@ export namespace Prisma {
     releases?: GirviReleaseCreateNestedManyWithoutOwnerInput
     purities?: PurityCreateNestedManyWithoutOwnerInput
     moneyLenders?: MoneyLenderCreateNestedManyWithoutOwnerInput
+    staff?: StaffCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerUncheckedCreateWithoutRatesInput = {
@@ -84809,6 +90712,7 @@ export namespace Prisma {
     releases?: GirviReleaseUncheckedCreateNestedManyWithoutOwnerInput
     purities?: PurityUncheckedCreateNestedManyWithoutOwnerInput
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutOwnerInput
+    staff?: StaffUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerCreateOrConnectWithoutRatesInput = {
@@ -85010,6 +90914,7 @@ export namespace Prisma {
     releases?: GirviReleaseUpdateManyWithoutOwnerNestedInput
     purities?: PurityUpdateManyWithoutOwnerNestedInput
     moneyLenders?: MoneyLenderUpdateManyWithoutOwnerNestedInput
+    staff?: StaffUpdateManyWithoutOwnerNestedInput
   }
 
   export type OwnerUncheckedUpdateWithoutRatesInput = {
@@ -85063,6 +90968,7 @@ export namespace Prisma {
     releases?: GirviReleaseUncheckedUpdateManyWithoutOwnerNestedInput
     purities?: PurityUncheckedUpdateManyWithoutOwnerNestedInput
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutOwnerNestedInput
+    staff?: StaffUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
   export type FirmUpsertWithoutRatesInput = {
@@ -85255,6 +91161,7 @@ export namespace Prisma {
     releases?: GirviReleaseCreateNestedManyWithoutOwnerInput
     rates?: RateCreateNestedManyWithoutOwnerInput
     moneyLenders?: MoneyLenderCreateNestedManyWithoutOwnerInput
+    staff?: StaffCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerUncheckedCreateWithoutPuritiesInput = {
@@ -85308,6 +91215,7 @@ export namespace Prisma {
     releases?: GirviReleaseUncheckedCreateNestedManyWithoutOwnerInput
     rates?: RateUncheckedCreateNestedManyWithoutOwnerInput
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutOwnerInput
+    staff?: StaffUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerCreateOrConnectWithoutPuritiesInput = {
@@ -85375,6 +91283,7 @@ export namespace Prisma {
     releases?: GirviReleaseUpdateManyWithoutOwnerNestedInput
     rates?: RateUpdateManyWithoutOwnerNestedInput
     moneyLenders?: MoneyLenderUpdateManyWithoutOwnerNestedInput
+    staff?: StaffUpdateManyWithoutOwnerNestedInput
   }
 
   export type OwnerUncheckedUpdateWithoutPuritiesInput = {
@@ -85428,6 +91337,7 @@ export namespace Prisma {
     releases?: GirviReleaseUncheckedUpdateManyWithoutOwnerNestedInput
     rates?: RateUncheckedUpdateManyWithoutOwnerNestedInput
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutOwnerNestedInput
+    staff?: StaffUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
   export type OwnerCreateWithoutMoneyLendersInput = {
@@ -85480,6 +91390,7 @@ export namespace Prisma {
     releases?: GirviReleaseCreateNestedManyWithoutOwnerInput
     rates?: RateCreateNestedManyWithoutOwnerInput
     purities?: PurityCreateNestedManyWithoutOwnerInput
+    staff?: StaffCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerUncheckedCreateWithoutMoneyLendersInput = {
@@ -85533,6 +91444,7 @@ export namespace Prisma {
     releases?: GirviReleaseUncheckedCreateNestedManyWithoutOwnerInput
     rates?: RateUncheckedCreateNestedManyWithoutOwnerInput
     purities?: PurityUncheckedCreateNestedManyWithoutOwnerInput
+    staff?: StaffUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerCreateOrConnectWithoutMoneyLendersInput = {
@@ -85857,6 +91769,7 @@ export namespace Prisma {
     releases?: GirviReleaseUpdateManyWithoutOwnerNestedInput
     rates?: RateUpdateManyWithoutOwnerNestedInput
     purities?: PurityUpdateManyWithoutOwnerNestedInput
+    staff?: StaffUpdateManyWithoutOwnerNestedInput
   }
 
   export type OwnerUncheckedUpdateWithoutMoneyLendersInput = {
@@ -85910,6 +91823,7 @@ export namespace Prisma {
     releases?: GirviReleaseUncheckedUpdateManyWithoutOwnerNestedInput
     rates?: RateUncheckedUpdateManyWithoutOwnerNestedInput
     purities?: PurityUncheckedUpdateManyWithoutOwnerNestedInput
+    staff?: StaffUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
   export type FirmUpsertWithoutMoneyLendersInput = {
@@ -86066,6 +91980,629 @@ export namespace Prisma {
   export type GirviUpdateManyWithWhereWithoutTransferMoneyLenderInput = {
     where: GirviScalarWhereInput
     data: XOR<GirviUpdateManyMutationInput, GirviUncheckedUpdateManyWithoutTransferMoneyLenderInput>
+  }
+
+  export type OwnerCreateWithoutStaffInput = {
+    own_uuid?: string
+    own_product_key?: number
+    own_db: string
+    own_add_date?: Date | string
+    own_first_name: string
+    own_middle_name?: string | null
+    own_last_name: string
+    own_phone_no?: string | null
+    own_mobile_no: string
+    own_email: string
+    own_login_id: string
+    own_password: string
+    own_status?: $Enums.OwnerStatus
+    own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_refresh_token?: string | null
+    own_refresh_expiry?: Date | string | null
+    own_jwt_token?: string | null
+    own_jwt_expiry?: Date | string | null
+    own_login_status?: boolean
+    own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
+    own_otp?: string | null
+    own_otp_expiry?: Date | string | null
+    own_address?: string | null
+    own_village?: string | null
+    own_city?: string | null
+    own_state?: string | null
+    own_pincode?: string | null
+    own_created_at?: Date | string
+    own_created_by?: string | null
+    own_updated_at?: Date | string
+    own_updated_by?: string | null
+    own_deleted_at?: Date | string | null
+    own_deleted_by?: string | null
+    own_is_deleted?: boolean
+    users?: UserCreateNestedManyWithoutOwnerInput
+    firms?: FirmCreateNestedManyWithoutOwnerInput
+    accounts?: AccountCreateNestedManyWithoutOwnerInput
+    finances?: FinanceCreateNestedManyWithoutOwnerInput
+    financeTransactions?: Finance_TransactionCreateNestedManyWithoutOwnerInput
+    financeMoneyTrans?: Finance_Money_TransactionCreateNestedManyWithoutOwnerInput
+    journals?: JournalCreateNestedManyWithoutOwnerInput
+    journalTransactions?: JournalTransactionCreateNestedManyWithoutOwnerInput
+    girvis?: GirviCreateNestedManyWithoutOwnerInput
+    stocks?: StockCreateNestedManyWithoutOwnerInput
+    additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutOwnerInput
+    deposits?: GirviDepositCreateNestedManyWithoutOwnerInput
+    releases?: GirviReleaseCreateNestedManyWithoutOwnerInput
+    rates?: RateCreateNestedManyWithoutOwnerInput
+    purities?: PurityCreateNestedManyWithoutOwnerInput
+    moneyLenders?: MoneyLenderCreateNestedManyWithoutOwnerInput
+  }
+
+  export type OwnerUncheckedCreateWithoutStaffInput = {
+    own_id?: number
+    own_uuid?: string
+    own_product_key?: number
+    own_db: string
+    own_add_date?: Date | string
+    own_first_name: string
+    own_middle_name?: string | null
+    own_last_name: string
+    own_phone_no?: string | null
+    own_mobile_no: string
+    own_email: string
+    own_login_id: string
+    own_password: string
+    own_status?: $Enums.OwnerStatus
+    own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_refresh_token?: string | null
+    own_refresh_expiry?: Date | string | null
+    own_jwt_token?: string | null
+    own_jwt_expiry?: Date | string | null
+    own_login_status?: boolean
+    own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
+    own_otp?: string | null
+    own_otp_expiry?: Date | string | null
+    own_address?: string | null
+    own_village?: string | null
+    own_city?: string | null
+    own_state?: string | null
+    own_pincode?: string | null
+    own_created_at?: Date | string
+    own_created_by?: string | null
+    own_updated_at?: Date | string
+    own_updated_by?: string | null
+    own_deleted_at?: Date | string | null
+    own_deleted_by?: string | null
+    own_is_deleted?: boolean
+    users?: UserUncheckedCreateNestedManyWithoutOwnerInput
+    firms?: FirmUncheckedCreateNestedManyWithoutOwnerInput
+    accounts?: AccountUncheckedCreateNestedManyWithoutOwnerInput
+    finances?: FinanceUncheckedCreateNestedManyWithoutOwnerInput
+    financeTransactions?: Finance_TransactionUncheckedCreateNestedManyWithoutOwnerInput
+    financeMoneyTrans?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutOwnerInput
+    journals?: JournalUncheckedCreateNestedManyWithoutOwnerInput
+    journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutOwnerInput
+    girvis?: GirviUncheckedCreateNestedManyWithoutOwnerInput
+    stocks?: StockUncheckedCreateNestedManyWithoutOwnerInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutOwnerInput
+    deposits?: GirviDepositUncheckedCreateNestedManyWithoutOwnerInput
+    releases?: GirviReleaseUncheckedCreateNestedManyWithoutOwnerInput
+    rates?: RateUncheckedCreateNestedManyWithoutOwnerInput
+    purities?: PurityUncheckedCreateNestedManyWithoutOwnerInput
+    moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutOwnerInput
+  }
+
+  export type OwnerCreateOrConnectWithoutStaffInput = {
+    where: OwnerWhereUniqueInput
+    create: XOR<OwnerCreateWithoutStaffInput, OwnerUncheckedCreateWithoutStaffInput>
+  }
+
+  export type StaffPermissionCreateWithoutStaffInput = {
+    sp_granted?: boolean
+    sp_created_at?: Date | string
+    sp_updated_at?: Date | string
+    permission: PermissionCreateNestedOneWithoutStaffPermissionsInput
+  }
+
+  export type StaffPermissionUncheckedCreateWithoutStaffInput = {
+    sp_id?: number
+    sp_perm_id: number
+    sp_granted?: boolean
+    sp_created_at?: Date | string
+    sp_updated_at?: Date | string
+  }
+
+  export type StaffPermissionCreateOrConnectWithoutStaffInput = {
+    where: StaffPermissionWhereUniqueInput
+    create: XOR<StaffPermissionCreateWithoutStaffInput, StaffPermissionUncheckedCreateWithoutStaffInput>
+  }
+
+  export type StaffPermissionCreateManyStaffInputEnvelope = {
+    data: StaffPermissionCreateManyStaffInput | StaffPermissionCreateManyStaffInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type OwnerUpsertWithoutStaffInput = {
+    update: XOR<OwnerUpdateWithoutStaffInput, OwnerUncheckedUpdateWithoutStaffInput>
+    create: XOR<OwnerCreateWithoutStaffInput, OwnerUncheckedCreateWithoutStaffInput>
+    where?: OwnerWhereInput
+  }
+
+  export type OwnerUpdateToOneWithWhereWithoutStaffInput = {
+    where?: OwnerWhereInput
+    data: XOR<OwnerUpdateWithoutStaffInput, OwnerUncheckedUpdateWithoutStaffInput>
+  }
+
+  export type OwnerUpdateWithoutStaffInput = {
+    own_uuid?: StringFieldUpdateOperationsInput | string
+    own_db?: StringFieldUpdateOperationsInput | string
+    own_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    own_first_name?: StringFieldUpdateOperationsInput | string
+    own_middle_name?: NullableStringFieldUpdateOperationsInput | string | null
+    own_last_name?: StringFieldUpdateOperationsInput | string
+    own_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mobile_no?: StringFieldUpdateOperationsInput | string
+    own_email?: StringFieldUpdateOperationsInput | string
+    own_login_id?: StringFieldUpdateOperationsInput | string
+    own_password?: StringFieldUpdateOperationsInput | string
+    own_status?: EnumOwnerStatusFieldUpdateOperationsInput | $Enums.OwnerStatus
+    own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
+    own_refresh_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_jwt_token?: NullableStringFieldUpdateOperationsInput | string | null
+    own_jwt_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_login_status?: BoolFieldUpdateOperationsInput | boolean
+    own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
+    own_otp?: NullableStringFieldUpdateOperationsInput | string | null
+    own_otp_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_address?: NullableStringFieldUpdateOperationsInput | string | null
+    own_village?: NullableStringFieldUpdateOperationsInput | string | null
+    own_city?: NullableStringFieldUpdateOperationsInput | string | null
+    own_state?: NullableStringFieldUpdateOperationsInput | string | null
+    own_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    own_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    own_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    own_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    own_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    own_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    own_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    users?: UserUpdateManyWithoutOwnerNestedInput
+    firms?: FirmUpdateManyWithoutOwnerNestedInput
+    accounts?: AccountUpdateManyWithoutOwnerNestedInput
+    finances?: FinanceUpdateManyWithoutOwnerNestedInput
+    financeTransactions?: Finance_TransactionUpdateManyWithoutOwnerNestedInput
+    financeMoneyTrans?: Finance_Money_TransactionUpdateManyWithoutOwnerNestedInput
+    journals?: JournalUpdateManyWithoutOwnerNestedInput
+    journalTransactions?: JournalTransactionUpdateManyWithoutOwnerNestedInput
+    girvis?: GirviUpdateManyWithoutOwnerNestedInput
+    stocks?: StockUpdateManyWithoutOwnerNestedInput
+    additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutOwnerNestedInput
+    deposits?: GirviDepositUpdateManyWithoutOwnerNestedInput
+    releases?: GirviReleaseUpdateManyWithoutOwnerNestedInput
+    rates?: RateUpdateManyWithoutOwnerNestedInput
+    purities?: PurityUpdateManyWithoutOwnerNestedInput
+    moneyLenders?: MoneyLenderUpdateManyWithoutOwnerNestedInput
+  }
+
+  export type OwnerUncheckedUpdateWithoutStaffInput = {
+    own_id?: IntFieldUpdateOperationsInput | number
+    own_uuid?: StringFieldUpdateOperationsInput | string
+    own_product_key?: IntFieldUpdateOperationsInput | number
+    own_db?: StringFieldUpdateOperationsInput | string
+    own_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    own_first_name?: StringFieldUpdateOperationsInput | string
+    own_middle_name?: NullableStringFieldUpdateOperationsInput | string | null
+    own_last_name?: StringFieldUpdateOperationsInput | string
+    own_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mobile_no?: StringFieldUpdateOperationsInput | string
+    own_email?: StringFieldUpdateOperationsInput | string
+    own_login_id?: StringFieldUpdateOperationsInput | string
+    own_password?: StringFieldUpdateOperationsInput | string
+    own_status?: EnumOwnerStatusFieldUpdateOperationsInput | $Enums.OwnerStatus
+    own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
+    own_refresh_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_jwt_token?: NullableStringFieldUpdateOperationsInput | string | null
+    own_jwt_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_login_status?: BoolFieldUpdateOperationsInput | boolean
+    own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
+    own_otp?: NullableStringFieldUpdateOperationsInput | string | null
+    own_otp_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_address?: NullableStringFieldUpdateOperationsInput | string | null
+    own_village?: NullableStringFieldUpdateOperationsInput | string | null
+    own_city?: NullableStringFieldUpdateOperationsInput | string | null
+    own_state?: NullableStringFieldUpdateOperationsInput | string | null
+    own_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    own_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    own_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    own_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    own_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    own_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    own_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    users?: UserUncheckedUpdateManyWithoutOwnerNestedInput
+    firms?: FirmUncheckedUpdateManyWithoutOwnerNestedInput
+    accounts?: AccountUncheckedUpdateManyWithoutOwnerNestedInput
+    finances?: FinanceUncheckedUpdateManyWithoutOwnerNestedInput
+    financeTransactions?: Finance_TransactionUncheckedUpdateManyWithoutOwnerNestedInput
+    financeMoneyTrans?: Finance_Money_TransactionUncheckedUpdateManyWithoutOwnerNestedInput
+    journals?: JournalUncheckedUpdateManyWithoutOwnerNestedInput
+    journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutOwnerNestedInput
+    girvis?: GirviUncheckedUpdateManyWithoutOwnerNestedInput
+    stocks?: StockUncheckedUpdateManyWithoutOwnerNestedInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutOwnerNestedInput
+    deposits?: GirviDepositUncheckedUpdateManyWithoutOwnerNestedInput
+    releases?: GirviReleaseUncheckedUpdateManyWithoutOwnerNestedInput
+    rates?: RateUncheckedUpdateManyWithoutOwnerNestedInput
+    purities?: PurityUncheckedUpdateManyWithoutOwnerNestedInput
+    moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutOwnerNestedInput
+  }
+
+  export type StaffPermissionUpsertWithWhereUniqueWithoutStaffInput = {
+    where: StaffPermissionWhereUniqueInput
+    update: XOR<StaffPermissionUpdateWithoutStaffInput, StaffPermissionUncheckedUpdateWithoutStaffInput>
+    create: XOR<StaffPermissionCreateWithoutStaffInput, StaffPermissionUncheckedCreateWithoutStaffInput>
+  }
+
+  export type StaffPermissionUpdateWithWhereUniqueWithoutStaffInput = {
+    where: StaffPermissionWhereUniqueInput
+    data: XOR<StaffPermissionUpdateWithoutStaffInput, StaffPermissionUncheckedUpdateWithoutStaffInput>
+  }
+
+  export type StaffPermissionUpdateManyWithWhereWithoutStaffInput = {
+    where: StaffPermissionScalarWhereInput
+    data: XOR<StaffPermissionUpdateManyMutationInput, StaffPermissionUncheckedUpdateManyWithoutStaffInput>
+  }
+
+  export type StaffPermissionScalarWhereInput = {
+    AND?: StaffPermissionScalarWhereInput | StaffPermissionScalarWhereInput[]
+    OR?: StaffPermissionScalarWhereInput[]
+    NOT?: StaffPermissionScalarWhereInput | StaffPermissionScalarWhereInput[]
+    sp_id?: IntFilter<"StaffPermission"> | number
+    sp_staff_id?: IntFilter<"StaffPermission"> | number
+    sp_perm_id?: IntFilter<"StaffPermission"> | number
+    sp_granted?: BoolFilter<"StaffPermission"> | boolean
+    sp_created_at?: DateTimeFilter<"StaffPermission"> | Date | string
+    sp_updated_at?: DateTimeFilter<"StaffPermission"> | Date | string
+  }
+
+  export type StaffPermissionCreateWithoutPermissionInput = {
+    sp_granted?: boolean
+    sp_created_at?: Date | string
+    sp_updated_at?: Date | string
+    staff: StaffCreateNestedOneWithoutPermissionsInput
+  }
+
+  export type StaffPermissionUncheckedCreateWithoutPermissionInput = {
+    sp_id?: number
+    sp_staff_id: number
+    sp_granted?: boolean
+    sp_created_at?: Date | string
+    sp_updated_at?: Date | string
+  }
+
+  export type StaffPermissionCreateOrConnectWithoutPermissionInput = {
+    where: StaffPermissionWhereUniqueInput
+    create: XOR<StaffPermissionCreateWithoutPermissionInput, StaffPermissionUncheckedCreateWithoutPermissionInput>
+  }
+
+  export type StaffPermissionCreateManyPermissionInputEnvelope = {
+    data: StaffPermissionCreateManyPermissionInput | StaffPermissionCreateManyPermissionInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type StaffPermissionUpsertWithWhereUniqueWithoutPermissionInput = {
+    where: StaffPermissionWhereUniqueInput
+    update: XOR<StaffPermissionUpdateWithoutPermissionInput, StaffPermissionUncheckedUpdateWithoutPermissionInput>
+    create: XOR<StaffPermissionCreateWithoutPermissionInput, StaffPermissionUncheckedCreateWithoutPermissionInput>
+  }
+
+  export type StaffPermissionUpdateWithWhereUniqueWithoutPermissionInput = {
+    where: StaffPermissionWhereUniqueInput
+    data: XOR<StaffPermissionUpdateWithoutPermissionInput, StaffPermissionUncheckedUpdateWithoutPermissionInput>
+  }
+
+  export type StaffPermissionUpdateManyWithWhereWithoutPermissionInput = {
+    where: StaffPermissionScalarWhereInput
+    data: XOR<StaffPermissionUpdateManyMutationInput, StaffPermissionUncheckedUpdateManyWithoutPermissionInput>
+  }
+
+  export type StaffCreateWithoutPermissionsInput = {
+    staff_uuid?: string
+    staff_add_date?: Date | string
+    staff_first_name: string
+    staff_last_name: string
+    staff_father_name?: string | null
+    staff_mother_name?: string | null
+    staff_mobile_no: string
+    staff_phone_no?: string | null
+    staff_email_id?: string | null
+    staff_gender?: $Enums.StaffGender | null
+    staff_cast?: string | null
+    staff_marital_status?: $Enums.StaffMaritalStatus | null
+    staff_occupation?: string | null
+    staff_birth_date?: Date | string | null
+    staff_gstin?: string | null
+    staff_tax_no?: string | null
+    staff_pan_no?: string | null
+    staff_adhaar_no?: string | null
+    staff_login_id: string
+    staff_password: string
+    staff_status?: $Enums.StaffStatus
+    staff_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_per_address?: string | null
+    staff_curr_address?: string | null
+    staff_village?: string | null
+    staff_ward_no?: string | null
+    staff_tehsil?: string | null
+    staff_city?: string | null
+    staff_state?: string | null
+    staff_country?: string | null
+    staff_pincode?: string | null
+    staff_bank_name?: string | null
+    staff_bank_acc_no?: string | null
+    staff_ifsc_code?: string | null
+    staff_other_info?: string | null
+    staff_refresh_token?: string | null
+    staff_jwt_token?: string | null
+    staff_login_status?: boolean
+    staff_last_login_system?: NullableJsonNullValueInput | InputJsonValue
+    staff_otp?: string | null
+    staff_otp_expiry?: Date | string | null
+    staff_created_at?: Date | string
+    staff_created_by?: string | null
+    staff_updated_at?: Date | string
+    staff_updated_by?: string | null
+    staff_deleted_at?: Date | string | null
+    staff_deleted_by?: string | null
+    staff_is_deleted?: boolean
+    owner: OwnerCreateNestedOneWithoutStaffInput
+  }
+
+  export type StaffUncheckedCreateWithoutPermissionsInput = {
+    staff_id?: number
+    staff_uuid?: string
+    staff_own_id: number
+    staff_add_date?: Date | string
+    staff_first_name: string
+    staff_last_name: string
+    staff_father_name?: string | null
+    staff_mother_name?: string | null
+    staff_mobile_no: string
+    staff_phone_no?: string | null
+    staff_email_id?: string | null
+    staff_gender?: $Enums.StaffGender | null
+    staff_cast?: string | null
+    staff_marital_status?: $Enums.StaffMaritalStatus | null
+    staff_occupation?: string | null
+    staff_birth_date?: Date | string | null
+    staff_gstin?: string | null
+    staff_tax_no?: string | null
+    staff_pan_no?: string | null
+    staff_adhaar_no?: string | null
+    staff_login_id: string
+    staff_password: string
+    staff_status?: $Enums.StaffStatus
+    staff_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_per_address?: string | null
+    staff_curr_address?: string | null
+    staff_village?: string | null
+    staff_ward_no?: string | null
+    staff_tehsil?: string | null
+    staff_city?: string | null
+    staff_state?: string | null
+    staff_country?: string | null
+    staff_pincode?: string | null
+    staff_bank_name?: string | null
+    staff_bank_acc_no?: string | null
+    staff_ifsc_code?: string | null
+    staff_other_info?: string | null
+    staff_refresh_token?: string | null
+    staff_jwt_token?: string | null
+    staff_login_status?: boolean
+    staff_last_login_system?: NullableJsonNullValueInput | InputJsonValue
+    staff_otp?: string | null
+    staff_otp_expiry?: Date | string | null
+    staff_created_at?: Date | string
+    staff_created_by?: string | null
+    staff_updated_at?: Date | string
+    staff_updated_by?: string | null
+    staff_deleted_at?: Date | string | null
+    staff_deleted_by?: string | null
+    staff_is_deleted?: boolean
+  }
+
+  export type StaffCreateOrConnectWithoutPermissionsInput = {
+    where: StaffWhereUniqueInput
+    create: XOR<StaffCreateWithoutPermissionsInput, StaffUncheckedCreateWithoutPermissionsInput>
+  }
+
+  export type PermissionCreateWithoutStaffPermissionsInput = {
+    perm_key: string
+    perm_module: string
+    perm_action: string
+    perm_label: string
+    perm_sort_order?: number
+    perm_created_at?: Date | string
+    perm_updated_at?: Date | string
+  }
+
+  export type PermissionUncheckedCreateWithoutStaffPermissionsInput = {
+    perm_id?: number
+    perm_key: string
+    perm_module: string
+    perm_action: string
+    perm_label: string
+    perm_sort_order?: number
+    perm_created_at?: Date | string
+    perm_updated_at?: Date | string
+  }
+
+  export type PermissionCreateOrConnectWithoutStaffPermissionsInput = {
+    where: PermissionWhereUniqueInput
+    create: XOR<PermissionCreateWithoutStaffPermissionsInput, PermissionUncheckedCreateWithoutStaffPermissionsInput>
+  }
+
+  export type StaffUpsertWithoutPermissionsInput = {
+    update: XOR<StaffUpdateWithoutPermissionsInput, StaffUncheckedUpdateWithoutPermissionsInput>
+    create: XOR<StaffCreateWithoutPermissionsInput, StaffUncheckedCreateWithoutPermissionsInput>
+    where?: StaffWhereInput
+  }
+
+  export type StaffUpdateToOneWithWhereWithoutPermissionsInput = {
+    where?: StaffWhereInput
+    data: XOR<StaffUpdateWithoutPermissionsInput, StaffUncheckedUpdateWithoutPermissionsInput>
+  }
+
+  export type StaffUpdateWithoutPermissionsInput = {
+    staff_uuid?: StringFieldUpdateOperationsInput | string
+    staff_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    staff_first_name?: StringFieldUpdateOperationsInput | string
+    staff_last_name?: StringFieldUpdateOperationsInput | string
+    staff_father_name?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_mother_name?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_mobile_no?: StringFieldUpdateOperationsInput | string
+    staff_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_email_id?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_gender?: NullableEnumStaffGenderFieldUpdateOperationsInput | $Enums.StaffGender | null
+    staff_cast?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_marital_status?: NullableEnumStaffMaritalStatusFieldUpdateOperationsInput | $Enums.StaffMaritalStatus | null
+    staff_occupation?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_birth_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    staff_gstin?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_tax_no?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_adhaar_no?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_login_id?: StringFieldUpdateOperationsInput | string
+    staff_password?: StringFieldUpdateOperationsInput | string
+    staff_status?: EnumStaffStatusFieldUpdateOperationsInput | $Enums.StaffStatus
+    staff_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_per_address?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_curr_address?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_village?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_ward_no?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_tehsil?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_city?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_state?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_country?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_bank_name?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_bank_acc_no?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_jwt_token?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_login_status?: BoolFieldUpdateOperationsInput | boolean
+    staff_last_login_system?: NullableJsonNullValueInput | InputJsonValue
+    staff_otp?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_otp_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    staff_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    staff_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    staff_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    staff_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    owner?: OwnerUpdateOneRequiredWithoutStaffNestedInput
+  }
+
+  export type StaffUncheckedUpdateWithoutPermissionsInput = {
+    staff_id?: IntFieldUpdateOperationsInput | number
+    staff_uuid?: StringFieldUpdateOperationsInput | string
+    staff_own_id?: IntFieldUpdateOperationsInput | number
+    staff_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    staff_first_name?: StringFieldUpdateOperationsInput | string
+    staff_last_name?: StringFieldUpdateOperationsInput | string
+    staff_father_name?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_mother_name?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_mobile_no?: StringFieldUpdateOperationsInput | string
+    staff_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_email_id?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_gender?: NullableEnumStaffGenderFieldUpdateOperationsInput | $Enums.StaffGender | null
+    staff_cast?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_marital_status?: NullableEnumStaffMaritalStatusFieldUpdateOperationsInput | $Enums.StaffMaritalStatus | null
+    staff_occupation?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_birth_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    staff_gstin?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_tax_no?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_adhaar_no?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_login_id?: StringFieldUpdateOperationsInput | string
+    staff_password?: StringFieldUpdateOperationsInput | string
+    staff_status?: EnumStaffStatusFieldUpdateOperationsInput | $Enums.StaffStatus
+    staff_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_per_address?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_curr_address?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_village?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_ward_no?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_tehsil?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_city?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_state?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_country?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_bank_name?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_bank_acc_no?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_jwt_token?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_login_status?: BoolFieldUpdateOperationsInput | boolean
+    staff_last_login_system?: NullableJsonNullValueInput | InputJsonValue
+    staff_otp?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_otp_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    staff_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    staff_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    staff_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    staff_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type PermissionUpsertWithoutStaffPermissionsInput = {
+    update: XOR<PermissionUpdateWithoutStaffPermissionsInput, PermissionUncheckedUpdateWithoutStaffPermissionsInput>
+    create: XOR<PermissionCreateWithoutStaffPermissionsInput, PermissionUncheckedCreateWithoutStaffPermissionsInput>
+    where?: PermissionWhereInput
+  }
+
+  export type PermissionUpdateToOneWithWhereWithoutStaffPermissionsInput = {
+    where?: PermissionWhereInput
+    data: XOR<PermissionUpdateWithoutStaffPermissionsInput, PermissionUncheckedUpdateWithoutStaffPermissionsInput>
+  }
+
+  export type PermissionUpdateWithoutStaffPermissionsInput = {
+    perm_key?: StringFieldUpdateOperationsInput | string
+    perm_module?: StringFieldUpdateOperationsInput | string
+    perm_action?: StringFieldUpdateOperationsInput | string
+    perm_label?: StringFieldUpdateOperationsInput | string
+    perm_sort_order?: IntFieldUpdateOperationsInput | number
+    perm_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    perm_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PermissionUncheckedUpdateWithoutStaffPermissionsInput = {
+    perm_id?: IntFieldUpdateOperationsInput | number
+    perm_key?: StringFieldUpdateOperationsInput | string
+    perm_module?: StringFieldUpdateOperationsInput | string
+    perm_action?: StringFieldUpdateOperationsInput | string
+    perm_label?: StringFieldUpdateOperationsInput | string
+    perm_sort_order?: IntFieldUpdateOperationsInput | number
+    perm_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    perm_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserCreateManyOwnerInput = {
@@ -86622,6 +93159,62 @@ export namespace Prisma {
     is_active?: boolean
     created_at?: Date | string
     updated_at?: Date | string
+  }
+
+  export type StaffCreateManyOwnerInput = {
+    staff_id?: number
+    staff_uuid?: string
+    staff_add_date?: Date | string
+    staff_first_name: string
+    staff_last_name: string
+    staff_father_name?: string | null
+    staff_mother_name?: string | null
+    staff_mobile_no: string
+    staff_phone_no?: string | null
+    staff_email_id?: string | null
+    staff_gender?: $Enums.StaffGender | null
+    staff_cast?: string | null
+    staff_marital_status?: $Enums.StaffMaritalStatus | null
+    staff_occupation?: string | null
+    staff_birth_date?: Date | string | null
+    staff_gstin?: string | null
+    staff_tax_no?: string | null
+    staff_pan_no?: string | null
+    staff_adhaar_no?: string | null
+    staff_login_id: string
+    staff_password: string
+    staff_status?: $Enums.StaffStatus
+    staff_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_per_address?: string | null
+    staff_curr_address?: string | null
+    staff_village?: string | null
+    staff_ward_no?: string | null
+    staff_tehsil?: string | null
+    staff_city?: string | null
+    staff_state?: string | null
+    staff_country?: string | null
+    staff_pincode?: string | null
+    staff_bank_name?: string | null
+    staff_bank_acc_no?: string | null
+    staff_ifsc_code?: string | null
+    staff_other_info?: string | null
+    staff_refresh_token?: string | null
+    staff_jwt_token?: string | null
+    staff_login_status?: boolean
+    staff_last_login_system?: NullableJsonNullValueInput | InputJsonValue
+    staff_otp?: string | null
+    staff_otp_expiry?: Date | string | null
+    staff_created_at?: Date | string
+    staff_created_by?: string | null
+    staff_updated_at?: Date | string
+    staff_updated_by?: string | null
+    staff_deleted_at?: Date | string | null
+    staff_deleted_by?: string | null
+    staff_is_deleted?: boolean
   }
 
   export type UserUpdateWithoutOwnerInput = {
@@ -88424,6 +95017,175 @@ export namespace Prisma {
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StaffUpdateWithoutOwnerInput = {
+    staff_uuid?: StringFieldUpdateOperationsInput | string
+    staff_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    staff_first_name?: StringFieldUpdateOperationsInput | string
+    staff_last_name?: StringFieldUpdateOperationsInput | string
+    staff_father_name?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_mother_name?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_mobile_no?: StringFieldUpdateOperationsInput | string
+    staff_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_email_id?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_gender?: NullableEnumStaffGenderFieldUpdateOperationsInput | $Enums.StaffGender | null
+    staff_cast?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_marital_status?: NullableEnumStaffMaritalStatusFieldUpdateOperationsInput | $Enums.StaffMaritalStatus | null
+    staff_occupation?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_birth_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    staff_gstin?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_tax_no?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_adhaar_no?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_login_id?: StringFieldUpdateOperationsInput | string
+    staff_password?: StringFieldUpdateOperationsInput | string
+    staff_status?: EnumStaffStatusFieldUpdateOperationsInput | $Enums.StaffStatus
+    staff_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_per_address?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_curr_address?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_village?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_ward_no?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_tehsil?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_city?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_state?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_country?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_bank_name?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_bank_acc_no?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_jwt_token?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_login_status?: BoolFieldUpdateOperationsInput | boolean
+    staff_last_login_system?: NullableJsonNullValueInput | InputJsonValue
+    staff_otp?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_otp_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    staff_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    staff_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    staff_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    staff_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    permissions?: StaffPermissionUpdateManyWithoutStaffNestedInput
+  }
+
+  export type StaffUncheckedUpdateWithoutOwnerInput = {
+    staff_id?: IntFieldUpdateOperationsInput | number
+    staff_uuid?: StringFieldUpdateOperationsInput | string
+    staff_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    staff_first_name?: StringFieldUpdateOperationsInput | string
+    staff_last_name?: StringFieldUpdateOperationsInput | string
+    staff_father_name?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_mother_name?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_mobile_no?: StringFieldUpdateOperationsInput | string
+    staff_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_email_id?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_gender?: NullableEnumStaffGenderFieldUpdateOperationsInput | $Enums.StaffGender | null
+    staff_cast?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_marital_status?: NullableEnumStaffMaritalStatusFieldUpdateOperationsInput | $Enums.StaffMaritalStatus | null
+    staff_occupation?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_birth_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    staff_gstin?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_tax_no?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_adhaar_no?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_login_id?: StringFieldUpdateOperationsInput | string
+    staff_password?: StringFieldUpdateOperationsInput | string
+    staff_status?: EnumStaffStatusFieldUpdateOperationsInput | $Enums.StaffStatus
+    staff_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_per_address?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_curr_address?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_village?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_ward_no?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_tehsil?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_city?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_state?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_country?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_bank_name?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_bank_acc_no?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_jwt_token?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_login_status?: BoolFieldUpdateOperationsInput | boolean
+    staff_last_login_system?: NullableJsonNullValueInput | InputJsonValue
+    staff_otp?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_otp_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    staff_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    staff_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    staff_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    staff_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    permissions?: StaffPermissionUncheckedUpdateManyWithoutStaffNestedInput
+  }
+
+  export type StaffUncheckedUpdateManyWithoutOwnerInput = {
+    staff_id?: IntFieldUpdateOperationsInput | number
+    staff_uuid?: StringFieldUpdateOperationsInput | string
+    staff_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    staff_first_name?: StringFieldUpdateOperationsInput | string
+    staff_last_name?: StringFieldUpdateOperationsInput | string
+    staff_father_name?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_mother_name?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_mobile_no?: StringFieldUpdateOperationsInput | string
+    staff_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_email_id?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_gender?: NullableEnumStaffGenderFieldUpdateOperationsInput | $Enums.StaffGender | null
+    staff_cast?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_marital_status?: NullableEnumStaffMaritalStatusFieldUpdateOperationsInput | $Enums.StaffMaritalStatus | null
+    staff_occupation?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_birth_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    staff_gstin?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_tax_no?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_adhaar_no?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_login_id?: StringFieldUpdateOperationsInput | string
+    staff_password?: StringFieldUpdateOperationsInput | string
+    staff_status?: EnumStaffStatusFieldUpdateOperationsInput | $Enums.StaffStatus
+    staff_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_per_address?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_curr_address?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_village?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_ward_no?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_tehsil?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_city?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_state?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_country?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_bank_name?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_bank_acc_no?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_jwt_token?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_login_status?: BoolFieldUpdateOperationsInput | boolean
+    staff_last_login_system?: NullableJsonNullValueInput | InputJsonValue
+    staff_otp?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_otp_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    staff_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    staff_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    staff_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    staff_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    staff_is_deleted?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type UserCreateManyFirmInput = {
@@ -100091,6 +106853,68 @@ export namespace Prisma {
     girv_is_deleted?: BoolFieldUpdateOperationsInput | boolean
   }
 
+  export type StaffPermissionCreateManyStaffInput = {
+    sp_id?: number
+    sp_perm_id: number
+    sp_granted?: boolean
+    sp_created_at?: Date | string
+    sp_updated_at?: Date | string
+  }
+
+  export type StaffPermissionUpdateWithoutStaffInput = {
+    sp_granted?: BoolFieldUpdateOperationsInput | boolean
+    sp_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    sp_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    permission?: PermissionUpdateOneRequiredWithoutStaffPermissionsNestedInput
+  }
+
+  export type StaffPermissionUncheckedUpdateWithoutStaffInput = {
+    sp_id?: IntFieldUpdateOperationsInput | number
+    sp_perm_id?: IntFieldUpdateOperationsInput | number
+    sp_granted?: BoolFieldUpdateOperationsInput | boolean
+    sp_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    sp_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StaffPermissionUncheckedUpdateManyWithoutStaffInput = {
+    sp_id?: IntFieldUpdateOperationsInput | number
+    sp_perm_id?: IntFieldUpdateOperationsInput | number
+    sp_granted?: BoolFieldUpdateOperationsInput | boolean
+    sp_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    sp_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StaffPermissionCreateManyPermissionInput = {
+    sp_id?: number
+    sp_staff_id: number
+    sp_granted?: boolean
+    sp_created_at?: Date | string
+    sp_updated_at?: Date | string
+  }
+
+  export type StaffPermissionUpdateWithoutPermissionInput = {
+    sp_granted?: BoolFieldUpdateOperationsInput | boolean
+    sp_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    sp_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    staff?: StaffUpdateOneRequiredWithoutPermissionsNestedInput
+  }
+
+  export type StaffPermissionUncheckedUpdateWithoutPermissionInput = {
+    sp_id?: IntFieldUpdateOperationsInput | number
+    sp_staff_id?: IntFieldUpdateOperationsInput | number
+    sp_granted?: BoolFieldUpdateOperationsInput | boolean
+    sp_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    sp_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StaffPermissionUncheckedUpdateManyWithoutPermissionInput = {
+    sp_id?: IntFieldUpdateOperationsInput | number
+    sp_staff_id?: IntFieldUpdateOperationsInput | number
+    sp_granted?: BoolFieldUpdateOperationsInput | boolean
+    sp_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    sp_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
 
 
   /**
@@ -100128,6 +106952,14 @@ export namespace Prisma {
      * @deprecated Use MoneyLenderCountOutputTypeDefaultArgs instead
      */
     export type MoneyLenderCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = MoneyLenderCountOutputTypeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use StaffCountOutputTypeDefaultArgs instead
+     */
+    export type StaffCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = StaffCountOutputTypeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use PermissionCountOutputTypeDefaultArgs instead
+     */
+    export type PermissionCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = PermissionCountOutputTypeDefaultArgs<ExtArgs>
     /**
      * @deprecated Use OwnerDefaultArgs instead
      */
@@ -100204,6 +107036,18 @@ export namespace Prisma {
      * @deprecated Use AuctionLoanDefaultArgs instead
      */
     export type AuctionLoanArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = AuctionLoanDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use StaffDefaultArgs instead
+     */
+    export type StaffArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = StaffDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use PermissionDefaultArgs instead
+     */
+    export type PermissionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = PermissionDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use StaffPermissionDefaultArgs instead
+     */
+    export type StaffPermissionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = StaffPermissionDefaultArgs<ExtArgs>
 
   /**
    * Batch Payload for updateMany & deleteMany & createMany

@@ -95,6 +95,7 @@ model Owner {
   rates                Rate[]                      @relation("OwnerRates")
   purities             Purity[]                    @relation("OwnerPurities")
   moneyLenders         MoneyLender[]               @relation("OwnerMoneyLenders")
+  staff                Staff[]                     @relation("OwnerStaff")
 
   // ===============================
   // Indexes
@@ -1374,4 +1375,139 @@ model AuctionLoan {
   al_other_info     String?
 
   @@map("auction_loans")
+}
+
+// =============================================================================
+// STAFF & PERMISSIONS
+// =============================================================================
+
+enum StaffStatus {
+  Active
+  Inactive
+}
+
+enum StaffGender {
+  Male
+  Female
+  Other
+}
+
+enum StaffMaritalStatus {
+  Single
+  Married
+  Divorced
+  Widowed
+  Other
+}
+
+/// Staff login ID is stored as the staff-only part (e.g. "dev").
+/// Full app login is: owner_login_id + "+" + staff_login_id (e.g. "admin+dev").
+model Staff {
+  staff_id   Int    @id @default(autoincrement())
+  staff_uuid String @unique @default(uuid())
+
+  staff_own_id  Int
+  staff_add_date DateTime @default(now())
+
+  staff_first_name  String
+  staff_last_name   String
+  staff_father_name String?
+  staff_mother_name String?
+
+  staff_mobile_no String
+  staff_phone_no  String?
+  staff_email_id  String?
+
+  staff_gender         StaffGender?
+  staff_cast           String?
+  staff_marital_status StaffMaritalStatus?
+  staff_occupation     String?
+  staff_birth_date     DateTime?
+
+  staff_gstin     String?
+  staff_tax_no    String?
+  staff_pan_no    String? @db.VarChar(10)
+  staff_adhaar_no String? @db.VarChar(12)
+
+  staff_login_id String  @unique
+  staff_password String
+  staff_status   StaffStatus @default(Active)
+
+  staff_profile_img      Json?
+  staff_adhaar_front_img Json?
+  staff_adhaar_back_img  Json?
+  staff_pan_card_img     Json?
+  staff_sign_img         Json?
+
+  staff_per_address  String?
+  staff_curr_address String?
+  staff_village      String?
+  staff_ward_no      String?
+  staff_tehsil       String?
+  staff_city         String?
+  staff_state        String?
+  staff_country      String?
+  staff_pincode      String? @db.VarChar(6)
+
+  staff_bank_name   String?
+  staff_bank_acc_no String?
+  staff_ifsc_code   String? @db.VarChar(11)
+  staff_other_info  String?
+
+  staff_refresh_token     String?
+  staff_jwt_token         String?
+  staff_login_status      Boolean @default(false)
+  staff_last_login_system Json?
+  staff_otp               String?
+  staff_otp_expiry        DateTime?
+
+  staff_created_at DateTime  @default(now())
+  staff_created_by String?
+  staff_updated_at DateTime  @updatedAt
+  staff_updated_by String?
+  staff_deleted_at DateTime?
+  staff_deleted_by String?
+  staff_is_deleted Boolean   @default(false)
+
+  owner       Owner             @relation("OwnerStaff", fields: [staff_own_id], references: [own_id], onDelete: Cascade)
+  permissions StaffPermission[]
+
+  @@index([staff_login_id])
+  @@index([staff_mobile_no])
+  @@index([staff_email_id])
+  @@index([staff_status])
+  @@map("staff")
+}
+
+model Permission {
+  perm_id         Int      @id @default(autoincrement())
+  perm_key        String   @unique // e.g. firm.view
+  perm_module     String // e.g. firm
+  perm_action     String // e.g. view
+  perm_label      String
+  perm_sort_order Int      @default(0)
+  perm_created_at DateTime @default(now())
+  perm_updated_at DateTime @updatedAt
+
+  staffPermissions StaffPermission[]
+
+  @@index([perm_module])
+  @@map("permissions")
+}
+
+model StaffPermission {
+  sp_id         Int      @id @default(autoincrement())
+  sp_staff_id   Int
+  sp_perm_id    Int
+  sp_granted    Boolean  @default(true)
+  sp_created_at DateTime @default(now())
+  sp_updated_at DateTime @updatedAt
+
+  staff      Staff      @relation(fields: [sp_staff_id], references: [staff_id], onDelete: Cascade)
+  permission Permission @relation(fields: [sp_perm_id], references: [perm_id], onDelete: Cascade)
+
+  @@unique([sp_staff_id, sp_perm_id])
+  @@index([sp_staff_id])
+  @@index([sp_perm_id])
+  @@map("staff_permissions")
 }

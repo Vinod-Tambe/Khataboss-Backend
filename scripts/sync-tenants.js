@@ -4,6 +4,7 @@ const { Client } = require("pg");
 const { execSync } = require("child_process");
 const path = require("path");
 const { BASE_URL } = require("../config/db");
+const { seedPermissions } = require("../prisma/seeder/permission-seeder");
 
 const syncTenants = async () => {
   const masterDbUrl = `${BASE_URL}/master`;
@@ -38,6 +39,9 @@ const syncTenants = async () => {
           stdio: "inherit",
         });
         console.log(`✅  Database schema synced for "${dbName}".`);
+
+        console.log(`🔐  Seeding permissions for "${dbName}"...`);
+        await seedPermissions(tenantDbUrl);
       } catch (err) {
         console.error(`❌  Failed to sync "${dbName}":`, err.message);
       }

@@ -125,12 +125,12 @@ class AuthController {
    */
   async getMe(req, res) {
     try {
-      const owner = await authService.getMe(req.user.own_uuid);
+      const profile = await authService.getMe(req.user);
       return res.status(200).json({
         success: true,
         statusCode: 200,
         message: "Profile fetched successfully.",
-        data: owner,
+        data: profile,
       });
     } catch (error) {
       const statusCode = error.statusCode || 500;
@@ -150,25 +150,22 @@ class AuthController {
       const updateData = { ...req.body };
 
       if (req.file) {
+        const isStaff = req.user.role === "STAFF";
         updateData.own_profile_img = await imageService.moveSingleFile(
-          "owner",
-          req.user.own_id,
+          isStaff ? "staff" : "owner",
+          isStaff ? req.user.staff_id : req.user.own_id,
           req.file,
-          "own_profile_img"
+          isStaff ? "staff_profile_img" : "own_profile_img"
         );
       }
 
-      const owner = await authService.updateProfile(
-        req.user.own_uuid,
-        req.user.own_db,
-        updateData
-      );
+      const profile = await authService.updateProfile(req.user, updateData);
 
       return res.status(200).json({
         success: true,
         statusCode: 200,
         message: "Profile updated successfully.",
-        data: owner,
+        data: profile,
       });
     } catch (error) {
       const statusCode = error.statusCode || 500;
@@ -194,8 +191,7 @@ class AuthController {
 
       const currentPassword = old_password || current_password;
       const result = await authService.changePassword(
-        req.user.own_uuid,
-        req.user.own_db,
+        req.user,
         currentPassword,
         new_password,
         confirm_password

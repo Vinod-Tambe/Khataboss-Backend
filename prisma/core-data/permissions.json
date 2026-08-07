@@ -1,0 +1,58 @@
+[
+  { "perm_key": "firm.view", "perm_module": "firm", "perm_action": "view", "perm_label": "List Firm", "perm_sort_order": 10 },
+  { "perm_key": "firm.create", "perm_module": "firm", "perm_action": "create", "perm_label": "Create Firm", "perm_sort_order": 20 },
+  { "perm_key": "firm.edit", "perm_module": "firm", "perm_action": "edit", "perm_label": "Update Firm", "perm_sort_order": 30 },
+  { "perm_key": "firm.delete", "perm_module": "firm", "perm_action": "delete", "perm_label": "Delete Firm", "perm_sort_order": 40 },
+
+  { "perm_key": "account.view", "perm_module": "account", "perm_action": "view", "perm_label": "List Accounts", "perm_sort_order": 110 },
+  { "perm_key": "account.create", "perm_module": "account", "perm_action": "create", "perm_label": "Create Account", "perm_sort_order": 120 },
+  { "perm_key": "account.edit", "perm_module": "account", "perm_action": "edit", "perm_label": "Update Account", "perm_sort_order": 130 },
+  { "perm_key": "account.delete", "perm_module": "account", "perm_action": "delete", "perm_label": "Delete Account", "perm_sort_order": 140 },
+
+  { "perm_key": "staff.view", "perm_module": "staff", "perm_action": "view", "perm_label": "List Staff", "perm_sort_order": 210 },
+  { "perm_key": "staff.create", "perm_module": "staff", "perm_action": "create", "perm_label": "Create Staff", "perm_sort_order": 220 },
+  { "perm_key": "staff.edit", "perm_module": "staff", "perm_action": "edit", "perm_label": "Update Staff", "perm_sort_order": 230 },
+  { "perm_key": "staff.delete", "perm_module": "staff", "perm_action": "delete", "perm_label": "Delete Staff", "perm_sort_order": 240 },
+
+  { "perm_key": "user.view", "perm_module": "user", "perm_action": "view", "perm_label": "List Users", "perm_sort_order": 250 },
+  { "perm_key": "user.create", "perm_module": "user", "perm_action": "create", "perm_label": "Create User", "perm_sort_order": 260 },
+  { "perm_key": "user.edit", "perm_module": "user", "perm_action": "edit", "perm_label": "Update User", "perm_sort_order": 270 },
+  { "perm_key": "user.delete", "perm_module": "user", "perm_action": "delete", "perm_label": "Delete User", "perm_sort_order": 280 },
+
+  { "perm_key": "moneyLender.view", "perm_module": "moneyLender", "perm_action": "view", "perm_label": "List Money Lenders", "perm_sort_order": 290 },
+  { "perm_key": "moneyLender.create", "perm_module": "moneyLender", "perm_action": "create", "perm_label": "Create Money Lender", "perm_sort_order": 300 },
+  { "perm_key": "moneyLender.edit", "perm_module": "moneyLender", "perm_action": "edit", "perm_label": "Update Money Lender", "perm_sort_order": 305 },
+  { "perm_key": "moneyLender.delete", "perm_module": "moneyLender", "perm_action": "delete", "perm_label": "Delete Money Lender", "perm_sort_order": 308 },
+
+  { "perm_key": "loan.view", "perm_module": "loan", "perm_action": "view", "perm_label": "List Loans", "perm_sort_order": 310 },
+  { "perm_key": "loan.create", "perm_module": "loan", "perm_action": "create", "perm_label": "Create Loan", "perm_sort_order": 320 },
+  { "perm_key": "loan.edit", "perm_module": "loan", "perm_action": "edit", "perm_label": "Update Loan", "perm_sort_order": 330 },
+  { "perm_key": "loan.delete", "perm_module": "loan", "perm_action": "delete", "perm_label": "Delete Loan", "perm_sort_order": 340 },
+  { "perm_key": "loan.form8", "perm_module": "loan", "perm_action": "form8", "perm_label": "FORM 8", "perm_sort_order": 350 },
+  { "perm_key": "loan.deposit", "perm_module": "loan", "perm_action": "deposit", "perm_label": "Deposit", "perm_sort_order": 360 },
+  { "perm_key": "loan.addPrincipal", "perm_module": "loan", "perm_action": "addPrincipal", "perm_label": "Additional Principal", "perm_sort_order": 370 },
+  { "perm_key": "loan.transfer", "perm_module": "loan", "perm_action": "transfer", "perm_label": "Transfer Loan", "perm_sort_order": 380 },
+  { "perm_key": "loan.release", "perm_module": "loan", "perm_action": "release", "perm_label": "Release Loan", "perm_sort_order": 390 },
+  { "perm_key": "loan.auction", "perm_module": "loan", "perm_action": "auction", "perm_label": "Auction Loan", "perm_sort_order": 400 },
+  { "perm_key": "loan.notice", "perm_module": "loan", "perm_action": "notice", "perm_label": "Send Notice", "perm_sort_order": 410 },
+  { "perm_key": "loan.customize", "perm_module": "loan", "perm_action": "customize", "perm_label": "Customize Loan", "perm_sort_order": 420 },
+  { "perm_key": "loan.print", "perm_module": "loan", "perm_action": "print", "perm_label": "Print Loan", "perm_sort_order": 430 },
+  { "perm_key": "loan.loanLogs", "perm_module": "loan", "perm_action": "loanLogs", "perm_label": "Loan Logs", "perm_sort_order": 440 },
+
+  { "perm_key": "finance.view", "perm_module": "finance", "perm_action": "view", "perm_label": "List Finance", "perm_sort_order": 510 },
+  { "perm_key": "finance.create", "perm_module": "finance", "perm_action": "create", "perm_label": "Create Finance", "perm_sort_order": 520 },
+  { "perm_key": "finance.edit", "perm_module": "finance", "perm_action": "edit", "perm_label": "Update Finance", "perm_sort_order": 530 },
+  { "perm_key": "finance.delete", "perm_module": "finance", "perm_action": "delete", "perm_label": "Delete Finance", "perm_sort_order": 540 },
+  { "perm_key": "finance.payment", "perm_module": "finance", "perm_action": "payment", "perm_label": "Finance Collection", "perm_sort_order": 550 },
+  { "perm_key": "finance.rollback", "perm_module": "finance", "perm_action": "rollback", "perm_label": "Finance Collection Rollback", "perm_sort_order": 560 },
+  { "perm_key": "finance.history", "perm_module": "finance", "perm_action": "history", "perm_label": "Finance History", "perm_sort_order": 570 },
+  { "perm_key": "finance.printReceipt", "perm_module": "finance", "perm_action": "printReceipt", "perm_label": "Print EMI Receipt", "perm_sort_order": 580 },
+
+  { "perm_key": "reports.daybook", "perm_module": "reports", "perm_action": "daybook", "perm_label": "List Daybook", "perm_sort_order": 610 },
+  { "perm_key": "reports.balanceSheet", "perm_module": "reports", "perm_action": "balanceSheet", "perm_label": "List Balance Sheet", "perm_sort_order": 620 },
+  { "perm_key": "reports.logs", "perm_module": "reports", "perm_action": "logs", "perm_label": "List Logs", "perm_sort_order": 630 },
+  { "perm_key": "reports.profitLoss", "perm_module": "reports", "perm_action": "profitLoss", "perm_label": "List Profit & Loss", "perm_sort_order": 640 },
+  { "perm_key": "reports.trialBalance", "perm_module": "reports", "perm_action": "trialBalance", "perm_label": "List Trial Balance", "perm_sort_order": 650 },
+
+  { "perm_key": "settings.manage", "perm_module": "settings", "perm_action": "manage", "perm_label": "Manage Settings (Rate/Purity/Backup)", "perm_sort_order": 710 }
+]

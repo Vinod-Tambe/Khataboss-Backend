@@ -9,6 +9,7 @@
     "udb": "node scripts/bootstrap.js",
     "migrate": "prisma migrate deploy --schema=prisma/schema/master/schema.prisma",
     "generate": "prisma generate --schema=prisma/schema/master/schema.prisma",
+    "generate:main": "prisma generate --schema=prisma/schema/main/schema.prisma",
     "seed": "node -e \"require('./config/db'); require('./prisma/seeder/admin-seeder').seedAdmin()\"",
     "sync": "node scripts/sync-tenants.js"
   },

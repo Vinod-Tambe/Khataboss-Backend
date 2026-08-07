@@ -779,6 +779,83 @@ exports.Prisma.AuctionLoanScalarFieldEnum = {
   al_other_info: 'al_other_info'
 };
 
+exports.Prisma.StaffScalarFieldEnum = {
+  staff_id: 'staff_id',
+  staff_uuid: 'staff_uuid',
+  staff_own_id: 'staff_own_id',
+  staff_add_date: 'staff_add_date',
+  staff_first_name: 'staff_first_name',
+  staff_last_name: 'staff_last_name',
+  staff_father_name: 'staff_father_name',
+  staff_mother_name: 'staff_mother_name',
+  staff_mobile_no: 'staff_mobile_no',
+  staff_phone_no: 'staff_phone_no',
+  staff_email_id: 'staff_email_id',
+  staff_gender: 'staff_gender',
+  staff_cast: 'staff_cast',
+  staff_marital_status: 'staff_marital_status',
+  staff_occupation: 'staff_occupation',
+  staff_birth_date: 'staff_birth_date',
+  staff_gstin: 'staff_gstin',
+  staff_tax_no: 'staff_tax_no',
+  staff_pan_no: 'staff_pan_no',
+  staff_adhaar_no: 'staff_adhaar_no',
+  staff_login_id: 'staff_login_id',
+  staff_password: 'staff_password',
+  staff_status: 'staff_status',
+  staff_profile_img: 'staff_profile_img',
+  staff_adhaar_front_img: 'staff_adhaar_front_img',
+  staff_adhaar_back_img: 'staff_adhaar_back_img',
+  staff_pan_card_img: 'staff_pan_card_img',
+  staff_sign_img: 'staff_sign_img',
+  staff_per_address: 'staff_per_address',
+  staff_curr_address: 'staff_curr_address',
+  staff_village: 'staff_village',
+  staff_ward_no: 'staff_ward_no',
+  staff_tehsil: 'staff_tehsil',
+  staff_city: 'staff_city',
+  staff_state: 'staff_state',
+  staff_country: 'staff_country',
+  staff_pincode: 'staff_pincode',
+  staff_bank_name: 'staff_bank_name',
+  staff_bank_acc_no: 'staff_bank_acc_no',
+  staff_ifsc_code: 'staff_ifsc_code',
+  staff_other_info: 'staff_other_info',
+  staff_refresh_token: 'staff_refresh_token',
+  staff_jwt_token: 'staff_jwt_token',
+  staff_login_status: 'staff_login_status',
+  staff_last_login_system: 'staff_last_login_system',
+  staff_otp: 'staff_otp',
+  staff_otp_expiry: 'staff_otp_expiry',
+  staff_created_at: 'staff_created_at',
+  staff_created_by: 'staff_created_by',
+  staff_updated_at: 'staff_updated_at',
+  staff_updated_by: 'staff_updated_by',
+  staff_deleted_at: 'staff_deleted_at',
+  staff_deleted_by: 'staff_deleted_by',
+  staff_is_deleted: 'staff_is_deleted'
+};
+
+exports.Prisma.PermissionScalarFieldEnum = {
+  perm_id: 'perm_id',
+  perm_key: 'perm_key',
+  perm_module: 'perm_module',
+  perm_action: 'perm_action',
+  perm_label: 'perm_label',
+  perm_sort_order: 'perm_sort_order',
+  perm_created_at: 'perm_created_at',
+  perm_updated_at: 'perm_updated_at'
+};
+
+exports.Prisma.StaffPermissionScalarFieldEnum = {
+  sp_id: 'sp_id',
+  sp_staff_id: 'sp_staff_id',
+  sp_perm_id: 'sp_perm_id',
+  sp_granted: 'sp_granted',
+  sp_created_at: 'sp_created_at',
+  sp_updated_at: 'sp_updated_at'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -921,6 +998,25 @@ exports.StockStatus = exports.$Enums.StockStatus = {
   returned: 'returned'
 };
 
+exports.StaffGender = exports.$Enums.StaffGender = {
+  Male: 'Male',
+  Female: 'Female',
+  Other: 'Other'
+};
+
+exports.StaffMaritalStatus = exports.$Enums.StaffMaritalStatus = {
+  Single: 'Single',
+  Married: 'Married',
+  Divorced: 'Divorced',
+  Widowed: 'Widowed',
+  Other: 'Other'
+};
+
+exports.StaffStatus = exports.$Enums.StaffStatus = {
+  Active: 'Active',
+  Inactive: 'Inactive'
+};
+
 exports.Prisma.ModelName = {
   Owner: 'Owner',
   Firm: 'Firm',
@@ -940,7 +1036,10 @@ exports.Prisma.ModelName = {
   Purity: 'Purity',
   MoneyLender: 'MoneyLender',
   AuctionUser: 'AuctionUser',
-  AuctionLoan: 'AuctionLoan'
+  AuctionLoan: 'AuctionLoan',
+  Staff: 'Staff',
+  Permission: 'Permission',
+  StaffPermission: 'StaffPermission'
 };
 
 /**

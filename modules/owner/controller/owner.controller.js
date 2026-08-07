@@ -1,6 +1,7 @@
 "use strict";
 
 const { BASE_URL, setupOwnerDatabase } = require("../../../config/db");
+const { seedPermissions } = require("../../../prisma/seeder/permission-seeder");
 const ownerService = require("../services/owner.service");
 const imageService = require("../../../utils/image.service");
 const { PrismaClient } = require("../../../prisma/generated/master");
@@ -105,6 +106,10 @@ class OwnerController {
       // 4. Setup the dynamic database and migrate schema
       console.log(`🚀  Starting database setup for: ${dbName}`);
       const dbUrl = await setupOwnerDatabase(dbName);
+
+      // 4b. Seed permission catalog (owner has all permissions by role)
+      console.log(`🔐  Seeding permissions for: ${dbName}`);
+      await seedPermissions(dbUrl);
 
       // 5. Save owner record in the new database
       console.log(`📝  Saving owner record in database: ${dbName}`);

@@ -2,13 +2,15 @@
 
 const express = require("express");
 const router = express.Router();
-const addPrincipalController = require("../controller/principal.controller");
+const principalController = require("../controller/principal.controller");
 const authenticateOwner = require("../../../middlewares/auth.middleware");
+const requirePermission = require("../../../middlewares/permission.middleware");
 
 router.post(
   "/",
   authenticateOwner,
-  (req, res) => addPrincipalController.addAdditionalPrincipal(req, res)
+  requirePermission("loan.addPrincipal"),
+  (req, res) => principalController.addAdditionalPrincipal(req, res)
 );
 
 module.exports = router;
