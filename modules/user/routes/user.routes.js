@@ -28,6 +28,13 @@ router.get(
   (req, res) => userController.getUsers(req, res)
 );
 
+// Must be registered before /:uuid
+router.get(
+  "/search",
+  authenticateOwner,
+  (req, res) => userController.searchUsers(req, res)
+);
+
 router.delete(
   "/:uuid",
   authenticateOwner,

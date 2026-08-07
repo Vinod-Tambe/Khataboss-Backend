@@ -103,6 +103,80 @@ class UserService {
     }
   }
   /**
+   * Fast autocomplete search for header suggestions.
+   * Lean select + limit for large datasets.
+   */
+  async searchUsers(dbUrl, firmId, q = "", limit = 12) {
+    const prisma = this.getPrisma(dbUrl);
+    try {
+      const search = String(q || "").trim();
+      if (search.length < 1) return [];
+
+      const take = Math.min(Math.max(parseInt(limit, 10) || 12, 1), 20);
+      const where = {
+        user_is_deleted: false,
+      };
+
+      if (firmId && firmId !== "all" && firmId !== "undefined") {
+        where.user_firm_id = parseInt(firmId, 10);
+      }
+
+      const or = [
+        { user_mobile_no: { startsWith: search } },
+        { user_phone_no: { startsWith: search } },
+        { user_email_id: { startsWith: search, mode: "insensitive" } },
+        { user_first_name: { startsWith: search, mode: "insensitive" } },
+        { user_last_name: { startsWith: search, mode: "insensitive" } },
+        { user_father_name: { startsWith: search, mode: "insensitive" } },
+        { user_first_name: { contains: search, mode: "insensitive" } },
+        { user_last_name: { contains: search, mode: "insensitive" } },
+        { user_curr_address: { contains: search, mode: "insensitive" } },
+        { user_per_address: { contains: search, mode: "insensitive" } },
+        { user_city: { contains: search, mode: "insensitive" } },
+        { user_state: { contains: search, mode: "insensitive" } },
+        { user_country: { contains: search, mode: "insensitive" } },
+        { user_pincode: { startsWith: search } },
+        { user_pincode: { contains: search } },
+      ];
+
+      if (/^\d+$/.test(search)) {
+        const id = parseInt(search, 10);
+        if (!Number.isNaN(id)) {
+          or.unshift({ user_id: id });
+        }
+      }
+
+      where.OR = or;
+
+      return await prisma.user.findMany({
+        where,
+        take,
+        orderBy: [{ user_id: "desc" }],
+        select: {
+          user_id: true,
+          user_uuid: true,
+          user_first_name: true,
+          user_last_name: true,
+          user_father_name: true,
+          user_mobile_no: true,
+          user_email_id: true,
+          user_firm_id: true,
+          user_profile_img: true,
+          user_other_info: true,
+          user_curr_address: true,
+          user_per_address: true,
+          user_city: true,
+          user_state: true,
+          user_country: true,
+          user_pincode: true,
+        },
+      });
+    } finally {
+      await prisma.$disconnect();
+    }
+  }
+
+  /**
    * Get all users.
    * @param {string} dbUrl 
    * @param {number|string} firmId 

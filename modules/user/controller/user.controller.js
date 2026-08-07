@@ -110,6 +110,26 @@ class UserController {
   }
 
   /**
+   * GET /user/search?q=&firmId=&limit=
+   * Fast autocomplete for header search.
+   */
+  async searchUsers(req, res) {
+    try {
+      const { q = "", firmId, limit } = req.query;
+      const dbUrl = this.getDbUrl(req.user.own_db);
+      const users = await userService.searchUsers(dbUrl, firmId, q, limit);
+
+      return res.status(200).json({
+        message: "Users search completed.",
+        data: users,
+      });
+    } catch (error) {
+      console.error("❌ Error searching users:", error.message);
+      return res.status(500).json({ error: error.message });
+    }
+  }
+
+  /**
    * DELETE /user/:uuid
    */
   async deleteUser(req, res) {

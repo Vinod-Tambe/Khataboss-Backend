@@ -137,11 +137,41 @@ class GirviService {
       if (status && status !== "ALL") {
         where.girv_status = status;
       }
-      return await prisma.girvi.findMany({
+      const girvis = await prisma.girvi.findMany({
         where,
         orderBy: { girv_created_at: "desc" },
-        include: { firm: true, user: true },
+        include: {
+          firm: true,
+          user: true,
+          transferMoneyLender: true,
+        },
       });
+
+      const transferFirmIds = [
+        ...new Set(
+          girvis
+            .map((g) => g.girv_transfer_firm_id)
+            .filter((id) => id != null && id > 0)
+        ),
+      ];
+
+      let transferFirmMap = {};
+      if (transferFirmIds.length > 0) {
+        const transferFirms = await prisma.firm.findMany({
+          where: { firm_id: { in: transferFirmIds } },
+          select: { firm_id: true, firm_name: true },
+        });
+        transferFirmMap = Object.fromEntries(
+          transferFirms.map((f) => [f.firm_id, f])
+        );
+      }
+
+      return girvis.map((g) => ({
+        ...g,
+        transferFirm: g.girv_transfer_firm_id
+          ? transferFirmMap[g.girv_transfer_firm_id] || null
+          : null,
+      }));
     } finally {
       await prisma.$disconnect();
     }
@@ -180,6 +210,7 @@ class GirviService {
         include: {
           firm: true,
           user: true,
+          transferMoneyLender: true,
         }
       });
 
@@ -299,32 +330,76 @@ class GirviService {
 
   async transferLoan(dbUrl, girvUuid, formData, requestUser) {
     const prisma = this.getPrisma(dbUrl);
-    const targetFirmId = parseInt(formData.targetFirmId);
+    const transferTo = String(formData.transfer_to || "firm").toLowerCase();
+    const isMoneyLenderTransfer = transferTo === "money_lender";
+    const targetFirmId = parseInt(formData.targetFirmId, 10);
+    const targetMoneyLenderId = formData.targetMoneyLenderId
+      ? parseInt(formData.targetMoneyLenderId, 10)
+      : null;
+
     try {
+      if (!targetFirmId || Number.isNaN(targetFirmId)) {
+        throw new Error("Target firm ID is required for transfer.");
+      }
+      if (isMoneyLenderTransfer && (!targetMoneyLenderId || Number.isNaN(targetMoneyLenderId))) {
+        throw new Error("Target money lender ID is required for money lender transfer.");
+      }
+
       const existing = await prisma.girvi.findUnique({
         where: { girv_uuid: girvUuid },
         include: { user: true }
       });
       if (!existing) throw new Error("Loan not found.");
-      if (existing.girv_status !== 'ACTIVE') throw new Error("Only active loans can be transferred.");
+      if (existing.girv_status !== "ACTIVE") throw new Error("Only active loans can be transferred.");
 
       const targetFirm = await prisma.firm.findUnique({
         where: { firm_id: targetFirmId }
       });
       if (!targetFirm) throw new Error("Target firm not found.");
-      if (targetFirm.firm_own_id !== existing.girv_own_id) throw new Error("Target firm must belong to the same owner.");
+      if (targetFirm.firm_own_id !== existing.girv_own_id) {
+        throw new Error("Target firm must belong to the same owner.");
+      }
+
+      let targetMoneyLender = null;
+      if (isMoneyLenderTransfer) {
+        targetMoneyLender = await prisma.moneyLender.findFirst({
+          where: {
+            ml_id: targetMoneyLenderId,
+            is_active: true,
+          }
+        });
+        if (!targetMoneyLender) throw new Error("Target money lender not found or inactive.");
+        if (targetMoneyLender.ml_own_id !== existing.girv_own_id) {
+          throw new Error("Target money lender must belong to the same owner.");
+        }
+        if (
+          targetMoneyLender.ml_firm_id &&
+          targetMoneyLender.ml_firm_id !== targetFirmId
+        ) {
+          throw new Error("Selected money lender does not belong to the selected transfer firm.");
+        }
+      }
 
       // Check if user exists in target firm
       let targetUser = await prisma.user.findFirst({
         where: {
           user_firm_id: targetFirmId,
-          user_mobile_no: existing.user.user_mobile_no
+          user_mobile_no: existing.user.user_mobile_no,
+          user_is_deleted: false,
         }
       });
 
       // If user doesn't exist in target firm, duplicate them
       if (!targetUser) {
-        const { user_id, user_uuid, user_firm_id, user_add_date, user_created_at, user_updated_at, ...userCloneData } = existing.user;
+        const {
+          user_id,
+          user_uuid,
+          user_firm_id,
+          user_add_date,
+          user_created_at,
+          user_updated_at,
+          ...userCloneData
+        } = existing.user;
         targetUser = await prisma.user.create({
           data: {
             ...userCloneData,
@@ -336,7 +411,7 @@ class GirviService {
 
       const items = await prisma.stock.findMany({
         where: {
-          st_referance_panel: 'girvi',
+          st_referance_panel: "girvi",
           st_referance_id: existing.girv_id,
           st_is_deleted: false
         }
@@ -344,14 +419,31 @@ class GirviService {
 
       return await prisma.$transaction(async (tx) => {
         // 1. Create the new loan in the target firm
-        const { girv_id, girv_uuid, girv_firm_id, girv_user_id, girv_status, girv_created_at, girv_updated_at, user, ...girviCloneData } = existing;
-        
+        const {
+          girv_id,
+          girv_uuid,
+          girv_firm_id,
+          girv_user_id,
+          girv_status,
+          girv_created_at,
+          girv_updated_at,
+          girv_transfer_firm_id,
+          girv_transfer_girv_id,
+          girv_transfer_ml_id,
+          user,
+          transferMoneyLender,
+          ...girviCloneData
+        } = existing;
+
         const newGirvi = await tx.girvi.create({
           data: {
             ...girviCloneData,
             girv_firm_id: targetFirmId,
             girv_user_id: targetUser.user_id,
-            girv_status: 'ACTIVE',
+            girv_status: "ACTIVE",
+            girv_transfer_firm_id: null,
+            girv_transfer_girv_id: null,
+            girv_transfer_ml_id: null,
             girv_created_by: requestUser.own_login_id || "System Transfer",
             girv_start_date: formData.transfer_date || girviCloneData.girv_start_date,
             girv_prin_amt: formData.girv_prin_amt ? parseFloat(formData.girv_prin_amt) : girviCloneData.girv_prin_amt,
@@ -378,8 +470,17 @@ class GirviService {
 
         // 2. Duplicate stock items
         if (items.length > 0) {
-          const itemsToInsert = items.map(item => {
-            const { st_id, st_uuid, st_referance_id, st_firm_id, st_user_id, st_created_at, st_updated_at, ...itemCloneData } = item;
+          const itemsToInsert = items.map((item) => {
+            const {
+              st_id,
+              st_uuid,
+              st_referance_id,
+              st_firm_id,
+              st_user_id,
+              st_created_at,
+              st_updated_at,
+              ...itemCloneData
+            } = item;
             return {
               ...itemCloneData,
               st_referance_id: newGirvi.girv_id,
@@ -394,13 +495,22 @@ class GirviService {
         }
 
         // 3. Mark old loan as TRANSFERRED
-        const oldGirvi = await tx.girvi.update({
+        const mlName = targetMoneyLender
+          ? [targetMoneyLender.ml_first_name, targetMoneyLender.ml_last_name].filter(Boolean).join(" ").trim()
+          : "";
+        const transferNote = isMoneyLenderTransfer
+          ? `Transferred to money lender ${mlName || `#${targetMoneyLenderId}`} (ML ID: ${targetMoneyLenderId}) via firm ${targetFirm.firm_name} (ID: ${targetFirmId})`
+          : `Transferred to firm ${targetFirm.firm_name} (ID: ${targetFirmId})`;
+
+        await tx.girvi.update({
           where: { girv_uuid: girvUuid },
           data: {
-            girv_status: 'TRANSFERRED',
+            girv_status: "TRANSFERRED",
             girv_transfer_firm_id: targetFirmId,
             girv_transfer_girv_id: newGirvi.girv_id,
-            girv_other_info: `Transferred to firm ${targetFirm.firm_name} (ID: ${targetFirmId})` + (existing.girv_other_info ? ` | ${existing.girv_other_info}` : '')
+            girv_transfer_ml_id: isMoneyLenderTransfer ? targetMoneyLenderId : null,
+            girv_other_info:
+              transferNote + (existing.girv_other_info ? ` | ${existing.girv_other_info}` : "")
           }
         });
 

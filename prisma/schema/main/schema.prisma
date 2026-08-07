@@ -880,6 +880,7 @@ model Girvi {
 
   girv_transfer_firm_id Int?
   girv_transfer_girv_id Int?
+  girv_transfer_ml_id   Int? // money lender on source loan when transferred to ML
 
   // Audit Fields
   girv_created_at DateTime  @default(now())
@@ -891,9 +892,10 @@ model Girvi {
   girv_is_deleted Boolean   @default(false)
 
   // Relations
-  owner Owner @relation("OwnerGirvi", fields: [girv_own_id], references: [own_id], onDelete: Cascade)
-  firm  Firm  @relation("FirmGirvi", fields: [girv_firm_id], references: [firm_id], onDelete: Cascade)
-  user  User  @relation("UserGirvi", fields: [girv_user_id], references: [user_id], onDelete: Cascade)
+  owner               Owner        @relation("OwnerGirvi", fields: [girv_own_id], references: [own_id], onDelete: Cascade)
+  firm                Firm         @relation("FirmGirvi", fields: [girv_firm_id], references: [firm_id], onDelete: Cascade)
+  user                User         @relation("UserGirvi", fields: [girv_user_id], references: [user_id], onDelete: Cascade)
+  transferMoneyLender MoneyLender? @relation("GirviTransferMoneyLender", fields: [girv_transfer_ml_id], references: [ml_id], onDelete: SetNull)
 
   firstIntCrAccount Account? @relation("GirviFirstIntCrAccount", fields: [girv_first_int_cr_acc_id], references: [acc_id])
   firstIntDrAccount Account? @relation("GirviFirstIntDrAccount", fields: [girv_first_int_dr_acc_id], references: [acc_id])
@@ -1307,6 +1309,8 @@ model MoneyLender {
 
   owner Owner  @relation("OwnerMoneyLenders", fields: [ml_own_id], references: [own_id], onDelete: Cascade)
   firm  Firm?  @relation("FirmMoneyLenders", fields: [ml_firm_id], references: [firm_id], onDelete: Cascade)
+
+  transferredFrom Girvi[] @relation("GirviTransferMoneyLender")
 
   @@map("money_lenders")
 }

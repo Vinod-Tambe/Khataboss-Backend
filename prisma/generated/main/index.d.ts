@@ -3606,6 +3606,37 @@ export namespace Prisma {
 
 
   /**
+   * Count Type MoneyLenderCountOutputType
+   */
+
+  export type MoneyLenderCountOutputType = {
+    transferredFrom: number
+  }
+
+  export type MoneyLenderCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    transferredFrom?: boolean | MoneyLenderCountOutputTypeCountTransferredFromArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * MoneyLenderCountOutputType without action
+   */
+  export type MoneyLenderCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MoneyLenderCountOutputType
+     */
+    select?: MoneyLenderCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * MoneyLenderCountOutputType without action
+   */
+  export type MoneyLenderCountOutputTypeCountTransferredFromArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GirviWhereInput
+  }
+
+
+  /**
    * Models
    */
 
@@ -18256,6 +18287,7 @@ export namespace Prisma {
     girv_dr_acc_id: number | null
     girv_transfer_firm_id: number | null
     girv_transfer_girv_id: number | null
+    girv_transfer_ml_id: number | null
   }
 
   export type GirviSumAggregateOutputType = {
@@ -18284,6 +18316,7 @@ export namespace Prisma {
     girv_dr_acc_id: number | null
     girv_transfer_firm_id: number | null
     girv_transfer_girv_id: number | null
+    girv_transfer_ml_id: number | null
   }
 
   export type GirviMinAggregateOutputType = {
@@ -18331,6 +18364,7 @@ export namespace Prisma {
     girv_pay_info: string | null
     girv_transfer_firm_id: number | null
     girv_transfer_girv_id: number | null
+    girv_transfer_ml_id: number | null
     girv_created_at: Date | null
     girv_created_by: string | null
     girv_updated_at: Date | null
@@ -18385,6 +18419,7 @@ export namespace Prisma {
     girv_pay_info: string | null
     girv_transfer_firm_id: number | null
     girv_transfer_girv_id: number | null
+    girv_transfer_ml_id: number | null
     girv_created_at: Date | null
     girv_created_by: string | null
     girv_updated_at: Date | null
@@ -18439,6 +18474,7 @@ export namespace Prisma {
     girv_pay_info: number
     girv_transfer_firm_id: number
     girv_transfer_girv_id: number
+    girv_transfer_ml_id: number
     girv_created_at: number
     girv_created_by: number
     girv_updated_at: number
@@ -18476,6 +18512,7 @@ export namespace Prisma {
     girv_dr_acc_id?: true
     girv_transfer_firm_id?: true
     girv_transfer_girv_id?: true
+    girv_transfer_ml_id?: true
   }
 
   export type GirviSumAggregateInputType = {
@@ -18504,6 +18541,7 @@ export namespace Prisma {
     girv_dr_acc_id?: true
     girv_transfer_firm_id?: true
     girv_transfer_girv_id?: true
+    girv_transfer_ml_id?: true
   }
 
   export type GirviMinAggregateInputType = {
@@ -18551,6 +18589,7 @@ export namespace Prisma {
     girv_pay_info?: true
     girv_transfer_firm_id?: true
     girv_transfer_girv_id?: true
+    girv_transfer_ml_id?: true
     girv_created_at?: true
     girv_created_by?: true
     girv_updated_at?: true
@@ -18605,6 +18644,7 @@ export namespace Prisma {
     girv_pay_info?: true
     girv_transfer_firm_id?: true
     girv_transfer_girv_id?: true
+    girv_transfer_ml_id?: true
     girv_created_at?: true
     girv_created_by?: true
     girv_updated_at?: true
@@ -18659,6 +18699,7 @@ export namespace Prisma {
     girv_pay_info?: true
     girv_transfer_firm_id?: true
     girv_transfer_girv_id?: true
+    girv_transfer_ml_id?: true
     girv_created_at?: true
     girv_created_by?: true
     girv_updated_at?: true
@@ -18800,6 +18841,7 @@ export namespace Prisma {
     girv_pay_info: string | null
     girv_transfer_firm_id: number | null
     girv_transfer_girv_id: number | null
+    girv_transfer_ml_id: number | null
     girv_created_at: Date
     girv_created_by: string | null
     girv_updated_at: Date
@@ -18873,6 +18915,7 @@ export namespace Prisma {
     girv_pay_info?: boolean
     girv_transfer_firm_id?: boolean
     girv_transfer_girv_id?: boolean
+    girv_transfer_ml_id?: boolean
     girv_created_at?: boolean
     girv_created_by?: boolean
     girv_updated_at?: boolean
@@ -18883,6 +18926,7 @@ export namespace Prisma {
     owner?: boolean | OwnerDefaultArgs<ExtArgs>
     firm?: boolean | FirmDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
+    transferMoneyLender?: boolean | Girvi$transferMoneyLenderArgs<ExtArgs>
     firstIntCrAccount?: boolean | Girvi$firstIntCrAccountArgs<ExtArgs>
     firstIntDrAccount?: boolean | Girvi$firstIntDrAccountArgs<ExtArgs>
     cashAccount?: boolean | Girvi$cashAccountArgs<ExtArgs>
@@ -18941,6 +18985,7 @@ export namespace Prisma {
     girv_pay_info?: boolean
     girv_transfer_firm_id?: boolean
     girv_transfer_girv_id?: boolean
+    girv_transfer_ml_id?: boolean
     girv_created_at?: boolean
     girv_created_by?: boolean
     girv_updated_at?: boolean
@@ -18951,6 +18996,7 @@ export namespace Prisma {
     owner?: boolean | OwnerDefaultArgs<ExtArgs>
     firm?: boolean | FirmDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
+    transferMoneyLender?: boolean | Girvi$transferMoneyLenderArgs<ExtArgs>
     firstIntCrAccount?: boolean | Girvi$firstIntCrAccountArgs<ExtArgs>
     firstIntDrAccount?: boolean | Girvi$firstIntDrAccountArgs<ExtArgs>
     cashAccount?: boolean | Girvi$cashAccountArgs<ExtArgs>
@@ -19005,6 +19051,7 @@ export namespace Prisma {
     girv_pay_info?: boolean
     girv_transfer_firm_id?: boolean
     girv_transfer_girv_id?: boolean
+    girv_transfer_ml_id?: boolean
     girv_created_at?: boolean
     girv_created_by?: boolean
     girv_updated_at?: boolean
@@ -19018,6 +19065,7 @@ export namespace Prisma {
     owner?: boolean | OwnerDefaultArgs<ExtArgs>
     firm?: boolean | FirmDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
+    transferMoneyLender?: boolean | Girvi$transferMoneyLenderArgs<ExtArgs>
     firstIntCrAccount?: boolean | Girvi$firstIntCrAccountArgs<ExtArgs>
     firstIntDrAccount?: boolean | Girvi$firstIntDrAccountArgs<ExtArgs>
     cashAccount?: boolean | Girvi$cashAccountArgs<ExtArgs>
@@ -19034,6 +19082,7 @@ export namespace Prisma {
     owner?: boolean | OwnerDefaultArgs<ExtArgs>
     firm?: boolean | FirmDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
+    transferMoneyLender?: boolean | Girvi$transferMoneyLenderArgs<ExtArgs>
     firstIntCrAccount?: boolean | Girvi$firstIntCrAccountArgs<ExtArgs>
     firstIntDrAccount?: boolean | Girvi$firstIntDrAccountArgs<ExtArgs>
     cashAccount?: boolean | Girvi$cashAccountArgs<ExtArgs>
@@ -19049,6 +19098,7 @@ export namespace Prisma {
       owner: Prisma.$OwnerPayload<ExtArgs>
       firm: Prisma.$FirmPayload<ExtArgs>
       user: Prisma.$UserPayload<ExtArgs>
+      transferMoneyLender: Prisma.$MoneyLenderPayload<ExtArgs> | null
       firstIntCrAccount: Prisma.$AccountPayload<ExtArgs> | null
       firstIntDrAccount: Prisma.$AccountPayload<ExtArgs> | null
       cashAccount: Prisma.$AccountPayload<ExtArgs> | null
@@ -19105,6 +19155,7 @@ export namespace Prisma {
       girv_pay_info: string | null
       girv_transfer_firm_id: number | null
       girv_transfer_girv_id: number | null
+      girv_transfer_ml_id: number | null
       girv_created_at: Date
       girv_created_by: string | null
       girv_updated_at: Date
@@ -19479,6 +19530,7 @@ export namespace Prisma {
     owner<T extends OwnerDefaultArgs<ExtArgs> = {}>(args?: Subset<T, OwnerDefaultArgs<ExtArgs>>): Prisma__OwnerClient<$Result.GetResult<Prisma.$OwnerPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     firm<T extends FirmDefaultArgs<ExtArgs> = {}>(args?: Subset<T, FirmDefaultArgs<ExtArgs>>): Prisma__FirmClient<$Result.GetResult<Prisma.$FirmPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    transferMoneyLender<T extends Girvi$transferMoneyLenderArgs<ExtArgs> = {}>(args?: Subset<T, Girvi$transferMoneyLenderArgs<ExtArgs>>): Prisma__MoneyLenderClient<$Result.GetResult<Prisma.$MoneyLenderPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     firstIntCrAccount<T extends Girvi$firstIntCrAccountArgs<ExtArgs> = {}>(args?: Subset<T, Girvi$firstIntCrAccountArgs<ExtArgs>>): Prisma__AccountClient<$Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     firstIntDrAccount<T extends Girvi$firstIntDrAccountArgs<ExtArgs> = {}>(args?: Subset<T, Girvi$firstIntDrAccountArgs<ExtArgs>>): Prisma__AccountClient<$Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     cashAccount<T extends Girvi$cashAccountArgs<ExtArgs> = {}>(args?: Subset<T, Girvi$cashAccountArgs<ExtArgs>>): Prisma__AccountClient<$Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
@@ -19562,6 +19614,7 @@ export namespace Prisma {
     readonly girv_pay_info: FieldRef<"Girvi", 'String'>
     readonly girv_transfer_firm_id: FieldRef<"Girvi", 'Int'>
     readonly girv_transfer_girv_id: FieldRef<"Girvi", 'Int'>
+    readonly girv_transfer_ml_id: FieldRef<"Girvi", 'Int'>
     readonly girv_created_at: FieldRef<"Girvi", 'DateTime'>
     readonly girv_created_by: FieldRef<"Girvi", 'String'>
     readonly girv_updated_at: FieldRef<"Girvi", 'DateTime'>
@@ -19884,6 +19937,21 @@ export namespace Prisma {
      * Filter which Girvis to delete
      */
     where?: GirviWhereInput
+  }
+
+  /**
+   * Girvi.transferMoneyLender
+   */
+  export type Girvi$transferMoneyLenderArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MoneyLender
+     */
+    select?: MoneyLenderSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MoneyLenderInclude<ExtArgs> | null
+    where?: MoneyLenderWhereInput
   }
 
   /**
@@ -28748,6 +28816,8 @@ export namespace Prisma {
     updated_at?: boolean
     owner?: boolean | OwnerDefaultArgs<ExtArgs>
     firm?: boolean | MoneyLender$firmArgs<ExtArgs>
+    transferredFrom?: boolean | MoneyLender$transferredFromArgs<ExtArgs>
+    _count?: boolean | MoneyLenderCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["moneyLender"]>
 
   export type MoneyLenderSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -28827,6 +28897,8 @@ export namespace Prisma {
   export type MoneyLenderInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     owner?: boolean | OwnerDefaultArgs<ExtArgs>
     firm?: boolean | MoneyLender$firmArgs<ExtArgs>
+    transferredFrom?: boolean | MoneyLender$transferredFromArgs<ExtArgs>
+    _count?: boolean | MoneyLenderCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type MoneyLenderIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     owner?: boolean | OwnerDefaultArgs<ExtArgs>
@@ -28838,6 +28910,7 @@ export namespace Prisma {
     objects: {
       owner: Prisma.$OwnerPayload<ExtArgs>
       firm: Prisma.$FirmPayload<ExtArgs> | null
+      transferredFrom: Prisma.$GirviPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       ml_id: number
@@ -29239,6 +29312,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     owner<T extends OwnerDefaultArgs<ExtArgs> = {}>(args?: Subset<T, OwnerDefaultArgs<ExtArgs>>): Prisma__OwnerClient<$Result.GetResult<Prisma.$OwnerPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     firm<T extends MoneyLender$firmArgs<ExtArgs> = {}>(args?: Subset<T, MoneyLender$firmArgs<ExtArgs>>): Prisma__FirmClient<$Result.GetResult<Prisma.$FirmPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    transferredFrom<T extends MoneyLender$transferredFromArgs<ExtArgs> = {}>(args?: Subset<T, MoneyLender$transferredFromArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GirviPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -29631,6 +29705,26 @@ export namespace Prisma {
      */
     include?: FirmInclude<ExtArgs> | null
     where?: FirmWhereInput
+  }
+
+  /**
+   * MoneyLender.transferredFrom
+   */
+  export type MoneyLender$transferredFromArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Girvi
+     */
+    select?: GirviSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GirviInclude<ExtArgs> | null
+    where?: GirviWhereInput
+    orderBy?: GirviOrderByWithRelationInput | GirviOrderByWithRelationInput[]
+    cursor?: GirviWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: GirviScalarFieldEnum | GirviScalarFieldEnum[]
   }
 
   /**
@@ -32327,6 +32421,7 @@ export namespace Prisma {
     girv_pay_info: 'girv_pay_info',
     girv_transfer_firm_id: 'girv_transfer_firm_id',
     girv_transfer_girv_id: 'girv_transfer_girv_id',
+    girv_transfer_ml_id: 'girv_transfer_ml_id',
     girv_created_at: 'girv_created_at',
     girv_created_by: 'girv_created_by',
     girv_updated_at: 'girv_updated_at',
@@ -35240,6 +35335,7 @@ export namespace Prisma {
     girv_pay_info?: StringNullableFilter<"Girvi"> | string | null
     girv_transfer_firm_id?: IntNullableFilter<"Girvi"> | number | null
     girv_transfer_girv_id?: IntNullableFilter<"Girvi"> | number | null
+    girv_transfer_ml_id?: IntNullableFilter<"Girvi"> | number | null
     girv_created_at?: DateTimeFilter<"Girvi"> | Date | string
     girv_created_by?: StringNullableFilter<"Girvi"> | string | null
     girv_updated_at?: DateTimeFilter<"Girvi"> | Date | string
@@ -35250,6 +35346,7 @@ export namespace Prisma {
     owner?: XOR<OwnerRelationFilter, OwnerWhereInput>
     firm?: XOR<FirmRelationFilter, FirmWhereInput>
     user?: XOR<UserRelationFilter, UserWhereInput>
+    transferMoneyLender?: XOR<MoneyLenderNullableRelationFilter, MoneyLenderWhereInput> | null
     firstIntCrAccount?: XOR<AccountNullableRelationFilter, AccountWhereInput> | null
     firstIntDrAccount?: XOR<AccountNullableRelationFilter, AccountWhereInput> | null
     cashAccount?: XOR<AccountNullableRelationFilter, AccountWhereInput> | null
@@ -35307,6 +35404,7 @@ export namespace Prisma {
     girv_pay_info?: SortOrderInput | SortOrder
     girv_transfer_firm_id?: SortOrderInput | SortOrder
     girv_transfer_girv_id?: SortOrderInput | SortOrder
+    girv_transfer_ml_id?: SortOrderInput | SortOrder
     girv_created_at?: SortOrder
     girv_created_by?: SortOrderInput | SortOrder
     girv_updated_at?: SortOrder
@@ -35317,6 +35415,7 @@ export namespace Prisma {
     owner?: OwnerOrderByWithRelationInput
     firm?: FirmOrderByWithRelationInput
     user?: UserOrderByWithRelationInput
+    transferMoneyLender?: MoneyLenderOrderByWithRelationInput
     firstIntCrAccount?: AccountOrderByWithRelationInput
     firstIntDrAccount?: AccountOrderByWithRelationInput
     cashAccount?: AccountOrderByWithRelationInput
@@ -35377,6 +35476,7 @@ export namespace Prisma {
     girv_pay_info?: StringNullableFilter<"Girvi"> | string | null
     girv_transfer_firm_id?: IntNullableFilter<"Girvi"> | number | null
     girv_transfer_girv_id?: IntNullableFilter<"Girvi"> | number | null
+    girv_transfer_ml_id?: IntNullableFilter<"Girvi"> | number | null
     girv_created_at?: DateTimeFilter<"Girvi"> | Date | string
     girv_created_by?: StringNullableFilter<"Girvi"> | string | null
     girv_updated_at?: DateTimeFilter<"Girvi"> | Date | string
@@ -35387,6 +35487,7 @@ export namespace Prisma {
     owner?: XOR<OwnerRelationFilter, OwnerWhereInput>
     firm?: XOR<FirmRelationFilter, FirmWhereInput>
     user?: XOR<UserRelationFilter, UserWhereInput>
+    transferMoneyLender?: XOR<MoneyLenderNullableRelationFilter, MoneyLenderWhereInput> | null
     firstIntCrAccount?: XOR<AccountNullableRelationFilter, AccountWhereInput> | null
     firstIntDrAccount?: XOR<AccountNullableRelationFilter, AccountWhereInput> | null
     cashAccount?: XOR<AccountNullableRelationFilter, AccountWhereInput> | null
@@ -35444,6 +35545,7 @@ export namespace Prisma {
     girv_pay_info?: SortOrderInput | SortOrder
     girv_transfer_firm_id?: SortOrderInput | SortOrder
     girv_transfer_girv_id?: SortOrderInput | SortOrder
+    girv_transfer_ml_id?: SortOrderInput | SortOrder
     girv_created_at?: SortOrder
     girv_created_by?: SortOrderInput | SortOrder
     girv_updated_at?: SortOrder
@@ -35506,6 +35608,7 @@ export namespace Prisma {
     girv_pay_info?: StringNullableWithAggregatesFilter<"Girvi"> | string | null
     girv_transfer_firm_id?: IntNullableWithAggregatesFilter<"Girvi"> | number | null
     girv_transfer_girv_id?: IntNullableWithAggregatesFilter<"Girvi"> | number | null
+    girv_transfer_ml_id?: IntNullableWithAggregatesFilter<"Girvi"> | number | null
     girv_created_at?: DateTimeWithAggregatesFilter<"Girvi"> | Date | string
     girv_created_by?: StringNullableWithAggregatesFilter<"Girvi"> | string | null
     girv_updated_at?: DateTimeWithAggregatesFilter<"Girvi"> | Date | string
@@ -36682,6 +36785,7 @@ export namespace Prisma {
     updated_at?: DateTimeFilter<"MoneyLender"> | Date | string
     owner?: XOR<OwnerRelationFilter, OwnerWhereInput>
     firm?: XOR<FirmNullableRelationFilter, FirmWhereInput> | null
+    transferredFrom?: GirviListRelationFilter
   }
 
   export type MoneyLenderOrderByWithRelationInput = {
@@ -36720,6 +36824,7 @@ export namespace Prisma {
     updated_at?: SortOrder
     owner?: OwnerOrderByWithRelationInput
     firm?: FirmOrderByWithRelationInput
+    transferredFrom?: GirviOrderByRelationAggregateInput
   }
 
   export type MoneyLenderWhereUniqueInput = Prisma.AtLeast<{
@@ -36761,6 +36866,7 @@ export namespace Prisma {
     updated_at?: DateTimeFilter<"MoneyLender"> | Date | string
     owner?: XOR<OwnerRelationFilter, OwnerWhereInput>
     firm?: XOR<FirmNullableRelationFilter, FirmWhereInput> | null
+    transferredFrom?: GirviListRelationFilter
   }, "ml_id" | "ml_uuid">
 
   export type MoneyLenderOrderByWithAggregationInput = {
@@ -39760,6 +39866,7 @@ export namespace Prisma {
     owner?: OwnerCreateNestedOneWithoutGirvisInput
     firm?: FirmCreateNestedOneWithoutGirvisInput
     user?: UserCreateNestedOneWithoutGirvisInput
+    transferMoneyLender?: MoneyLenderCreateNestedOneWithoutTransferredFromInput
     firstIntCrAccount?: AccountCreateNestedOneWithoutGirviFirstIntCrInput
     firstIntDrAccount?: AccountCreateNestedOneWithoutGirviFirstIntDrInput
     cashAccount?: AccountCreateNestedOneWithoutGirviCashInput
@@ -39817,6 +39924,7 @@ export namespace Prisma {
     girv_pay_info?: string | null
     girv_transfer_firm_id?: number | null
     girv_transfer_girv_id?: number | null
+    girv_transfer_ml_id?: number | null
     girv_created_at?: Date | string
     girv_created_by?: string | null
     girv_updated_at?: Date | string
@@ -39873,6 +39981,7 @@ export namespace Prisma {
     owner?: OwnerUpdateOneRequiredWithoutGirvisNestedInput
     firm?: FirmUpdateOneRequiredWithoutGirvisNestedInput
     user?: UserUpdateOneRequiredWithoutGirvisNestedInput
+    transferMoneyLender?: MoneyLenderUpdateOneWithoutTransferredFromNestedInput
     firstIntCrAccount?: AccountUpdateOneWithoutGirviFirstIntCrNestedInput
     firstIntDrAccount?: AccountUpdateOneWithoutGirviFirstIntDrNestedInput
     cashAccount?: AccountUpdateOneWithoutGirviCashNestedInput
@@ -39930,6 +40039,7 @@ export namespace Prisma {
     girv_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     girv_transfer_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_transfer_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_transfer_ml_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     girv_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     girv_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -39987,6 +40097,7 @@ export namespace Prisma {
     girv_pay_info?: string | null
     girv_transfer_firm_id?: number | null
     girv_transfer_girv_id?: number | null
+    girv_transfer_ml_id?: number | null
     girv_created_at?: Date | string
     girv_created_by?: string | null
     girv_updated_at?: Date | string
@@ -40084,6 +40195,7 @@ export namespace Prisma {
     girv_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     girv_transfer_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_transfer_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_transfer_ml_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     girv_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     girv_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -41372,6 +41484,7 @@ export namespace Prisma {
     updated_at?: Date | string
     owner: OwnerCreateNestedOneWithoutMoneyLendersInput
     firm?: FirmCreateNestedOneWithoutMoneyLendersInput
+    transferredFrom?: GirviCreateNestedManyWithoutTransferMoneyLenderInput
   }
 
   export type MoneyLenderUncheckedCreateInput = {
@@ -41408,6 +41521,7 @@ export namespace Prisma {
     is_active?: boolean
     created_at?: Date | string
     updated_at?: Date | string
+    transferredFrom?: GirviUncheckedCreateNestedManyWithoutTransferMoneyLenderInput
   }
 
   export type MoneyLenderUpdateInput = {
@@ -41443,6 +41557,7 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     owner?: OwnerUpdateOneRequiredWithoutMoneyLendersNestedInput
     firm?: FirmUpdateOneWithoutMoneyLendersNestedInput
+    transferredFrom?: GirviUpdateManyWithoutTransferMoneyLenderNestedInput
   }
 
   export type MoneyLenderUncheckedUpdateInput = {
@@ -41479,6 +41594,7 @@ export namespace Prisma {
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    transferredFrom?: GirviUncheckedUpdateManyWithoutTransferMoneyLenderNestedInput
   }
 
   export type MoneyLenderCreateManyInput = {
@@ -43795,6 +43911,11 @@ export namespace Prisma {
     not?: NestedEnumGirviStatusFilter<$PrismaModel> | $Enums.GirviStatus
   }
 
+  export type MoneyLenderNullableRelationFilter = {
+    is?: MoneyLenderWhereInput | null
+    isNot?: MoneyLenderWhereInput | null
+  }
+
   export type GirviCountOrderByAggregateInput = {
     girv_id?: SortOrder
     girv_uuid?: SortOrder
@@ -43840,6 +43961,7 @@ export namespace Prisma {
     girv_pay_info?: SortOrder
     girv_transfer_firm_id?: SortOrder
     girv_transfer_girv_id?: SortOrder
+    girv_transfer_ml_id?: SortOrder
     girv_created_at?: SortOrder
     girv_created_by?: SortOrder
     girv_updated_at?: SortOrder
@@ -43875,6 +43997,7 @@ export namespace Prisma {
     girv_dr_acc_id?: SortOrder
     girv_transfer_firm_id?: SortOrder
     girv_transfer_girv_id?: SortOrder
+    girv_transfer_ml_id?: SortOrder
   }
 
   export type GirviMaxOrderByAggregateInput = {
@@ -43922,6 +44045,7 @@ export namespace Prisma {
     girv_pay_info?: SortOrder
     girv_transfer_firm_id?: SortOrder
     girv_transfer_girv_id?: SortOrder
+    girv_transfer_ml_id?: SortOrder
     girv_created_at?: SortOrder
     girv_created_by?: SortOrder
     girv_updated_at?: SortOrder
@@ -43976,6 +44100,7 @@ export namespace Prisma {
     girv_pay_info?: SortOrder
     girv_transfer_firm_id?: SortOrder
     girv_transfer_girv_id?: SortOrder
+    girv_transfer_ml_id?: SortOrder
     girv_created_at?: SortOrder
     girv_created_by?: SortOrder
     girv_updated_at?: SortOrder
@@ -44011,6 +44136,7 @@ export namespace Prisma {
     girv_dr_acc_id?: SortOrder
     girv_transfer_firm_id?: SortOrder
     girv_transfer_girv_id?: SortOrder
+    girv_transfer_ml_id?: SortOrder
   }
 
   export type EnumGirviRoiTypeWithAggregatesFilter<$PrismaModel = never> = {
@@ -49555,6 +49681,12 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
+  export type MoneyLenderCreateNestedOneWithoutTransferredFromInput = {
+    create?: XOR<MoneyLenderCreateWithoutTransferredFromInput, MoneyLenderUncheckedCreateWithoutTransferredFromInput>
+    connectOrCreate?: MoneyLenderCreateOrConnectWithoutTransferredFromInput
+    connect?: MoneyLenderWhereUniqueInput
+  }
+
   export type AccountCreateNestedOneWithoutGirviFirstIntCrInput = {
     create?: XOR<AccountCreateWithoutGirviFirstIntCrInput, AccountUncheckedCreateWithoutGirviFirstIntCrInput>
     connectOrCreate?: AccountCreateOrConnectWithoutGirviFirstIntCrInput
@@ -49681,6 +49813,16 @@ export namespace Prisma {
     upsert?: UserUpsertWithoutGirvisInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutGirvisInput, UserUpdateWithoutGirvisInput>, UserUncheckedUpdateWithoutGirvisInput>
+  }
+
+  export type MoneyLenderUpdateOneWithoutTransferredFromNestedInput = {
+    create?: XOR<MoneyLenderCreateWithoutTransferredFromInput, MoneyLenderUncheckedCreateWithoutTransferredFromInput>
+    connectOrCreate?: MoneyLenderCreateOrConnectWithoutTransferredFromInput
+    upsert?: MoneyLenderUpsertWithoutTransferredFromInput
+    disconnect?: MoneyLenderWhereInput | boolean
+    delete?: MoneyLenderWhereInput | boolean
+    connect?: MoneyLenderWhereUniqueInput
+    update?: XOR<XOR<MoneyLenderUpdateToOneWithWhereWithoutTransferredFromInput, MoneyLenderUpdateWithoutTransferredFromInput>, MoneyLenderUncheckedUpdateWithoutTransferredFromInput>
   }
 
   export type AccountUpdateOneWithoutGirviFirstIntCrNestedInput = {
@@ -50433,6 +50575,20 @@ export namespace Prisma {
     connect?: FirmWhereUniqueInput
   }
 
+  export type GirviCreateNestedManyWithoutTransferMoneyLenderInput = {
+    create?: XOR<GirviCreateWithoutTransferMoneyLenderInput, GirviUncheckedCreateWithoutTransferMoneyLenderInput> | GirviCreateWithoutTransferMoneyLenderInput[] | GirviUncheckedCreateWithoutTransferMoneyLenderInput[]
+    connectOrCreate?: GirviCreateOrConnectWithoutTransferMoneyLenderInput | GirviCreateOrConnectWithoutTransferMoneyLenderInput[]
+    createMany?: GirviCreateManyTransferMoneyLenderInputEnvelope
+    connect?: GirviWhereUniqueInput | GirviWhereUniqueInput[]
+  }
+
+  export type GirviUncheckedCreateNestedManyWithoutTransferMoneyLenderInput = {
+    create?: XOR<GirviCreateWithoutTransferMoneyLenderInput, GirviUncheckedCreateWithoutTransferMoneyLenderInput> | GirviCreateWithoutTransferMoneyLenderInput[] | GirviUncheckedCreateWithoutTransferMoneyLenderInput[]
+    connectOrCreate?: GirviCreateOrConnectWithoutTransferMoneyLenderInput | GirviCreateOrConnectWithoutTransferMoneyLenderInput[]
+    createMany?: GirviCreateManyTransferMoneyLenderInputEnvelope
+    connect?: GirviWhereUniqueInput | GirviWhereUniqueInput[]
+  }
+
   export type OwnerUpdateOneRequiredWithoutMoneyLendersNestedInput = {
     create?: XOR<OwnerCreateWithoutMoneyLendersInput, OwnerUncheckedCreateWithoutMoneyLendersInput>
     connectOrCreate?: OwnerCreateOrConnectWithoutMoneyLendersInput
@@ -50449,6 +50605,34 @@ export namespace Prisma {
     delete?: FirmWhereInput | boolean
     connect?: FirmWhereUniqueInput
     update?: XOR<XOR<FirmUpdateToOneWithWhereWithoutMoneyLendersInput, FirmUpdateWithoutMoneyLendersInput>, FirmUncheckedUpdateWithoutMoneyLendersInput>
+  }
+
+  export type GirviUpdateManyWithoutTransferMoneyLenderNestedInput = {
+    create?: XOR<GirviCreateWithoutTransferMoneyLenderInput, GirviUncheckedCreateWithoutTransferMoneyLenderInput> | GirviCreateWithoutTransferMoneyLenderInput[] | GirviUncheckedCreateWithoutTransferMoneyLenderInput[]
+    connectOrCreate?: GirviCreateOrConnectWithoutTransferMoneyLenderInput | GirviCreateOrConnectWithoutTransferMoneyLenderInput[]
+    upsert?: GirviUpsertWithWhereUniqueWithoutTransferMoneyLenderInput | GirviUpsertWithWhereUniqueWithoutTransferMoneyLenderInput[]
+    createMany?: GirviCreateManyTransferMoneyLenderInputEnvelope
+    set?: GirviWhereUniqueInput | GirviWhereUniqueInput[]
+    disconnect?: GirviWhereUniqueInput | GirviWhereUniqueInput[]
+    delete?: GirviWhereUniqueInput | GirviWhereUniqueInput[]
+    connect?: GirviWhereUniqueInput | GirviWhereUniqueInput[]
+    update?: GirviUpdateWithWhereUniqueWithoutTransferMoneyLenderInput | GirviUpdateWithWhereUniqueWithoutTransferMoneyLenderInput[]
+    updateMany?: GirviUpdateManyWithWhereWithoutTransferMoneyLenderInput | GirviUpdateManyWithWhereWithoutTransferMoneyLenderInput[]
+    deleteMany?: GirviScalarWhereInput | GirviScalarWhereInput[]
+  }
+
+  export type GirviUncheckedUpdateManyWithoutTransferMoneyLenderNestedInput = {
+    create?: XOR<GirviCreateWithoutTransferMoneyLenderInput, GirviUncheckedCreateWithoutTransferMoneyLenderInput> | GirviCreateWithoutTransferMoneyLenderInput[] | GirviUncheckedCreateWithoutTransferMoneyLenderInput[]
+    connectOrCreate?: GirviCreateOrConnectWithoutTransferMoneyLenderInput | GirviCreateOrConnectWithoutTransferMoneyLenderInput[]
+    upsert?: GirviUpsertWithWhereUniqueWithoutTransferMoneyLenderInput | GirviUpsertWithWhereUniqueWithoutTransferMoneyLenderInput[]
+    createMany?: GirviCreateManyTransferMoneyLenderInputEnvelope
+    set?: GirviWhereUniqueInput | GirviWhereUniqueInput[]
+    disconnect?: GirviWhereUniqueInput | GirviWhereUniqueInput[]
+    delete?: GirviWhereUniqueInput | GirviWhereUniqueInput[]
+    connect?: GirviWhereUniqueInput | GirviWhereUniqueInput[]
+    update?: GirviUpdateWithWhereUniqueWithoutTransferMoneyLenderInput | GirviUpdateWithWhereUniqueWithoutTransferMoneyLenderInput[]
+    updateMany?: GirviUpdateManyWithWhereWithoutTransferMoneyLenderInput | GirviUpdateManyWithWhereWithoutTransferMoneyLenderInput[]
+    deleteMany?: GirviScalarWhereInput | GirviScalarWhereInput[]
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -51860,6 +52044,7 @@ export namespace Prisma {
     girv_is_deleted?: boolean
     firm?: FirmCreateNestedOneWithoutGirvisInput
     user?: UserCreateNestedOneWithoutGirvisInput
+    transferMoneyLender?: MoneyLenderCreateNestedOneWithoutTransferredFromInput
     firstIntCrAccount?: AccountCreateNestedOneWithoutGirviFirstIntCrInput
     firstIntDrAccount?: AccountCreateNestedOneWithoutGirviFirstIntDrInput
     cashAccount?: AccountCreateNestedOneWithoutGirviCashInput
@@ -51916,6 +52101,7 @@ export namespace Prisma {
     girv_pay_info?: string | null
     girv_transfer_firm_id?: number | null
     girv_transfer_girv_id?: number | null
+    girv_transfer_ml_id?: number | null
     girv_created_at?: Date | string
     girv_created_by?: string | null
     girv_updated_at?: Date | string
@@ -52384,6 +52570,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     firm?: FirmCreateNestedOneWithoutMoneyLendersInput
+    transferredFrom?: GirviCreateNestedManyWithoutTransferMoneyLenderInput
   }
 
   export type MoneyLenderUncheckedCreateWithoutOwnerInput = {
@@ -52419,6 +52606,7 @@ export namespace Prisma {
     is_active?: boolean
     created_at?: Date | string
     updated_at?: Date | string
+    transferredFrom?: GirviUncheckedCreateNestedManyWithoutTransferMoneyLenderInput
   }
 
   export type MoneyLenderCreateOrConnectWithoutOwnerInput = {
@@ -52942,6 +53130,7 @@ export namespace Prisma {
     girv_pay_info?: StringNullableFilter<"Girvi"> | string | null
     girv_transfer_firm_id?: IntNullableFilter<"Girvi"> | number | null
     girv_transfer_girv_id?: IntNullableFilter<"Girvi"> | number | null
+    girv_transfer_ml_id?: IntNullableFilter<"Girvi"> | number | null
     girv_created_at?: DateTimeFilter<"Girvi"> | Date | string
     girv_created_by?: StringNullableFilter<"Girvi"> | string | null
     girv_updated_at?: DateTimeFilter<"Girvi"> | Date | string
@@ -54108,6 +54297,7 @@ export namespace Prisma {
     girv_is_deleted?: boolean
     owner?: OwnerCreateNestedOneWithoutGirvisInput
     user?: UserCreateNestedOneWithoutGirvisInput
+    transferMoneyLender?: MoneyLenderCreateNestedOneWithoutTransferredFromInput
     firstIntCrAccount?: AccountCreateNestedOneWithoutGirviFirstIntCrInput
     firstIntDrAccount?: AccountCreateNestedOneWithoutGirviFirstIntDrInput
     cashAccount?: AccountCreateNestedOneWithoutGirviCashInput
@@ -54164,6 +54354,7 @@ export namespace Prisma {
     girv_pay_info?: string | null
     girv_transfer_firm_id?: number | null
     girv_transfer_girv_id?: number | null
+    girv_transfer_ml_id?: number | null
     girv_created_at?: Date | string
     girv_created_by?: string | null
     girv_updated_at?: Date | string
@@ -54595,6 +54786,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     owner: OwnerCreateNestedOneWithoutMoneyLendersInput
+    transferredFrom?: GirviCreateNestedManyWithoutTransferMoneyLenderInput
   }
 
   export type MoneyLenderUncheckedCreateWithoutFirmInput = {
@@ -54630,6 +54822,7 @@ export namespace Prisma {
     is_active?: boolean
     created_at?: Date | string
     updated_at?: Date | string
+    transferredFrom?: GirviUncheckedCreateNestedManyWithoutTransferMoneyLenderInput
   }
 
   export type MoneyLenderCreateOrConnectWithoutFirmInput = {
@@ -56605,6 +56798,7 @@ export namespace Prisma {
     owner?: OwnerCreateNestedOneWithoutGirvisInput
     firm?: FirmCreateNestedOneWithoutGirvisInput
     user?: UserCreateNestedOneWithoutGirvisInput
+    transferMoneyLender?: MoneyLenderCreateNestedOneWithoutTransferredFromInput
     firstIntDrAccount?: AccountCreateNestedOneWithoutGirviFirstIntDrInput
     cashAccount?: AccountCreateNestedOneWithoutGirviCashInput
     bankAccount?: AccountCreateNestedOneWithoutGirviBankInput
@@ -56660,6 +56854,7 @@ export namespace Prisma {
     girv_pay_info?: string | null
     girv_transfer_firm_id?: number | null
     girv_transfer_girv_id?: number | null
+    girv_transfer_ml_id?: number | null
     girv_created_at?: Date | string
     girv_created_by?: string | null
     girv_updated_at?: Date | string
@@ -56726,6 +56921,7 @@ export namespace Prisma {
     owner?: OwnerCreateNestedOneWithoutGirvisInput
     firm?: FirmCreateNestedOneWithoutGirvisInput
     user?: UserCreateNestedOneWithoutGirvisInput
+    transferMoneyLender?: MoneyLenderCreateNestedOneWithoutTransferredFromInput
     firstIntCrAccount?: AccountCreateNestedOneWithoutGirviFirstIntCrInput
     cashAccount?: AccountCreateNestedOneWithoutGirviCashInput
     bankAccount?: AccountCreateNestedOneWithoutGirviBankInput
@@ -56781,6 +56977,7 @@ export namespace Prisma {
     girv_pay_info?: string | null
     girv_transfer_firm_id?: number | null
     girv_transfer_girv_id?: number | null
+    girv_transfer_ml_id?: number | null
     girv_created_at?: Date | string
     girv_created_by?: string | null
     girv_updated_at?: Date | string
@@ -56847,6 +57044,7 @@ export namespace Prisma {
     owner?: OwnerCreateNestedOneWithoutGirvisInput
     firm?: FirmCreateNestedOneWithoutGirvisInput
     user?: UserCreateNestedOneWithoutGirvisInput
+    transferMoneyLender?: MoneyLenderCreateNestedOneWithoutTransferredFromInput
     firstIntCrAccount?: AccountCreateNestedOneWithoutGirviFirstIntCrInput
     firstIntDrAccount?: AccountCreateNestedOneWithoutGirviFirstIntDrInput
     bankAccount?: AccountCreateNestedOneWithoutGirviBankInput
@@ -56902,6 +57100,7 @@ export namespace Prisma {
     girv_pay_info?: string | null
     girv_transfer_firm_id?: number | null
     girv_transfer_girv_id?: number | null
+    girv_transfer_ml_id?: number | null
     girv_created_at?: Date | string
     girv_created_by?: string | null
     girv_updated_at?: Date | string
@@ -56968,6 +57167,7 @@ export namespace Prisma {
     owner?: OwnerCreateNestedOneWithoutGirvisInput
     firm?: FirmCreateNestedOneWithoutGirvisInput
     user?: UserCreateNestedOneWithoutGirvisInput
+    transferMoneyLender?: MoneyLenderCreateNestedOneWithoutTransferredFromInput
     firstIntCrAccount?: AccountCreateNestedOneWithoutGirviFirstIntCrInput
     firstIntDrAccount?: AccountCreateNestedOneWithoutGirviFirstIntDrInput
     cashAccount?: AccountCreateNestedOneWithoutGirviCashInput
@@ -57023,6 +57223,7 @@ export namespace Prisma {
     girv_pay_info?: string | null
     girv_transfer_firm_id?: number | null
     girv_transfer_girv_id?: number | null
+    girv_transfer_ml_id?: number | null
     girv_created_at?: Date | string
     girv_created_by?: string | null
     girv_updated_at?: Date | string
@@ -57089,6 +57290,7 @@ export namespace Prisma {
     owner?: OwnerCreateNestedOneWithoutGirvisInput
     firm?: FirmCreateNestedOneWithoutGirvisInput
     user?: UserCreateNestedOneWithoutGirvisInput
+    transferMoneyLender?: MoneyLenderCreateNestedOneWithoutTransferredFromInput
     firstIntCrAccount?: AccountCreateNestedOneWithoutGirviFirstIntCrInput
     firstIntDrAccount?: AccountCreateNestedOneWithoutGirviFirstIntDrInput
     cashAccount?: AccountCreateNestedOneWithoutGirviCashInput
@@ -57144,6 +57346,7 @@ export namespace Prisma {
     girv_pay_info?: string | null
     girv_transfer_firm_id?: number | null
     girv_transfer_girv_id?: number | null
+    girv_transfer_ml_id?: number | null
     girv_created_at?: Date | string
     girv_created_by?: string | null
     girv_updated_at?: Date | string
@@ -57210,6 +57413,7 @@ export namespace Prisma {
     owner?: OwnerCreateNestedOneWithoutGirvisInput
     firm?: FirmCreateNestedOneWithoutGirvisInput
     user?: UserCreateNestedOneWithoutGirvisInput
+    transferMoneyLender?: MoneyLenderCreateNestedOneWithoutTransferredFromInput
     firstIntCrAccount?: AccountCreateNestedOneWithoutGirviFirstIntCrInput
     firstIntDrAccount?: AccountCreateNestedOneWithoutGirviFirstIntDrInput
     cashAccount?: AccountCreateNestedOneWithoutGirviCashInput
@@ -57265,6 +57469,7 @@ export namespace Prisma {
     girv_pay_info?: string | null
     girv_transfer_firm_id?: number | null
     girv_transfer_girv_id?: number | null
+    girv_transfer_ml_id?: number | null
     girv_created_at?: Date | string
     girv_created_by?: string | null
     girv_updated_at?: Date | string
@@ -57331,6 +57536,7 @@ export namespace Prisma {
     owner?: OwnerCreateNestedOneWithoutGirvisInput
     firm?: FirmCreateNestedOneWithoutGirvisInput
     user?: UserCreateNestedOneWithoutGirvisInput
+    transferMoneyLender?: MoneyLenderCreateNestedOneWithoutTransferredFromInput
     firstIntCrAccount?: AccountCreateNestedOneWithoutGirviFirstIntCrInput
     firstIntDrAccount?: AccountCreateNestedOneWithoutGirviFirstIntDrInput
     cashAccount?: AccountCreateNestedOneWithoutGirviCashInput
@@ -57386,6 +57592,7 @@ export namespace Prisma {
     girv_pay_info?: string | null
     girv_transfer_firm_id?: number | null
     girv_transfer_girv_id?: number | null
+    girv_transfer_ml_id?: number | null
     girv_created_at?: Date | string
     girv_created_by?: string | null
     girv_updated_at?: Date | string
@@ -60737,6 +60944,7 @@ export namespace Prisma {
     girv_is_deleted?: boolean
     owner?: OwnerCreateNestedOneWithoutGirvisInput
     firm?: FirmCreateNestedOneWithoutGirvisInput
+    transferMoneyLender?: MoneyLenderCreateNestedOneWithoutTransferredFromInput
     firstIntCrAccount?: AccountCreateNestedOneWithoutGirviFirstIntCrInput
     firstIntDrAccount?: AccountCreateNestedOneWithoutGirviFirstIntDrInput
     cashAccount?: AccountCreateNestedOneWithoutGirviCashInput
@@ -60793,6 +61001,7 @@ export namespace Prisma {
     girv_pay_info?: string | null
     girv_transfer_firm_id?: number | null
     girv_transfer_girv_id?: number | null
+    girv_transfer_ml_id?: number | null
     girv_created_at?: Date | string
     girv_created_by?: string | null
     girv_updated_at?: Date | string
@@ -71579,6 +71788,82 @@ export namespace Prisma {
     create: XOR<UserCreateWithoutGirvisInput, UserUncheckedCreateWithoutGirvisInput>
   }
 
+  export type MoneyLenderCreateWithoutTransferredFromInput = {
+    ml_uuid?: string
+    ml_first_name: string
+    ml_last_name?: string | null
+    ml_father_name?: string | null
+    ml_gender?: string | null
+    ml_dob?: Date | string | null
+    ml_phone?: string | null
+    ml_email?: string | null
+    ml_aadhaar?: string | null
+    ml_pan?: string | null
+    ml_gstin?: string | null
+    ml_tax_no?: string | null
+    ml_bank_name?: string | null
+    ml_account_number?: string | null
+    ml_ifsc?: string | null
+    ml_branch?: string | null
+    ml_village?: string | null
+    ml_city?: string | null
+    ml_state?: string | null
+    ml_country?: string | null
+    ml_pincode?: string | null
+    ml_address?: string | null
+    ml_notes?: string | null
+    ml_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    ml_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
+    ml_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
+    ml_pan_img?: NullableJsonNullValueInput | InputJsonValue
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    owner: OwnerCreateNestedOneWithoutMoneyLendersInput
+    firm?: FirmCreateNestedOneWithoutMoneyLendersInput
+  }
+
+  export type MoneyLenderUncheckedCreateWithoutTransferredFromInput = {
+    ml_id?: number
+    ml_uuid?: string
+    ml_own_id: number
+    ml_first_name: string
+    ml_last_name?: string | null
+    ml_father_name?: string | null
+    ml_gender?: string | null
+    ml_dob?: Date | string | null
+    ml_firm_id?: number | null
+    ml_phone?: string | null
+    ml_email?: string | null
+    ml_aadhaar?: string | null
+    ml_pan?: string | null
+    ml_gstin?: string | null
+    ml_tax_no?: string | null
+    ml_bank_name?: string | null
+    ml_account_number?: string | null
+    ml_ifsc?: string | null
+    ml_branch?: string | null
+    ml_village?: string | null
+    ml_city?: string | null
+    ml_state?: string | null
+    ml_country?: string | null
+    ml_pincode?: string | null
+    ml_address?: string | null
+    ml_notes?: string | null
+    ml_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    ml_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
+    ml_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
+    ml_pan_img?: NullableJsonNullValueInput | InputJsonValue
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type MoneyLenderCreateOrConnectWithoutTransferredFromInput = {
+    where: MoneyLenderWhereUniqueInput
+    create: XOR<MoneyLenderCreateWithoutTransferredFromInput, MoneyLenderUncheckedCreateWithoutTransferredFromInput>
+  }
+
   export type AccountCreateWithoutGirviFirstIntCrInput = {
     acc_uuid?: string
     acc_add_date?: Date | string
@@ -73277,6 +73562,88 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutUserNestedInput
     deposits?: GirviDepositUncheckedUpdateManyWithoutUserNestedInput
     releases?: GirviReleaseUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type MoneyLenderUpsertWithoutTransferredFromInput = {
+    update: XOR<MoneyLenderUpdateWithoutTransferredFromInput, MoneyLenderUncheckedUpdateWithoutTransferredFromInput>
+    create: XOR<MoneyLenderCreateWithoutTransferredFromInput, MoneyLenderUncheckedCreateWithoutTransferredFromInput>
+    where?: MoneyLenderWhereInput
+  }
+
+  export type MoneyLenderUpdateToOneWithWhereWithoutTransferredFromInput = {
+    where?: MoneyLenderWhereInput
+    data: XOR<MoneyLenderUpdateWithoutTransferredFromInput, MoneyLenderUncheckedUpdateWithoutTransferredFromInput>
+  }
+
+  export type MoneyLenderUpdateWithoutTransferredFromInput = {
+    ml_uuid?: StringFieldUpdateOperationsInput | string
+    ml_first_name?: StringFieldUpdateOperationsInput | string
+    ml_last_name?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_father_name?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_gender?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ml_phone?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_email?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_aadhaar?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_pan?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_gstin?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_tax_no?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_bank_name?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_account_number?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_ifsc?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_branch?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_village?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_city?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_state?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_country?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_address?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_notes?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    ml_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
+    ml_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
+    ml_pan_img?: NullableJsonNullValueInput | InputJsonValue
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    owner?: OwnerUpdateOneRequiredWithoutMoneyLendersNestedInput
+    firm?: FirmUpdateOneWithoutMoneyLendersNestedInput
+  }
+
+  export type MoneyLenderUncheckedUpdateWithoutTransferredFromInput = {
+    ml_id?: IntFieldUpdateOperationsInput | number
+    ml_uuid?: StringFieldUpdateOperationsInput | string
+    ml_own_id?: IntFieldUpdateOperationsInput | number
+    ml_first_name?: StringFieldUpdateOperationsInput | string
+    ml_last_name?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_father_name?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_gender?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ml_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
+    ml_phone?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_email?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_aadhaar?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_pan?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_gstin?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_tax_no?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_bank_name?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_account_number?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_ifsc?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_branch?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_village?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_city?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_state?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_country?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_address?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_notes?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    ml_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
+    ml_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
+    ml_pan_img?: NullableJsonNullValueInput | InputJsonValue
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type AccountUpsertWithoutGirviFirstIntCrInput = {
@@ -75586,6 +75953,7 @@ export namespace Prisma {
     owner?: OwnerCreateNestedOneWithoutGirvisInput
     firm?: FirmCreateNestedOneWithoutGirvisInput
     user?: UserCreateNestedOneWithoutGirvisInput
+    transferMoneyLender?: MoneyLenderCreateNestedOneWithoutTransferredFromInput
     firstIntCrAccount?: AccountCreateNestedOneWithoutGirviFirstIntCrInput
     firstIntDrAccount?: AccountCreateNestedOneWithoutGirviFirstIntDrInput
     cashAccount?: AccountCreateNestedOneWithoutGirviCashInput
@@ -75642,6 +76010,7 @@ export namespace Prisma {
     girv_pay_info?: string | null
     girv_transfer_firm_id?: number | null
     girv_transfer_girv_id?: number | null
+    girv_transfer_ml_id?: number | null
     girv_created_at?: Date | string
     girv_created_by?: string | null
     girv_updated_at?: Date | string
@@ -76702,6 +77071,7 @@ export namespace Prisma {
     owner?: OwnerUpdateOneRequiredWithoutGirvisNestedInput
     firm?: FirmUpdateOneRequiredWithoutGirvisNestedInput
     user?: UserUpdateOneRequiredWithoutGirvisNestedInput
+    transferMoneyLender?: MoneyLenderUpdateOneWithoutTransferredFromNestedInput
     firstIntCrAccount?: AccountUpdateOneWithoutGirviFirstIntCrNestedInput
     firstIntDrAccount?: AccountUpdateOneWithoutGirviFirstIntDrNestedInput
     cashAccount?: AccountUpdateOneWithoutGirviCashNestedInput
@@ -76758,6 +77128,7 @@ export namespace Prisma {
     girv_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     girv_transfer_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_transfer_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_transfer_ml_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     girv_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     girv_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -77809,6 +78180,7 @@ export namespace Prisma {
     owner?: OwnerCreateNestedOneWithoutGirvisInput
     firm?: FirmCreateNestedOneWithoutGirvisInput
     user?: UserCreateNestedOneWithoutGirvisInput
+    transferMoneyLender?: MoneyLenderCreateNestedOneWithoutTransferredFromInput
     firstIntCrAccount?: AccountCreateNestedOneWithoutGirviFirstIntCrInput
     firstIntDrAccount?: AccountCreateNestedOneWithoutGirviFirstIntDrInput
     cashAccount?: AccountCreateNestedOneWithoutGirviCashInput
@@ -77865,6 +78237,7 @@ export namespace Prisma {
     girv_pay_info?: string | null
     girv_transfer_firm_id?: number | null
     girv_transfer_girv_id?: number | null
+    girv_transfer_ml_id?: number | null
     girv_created_at?: Date | string
     girv_created_by?: string | null
     girv_updated_at?: Date | string
@@ -79533,6 +79906,7 @@ export namespace Prisma {
     owner?: OwnerUpdateOneRequiredWithoutGirvisNestedInput
     firm?: FirmUpdateOneRequiredWithoutGirvisNestedInput
     user?: UserUpdateOneRequiredWithoutGirvisNestedInput
+    transferMoneyLender?: MoneyLenderUpdateOneWithoutTransferredFromNestedInput
     firstIntCrAccount?: AccountUpdateOneWithoutGirviFirstIntCrNestedInput
     firstIntDrAccount?: AccountUpdateOneWithoutGirviFirstIntDrNestedInput
     cashAccount?: AccountUpdateOneWithoutGirviCashNestedInput
@@ -79589,6 +79963,7 @@ export namespace Prisma {
     girv_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     girv_transfer_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_transfer_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_transfer_ml_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     girv_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     girv_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -81272,6 +81647,7 @@ export namespace Prisma {
     owner?: OwnerCreateNestedOneWithoutGirvisInput
     firm?: FirmCreateNestedOneWithoutGirvisInput
     user?: UserCreateNestedOneWithoutGirvisInput
+    transferMoneyLender?: MoneyLenderCreateNestedOneWithoutTransferredFromInput
     firstIntCrAccount?: AccountCreateNestedOneWithoutGirviFirstIntCrInput
     firstIntDrAccount?: AccountCreateNestedOneWithoutGirviFirstIntDrInput
     cashAccount?: AccountCreateNestedOneWithoutGirviCashInput
@@ -81328,6 +81704,7 @@ export namespace Prisma {
     girv_pay_info?: string | null
     girv_transfer_firm_id?: number | null
     girv_transfer_girv_id?: number | null
+    girv_transfer_ml_id?: number | null
     girv_created_at?: Date | string
     girv_created_by?: string | null
     girv_updated_at?: Date | string
@@ -82996,6 +83373,7 @@ export namespace Prisma {
     owner?: OwnerUpdateOneRequiredWithoutGirvisNestedInput
     firm?: FirmUpdateOneRequiredWithoutGirvisNestedInput
     user?: UserUpdateOneRequiredWithoutGirvisNestedInput
+    transferMoneyLender?: MoneyLenderUpdateOneWithoutTransferredFromNestedInput
     firstIntCrAccount?: AccountUpdateOneWithoutGirviFirstIntCrNestedInput
     firstIntDrAccount?: AccountUpdateOneWithoutGirviFirstIntDrNestedInput
     cashAccount?: AccountUpdateOneWithoutGirviCashNestedInput
@@ -83052,6 +83430,7 @@ export namespace Prisma {
     girv_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     girv_transfer_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_transfer_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_transfer_ml_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     girv_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     girv_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -85295,6 +85674,129 @@ export namespace Prisma {
     create: XOR<FirmCreateWithoutMoneyLendersInput, FirmUncheckedCreateWithoutMoneyLendersInput>
   }
 
+  export type GirviCreateWithoutTransferMoneyLenderInput = {
+    girv_uuid?: string
+    girv_add_date?: string | null
+    girv_staff_id?: number
+    girv_start_date: string
+    girv_loan_no?: string | null
+    girv_loan_pre_no?: string | null
+    girv_prin_amt?: number
+    girv_process_per?: number | null
+    girv_process_amt?: number | null
+    girv_packet_no?: string | null
+    girv_locker_no?: string | null
+    girv_charge_per?: number | null
+    girv_charge_amt?: number | null
+    girv_roi?: number
+    girv_roi_type: $Enums.GirviRoiType
+    girv_type: $Enums.GirviType
+    girv_interest_method?: $Enums.GirviInterestMethod
+    girv_compound_freq?: $Enums.GirviCompoundFreq | null
+    girv_final_amt?: number
+    girv_status?: $Enums.GirviStatus
+    girv_first_int?: string | null
+    girv_cash_amt?: number | null
+    girv_bank_amt?: number | null
+    girv_online_amt?: number | null
+    girv_card_amt?: number | null
+    girv_cash_info?: string | null
+    girv_bank_info?: string | null
+    girv_online_info?: string | null
+    girv_card_info?: string | null
+    girv_other_info?: string | null
+    girv_pay_info?: string | null
+    girv_transfer_firm_id?: number | null
+    girv_transfer_girv_id?: number | null
+    girv_created_at?: Date | string
+    girv_created_by?: string | null
+    girv_updated_at?: Date | string
+    girv_updated_by?: string | null
+    girv_deleted_at?: Date | string | null
+    girv_deleted_by?: string | null
+    girv_is_deleted?: boolean
+    owner?: OwnerCreateNestedOneWithoutGirvisInput
+    firm?: FirmCreateNestedOneWithoutGirvisInput
+    user?: UserCreateNestedOneWithoutGirvisInput
+    firstIntCrAccount?: AccountCreateNestedOneWithoutGirviFirstIntCrInput
+    firstIntDrAccount?: AccountCreateNestedOneWithoutGirviFirstIntDrInput
+    cashAccount?: AccountCreateNestedOneWithoutGirviCashInput
+    bankAccount?: AccountCreateNestedOneWithoutGirviBankInput
+    onlineAccount?: AccountCreateNestedOneWithoutGirviOnlineInput
+    cardAccount?: AccountCreateNestedOneWithoutGirviCardInput
+    drAccount?: AccountCreateNestedOneWithoutGirviDrInput
+    additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutGirviInput
+    deposits?: GirviDepositCreateNestedManyWithoutGirviInput
+    releases?: GirviReleaseCreateNestedManyWithoutGirviInput
+  }
+
+  export type GirviUncheckedCreateWithoutTransferMoneyLenderInput = {
+    girv_id?: number
+    girv_uuid?: string
+    girv_add_date?: string | null
+    girv_firm_id?: number
+    girv_own_id?: number
+    girv_user_id?: number
+    girv_staff_id?: number
+    girv_start_date: string
+    girv_loan_no?: string | null
+    girv_loan_pre_no?: string | null
+    girv_prin_amt?: number
+    girv_process_per?: number | null
+    girv_process_amt?: number | null
+    girv_packet_no?: string | null
+    girv_locker_no?: string | null
+    girv_charge_per?: number | null
+    girv_charge_amt?: number | null
+    girv_roi?: number
+    girv_roi_type: $Enums.GirviRoiType
+    girv_type: $Enums.GirviType
+    girv_interest_method?: $Enums.GirviInterestMethod
+    girv_compound_freq?: $Enums.GirviCompoundFreq | null
+    girv_final_amt?: number
+    girv_status?: $Enums.GirviStatus
+    girv_first_int?: string | null
+    girv_first_int_cr_acc_id?: number | null
+    girv_first_int_dr_acc_id?: number | null
+    girv_cash_amt?: number | null
+    girv_bank_amt?: number | null
+    girv_online_amt?: number | null
+    girv_card_amt?: number | null
+    girv_cash_acc_id?: number | null
+    girv_bank_acc_id?: number | null
+    girv_online_acc_id?: number | null
+    girv_card_acc_id?: number | null
+    girv_cash_info?: string | null
+    girv_bank_info?: string | null
+    girv_online_info?: string | null
+    girv_card_info?: string | null
+    girv_dr_acc_id?: number | null
+    girv_other_info?: string | null
+    girv_pay_info?: string | null
+    girv_transfer_firm_id?: number | null
+    girv_transfer_girv_id?: number | null
+    girv_created_at?: Date | string
+    girv_created_by?: string | null
+    girv_updated_at?: Date | string
+    girv_updated_by?: string | null
+    girv_deleted_at?: Date | string | null
+    girv_deleted_by?: string | null
+    girv_is_deleted?: boolean
+    additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutGirviInput
+    deposits?: GirviDepositUncheckedCreateNestedManyWithoutGirviInput
+    releases?: GirviReleaseUncheckedCreateNestedManyWithoutGirviInput
+  }
+
+  export type GirviCreateOrConnectWithoutTransferMoneyLenderInput = {
+    where: GirviWhereUniqueInput
+    create: XOR<GirviCreateWithoutTransferMoneyLenderInput, GirviUncheckedCreateWithoutTransferMoneyLenderInput>
+  }
+
+  export type GirviCreateManyTransferMoneyLenderInputEnvelope = {
+    data: GirviCreateManyTransferMoneyLenderInput | GirviCreateManyTransferMoneyLenderInput[]
+    skipDuplicates?: boolean
+  }
+
   export type OwnerUpsertWithoutMoneyLendersInput = {
     update: XOR<OwnerUpdateWithoutMoneyLendersInput, OwnerUncheckedUpdateWithoutMoneyLendersInput>
     create: XOR<OwnerCreateWithoutMoneyLendersInput, OwnerUncheckedCreateWithoutMoneyLendersInput>
@@ -85548,6 +86050,22 @@ export namespace Prisma {
     deposits?: GirviDepositUncheckedUpdateManyWithoutFirmNestedInput
     releases?: GirviReleaseUncheckedUpdateManyWithoutFirmNestedInput
     rates?: RateUncheckedUpdateManyWithoutFirmNestedInput
+  }
+
+  export type GirviUpsertWithWhereUniqueWithoutTransferMoneyLenderInput = {
+    where: GirviWhereUniqueInput
+    update: XOR<GirviUpdateWithoutTransferMoneyLenderInput, GirviUncheckedUpdateWithoutTransferMoneyLenderInput>
+    create: XOR<GirviCreateWithoutTransferMoneyLenderInput, GirviUncheckedCreateWithoutTransferMoneyLenderInput>
+  }
+
+  export type GirviUpdateWithWhereUniqueWithoutTransferMoneyLenderInput = {
+    where: GirviWhereUniqueInput
+    data: XOR<GirviUpdateWithoutTransferMoneyLenderInput, GirviUncheckedUpdateWithoutTransferMoneyLenderInput>
+  }
+
+  export type GirviUpdateManyWithWhereWithoutTransferMoneyLenderInput = {
+    where: GirviScalarWhereInput
+    data: XOR<GirviUpdateManyMutationInput, GirviUncheckedUpdateManyWithoutTransferMoneyLenderInput>
   }
 
   export type UserCreateManyOwnerInput = {
@@ -85881,6 +86399,7 @@ export namespace Prisma {
     girv_pay_info?: string | null
     girv_transfer_firm_id?: number | null
     girv_transfer_girv_id?: number | null
+    girv_transfer_ml_id?: number | null
     girv_created_at?: Date | string
     girv_created_by?: string | null
     girv_updated_at?: Date | string
@@ -87143,6 +87662,7 @@ export namespace Prisma {
     girv_is_deleted?: BoolFieldUpdateOperationsInput | boolean
     firm?: FirmUpdateOneRequiredWithoutGirvisNestedInput
     user?: UserUpdateOneRequiredWithoutGirvisNestedInput
+    transferMoneyLender?: MoneyLenderUpdateOneWithoutTransferredFromNestedInput
     firstIntCrAccount?: AccountUpdateOneWithoutGirviFirstIntCrNestedInput
     firstIntDrAccount?: AccountUpdateOneWithoutGirviFirstIntDrNestedInput
     cashAccount?: AccountUpdateOneWithoutGirviCashNestedInput
@@ -87199,6 +87719,7 @@ export namespace Prisma {
     girv_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     girv_transfer_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_transfer_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_transfer_ml_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     girv_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     girv_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -87255,6 +87776,7 @@ export namespace Prisma {
     girv_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     girv_transfer_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_transfer_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_transfer_ml_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     girv_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     girv_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -87830,6 +88352,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     firm?: FirmUpdateOneWithoutMoneyLendersNestedInput
+    transferredFrom?: GirviUpdateManyWithoutTransferMoneyLenderNestedInput
   }
 
   export type MoneyLenderUncheckedUpdateWithoutOwnerInput = {
@@ -87865,6 +88388,7 @@ export namespace Prisma {
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    transferredFrom?: GirviUncheckedUpdateManyWithoutTransferMoneyLenderNestedInput
   }
 
   export type MoneyLenderUncheckedUpdateManyWithoutOwnerInput = {
@@ -88182,6 +88706,7 @@ export namespace Prisma {
     girv_pay_info?: string | null
     girv_transfer_firm_id?: number | null
     girv_transfer_girv_id?: number | null
+    girv_transfer_ml_id?: number | null
     girv_created_at?: Date | string
     girv_created_by?: string | null
     girv_updated_at?: Date | string
@@ -89250,6 +89775,7 @@ export namespace Prisma {
     girv_is_deleted?: BoolFieldUpdateOperationsInput | boolean
     owner?: OwnerUpdateOneRequiredWithoutGirvisNestedInput
     user?: UserUpdateOneRequiredWithoutGirvisNestedInput
+    transferMoneyLender?: MoneyLenderUpdateOneWithoutTransferredFromNestedInput
     firstIntCrAccount?: AccountUpdateOneWithoutGirviFirstIntCrNestedInput
     firstIntDrAccount?: AccountUpdateOneWithoutGirviFirstIntDrNestedInput
     cashAccount?: AccountUpdateOneWithoutGirviCashNestedInput
@@ -89306,6 +89832,7 @@ export namespace Prisma {
     girv_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     girv_transfer_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_transfer_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_transfer_ml_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     girv_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     girv_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -89362,6 +89889,7 @@ export namespace Prisma {
     girv_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     girv_transfer_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_transfer_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_transfer_ml_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     girv_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     girv_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -89896,6 +90424,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     owner?: OwnerUpdateOneRequiredWithoutMoneyLendersNestedInput
+    transferredFrom?: GirviUpdateManyWithoutTransferMoneyLenderNestedInput
   }
 
   export type MoneyLenderUncheckedUpdateWithoutFirmInput = {
@@ -89931,6 +90460,7 @@ export namespace Prisma {
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    transferredFrom?: GirviUncheckedUpdateManyWithoutTransferMoneyLenderNestedInput
   }
 
   export type MoneyLenderUncheckedUpdateManyWithoutFirmInput = {
@@ -90598,6 +91128,7 @@ export namespace Prisma {
     girv_pay_info?: string | null
     girv_transfer_firm_id?: number | null
     girv_transfer_girv_id?: number | null
+    girv_transfer_ml_id?: number | null
     girv_created_at?: Date | string
     girv_created_by?: string | null
     girv_updated_at?: Date | string
@@ -90651,6 +91182,7 @@ export namespace Prisma {
     girv_pay_info?: string | null
     girv_transfer_firm_id?: number | null
     girv_transfer_girv_id?: number | null
+    girv_transfer_ml_id?: number | null
     girv_created_at?: Date | string
     girv_created_by?: string | null
     girv_updated_at?: Date | string
@@ -90704,6 +91236,7 @@ export namespace Prisma {
     girv_pay_info?: string | null
     girv_transfer_firm_id?: number | null
     girv_transfer_girv_id?: number | null
+    girv_transfer_ml_id?: number | null
     girv_created_at?: Date | string
     girv_created_by?: string | null
     girv_updated_at?: Date | string
@@ -90757,6 +91290,7 @@ export namespace Prisma {
     girv_pay_info?: string | null
     girv_transfer_firm_id?: number | null
     girv_transfer_girv_id?: number | null
+    girv_transfer_ml_id?: number | null
     girv_created_at?: Date | string
     girv_created_by?: string | null
     girv_updated_at?: Date | string
@@ -90810,6 +91344,7 @@ export namespace Prisma {
     girv_pay_info?: string | null
     girv_transfer_firm_id?: number | null
     girv_transfer_girv_id?: number | null
+    girv_transfer_ml_id?: number | null
     girv_created_at?: Date | string
     girv_created_by?: string | null
     girv_updated_at?: Date | string
@@ -90863,6 +91398,7 @@ export namespace Prisma {
     girv_pay_info?: string | null
     girv_transfer_firm_id?: number | null
     girv_transfer_girv_id?: number | null
+    girv_transfer_ml_id?: number | null
     girv_created_at?: Date | string
     girv_created_by?: string | null
     girv_updated_at?: Date | string
@@ -90916,6 +91452,7 @@ export namespace Prisma {
     girv_pay_info?: string | null
     girv_transfer_firm_id?: number | null
     girv_transfer_girv_id?: number | null
+    girv_transfer_ml_id?: number | null
     girv_created_at?: Date | string
     girv_created_by?: string | null
     girv_updated_at?: Date | string
@@ -93507,6 +94044,7 @@ export namespace Prisma {
     owner?: OwnerUpdateOneRequiredWithoutGirvisNestedInput
     firm?: FirmUpdateOneRequiredWithoutGirvisNestedInput
     user?: UserUpdateOneRequiredWithoutGirvisNestedInput
+    transferMoneyLender?: MoneyLenderUpdateOneWithoutTransferredFromNestedInput
     firstIntDrAccount?: AccountUpdateOneWithoutGirviFirstIntDrNestedInput
     cashAccount?: AccountUpdateOneWithoutGirviCashNestedInput
     bankAccount?: AccountUpdateOneWithoutGirviBankNestedInput
@@ -93562,6 +94100,7 @@ export namespace Prisma {
     girv_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     girv_transfer_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_transfer_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_transfer_ml_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     girv_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     girv_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -93618,6 +94157,7 @@ export namespace Prisma {
     girv_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     girv_transfer_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_transfer_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_transfer_ml_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     girv_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     girv_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -93671,6 +94211,7 @@ export namespace Prisma {
     owner?: OwnerUpdateOneRequiredWithoutGirvisNestedInput
     firm?: FirmUpdateOneRequiredWithoutGirvisNestedInput
     user?: UserUpdateOneRequiredWithoutGirvisNestedInput
+    transferMoneyLender?: MoneyLenderUpdateOneWithoutTransferredFromNestedInput
     firstIntCrAccount?: AccountUpdateOneWithoutGirviFirstIntCrNestedInput
     cashAccount?: AccountUpdateOneWithoutGirviCashNestedInput
     bankAccount?: AccountUpdateOneWithoutGirviBankNestedInput
@@ -93726,6 +94267,7 @@ export namespace Prisma {
     girv_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     girv_transfer_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_transfer_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_transfer_ml_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     girv_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     girv_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -93782,6 +94324,7 @@ export namespace Prisma {
     girv_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     girv_transfer_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_transfer_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_transfer_ml_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     girv_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     girv_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -93835,6 +94378,7 @@ export namespace Prisma {
     owner?: OwnerUpdateOneRequiredWithoutGirvisNestedInput
     firm?: FirmUpdateOneRequiredWithoutGirvisNestedInput
     user?: UserUpdateOneRequiredWithoutGirvisNestedInput
+    transferMoneyLender?: MoneyLenderUpdateOneWithoutTransferredFromNestedInput
     firstIntCrAccount?: AccountUpdateOneWithoutGirviFirstIntCrNestedInput
     firstIntDrAccount?: AccountUpdateOneWithoutGirviFirstIntDrNestedInput
     bankAccount?: AccountUpdateOneWithoutGirviBankNestedInput
@@ -93890,6 +94434,7 @@ export namespace Prisma {
     girv_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     girv_transfer_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_transfer_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_transfer_ml_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     girv_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     girv_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -93946,6 +94491,7 @@ export namespace Prisma {
     girv_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     girv_transfer_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_transfer_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_transfer_ml_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     girv_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     girv_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -93999,6 +94545,7 @@ export namespace Prisma {
     owner?: OwnerUpdateOneRequiredWithoutGirvisNestedInput
     firm?: FirmUpdateOneRequiredWithoutGirvisNestedInput
     user?: UserUpdateOneRequiredWithoutGirvisNestedInput
+    transferMoneyLender?: MoneyLenderUpdateOneWithoutTransferredFromNestedInput
     firstIntCrAccount?: AccountUpdateOneWithoutGirviFirstIntCrNestedInput
     firstIntDrAccount?: AccountUpdateOneWithoutGirviFirstIntDrNestedInput
     cashAccount?: AccountUpdateOneWithoutGirviCashNestedInput
@@ -94054,6 +94601,7 @@ export namespace Prisma {
     girv_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     girv_transfer_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_transfer_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_transfer_ml_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     girv_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     girv_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -94110,6 +94658,7 @@ export namespace Prisma {
     girv_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     girv_transfer_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_transfer_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_transfer_ml_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     girv_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     girv_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -94163,6 +94712,7 @@ export namespace Prisma {
     owner?: OwnerUpdateOneRequiredWithoutGirvisNestedInput
     firm?: FirmUpdateOneRequiredWithoutGirvisNestedInput
     user?: UserUpdateOneRequiredWithoutGirvisNestedInput
+    transferMoneyLender?: MoneyLenderUpdateOneWithoutTransferredFromNestedInput
     firstIntCrAccount?: AccountUpdateOneWithoutGirviFirstIntCrNestedInput
     firstIntDrAccount?: AccountUpdateOneWithoutGirviFirstIntDrNestedInput
     cashAccount?: AccountUpdateOneWithoutGirviCashNestedInput
@@ -94218,6 +94768,7 @@ export namespace Prisma {
     girv_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     girv_transfer_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_transfer_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_transfer_ml_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     girv_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     girv_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -94274,6 +94825,7 @@ export namespace Prisma {
     girv_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     girv_transfer_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_transfer_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_transfer_ml_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     girv_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     girv_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -94327,6 +94879,7 @@ export namespace Prisma {
     owner?: OwnerUpdateOneRequiredWithoutGirvisNestedInput
     firm?: FirmUpdateOneRequiredWithoutGirvisNestedInput
     user?: UserUpdateOneRequiredWithoutGirvisNestedInput
+    transferMoneyLender?: MoneyLenderUpdateOneWithoutTransferredFromNestedInput
     firstIntCrAccount?: AccountUpdateOneWithoutGirviFirstIntCrNestedInput
     firstIntDrAccount?: AccountUpdateOneWithoutGirviFirstIntDrNestedInput
     cashAccount?: AccountUpdateOneWithoutGirviCashNestedInput
@@ -94382,6 +94935,7 @@ export namespace Prisma {
     girv_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     girv_transfer_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_transfer_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_transfer_ml_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     girv_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     girv_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -94438,6 +94992,7 @@ export namespace Prisma {
     girv_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     girv_transfer_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_transfer_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_transfer_ml_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     girv_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     girv_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -94491,6 +95046,7 @@ export namespace Prisma {
     owner?: OwnerUpdateOneRequiredWithoutGirvisNestedInput
     firm?: FirmUpdateOneRequiredWithoutGirvisNestedInput
     user?: UserUpdateOneRequiredWithoutGirvisNestedInput
+    transferMoneyLender?: MoneyLenderUpdateOneWithoutTransferredFromNestedInput
     firstIntCrAccount?: AccountUpdateOneWithoutGirviFirstIntCrNestedInput
     firstIntDrAccount?: AccountUpdateOneWithoutGirviFirstIntDrNestedInput
     cashAccount?: AccountUpdateOneWithoutGirviCashNestedInput
@@ -94546,6 +95102,7 @@ export namespace Prisma {
     girv_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     girv_transfer_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_transfer_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_transfer_ml_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     girv_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     girv_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -94602,6 +95159,7 @@ export namespace Prisma {
     girv_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     girv_transfer_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_transfer_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_transfer_ml_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     girv_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     girv_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -97120,6 +97678,7 @@ export namespace Prisma {
     girv_pay_info?: string | null
     girv_transfer_firm_id?: number | null
     girv_transfer_girv_id?: number | null
+    girv_transfer_ml_id?: number | null
     girv_created_at?: Date | string
     girv_created_by?: string | null
     girv_updated_at?: Date | string
@@ -97792,6 +98351,7 @@ export namespace Prisma {
     girv_is_deleted?: BoolFieldUpdateOperationsInput | boolean
     owner?: OwnerUpdateOneRequiredWithoutGirvisNestedInput
     firm?: FirmUpdateOneRequiredWithoutGirvisNestedInput
+    transferMoneyLender?: MoneyLenderUpdateOneWithoutTransferredFromNestedInput
     firstIntCrAccount?: AccountUpdateOneWithoutGirviFirstIntCrNestedInput
     firstIntDrAccount?: AccountUpdateOneWithoutGirviFirstIntDrNestedInput
     cashAccount?: AccountUpdateOneWithoutGirviCashNestedInput
@@ -97848,6 +98408,7 @@ export namespace Prisma {
     girv_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     girv_transfer_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_transfer_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_transfer_ml_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     girv_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     girv_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -97904,6 +98465,7 @@ export namespace Prisma {
     girv_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     girv_transfer_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_transfer_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_transfer_ml_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     girv_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     girv_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -99308,6 +99870,227 @@ export namespace Prisma {
     rel_is_deleted?: BoolFieldUpdateOperationsInput | boolean
   }
 
+  export type GirviCreateManyTransferMoneyLenderInput = {
+    girv_id?: number
+    girv_uuid?: string
+    girv_add_date?: string | null
+    girv_firm_id?: number
+    girv_own_id?: number
+    girv_user_id?: number
+    girv_staff_id?: number
+    girv_start_date: string
+    girv_loan_no?: string | null
+    girv_loan_pre_no?: string | null
+    girv_prin_amt?: number
+    girv_process_per?: number | null
+    girv_process_amt?: number | null
+    girv_packet_no?: string | null
+    girv_locker_no?: string | null
+    girv_charge_per?: number | null
+    girv_charge_amt?: number | null
+    girv_roi?: number
+    girv_roi_type: $Enums.GirviRoiType
+    girv_type: $Enums.GirviType
+    girv_interest_method?: $Enums.GirviInterestMethod
+    girv_compound_freq?: $Enums.GirviCompoundFreq | null
+    girv_final_amt?: number
+    girv_status?: $Enums.GirviStatus
+    girv_first_int?: string | null
+    girv_first_int_cr_acc_id?: number | null
+    girv_first_int_dr_acc_id?: number | null
+    girv_cash_amt?: number | null
+    girv_bank_amt?: number | null
+    girv_online_amt?: number | null
+    girv_card_amt?: number | null
+    girv_cash_acc_id?: number | null
+    girv_bank_acc_id?: number | null
+    girv_online_acc_id?: number | null
+    girv_card_acc_id?: number | null
+    girv_cash_info?: string | null
+    girv_bank_info?: string | null
+    girv_online_info?: string | null
+    girv_card_info?: string | null
+    girv_dr_acc_id?: number | null
+    girv_other_info?: string | null
+    girv_pay_info?: string | null
+    girv_transfer_firm_id?: number | null
+    girv_transfer_girv_id?: number | null
+    girv_created_at?: Date | string
+    girv_created_by?: string | null
+    girv_updated_at?: Date | string
+    girv_updated_by?: string | null
+    girv_deleted_at?: Date | string | null
+    girv_deleted_by?: string | null
+    girv_is_deleted?: boolean
+  }
+
+  export type GirviUpdateWithoutTransferMoneyLenderInput = {
+    girv_uuid?: StringFieldUpdateOperationsInput | string
+    girv_add_date?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_staff_id?: IntFieldUpdateOperationsInput | number
+    girv_start_date?: StringFieldUpdateOperationsInput | string
+    girv_loan_no?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_loan_pre_no?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_prin_amt?: FloatFieldUpdateOperationsInput | number
+    girv_process_per?: NullableFloatFieldUpdateOperationsInput | number | null
+    girv_process_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    girv_packet_no?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_locker_no?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_charge_per?: NullableFloatFieldUpdateOperationsInput | number | null
+    girv_charge_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    girv_roi?: FloatFieldUpdateOperationsInput | number
+    girv_roi_type?: EnumGirviRoiTypeFieldUpdateOperationsInput | $Enums.GirviRoiType
+    girv_type?: EnumGirviTypeFieldUpdateOperationsInput | $Enums.GirviType
+    girv_interest_method?: EnumGirviInterestMethodFieldUpdateOperationsInput | $Enums.GirviInterestMethod
+    girv_compound_freq?: NullableEnumGirviCompoundFreqFieldUpdateOperationsInput | $Enums.GirviCompoundFreq | null
+    girv_final_amt?: FloatFieldUpdateOperationsInput | number
+    girv_status?: EnumGirviStatusFieldUpdateOperationsInput | $Enums.GirviStatus
+    girv_first_int?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_cash_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    girv_bank_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    girv_online_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    girv_card_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    girv_cash_info?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_bank_info?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_online_info?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_card_info?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_transfer_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_transfer_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    girv_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    girv_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    girv_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    owner?: OwnerUpdateOneRequiredWithoutGirvisNestedInput
+    firm?: FirmUpdateOneRequiredWithoutGirvisNestedInput
+    user?: UserUpdateOneRequiredWithoutGirvisNestedInput
+    firstIntCrAccount?: AccountUpdateOneWithoutGirviFirstIntCrNestedInput
+    firstIntDrAccount?: AccountUpdateOneWithoutGirviFirstIntDrNestedInput
+    cashAccount?: AccountUpdateOneWithoutGirviCashNestedInput
+    bankAccount?: AccountUpdateOneWithoutGirviBankNestedInput
+    onlineAccount?: AccountUpdateOneWithoutGirviOnlineNestedInput
+    cardAccount?: AccountUpdateOneWithoutGirviCardNestedInput
+    drAccount?: AccountUpdateOneWithoutGirviDrNestedInput
+    additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutGirviNestedInput
+    deposits?: GirviDepositUpdateManyWithoutGirviNestedInput
+    releases?: GirviReleaseUpdateManyWithoutGirviNestedInput
+  }
+
+  export type GirviUncheckedUpdateWithoutTransferMoneyLenderInput = {
+    girv_id?: IntFieldUpdateOperationsInput | number
+    girv_uuid?: StringFieldUpdateOperationsInput | string
+    girv_add_date?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_firm_id?: IntFieldUpdateOperationsInput | number
+    girv_own_id?: IntFieldUpdateOperationsInput | number
+    girv_user_id?: IntFieldUpdateOperationsInput | number
+    girv_staff_id?: IntFieldUpdateOperationsInput | number
+    girv_start_date?: StringFieldUpdateOperationsInput | string
+    girv_loan_no?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_loan_pre_no?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_prin_amt?: FloatFieldUpdateOperationsInput | number
+    girv_process_per?: NullableFloatFieldUpdateOperationsInput | number | null
+    girv_process_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    girv_packet_no?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_locker_no?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_charge_per?: NullableFloatFieldUpdateOperationsInput | number | null
+    girv_charge_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    girv_roi?: FloatFieldUpdateOperationsInput | number
+    girv_roi_type?: EnumGirviRoiTypeFieldUpdateOperationsInput | $Enums.GirviRoiType
+    girv_type?: EnumGirviTypeFieldUpdateOperationsInput | $Enums.GirviType
+    girv_interest_method?: EnumGirviInterestMethodFieldUpdateOperationsInput | $Enums.GirviInterestMethod
+    girv_compound_freq?: NullableEnumGirviCompoundFreqFieldUpdateOperationsInput | $Enums.GirviCompoundFreq | null
+    girv_final_amt?: FloatFieldUpdateOperationsInput | number
+    girv_status?: EnumGirviStatusFieldUpdateOperationsInput | $Enums.GirviStatus
+    girv_first_int?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_first_int_cr_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_first_int_dr_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_cash_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    girv_bank_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    girv_online_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    girv_card_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    girv_cash_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_bank_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_online_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_card_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_cash_info?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_bank_info?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_online_info?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_card_info?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_dr_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_transfer_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_transfer_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    girv_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    girv_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    girv_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutGirviNestedInput
+    deposits?: GirviDepositUncheckedUpdateManyWithoutGirviNestedInput
+    releases?: GirviReleaseUncheckedUpdateManyWithoutGirviNestedInput
+  }
+
+  export type GirviUncheckedUpdateManyWithoutTransferMoneyLenderInput = {
+    girv_id?: IntFieldUpdateOperationsInput | number
+    girv_uuid?: StringFieldUpdateOperationsInput | string
+    girv_add_date?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_firm_id?: IntFieldUpdateOperationsInput | number
+    girv_own_id?: IntFieldUpdateOperationsInput | number
+    girv_user_id?: IntFieldUpdateOperationsInput | number
+    girv_staff_id?: IntFieldUpdateOperationsInput | number
+    girv_start_date?: StringFieldUpdateOperationsInput | string
+    girv_loan_no?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_loan_pre_no?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_prin_amt?: FloatFieldUpdateOperationsInput | number
+    girv_process_per?: NullableFloatFieldUpdateOperationsInput | number | null
+    girv_process_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    girv_packet_no?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_locker_no?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_charge_per?: NullableFloatFieldUpdateOperationsInput | number | null
+    girv_charge_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    girv_roi?: FloatFieldUpdateOperationsInput | number
+    girv_roi_type?: EnumGirviRoiTypeFieldUpdateOperationsInput | $Enums.GirviRoiType
+    girv_type?: EnumGirviTypeFieldUpdateOperationsInput | $Enums.GirviType
+    girv_interest_method?: EnumGirviInterestMethodFieldUpdateOperationsInput | $Enums.GirviInterestMethod
+    girv_compound_freq?: NullableEnumGirviCompoundFreqFieldUpdateOperationsInput | $Enums.GirviCompoundFreq | null
+    girv_final_amt?: FloatFieldUpdateOperationsInput | number
+    girv_status?: EnumGirviStatusFieldUpdateOperationsInput | $Enums.GirviStatus
+    girv_first_int?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_first_int_cr_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_first_int_dr_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_cash_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    girv_bank_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    girv_online_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    girv_card_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    girv_cash_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_bank_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_online_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_card_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_cash_info?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_bank_info?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_online_info?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_card_info?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_dr_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_transfer_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_transfer_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    girv_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    girv_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    girv_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
 
 
   /**
@@ -99341,6 +100124,10 @@ export namespace Prisma {
      * @deprecated Use GirviCountOutputTypeDefaultArgs instead
      */
     export type GirviCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = GirviCountOutputTypeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use MoneyLenderCountOutputTypeDefaultArgs instead
+     */
+    export type MoneyLenderCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = MoneyLenderCountOutputTypeDefaultArgs<ExtArgs>
     /**
      * @deprecated Use OwnerDefaultArgs instead
      */

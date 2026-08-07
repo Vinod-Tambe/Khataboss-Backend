@@ -277,16 +277,24 @@ class GirviController {
     try {
       const dbUrl = this.getDbUrl(req.user.own_db);
       const girvUuid = req.params.id; // UUID of the original loan
-      const formData = req.body; // Full form data object
+      const formData = req.body || {};
+      const transferTo = String(formData.transfer_to || "firm").toLowerCase();
 
-      if (!formData || !formData.targetFirmId) {
+      if (!formData.targetFirmId) {
         return res.status(400).json({ error: "Target firm ID is required for transfer." });
+      }
+
+      if (transferTo === "money_lender" && !formData.targetMoneyLenderId) {
+        return res.status(400).json({ error: "Target money lender ID is required for money lender transfer." });
       }
 
       const result = await girviService.transferLoan(dbUrl, girvUuid, formData, req.user);
 
       return res.status(200).json({
-        message: "Loan transferred successfully.",
+        message:
+          transferTo === "money_lender"
+            ? "Loan transferred to money lender successfully."
+            : "Loan transferred successfully.",
         data: result,
       });
     } catch (error) {

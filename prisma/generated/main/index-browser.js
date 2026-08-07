@@ -500,6 +500,7 @@ exports.Prisma.GirviScalarFieldEnum = {
   girv_pay_info: 'girv_pay_info',
   girv_transfer_firm_id: 'girv_transfer_firm_id',
   girv_transfer_girv_id: 'girv_transfer_girv_id',
+  girv_transfer_ml_id: 'girv_transfer_ml_id',
   girv_created_at: 'girv_created_at',
   girv_created_by: 'girv_created_by',
   girv_updated_at: 'girv_updated_at',

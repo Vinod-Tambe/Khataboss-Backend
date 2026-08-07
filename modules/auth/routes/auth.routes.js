@@ -2,6 +2,8 @@
 
 const express = require("express");
 const authController = require("../controller/auth.controller");
+const authenticateOwner = require("../../../middlewares/auth.middleware");
+const upload = require("../../../middlewares/upload.middleware");
 
 const router = express.Router();
 
@@ -218,5 +220,18 @@ router.post("/send-otp", (req, res) => authController.sendOtp(req, res));
  *         description: invalid or expired otp
  */
 router.post("/verify-otp", (req, res) => authController.verifyOtp(req, res));
+
+router.get("/me", authenticateOwner, (req, res) => authController.getMe(req, res));
+
+router.patch(
+  "/profile",
+  authenticateOwner,
+  upload.single("own_profile_img"),
+  (req, res) => authController.updateProfile(req, res)
+);
+
+router.post("/change-password", authenticateOwner, (req, res) =>
+  authController.changePassword(req, res)
+);
 
 module.exports = router;

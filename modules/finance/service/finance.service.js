@@ -202,11 +202,26 @@ class FinanceService {
         orderBy: { fin_created_at: "desc" },
         include: {
           user: {
-            select: { user_first_name: true, user_last_name: true, user_mobile_no: true }
+            select: {
+              user_id: true,
+              user_uuid: true,
+              user_first_name: true,
+              user_last_name: true,
+              user_mobile_no: true,
+              user_profile_img: true,
+              user_other_info: true,
+            }
           },
           firm: {
             select: { firm_name: true }
-          }
+          },
+          finance_trans: {
+            where: { ft_is_deleted: false },
+            select: {
+              ft_emi_status: true,
+              ft_pending_amt: true,
+            },
+          },
         }
       });
     } finally {

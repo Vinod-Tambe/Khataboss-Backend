@@ -265,6 +265,7 @@ class AuctionService {
           buyerDetails: buyer,
           originalCustomerName: `${originalUser.user_first_name || ""} ${originalUser.user_last_name || ""}`.trim() || "Unknown",
           originalCustomerMobile: originalUser.user_mobile_no || "Unknown",
+          originalCustomer: originalUser,
         };
       });
     } finally {

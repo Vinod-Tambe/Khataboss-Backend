@@ -1,6 +1,7 @@
 "use strict";
 
 const authService = require("../services/auth.service");
+const imageService = require("../../../utils/image.service");
 
 /**
  * Controller to handle authentication requests.
@@ -115,6 +116,102 @@ class AuthController {
         success: false,
         statusCode: statusCode,
         message: error.message || "Invalid OTP or credentials.",
+      });
+    }
+  }
+
+  /**
+   * GET /auth/me
+   */
+  async getMe(req, res) {
+    try {
+      const owner = await authService.getMe(req.user.own_uuid);
+      return res.status(200).json({
+        success: true,
+        statusCode: 200,
+        message: "Profile fetched successfully.",
+        data: owner,
+      });
+    } catch (error) {
+      const statusCode = error.statusCode || 500;
+      return res.status(statusCode).json({
+        success: false,
+        statusCode,
+        message: error.message || "Failed to fetch profile.",
+      });
+    }
+  }
+
+  /**
+   * PATCH /auth/profile
+   */
+  async updateProfile(req, res) {
+    try {
+      const updateData = { ...req.body };
+
+      if (req.file) {
+        updateData.own_profile_img = await imageService.moveSingleFile(
+          "owner",
+          req.user.own_id,
+          req.file,
+          "own_profile_img"
+        );
+      }
+
+      const owner = await authService.updateProfile(
+        req.user.own_uuid,
+        req.user.own_db,
+        updateData
+      );
+
+      return res.status(200).json({
+        success: true,
+        statusCode: 200,
+        message: "Profile updated successfully.",
+        data: owner,
+      });
+    } catch (error) {
+      const statusCode = error.statusCode || 500;
+      return res.status(statusCode).json({
+        success: false,
+        statusCode,
+        message: error.message || "Failed to update profile.",
+      });
+    }
+  }
+
+  /**
+   * POST /auth/change-password
+   */
+  async changePassword(req, res) {
+    try {
+      const {
+        old_password,
+        current_password,
+        new_password,
+        confirm_password,
+      } = req.body || {};
+
+      const currentPassword = old_password || current_password;
+      const result = await authService.changePassword(
+        req.user.own_uuid,
+        req.user.own_db,
+        currentPassword,
+        new_password,
+        confirm_password
+      );
+
+      return res.status(200).json({
+        success: true,
+        statusCode: 200,
+        message: result.message,
+      });
+    } catch (error) {
+      const statusCode = error.statusCode || 500;
+      return res.status(statusCode).json({
+        success: false,
+        statusCode,
+        message: error.message || "Failed to change password.",
       });
     }
   }
