@@ -29,6 +29,27 @@ class ReleaseController {
       return res.status(500).json({ error: error.message });
     }
   }
+
+  async deleteRelease(req, res) {
+    try {
+      const dbUrl = this.getDbUrl(req.user.own_db);
+      const { rel_id } = req.params;
+
+      if (!rel_id) {
+        return res.status(400).json({ error: "Release ID is required." });
+      }
+
+      const result = await releaseService.deleteRelease(dbUrl, req.user, rel_id);
+
+      return res.status(200).json({
+        message: "Loan release reverted successfully.",
+        data: result,
+      });
+    } catch (error) {
+      console.error("❌ Error deleting release:", error.message);
+      return res.status(500).json({ error: error.message });
+    }
+  }
 }
 
 module.exports = new ReleaseController();

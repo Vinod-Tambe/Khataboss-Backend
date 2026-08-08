@@ -20651,6 +20651,7 @@ export namespace Prisma {
     st_user_id: number
     st_staff_id: number
     st_image_id: number
+    st_image: number
     st_referance_panel: number
     st_referance_id: number
     st_metal_type: number
@@ -20788,6 +20789,7 @@ export namespace Prisma {
     st_user_id?: true
     st_staff_id?: true
     st_image_id?: true
+    st_image?: true
     st_referance_panel?: true
     st_referance_id?: true
     st_metal_type?: true
@@ -20908,6 +20910,7 @@ export namespace Prisma {
     st_user_id: number
     st_staff_id: number
     st_image_id: number | null
+    st_image: JsonValue | null
     st_referance_panel: string | null
     st_referance_id: number | null
     st_metal_type: $Enums.StockMetalType
@@ -20960,6 +20963,7 @@ export namespace Prisma {
     st_user_id?: boolean
     st_staff_id?: boolean
     st_image_id?: boolean
+    st_image?: boolean
     st_referance_panel?: boolean
     st_referance_id?: boolean
     st_metal_type?: boolean
@@ -20996,6 +21000,7 @@ export namespace Prisma {
     st_user_id?: boolean
     st_staff_id?: boolean
     st_image_id?: boolean
+    st_image?: boolean
     st_referance_panel?: boolean
     st_referance_id?: boolean
     st_metal_type?: boolean
@@ -21032,6 +21037,7 @@ export namespace Prisma {
     st_user_id?: boolean
     st_staff_id?: boolean
     st_image_id?: boolean
+    st_image?: boolean
     st_referance_panel?: boolean
     st_referance_id?: boolean
     st_metal_type?: boolean
@@ -21083,6 +21089,7 @@ export namespace Prisma {
       st_user_id: number
       st_staff_id: number
       st_image_id: number | null
+      st_image: Prisma.JsonValue | null
       st_referance_panel: string | null
       st_referance_id: number | null
       st_metal_type: $Enums.StockMetalType
@@ -21509,6 +21516,7 @@ export namespace Prisma {
     readonly st_user_id: FieldRef<"Stock", 'Int'>
     readonly st_staff_id: FieldRef<"Stock", 'Int'>
     readonly st_image_id: FieldRef<"Stock", 'Int'>
+    readonly st_image: FieldRef<"Stock", 'Json'>
     readonly st_referance_panel: FieldRef<"Stock", 'String'>
     readonly st_referance_id: FieldRef<"Stock", 'Int'>
     readonly st_metal_type: FieldRef<"Stock", 'StockMetalType'>
@@ -36413,6 +36421,7 @@ export namespace Prisma {
     st_user_id: 'st_user_id',
     st_staff_id: 'st_staff_id',
     st_image_id: 'st_image_id',
+    st_image: 'st_image',
     st_referance_panel: 'st_referance_panel',
     st_referance_id: 'st_referance_id',
     st_metal_type: 'st_metal_type',
@@ -39731,6 +39740,7 @@ export namespace Prisma {
     st_user_id?: IntFilter<"Stock"> | number
     st_staff_id?: IntFilter<"Stock"> | number
     st_image_id?: IntNullableFilter<"Stock"> | number | null
+    st_image?: JsonNullableFilter<"Stock">
     st_referance_panel?: StringNullableFilter<"Stock"> | string | null
     st_referance_id?: IntNullableFilter<"Stock"> | number | null
     st_metal_type?: EnumStockMetalTypeFilter<"Stock"> | $Enums.StockMetalType
@@ -39767,6 +39777,7 @@ export namespace Prisma {
     st_user_id?: SortOrder
     st_staff_id?: SortOrder
     st_image_id?: SortOrderInput | SortOrder
+    st_image?: SortOrderInput | SortOrder
     st_referance_panel?: SortOrderInput | SortOrder
     st_referance_id?: SortOrderInput | SortOrder
     st_metal_type?: SortOrder
@@ -39806,6 +39817,7 @@ export namespace Prisma {
     st_user_id?: IntFilter<"Stock"> | number
     st_staff_id?: IntFilter<"Stock"> | number
     st_image_id?: IntNullableFilter<"Stock"> | number | null
+    st_image?: JsonNullableFilter<"Stock">
     st_referance_panel?: StringNullableFilter<"Stock"> | string | null
     st_referance_id?: IntNullableFilter<"Stock"> | number | null
     st_metal_type?: EnumStockMetalTypeFilter<"Stock"> | $Enums.StockMetalType
@@ -39842,6 +39854,7 @@ export namespace Prisma {
     st_user_id?: SortOrder
     st_staff_id?: SortOrder
     st_image_id?: SortOrderInput | SortOrder
+    st_image?: SortOrderInput | SortOrder
     st_referance_panel?: SortOrderInput | SortOrder
     st_referance_id?: SortOrderInput | SortOrder
     st_metal_type?: SortOrder
@@ -39883,6 +39896,7 @@ export namespace Prisma {
     st_user_id?: IntWithAggregatesFilter<"Stock"> | number
     st_staff_id?: IntWithAggregatesFilter<"Stock"> | number
     st_image_id?: IntNullableWithAggregatesFilter<"Stock"> | number | null
+    st_image?: JsonNullableWithAggregatesFilter<"Stock">
     st_referance_panel?: StringNullableWithAggregatesFilter<"Stock"> | string | null
     st_referance_id?: IntNullableWithAggregatesFilter<"Stock"> | number | null
     st_metal_type?: EnumStockMetalTypeWithAggregatesFilter<"Stock"> | $Enums.StockMetalType
@@ -44758,6 +44772,7 @@ export namespace Prisma {
     st_add_date?: string | null
     st_staff_id?: number
     st_image_id?: number | null
+    st_image?: NullableJsonNullValueInput | InputJsonValue
     st_referance_panel?: string | null
     st_referance_id?: number | null
     st_metal_type: $Enums.StockMetalType
@@ -44794,6 +44809,7 @@ export namespace Prisma {
     st_user_id: number
     st_staff_id?: number
     st_image_id?: number | null
+    st_image?: NullableJsonNullValueInput | InputJsonValue
     st_referance_panel?: string | null
     st_referance_id?: number | null
     st_metal_type: $Enums.StockMetalType
@@ -44823,6 +44839,7 @@ export namespace Prisma {
     st_add_date?: NullableStringFieldUpdateOperationsInput | string | null
     st_staff_id?: IntFieldUpdateOperationsInput | number
     st_image_id?: NullableIntFieldUpdateOperationsInput | number | null
+    st_image?: NullableJsonNullValueInput | InputJsonValue
     st_referance_panel?: NullableStringFieldUpdateOperationsInput | string | null
     st_referance_id?: NullableIntFieldUpdateOperationsInput | number | null
     st_metal_type?: EnumStockMetalTypeFieldUpdateOperationsInput | $Enums.StockMetalType
@@ -44859,6 +44876,7 @@ export namespace Prisma {
     st_user_id?: IntFieldUpdateOperationsInput | number
     st_staff_id?: IntFieldUpdateOperationsInput | number
     st_image_id?: NullableIntFieldUpdateOperationsInput | number | null
+    st_image?: NullableJsonNullValueInput | InputJsonValue
     st_referance_panel?: NullableStringFieldUpdateOperationsInput | string | null
     st_referance_id?: NullableIntFieldUpdateOperationsInput | number | null
     st_metal_type?: EnumStockMetalTypeFieldUpdateOperationsInput | $Enums.StockMetalType
@@ -44892,6 +44910,7 @@ export namespace Prisma {
     st_user_id: number
     st_staff_id?: number
     st_image_id?: number | null
+    st_image?: NullableJsonNullValueInput | InputJsonValue
     st_referance_panel?: string | null
     st_referance_id?: number | null
     st_metal_type: $Enums.StockMetalType
@@ -44921,6 +44940,7 @@ export namespace Prisma {
     st_add_date?: NullableStringFieldUpdateOperationsInput | string | null
     st_staff_id?: IntFieldUpdateOperationsInput | number
     st_image_id?: NullableIntFieldUpdateOperationsInput | number | null
+    st_image?: NullableJsonNullValueInput | InputJsonValue
     st_referance_panel?: NullableStringFieldUpdateOperationsInput | string | null
     st_referance_id?: NullableIntFieldUpdateOperationsInput | number | null
     st_metal_type?: EnumStockMetalTypeFieldUpdateOperationsInput | $Enums.StockMetalType
@@ -44954,6 +44974,7 @@ export namespace Prisma {
     st_user_id?: IntFieldUpdateOperationsInput | number
     st_staff_id?: IntFieldUpdateOperationsInput | number
     st_image_id?: NullableIntFieldUpdateOperationsInput | number | null
+    st_image?: NullableJsonNullValueInput | InputJsonValue
     st_referance_panel?: NullableStringFieldUpdateOperationsInput | string | null
     st_referance_id?: NullableIntFieldUpdateOperationsInput | number | null
     st_metal_type?: EnumStockMetalTypeFieldUpdateOperationsInput | $Enums.StockMetalType
@@ -49312,6 +49333,7 @@ export namespace Prisma {
     st_user_id?: SortOrder
     st_staff_id?: SortOrder
     st_image_id?: SortOrder
+    st_image?: SortOrder
     st_referance_panel?: SortOrder
     st_referance_id?: SortOrder
     st_metal_type?: SortOrder
@@ -57780,6 +57802,7 @@ export namespace Prisma {
     st_add_date?: string | null
     st_staff_id?: number
     st_image_id?: number | null
+    st_image?: NullableJsonNullValueInput | InputJsonValue
     st_referance_panel?: string | null
     st_referance_id?: number | null
     st_metal_type: $Enums.StockMetalType
@@ -57814,6 +57837,7 @@ export namespace Prisma {
     st_user_id: number
     st_staff_id?: number
     st_image_id?: number | null
+    st_image?: NullableJsonNullValueInput | InputJsonValue
     st_referance_panel?: string | null
     st_referance_id?: number | null
     st_metal_type: $Enums.StockMetalType
@@ -58942,6 +58966,7 @@ export namespace Prisma {
     st_user_id?: IntFilter<"Stock"> | number
     st_staff_id?: IntFilter<"Stock"> | number
     st_image_id?: IntNullableFilter<"Stock"> | number | null
+    st_image?: JsonNullableFilter<"Stock">
     st_referance_panel?: StringNullableFilter<"Stock"> | string | null
     st_referance_id?: IntNullableFilter<"Stock"> | number | null
     st_metal_type?: EnumStockMetalTypeFilter<"Stock"> | $Enums.StockMetalType
@@ -60234,6 +60259,7 @@ export namespace Prisma {
     st_add_date?: string | null
     st_staff_id?: number
     st_image_id?: number | null
+    st_image?: NullableJsonNullValueInput | InputJsonValue
     st_referance_panel?: string | null
     st_referance_id?: number | null
     st_metal_type: $Enums.StockMetalType
@@ -60268,6 +60294,7 @@ export namespace Prisma {
     st_user_id: number
     st_staff_id?: number
     st_image_id?: number | null
+    st_image?: NullableJsonNullValueInput | InputJsonValue
     st_referance_panel?: string | null
     st_referance_id?: number | null
     st_metal_type: $Enums.StockMetalType
@@ -66889,6 +66916,7 @@ export namespace Prisma {
     st_add_date?: string | null
     st_staff_id?: number
     st_image_id?: number | null
+    st_image?: NullableJsonNullValueInput | InputJsonValue
     st_referance_panel?: string | null
     st_referance_id?: number | null
     st_metal_type: $Enums.StockMetalType
@@ -66923,6 +66951,7 @@ export namespace Prisma {
     st_firm_id: number
     st_staff_id?: number
     st_image_id?: number | null
+    st_image?: NullableJsonNullValueInput | InputJsonValue
     st_referance_panel?: string | null
     st_referance_id?: number | null
     st_metal_type: $Enums.StockMetalType
@@ -92954,6 +92983,7 @@ export namespace Prisma {
     st_user_id: number
     st_staff_id?: number
     st_image_id?: number | null
+    st_image?: NullableJsonNullValueInput | InputJsonValue
     st_referance_panel?: string | null
     st_referance_id?: number | null
     st_metal_type: $Enums.StockMetalType
@@ -94384,6 +94414,7 @@ export namespace Prisma {
     st_add_date?: NullableStringFieldUpdateOperationsInput | string | null
     st_staff_id?: IntFieldUpdateOperationsInput | number
     st_image_id?: NullableIntFieldUpdateOperationsInput | number | null
+    st_image?: NullableJsonNullValueInput | InputJsonValue
     st_referance_panel?: NullableStringFieldUpdateOperationsInput | string | null
     st_referance_id?: NullableIntFieldUpdateOperationsInput | number | null
     st_metal_type?: EnumStockMetalTypeFieldUpdateOperationsInput | $Enums.StockMetalType
@@ -94418,6 +94449,7 @@ export namespace Prisma {
     st_user_id?: IntFieldUpdateOperationsInput | number
     st_staff_id?: IntFieldUpdateOperationsInput | number
     st_image_id?: NullableIntFieldUpdateOperationsInput | number | null
+    st_image?: NullableJsonNullValueInput | InputJsonValue
     st_referance_panel?: NullableStringFieldUpdateOperationsInput | string | null
     st_referance_id?: NullableIntFieldUpdateOperationsInput | number | null
     st_metal_type?: EnumStockMetalTypeFieldUpdateOperationsInput | $Enums.StockMetalType
@@ -94450,6 +94482,7 @@ export namespace Prisma {
     st_user_id?: IntFieldUpdateOperationsInput | number
     st_staff_id?: IntFieldUpdateOperationsInput | number
     st_image_id?: NullableIntFieldUpdateOperationsInput | number | null
+    st_image?: NullableJsonNullValueInput | InputJsonValue
     st_referance_panel?: NullableStringFieldUpdateOperationsInput | string | null
     st_referance_id?: NullableIntFieldUpdateOperationsInput | number | null
     st_metal_type?: EnumStockMetalTypeFieldUpdateOperationsInput | $Enums.StockMetalType
@@ -95486,6 +95519,7 @@ export namespace Prisma {
     st_user_id: number
     st_staff_id?: number
     st_image_id?: number | null
+    st_image?: NullableJsonNullValueInput | InputJsonValue
     st_referance_panel?: string | null
     st_referance_id?: number | null
     st_metal_type: $Enums.StockMetalType
@@ -96666,6 +96700,7 @@ export namespace Prisma {
     st_add_date?: NullableStringFieldUpdateOperationsInput | string | null
     st_staff_id?: IntFieldUpdateOperationsInput | number
     st_image_id?: NullableIntFieldUpdateOperationsInput | number | null
+    st_image?: NullableJsonNullValueInput | InputJsonValue
     st_referance_panel?: NullableStringFieldUpdateOperationsInput | string | null
     st_referance_id?: NullableIntFieldUpdateOperationsInput | number | null
     st_metal_type?: EnumStockMetalTypeFieldUpdateOperationsInput | $Enums.StockMetalType
@@ -96700,6 +96735,7 @@ export namespace Prisma {
     st_user_id?: IntFieldUpdateOperationsInput | number
     st_staff_id?: IntFieldUpdateOperationsInput | number
     st_image_id?: NullableIntFieldUpdateOperationsInput | number | null
+    st_image?: NullableJsonNullValueInput | InputJsonValue
     st_referance_panel?: NullableStringFieldUpdateOperationsInput | string | null
     st_referance_id?: NullableIntFieldUpdateOperationsInput | number | null
     st_metal_type?: EnumStockMetalTypeFieldUpdateOperationsInput | $Enums.StockMetalType
@@ -96732,6 +96768,7 @@ export namespace Prisma {
     st_user_id?: IntFieldUpdateOperationsInput | number
     st_staff_id?: IntFieldUpdateOperationsInput | number
     st_image_id?: NullableIntFieldUpdateOperationsInput | number | null
+    st_image?: NullableJsonNullValueInput | InputJsonValue
     st_referance_panel?: NullableStringFieldUpdateOperationsInput | string | null
     st_referance_id?: NullableIntFieldUpdateOperationsInput | number | null
     st_metal_type?: EnumStockMetalTypeFieldUpdateOperationsInput | $Enums.StockMetalType
@@ -104458,6 +104495,7 @@ export namespace Prisma {
     st_firm_id: number
     st_staff_id?: number
     st_image_id?: number | null
+    st_image?: NullableJsonNullValueInput | InputJsonValue
     st_referance_panel?: string | null
     st_referance_id?: number | null
     st_metal_type: $Enums.StockMetalType
@@ -105242,6 +105280,7 @@ export namespace Prisma {
     st_add_date?: NullableStringFieldUpdateOperationsInput | string | null
     st_staff_id?: IntFieldUpdateOperationsInput | number
     st_image_id?: NullableIntFieldUpdateOperationsInput | number | null
+    st_image?: NullableJsonNullValueInput | InputJsonValue
     st_referance_panel?: NullableStringFieldUpdateOperationsInput | string | null
     st_referance_id?: NullableIntFieldUpdateOperationsInput | number | null
     st_metal_type?: EnumStockMetalTypeFieldUpdateOperationsInput | $Enums.StockMetalType
@@ -105276,6 +105315,7 @@ export namespace Prisma {
     st_firm_id?: IntFieldUpdateOperationsInput | number
     st_staff_id?: IntFieldUpdateOperationsInput | number
     st_image_id?: NullableIntFieldUpdateOperationsInput | number | null
+    st_image?: NullableJsonNullValueInput | InputJsonValue
     st_referance_panel?: NullableStringFieldUpdateOperationsInput | string | null
     st_referance_id?: NullableIntFieldUpdateOperationsInput | number | null
     st_metal_type?: EnumStockMetalTypeFieldUpdateOperationsInput | $Enums.StockMetalType
@@ -105308,6 +105348,7 @@ export namespace Prisma {
     st_firm_id?: IntFieldUpdateOperationsInput | number
     st_staff_id?: IntFieldUpdateOperationsInput | number
     st_image_id?: NullableIntFieldUpdateOperationsInput | number | null
+    st_image?: NullableJsonNullValueInput | InputJsonValue
     st_referance_panel?: NullableStringFieldUpdateOperationsInput | string | null
     st_referance_id?: NullableIntFieldUpdateOperationsInput | number | null
     st_metal_type?: EnumStockMetalTypeFieldUpdateOperationsInput | $Enums.StockMetalType

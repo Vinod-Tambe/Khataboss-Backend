@@ -4,9 +4,55 @@ const girviService = require("../service/girvi.service");
 const { BASE_URL } = require("../../../config/db");
 const { PrismaClient } = require("../../../prisma/generated/main");
 
+const parseStImage = (stImage) => {
+  if (!stImage) return null;
+  let parsed = stImage;
+  if (typeof stImage === 'string') {
+    if (stImage.startsWith('{')) {
+      try { parsed = JSON.parse(stImage); } catch (e) {}
+    } else {
+      parsed = { path: stImage };
+    }
+  }
+  if (typeof parsed === 'object' && parsed !== null && parsed.path) {
+    const norm = String(parsed.path).replace(/\\/g, '/');
+    const rel = norm.includes('/uploads/') ? 'uploads/' + norm.split('/uploads/').pop() : norm;
+    return { ...parsed, path: rel };
+  }
+  return parsed;
+};
+
 class GirviController {
   getDbUrl(dbName) {
     return `${BASE_URL}/${dbName}`;
+  }
+
+  async uploadItemImage(req, res) {
+    try {
+      if (!req.file) {
+        return res.status(400).json({ error: "No image file provided." });
+      }
+
+      const normPath = req.file.path.replace(/\\/g, "/");
+      const relativePath = normPath.includes("/uploads/")
+        ? "uploads/" + normPath.split("/uploads/").pop()
+        : `uploads/temp/${req.file.filename}`;
+
+      const fileData = {
+        path: relativePath,
+        filename: req.file.filename,
+        mimetype: req.file.mimetype,
+        size: req.file.size
+      };
+
+      return res.status(200).json({
+        message: "Image uploaded successfully.",
+        data: fileData
+      });
+    } catch (error) {
+      console.error("❌ Error uploading item image:", error.message);
+      return res.status(500).json({ error: error.message });
+    }
   }
 
   async createGirvi(req, res) {
@@ -125,6 +171,7 @@ class GirviController {
           st_fine_weight: parseFloat(item.st_fine_weight) || 0,
           st_valuation: parseFloat(item.st_valuation) || 0,
           st_final_valuation: parseFloat(item.st_valuation) || 0,
+          st_image: parseStImage(item.st_image),
           st_created_by: req.user.own_login_id || "Admin",
         }));
       }
@@ -257,6 +304,7 @@ class GirviController {
           st_fine_weight: parseFloat(item.st_fine_weight) || 0,
           st_valuation: parseFloat(item.st_valuation) || 0,
           st_final_valuation: parseFloat(item.st_valuation) || 0,
+          st_image: parseStImage(item.st_image),
           st_created_by: req.user.own_login_id || "Admin",
         }));
       }

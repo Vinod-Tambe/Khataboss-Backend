@@ -6,6 +6,16 @@ const girviController = require("../controller/girvi.controller");
 const authenticateOwner = require("../../../middlewares/auth.middleware");
 const requirePermission = require("../../../middlewares/permission.middleware");
 
+const upload = require("../../../middlewares/upload.middleware");
+
+router.post(
+  "/upload-item-image",
+  authenticateOwner,
+  requirePermission(["loan.create", "loan.edit"], { mode: "any" }),
+  upload.single("itemImage"),
+  (req, res) => girviController.uploadItemImage(req, res)
+);
+
 router.post(
   "/",
   authenticateOwner,

@@ -32,6 +32,7 @@ app.use(
 );
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
 
 // ─── Swagger Documentation ───────────────────────────────────────────────────
@@ -57,6 +58,7 @@ v1Router.use("/user", require("./modules/user/routes/user.routes"));
 v1Router.use("/staff", require("./modules/staff/routes/staff.routes"));
 v1Router.use("/finance", require("./modules/finance/routes/finance.routes"));
 v1Router.use("/journal", require("./modules/journal/routes/journal.routes"));
+v1Router.use("/journal-book", require("./modules/journal/routes/journalBook.routes"));
 v1Router.use("/dashboard", require("./modules/dashboard/routes/dashboard.routes"));
 v1Router.use("/daybook", require("./modules/daybook/routes/daybook.routes"));
 v1Router.use("/trial-balance", require("./modules/trial_balance/routes/trial_balance.routes"));

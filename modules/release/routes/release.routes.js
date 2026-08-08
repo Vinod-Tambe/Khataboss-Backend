@@ -10,5 +10,6 @@ const router = express.Router();
 router.use(authenticateOwner);
 
 router.post("/", requirePermission("loan.release"), (req, res) => releaseController.addRelease(req, res));
+router.delete("/:rel_id", requirePermission("loan.release"), (req, res) => releaseController.deleteRelease(req, res));
 
 module.exports = router;

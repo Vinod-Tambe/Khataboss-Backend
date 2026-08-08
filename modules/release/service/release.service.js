@@ -172,6 +172,76 @@ class ReleaseService {
       await prisma.$disconnect();
     }
   }
+
+  async deleteRelease(dbUrl, reqUser, rel_id) {
+    const prisma = this.getPrisma(dbUrl);
+    try {
+      const releaseRecord = await prisma.girviRelease.findUnique({
+        where: { rel_id: parseInt(rel_id) }
+      });
+
+      if (!releaseRecord) {
+        throw new Error("Release record not found.");
+      }
+
+      const result = await prisma.$transaction(async (tx) => {
+        // 1. Fetch Parent Girvi
+        const girvi = await tx.girvi.findUnique({
+          where: { girv_id: releaseRecord.rel_girv_id }
+        });
+
+        if (!girvi) {
+          throw new Error("Parent Girvi (Loan) record not found.");
+        }
+
+        // 2. Revert principal amount & status
+        const prinRec = releaseRecord.rel_prin_amt || 0;
+        let updateData = {};
+        
+        if (prinRec > 0) {
+            updateData.girv_prin_amt = { increment: prinRec };
+            updateData.girv_final_amt = { increment: prinRec };
+        }
+        
+        // Revert status to ACTIVE
+        updateData.girv_status = "ACTIVE";
+
+        const updatedGirvi = await tx.girvi.update({
+            where: { girv_id: girvi.girv_id },
+            data: updateData
+        });
+
+        // 3. Delete GirviRelease record
+        await tx.girviRelease.delete({
+          where: { rel_id: parseInt(rel_id) }
+        });
+
+        // 4. Delete associated Journal Entry
+        // The journal entry was created with jrnl_other_info containing `Release No - ${rel_id}`
+        const journal = await tx.journal.findFirst({
+          where: {
+            jrnl_other_info: {
+              contains: `Release No - ${rel_id}`
+            }
+          }
+        });
+
+        if (journal) {
+          await tx.journal.delete({
+            where: { jrnl_id: journal.jrnl_id }
+          });
+        }
+
+        return { success: true, updatedGirvi };
+      });
+
+      return result;
+    } catch (error) {
+      throw error;
+    } finally {
+      await prisma.$disconnect();
+    }
+  }
 }
 
 module.exports = new ReleaseService();

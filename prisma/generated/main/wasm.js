@@ -519,6 +519,7 @@ exports.Prisma.StockScalarFieldEnum = {
   st_user_id: 'st_user_id',
   st_staff_id: 'st_staff_id',
   st_image_id: 'st_image_id',
+  st_image: 'st_image',
   st_referance_panel: 'st_referance_panel',
   st_referance_id: 'st_referance_id',
   st_metal_type: 'st_metal_type',
