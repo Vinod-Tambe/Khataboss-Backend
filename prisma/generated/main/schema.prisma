@@ -946,6 +946,7 @@ model Stock {
   st_staff_id Int @default(0)
 
   st_image_id Int?
+  st_image    Json?
 
   st_referance_panel String? @default("")
   st_referance_id    Int?
