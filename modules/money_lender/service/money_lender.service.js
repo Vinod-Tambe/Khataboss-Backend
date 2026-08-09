@@ -1,6 +1,7 @@
 "use strict";
 
 const { PrismaClient } = require("../../../prisma/generated/main");
+const serialNumberService = require("../../../common/service/serialNumber.service");
 
 class MoneyLenderService {
   getPrisma(dbUrl) {
@@ -73,6 +74,10 @@ class MoneyLenderService {
       Object.keys(data).forEach(key => {
         if (data[key] === "") data[key] = null;
       });
+
+      if (!data.ml_unique_code) {
+        data.ml_unique_code = await serialNumberService.getNextSerialNumber(prisma, "MONEY_LENDER");
+      }
 
       return await prisma.moneyLender.create({
         data,

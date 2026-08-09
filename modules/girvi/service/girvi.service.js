@@ -2,6 +2,7 @@
 
 const { PrismaClient } = require("../../../prisma/generated/main");
 const journalService = require("../../journal/service/journal.service");
+const serialNumberService = require("../../../common/service/serialNumber.service");
 
 class GirviService {
   getPrisma(dbUrl) {
@@ -59,6 +60,13 @@ class GirviService {
 
       // 2. Create Girvi and Stock within transaction
       const newGirvi = await prisma.$transaction(async (tx) => {
+        if (!girviData.girv_unique_code) {
+          girviData.girv_unique_code = await serialNumberService.getNextSerialNumber(tx, "LOAN");
+        }
+        if (!girviData.girv_loan_no) {
+          girviData.girv_loan_no = girviData.girv_unique_code;
+        }
+
         // Create Girvi
         const createdGirvi = await tx.girvi.create({
           data: girviData,
@@ -192,6 +200,8 @@ class GirviService {
         where,
         select: {
           girv_id: true,
+          girv_unique_code: true,
+          girv_loan_no: true,
           girv_prin_amt: true,
           girv_status: true,
         },
@@ -205,28 +215,48 @@ class GirviService {
   async getGirviById(dbUrl, girvId) {
     const prisma = this.getPrisma(dbUrl);
     try {
-      const girvi = await prisma.girvi.findUnique({
-        where: { girv_id: parseInt(girvId) },
-        include: {
-          firm: true,
-          user: true,
-          transferMoneyLender: true,
-        }
-      });
+      const isNum = !isNaN(girvId) && !isNaN(parseInt(girvId));
+      let girvi = null;
+      if (isNum) {
+        girvi = await prisma.girvi.findUnique({
+          where: { girv_id: parseInt(girvId) },
+          include: {
+            firm: true,
+            user: true,
+            transferMoneyLender: true,
+          }
+        });
+      }
+      if (!girvi && typeof girvId === "string") {
+        girvi = await prisma.girvi.findFirst({
+          where: {
+            OR: [
+              { girv_unique_code: girvId.trim() },
+              { girv_loan_no: girvId.trim() },
+            ],
+          },
+          include: {
+            firm: true,
+            user: true,
+            transferMoneyLender: true,
+          }
+        });
+      }
 
       if (!girvi) throw new Error("Girvi not found");
 
+      const targetId = girvi.girv_id;
       const items = await prisma.stock.findMany({
         where: {
           st_referance_panel: "girvi",
-          st_referance_id: parseInt(girvId),
+          st_referance_id: targetId,
           st_is_deleted: false,
         }
       });
 
       const additionalPrincipals = await prisma.additionalPrincipal.findMany({
         where: {
-          ap_girv_id: parseInt(girvId)
+          ap_girv_id: targetId
         },
         orderBy: {
           ap_trans_date: 'asc'
@@ -235,7 +265,8 @@ class GirviService {
 
       const deposits = await prisma.girviDeposit.findMany({
         where: {
-          dep_girv_id: parseInt(girvId)
+          dep_girv_id: targetId,
+          dep_is_deleted: false
         },
         orderBy: {
           dep_trans_date: 'asc'
@@ -244,14 +275,21 @@ class GirviService {
 
       const releases = await prisma.girviRelease.findMany({
         where: {
-          rel_girv_id: parseInt(girvId)
+          rel_girv_id: targetId,
+          rel_is_deleted: false
         },
         orderBy: {
           rel_trans_date: 'asc'
         }
       });
 
-      return { ...girvi, items, additionalPrincipals, deposits, releases };
+      return {
+        ...girvi,
+        items,
+        additionalPrincipals,
+        deposits,
+        releases
+      };
     } finally {
       await prisma.$disconnect();
     }

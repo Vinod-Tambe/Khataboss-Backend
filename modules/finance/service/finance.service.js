@@ -4,6 +4,7 @@ const { PrismaClient } = require("../../../prisma/generated/main");
 const financeTransactionService = require("./finance_transaction.service");
 const financeMoneyTransService = require("./finance_money_trans.service");
 const journalService = require("../../journal/service/journal.service");
+const serialNumberService = require("../../../common/service/serialNumber.service");
 
 class FinanceService {
   getPrisma(dbUrl) {
@@ -73,8 +74,14 @@ class FinanceService {
       const fin_card_acc_id = fin_card_amt_val > 0 ? await this.resolveAccount(prisma, data.fin_firm_id, data.fin_card_acc_id, ["Card Account", "Card", "POS"]) : null;
 
       // 2. Create Finance Record
+      let finUniqueCode = data.fin_unique_code;
+      if (!finUniqueCode) {
+        finUniqueCode = await serialNumberService.getNextSerialNumber(prisma, "FINANCE");
+      }
+
       const finance = await prisma.finance.create({
         data: {
+          fin_unique_code: finUniqueCode,
           fin_own_id: parseInt(data.fin_own_id || 1),
           fin_firm_id: parseInt(data.fin_firm_id),
           fin_user_id: data.fin_user_id ? parseInt(data.fin_user_id) : 0, // Default to 0 as requested to manage backend side
@@ -249,6 +256,7 @@ class FinanceService {
         where: where,
         select: {
           fin_id: true,
+          fin_unique_code: true,
           fin_prin_amt: true,
           fin_status: true,
         },
@@ -293,23 +301,46 @@ class FinanceService {
   async getFinanceDetails(dbUrl, id) {
     const prisma = this.getPrisma(dbUrl);
     try {
-      const finance = await prisma.finance.findUnique({
-        where: { fin_id: parseInt(id) },
-        include: {
-          user: {
-            select: { user_first_name: true, user_last_name: true, user_mobile_no: true }
-          },
-          firm: {
-            select: { firm_name: true }
-          },
-          finance_trans: {
-            orderBy: { ft_emi_no: "asc" }
-          },
-          finance_money_trans: {
-            orderBy: { fm_created_at: "desc" }
+      const isNum = !isNaN(id) && !isNaN(parseInt(id));
+      let finance = null;
+      if (isNum) {
+        finance = await prisma.finance.findUnique({
+          where: { fin_id: parseInt(id) },
+          include: {
+            user: {
+              select: { user_first_name: true, user_last_name: true, user_mobile_no: true }
+            },
+            firm: {
+              select: { firm_name: true }
+            },
+            finance_trans: {
+              orderBy: { ft_emi_no: "asc" }
+            },
+            finance_money_trans: {
+              orderBy: { fm_created_at: "desc" }
+            }
           }
-        }
-      });
+        });
+      }
+      if (!finance && typeof id === "string") {
+        finance = await prisma.finance.findFirst({
+          where: { fin_unique_code: id.trim() },
+          include: {
+            user: {
+              select: { user_first_name: true, user_last_name: true, user_mobile_no: true }
+            },
+            firm: {
+              select: { firm_name: true }
+            },
+            finance_trans: {
+              orderBy: { ft_emi_no: "asc" }
+            },
+            finance_money_trans: {
+              orderBy: { fm_created_at: "desc" }
+            }
+          }
+        });
+      }
 
       if (!finance) throw new Error("Finance record not found");
       return finance;

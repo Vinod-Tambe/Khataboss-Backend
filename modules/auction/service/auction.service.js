@@ -2,6 +2,7 @@
 
 const { PrismaClient } = require("../../../prisma/generated/main");
 const journalService = require("../../journal/service/journal.service");
+const serialNumberService = require("../../../common/service/serialNumber.service");
 
 class AuctionService {
   getPrisma(dbUrl) {
@@ -83,8 +84,10 @@ class AuctionService {
       
       // If no existing user, create a new one
       if (!auctionUserId) {
+        const auUniqueCode = await serialNumberService.getNextSerialNumber(prisma, "AUCTION_USER");
         const newUser = await prisma.auctionUser.create({
           data: {
+            au_unique_code: auUniqueCode,
             au_firm_id: firmId,
             au_full_name: data.auc_user_full_name || "",
             au_mobile: data.auc_user_mobile || "",

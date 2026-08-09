@@ -1,6 +1,7 @@
 "use strict";
 
 const { PrismaClient } = require("../../../prisma/generated/main");
+const serialNumberService = require("../../../common/service/serialNumber.service");
 
 class FirmService {
   /**
@@ -25,6 +26,9 @@ class FirmService {
   async createFirm(dbUrl, firmData) {
     const prisma = this.getPrisma(dbUrl);
     try {
+      if (!firmData.firm_unique_code) {
+        firmData.firm_unique_code = await serialNumberService.getNextSerialNumber(prisma, "FIRM");
+      }
       return await prisma.firm.create({
         data: firmData,
       });

@@ -63,24 +63,25 @@ class DaybookService {
    */
   async mapToResponse(dbUrl, item) {
     const toNumber = (value) => (parseFloat(value) || 0).toFixed(2);
-    const userId = item.fin_user_id || item.fm_user_id || item.girv_user_id || "";
+    const userId = item.fin_user_id || item.fm_user_id || item.girv_user_id || item.dep_user_id || item.rel_user_id || item.ap_user_id || item.al_buyer_id || "";
     const customerName = await this.getCustomerName(dbUrl, userId);
 
     return {
-      db_date: this.formatDateToDDMMYYYY(item.fin_start_date || item.fm_trans_date || item.girv_start_date),
+      db_date: this.formatDateToDDMMYYYY(item.fin_start_date || item.fm_trans_date || item.girv_start_date || item.dep_trans_date || item.rel_trans_date || item.ap_trans_date || item.al_date),
       db_firm: item.firm?.firm_name || item.finance?.firm?.firm_name || "-",
       db_customer_name: customerName,
-      db_cust_id: `C${userId}`,
+      db_cust_id: userId ? `C${userId}` : "-",
       db_user_id: userId,
       db_user_uuid: item.user?.user_uuid || "",
-      db_cash_amt: toNumber(item.fin_cash_amt || item.fm_cash_amt || item.girv_cash_amt),
-      db_bank_amt: toNumber(item.fin_bank_amt || item.fm_bank_amt || item.girv_bank_amt),
-      db_online_amt: toNumber(item.fin_online_amt || item.fm_online_amt || item.girv_online_amt),
-      db_card_amt: toNumber(item.fin_card_amt || item.fm_card_amt || item.girv_card_amt),
-      db_disc_amt: (0).toFixed(2),
+      db_cash_amt: toNumber(item.fin_cash_amt || item.fm_cash_amt || item.girv_cash_amt || item.dep_cash_amt || item.rel_cash_amt || item.ap_cash_amt || item.al_cash_amt),
+      db_bank_amt: toNumber(item.fin_bank_amt || item.fm_bank_amt || item.girv_bank_amt || item.dep_bank_amt || item.rel_bank_amt || item.ap_bank_amt || item.al_bank_amt),
+      db_online_amt: toNumber(item.fin_online_amt || item.fm_online_amt || item.girv_online_amt || item.dep_online_amt || item.rel_online_amt || item.ap_online_amt || item.al_online_amt),
+      db_card_amt: toNumber(item.fin_card_amt || item.fm_card_amt || item.girv_card_amt || item.dep_card_amt || item.rel_card_amt || item.ap_card_amt || item.al_card_amt),
+      db_disc_amt: toNumber(item.dep_disc_amt || item.rel_disc_amt || 0),
     };
   }
 
+  // 1. Finance Added (Outflow)
   async get_add_new_finance_data(dbUrl, filters = {}) {
     const prisma = this.getPrisma(dbUrl);
     try {
@@ -104,12 +105,8 @@ class DaybookService {
           fin_bank_amt: true,
           fin_online_amt: true,
           fin_card_amt: true,
-          user: {
-            select: { user_uuid: true }
-          },
-          firm: {
-            select: { firm_name: true }
-          }
+          user: { select: { user_uuid: true } },
+          firm: { select: { firm_name: true } }
         },
       });
 
@@ -133,9 +130,7 @@ class DaybookService {
     }
   }
 
-  /**
-   * Fetch girvi added data
-   */
+  // 2. Girvi Added (Outflow)
   async get_add_new_girvi_data(dbUrl, filters = {}) {
     const prisma = this.getPrisma(dbUrl);
     try {
@@ -159,12 +154,8 @@ class DaybookService {
           girv_bank_amt: true,
           girv_online_amt: true,
           girv_card_amt: true,
-          user: {
-            select: { user_uuid: true }
-          },
-          firm: {
-            select: { firm_name: true }
-          }
+          user: { select: { user_uuid: true } },
+          firm: { select: { firm_name: true } }
         },
       });
 
@@ -188,9 +179,221 @@ class DaybookService {
     }
   }
 
-  /**
-   * Fetch EMI transaction data (PAID or ROLLBACK)
-   */
+  // 3. Additional Loan Principal (Outflow)
+  async get_additional_principal_data(dbUrl, filters = {}) {
+    const prisma = this.getPrisma(dbUrl);
+    try {
+      const where = { ap_is_deleted: false };
+      if (filters.firmId) {
+        where.ap_firm_id = parseInt(filters.firmId);
+      }
+      if (filters.startDate || filters.endDate) {
+        where.ap_trans_date = {};
+        if (filters.startDate) where.ap_trans_date.gte = filters.startDate;
+        if (filters.endDate) where.ap_trans_date.lte = filters.endDate;
+      }
+
+      const records = await prisma.additionalPrincipal.findMany({
+        where,
+        select: {
+          ap_trans_date: true,
+          ap_firm_id: true,
+          ap_user_id: true,
+          ap_cash_amt: true,
+          ap_bank_amt: true,
+          ap_online_amt: true,
+          ap_card_amt: true,
+          user: { select: { user_uuid: true } },
+          firm: { select: { firm_name: true } }
+        },
+      });
+
+      if (records.length === 0) return 0;
+
+      const data = await Promise.all(
+        records.map((item) => this.mapToResponse(dbUrl, item))
+      );
+
+      return {
+        title: "ADDITIONAL LOAN PRINCIPAL",
+        colorClass: "bg-pink",
+        amtColor: "text-danger",
+        column: ["DATE", "FIRM", "CUSTOMER NAME", "CUST ID", "CASH", "BANK", "ONLINE", "CARD", "DISC"],
+        data,
+      };
+    } catch (error) {
+      return this.handleError(error, "ADDITIONAL LOAN PRINCIPAL", "bg-pink", "text-danger");
+    } finally {
+      await prisma.$disconnect();
+    }
+  }
+
+  // 4. Girvi Deposit (Inflow)
+  async get_girvi_deposit_data(dbUrl, filters = {}) {
+    const prisma = this.getPrisma(dbUrl);
+    try {
+      const where = { dep_is_deleted: false };
+      if (filters.firmId) {
+        where.dep_firm_id = parseInt(filters.firmId);
+      }
+      if (filters.startDate || filters.endDate) {
+        where.dep_trans_date = {};
+        if (filters.startDate) where.dep_trans_date.gte = filters.startDate;
+        if (filters.endDate) where.dep_trans_date.lte = filters.endDate;
+      }
+
+      const records = await prisma.girviDeposit.findMany({
+        where,
+        select: {
+          dep_trans_date: true,
+          dep_firm_id: true,
+          dep_user_id: true,
+          dep_cash_amt: true,
+          dep_bank_amt: true,
+          dep_online_amt: true,
+          dep_card_amt: true,
+          dep_disc_amt: true,
+          user: { select: { user_uuid: true } },
+          firm: { select: { firm_name: true } }
+        },
+      });
+
+      if (records.length === 0) return 0;
+
+      const data = await Promise.all(
+        records.map((item) => this.mapToResponse(dbUrl, item))
+      );
+
+      return {
+        title: "LOAN DEPOSIT",
+        colorClass: "bg-blue",
+        amtColor: "text-success",
+        column: ["DATE", "FIRM", "CUSTOMER NAME", "CUST ID", "CASH", "BANK", "ONLINE", "CARD", "DISC"],
+        data,
+      };
+    } catch (error) {
+      return this.handleError(error, "LOAN DEPOSIT", "bg-blue", "text-success");
+    } finally {
+      await prisma.$disconnect();
+    }
+  }
+
+  // 5. Girvi Release (Inflow)
+  async get_girvi_release_data(dbUrl, filters = {}) {
+    const prisma = this.getPrisma(dbUrl);
+    try {
+      const where = { rel_is_deleted: false };
+      if (filters.firmId) {
+        where.rel_firm_id = parseInt(filters.firmId);
+      }
+      if (filters.startDate || filters.endDate) {
+        where.rel_trans_date = {};
+        if (filters.startDate) where.rel_trans_date.gte = filters.startDate;
+        if (filters.endDate) where.rel_trans_date.lte = filters.endDate;
+      }
+
+      const records = await prisma.girviRelease.findMany({
+        where,
+        select: {
+          rel_trans_date: true,
+          rel_firm_id: true,
+          rel_user_id: true,
+          rel_cash_amt: true,
+          rel_bank_amt: true,
+          rel_online_amt: true,
+          rel_card_amt: true,
+          rel_disc_amt: true,
+          user: { select: { user_uuid: true } },
+          firm: { select: { firm_name: true } }
+        },
+      });
+
+      if (records.length === 0) return 0;
+
+      const data = await Promise.all(
+        records.map((item) => this.mapToResponse(dbUrl, item))
+      );
+
+      return {
+        title: "RELEASE LOAN",
+        colorClass: "bg-cust-info",
+        amtColor: "text-success",
+        column: ["DATE", "FIRM", "CUSTOMER NAME", "CUST ID", "CASH", "BANK", "ONLINE", "CARD", "DISC"],
+        data,
+      };
+    } catch (error) {
+      return this.handleError(error, "RELEASE LOAN", "bg-cust-info", "text-success");
+    } finally {
+      await prisma.$disconnect();
+    }
+  }
+
+  // 6. Auction Loan (Inflow)
+  async get_auction_loan_data(dbUrl, filters = {}) {
+    const prisma = this.getPrisma(dbUrl);
+    try {
+      const where = {};
+      if (filters.firmId) {
+        where.al_firm_id = parseInt(filters.firmId);
+      }
+      if (filters.startDate || filters.endDate) {
+        where.al_date = {};
+        if (filters.startDate) where.al_date.gte = filters.startDate;
+        if (filters.endDate) where.al_date.lte = filters.endDate;
+      }
+
+      const records = await prisma.auctionLoan.findMany({
+        where,
+      });
+
+      if (records.length === 0) return 0;
+
+      const firmIds = [...new Set(records.map((r) => r.al_firm_id).filter(Boolean))];
+      const buyerIds = [...new Set(records.map((r) => r.al_buyer_id).filter(Boolean))];
+
+      const firms = await prisma.firm.findMany({
+        where: { firm_id: { in: firmIds } },
+        select: { firm_id: true, firm_name: true },
+      });
+      const firmMap = new Map(firms.map((f) => [f.firm_id, f.firm_name]));
+
+      const auctionUsers = await prisma.auctionUser.findMany({
+        where: { au_id: { in: buyerIds } },
+        select: { au_id: true, au_full_name: true },
+      });
+      const auctionUserMap = new Map(auctionUsers.map((u) => [u.au_id, u.au_full_name]));
+
+      const data = await Promise.all(
+        records.map(async (item) => ({
+          db_date: this.formatDateToDDMMYYYY(item.al_date),
+          db_firm: firmMap.get(item.al_firm_id) || "-",
+          db_customer_name: auctionUserMap.get(item.al_buyer_id) || (await this.getCustomerName(dbUrl, item.al_buyer_id)),
+          db_cust_id: item.al_buyer_id ? `AU-${item.al_buyer_id}` : "-",
+          db_user_id: item.al_buyer_id,
+          db_user_uuid: "",
+          db_cash_amt: (parseFloat(item.al_cash_amt) || 0).toFixed(2),
+          db_bank_amt: (parseFloat(item.al_bank_amt) || 0).toFixed(2),
+          db_online_amt: (parseFloat(item.al_online_amt) || 0).toFixed(2),
+          db_card_amt: (parseFloat(item.al_card_amt) || 0).toFixed(2),
+          db_disc_amt: (0).toFixed(2),
+        }))
+      );
+
+      return {
+        title: "AUCTION LOAN",
+        colorClass: "bg-warning",
+        amtColor: "text-success",
+        column: ["DATE", "FIRM", "CUSTOMER NAME", "CUST ID", "CASH", "BANK", "ONLINE", "CARD", "DISC"],
+        data,
+      };
+    } catch (error) {
+      return this.handleError(error, "AUCTION LOAN", "bg-warning", "text-success");
+    } finally {
+      await prisma.$disconnect();
+    }
+  }
+
+  // 7 & 8. Finance EMI Transaction Data (PAID = Inflow / ROLLBACK = Outflow)
   async get_finance_emi_data(dbUrl, type, title, colorClass, amtColor, filters = {}) {
     const prisma = this.getPrisma(dbUrl);
     try {
@@ -217,17 +420,11 @@ class DaybookService {
           fm_bank_amt: true,
           fm_online_amt: true,
           fm_card_amt: true,
-          user: {
-            select: { user_uuid: true }
-          },
-          firm: {
-            select: { firm_name: true }
-          },
+          user: { select: { user_uuid: true } },
+          firm: { select: { firm_name: true } },
           finance: {
             select: {
-              firm: {
-                select: { firm_name: true }
-              }
+              firm: { select: { firm_name: true } }
             }
           }
         },
@@ -262,22 +459,16 @@ class DaybookService {
       const firmId = filters.firmId ? parseInt(filters.firmId) : null;
       const startDate = filters.startDate || null;
 
-      // 1. Finance Added (Outflow) Aggregation
-      // Since fin_cash_amt is String, we fetch and sum in JS
+      // 1. OUTFLOWS prior to startDate
+      // a) Finance Added
       const financeAdded = await prisma.finance.findMany({
         where: {
           fin_is_deleted: false,
           ...(firmId && { fin_firm_id: firmId }),
           ...(startDate && { fin_start_date: { lt: startDate } }),
         },
-        select: {
-          fin_cash_amt: true,
-          fin_bank_amt: true,
-          fin_online_amt: true,
-          fin_card_amt: true,
-        },
+        select: { fin_cash_amt: true, fin_bank_amt: true, fin_online_amt: true, fin_card_amt: true },
       });
-
       const sumFinance = financeAdded.reduce(
         (acc, item) => ({
           cash: acc.cash + (parseFloat(item.fin_cash_amt) || 0),
@@ -288,21 +479,15 @@ class DaybookService {
         { cash: 0, bank: 0, online: 0, card: 0 }
       );
 
-      // 1b. Girvi Added (Outflow) Aggregation
+      // b) Girvi Added
       const girviAdded = await prisma.girvi.findMany({
         where: {
           girv_is_deleted: false,
           ...(firmId && { girv_firm_id: firmId }),
           ...(startDate && { girv_start_date: { lt: startDate } }),
         },
-        select: {
-          girv_cash_amt: true,
-          girv_bank_amt: true,
-          girv_online_amt: true,
-          girv_card_amt: true,
-        },
+        select: { girv_cash_amt: true, girv_bank_amt: true, girv_online_amt: true, girv_card_amt: true },
       });
-
       const sumGirvi = girviAdded.reduce(
         (acc, item) => ({
           cash: acc.cash + (parseFloat(item.girv_cash_amt) || 0),
@@ -313,23 +498,26 @@ class DaybookService {
         { cash: 0, bank: 0, online: 0, card: 0 }
       );
 
-      // 2. EMI Paid (Inflow) Aggregation
-      const emiPaid = await prisma.finance_Money_Transaction.aggregate({
+      // c) Additional Principal
+      const apAdded = await prisma.additionalPrincipal.findMany({
         where: {
-          fm_trans_type: "PAID",
-          fm_is_deleted: false,
-          ...(firmId && { fm_firm_id: firmId }),
-          ...(startDate && { fm_trans_date: { lt: startDate } }),
+          ap_is_deleted: false,
+          ...(firmId && { ap_firm_id: firmId }),
+          ...(startDate && { ap_trans_date: { lt: startDate } }),
         },
-        _sum: {
-          fm_cash_amt: true,
-          fm_bank_amt: true,
-          fm_online_amt: true,
-          fm_card_amt: true,
-        },
+        select: { ap_cash_amt: true, ap_bank_amt: true, ap_online_amt: true, ap_card_amt: true },
       });
+      const sumAp = apAdded.reduce(
+        (acc, item) => ({
+          cash: acc.cash + (parseFloat(item.ap_cash_amt) || 0),
+          bank: acc.bank + (parseFloat(item.ap_bank_amt) || 0),
+          online: acc.online + (parseFloat(item.ap_online_amt) || 0),
+          card: acc.card + (parseFloat(item.ap_card_amt) || 0),
+        }),
+        { cash: 0, bank: 0, online: 0, card: 0 }
+      );
 
-      // 3. EMI Rollback (Outflow) Aggregation
+      // d) Finance EMI Rollback
       const emiRollback = await prisma.finance_Money_Transaction.aggregate({
         where: {
           fm_trans_type: "ROLLBACK",
@@ -337,15 +525,51 @@ class DaybookService {
           ...(firmId && { fm_firm_id: firmId }),
           ...(startDate && { fm_trans_date: { lt: startDate } }),
         },
-        _sum: {
-          fm_cash_amt: true,
-          fm_bank_amt: true,
-          fm_online_amt: true,
-          fm_card_amt: true,
-        },
+        _sum: { fm_cash_amt: true, fm_bank_amt: true, fm_online_amt: true, fm_card_amt: true },
       });
 
-      // 4. Account Opening Balances
+      // 2. INFLOWS prior to startDate
+      // a) Finance EMI Paid
+      const emiPaid = await prisma.finance_Money_Transaction.aggregate({
+        where: {
+          fm_trans_type: "PAID",
+          fm_is_deleted: false,
+          ...(firmId && { fm_firm_id: firmId }),
+          ...(startDate && { fm_trans_date: { lt: startDate } }),
+        },
+        _sum: { fm_cash_amt: true, fm_bank_amt: true, fm_online_amt: true, fm_card_amt: true },
+      });
+
+      // b) Girvi Deposit
+      const girviDeposit = await prisma.girviDeposit.aggregate({
+        where: {
+          dep_is_deleted: false,
+          ...(firmId && { dep_firm_id: firmId }),
+          ...(startDate && { dep_trans_date: { lt: startDate } }),
+        },
+        _sum: { dep_cash_amt: true, dep_bank_amt: true, dep_online_amt: true, dep_card_amt: true },
+      });
+
+      // c) Girvi Release
+      const girviRelease = await prisma.girviRelease.aggregate({
+        where: {
+          rel_is_deleted: false,
+          ...(firmId && { rel_firm_id: firmId }),
+          ...(startDate && { rel_trans_date: { lt: startDate } }),
+        },
+        _sum: { rel_cash_amt: true, rel_bank_amt: true, rel_online_amt: true, rel_card_amt: true },
+      });
+
+      // d) Auction Loan
+      const auctionLoan = await prisma.auctionLoan.aggregate({
+        where: {
+          ...(firmId && { al_firm_id: firmId }),
+          ...(startDate && { al_date: { lt: startDate } }),
+        },
+        _sum: { al_cash_amt: true, al_bank_amt: true, al_online_amt: true, al_card_amt: true },
+      });
+
+      // 3. Account Opening Balances
       const all_opening_balances = await accountService.get_acc_opening_balance(
         dbUrl,
         (filters.firmId && filters.firmId !== "") ? filters.firmId : "N",
@@ -359,11 +583,21 @@ class DaybookService {
 
       const toNumber = (val) => (parseFloat(val) || 0).toFixed(2);
 
-      // Formula: Opening = Acc_Opening + PAID - (ADDED + ROLLBACK)
-      const cash_open = toNumber(acc_cash_open + (emiPaid._sum.fm_cash_amt || 0) - (sumFinance.cash + sumGirvi.cash + (emiRollback._sum.fm_cash_amt || 0)));
-      const bank_open = toNumber(acc_bank_open + (emiPaid._sum.fm_bank_amt || 0) - (sumFinance.bank + sumGirvi.bank + (emiRollback._sum.fm_bank_amt || 0)));
-      const online_open = toNumber(acc_online_open + (emiPaid._sum.fm_online_amt || 0) - (sumFinance.online + sumGirvi.online + (emiRollback._sum.fm_online_amt || 0)));
-      const card_open = toNumber(acc_card_open + (emiPaid._sum.fm_card_amt || 0) - (sumFinance.card + sumGirvi.card + (emiRollback._sum.fm_card_amt || 0)));
+      const inflowCash = (emiPaid._sum.fm_cash_amt || 0) + (girviDeposit._sum.dep_cash_amt || 0) + (girviRelease._sum.rel_cash_amt || 0) + (auctionLoan._sum.al_cash_amt || 0);
+      const inflowBank = (emiPaid._sum.fm_bank_amt || 0) + (girviDeposit._sum.dep_bank_amt || 0) + (girviRelease._sum.rel_bank_amt || 0) + (auctionLoan._sum.al_bank_amt || 0);
+      const inflowOnline = (emiPaid._sum.fm_online_amt || 0) + (girviDeposit._sum.dep_online_amt || 0) + (girviRelease._sum.rel_online_amt || 0) + (auctionLoan._sum.al_online_amt || 0);
+      const inflowCard = (emiPaid._sum.fm_card_amt || 0) + (girviDeposit._sum.dep_card_amt || 0) + (girviRelease._sum.rel_card_amt || 0) + (auctionLoan._sum.al_card_amt || 0);
+
+      const outflowCash = sumFinance.cash + sumGirvi.cash + sumAp.cash + (emiRollback._sum.fm_cash_amt || 0);
+      const outflowBank = sumFinance.bank + sumGirvi.bank + sumAp.bank + (emiRollback._sum.fm_bank_amt || 0);
+      const outflowOnline = sumFinance.online + sumGirvi.online + sumAp.online + (emiRollback._sum.fm_online_amt || 0);
+      const outflowCard = sumFinance.card + sumGirvi.card + sumAp.card + (emiRollback._sum.fm_card_amt || 0);
+
+      // Formula: Opening = Acc_Opening + Inflows - Outflows
+      const cash_open = toNumber(acc_cash_open + inflowCash - outflowCash);
+      const bank_open = toNumber(acc_bank_open + inflowBank - outflowBank);
+      const online_open = toNumber(acc_online_open + inflowOnline - outflowOnline);
+      const card_open = toNumber(acc_card_open + inflowCard - outflowCard);
 
       const total_open = toNumber(parseFloat(cash_open) + parseFloat(bank_open) + parseFloat(online_open) + parseFloat(card_open));
 
@@ -384,17 +618,35 @@ class DaybookService {
 
   async get_all_daybook_data(dbUrl, filters = {}) {
     try {
-      const [financeData, girviData, paidEmiData, rollbackEmiData, summaryData] = await Promise.all([
+      const [
+        financeData,
+        girviData,
+        additionalPrincipalData,
+        girviDepositData,
+        girviReleaseData,
+        auctionLoanData,
+        paidEmiData,
+        rollbackEmiData,
+        summaryData
+      ] = await Promise.all([
         this.get_add_new_finance_data(dbUrl, filters),
         this.get_add_new_girvi_data(dbUrl, filters),
+        this.get_additional_principal_data(dbUrl, filters),
+        this.get_girvi_deposit_data(dbUrl, filters),
+        this.get_girvi_release_data(dbUrl, filters),
+        this.get_auction_loan_data(dbUrl, filters),
         this.get_finance_emi_data(dbUrl, "PAID", "FINANCE EMI DEPOSIT", "bg-red", "text-success", filters),
-        this.get_finance_emi_data(dbUrl, "ROLLBACK", "FINANCE EMI ROLLBACK", "bg-blue", "text-danger", filters),
+        this.get_finance_emi_data(dbUrl, "ROLLBACK", "FINANCE EMI ROLLBACK", "bg-secondary", "text-danger", filters),
         this.get_day_book_summary(dbUrl, filters),
       ]);
 
       const response_arr = [];
       if (financeData !== 0) response_arr.push(financeData);
       if (girviData !== 0) response_arr.push(girviData);
+      if (additionalPrincipalData !== 0) response_arr.push(additionalPrincipalData);
+      if (girviDepositData !== 0) response_arr.push(girviDepositData);
+      if (girviReleaseData !== 0) response_arr.push(girviReleaseData);
+      if (auctionLoanData !== 0) response_arr.push(auctionLoanData);
       if (paidEmiData !== 0) response_arr.push(paidEmiData);
       if (rollbackEmiData !== 0) response_arr.push(rollbackEmiData);
 

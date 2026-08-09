@@ -2,6 +2,7 @@
 
 const { getTenantPrisma } = require("../../../utils/tenantPrisma");
 const { hashPassword } = require("../../../common/service/bcrypt.service");
+const serialNumberService = require("../../../common/service/serialNumber.service");
 const {
   emptyPermissionMatrix,
   keysToPermissionMatrix,
@@ -58,6 +59,11 @@ class StaffService {
   async createStaff(dbUrl, staffData, permissionKeys = []) {
     const prisma = this.getPrisma(dbUrl);
     const hashed = await hashPassword(staffData.staff_password);
+
+    if (!staffData.staff_unique_code) {
+      staffData.staff_unique_code = await serialNumberService.getNextSerialNumber(prisma, "STAFF");
+    }
+
     const created = await prisma.staff.create({
       data: {
         ...staffData,

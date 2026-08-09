@@ -124,6 +124,11 @@ export type Permission = $Result.DefaultSelection<Prisma.$PermissionPayload>
  * 
  */
 export type StaffPermission = $Result.DefaultSelection<Prisma.$StaffPermissionPayload>
+/**
+ * Model SerialNumber
+ * 
+ */
+export type SerialNumber = $Result.DefaultSelection<Prisma.$SerialNumberPayload>
 
 /**
  * Enums
@@ -762,6 +767,16 @@ export class PrismaClient<
     * ```
     */
   get staffPermission(): Prisma.StaffPermissionDelegate<ExtArgs>;
+
+  /**
+   * `prisma.serialNumber`: Exposes CRUD operations for the **SerialNumber** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more SerialNumbers
+    * const serialNumbers = await prisma.serialNumber.findMany()
+    * ```
+    */
+  get serialNumber(): Prisma.SerialNumberDelegate<ExtArgs>;
 }
 
 export namespace Prisma {
@@ -1224,7 +1239,8 @@ export namespace Prisma {
     AuctionLoan: 'AuctionLoan',
     Staff: 'Staff',
     Permission: 'Permission',
-    StaffPermission: 'StaffPermission'
+    StaffPermission: 'StaffPermission',
+    SerialNumber: 'SerialNumber'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1240,7 +1256,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "owner" | "firm" | "account" | "user" | "finance" | "finance_Transaction" | "finance_Money_Transaction" | "journal" | "journalTransaction" | "girvi" | "stock" | "additionalPrincipal" | "girviDeposit" | "girviRelease" | "rate" | "purity" | "moneyLender" | "auctionUser" | "auctionLoan" | "staff" | "permission" | "staffPermission"
+      modelProps: "owner" | "firm" | "account" | "user" | "finance" | "finance_Transaction" | "finance_Money_Transaction" | "journal" | "journalTransaction" | "girvi" | "stock" | "additionalPrincipal" | "girviDeposit" | "girviRelease" | "rate" | "purity" | "moneyLender" | "auctionUser" | "auctionLoan" | "staff" | "permission" | "staffPermission" | "serialNumber"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -2781,6 +2797,76 @@ export namespace Prisma {
           count: {
             args: Prisma.StaffPermissionCountArgs<ExtArgs>
             result: $Utils.Optional<StaffPermissionCountAggregateOutputType> | number
+          }
+        }
+      }
+      SerialNumber: {
+        payload: Prisma.$SerialNumberPayload<ExtArgs>
+        fields: Prisma.SerialNumberFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SerialNumberFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SerialNumberPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SerialNumberFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SerialNumberPayload>
+          }
+          findFirst: {
+            args: Prisma.SerialNumberFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SerialNumberPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SerialNumberFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SerialNumberPayload>
+          }
+          findMany: {
+            args: Prisma.SerialNumberFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SerialNumberPayload>[]
+          }
+          create: {
+            args: Prisma.SerialNumberCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SerialNumberPayload>
+          }
+          createMany: {
+            args: Prisma.SerialNumberCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SerialNumberCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SerialNumberPayload>[]
+          }
+          delete: {
+            args: Prisma.SerialNumberDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SerialNumberPayload>
+          }
+          update: {
+            args: Prisma.SerialNumberUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SerialNumberPayload>
+          }
+          deleteMany: {
+            args: Prisma.SerialNumberDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SerialNumberUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.SerialNumberUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SerialNumberPayload>
+          }
+          aggregate: {
+            args: Prisma.SerialNumberAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSerialNumber>
+          }
+          groupBy: {
+            args: Prisma.SerialNumberGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SerialNumberGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SerialNumberCountArgs<ExtArgs>
+            result: $Utils.Optional<SerialNumberCountAggregateOutputType> | number
           }
         }
       }
@@ -5757,6 +5843,7 @@ export namespace Prisma {
   export type FirmMinAggregateOutputType = {
     firm_id: number | null
     firm_uuid: string | null
+    firm_unique_code: string | null
     firm_add_date: Date | null
     firm_own_id: number | null
     firm_name: string | null
@@ -5804,6 +5891,7 @@ export namespace Prisma {
   export type FirmMaxAggregateOutputType = {
     firm_id: number | null
     firm_uuid: string | null
+    firm_unique_code: string | null
     firm_add_date: Date | null
     firm_own_id: number | null
     firm_name: string | null
@@ -5851,6 +5939,7 @@ export namespace Prisma {
   export type FirmCountAggregateOutputType = {
     firm_id: number
     firm_uuid: number
+    firm_unique_code: number
     firm_add_date: number
     firm_own_id: number
     firm_name: number
@@ -5915,6 +6004,7 @@ export namespace Prisma {
   export type FirmMinAggregateInputType = {
     firm_id?: true
     firm_uuid?: true
+    firm_unique_code?: true
     firm_add_date?: true
     firm_own_id?: true
     firm_name?: true
@@ -5962,6 +6052,7 @@ export namespace Prisma {
   export type FirmMaxAggregateInputType = {
     firm_id?: true
     firm_uuid?: true
+    firm_unique_code?: true
     firm_add_date?: true
     firm_own_id?: true
     firm_name?: true
@@ -6009,6 +6100,7 @@ export namespace Prisma {
   export type FirmCountAggregateInputType = {
     firm_id?: true
     firm_uuid?: true
+    firm_unique_code?: true
     firm_add_date?: true
     firm_own_id?: true
     firm_name?: true
@@ -6148,6 +6240,7 @@ export namespace Prisma {
   export type FirmGroupByOutputType = {
     firm_id: number
     firm_uuid: string
+    firm_unique_code: string | null
     firm_add_date: Date
     firm_own_id: number
     firm_name: string
@@ -6219,6 +6312,7 @@ export namespace Prisma {
   export type FirmSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     firm_id?: boolean
     firm_uuid?: boolean
+    firm_unique_code?: boolean
     firm_add_date?: boolean
     firm_own_id?: boolean
     firm_name?: boolean
@@ -6287,6 +6381,7 @@ export namespace Prisma {
   export type FirmSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     firm_id?: boolean
     firm_uuid?: boolean
+    firm_unique_code?: boolean
     firm_add_date?: boolean
     firm_own_id?: boolean
     firm_name?: boolean
@@ -6340,6 +6435,7 @@ export namespace Prisma {
   export type FirmSelectScalar = {
     firm_id?: boolean
     firm_uuid?: boolean
+    firm_unique_code?: boolean
     firm_add_date?: boolean
     firm_own_id?: boolean
     firm_name?: boolean
@@ -6433,6 +6529,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       firm_id: number
       firm_uuid: string
+      firm_unique_code: string | null
       firm_add_date: Date
       firm_own_id: number
       firm_name: string
@@ -6890,6 +6987,7 @@ export namespace Prisma {
   interface FirmFieldRefs {
     readonly firm_id: FieldRef<"Firm", 'Int'>
     readonly firm_uuid: FieldRef<"Firm", 'String'>
+    readonly firm_unique_code: FieldRef<"Firm", 'String'>
     readonly firm_add_date: FieldRef<"Firm", 'DateTime'>
     readonly firm_own_id: FieldRef<"Firm", 'Int'>
     readonly firm_name: FieldRef<"Firm", 'String'>
@@ -9879,6 +9977,7 @@ export namespace Prisma {
   export type UserMinAggregateOutputType = {
     user_id: number | null
     user_uuid: string | null
+    user_unique_code: string | null
     user_own_id: number | null
     user_firm_id: number | null
     user_add_date: Date | null
@@ -9923,6 +10022,7 @@ export namespace Prisma {
   export type UserMaxAggregateOutputType = {
     user_id: number | null
     user_uuid: string | null
+    user_unique_code: string | null
     user_own_id: number | null
     user_firm_id: number | null
     user_add_date: Date | null
@@ -9967,6 +10067,7 @@ export namespace Prisma {
   export type UserCountAggregateOutputType = {
     user_id: number
     user_uuid: number
+    user_unique_code: number
     user_own_id: number
     user_firm_id: number
     user_add_date: number
@@ -10030,6 +10131,7 @@ export namespace Prisma {
   export type UserMinAggregateInputType = {
     user_id?: true
     user_uuid?: true
+    user_unique_code?: true
     user_own_id?: true
     user_firm_id?: true
     user_add_date?: true
@@ -10074,6 +10176,7 @@ export namespace Prisma {
   export type UserMaxAggregateInputType = {
     user_id?: true
     user_uuid?: true
+    user_unique_code?: true
     user_own_id?: true
     user_firm_id?: true
     user_add_date?: true
@@ -10118,6 +10221,7 @@ export namespace Prisma {
   export type UserCountAggregateInputType = {
     user_id?: true
     user_uuid?: true
+    user_unique_code?: true
     user_own_id?: true
     user_firm_id?: true
     user_add_date?: true
@@ -10254,6 +10358,7 @@ export namespace Prisma {
   export type UserGroupByOutputType = {
     user_id: number
     user_uuid: string
+    user_unique_code: string | null
     user_own_id: number
     user_firm_id: number
     user_add_date: Date
@@ -10322,6 +10427,7 @@ export namespace Prisma {
   export type UserSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     user_id?: boolean
     user_uuid?: boolean
+    user_unique_code?: boolean
     user_own_id?: boolean
     user_firm_id?: boolean
     user_add_date?: boolean
@@ -10384,6 +10490,7 @@ export namespace Prisma {
   export type UserSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     user_id?: boolean
     user_uuid?: boolean
+    user_unique_code?: boolean
     user_own_id?: boolean
     user_firm_id?: boolean
     user_add_date?: boolean
@@ -10435,6 +10542,7 @@ export namespace Prisma {
   export type UserSelectScalar = {
     user_id?: boolean
     user_uuid?: boolean
+    user_unique_code?: boolean
     user_own_id?: boolean
     user_firm_id?: boolean
     user_add_date?: boolean
@@ -10520,6 +10628,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       user_id: number
       user_uuid: string
+      user_unique_code: string | null
       user_own_id: number
       user_firm_id: number
       user_add_date: Date
@@ -10971,6 +11080,7 @@ export namespace Prisma {
   interface UserFieldRefs {
     readonly user_id: FieldRef<"User", 'Int'>
     readonly user_uuid: FieldRef<"User", 'String'>
+    readonly user_unique_code: FieldRef<"User", 'String'>
     readonly user_own_id: FieldRef<"User", 'Int'>
     readonly user_firm_id: FieldRef<"User", 'Int'>
     readonly user_add_date: FieldRef<"User", 'DateTime'>
@@ -11606,6 +11716,7 @@ export namespace Prisma {
   export type FinanceMinAggregateOutputType = {
     fin_id: number | null
     fin_uuid: string | null
+    fin_unique_code: string | null
     fin_add_date: string | null
     fin_own_id: number | null
     fin_firm_id: number | null
@@ -11654,6 +11765,7 @@ export namespace Prisma {
   export type FinanceMaxAggregateOutputType = {
     fin_id: number | null
     fin_uuid: string | null
+    fin_unique_code: string | null
     fin_add_date: string | null
     fin_own_id: number | null
     fin_firm_id: number | null
@@ -11702,6 +11814,7 @@ export namespace Prisma {
   export type FinanceCountAggregateOutputType = {
     fin_id: number
     fin_uuid: number
+    fin_unique_code: number
     fin_add_date: number
     fin_own_id: number
     fin_firm_id: number
@@ -11796,6 +11909,7 @@ export namespace Prisma {
   export type FinanceMinAggregateInputType = {
     fin_id?: true
     fin_uuid?: true
+    fin_unique_code?: true
     fin_add_date?: true
     fin_own_id?: true
     fin_firm_id?: true
@@ -11844,6 +11958,7 @@ export namespace Prisma {
   export type FinanceMaxAggregateInputType = {
     fin_id?: true
     fin_uuid?: true
+    fin_unique_code?: true
     fin_add_date?: true
     fin_own_id?: true
     fin_firm_id?: true
@@ -11892,6 +12007,7 @@ export namespace Prisma {
   export type FinanceCountAggregateInputType = {
     fin_id?: true
     fin_uuid?: true
+    fin_unique_code?: true
     fin_add_date?: true
     fin_own_id?: true
     fin_firm_id?: true
@@ -12027,6 +12143,7 @@ export namespace Prisma {
   export type FinanceGroupByOutputType = {
     fin_id: number
     fin_uuid: string
+    fin_unique_code: string | null
     fin_add_date: string | null
     fin_own_id: number
     fin_firm_id: number
@@ -12094,6 +12211,7 @@ export namespace Prisma {
   export type FinanceSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     fin_id?: boolean
     fin_uuid?: boolean
+    fin_unique_code?: boolean
     fin_add_date?: boolean
     fin_own_id?: boolean
     fin_firm_id?: boolean
@@ -12153,6 +12271,7 @@ export namespace Prisma {
   export type FinanceSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     fin_id?: boolean
     fin_uuid?: boolean
+    fin_unique_code?: boolean
     fin_add_date?: boolean
     fin_own_id?: boolean
     fin_firm_id?: boolean
@@ -12209,6 +12328,7 @@ export namespace Prisma {
   export type FinanceSelectScalar = {
     fin_id?: boolean
     fin_uuid?: boolean
+    fin_unique_code?: boolean
     fin_add_date?: boolean
     fin_own_id?: boolean
     fin_firm_id?: boolean
@@ -12295,6 +12415,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       fin_id: number
       fin_uuid: string
+      fin_unique_code: string | null
       fin_add_date: string | null
       fin_own_id: number
       fin_firm_id: number
@@ -12743,6 +12864,7 @@ export namespace Prisma {
   interface FinanceFieldRefs {
     readonly fin_id: FieldRef<"Finance", 'Int'>
     readonly fin_uuid: FieldRef<"Finance", 'String'>
+    readonly fin_unique_code: FieldRef<"Finance", 'String'>
     readonly fin_add_date: FieldRef<"Finance", 'String'>
     readonly fin_own_id: FieldRef<"Finance", 'Int'>
     readonly fin_firm_id: FieldRef<"Finance", 'Int'>
@@ -18716,6 +18838,7 @@ export namespace Prisma {
   export type GirviMinAggregateOutputType = {
     girv_id: number | null
     girv_uuid: string | null
+    girv_unique_code: string | null
     girv_add_date: string | null
     girv_firm_id: number | null
     girv_own_id: number | null
@@ -18771,6 +18894,7 @@ export namespace Prisma {
   export type GirviMaxAggregateOutputType = {
     girv_id: number | null
     girv_uuid: string | null
+    girv_unique_code: string | null
     girv_add_date: string | null
     girv_firm_id: number | null
     girv_own_id: number | null
@@ -18826,6 +18950,7 @@ export namespace Prisma {
   export type GirviCountAggregateOutputType = {
     girv_id: number
     girv_uuid: number
+    girv_unique_code: number
     girv_add_date: number
     girv_firm_id: number
     girv_own_id: number
@@ -18941,6 +19066,7 @@ export namespace Prisma {
   export type GirviMinAggregateInputType = {
     girv_id?: true
     girv_uuid?: true
+    girv_unique_code?: true
     girv_add_date?: true
     girv_firm_id?: true
     girv_own_id?: true
@@ -18996,6 +19122,7 @@ export namespace Prisma {
   export type GirviMaxAggregateInputType = {
     girv_id?: true
     girv_uuid?: true
+    girv_unique_code?: true
     girv_add_date?: true
     girv_firm_id?: true
     girv_own_id?: true
@@ -19051,6 +19178,7 @@ export namespace Prisma {
   export type GirviCountAggregateInputType = {
     girv_id?: true
     girv_uuid?: true
+    girv_unique_code?: true
     girv_add_date?: true
     girv_firm_id?: true
     girv_own_id?: true
@@ -19193,6 +19321,7 @@ export namespace Prisma {
   export type GirviGroupByOutputType = {
     girv_id: number
     girv_uuid: string
+    girv_unique_code: string | null
     girv_add_date: string | null
     girv_firm_id: number
     girv_own_id: number
@@ -19267,6 +19396,7 @@ export namespace Prisma {
   export type GirviSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     girv_id?: boolean
     girv_uuid?: boolean
+    girv_unique_code?: boolean
     girv_add_date?: boolean
     girv_firm_id?: boolean
     girv_own_id?: boolean
@@ -19337,6 +19467,7 @@ export namespace Prisma {
   export type GirviSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     girv_id?: boolean
     girv_uuid?: boolean
+    girv_unique_code?: boolean
     girv_add_date?: boolean
     girv_firm_id?: boolean
     girv_own_id?: boolean
@@ -19403,6 +19534,7 @@ export namespace Prisma {
   export type GirviSelectScalar = {
     girv_id?: boolean
     girv_uuid?: boolean
+    girv_unique_code?: boolean
     girv_add_date?: boolean
     girv_firm_id?: boolean
     girv_own_id?: boolean
@@ -19507,6 +19639,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       girv_id: number
       girv_uuid: string
+      girv_unique_code: string | null
       girv_add_date: string | null
       girv_firm_id: number
       girv_own_id: number
@@ -19966,6 +20099,7 @@ export namespace Prisma {
   interface GirviFieldRefs {
     readonly girv_id: FieldRef<"Girvi", 'Int'>
     readonly girv_uuid: FieldRef<"Girvi", 'String'>
+    readonly girv_unique_code: FieldRef<"Girvi", 'String'>
     readonly girv_add_date: FieldRef<"Girvi", 'String'>
     readonly girv_firm_id: FieldRef<"Girvi", 'Int'>
     readonly girv_own_id: FieldRef<"Girvi", 'Int'>
@@ -28829,6 +28963,7 @@ export namespace Prisma {
   export type MoneyLenderMinAggregateOutputType = {
     ml_id: number | null
     ml_uuid: string | null
+    ml_unique_code: string | null
     ml_own_id: number | null
     ml_first_name: string | null
     ml_last_name: string | null
@@ -28861,6 +28996,7 @@ export namespace Prisma {
   export type MoneyLenderMaxAggregateOutputType = {
     ml_id: number | null
     ml_uuid: string | null
+    ml_unique_code: string | null
     ml_own_id: number | null
     ml_first_name: string | null
     ml_last_name: string | null
@@ -28893,6 +29029,7 @@ export namespace Prisma {
   export type MoneyLenderCountAggregateOutputType = {
     ml_id: number
     ml_uuid: number
+    ml_unique_code: number
     ml_own_id: number
     ml_first_name: number
     ml_last_name: number
@@ -28943,6 +29080,7 @@ export namespace Prisma {
   export type MoneyLenderMinAggregateInputType = {
     ml_id?: true
     ml_uuid?: true
+    ml_unique_code?: true
     ml_own_id?: true
     ml_first_name?: true
     ml_last_name?: true
@@ -28975,6 +29113,7 @@ export namespace Prisma {
   export type MoneyLenderMaxAggregateInputType = {
     ml_id?: true
     ml_uuid?: true
+    ml_unique_code?: true
     ml_own_id?: true
     ml_first_name?: true
     ml_last_name?: true
@@ -29007,6 +29146,7 @@ export namespace Prisma {
   export type MoneyLenderCountAggregateInputType = {
     ml_id?: true
     ml_uuid?: true
+    ml_unique_code?: true
     ml_own_id?: true
     ml_first_name?: true
     ml_last_name?: true
@@ -29130,6 +29270,7 @@ export namespace Prisma {
   export type MoneyLenderGroupByOutputType = {
     ml_id: number
     ml_uuid: string
+    ml_unique_code: string | null
     ml_own_id: number
     ml_first_name: string
     ml_last_name: string | null
@@ -29185,6 +29326,7 @@ export namespace Prisma {
   export type MoneyLenderSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     ml_id?: boolean
     ml_uuid?: boolean
+    ml_unique_code?: boolean
     ml_own_id?: boolean
     ml_first_name?: boolean
     ml_last_name?: boolean
@@ -29225,6 +29367,7 @@ export namespace Prisma {
   export type MoneyLenderSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     ml_id?: boolean
     ml_uuid?: boolean
+    ml_unique_code?: boolean
     ml_own_id?: boolean
     ml_first_name?: boolean
     ml_last_name?: boolean
@@ -29263,6 +29406,7 @@ export namespace Prisma {
   export type MoneyLenderSelectScalar = {
     ml_id?: boolean
     ml_uuid?: boolean
+    ml_unique_code?: boolean
     ml_own_id?: boolean
     ml_first_name?: boolean
     ml_last_name?: boolean
@@ -29317,6 +29461,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       ml_id: number
       ml_uuid: string
+      ml_unique_code: string | null
       ml_own_id: number
       ml_first_name: string
       ml_last_name: string | null
@@ -29746,6 +29891,7 @@ export namespace Prisma {
   interface MoneyLenderFieldRefs {
     readonly ml_id: FieldRef<"MoneyLender", 'Int'>
     readonly ml_uuid: FieldRef<"MoneyLender", 'String'>
+    readonly ml_unique_code: FieldRef<"MoneyLender", 'String'>
     readonly ml_own_id: FieldRef<"MoneyLender", 'Int'>
     readonly ml_first_name: FieldRef<"MoneyLender", 'String'>
     readonly ml_last_name: FieldRef<"MoneyLender", 'String'>
@@ -30169,6 +30315,7 @@ export namespace Prisma {
   export type AuctionUserMinAggregateOutputType = {
     au_id: number | null
     au_uuid: string | null
+    au_unique_code: string | null
     au_date: string | null
     au_firm_id: number | null
     au_full_name: string | null
@@ -30189,6 +30336,7 @@ export namespace Prisma {
   export type AuctionUserMaxAggregateOutputType = {
     au_id: number | null
     au_uuid: string | null
+    au_unique_code: string | null
     au_date: string | null
     au_firm_id: number | null
     au_full_name: string | null
@@ -30209,6 +30357,7 @@ export namespace Prisma {
   export type AuctionUserCountAggregateOutputType = {
     au_id: number
     au_uuid: number
+    au_unique_code: number
     au_date: number
     au_firm_id: number
     au_full_name: number
@@ -30241,6 +30390,7 @@ export namespace Prisma {
   export type AuctionUserMinAggregateInputType = {
     au_id?: true
     au_uuid?: true
+    au_unique_code?: true
     au_date?: true
     au_firm_id?: true
     au_full_name?: true
@@ -30261,6 +30411,7 @@ export namespace Prisma {
   export type AuctionUserMaxAggregateInputType = {
     au_id?: true
     au_uuid?: true
+    au_unique_code?: true
     au_date?: true
     au_firm_id?: true
     au_full_name?: true
@@ -30281,6 +30432,7 @@ export namespace Prisma {
   export type AuctionUserCountAggregateInputType = {
     au_id?: true
     au_uuid?: true
+    au_unique_code?: true
     au_date?: true
     au_firm_id?: true
     au_full_name?: true
@@ -30388,6 +30540,7 @@ export namespace Prisma {
   export type AuctionUserGroupByOutputType = {
     au_id: number
     au_uuid: string
+    au_unique_code: string | null
     au_date: string | null
     au_firm_id: number
     au_full_name: string | null
@@ -30427,6 +30580,7 @@ export namespace Prisma {
   export type AuctionUserSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     au_id?: boolean
     au_uuid?: boolean
+    au_unique_code?: boolean
     au_date?: boolean
     au_firm_id?: boolean
     au_full_name?: boolean
@@ -30447,6 +30601,7 @@ export namespace Prisma {
   export type AuctionUserSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     au_id?: boolean
     au_uuid?: boolean
+    au_unique_code?: boolean
     au_date?: boolean
     au_firm_id?: boolean
     au_full_name?: boolean
@@ -30467,6 +30622,7 @@ export namespace Prisma {
   export type AuctionUserSelectScalar = {
     au_id?: boolean
     au_uuid?: boolean
+    au_unique_code?: boolean
     au_date?: boolean
     au_firm_id?: boolean
     au_full_name?: boolean
@@ -30491,6 +30647,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       au_id: number
       au_uuid: string
+      au_unique_code: string | null
       au_date: string | null
       au_firm_id: number
       au_full_name: string | null
@@ -30901,6 +31058,7 @@ export namespace Prisma {
   interface AuctionUserFieldRefs {
     readonly au_id: FieldRef<"AuctionUser", 'Int'>
     readonly au_uuid: FieldRef<"AuctionUser", 'String'>
+    readonly au_unique_code: FieldRef<"AuctionUser", 'String'>
     readonly au_date: FieldRef<"AuctionUser", 'String'>
     readonly au_firm_id: FieldRef<"AuctionUser", 'Int'>
     readonly au_full_name: FieldRef<"AuctionUser", 'String'>
@@ -32429,6 +32587,7 @@ export namespace Prisma {
   export type StaffMinAggregateOutputType = {
     staff_id: number | null
     staff_uuid: string | null
+    staff_unique_code: string | null
     staff_own_id: number | null
     staff_add_date: Date | null
     staff_first_name: string | null
@@ -32480,6 +32639,7 @@ export namespace Prisma {
   export type StaffMaxAggregateOutputType = {
     staff_id: number | null
     staff_uuid: string | null
+    staff_unique_code: string | null
     staff_own_id: number | null
     staff_add_date: Date | null
     staff_first_name: string | null
@@ -32531,6 +32691,7 @@ export namespace Prisma {
   export type StaffCountAggregateOutputType = {
     staff_id: number
     staff_uuid: number
+    staff_unique_code: number
     staff_own_id: number
     staff_add_date: number
     staff_first_name: number
@@ -32600,6 +32761,7 @@ export namespace Prisma {
   export type StaffMinAggregateInputType = {
     staff_id?: true
     staff_uuid?: true
+    staff_unique_code?: true
     staff_own_id?: true
     staff_add_date?: true
     staff_first_name?: true
@@ -32651,6 +32813,7 @@ export namespace Prisma {
   export type StaffMaxAggregateInputType = {
     staff_id?: true
     staff_uuid?: true
+    staff_unique_code?: true
     staff_own_id?: true
     staff_add_date?: true
     staff_first_name?: true
@@ -32702,6 +32865,7 @@ export namespace Prisma {
   export type StaffCountAggregateInputType = {
     staff_id?: true
     staff_uuid?: true
+    staff_unique_code?: true
     staff_own_id?: true
     staff_add_date?: true
     staff_first_name?: true
@@ -32846,6 +33010,7 @@ export namespace Prisma {
   export type StaffGroupByOutputType = {
     staff_id: number
     staff_uuid: string
+    staff_unique_code: string | null
     staff_own_id: number
     staff_add_date: Date
     staff_first_name: string
@@ -32922,6 +33087,7 @@ export namespace Prisma {
   export type StaffSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     staff_id?: boolean
     staff_uuid?: boolean
+    staff_unique_code?: boolean
     staff_own_id?: boolean
     staff_add_date?: boolean
     staff_first_name?: boolean
@@ -32982,6 +33148,7 @@ export namespace Prisma {
   export type StaffSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     staff_id?: boolean
     staff_uuid?: boolean
+    staff_unique_code?: boolean
     staff_own_id?: boolean
     staff_add_date?: boolean
     staff_first_name?: boolean
@@ -33040,6 +33207,7 @@ export namespace Prisma {
   export type StaffSelectScalar = {
     staff_id?: boolean
     staff_uuid?: boolean
+    staff_unique_code?: boolean
     staff_own_id?: boolean
     staff_add_date?: boolean
     staff_first_name?: boolean
@@ -33112,6 +33280,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       staff_id: number
       staff_uuid: string
+      staff_unique_code: string | null
       staff_own_id: number
       staff_add_date: Date
       staff_first_name: string
@@ -33561,6 +33730,7 @@ export namespace Prisma {
   interface StaffFieldRefs {
     readonly staff_id: FieldRef<"Staff", 'Int'>
     readonly staff_uuid: FieldRef<"Staff", 'String'>
+    readonly staff_unique_code: FieldRef<"Staff", 'String'>
     readonly staff_own_id: FieldRef<"Staff", 'Int'>
     readonly staff_add_date: FieldRef<"Staff", 'DateTime'>
     readonly staff_first_name: FieldRef<"Staff", 'String'>
@@ -35981,6 +36151,950 @@ export namespace Prisma {
 
 
   /**
+   * Model SerialNumber
+   */
+
+  export type AggregateSerialNumber = {
+    _count: SerialNumberCountAggregateOutputType | null
+    _avg: SerialNumberAvgAggregateOutputType | null
+    _sum: SerialNumberSumAggregateOutputType | null
+    _min: SerialNumberMinAggregateOutputType | null
+    _max: SerialNumberMaxAggregateOutputType | null
+  }
+
+  export type SerialNumberAvgAggregateOutputType = {
+    sn_id: number | null
+    start_number: number | null
+    current_number: number | null
+  }
+
+  export type SerialNumberSumAggregateOutputType = {
+    sn_id: number | null
+    start_number: number | null
+    current_number: number | null
+  }
+
+  export type SerialNumberMinAggregateOutputType = {
+    sn_id: number | null
+    entity_type: string | null
+    start_number: number | null
+    current_number: number | null
+    number_prefix: string | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type SerialNumberMaxAggregateOutputType = {
+    sn_id: number | null
+    entity_type: string | null
+    start_number: number | null
+    current_number: number | null
+    number_prefix: string | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type SerialNumberCountAggregateOutputType = {
+    sn_id: number
+    entity_type: number
+    start_number: number
+    current_number: number
+    number_prefix: number
+    created_at: number
+    updated_at: number
+    _all: number
+  }
+
+
+  export type SerialNumberAvgAggregateInputType = {
+    sn_id?: true
+    start_number?: true
+    current_number?: true
+  }
+
+  export type SerialNumberSumAggregateInputType = {
+    sn_id?: true
+    start_number?: true
+    current_number?: true
+  }
+
+  export type SerialNumberMinAggregateInputType = {
+    sn_id?: true
+    entity_type?: true
+    start_number?: true
+    current_number?: true
+    number_prefix?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type SerialNumberMaxAggregateInputType = {
+    sn_id?: true
+    entity_type?: true
+    start_number?: true
+    current_number?: true
+    number_prefix?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type SerialNumberCountAggregateInputType = {
+    sn_id?: true
+    entity_type?: true
+    start_number?: true
+    current_number?: true
+    number_prefix?: true
+    created_at?: true
+    updated_at?: true
+    _all?: true
+  }
+
+  export type SerialNumberAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SerialNumber to aggregate.
+     */
+    where?: SerialNumberWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SerialNumbers to fetch.
+     */
+    orderBy?: SerialNumberOrderByWithRelationInput | SerialNumberOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SerialNumberWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SerialNumbers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SerialNumbers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned SerialNumbers
+    **/
+    _count?: true | SerialNumberCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: SerialNumberAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: SerialNumberSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SerialNumberMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SerialNumberMaxAggregateInputType
+  }
+
+  export type GetSerialNumberAggregateType<T extends SerialNumberAggregateArgs> = {
+        [P in keyof T & keyof AggregateSerialNumber]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSerialNumber[P]>
+      : GetScalarType<T[P], AggregateSerialNumber[P]>
+  }
+
+
+
+
+  export type SerialNumberGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SerialNumberWhereInput
+    orderBy?: SerialNumberOrderByWithAggregationInput | SerialNumberOrderByWithAggregationInput[]
+    by: SerialNumberScalarFieldEnum[] | SerialNumberScalarFieldEnum
+    having?: SerialNumberScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SerialNumberCountAggregateInputType | true
+    _avg?: SerialNumberAvgAggregateInputType
+    _sum?: SerialNumberSumAggregateInputType
+    _min?: SerialNumberMinAggregateInputType
+    _max?: SerialNumberMaxAggregateInputType
+  }
+
+  export type SerialNumberGroupByOutputType = {
+    sn_id: number
+    entity_type: string
+    start_number: number
+    current_number: number
+    number_prefix: string
+    created_at: Date
+    updated_at: Date
+    _count: SerialNumberCountAggregateOutputType | null
+    _avg: SerialNumberAvgAggregateOutputType | null
+    _sum: SerialNumberSumAggregateOutputType | null
+    _min: SerialNumberMinAggregateOutputType | null
+    _max: SerialNumberMaxAggregateOutputType | null
+  }
+
+  type GetSerialNumberGroupByPayload<T extends SerialNumberGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SerialNumberGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SerialNumberGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SerialNumberGroupByOutputType[P]>
+            : GetScalarType<T[P], SerialNumberGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SerialNumberSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    sn_id?: boolean
+    entity_type?: boolean
+    start_number?: boolean
+    current_number?: boolean
+    number_prefix?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+  }, ExtArgs["result"]["serialNumber"]>
+
+  export type SerialNumberSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    sn_id?: boolean
+    entity_type?: boolean
+    start_number?: boolean
+    current_number?: boolean
+    number_prefix?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+  }, ExtArgs["result"]["serialNumber"]>
+
+  export type SerialNumberSelectScalar = {
+    sn_id?: boolean
+    entity_type?: boolean
+    start_number?: boolean
+    current_number?: boolean
+    number_prefix?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+  }
+
+
+  export type $SerialNumberPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "SerialNumber"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      sn_id: number
+      entity_type: string
+      start_number: number
+      current_number: number
+      number_prefix: string
+      created_at: Date
+      updated_at: Date
+    }, ExtArgs["result"]["serialNumber"]>
+    composites: {}
+  }
+
+  type SerialNumberGetPayload<S extends boolean | null | undefined | SerialNumberDefaultArgs> = $Result.GetResult<Prisma.$SerialNumberPayload, S>
+
+  type SerialNumberCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<SerialNumberFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: SerialNumberCountAggregateInputType | true
+    }
+
+  export interface SerialNumberDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['SerialNumber'], meta: { name: 'SerialNumber' } }
+    /**
+     * Find zero or one SerialNumber that matches the filter.
+     * @param {SerialNumberFindUniqueArgs} args - Arguments to find a SerialNumber
+     * @example
+     * // Get one SerialNumber
+     * const serialNumber = await prisma.serialNumber.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SerialNumberFindUniqueArgs>(args: SelectSubset<T, SerialNumberFindUniqueArgs<ExtArgs>>): Prisma__SerialNumberClient<$Result.GetResult<Prisma.$SerialNumberPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one SerialNumber that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {SerialNumberFindUniqueOrThrowArgs} args - Arguments to find a SerialNumber
+     * @example
+     * // Get one SerialNumber
+     * const serialNumber = await prisma.serialNumber.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SerialNumberFindUniqueOrThrowArgs>(args: SelectSubset<T, SerialNumberFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SerialNumberClient<$Result.GetResult<Prisma.$SerialNumberPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first SerialNumber that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SerialNumberFindFirstArgs} args - Arguments to find a SerialNumber
+     * @example
+     * // Get one SerialNumber
+     * const serialNumber = await prisma.serialNumber.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SerialNumberFindFirstArgs>(args?: SelectSubset<T, SerialNumberFindFirstArgs<ExtArgs>>): Prisma__SerialNumberClient<$Result.GetResult<Prisma.$SerialNumberPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first SerialNumber that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SerialNumberFindFirstOrThrowArgs} args - Arguments to find a SerialNumber
+     * @example
+     * // Get one SerialNumber
+     * const serialNumber = await prisma.serialNumber.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SerialNumberFindFirstOrThrowArgs>(args?: SelectSubset<T, SerialNumberFindFirstOrThrowArgs<ExtArgs>>): Prisma__SerialNumberClient<$Result.GetResult<Prisma.$SerialNumberPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more SerialNumbers that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SerialNumberFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all SerialNumbers
+     * const serialNumbers = await prisma.serialNumber.findMany()
+     * 
+     * // Get first 10 SerialNumbers
+     * const serialNumbers = await prisma.serialNumber.findMany({ take: 10 })
+     * 
+     * // Only select the `sn_id`
+     * const serialNumberWithSn_idOnly = await prisma.serialNumber.findMany({ select: { sn_id: true } })
+     * 
+     */
+    findMany<T extends SerialNumberFindManyArgs>(args?: SelectSubset<T, SerialNumberFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SerialNumberPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a SerialNumber.
+     * @param {SerialNumberCreateArgs} args - Arguments to create a SerialNumber.
+     * @example
+     * // Create one SerialNumber
+     * const SerialNumber = await prisma.serialNumber.create({
+     *   data: {
+     *     // ... data to create a SerialNumber
+     *   }
+     * })
+     * 
+     */
+    create<T extends SerialNumberCreateArgs>(args: SelectSubset<T, SerialNumberCreateArgs<ExtArgs>>): Prisma__SerialNumberClient<$Result.GetResult<Prisma.$SerialNumberPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many SerialNumbers.
+     * @param {SerialNumberCreateManyArgs} args - Arguments to create many SerialNumbers.
+     * @example
+     * // Create many SerialNumbers
+     * const serialNumber = await prisma.serialNumber.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SerialNumberCreateManyArgs>(args?: SelectSubset<T, SerialNumberCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many SerialNumbers and returns the data saved in the database.
+     * @param {SerialNumberCreateManyAndReturnArgs} args - Arguments to create many SerialNumbers.
+     * @example
+     * // Create many SerialNumbers
+     * const serialNumber = await prisma.serialNumber.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many SerialNumbers and only return the `sn_id`
+     * const serialNumberWithSn_idOnly = await prisma.serialNumber.createManyAndReturn({ 
+     *   select: { sn_id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SerialNumberCreateManyAndReturnArgs>(args?: SelectSubset<T, SerialNumberCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SerialNumberPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a SerialNumber.
+     * @param {SerialNumberDeleteArgs} args - Arguments to delete one SerialNumber.
+     * @example
+     * // Delete one SerialNumber
+     * const SerialNumber = await prisma.serialNumber.delete({
+     *   where: {
+     *     // ... filter to delete one SerialNumber
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SerialNumberDeleteArgs>(args: SelectSubset<T, SerialNumberDeleteArgs<ExtArgs>>): Prisma__SerialNumberClient<$Result.GetResult<Prisma.$SerialNumberPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one SerialNumber.
+     * @param {SerialNumberUpdateArgs} args - Arguments to update one SerialNumber.
+     * @example
+     * // Update one SerialNumber
+     * const serialNumber = await prisma.serialNumber.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SerialNumberUpdateArgs>(args: SelectSubset<T, SerialNumberUpdateArgs<ExtArgs>>): Prisma__SerialNumberClient<$Result.GetResult<Prisma.$SerialNumberPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more SerialNumbers.
+     * @param {SerialNumberDeleteManyArgs} args - Arguments to filter SerialNumbers to delete.
+     * @example
+     * // Delete a few SerialNumbers
+     * const { count } = await prisma.serialNumber.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SerialNumberDeleteManyArgs>(args?: SelectSubset<T, SerialNumberDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SerialNumbers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SerialNumberUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many SerialNumbers
+     * const serialNumber = await prisma.serialNumber.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SerialNumberUpdateManyArgs>(args: SelectSubset<T, SerialNumberUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one SerialNumber.
+     * @param {SerialNumberUpsertArgs} args - Arguments to update or create a SerialNumber.
+     * @example
+     * // Update or create a SerialNumber
+     * const serialNumber = await prisma.serialNumber.upsert({
+     *   create: {
+     *     // ... data to create a SerialNumber
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the SerialNumber we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SerialNumberUpsertArgs>(args: SelectSubset<T, SerialNumberUpsertArgs<ExtArgs>>): Prisma__SerialNumberClient<$Result.GetResult<Prisma.$SerialNumberPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of SerialNumbers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SerialNumberCountArgs} args - Arguments to filter SerialNumbers to count.
+     * @example
+     * // Count the number of SerialNumbers
+     * const count = await prisma.serialNumber.count({
+     *   where: {
+     *     // ... the filter for the SerialNumbers we want to count
+     *   }
+     * })
+    **/
+    count<T extends SerialNumberCountArgs>(
+      args?: Subset<T, SerialNumberCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SerialNumberCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a SerialNumber.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SerialNumberAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SerialNumberAggregateArgs>(args: Subset<T, SerialNumberAggregateArgs>): Prisma.PrismaPromise<GetSerialNumberAggregateType<T>>
+
+    /**
+     * Group by SerialNumber.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SerialNumberGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SerialNumberGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SerialNumberGroupByArgs['orderBy'] }
+        : { orderBy?: SerialNumberGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SerialNumberGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSerialNumberGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the SerialNumber model
+   */
+  readonly fields: SerialNumberFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for SerialNumber.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SerialNumberClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the SerialNumber model
+   */ 
+  interface SerialNumberFieldRefs {
+    readonly sn_id: FieldRef<"SerialNumber", 'Int'>
+    readonly entity_type: FieldRef<"SerialNumber", 'String'>
+    readonly start_number: FieldRef<"SerialNumber", 'Int'>
+    readonly current_number: FieldRef<"SerialNumber", 'Int'>
+    readonly number_prefix: FieldRef<"SerialNumber", 'String'>
+    readonly created_at: FieldRef<"SerialNumber", 'DateTime'>
+    readonly updated_at: FieldRef<"SerialNumber", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * SerialNumber findUnique
+   */
+  export type SerialNumberFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SerialNumber
+     */
+    select?: SerialNumberSelect<ExtArgs> | null
+    /**
+     * Filter, which SerialNumber to fetch.
+     */
+    where: SerialNumberWhereUniqueInput
+  }
+
+  /**
+   * SerialNumber findUniqueOrThrow
+   */
+  export type SerialNumberFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SerialNumber
+     */
+    select?: SerialNumberSelect<ExtArgs> | null
+    /**
+     * Filter, which SerialNumber to fetch.
+     */
+    where: SerialNumberWhereUniqueInput
+  }
+
+  /**
+   * SerialNumber findFirst
+   */
+  export type SerialNumberFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SerialNumber
+     */
+    select?: SerialNumberSelect<ExtArgs> | null
+    /**
+     * Filter, which SerialNumber to fetch.
+     */
+    where?: SerialNumberWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SerialNumbers to fetch.
+     */
+    orderBy?: SerialNumberOrderByWithRelationInput | SerialNumberOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SerialNumbers.
+     */
+    cursor?: SerialNumberWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SerialNumbers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SerialNumbers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SerialNumbers.
+     */
+    distinct?: SerialNumberScalarFieldEnum | SerialNumberScalarFieldEnum[]
+  }
+
+  /**
+   * SerialNumber findFirstOrThrow
+   */
+  export type SerialNumberFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SerialNumber
+     */
+    select?: SerialNumberSelect<ExtArgs> | null
+    /**
+     * Filter, which SerialNumber to fetch.
+     */
+    where?: SerialNumberWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SerialNumbers to fetch.
+     */
+    orderBy?: SerialNumberOrderByWithRelationInput | SerialNumberOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SerialNumbers.
+     */
+    cursor?: SerialNumberWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SerialNumbers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SerialNumbers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SerialNumbers.
+     */
+    distinct?: SerialNumberScalarFieldEnum | SerialNumberScalarFieldEnum[]
+  }
+
+  /**
+   * SerialNumber findMany
+   */
+  export type SerialNumberFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SerialNumber
+     */
+    select?: SerialNumberSelect<ExtArgs> | null
+    /**
+     * Filter, which SerialNumbers to fetch.
+     */
+    where?: SerialNumberWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SerialNumbers to fetch.
+     */
+    orderBy?: SerialNumberOrderByWithRelationInput | SerialNumberOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing SerialNumbers.
+     */
+    cursor?: SerialNumberWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SerialNumbers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SerialNumbers.
+     */
+    skip?: number
+    distinct?: SerialNumberScalarFieldEnum | SerialNumberScalarFieldEnum[]
+  }
+
+  /**
+   * SerialNumber create
+   */
+  export type SerialNumberCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SerialNumber
+     */
+    select?: SerialNumberSelect<ExtArgs> | null
+    /**
+     * The data needed to create a SerialNumber.
+     */
+    data: XOR<SerialNumberCreateInput, SerialNumberUncheckedCreateInput>
+  }
+
+  /**
+   * SerialNumber createMany
+   */
+  export type SerialNumberCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many SerialNumbers.
+     */
+    data: SerialNumberCreateManyInput | SerialNumberCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SerialNumber createManyAndReturn
+   */
+  export type SerialNumberCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SerialNumber
+     */
+    select?: SerialNumberSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many SerialNumbers.
+     */
+    data: SerialNumberCreateManyInput | SerialNumberCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SerialNumber update
+   */
+  export type SerialNumberUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SerialNumber
+     */
+    select?: SerialNumberSelect<ExtArgs> | null
+    /**
+     * The data needed to update a SerialNumber.
+     */
+    data: XOR<SerialNumberUpdateInput, SerialNumberUncheckedUpdateInput>
+    /**
+     * Choose, which SerialNumber to update.
+     */
+    where: SerialNumberWhereUniqueInput
+  }
+
+  /**
+   * SerialNumber updateMany
+   */
+  export type SerialNumberUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update SerialNumbers.
+     */
+    data: XOR<SerialNumberUpdateManyMutationInput, SerialNumberUncheckedUpdateManyInput>
+    /**
+     * Filter which SerialNumbers to update
+     */
+    where?: SerialNumberWhereInput
+  }
+
+  /**
+   * SerialNumber upsert
+   */
+  export type SerialNumberUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SerialNumber
+     */
+    select?: SerialNumberSelect<ExtArgs> | null
+    /**
+     * The filter to search for the SerialNumber to update in case it exists.
+     */
+    where: SerialNumberWhereUniqueInput
+    /**
+     * In case the SerialNumber found by the `where` argument doesn't exist, create a new SerialNumber with this data.
+     */
+    create: XOR<SerialNumberCreateInput, SerialNumberUncheckedCreateInput>
+    /**
+     * In case the SerialNumber was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SerialNumberUpdateInput, SerialNumberUncheckedUpdateInput>
+  }
+
+  /**
+   * SerialNumber delete
+   */
+  export type SerialNumberDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SerialNumber
+     */
+    select?: SerialNumberSelect<ExtArgs> | null
+    /**
+     * Filter which SerialNumber to delete.
+     */
+    where: SerialNumberWhereUniqueInput
+  }
+
+  /**
+   * SerialNumber deleteMany
+   */
+  export type SerialNumberDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SerialNumbers to delete
+     */
+    where?: SerialNumberWhereInput
+  }
+
+  /**
+   * SerialNumber without action
+   */
+  export type SerialNumberDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SerialNumber
+     */
+    select?: SerialNumberSelect<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -36038,6 +37152,7 @@ export namespace Prisma {
   export const FirmScalarFieldEnum: {
     firm_id: 'firm_id',
     firm_uuid: 'firm_uuid',
+    firm_unique_code: 'firm_unique_code',
     firm_add_date: 'firm_add_date',
     firm_own_id: 'firm_own_id',
     firm_name: 'firm_name',
@@ -36128,6 +37243,7 @@ export namespace Prisma {
   export const UserScalarFieldEnum: {
     user_id: 'user_id',
     user_uuid: 'user_uuid',
+    user_unique_code: 'user_unique_code',
     user_own_id: 'user_own_id',
     user_firm_id: 'user_firm_id',
     user_add_date: 'user_add_date',
@@ -36180,6 +37296,7 @@ export namespace Prisma {
   export const FinanceScalarFieldEnum: {
     fin_id: 'fin_id',
     fin_uuid: 'fin_uuid',
+    fin_unique_code: 'fin_unique_code',
     fin_add_date: 'fin_add_date',
     fin_own_id: 'fin_own_id',
     fin_firm_id: 'fin_firm_id',
@@ -36357,6 +37474,7 @@ export namespace Prisma {
   export const GirviScalarFieldEnum: {
     girv_id: 'girv_id',
     girv_uuid: 'girv_uuid',
+    girv_unique_code: 'girv_unique_code',
     girv_add_date: 'girv_add_date',
     girv_firm_id: 'girv_firm_id',
     girv_own_id: 'girv_own_id',
@@ -36620,6 +37738,7 @@ export namespace Prisma {
   export const MoneyLenderScalarFieldEnum: {
     ml_id: 'ml_id',
     ml_uuid: 'ml_uuid',
+    ml_unique_code: 'ml_unique_code',
     ml_own_id: 'ml_own_id',
     ml_first_name: 'ml_first_name',
     ml_last_name: 'ml_last_name',
@@ -36659,6 +37778,7 @@ export namespace Prisma {
   export const AuctionUserScalarFieldEnum: {
     au_id: 'au_id',
     au_uuid: 'au_uuid',
+    au_unique_code: 'au_unique_code',
     au_date: 'au_date',
     au_firm_id: 'au_firm_id',
     au_full_name: 'au_full_name',
@@ -36712,6 +37832,7 @@ export namespace Prisma {
   export const StaffScalarFieldEnum: {
     staff_id: 'staff_id',
     staff_uuid: 'staff_uuid',
+    staff_unique_code: 'staff_unique_code',
     staff_own_id: 'staff_own_id',
     staff_add_date: 'staff_add_date',
     staff_first_name: 'staff_first_name',
@@ -36793,6 +37914,19 @@ export namespace Prisma {
   };
 
   export type StaffPermissionScalarFieldEnum = (typeof StaffPermissionScalarFieldEnum)[keyof typeof StaffPermissionScalarFieldEnum]
+
+
+  export const SerialNumberScalarFieldEnum: {
+    sn_id: 'sn_id',
+    entity_type: 'entity_type',
+    start_number: 'start_number',
+    current_number: 'current_number',
+    number_prefix: 'number_prefix',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
+  };
+
+  export type SerialNumberScalarFieldEnum = (typeof SerialNumberScalarFieldEnum)[keyof typeof SerialNumberScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -37483,6 +38617,7 @@ export namespace Prisma {
     NOT?: FirmWhereInput | FirmWhereInput[]
     firm_id?: IntFilter<"Firm"> | number
     firm_uuid?: StringFilter<"Firm"> | string
+    firm_unique_code?: StringNullableFilter<"Firm"> | string | null
     firm_add_date?: DateTimeFilter<"Firm"> | Date | string
     firm_own_id?: IntFilter<"Firm"> | number
     firm_name?: StringFilter<"Firm"> | string
@@ -37550,6 +38685,7 @@ export namespace Prisma {
   export type FirmOrderByWithRelationInput = {
     firm_id?: SortOrder
     firm_uuid?: SortOrder
+    firm_unique_code?: SortOrderInput | SortOrder
     firm_add_date?: SortOrder
     firm_own_id?: SortOrder
     firm_name?: SortOrder
@@ -37617,6 +38753,7 @@ export namespace Prisma {
   export type FirmWhereUniqueInput = Prisma.AtLeast<{
     firm_id?: number
     firm_uuid?: string
+    firm_unique_code?: string
     firm_name?: string
     firm_reg_no?: string
     AND?: FirmWhereInput | FirmWhereInput[]
@@ -37682,11 +38819,12 @@ export namespace Prisma {
     releases?: GirviReleaseListRelationFilter
     rates?: RateListRelationFilter
     moneyLenders?: MoneyLenderListRelationFilter
-  }, "firm_id" | "firm_uuid" | "firm_name" | "firm_reg_no">
+  }, "firm_id" | "firm_uuid" | "firm_unique_code" | "firm_name" | "firm_reg_no">
 
   export type FirmOrderByWithAggregationInput = {
     firm_id?: SortOrder
     firm_uuid?: SortOrder
+    firm_unique_code?: SortOrderInput | SortOrder
     firm_add_date?: SortOrder
     firm_own_id?: SortOrder
     firm_name?: SortOrder
@@ -37747,6 +38885,7 @@ export namespace Prisma {
     NOT?: FirmScalarWhereWithAggregatesInput | FirmScalarWhereWithAggregatesInput[]
     firm_id?: IntWithAggregatesFilter<"Firm"> | number
     firm_uuid?: StringWithAggregatesFilter<"Firm"> | string
+    firm_unique_code?: StringNullableWithAggregatesFilter<"Firm"> | string | null
     firm_add_date?: DateTimeWithAggregatesFilter<"Firm"> | Date | string
     firm_own_id?: IntWithAggregatesFilter<"Firm"> | number
     firm_name?: StringWithAggregatesFilter<"Firm"> | string
@@ -38111,6 +39250,7 @@ export namespace Prisma {
     NOT?: UserWhereInput | UserWhereInput[]
     user_id?: IntFilter<"User"> | number
     user_uuid?: StringFilter<"User"> | string
+    user_unique_code?: StringNullableFilter<"User"> | string | null
     user_own_id?: IntFilter<"User"> | number
     user_firm_id?: IntFilter<"User"> | number
     user_add_date?: DateTimeFilter<"User"> | Date | string
@@ -38172,6 +39312,7 @@ export namespace Prisma {
   export type UserOrderByWithRelationInput = {
     user_id?: SortOrder
     user_uuid?: SortOrder
+    user_unique_code?: SortOrderInput | SortOrder
     user_own_id?: SortOrder
     user_firm_id?: SortOrder
     user_add_date?: SortOrder
@@ -38233,6 +39374,7 @@ export namespace Prisma {
   export type UserWhereUniqueInput = Prisma.AtLeast<{
     user_id?: number
     user_uuid?: string
+    user_unique_code?: string
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
@@ -38292,11 +39434,12 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalListRelationFilter
     deposits?: GirviDepositListRelationFilter
     releases?: GirviReleaseListRelationFilter
-  }, "user_id" | "user_uuid">
+  }, "user_id" | "user_uuid" | "user_unique_code">
 
   export type UserOrderByWithAggregationInput = {
     user_id?: SortOrder
     user_uuid?: SortOrder
+    user_unique_code?: SortOrderInput | SortOrder
     user_own_id?: SortOrder
     user_firm_id?: SortOrder
     user_add_date?: SortOrder
@@ -38354,6 +39497,7 @@ export namespace Prisma {
     NOT?: UserScalarWhereWithAggregatesInput | UserScalarWhereWithAggregatesInput[]
     user_id?: IntWithAggregatesFilter<"User"> | number
     user_uuid?: StringWithAggregatesFilter<"User"> | string
+    user_unique_code?: StringNullableWithAggregatesFilter<"User"> | string | null
     user_own_id?: IntWithAggregatesFilter<"User"> | number
     user_firm_id?: IntWithAggregatesFilter<"User"> | number
     user_add_date?: DateTimeWithAggregatesFilter<"User"> | Date | string
@@ -38406,6 +39550,7 @@ export namespace Prisma {
     NOT?: FinanceWhereInput | FinanceWhereInput[]
     fin_id?: IntFilter<"Finance"> | number
     fin_uuid?: StringFilter<"Finance"> | string
+    fin_unique_code?: StringNullableFilter<"Finance"> | string | null
     fin_add_date?: StringNullableFilter<"Finance"> | string | null
     fin_own_id?: IntFilter<"Finance"> | number
     fin_firm_id?: IntFilter<"Finance"> | number
@@ -38464,6 +39609,7 @@ export namespace Prisma {
   export type FinanceOrderByWithRelationInput = {
     fin_id?: SortOrder
     fin_uuid?: SortOrder
+    fin_unique_code?: SortOrderInput | SortOrder
     fin_add_date?: SortOrderInput | SortOrder
     fin_own_id?: SortOrder
     fin_firm_id?: SortOrder
@@ -38522,6 +39668,7 @@ export namespace Prisma {
   export type FinanceWhereUniqueInput = Prisma.AtLeast<{
     fin_id?: number
     fin_uuid?: string
+    fin_unique_code?: string
     AND?: FinanceWhereInput | FinanceWhereInput[]
     OR?: FinanceWhereInput[]
     NOT?: FinanceWhereInput | FinanceWhereInput[]
@@ -38578,11 +39725,12 @@ export namespace Prisma {
     cardAccount?: XOR<AccountNullableRelationFilter, AccountWhereInput> | null
     drAccount?: XOR<AccountNullableRelationFilter, AccountWhereInput> | null
     owner?: XOR<OwnerRelationFilter, OwnerWhereInput>
-  }, "fin_id" | "fin_uuid">
+  }, "fin_id" | "fin_uuid" | "fin_unique_code">
 
   export type FinanceOrderByWithAggregationInput = {
     fin_id?: SortOrder
     fin_uuid?: SortOrder
+    fin_unique_code?: SortOrderInput | SortOrder
     fin_add_date?: SortOrderInput | SortOrder
     fin_own_id?: SortOrder
     fin_firm_id?: SortOrder
@@ -38639,6 +39787,7 @@ export namespace Prisma {
     NOT?: FinanceScalarWhereWithAggregatesInput | FinanceScalarWhereWithAggregatesInput[]
     fin_id?: IntWithAggregatesFilter<"Finance"> | number
     fin_uuid?: StringWithAggregatesFilter<"Finance"> | string
+    fin_unique_code?: StringNullableWithAggregatesFilter<"Finance"> | string | null
     fin_add_date?: StringNullableWithAggregatesFilter<"Finance"> | string | null
     fin_own_id?: IntWithAggregatesFilter<"Finance"> | number
     fin_firm_id?: IntWithAggregatesFilter<"Finance"> | number
@@ -39403,6 +40552,7 @@ export namespace Prisma {
     NOT?: GirviWhereInput | GirviWhereInput[]
     girv_id?: IntFilter<"Girvi"> | number
     girv_uuid?: StringFilter<"Girvi"> | string
+    girv_unique_code?: StringNullableFilter<"Girvi"> | string | null
     girv_add_date?: StringNullableFilter<"Girvi"> | string | null
     girv_firm_id?: IntFilter<"Girvi"> | number
     girv_own_id?: IntFilter<"Girvi"> | number
@@ -39472,6 +40622,7 @@ export namespace Prisma {
   export type GirviOrderByWithRelationInput = {
     girv_id?: SortOrder
     girv_uuid?: SortOrder
+    girv_unique_code?: SortOrderInput | SortOrder
     girv_add_date?: SortOrderInput | SortOrder
     girv_firm_id?: SortOrder
     girv_own_id?: SortOrder
@@ -39541,6 +40692,7 @@ export namespace Prisma {
   export type GirviWhereUniqueInput = Prisma.AtLeast<{
     girv_id?: number
     girv_uuid?: string
+    girv_unique_code?: string
     AND?: GirviWhereInput | GirviWhereInput[]
     OR?: GirviWhereInput[]
     NOT?: GirviWhereInput | GirviWhereInput[]
@@ -39608,11 +40760,12 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalListRelationFilter
     deposits?: GirviDepositListRelationFilter
     releases?: GirviReleaseListRelationFilter
-  }, "girv_id" | "girv_uuid">
+  }, "girv_id" | "girv_uuid" | "girv_unique_code">
 
   export type GirviOrderByWithAggregationInput = {
     girv_id?: SortOrder
     girv_uuid?: SortOrder
+    girv_unique_code?: SortOrderInput | SortOrder
     girv_add_date?: SortOrderInput | SortOrder
     girv_firm_id?: SortOrder
     girv_own_id?: SortOrder
@@ -39676,6 +40829,7 @@ export namespace Prisma {
     NOT?: GirviScalarWhereWithAggregatesInput | GirviScalarWhereWithAggregatesInput[]
     girv_id?: IntWithAggregatesFilter<"Girvi"> | number
     girv_uuid?: StringWithAggregatesFilter<"Girvi"> | string
+    girv_unique_code?: StringNullableWithAggregatesFilter<"Girvi"> | string | null
     girv_add_date?: StringNullableWithAggregatesFilter<"Girvi"> | string | null
     girv_firm_id?: IntWithAggregatesFilter<"Girvi"> | number
     girv_own_id?: IntWithAggregatesFilter<"Girvi"> | number
@@ -40867,6 +42021,7 @@ export namespace Prisma {
     NOT?: MoneyLenderWhereInput | MoneyLenderWhereInput[]
     ml_id?: IntFilter<"MoneyLender"> | number
     ml_uuid?: StringFilter<"MoneyLender"> | string
+    ml_unique_code?: StringNullableFilter<"MoneyLender"> | string | null
     ml_own_id?: IntFilter<"MoneyLender"> | number
     ml_first_name?: StringFilter<"MoneyLender"> | string
     ml_last_name?: StringNullableFilter<"MoneyLender"> | string | null
@@ -40906,6 +42061,7 @@ export namespace Prisma {
   export type MoneyLenderOrderByWithRelationInput = {
     ml_id?: SortOrder
     ml_uuid?: SortOrder
+    ml_unique_code?: SortOrderInput | SortOrder
     ml_own_id?: SortOrder
     ml_first_name?: SortOrder
     ml_last_name?: SortOrderInput | SortOrder
@@ -40945,6 +42101,7 @@ export namespace Prisma {
   export type MoneyLenderWhereUniqueInput = Prisma.AtLeast<{
     ml_id?: number
     ml_uuid?: string
+    ml_unique_code?: string
     AND?: MoneyLenderWhereInput | MoneyLenderWhereInput[]
     OR?: MoneyLenderWhereInput[]
     NOT?: MoneyLenderWhereInput | MoneyLenderWhereInput[]
@@ -40982,11 +42139,12 @@ export namespace Prisma {
     owner?: XOR<OwnerRelationFilter, OwnerWhereInput>
     firm?: XOR<FirmNullableRelationFilter, FirmWhereInput> | null
     transferredFrom?: GirviListRelationFilter
-  }, "ml_id" | "ml_uuid">
+  }, "ml_id" | "ml_uuid" | "ml_unique_code">
 
   export type MoneyLenderOrderByWithAggregationInput = {
     ml_id?: SortOrder
     ml_uuid?: SortOrder
+    ml_unique_code?: SortOrderInput | SortOrder
     ml_own_id?: SortOrder
     ml_first_name?: SortOrder
     ml_last_name?: SortOrderInput | SortOrder
@@ -41031,6 +42189,7 @@ export namespace Prisma {
     NOT?: MoneyLenderScalarWhereWithAggregatesInput | MoneyLenderScalarWhereWithAggregatesInput[]
     ml_id?: IntWithAggregatesFilter<"MoneyLender"> | number
     ml_uuid?: StringWithAggregatesFilter<"MoneyLender"> | string
+    ml_unique_code?: StringNullableWithAggregatesFilter<"MoneyLender"> | string | null
     ml_own_id?: IntWithAggregatesFilter<"MoneyLender"> | number
     ml_first_name?: StringWithAggregatesFilter<"MoneyLender"> | string
     ml_last_name?: StringNullableWithAggregatesFilter<"MoneyLender"> | string | null
@@ -41070,6 +42229,7 @@ export namespace Prisma {
     NOT?: AuctionUserWhereInput | AuctionUserWhereInput[]
     au_id?: IntFilter<"AuctionUser"> | number
     au_uuid?: StringFilter<"AuctionUser"> | string
+    au_unique_code?: StringNullableFilter<"AuctionUser"> | string | null
     au_date?: StringNullableFilter<"AuctionUser"> | string | null
     au_firm_id?: IntFilter<"AuctionUser"> | number
     au_full_name?: StringNullableFilter<"AuctionUser"> | string | null
@@ -41090,6 +42250,7 @@ export namespace Prisma {
   export type AuctionUserOrderByWithRelationInput = {
     au_id?: SortOrder
     au_uuid?: SortOrder
+    au_unique_code?: SortOrderInput | SortOrder
     au_date?: SortOrderInput | SortOrder
     au_firm_id?: SortOrder
     au_full_name?: SortOrderInput | SortOrder
@@ -41110,6 +42271,7 @@ export namespace Prisma {
   export type AuctionUserWhereUniqueInput = Prisma.AtLeast<{
     au_id?: number
     au_uuid?: string
+    au_unique_code?: string
     AND?: AuctionUserWhereInput | AuctionUserWhereInput[]
     OR?: AuctionUserWhereInput[]
     NOT?: AuctionUserWhereInput | AuctionUserWhereInput[]
@@ -41128,11 +42290,12 @@ export namespace Prisma {
     au_village?: StringNullableFilter<"AuctionUser"> | string | null
     au_pincode?: StringNullableFilter<"AuctionUser"> | string | null
     au_image?: StringNullableFilter<"AuctionUser"> | string | null
-  }, "au_id" | "au_uuid">
+  }, "au_id" | "au_uuid" | "au_unique_code">
 
   export type AuctionUserOrderByWithAggregationInput = {
     au_id?: SortOrder
     au_uuid?: SortOrder
+    au_unique_code?: SortOrderInput | SortOrder
     au_date?: SortOrderInput | SortOrder
     au_firm_id?: SortOrder
     au_full_name?: SortOrderInput | SortOrder
@@ -41161,6 +42324,7 @@ export namespace Prisma {
     NOT?: AuctionUserScalarWhereWithAggregatesInput | AuctionUserScalarWhereWithAggregatesInput[]
     au_id?: IntWithAggregatesFilter<"AuctionUser"> | number
     au_uuid?: StringWithAggregatesFilter<"AuctionUser"> | string
+    au_unique_code?: StringNullableWithAggregatesFilter<"AuctionUser"> | string | null
     au_date?: StringNullableWithAggregatesFilter<"AuctionUser"> | string | null
     au_firm_id?: IntWithAggregatesFilter<"AuctionUser"> | number
     au_full_name?: StringNullableWithAggregatesFilter<"AuctionUser"> | string | null
@@ -41333,6 +42497,7 @@ export namespace Prisma {
     NOT?: StaffWhereInput | StaffWhereInput[]
     staff_id?: IntFilter<"Staff"> | number
     staff_uuid?: StringFilter<"Staff"> | string
+    staff_unique_code?: StringNullableFilter<"Staff"> | string | null
     staff_own_id?: IntFilter<"Staff"> | number
     staff_add_date?: DateTimeFilter<"Staff"> | Date | string
     staff_first_name?: StringFilter<"Staff"> | string
@@ -41392,6 +42557,7 @@ export namespace Prisma {
   export type StaffOrderByWithRelationInput = {
     staff_id?: SortOrder
     staff_uuid?: SortOrder
+    staff_unique_code?: SortOrderInput | SortOrder
     staff_own_id?: SortOrder
     staff_add_date?: SortOrder
     staff_first_name?: SortOrder
@@ -41451,6 +42617,7 @@ export namespace Prisma {
   export type StaffWhereUniqueInput = Prisma.AtLeast<{
     staff_id?: number
     staff_uuid?: string
+    staff_unique_code?: string
     staff_login_id?: string
     AND?: StaffWhereInput | StaffWhereInput[]
     OR?: StaffWhereInput[]
@@ -41508,11 +42675,12 @@ export namespace Prisma {
     staff_is_deleted?: BoolFilter<"Staff"> | boolean
     owner?: XOR<OwnerRelationFilter, OwnerWhereInput>
     permissions?: StaffPermissionListRelationFilter
-  }, "staff_id" | "staff_uuid" | "staff_login_id">
+  }, "staff_id" | "staff_uuid" | "staff_unique_code" | "staff_login_id">
 
   export type StaffOrderByWithAggregationInput = {
     staff_id?: SortOrder
     staff_uuid?: SortOrder
+    staff_unique_code?: SortOrderInput | SortOrder
     staff_own_id?: SortOrder
     staff_add_date?: SortOrder
     staff_first_name?: SortOrder
@@ -41578,6 +42746,7 @@ export namespace Prisma {
     NOT?: StaffScalarWhereWithAggregatesInput | StaffScalarWhereWithAggregatesInput[]
     staff_id?: IntWithAggregatesFilter<"Staff"> | number
     staff_uuid?: StringWithAggregatesFilter<"Staff"> | string
+    staff_unique_code?: StringNullableWithAggregatesFilter<"Staff"> | string | null
     staff_own_id?: IntWithAggregatesFilter<"Staff"> | number
     staff_add_date?: DateTimeWithAggregatesFilter<"Staff"> | Date | string
     staff_first_name?: StringWithAggregatesFilter<"Staff"> | string
@@ -41768,6 +42937,70 @@ export namespace Prisma {
     sp_granted?: BoolWithAggregatesFilter<"StaffPermission"> | boolean
     sp_created_at?: DateTimeWithAggregatesFilter<"StaffPermission"> | Date | string
     sp_updated_at?: DateTimeWithAggregatesFilter<"StaffPermission"> | Date | string
+  }
+
+  export type SerialNumberWhereInput = {
+    AND?: SerialNumberWhereInput | SerialNumberWhereInput[]
+    OR?: SerialNumberWhereInput[]
+    NOT?: SerialNumberWhereInput | SerialNumberWhereInput[]
+    sn_id?: IntFilter<"SerialNumber"> | number
+    entity_type?: StringFilter<"SerialNumber"> | string
+    start_number?: IntFilter<"SerialNumber"> | number
+    current_number?: IntFilter<"SerialNumber"> | number
+    number_prefix?: StringFilter<"SerialNumber"> | string
+    created_at?: DateTimeFilter<"SerialNumber"> | Date | string
+    updated_at?: DateTimeFilter<"SerialNumber"> | Date | string
+  }
+
+  export type SerialNumberOrderByWithRelationInput = {
+    sn_id?: SortOrder
+    entity_type?: SortOrder
+    start_number?: SortOrder
+    current_number?: SortOrder
+    number_prefix?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type SerialNumberWhereUniqueInput = Prisma.AtLeast<{
+    sn_id?: number
+    entity_type?: string
+    AND?: SerialNumberWhereInput | SerialNumberWhereInput[]
+    OR?: SerialNumberWhereInput[]
+    NOT?: SerialNumberWhereInput | SerialNumberWhereInput[]
+    start_number?: IntFilter<"SerialNumber"> | number
+    current_number?: IntFilter<"SerialNumber"> | number
+    number_prefix?: StringFilter<"SerialNumber"> | string
+    created_at?: DateTimeFilter<"SerialNumber"> | Date | string
+    updated_at?: DateTimeFilter<"SerialNumber"> | Date | string
+  }, "sn_id" | "entity_type">
+
+  export type SerialNumberOrderByWithAggregationInput = {
+    sn_id?: SortOrder
+    entity_type?: SortOrder
+    start_number?: SortOrder
+    current_number?: SortOrder
+    number_prefix?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    _count?: SerialNumberCountOrderByAggregateInput
+    _avg?: SerialNumberAvgOrderByAggregateInput
+    _max?: SerialNumberMaxOrderByAggregateInput
+    _min?: SerialNumberMinOrderByAggregateInput
+    _sum?: SerialNumberSumOrderByAggregateInput
+  }
+
+  export type SerialNumberScalarWhereWithAggregatesInput = {
+    AND?: SerialNumberScalarWhereWithAggregatesInput | SerialNumberScalarWhereWithAggregatesInput[]
+    OR?: SerialNumberScalarWhereWithAggregatesInput[]
+    NOT?: SerialNumberScalarWhereWithAggregatesInput | SerialNumberScalarWhereWithAggregatesInput[]
+    sn_id?: IntWithAggregatesFilter<"SerialNumber"> | number
+    entity_type?: StringWithAggregatesFilter<"SerialNumber"> | string
+    start_number?: IntWithAggregatesFilter<"SerialNumber"> | number
+    current_number?: IntWithAggregatesFilter<"SerialNumber"> | number
+    number_prefix?: StringWithAggregatesFilter<"SerialNumber"> | string
+    created_at?: DateTimeWithAggregatesFilter<"SerialNumber"> | Date | string
+    updated_at?: DateTimeWithAggregatesFilter<"SerialNumber"> | Date | string
   }
 
   export type OwnerCreateInput = {
@@ -42101,6 +43334,7 @@ export namespace Prisma {
 
   export type FirmCreateInput = {
     firm_uuid?: string
+    firm_unique_code?: string | null
     firm_add_date?: Date | string
     firm_name: string
     firm_reg_no: string
@@ -42167,6 +43401,7 @@ export namespace Prisma {
   export type FirmUncheckedCreateInput = {
     firm_id?: number
     firm_uuid?: string
+    firm_unique_code?: string | null
     firm_add_date?: Date | string
     firm_own_id?: number
     firm_name: string
@@ -42232,6 +43467,7 @@ export namespace Prisma {
 
   export type FirmUpdateInput = {
     firm_uuid?: StringFieldUpdateOperationsInput | string
+    firm_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     firm_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
     firm_name?: StringFieldUpdateOperationsInput | string
     firm_reg_no?: StringFieldUpdateOperationsInput | string
@@ -42298,6 +43534,7 @@ export namespace Prisma {
   export type FirmUncheckedUpdateInput = {
     firm_id?: IntFieldUpdateOperationsInput | number
     firm_uuid?: StringFieldUpdateOperationsInput | string
+    firm_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     firm_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
     firm_own_id?: IntFieldUpdateOperationsInput | number
     firm_name?: StringFieldUpdateOperationsInput | string
@@ -42364,6 +43601,7 @@ export namespace Prisma {
   export type FirmCreateManyInput = {
     firm_id?: number
     firm_uuid?: string
+    firm_unique_code?: string | null
     firm_add_date?: Date | string
     firm_own_id?: number
     firm_name: string
@@ -42415,6 +43653,7 @@ export namespace Prisma {
 
   export type FirmUpdateManyMutationInput = {
     firm_uuid?: StringFieldUpdateOperationsInput | string
+    firm_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     firm_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
     firm_name?: StringFieldUpdateOperationsInput | string
     firm_reg_no?: StringFieldUpdateOperationsInput | string
@@ -42466,6 +43705,7 @@ export namespace Prisma {
   export type FirmUncheckedUpdateManyInput = {
     firm_id?: IntFieldUpdateOperationsInput | number
     firm_uuid?: StringFieldUpdateOperationsInput | string
+    firm_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     firm_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
     firm_own_id?: IntFieldUpdateOperationsInput | number
     firm_name?: StringFieldUpdateOperationsInput | string
@@ -42908,6 +44148,7 @@ export namespace Prisma {
 
   export type UserCreateInput = {
     user_uuid?: string
+    user_unique_code?: string | null
     user_add_date?: Date | string
     user_first_name: string
     user_father_name?: string | null
@@ -42967,6 +44208,7 @@ export namespace Prisma {
   export type UserUncheckedCreateInput = {
     user_id?: number
     user_uuid?: string
+    user_unique_code?: string | null
     user_own_id: number
     user_firm_id: number
     user_add_date?: Date | string
@@ -43025,6 +44267,7 @@ export namespace Prisma {
 
   export type UserUpdateInput = {
     user_uuid?: StringFieldUpdateOperationsInput | string
+    user_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     user_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
     user_first_name?: StringFieldUpdateOperationsInput | string
     user_father_name?: NullableStringFieldUpdateOperationsInput | string | null
@@ -43084,6 +44327,7 @@ export namespace Prisma {
   export type UserUncheckedUpdateInput = {
     user_id?: IntFieldUpdateOperationsInput | number
     user_uuid?: StringFieldUpdateOperationsInput | string
+    user_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     user_own_id?: IntFieldUpdateOperationsInput | number
     user_firm_id?: IntFieldUpdateOperationsInput | number
     user_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -43143,6 +44387,7 @@ export namespace Prisma {
   export type UserCreateManyInput = {
     user_id?: number
     user_uuid?: string
+    user_unique_code?: string | null
     user_own_id: number
     user_firm_id: number
     user_add_date?: Date | string
@@ -43191,6 +44436,7 @@ export namespace Prisma {
 
   export type UserUpdateManyMutationInput = {
     user_uuid?: StringFieldUpdateOperationsInput | string
+    user_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     user_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
     user_first_name?: StringFieldUpdateOperationsInput | string
     user_father_name?: NullableStringFieldUpdateOperationsInput | string | null
@@ -43238,6 +44484,7 @@ export namespace Prisma {
   export type UserUncheckedUpdateManyInput = {
     user_id?: IntFieldUpdateOperationsInput | number
     user_uuid?: StringFieldUpdateOperationsInput | string
+    user_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     user_own_id?: IntFieldUpdateOperationsInput | number
     user_firm_id?: IntFieldUpdateOperationsInput | number
     user_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -43286,6 +44533,7 @@ export namespace Prisma {
 
   export type FinanceCreateInput = {
     fin_uuid?: string
+    fin_unique_code?: string | null
     fin_add_date?: string | null
     fin_jrnl_id?: number | null
     fin_staff_id?: number
@@ -43336,6 +44584,7 @@ export namespace Prisma {
   export type FinanceUncheckedCreateInput = {
     fin_id?: number
     fin_uuid?: string
+    fin_unique_code?: string | null
     fin_add_date?: string | null
     fin_own_id?: number
     fin_firm_id?: number
@@ -43385,6 +44634,7 @@ export namespace Prisma {
 
   export type FinanceUpdateInput = {
     fin_uuid?: StringFieldUpdateOperationsInput | string
+    fin_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     fin_add_date?: NullableStringFieldUpdateOperationsInput | string | null
     fin_jrnl_id?: NullableIntFieldUpdateOperationsInput | number | null
     fin_staff_id?: IntFieldUpdateOperationsInput | number
@@ -43435,6 +44685,7 @@ export namespace Prisma {
   export type FinanceUncheckedUpdateInput = {
     fin_id?: IntFieldUpdateOperationsInput | number
     fin_uuid?: StringFieldUpdateOperationsInput | string
+    fin_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     fin_add_date?: NullableStringFieldUpdateOperationsInput | string | null
     fin_own_id?: IntFieldUpdateOperationsInput | number
     fin_firm_id?: IntFieldUpdateOperationsInput | number
@@ -43485,6 +44736,7 @@ export namespace Prisma {
   export type FinanceCreateManyInput = {
     fin_id?: number
     fin_uuid?: string
+    fin_unique_code?: string | null
     fin_add_date?: string | null
     fin_own_id?: number
     fin_firm_id?: number
@@ -43532,6 +44784,7 @@ export namespace Prisma {
 
   export type FinanceUpdateManyMutationInput = {
     fin_uuid?: StringFieldUpdateOperationsInput | string
+    fin_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     fin_add_date?: NullableStringFieldUpdateOperationsInput | string | null
     fin_jrnl_id?: NullableIntFieldUpdateOperationsInput | number | null
     fin_staff_id?: IntFieldUpdateOperationsInput | number
@@ -43572,6 +44825,7 @@ export namespace Prisma {
   export type FinanceUncheckedUpdateManyInput = {
     fin_id?: IntFieldUpdateOperationsInput | number
     fin_uuid?: StringFieldUpdateOperationsInput | string
+    fin_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     fin_add_date?: NullableStringFieldUpdateOperationsInput | string | null
     fin_own_id?: IntFieldUpdateOperationsInput | number
     fin_firm_id?: IntFieldUpdateOperationsInput | number
@@ -44386,6 +45640,7 @@ export namespace Prisma {
 
   export type GirviCreateInput = {
     girv_uuid?: string
+    girv_unique_code?: string | null
     girv_add_date?: string | null
     girv_staff_id?: number
     girv_start_date: string
@@ -44444,6 +45699,7 @@ export namespace Prisma {
   export type GirviUncheckedCreateInput = {
     girv_id?: number
     girv_uuid?: string
+    girv_unique_code?: string | null
     girv_add_date?: string | null
     girv_firm_id?: number
     girv_own_id?: number
@@ -44501,6 +45757,7 @@ export namespace Prisma {
 
   export type GirviUpdateInput = {
     girv_uuid?: StringFieldUpdateOperationsInput | string
+    girv_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     girv_add_date?: NullableStringFieldUpdateOperationsInput | string | null
     girv_staff_id?: IntFieldUpdateOperationsInput | number
     girv_start_date?: StringFieldUpdateOperationsInput | string
@@ -44559,6 +45816,7 @@ export namespace Prisma {
   export type GirviUncheckedUpdateInput = {
     girv_id?: IntFieldUpdateOperationsInput | number
     girv_uuid?: StringFieldUpdateOperationsInput | string
+    girv_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     girv_add_date?: NullableStringFieldUpdateOperationsInput | string | null
     girv_firm_id?: IntFieldUpdateOperationsInput | number
     girv_own_id?: IntFieldUpdateOperationsInput | number
@@ -44617,6 +45875,7 @@ export namespace Prisma {
   export type GirviCreateManyInput = {
     girv_id?: number
     girv_uuid?: string
+    girv_unique_code?: string | null
     girv_add_date?: string | null
     girv_firm_id?: number
     girv_own_id?: number
@@ -44671,6 +45930,7 @@ export namespace Prisma {
 
   export type GirviUpdateManyMutationInput = {
     girv_uuid?: StringFieldUpdateOperationsInput | string
+    girv_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     girv_add_date?: NullableStringFieldUpdateOperationsInput | string | null
     girv_staff_id?: IntFieldUpdateOperationsInput | number
     girv_start_date?: StringFieldUpdateOperationsInput | string
@@ -44715,6 +45975,7 @@ export namespace Prisma {
   export type GirviUncheckedUpdateManyInput = {
     girv_id?: IntFieldUpdateOperationsInput | number
     girv_uuid?: StringFieldUpdateOperationsInput | string
+    girv_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     girv_add_date?: NullableStringFieldUpdateOperationsInput | string | null
     girv_firm_id?: IntFieldUpdateOperationsInput | number
     girv_own_id?: IntFieldUpdateOperationsInput | number
@@ -46022,6 +47283,7 @@ export namespace Prisma {
 
   export type MoneyLenderCreateInput = {
     ml_uuid?: string
+    ml_unique_code?: string | null
     ml_first_name: string
     ml_last_name?: string | null
     ml_father_name?: string | null
@@ -46059,6 +47321,7 @@ export namespace Prisma {
   export type MoneyLenderUncheckedCreateInput = {
     ml_id?: number
     ml_uuid?: string
+    ml_unique_code?: string | null
     ml_own_id: number
     ml_first_name: string
     ml_last_name?: string | null
@@ -46095,6 +47358,7 @@ export namespace Prisma {
 
   export type MoneyLenderUpdateInput = {
     ml_uuid?: StringFieldUpdateOperationsInput | string
+    ml_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     ml_first_name?: StringFieldUpdateOperationsInput | string
     ml_last_name?: NullableStringFieldUpdateOperationsInput | string | null
     ml_father_name?: NullableStringFieldUpdateOperationsInput | string | null
@@ -46132,6 +47396,7 @@ export namespace Prisma {
   export type MoneyLenderUncheckedUpdateInput = {
     ml_id?: IntFieldUpdateOperationsInput | number
     ml_uuid?: StringFieldUpdateOperationsInput | string
+    ml_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     ml_own_id?: IntFieldUpdateOperationsInput | number
     ml_first_name?: StringFieldUpdateOperationsInput | string
     ml_last_name?: NullableStringFieldUpdateOperationsInput | string | null
@@ -46169,6 +47434,7 @@ export namespace Prisma {
   export type MoneyLenderCreateManyInput = {
     ml_id?: number
     ml_uuid?: string
+    ml_unique_code?: string | null
     ml_own_id: number
     ml_first_name: string
     ml_last_name?: string | null
@@ -46204,6 +47470,7 @@ export namespace Prisma {
 
   export type MoneyLenderUpdateManyMutationInput = {
     ml_uuid?: StringFieldUpdateOperationsInput | string
+    ml_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     ml_first_name?: StringFieldUpdateOperationsInput | string
     ml_last_name?: NullableStringFieldUpdateOperationsInput | string | null
     ml_father_name?: NullableStringFieldUpdateOperationsInput | string | null
@@ -46238,6 +47505,7 @@ export namespace Prisma {
   export type MoneyLenderUncheckedUpdateManyInput = {
     ml_id?: IntFieldUpdateOperationsInput | number
     ml_uuid?: StringFieldUpdateOperationsInput | string
+    ml_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     ml_own_id?: IntFieldUpdateOperationsInput | number
     ml_first_name?: StringFieldUpdateOperationsInput | string
     ml_last_name?: NullableStringFieldUpdateOperationsInput | string | null
@@ -46273,6 +47541,7 @@ export namespace Prisma {
 
   export type AuctionUserCreateInput = {
     au_uuid?: string
+    au_unique_code?: string | null
     au_date?: string | null
     au_firm_id: number
     au_full_name?: string | null
@@ -46293,6 +47562,7 @@ export namespace Prisma {
   export type AuctionUserUncheckedCreateInput = {
     au_id?: number
     au_uuid?: string
+    au_unique_code?: string | null
     au_date?: string | null
     au_firm_id: number
     au_full_name?: string | null
@@ -46312,6 +47582,7 @@ export namespace Prisma {
 
   export type AuctionUserUpdateInput = {
     au_uuid?: StringFieldUpdateOperationsInput | string
+    au_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     au_date?: NullableStringFieldUpdateOperationsInput | string | null
     au_firm_id?: IntFieldUpdateOperationsInput | number
     au_full_name?: NullableStringFieldUpdateOperationsInput | string | null
@@ -46332,6 +47603,7 @@ export namespace Prisma {
   export type AuctionUserUncheckedUpdateInput = {
     au_id?: IntFieldUpdateOperationsInput | number
     au_uuid?: StringFieldUpdateOperationsInput | string
+    au_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     au_date?: NullableStringFieldUpdateOperationsInput | string | null
     au_firm_id?: IntFieldUpdateOperationsInput | number
     au_full_name?: NullableStringFieldUpdateOperationsInput | string | null
@@ -46352,6 +47624,7 @@ export namespace Prisma {
   export type AuctionUserCreateManyInput = {
     au_id?: number
     au_uuid?: string
+    au_unique_code?: string | null
     au_date?: string | null
     au_firm_id: number
     au_full_name?: string | null
@@ -46371,6 +47644,7 @@ export namespace Prisma {
 
   export type AuctionUserUpdateManyMutationInput = {
     au_uuid?: StringFieldUpdateOperationsInput | string
+    au_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     au_date?: NullableStringFieldUpdateOperationsInput | string | null
     au_firm_id?: IntFieldUpdateOperationsInput | number
     au_full_name?: NullableStringFieldUpdateOperationsInput | string | null
@@ -46391,6 +47665,7 @@ export namespace Prisma {
   export type AuctionUserUncheckedUpdateManyInput = {
     au_id?: IntFieldUpdateOperationsInput | number
     au_uuid?: StringFieldUpdateOperationsInput | string
+    au_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     au_date?: NullableStringFieldUpdateOperationsInput | string | null
     au_firm_id?: IntFieldUpdateOperationsInput | number
     au_full_name?: NullableStringFieldUpdateOperationsInput | string | null
@@ -46596,6 +47871,7 @@ export namespace Prisma {
 
   export type StaffCreateInput = {
     staff_uuid?: string
+    staff_unique_code?: string | null
     staff_add_date?: Date | string
     staff_first_name: string
     staff_last_name: string
@@ -46654,6 +47930,7 @@ export namespace Prisma {
   export type StaffUncheckedCreateInput = {
     staff_id?: number
     staff_uuid?: string
+    staff_unique_code?: string | null
     staff_own_id: number
     staff_add_date?: Date | string
     staff_first_name: string
@@ -46711,6 +47988,7 @@ export namespace Prisma {
 
   export type StaffUpdateInput = {
     staff_uuid?: StringFieldUpdateOperationsInput | string
+    staff_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     staff_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
     staff_first_name?: StringFieldUpdateOperationsInput | string
     staff_last_name?: StringFieldUpdateOperationsInput | string
@@ -46769,6 +48047,7 @@ export namespace Prisma {
   export type StaffUncheckedUpdateInput = {
     staff_id?: IntFieldUpdateOperationsInput | number
     staff_uuid?: StringFieldUpdateOperationsInput | string
+    staff_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     staff_own_id?: IntFieldUpdateOperationsInput | number
     staff_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
     staff_first_name?: StringFieldUpdateOperationsInput | string
@@ -46827,6 +48106,7 @@ export namespace Prisma {
   export type StaffCreateManyInput = {
     staff_id?: number
     staff_uuid?: string
+    staff_unique_code?: string | null
     staff_own_id: number
     staff_add_date?: Date | string
     staff_first_name: string
@@ -46883,6 +48163,7 @@ export namespace Prisma {
 
   export type StaffUpdateManyMutationInput = {
     staff_uuid?: StringFieldUpdateOperationsInput | string
+    staff_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     staff_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
     staff_first_name?: StringFieldUpdateOperationsInput | string
     staff_last_name?: StringFieldUpdateOperationsInput | string
@@ -46939,6 +48220,7 @@ export namespace Prisma {
   export type StaffUncheckedUpdateManyInput = {
     staff_id?: IntFieldUpdateOperationsInput | number
     staff_uuid?: StringFieldUpdateOperationsInput | string
+    staff_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     staff_own_id?: IntFieldUpdateOperationsInput | number
     staff_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
     staff_first_name?: StringFieldUpdateOperationsInput | string
@@ -47127,6 +48409,73 @@ export namespace Prisma {
     sp_granted?: BoolFieldUpdateOperationsInput | boolean
     sp_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     sp_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SerialNumberCreateInput = {
+    entity_type: string
+    start_number?: number
+    current_number?: number
+    number_prefix?: string
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type SerialNumberUncheckedCreateInput = {
+    sn_id?: number
+    entity_type: string
+    start_number?: number
+    current_number?: number
+    number_prefix?: string
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type SerialNumberUpdateInput = {
+    entity_type?: StringFieldUpdateOperationsInput | string
+    start_number?: IntFieldUpdateOperationsInput | number
+    current_number?: IntFieldUpdateOperationsInput | number
+    number_prefix?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SerialNumberUncheckedUpdateInput = {
+    sn_id?: IntFieldUpdateOperationsInput | number
+    entity_type?: StringFieldUpdateOperationsInput | string
+    start_number?: IntFieldUpdateOperationsInput | number
+    current_number?: IntFieldUpdateOperationsInput | number
+    number_prefix?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SerialNumberCreateManyInput = {
+    sn_id?: number
+    entity_type: string
+    start_number?: number
+    current_number?: number
+    number_prefix?: string
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type SerialNumberUpdateManyMutationInput = {
+    entity_type?: StringFieldUpdateOperationsInput | string
+    start_number?: IntFieldUpdateOperationsInput | number
+    current_number?: IntFieldUpdateOperationsInput | number
+    number_prefix?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SerialNumberUncheckedUpdateManyInput = {
+    sn_id?: IntFieldUpdateOperationsInput | number
+    entity_type?: StringFieldUpdateOperationsInput | string
+    start_number?: IntFieldUpdateOperationsInput | number
+    current_number?: IntFieldUpdateOperationsInput | number
+    number_prefix?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -47666,6 +49015,7 @@ export namespace Prisma {
   export type FirmCountOrderByAggregateInput = {
     firm_id?: SortOrder
     firm_uuid?: SortOrder
+    firm_unique_code?: SortOrder
     firm_add_date?: SortOrder
     firm_own_id?: SortOrder
     firm_name?: SortOrder
@@ -47723,6 +49073,7 @@ export namespace Prisma {
   export type FirmMaxOrderByAggregateInput = {
     firm_id?: SortOrder
     firm_uuid?: SortOrder
+    firm_unique_code?: SortOrder
     firm_add_date?: SortOrder
     firm_own_id?: SortOrder
     firm_name?: SortOrder
@@ -47770,6 +49121,7 @@ export namespace Prisma {
   export type FirmMinOrderByAggregateInput = {
     firm_id?: SortOrder
     firm_uuid?: SortOrder
+    firm_unique_code?: SortOrder
     firm_add_date?: SortOrder
     firm_own_id?: SortOrder
     firm_name?: SortOrder
@@ -47986,6 +49338,7 @@ export namespace Prisma {
   export type UserCountOrderByAggregateInput = {
     user_id?: SortOrder
     user_uuid?: SortOrder
+    user_unique_code?: SortOrder
     user_own_id?: SortOrder
     user_firm_id?: SortOrder
     user_add_date?: SortOrder
@@ -48041,6 +49394,7 @@ export namespace Prisma {
   export type UserMaxOrderByAggregateInput = {
     user_id?: SortOrder
     user_uuid?: SortOrder
+    user_unique_code?: SortOrder
     user_own_id?: SortOrder
     user_firm_id?: SortOrder
     user_add_date?: SortOrder
@@ -48085,6 +49439,7 @@ export namespace Prisma {
   export type UserMinOrderByAggregateInput = {
     user_id?: SortOrder
     user_uuid?: SortOrder
+    user_unique_code?: SortOrder
     user_own_id?: SortOrder
     user_firm_id?: SortOrder
     user_add_date?: SortOrder
@@ -48212,6 +49567,7 @@ export namespace Prisma {
   export type FinanceCountOrderByAggregateInput = {
     fin_id?: SortOrder
     fin_uuid?: SortOrder
+    fin_unique_code?: SortOrder
     fin_add_date?: SortOrder
     fin_own_id?: SortOrder
     fin_firm_id?: SortOrder
@@ -48282,6 +49638,7 @@ export namespace Prisma {
   export type FinanceMaxOrderByAggregateInput = {
     fin_id?: SortOrder
     fin_uuid?: SortOrder
+    fin_unique_code?: SortOrder
     fin_add_date?: SortOrder
     fin_own_id?: SortOrder
     fin_firm_id?: SortOrder
@@ -48330,6 +49687,7 @@ export namespace Prisma {
   export type FinanceMinOrderByAggregateInput = {
     fin_id?: SortOrder
     fin_uuid?: SortOrder
+    fin_unique_code?: SortOrder
     fin_add_date?: SortOrder
     fin_own_id?: SortOrder
     fin_firm_id?: SortOrder
@@ -49033,6 +50391,7 @@ export namespace Prisma {
   export type GirviCountOrderByAggregateInput = {
     girv_id?: SortOrder
     girv_uuid?: SortOrder
+    girv_unique_code?: SortOrder
     girv_add_date?: SortOrder
     girv_firm_id?: SortOrder
     girv_own_id?: SortOrder
@@ -49117,6 +50476,7 @@ export namespace Prisma {
   export type GirviMaxOrderByAggregateInput = {
     girv_id?: SortOrder
     girv_uuid?: SortOrder
+    girv_unique_code?: SortOrder
     girv_add_date?: SortOrder
     girv_firm_id?: SortOrder
     girv_own_id?: SortOrder
@@ -49172,6 +50532,7 @@ export namespace Prisma {
   export type GirviMinOrderByAggregateInput = {
     girv_id?: SortOrder
     girv_uuid?: SortOrder
+    girv_unique_code?: SortOrder
     girv_add_date?: SortOrder
     girv_firm_id?: SortOrder
     girv_own_id?: SortOrder
@@ -50132,6 +51493,7 @@ export namespace Prisma {
   export type MoneyLenderCountOrderByAggregateInput = {
     ml_id?: SortOrder
     ml_uuid?: SortOrder
+    ml_unique_code?: SortOrder
     ml_own_id?: SortOrder
     ml_first_name?: SortOrder
     ml_last_name?: SortOrder
@@ -50174,6 +51536,7 @@ export namespace Prisma {
   export type MoneyLenderMaxOrderByAggregateInput = {
     ml_id?: SortOrder
     ml_uuid?: SortOrder
+    ml_unique_code?: SortOrder
     ml_own_id?: SortOrder
     ml_first_name?: SortOrder
     ml_last_name?: SortOrder
@@ -50206,6 +51569,7 @@ export namespace Prisma {
   export type MoneyLenderMinOrderByAggregateInput = {
     ml_id?: SortOrder
     ml_uuid?: SortOrder
+    ml_unique_code?: SortOrder
     ml_own_id?: SortOrder
     ml_first_name?: SortOrder
     ml_last_name?: SortOrder
@@ -50244,6 +51608,7 @@ export namespace Prisma {
   export type AuctionUserCountOrderByAggregateInput = {
     au_id?: SortOrder
     au_uuid?: SortOrder
+    au_unique_code?: SortOrder
     au_date?: SortOrder
     au_firm_id?: SortOrder
     au_full_name?: SortOrder
@@ -50269,6 +51634,7 @@ export namespace Prisma {
   export type AuctionUserMaxOrderByAggregateInput = {
     au_id?: SortOrder
     au_uuid?: SortOrder
+    au_unique_code?: SortOrder
     au_date?: SortOrder
     au_firm_id?: SortOrder
     au_full_name?: SortOrder
@@ -50289,6 +51655,7 @@ export namespace Prisma {
   export type AuctionUserMinOrderByAggregateInput = {
     au_id?: SortOrder
     au_uuid?: SortOrder
+    au_unique_code?: SortOrder
     au_date?: SortOrder
     au_firm_id?: SortOrder
     au_full_name?: SortOrder
@@ -50464,6 +51831,7 @@ export namespace Prisma {
   export type StaffCountOrderByAggregateInput = {
     staff_id?: SortOrder
     staff_uuid?: SortOrder
+    staff_unique_code?: SortOrder
     staff_own_id?: SortOrder
     staff_add_date?: SortOrder
     staff_first_name?: SortOrder
@@ -50526,6 +51894,7 @@ export namespace Prisma {
   export type StaffMaxOrderByAggregateInput = {
     staff_id?: SortOrder
     staff_uuid?: SortOrder
+    staff_unique_code?: SortOrder
     staff_own_id?: SortOrder
     staff_add_date?: SortOrder
     staff_first_name?: SortOrder
@@ -50577,6 +51946,7 @@ export namespace Prisma {
   export type StaffMinOrderByAggregateInput = {
     staff_id?: SortOrder
     staff_uuid?: SortOrder
+    staff_unique_code?: SortOrder
     staff_own_id?: SortOrder
     staff_add_date?: SortOrder
     staff_first_name?: SortOrder
@@ -50755,6 +52125,48 @@ export namespace Prisma {
     sp_id?: SortOrder
     sp_staff_id?: SortOrder
     sp_perm_id?: SortOrder
+  }
+
+  export type SerialNumberCountOrderByAggregateInput = {
+    sn_id?: SortOrder
+    entity_type?: SortOrder
+    start_number?: SortOrder
+    current_number?: SortOrder
+    number_prefix?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type SerialNumberAvgOrderByAggregateInput = {
+    sn_id?: SortOrder
+    start_number?: SortOrder
+    current_number?: SortOrder
+  }
+
+  export type SerialNumberMaxOrderByAggregateInput = {
+    sn_id?: SortOrder
+    entity_type?: SortOrder
+    start_number?: SortOrder
+    current_number?: SortOrder
+    number_prefix?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type SerialNumberMinOrderByAggregateInput = {
+    sn_id?: SortOrder
+    entity_type?: SortOrder
+    start_number?: SortOrder
+    current_number?: SortOrder
+    number_prefix?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type SerialNumberSumOrderByAggregateInput = {
+    sn_id?: SortOrder
+    start_number?: SortOrder
+    current_number?: SortOrder
   }
 
   export type UserCreateNestedManyWithoutOwnerInput = {
@@ -56888,6 +58300,7 @@ export namespace Prisma {
 
   export type UserCreateWithoutOwnerInput = {
     user_uuid?: string
+    user_unique_code?: string | null
     user_add_date?: Date | string
     user_first_name: string
     user_father_name?: string | null
@@ -56946,6 +58359,7 @@ export namespace Prisma {
   export type UserUncheckedCreateWithoutOwnerInput = {
     user_id?: number
     user_uuid?: string
+    user_unique_code?: string | null
     user_firm_id: number
     user_add_date?: Date | string
     user_first_name: string
@@ -57013,6 +58427,7 @@ export namespace Prisma {
 
   export type FirmCreateWithoutOwnerInput = {
     firm_uuid?: string
+    firm_unique_code?: string | null
     firm_add_date?: Date | string
     firm_name: string
     firm_reg_no: string
@@ -57078,6 +58493,7 @@ export namespace Prisma {
   export type FirmUncheckedCreateWithoutOwnerInput = {
     firm_id?: number
     firm_uuid?: string
+    firm_unique_code?: string | null
     firm_add_date?: Date | string
     firm_name: string
     firm_reg_no: string
@@ -57309,6 +58725,7 @@ export namespace Prisma {
 
   export type FinanceCreateWithoutOwnerInput = {
     fin_uuid?: string
+    fin_unique_code?: string | null
     fin_add_date?: string | null
     fin_jrnl_id?: number | null
     fin_staff_id?: number
@@ -57358,6 +58775,7 @@ export namespace Prisma {
   export type FinanceUncheckedCreateWithoutOwnerInput = {
     fin_id?: number
     fin_uuid?: string
+    fin_unique_code?: string | null
     fin_add_date?: string | null
     fin_firm_id?: number
     fin_user_id?: number
@@ -57676,6 +59094,7 @@ export namespace Prisma {
 
   export type GirviCreateWithoutOwnerInput = {
     girv_uuid?: string
+    girv_unique_code?: string | null
     girv_add_date?: string | null
     girv_staff_id?: number
     girv_start_date: string
@@ -57733,6 +59152,7 @@ export namespace Prisma {
   export type GirviUncheckedCreateWithoutOwnerInput = {
     girv_id?: number
     girv_uuid?: string
+    girv_unique_code?: string | null
     girv_add_date?: string | null
     girv_firm_id?: number
     girv_user_id?: number
@@ -58215,6 +59635,7 @@ export namespace Prisma {
 
   export type MoneyLenderCreateWithoutOwnerInput = {
     ml_uuid?: string
+    ml_unique_code?: string | null
     ml_first_name: string
     ml_last_name?: string | null
     ml_father_name?: string | null
@@ -58251,6 +59672,7 @@ export namespace Prisma {
   export type MoneyLenderUncheckedCreateWithoutOwnerInput = {
     ml_id?: number
     ml_uuid?: string
+    ml_unique_code?: string | null
     ml_first_name: string
     ml_last_name?: string | null
     ml_father_name?: string | null
@@ -58296,6 +59718,7 @@ export namespace Prisma {
 
   export type StaffCreateWithoutOwnerInput = {
     staff_uuid?: string
+    staff_unique_code?: string | null
     staff_add_date?: Date | string
     staff_first_name: string
     staff_last_name: string
@@ -58353,6 +59776,7 @@ export namespace Prisma {
   export type StaffUncheckedCreateWithoutOwnerInput = {
     staff_id?: number
     staff_uuid?: string
+    staff_unique_code?: string | null
     staff_add_date?: Date | string
     staff_first_name: string
     staff_last_name: string
@@ -58439,6 +59863,7 @@ export namespace Prisma {
     NOT?: UserScalarWhereInput | UserScalarWhereInput[]
     user_id?: IntFilter<"User"> | number
     user_uuid?: StringFilter<"User"> | string
+    user_unique_code?: StringNullableFilter<"User"> | string | null
     user_own_id?: IntFilter<"User"> | number
     user_firm_id?: IntFilter<"User"> | number
     user_add_date?: DateTimeFilter<"User"> | Date | string
@@ -58507,6 +59932,7 @@ export namespace Prisma {
     NOT?: FirmScalarWhereInput | FirmScalarWhereInput[]
     firm_id?: IntFilter<"Firm"> | number
     firm_uuid?: StringFilter<"Firm"> | string
+    firm_unique_code?: StringNullableFilter<"Firm"> | string | null
     firm_add_date?: DateTimeFilter<"Firm"> | Date | string
     firm_own_id?: IntFilter<"Firm"> | number
     firm_name?: StringFilter<"Firm"> | string
@@ -58629,6 +60055,7 @@ export namespace Prisma {
     NOT?: FinanceScalarWhereInput | FinanceScalarWhereInput[]
     fin_id?: IntFilter<"Finance"> | number
     fin_uuid?: StringFilter<"Finance"> | string
+    fin_unique_code?: StringNullableFilter<"Finance"> | string | null
     fin_add_date?: StringNullableFilter<"Finance"> | string | null
     fin_own_id?: IntFilter<"Finance"> | number
     fin_firm_id?: IntFilter<"Finance"> | number
@@ -58886,6 +60313,7 @@ export namespace Prisma {
     NOT?: GirviScalarWhereInput | GirviScalarWhereInput[]
     girv_id?: IntFilter<"Girvi"> | number
     girv_uuid?: StringFilter<"Girvi"> | string
+    girv_unique_code?: StringNullableFilter<"Girvi"> | string | null
     girv_add_date?: StringNullableFilter<"Girvi"> | string | null
     girv_firm_id?: IntFilter<"Girvi"> | number
     girv_own_id?: IntFilter<"Girvi"> | number
@@ -59261,6 +60689,7 @@ export namespace Prisma {
     NOT?: MoneyLenderScalarWhereInput | MoneyLenderScalarWhereInput[]
     ml_id?: IntFilter<"MoneyLender"> | number
     ml_uuid?: StringFilter<"MoneyLender"> | string
+    ml_unique_code?: StringNullableFilter<"MoneyLender"> | string | null
     ml_own_id?: IntFilter<"MoneyLender"> | number
     ml_first_name?: StringFilter<"MoneyLender"> | string
     ml_last_name?: StringNullableFilter<"MoneyLender"> | string | null
@@ -59316,6 +60745,7 @@ export namespace Prisma {
     NOT?: StaffScalarWhereInput | StaffScalarWhereInput[]
     staff_id?: IntFilter<"Staff"> | number
     staff_uuid?: StringFilter<"Staff"> | string
+    staff_unique_code?: StringNullableFilter<"Staff"> | string | null
     staff_own_id?: IntFilter<"Staff"> | number
     staff_add_date?: DateTimeFilter<"Staff"> | Date | string
     staff_first_name?: StringFilter<"Staff"> | string
@@ -59372,6 +60802,7 @@ export namespace Prisma {
 
   export type UserCreateWithoutFirmInput = {
     user_uuid?: string
+    user_unique_code?: string | null
     user_add_date?: Date | string
     user_first_name: string
     user_father_name?: string | null
@@ -59430,6 +60861,7 @@ export namespace Prisma {
   export type UserUncheckedCreateWithoutFirmInput = {
     user_id?: number
     user_uuid?: string
+    user_unique_code?: string | null
     user_own_id: number
     user_add_date?: Date | string
     user_first_name: string
@@ -59766,6 +61198,7 @@ export namespace Prisma {
 
   export type FinanceCreateWithoutFirmInput = {
     fin_uuid?: string
+    fin_unique_code?: string | null
     fin_add_date?: string | null
     fin_jrnl_id?: number | null
     fin_staff_id?: number
@@ -59815,6 +61248,7 @@ export namespace Prisma {
   export type FinanceUncheckedCreateWithoutFirmInput = {
     fin_id?: number
     fin_uuid?: string
+    fin_unique_code?: string | null
     fin_add_date?: string | null
     fin_own_id?: number
     fin_user_id?: number
@@ -60133,6 +61567,7 @@ export namespace Prisma {
 
   export type GirviCreateWithoutFirmInput = {
     girv_uuid?: string
+    girv_unique_code?: string | null
     girv_add_date?: string | null
     girv_staff_id?: number
     girv_start_date: string
@@ -60190,6 +61625,7 @@ export namespace Prisma {
   export type GirviUncheckedCreateWithoutFirmInput = {
     girv_id?: number
     girv_uuid?: string
+    girv_unique_code?: string | null
     girv_add_date?: string | null
     girv_own_id?: number
     girv_user_id?: number
@@ -60635,6 +62071,7 @@ export namespace Prisma {
 
   export type MoneyLenderCreateWithoutFirmInput = {
     ml_uuid?: string
+    ml_unique_code?: string | null
     ml_first_name: string
     ml_last_name?: string | null
     ml_father_name?: string | null
@@ -60671,6 +62108,7 @@ export namespace Prisma {
   export type MoneyLenderUncheckedCreateWithoutFirmInput = {
     ml_id?: number
     ml_uuid?: string
+    ml_unique_code?: string | null
     ml_own_id: number
     ml_first_name: string
     ml_last_name?: string | null
@@ -61169,6 +62607,7 @@ export namespace Prisma {
 
   export type FirmCreateWithoutAccountsInput = {
     firm_uuid?: string
+    firm_unique_code?: string | null
     firm_add_date?: Date | string
     firm_name: string
     firm_reg_no: string
@@ -61234,6 +62673,7 @@ export namespace Prisma {
   export type FirmUncheckedCreateWithoutAccountsInput = {
     firm_id?: number
     firm_uuid?: string
+    firm_unique_code?: string | null
     firm_add_date?: Date | string
     firm_own_id?: number
     firm_name: string
@@ -61303,6 +62743,7 @@ export namespace Prisma {
 
   export type FinanceCreateWithoutCashAccountInput = {
     fin_uuid?: string
+    fin_unique_code?: string | null
     fin_add_date?: string | null
     fin_jrnl_id?: number | null
     fin_staff_id?: number
@@ -61352,6 +62793,7 @@ export namespace Prisma {
   export type FinanceUncheckedCreateWithoutCashAccountInput = {
     fin_id?: number
     fin_uuid?: string
+    fin_unique_code?: string | null
     fin_add_date?: string | null
     fin_own_id?: number
     fin_firm_id?: number
@@ -61410,6 +62852,7 @@ export namespace Prisma {
 
   export type FinanceCreateWithoutBankAccountInput = {
     fin_uuid?: string
+    fin_unique_code?: string | null
     fin_add_date?: string | null
     fin_jrnl_id?: number | null
     fin_staff_id?: number
@@ -61459,6 +62902,7 @@ export namespace Prisma {
   export type FinanceUncheckedCreateWithoutBankAccountInput = {
     fin_id?: number
     fin_uuid?: string
+    fin_unique_code?: string | null
     fin_add_date?: string | null
     fin_own_id?: number
     fin_firm_id?: number
@@ -61517,6 +62961,7 @@ export namespace Prisma {
 
   export type FinanceCreateWithoutOnlineAccountInput = {
     fin_uuid?: string
+    fin_unique_code?: string | null
     fin_add_date?: string | null
     fin_jrnl_id?: number | null
     fin_staff_id?: number
@@ -61566,6 +63011,7 @@ export namespace Prisma {
   export type FinanceUncheckedCreateWithoutOnlineAccountInput = {
     fin_id?: number
     fin_uuid?: string
+    fin_unique_code?: string | null
     fin_add_date?: string | null
     fin_own_id?: number
     fin_firm_id?: number
@@ -61624,6 +63070,7 @@ export namespace Prisma {
 
   export type FinanceCreateWithoutCardAccountInput = {
     fin_uuid?: string
+    fin_unique_code?: string | null
     fin_add_date?: string | null
     fin_jrnl_id?: number | null
     fin_staff_id?: number
@@ -61673,6 +63120,7 @@ export namespace Prisma {
   export type FinanceUncheckedCreateWithoutCardAccountInput = {
     fin_id?: number
     fin_uuid?: string
+    fin_unique_code?: string | null
     fin_add_date?: string | null
     fin_own_id?: number
     fin_firm_id?: number
@@ -61731,6 +63179,7 @@ export namespace Prisma {
 
   export type FinanceCreateWithoutDrAccountInput = {
     fin_uuid?: string
+    fin_unique_code?: string | null
     fin_add_date?: string | null
     fin_jrnl_id?: number | null
     fin_staff_id?: number
@@ -61780,6 +63229,7 @@ export namespace Prisma {
   export type FinanceUncheckedCreateWithoutDrAccountInput = {
     fin_id?: number
     fin_uuid?: string
+    fin_unique_code?: string | null
     fin_add_date?: string | null
     fin_own_id?: number
     fin_firm_id?: number
@@ -62639,6 +64089,7 @@ export namespace Prisma {
 
   export type GirviCreateWithoutFirstIntCrAccountInput = {
     girv_uuid?: string
+    girv_unique_code?: string | null
     girv_add_date?: string | null
     girv_staff_id?: number
     girv_start_date: string
@@ -62696,6 +64147,7 @@ export namespace Prisma {
   export type GirviUncheckedCreateWithoutFirstIntCrAccountInput = {
     girv_id?: number
     girv_uuid?: string
+    girv_unique_code?: string | null
     girv_add_date?: string | null
     girv_firm_id?: number
     girv_own_id?: number
@@ -62762,6 +64214,7 @@ export namespace Prisma {
 
   export type GirviCreateWithoutFirstIntDrAccountInput = {
     girv_uuid?: string
+    girv_unique_code?: string | null
     girv_add_date?: string | null
     girv_staff_id?: number
     girv_start_date: string
@@ -62819,6 +64272,7 @@ export namespace Prisma {
   export type GirviUncheckedCreateWithoutFirstIntDrAccountInput = {
     girv_id?: number
     girv_uuid?: string
+    girv_unique_code?: string | null
     girv_add_date?: string | null
     girv_firm_id?: number
     girv_own_id?: number
@@ -62885,6 +64339,7 @@ export namespace Prisma {
 
   export type GirviCreateWithoutCashAccountInput = {
     girv_uuid?: string
+    girv_unique_code?: string | null
     girv_add_date?: string | null
     girv_staff_id?: number
     girv_start_date: string
@@ -62942,6 +64397,7 @@ export namespace Prisma {
   export type GirviUncheckedCreateWithoutCashAccountInput = {
     girv_id?: number
     girv_uuid?: string
+    girv_unique_code?: string | null
     girv_add_date?: string | null
     girv_firm_id?: number
     girv_own_id?: number
@@ -63008,6 +64464,7 @@ export namespace Prisma {
 
   export type GirviCreateWithoutBankAccountInput = {
     girv_uuid?: string
+    girv_unique_code?: string | null
     girv_add_date?: string | null
     girv_staff_id?: number
     girv_start_date: string
@@ -63065,6 +64522,7 @@ export namespace Prisma {
   export type GirviUncheckedCreateWithoutBankAccountInput = {
     girv_id?: number
     girv_uuid?: string
+    girv_unique_code?: string | null
     girv_add_date?: string | null
     girv_firm_id?: number
     girv_own_id?: number
@@ -63131,6 +64589,7 @@ export namespace Prisma {
 
   export type GirviCreateWithoutOnlineAccountInput = {
     girv_uuid?: string
+    girv_unique_code?: string | null
     girv_add_date?: string | null
     girv_staff_id?: number
     girv_start_date: string
@@ -63188,6 +64647,7 @@ export namespace Prisma {
   export type GirviUncheckedCreateWithoutOnlineAccountInput = {
     girv_id?: number
     girv_uuid?: string
+    girv_unique_code?: string | null
     girv_add_date?: string | null
     girv_firm_id?: number
     girv_own_id?: number
@@ -63254,6 +64714,7 @@ export namespace Prisma {
 
   export type GirviCreateWithoutCardAccountInput = {
     girv_uuid?: string
+    girv_unique_code?: string | null
     girv_add_date?: string | null
     girv_staff_id?: number
     girv_start_date: string
@@ -63311,6 +64772,7 @@ export namespace Prisma {
   export type GirviUncheckedCreateWithoutCardAccountInput = {
     girv_id?: number
     girv_uuid?: string
+    girv_unique_code?: string | null
     girv_add_date?: string | null
     girv_firm_id?: number
     girv_own_id?: number
@@ -63377,6 +64839,7 @@ export namespace Prisma {
 
   export type GirviCreateWithoutDrAccountInput = {
     girv_uuid?: string
+    girv_unique_code?: string | null
     girv_add_date?: string | null
     girv_staff_id?: number
     girv_start_date: string
@@ -63434,6 +64897,7 @@ export namespace Prisma {
   export type GirviUncheckedCreateWithoutDrAccountInput = {
     girv_id?: number
     girv_uuid?: string
+    girv_unique_code?: string | null
     girv_add_date?: string | null
     girv_firm_id?: number
     girv_own_id?: number
@@ -65360,6 +66824,7 @@ export namespace Prisma {
 
   export type FirmUpdateWithoutAccountsInput = {
     firm_uuid?: StringFieldUpdateOperationsInput | string
+    firm_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     firm_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
     firm_name?: StringFieldUpdateOperationsInput | string
     firm_reg_no?: StringFieldUpdateOperationsInput | string
@@ -65425,6 +66890,7 @@ export namespace Prisma {
   export type FirmUncheckedUpdateWithoutAccountsInput = {
     firm_id?: IntFieldUpdateOperationsInput | number
     firm_uuid?: StringFieldUpdateOperationsInput | string
+    firm_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     firm_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
     firm_own_id?: IntFieldUpdateOperationsInput | number
     firm_name?: StringFieldUpdateOperationsInput | string
@@ -66289,6 +67755,7 @@ export namespace Prisma {
 
   export type FirmCreateWithoutUsersInput = {
     firm_uuid?: string
+    firm_unique_code?: string | null
     firm_add_date?: Date | string
     firm_name: string
     firm_reg_no: string
@@ -66354,6 +67821,7 @@ export namespace Prisma {
   export type FirmUncheckedCreateWithoutUsersInput = {
     firm_id?: number
     firm_uuid?: string
+    firm_unique_code?: string | null
     firm_add_date?: Date | string
     firm_own_id?: number
     firm_name: string
@@ -66423,6 +67891,7 @@ export namespace Prisma {
 
   export type FinanceCreateWithoutUserInput = {
     fin_uuid?: string
+    fin_unique_code?: string | null
     fin_add_date?: string | null
     fin_jrnl_id?: number | null
     fin_staff_id?: number
@@ -66472,6 +67941,7 @@ export namespace Prisma {
   export type FinanceUncheckedCreateWithoutUserInput = {
     fin_id?: number
     fin_uuid?: string
+    fin_unique_code?: string | null
     fin_add_date?: string | null
     fin_own_id?: number
     fin_firm_id?: number
@@ -66790,6 +68260,7 @@ export namespace Prisma {
 
   export type GirviCreateWithoutUserInput = {
     girv_uuid?: string
+    girv_unique_code?: string | null
     girv_add_date?: string | null
     girv_staff_id?: number
     girv_start_date: string
@@ -66847,6 +68318,7 @@ export namespace Prisma {
   export type GirviUncheckedCreateWithoutUserInput = {
     girv_id?: number
     girv_uuid?: string
+    girv_unique_code?: string | null
     girv_add_date?: string | null
     girv_firm_id?: number
     girv_own_id?: number
@@ -67371,6 +68843,7 @@ export namespace Prisma {
 
   export type FirmUpdateWithoutUsersInput = {
     firm_uuid?: StringFieldUpdateOperationsInput | string
+    firm_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     firm_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
     firm_name?: StringFieldUpdateOperationsInput | string
     firm_reg_no?: StringFieldUpdateOperationsInput | string
@@ -67436,6 +68909,7 @@ export namespace Prisma {
   export type FirmUncheckedUpdateWithoutUsersInput = {
     firm_id?: IntFieldUpdateOperationsInput | number
     firm_uuid?: StringFieldUpdateOperationsInput | string
+    firm_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     firm_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
     firm_own_id?: IntFieldUpdateOperationsInput | number
     firm_name?: StringFieldUpdateOperationsInput | string
@@ -67660,6 +69134,7 @@ export namespace Prisma {
 
   export type FirmCreateWithoutFinancesInput = {
     firm_uuid?: string
+    firm_unique_code?: string | null
     firm_add_date?: Date | string
     firm_name: string
     firm_reg_no: string
@@ -67725,6 +69200,7 @@ export namespace Prisma {
   export type FirmUncheckedCreateWithoutFinancesInput = {
     firm_id?: number
     firm_uuid?: string
+    firm_unique_code?: string | null
     firm_add_date?: Date | string
     firm_own_id?: number
     firm_name: string
@@ -67794,6 +69270,7 @@ export namespace Prisma {
 
   export type UserCreateWithoutFinancesInput = {
     user_uuid?: string
+    user_unique_code?: string | null
     user_add_date?: Date | string
     user_first_name: string
     user_father_name?: string | null
@@ -67852,6 +69329,7 @@ export namespace Prisma {
   export type UserUncheckedCreateWithoutFinancesInput = {
     user_id?: number
     user_uuid?: string
+    user_unique_code?: string | null
     user_own_id: number
     user_firm_id: number
     user_add_date?: Date | string
@@ -68947,6 +70425,7 @@ export namespace Prisma {
 
   export type FirmUpdateWithoutFinancesInput = {
     firm_uuid?: StringFieldUpdateOperationsInput | string
+    firm_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     firm_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
     firm_name?: StringFieldUpdateOperationsInput | string
     firm_reg_no?: StringFieldUpdateOperationsInput | string
@@ -69012,6 +70491,7 @@ export namespace Prisma {
   export type FirmUncheckedUpdateWithoutFinancesInput = {
     firm_id?: IntFieldUpdateOperationsInput | number
     firm_uuid?: StringFieldUpdateOperationsInput | string
+    firm_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     firm_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
     firm_own_id?: IntFieldUpdateOperationsInput | number
     firm_name?: StringFieldUpdateOperationsInput | string
@@ -69087,6 +70567,7 @@ export namespace Prisma {
 
   export type UserUpdateWithoutFinancesInput = {
     user_uuid?: StringFieldUpdateOperationsInput | string
+    user_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     user_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
     user_first_name?: StringFieldUpdateOperationsInput | string
     user_father_name?: NullableStringFieldUpdateOperationsInput | string | null
@@ -69145,6 +70626,7 @@ export namespace Prisma {
   export type UserUncheckedUpdateWithoutFinancesInput = {
     user_id?: IntFieldUpdateOperationsInput | number
     user_uuid?: StringFieldUpdateOperationsInput | string
+    user_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     user_own_id?: IntFieldUpdateOperationsInput | number
     user_firm_id?: IntFieldUpdateOperationsInput | number
     user_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -70141,6 +71623,7 @@ export namespace Prisma {
 
   export type FirmCreateWithoutFinanceTransactionsInput = {
     firm_uuid?: string
+    firm_unique_code?: string | null
     firm_add_date?: Date | string
     firm_name: string
     firm_reg_no: string
@@ -70206,6 +71689,7 @@ export namespace Prisma {
   export type FirmUncheckedCreateWithoutFinanceTransactionsInput = {
     firm_id?: number
     firm_uuid?: string
+    firm_unique_code?: string | null
     firm_add_date?: Date | string
     firm_own_id?: number
     firm_name: string
@@ -70275,6 +71759,7 @@ export namespace Prisma {
 
   export type UserCreateWithoutFinanceTransactionsInput = {
     user_uuid?: string
+    user_unique_code?: string | null
     user_add_date?: Date | string
     user_first_name: string
     user_father_name?: string | null
@@ -70333,6 +71818,7 @@ export namespace Prisma {
   export type UserUncheckedCreateWithoutFinanceTransactionsInput = {
     user_id?: number
     user_uuid?: string
+    user_unique_code?: string | null
     user_own_id: number
     user_firm_id: number
     user_add_date?: Date | string
@@ -70507,6 +71993,7 @@ export namespace Prisma {
 
   export type FinanceCreateWithoutFinance_transInput = {
     fin_uuid?: string
+    fin_unique_code?: string | null
     fin_add_date?: string | null
     fin_jrnl_id?: number | null
     fin_staff_id?: number
@@ -70556,6 +72043,7 @@ export namespace Prisma {
   export type FinanceUncheckedCreateWithoutFinance_transInput = {
     fin_id?: number
     fin_uuid?: string
+    fin_unique_code?: string | null
     fin_add_date?: string | null
     fin_own_id?: number
     fin_firm_id?: number
@@ -71228,6 +72716,7 @@ export namespace Prisma {
 
   export type FirmUpdateWithoutFinanceTransactionsInput = {
     firm_uuid?: StringFieldUpdateOperationsInput | string
+    firm_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     firm_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
     firm_name?: StringFieldUpdateOperationsInput | string
     firm_reg_no?: StringFieldUpdateOperationsInput | string
@@ -71293,6 +72782,7 @@ export namespace Prisma {
   export type FirmUncheckedUpdateWithoutFinanceTransactionsInput = {
     firm_id?: IntFieldUpdateOperationsInput | number
     firm_uuid?: StringFieldUpdateOperationsInput | string
+    firm_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     firm_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
     firm_own_id?: IntFieldUpdateOperationsInput | number
     firm_name?: StringFieldUpdateOperationsInput | string
@@ -71368,6 +72858,7 @@ export namespace Prisma {
 
   export type UserUpdateWithoutFinanceTransactionsInput = {
     user_uuid?: StringFieldUpdateOperationsInput | string
+    user_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     user_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
     user_first_name?: StringFieldUpdateOperationsInput | string
     user_father_name?: NullableStringFieldUpdateOperationsInput | string | null
@@ -71426,6 +72917,7 @@ export namespace Prisma {
   export type UserUncheckedUpdateWithoutFinanceTransactionsInput = {
     user_id?: IntFieldUpdateOperationsInput | number
     user_uuid?: StringFieldUpdateOperationsInput | string
+    user_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     user_own_id?: IntFieldUpdateOperationsInput | number
     user_firm_id?: IntFieldUpdateOperationsInput | number
     user_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -71611,6 +73103,7 @@ export namespace Prisma {
 
   export type FinanceUpdateWithoutFinance_transInput = {
     fin_uuid?: StringFieldUpdateOperationsInput | string
+    fin_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     fin_add_date?: NullableStringFieldUpdateOperationsInput | string | null
     fin_jrnl_id?: NullableIntFieldUpdateOperationsInput | number | null
     fin_staff_id?: IntFieldUpdateOperationsInput | number
@@ -71660,6 +73153,7 @@ export namespace Prisma {
   export type FinanceUncheckedUpdateWithoutFinance_transInput = {
     fin_id?: IntFieldUpdateOperationsInput | number
     fin_uuid?: StringFieldUpdateOperationsInput | string
+    fin_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     fin_add_date?: NullableStringFieldUpdateOperationsInput | string | null
     fin_own_id?: IntFieldUpdateOperationsInput | number
     fin_firm_id?: IntFieldUpdateOperationsInput | number
@@ -72340,6 +73834,7 @@ export namespace Prisma {
 
   export type FirmCreateWithoutFinanceMoneyTransInput = {
     firm_uuid?: string
+    firm_unique_code?: string | null
     firm_add_date?: Date | string
     firm_name: string
     firm_reg_no: string
@@ -72405,6 +73900,7 @@ export namespace Prisma {
   export type FirmUncheckedCreateWithoutFinanceMoneyTransInput = {
     firm_id?: number
     firm_uuid?: string
+    firm_unique_code?: string | null
     firm_add_date?: Date | string
     firm_own_id?: number
     firm_name: string
@@ -72474,6 +73970,7 @@ export namespace Prisma {
 
   export type UserCreateWithoutFinanceMoneyTransInput = {
     user_uuid?: string
+    user_unique_code?: string | null
     user_add_date?: Date | string
     user_first_name: string
     user_father_name?: string | null
@@ -72532,6 +74029,7 @@ export namespace Prisma {
   export type UserUncheckedCreateWithoutFinanceMoneyTransInput = {
     user_id?: number
     user_uuid?: string
+    user_unique_code?: string | null
     user_own_id: number
     user_firm_id: number
     user_add_date?: Date | string
@@ -72706,6 +74204,7 @@ export namespace Prisma {
 
   export type FinanceCreateWithoutFinance_money_transInput = {
     fin_uuid?: string
+    fin_unique_code?: string | null
     fin_add_date?: string | null
     fin_jrnl_id?: number | null
     fin_staff_id?: number
@@ -72755,6 +74254,7 @@ export namespace Prisma {
   export type FinanceUncheckedCreateWithoutFinance_money_transInput = {
     fin_id?: number
     fin_uuid?: string
+    fin_unique_code?: string | null
     fin_add_date?: string | null
     fin_own_id?: number
     fin_firm_id?: number
@@ -73625,6 +75125,7 @@ export namespace Prisma {
 
   export type FirmUpdateWithoutFinanceMoneyTransInput = {
     firm_uuid?: StringFieldUpdateOperationsInput | string
+    firm_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     firm_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
     firm_name?: StringFieldUpdateOperationsInput | string
     firm_reg_no?: StringFieldUpdateOperationsInput | string
@@ -73690,6 +75191,7 @@ export namespace Prisma {
   export type FirmUncheckedUpdateWithoutFinanceMoneyTransInput = {
     firm_id?: IntFieldUpdateOperationsInput | number
     firm_uuid?: StringFieldUpdateOperationsInput | string
+    firm_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     firm_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
     firm_own_id?: IntFieldUpdateOperationsInput | number
     firm_name?: StringFieldUpdateOperationsInput | string
@@ -73765,6 +75267,7 @@ export namespace Prisma {
 
   export type UserUpdateWithoutFinanceMoneyTransInput = {
     user_uuid?: StringFieldUpdateOperationsInput | string
+    user_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     user_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
     user_first_name?: StringFieldUpdateOperationsInput | string
     user_father_name?: NullableStringFieldUpdateOperationsInput | string | null
@@ -73823,6 +75326,7 @@ export namespace Prisma {
   export type UserUncheckedUpdateWithoutFinanceMoneyTransInput = {
     user_id?: IntFieldUpdateOperationsInput | number
     user_uuid?: StringFieldUpdateOperationsInput | string
+    user_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     user_own_id?: IntFieldUpdateOperationsInput | number
     user_firm_id?: IntFieldUpdateOperationsInput | number
     user_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -74008,6 +75512,7 @@ export namespace Prisma {
 
   export type FinanceUpdateWithoutFinance_money_transInput = {
     fin_uuid?: StringFieldUpdateOperationsInput | string
+    fin_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     fin_add_date?: NullableStringFieldUpdateOperationsInput | string | null
     fin_jrnl_id?: NullableIntFieldUpdateOperationsInput | number | null
     fin_staff_id?: IntFieldUpdateOperationsInput | number
@@ -74057,6 +75562,7 @@ export namespace Prisma {
   export type FinanceUncheckedUpdateWithoutFinance_money_transInput = {
     fin_id?: IntFieldUpdateOperationsInput | number
     fin_uuid?: StringFieldUpdateOperationsInput | string
+    fin_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     fin_add_date?: NullableStringFieldUpdateOperationsInput | string | null
     fin_own_id?: IntFieldUpdateOperationsInput | number
     fin_firm_id?: IntFieldUpdateOperationsInput | number
@@ -75030,6 +76536,7 @@ export namespace Prisma {
 
   export type FirmCreateWithoutJournalsInput = {
     firm_uuid?: string
+    firm_unique_code?: string | null
     firm_add_date?: Date | string
     firm_name: string
     firm_reg_no: string
@@ -75095,6 +76602,7 @@ export namespace Prisma {
   export type FirmUncheckedCreateWithoutJournalsInput = {
     firm_id?: number
     firm_uuid?: string
+    firm_unique_code?: string | null
     firm_add_date?: Date | string
     firm_own_id?: number
     firm_name: string
@@ -75164,6 +76672,7 @@ export namespace Prisma {
 
   export type UserCreateWithoutJournalsInput = {
     user_uuid?: string
+    user_unique_code?: string | null
     user_add_date?: Date | string
     user_first_name: string
     user_father_name?: string | null
@@ -75222,6 +76731,7 @@ export namespace Prisma {
   export type UserUncheckedCreateWithoutJournalsInput = {
     user_id?: number
     user_uuid?: string
+    user_unique_code?: string | null
     user_own_id: number
     user_firm_id: number
     user_add_date?: Date | string
@@ -75482,6 +76992,7 @@ export namespace Prisma {
 
   export type FirmUpdateWithoutJournalsInput = {
     firm_uuid?: StringFieldUpdateOperationsInput | string
+    firm_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     firm_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
     firm_name?: StringFieldUpdateOperationsInput | string
     firm_reg_no?: StringFieldUpdateOperationsInput | string
@@ -75547,6 +77058,7 @@ export namespace Prisma {
   export type FirmUncheckedUpdateWithoutJournalsInput = {
     firm_id?: IntFieldUpdateOperationsInput | number
     firm_uuid?: StringFieldUpdateOperationsInput | string
+    firm_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     firm_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
     firm_own_id?: IntFieldUpdateOperationsInput | number
     firm_name?: StringFieldUpdateOperationsInput | string
@@ -75622,6 +77134,7 @@ export namespace Prisma {
 
   export type UserUpdateWithoutJournalsInput = {
     user_uuid?: StringFieldUpdateOperationsInput | string
+    user_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     user_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
     user_first_name?: StringFieldUpdateOperationsInput | string
     user_father_name?: NullableStringFieldUpdateOperationsInput | string | null
@@ -75680,6 +77193,7 @@ export namespace Prisma {
   export type UserUncheckedUpdateWithoutJournalsInput = {
     user_id?: IntFieldUpdateOperationsInput | number
     user_uuid?: StringFieldUpdateOperationsInput | string
+    user_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     user_own_id?: IntFieldUpdateOperationsInput | number
     user_firm_id?: IntFieldUpdateOperationsInput | number
     user_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -75916,6 +77430,7 @@ export namespace Prisma {
 
   export type FirmCreateWithoutJournalTransactionsInput = {
     firm_uuid?: string
+    firm_unique_code?: string | null
     firm_add_date?: Date | string
     firm_name: string
     firm_reg_no: string
@@ -75981,6 +77496,7 @@ export namespace Prisma {
   export type FirmUncheckedCreateWithoutJournalTransactionsInput = {
     firm_id?: number
     firm_uuid?: string
+    firm_unique_code?: string | null
     firm_add_date?: Date | string
     firm_own_id?: number
     firm_name: string
@@ -76050,6 +77566,7 @@ export namespace Prisma {
 
   export type UserCreateWithoutJournalTransactionsInput = {
     user_uuid?: string
+    user_unique_code?: string | null
     user_add_date?: Date | string
     user_first_name: string
     user_father_name?: string | null
@@ -76108,6 +77625,7 @@ export namespace Prisma {
   export type UserUncheckedCreateWithoutJournalTransactionsInput = {
     user_id?: number
     user_uuid?: string
+    user_unique_code?: string | null
     user_own_id: number
     user_firm_id: number
     user_add_date?: Date | string
@@ -76649,6 +78167,7 @@ export namespace Prisma {
 
   export type FirmUpdateWithoutJournalTransactionsInput = {
     firm_uuid?: StringFieldUpdateOperationsInput | string
+    firm_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     firm_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
     firm_name?: StringFieldUpdateOperationsInput | string
     firm_reg_no?: StringFieldUpdateOperationsInput | string
@@ -76714,6 +78233,7 @@ export namespace Prisma {
   export type FirmUncheckedUpdateWithoutJournalTransactionsInput = {
     firm_id?: IntFieldUpdateOperationsInput | number
     firm_uuid?: StringFieldUpdateOperationsInput | string
+    firm_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     firm_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
     firm_own_id?: IntFieldUpdateOperationsInput | number
     firm_name?: StringFieldUpdateOperationsInput | string
@@ -76789,6 +78309,7 @@ export namespace Prisma {
 
   export type UserUpdateWithoutJournalTransactionsInput = {
     user_uuid?: StringFieldUpdateOperationsInput | string
+    user_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     user_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
     user_first_name?: StringFieldUpdateOperationsInput | string
     user_father_name?: NullableStringFieldUpdateOperationsInput | string | null
@@ -76847,6 +78368,7 @@ export namespace Prisma {
   export type UserUncheckedUpdateWithoutJournalTransactionsInput = {
     user_id?: IntFieldUpdateOperationsInput | number
     user_uuid?: StringFieldUpdateOperationsInput | string
+    user_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     user_own_id?: IntFieldUpdateOperationsInput | number
     user_firm_id?: IntFieldUpdateOperationsInput | number
     user_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -77449,6 +78971,7 @@ export namespace Prisma {
 
   export type FirmCreateWithoutGirvisInput = {
     firm_uuid?: string
+    firm_unique_code?: string | null
     firm_add_date?: Date | string
     firm_name: string
     firm_reg_no: string
@@ -77514,6 +79037,7 @@ export namespace Prisma {
   export type FirmUncheckedCreateWithoutGirvisInput = {
     firm_id?: number
     firm_uuid?: string
+    firm_unique_code?: string | null
     firm_add_date?: Date | string
     firm_own_id?: number
     firm_name: string
@@ -77583,6 +79107,7 @@ export namespace Prisma {
 
   export type UserCreateWithoutGirvisInput = {
     user_uuid?: string
+    user_unique_code?: string | null
     user_add_date?: Date | string
     user_first_name: string
     user_father_name?: string | null
@@ -77641,6 +79166,7 @@ export namespace Prisma {
   export type UserUncheckedCreateWithoutGirvisInput = {
     user_id?: number
     user_uuid?: string
+    user_unique_code?: string | null
     user_own_id: number
     user_firm_id: number
     user_add_date?: Date | string
@@ -77703,6 +79229,7 @@ export namespace Prisma {
 
   export type MoneyLenderCreateWithoutTransferredFromInput = {
     ml_uuid?: string
+    ml_unique_code?: string | null
     ml_first_name: string
     ml_last_name?: string | null
     ml_father_name?: string | null
@@ -77739,6 +79266,7 @@ export namespace Prisma {
   export type MoneyLenderUncheckedCreateWithoutTransferredFromInput = {
     ml_id?: number
     ml_uuid?: string
+    ml_unique_code?: string | null
     ml_own_id: number
     ml_first_name: string
     ml_last_name?: string | null
@@ -79226,6 +80754,7 @@ export namespace Prisma {
 
   export type FirmUpdateWithoutGirvisInput = {
     firm_uuid?: StringFieldUpdateOperationsInput | string
+    firm_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     firm_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
     firm_name?: StringFieldUpdateOperationsInput | string
     firm_reg_no?: StringFieldUpdateOperationsInput | string
@@ -79291,6 +80820,7 @@ export namespace Prisma {
   export type FirmUncheckedUpdateWithoutGirvisInput = {
     firm_id?: IntFieldUpdateOperationsInput | number
     firm_uuid?: StringFieldUpdateOperationsInput | string
+    firm_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     firm_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
     firm_own_id?: IntFieldUpdateOperationsInput | number
     firm_name?: StringFieldUpdateOperationsInput | string
@@ -79366,6 +80896,7 @@ export namespace Prisma {
 
   export type UserUpdateWithoutGirvisInput = {
     user_uuid?: StringFieldUpdateOperationsInput | string
+    user_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     user_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
     user_first_name?: StringFieldUpdateOperationsInput | string
     user_father_name?: NullableStringFieldUpdateOperationsInput | string | null
@@ -79424,6 +80955,7 @@ export namespace Prisma {
   export type UserUncheckedUpdateWithoutGirvisInput = {
     user_id?: IntFieldUpdateOperationsInput | number
     user_uuid?: StringFieldUpdateOperationsInput | string
+    user_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     user_own_id?: IntFieldUpdateOperationsInput | number
     user_firm_id?: IntFieldUpdateOperationsInput | number
     user_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -79492,6 +81024,7 @@ export namespace Prisma {
 
   export type MoneyLenderUpdateWithoutTransferredFromInput = {
     ml_uuid?: StringFieldUpdateOperationsInput | string
+    ml_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     ml_first_name?: StringFieldUpdateOperationsInput | string
     ml_last_name?: NullableStringFieldUpdateOperationsInput | string | null
     ml_father_name?: NullableStringFieldUpdateOperationsInput | string | null
@@ -79528,6 +81061,7 @@ export namespace Prisma {
   export type MoneyLenderUncheckedUpdateWithoutTransferredFromInput = {
     ml_id?: IntFieldUpdateOperationsInput | number
     ml_uuid?: StringFieldUpdateOperationsInput | string
+    ml_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     ml_own_id?: IntFieldUpdateOperationsInput | number
     ml_first_name?: StringFieldUpdateOperationsInput | string
     ml_last_name?: NullableStringFieldUpdateOperationsInput | string | null
@@ -80829,6 +82363,7 @@ export namespace Prisma {
 
   export type FirmCreateWithoutStocksInput = {
     firm_uuid?: string
+    firm_unique_code?: string | null
     firm_add_date?: Date | string
     firm_name: string
     firm_reg_no: string
@@ -80894,6 +82429,7 @@ export namespace Prisma {
   export type FirmUncheckedCreateWithoutStocksInput = {
     firm_id?: number
     firm_uuid?: string
+    firm_unique_code?: string | null
     firm_add_date?: Date | string
     firm_own_id?: number
     firm_name: string
@@ -80963,6 +82499,7 @@ export namespace Prisma {
 
   export type UserCreateWithoutStocksInput = {
     user_uuid?: string
+    user_unique_code?: string | null
     user_add_date?: Date | string
     user_first_name: string
     user_father_name?: string | null
@@ -81021,6 +82558,7 @@ export namespace Prisma {
   export type UserUncheckedCreateWithoutStocksInput = {
     user_id?: number
     user_uuid?: string
+    user_unique_code?: string | null
     user_own_id: number
     user_firm_id: number
     user_add_date?: Date | string
@@ -81211,6 +82749,7 @@ export namespace Prisma {
 
   export type FirmUpdateWithoutStocksInput = {
     firm_uuid?: StringFieldUpdateOperationsInput | string
+    firm_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     firm_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
     firm_name?: StringFieldUpdateOperationsInput | string
     firm_reg_no?: StringFieldUpdateOperationsInput | string
@@ -81276,6 +82815,7 @@ export namespace Prisma {
   export type FirmUncheckedUpdateWithoutStocksInput = {
     firm_id?: IntFieldUpdateOperationsInput | number
     firm_uuid?: StringFieldUpdateOperationsInput | string
+    firm_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     firm_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
     firm_own_id?: IntFieldUpdateOperationsInput | number
     firm_name?: StringFieldUpdateOperationsInput | string
@@ -81351,6 +82891,7 @@ export namespace Prisma {
 
   export type UserUpdateWithoutStocksInput = {
     user_uuid?: StringFieldUpdateOperationsInput | string
+    user_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     user_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
     user_first_name?: StringFieldUpdateOperationsInput | string
     user_father_name?: NullableStringFieldUpdateOperationsInput | string | null
@@ -81409,6 +82950,7 @@ export namespace Prisma {
   export type UserUncheckedUpdateWithoutStocksInput = {
     user_id?: IntFieldUpdateOperationsInput | number
     user_uuid?: StringFieldUpdateOperationsInput | string
+    user_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     user_own_id?: IntFieldUpdateOperationsInput | number
     user_firm_id?: IntFieldUpdateOperationsInput | number
     user_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -81578,6 +83120,7 @@ export namespace Prisma {
 
   export type FirmCreateWithoutAdditionalPrincipalsInput = {
     firm_uuid?: string
+    firm_unique_code?: string | null
     firm_add_date?: Date | string
     firm_name: string
     firm_reg_no: string
@@ -81643,6 +83186,7 @@ export namespace Prisma {
   export type FirmUncheckedCreateWithoutAdditionalPrincipalsInput = {
     firm_id?: number
     firm_uuid?: string
+    firm_unique_code?: string | null
     firm_add_date?: Date | string
     firm_own_id?: number
     firm_name: string
@@ -81712,6 +83256,7 @@ export namespace Prisma {
 
   export type UserCreateWithoutAdditionalPrincipalsInput = {
     user_uuid?: string
+    user_unique_code?: string | null
     user_add_date?: Date | string
     user_first_name: string
     user_father_name?: string | null
@@ -81770,6 +83315,7 @@ export namespace Prisma {
   export type UserUncheckedCreateWithoutAdditionalPrincipalsInput = {
     user_id?: number
     user_uuid?: string
+    user_unique_code?: string | null
     user_own_id: number
     user_firm_id: number
     user_add_date?: Date | string
@@ -81832,6 +83378,7 @@ export namespace Prisma {
 
   export type GirviCreateWithoutAdditionalPrincipalsInput = {
     girv_uuid?: string
+    girv_unique_code?: string | null
     girv_add_date?: string | null
     girv_staff_id?: number
     girv_start_date: string
@@ -81889,6 +83436,7 @@ export namespace Prisma {
   export type GirviUncheckedCreateWithoutAdditionalPrincipalsInput = {
     girv_id?: number
     girv_uuid?: string
+    girv_unique_code?: string | null
     girv_add_date?: string | null
     girv_firm_id?: number
     girv_own_id?: number
@@ -82686,6 +84234,7 @@ export namespace Prisma {
 
   export type FirmUpdateWithoutAdditionalPrincipalsInput = {
     firm_uuid?: StringFieldUpdateOperationsInput | string
+    firm_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     firm_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
     firm_name?: StringFieldUpdateOperationsInput | string
     firm_reg_no?: StringFieldUpdateOperationsInput | string
@@ -82751,6 +84300,7 @@ export namespace Prisma {
   export type FirmUncheckedUpdateWithoutAdditionalPrincipalsInput = {
     firm_id?: IntFieldUpdateOperationsInput | number
     firm_uuid?: StringFieldUpdateOperationsInput | string
+    firm_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     firm_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
     firm_own_id?: IntFieldUpdateOperationsInput | number
     firm_name?: StringFieldUpdateOperationsInput | string
@@ -82826,6 +84376,7 @@ export namespace Prisma {
 
   export type UserUpdateWithoutAdditionalPrincipalsInput = {
     user_uuid?: StringFieldUpdateOperationsInput | string
+    user_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     user_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
     user_first_name?: StringFieldUpdateOperationsInput | string
     user_father_name?: NullableStringFieldUpdateOperationsInput | string | null
@@ -82884,6 +84435,7 @@ export namespace Prisma {
   export type UserUncheckedUpdateWithoutAdditionalPrincipalsInput = {
     user_id?: IntFieldUpdateOperationsInput | number
     user_uuid?: StringFieldUpdateOperationsInput | string
+    user_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     user_own_id?: IntFieldUpdateOperationsInput | number
     user_firm_id?: IntFieldUpdateOperationsInput | number
     user_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -82952,6 +84504,7 @@ export namespace Prisma {
 
   export type GirviUpdateWithoutAdditionalPrincipalsInput = {
     girv_uuid?: StringFieldUpdateOperationsInput | string
+    girv_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     girv_add_date?: NullableStringFieldUpdateOperationsInput | string | null
     girv_staff_id?: IntFieldUpdateOperationsInput | number
     girv_start_date?: StringFieldUpdateOperationsInput | string
@@ -83009,6 +84562,7 @@ export namespace Prisma {
   export type GirviUncheckedUpdateWithoutAdditionalPrincipalsInput = {
     girv_id?: IntFieldUpdateOperationsInput | number
     girv_uuid?: StringFieldUpdateOperationsInput | string
+    girv_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     girv_add_date?: NullableStringFieldUpdateOperationsInput | string | null
     girv_firm_id?: IntFieldUpdateOperationsInput | number
     girv_own_id?: IntFieldUpdateOperationsInput | number
@@ -83809,6 +85363,7 @@ export namespace Prisma {
 
   export type FirmCreateWithoutDepositsInput = {
     firm_uuid?: string
+    firm_unique_code?: string | null
     firm_add_date?: Date | string
     firm_name: string
     firm_reg_no: string
@@ -83874,6 +85429,7 @@ export namespace Prisma {
   export type FirmUncheckedCreateWithoutDepositsInput = {
     firm_id?: number
     firm_uuid?: string
+    firm_unique_code?: string | null
     firm_add_date?: Date | string
     firm_own_id?: number
     firm_name: string
@@ -83943,6 +85499,7 @@ export namespace Prisma {
 
   export type UserCreateWithoutDepositsInput = {
     user_uuid?: string
+    user_unique_code?: string | null
     user_add_date?: Date | string
     user_first_name: string
     user_father_name?: string | null
@@ -84001,6 +85558,7 @@ export namespace Prisma {
   export type UserUncheckedCreateWithoutDepositsInput = {
     user_id?: number
     user_uuid?: string
+    user_unique_code?: string | null
     user_own_id: number
     user_firm_id: number
     user_add_date?: Date | string
@@ -84063,6 +85621,7 @@ export namespace Prisma {
 
   export type GirviCreateWithoutDepositsInput = {
     girv_uuid?: string
+    girv_unique_code?: string | null
     girv_add_date?: string | null
     girv_staff_id?: number
     girv_start_date: string
@@ -84120,6 +85679,7 @@ export namespace Prisma {
   export type GirviUncheckedCreateWithoutDepositsInput = {
     girv_id?: number
     girv_uuid?: string
+    girv_unique_code?: string | null
     girv_add_date?: string | null
     girv_firm_id?: number
     girv_own_id?: number
@@ -85525,6 +87085,7 @@ export namespace Prisma {
 
   export type FirmUpdateWithoutDepositsInput = {
     firm_uuid?: StringFieldUpdateOperationsInput | string
+    firm_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     firm_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
     firm_name?: StringFieldUpdateOperationsInput | string
     firm_reg_no?: StringFieldUpdateOperationsInput | string
@@ -85590,6 +87151,7 @@ export namespace Prisma {
   export type FirmUncheckedUpdateWithoutDepositsInput = {
     firm_id?: IntFieldUpdateOperationsInput | number
     firm_uuid?: StringFieldUpdateOperationsInput | string
+    firm_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     firm_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
     firm_own_id?: IntFieldUpdateOperationsInput | number
     firm_name?: StringFieldUpdateOperationsInput | string
@@ -85665,6 +87227,7 @@ export namespace Prisma {
 
   export type UserUpdateWithoutDepositsInput = {
     user_uuid?: StringFieldUpdateOperationsInput | string
+    user_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     user_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
     user_first_name?: StringFieldUpdateOperationsInput | string
     user_father_name?: NullableStringFieldUpdateOperationsInput | string | null
@@ -85723,6 +87286,7 @@ export namespace Prisma {
   export type UserUncheckedUpdateWithoutDepositsInput = {
     user_id?: IntFieldUpdateOperationsInput | number
     user_uuid?: StringFieldUpdateOperationsInput | string
+    user_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     user_own_id?: IntFieldUpdateOperationsInput | number
     user_firm_id?: IntFieldUpdateOperationsInput | number
     user_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -85791,6 +87355,7 @@ export namespace Prisma {
 
   export type GirviUpdateWithoutDepositsInput = {
     girv_uuid?: StringFieldUpdateOperationsInput | string
+    girv_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     girv_add_date?: NullableStringFieldUpdateOperationsInput | string | null
     girv_staff_id?: IntFieldUpdateOperationsInput | number
     girv_start_date?: StringFieldUpdateOperationsInput | string
@@ -85848,6 +87413,7 @@ export namespace Prisma {
   export type GirviUncheckedUpdateWithoutDepositsInput = {
     girv_id?: IntFieldUpdateOperationsInput | number
     girv_uuid?: StringFieldUpdateOperationsInput | string
+    girv_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     girv_add_date?: NullableStringFieldUpdateOperationsInput | string | null
     girv_firm_id?: IntFieldUpdateOperationsInput | number
     girv_own_id?: IntFieldUpdateOperationsInput | number
@@ -87280,6 +88846,7 @@ export namespace Prisma {
 
   export type FirmCreateWithoutReleasesInput = {
     firm_uuid?: string
+    firm_unique_code?: string | null
     firm_add_date?: Date | string
     firm_name: string
     firm_reg_no: string
@@ -87345,6 +88912,7 @@ export namespace Prisma {
   export type FirmUncheckedCreateWithoutReleasesInput = {
     firm_id?: number
     firm_uuid?: string
+    firm_unique_code?: string | null
     firm_add_date?: Date | string
     firm_own_id?: number
     firm_name: string
@@ -87414,6 +88982,7 @@ export namespace Prisma {
 
   export type UserCreateWithoutReleasesInput = {
     user_uuid?: string
+    user_unique_code?: string | null
     user_add_date?: Date | string
     user_first_name: string
     user_father_name?: string | null
@@ -87472,6 +89041,7 @@ export namespace Prisma {
   export type UserUncheckedCreateWithoutReleasesInput = {
     user_id?: number
     user_uuid?: string
+    user_unique_code?: string | null
     user_own_id: number
     user_firm_id: number
     user_add_date?: Date | string
@@ -87534,6 +89104,7 @@ export namespace Prisma {
 
   export type GirviCreateWithoutReleasesInput = {
     girv_uuid?: string
+    girv_unique_code?: string | null
     girv_add_date?: string | null
     girv_staff_id?: number
     girv_start_date: string
@@ -87591,6 +89162,7 @@ export namespace Prisma {
   export type GirviUncheckedCreateWithoutReleasesInput = {
     girv_id?: number
     girv_uuid?: string
+    girv_unique_code?: string | null
     girv_add_date?: string | null
     girv_firm_id?: number
     girv_own_id?: number
@@ -88996,6 +90568,7 @@ export namespace Prisma {
 
   export type FirmUpdateWithoutReleasesInput = {
     firm_uuid?: StringFieldUpdateOperationsInput | string
+    firm_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     firm_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
     firm_name?: StringFieldUpdateOperationsInput | string
     firm_reg_no?: StringFieldUpdateOperationsInput | string
@@ -89061,6 +90634,7 @@ export namespace Prisma {
   export type FirmUncheckedUpdateWithoutReleasesInput = {
     firm_id?: IntFieldUpdateOperationsInput | number
     firm_uuid?: StringFieldUpdateOperationsInput | string
+    firm_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     firm_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
     firm_own_id?: IntFieldUpdateOperationsInput | number
     firm_name?: StringFieldUpdateOperationsInput | string
@@ -89136,6 +90710,7 @@ export namespace Prisma {
 
   export type UserUpdateWithoutReleasesInput = {
     user_uuid?: StringFieldUpdateOperationsInput | string
+    user_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     user_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
     user_first_name?: StringFieldUpdateOperationsInput | string
     user_father_name?: NullableStringFieldUpdateOperationsInput | string | null
@@ -89194,6 +90769,7 @@ export namespace Prisma {
   export type UserUncheckedUpdateWithoutReleasesInput = {
     user_id?: IntFieldUpdateOperationsInput | number
     user_uuid?: StringFieldUpdateOperationsInput | string
+    user_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     user_own_id?: IntFieldUpdateOperationsInput | number
     user_firm_id?: IntFieldUpdateOperationsInput | number
     user_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -89262,6 +90838,7 @@ export namespace Prisma {
 
   export type GirviUpdateWithoutReleasesInput = {
     girv_uuid?: StringFieldUpdateOperationsInput | string
+    girv_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     girv_add_date?: NullableStringFieldUpdateOperationsInput | string | null
     girv_staff_id?: IntFieldUpdateOperationsInput | number
     girv_start_date?: StringFieldUpdateOperationsInput | string
@@ -89319,6 +90896,7 @@ export namespace Prisma {
   export type GirviUncheckedUpdateWithoutReleasesInput = {
     girv_id?: IntFieldUpdateOperationsInput | number
     girv_uuid?: StringFieldUpdateOperationsInput | string
+    girv_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     girv_add_date?: NullableStringFieldUpdateOperationsInput | string | null
     girv_firm_id?: IntFieldUpdateOperationsInput | number
     girv_own_id?: IntFieldUpdateOperationsInput | number
@@ -90751,6 +92329,7 @@ export namespace Prisma {
 
   export type FirmCreateWithoutRatesInput = {
     firm_uuid?: string
+    firm_unique_code?: string | null
     firm_add_date?: Date | string
     firm_name: string
     firm_reg_no: string
@@ -90816,6 +92395,7 @@ export namespace Prisma {
   export type FirmUncheckedCreateWithoutRatesInput = {
     firm_id?: number
     firm_uuid?: string
+    firm_unique_code?: string | null
     firm_add_date?: Date | string
     firm_own_id?: number
     firm_name: string
@@ -91013,6 +92593,7 @@ export namespace Prisma {
 
   export type FirmUpdateWithoutRatesInput = {
     firm_uuid?: StringFieldUpdateOperationsInput | string
+    firm_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     firm_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
     firm_name?: StringFieldUpdateOperationsInput | string
     firm_reg_no?: StringFieldUpdateOperationsInput | string
@@ -91078,6 +92659,7 @@ export namespace Prisma {
   export type FirmUncheckedUpdateWithoutRatesInput = {
     firm_id?: IntFieldUpdateOperationsInput | number
     firm_uuid?: StringFieldUpdateOperationsInput | string
+    firm_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     firm_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
     firm_own_id?: IntFieldUpdateOperationsInput | number
     firm_name?: StringFieldUpdateOperationsInput | string
@@ -91483,6 +93065,7 @@ export namespace Prisma {
 
   export type FirmCreateWithoutMoneyLendersInput = {
     firm_uuid?: string
+    firm_unique_code?: string | null
     firm_add_date?: Date | string
     firm_name: string
     firm_reg_no: string
@@ -91548,6 +93131,7 @@ export namespace Prisma {
   export type FirmUncheckedCreateWithoutMoneyLendersInput = {
     firm_id?: number
     firm_uuid?: string
+    firm_unique_code?: string | null
     firm_add_date?: Date | string
     firm_own_id?: number
     firm_name: string
@@ -91617,6 +93201,7 @@ export namespace Prisma {
 
   export type GirviCreateWithoutTransferMoneyLenderInput = {
     girv_uuid?: string
+    girv_unique_code?: string | null
     girv_add_date?: string | null
     girv_staff_id?: number
     girv_start_date: string
@@ -91674,6 +93259,7 @@ export namespace Prisma {
   export type GirviUncheckedCreateWithoutTransferMoneyLenderInput = {
     girv_id?: number
     girv_uuid?: string
+    girv_unique_code?: string | null
     girv_add_date?: string | null
     girv_firm_id?: number
     girv_own_id?: number
@@ -91868,6 +93454,7 @@ export namespace Prisma {
 
   export type FirmUpdateWithoutMoneyLendersInput = {
     firm_uuid?: StringFieldUpdateOperationsInput | string
+    firm_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     firm_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
     firm_name?: StringFieldUpdateOperationsInput | string
     firm_reg_no?: StringFieldUpdateOperationsInput | string
@@ -91933,6 +93520,7 @@ export namespace Prisma {
   export type FirmUncheckedUpdateWithoutMoneyLendersInput = {
     firm_id?: IntFieldUpdateOperationsInput | number
     firm_uuid?: StringFieldUpdateOperationsInput | string
+    firm_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     firm_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
     firm_own_id?: IntFieldUpdateOperationsInput | number
     firm_name?: StringFieldUpdateOperationsInput | string
@@ -92336,6 +93924,7 @@ export namespace Prisma {
 
   export type StaffCreateWithoutPermissionsInput = {
     staff_uuid?: string
+    staff_unique_code?: string | null
     staff_add_date?: Date | string
     staff_first_name: string
     staff_last_name: string
@@ -92393,6 +93982,7 @@ export namespace Prisma {
   export type StaffUncheckedCreateWithoutPermissionsInput = {
     staff_id?: number
     staff_uuid?: string
+    staff_unique_code?: string | null
     staff_own_id: number
     staff_add_date?: Date | string
     staff_first_name: string
@@ -92491,6 +94081,7 @@ export namespace Prisma {
 
   export type StaffUpdateWithoutPermissionsInput = {
     staff_uuid?: StringFieldUpdateOperationsInput | string
+    staff_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     staff_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
     staff_first_name?: StringFieldUpdateOperationsInput | string
     staff_last_name?: StringFieldUpdateOperationsInput | string
@@ -92548,6 +94139,7 @@ export namespace Prisma {
   export type StaffUncheckedUpdateWithoutPermissionsInput = {
     staff_id?: IntFieldUpdateOperationsInput | number
     staff_uuid?: StringFieldUpdateOperationsInput | string
+    staff_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     staff_own_id?: IntFieldUpdateOperationsInput | number
     staff_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
     staff_first_name?: StringFieldUpdateOperationsInput | string
@@ -92637,6 +94229,7 @@ export namespace Prisma {
   export type UserCreateManyOwnerInput = {
     user_id?: number
     user_uuid?: string
+    user_unique_code?: string | null
     user_firm_id: number
     user_add_date?: Date | string
     user_first_name: string
@@ -92685,6 +94278,7 @@ export namespace Prisma {
   export type FirmCreateManyOwnerInput = {
     firm_id?: number
     firm_uuid?: string
+    firm_unique_code?: string | null
     firm_add_date?: Date | string
     firm_name: string
     firm_reg_no: string
@@ -92767,6 +94361,7 @@ export namespace Prisma {
   export type FinanceCreateManyOwnerInput = {
     fin_id?: number
     fin_uuid?: string
+    fin_unique_code?: string | null
     fin_add_date?: string | null
     fin_firm_id?: number
     fin_user_id?: number
@@ -92924,6 +94519,7 @@ export namespace Prisma {
   export type GirviCreateManyOwnerInput = {
     girv_id?: number
     girv_uuid?: string
+    girv_unique_code?: string | null
     girv_add_date?: string | null
     girv_firm_id?: number
     girv_user_id?: number
@@ -93159,6 +94755,7 @@ export namespace Prisma {
   export type MoneyLenderCreateManyOwnerInput = {
     ml_id?: number
     ml_uuid?: string
+    ml_unique_code?: string | null
     ml_first_name: string
     ml_last_name?: string | null
     ml_father_name?: string | null
@@ -93194,6 +94791,7 @@ export namespace Prisma {
   export type StaffCreateManyOwnerInput = {
     staff_id?: number
     staff_uuid?: string
+    staff_unique_code?: string | null
     staff_add_date?: Date | string
     staff_first_name: string
     staff_last_name: string
@@ -93249,6 +94847,7 @@ export namespace Prisma {
 
   export type UserUpdateWithoutOwnerInput = {
     user_uuid?: StringFieldUpdateOperationsInput | string
+    user_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     user_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
     user_first_name?: StringFieldUpdateOperationsInput | string
     user_father_name?: NullableStringFieldUpdateOperationsInput | string | null
@@ -93307,6 +94906,7 @@ export namespace Prisma {
   export type UserUncheckedUpdateWithoutOwnerInput = {
     user_id?: IntFieldUpdateOperationsInput | number
     user_uuid?: StringFieldUpdateOperationsInput | string
+    user_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     user_firm_id?: IntFieldUpdateOperationsInput | number
     user_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
     user_first_name?: StringFieldUpdateOperationsInput | string
@@ -93365,6 +94965,7 @@ export namespace Prisma {
   export type UserUncheckedUpdateManyWithoutOwnerInput = {
     user_id?: IntFieldUpdateOperationsInput | number
     user_uuid?: StringFieldUpdateOperationsInput | string
+    user_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     user_firm_id?: IntFieldUpdateOperationsInput | number
     user_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
     user_first_name?: StringFieldUpdateOperationsInput | string
@@ -93412,6 +95013,7 @@ export namespace Prisma {
 
   export type FirmUpdateWithoutOwnerInput = {
     firm_uuid?: StringFieldUpdateOperationsInput | string
+    firm_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     firm_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
     firm_name?: StringFieldUpdateOperationsInput | string
     firm_reg_no?: StringFieldUpdateOperationsInput | string
@@ -93477,6 +95079,7 @@ export namespace Prisma {
   export type FirmUncheckedUpdateWithoutOwnerInput = {
     firm_id?: IntFieldUpdateOperationsInput | number
     firm_uuid?: StringFieldUpdateOperationsInput | string
+    firm_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     firm_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
     firm_name?: StringFieldUpdateOperationsInput | string
     firm_reg_no?: StringFieldUpdateOperationsInput | string
@@ -93542,6 +95145,7 @@ export namespace Prisma {
   export type FirmUncheckedUpdateManyWithoutOwnerInput = {
     firm_id?: IntFieldUpdateOperationsInput | number
     firm_uuid?: StringFieldUpdateOperationsInput | string
+    firm_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     firm_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
     firm_name?: StringFieldUpdateOperationsInput | string
     firm_reg_no?: StringFieldUpdateOperationsInput | string
@@ -93770,6 +95374,7 @@ export namespace Prisma {
 
   export type FinanceUpdateWithoutOwnerInput = {
     fin_uuid?: StringFieldUpdateOperationsInput | string
+    fin_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     fin_add_date?: NullableStringFieldUpdateOperationsInput | string | null
     fin_jrnl_id?: NullableIntFieldUpdateOperationsInput | number | null
     fin_staff_id?: IntFieldUpdateOperationsInput | number
@@ -93819,6 +95424,7 @@ export namespace Prisma {
   export type FinanceUncheckedUpdateWithoutOwnerInput = {
     fin_id?: IntFieldUpdateOperationsInput | number
     fin_uuid?: StringFieldUpdateOperationsInput | string
+    fin_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     fin_add_date?: NullableStringFieldUpdateOperationsInput | string | null
     fin_firm_id?: IntFieldUpdateOperationsInput | number
     fin_user_id?: IntFieldUpdateOperationsInput | number
@@ -93868,6 +95474,7 @@ export namespace Prisma {
   export type FinanceUncheckedUpdateManyWithoutOwnerInput = {
     fin_id?: IntFieldUpdateOperationsInput | number
     fin_uuid?: StringFieldUpdateOperationsInput | string
+    fin_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     fin_add_date?: NullableStringFieldUpdateOperationsInput | string | null
     fin_firm_id?: IntFieldUpdateOperationsInput | number
     fin_user_id?: IntFieldUpdateOperationsInput | number
@@ -94244,6 +95851,7 @@ export namespace Prisma {
 
   export type GirviUpdateWithoutOwnerInput = {
     girv_uuid?: StringFieldUpdateOperationsInput | string
+    girv_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     girv_add_date?: NullableStringFieldUpdateOperationsInput | string | null
     girv_staff_id?: IntFieldUpdateOperationsInput | number
     girv_start_date?: StringFieldUpdateOperationsInput | string
@@ -94301,6 +95909,7 @@ export namespace Prisma {
   export type GirviUncheckedUpdateWithoutOwnerInput = {
     girv_id?: IntFieldUpdateOperationsInput | number
     girv_uuid?: StringFieldUpdateOperationsInput | string
+    girv_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     girv_add_date?: NullableStringFieldUpdateOperationsInput | string | null
     girv_firm_id?: IntFieldUpdateOperationsInput | number
     girv_user_id?: IntFieldUpdateOperationsInput | number
@@ -94358,6 +95967,7 @@ export namespace Prisma {
   export type GirviUncheckedUpdateManyWithoutOwnerInput = {
     girv_id?: IntFieldUpdateOperationsInput | number
     girv_uuid?: StringFieldUpdateOperationsInput | string
+    girv_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     girv_add_date?: NullableStringFieldUpdateOperationsInput | string | null
     girv_firm_id?: IntFieldUpdateOperationsInput | number
     girv_user_id?: IntFieldUpdateOperationsInput | number
@@ -94948,6 +96558,7 @@ export namespace Prisma {
 
   export type MoneyLenderUpdateWithoutOwnerInput = {
     ml_uuid?: StringFieldUpdateOperationsInput | string
+    ml_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     ml_first_name?: StringFieldUpdateOperationsInput | string
     ml_last_name?: NullableStringFieldUpdateOperationsInput | string | null
     ml_father_name?: NullableStringFieldUpdateOperationsInput | string | null
@@ -94984,6 +96595,7 @@ export namespace Prisma {
   export type MoneyLenderUncheckedUpdateWithoutOwnerInput = {
     ml_id?: IntFieldUpdateOperationsInput | number
     ml_uuid?: StringFieldUpdateOperationsInput | string
+    ml_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     ml_first_name?: StringFieldUpdateOperationsInput | string
     ml_last_name?: NullableStringFieldUpdateOperationsInput | string | null
     ml_father_name?: NullableStringFieldUpdateOperationsInput | string | null
@@ -95020,6 +96632,7 @@ export namespace Prisma {
   export type MoneyLenderUncheckedUpdateManyWithoutOwnerInput = {
     ml_id?: IntFieldUpdateOperationsInput | number
     ml_uuid?: StringFieldUpdateOperationsInput | string
+    ml_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     ml_first_name?: StringFieldUpdateOperationsInput | string
     ml_last_name?: NullableStringFieldUpdateOperationsInput | string | null
     ml_father_name?: NullableStringFieldUpdateOperationsInput | string | null
@@ -95054,6 +96667,7 @@ export namespace Prisma {
 
   export type StaffUpdateWithoutOwnerInput = {
     staff_uuid?: StringFieldUpdateOperationsInput | string
+    staff_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     staff_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
     staff_first_name?: StringFieldUpdateOperationsInput | string
     staff_last_name?: StringFieldUpdateOperationsInput | string
@@ -95111,6 +96725,7 @@ export namespace Prisma {
   export type StaffUncheckedUpdateWithoutOwnerInput = {
     staff_id?: IntFieldUpdateOperationsInput | number
     staff_uuid?: StringFieldUpdateOperationsInput | string
+    staff_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     staff_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
     staff_first_name?: StringFieldUpdateOperationsInput | string
     staff_last_name?: StringFieldUpdateOperationsInput | string
@@ -95168,6 +96783,7 @@ export namespace Prisma {
   export type StaffUncheckedUpdateManyWithoutOwnerInput = {
     staff_id?: IntFieldUpdateOperationsInput | number
     staff_uuid?: StringFieldUpdateOperationsInput | string
+    staff_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     staff_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
     staff_first_name?: StringFieldUpdateOperationsInput | string
     staff_last_name?: StringFieldUpdateOperationsInput | string
@@ -95224,6 +96840,7 @@ export namespace Prisma {
   export type UserCreateManyFirmInput = {
     user_id?: number
     user_uuid?: string
+    user_unique_code?: string | null
     user_own_id: number
     user_add_date?: Date | string
     user_first_name: string
@@ -95303,6 +96920,7 @@ export namespace Prisma {
   export type FinanceCreateManyFirmInput = {
     fin_id?: number
     fin_uuid?: string
+    fin_unique_code?: string | null
     fin_add_date?: string | null
     fin_own_id?: number
     fin_user_id?: number
@@ -95460,6 +97078,7 @@ export namespace Prisma {
   export type GirviCreateManyFirmInput = {
     girv_id?: number
     girv_uuid?: string
+    girv_unique_code?: string | null
     girv_add_date?: string | null
     girv_own_id?: number
     girv_user_id?: number
@@ -95681,6 +97300,7 @@ export namespace Prisma {
   export type MoneyLenderCreateManyFirmInput = {
     ml_id?: number
     ml_uuid?: string
+    ml_unique_code?: string | null
     ml_own_id: number
     ml_first_name: string
     ml_last_name?: string | null
@@ -95715,6 +97335,7 @@ export namespace Prisma {
 
   export type UserUpdateWithoutFirmInput = {
     user_uuid?: StringFieldUpdateOperationsInput | string
+    user_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     user_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
     user_first_name?: StringFieldUpdateOperationsInput | string
     user_father_name?: NullableStringFieldUpdateOperationsInput | string | null
@@ -95773,6 +97394,7 @@ export namespace Prisma {
   export type UserUncheckedUpdateWithoutFirmInput = {
     user_id?: IntFieldUpdateOperationsInput | number
     user_uuid?: StringFieldUpdateOperationsInput | string
+    user_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     user_own_id?: IntFieldUpdateOperationsInput | number
     user_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
     user_first_name?: StringFieldUpdateOperationsInput | string
@@ -95831,6 +97453,7 @@ export namespace Prisma {
   export type UserUncheckedUpdateManyWithoutFirmInput = {
     user_id?: IntFieldUpdateOperationsInput | number
     user_uuid?: StringFieldUpdateOperationsInput | string
+    user_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     user_own_id?: IntFieldUpdateOperationsInput | number
     user_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
     user_first_name?: StringFieldUpdateOperationsInput | string
@@ -96056,6 +97679,7 @@ export namespace Prisma {
 
   export type FinanceUpdateWithoutFirmInput = {
     fin_uuid?: StringFieldUpdateOperationsInput | string
+    fin_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     fin_add_date?: NullableStringFieldUpdateOperationsInput | string | null
     fin_jrnl_id?: NullableIntFieldUpdateOperationsInput | number | null
     fin_staff_id?: IntFieldUpdateOperationsInput | number
@@ -96105,6 +97729,7 @@ export namespace Prisma {
   export type FinanceUncheckedUpdateWithoutFirmInput = {
     fin_id?: IntFieldUpdateOperationsInput | number
     fin_uuid?: StringFieldUpdateOperationsInput | string
+    fin_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     fin_add_date?: NullableStringFieldUpdateOperationsInput | string | null
     fin_own_id?: IntFieldUpdateOperationsInput | number
     fin_user_id?: IntFieldUpdateOperationsInput | number
@@ -96154,6 +97779,7 @@ export namespace Prisma {
   export type FinanceUncheckedUpdateManyWithoutFirmInput = {
     fin_id?: IntFieldUpdateOperationsInput | number
     fin_uuid?: StringFieldUpdateOperationsInput | string
+    fin_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     fin_add_date?: NullableStringFieldUpdateOperationsInput | string | null
     fin_own_id?: IntFieldUpdateOperationsInput | number
     fin_user_id?: IntFieldUpdateOperationsInput | number
@@ -96530,6 +98156,7 @@ export namespace Prisma {
 
   export type GirviUpdateWithoutFirmInput = {
     girv_uuid?: StringFieldUpdateOperationsInput | string
+    girv_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     girv_add_date?: NullableStringFieldUpdateOperationsInput | string | null
     girv_staff_id?: IntFieldUpdateOperationsInput | number
     girv_start_date?: StringFieldUpdateOperationsInput | string
@@ -96587,6 +98214,7 @@ export namespace Prisma {
   export type GirviUncheckedUpdateWithoutFirmInput = {
     girv_id?: IntFieldUpdateOperationsInput | number
     girv_uuid?: StringFieldUpdateOperationsInput | string
+    girv_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     girv_add_date?: NullableStringFieldUpdateOperationsInput | string | null
     girv_own_id?: IntFieldUpdateOperationsInput | number
     girv_user_id?: IntFieldUpdateOperationsInput | number
@@ -96644,6 +98272,7 @@ export namespace Prisma {
   export type GirviUncheckedUpdateManyWithoutFirmInput = {
     girv_id?: IntFieldUpdateOperationsInput | number
     girv_uuid?: StringFieldUpdateOperationsInput | string
+    girv_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     girv_add_date?: NullableStringFieldUpdateOperationsInput | string | null
     girv_own_id?: IntFieldUpdateOperationsInput | number
     girv_user_id?: IntFieldUpdateOperationsInput | number
@@ -97193,6 +98822,7 @@ export namespace Prisma {
 
   export type MoneyLenderUpdateWithoutFirmInput = {
     ml_uuid?: StringFieldUpdateOperationsInput | string
+    ml_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     ml_first_name?: StringFieldUpdateOperationsInput | string
     ml_last_name?: NullableStringFieldUpdateOperationsInput | string | null
     ml_father_name?: NullableStringFieldUpdateOperationsInput | string | null
@@ -97229,6 +98859,7 @@ export namespace Prisma {
   export type MoneyLenderUncheckedUpdateWithoutFirmInput = {
     ml_id?: IntFieldUpdateOperationsInput | number
     ml_uuid?: StringFieldUpdateOperationsInput | string
+    ml_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     ml_own_id?: IntFieldUpdateOperationsInput | number
     ml_first_name?: StringFieldUpdateOperationsInput | string
     ml_last_name?: NullableStringFieldUpdateOperationsInput | string | null
@@ -97265,6 +98896,7 @@ export namespace Prisma {
   export type MoneyLenderUncheckedUpdateManyWithoutFirmInput = {
     ml_id?: IntFieldUpdateOperationsInput | number
     ml_uuid?: StringFieldUpdateOperationsInput | string
+    ml_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     ml_own_id?: IntFieldUpdateOperationsInput | number
     ml_first_name?: StringFieldUpdateOperationsInput | string
     ml_last_name?: NullableStringFieldUpdateOperationsInput | string | null
@@ -97300,6 +98932,7 @@ export namespace Prisma {
   export type FinanceCreateManyCashAccountInput = {
     fin_id?: number
     fin_uuid?: string
+    fin_unique_code?: string | null
     fin_add_date?: string | null
     fin_own_id?: number
     fin_firm_id?: number
@@ -97347,6 +98980,7 @@ export namespace Prisma {
   export type FinanceCreateManyBankAccountInput = {
     fin_id?: number
     fin_uuid?: string
+    fin_unique_code?: string | null
     fin_add_date?: string | null
     fin_own_id?: number
     fin_firm_id?: number
@@ -97394,6 +99028,7 @@ export namespace Prisma {
   export type FinanceCreateManyOnlineAccountInput = {
     fin_id?: number
     fin_uuid?: string
+    fin_unique_code?: string | null
     fin_add_date?: string | null
     fin_own_id?: number
     fin_firm_id?: number
@@ -97441,6 +99076,7 @@ export namespace Prisma {
   export type FinanceCreateManyCardAccountInput = {
     fin_id?: number
     fin_uuid?: string
+    fin_unique_code?: string | null
     fin_add_date?: string | null
     fin_own_id?: number
     fin_firm_id?: number
@@ -97488,6 +99124,7 @@ export namespace Prisma {
   export type FinanceCreateManyDrAccountInput = {
     fin_id?: number
     fin_uuid?: string
+    fin_unique_code?: string | null
     fin_add_date?: string | null
     fin_own_id?: number
     fin_firm_id?: number
@@ -97886,6 +99523,7 @@ export namespace Prisma {
   export type GirviCreateManyFirstIntCrAccountInput = {
     girv_id?: number
     girv_uuid?: string
+    girv_unique_code?: string | null
     girv_add_date?: string | null
     girv_firm_id?: number
     girv_own_id?: number
@@ -97940,6 +99578,7 @@ export namespace Prisma {
   export type GirviCreateManyFirstIntDrAccountInput = {
     girv_id?: number
     girv_uuid?: string
+    girv_unique_code?: string | null
     girv_add_date?: string | null
     girv_firm_id?: number
     girv_own_id?: number
@@ -97994,6 +99633,7 @@ export namespace Prisma {
   export type GirviCreateManyCashAccountInput = {
     girv_id?: number
     girv_uuid?: string
+    girv_unique_code?: string | null
     girv_add_date?: string | null
     girv_firm_id?: number
     girv_own_id?: number
@@ -98048,6 +99688,7 @@ export namespace Prisma {
   export type GirviCreateManyBankAccountInput = {
     girv_id?: number
     girv_uuid?: string
+    girv_unique_code?: string | null
     girv_add_date?: string | null
     girv_firm_id?: number
     girv_own_id?: number
@@ -98102,6 +99743,7 @@ export namespace Prisma {
   export type GirviCreateManyOnlineAccountInput = {
     girv_id?: number
     girv_uuid?: string
+    girv_unique_code?: string | null
     girv_add_date?: string | null
     girv_firm_id?: number
     girv_own_id?: number
@@ -98156,6 +99798,7 @@ export namespace Prisma {
   export type GirviCreateManyCardAccountInput = {
     girv_id?: number
     girv_uuid?: string
+    girv_unique_code?: string | null
     girv_add_date?: string | null
     girv_firm_id?: number
     girv_own_id?: number
@@ -98210,6 +99853,7 @@ export namespace Prisma {
   export type GirviCreateManyDrAccountInput = {
     girv_id?: number
     girv_uuid?: string
+    girv_unique_code?: string | null
     girv_add_date?: string | null
     girv_firm_id?: number
     girv_own_id?: number
@@ -99039,6 +100683,7 @@ export namespace Prisma {
 
   export type FinanceUpdateWithoutCashAccountInput = {
     fin_uuid?: StringFieldUpdateOperationsInput | string
+    fin_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     fin_add_date?: NullableStringFieldUpdateOperationsInput | string | null
     fin_jrnl_id?: NullableIntFieldUpdateOperationsInput | number | null
     fin_staff_id?: IntFieldUpdateOperationsInput | number
@@ -99088,6 +100733,7 @@ export namespace Prisma {
   export type FinanceUncheckedUpdateWithoutCashAccountInput = {
     fin_id?: IntFieldUpdateOperationsInput | number
     fin_uuid?: StringFieldUpdateOperationsInput | string
+    fin_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     fin_add_date?: NullableStringFieldUpdateOperationsInput | string | null
     fin_own_id?: IntFieldUpdateOperationsInput | number
     fin_firm_id?: IntFieldUpdateOperationsInput | number
@@ -99137,6 +100783,7 @@ export namespace Prisma {
   export type FinanceUncheckedUpdateManyWithoutCashAccountInput = {
     fin_id?: IntFieldUpdateOperationsInput | number
     fin_uuid?: StringFieldUpdateOperationsInput | string
+    fin_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     fin_add_date?: NullableStringFieldUpdateOperationsInput | string | null
     fin_own_id?: IntFieldUpdateOperationsInput | number
     fin_firm_id?: IntFieldUpdateOperationsInput | number
@@ -99183,6 +100830,7 @@ export namespace Prisma {
 
   export type FinanceUpdateWithoutBankAccountInput = {
     fin_uuid?: StringFieldUpdateOperationsInput | string
+    fin_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     fin_add_date?: NullableStringFieldUpdateOperationsInput | string | null
     fin_jrnl_id?: NullableIntFieldUpdateOperationsInput | number | null
     fin_staff_id?: IntFieldUpdateOperationsInput | number
@@ -99232,6 +100880,7 @@ export namespace Prisma {
   export type FinanceUncheckedUpdateWithoutBankAccountInput = {
     fin_id?: IntFieldUpdateOperationsInput | number
     fin_uuid?: StringFieldUpdateOperationsInput | string
+    fin_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     fin_add_date?: NullableStringFieldUpdateOperationsInput | string | null
     fin_own_id?: IntFieldUpdateOperationsInput | number
     fin_firm_id?: IntFieldUpdateOperationsInput | number
@@ -99281,6 +100930,7 @@ export namespace Prisma {
   export type FinanceUncheckedUpdateManyWithoutBankAccountInput = {
     fin_id?: IntFieldUpdateOperationsInput | number
     fin_uuid?: StringFieldUpdateOperationsInput | string
+    fin_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     fin_add_date?: NullableStringFieldUpdateOperationsInput | string | null
     fin_own_id?: IntFieldUpdateOperationsInput | number
     fin_firm_id?: IntFieldUpdateOperationsInput | number
@@ -99327,6 +100977,7 @@ export namespace Prisma {
 
   export type FinanceUpdateWithoutOnlineAccountInput = {
     fin_uuid?: StringFieldUpdateOperationsInput | string
+    fin_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     fin_add_date?: NullableStringFieldUpdateOperationsInput | string | null
     fin_jrnl_id?: NullableIntFieldUpdateOperationsInput | number | null
     fin_staff_id?: IntFieldUpdateOperationsInput | number
@@ -99376,6 +101027,7 @@ export namespace Prisma {
   export type FinanceUncheckedUpdateWithoutOnlineAccountInput = {
     fin_id?: IntFieldUpdateOperationsInput | number
     fin_uuid?: StringFieldUpdateOperationsInput | string
+    fin_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     fin_add_date?: NullableStringFieldUpdateOperationsInput | string | null
     fin_own_id?: IntFieldUpdateOperationsInput | number
     fin_firm_id?: IntFieldUpdateOperationsInput | number
@@ -99425,6 +101077,7 @@ export namespace Prisma {
   export type FinanceUncheckedUpdateManyWithoutOnlineAccountInput = {
     fin_id?: IntFieldUpdateOperationsInput | number
     fin_uuid?: StringFieldUpdateOperationsInput | string
+    fin_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     fin_add_date?: NullableStringFieldUpdateOperationsInput | string | null
     fin_own_id?: IntFieldUpdateOperationsInput | number
     fin_firm_id?: IntFieldUpdateOperationsInput | number
@@ -99471,6 +101124,7 @@ export namespace Prisma {
 
   export type FinanceUpdateWithoutCardAccountInput = {
     fin_uuid?: StringFieldUpdateOperationsInput | string
+    fin_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     fin_add_date?: NullableStringFieldUpdateOperationsInput | string | null
     fin_jrnl_id?: NullableIntFieldUpdateOperationsInput | number | null
     fin_staff_id?: IntFieldUpdateOperationsInput | number
@@ -99520,6 +101174,7 @@ export namespace Prisma {
   export type FinanceUncheckedUpdateWithoutCardAccountInput = {
     fin_id?: IntFieldUpdateOperationsInput | number
     fin_uuid?: StringFieldUpdateOperationsInput | string
+    fin_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     fin_add_date?: NullableStringFieldUpdateOperationsInput | string | null
     fin_own_id?: IntFieldUpdateOperationsInput | number
     fin_firm_id?: IntFieldUpdateOperationsInput | number
@@ -99569,6 +101224,7 @@ export namespace Prisma {
   export type FinanceUncheckedUpdateManyWithoutCardAccountInput = {
     fin_id?: IntFieldUpdateOperationsInput | number
     fin_uuid?: StringFieldUpdateOperationsInput | string
+    fin_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     fin_add_date?: NullableStringFieldUpdateOperationsInput | string | null
     fin_own_id?: IntFieldUpdateOperationsInput | number
     fin_firm_id?: IntFieldUpdateOperationsInput | number
@@ -99615,6 +101271,7 @@ export namespace Prisma {
 
   export type FinanceUpdateWithoutDrAccountInput = {
     fin_uuid?: StringFieldUpdateOperationsInput | string
+    fin_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     fin_add_date?: NullableStringFieldUpdateOperationsInput | string | null
     fin_jrnl_id?: NullableIntFieldUpdateOperationsInput | number | null
     fin_staff_id?: IntFieldUpdateOperationsInput | number
@@ -99664,6 +101321,7 @@ export namespace Prisma {
   export type FinanceUncheckedUpdateWithoutDrAccountInput = {
     fin_id?: IntFieldUpdateOperationsInput | number
     fin_uuid?: StringFieldUpdateOperationsInput | string
+    fin_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     fin_add_date?: NullableStringFieldUpdateOperationsInput | string | null
     fin_own_id?: IntFieldUpdateOperationsInput | number
     fin_firm_id?: IntFieldUpdateOperationsInput | number
@@ -99713,6 +101371,7 @@ export namespace Prisma {
   export type FinanceUncheckedUpdateManyWithoutDrAccountInput = {
     fin_id?: IntFieldUpdateOperationsInput | number
     fin_uuid?: StringFieldUpdateOperationsInput | string
+    fin_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     fin_add_date?: NullableStringFieldUpdateOperationsInput | string | null
     fin_own_id?: IntFieldUpdateOperationsInput | number
     fin_firm_id?: IntFieldUpdateOperationsInput | number
@@ -100801,6 +102460,7 @@ export namespace Prisma {
 
   export type GirviUpdateWithoutFirstIntCrAccountInput = {
     girv_uuid?: StringFieldUpdateOperationsInput | string
+    girv_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     girv_add_date?: NullableStringFieldUpdateOperationsInput | string | null
     girv_staff_id?: IntFieldUpdateOperationsInput | number
     girv_start_date?: StringFieldUpdateOperationsInput | string
@@ -100858,6 +102518,7 @@ export namespace Prisma {
   export type GirviUncheckedUpdateWithoutFirstIntCrAccountInput = {
     girv_id?: IntFieldUpdateOperationsInput | number
     girv_uuid?: StringFieldUpdateOperationsInput | string
+    girv_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     girv_add_date?: NullableStringFieldUpdateOperationsInput | string | null
     girv_firm_id?: IntFieldUpdateOperationsInput | number
     girv_own_id?: IntFieldUpdateOperationsInput | number
@@ -100915,6 +102576,7 @@ export namespace Prisma {
   export type GirviUncheckedUpdateManyWithoutFirstIntCrAccountInput = {
     girv_id?: IntFieldUpdateOperationsInput | number
     girv_uuid?: StringFieldUpdateOperationsInput | string
+    girv_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     girv_add_date?: NullableStringFieldUpdateOperationsInput | string | null
     girv_firm_id?: IntFieldUpdateOperationsInput | number
     girv_own_id?: IntFieldUpdateOperationsInput | number
@@ -100968,6 +102630,7 @@ export namespace Prisma {
 
   export type GirviUpdateWithoutFirstIntDrAccountInput = {
     girv_uuid?: StringFieldUpdateOperationsInput | string
+    girv_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     girv_add_date?: NullableStringFieldUpdateOperationsInput | string | null
     girv_staff_id?: IntFieldUpdateOperationsInput | number
     girv_start_date?: StringFieldUpdateOperationsInput | string
@@ -101025,6 +102688,7 @@ export namespace Prisma {
   export type GirviUncheckedUpdateWithoutFirstIntDrAccountInput = {
     girv_id?: IntFieldUpdateOperationsInput | number
     girv_uuid?: StringFieldUpdateOperationsInput | string
+    girv_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     girv_add_date?: NullableStringFieldUpdateOperationsInput | string | null
     girv_firm_id?: IntFieldUpdateOperationsInput | number
     girv_own_id?: IntFieldUpdateOperationsInput | number
@@ -101082,6 +102746,7 @@ export namespace Prisma {
   export type GirviUncheckedUpdateManyWithoutFirstIntDrAccountInput = {
     girv_id?: IntFieldUpdateOperationsInput | number
     girv_uuid?: StringFieldUpdateOperationsInput | string
+    girv_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     girv_add_date?: NullableStringFieldUpdateOperationsInput | string | null
     girv_firm_id?: IntFieldUpdateOperationsInput | number
     girv_own_id?: IntFieldUpdateOperationsInput | number
@@ -101135,6 +102800,7 @@ export namespace Prisma {
 
   export type GirviUpdateWithoutCashAccountInput = {
     girv_uuid?: StringFieldUpdateOperationsInput | string
+    girv_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     girv_add_date?: NullableStringFieldUpdateOperationsInput | string | null
     girv_staff_id?: IntFieldUpdateOperationsInput | number
     girv_start_date?: StringFieldUpdateOperationsInput | string
@@ -101192,6 +102858,7 @@ export namespace Prisma {
   export type GirviUncheckedUpdateWithoutCashAccountInput = {
     girv_id?: IntFieldUpdateOperationsInput | number
     girv_uuid?: StringFieldUpdateOperationsInput | string
+    girv_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     girv_add_date?: NullableStringFieldUpdateOperationsInput | string | null
     girv_firm_id?: IntFieldUpdateOperationsInput | number
     girv_own_id?: IntFieldUpdateOperationsInput | number
@@ -101249,6 +102916,7 @@ export namespace Prisma {
   export type GirviUncheckedUpdateManyWithoutCashAccountInput = {
     girv_id?: IntFieldUpdateOperationsInput | number
     girv_uuid?: StringFieldUpdateOperationsInput | string
+    girv_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     girv_add_date?: NullableStringFieldUpdateOperationsInput | string | null
     girv_firm_id?: IntFieldUpdateOperationsInput | number
     girv_own_id?: IntFieldUpdateOperationsInput | number
@@ -101302,6 +102970,7 @@ export namespace Prisma {
 
   export type GirviUpdateWithoutBankAccountInput = {
     girv_uuid?: StringFieldUpdateOperationsInput | string
+    girv_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     girv_add_date?: NullableStringFieldUpdateOperationsInput | string | null
     girv_staff_id?: IntFieldUpdateOperationsInput | number
     girv_start_date?: StringFieldUpdateOperationsInput | string
@@ -101359,6 +103028,7 @@ export namespace Prisma {
   export type GirviUncheckedUpdateWithoutBankAccountInput = {
     girv_id?: IntFieldUpdateOperationsInput | number
     girv_uuid?: StringFieldUpdateOperationsInput | string
+    girv_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     girv_add_date?: NullableStringFieldUpdateOperationsInput | string | null
     girv_firm_id?: IntFieldUpdateOperationsInput | number
     girv_own_id?: IntFieldUpdateOperationsInput | number
@@ -101416,6 +103086,7 @@ export namespace Prisma {
   export type GirviUncheckedUpdateManyWithoutBankAccountInput = {
     girv_id?: IntFieldUpdateOperationsInput | number
     girv_uuid?: StringFieldUpdateOperationsInput | string
+    girv_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     girv_add_date?: NullableStringFieldUpdateOperationsInput | string | null
     girv_firm_id?: IntFieldUpdateOperationsInput | number
     girv_own_id?: IntFieldUpdateOperationsInput | number
@@ -101469,6 +103140,7 @@ export namespace Prisma {
 
   export type GirviUpdateWithoutOnlineAccountInput = {
     girv_uuid?: StringFieldUpdateOperationsInput | string
+    girv_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     girv_add_date?: NullableStringFieldUpdateOperationsInput | string | null
     girv_staff_id?: IntFieldUpdateOperationsInput | number
     girv_start_date?: StringFieldUpdateOperationsInput | string
@@ -101526,6 +103198,7 @@ export namespace Prisma {
   export type GirviUncheckedUpdateWithoutOnlineAccountInput = {
     girv_id?: IntFieldUpdateOperationsInput | number
     girv_uuid?: StringFieldUpdateOperationsInput | string
+    girv_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     girv_add_date?: NullableStringFieldUpdateOperationsInput | string | null
     girv_firm_id?: IntFieldUpdateOperationsInput | number
     girv_own_id?: IntFieldUpdateOperationsInput | number
@@ -101583,6 +103256,7 @@ export namespace Prisma {
   export type GirviUncheckedUpdateManyWithoutOnlineAccountInput = {
     girv_id?: IntFieldUpdateOperationsInput | number
     girv_uuid?: StringFieldUpdateOperationsInput | string
+    girv_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     girv_add_date?: NullableStringFieldUpdateOperationsInput | string | null
     girv_firm_id?: IntFieldUpdateOperationsInput | number
     girv_own_id?: IntFieldUpdateOperationsInput | number
@@ -101636,6 +103310,7 @@ export namespace Prisma {
 
   export type GirviUpdateWithoutCardAccountInput = {
     girv_uuid?: StringFieldUpdateOperationsInput | string
+    girv_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     girv_add_date?: NullableStringFieldUpdateOperationsInput | string | null
     girv_staff_id?: IntFieldUpdateOperationsInput | number
     girv_start_date?: StringFieldUpdateOperationsInput | string
@@ -101693,6 +103368,7 @@ export namespace Prisma {
   export type GirviUncheckedUpdateWithoutCardAccountInput = {
     girv_id?: IntFieldUpdateOperationsInput | number
     girv_uuid?: StringFieldUpdateOperationsInput | string
+    girv_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     girv_add_date?: NullableStringFieldUpdateOperationsInput | string | null
     girv_firm_id?: IntFieldUpdateOperationsInput | number
     girv_own_id?: IntFieldUpdateOperationsInput | number
@@ -101750,6 +103426,7 @@ export namespace Prisma {
   export type GirviUncheckedUpdateManyWithoutCardAccountInput = {
     girv_id?: IntFieldUpdateOperationsInput | number
     girv_uuid?: StringFieldUpdateOperationsInput | string
+    girv_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     girv_add_date?: NullableStringFieldUpdateOperationsInput | string | null
     girv_firm_id?: IntFieldUpdateOperationsInput | number
     girv_own_id?: IntFieldUpdateOperationsInput | number
@@ -101803,6 +103480,7 @@ export namespace Prisma {
 
   export type GirviUpdateWithoutDrAccountInput = {
     girv_uuid?: StringFieldUpdateOperationsInput | string
+    girv_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     girv_add_date?: NullableStringFieldUpdateOperationsInput | string | null
     girv_staff_id?: IntFieldUpdateOperationsInput | number
     girv_start_date?: StringFieldUpdateOperationsInput | string
@@ -101860,6 +103538,7 @@ export namespace Prisma {
   export type GirviUncheckedUpdateWithoutDrAccountInput = {
     girv_id?: IntFieldUpdateOperationsInput | number
     girv_uuid?: StringFieldUpdateOperationsInput | string
+    girv_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     girv_add_date?: NullableStringFieldUpdateOperationsInput | string | null
     girv_firm_id?: IntFieldUpdateOperationsInput | number
     girv_own_id?: IntFieldUpdateOperationsInput | number
@@ -101917,6 +103596,7 @@ export namespace Prisma {
   export type GirviUncheckedUpdateManyWithoutDrAccountInput = {
     girv_id?: IntFieldUpdateOperationsInput | number
     girv_uuid?: StringFieldUpdateOperationsInput | string
+    girv_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     girv_add_date?: NullableStringFieldUpdateOperationsInput | string | null
     girv_firm_id?: IntFieldUpdateOperationsInput | number
     girv_own_id?: IntFieldUpdateOperationsInput | number
@@ -104279,6 +105959,7 @@ export namespace Prisma {
   export type FinanceCreateManyUserInput = {
     fin_id?: number
     fin_uuid?: string
+    fin_unique_code?: string | null
     fin_add_date?: string | null
     fin_own_id?: number
     fin_firm_id?: number
@@ -104436,6 +106117,7 @@ export namespace Prisma {
   export type GirviCreateManyUserInput = {
     girv_id?: number
     girv_uuid?: string
+    girv_unique_code?: string | null
     girv_add_date?: string | null
     girv_firm_id?: number
     girv_own_id?: number
@@ -104636,6 +106318,7 @@ export namespace Prisma {
 
   export type FinanceUpdateWithoutUserInput = {
     fin_uuid?: StringFieldUpdateOperationsInput | string
+    fin_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     fin_add_date?: NullableStringFieldUpdateOperationsInput | string | null
     fin_jrnl_id?: NullableIntFieldUpdateOperationsInput | number | null
     fin_staff_id?: IntFieldUpdateOperationsInput | number
@@ -104685,6 +106368,7 @@ export namespace Prisma {
   export type FinanceUncheckedUpdateWithoutUserInput = {
     fin_id?: IntFieldUpdateOperationsInput | number
     fin_uuid?: StringFieldUpdateOperationsInput | string
+    fin_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     fin_add_date?: NullableStringFieldUpdateOperationsInput | string | null
     fin_own_id?: IntFieldUpdateOperationsInput | number
     fin_firm_id?: IntFieldUpdateOperationsInput | number
@@ -104734,6 +106418,7 @@ export namespace Prisma {
   export type FinanceUncheckedUpdateManyWithoutUserInput = {
     fin_id?: IntFieldUpdateOperationsInput | number
     fin_uuid?: StringFieldUpdateOperationsInput | string
+    fin_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     fin_add_date?: NullableStringFieldUpdateOperationsInput | string | null
     fin_own_id?: IntFieldUpdateOperationsInput | number
     fin_firm_id?: IntFieldUpdateOperationsInput | number
@@ -105110,6 +106795,7 @@ export namespace Prisma {
 
   export type GirviUpdateWithoutUserInput = {
     girv_uuid?: StringFieldUpdateOperationsInput | string
+    girv_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     girv_add_date?: NullableStringFieldUpdateOperationsInput | string | null
     girv_staff_id?: IntFieldUpdateOperationsInput | number
     girv_start_date?: StringFieldUpdateOperationsInput | string
@@ -105167,6 +106853,7 @@ export namespace Prisma {
   export type GirviUncheckedUpdateWithoutUserInput = {
     girv_id?: IntFieldUpdateOperationsInput | number
     girv_uuid?: StringFieldUpdateOperationsInput | string
+    girv_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     girv_add_date?: NullableStringFieldUpdateOperationsInput | string | null
     girv_firm_id?: IntFieldUpdateOperationsInput | number
     girv_own_id?: IntFieldUpdateOperationsInput | number
@@ -105224,6 +106911,7 @@ export namespace Prisma {
   export type GirviUncheckedUpdateManyWithoutUserInput = {
     girv_id?: IntFieldUpdateOperationsInput | number
     girv_uuid?: StringFieldUpdateOperationsInput | string
+    girv_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     girv_add_date?: NullableStringFieldUpdateOperationsInput | string | null
     girv_firm_id?: IntFieldUpdateOperationsInput | number
     girv_own_id?: IntFieldUpdateOperationsInput | number
@@ -106676,6 +108364,7 @@ export namespace Prisma {
   export type GirviCreateManyTransferMoneyLenderInput = {
     girv_id?: number
     girv_uuid?: string
+    girv_unique_code?: string | null
     girv_add_date?: string | null
     girv_firm_id?: number
     girv_own_id?: number
@@ -106729,6 +108418,7 @@ export namespace Prisma {
 
   export type GirviUpdateWithoutTransferMoneyLenderInput = {
     girv_uuid?: StringFieldUpdateOperationsInput | string
+    girv_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     girv_add_date?: NullableStringFieldUpdateOperationsInput | string | null
     girv_staff_id?: IntFieldUpdateOperationsInput | number
     girv_start_date?: StringFieldUpdateOperationsInput | string
@@ -106786,6 +108476,7 @@ export namespace Prisma {
   export type GirviUncheckedUpdateWithoutTransferMoneyLenderInput = {
     girv_id?: IntFieldUpdateOperationsInput | number
     girv_uuid?: StringFieldUpdateOperationsInput | string
+    girv_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     girv_add_date?: NullableStringFieldUpdateOperationsInput | string | null
     girv_firm_id?: IntFieldUpdateOperationsInput | number
     girv_own_id?: IntFieldUpdateOperationsInput | number
@@ -106843,6 +108534,7 @@ export namespace Prisma {
   export type GirviUncheckedUpdateManyWithoutTransferMoneyLenderInput = {
     girv_id?: IntFieldUpdateOperationsInput | number
     girv_uuid?: StringFieldUpdateOperationsInput | string
+    girv_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     girv_add_date?: NullableStringFieldUpdateOperationsInput | string | null
     girv_firm_id?: IntFieldUpdateOperationsInput | number
     girv_own_id?: IntFieldUpdateOperationsInput | number
@@ -107089,6 +108781,10 @@ export namespace Prisma {
      * @deprecated Use StaffPermissionDefaultArgs instead
      */
     export type StaffPermissionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = StaffPermissionDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use SerialNumberDefaultArgs instead
+     */
+    export type SerialNumberArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = SerialNumberDefaultArgs<ExtArgs>
 
   /**
    * Batch Payload for updateMany & deleteMany & createMany

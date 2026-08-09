@@ -163,6 +163,7 @@ exports.Prisma.OwnerScalarFieldEnum = {
 exports.Prisma.FirmScalarFieldEnum = {
   firm_id: 'firm_id',
   firm_uuid: 'firm_uuid',
+  firm_unique_code: 'firm_unique_code',
   firm_add_date: 'firm_add_date',
   firm_own_id: 'firm_own_id',
   firm_name: 'firm_name',
@@ -247,6 +248,7 @@ exports.Prisma.AccountScalarFieldEnum = {
 exports.Prisma.UserScalarFieldEnum = {
   user_id: 'user_id',
   user_uuid: 'user_uuid',
+  user_unique_code: 'user_unique_code',
   user_own_id: 'user_own_id',
   user_firm_id: 'user_firm_id',
   user_add_date: 'user_add_date',
@@ -296,6 +298,7 @@ exports.Prisma.UserScalarFieldEnum = {
 exports.Prisma.FinanceScalarFieldEnum = {
   fin_id: 'fin_id',
   fin_uuid: 'fin_uuid',
+  fin_unique_code: 'fin_unique_code',
   fin_add_date: 'fin_add_date',
   fin_own_id: 'fin_own_id',
   fin_firm_id: 'fin_firm_id',
@@ -458,6 +461,7 @@ exports.Prisma.JournalTransactionScalarFieldEnum = {
 exports.Prisma.GirviScalarFieldEnum = {
   girv_id: 'girv_id',
   girv_uuid: 'girv_uuid',
+  girv_unique_code: 'girv_unique_code',
   girv_add_date: 'girv_add_date',
   girv_firm_id: 'girv_firm_id',
   girv_own_id: 'girv_own_id',
@@ -700,6 +704,7 @@ exports.Prisma.PurityScalarFieldEnum = {
 exports.Prisma.MoneyLenderScalarFieldEnum = {
   ml_id: 'ml_id',
   ml_uuid: 'ml_uuid',
+  ml_unique_code: 'ml_unique_code',
   ml_own_id: 'ml_own_id',
   ml_first_name: 'ml_first_name',
   ml_last_name: 'ml_last_name',
@@ -736,6 +741,7 @@ exports.Prisma.MoneyLenderScalarFieldEnum = {
 exports.Prisma.AuctionUserScalarFieldEnum = {
   au_id: 'au_id',
   au_uuid: 'au_uuid',
+  au_unique_code: 'au_unique_code',
   au_date: 'au_date',
   au_firm_id: 'au_firm_id',
   au_full_name: 'au_full_name',
@@ -783,6 +789,7 @@ exports.Prisma.AuctionLoanScalarFieldEnum = {
 exports.Prisma.StaffScalarFieldEnum = {
   staff_id: 'staff_id',
   staff_uuid: 'staff_uuid',
+  staff_unique_code: 'staff_unique_code',
   staff_own_id: 'staff_own_id',
   staff_add_date: 'staff_add_date',
   staff_first_name: 'staff_first_name',
@@ -855,6 +862,16 @@ exports.Prisma.StaffPermissionScalarFieldEnum = {
   sp_granted: 'sp_granted',
   sp_created_at: 'sp_created_at',
   sp_updated_at: 'sp_updated_at'
+};
+
+exports.Prisma.SerialNumberScalarFieldEnum = {
+  sn_id: 'sn_id',
+  entity_type: 'entity_type',
+  start_number: 'start_number',
+  current_number: 'current_number',
+  number_prefix: 'number_prefix',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
 };
 
 exports.Prisma.SortOrder = {
@@ -1040,7 +1057,8 @@ exports.Prisma.ModelName = {
   AuctionLoan: 'AuctionLoan',
   Staff: 'Staff',
   Permission: 'Permission',
-  StaffPermission: 'StaffPermission'
+  StaffPermission: 'StaffPermission',
+  SerialNumber: 'SerialNumber'
 };
 
 /**

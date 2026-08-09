@@ -210,6 +210,14 @@ const setupOwnerDatabase = async (dbName) => {
     });
     console.log(`✅  Database schema synced for "${dbName}".`);
 
+    // 3. Seed default serial numbers for tenant database
+    try {
+      const { seedSerialNumbers } = require("../prisma/seeder/serial-number-seeder");
+      await seedSerialNumbers(newDbUrl);
+    } catch (seedErr) {
+      console.warn("⚠️ Failed to seed default serial numbers:", seedErr.message);
+    }
+
     return newDbUrl;
   } finally {
     await client.end();

@@ -131,6 +131,7 @@ model Firm {
   // ===============================
   firm_id       Int      @id @default(autoincrement())
   firm_uuid     String   @unique @default(uuid())
+  firm_unique_code String? @unique
   // ===============================
   // Basic Information
   // ===============================
@@ -234,6 +235,8 @@ model Firm {
   releases             GirviRelease[]              @relation("FirmGirviRelease")
   rates                Rate[]                      @relation("FirmRates")
   moneyLenders         MoneyLender[]               @relation("FirmMoneyLenders")
+  auctionUsers         AuctionUser[]               @relation("FirmAuctionUser")
+  auctionLoans         AuctionLoan[]               @relation("FirmAuctionLoan")
 }
 
 // Enum for balance type
@@ -362,6 +365,7 @@ enum UserMaritalStatus {
 model User {
   user_id   Int    @id @default(autoincrement())
   user_uuid String @unique @default(uuid())
+  user_unique_code String? @unique
 
   user_own_id  Int
   user_firm_id Int
@@ -465,6 +469,7 @@ enum FrequencyType {
 model Finance {
   fin_id       Int     @id @default(autoincrement())
   fin_uuid     String  @unique @default(uuid())
+  fin_unique_code String? @unique
   fin_add_date String? @default("")
   fin_own_id   Int     @default(0)
   fin_firm_id  Int     @default(0)
@@ -822,6 +827,7 @@ enum GirviCompoundFreq {
 model Girvi {
   girv_id       Int     @id @default(autoincrement())
   girv_uuid     String  @unique @default(uuid())
+  girv_unique_code String? @unique
   girv_add_date String? @default("")
 
   girv_firm_id  Int @default(0)
@@ -909,6 +915,7 @@ model Girvi {
   additionalPrincipals AdditionalPrincipal[] @relation("GirviAP")
   deposits             GirviDeposit[]        @relation("GirviGirviDeposit")
   releases             GirviRelease[]        @relation("GirviGirviRelease")
+  auctionLoans         AuctionLoan[]         @relation("GirviAuctionLoan")
 
   @@map("girvi")
 }
@@ -1261,6 +1268,7 @@ model Purity {
 model MoneyLender {
   ml_id               Int      @id @default(autoincrement())
   ml_uuid             String   @unique @default(uuid())
+  ml_unique_code      String?  @unique
   ml_own_id           Int
   
   // Personal Details
@@ -1321,6 +1329,7 @@ model MoneyLender {
 model AuctionUser {
   au_id             Int      @id @default(autoincrement())
   au_uuid           String   @unique @default(uuid())
+  au_unique_code    String?  @unique
   au_date           String?  @default("")
   
   au_firm_id        Int
@@ -1338,6 +1347,10 @@ model AuctionUser {
   au_village        String?
   au_pincode        String?
   au_image          String?
+
+  // Relations
+  firm              Firm          @relation("FirmAuctionUser", fields: [au_firm_id], references: [firm_id], onDelete: Cascade)
+  auctionLoans      AuctionLoan[] @relation("AuctionUserAuctionLoan")
 
   @@map("auction_users")
 }
@@ -1375,6 +1388,11 @@ model AuctionLoan {
   al_pay_info       String?
   al_other_info     String?
 
+  // Relations
+  firm              Firm        @relation("FirmAuctionLoan", fields: [al_firm_id], references: [firm_id], onDelete: Cascade)
+  girvi             Girvi       @relation("GirviAuctionLoan", fields: [al_girv_id], references: [girv_id], onDelete: Cascade)
+  buyer             AuctionUser @relation("AuctionUserAuctionLoan", fields: [al_buyer_id], references: [au_id], onDelete: Cascade)
+
   @@map("auction_loans")
 }
 
@@ -1406,6 +1424,7 @@ enum StaffMaritalStatus {
 model Staff {
   staff_id   Int    @id @default(autoincrement())
   staff_uuid String @unique @default(uuid())
+  staff_unique_code String? @unique
 
   staff_own_id  Int
   staff_add_date DateTime @default(now())
@@ -1512,3 +1531,19 @@ model StaffPermission {
   @@index([sp_perm_id])
   @@map("staff_permissions")
 }
+
+// =============================================================================
+// SerialNumber Model
+// =============================================================================
+model SerialNumber {
+  sn_id          Int      @id @default(autoincrement())
+  entity_type    String   @unique
+  start_number   Int      @default(1001)
+  current_number Int      @default(1000)
+  number_prefix  String   @default("")
+  created_at     DateTime @default(now())
+  updated_at     DateTime @updatedAt
+
+  @@map("serial_numbers")
+}
+

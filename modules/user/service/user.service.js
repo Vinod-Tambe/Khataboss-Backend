@@ -1,6 +1,7 @@
 "use strict";
 
 const { PrismaClient } = require("../../../prisma/generated/main");
+const serialNumberService = require("../../../common/service/serialNumber.service");
 
 class UserService {
   /**
@@ -25,6 +26,9 @@ class UserService {
   async createUser(dbUrl, userData) {
     const prisma = this.getPrisma(dbUrl);
     try {
+      if (!userData.user_unique_code) {
+        userData.user_unique_code = await serialNumberService.getNextSerialNumber(prisma, "USER");
+      }
       return await prisma.user.create({
         data: userData,
       });
@@ -112,6 +116,8 @@ class UserService {
       const search = String(q || "").trim();
       if (search.length < 1) return [];
 
+      const digitsOnly = search.replace(/\D/g, "");
+
       const take = Math.min(Math.max(parseInt(limit, 10) || 12, 1), 20);
       const where = {
         user_is_deleted: false,
@@ -122,26 +128,29 @@ class UserService {
       }
 
       const or = [
-        { user_mobile_no: { startsWith: search } },
-        { user_phone_no: { startsWith: search } },
-        { user_email_id: { startsWith: search, mode: "insensitive" } },
-        { user_first_name: { startsWith: search, mode: "insensitive" } },
-        { user_last_name: { startsWith: search, mode: "insensitive" } },
-        { user_father_name: { startsWith: search, mode: "insensitive" } },
+        { user_unique_code: { contains: search, mode: "insensitive" } },
+        { user_mobile_no: { contains: search, mode: "insensitive" } },
+        { user_phone_no: { contains: search, mode: "insensitive" } },
+        { user_email_id: { contains: search, mode: "insensitive" } },
         { user_first_name: { contains: search, mode: "insensitive" } },
         { user_last_name: { contains: search, mode: "insensitive" } },
+        { user_father_name: { contains: search, mode: "insensitive" } },
         { user_curr_address: { contains: search, mode: "insensitive" } },
         { user_per_address: { contains: search, mode: "insensitive" } },
         { user_city: { contains: search, mode: "insensitive" } },
         { user_state: { contains: search, mode: "insensitive" } },
         { user_country: { contains: search, mode: "insensitive" } },
-        { user_pincode: { startsWith: search } },
-        { user_pincode: { contains: search } },
+        { user_pincode: { contains: search, mode: "insensitive" } },
       ];
+
+      if (digitsOnly.length >= 3 && digitsOnly !== search) {
+        or.unshift({ user_mobile_no: { contains: digitsOnly } });
+        or.unshift({ user_phone_no: { contains: digitsOnly } });
+      }
 
       if (/^\d+$/.test(search)) {
         const id = parseInt(search, 10);
-        if (!Number.isNaN(id)) {
+        if (!Number.isNaN(id) && id <= 2147483647) {
           or.unshift({ user_id: id });
         }
       }
@@ -155,6 +164,7 @@ class UserService {
         select: {
           user_id: true,
           user_uuid: true,
+          user_unique_code: true,
           user_first_name: true,
           user_last_name: true,
           user_father_name: true,
@@ -194,19 +204,30 @@ class UserService {
       }
 
       if (search) {
-        where.OR = [
-          { user_first_name: { contains: search, mode: "insensitive" } },
-          { user_last_name: { contains: search, mode: "insensitive" } },
-          { user_father_name: { contains: search, mode: "insensitive" } },
-          { user_mobile_no: { contains: search, mode: "insensitive" } },
-          { user_phone_no: { contains: search, mode: "insensitive" } },
-          { user_email_id: { contains: search, mode: "insensitive" } },
-          { user_city: { contains: search, mode: "insensitive" } },
-          { user_state: { contains: search, mode: "insensitive" } },
-          { user_country: { contains: search, mode: "insensitive" } },
-          { user_per_address: { contains: search, mode: "insensitive" } },
-          { user_curr_address: { contains: search, mode: "insensitive" } },
+        const cleanSearch = String(search).trim();
+        const digitsOnly = cleanSearch.replace(/\D/g, "");
+
+        const or = [
+          { user_unique_code: { contains: cleanSearch, mode: "insensitive" } },
+          { user_first_name: { contains: cleanSearch, mode: "insensitive" } },
+          { user_last_name: { contains: cleanSearch, mode: "insensitive" } },
+          { user_father_name: { contains: cleanSearch, mode: "insensitive" } },
+          { user_mobile_no: { contains: cleanSearch, mode: "insensitive" } },
+          { user_phone_no: { contains: cleanSearch, mode: "insensitive" } },
+          { user_email_id: { contains: cleanSearch, mode: "insensitive" } },
+          { user_city: { contains: cleanSearch, mode: "insensitive" } },
+          { user_state: { contains: cleanSearch, mode: "insensitive" } },
+          { user_country: { contains: cleanSearch, mode: "insensitive" } },
+          { user_per_address: { contains: cleanSearch, mode: "insensitive" } },
+          { user_curr_address: { contains: cleanSearch, mode: "insensitive" } },
         ];
+
+        if (digitsOnly.length >= 3 && digitsOnly !== cleanSearch) {
+          or.unshift({ user_mobile_no: { contains: digitsOnly } });
+          or.unshift({ user_phone_no: { contains: digitsOnly } });
+        }
+
+        where.OR = or;
       }
 
       return await prisma.user.findMany({
