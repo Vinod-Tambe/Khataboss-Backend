@@ -1,3 +1,29 @@
+# ─── Node.js ─────────────────────────────────────────────
 node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.npm
+
+# ─── Environment Files ────────────────────────────────────
 .env
+.env.local
+.env.*.local
+*.env
+
+# ─── Prisma Generated Clients ────────────────────────────
+prisma/generated/
+
+# ─── Uploads / Media ─────────────────────────────────────
+uploads/
 tmp/
+
+# ─── OS / Editor ─────────────────────────────────────────
+.DS_Store
+Thumbs.db
+.vscode/
+.specstory/
+
+# ─── Logs ────────────────────────────────────────────────
+logs/
+*.log
