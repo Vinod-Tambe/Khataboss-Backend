@@ -5,9 +5,6 @@ on:
     branches:
       - main
       - develop
-    paths:
-      - '**'
-      - '.github/workflows/npm-publish-github-packages.yml'
 
   pull_request:
     branches:
@@ -35,11 +32,9 @@ jobs:
           node-version: '22'
 
       - name: Install dependencies
-        working-directory: Backend
         run: npm ci
 
       - name: Check for syntax errors
-        working-directory: Backend
         run: node --check index.js || true
 
   # ─── Job 2: Prisma Validation ────────────────────────────────────────────────
@@ -58,27 +53,22 @@ jobs:
           node-version: '22'
 
       - name: Install dependencies
-        working-directory: Backend
         run: npm ci
 
       - name: Generate Prisma Client (master schema)
-        working-directory: Backend
         run: npx prisma generate --schema=prisma/schema/master/schema.prisma
         env:
           DB_URL: postgresql://postgres:postgres@localhost:5432/master
 
       - name: Generate Prisma Client (main schema)
-        working-directory: Backend
         run: npx prisma generate --schema=prisma/schema/main/schema.prisma
         env:
           DATABASE_MAIN_URL: postgresql://postgres:postgres@localhost:5432/main
 
       - name: Validate Prisma schema (master)
-        working-directory: Backend
         run: npx prisma validate --schema=prisma/schema/master/schema.prisma
 
       - name: Validate Prisma schema (main)
-        working-directory: Backend
         run: npx prisma validate --schema=prisma/schema/main/schema.prisma
 
   # ─── Job 3: Build & Migrate ──────────────────────────────────────────────────
@@ -123,23 +113,18 @@ jobs:
           node-version: '22'
 
       - name: Install dependencies
-        working-directory: Backend
         run: npm ci
 
       - name: Generate Prisma Client (master)
-        working-directory: Backend
         run: npx prisma generate --schema=prisma/schema/master/schema.prisma
 
       - name: Generate Prisma Client (main)
-        working-directory: Backend
         run: npx prisma generate --schema=prisma/schema/main/schema.prisma
 
       - name: Run Prisma Migrations (master)
-        working-directory: Backend
         run: npx prisma migrate deploy --schema=prisma/schema/master/schema.prisma
 
       - name: Verify server module loads
-        working-directory: Backend
         run: node -e "require('./server'); console.log('✅ Server module loaded OK');"
 
   # ─── Job 4: Security Audit ───────────────────────────────────────────────────
@@ -157,9 +142,7 @@ jobs:
           node-version: '22'
 
       - name: Install dependencies
-        working-directory: Backend
         run: npm ci
 
       - name: Run npm audit (high severity only)
-        working-directory: Backend
         run: npm audit --audit-level=high --production || true
