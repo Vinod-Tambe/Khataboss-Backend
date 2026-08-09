@@ -6,15 +6,13 @@ on:
       - main
       - develop
     paths:
-      - 'Backend/**'
+      - '**'
       - '.github/workflows/npm-publish-github-packages.yml'
 
   pull_request:
     branches:
       - main
       - develop
-    paths:
-      - 'Backend/**'
 
 # Cancel in-progress runs for the same branch
 concurrency:
@@ -22,14 +20,10 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  # ─── Job 1: Lint & Type Check ────────────────────────────────────────────────
+  # ─── Job 1: Lint ─────────────────────────────────────────────────────────────
   lint:
     name: Lint
     runs-on: ubuntu-latest
-
-    defaults:
-      run:
-        working-directory: Backend
 
     steps:
       - name: Checkout code
@@ -38,26 +32,22 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          cache: 'npm'
-          cache-dependency-path: Backend/package-lock.json
+          node-version: '22'
 
       - name: Install dependencies
+        working-directory: Backend
         run: npm ci
 
       - name: Check for syntax errors
+        working-directory: Backend
         run: node --check index.js || true
 
-  # ─── Job 2: Generate Prisma Clients ──────────────────────────────────────────
+  # ─── Job 2: Prisma Validation ────────────────────────────────────────────────
   prisma:
     name: Prisma Client Generation
     runs-on: ubuntu-latest
     needs: lint
 
-    defaults:
-      run:
-        working-directory: Backend
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -65,30 +55,33 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          cache: 'npm'
-          cache-dependency-path: Backend/package-lock.json
+          node-version: '22'
 
       - name: Install dependencies
+        working-directory: Backend
         run: npm ci
 
       - name: Generate Prisma Client (master schema)
+        working-directory: Backend
         run: npx prisma generate --schema=prisma/schema/master/schema.prisma
         env:
           DB_URL: postgresql://postgres:postgres@localhost:5432/master
 
       - name: Generate Prisma Client (main schema)
+        working-directory: Backend
         run: npx prisma generate --schema=prisma/schema/main/schema.prisma
         env:
           DATABASE_MAIN_URL: postgresql://postgres:postgres@localhost:5432/main
 
       - name: Validate Prisma schema (master)
+        working-directory: Backend
         run: npx prisma validate --schema=prisma/schema/master/schema.prisma
 
       - name: Validate Prisma schema (main)
+        working-directory: Backend
         run: npx prisma validate --schema=prisma/schema/main/schema.prisma
 
-  # ─── Job 3: Build & Test ─────────────────────────────────────────────────────
+  # ─── Job 3: Build & Migrate ──────────────────────────────────────────────────
   build:
     name: Build & Test
     runs-on: ubuntu-latest
@@ -109,10 +102,6 @@ jobs:
           --health-timeout 5s
           --health-retries 5
 
-    defaults:
-      run:
-        working-directory: Backend
-
     env:
       NODE_ENV: test
       OFFLINE_DB: 'true'
@@ -121,7 +110,7 @@ jobs:
       DATABASE_MASTER_URL: postgresql://postgres:postgres@localhost:5432/master
       DATABASE_MAIN_URL: postgresql://postgres:postgres@localhost:5432/main
       MASTER_DB_NAME: master
-      JWT_SECRET: ${{ secrets.JWT_SECRET || 'ci-test-secret-key-minimum-32-chars' }}
+      JWT_SECRET: ${{ secrets.JWT_SECRET != '' && secrets.JWT_SECRET || 'ci-test-secret-key-minimum-32-chars-ok' }}
       APP_PORT: 9000
 
     steps:
@@ -131,42 +120,32 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          cache: 'npm'
-          cache-dependency-path: Backend/package-lock.json
+          node-version: '22'
 
       - name: Install dependencies
+        working-directory: Backend
         run: npm ci
 
       - name: Generate Prisma Client (master)
+        working-directory: Backend
         run: npx prisma generate --schema=prisma/schema/master/schema.prisma
 
       - name: Generate Prisma Client (main)
+        working-directory: Backend
         run: npx prisma generate --schema=prisma/schema/main/schema.prisma
 
       - name: Run Prisma Migrations (master)
+        working-directory: Backend
         run: npx prisma migrate deploy --schema=prisma/schema/master/schema.prisma
 
-      - name: Verify server starts
-        run: |
-          timeout 15 node -e "
-            process.env.SKIP_BOOTSTRAP = 'true';
-            const app = require('./server');
-            const server = app.listen(9000, () => {
-              console.log('✅ Server started successfully');
-              server.close();
-              process.exit(0);
-            });
-          " || echo "Server check skipped"
+      - name: Verify server module loads
+        working-directory: Backend
+        run: node -e "require('./server'); console.log('✅ Server module loaded OK');"
 
   # ─── Job 4: Security Audit ───────────────────────────────────────────────────
   audit:
     name: Security Audit
     runs-on: ubuntu-latest
-
-    defaults:
-      run:
-        working-directory: Backend
 
     steps:
       - name: Checkout code
@@ -175,12 +154,12 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          cache: 'npm'
-          cache-dependency-path: Backend/package-lock.json
+          node-version: '22'
 
       - name: Install dependencies
+        working-directory: Backend
         run: npm ci
 
       - name: Run npm audit (high severity only)
+        working-directory: Backend
         run: npm audit --audit-level=high --production || true
