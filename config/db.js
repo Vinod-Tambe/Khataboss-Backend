@@ -218,7 +218,6 @@ const setupOwnerDatabase = async (dbName) => {
       console.warn("⚠️ Failed to seed default serial numbers:", seedErr.message);
     }
 
-
     return newDbUrl;
   } finally {
     await client.end();
