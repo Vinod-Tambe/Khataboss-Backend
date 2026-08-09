@@ -10,7 +10,7 @@
     "migrate": "prisma migrate deploy --schema=prisma/schema/master/schema.prisma",
     "generate": "prisma generate --schema=prisma/schema/master/schema.prisma",
     "generate:main": "prisma generate --schema=prisma/schema/main/schema.prisma",
-    "seed": "node -e \"require('./config/db'); require('./prisma/seeder/admin-seeder').seedAdmin()\"",
+    "seed": "node -e \"require('./config/db'); const s = require('./prisma/seeder/admin-seeder'); s.seedAdmin().then(() => s.seedDbSeries()).then(() => s.seedAllTenantsSerialNumbers())\"",
     "sync": "node scripts/sync-tenants.js"
   },
   "author": "",

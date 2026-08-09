@@ -7,6 +7,21 @@ const adminData = require("../core-data/admin.json");
 
 const prisma = new PrismaClient();
 
+// ── helpers ───────────────────────────────────────────────────────────────────
+/**
+ * Build a full Postgres connection URL for a given tenant DB name.
+ * Strips the last path segment from DATABASE_URL / DB_URL and appends dbName.
+ */
+const buildTenantUrl = (dbName) => {
+  const base = (process.env.DATABASE_URL || process.env.DB_URL || "").replace(
+    /\/[^/]+(\?.*)?$/,
+    ""
+  );
+  return `${base}/${dbName}`;
+};
+
+// ─────────────────────────────────────────────────────────────────────────────
+
 /**
  * Seed the default admin record into the master database.
  * Skips seeding if an admin with the same login_id already exists.
@@ -98,4 +113,48 @@ const seedDbSeries = async () => {
   }
 };
 
-module.exports = { seedAdmin, seedDbSeries };
+/**
+ * Seed serial number configurations for every registered tenant database.
+ * Reads all owners from the master DB → connects to each tenant DB → seeds
+ * any missing serial number configs (skips ones that already exist).
+ */
+const seedAllTenantsSerialNumbers = async () => {
+  const { seedSerialNumbers } = require("./serial-number-seeder");
+
+  try {
+    console.log("\n🔍  Fetching all registered tenant databases from master...");
+
+    const owners = await prisma.owner.findMany({
+      where: { own_is_deleted: false },
+      select: { own_id: true, own_login_id: true, own_db: true },
+    });
+
+    if (owners.length === 0) {
+      console.log("⏭️   No tenant databases registered — skipping serial number seed.");
+      return;
+    }
+
+    console.log(`📋  Found ${owners.length} tenant(s). Checking serial numbers...`);
+
+    for (const owner of owners) {
+      const tenantUrl = buildTenantUrl(owner.own_db);
+      console.log(`\n  🏢  Tenant: ${owner.own_login_id} (DB: ${owner.own_db})`);
+      try {
+        await seedSerialNumbers(tenantUrl);
+      } catch (err) {
+        console.warn(
+          `  ⚠️   Failed to seed serial numbers for tenant "${owner.own_login_id}": ${err.message}`
+        );
+      }
+    }
+
+    console.log("\n✅  Serial number check complete for all tenants.");
+  } catch (error) {
+    console.error("❌  Error during tenant serial number seeding:", error.message);
+    throw error;
+  } finally {
+    await prisma.$disconnect();
+  }
+};
+
+module.exports = { seedAdmin, seedDbSeries, seedAllTenantsSerialNumbers };

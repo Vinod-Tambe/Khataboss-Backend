@@ -3220,6 +3220,8 @@ export namespace Prisma {
     releases: number
     rates: number
     moneyLenders: number
+    auctionUsers: number
+    auctionLoans: number
   }
 
   export type FirmCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3237,6 +3239,8 @@ export namespace Prisma {
     releases?: boolean | FirmCountOutputTypeCountReleasesArgs
     rates?: boolean | FirmCountOutputTypeCountRatesArgs
     moneyLenders?: boolean | FirmCountOutputTypeCountMoneyLendersArgs
+    auctionUsers?: boolean | FirmCountOutputTypeCountAuctionUsersArgs
+    auctionLoans?: boolean | FirmCountOutputTypeCountAuctionLoansArgs
   }
 
   // Custom InputTypes
@@ -3346,6 +3350,20 @@ export namespace Prisma {
    */
   export type FirmCountOutputTypeCountMoneyLendersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: MoneyLenderWhereInput
+  }
+
+  /**
+   * FirmCountOutputType without action
+   */
+  export type FirmCountOutputTypeCountAuctionUsersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AuctionUserWhereInput
+  }
+
+  /**
+   * FirmCountOutputType without action
+   */
+  export type FirmCountOutputTypeCountAuctionLoansArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AuctionLoanWhereInput
   }
 
 
@@ -3958,12 +3976,14 @@ export namespace Prisma {
     additionalPrincipals: number
     deposits: number
     releases: number
+    auctionLoans: number
   }
 
   export type GirviCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     additionalPrincipals?: boolean | GirviCountOutputTypeCountAdditionalPrincipalsArgs
     deposits?: boolean | GirviCountOutputTypeCountDepositsArgs
     releases?: boolean | GirviCountOutputTypeCountReleasesArgs
+    auctionLoans?: boolean | GirviCountOutputTypeCountAuctionLoansArgs
   }
 
   // Custom InputTypes
@@ -3998,6 +4018,13 @@ export namespace Prisma {
     where?: GirviReleaseWhereInput
   }
 
+  /**
+   * GirviCountOutputType without action
+   */
+  export type GirviCountOutputTypeCountAuctionLoansArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AuctionLoanWhereInput
+  }
+
 
   /**
    * Count Type MoneyLenderCountOutputType
@@ -4027,6 +4054,37 @@ export namespace Prisma {
    */
   export type MoneyLenderCountOutputTypeCountTransferredFromArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: GirviWhereInput
+  }
+
+
+  /**
+   * Count Type AuctionUserCountOutputType
+   */
+
+  export type AuctionUserCountOutputType = {
+    auctionLoans: number
+  }
+
+  export type AuctionUserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    auctionLoans?: boolean | AuctionUserCountOutputTypeCountAuctionLoansArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * AuctionUserCountOutputType without action
+   */
+  export type AuctionUserCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuctionUserCountOutputType
+     */
+    select?: AuctionUserCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * AuctionUserCountOutputType without action
+   */
+  export type AuctionUserCountOutputTypeCountAuctionLoansArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AuctionLoanWhereInput
   }
 
 
@@ -6375,6 +6433,8 @@ export namespace Prisma {
     releases?: boolean | Firm$releasesArgs<ExtArgs>
     rates?: boolean | Firm$ratesArgs<ExtArgs>
     moneyLenders?: boolean | Firm$moneyLendersArgs<ExtArgs>
+    auctionUsers?: boolean | Firm$auctionUsersArgs<ExtArgs>
+    auctionLoans?: boolean | Firm$auctionLoansArgs<ExtArgs>
     _count?: boolean | FirmCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["firm"]>
 
@@ -6501,6 +6561,8 @@ export namespace Prisma {
     releases?: boolean | Firm$releasesArgs<ExtArgs>
     rates?: boolean | Firm$ratesArgs<ExtArgs>
     moneyLenders?: boolean | Firm$moneyLendersArgs<ExtArgs>
+    auctionUsers?: boolean | Firm$auctionUsersArgs<ExtArgs>
+    auctionLoans?: boolean | Firm$auctionLoansArgs<ExtArgs>
     _count?: boolean | FirmCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type FirmIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -6525,6 +6587,8 @@ export namespace Prisma {
       releases: Prisma.$GirviReleasePayload<ExtArgs>[]
       rates: Prisma.$RatePayload<ExtArgs>[]
       moneyLenders: Prisma.$MoneyLenderPayload<ExtArgs>[]
+      auctionUsers: Prisma.$AuctionUserPayload<ExtArgs>[]
+      auctionLoans: Prisma.$AuctionLoanPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       firm_id: number
@@ -6956,6 +7020,8 @@ export namespace Prisma {
     releases<T extends Firm$releasesArgs<ExtArgs> = {}>(args?: Subset<T, Firm$releasesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GirviReleasePayload<ExtArgs>, T, "findMany"> | Null>
     rates<T extends Firm$ratesArgs<ExtArgs> = {}>(args?: Subset<T, Firm$ratesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RatePayload<ExtArgs>, T, "findMany"> | Null>
     moneyLenders<T extends Firm$moneyLendersArgs<ExtArgs> = {}>(args?: Subset<T, Firm$moneyLendersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MoneyLenderPayload<ExtArgs>, T, "findMany"> | Null>
+    auctionUsers<T extends Firm$auctionUsersArgs<ExtArgs> = {}>(args?: Subset<T, Firm$auctionUsersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AuctionUserPayload<ExtArgs>, T, "findMany"> | Null>
+    auctionLoans<T extends Firm$auctionLoansArgs<ExtArgs> = {}>(args?: Subset<T, Firm$auctionLoansArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AuctionLoanPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -7630,6 +7696,46 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: MoneyLenderScalarFieldEnum | MoneyLenderScalarFieldEnum[]
+  }
+
+  /**
+   * Firm.auctionUsers
+   */
+  export type Firm$auctionUsersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuctionUser
+     */
+    select?: AuctionUserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AuctionUserInclude<ExtArgs> | null
+    where?: AuctionUserWhereInput
+    orderBy?: AuctionUserOrderByWithRelationInput | AuctionUserOrderByWithRelationInput[]
+    cursor?: AuctionUserWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AuctionUserScalarFieldEnum | AuctionUserScalarFieldEnum[]
+  }
+
+  /**
+   * Firm.auctionLoans
+   */
+  export type Firm$auctionLoansArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuctionLoan
+     */
+    select?: AuctionLoanSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AuctionLoanInclude<ExtArgs> | null
+    where?: AuctionLoanWhereInput
+    orderBy?: AuctionLoanOrderByWithRelationInput | AuctionLoanOrderByWithRelationInput[]
+    cursor?: AuctionLoanWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AuctionLoanScalarFieldEnum | AuctionLoanScalarFieldEnum[]
   }
 
   /**
@@ -19461,6 +19567,7 @@ export namespace Prisma {
     additionalPrincipals?: boolean | Girvi$additionalPrincipalsArgs<ExtArgs>
     deposits?: boolean | Girvi$depositsArgs<ExtArgs>
     releases?: boolean | Girvi$releasesArgs<ExtArgs>
+    auctionLoans?: boolean | Girvi$auctionLoansArgs<ExtArgs>
     _count?: boolean | GirviCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["girvi"]>
 
@@ -19602,6 +19709,7 @@ export namespace Prisma {
     additionalPrincipals?: boolean | Girvi$additionalPrincipalsArgs<ExtArgs>
     deposits?: boolean | Girvi$depositsArgs<ExtArgs>
     releases?: boolean | Girvi$releasesArgs<ExtArgs>
+    auctionLoans?: boolean | Girvi$auctionLoansArgs<ExtArgs>
     _count?: boolean | GirviCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type GirviIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -19635,6 +19743,7 @@ export namespace Prisma {
       additionalPrincipals: Prisma.$AdditionalPrincipalPayload<ExtArgs>[]
       deposits: Prisma.$GirviDepositPayload<ExtArgs>[]
       releases: Prisma.$GirviReleasePayload<ExtArgs>[]
+      auctionLoans: Prisma.$AuctionLoanPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       girv_id: number
@@ -20068,6 +20177,7 @@ export namespace Prisma {
     additionalPrincipals<T extends Girvi$additionalPrincipalsArgs<ExtArgs> = {}>(args?: Subset<T, Girvi$additionalPrincipalsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AdditionalPrincipalPayload<ExtArgs>, T, "findMany"> | Null>
     deposits<T extends Girvi$depositsArgs<ExtArgs> = {}>(args?: Subset<T, Girvi$depositsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GirviDepositPayload<ExtArgs>, T, "findMany"> | Null>
     releases<T extends Girvi$releasesArgs<ExtArgs> = {}>(args?: Subset<T, Girvi$releasesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GirviReleasePayload<ExtArgs>, T, "findMany"> | Null>
+    auctionLoans<T extends Girvi$auctionLoansArgs<ExtArgs> = {}>(args?: Subset<T, Girvi$auctionLoansArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AuctionLoanPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -20645,6 +20755,26 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: GirviReleaseScalarFieldEnum | GirviReleaseScalarFieldEnum[]
+  }
+
+  /**
+   * Girvi.auctionLoans
+   */
+  export type Girvi$auctionLoansArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuctionLoan
+     */
+    select?: AuctionLoanSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AuctionLoanInclude<ExtArgs> | null
+    where?: AuctionLoanWhereInput
+    orderBy?: AuctionLoanOrderByWithRelationInput | AuctionLoanOrderByWithRelationInput[]
+    cursor?: AuctionLoanWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AuctionLoanScalarFieldEnum | AuctionLoanScalarFieldEnum[]
   }
 
   /**
@@ -30596,6 +30726,9 @@ export namespace Prisma {
     au_village?: boolean
     au_pincode?: boolean
     au_image?: boolean
+    firm?: boolean | FirmDefaultArgs<ExtArgs>
+    auctionLoans?: boolean | AuctionUser$auctionLoansArgs<ExtArgs>
+    _count?: boolean | AuctionUserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["auctionUser"]>
 
   export type AuctionUserSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -30617,6 +30750,7 @@ export namespace Prisma {
     au_village?: boolean
     au_pincode?: boolean
     au_image?: boolean
+    firm?: boolean | FirmDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["auctionUser"]>
 
   export type AuctionUserSelectScalar = {
@@ -30640,10 +30774,21 @@ export namespace Prisma {
     au_image?: boolean
   }
 
+  export type AuctionUserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    firm?: boolean | FirmDefaultArgs<ExtArgs>
+    auctionLoans?: boolean | AuctionUser$auctionLoansArgs<ExtArgs>
+    _count?: boolean | AuctionUserCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type AuctionUserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    firm?: boolean | FirmDefaultArgs<ExtArgs>
+  }
 
   export type $AuctionUserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "AuctionUser"
-    objects: {}
+    objects: {
+      firm: Prisma.$FirmPayload<ExtArgs>
+      auctionLoans: Prisma.$AuctionLoanPayload<ExtArgs>[]
+    }
     scalars: $Extensions.GetPayloadResult<{
       au_id: number
       au_uuid: string
@@ -31027,6 +31172,8 @@ export namespace Prisma {
    */
   export interface Prisma__AuctionUserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    firm<T extends FirmDefaultArgs<ExtArgs> = {}>(args?: Subset<T, FirmDefaultArgs<ExtArgs>>): Prisma__FirmClient<$Result.GetResult<Prisma.$FirmPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    auctionLoans<T extends AuctionUser$auctionLoansArgs<ExtArgs> = {}>(args?: Subset<T, AuctionUser$auctionLoansArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AuctionLoanPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -31087,6 +31234,10 @@ export namespace Prisma {
      */
     select?: AuctionUserSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AuctionUserInclude<ExtArgs> | null
+    /**
      * Filter, which AuctionUser to fetch.
      */
     where: AuctionUserWhereUniqueInput
@@ -31101,6 +31252,10 @@ export namespace Prisma {
      */
     select?: AuctionUserSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AuctionUserInclude<ExtArgs> | null
+    /**
      * Filter, which AuctionUser to fetch.
      */
     where: AuctionUserWhereUniqueInput
@@ -31114,6 +31269,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the AuctionUser
      */
     select?: AuctionUserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AuctionUserInclude<ExtArgs> | null
     /**
      * Filter, which AuctionUser to fetch.
      */
@@ -31159,6 +31318,10 @@ export namespace Prisma {
      */
     select?: AuctionUserSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AuctionUserInclude<ExtArgs> | null
+    /**
      * Filter, which AuctionUser to fetch.
      */
     where?: AuctionUserWhereInput
@@ -31203,6 +31366,10 @@ export namespace Prisma {
      */
     select?: AuctionUserSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AuctionUserInclude<ExtArgs> | null
+    /**
      * Filter, which AuctionUsers to fetch.
      */
     where?: AuctionUserWhereInput
@@ -31242,6 +31409,10 @@ export namespace Prisma {
      */
     select?: AuctionUserSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AuctionUserInclude<ExtArgs> | null
+    /**
      * The data needed to create a AuctionUser.
      */
     data: XOR<AuctionUserCreateInput, AuctionUserUncheckedCreateInput>
@@ -31271,6 +31442,10 @@ export namespace Prisma {
      */
     data: AuctionUserCreateManyInput | AuctionUserCreateManyInput[]
     skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AuctionUserIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -31281,6 +31456,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the AuctionUser
      */
     select?: AuctionUserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AuctionUserInclude<ExtArgs> | null
     /**
      * The data needed to update a AuctionUser.
      */
@@ -31314,6 +31493,10 @@ export namespace Prisma {
      */
     select?: AuctionUserSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AuctionUserInclude<ExtArgs> | null
+    /**
      * The filter to search for the AuctionUser to update in case it exists.
      */
     where: AuctionUserWhereUniqueInput
@@ -31336,6 +31519,10 @@ export namespace Prisma {
      */
     select?: AuctionUserSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AuctionUserInclude<ExtArgs> | null
+    /**
      * Filter which AuctionUser to delete.
      */
     where: AuctionUserWhereUniqueInput
@@ -31352,6 +31539,26 @@ export namespace Prisma {
   }
 
   /**
+   * AuctionUser.auctionLoans
+   */
+  export type AuctionUser$auctionLoansArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuctionLoan
+     */
+    select?: AuctionLoanSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AuctionLoanInclude<ExtArgs> | null
+    where?: AuctionLoanWhereInput
+    orderBy?: AuctionLoanOrderByWithRelationInput | AuctionLoanOrderByWithRelationInput[]
+    cursor?: AuctionLoanWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AuctionLoanScalarFieldEnum | AuctionLoanScalarFieldEnum[]
+  }
+
+  /**
    * AuctionUser without action
    */
   export type AuctionUserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -31359,6 +31566,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the AuctionUser
      */
     select?: AuctionUserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AuctionUserInclude<ExtArgs> | null
   }
 
 
@@ -31772,6 +31983,9 @@ export namespace Prisma {
     al_card_amt?: boolean
     al_pay_info?: boolean
     al_other_info?: boolean
+    firm?: boolean | FirmDefaultArgs<ExtArgs>
+    girvi?: boolean | GirviDefaultArgs<ExtArgs>
+    buyer?: boolean | AuctionUserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["auctionLoan"]>
 
   export type AuctionLoanSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -31799,6 +32013,9 @@ export namespace Prisma {
     al_card_amt?: boolean
     al_pay_info?: boolean
     al_other_info?: boolean
+    firm?: boolean | FirmDefaultArgs<ExtArgs>
+    girvi?: boolean | GirviDefaultArgs<ExtArgs>
+    buyer?: boolean | AuctionUserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["auctionLoan"]>
 
   export type AuctionLoanSelectScalar = {
@@ -31828,10 +32045,24 @@ export namespace Prisma {
     al_other_info?: boolean
   }
 
+  export type AuctionLoanInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    firm?: boolean | FirmDefaultArgs<ExtArgs>
+    girvi?: boolean | GirviDefaultArgs<ExtArgs>
+    buyer?: boolean | AuctionUserDefaultArgs<ExtArgs>
+  }
+  export type AuctionLoanIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    firm?: boolean | FirmDefaultArgs<ExtArgs>
+    girvi?: boolean | GirviDefaultArgs<ExtArgs>
+    buyer?: boolean | AuctionUserDefaultArgs<ExtArgs>
+  }
 
   export type $AuctionLoanPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "AuctionLoan"
-    objects: {}
+    objects: {
+      firm: Prisma.$FirmPayload<ExtArgs>
+      girvi: Prisma.$GirviPayload<ExtArgs>
+      buyer: Prisma.$AuctionUserPayload<ExtArgs>
+    }
     scalars: $Extensions.GetPayloadResult<{
       al_id: number
       al_uuid: string
@@ -32221,6 +32452,9 @@ export namespace Prisma {
    */
   export interface Prisma__AuctionLoanClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    firm<T extends FirmDefaultArgs<ExtArgs> = {}>(args?: Subset<T, FirmDefaultArgs<ExtArgs>>): Prisma__FirmClient<$Result.GetResult<Prisma.$FirmPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    girvi<T extends GirviDefaultArgs<ExtArgs> = {}>(args?: Subset<T, GirviDefaultArgs<ExtArgs>>): Prisma__GirviClient<$Result.GetResult<Prisma.$GirviPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    buyer<T extends AuctionUserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AuctionUserDefaultArgs<ExtArgs>>): Prisma__AuctionUserClient<$Result.GetResult<Prisma.$AuctionUserPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -32287,6 +32521,10 @@ export namespace Prisma {
      */
     select?: AuctionLoanSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AuctionLoanInclude<ExtArgs> | null
+    /**
      * Filter, which AuctionLoan to fetch.
      */
     where: AuctionLoanWhereUniqueInput
@@ -32301,6 +32539,10 @@ export namespace Prisma {
      */
     select?: AuctionLoanSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AuctionLoanInclude<ExtArgs> | null
+    /**
      * Filter, which AuctionLoan to fetch.
      */
     where: AuctionLoanWhereUniqueInput
@@ -32314,6 +32556,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the AuctionLoan
      */
     select?: AuctionLoanSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AuctionLoanInclude<ExtArgs> | null
     /**
      * Filter, which AuctionLoan to fetch.
      */
@@ -32359,6 +32605,10 @@ export namespace Prisma {
      */
     select?: AuctionLoanSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AuctionLoanInclude<ExtArgs> | null
+    /**
      * Filter, which AuctionLoan to fetch.
      */
     where?: AuctionLoanWhereInput
@@ -32403,6 +32653,10 @@ export namespace Prisma {
      */
     select?: AuctionLoanSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AuctionLoanInclude<ExtArgs> | null
+    /**
      * Filter, which AuctionLoans to fetch.
      */
     where?: AuctionLoanWhereInput
@@ -32442,6 +32696,10 @@ export namespace Prisma {
      */
     select?: AuctionLoanSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AuctionLoanInclude<ExtArgs> | null
+    /**
      * The data needed to create a AuctionLoan.
      */
     data: XOR<AuctionLoanCreateInput, AuctionLoanUncheckedCreateInput>
@@ -32471,6 +32729,10 @@ export namespace Prisma {
      */
     data: AuctionLoanCreateManyInput | AuctionLoanCreateManyInput[]
     skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AuctionLoanIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -32481,6 +32743,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the AuctionLoan
      */
     select?: AuctionLoanSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AuctionLoanInclude<ExtArgs> | null
     /**
      * The data needed to update a AuctionLoan.
      */
@@ -32514,6 +32780,10 @@ export namespace Prisma {
      */
     select?: AuctionLoanSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AuctionLoanInclude<ExtArgs> | null
+    /**
      * The filter to search for the AuctionLoan to update in case it exists.
      */
     where: AuctionLoanWhereUniqueInput
@@ -32535,6 +32805,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the AuctionLoan
      */
     select?: AuctionLoanSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AuctionLoanInclude<ExtArgs> | null
     /**
      * Filter which AuctionLoan to delete.
      */
@@ -32559,6 +32833,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the AuctionLoan
      */
     select?: AuctionLoanSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AuctionLoanInclude<ExtArgs> | null
   }
 
 
@@ -38680,6 +38958,8 @@ export namespace Prisma {
     releases?: GirviReleaseListRelationFilter
     rates?: RateListRelationFilter
     moneyLenders?: MoneyLenderListRelationFilter
+    auctionUsers?: AuctionUserListRelationFilter
+    auctionLoans?: AuctionLoanListRelationFilter
   }
 
   export type FirmOrderByWithRelationInput = {
@@ -38748,6 +39028,8 @@ export namespace Prisma {
     releases?: GirviReleaseOrderByRelationAggregateInput
     rates?: RateOrderByRelationAggregateInput
     moneyLenders?: MoneyLenderOrderByRelationAggregateInput
+    auctionUsers?: AuctionUserOrderByRelationAggregateInput
+    auctionLoans?: AuctionLoanOrderByRelationAggregateInput
   }
 
   export type FirmWhereUniqueInput = Prisma.AtLeast<{
@@ -38819,6 +39101,8 @@ export namespace Prisma {
     releases?: GirviReleaseListRelationFilter
     rates?: RateListRelationFilter
     moneyLenders?: MoneyLenderListRelationFilter
+    auctionUsers?: AuctionUserListRelationFilter
+    auctionLoans?: AuctionLoanListRelationFilter
   }, "firm_id" | "firm_uuid" | "firm_unique_code" | "firm_name" | "firm_reg_no">
 
   export type FirmOrderByWithAggregationInput = {
@@ -40617,6 +40901,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalListRelationFilter
     deposits?: GirviDepositListRelationFilter
     releases?: GirviReleaseListRelationFilter
+    auctionLoans?: AuctionLoanListRelationFilter
   }
 
   export type GirviOrderByWithRelationInput = {
@@ -40687,6 +40972,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalOrderByRelationAggregateInput
     deposits?: GirviDepositOrderByRelationAggregateInput
     releases?: GirviReleaseOrderByRelationAggregateInput
+    auctionLoans?: AuctionLoanOrderByRelationAggregateInput
   }
 
   export type GirviWhereUniqueInput = Prisma.AtLeast<{
@@ -40760,6 +41046,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalListRelationFilter
     deposits?: GirviDepositListRelationFilter
     releases?: GirviReleaseListRelationFilter
+    auctionLoans?: AuctionLoanListRelationFilter
   }, "girv_id" | "girv_uuid" | "girv_unique_code">
 
   export type GirviOrderByWithAggregationInput = {
@@ -42245,6 +42532,8 @@ export namespace Prisma {
     au_village?: StringNullableFilter<"AuctionUser"> | string | null
     au_pincode?: StringNullableFilter<"AuctionUser"> | string | null
     au_image?: StringNullableFilter<"AuctionUser"> | string | null
+    firm?: XOR<FirmRelationFilter, FirmWhereInput>
+    auctionLoans?: AuctionLoanListRelationFilter
   }
 
   export type AuctionUserOrderByWithRelationInput = {
@@ -42266,6 +42555,8 @@ export namespace Prisma {
     au_village?: SortOrderInput | SortOrder
     au_pincode?: SortOrderInput | SortOrder
     au_image?: SortOrderInput | SortOrder
+    firm?: FirmOrderByWithRelationInput
+    auctionLoans?: AuctionLoanOrderByRelationAggregateInput
   }
 
   export type AuctionUserWhereUniqueInput = Prisma.AtLeast<{
@@ -42290,6 +42581,8 @@ export namespace Prisma {
     au_village?: StringNullableFilter<"AuctionUser"> | string | null
     au_pincode?: StringNullableFilter<"AuctionUser"> | string | null
     au_image?: StringNullableFilter<"AuctionUser"> | string | null
+    firm?: XOR<FirmRelationFilter, FirmWhereInput>
+    auctionLoans?: AuctionLoanListRelationFilter
   }, "au_id" | "au_uuid" | "au_unique_code">
 
   export type AuctionUserOrderByWithAggregationInput = {
@@ -42370,6 +42663,9 @@ export namespace Prisma {
     al_card_amt?: FloatNullableFilter<"AuctionLoan"> | number | null
     al_pay_info?: StringNullableFilter<"AuctionLoan"> | string | null
     al_other_info?: StringNullableFilter<"AuctionLoan"> | string | null
+    firm?: XOR<FirmRelationFilter, FirmWhereInput>
+    girvi?: XOR<GirviRelationFilter, GirviWhereInput>
+    buyer?: XOR<AuctionUserRelationFilter, AuctionUserWhereInput>
   }
 
   export type AuctionLoanOrderByWithRelationInput = {
@@ -42397,6 +42693,9 @@ export namespace Prisma {
     al_card_amt?: SortOrderInput | SortOrder
     al_pay_info?: SortOrderInput | SortOrder
     al_other_info?: SortOrderInput | SortOrder
+    firm?: FirmOrderByWithRelationInput
+    girvi?: GirviOrderByWithRelationInput
+    buyer?: AuctionUserOrderByWithRelationInput
   }
 
   export type AuctionLoanWhereUniqueInput = Prisma.AtLeast<{
@@ -42427,6 +42726,9 @@ export namespace Prisma {
     al_card_amt?: FloatNullableFilter<"AuctionLoan"> | number | null
     al_pay_info?: StringNullableFilter<"AuctionLoan"> | string | null
     al_other_info?: StringNullableFilter<"AuctionLoan"> | string | null
+    firm?: XOR<FirmRelationFilter, FirmWhereInput>
+    girvi?: XOR<GirviRelationFilter, GirviWhereInput>
+    buyer?: XOR<AuctionUserRelationFilter, AuctionUserWhereInput>
   }, "al_id" | "al_uuid">
 
   export type AuctionLoanOrderByWithAggregationInput = {
@@ -43396,6 +43698,8 @@ export namespace Prisma {
     releases?: GirviReleaseCreateNestedManyWithoutFirmInput
     rates?: RateCreateNestedManyWithoutFirmInput
     moneyLenders?: MoneyLenderCreateNestedManyWithoutFirmInput
+    auctionUsers?: AuctionUserCreateNestedManyWithoutFirmInput
+    auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
   }
 
   export type FirmUncheckedCreateInput = {
@@ -43463,6 +43767,8 @@ export namespace Prisma {
     releases?: GirviReleaseUncheckedCreateNestedManyWithoutFirmInput
     rates?: RateUncheckedCreateNestedManyWithoutFirmInput
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutFirmInput
+    auctionUsers?: AuctionUserUncheckedCreateNestedManyWithoutFirmInput
+    auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
   }
 
   export type FirmUpdateInput = {
@@ -43529,6 +43835,8 @@ export namespace Prisma {
     releases?: GirviReleaseUpdateManyWithoutFirmNestedInput
     rates?: RateUpdateManyWithoutFirmNestedInput
     moneyLenders?: MoneyLenderUpdateManyWithoutFirmNestedInput
+    auctionUsers?: AuctionUserUpdateManyWithoutFirmNestedInput
+    auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
   }
 
   export type FirmUncheckedUpdateInput = {
@@ -43596,6 +43904,8 @@ export namespace Prisma {
     releases?: GirviReleaseUncheckedUpdateManyWithoutFirmNestedInput
     rates?: RateUncheckedUpdateManyWithoutFirmNestedInput
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutFirmNestedInput
+    auctionUsers?: AuctionUserUncheckedUpdateManyWithoutFirmNestedInput
+    auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
   }
 
   export type FirmCreateManyInput = {
@@ -45694,6 +46004,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutGirviInput
     deposits?: GirviDepositCreateNestedManyWithoutGirviInput
     releases?: GirviReleaseCreateNestedManyWithoutGirviInput
+    auctionLoans?: AuctionLoanCreateNestedManyWithoutGirviInput
   }
 
   export type GirviUncheckedCreateInput = {
@@ -45753,6 +46064,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutGirviInput
     deposits?: GirviDepositUncheckedCreateNestedManyWithoutGirviInput
     releases?: GirviReleaseUncheckedCreateNestedManyWithoutGirviInput
+    auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutGirviInput
   }
 
   export type GirviUpdateInput = {
@@ -45811,6 +46123,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutGirviNestedInput
     deposits?: GirviDepositUpdateManyWithoutGirviNestedInput
     releases?: GirviReleaseUpdateManyWithoutGirviNestedInput
+    auctionLoans?: AuctionLoanUpdateManyWithoutGirviNestedInput
   }
 
   export type GirviUncheckedUpdateInput = {
@@ -45870,6 +46183,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutGirviNestedInput
     deposits?: GirviDepositUncheckedUpdateManyWithoutGirviNestedInput
     releases?: GirviReleaseUncheckedUpdateManyWithoutGirviNestedInput
+    auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutGirviNestedInput
   }
 
   export type GirviCreateManyInput = {
@@ -47543,7 +47857,6 @@ export namespace Prisma {
     au_uuid?: string
     au_unique_code?: string | null
     au_date?: string | null
-    au_firm_id: number
     au_full_name?: string | null
     au_mobile?: string | null
     au_email?: string | null
@@ -47557,6 +47870,8 @@ export namespace Prisma {
     au_village?: string | null
     au_pincode?: string | null
     au_image?: string | null
+    firm: FirmCreateNestedOneWithoutAuctionUsersInput
+    auctionLoans?: AuctionLoanCreateNestedManyWithoutBuyerInput
   }
 
   export type AuctionUserUncheckedCreateInput = {
@@ -47578,13 +47893,13 @@ export namespace Prisma {
     au_village?: string | null
     au_pincode?: string | null
     au_image?: string | null
+    auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutBuyerInput
   }
 
   export type AuctionUserUpdateInput = {
     au_uuid?: StringFieldUpdateOperationsInput | string
     au_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     au_date?: NullableStringFieldUpdateOperationsInput | string | null
-    au_firm_id?: IntFieldUpdateOperationsInput | number
     au_full_name?: NullableStringFieldUpdateOperationsInput | string | null
     au_mobile?: NullableStringFieldUpdateOperationsInput | string | null
     au_email?: NullableStringFieldUpdateOperationsInput | string | null
@@ -47598,6 +47913,8 @@ export namespace Prisma {
     au_village?: NullableStringFieldUpdateOperationsInput | string | null
     au_pincode?: NullableStringFieldUpdateOperationsInput | string | null
     au_image?: NullableStringFieldUpdateOperationsInput | string | null
+    firm?: FirmUpdateOneRequiredWithoutAuctionUsersNestedInput
+    auctionLoans?: AuctionLoanUpdateManyWithoutBuyerNestedInput
   }
 
   export type AuctionUserUncheckedUpdateInput = {
@@ -47619,6 +47936,7 @@ export namespace Prisma {
     au_village?: NullableStringFieldUpdateOperationsInput | string | null
     au_pincode?: NullableStringFieldUpdateOperationsInput | string | null
     au_image?: NullableStringFieldUpdateOperationsInput | string | null
+    auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutBuyerNestedInput
   }
 
   export type AuctionUserCreateManyInput = {
@@ -47646,7 +47964,6 @@ export namespace Prisma {
     au_uuid?: StringFieldUpdateOperationsInput | string
     au_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     au_date?: NullableStringFieldUpdateOperationsInput | string | null
-    au_firm_id?: IntFieldUpdateOperationsInput | number
     au_full_name?: NullableStringFieldUpdateOperationsInput | string | null
     au_mobile?: NullableStringFieldUpdateOperationsInput | string | null
     au_email?: NullableStringFieldUpdateOperationsInput | string | null
@@ -47686,9 +48003,6 @@ export namespace Prisma {
   export type AuctionLoanCreateInput = {
     al_uuid?: string
     al_date?: string | null
-    al_girv_id: number
-    al_firm_id: number
-    al_buyer_id: number
     al_prin_amt?: number
     al_int_amt?: number
     al_dep_amt?: number
@@ -47707,6 +48021,9 @@ export namespace Prisma {
     al_card_amt?: number | null
     al_pay_info?: string | null
     al_other_info?: string | null
+    firm: FirmCreateNestedOneWithoutAuctionLoansInput
+    girvi: GirviCreateNestedOneWithoutAuctionLoansInput
+    buyer: AuctionUserCreateNestedOneWithoutAuctionLoansInput
   }
 
   export type AuctionLoanUncheckedCreateInput = {
@@ -47739,9 +48056,6 @@ export namespace Prisma {
   export type AuctionLoanUpdateInput = {
     al_uuid?: StringFieldUpdateOperationsInput | string
     al_date?: NullableStringFieldUpdateOperationsInput | string | null
-    al_girv_id?: IntFieldUpdateOperationsInput | number
-    al_firm_id?: IntFieldUpdateOperationsInput | number
-    al_buyer_id?: IntFieldUpdateOperationsInput | number
     al_prin_amt?: FloatFieldUpdateOperationsInput | number
     al_int_amt?: FloatFieldUpdateOperationsInput | number
     al_dep_amt?: FloatFieldUpdateOperationsInput | number
@@ -47760,6 +48074,9 @@ export namespace Prisma {
     al_card_amt?: NullableFloatFieldUpdateOperationsInput | number | null
     al_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     al_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    firm?: FirmUpdateOneRequiredWithoutAuctionLoansNestedInput
+    girvi?: GirviUpdateOneRequiredWithoutAuctionLoansNestedInput
+    buyer?: AuctionUserUpdateOneRequiredWithoutAuctionLoansNestedInput
   }
 
   export type AuctionLoanUncheckedUpdateInput = {
@@ -47819,9 +48136,6 @@ export namespace Prisma {
   export type AuctionLoanUpdateManyMutationInput = {
     al_uuid?: StringFieldUpdateOperationsInput | string
     al_date?: NullableStringFieldUpdateOperationsInput | string | null
-    al_girv_id?: IntFieldUpdateOperationsInput | number
-    al_firm_id?: IntFieldUpdateOperationsInput | number
-    al_buyer_id?: IntFieldUpdateOperationsInput | number
     al_prin_amt?: FloatFieldUpdateOperationsInput | number
     al_int_amt?: FloatFieldUpdateOperationsInput | number
     al_dep_amt?: FloatFieldUpdateOperationsInput | number
@@ -49010,6 +49324,26 @@ export namespace Prisma {
   export type OwnerRelationFilter = {
     is?: OwnerWhereInput
     isNot?: OwnerWhereInput
+  }
+
+  export type AuctionUserListRelationFilter = {
+    every?: AuctionUserWhereInput
+    some?: AuctionUserWhereInput
+    none?: AuctionUserWhereInput
+  }
+
+  export type AuctionLoanListRelationFilter = {
+    every?: AuctionLoanWhereInput
+    some?: AuctionLoanWhereInput
+    none?: AuctionLoanWhereInput
+  }
+
+  export type AuctionUserOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type AuctionLoanOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type FirmCountOrderByAggregateInput = {
@@ -51678,6 +52012,11 @@ export namespace Prisma {
     au_firm_id?: SortOrder
   }
 
+  export type AuctionUserRelationFilter = {
+    is?: AuctionUserWhereInput
+    isNot?: AuctionUserWhereInput
+  }
+
   export type AuctionLoanCountOrderByAggregateInput = {
     al_id?: SortOrder
     al_uuid?: SortOrder
@@ -53019,6 +53358,20 @@ export namespace Prisma {
     connect?: MoneyLenderWhereUniqueInput | MoneyLenderWhereUniqueInput[]
   }
 
+  export type AuctionUserCreateNestedManyWithoutFirmInput = {
+    create?: XOR<AuctionUserCreateWithoutFirmInput, AuctionUserUncheckedCreateWithoutFirmInput> | AuctionUserCreateWithoutFirmInput[] | AuctionUserUncheckedCreateWithoutFirmInput[]
+    connectOrCreate?: AuctionUserCreateOrConnectWithoutFirmInput | AuctionUserCreateOrConnectWithoutFirmInput[]
+    createMany?: AuctionUserCreateManyFirmInputEnvelope
+    connect?: AuctionUserWhereUniqueInput | AuctionUserWhereUniqueInput[]
+  }
+
+  export type AuctionLoanCreateNestedManyWithoutFirmInput = {
+    create?: XOR<AuctionLoanCreateWithoutFirmInput, AuctionLoanUncheckedCreateWithoutFirmInput> | AuctionLoanCreateWithoutFirmInput[] | AuctionLoanUncheckedCreateWithoutFirmInput[]
+    connectOrCreate?: AuctionLoanCreateOrConnectWithoutFirmInput | AuctionLoanCreateOrConnectWithoutFirmInput[]
+    createMany?: AuctionLoanCreateManyFirmInputEnvelope
+    connect?: AuctionLoanWhereUniqueInput | AuctionLoanWhereUniqueInput[]
+  }
+
   export type UserUncheckedCreateNestedManyWithoutFirmInput = {
     create?: XOR<UserCreateWithoutFirmInput, UserUncheckedCreateWithoutFirmInput> | UserCreateWithoutFirmInput[] | UserUncheckedCreateWithoutFirmInput[]
     connectOrCreate?: UserCreateOrConnectWithoutFirmInput | UserCreateOrConnectWithoutFirmInput[]
@@ -53115,6 +53468,20 @@ export namespace Prisma {
     connectOrCreate?: MoneyLenderCreateOrConnectWithoutFirmInput | MoneyLenderCreateOrConnectWithoutFirmInput[]
     createMany?: MoneyLenderCreateManyFirmInputEnvelope
     connect?: MoneyLenderWhereUniqueInput | MoneyLenderWhereUniqueInput[]
+  }
+
+  export type AuctionUserUncheckedCreateNestedManyWithoutFirmInput = {
+    create?: XOR<AuctionUserCreateWithoutFirmInput, AuctionUserUncheckedCreateWithoutFirmInput> | AuctionUserCreateWithoutFirmInput[] | AuctionUserUncheckedCreateWithoutFirmInput[]
+    connectOrCreate?: AuctionUserCreateOrConnectWithoutFirmInput | AuctionUserCreateOrConnectWithoutFirmInput[]
+    createMany?: AuctionUserCreateManyFirmInputEnvelope
+    connect?: AuctionUserWhereUniqueInput | AuctionUserWhereUniqueInput[]
+  }
+
+  export type AuctionLoanUncheckedCreateNestedManyWithoutFirmInput = {
+    create?: XOR<AuctionLoanCreateWithoutFirmInput, AuctionLoanUncheckedCreateWithoutFirmInput> | AuctionLoanCreateWithoutFirmInput[] | AuctionLoanUncheckedCreateWithoutFirmInput[]
+    connectOrCreate?: AuctionLoanCreateOrConnectWithoutFirmInput | AuctionLoanCreateOrConnectWithoutFirmInput[]
+    createMany?: AuctionLoanCreateManyFirmInputEnvelope
+    connect?: AuctionLoanWhereUniqueInput | AuctionLoanWhereUniqueInput[]
   }
 
   export type EnumFirmTypeFieldUpdateOperationsInput = {
@@ -53329,6 +53696,34 @@ export namespace Prisma {
     deleteMany?: MoneyLenderScalarWhereInput | MoneyLenderScalarWhereInput[]
   }
 
+  export type AuctionUserUpdateManyWithoutFirmNestedInput = {
+    create?: XOR<AuctionUserCreateWithoutFirmInput, AuctionUserUncheckedCreateWithoutFirmInput> | AuctionUserCreateWithoutFirmInput[] | AuctionUserUncheckedCreateWithoutFirmInput[]
+    connectOrCreate?: AuctionUserCreateOrConnectWithoutFirmInput | AuctionUserCreateOrConnectWithoutFirmInput[]
+    upsert?: AuctionUserUpsertWithWhereUniqueWithoutFirmInput | AuctionUserUpsertWithWhereUniqueWithoutFirmInput[]
+    createMany?: AuctionUserCreateManyFirmInputEnvelope
+    set?: AuctionUserWhereUniqueInput | AuctionUserWhereUniqueInput[]
+    disconnect?: AuctionUserWhereUniqueInput | AuctionUserWhereUniqueInput[]
+    delete?: AuctionUserWhereUniqueInput | AuctionUserWhereUniqueInput[]
+    connect?: AuctionUserWhereUniqueInput | AuctionUserWhereUniqueInput[]
+    update?: AuctionUserUpdateWithWhereUniqueWithoutFirmInput | AuctionUserUpdateWithWhereUniqueWithoutFirmInput[]
+    updateMany?: AuctionUserUpdateManyWithWhereWithoutFirmInput | AuctionUserUpdateManyWithWhereWithoutFirmInput[]
+    deleteMany?: AuctionUserScalarWhereInput | AuctionUserScalarWhereInput[]
+  }
+
+  export type AuctionLoanUpdateManyWithoutFirmNestedInput = {
+    create?: XOR<AuctionLoanCreateWithoutFirmInput, AuctionLoanUncheckedCreateWithoutFirmInput> | AuctionLoanCreateWithoutFirmInput[] | AuctionLoanUncheckedCreateWithoutFirmInput[]
+    connectOrCreate?: AuctionLoanCreateOrConnectWithoutFirmInput | AuctionLoanCreateOrConnectWithoutFirmInput[]
+    upsert?: AuctionLoanUpsertWithWhereUniqueWithoutFirmInput | AuctionLoanUpsertWithWhereUniqueWithoutFirmInput[]
+    createMany?: AuctionLoanCreateManyFirmInputEnvelope
+    set?: AuctionLoanWhereUniqueInput | AuctionLoanWhereUniqueInput[]
+    disconnect?: AuctionLoanWhereUniqueInput | AuctionLoanWhereUniqueInput[]
+    delete?: AuctionLoanWhereUniqueInput | AuctionLoanWhereUniqueInput[]
+    connect?: AuctionLoanWhereUniqueInput | AuctionLoanWhereUniqueInput[]
+    update?: AuctionLoanUpdateWithWhereUniqueWithoutFirmInput | AuctionLoanUpdateWithWhereUniqueWithoutFirmInput[]
+    updateMany?: AuctionLoanUpdateManyWithWhereWithoutFirmInput | AuctionLoanUpdateManyWithWhereWithoutFirmInput[]
+    deleteMany?: AuctionLoanScalarWhereInput | AuctionLoanScalarWhereInput[]
+  }
+
   export type UserUncheckedUpdateManyWithoutFirmNestedInput = {
     create?: XOR<UserCreateWithoutFirmInput, UserUncheckedCreateWithoutFirmInput> | UserCreateWithoutFirmInput[] | UserUncheckedCreateWithoutFirmInput[]
     connectOrCreate?: UserCreateOrConnectWithoutFirmInput | UserCreateOrConnectWithoutFirmInput[]
@@ -53523,6 +53918,34 @@ export namespace Prisma {
     update?: MoneyLenderUpdateWithWhereUniqueWithoutFirmInput | MoneyLenderUpdateWithWhereUniqueWithoutFirmInput[]
     updateMany?: MoneyLenderUpdateManyWithWhereWithoutFirmInput | MoneyLenderUpdateManyWithWhereWithoutFirmInput[]
     deleteMany?: MoneyLenderScalarWhereInput | MoneyLenderScalarWhereInput[]
+  }
+
+  export type AuctionUserUncheckedUpdateManyWithoutFirmNestedInput = {
+    create?: XOR<AuctionUserCreateWithoutFirmInput, AuctionUserUncheckedCreateWithoutFirmInput> | AuctionUserCreateWithoutFirmInput[] | AuctionUserUncheckedCreateWithoutFirmInput[]
+    connectOrCreate?: AuctionUserCreateOrConnectWithoutFirmInput | AuctionUserCreateOrConnectWithoutFirmInput[]
+    upsert?: AuctionUserUpsertWithWhereUniqueWithoutFirmInput | AuctionUserUpsertWithWhereUniqueWithoutFirmInput[]
+    createMany?: AuctionUserCreateManyFirmInputEnvelope
+    set?: AuctionUserWhereUniqueInput | AuctionUserWhereUniqueInput[]
+    disconnect?: AuctionUserWhereUniqueInput | AuctionUserWhereUniqueInput[]
+    delete?: AuctionUserWhereUniqueInput | AuctionUserWhereUniqueInput[]
+    connect?: AuctionUserWhereUniqueInput | AuctionUserWhereUniqueInput[]
+    update?: AuctionUserUpdateWithWhereUniqueWithoutFirmInput | AuctionUserUpdateWithWhereUniqueWithoutFirmInput[]
+    updateMany?: AuctionUserUpdateManyWithWhereWithoutFirmInput | AuctionUserUpdateManyWithWhereWithoutFirmInput[]
+    deleteMany?: AuctionUserScalarWhereInput | AuctionUserScalarWhereInput[]
+  }
+
+  export type AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput = {
+    create?: XOR<AuctionLoanCreateWithoutFirmInput, AuctionLoanUncheckedCreateWithoutFirmInput> | AuctionLoanCreateWithoutFirmInput[] | AuctionLoanUncheckedCreateWithoutFirmInput[]
+    connectOrCreate?: AuctionLoanCreateOrConnectWithoutFirmInput | AuctionLoanCreateOrConnectWithoutFirmInput[]
+    upsert?: AuctionLoanUpsertWithWhereUniqueWithoutFirmInput | AuctionLoanUpsertWithWhereUniqueWithoutFirmInput[]
+    createMany?: AuctionLoanCreateManyFirmInputEnvelope
+    set?: AuctionLoanWhereUniqueInput | AuctionLoanWhereUniqueInput[]
+    disconnect?: AuctionLoanWhereUniqueInput | AuctionLoanWhereUniqueInput[]
+    delete?: AuctionLoanWhereUniqueInput | AuctionLoanWhereUniqueInput[]
+    connect?: AuctionLoanWhereUniqueInput | AuctionLoanWhereUniqueInput[]
+    update?: AuctionLoanUpdateWithWhereUniqueWithoutFirmInput | AuctionLoanUpdateWithWhereUniqueWithoutFirmInput[]
+    updateMany?: AuctionLoanUpdateManyWithWhereWithoutFirmInput | AuctionLoanUpdateManyWithWhereWithoutFirmInput[]
+    deleteMany?: AuctionLoanScalarWhereInput | AuctionLoanScalarWhereInput[]
   }
 
   export type OwnerCreateNestedOneWithoutAccountsInput = {
@@ -56646,6 +57069,13 @@ export namespace Prisma {
     connect?: GirviReleaseWhereUniqueInput | GirviReleaseWhereUniqueInput[]
   }
 
+  export type AuctionLoanCreateNestedManyWithoutGirviInput = {
+    create?: XOR<AuctionLoanCreateWithoutGirviInput, AuctionLoanUncheckedCreateWithoutGirviInput> | AuctionLoanCreateWithoutGirviInput[] | AuctionLoanUncheckedCreateWithoutGirviInput[]
+    connectOrCreate?: AuctionLoanCreateOrConnectWithoutGirviInput | AuctionLoanCreateOrConnectWithoutGirviInput[]
+    createMany?: AuctionLoanCreateManyGirviInputEnvelope
+    connect?: AuctionLoanWhereUniqueInput | AuctionLoanWhereUniqueInput[]
+  }
+
   export type AdditionalPrincipalUncheckedCreateNestedManyWithoutGirviInput = {
     create?: XOR<AdditionalPrincipalCreateWithoutGirviInput, AdditionalPrincipalUncheckedCreateWithoutGirviInput> | AdditionalPrincipalCreateWithoutGirviInput[] | AdditionalPrincipalUncheckedCreateWithoutGirviInput[]
     connectOrCreate?: AdditionalPrincipalCreateOrConnectWithoutGirviInput | AdditionalPrincipalCreateOrConnectWithoutGirviInput[]
@@ -56665,6 +57095,13 @@ export namespace Prisma {
     connectOrCreate?: GirviReleaseCreateOrConnectWithoutGirviInput | GirviReleaseCreateOrConnectWithoutGirviInput[]
     createMany?: GirviReleaseCreateManyGirviInputEnvelope
     connect?: GirviReleaseWhereUniqueInput | GirviReleaseWhereUniqueInput[]
+  }
+
+  export type AuctionLoanUncheckedCreateNestedManyWithoutGirviInput = {
+    create?: XOR<AuctionLoanCreateWithoutGirviInput, AuctionLoanUncheckedCreateWithoutGirviInput> | AuctionLoanCreateWithoutGirviInput[] | AuctionLoanUncheckedCreateWithoutGirviInput[]
+    connectOrCreate?: AuctionLoanCreateOrConnectWithoutGirviInput | AuctionLoanCreateOrConnectWithoutGirviInput[]
+    createMany?: AuctionLoanCreateManyGirviInputEnvelope
+    connect?: AuctionLoanWhereUniqueInput | AuctionLoanWhereUniqueInput[]
   }
 
   export type EnumGirviRoiTypeFieldUpdateOperationsInput = {
@@ -56833,6 +57270,20 @@ export namespace Prisma {
     deleteMany?: GirviReleaseScalarWhereInput | GirviReleaseScalarWhereInput[]
   }
 
+  export type AuctionLoanUpdateManyWithoutGirviNestedInput = {
+    create?: XOR<AuctionLoanCreateWithoutGirviInput, AuctionLoanUncheckedCreateWithoutGirviInput> | AuctionLoanCreateWithoutGirviInput[] | AuctionLoanUncheckedCreateWithoutGirviInput[]
+    connectOrCreate?: AuctionLoanCreateOrConnectWithoutGirviInput | AuctionLoanCreateOrConnectWithoutGirviInput[]
+    upsert?: AuctionLoanUpsertWithWhereUniqueWithoutGirviInput | AuctionLoanUpsertWithWhereUniqueWithoutGirviInput[]
+    createMany?: AuctionLoanCreateManyGirviInputEnvelope
+    set?: AuctionLoanWhereUniqueInput | AuctionLoanWhereUniqueInput[]
+    disconnect?: AuctionLoanWhereUniqueInput | AuctionLoanWhereUniqueInput[]
+    delete?: AuctionLoanWhereUniqueInput | AuctionLoanWhereUniqueInput[]
+    connect?: AuctionLoanWhereUniqueInput | AuctionLoanWhereUniqueInput[]
+    update?: AuctionLoanUpdateWithWhereUniqueWithoutGirviInput | AuctionLoanUpdateWithWhereUniqueWithoutGirviInput[]
+    updateMany?: AuctionLoanUpdateManyWithWhereWithoutGirviInput | AuctionLoanUpdateManyWithWhereWithoutGirviInput[]
+    deleteMany?: AuctionLoanScalarWhereInput | AuctionLoanScalarWhereInput[]
+  }
+
   export type AdditionalPrincipalUncheckedUpdateManyWithoutGirviNestedInput = {
     create?: XOR<AdditionalPrincipalCreateWithoutGirviInput, AdditionalPrincipalUncheckedCreateWithoutGirviInput> | AdditionalPrincipalCreateWithoutGirviInput[] | AdditionalPrincipalUncheckedCreateWithoutGirviInput[]
     connectOrCreate?: AdditionalPrincipalCreateOrConnectWithoutGirviInput | AdditionalPrincipalCreateOrConnectWithoutGirviInput[]
@@ -56873,6 +57324,20 @@ export namespace Prisma {
     update?: GirviReleaseUpdateWithWhereUniqueWithoutGirviInput | GirviReleaseUpdateWithWhereUniqueWithoutGirviInput[]
     updateMany?: GirviReleaseUpdateManyWithWhereWithoutGirviInput | GirviReleaseUpdateManyWithWhereWithoutGirviInput[]
     deleteMany?: GirviReleaseScalarWhereInput | GirviReleaseScalarWhereInput[]
+  }
+
+  export type AuctionLoanUncheckedUpdateManyWithoutGirviNestedInput = {
+    create?: XOR<AuctionLoanCreateWithoutGirviInput, AuctionLoanUncheckedCreateWithoutGirviInput> | AuctionLoanCreateWithoutGirviInput[] | AuctionLoanUncheckedCreateWithoutGirviInput[]
+    connectOrCreate?: AuctionLoanCreateOrConnectWithoutGirviInput | AuctionLoanCreateOrConnectWithoutGirviInput[]
+    upsert?: AuctionLoanUpsertWithWhereUniqueWithoutGirviInput | AuctionLoanUpsertWithWhereUniqueWithoutGirviInput[]
+    createMany?: AuctionLoanCreateManyGirviInputEnvelope
+    set?: AuctionLoanWhereUniqueInput | AuctionLoanWhereUniqueInput[]
+    disconnect?: AuctionLoanWhereUniqueInput | AuctionLoanWhereUniqueInput[]
+    delete?: AuctionLoanWhereUniqueInput | AuctionLoanWhereUniqueInput[]
+    connect?: AuctionLoanWhereUniqueInput | AuctionLoanWhereUniqueInput[]
+    update?: AuctionLoanUpdateWithWhereUniqueWithoutGirviInput | AuctionLoanUpdateWithWhereUniqueWithoutGirviInput[]
+    updateMany?: AuctionLoanUpdateManyWithWhereWithoutGirviInput | AuctionLoanUpdateManyWithWhereWithoutGirviInput[]
+    deleteMany?: AuctionLoanScalarWhereInput | AuctionLoanScalarWhereInput[]
   }
 
   export type OwnerCreateNestedOneWithoutStocksInput = {
@@ -57529,6 +57994,104 @@ export namespace Prisma {
     update?: GirviUpdateWithWhereUniqueWithoutTransferMoneyLenderInput | GirviUpdateWithWhereUniqueWithoutTransferMoneyLenderInput[]
     updateMany?: GirviUpdateManyWithWhereWithoutTransferMoneyLenderInput | GirviUpdateManyWithWhereWithoutTransferMoneyLenderInput[]
     deleteMany?: GirviScalarWhereInput | GirviScalarWhereInput[]
+  }
+
+  export type FirmCreateNestedOneWithoutAuctionUsersInput = {
+    create?: XOR<FirmCreateWithoutAuctionUsersInput, FirmUncheckedCreateWithoutAuctionUsersInput>
+    connectOrCreate?: FirmCreateOrConnectWithoutAuctionUsersInput
+    connect?: FirmWhereUniqueInput
+  }
+
+  export type AuctionLoanCreateNestedManyWithoutBuyerInput = {
+    create?: XOR<AuctionLoanCreateWithoutBuyerInput, AuctionLoanUncheckedCreateWithoutBuyerInput> | AuctionLoanCreateWithoutBuyerInput[] | AuctionLoanUncheckedCreateWithoutBuyerInput[]
+    connectOrCreate?: AuctionLoanCreateOrConnectWithoutBuyerInput | AuctionLoanCreateOrConnectWithoutBuyerInput[]
+    createMany?: AuctionLoanCreateManyBuyerInputEnvelope
+    connect?: AuctionLoanWhereUniqueInput | AuctionLoanWhereUniqueInput[]
+  }
+
+  export type AuctionLoanUncheckedCreateNestedManyWithoutBuyerInput = {
+    create?: XOR<AuctionLoanCreateWithoutBuyerInput, AuctionLoanUncheckedCreateWithoutBuyerInput> | AuctionLoanCreateWithoutBuyerInput[] | AuctionLoanUncheckedCreateWithoutBuyerInput[]
+    connectOrCreate?: AuctionLoanCreateOrConnectWithoutBuyerInput | AuctionLoanCreateOrConnectWithoutBuyerInput[]
+    createMany?: AuctionLoanCreateManyBuyerInputEnvelope
+    connect?: AuctionLoanWhereUniqueInput | AuctionLoanWhereUniqueInput[]
+  }
+
+  export type FirmUpdateOneRequiredWithoutAuctionUsersNestedInput = {
+    create?: XOR<FirmCreateWithoutAuctionUsersInput, FirmUncheckedCreateWithoutAuctionUsersInput>
+    connectOrCreate?: FirmCreateOrConnectWithoutAuctionUsersInput
+    upsert?: FirmUpsertWithoutAuctionUsersInput
+    connect?: FirmWhereUniqueInput
+    update?: XOR<XOR<FirmUpdateToOneWithWhereWithoutAuctionUsersInput, FirmUpdateWithoutAuctionUsersInput>, FirmUncheckedUpdateWithoutAuctionUsersInput>
+  }
+
+  export type AuctionLoanUpdateManyWithoutBuyerNestedInput = {
+    create?: XOR<AuctionLoanCreateWithoutBuyerInput, AuctionLoanUncheckedCreateWithoutBuyerInput> | AuctionLoanCreateWithoutBuyerInput[] | AuctionLoanUncheckedCreateWithoutBuyerInput[]
+    connectOrCreate?: AuctionLoanCreateOrConnectWithoutBuyerInput | AuctionLoanCreateOrConnectWithoutBuyerInput[]
+    upsert?: AuctionLoanUpsertWithWhereUniqueWithoutBuyerInput | AuctionLoanUpsertWithWhereUniqueWithoutBuyerInput[]
+    createMany?: AuctionLoanCreateManyBuyerInputEnvelope
+    set?: AuctionLoanWhereUniqueInput | AuctionLoanWhereUniqueInput[]
+    disconnect?: AuctionLoanWhereUniqueInput | AuctionLoanWhereUniqueInput[]
+    delete?: AuctionLoanWhereUniqueInput | AuctionLoanWhereUniqueInput[]
+    connect?: AuctionLoanWhereUniqueInput | AuctionLoanWhereUniqueInput[]
+    update?: AuctionLoanUpdateWithWhereUniqueWithoutBuyerInput | AuctionLoanUpdateWithWhereUniqueWithoutBuyerInput[]
+    updateMany?: AuctionLoanUpdateManyWithWhereWithoutBuyerInput | AuctionLoanUpdateManyWithWhereWithoutBuyerInput[]
+    deleteMany?: AuctionLoanScalarWhereInput | AuctionLoanScalarWhereInput[]
+  }
+
+  export type AuctionLoanUncheckedUpdateManyWithoutBuyerNestedInput = {
+    create?: XOR<AuctionLoanCreateWithoutBuyerInput, AuctionLoanUncheckedCreateWithoutBuyerInput> | AuctionLoanCreateWithoutBuyerInput[] | AuctionLoanUncheckedCreateWithoutBuyerInput[]
+    connectOrCreate?: AuctionLoanCreateOrConnectWithoutBuyerInput | AuctionLoanCreateOrConnectWithoutBuyerInput[]
+    upsert?: AuctionLoanUpsertWithWhereUniqueWithoutBuyerInput | AuctionLoanUpsertWithWhereUniqueWithoutBuyerInput[]
+    createMany?: AuctionLoanCreateManyBuyerInputEnvelope
+    set?: AuctionLoanWhereUniqueInput | AuctionLoanWhereUniqueInput[]
+    disconnect?: AuctionLoanWhereUniqueInput | AuctionLoanWhereUniqueInput[]
+    delete?: AuctionLoanWhereUniqueInput | AuctionLoanWhereUniqueInput[]
+    connect?: AuctionLoanWhereUniqueInput | AuctionLoanWhereUniqueInput[]
+    update?: AuctionLoanUpdateWithWhereUniqueWithoutBuyerInput | AuctionLoanUpdateWithWhereUniqueWithoutBuyerInput[]
+    updateMany?: AuctionLoanUpdateManyWithWhereWithoutBuyerInput | AuctionLoanUpdateManyWithWhereWithoutBuyerInput[]
+    deleteMany?: AuctionLoanScalarWhereInput | AuctionLoanScalarWhereInput[]
+  }
+
+  export type FirmCreateNestedOneWithoutAuctionLoansInput = {
+    create?: XOR<FirmCreateWithoutAuctionLoansInput, FirmUncheckedCreateWithoutAuctionLoansInput>
+    connectOrCreate?: FirmCreateOrConnectWithoutAuctionLoansInput
+    connect?: FirmWhereUniqueInput
+  }
+
+  export type GirviCreateNestedOneWithoutAuctionLoansInput = {
+    create?: XOR<GirviCreateWithoutAuctionLoansInput, GirviUncheckedCreateWithoutAuctionLoansInput>
+    connectOrCreate?: GirviCreateOrConnectWithoutAuctionLoansInput
+    connect?: GirviWhereUniqueInput
+  }
+
+  export type AuctionUserCreateNestedOneWithoutAuctionLoansInput = {
+    create?: XOR<AuctionUserCreateWithoutAuctionLoansInput, AuctionUserUncheckedCreateWithoutAuctionLoansInput>
+    connectOrCreate?: AuctionUserCreateOrConnectWithoutAuctionLoansInput
+    connect?: AuctionUserWhereUniqueInput
+  }
+
+  export type FirmUpdateOneRequiredWithoutAuctionLoansNestedInput = {
+    create?: XOR<FirmCreateWithoutAuctionLoansInput, FirmUncheckedCreateWithoutAuctionLoansInput>
+    connectOrCreate?: FirmCreateOrConnectWithoutAuctionLoansInput
+    upsert?: FirmUpsertWithoutAuctionLoansInput
+    connect?: FirmWhereUniqueInput
+    update?: XOR<XOR<FirmUpdateToOneWithWhereWithoutAuctionLoansInput, FirmUpdateWithoutAuctionLoansInput>, FirmUncheckedUpdateWithoutAuctionLoansInput>
+  }
+
+  export type GirviUpdateOneRequiredWithoutAuctionLoansNestedInput = {
+    create?: XOR<GirviCreateWithoutAuctionLoansInput, GirviUncheckedCreateWithoutAuctionLoansInput>
+    connectOrCreate?: GirviCreateOrConnectWithoutAuctionLoansInput
+    upsert?: GirviUpsertWithoutAuctionLoansInput
+    connect?: GirviWhereUniqueInput
+    update?: XOR<XOR<GirviUpdateToOneWithWhereWithoutAuctionLoansInput, GirviUpdateWithoutAuctionLoansInput>, GirviUncheckedUpdateWithoutAuctionLoansInput>
+  }
+
+  export type AuctionUserUpdateOneRequiredWithoutAuctionLoansNestedInput = {
+    create?: XOR<AuctionUserCreateWithoutAuctionLoansInput, AuctionUserUncheckedCreateWithoutAuctionLoansInput>
+    connectOrCreate?: AuctionUserCreateOrConnectWithoutAuctionLoansInput
+    upsert?: AuctionUserUpsertWithoutAuctionLoansInput
+    connect?: AuctionUserWhereUniqueInput
+    update?: XOR<XOR<AuctionUserUpdateToOneWithWhereWithoutAuctionLoansInput, AuctionUserUpdateWithoutAuctionLoansInput>, AuctionUserUncheckedUpdateWithoutAuctionLoansInput>
   }
 
   export type OwnerCreateNestedOneWithoutStaffInput = {
@@ -58488,6 +59051,8 @@ export namespace Prisma {
     releases?: GirviReleaseCreateNestedManyWithoutFirmInput
     rates?: RateCreateNestedManyWithoutFirmInput
     moneyLenders?: MoneyLenderCreateNestedManyWithoutFirmInput
+    auctionUsers?: AuctionUserCreateNestedManyWithoutFirmInput
+    auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
   }
 
   export type FirmUncheckedCreateWithoutOwnerInput = {
@@ -58554,6 +59119,8 @@ export namespace Prisma {
     releases?: GirviReleaseUncheckedCreateNestedManyWithoutFirmInput
     rates?: RateUncheckedCreateNestedManyWithoutFirmInput
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutFirmInput
+    auctionUsers?: AuctionUserUncheckedCreateNestedManyWithoutFirmInput
+    auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
   }
 
   export type FirmCreateOrConnectWithoutOwnerInput = {
@@ -59147,6 +59714,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutGirviInput
     deposits?: GirviDepositCreateNestedManyWithoutGirviInput
     releases?: GirviReleaseCreateNestedManyWithoutGirviInput
+    auctionLoans?: AuctionLoanCreateNestedManyWithoutGirviInput
   }
 
   export type GirviUncheckedCreateWithoutOwnerInput = {
@@ -59205,6 +59773,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutGirviInput
     deposits?: GirviDepositUncheckedCreateNestedManyWithoutGirviInput
     releases?: GirviReleaseUncheckedCreateNestedManyWithoutGirviInput
+    auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutGirviInput
   }
 
   export type GirviCreateOrConnectWithoutOwnerInput = {
@@ -61620,6 +62189,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutGirviInput
     deposits?: GirviDepositCreateNestedManyWithoutGirviInput
     releases?: GirviReleaseCreateNestedManyWithoutGirviInput
+    auctionLoans?: AuctionLoanCreateNestedManyWithoutGirviInput
   }
 
   export type GirviUncheckedCreateWithoutFirmInput = {
@@ -61678,6 +62248,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutGirviInput
     deposits?: GirviDepositUncheckedCreateNestedManyWithoutGirviInput
     releases?: GirviReleaseUncheckedCreateNestedManyWithoutGirviInput
+    auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutGirviInput
   }
 
   export type GirviCreateOrConnectWithoutFirmInput = {
@@ -62152,6 +62723,118 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type AuctionUserCreateWithoutFirmInput = {
+    au_uuid?: string
+    au_unique_code?: string | null
+    au_date?: string | null
+    au_full_name?: string | null
+    au_mobile?: string | null
+    au_email?: string | null
+    au_aadhaar?: string | null
+    au_gender?: string | null
+    au_pan?: string | null
+    au_address?: string | null
+    au_state?: string | null
+    au_city?: string | null
+    au_country?: string | null
+    au_village?: string | null
+    au_pincode?: string | null
+    au_image?: string | null
+    auctionLoans?: AuctionLoanCreateNestedManyWithoutBuyerInput
+  }
+
+  export type AuctionUserUncheckedCreateWithoutFirmInput = {
+    au_id?: number
+    au_uuid?: string
+    au_unique_code?: string | null
+    au_date?: string | null
+    au_full_name?: string | null
+    au_mobile?: string | null
+    au_email?: string | null
+    au_aadhaar?: string | null
+    au_gender?: string | null
+    au_pan?: string | null
+    au_address?: string | null
+    au_state?: string | null
+    au_city?: string | null
+    au_country?: string | null
+    au_village?: string | null
+    au_pincode?: string | null
+    au_image?: string | null
+    auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutBuyerInput
+  }
+
+  export type AuctionUserCreateOrConnectWithoutFirmInput = {
+    where: AuctionUserWhereUniqueInput
+    create: XOR<AuctionUserCreateWithoutFirmInput, AuctionUserUncheckedCreateWithoutFirmInput>
+  }
+
+  export type AuctionUserCreateManyFirmInputEnvelope = {
+    data: AuctionUserCreateManyFirmInput | AuctionUserCreateManyFirmInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type AuctionLoanCreateWithoutFirmInput = {
+    al_uuid?: string
+    al_date?: string | null
+    al_prin_amt?: number
+    al_int_amt?: number
+    al_dep_amt?: number
+    al_payable_amt?: number
+    al_cash_acc_id?: number | null
+    al_cash_info?: string | null
+    al_cash_amt?: number | null
+    al_bank_acc_id?: number | null
+    al_bank_info?: string | null
+    al_bank_amt?: number | null
+    al_online_acc_id?: number | null
+    al_online_info?: string | null
+    al_online_amt?: number | null
+    al_card_acc_id?: number | null
+    al_card_info?: string | null
+    al_card_amt?: number | null
+    al_pay_info?: string | null
+    al_other_info?: string | null
+    girvi: GirviCreateNestedOneWithoutAuctionLoansInput
+    buyer: AuctionUserCreateNestedOneWithoutAuctionLoansInput
+  }
+
+  export type AuctionLoanUncheckedCreateWithoutFirmInput = {
+    al_id?: number
+    al_uuid?: string
+    al_date?: string | null
+    al_girv_id: number
+    al_buyer_id: number
+    al_prin_amt?: number
+    al_int_amt?: number
+    al_dep_amt?: number
+    al_payable_amt?: number
+    al_cash_acc_id?: number | null
+    al_cash_info?: string | null
+    al_cash_amt?: number | null
+    al_bank_acc_id?: number | null
+    al_bank_info?: string | null
+    al_bank_amt?: number | null
+    al_online_acc_id?: number | null
+    al_online_info?: string | null
+    al_online_amt?: number | null
+    al_card_acc_id?: number | null
+    al_card_info?: string | null
+    al_card_amt?: number | null
+    al_pay_info?: string | null
+    al_other_info?: string | null
+  }
+
+  export type AuctionLoanCreateOrConnectWithoutFirmInput = {
+    where: AuctionLoanWhereUniqueInput
+    create: XOR<AuctionLoanCreateWithoutFirmInput, AuctionLoanUncheckedCreateWithoutFirmInput>
+  }
+
+  export type AuctionLoanCreateManyFirmInputEnvelope = {
+    data: AuctionLoanCreateManyFirmInput | AuctionLoanCreateManyFirmInput[]
+    skipDuplicates?: boolean
+  }
+
   export type UserUpsertWithWhereUniqueWithoutFirmInput = {
     where: UserWhereUniqueInput
     update: XOR<UserUpdateWithoutFirmInput, UserUncheckedUpdateWithoutFirmInput>
@@ -62493,6 +63176,92 @@ export namespace Prisma {
     data: XOR<MoneyLenderUpdateManyMutationInput, MoneyLenderUncheckedUpdateManyWithoutFirmInput>
   }
 
+  export type AuctionUserUpsertWithWhereUniqueWithoutFirmInput = {
+    where: AuctionUserWhereUniqueInput
+    update: XOR<AuctionUserUpdateWithoutFirmInput, AuctionUserUncheckedUpdateWithoutFirmInput>
+    create: XOR<AuctionUserCreateWithoutFirmInput, AuctionUserUncheckedCreateWithoutFirmInput>
+  }
+
+  export type AuctionUserUpdateWithWhereUniqueWithoutFirmInput = {
+    where: AuctionUserWhereUniqueInput
+    data: XOR<AuctionUserUpdateWithoutFirmInput, AuctionUserUncheckedUpdateWithoutFirmInput>
+  }
+
+  export type AuctionUserUpdateManyWithWhereWithoutFirmInput = {
+    where: AuctionUserScalarWhereInput
+    data: XOR<AuctionUserUpdateManyMutationInput, AuctionUserUncheckedUpdateManyWithoutFirmInput>
+  }
+
+  export type AuctionUserScalarWhereInput = {
+    AND?: AuctionUserScalarWhereInput | AuctionUserScalarWhereInput[]
+    OR?: AuctionUserScalarWhereInput[]
+    NOT?: AuctionUserScalarWhereInput | AuctionUserScalarWhereInput[]
+    au_id?: IntFilter<"AuctionUser"> | number
+    au_uuid?: StringFilter<"AuctionUser"> | string
+    au_unique_code?: StringNullableFilter<"AuctionUser"> | string | null
+    au_date?: StringNullableFilter<"AuctionUser"> | string | null
+    au_firm_id?: IntFilter<"AuctionUser"> | number
+    au_full_name?: StringNullableFilter<"AuctionUser"> | string | null
+    au_mobile?: StringNullableFilter<"AuctionUser"> | string | null
+    au_email?: StringNullableFilter<"AuctionUser"> | string | null
+    au_aadhaar?: StringNullableFilter<"AuctionUser"> | string | null
+    au_gender?: StringNullableFilter<"AuctionUser"> | string | null
+    au_pan?: StringNullableFilter<"AuctionUser"> | string | null
+    au_address?: StringNullableFilter<"AuctionUser"> | string | null
+    au_state?: StringNullableFilter<"AuctionUser"> | string | null
+    au_city?: StringNullableFilter<"AuctionUser"> | string | null
+    au_country?: StringNullableFilter<"AuctionUser"> | string | null
+    au_village?: StringNullableFilter<"AuctionUser"> | string | null
+    au_pincode?: StringNullableFilter<"AuctionUser"> | string | null
+    au_image?: StringNullableFilter<"AuctionUser"> | string | null
+  }
+
+  export type AuctionLoanUpsertWithWhereUniqueWithoutFirmInput = {
+    where: AuctionLoanWhereUniqueInput
+    update: XOR<AuctionLoanUpdateWithoutFirmInput, AuctionLoanUncheckedUpdateWithoutFirmInput>
+    create: XOR<AuctionLoanCreateWithoutFirmInput, AuctionLoanUncheckedCreateWithoutFirmInput>
+  }
+
+  export type AuctionLoanUpdateWithWhereUniqueWithoutFirmInput = {
+    where: AuctionLoanWhereUniqueInput
+    data: XOR<AuctionLoanUpdateWithoutFirmInput, AuctionLoanUncheckedUpdateWithoutFirmInput>
+  }
+
+  export type AuctionLoanUpdateManyWithWhereWithoutFirmInput = {
+    where: AuctionLoanScalarWhereInput
+    data: XOR<AuctionLoanUpdateManyMutationInput, AuctionLoanUncheckedUpdateManyWithoutFirmInput>
+  }
+
+  export type AuctionLoanScalarWhereInput = {
+    AND?: AuctionLoanScalarWhereInput | AuctionLoanScalarWhereInput[]
+    OR?: AuctionLoanScalarWhereInput[]
+    NOT?: AuctionLoanScalarWhereInput | AuctionLoanScalarWhereInput[]
+    al_id?: IntFilter<"AuctionLoan"> | number
+    al_uuid?: StringFilter<"AuctionLoan"> | string
+    al_date?: StringNullableFilter<"AuctionLoan"> | string | null
+    al_girv_id?: IntFilter<"AuctionLoan"> | number
+    al_firm_id?: IntFilter<"AuctionLoan"> | number
+    al_buyer_id?: IntFilter<"AuctionLoan"> | number
+    al_prin_amt?: FloatFilter<"AuctionLoan"> | number
+    al_int_amt?: FloatFilter<"AuctionLoan"> | number
+    al_dep_amt?: FloatFilter<"AuctionLoan"> | number
+    al_payable_amt?: FloatFilter<"AuctionLoan"> | number
+    al_cash_acc_id?: IntNullableFilter<"AuctionLoan"> | number | null
+    al_cash_info?: StringNullableFilter<"AuctionLoan"> | string | null
+    al_cash_amt?: FloatNullableFilter<"AuctionLoan"> | number | null
+    al_bank_acc_id?: IntNullableFilter<"AuctionLoan"> | number | null
+    al_bank_info?: StringNullableFilter<"AuctionLoan"> | string | null
+    al_bank_amt?: FloatNullableFilter<"AuctionLoan"> | number | null
+    al_online_acc_id?: IntNullableFilter<"AuctionLoan"> | number | null
+    al_online_info?: StringNullableFilter<"AuctionLoan"> | string | null
+    al_online_amt?: FloatNullableFilter<"AuctionLoan"> | number | null
+    al_card_acc_id?: IntNullableFilter<"AuctionLoan"> | number | null
+    al_card_info?: StringNullableFilter<"AuctionLoan"> | string | null
+    al_card_amt?: FloatNullableFilter<"AuctionLoan"> | number | null
+    al_pay_info?: StringNullableFilter<"AuctionLoan"> | string | null
+    al_other_info?: StringNullableFilter<"AuctionLoan"> | string | null
+  }
+
   export type OwnerCreateWithoutAccountsInput = {
     own_uuid?: string
     own_product_key?: number
@@ -62668,6 +63437,8 @@ export namespace Prisma {
     releases?: GirviReleaseCreateNestedManyWithoutFirmInput
     rates?: RateCreateNestedManyWithoutFirmInput
     moneyLenders?: MoneyLenderCreateNestedManyWithoutFirmInput
+    auctionUsers?: AuctionUserCreateNestedManyWithoutFirmInput
+    auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
   }
 
   export type FirmUncheckedCreateWithoutAccountsInput = {
@@ -62734,6 +63505,8 @@ export namespace Prisma {
     releases?: GirviReleaseUncheckedCreateNestedManyWithoutFirmInput
     rates?: RateUncheckedCreateNestedManyWithoutFirmInput
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutFirmInput
+    auctionUsers?: AuctionUserUncheckedCreateNestedManyWithoutFirmInput
+    auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
   }
 
   export type FirmCreateOrConnectWithoutAccountsInput = {
@@ -64142,6 +64915,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutGirviInput
     deposits?: GirviDepositCreateNestedManyWithoutGirviInput
     releases?: GirviReleaseCreateNestedManyWithoutGirviInput
+    auctionLoans?: AuctionLoanCreateNestedManyWithoutGirviInput
   }
 
   export type GirviUncheckedCreateWithoutFirstIntCrAccountInput = {
@@ -64200,6 +64974,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutGirviInput
     deposits?: GirviDepositUncheckedCreateNestedManyWithoutGirviInput
     releases?: GirviReleaseUncheckedCreateNestedManyWithoutGirviInput
+    auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutGirviInput
   }
 
   export type GirviCreateOrConnectWithoutFirstIntCrAccountInput = {
@@ -64267,6 +65042,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutGirviInput
     deposits?: GirviDepositCreateNestedManyWithoutGirviInput
     releases?: GirviReleaseCreateNestedManyWithoutGirviInput
+    auctionLoans?: AuctionLoanCreateNestedManyWithoutGirviInput
   }
 
   export type GirviUncheckedCreateWithoutFirstIntDrAccountInput = {
@@ -64325,6 +65101,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutGirviInput
     deposits?: GirviDepositUncheckedCreateNestedManyWithoutGirviInput
     releases?: GirviReleaseUncheckedCreateNestedManyWithoutGirviInput
+    auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutGirviInput
   }
 
   export type GirviCreateOrConnectWithoutFirstIntDrAccountInput = {
@@ -64392,6 +65169,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutGirviInput
     deposits?: GirviDepositCreateNestedManyWithoutGirviInput
     releases?: GirviReleaseCreateNestedManyWithoutGirviInput
+    auctionLoans?: AuctionLoanCreateNestedManyWithoutGirviInput
   }
 
   export type GirviUncheckedCreateWithoutCashAccountInput = {
@@ -64450,6 +65228,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutGirviInput
     deposits?: GirviDepositUncheckedCreateNestedManyWithoutGirviInput
     releases?: GirviReleaseUncheckedCreateNestedManyWithoutGirviInput
+    auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutGirviInput
   }
 
   export type GirviCreateOrConnectWithoutCashAccountInput = {
@@ -64517,6 +65296,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutGirviInput
     deposits?: GirviDepositCreateNestedManyWithoutGirviInput
     releases?: GirviReleaseCreateNestedManyWithoutGirviInput
+    auctionLoans?: AuctionLoanCreateNestedManyWithoutGirviInput
   }
 
   export type GirviUncheckedCreateWithoutBankAccountInput = {
@@ -64575,6 +65355,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutGirviInput
     deposits?: GirviDepositUncheckedCreateNestedManyWithoutGirviInput
     releases?: GirviReleaseUncheckedCreateNestedManyWithoutGirviInput
+    auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutGirviInput
   }
 
   export type GirviCreateOrConnectWithoutBankAccountInput = {
@@ -64642,6 +65423,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutGirviInput
     deposits?: GirviDepositCreateNestedManyWithoutGirviInput
     releases?: GirviReleaseCreateNestedManyWithoutGirviInput
+    auctionLoans?: AuctionLoanCreateNestedManyWithoutGirviInput
   }
 
   export type GirviUncheckedCreateWithoutOnlineAccountInput = {
@@ -64700,6 +65482,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutGirviInput
     deposits?: GirviDepositUncheckedCreateNestedManyWithoutGirviInput
     releases?: GirviReleaseUncheckedCreateNestedManyWithoutGirviInput
+    auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutGirviInput
   }
 
   export type GirviCreateOrConnectWithoutOnlineAccountInput = {
@@ -64767,6 +65550,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutGirviInput
     deposits?: GirviDepositCreateNestedManyWithoutGirviInput
     releases?: GirviReleaseCreateNestedManyWithoutGirviInput
+    auctionLoans?: AuctionLoanCreateNestedManyWithoutGirviInput
   }
 
   export type GirviUncheckedCreateWithoutCardAccountInput = {
@@ -64825,6 +65609,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutGirviInput
     deposits?: GirviDepositUncheckedCreateNestedManyWithoutGirviInput
     releases?: GirviReleaseUncheckedCreateNestedManyWithoutGirviInput
+    auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutGirviInput
   }
 
   export type GirviCreateOrConnectWithoutCardAccountInput = {
@@ -64892,6 +65677,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutGirviInput
     deposits?: GirviDepositCreateNestedManyWithoutGirviInput
     releases?: GirviReleaseCreateNestedManyWithoutGirviInput
+    auctionLoans?: AuctionLoanCreateNestedManyWithoutGirviInput
   }
 
   export type GirviUncheckedCreateWithoutDrAccountInput = {
@@ -64950,6 +65736,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutGirviInput
     deposits?: GirviDepositUncheckedCreateNestedManyWithoutGirviInput
     releases?: GirviReleaseUncheckedCreateNestedManyWithoutGirviInput
+    auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutGirviInput
   }
 
   export type GirviCreateOrConnectWithoutDrAccountInput = {
@@ -66885,6 +67672,8 @@ export namespace Prisma {
     releases?: GirviReleaseUpdateManyWithoutFirmNestedInput
     rates?: RateUpdateManyWithoutFirmNestedInput
     moneyLenders?: MoneyLenderUpdateManyWithoutFirmNestedInput
+    auctionUsers?: AuctionUserUpdateManyWithoutFirmNestedInput
+    auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
   }
 
   export type FirmUncheckedUpdateWithoutAccountsInput = {
@@ -66951,6 +67740,8 @@ export namespace Prisma {
     releases?: GirviReleaseUncheckedUpdateManyWithoutFirmNestedInput
     rates?: RateUncheckedUpdateManyWithoutFirmNestedInput
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutFirmNestedInput
+    auctionUsers?: AuctionUserUncheckedUpdateManyWithoutFirmNestedInput
+    auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
   }
 
   export type FinanceUpsertWithWhereUniqueWithoutCashAccountInput = {
@@ -67816,6 +68607,8 @@ export namespace Prisma {
     releases?: GirviReleaseCreateNestedManyWithoutFirmInput
     rates?: RateCreateNestedManyWithoutFirmInput
     moneyLenders?: MoneyLenderCreateNestedManyWithoutFirmInput
+    auctionUsers?: AuctionUserCreateNestedManyWithoutFirmInput
+    auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
   }
 
   export type FirmUncheckedCreateWithoutUsersInput = {
@@ -67882,6 +68675,8 @@ export namespace Prisma {
     releases?: GirviReleaseUncheckedCreateNestedManyWithoutFirmInput
     rates?: RateUncheckedCreateNestedManyWithoutFirmInput
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutFirmInput
+    auctionUsers?: AuctionUserUncheckedCreateNestedManyWithoutFirmInput
+    auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
   }
 
   export type FirmCreateOrConnectWithoutUsersInput = {
@@ -68313,6 +69108,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutGirviInput
     deposits?: GirviDepositCreateNestedManyWithoutGirviInput
     releases?: GirviReleaseCreateNestedManyWithoutGirviInput
+    auctionLoans?: AuctionLoanCreateNestedManyWithoutGirviInput
   }
 
   export type GirviUncheckedCreateWithoutUserInput = {
@@ -68371,6 +69167,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutGirviInput
     deposits?: GirviDepositUncheckedCreateNestedManyWithoutGirviInput
     releases?: GirviReleaseUncheckedCreateNestedManyWithoutGirviInput
+    auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutGirviInput
   }
 
   export type GirviCreateOrConnectWithoutUserInput = {
@@ -68904,6 +69701,8 @@ export namespace Prisma {
     releases?: GirviReleaseUpdateManyWithoutFirmNestedInput
     rates?: RateUpdateManyWithoutFirmNestedInput
     moneyLenders?: MoneyLenderUpdateManyWithoutFirmNestedInput
+    auctionUsers?: AuctionUserUpdateManyWithoutFirmNestedInput
+    auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
   }
 
   export type FirmUncheckedUpdateWithoutUsersInput = {
@@ -68970,6 +69769,8 @@ export namespace Prisma {
     releases?: GirviReleaseUncheckedUpdateManyWithoutFirmNestedInput
     rates?: RateUncheckedUpdateManyWithoutFirmNestedInput
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutFirmNestedInput
+    auctionUsers?: AuctionUserUncheckedUpdateManyWithoutFirmNestedInput
+    auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
   }
 
   export type FinanceUpsertWithWhereUniqueWithoutUserInput = {
@@ -69195,6 +69996,8 @@ export namespace Prisma {
     releases?: GirviReleaseCreateNestedManyWithoutFirmInput
     rates?: RateCreateNestedManyWithoutFirmInput
     moneyLenders?: MoneyLenderCreateNestedManyWithoutFirmInput
+    auctionUsers?: AuctionUserCreateNestedManyWithoutFirmInput
+    auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
   }
 
   export type FirmUncheckedCreateWithoutFinancesInput = {
@@ -69261,6 +70064,8 @@ export namespace Prisma {
     releases?: GirviReleaseUncheckedCreateNestedManyWithoutFirmInput
     rates?: RateUncheckedCreateNestedManyWithoutFirmInput
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutFirmInput
+    auctionUsers?: AuctionUserUncheckedCreateNestedManyWithoutFirmInput
+    auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
   }
 
   export type FirmCreateOrConnectWithoutFinancesInput = {
@@ -70486,6 +71291,8 @@ export namespace Prisma {
     releases?: GirviReleaseUpdateManyWithoutFirmNestedInput
     rates?: RateUpdateManyWithoutFirmNestedInput
     moneyLenders?: MoneyLenderUpdateManyWithoutFirmNestedInput
+    auctionUsers?: AuctionUserUpdateManyWithoutFirmNestedInput
+    auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
   }
 
   export type FirmUncheckedUpdateWithoutFinancesInput = {
@@ -70552,6 +71359,8 @@ export namespace Prisma {
     releases?: GirviReleaseUncheckedUpdateManyWithoutFirmNestedInput
     rates?: RateUncheckedUpdateManyWithoutFirmNestedInput
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutFirmNestedInput
+    auctionUsers?: AuctionUserUncheckedUpdateManyWithoutFirmNestedInput
+    auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
   }
 
   export type UserUpsertWithoutFinancesInput = {
@@ -71684,6 +72493,8 @@ export namespace Prisma {
     releases?: GirviReleaseCreateNestedManyWithoutFirmInput
     rates?: RateCreateNestedManyWithoutFirmInput
     moneyLenders?: MoneyLenderCreateNestedManyWithoutFirmInput
+    auctionUsers?: AuctionUserCreateNestedManyWithoutFirmInput
+    auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
   }
 
   export type FirmUncheckedCreateWithoutFinanceTransactionsInput = {
@@ -71750,6 +72561,8 @@ export namespace Prisma {
     releases?: GirviReleaseUncheckedCreateNestedManyWithoutFirmInput
     rates?: RateUncheckedCreateNestedManyWithoutFirmInput
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutFirmInput
+    auctionUsers?: AuctionUserUncheckedCreateNestedManyWithoutFirmInput
+    auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
   }
 
   export type FirmCreateOrConnectWithoutFinanceTransactionsInput = {
@@ -72777,6 +73590,8 @@ export namespace Prisma {
     releases?: GirviReleaseUpdateManyWithoutFirmNestedInput
     rates?: RateUpdateManyWithoutFirmNestedInput
     moneyLenders?: MoneyLenderUpdateManyWithoutFirmNestedInput
+    auctionUsers?: AuctionUserUpdateManyWithoutFirmNestedInput
+    auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
   }
 
   export type FirmUncheckedUpdateWithoutFinanceTransactionsInput = {
@@ -72843,6 +73658,8 @@ export namespace Prisma {
     releases?: GirviReleaseUncheckedUpdateManyWithoutFirmNestedInput
     rates?: RateUncheckedUpdateManyWithoutFirmNestedInput
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutFirmNestedInput
+    auctionUsers?: AuctionUserUncheckedUpdateManyWithoutFirmNestedInput
+    auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
   }
 
   export type UserUpsertWithoutFinanceTransactionsInput = {
@@ -73895,6 +74712,8 @@ export namespace Prisma {
     releases?: GirviReleaseCreateNestedManyWithoutFirmInput
     rates?: RateCreateNestedManyWithoutFirmInput
     moneyLenders?: MoneyLenderCreateNestedManyWithoutFirmInput
+    auctionUsers?: AuctionUserCreateNestedManyWithoutFirmInput
+    auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
   }
 
   export type FirmUncheckedCreateWithoutFinanceMoneyTransInput = {
@@ -73961,6 +74780,8 @@ export namespace Prisma {
     releases?: GirviReleaseUncheckedCreateNestedManyWithoutFirmInput
     rates?: RateUncheckedCreateNestedManyWithoutFirmInput
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutFirmInput
+    auctionUsers?: AuctionUserUncheckedCreateNestedManyWithoutFirmInput
+    auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
   }
 
   export type FirmCreateOrConnectWithoutFinanceMoneyTransInput = {
@@ -75186,6 +76007,8 @@ export namespace Prisma {
     releases?: GirviReleaseUpdateManyWithoutFirmNestedInput
     rates?: RateUpdateManyWithoutFirmNestedInput
     moneyLenders?: MoneyLenderUpdateManyWithoutFirmNestedInput
+    auctionUsers?: AuctionUserUpdateManyWithoutFirmNestedInput
+    auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
   }
 
   export type FirmUncheckedUpdateWithoutFinanceMoneyTransInput = {
@@ -75252,6 +76075,8 @@ export namespace Prisma {
     releases?: GirviReleaseUncheckedUpdateManyWithoutFirmNestedInput
     rates?: RateUncheckedUpdateManyWithoutFirmNestedInput
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutFirmNestedInput
+    auctionUsers?: AuctionUserUncheckedUpdateManyWithoutFirmNestedInput
+    auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
   }
 
   export type UserUpsertWithoutFinanceMoneyTransInput = {
@@ -76597,6 +77422,8 @@ export namespace Prisma {
     releases?: GirviReleaseCreateNestedManyWithoutFirmInput
     rates?: RateCreateNestedManyWithoutFirmInput
     moneyLenders?: MoneyLenderCreateNestedManyWithoutFirmInput
+    auctionUsers?: AuctionUserCreateNestedManyWithoutFirmInput
+    auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
   }
 
   export type FirmUncheckedCreateWithoutJournalsInput = {
@@ -76663,6 +77490,8 @@ export namespace Prisma {
     releases?: GirviReleaseUncheckedCreateNestedManyWithoutFirmInput
     rates?: RateUncheckedCreateNestedManyWithoutFirmInput
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutFirmInput
+    auctionUsers?: AuctionUserUncheckedCreateNestedManyWithoutFirmInput
+    auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
   }
 
   export type FirmCreateOrConnectWithoutJournalsInput = {
@@ -77053,6 +77882,8 @@ export namespace Prisma {
     releases?: GirviReleaseUpdateManyWithoutFirmNestedInput
     rates?: RateUpdateManyWithoutFirmNestedInput
     moneyLenders?: MoneyLenderUpdateManyWithoutFirmNestedInput
+    auctionUsers?: AuctionUserUpdateManyWithoutFirmNestedInput
+    auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
   }
 
   export type FirmUncheckedUpdateWithoutJournalsInput = {
@@ -77119,6 +77950,8 @@ export namespace Prisma {
     releases?: GirviReleaseUncheckedUpdateManyWithoutFirmNestedInput
     rates?: RateUncheckedUpdateManyWithoutFirmNestedInput
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutFirmNestedInput
+    auctionUsers?: AuctionUserUncheckedUpdateManyWithoutFirmNestedInput
+    auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
   }
 
   export type UserUpsertWithoutJournalsInput = {
@@ -77491,6 +78324,8 @@ export namespace Prisma {
     releases?: GirviReleaseCreateNestedManyWithoutFirmInput
     rates?: RateCreateNestedManyWithoutFirmInput
     moneyLenders?: MoneyLenderCreateNestedManyWithoutFirmInput
+    auctionUsers?: AuctionUserCreateNestedManyWithoutFirmInput
+    auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
   }
 
   export type FirmUncheckedCreateWithoutJournalTransactionsInput = {
@@ -77557,6 +78392,8 @@ export namespace Prisma {
     releases?: GirviReleaseUncheckedCreateNestedManyWithoutFirmInput
     rates?: RateUncheckedCreateNestedManyWithoutFirmInput
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutFirmInput
+    auctionUsers?: AuctionUserUncheckedCreateNestedManyWithoutFirmInput
+    auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
   }
 
   export type FirmCreateOrConnectWithoutJournalTransactionsInput = {
@@ -78228,6 +79065,8 @@ export namespace Prisma {
     releases?: GirviReleaseUpdateManyWithoutFirmNestedInput
     rates?: RateUpdateManyWithoutFirmNestedInput
     moneyLenders?: MoneyLenderUpdateManyWithoutFirmNestedInput
+    auctionUsers?: AuctionUserUpdateManyWithoutFirmNestedInput
+    auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
   }
 
   export type FirmUncheckedUpdateWithoutJournalTransactionsInput = {
@@ -78294,6 +79133,8 @@ export namespace Prisma {
     releases?: GirviReleaseUncheckedUpdateManyWithoutFirmNestedInput
     rates?: RateUncheckedUpdateManyWithoutFirmNestedInput
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutFirmNestedInput
+    auctionUsers?: AuctionUserUncheckedUpdateManyWithoutFirmNestedInput
+    auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
   }
 
   export type UserUpsertWithoutJournalTransactionsInput = {
@@ -79032,6 +79873,8 @@ export namespace Prisma {
     releases?: GirviReleaseCreateNestedManyWithoutFirmInput
     rates?: RateCreateNestedManyWithoutFirmInput
     moneyLenders?: MoneyLenderCreateNestedManyWithoutFirmInput
+    auctionUsers?: AuctionUserCreateNestedManyWithoutFirmInput
+    auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
   }
 
   export type FirmUncheckedCreateWithoutGirvisInput = {
@@ -79098,6 +79941,8 @@ export namespace Prisma {
     releases?: GirviReleaseUncheckedCreateNestedManyWithoutFirmInput
     rates?: RateUncheckedCreateNestedManyWithoutFirmInput
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutFirmInput
+    auctionUsers?: AuctionUserUncheckedCreateNestedManyWithoutFirmInput
+    auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
   }
 
   export type FirmCreateOrConnectWithoutGirvisInput = {
@@ -80624,6 +81469,67 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type AuctionLoanCreateWithoutGirviInput = {
+    al_uuid?: string
+    al_date?: string | null
+    al_prin_amt?: number
+    al_int_amt?: number
+    al_dep_amt?: number
+    al_payable_amt?: number
+    al_cash_acc_id?: number | null
+    al_cash_info?: string | null
+    al_cash_amt?: number | null
+    al_bank_acc_id?: number | null
+    al_bank_info?: string | null
+    al_bank_amt?: number | null
+    al_online_acc_id?: number | null
+    al_online_info?: string | null
+    al_online_amt?: number | null
+    al_card_acc_id?: number | null
+    al_card_info?: string | null
+    al_card_amt?: number | null
+    al_pay_info?: string | null
+    al_other_info?: string | null
+    firm: FirmCreateNestedOneWithoutAuctionLoansInput
+    buyer: AuctionUserCreateNestedOneWithoutAuctionLoansInput
+  }
+
+  export type AuctionLoanUncheckedCreateWithoutGirviInput = {
+    al_id?: number
+    al_uuid?: string
+    al_date?: string | null
+    al_firm_id: number
+    al_buyer_id: number
+    al_prin_amt?: number
+    al_int_amt?: number
+    al_dep_amt?: number
+    al_payable_amt?: number
+    al_cash_acc_id?: number | null
+    al_cash_info?: string | null
+    al_cash_amt?: number | null
+    al_bank_acc_id?: number | null
+    al_bank_info?: string | null
+    al_bank_amt?: number | null
+    al_online_acc_id?: number | null
+    al_online_info?: string | null
+    al_online_amt?: number | null
+    al_card_acc_id?: number | null
+    al_card_info?: string | null
+    al_card_amt?: number | null
+    al_pay_info?: string | null
+    al_other_info?: string | null
+  }
+
+  export type AuctionLoanCreateOrConnectWithoutGirviInput = {
+    where: AuctionLoanWhereUniqueInput
+    create: XOR<AuctionLoanCreateWithoutGirviInput, AuctionLoanUncheckedCreateWithoutGirviInput>
+  }
+
+  export type AuctionLoanCreateManyGirviInputEnvelope = {
+    data: AuctionLoanCreateManyGirviInput | AuctionLoanCreateManyGirviInput[]
+    skipDuplicates?: boolean
+  }
+
   export type OwnerUpsertWithoutGirvisInput = {
     update: XOR<OwnerUpdateWithoutGirvisInput, OwnerUncheckedUpdateWithoutGirvisInput>
     create: XOR<OwnerCreateWithoutGirvisInput, OwnerUncheckedCreateWithoutGirvisInput>
@@ -80815,6 +81721,8 @@ export namespace Prisma {
     releases?: GirviReleaseUpdateManyWithoutFirmNestedInput
     rates?: RateUpdateManyWithoutFirmNestedInput
     moneyLenders?: MoneyLenderUpdateManyWithoutFirmNestedInput
+    auctionUsers?: AuctionUserUpdateManyWithoutFirmNestedInput
+    auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
   }
 
   export type FirmUncheckedUpdateWithoutGirvisInput = {
@@ -80881,6 +81789,8 @@ export namespace Prisma {
     releases?: GirviReleaseUncheckedUpdateManyWithoutFirmNestedInput
     rates?: RateUncheckedUpdateManyWithoutFirmNestedInput
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutFirmNestedInput
+    auctionUsers?: AuctionUserUncheckedUpdateManyWithoutFirmNestedInput
+    auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
   }
 
   export type UserUpsertWithoutGirvisInput = {
@@ -82249,6 +83159,22 @@ export namespace Prisma {
     data: XOR<GirviReleaseUpdateManyMutationInput, GirviReleaseUncheckedUpdateManyWithoutGirviInput>
   }
 
+  export type AuctionLoanUpsertWithWhereUniqueWithoutGirviInput = {
+    where: AuctionLoanWhereUniqueInput
+    update: XOR<AuctionLoanUpdateWithoutGirviInput, AuctionLoanUncheckedUpdateWithoutGirviInput>
+    create: XOR<AuctionLoanCreateWithoutGirviInput, AuctionLoanUncheckedCreateWithoutGirviInput>
+  }
+
+  export type AuctionLoanUpdateWithWhereUniqueWithoutGirviInput = {
+    where: AuctionLoanWhereUniqueInput
+    data: XOR<AuctionLoanUpdateWithoutGirviInput, AuctionLoanUncheckedUpdateWithoutGirviInput>
+  }
+
+  export type AuctionLoanUpdateManyWithWhereWithoutGirviInput = {
+    where: AuctionLoanScalarWhereInput
+    data: XOR<AuctionLoanUpdateManyMutationInput, AuctionLoanUncheckedUpdateManyWithoutGirviInput>
+  }
+
   export type OwnerCreateWithoutStocksInput = {
     own_uuid?: string
     own_product_key?: number
@@ -82424,6 +83350,8 @@ export namespace Prisma {
     releases?: GirviReleaseCreateNestedManyWithoutFirmInput
     rates?: RateCreateNestedManyWithoutFirmInput
     moneyLenders?: MoneyLenderCreateNestedManyWithoutFirmInput
+    auctionUsers?: AuctionUserCreateNestedManyWithoutFirmInput
+    auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
   }
 
   export type FirmUncheckedCreateWithoutStocksInput = {
@@ -82490,6 +83418,8 @@ export namespace Prisma {
     releases?: GirviReleaseUncheckedCreateNestedManyWithoutFirmInput
     rates?: RateUncheckedCreateNestedManyWithoutFirmInput
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutFirmInput
+    auctionUsers?: AuctionUserUncheckedCreateNestedManyWithoutFirmInput
+    auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
   }
 
   export type FirmCreateOrConnectWithoutStocksInput = {
@@ -82810,6 +83740,8 @@ export namespace Prisma {
     releases?: GirviReleaseUpdateManyWithoutFirmNestedInput
     rates?: RateUpdateManyWithoutFirmNestedInput
     moneyLenders?: MoneyLenderUpdateManyWithoutFirmNestedInput
+    auctionUsers?: AuctionUserUpdateManyWithoutFirmNestedInput
+    auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
   }
 
   export type FirmUncheckedUpdateWithoutStocksInput = {
@@ -82876,6 +83808,8 @@ export namespace Prisma {
     releases?: GirviReleaseUncheckedUpdateManyWithoutFirmNestedInput
     rates?: RateUncheckedUpdateManyWithoutFirmNestedInput
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutFirmNestedInput
+    auctionUsers?: AuctionUserUncheckedUpdateManyWithoutFirmNestedInput
+    auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
   }
 
   export type UserUpsertWithoutStocksInput = {
@@ -83181,6 +84115,8 @@ export namespace Prisma {
     releases?: GirviReleaseCreateNestedManyWithoutFirmInput
     rates?: RateCreateNestedManyWithoutFirmInput
     moneyLenders?: MoneyLenderCreateNestedManyWithoutFirmInput
+    auctionUsers?: AuctionUserCreateNestedManyWithoutFirmInput
+    auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
   }
 
   export type FirmUncheckedCreateWithoutAdditionalPrincipalsInput = {
@@ -83247,6 +84183,8 @@ export namespace Prisma {
     releases?: GirviReleaseUncheckedCreateNestedManyWithoutFirmInput
     rates?: RateUncheckedCreateNestedManyWithoutFirmInput
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutFirmInput
+    auctionUsers?: AuctionUserUncheckedCreateNestedManyWithoutFirmInput
+    auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
   }
 
   export type FirmCreateOrConnectWithoutAdditionalPrincipalsInput = {
@@ -83431,6 +84369,7 @@ export namespace Prisma {
     drAccount?: AccountCreateNestedOneWithoutGirviDrInput
     deposits?: GirviDepositCreateNestedManyWithoutGirviInput
     releases?: GirviReleaseCreateNestedManyWithoutGirviInput
+    auctionLoans?: AuctionLoanCreateNestedManyWithoutGirviInput
   }
 
   export type GirviUncheckedCreateWithoutAdditionalPrincipalsInput = {
@@ -83489,6 +84428,7 @@ export namespace Prisma {
     girv_is_deleted?: boolean
     deposits?: GirviDepositUncheckedCreateNestedManyWithoutGirviInput
     releases?: GirviReleaseUncheckedCreateNestedManyWithoutGirviInput
+    auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutGirviInput
   }
 
   export type GirviCreateOrConnectWithoutAdditionalPrincipalsInput = {
@@ -84295,6 +85235,8 @@ export namespace Prisma {
     releases?: GirviReleaseUpdateManyWithoutFirmNestedInput
     rates?: RateUpdateManyWithoutFirmNestedInput
     moneyLenders?: MoneyLenderUpdateManyWithoutFirmNestedInput
+    auctionUsers?: AuctionUserUpdateManyWithoutFirmNestedInput
+    auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
   }
 
   export type FirmUncheckedUpdateWithoutAdditionalPrincipalsInput = {
@@ -84361,6 +85303,8 @@ export namespace Prisma {
     releases?: GirviReleaseUncheckedUpdateManyWithoutFirmNestedInput
     rates?: RateUncheckedUpdateManyWithoutFirmNestedInput
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutFirmNestedInput
+    auctionUsers?: AuctionUserUncheckedUpdateManyWithoutFirmNestedInput
+    auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
   }
 
   export type UserUpsertWithoutAdditionalPrincipalsInput = {
@@ -84557,6 +85501,7 @@ export namespace Prisma {
     drAccount?: AccountUpdateOneWithoutGirviDrNestedInput
     deposits?: GirviDepositUpdateManyWithoutGirviNestedInput
     releases?: GirviReleaseUpdateManyWithoutGirviNestedInput
+    auctionLoans?: AuctionLoanUpdateManyWithoutGirviNestedInput
   }
 
   export type GirviUncheckedUpdateWithoutAdditionalPrincipalsInput = {
@@ -84615,6 +85560,7 @@ export namespace Prisma {
     girv_is_deleted?: BoolFieldUpdateOperationsInput | boolean
     deposits?: GirviDepositUncheckedUpdateManyWithoutGirviNestedInput
     releases?: GirviReleaseUncheckedUpdateManyWithoutGirviNestedInput
+    auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutGirviNestedInput
   }
 
   export type AccountUpsertWithoutApCashInput = {
@@ -85424,6 +86370,8 @@ export namespace Prisma {
     releases?: GirviReleaseCreateNestedManyWithoutFirmInput
     rates?: RateCreateNestedManyWithoutFirmInput
     moneyLenders?: MoneyLenderCreateNestedManyWithoutFirmInput
+    auctionUsers?: AuctionUserCreateNestedManyWithoutFirmInput
+    auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
   }
 
   export type FirmUncheckedCreateWithoutDepositsInput = {
@@ -85490,6 +86438,8 @@ export namespace Prisma {
     releases?: GirviReleaseUncheckedCreateNestedManyWithoutFirmInput
     rates?: RateUncheckedCreateNestedManyWithoutFirmInput
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutFirmInput
+    auctionUsers?: AuctionUserUncheckedCreateNestedManyWithoutFirmInput
+    auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
   }
 
   export type FirmCreateOrConnectWithoutDepositsInput = {
@@ -85674,6 +86624,7 @@ export namespace Prisma {
     drAccount?: AccountCreateNestedOneWithoutGirviDrInput
     additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutGirviInput
     releases?: GirviReleaseCreateNestedManyWithoutGirviInput
+    auctionLoans?: AuctionLoanCreateNestedManyWithoutGirviInput
   }
 
   export type GirviUncheckedCreateWithoutDepositsInput = {
@@ -85732,6 +86683,7 @@ export namespace Prisma {
     girv_is_deleted?: boolean
     additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutGirviInput
     releases?: GirviReleaseUncheckedCreateNestedManyWithoutGirviInput
+    auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutGirviInput
   }
 
   export type GirviCreateOrConnectWithoutDepositsInput = {
@@ -87146,6 +88098,8 @@ export namespace Prisma {
     releases?: GirviReleaseUpdateManyWithoutFirmNestedInput
     rates?: RateUpdateManyWithoutFirmNestedInput
     moneyLenders?: MoneyLenderUpdateManyWithoutFirmNestedInput
+    auctionUsers?: AuctionUserUpdateManyWithoutFirmNestedInput
+    auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
   }
 
   export type FirmUncheckedUpdateWithoutDepositsInput = {
@@ -87212,6 +88166,8 @@ export namespace Prisma {
     releases?: GirviReleaseUncheckedUpdateManyWithoutFirmNestedInput
     rates?: RateUncheckedUpdateManyWithoutFirmNestedInput
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutFirmNestedInput
+    auctionUsers?: AuctionUserUncheckedUpdateManyWithoutFirmNestedInput
+    auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
   }
 
   export type UserUpsertWithoutDepositsInput = {
@@ -87408,6 +88364,7 @@ export namespace Prisma {
     drAccount?: AccountUpdateOneWithoutGirviDrNestedInput
     additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutGirviNestedInput
     releases?: GirviReleaseUpdateManyWithoutGirviNestedInput
+    auctionLoans?: AuctionLoanUpdateManyWithoutGirviNestedInput
   }
 
   export type GirviUncheckedUpdateWithoutDepositsInput = {
@@ -87466,6 +88423,7 @@ export namespace Prisma {
     girv_is_deleted?: BoolFieldUpdateOperationsInput | boolean
     additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutGirviNestedInput
     releases?: GirviReleaseUncheckedUpdateManyWithoutGirviNestedInput
+    auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutGirviNestedInput
   }
 
   export type AccountUpsertWithoutDepPrinInput = {
@@ -88907,6 +89865,8 @@ export namespace Prisma {
     deposits?: GirviDepositCreateNestedManyWithoutFirmInput
     rates?: RateCreateNestedManyWithoutFirmInput
     moneyLenders?: MoneyLenderCreateNestedManyWithoutFirmInput
+    auctionUsers?: AuctionUserCreateNestedManyWithoutFirmInput
+    auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
   }
 
   export type FirmUncheckedCreateWithoutReleasesInput = {
@@ -88973,6 +89933,8 @@ export namespace Prisma {
     deposits?: GirviDepositUncheckedCreateNestedManyWithoutFirmInput
     rates?: RateUncheckedCreateNestedManyWithoutFirmInput
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutFirmInput
+    auctionUsers?: AuctionUserUncheckedCreateNestedManyWithoutFirmInput
+    auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
   }
 
   export type FirmCreateOrConnectWithoutReleasesInput = {
@@ -89157,6 +90119,7 @@ export namespace Prisma {
     drAccount?: AccountCreateNestedOneWithoutGirviDrInput
     additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutGirviInput
     deposits?: GirviDepositCreateNestedManyWithoutGirviInput
+    auctionLoans?: AuctionLoanCreateNestedManyWithoutGirviInput
   }
 
   export type GirviUncheckedCreateWithoutReleasesInput = {
@@ -89215,6 +90178,7 @@ export namespace Prisma {
     girv_is_deleted?: boolean
     additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutGirviInput
     deposits?: GirviDepositUncheckedCreateNestedManyWithoutGirviInput
+    auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutGirviInput
   }
 
   export type GirviCreateOrConnectWithoutReleasesInput = {
@@ -90629,6 +91593,8 @@ export namespace Prisma {
     deposits?: GirviDepositUpdateManyWithoutFirmNestedInput
     rates?: RateUpdateManyWithoutFirmNestedInput
     moneyLenders?: MoneyLenderUpdateManyWithoutFirmNestedInput
+    auctionUsers?: AuctionUserUpdateManyWithoutFirmNestedInput
+    auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
   }
 
   export type FirmUncheckedUpdateWithoutReleasesInput = {
@@ -90695,6 +91661,8 @@ export namespace Prisma {
     deposits?: GirviDepositUncheckedUpdateManyWithoutFirmNestedInput
     rates?: RateUncheckedUpdateManyWithoutFirmNestedInput
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutFirmNestedInput
+    auctionUsers?: AuctionUserUncheckedUpdateManyWithoutFirmNestedInput
+    auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
   }
 
   export type UserUpsertWithoutReleasesInput = {
@@ -90891,6 +91859,7 @@ export namespace Prisma {
     drAccount?: AccountUpdateOneWithoutGirviDrNestedInput
     additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutGirviNestedInput
     deposits?: GirviDepositUpdateManyWithoutGirviNestedInput
+    auctionLoans?: AuctionLoanUpdateManyWithoutGirviNestedInput
   }
 
   export type GirviUncheckedUpdateWithoutReleasesInput = {
@@ -90949,6 +91918,7 @@ export namespace Prisma {
     girv_is_deleted?: BoolFieldUpdateOperationsInput | boolean
     additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutGirviNestedInput
     deposits?: GirviDepositUncheckedUpdateManyWithoutGirviNestedInput
+    auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutGirviNestedInput
   }
 
   export type AccountUpsertWithoutRelPrinInput = {
@@ -92390,6 +93360,8 @@ export namespace Prisma {
     deposits?: GirviDepositCreateNestedManyWithoutFirmInput
     releases?: GirviReleaseCreateNestedManyWithoutFirmInput
     moneyLenders?: MoneyLenderCreateNestedManyWithoutFirmInput
+    auctionUsers?: AuctionUserCreateNestedManyWithoutFirmInput
+    auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
   }
 
   export type FirmUncheckedCreateWithoutRatesInput = {
@@ -92456,6 +93428,8 @@ export namespace Prisma {
     deposits?: GirviDepositUncheckedCreateNestedManyWithoutFirmInput
     releases?: GirviReleaseUncheckedCreateNestedManyWithoutFirmInput
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutFirmInput
+    auctionUsers?: AuctionUserUncheckedCreateNestedManyWithoutFirmInput
+    auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
   }
 
   export type FirmCreateOrConnectWithoutRatesInput = {
@@ -92654,6 +93628,8 @@ export namespace Prisma {
     deposits?: GirviDepositUpdateManyWithoutFirmNestedInput
     releases?: GirviReleaseUpdateManyWithoutFirmNestedInput
     moneyLenders?: MoneyLenderUpdateManyWithoutFirmNestedInput
+    auctionUsers?: AuctionUserUpdateManyWithoutFirmNestedInput
+    auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
   }
 
   export type FirmUncheckedUpdateWithoutRatesInput = {
@@ -92720,6 +93696,8 @@ export namespace Prisma {
     deposits?: GirviDepositUncheckedUpdateManyWithoutFirmNestedInput
     releases?: GirviReleaseUncheckedUpdateManyWithoutFirmNestedInput
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutFirmNestedInput
+    auctionUsers?: AuctionUserUncheckedUpdateManyWithoutFirmNestedInput
+    auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
   }
 
   export type OwnerCreateWithoutPuritiesInput = {
@@ -93126,6 +94104,8 @@ export namespace Prisma {
     deposits?: GirviDepositCreateNestedManyWithoutFirmInput
     releases?: GirviReleaseCreateNestedManyWithoutFirmInput
     rates?: RateCreateNestedManyWithoutFirmInput
+    auctionUsers?: AuctionUserCreateNestedManyWithoutFirmInput
+    auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
   }
 
   export type FirmUncheckedCreateWithoutMoneyLendersInput = {
@@ -93192,6 +94172,8 @@ export namespace Prisma {
     deposits?: GirviDepositUncheckedCreateNestedManyWithoutFirmInput
     releases?: GirviReleaseUncheckedCreateNestedManyWithoutFirmInput
     rates?: RateUncheckedCreateNestedManyWithoutFirmInput
+    auctionUsers?: AuctionUserUncheckedCreateNestedManyWithoutFirmInput
+    auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
   }
 
   export type FirmCreateOrConnectWithoutMoneyLendersInput = {
@@ -93254,6 +94236,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutGirviInput
     deposits?: GirviDepositCreateNestedManyWithoutGirviInput
     releases?: GirviReleaseCreateNestedManyWithoutGirviInput
+    auctionLoans?: AuctionLoanCreateNestedManyWithoutGirviInput
   }
 
   export type GirviUncheckedCreateWithoutTransferMoneyLenderInput = {
@@ -93312,6 +94295,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutGirviInput
     deposits?: GirviDepositUncheckedCreateNestedManyWithoutGirviInput
     releases?: GirviReleaseUncheckedCreateNestedManyWithoutGirviInput
+    auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutGirviInput
   }
 
   export type GirviCreateOrConnectWithoutTransferMoneyLenderInput = {
@@ -93515,6 +94499,8 @@ export namespace Prisma {
     deposits?: GirviDepositUpdateManyWithoutFirmNestedInput
     releases?: GirviReleaseUpdateManyWithoutFirmNestedInput
     rates?: RateUpdateManyWithoutFirmNestedInput
+    auctionUsers?: AuctionUserUpdateManyWithoutFirmNestedInput
+    auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
   }
 
   export type FirmUncheckedUpdateWithoutMoneyLendersInput = {
@@ -93581,6 +94567,8 @@ export namespace Prisma {
     deposits?: GirviDepositUncheckedUpdateManyWithoutFirmNestedInput
     releases?: GirviReleaseUncheckedUpdateManyWithoutFirmNestedInput
     rates?: RateUncheckedUpdateManyWithoutFirmNestedInput
+    auctionUsers?: AuctionUserUncheckedUpdateManyWithoutFirmNestedInput
+    auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
   }
 
   export type GirviUpsertWithWhereUniqueWithoutTransferMoneyLenderInput = {
@@ -93597,6 +94585,1003 @@ export namespace Prisma {
   export type GirviUpdateManyWithWhereWithoutTransferMoneyLenderInput = {
     where: GirviScalarWhereInput
     data: XOR<GirviUpdateManyMutationInput, GirviUncheckedUpdateManyWithoutTransferMoneyLenderInput>
+  }
+
+  export type FirmCreateWithoutAuctionUsersInput = {
+    firm_uuid?: string
+    firm_unique_code?: string | null
+    firm_add_date?: Date | string
+    firm_name: string
+    firm_reg_no: string
+    firm_shop_name: string
+    firm_desc?: string | null
+    firm_address?: string | null
+    firm_city?: string | null
+    firm_pincode?: string | null
+    firm_phone_no?: string | null
+    firm_email_id?: string | null
+    firm_website_link?: string | null
+    firm_type?: $Enums.FirmType
+    firm_owner?: string | null
+    firm_other_info?: string | null
+    firm_geo_latitude?: string | null
+    firm_geo_longitude?: string | null
+    firm_whatsapp_link?: string | null
+    firm_facebook_link?: string | null
+    firm_insta_link?: string | null
+    firm_bank_name?: string | null
+    firm_bank_acc_no?: string | null
+    firm_bank_branch?: string | null
+    firm_bank_address?: string | null
+    firm_acc_holder?: string | null
+    firm_acc_type?: string | null
+    firm_ifsc_code?: string | null
+    firm_start_date?: Date | string | null
+    firm_balance?: string | null
+    firm_balance_type?: $Enums.FirmBalanceType
+    firm_gstin_no?: string | null
+    firm_pan_no?: string | null
+    firm_adhaar_no?: string | null
+    firm_form_header?: string | null
+    firm_form_footer?: string | null
+    firm_own_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_left_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_right_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_qr_code_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_pan_no_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_created_at?: Date | string
+    firm_created_by?: string | null
+    firm_updated_at?: Date | string
+    firm_updated_by?: string | null
+    firm_deleted_at?: Date | string | null
+    firm_deleted_by?: string | null
+    firm_is_deleted?: boolean
+    users?: UserCreateNestedManyWithoutFirmInput
+    accounts?: AccountCreateNestedManyWithoutFirmInput
+    owner?: OwnerCreateNestedOneWithoutFirmsInput
+    finances?: FinanceCreateNestedManyWithoutFirmInput
+    financeTransactions?: Finance_TransactionCreateNestedManyWithoutFirmInput
+    financeMoneyTrans?: Finance_Money_TransactionCreateNestedManyWithoutFirmInput
+    journals?: JournalCreateNestedManyWithoutFirmInput
+    journalTransactions?: JournalTransactionCreateNestedManyWithoutFirmInput
+    girvis?: GirviCreateNestedManyWithoutFirmInput
+    stocks?: StockCreateNestedManyWithoutFirmInput
+    additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutFirmInput
+    deposits?: GirviDepositCreateNestedManyWithoutFirmInput
+    releases?: GirviReleaseCreateNestedManyWithoutFirmInput
+    rates?: RateCreateNestedManyWithoutFirmInput
+    moneyLenders?: MoneyLenderCreateNestedManyWithoutFirmInput
+    auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
+  }
+
+  export type FirmUncheckedCreateWithoutAuctionUsersInput = {
+    firm_id?: number
+    firm_uuid?: string
+    firm_unique_code?: string | null
+    firm_add_date?: Date | string
+    firm_own_id?: number
+    firm_name: string
+    firm_reg_no: string
+    firm_shop_name: string
+    firm_desc?: string | null
+    firm_address?: string | null
+    firm_city?: string | null
+    firm_pincode?: string | null
+    firm_phone_no?: string | null
+    firm_email_id?: string | null
+    firm_website_link?: string | null
+    firm_type?: $Enums.FirmType
+    firm_owner?: string | null
+    firm_other_info?: string | null
+    firm_geo_latitude?: string | null
+    firm_geo_longitude?: string | null
+    firm_whatsapp_link?: string | null
+    firm_facebook_link?: string | null
+    firm_insta_link?: string | null
+    firm_bank_name?: string | null
+    firm_bank_acc_no?: string | null
+    firm_bank_branch?: string | null
+    firm_bank_address?: string | null
+    firm_acc_holder?: string | null
+    firm_acc_type?: string | null
+    firm_ifsc_code?: string | null
+    firm_start_date?: Date | string | null
+    firm_balance?: string | null
+    firm_balance_type?: $Enums.FirmBalanceType
+    firm_gstin_no?: string | null
+    firm_pan_no?: string | null
+    firm_adhaar_no?: string | null
+    firm_form_header?: string | null
+    firm_form_footer?: string | null
+    firm_own_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_left_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_right_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_qr_code_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_pan_no_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_created_at?: Date | string
+    firm_created_by?: string | null
+    firm_updated_at?: Date | string
+    firm_updated_by?: string | null
+    firm_deleted_at?: Date | string | null
+    firm_deleted_by?: string | null
+    firm_is_deleted?: boolean
+    users?: UserUncheckedCreateNestedManyWithoutFirmInput
+    accounts?: AccountUncheckedCreateNestedManyWithoutFirmInput
+    finances?: FinanceUncheckedCreateNestedManyWithoutFirmInput
+    financeTransactions?: Finance_TransactionUncheckedCreateNestedManyWithoutFirmInput
+    financeMoneyTrans?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutFirmInput
+    journals?: JournalUncheckedCreateNestedManyWithoutFirmInput
+    journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutFirmInput
+    girvis?: GirviUncheckedCreateNestedManyWithoutFirmInput
+    stocks?: StockUncheckedCreateNestedManyWithoutFirmInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutFirmInput
+    deposits?: GirviDepositUncheckedCreateNestedManyWithoutFirmInput
+    releases?: GirviReleaseUncheckedCreateNestedManyWithoutFirmInput
+    rates?: RateUncheckedCreateNestedManyWithoutFirmInput
+    moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutFirmInput
+    auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
+  }
+
+  export type FirmCreateOrConnectWithoutAuctionUsersInput = {
+    where: FirmWhereUniqueInput
+    create: XOR<FirmCreateWithoutAuctionUsersInput, FirmUncheckedCreateWithoutAuctionUsersInput>
+  }
+
+  export type AuctionLoanCreateWithoutBuyerInput = {
+    al_uuid?: string
+    al_date?: string | null
+    al_prin_amt?: number
+    al_int_amt?: number
+    al_dep_amt?: number
+    al_payable_amt?: number
+    al_cash_acc_id?: number | null
+    al_cash_info?: string | null
+    al_cash_amt?: number | null
+    al_bank_acc_id?: number | null
+    al_bank_info?: string | null
+    al_bank_amt?: number | null
+    al_online_acc_id?: number | null
+    al_online_info?: string | null
+    al_online_amt?: number | null
+    al_card_acc_id?: number | null
+    al_card_info?: string | null
+    al_card_amt?: number | null
+    al_pay_info?: string | null
+    al_other_info?: string | null
+    firm: FirmCreateNestedOneWithoutAuctionLoansInput
+    girvi: GirviCreateNestedOneWithoutAuctionLoansInput
+  }
+
+  export type AuctionLoanUncheckedCreateWithoutBuyerInput = {
+    al_id?: number
+    al_uuid?: string
+    al_date?: string | null
+    al_girv_id: number
+    al_firm_id: number
+    al_prin_amt?: number
+    al_int_amt?: number
+    al_dep_amt?: number
+    al_payable_amt?: number
+    al_cash_acc_id?: number | null
+    al_cash_info?: string | null
+    al_cash_amt?: number | null
+    al_bank_acc_id?: number | null
+    al_bank_info?: string | null
+    al_bank_amt?: number | null
+    al_online_acc_id?: number | null
+    al_online_info?: string | null
+    al_online_amt?: number | null
+    al_card_acc_id?: number | null
+    al_card_info?: string | null
+    al_card_amt?: number | null
+    al_pay_info?: string | null
+    al_other_info?: string | null
+  }
+
+  export type AuctionLoanCreateOrConnectWithoutBuyerInput = {
+    where: AuctionLoanWhereUniqueInput
+    create: XOR<AuctionLoanCreateWithoutBuyerInput, AuctionLoanUncheckedCreateWithoutBuyerInput>
+  }
+
+  export type AuctionLoanCreateManyBuyerInputEnvelope = {
+    data: AuctionLoanCreateManyBuyerInput | AuctionLoanCreateManyBuyerInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type FirmUpsertWithoutAuctionUsersInput = {
+    update: XOR<FirmUpdateWithoutAuctionUsersInput, FirmUncheckedUpdateWithoutAuctionUsersInput>
+    create: XOR<FirmCreateWithoutAuctionUsersInput, FirmUncheckedCreateWithoutAuctionUsersInput>
+    where?: FirmWhereInput
+  }
+
+  export type FirmUpdateToOneWithWhereWithoutAuctionUsersInput = {
+    where?: FirmWhereInput
+    data: XOR<FirmUpdateWithoutAuctionUsersInput, FirmUncheckedUpdateWithoutAuctionUsersInput>
+  }
+
+  export type FirmUpdateWithoutAuctionUsersInput = {
+    firm_uuid?: StringFieldUpdateOperationsInput | string
+    firm_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    firm_name?: StringFieldUpdateOperationsInput | string
+    firm_reg_no?: StringFieldUpdateOperationsInput | string
+    firm_shop_name?: StringFieldUpdateOperationsInput | string
+    firm_desc?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_address?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_city?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_email_id?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_website_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_type?: EnumFirmTypeFieldUpdateOperationsInput | $Enums.FirmType
+    firm_owner?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_geo_latitude?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_geo_longitude?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_whatsapp_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_facebook_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_insta_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_name?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_acc_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_branch?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_address?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_acc_holder?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_acc_type?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firm_balance?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_balance_type?: EnumFirmBalanceTypeFieldUpdateOperationsInput | $Enums.FirmBalanceType
+    firm_gstin_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_adhaar_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_form_header?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_form_footer?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_own_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_left_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_right_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_qr_code_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_pan_no_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    firm_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    firm_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firm_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    users?: UserUpdateManyWithoutFirmNestedInput
+    accounts?: AccountUpdateManyWithoutFirmNestedInput
+    owner?: OwnerUpdateOneRequiredWithoutFirmsNestedInput
+    finances?: FinanceUpdateManyWithoutFirmNestedInput
+    financeTransactions?: Finance_TransactionUpdateManyWithoutFirmNestedInput
+    financeMoneyTrans?: Finance_Money_TransactionUpdateManyWithoutFirmNestedInput
+    journals?: JournalUpdateManyWithoutFirmNestedInput
+    journalTransactions?: JournalTransactionUpdateManyWithoutFirmNestedInput
+    girvis?: GirviUpdateManyWithoutFirmNestedInput
+    stocks?: StockUpdateManyWithoutFirmNestedInput
+    additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutFirmNestedInput
+    deposits?: GirviDepositUpdateManyWithoutFirmNestedInput
+    releases?: GirviReleaseUpdateManyWithoutFirmNestedInput
+    rates?: RateUpdateManyWithoutFirmNestedInput
+    moneyLenders?: MoneyLenderUpdateManyWithoutFirmNestedInput
+    auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
+  }
+
+  export type FirmUncheckedUpdateWithoutAuctionUsersInput = {
+    firm_id?: IntFieldUpdateOperationsInput | number
+    firm_uuid?: StringFieldUpdateOperationsInput | string
+    firm_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    firm_own_id?: IntFieldUpdateOperationsInput | number
+    firm_name?: StringFieldUpdateOperationsInput | string
+    firm_reg_no?: StringFieldUpdateOperationsInput | string
+    firm_shop_name?: StringFieldUpdateOperationsInput | string
+    firm_desc?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_address?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_city?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_email_id?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_website_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_type?: EnumFirmTypeFieldUpdateOperationsInput | $Enums.FirmType
+    firm_owner?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_geo_latitude?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_geo_longitude?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_whatsapp_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_facebook_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_insta_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_name?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_acc_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_branch?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_address?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_acc_holder?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_acc_type?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firm_balance?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_balance_type?: EnumFirmBalanceTypeFieldUpdateOperationsInput | $Enums.FirmBalanceType
+    firm_gstin_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_adhaar_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_form_header?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_form_footer?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_own_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_left_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_right_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_qr_code_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_pan_no_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    firm_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    firm_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firm_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    users?: UserUncheckedUpdateManyWithoutFirmNestedInput
+    accounts?: AccountUncheckedUpdateManyWithoutFirmNestedInput
+    finances?: FinanceUncheckedUpdateManyWithoutFirmNestedInput
+    financeTransactions?: Finance_TransactionUncheckedUpdateManyWithoutFirmNestedInput
+    financeMoneyTrans?: Finance_Money_TransactionUncheckedUpdateManyWithoutFirmNestedInput
+    journals?: JournalUncheckedUpdateManyWithoutFirmNestedInput
+    journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutFirmNestedInput
+    girvis?: GirviUncheckedUpdateManyWithoutFirmNestedInput
+    stocks?: StockUncheckedUpdateManyWithoutFirmNestedInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutFirmNestedInput
+    deposits?: GirviDepositUncheckedUpdateManyWithoutFirmNestedInput
+    releases?: GirviReleaseUncheckedUpdateManyWithoutFirmNestedInput
+    rates?: RateUncheckedUpdateManyWithoutFirmNestedInput
+    moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutFirmNestedInput
+    auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
+  }
+
+  export type AuctionLoanUpsertWithWhereUniqueWithoutBuyerInput = {
+    where: AuctionLoanWhereUniqueInput
+    update: XOR<AuctionLoanUpdateWithoutBuyerInput, AuctionLoanUncheckedUpdateWithoutBuyerInput>
+    create: XOR<AuctionLoanCreateWithoutBuyerInput, AuctionLoanUncheckedCreateWithoutBuyerInput>
+  }
+
+  export type AuctionLoanUpdateWithWhereUniqueWithoutBuyerInput = {
+    where: AuctionLoanWhereUniqueInput
+    data: XOR<AuctionLoanUpdateWithoutBuyerInput, AuctionLoanUncheckedUpdateWithoutBuyerInput>
+  }
+
+  export type AuctionLoanUpdateManyWithWhereWithoutBuyerInput = {
+    where: AuctionLoanScalarWhereInput
+    data: XOR<AuctionLoanUpdateManyMutationInput, AuctionLoanUncheckedUpdateManyWithoutBuyerInput>
+  }
+
+  export type FirmCreateWithoutAuctionLoansInput = {
+    firm_uuid?: string
+    firm_unique_code?: string | null
+    firm_add_date?: Date | string
+    firm_name: string
+    firm_reg_no: string
+    firm_shop_name: string
+    firm_desc?: string | null
+    firm_address?: string | null
+    firm_city?: string | null
+    firm_pincode?: string | null
+    firm_phone_no?: string | null
+    firm_email_id?: string | null
+    firm_website_link?: string | null
+    firm_type?: $Enums.FirmType
+    firm_owner?: string | null
+    firm_other_info?: string | null
+    firm_geo_latitude?: string | null
+    firm_geo_longitude?: string | null
+    firm_whatsapp_link?: string | null
+    firm_facebook_link?: string | null
+    firm_insta_link?: string | null
+    firm_bank_name?: string | null
+    firm_bank_acc_no?: string | null
+    firm_bank_branch?: string | null
+    firm_bank_address?: string | null
+    firm_acc_holder?: string | null
+    firm_acc_type?: string | null
+    firm_ifsc_code?: string | null
+    firm_start_date?: Date | string | null
+    firm_balance?: string | null
+    firm_balance_type?: $Enums.FirmBalanceType
+    firm_gstin_no?: string | null
+    firm_pan_no?: string | null
+    firm_adhaar_no?: string | null
+    firm_form_header?: string | null
+    firm_form_footer?: string | null
+    firm_own_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_left_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_right_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_qr_code_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_pan_no_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_created_at?: Date | string
+    firm_created_by?: string | null
+    firm_updated_at?: Date | string
+    firm_updated_by?: string | null
+    firm_deleted_at?: Date | string | null
+    firm_deleted_by?: string | null
+    firm_is_deleted?: boolean
+    users?: UserCreateNestedManyWithoutFirmInput
+    accounts?: AccountCreateNestedManyWithoutFirmInput
+    owner?: OwnerCreateNestedOneWithoutFirmsInput
+    finances?: FinanceCreateNestedManyWithoutFirmInput
+    financeTransactions?: Finance_TransactionCreateNestedManyWithoutFirmInput
+    financeMoneyTrans?: Finance_Money_TransactionCreateNestedManyWithoutFirmInput
+    journals?: JournalCreateNestedManyWithoutFirmInput
+    journalTransactions?: JournalTransactionCreateNestedManyWithoutFirmInput
+    girvis?: GirviCreateNestedManyWithoutFirmInput
+    stocks?: StockCreateNestedManyWithoutFirmInput
+    additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutFirmInput
+    deposits?: GirviDepositCreateNestedManyWithoutFirmInput
+    releases?: GirviReleaseCreateNestedManyWithoutFirmInput
+    rates?: RateCreateNestedManyWithoutFirmInput
+    moneyLenders?: MoneyLenderCreateNestedManyWithoutFirmInput
+    auctionUsers?: AuctionUserCreateNestedManyWithoutFirmInput
+  }
+
+  export type FirmUncheckedCreateWithoutAuctionLoansInput = {
+    firm_id?: number
+    firm_uuid?: string
+    firm_unique_code?: string | null
+    firm_add_date?: Date | string
+    firm_own_id?: number
+    firm_name: string
+    firm_reg_no: string
+    firm_shop_name: string
+    firm_desc?: string | null
+    firm_address?: string | null
+    firm_city?: string | null
+    firm_pincode?: string | null
+    firm_phone_no?: string | null
+    firm_email_id?: string | null
+    firm_website_link?: string | null
+    firm_type?: $Enums.FirmType
+    firm_owner?: string | null
+    firm_other_info?: string | null
+    firm_geo_latitude?: string | null
+    firm_geo_longitude?: string | null
+    firm_whatsapp_link?: string | null
+    firm_facebook_link?: string | null
+    firm_insta_link?: string | null
+    firm_bank_name?: string | null
+    firm_bank_acc_no?: string | null
+    firm_bank_branch?: string | null
+    firm_bank_address?: string | null
+    firm_acc_holder?: string | null
+    firm_acc_type?: string | null
+    firm_ifsc_code?: string | null
+    firm_start_date?: Date | string | null
+    firm_balance?: string | null
+    firm_balance_type?: $Enums.FirmBalanceType
+    firm_gstin_no?: string | null
+    firm_pan_no?: string | null
+    firm_adhaar_no?: string | null
+    firm_form_header?: string | null
+    firm_form_footer?: string | null
+    firm_own_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_left_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_right_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_qr_code_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_pan_no_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_created_at?: Date | string
+    firm_created_by?: string | null
+    firm_updated_at?: Date | string
+    firm_updated_by?: string | null
+    firm_deleted_at?: Date | string | null
+    firm_deleted_by?: string | null
+    firm_is_deleted?: boolean
+    users?: UserUncheckedCreateNestedManyWithoutFirmInput
+    accounts?: AccountUncheckedCreateNestedManyWithoutFirmInput
+    finances?: FinanceUncheckedCreateNestedManyWithoutFirmInput
+    financeTransactions?: Finance_TransactionUncheckedCreateNestedManyWithoutFirmInput
+    financeMoneyTrans?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutFirmInput
+    journals?: JournalUncheckedCreateNestedManyWithoutFirmInput
+    journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutFirmInput
+    girvis?: GirviUncheckedCreateNestedManyWithoutFirmInput
+    stocks?: StockUncheckedCreateNestedManyWithoutFirmInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutFirmInput
+    deposits?: GirviDepositUncheckedCreateNestedManyWithoutFirmInput
+    releases?: GirviReleaseUncheckedCreateNestedManyWithoutFirmInput
+    rates?: RateUncheckedCreateNestedManyWithoutFirmInput
+    moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutFirmInput
+    auctionUsers?: AuctionUserUncheckedCreateNestedManyWithoutFirmInput
+  }
+
+  export type FirmCreateOrConnectWithoutAuctionLoansInput = {
+    where: FirmWhereUniqueInput
+    create: XOR<FirmCreateWithoutAuctionLoansInput, FirmUncheckedCreateWithoutAuctionLoansInput>
+  }
+
+  export type GirviCreateWithoutAuctionLoansInput = {
+    girv_uuid?: string
+    girv_unique_code?: string | null
+    girv_add_date?: string | null
+    girv_staff_id?: number
+    girv_start_date: string
+    girv_loan_no?: string | null
+    girv_loan_pre_no?: string | null
+    girv_prin_amt?: number
+    girv_process_per?: number | null
+    girv_process_amt?: number | null
+    girv_packet_no?: string | null
+    girv_locker_no?: string | null
+    girv_charge_per?: number | null
+    girv_charge_amt?: number | null
+    girv_roi?: number
+    girv_roi_type: $Enums.GirviRoiType
+    girv_type: $Enums.GirviType
+    girv_interest_method?: $Enums.GirviInterestMethod
+    girv_compound_freq?: $Enums.GirviCompoundFreq | null
+    girv_final_amt?: number
+    girv_status?: $Enums.GirviStatus
+    girv_first_int?: string | null
+    girv_cash_amt?: number | null
+    girv_bank_amt?: number | null
+    girv_online_amt?: number | null
+    girv_card_amt?: number | null
+    girv_cash_info?: string | null
+    girv_bank_info?: string | null
+    girv_online_info?: string | null
+    girv_card_info?: string | null
+    girv_other_info?: string | null
+    girv_pay_info?: string | null
+    girv_transfer_firm_id?: number | null
+    girv_transfer_girv_id?: number | null
+    girv_created_at?: Date | string
+    girv_created_by?: string | null
+    girv_updated_at?: Date | string
+    girv_updated_by?: string | null
+    girv_deleted_at?: Date | string | null
+    girv_deleted_by?: string | null
+    girv_is_deleted?: boolean
+    owner?: OwnerCreateNestedOneWithoutGirvisInput
+    firm?: FirmCreateNestedOneWithoutGirvisInput
+    user?: UserCreateNestedOneWithoutGirvisInput
+    transferMoneyLender?: MoneyLenderCreateNestedOneWithoutTransferredFromInput
+    firstIntCrAccount?: AccountCreateNestedOneWithoutGirviFirstIntCrInput
+    firstIntDrAccount?: AccountCreateNestedOneWithoutGirviFirstIntDrInput
+    cashAccount?: AccountCreateNestedOneWithoutGirviCashInput
+    bankAccount?: AccountCreateNestedOneWithoutGirviBankInput
+    onlineAccount?: AccountCreateNestedOneWithoutGirviOnlineInput
+    cardAccount?: AccountCreateNestedOneWithoutGirviCardInput
+    drAccount?: AccountCreateNestedOneWithoutGirviDrInput
+    additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutGirviInput
+    deposits?: GirviDepositCreateNestedManyWithoutGirviInput
+    releases?: GirviReleaseCreateNestedManyWithoutGirviInput
+  }
+
+  export type GirviUncheckedCreateWithoutAuctionLoansInput = {
+    girv_id?: number
+    girv_uuid?: string
+    girv_unique_code?: string | null
+    girv_add_date?: string | null
+    girv_firm_id?: number
+    girv_own_id?: number
+    girv_user_id?: number
+    girv_staff_id?: number
+    girv_start_date: string
+    girv_loan_no?: string | null
+    girv_loan_pre_no?: string | null
+    girv_prin_amt?: number
+    girv_process_per?: number | null
+    girv_process_amt?: number | null
+    girv_packet_no?: string | null
+    girv_locker_no?: string | null
+    girv_charge_per?: number | null
+    girv_charge_amt?: number | null
+    girv_roi?: number
+    girv_roi_type: $Enums.GirviRoiType
+    girv_type: $Enums.GirviType
+    girv_interest_method?: $Enums.GirviInterestMethod
+    girv_compound_freq?: $Enums.GirviCompoundFreq | null
+    girv_final_amt?: number
+    girv_status?: $Enums.GirviStatus
+    girv_first_int?: string | null
+    girv_first_int_cr_acc_id?: number | null
+    girv_first_int_dr_acc_id?: number | null
+    girv_cash_amt?: number | null
+    girv_bank_amt?: number | null
+    girv_online_amt?: number | null
+    girv_card_amt?: number | null
+    girv_cash_acc_id?: number | null
+    girv_bank_acc_id?: number | null
+    girv_online_acc_id?: number | null
+    girv_card_acc_id?: number | null
+    girv_cash_info?: string | null
+    girv_bank_info?: string | null
+    girv_online_info?: string | null
+    girv_card_info?: string | null
+    girv_dr_acc_id?: number | null
+    girv_other_info?: string | null
+    girv_pay_info?: string | null
+    girv_transfer_firm_id?: number | null
+    girv_transfer_girv_id?: number | null
+    girv_transfer_ml_id?: number | null
+    girv_created_at?: Date | string
+    girv_created_by?: string | null
+    girv_updated_at?: Date | string
+    girv_updated_by?: string | null
+    girv_deleted_at?: Date | string | null
+    girv_deleted_by?: string | null
+    girv_is_deleted?: boolean
+    additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutGirviInput
+    deposits?: GirviDepositUncheckedCreateNestedManyWithoutGirviInput
+    releases?: GirviReleaseUncheckedCreateNestedManyWithoutGirviInput
+  }
+
+  export type GirviCreateOrConnectWithoutAuctionLoansInput = {
+    where: GirviWhereUniqueInput
+    create: XOR<GirviCreateWithoutAuctionLoansInput, GirviUncheckedCreateWithoutAuctionLoansInput>
+  }
+
+  export type AuctionUserCreateWithoutAuctionLoansInput = {
+    au_uuid?: string
+    au_unique_code?: string | null
+    au_date?: string | null
+    au_full_name?: string | null
+    au_mobile?: string | null
+    au_email?: string | null
+    au_aadhaar?: string | null
+    au_gender?: string | null
+    au_pan?: string | null
+    au_address?: string | null
+    au_state?: string | null
+    au_city?: string | null
+    au_country?: string | null
+    au_village?: string | null
+    au_pincode?: string | null
+    au_image?: string | null
+    firm: FirmCreateNestedOneWithoutAuctionUsersInput
+  }
+
+  export type AuctionUserUncheckedCreateWithoutAuctionLoansInput = {
+    au_id?: number
+    au_uuid?: string
+    au_unique_code?: string | null
+    au_date?: string | null
+    au_firm_id: number
+    au_full_name?: string | null
+    au_mobile?: string | null
+    au_email?: string | null
+    au_aadhaar?: string | null
+    au_gender?: string | null
+    au_pan?: string | null
+    au_address?: string | null
+    au_state?: string | null
+    au_city?: string | null
+    au_country?: string | null
+    au_village?: string | null
+    au_pincode?: string | null
+    au_image?: string | null
+  }
+
+  export type AuctionUserCreateOrConnectWithoutAuctionLoansInput = {
+    where: AuctionUserWhereUniqueInput
+    create: XOR<AuctionUserCreateWithoutAuctionLoansInput, AuctionUserUncheckedCreateWithoutAuctionLoansInput>
+  }
+
+  export type FirmUpsertWithoutAuctionLoansInput = {
+    update: XOR<FirmUpdateWithoutAuctionLoansInput, FirmUncheckedUpdateWithoutAuctionLoansInput>
+    create: XOR<FirmCreateWithoutAuctionLoansInput, FirmUncheckedCreateWithoutAuctionLoansInput>
+    where?: FirmWhereInput
+  }
+
+  export type FirmUpdateToOneWithWhereWithoutAuctionLoansInput = {
+    where?: FirmWhereInput
+    data: XOR<FirmUpdateWithoutAuctionLoansInput, FirmUncheckedUpdateWithoutAuctionLoansInput>
+  }
+
+  export type FirmUpdateWithoutAuctionLoansInput = {
+    firm_uuid?: StringFieldUpdateOperationsInput | string
+    firm_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    firm_name?: StringFieldUpdateOperationsInput | string
+    firm_reg_no?: StringFieldUpdateOperationsInput | string
+    firm_shop_name?: StringFieldUpdateOperationsInput | string
+    firm_desc?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_address?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_city?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_email_id?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_website_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_type?: EnumFirmTypeFieldUpdateOperationsInput | $Enums.FirmType
+    firm_owner?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_geo_latitude?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_geo_longitude?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_whatsapp_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_facebook_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_insta_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_name?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_acc_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_branch?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_address?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_acc_holder?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_acc_type?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firm_balance?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_balance_type?: EnumFirmBalanceTypeFieldUpdateOperationsInput | $Enums.FirmBalanceType
+    firm_gstin_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_adhaar_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_form_header?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_form_footer?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_own_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_left_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_right_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_qr_code_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_pan_no_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    firm_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    firm_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firm_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    users?: UserUpdateManyWithoutFirmNestedInput
+    accounts?: AccountUpdateManyWithoutFirmNestedInput
+    owner?: OwnerUpdateOneRequiredWithoutFirmsNestedInput
+    finances?: FinanceUpdateManyWithoutFirmNestedInput
+    financeTransactions?: Finance_TransactionUpdateManyWithoutFirmNestedInput
+    financeMoneyTrans?: Finance_Money_TransactionUpdateManyWithoutFirmNestedInput
+    journals?: JournalUpdateManyWithoutFirmNestedInput
+    journalTransactions?: JournalTransactionUpdateManyWithoutFirmNestedInput
+    girvis?: GirviUpdateManyWithoutFirmNestedInput
+    stocks?: StockUpdateManyWithoutFirmNestedInput
+    additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutFirmNestedInput
+    deposits?: GirviDepositUpdateManyWithoutFirmNestedInput
+    releases?: GirviReleaseUpdateManyWithoutFirmNestedInput
+    rates?: RateUpdateManyWithoutFirmNestedInput
+    moneyLenders?: MoneyLenderUpdateManyWithoutFirmNestedInput
+    auctionUsers?: AuctionUserUpdateManyWithoutFirmNestedInput
+  }
+
+  export type FirmUncheckedUpdateWithoutAuctionLoansInput = {
+    firm_id?: IntFieldUpdateOperationsInput | number
+    firm_uuid?: StringFieldUpdateOperationsInput | string
+    firm_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    firm_own_id?: IntFieldUpdateOperationsInput | number
+    firm_name?: StringFieldUpdateOperationsInput | string
+    firm_reg_no?: StringFieldUpdateOperationsInput | string
+    firm_shop_name?: StringFieldUpdateOperationsInput | string
+    firm_desc?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_address?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_city?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_email_id?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_website_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_type?: EnumFirmTypeFieldUpdateOperationsInput | $Enums.FirmType
+    firm_owner?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_geo_latitude?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_geo_longitude?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_whatsapp_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_facebook_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_insta_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_name?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_acc_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_branch?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_address?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_acc_holder?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_acc_type?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firm_balance?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_balance_type?: EnumFirmBalanceTypeFieldUpdateOperationsInput | $Enums.FirmBalanceType
+    firm_gstin_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_adhaar_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_form_header?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_form_footer?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_own_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_left_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_right_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_qr_code_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_pan_no_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    firm_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    firm_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firm_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    users?: UserUncheckedUpdateManyWithoutFirmNestedInput
+    accounts?: AccountUncheckedUpdateManyWithoutFirmNestedInput
+    finances?: FinanceUncheckedUpdateManyWithoutFirmNestedInput
+    financeTransactions?: Finance_TransactionUncheckedUpdateManyWithoutFirmNestedInput
+    financeMoneyTrans?: Finance_Money_TransactionUncheckedUpdateManyWithoutFirmNestedInput
+    journals?: JournalUncheckedUpdateManyWithoutFirmNestedInput
+    journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutFirmNestedInput
+    girvis?: GirviUncheckedUpdateManyWithoutFirmNestedInput
+    stocks?: StockUncheckedUpdateManyWithoutFirmNestedInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutFirmNestedInput
+    deposits?: GirviDepositUncheckedUpdateManyWithoutFirmNestedInput
+    releases?: GirviReleaseUncheckedUpdateManyWithoutFirmNestedInput
+    rates?: RateUncheckedUpdateManyWithoutFirmNestedInput
+    moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutFirmNestedInput
+    auctionUsers?: AuctionUserUncheckedUpdateManyWithoutFirmNestedInput
+  }
+
+  export type GirviUpsertWithoutAuctionLoansInput = {
+    update: XOR<GirviUpdateWithoutAuctionLoansInput, GirviUncheckedUpdateWithoutAuctionLoansInput>
+    create: XOR<GirviCreateWithoutAuctionLoansInput, GirviUncheckedCreateWithoutAuctionLoansInput>
+    where?: GirviWhereInput
+  }
+
+  export type GirviUpdateToOneWithWhereWithoutAuctionLoansInput = {
+    where?: GirviWhereInput
+    data: XOR<GirviUpdateWithoutAuctionLoansInput, GirviUncheckedUpdateWithoutAuctionLoansInput>
+  }
+
+  export type GirviUpdateWithoutAuctionLoansInput = {
+    girv_uuid?: StringFieldUpdateOperationsInput | string
+    girv_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_add_date?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_staff_id?: IntFieldUpdateOperationsInput | number
+    girv_start_date?: StringFieldUpdateOperationsInput | string
+    girv_loan_no?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_loan_pre_no?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_prin_amt?: FloatFieldUpdateOperationsInput | number
+    girv_process_per?: NullableFloatFieldUpdateOperationsInput | number | null
+    girv_process_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    girv_packet_no?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_locker_no?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_charge_per?: NullableFloatFieldUpdateOperationsInput | number | null
+    girv_charge_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    girv_roi?: FloatFieldUpdateOperationsInput | number
+    girv_roi_type?: EnumGirviRoiTypeFieldUpdateOperationsInput | $Enums.GirviRoiType
+    girv_type?: EnumGirviTypeFieldUpdateOperationsInput | $Enums.GirviType
+    girv_interest_method?: EnumGirviInterestMethodFieldUpdateOperationsInput | $Enums.GirviInterestMethod
+    girv_compound_freq?: NullableEnumGirviCompoundFreqFieldUpdateOperationsInput | $Enums.GirviCompoundFreq | null
+    girv_final_amt?: FloatFieldUpdateOperationsInput | number
+    girv_status?: EnumGirviStatusFieldUpdateOperationsInput | $Enums.GirviStatus
+    girv_first_int?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_cash_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    girv_bank_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    girv_online_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    girv_card_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    girv_cash_info?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_bank_info?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_online_info?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_card_info?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_transfer_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_transfer_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    girv_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    girv_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    girv_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    owner?: OwnerUpdateOneRequiredWithoutGirvisNestedInput
+    firm?: FirmUpdateOneRequiredWithoutGirvisNestedInput
+    user?: UserUpdateOneRequiredWithoutGirvisNestedInput
+    transferMoneyLender?: MoneyLenderUpdateOneWithoutTransferredFromNestedInput
+    firstIntCrAccount?: AccountUpdateOneWithoutGirviFirstIntCrNestedInput
+    firstIntDrAccount?: AccountUpdateOneWithoutGirviFirstIntDrNestedInput
+    cashAccount?: AccountUpdateOneWithoutGirviCashNestedInput
+    bankAccount?: AccountUpdateOneWithoutGirviBankNestedInput
+    onlineAccount?: AccountUpdateOneWithoutGirviOnlineNestedInput
+    cardAccount?: AccountUpdateOneWithoutGirviCardNestedInput
+    drAccount?: AccountUpdateOneWithoutGirviDrNestedInput
+    additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutGirviNestedInput
+    deposits?: GirviDepositUpdateManyWithoutGirviNestedInput
+    releases?: GirviReleaseUpdateManyWithoutGirviNestedInput
+  }
+
+  export type GirviUncheckedUpdateWithoutAuctionLoansInput = {
+    girv_id?: IntFieldUpdateOperationsInput | number
+    girv_uuid?: StringFieldUpdateOperationsInput | string
+    girv_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_add_date?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_firm_id?: IntFieldUpdateOperationsInput | number
+    girv_own_id?: IntFieldUpdateOperationsInput | number
+    girv_user_id?: IntFieldUpdateOperationsInput | number
+    girv_staff_id?: IntFieldUpdateOperationsInput | number
+    girv_start_date?: StringFieldUpdateOperationsInput | string
+    girv_loan_no?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_loan_pre_no?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_prin_amt?: FloatFieldUpdateOperationsInput | number
+    girv_process_per?: NullableFloatFieldUpdateOperationsInput | number | null
+    girv_process_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    girv_packet_no?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_locker_no?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_charge_per?: NullableFloatFieldUpdateOperationsInput | number | null
+    girv_charge_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    girv_roi?: FloatFieldUpdateOperationsInput | number
+    girv_roi_type?: EnumGirviRoiTypeFieldUpdateOperationsInput | $Enums.GirviRoiType
+    girv_type?: EnumGirviTypeFieldUpdateOperationsInput | $Enums.GirviType
+    girv_interest_method?: EnumGirviInterestMethodFieldUpdateOperationsInput | $Enums.GirviInterestMethod
+    girv_compound_freq?: NullableEnumGirviCompoundFreqFieldUpdateOperationsInput | $Enums.GirviCompoundFreq | null
+    girv_final_amt?: FloatFieldUpdateOperationsInput | number
+    girv_status?: EnumGirviStatusFieldUpdateOperationsInput | $Enums.GirviStatus
+    girv_first_int?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_first_int_cr_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_first_int_dr_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_cash_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    girv_bank_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    girv_online_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    girv_card_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    girv_cash_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_bank_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_online_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_card_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_cash_info?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_bank_info?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_online_info?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_card_info?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_dr_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_transfer_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_transfer_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_transfer_ml_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    girv_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    girv_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    girv_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    girv_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutGirviNestedInput
+    deposits?: GirviDepositUncheckedUpdateManyWithoutGirviNestedInput
+    releases?: GirviReleaseUncheckedUpdateManyWithoutGirviNestedInput
+  }
+
+  export type AuctionUserUpsertWithoutAuctionLoansInput = {
+    update: XOR<AuctionUserUpdateWithoutAuctionLoansInput, AuctionUserUncheckedUpdateWithoutAuctionLoansInput>
+    create: XOR<AuctionUserCreateWithoutAuctionLoansInput, AuctionUserUncheckedCreateWithoutAuctionLoansInput>
+    where?: AuctionUserWhereInput
+  }
+
+  export type AuctionUserUpdateToOneWithWhereWithoutAuctionLoansInput = {
+    where?: AuctionUserWhereInput
+    data: XOR<AuctionUserUpdateWithoutAuctionLoansInput, AuctionUserUncheckedUpdateWithoutAuctionLoansInput>
+  }
+
+  export type AuctionUserUpdateWithoutAuctionLoansInput = {
+    au_uuid?: StringFieldUpdateOperationsInput | string
+    au_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
+    au_date?: NullableStringFieldUpdateOperationsInput | string | null
+    au_full_name?: NullableStringFieldUpdateOperationsInput | string | null
+    au_mobile?: NullableStringFieldUpdateOperationsInput | string | null
+    au_email?: NullableStringFieldUpdateOperationsInput | string | null
+    au_aadhaar?: NullableStringFieldUpdateOperationsInput | string | null
+    au_gender?: NullableStringFieldUpdateOperationsInput | string | null
+    au_pan?: NullableStringFieldUpdateOperationsInput | string | null
+    au_address?: NullableStringFieldUpdateOperationsInput | string | null
+    au_state?: NullableStringFieldUpdateOperationsInput | string | null
+    au_city?: NullableStringFieldUpdateOperationsInput | string | null
+    au_country?: NullableStringFieldUpdateOperationsInput | string | null
+    au_village?: NullableStringFieldUpdateOperationsInput | string | null
+    au_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    au_image?: NullableStringFieldUpdateOperationsInput | string | null
+    firm?: FirmUpdateOneRequiredWithoutAuctionUsersNestedInput
+  }
+
+  export type AuctionUserUncheckedUpdateWithoutAuctionLoansInput = {
+    au_id?: IntFieldUpdateOperationsInput | number
+    au_uuid?: StringFieldUpdateOperationsInput | string
+    au_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
+    au_date?: NullableStringFieldUpdateOperationsInput | string | null
+    au_firm_id?: IntFieldUpdateOperationsInput | number
+    au_full_name?: NullableStringFieldUpdateOperationsInput | string | null
+    au_mobile?: NullableStringFieldUpdateOperationsInput | string | null
+    au_email?: NullableStringFieldUpdateOperationsInput | string | null
+    au_aadhaar?: NullableStringFieldUpdateOperationsInput | string | null
+    au_gender?: NullableStringFieldUpdateOperationsInput | string | null
+    au_pan?: NullableStringFieldUpdateOperationsInput | string | null
+    au_address?: NullableStringFieldUpdateOperationsInput | string | null
+    au_state?: NullableStringFieldUpdateOperationsInput | string | null
+    au_city?: NullableStringFieldUpdateOperationsInput | string | null
+    au_country?: NullableStringFieldUpdateOperationsInput | string | null
+    au_village?: NullableStringFieldUpdateOperationsInput | string | null
+    au_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    au_image?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type OwnerCreateWithoutStaffInput = {
@@ -95074,6 +97059,8 @@ export namespace Prisma {
     releases?: GirviReleaseUpdateManyWithoutFirmNestedInput
     rates?: RateUpdateManyWithoutFirmNestedInput
     moneyLenders?: MoneyLenderUpdateManyWithoutFirmNestedInput
+    auctionUsers?: AuctionUserUpdateManyWithoutFirmNestedInput
+    auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
   }
 
   export type FirmUncheckedUpdateWithoutOwnerInput = {
@@ -95140,6 +97127,8 @@ export namespace Prisma {
     releases?: GirviReleaseUncheckedUpdateManyWithoutFirmNestedInput
     rates?: RateUncheckedUpdateManyWithoutFirmNestedInput
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutFirmNestedInput
+    auctionUsers?: AuctionUserUncheckedUpdateManyWithoutFirmNestedInput
+    auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
   }
 
   export type FirmUncheckedUpdateManyWithoutOwnerInput = {
@@ -95904,6 +97893,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutGirviNestedInput
     deposits?: GirviDepositUpdateManyWithoutGirviNestedInput
     releases?: GirviReleaseUpdateManyWithoutGirviNestedInput
+    auctionLoans?: AuctionLoanUpdateManyWithoutGirviNestedInput
   }
 
   export type GirviUncheckedUpdateWithoutOwnerInput = {
@@ -95962,6 +97952,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutGirviNestedInput
     deposits?: GirviDepositUncheckedUpdateManyWithoutGirviNestedInput
     releases?: GirviReleaseUncheckedUpdateManyWithoutGirviNestedInput
+    auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutGirviNestedInput
   }
 
   export type GirviUncheckedUpdateManyWithoutOwnerInput = {
@@ -97333,6 +99324,52 @@ export namespace Prisma {
     updated_at?: Date | string
   }
 
+  export type AuctionUserCreateManyFirmInput = {
+    au_id?: number
+    au_uuid?: string
+    au_unique_code?: string | null
+    au_date?: string | null
+    au_full_name?: string | null
+    au_mobile?: string | null
+    au_email?: string | null
+    au_aadhaar?: string | null
+    au_gender?: string | null
+    au_pan?: string | null
+    au_address?: string | null
+    au_state?: string | null
+    au_city?: string | null
+    au_country?: string | null
+    au_village?: string | null
+    au_pincode?: string | null
+    au_image?: string | null
+  }
+
+  export type AuctionLoanCreateManyFirmInput = {
+    al_id?: number
+    al_uuid?: string
+    al_date?: string | null
+    al_girv_id: number
+    al_buyer_id: number
+    al_prin_amt?: number
+    al_int_amt?: number
+    al_dep_amt?: number
+    al_payable_amt?: number
+    al_cash_acc_id?: number | null
+    al_cash_info?: string | null
+    al_cash_amt?: number | null
+    al_bank_acc_id?: number | null
+    al_bank_info?: string | null
+    al_bank_amt?: number | null
+    al_online_acc_id?: number | null
+    al_online_info?: string | null
+    al_online_amt?: number | null
+    al_card_acc_id?: number | null
+    al_card_info?: string | null
+    al_card_amt?: number | null
+    al_pay_info?: string | null
+    al_other_info?: string | null
+  }
+
   export type UserUpdateWithoutFirmInput = {
     user_uuid?: StringFieldUpdateOperationsInput | string
     user_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
@@ -98209,6 +100246,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutGirviNestedInput
     deposits?: GirviDepositUpdateManyWithoutGirviNestedInput
     releases?: GirviReleaseUpdateManyWithoutGirviNestedInput
+    auctionLoans?: AuctionLoanUpdateManyWithoutGirviNestedInput
   }
 
   export type GirviUncheckedUpdateWithoutFirmInput = {
@@ -98267,6 +100305,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutGirviNestedInput
     deposits?: GirviDepositUncheckedUpdateManyWithoutGirviNestedInput
     releases?: GirviReleaseUncheckedUpdateManyWithoutGirviNestedInput
+    auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutGirviNestedInput
   }
 
   export type GirviUncheckedUpdateManyWithoutFirmInput = {
@@ -98927,6 +100966,144 @@ export namespace Prisma {
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AuctionUserUpdateWithoutFirmInput = {
+    au_uuid?: StringFieldUpdateOperationsInput | string
+    au_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
+    au_date?: NullableStringFieldUpdateOperationsInput | string | null
+    au_full_name?: NullableStringFieldUpdateOperationsInput | string | null
+    au_mobile?: NullableStringFieldUpdateOperationsInput | string | null
+    au_email?: NullableStringFieldUpdateOperationsInput | string | null
+    au_aadhaar?: NullableStringFieldUpdateOperationsInput | string | null
+    au_gender?: NullableStringFieldUpdateOperationsInput | string | null
+    au_pan?: NullableStringFieldUpdateOperationsInput | string | null
+    au_address?: NullableStringFieldUpdateOperationsInput | string | null
+    au_state?: NullableStringFieldUpdateOperationsInput | string | null
+    au_city?: NullableStringFieldUpdateOperationsInput | string | null
+    au_country?: NullableStringFieldUpdateOperationsInput | string | null
+    au_village?: NullableStringFieldUpdateOperationsInput | string | null
+    au_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    au_image?: NullableStringFieldUpdateOperationsInput | string | null
+    auctionLoans?: AuctionLoanUpdateManyWithoutBuyerNestedInput
+  }
+
+  export type AuctionUserUncheckedUpdateWithoutFirmInput = {
+    au_id?: IntFieldUpdateOperationsInput | number
+    au_uuid?: StringFieldUpdateOperationsInput | string
+    au_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
+    au_date?: NullableStringFieldUpdateOperationsInput | string | null
+    au_full_name?: NullableStringFieldUpdateOperationsInput | string | null
+    au_mobile?: NullableStringFieldUpdateOperationsInput | string | null
+    au_email?: NullableStringFieldUpdateOperationsInput | string | null
+    au_aadhaar?: NullableStringFieldUpdateOperationsInput | string | null
+    au_gender?: NullableStringFieldUpdateOperationsInput | string | null
+    au_pan?: NullableStringFieldUpdateOperationsInput | string | null
+    au_address?: NullableStringFieldUpdateOperationsInput | string | null
+    au_state?: NullableStringFieldUpdateOperationsInput | string | null
+    au_city?: NullableStringFieldUpdateOperationsInput | string | null
+    au_country?: NullableStringFieldUpdateOperationsInput | string | null
+    au_village?: NullableStringFieldUpdateOperationsInput | string | null
+    au_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    au_image?: NullableStringFieldUpdateOperationsInput | string | null
+    auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutBuyerNestedInput
+  }
+
+  export type AuctionUserUncheckedUpdateManyWithoutFirmInput = {
+    au_id?: IntFieldUpdateOperationsInput | number
+    au_uuid?: StringFieldUpdateOperationsInput | string
+    au_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
+    au_date?: NullableStringFieldUpdateOperationsInput | string | null
+    au_full_name?: NullableStringFieldUpdateOperationsInput | string | null
+    au_mobile?: NullableStringFieldUpdateOperationsInput | string | null
+    au_email?: NullableStringFieldUpdateOperationsInput | string | null
+    au_aadhaar?: NullableStringFieldUpdateOperationsInput | string | null
+    au_gender?: NullableStringFieldUpdateOperationsInput | string | null
+    au_pan?: NullableStringFieldUpdateOperationsInput | string | null
+    au_address?: NullableStringFieldUpdateOperationsInput | string | null
+    au_state?: NullableStringFieldUpdateOperationsInput | string | null
+    au_city?: NullableStringFieldUpdateOperationsInput | string | null
+    au_country?: NullableStringFieldUpdateOperationsInput | string | null
+    au_village?: NullableStringFieldUpdateOperationsInput | string | null
+    au_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    au_image?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type AuctionLoanUpdateWithoutFirmInput = {
+    al_uuid?: StringFieldUpdateOperationsInput | string
+    al_date?: NullableStringFieldUpdateOperationsInput | string | null
+    al_prin_amt?: FloatFieldUpdateOperationsInput | number
+    al_int_amt?: FloatFieldUpdateOperationsInput | number
+    al_dep_amt?: FloatFieldUpdateOperationsInput | number
+    al_payable_amt?: FloatFieldUpdateOperationsInput | number
+    al_cash_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    al_cash_info?: NullableStringFieldUpdateOperationsInput | string | null
+    al_cash_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    al_bank_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    al_bank_info?: NullableStringFieldUpdateOperationsInput | string | null
+    al_bank_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    al_online_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    al_online_info?: NullableStringFieldUpdateOperationsInput | string | null
+    al_online_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    al_card_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    al_card_info?: NullableStringFieldUpdateOperationsInput | string | null
+    al_card_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    al_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
+    al_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    girvi?: GirviUpdateOneRequiredWithoutAuctionLoansNestedInput
+    buyer?: AuctionUserUpdateOneRequiredWithoutAuctionLoansNestedInput
+  }
+
+  export type AuctionLoanUncheckedUpdateWithoutFirmInput = {
+    al_id?: IntFieldUpdateOperationsInput | number
+    al_uuid?: StringFieldUpdateOperationsInput | string
+    al_date?: NullableStringFieldUpdateOperationsInput | string | null
+    al_girv_id?: IntFieldUpdateOperationsInput | number
+    al_buyer_id?: IntFieldUpdateOperationsInput | number
+    al_prin_amt?: FloatFieldUpdateOperationsInput | number
+    al_int_amt?: FloatFieldUpdateOperationsInput | number
+    al_dep_amt?: FloatFieldUpdateOperationsInput | number
+    al_payable_amt?: FloatFieldUpdateOperationsInput | number
+    al_cash_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    al_cash_info?: NullableStringFieldUpdateOperationsInput | string | null
+    al_cash_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    al_bank_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    al_bank_info?: NullableStringFieldUpdateOperationsInput | string | null
+    al_bank_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    al_online_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    al_online_info?: NullableStringFieldUpdateOperationsInput | string | null
+    al_online_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    al_card_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    al_card_info?: NullableStringFieldUpdateOperationsInput | string | null
+    al_card_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    al_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
+    al_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type AuctionLoanUncheckedUpdateManyWithoutFirmInput = {
+    al_id?: IntFieldUpdateOperationsInput | number
+    al_uuid?: StringFieldUpdateOperationsInput | string
+    al_date?: NullableStringFieldUpdateOperationsInput | string | null
+    al_girv_id?: IntFieldUpdateOperationsInput | number
+    al_buyer_id?: IntFieldUpdateOperationsInput | number
+    al_prin_amt?: FloatFieldUpdateOperationsInput | number
+    al_int_amt?: FloatFieldUpdateOperationsInput | number
+    al_dep_amt?: FloatFieldUpdateOperationsInput | number
+    al_payable_amt?: FloatFieldUpdateOperationsInput | number
+    al_cash_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    al_cash_info?: NullableStringFieldUpdateOperationsInput | string | null
+    al_cash_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    al_bank_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    al_bank_info?: NullableStringFieldUpdateOperationsInput | string | null
+    al_bank_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    al_online_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    al_online_info?: NullableStringFieldUpdateOperationsInput | string | null
+    al_online_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    al_card_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    al_card_info?: NullableStringFieldUpdateOperationsInput | string | null
+    al_card_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    al_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
+    al_other_info?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type FinanceCreateManyCashAccountInput = {
@@ -102513,6 +104690,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutGirviNestedInput
     deposits?: GirviDepositUpdateManyWithoutGirviNestedInput
     releases?: GirviReleaseUpdateManyWithoutGirviNestedInput
+    auctionLoans?: AuctionLoanUpdateManyWithoutGirviNestedInput
   }
 
   export type GirviUncheckedUpdateWithoutFirstIntCrAccountInput = {
@@ -102571,6 +104749,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutGirviNestedInput
     deposits?: GirviDepositUncheckedUpdateManyWithoutGirviNestedInput
     releases?: GirviReleaseUncheckedUpdateManyWithoutGirviNestedInput
+    auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutGirviNestedInput
   }
 
   export type GirviUncheckedUpdateManyWithoutFirstIntCrAccountInput = {
@@ -102683,6 +104862,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutGirviNestedInput
     deposits?: GirviDepositUpdateManyWithoutGirviNestedInput
     releases?: GirviReleaseUpdateManyWithoutGirviNestedInput
+    auctionLoans?: AuctionLoanUpdateManyWithoutGirviNestedInput
   }
 
   export type GirviUncheckedUpdateWithoutFirstIntDrAccountInput = {
@@ -102741,6 +104921,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutGirviNestedInput
     deposits?: GirviDepositUncheckedUpdateManyWithoutGirviNestedInput
     releases?: GirviReleaseUncheckedUpdateManyWithoutGirviNestedInput
+    auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutGirviNestedInput
   }
 
   export type GirviUncheckedUpdateManyWithoutFirstIntDrAccountInput = {
@@ -102853,6 +105034,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutGirviNestedInput
     deposits?: GirviDepositUpdateManyWithoutGirviNestedInput
     releases?: GirviReleaseUpdateManyWithoutGirviNestedInput
+    auctionLoans?: AuctionLoanUpdateManyWithoutGirviNestedInput
   }
 
   export type GirviUncheckedUpdateWithoutCashAccountInput = {
@@ -102911,6 +105093,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutGirviNestedInput
     deposits?: GirviDepositUncheckedUpdateManyWithoutGirviNestedInput
     releases?: GirviReleaseUncheckedUpdateManyWithoutGirviNestedInput
+    auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutGirviNestedInput
   }
 
   export type GirviUncheckedUpdateManyWithoutCashAccountInput = {
@@ -103023,6 +105206,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutGirviNestedInput
     deposits?: GirviDepositUpdateManyWithoutGirviNestedInput
     releases?: GirviReleaseUpdateManyWithoutGirviNestedInput
+    auctionLoans?: AuctionLoanUpdateManyWithoutGirviNestedInput
   }
 
   export type GirviUncheckedUpdateWithoutBankAccountInput = {
@@ -103081,6 +105265,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutGirviNestedInput
     deposits?: GirviDepositUncheckedUpdateManyWithoutGirviNestedInput
     releases?: GirviReleaseUncheckedUpdateManyWithoutGirviNestedInput
+    auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutGirviNestedInput
   }
 
   export type GirviUncheckedUpdateManyWithoutBankAccountInput = {
@@ -103193,6 +105378,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutGirviNestedInput
     deposits?: GirviDepositUpdateManyWithoutGirviNestedInput
     releases?: GirviReleaseUpdateManyWithoutGirviNestedInput
+    auctionLoans?: AuctionLoanUpdateManyWithoutGirviNestedInput
   }
 
   export type GirviUncheckedUpdateWithoutOnlineAccountInput = {
@@ -103251,6 +105437,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutGirviNestedInput
     deposits?: GirviDepositUncheckedUpdateManyWithoutGirviNestedInput
     releases?: GirviReleaseUncheckedUpdateManyWithoutGirviNestedInput
+    auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutGirviNestedInput
   }
 
   export type GirviUncheckedUpdateManyWithoutOnlineAccountInput = {
@@ -103363,6 +105550,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutGirviNestedInput
     deposits?: GirviDepositUpdateManyWithoutGirviNestedInput
     releases?: GirviReleaseUpdateManyWithoutGirviNestedInput
+    auctionLoans?: AuctionLoanUpdateManyWithoutGirviNestedInput
   }
 
   export type GirviUncheckedUpdateWithoutCardAccountInput = {
@@ -103421,6 +105609,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutGirviNestedInput
     deposits?: GirviDepositUncheckedUpdateManyWithoutGirviNestedInput
     releases?: GirviReleaseUncheckedUpdateManyWithoutGirviNestedInput
+    auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutGirviNestedInput
   }
 
   export type GirviUncheckedUpdateManyWithoutCardAccountInput = {
@@ -103533,6 +105722,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutGirviNestedInput
     deposits?: GirviDepositUpdateManyWithoutGirviNestedInput
     releases?: GirviReleaseUpdateManyWithoutGirviNestedInput
+    auctionLoans?: AuctionLoanUpdateManyWithoutGirviNestedInput
   }
 
   export type GirviUncheckedUpdateWithoutDrAccountInput = {
@@ -103591,6 +105781,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutGirviNestedInput
     deposits?: GirviDepositUncheckedUpdateManyWithoutGirviNestedInput
     releases?: GirviReleaseUncheckedUpdateManyWithoutGirviNestedInput
+    auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutGirviNestedInput
   }
 
   export type GirviUncheckedUpdateManyWithoutDrAccountInput = {
@@ -106848,6 +109039,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutGirviNestedInput
     deposits?: GirviDepositUpdateManyWithoutGirviNestedInput
     releases?: GirviReleaseUpdateManyWithoutGirviNestedInput
+    auctionLoans?: AuctionLoanUpdateManyWithoutGirviNestedInput
   }
 
   export type GirviUncheckedUpdateWithoutUserInput = {
@@ -106906,6 +109098,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutGirviNestedInput
     deposits?: GirviDepositUncheckedUpdateManyWithoutGirviNestedInput
     releases?: GirviReleaseUncheckedUpdateManyWithoutGirviNestedInput
+    auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutGirviNestedInput
   }
 
   export type GirviUncheckedUpdateManyWithoutUserInput = {
@@ -108022,6 +110215,32 @@ export namespace Prisma {
     rel_is_deleted?: boolean
   }
 
+  export type AuctionLoanCreateManyGirviInput = {
+    al_id?: number
+    al_uuid?: string
+    al_date?: string | null
+    al_firm_id: number
+    al_buyer_id: number
+    al_prin_amt?: number
+    al_int_amt?: number
+    al_dep_amt?: number
+    al_payable_amt?: number
+    al_cash_acc_id?: number | null
+    al_cash_info?: string | null
+    al_cash_amt?: number | null
+    al_bank_acc_id?: number | null
+    al_bank_info?: string | null
+    al_bank_amt?: number | null
+    al_online_acc_id?: number | null
+    al_online_info?: string | null
+    al_online_amt?: number | null
+    al_card_acc_id?: number | null
+    al_card_info?: string | null
+    al_card_amt?: number | null
+    al_pay_info?: string | null
+    al_other_info?: string | null
+  }
+
   export type AdditionalPrincipalUpdateWithoutGirviInput = {
     ap_uuid?: StringFieldUpdateOperationsInput | string
     ap_staff_id?: IntFieldUpdateOperationsInput | number
@@ -108361,6 +110580,83 @@ export namespace Prisma {
     rel_is_deleted?: BoolFieldUpdateOperationsInput | boolean
   }
 
+  export type AuctionLoanUpdateWithoutGirviInput = {
+    al_uuid?: StringFieldUpdateOperationsInput | string
+    al_date?: NullableStringFieldUpdateOperationsInput | string | null
+    al_prin_amt?: FloatFieldUpdateOperationsInput | number
+    al_int_amt?: FloatFieldUpdateOperationsInput | number
+    al_dep_amt?: FloatFieldUpdateOperationsInput | number
+    al_payable_amt?: FloatFieldUpdateOperationsInput | number
+    al_cash_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    al_cash_info?: NullableStringFieldUpdateOperationsInput | string | null
+    al_cash_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    al_bank_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    al_bank_info?: NullableStringFieldUpdateOperationsInput | string | null
+    al_bank_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    al_online_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    al_online_info?: NullableStringFieldUpdateOperationsInput | string | null
+    al_online_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    al_card_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    al_card_info?: NullableStringFieldUpdateOperationsInput | string | null
+    al_card_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    al_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
+    al_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    firm?: FirmUpdateOneRequiredWithoutAuctionLoansNestedInput
+    buyer?: AuctionUserUpdateOneRequiredWithoutAuctionLoansNestedInput
+  }
+
+  export type AuctionLoanUncheckedUpdateWithoutGirviInput = {
+    al_id?: IntFieldUpdateOperationsInput | number
+    al_uuid?: StringFieldUpdateOperationsInput | string
+    al_date?: NullableStringFieldUpdateOperationsInput | string | null
+    al_firm_id?: IntFieldUpdateOperationsInput | number
+    al_buyer_id?: IntFieldUpdateOperationsInput | number
+    al_prin_amt?: FloatFieldUpdateOperationsInput | number
+    al_int_amt?: FloatFieldUpdateOperationsInput | number
+    al_dep_amt?: FloatFieldUpdateOperationsInput | number
+    al_payable_amt?: FloatFieldUpdateOperationsInput | number
+    al_cash_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    al_cash_info?: NullableStringFieldUpdateOperationsInput | string | null
+    al_cash_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    al_bank_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    al_bank_info?: NullableStringFieldUpdateOperationsInput | string | null
+    al_bank_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    al_online_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    al_online_info?: NullableStringFieldUpdateOperationsInput | string | null
+    al_online_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    al_card_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    al_card_info?: NullableStringFieldUpdateOperationsInput | string | null
+    al_card_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    al_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
+    al_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type AuctionLoanUncheckedUpdateManyWithoutGirviInput = {
+    al_id?: IntFieldUpdateOperationsInput | number
+    al_uuid?: StringFieldUpdateOperationsInput | string
+    al_date?: NullableStringFieldUpdateOperationsInput | string | null
+    al_firm_id?: IntFieldUpdateOperationsInput | number
+    al_buyer_id?: IntFieldUpdateOperationsInput | number
+    al_prin_amt?: FloatFieldUpdateOperationsInput | number
+    al_int_amt?: FloatFieldUpdateOperationsInput | number
+    al_dep_amt?: FloatFieldUpdateOperationsInput | number
+    al_payable_amt?: FloatFieldUpdateOperationsInput | number
+    al_cash_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    al_cash_info?: NullableStringFieldUpdateOperationsInput | string | null
+    al_cash_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    al_bank_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    al_bank_info?: NullableStringFieldUpdateOperationsInput | string | null
+    al_bank_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    al_online_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    al_online_info?: NullableStringFieldUpdateOperationsInput | string | null
+    al_online_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    al_card_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    al_card_info?: NullableStringFieldUpdateOperationsInput | string | null
+    al_card_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    al_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
+    al_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
   export type GirviCreateManyTransferMoneyLenderInput = {
     girv_id?: number
     girv_uuid?: string
@@ -108471,6 +110767,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutGirviNestedInput
     deposits?: GirviDepositUpdateManyWithoutGirviNestedInput
     releases?: GirviReleaseUpdateManyWithoutGirviNestedInput
+    auctionLoans?: AuctionLoanUpdateManyWithoutGirviNestedInput
   }
 
   export type GirviUncheckedUpdateWithoutTransferMoneyLenderInput = {
@@ -108529,6 +110826,7 @@ export namespace Prisma {
     additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutGirviNestedInput
     deposits?: GirviDepositUncheckedUpdateManyWithoutGirviNestedInput
     releases?: GirviReleaseUncheckedUpdateManyWithoutGirviNestedInput
+    auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutGirviNestedInput
   }
 
   export type GirviUncheckedUpdateManyWithoutTransferMoneyLenderInput = {
@@ -108584,6 +110882,109 @@ export namespace Prisma {
     girv_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     girv_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     girv_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type AuctionLoanCreateManyBuyerInput = {
+    al_id?: number
+    al_uuid?: string
+    al_date?: string | null
+    al_girv_id: number
+    al_firm_id: number
+    al_prin_amt?: number
+    al_int_amt?: number
+    al_dep_amt?: number
+    al_payable_amt?: number
+    al_cash_acc_id?: number | null
+    al_cash_info?: string | null
+    al_cash_amt?: number | null
+    al_bank_acc_id?: number | null
+    al_bank_info?: string | null
+    al_bank_amt?: number | null
+    al_online_acc_id?: number | null
+    al_online_info?: string | null
+    al_online_amt?: number | null
+    al_card_acc_id?: number | null
+    al_card_info?: string | null
+    al_card_amt?: number | null
+    al_pay_info?: string | null
+    al_other_info?: string | null
+  }
+
+  export type AuctionLoanUpdateWithoutBuyerInput = {
+    al_uuid?: StringFieldUpdateOperationsInput | string
+    al_date?: NullableStringFieldUpdateOperationsInput | string | null
+    al_prin_amt?: FloatFieldUpdateOperationsInput | number
+    al_int_amt?: FloatFieldUpdateOperationsInput | number
+    al_dep_amt?: FloatFieldUpdateOperationsInput | number
+    al_payable_amt?: FloatFieldUpdateOperationsInput | number
+    al_cash_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    al_cash_info?: NullableStringFieldUpdateOperationsInput | string | null
+    al_cash_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    al_bank_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    al_bank_info?: NullableStringFieldUpdateOperationsInput | string | null
+    al_bank_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    al_online_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    al_online_info?: NullableStringFieldUpdateOperationsInput | string | null
+    al_online_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    al_card_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    al_card_info?: NullableStringFieldUpdateOperationsInput | string | null
+    al_card_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    al_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
+    al_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    firm?: FirmUpdateOneRequiredWithoutAuctionLoansNestedInput
+    girvi?: GirviUpdateOneRequiredWithoutAuctionLoansNestedInput
+  }
+
+  export type AuctionLoanUncheckedUpdateWithoutBuyerInput = {
+    al_id?: IntFieldUpdateOperationsInput | number
+    al_uuid?: StringFieldUpdateOperationsInput | string
+    al_date?: NullableStringFieldUpdateOperationsInput | string | null
+    al_girv_id?: IntFieldUpdateOperationsInput | number
+    al_firm_id?: IntFieldUpdateOperationsInput | number
+    al_prin_amt?: FloatFieldUpdateOperationsInput | number
+    al_int_amt?: FloatFieldUpdateOperationsInput | number
+    al_dep_amt?: FloatFieldUpdateOperationsInput | number
+    al_payable_amt?: FloatFieldUpdateOperationsInput | number
+    al_cash_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    al_cash_info?: NullableStringFieldUpdateOperationsInput | string | null
+    al_cash_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    al_bank_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    al_bank_info?: NullableStringFieldUpdateOperationsInput | string | null
+    al_bank_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    al_online_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    al_online_info?: NullableStringFieldUpdateOperationsInput | string | null
+    al_online_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    al_card_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    al_card_info?: NullableStringFieldUpdateOperationsInput | string | null
+    al_card_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    al_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
+    al_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type AuctionLoanUncheckedUpdateManyWithoutBuyerInput = {
+    al_id?: IntFieldUpdateOperationsInput | number
+    al_uuid?: StringFieldUpdateOperationsInput | string
+    al_date?: NullableStringFieldUpdateOperationsInput | string | null
+    al_girv_id?: IntFieldUpdateOperationsInput | number
+    al_firm_id?: IntFieldUpdateOperationsInput | number
+    al_prin_amt?: FloatFieldUpdateOperationsInput | number
+    al_int_amt?: FloatFieldUpdateOperationsInput | number
+    al_dep_amt?: FloatFieldUpdateOperationsInput | number
+    al_payable_amt?: FloatFieldUpdateOperationsInput | number
+    al_cash_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    al_cash_info?: NullableStringFieldUpdateOperationsInput | string | null
+    al_cash_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    al_bank_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    al_bank_info?: NullableStringFieldUpdateOperationsInput | string | null
+    al_bank_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    al_online_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    al_online_info?: NullableStringFieldUpdateOperationsInput | string | null
+    al_online_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    al_card_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    al_card_info?: NullableStringFieldUpdateOperationsInput | string | null
+    al_card_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    al_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
+    al_other_info?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type StaffPermissionCreateManyStaffInput = {
@@ -108685,6 +111086,10 @@ export namespace Prisma {
      * @deprecated Use MoneyLenderCountOutputTypeDefaultArgs instead
      */
     export type MoneyLenderCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = MoneyLenderCountOutputTypeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use AuctionUserCountOutputTypeDefaultArgs instead
+     */
+    export type AuctionUserCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = AuctionUserCountOutputTypeDefaultArgs<ExtArgs>
     /**
      * @deprecated Use StaffCountOutputTypeDefaultArgs instead
      */
