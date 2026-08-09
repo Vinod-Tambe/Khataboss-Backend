@@ -8,7 +8,7 @@ const DEFAULT_SERIAL_CONFIGS = [
     entity_type: "USER",
     start_number: 1001,
     current_number: 1000,
-    number_prefix: "USR-",
+    number_prefix: "CST-",
   },
   {
     entity_type: "FIRM",
