@@ -62,6 +62,20 @@ class FirmController {
         newFirm.firm_start_date
       );
 
+      // 3. Seed firm-wise email / WhatsApp / SMS templates (non-blocking)
+      try {
+        const {
+          seedMessageTemplatesForFirm,
+        } = require("../../../prisma/seeder/message-template-seeder");
+        await seedMessageTemplatesForFirm(dbUrl, {
+          ownId: newFirm.firm_own_id,
+          firmId: newFirm.firm_id,
+          firmName: newFirm.firm_name,
+        });
+      } catch (seedErr) {
+        console.warn("⚠️ Failed to seed message templates:", seedErr.message);
+      }
+
       if (req.files && Object.keys(req.files).length > 0) {
         const movedFiles = await imageService.moveFiles("firm", newFirm.firm_id, req.files);
 

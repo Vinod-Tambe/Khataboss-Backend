@@ -118,9 +118,10 @@ class ProfitLossService {
       let additions = 0;
       let drawings = 0;
 
-      // Group accounts and calculate net balances (cumulative to match Balance Sheet)
+      // Stock = open/close (cumulative). Trading & P&L lines = period movement only.
       for (const [accId, entry] of trialBalanceMap.entries()) {
         entry.acc_balance = entry.acc_open_balance + entry.total_dr_amt - entry.total_cr_amt;
+        const periodMovement = (entry.total_dr_amt || 0) - (entry.total_cr_amt || 0);
 
         const preAcc = (entry.acc_pre_acc || "").trim();
         const accName = entry.acc_name || "Unknown";
@@ -128,25 +129,25 @@ class ProfitLossService {
         if (preAcc === "Stock-in-Hand") {
           openingStock += entry.acc_open_balance;
           closingStock += entry.acc_balance;
-        } else if (preAcc === "Purchase Accounts") {
-          if (entry.acc_balance !== 0 || entry.total_dr_amt !== 0 || entry.total_cr_amt !== 0) {
-            purchasesList.push({ item: accName, amount: entry.acc_balance });
+        } else if (preAcc === "Purchase Accounts" || preAcc === "Purchases") {
+          if (periodMovement !== 0) {
+            purchasesList.push({ item: accName, amount: periodMovement });
           }
-        } else if (preAcc === "Direct Expenses") {
-          if (entry.acc_balance !== 0 || entry.total_dr_amt !== 0 || entry.total_cr_amt !== 0) {
-            directExpensesList.push({ item: accName, amount: entry.acc_balance });
+        } else if (preAcc === "Direct Expenses" || preAcc === "Expenses (Direct)") {
+          if (periodMovement !== 0) {
+            directExpensesList.push({ item: accName, amount: periodMovement });
           }
-        } else if (preAcc === "Direct Incomes") {
-          if (entry.acc_balance !== 0 || entry.total_dr_amt !== 0 || entry.total_cr_amt !== 0) {
-            salesList.push({ item: accName, amount: -entry.acc_balance });
+        } else if (preAcc === "Direct Incomes" || preAcc === "Income (Direct)" || preAcc === "Sales Accounts") {
+          if (periodMovement !== 0) {
+            salesList.push({ item: accName, amount: -periodMovement });
           }
-        } else if (preAcc === "Indirect Expenses") {
-          if (entry.acc_balance !== 0 || entry.total_dr_amt !== 0 || entry.total_cr_amt !== 0) {
-            indirectExpensesList.push({ item: accName, amount: entry.acc_balance });
+        } else if (preAcc === "Indirect Expenses" || preAcc === "Expenses (Indirect)") {
+          if (periodMovement !== 0) {
+            indirectExpensesList.push({ item: accName, amount: periodMovement });
           }
-        } else if (preAcc === "Indirect Incomes") {
-          if (entry.acc_balance !== 0 || entry.total_dr_amt !== 0 || entry.total_cr_amt !== 0) {
-            indirectIncomesList.push({ item: accName, amount: -entry.acc_balance });
+        } else if (preAcc === "Indirect Incomes" || preAcc === "Income (Indirect)") {
+          if (periodMovement !== 0) {
+            indirectIncomesList.push({ item: accName, amount: -periodMovement });
           }
         } else if (preAcc === "Capital Account") {
           openingCapital += -entry.acc_open_balance;

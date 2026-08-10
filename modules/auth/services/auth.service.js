@@ -6,6 +6,7 @@ const { comparePassword } = require("../../../common/service/bcrypt.service");
 const { validateStrongPassword } = require("../../../common/service/password.validation");
 const jwtService = require("../../../utils/jwt.service");
 const emailService = require("../../../common/service/email.service");
+const messageDispatchService = require("../../../common/service/message-dispatch.service");
 const otpService = require("../../../utils/otp.service");
 const ownerService = require("../../owner/services/owner.service");
 const staffService = require("../../staff/service/staff.service");
@@ -289,18 +290,82 @@ class AuthService {
       },
     });
 
-    // 4. Send email with OTP
-    const replacements = {
-      username: owner.own_first_name,
-      otp: otp,
-    };
+    // 4. Send OTP via seeded templates (email + WhatsApp when connected)
+    const dbUrl = `${BASE_URL}/${owner.own_db}`;
+    const tenantPrisma = new MainPrismaClient({
+      datasources: { db: { url: dbUrl } },
+    });
+    try {
+      const firm = await tenantPrisma.firm.findFirst({
+        where: { firm_own_id: owner.own_id, firm_is_deleted: false },
+        orderBy: { firm_id: "asc" },
+        select: { firm_id: true, firm_name: true },
+      });
 
-    await emailService.sendEmail(
-      owner.own_email,
-      "Your One-Time Password (OTP) for Login",
-      "otp.html",
-      replacements
-    );
+      if (firm) {
+        if (owner.own_email) {
+          try {
+            await messageDispatchService.dispatchMessage({
+              dbUrl,
+              ownDb: owner.own_db,
+              firmId: firm.firm_id,
+              templateKey: "owner_otp_login",
+              toEmail: owner.own_email,
+              vars: {
+                1: owner.own_first_name || owner.own_login_id,
+                2: otp,
+              },
+              sendWhatsApp: false,
+              sendEmail: true,
+            });
+          } catch (emailErr) {
+            await emailService.sendEmail(
+              owner.own_email,
+              "Your One-Time Password (OTP) for Login",
+              "otp.html",
+              { username: owner.own_first_name, otp },
+              { ownId: owner.own_id, dbUrl }
+            );
+          }
+        }
+        if (owner.own_mobile_no) {
+          messageDispatchService.dispatchSafe({
+            dbUrl,
+            ownDb: owner.own_db,
+            firmId: firm.firm_id,
+            templateKey: "owner_otp_login",
+            toPhone: owner.own_mobile_no,
+            vars: {
+              1: owner.own_first_name || owner.own_login_id,
+              2: otp,
+            },
+            sendWhatsApp: true,
+            sendEmail: false,
+          });
+        }
+      } else if (owner.own_email) {
+        await emailService.sendEmail(
+          owner.own_email,
+          "Your One-Time Password (OTP) for Login",
+          "otp.html",
+          { username: owner.own_first_name, otp },
+          { ownId: owner.own_id, dbUrl }
+        );
+      }
+    } catch (dispatchErr) {
+      console.warn("[auth] OTP template dispatch failed, falling back to otp.html:", dispatchErr.message);
+      if (owner.own_email) {
+        await emailService.sendEmail(
+          owner.own_email,
+          "Your One-Time Password (OTP) for Login",
+          "otp.html",
+          { username: owner.own_first_name, otp },
+          { ownId: owner.own_id, dbUrl }
+        );
+      }
+    } finally {
+      await tenantPrisma.$disconnect();
+    }
 
     return { message: "otp send your register email" };
   }

@@ -3,6 +3,7 @@
 const userService = require("../service/user.service");
 const imageService = require("../../../utils/image.service");
 const { BASE_URL } = require("../../../config/db");
+const messageDispatchService = require("../../../common/service/message-dispatch.service");
 
 class UserController {
   getDbUrl(dbName) {
@@ -59,6 +60,21 @@ class UserController {
 
       // 1. Create User record
       const newUser = await userService.createUser(dbUrl, userData);
+
+      messageDispatchService.dispatchSafe({
+        dbUrl,
+        ownDb: req.user.own_db,
+        firmId: userData.user_firm_id,
+        templateKey: "customer_created",
+        toPhone: newUser.user_mobile_no,
+        toEmail: newUser.user_email_id,
+        vars: {
+          1: `${newUser.user_first_name || ""} ${newUser.user_last_name || ""}`.trim(),
+          2: newUser.user_unique_code || String(newUser.user_id),
+          3: newUser.user_mobile_no || "",
+          4: new Date().toISOString().split("T")[0],
+        },
+      });
 
       // 2. Handle File Uploads
       if (req.files && Object.keys(req.files).length > 0) {

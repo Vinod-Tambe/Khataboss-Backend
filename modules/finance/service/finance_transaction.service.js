@@ -24,15 +24,18 @@ class FinanceTransactionService {
   }
 
   /**
-   * Create finance transactions (EMIs)
-   * @param {string} dbUrl 
-   * @param {object} data Basic transaction data (ids, etc.)
-   * @param {number} count Number of EMIs
-   * @param {number} fin_freq Frequency (e.g., 1)
-   * @param {string} fin_freq_type "MONTHLY" or "DAILY"
-   * @param {string} start_date Start date string
+   * Create finance transactions (EMIs).
+   * Last EMI absorbs rounding so schedule total equals receivable.
    */
-  async create_finance_transaction(dbUrl, data, count = 1, fin_freq = 1, fin_freq_type = "MONTHLY", start_date) {
+  async create_finance_transaction(
+    dbUrl,
+    data,
+    count = 1,
+    fin_freq = 1,
+    fin_freq_type = "MONTHLY",
+    start_date,
+    totalReceivable = null
+  ) {
     const prisma = this.getPrisma(dbUrl);
     try {
       count = parseInt(count, 10);
@@ -52,7 +55,14 @@ class FinanceTransactionService {
         throw new Error("Date parsing error: " + e.message);
       }
 
+      const baseEmi = parseFloat(data.ft_emi_amt) || 0;
+      const receivable =
+        totalReceivable != null
+          ? parseFloat(totalReceivable)
+          : parseFloat((baseEmi * count).toFixed(2));
+
       const transactions = [];
+      let allocated = 0;
       for (let i = 1; i <= count; i++) {
         const dueDate = new Date(currentStartDate);
         if (fin_freq_type === "MONTHLY") {
@@ -60,9 +70,17 @@ class FinanceTransactionService {
         } else if (fin_freq_type === "DAILY") {
           dueDate.setDate(dueDate.getDate() + fin_freq);
         } else if (fin_freq_type === "WEEKLY") {
-          dueDate.setDate(dueDate.getDate() + (fin_freq * 7));
+          dueDate.setDate(dueDate.getDate() + fin_freq * 7);
         } else if (fin_freq_type === "YEARLY") {
           dueDate.setFullYear(dueDate.getFullYear() + fin_freq);
+        }
+
+        let emiAmt;
+        if (i === count) {
+          emiAmt = parseFloat((receivable - allocated).toFixed(2));
+        } else {
+          emiAmt = parseFloat(baseEmi.toFixed(2));
+          allocated = parseFloat((allocated + emiAmt).toFixed(2));
         }
 
         transactions.push({
@@ -73,11 +91,11 @@ class FinanceTransactionService {
           ft_emi_no: i,
           ft_start_date: this.formatDate(currentStartDate),
           ft_due_date: this.formatDate(dueDate),
-          ft_emi_amt: parseFloat(data.ft_emi_amt),
+          ft_emi_amt: emiAmt,
           ft_paid_amt: 0,
-          ft_pending_amt: parseFloat(data.ft_emi_amt),
-          ft_emi_status: "PENDING", // PENDING, PAID, DUE, etc.
-          ft_add_date: new Date().toISOString().split('T')[0],
+          ft_pending_amt: emiAmt,
+          ft_emi_status: "PENDING",
+          ft_add_date: new Date().toISOString().split("T")[0],
         });
 
         currentStartDate = new Date(dueDate);
@@ -96,6 +114,34 @@ class FinanceTransactionService {
     try {
       return await prisma.finance_Transaction.deleteMany({
         where: { ft_fin_id: parseInt(fin_id) },
+      });
+    } finally {
+      await prisma.$disconnect();
+    }
+  }
+
+  /**
+   * Mark overdue PENDING EMIs as DUE (due date before today, still pending).
+   * Optional fin_id / firmId scope for details vs list/collection refresh.
+   */
+  async mark_overdue_emis_due(dbUrl, fin_id = null, asOfDate = null, firmId = null) {
+    const prisma = this.getPrisma(dbUrl);
+    try {
+      const today = asOfDate || new Date().toISOString().split("T")[0];
+      const where = {
+        ft_emi_status: "PENDING",
+        ft_pending_amt: { gt: 0 },
+        ft_due_date: { lt: today },
+      };
+      if (fin_id) {
+        where.ft_fin_id = parseInt(fin_id, 10);
+      }
+      if (firmId && firmId !== "all") {
+        where.ft_firm_id = parseInt(firmId, 10);
+      }
+      return await prisma.finance_Transaction.updateMany({
+        where,
+        data: { ft_emi_status: "DUE" },
       });
     } finally {
       await prisma.$disconnect();

@@ -133,6 +133,29 @@ class AddPrincipalService {
         await journalService.create_journal_entry(dbUrl, journal_request);
       } catch (journalErr) {
         console.error("❌ Failed to create journal entry for additional principal:", journalErr.message);
+        try {
+          const prinAmt = parseFloat(result.apRecord.ap_prin_amt) || 0;
+          await prisma.additionalPrincipal.delete({
+            where: { ap_id: result.apRecord.ap_id },
+          });
+          if (prinAmt > 0) {
+            await prisma.girvi.update({
+              where: { girv_id: result.apRecord.ap_girv_id },
+              data: {
+                girv_prin_amt: { decrement: prinAmt },
+                girv_final_amt: { decrement: prinAmt },
+              },
+            });
+          }
+        } catch (cleanupErr) {
+          console.error(
+            "❌ Failed to rollback additional principal after journal error:",
+            cleanupErr.message
+          );
+        }
+        throw new Error(
+          `Additional principal account entry failed and was rolled back: ${journalErr.message}`
+        );
       }
 
       return result;

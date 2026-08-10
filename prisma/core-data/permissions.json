@@ -54,5 +54,8 @@
   { "perm_key": "reports.profitLoss", "perm_module": "reports", "perm_action": "profitLoss", "perm_label": "List Profit & Loss", "perm_sort_order": 640 },
   { "perm_key": "reports.trialBalance", "perm_module": "reports", "perm_action": "trialBalance", "perm_label": "List Trial Balance", "perm_sort_order": 650 },
 
-  { "perm_key": "settings.manage", "perm_module": "settings", "perm_action": "manage", "perm_label": "Manage Settings (Rate/Purity/Backup)", "perm_sort_order": 710 }
+  { "perm_key": "settings.manage", "perm_module": "settings", "perm_action": "manage", "perm_label": "Manage Settings (Rate/Purity/Backup)", "perm_sort_order": 710 },
+
+  { "perm_key": "sms.view", "perm_module": "sms", "perm_action": "view", "perm_label": "View Message Templates", "perm_sort_order": 810 },
+  { "perm_key": "sms.manage", "perm_module": "sms", "perm_action": "manage", "perm_label": "Manage Message Templates & WhatsApp", "perm_sort_order": 820 }
 ]

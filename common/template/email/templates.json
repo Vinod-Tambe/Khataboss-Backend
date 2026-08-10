@@ -1,0 +1,813 @@
+{
+  "channel": "email",
+  "version": 1,
+  "description": "email templates for owner, staff, customer, loan, finance",
+  "modules": [
+    "owner",
+    "staff",
+    "customer",
+    "loan",
+    "finance"
+  ],
+  "templates": [
+    {
+      "key": "owner_otp_login",
+      "name": "owner_otp_login",
+      "channel": "email",
+      "module": "owner",
+      "category": "OTP",
+      "language": "English (US)",
+      "subject": "Owner login OTP — {{firm_name}}",
+      "body": "<p>Hello {{1}},</p><p>Your owner login OTP is <strong>{{2}}</strong>.</p><p>Do not share this code. — {{firm_name}}</p>",
+      "has_attachment": false,
+      "attachment_hint": null,
+      "status": "Active",
+      "variables": [
+        {
+          "key": "{{1}}",
+          "label": "Person Name"
+        },
+        {
+          "key": "{{2}}",
+          "label": "Reference / Code / Login ID"
+        },
+        {
+          "key": "{{firm_name}}",
+          "label": "Firm Name"
+        }
+      ]
+    },
+    {
+      "key": "owner_password_updated",
+      "name": "owner_password_updated",
+      "channel": "email",
+      "module": "owner",
+      "category": "Transactional",
+      "language": "English (US)",
+      "subject": "Owner password updated — {{firm_name}}",
+      "body": "<p>Hello {{1}},</p><p>Your owner password for <strong>{{firm_name}}</strong> was updated on {{4}}.</p><p>If you did not request this, contact support immediately.</p>",
+      "has_attachment": false,
+      "attachment_hint": null,
+      "status": "Active",
+      "variables": [
+        {
+          "key": "{{1}}",
+          "label": "Person Name"
+        },
+        {
+          "key": "{{4}}",
+          "label": "Date / Extra"
+        },
+        {
+          "key": "{{firm_name}}",
+          "label": "Firm Name"
+        }
+      ]
+    },
+    {
+      "key": "owner_password_reset",
+      "name": "owner_password_reset",
+      "channel": "email",
+      "module": "owner",
+      "category": "Transactional",
+      "language": "English (US)",
+      "subject": "Owner password reset — {{firm_name}}",
+      "body": "<p>Hello {{1}},</p><p>Your temporary owner password for <strong>{{firm_name}}</strong> is: <strong>{{3}}</strong></p><p>Please login and change it immediately.</p>",
+      "has_attachment": false,
+      "attachment_hint": null,
+      "status": "Active",
+      "variables": [
+        {
+          "key": "{{1}}",
+          "label": "Person Name"
+        },
+        {
+          "key": "{{3}}",
+          "label": "Amount / Password / Detail"
+        },
+        {
+          "key": "{{firm_name}}",
+          "label": "Firm Name"
+        }
+      ]
+    },
+    {
+      "key": "staff_created",
+      "name": "staff_created",
+      "channel": "email",
+      "module": "staff",
+      "category": "Transactional",
+      "language": "English (US)",
+      "subject": "Staff account created — {{firm_name}}",
+      "body": "<p>Hello {{1}},</p><p>Your staff account is created at <strong>{{firm_name}}</strong>.</p><p>Login ID: <strong>{{2}}</strong><br/>Password: <strong>{{3}}</strong></p><p>Please login and change your password.</p>",
+      "has_attachment": false,
+      "attachment_hint": null,
+      "status": "Active",
+      "variables": [
+        {
+          "key": "{{1}}",
+          "label": "Person Name"
+        },
+        {
+          "key": "{{2}}",
+          "label": "Reference / Code / Login ID"
+        },
+        {
+          "key": "{{3}}",
+          "label": "Amount / Password / Detail"
+        },
+        {
+          "key": "{{firm_name}}",
+          "label": "Firm Name"
+        }
+      ]
+    },
+    {
+      "key": "staff_updated",
+      "name": "staff_updated",
+      "channel": "email",
+      "module": "staff",
+      "category": "Transactional",
+      "language": "English (US)",
+      "subject": "Staff profile updated — {{firm_name}}",
+      "body": "<p>Hello {{1}},</p><p>Your staff profile at <strong>{{firm_name}}</strong> was updated on {{4}}.</p>",
+      "has_attachment": false,
+      "attachment_hint": null,
+      "status": "Active",
+      "variables": [
+        {
+          "key": "{{1}}",
+          "label": "Person Name"
+        },
+        {
+          "key": "{{4}}",
+          "label": "Date / Extra"
+        },
+        {
+          "key": "{{firm_name}}",
+          "label": "Firm Name"
+        }
+      ]
+    },
+    {
+      "key": "staff_password_updated",
+      "name": "staff_password_updated",
+      "channel": "email",
+      "module": "staff",
+      "category": "Transactional",
+      "language": "English (US)",
+      "subject": "Staff password updated — {{firm_name}}",
+      "body": "<p>Hello {{1}},</p><p>Your staff password for <strong>{{firm_name}}</strong> was updated on {{4}}.</p><p>If this was not you, contact your owner immediately.</p>",
+      "has_attachment": false,
+      "attachment_hint": null,
+      "status": "Active",
+      "variables": [
+        {
+          "key": "{{1}}",
+          "label": "Person Name"
+        },
+        {
+          "key": "{{4}}",
+          "label": "Date / Extra"
+        },
+        {
+          "key": "{{firm_name}}",
+          "label": "Firm Name"
+        }
+      ]
+    },
+    {
+      "key": "staff_password_reset",
+      "name": "staff_password_reset",
+      "channel": "email",
+      "module": "staff",
+      "category": "Transactional",
+      "language": "English (US)",
+      "subject": "Staff password reset — {{firm_name}}",
+      "body": "<p>Hello {{1}},</p><p>Temporary staff password for <strong>{{firm_name}}</strong>:</p><p>Login ID: <strong>{{2}}</strong><br/>Password: <strong>{{3}}</strong></p><p>Please change it after login.</p>",
+      "has_attachment": false,
+      "attachment_hint": null,
+      "status": "Active",
+      "variables": [
+        {
+          "key": "{{1}}",
+          "label": "Person Name"
+        },
+        {
+          "key": "{{2}}",
+          "label": "Reference / Code / Login ID"
+        },
+        {
+          "key": "{{3}}",
+          "label": "Amount / Password / Detail"
+        },
+        {
+          "key": "{{firm_name}}",
+          "label": "Firm Name"
+        }
+      ]
+    },
+    {
+      "key": "staff_otp_login",
+      "name": "staff_otp_login",
+      "channel": "email",
+      "module": "staff",
+      "category": "OTP",
+      "language": "English (US)",
+      "subject": "Staff login OTP — {{firm_name}}",
+      "body": "<p>Hello {{1}},</p><p>Your staff login OTP is <strong>{{2}}</strong>.</p><p>Do not share this code. — {{firm_name}}</p>",
+      "has_attachment": false,
+      "attachment_hint": null,
+      "status": "Active",
+      "variables": [
+        {
+          "key": "{{1}}",
+          "label": "Person Name"
+        },
+        {
+          "key": "{{2}}",
+          "label": "Reference / Code / Login ID"
+        },
+        {
+          "key": "{{firm_name}}",
+          "label": "Firm Name"
+        }
+      ]
+    },
+    {
+      "key": "customer_created",
+      "name": "customer_created",
+      "channel": "email",
+      "module": "customer",
+      "category": "Marketing",
+      "language": "English (US)",
+      "subject": "Welcome to {{firm_name}}",
+      "body": "<p>Hello {{1}},</p><p>Welcome to <strong>{{firm_name}}</strong>! Your customer profile is created.</p><p>Customer ID: <strong>{{2}}</strong></p><p>We are happy to serve you.</p>",
+      "has_attachment": false,
+      "attachment_hint": null,
+      "status": "Active",
+      "variables": [
+        {
+          "key": "{{1}}",
+          "label": "Person Name"
+        },
+        {
+          "key": "{{2}}",
+          "label": "Reference / Code / Login ID"
+        },
+        {
+          "key": "{{firm_name}}",
+          "label": "Firm Name"
+        }
+      ]
+    },
+    {
+      "key": "customer_updated",
+      "name": "customer_updated",
+      "channel": "email",
+      "module": "customer",
+      "category": "Transactional",
+      "language": "English (US)",
+      "subject": "Customer details updated — {{firm_name}}",
+      "body": "<p>Hello {{1}},</p><p>Your customer details at <strong>{{firm_name}}</strong> were updated on {{4}}.</p><p>Customer ID: <strong>{{2}}</strong></p>",
+      "has_attachment": false,
+      "attachment_hint": null,
+      "status": "Active",
+      "variables": [
+        {
+          "key": "{{1}}",
+          "label": "Person Name"
+        },
+        {
+          "key": "{{2}}",
+          "label": "Reference / Code / Login ID"
+        },
+        {
+          "key": "{{4}}",
+          "label": "Date / Extra"
+        },
+        {
+          "key": "{{firm_name}}",
+          "label": "Firm Name"
+        }
+      ]
+    },
+    {
+      "key": "customer_welcome",
+      "name": "customer_welcome",
+      "channel": "email",
+      "module": "customer",
+      "category": "Customer Care",
+      "language": "English (US)",
+      "subject": "Thank you — {{firm_name}}",
+      "body": "<p>Hello {{1}},</p><p>Thank you for choosing <strong>{{firm_name}}</strong>.</p><p>Reference: <strong>{{2}}</strong></p><p>For any help, please contact us.</p>",
+      "has_attachment": false,
+      "attachment_hint": null,
+      "status": "Active",
+      "variables": [
+        {
+          "key": "{{1}}",
+          "label": "Person Name"
+        },
+        {
+          "key": "{{2}}",
+          "label": "Reference / Code / Login ID"
+        },
+        {
+          "key": "{{firm_name}}",
+          "label": "Firm Name"
+        }
+      ]
+    },
+    {
+      "key": "loan_created",
+      "name": "loan_created",
+      "channel": "email",
+      "module": "loan",
+      "category": "Transactional",
+      "language": "English (US)",
+      "subject": "Loan created {{2}} — {{firm_name}}",
+      "body": "<p>Hi {{1}},</p><p>Your loan is created at <strong>{{firm_name}}</strong>.</p><p>Loan No: <strong>{{2}}</strong><br/>Amount: <strong>{{3}}</strong><br/>Date: {{4}}</p><p>Please find the receipt attached.</p>",
+      "has_attachment": true,
+      "attachment_hint": "loan_receipt",
+      "status": "Active",
+      "variables": [
+        {
+          "key": "{{1}}",
+          "label": "Person Name"
+        },
+        {
+          "key": "{{2}}",
+          "label": "Reference / Code / Login ID"
+        },
+        {
+          "key": "{{3}}",
+          "label": "Amount / Password / Detail"
+        },
+        {
+          "key": "{{4}}",
+          "label": "Date / Extra"
+        },
+        {
+          "key": "{{firm_name}}",
+          "label": "Firm Name"
+        }
+      ]
+    },
+    {
+      "key": "loan_updated",
+      "name": "loan_updated",
+      "channel": "email",
+      "module": "loan",
+      "category": "Transactional",
+      "language": "English (US)",
+      "subject": "Loan updated {{2}} — {{firm_name}}",
+      "body": "<p>Hi {{1}},</p><p>Loan <strong>{{2}}</strong> at {{firm_name}} was updated on {{4}}.</p><p>Current amount: <strong>{{3}}</strong></p>",
+      "has_attachment": false,
+      "attachment_hint": null,
+      "status": "Active",
+      "variables": [
+        {
+          "key": "{{1}}",
+          "label": "Person Name"
+        },
+        {
+          "key": "{{2}}",
+          "label": "Reference / Code / Login ID"
+        },
+        {
+          "key": "{{3}}",
+          "label": "Amount / Password / Detail"
+        },
+        {
+          "key": "{{4}}",
+          "label": "Date / Extra"
+        },
+        {
+          "key": "{{firm_name}}",
+          "label": "Firm Name"
+        }
+      ]
+    },
+    {
+      "key": "loan_deposit",
+      "name": "loan_deposit",
+      "channel": "email",
+      "module": "loan",
+      "category": "Transactional",
+      "language": "English (US)",
+      "subject": "Loan deposit {{2}} — {{firm_name}}",
+      "body": "<p>Hello {{1}},</p><p>Deposit received for loan <strong>{{2}}</strong> at {{firm_name}}.</p><p>Amount: <strong>{{3}}</strong><br/>Date: {{4}}</p><p>Receipt attached.</p>",
+      "has_attachment": true,
+      "attachment_hint": "deposit_receipt",
+      "status": "Active",
+      "variables": [
+        {
+          "key": "{{1}}",
+          "label": "Person Name"
+        },
+        {
+          "key": "{{2}}",
+          "label": "Reference / Code / Login ID"
+        },
+        {
+          "key": "{{3}}",
+          "label": "Amount / Password / Detail"
+        },
+        {
+          "key": "{{4}}",
+          "label": "Date / Extra"
+        },
+        {
+          "key": "{{firm_name}}",
+          "label": "Firm Name"
+        }
+      ]
+    },
+    {
+      "key": "loan_add_principal",
+      "name": "loan_add_principal",
+      "channel": "email",
+      "module": "loan",
+      "category": "Transactional",
+      "language": "English (US)",
+      "subject": "Additional principal {{2}} — {{firm_name}}",
+      "body": "<p>Hello {{1}},</p><p>Additional principal added to loan <strong>{{2}}</strong> at {{firm_name}}.</p><p>Added amount: <strong>{{3}}</strong><br/>Date: {{4}}</p>",
+      "has_attachment": true,
+      "attachment_hint": "principal_receipt",
+      "status": "Active",
+      "variables": [
+        {
+          "key": "{{1}}",
+          "label": "Person Name"
+        },
+        {
+          "key": "{{2}}",
+          "label": "Reference / Code / Login ID"
+        },
+        {
+          "key": "{{3}}",
+          "label": "Amount / Password / Detail"
+        },
+        {
+          "key": "{{4}}",
+          "label": "Date / Extra"
+        },
+        {
+          "key": "{{firm_name}}",
+          "label": "Firm Name"
+        }
+      ]
+    },
+    {
+      "key": "loan_release",
+      "name": "loan_release",
+      "channel": "email",
+      "module": "loan",
+      "category": "Transactional",
+      "language": "English (US)",
+      "subject": "Loan released {{2}} — {{firm_name}}",
+      "body": "<p>Hello {{1}},</p><p>Loan <strong>{{2}}</strong> is released at {{firm_name}}.</p><p>Final amount: <strong>{{3}}</strong><br/>Date: {{4}}</p><p>Release receipt attached.</p>",
+      "has_attachment": true,
+      "attachment_hint": "release_receipt",
+      "status": "Active",
+      "variables": [
+        {
+          "key": "{{1}}",
+          "label": "Person Name"
+        },
+        {
+          "key": "{{2}}",
+          "label": "Reference / Code / Login ID"
+        },
+        {
+          "key": "{{3}}",
+          "label": "Amount / Password / Detail"
+        },
+        {
+          "key": "{{4}}",
+          "label": "Date / Extra"
+        },
+        {
+          "key": "{{firm_name}}",
+          "label": "Firm Name"
+        }
+      ]
+    },
+    {
+      "key": "loan_transfer",
+      "name": "loan_transfer",
+      "channel": "email",
+      "module": "loan",
+      "category": "Transactional",
+      "language": "English (US)",
+      "subject": "Loan transfer {{2}} — {{firm_name}}",
+      "body": "<p>Hello {{1}},</p><p>Loan <strong>{{2}}</strong> transfer is completed at {{firm_name}} on {{4}}.</p><p>Amount: <strong>{{3}}</strong></p>",
+      "has_attachment": false,
+      "attachment_hint": null,
+      "status": "Active",
+      "variables": [
+        {
+          "key": "{{1}}",
+          "label": "Person Name"
+        },
+        {
+          "key": "{{2}}",
+          "label": "Reference / Code / Login ID"
+        },
+        {
+          "key": "{{3}}",
+          "label": "Amount / Password / Detail"
+        },
+        {
+          "key": "{{4}}",
+          "label": "Date / Extra"
+        },
+        {
+          "key": "{{firm_name}}",
+          "label": "Firm Name"
+        }
+      ]
+    },
+    {
+      "key": "loan_due_reminder",
+      "name": "loan_due_reminder",
+      "channel": "email",
+      "module": "loan",
+      "category": "Customer Care",
+      "language": "English (US)",
+      "subject": "Loan due reminder {{2}} — {{firm_name}}",
+      "body": "<p>Dear {{1}},</p><p>Reminder from <strong>{{firm_name}}</strong>: loan <strong>{{2}}</strong> has due amount <strong>{{3}}</strong>.</p><p>Due date: {{4}}</p><p>Please pay on time.</p>",
+      "has_attachment": false,
+      "attachment_hint": null,
+      "status": "Active",
+      "variables": [
+        {
+          "key": "{{1}}",
+          "label": "Person Name"
+        },
+        {
+          "key": "{{2}}",
+          "label": "Reference / Code / Login ID"
+        },
+        {
+          "key": "{{3}}",
+          "label": "Amount / Password / Detail"
+        },
+        {
+          "key": "{{4}}",
+          "label": "Date / Extra"
+        },
+        {
+          "key": "{{firm_name}}",
+          "label": "Firm Name"
+        }
+      ]
+    },
+    {
+      "key": "loan_notice",
+      "name": "loan_notice",
+      "channel": "email",
+      "module": "loan",
+      "category": "Customer Care",
+      "language": "English (US)",
+      "subject": "Loan notice {{2}} — {{firm_name}}",
+      "body": "<p>Dear {{1}},</p><p>This is a notice regarding loan <strong>{{2}}</strong> at {{firm_name}}.</p><p>Outstanding amount: <strong>{{3}}</strong><br/>Date: {{4}}</p><p>Please review the attached notice.</p>",
+      "has_attachment": true,
+      "attachment_hint": "loan_notice",
+      "status": "Active",
+      "variables": [
+        {
+          "key": "{{1}}",
+          "label": "Person Name"
+        },
+        {
+          "key": "{{2}}",
+          "label": "Reference / Code / Login ID"
+        },
+        {
+          "key": "{{3}}",
+          "label": "Amount / Password / Detail"
+        },
+        {
+          "key": "{{4}}",
+          "label": "Date / Extra"
+        },
+        {
+          "key": "{{firm_name}}",
+          "label": "Firm Name"
+        }
+      ]
+    },
+    {
+      "key": "loan_auction",
+      "name": "loan_auction",
+      "channel": "email",
+      "module": "loan",
+      "category": "Transactional",
+      "language": "English (US)",
+      "subject": "Loan auction notice {{2}} — {{firm_name}}",
+      "body": "<p>Hello {{1}},</p><p>Loan <strong>{{2}}</strong> is moved to auction process at {{firm_name}}.</p><p>Amount: <strong>{{3}}</strong><br/>Date: {{4}}</p><p>Please see attached notice.</p>",
+      "has_attachment": true,
+      "attachment_hint": "auction_notice",
+      "status": "Active",
+      "variables": [
+        {
+          "key": "{{1}}",
+          "label": "Person Name"
+        },
+        {
+          "key": "{{2}}",
+          "label": "Reference / Code / Login ID"
+        },
+        {
+          "key": "{{3}}",
+          "label": "Amount / Password / Detail"
+        },
+        {
+          "key": "{{4}}",
+          "label": "Date / Extra"
+        },
+        {
+          "key": "{{firm_name}}",
+          "label": "Firm Name"
+        }
+      ]
+    },
+    {
+      "key": "finance_created",
+      "name": "finance_created",
+      "channel": "email",
+      "module": "finance",
+      "category": "Transactional",
+      "language": "English (US)",
+      "subject": "Finance created {{2}} — {{firm_name}}",
+      "body": "<p>Hello {{1}},</p><p>Your finance account is created at <strong>{{firm_name}}</strong>.</p><p>Finance No: <strong>{{2}}</strong><br/>Amount: <strong>{{3}}</strong><br/>Start date: {{4}}</p>",
+      "has_attachment": true,
+      "attachment_hint": "finance_agreement",
+      "status": "Active",
+      "variables": [
+        {
+          "key": "{{1}}",
+          "label": "Person Name"
+        },
+        {
+          "key": "{{2}}",
+          "label": "Reference / Code / Login ID"
+        },
+        {
+          "key": "{{3}}",
+          "label": "Amount / Password / Detail"
+        },
+        {
+          "key": "{{4}}",
+          "label": "Date / Extra"
+        },
+        {
+          "key": "{{firm_name}}",
+          "label": "Firm Name"
+        }
+      ]
+    },
+    {
+      "key": "finance_emi_reminder",
+      "name": "finance_emi_reminder",
+      "channel": "email",
+      "module": "finance",
+      "category": "Transactional",
+      "language": "English (US)",
+      "subject": "EMI reminder {{2}} — {{firm_name}}",
+      "body": "<p>Dear {{1}},</p><p>EMI reminder from <strong>{{firm_name}}</strong>.</p><p>Finance No: <strong>{{2}}</strong><br/>EMI amount: <strong>{{3}}</strong><br/>Due date: {{4}}</p>",
+      "has_attachment": false,
+      "attachment_hint": null,
+      "status": "Active",
+      "variables": [
+        {
+          "key": "{{1}}",
+          "label": "Person Name"
+        },
+        {
+          "key": "{{2}}",
+          "label": "Reference / Code / Login ID"
+        },
+        {
+          "key": "{{3}}",
+          "label": "Amount / Password / Detail"
+        },
+        {
+          "key": "{{4}}",
+          "label": "Date / Extra"
+        },
+        {
+          "key": "{{firm_name}}",
+          "label": "Firm Name"
+        }
+      ]
+    },
+    {
+      "key": "finance_payment_received",
+      "name": "finance_payment_received",
+      "channel": "email",
+      "module": "finance",
+      "category": "Transactional",
+      "language": "English (US)",
+      "subject": "Finance payment receipt {{2}} — {{firm_name}}",
+      "body": "<p>Hello {{1}},</p><p>Payment received for finance <strong>{{2}}</strong> at {{firm_name}}.</p><p>Amount: <strong>{{3}}</strong><br/>Date: {{4}}</p><p>Receipt attached.</p>",
+      "has_attachment": true,
+      "attachment_hint": "emi_receipt",
+      "status": "Active",
+      "variables": [
+        {
+          "key": "{{1}}",
+          "label": "Person Name"
+        },
+        {
+          "key": "{{2}}",
+          "label": "Reference / Code / Login ID"
+        },
+        {
+          "key": "{{3}}",
+          "label": "Amount / Password / Detail"
+        },
+        {
+          "key": "{{4}}",
+          "label": "Date / Extra"
+        },
+        {
+          "key": "{{firm_name}}",
+          "label": "Firm Name"
+        }
+      ]
+    },
+    {
+      "key": "finance_collection_receipt",
+      "name": "finance_collection_receipt",
+      "channel": "email",
+      "module": "finance",
+      "category": "Transactional",
+      "language": "English (US)",
+      "subject": "Collection receipt {{2}} — {{firm_name}}",
+      "body": "<p>Hello {{1}},</p><p>Collection receipt for finance <strong>{{2}}</strong> at {{firm_name}}.</p><p>Collected: <strong>{{3}}</strong><br/>Date: {{4}}</p><p>Please find receipt attached.</p>",
+      "has_attachment": true,
+      "attachment_hint": "collection_receipt",
+      "status": "Active",
+      "variables": [
+        {
+          "key": "{{1}}",
+          "label": "Person Name"
+        },
+        {
+          "key": "{{2}}",
+          "label": "Reference / Code / Login ID"
+        },
+        {
+          "key": "{{3}}",
+          "label": "Amount / Password / Detail"
+        },
+        {
+          "key": "{{4}}",
+          "label": "Date / Extra"
+        },
+        {
+          "key": "{{firm_name}}",
+          "label": "Firm Name"
+        }
+      ]
+    },
+    {
+      "key": "finance_closed",
+      "name": "finance_closed",
+      "channel": "email",
+      "module": "finance",
+      "category": "Transactional",
+      "language": "English (US)",
+      "subject": "Finance closed {{2}} — {{firm_name}}",
+      "body": "<p>Hello {{1}},</p><p>Finance <strong>{{2}}</strong> is closed at {{firm_name}}.</p><p>Final settlement: <strong>{{3}}</strong><br/>Date: {{4}}</p><p>Closure document attached.</p>",
+      "has_attachment": true,
+      "attachment_hint": "finance_closure",
+      "status": "Active",
+      "variables": [
+        {
+          "key": "{{1}}",
+          "label": "Person Name"
+        },
+        {
+          "key": "{{2}}",
+          "label": "Reference / Code / Login ID"
+        },
+        {
+          "key": "{{3}}",
+          "label": "Amount / Password / Detail"
+        },
+        {
+          "key": "{{4}}",
+          "label": "Date / Extra"
+        },
+        {
+          "key": "{{firm_name}}",
+          "label": "Firm Name"
+        }
+      ]
+    }
+  ]
+}

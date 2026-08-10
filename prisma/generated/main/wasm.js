@@ -146,6 +146,12 @@ exports.Prisma.OwnerScalarFieldEnum = {
   own_last_login_system: 'own_last_login_system',
   own_otp: 'own_otp',
   own_otp_expiry: 'own_otp_expiry',
+  own_mail_user: 'own_mail_user',
+  own_mail_pass_enc: 'own_mail_pass_enc',
+  own_mail_from_name: 'own_mail_from_name',
+  own_mail_provider: 'own_mail_provider',
+  own_mail_status: 'own_mail_status',
+  own_mail_updated_at: 'own_mail_updated_at',
   own_address: 'own_address',
   own_village: 'own_village',
   own_city: 'own_city',
@@ -505,6 +511,9 @@ exports.Prisma.GirviScalarFieldEnum = {
   girv_transfer_firm_id: 'girv_transfer_firm_id',
   girv_transfer_girv_id: 'girv_transfer_girv_id',
   girv_transfer_ml_id: 'girv_transfer_ml_id',
+  girv_is_transferred_in: 'girv_is_transferred_in',
+  girv_transfer_from_girv_id: 'girv_transfer_from_girv_id',
+  girv_transfer_from_firm_id: 'girv_transfer_from_firm_id',
   girv_created_at: 'girv_created_at',
   girv_created_by: 'girv_created_by',
   girv_updated_at: 'girv_updated_at',
@@ -874,6 +883,69 @@ exports.Prisma.SerialNumberScalarFieldEnum = {
   updated_at: 'updated_at'
 };
 
+exports.Prisma.MessageTemplateScalarFieldEnum = {
+  mt_id: 'mt_id',
+  mt_uuid: 'mt_uuid',
+  mt_own_id: 'mt_own_id',
+  mt_firm_id: 'mt_firm_id',
+  mt_channel: 'mt_channel',
+  mt_key: 'mt_key',
+  mt_name: 'mt_name',
+  mt_category: 'mt_category',
+  mt_language: 'mt_language',
+  mt_subject: 'mt_subject',
+  mt_body: 'mt_body',
+  mt_variables: 'mt_variables',
+  mt_attachments: 'mt_attachments',
+  mt_has_attachment: 'mt_has_attachment',
+  mt_is_system: 'mt_is_system',
+  mt_status: 'mt_status',
+  mt_created_at: 'mt_created_at',
+  mt_created_by: 'mt_created_by',
+  mt_updated_at: 'mt_updated_at',
+  mt_updated_by: 'mt_updated_by',
+  mt_deleted_at: 'mt_deleted_at',
+  mt_deleted_by: 'mt_deleted_by',
+  mt_is_deleted: 'mt_is_deleted'
+};
+
+exports.Prisma.WhatsAppInstanceScalarFieldEnum = {
+  wa_id: 'wa_id',
+  wa_uuid: 'wa_uuid',
+  wa_own_id: 'wa_own_id',
+  wa_firm_id: 'wa_firm_id',
+  wa_provider: 'wa_provider',
+  wa_instance_id: 'wa_instance_id',
+  wa_token: 'wa_token',
+  wa_api_url: 'wa_api_url',
+  wa_phone_number: 'wa_phone_number',
+  wa_status: 'wa_status',
+  wa_qr_code: 'wa_qr_code',
+  wa_last_checked: 'wa_last_checked',
+  wa_meta: 'wa_meta',
+  wa_created_at: 'wa_created_at',
+  wa_created_by: 'wa_created_by',
+  wa_updated_at: 'wa_updated_at',
+  wa_updated_by: 'wa_updated_by',
+  wa_deleted_at: 'wa_deleted_at',
+  wa_deleted_by: 'wa_deleted_by',
+  wa_is_deleted: 'wa_is_deleted'
+};
+
+exports.Prisma.MessageLogScalarFieldEnum = {
+  ml_id: 'ml_id',
+  ml_uuid: 'ml_uuid',
+  ml_own_id: 'ml_own_id',
+  ml_firm_id: 'ml_firm_id',
+  ml_channel: 'ml_channel',
+  ml_template_key: 'ml_template_key',
+  ml_to: 'ml_to',
+  ml_status: 'ml_status',
+  ml_error: 'ml_error',
+  ml_meta: 'ml_meta',
+  ml_created_at: 'ml_created_at'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -1035,6 +1107,24 @@ exports.StaffStatus = exports.$Enums.StaffStatus = {
   Inactive: 'Inactive'
 };
 
+exports.MessageChannel = exports.$Enums.MessageChannel = {
+  whatsapp: 'whatsapp',
+  sms: 'sms',
+  email: 'email'
+};
+
+exports.MessageTemplateStatus = exports.$Enums.MessageTemplateStatus = {
+  Active: 'Active',
+  Inactive: 'Inactive'
+};
+
+exports.WhatsAppInstanceStatus = exports.$Enums.WhatsAppInstanceStatus = {
+  Pending: 'Pending',
+  Connected: 'Connected',
+  Disconnected: 'Disconnected',
+  Error: 'Error'
+};
+
 exports.Prisma.ModelName = {
   Owner: 'Owner',
   Firm: 'Firm',
@@ -1058,7 +1148,10 @@ exports.Prisma.ModelName = {
   Staff: 'Staff',
   Permission: 'Permission',
   StaffPermission: 'StaffPermission',
-  SerialNumber: 'SerialNumber'
+  SerialNumber: 'SerialNumber',
+  MessageTemplate: 'MessageTemplate',
+  WhatsAppInstance: 'WhatsAppInstance',
+  MessageLog: 'MessageLog'
 };
 
 /**

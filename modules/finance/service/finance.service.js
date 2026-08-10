@@ -5,6 +5,11 @@ const financeTransactionService = require("./finance_transaction.service");
 const financeMoneyTransService = require("./finance_money_trans.service");
 const journalService = require("../../journal/service/journal.service");
 const serialNumberService = require("../../../common/service/serialNumber.service");
+const {
+  computeFinanceFine,
+  sumPaidFineAndCollect,
+} = require("../../../utils/financeFine");
+const messageDispatchService = require("../../../common/service/message-dispatch.service");
 
 class FinanceService {
   getPrisma(dbUrl) {
@@ -46,34 +51,101 @@ class FinanceService {
 
   /**
    * Create a new finance record with transactions and journal entries.
+   * Accounting (girvi-aligned):
+   *   DR Unsecured Loans = receivable (prin + flat ROI interest)
+   *   CR Cash/Bank/...   = disbursed (prin − process fee)
+   *   CR Interest Rec    = process fee + flat interest
    */
   async create_finance(dbUrl, data) {
     const prisma = this.getPrisma(dbUrl);
+    let createdFinId = null;
     try {
-      // 1. Resolve Automatic Fields
-      let fin_dr_acc_id = data.fin_dr_acc_id ? parseInt(data.fin_dr_acc_id) : 0;
-      if (!fin_dr_acc_id || fin_dr_acc_id === 0) {
-        const drAcc = await prisma.account.findFirst({
-          where: {
-            acc_name: "Unsecured Loans",
-            acc_firm_id: parseInt(data.fin_firm_id),
-            acc_is_deleted: false,
-          },
-        });
-        if (drAcc) fin_dr_acc_id = drAcc.acc_id;
+      const firmId = parseInt(data.fin_firm_id);
+      const prin = parseFloat(data.fin_prin_amt) || 0;
+      const processAmt = parseFloat(data.fin_proccess_amt) || 0;
+      const roi = parseFloat(data.fin_roi) || 0;
+      const n = parseInt(data.fin_no_of_emi, 10) || 0;
+
+      if (!(prin > 0)) throw new Error("Principal amount must be greater than 0");
+      if (!(n > 0)) throw new Error("Number of EMIs must be greater than 0");
+      if (processAmt < 0 || processAmt > prin) {
+        throw new Error("Process fee must be between 0 and principal");
       }
+
+      const fineAmt = parseFloat(data.fin_fine_amt || 0) || 0;
+      const fineEmiNo = parseInt(data.fin_fine_emi_no || 0, 10) || 0;
+      if (fineAmt > 0 || fineEmiNo > 0) {
+        if (!(fineAmt > 0 && fineEmiNo > 0)) {
+          throw new Error("Both Fine Amount and Fine EMI No are required when fine is set");
+        }
+        if (fineEmiNo > n) {
+          throw new Error(
+            `Fine EMI No (${fineEmiNo}) cannot exceed total number of EMIs (${n})`
+          );
+        }
+      }
+
+      const interestAmt =
+        roi > 0 ? parseFloat(((prin * roi) / 100).toFixed(2)) : 0;
+      const receivable = parseFloat((prin + interestAmt).toFixed(2));
+      const disbursed = parseFloat((prin - processAmt).toFixed(2));
+      const emiAmt = parseFloat((receivable / n).toFixed(2));
+      const incomeAmt = parseFloat((processAmt + interestAmt).toFixed(2));
 
       const fin_cash_amt_val = parseFloat(data.fin_cash_amt || 0);
       const fin_bank_amt_val = parseFloat(data.fin_bank_amt || 0);
       const fin_online_amt_val = parseFloat(data.fin_online_amt || 0);
       const fin_card_amt_val = parseFloat(data.fin_card_amt || 0);
+      const channelSum = parseFloat(
+        (fin_cash_amt_val + fin_bank_amt_val + fin_online_amt_val + fin_card_amt_val).toFixed(2)
+      );
+      if (Math.abs(channelSum - disbursed) > 0.01) {
+        throw new Error(
+          `Payment channels (${channelSum}) must equal disbursement amount (${disbursed})`
+        );
+      }
 
-      const fin_cash_acc_id = fin_cash_amt_val > 0 ? await this.resolveAccount(prisma, data.fin_firm_id, data.fin_cash_acc_id, ["Cash In Hand", "Cash"]) : null;
-      const fin_bank_acc_id = fin_bank_amt_val > 0 ? await this.resolveAccount(prisma, data.fin_firm_id, data.fin_bank_acc_id, ["Bank Account", "Bank"]) : null;
-      const fin_online_acc_id = fin_online_amt_val > 0 ? await this.resolveAccount(prisma, data.fin_firm_id, data.fin_online_acc_id, ["Online Account", "Online"]) : null;
-      const fin_card_acc_id = fin_card_amt_val > 0 ? await this.resolveAccount(prisma, data.fin_firm_id, data.fin_card_acc_id, ["Card Account", "Card", "POS"]) : null;
+      let fin_dr_acc_id = data.fin_dr_acc_id ? parseInt(data.fin_dr_acc_id) : 0;
+      if (!fin_dr_acc_id || fin_dr_acc_id === 0) {
+        fin_dr_acc_id = await this.resolveAccount(prisma, firmId, null, [
+          "Unsecured Loans",
+          "Loans & Advances",
+          "Finance Dr Account",
+          "Loan Account",
+        ]);
+      }
+      if (!fin_dr_acc_id) {
+        throw new Error("Loan receivable account (Unsecured Loans) not found for firm");
+      }
 
-      // 2. Create Finance Record
+      const feeIncomeAccId = await this.resolveAccount(prisma, firmId, null, [
+        "Interest Rec",
+        "Indirect Incomes",
+        "Direct Incomes",
+      ]);
+      if (incomeAmt > 0 && !feeIncomeAccId) {
+        throw new Error(
+          "Income account (Interest Rec) not found for firm. Required for process fee / interest."
+        );
+      }
+
+      const fin_cash_acc_id =
+        fin_cash_amt_val > 0
+          ? await this.resolveAccount(prisma, firmId, data.fin_cash_acc_id, ["Cash In Hand", "Cash"])
+          : null;
+      const fin_bank_acc_id =
+        fin_bank_amt_val > 0
+          ? await this.resolveAccount(prisma, firmId, data.fin_bank_acc_id, ["Bank Account", "Bank"])
+          : null;
+      const fin_online_acc_id =
+        fin_online_amt_val > 0
+          ? await this.resolveAccount(prisma, firmId, data.fin_online_acc_id, ["Online Account", "Online"])
+          : null;
+      const fin_card_acc_id =
+        fin_card_amt_val > 0
+          ? await this.resolveAccount(prisma, firmId, data.fin_card_acc_id, ["Card Account", "Card", "POS"])
+          : null;
+
       let finUniqueCode = data.fin_unique_code;
       if (!finUniqueCode) {
         finUniqueCode = await serialNumberService.getNextSerialNumber(prisma, "FINANCE");
@@ -83,94 +155,184 @@ class FinanceService {
         data: {
           fin_unique_code: finUniqueCode,
           fin_own_id: parseInt(data.fin_own_id || 1),
-          fin_firm_id: parseInt(data.fin_firm_id),
-          fin_user_id: data.fin_user_id ? parseInt(data.fin_user_id) : 0, // Default to 0 as requested to manage backend side
+          fin_firm_id: firmId,
+          fin_user_id: data.fin_user_id ? parseInt(data.fin_user_id) : 0,
           fin_staff_id: parseInt(data.fin_staff_id || 0),
-          fin_prin_amt: parseFloat(data.fin_prin_amt),
-          fin_no_of_emi: parseInt(data.fin_no_of_emi),
+          fin_prin_amt: prin,
+          fin_no_of_emi: n,
           fin_start_date: data.fin_start_date,
           fin_freq_type: data.fin_freq_type || "MONTHLY",
           fin_freq: data.fin_freq || "",
           fin_roi: data.fin_roi,
           fin_collec_amt: parseFloat(data.fin_collec_amt || 0),
-          fin_proccess_amt: parseFloat(data.fin_proccess_amt || 0),
-          fin_fine_amt: parseFloat(data.fin_fine_amt || 0),
-          fin_fine_emi_no: parseInt(data.fin_fine_emi_no || 0),
-          fin_emi_amt: parseFloat(data.fin_emi_amt || 0),
-          fin_final_amt: parseFloat(data.fin_final_amt || 0),
-          
+          fin_proccess_amt: processAmt,
+          fin_fine_amt: fineAmt,
+          fin_fine_emi_no: fineEmiNo,
+          fin_emi_amt: emiAmt,
+          fin_final_amt: disbursed,
+
           fin_cash_amt: String(data.fin_cash_amt || ""),
           fin_bank_amt: String(data.fin_bank_amt || ""),
           fin_online_amt: String(data.fin_online_amt || ""),
           fin_card_amt: String(data.fin_card_amt || ""),
 
-          fin_cash_acc_id: fin_cash_acc_id,
-          fin_bank_acc_id: fin_bank_acc_id,
-          fin_online_acc_id: fin_online_acc_id,
-          fin_card_acc_id: fin_card_acc_id,
-          fin_dr_acc_id: fin_dr_acc_id,
+          fin_cash_acc_id,
+          fin_bank_acc_id,
+          fin_online_acc_id,
+          fin_card_acc_id,
+          fin_dr_acc_id,
 
           fin_cash_info: data.fin_cash_info || "",
           fin_bank_info: data.fin_bank_info || "",
           fin_online_info: data.fin_online_info || "",
           fin_card_info: data.fin_card_info || "",
-          
+
           fin_pay_info: data.fin_pay_info || "",
           fin_other_info: data.fin_other_info || "",
-          fin_add_date: new Date().toISOString().split('T')[0],
+          fin_add_date: new Date().toISOString().split("T")[0],
           fin_created_by: data.fin_created_by || "",
         },
       });
-
-      // 2. Create Finance Transactions (EMIs)
-      const finance_trans_data = {
-        ft_firm_id: finance.fin_firm_id,
-        ft_own_id: finance.fin_own_id,
-        ft_user_id: finance.fin_user_id,
-        ft_fin_id: finance.fin_id,
-        ft_emi_amt: finance.fin_emi_amt,
-      };
+      createdFinId = finance.fin_id;
 
       await financeTransactionService.create_finance_transaction(
         dbUrl,
-        finance_trans_data,
+        {
+          ft_firm_id: finance.fin_firm_id,
+          ft_own_id: finance.fin_own_id,
+          ft_user_id: finance.fin_user_id,
+          ft_fin_id: finance.fin_id,
+          ft_emi_amt: finance.fin_emi_amt,
+        },
         finance.fin_no_of_emi,
         parseInt(finance.fin_freq) || 1,
         finance.fin_freq_type,
-        finance.fin_start_date
+        finance.fin_start_date,
+        receivable
       );
 
-      // 3. Create Journal Entry
+      // DR Loan = receivable; CR Cash = disbursed; CR Interest Rec = fee + interest
       const journal_request = {
         journal_date: {
           jrnl_date: finance.fin_start_date,
           jrnl_firm_id: finance.fin_firm_id,
           jrnl_own_id: finance.fin_own_id,
           jrnl_user_id: finance.fin_user_id,
-          jrnl_amt: finance.fin_final_amt,
+          jrnl_amt: receivable,
           jrnl_panel: "Finance",
           jrnl_other_info: `Add New Finance | Fin No - ${finance.fin_id}`,
         },
         joural_trans_data: [
-          { jrtr_crdr: "CR", jrtr_date: finance.fin_start_date, jrtr_cr_acc_id: finance.fin_cash_acc_id, jrtr_cr_amt: finance.fin_cash_amt, jrtr_acc_info: finance.fin_cash_info },
-          { jrtr_crdr: "CR", jrtr_date: finance.fin_start_date, jrtr_cr_acc_id: finance.fin_bank_acc_id, jrtr_cr_amt: finance.fin_bank_amt, jrtr_acc_info: finance.fin_bank_info },
-          { jrtr_crdr: "CR", jrtr_date: finance.fin_start_date, jrtr_cr_acc_id: finance.fin_online_acc_id, jrtr_cr_amt: finance.fin_online_amt, jrtr_acc_info: finance.fin_online_info },
-          { jrtr_crdr: "CR", jrtr_date: finance.fin_start_date, jrtr_cr_acc_id: finance.fin_card_acc_id, jrtr_cr_amt: finance.fin_card_amt, jrtr_acc_info: finance.fin_card_info },
-          { jrtr_crdr: "DR", jrtr_date: finance.fin_start_date, jrtr_dr_acc_id: finance.fin_dr_acc_id, jrtr_dr_amt: finance.fin_final_amt, jrtr_acc_info: `Add New Finance : Fin No - ${finance.fin_id}` }
-        ].filter(t => (t.jrtr_cr_amt && parseFloat(t.jrtr_cr_amt) > 0) || (t.jrtr_dr_amt && parseFloat(t.jrtr_dr_amt) > 0)),
+          {
+            jrtr_crdr: "CR",
+            jrtr_date: finance.fin_start_date,
+            jrtr_cr_acc_id: finance.fin_cash_acc_id,
+            jrtr_cr_amt: fin_cash_amt_val,
+            jrtr_acc_info: finance.fin_cash_info,
+          },
+          {
+            jrtr_crdr: "CR",
+            jrtr_date: finance.fin_start_date,
+            jrtr_cr_acc_id: finance.fin_bank_acc_id,
+            jrtr_cr_amt: fin_bank_amt_val,
+            jrtr_acc_info: finance.fin_bank_info,
+          },
+          {
+            jrtr_crdr: "CR",
+            jrtr_date: finance.fin_start_date,
+            jrtr_cr_acc_id: finance.fin_online_acc_id,
+            jrtr_cr_amt: fin_online_amt_val,
+            jrtr_acc_info: finance.fin_online_info,
+          },
+          {
+            jrtr_crdr: "CR",
+            jrtr_date: finance.fin_start_date,
+            jrtr_cr_acc_id: finance.fin_card_acc_id,
+            jrtr_cr_amt: fin_card_amt_val,
+            jrtr_acc_info: finance.fin_card_info,
+          },
+          {
+            jrtr_crdr: "CR",
+            jrtr_date: finance.fin_start_date,
+            jrtr_cr_acc_id: feeIncomeAccId,
+            jrtr_cr_amt: processAmt,
+            jrtr_acc_info: `Finance Process Fee : Fin No - ${finance.fin_id}`,
+          },
+          {
+            jrtr_crdr: "CR",
+            jrtr_date: finance.fin_start_date,
+            jrtr_cr_acc_id: feeIncomeAccId,
+            jrtr_cr_amt: interestAmt,
+            jrtr_acc_info: `Finance Interest : Fin No - ${finance.fin_id}`,
+          },
+          {
+            jrtr_crdr: "DR",
+            jrtr_date: finance.fin_start_date,
+            jrtr_dr_acc_id: finance.fin_dr_acc_id,
+            jrtr_dr_amt: receivable,
+            jrtr_acc_info: `Add New Finance : Fin No - ${finance.fin_id}`,
+          },
+        ].filter(
+          (t) =>
+            (t.jrtr_cr_amt && parseFloat(t.jrtr_cr_amt) > 0) ||
+            (t.jrtr_dr_amt && parseFloat(t.jrtr_dr_amt) > 0)
+        ),
       };
 
-      const jrnl_id = await journalService.create_journal_entry(dbUrl, journal_request);
+      // Sanity: DR should equal CR
+      if (Math.abs(receivable - (disbursed + incomeAmt)) > 0.02) {
+        throw new Error("Finance journal imbalance: receivable must equal disbursement + income");
+      }
 
-      // 4. Update Finance with Journal ID
-      const updatedFinance = await prisma.finance.update({
+      let jrnl_id;
+      try {
+        jrnl_id = await journalService.create_journal_entry(dbUrl, journal_request);
+      } catch (journalErr) {
+        await financeTransactionService.delete_finance_transaction(dbUrl, finance.fin_id);
+        await prisma.finance.delete({ where: { fin_id: finance.fin_id } });
+        createdFinId = null;
+        throw new Error(
+          `Finance account entry failed and was rolled back: ${journalErr.message}`
+        );
+      }
+
+      const result = await prisma.finance.update({
         where: { fin_id: finance.fin_id },
         data: { fin_jrnl_id: jrnl_id },
       });
 
-      return updatedFinance;
+      const user =
+        finance.fin_user_id > 0
+          ? await prisma.user.findUnique({ where: { user_id: finance.fin_user_id } })
+          : null;
+      messageDispatchService.dispatchSafe({
+        dbUrl,
+        ownDb: messageDispatchService.ownDbFromUrl(dbUrl),
+        firmId: finance.fin_firm_id,
+        templateKey: "finance_created",
+        toPhone: user?.user_mobile_no,
+        toEmail: user?.user_email_id,
+        vars: {
+          1: user
+            ? `${user.user_first_name || ""} ${user.user_last_name || ""}`.trim()
+            : "",
+          2: finance.fin_unique_code || String(finance.fin_id),
+          3: String(finance.fin_prin_amt),
+          4: finance.fin_start_date,
+        },
+      });
+
+      return result;
     } catch (error) {
       console.error("❌ Error in create_finance:", error.message);
+      if (createdFinId) {
+        try {
+          await financeTransactionService.delete_finance_transaction(dbUrl, createdFinId);
+          await prisma.finance.delete({ where: { fin_id: createdFinId } });
+        } catch (_) {
+          /* ignore cleanup errors */
+        }
+      }
       throw error;
     } finally {
       await prisma.$disconnect();
@@ -180,6 +342,14 @@ class FinanceService {
   async getFinances(dbUrl, firmId = null, userId = null, status = null) {
     const prisma = this.getPrisma(dbUrl);
     try {
+      // Refresh overdue EMI statuses whenever list is loaded (firm-scoped when possible)
+      await financeTransactionService.mark_overdue_emis_due(
+        dbUrl,
+        null,
+        null,
+        firmId && firmId !== "all" ? firmId : null
+      );
+
       const where = { fin_is_deleted: false };
       
       if (firmId && firmId !== 'all') {
@@ -239,6 +409,13 @@ class FinanceService {
   async getFinancesDropdown(dbUrl, firmId = null, userId = null) {
     const prisma = this.getPrisma(dbUrl);
     try {
+      await financeTransactionService.mark_overdue_emis_due(
+        dbUrl,
+        null,
+        null,
+        firmId && firmId !== "all" ? firmId : null
+      );
+
       const where = { 
         fin_is_deleted: false,
         fin_status: 'ACTIVE'
@@ -343,7 +520,556 @@ class FinanceService {
       }
 
       if (!finance) throw new Error("Finance record not found");
-      return finance;
+
+      await financeTransactionService.mark_overdue_emis_due(dbUrl, finance.fin_id);
+      finance.finance_trans = await prisma.finance_Transaction.findMany({
+        where: { ft_fin_id: finance.fin_id },
+        orderBy: { ft_emi_no: "asc" },
+      });
+
+      const fineCalc = computeFinanceFine(finance, finance.finance_trans);
+      const paid = sumPaidFineAndCollect(finance.finance_money_trans || []);
+      const pendingFine = Math.max(
+        0,
+        parseFloat((fineCalc.totalFine - paid.finePaid).toFixed(2))
+      );
+      const pendingCollect = Math.max(
+        0,
+        parseFloat((fineCalc.collectAmt - paid.collectPaid).toFixed(2))
+      );
+
+      const hasEmiPaid = (finance.finance_trans || []).some(
+        (e) => (parseFloat(e.ft_paid_amt) || 0) > 0
+      );
+      const hasMoney = (finance.finance_money_trans || []).some((t) => !t.fm_is_deleted);
+      const hasPayments =
+        hasEmiPaid ||
+        hasMoney ||
+        ["CLOSED", "COMPLETED"].includes(finance.fin_status);
+
+      return {
+        ...finance,
+        finance_trans: fineCalc.emisWithFine,
+        has_payments: hasPayments,
+        fine_summary: {
+          enabled: fineCalc.enabled,
+          fineAmt: fineCalc.fineAmt,
+          fineEmiNo: fineCalc.fineEmiNo,
+          collectAmt: fineCalc.collectAmt,
+          overdueCount: fineCalc.overdueCount,
+          chargeCount: fineCalc.chargeCount,
+          totalFine: fineCalc.totalFine,
+          label: fineCalc.label,
+          finePaid: paid.finePaid,
+          collectPaid: paid.collectPaid,
+          pendingFine,
+          pendingCollect,
+          pendingTotal: parseFloat((pendingFine + pendingCollect).toFixed(2)),
+        },
+      };
+    } finally {
+      await prisma.$disconnect();
+    }
+  }
+
+  async deleteFinanceJournalsByInfo(dbUrl, containsText) {
+    const prisma = this.getPrisma(dbUrl);
+    try {
+      const journals = await prisma.journal.findMany({
+        where: {
+          jrnl_other_info: { contains: containsText },
+          jrnl_is_deleted: false,
+        },
+        select: { jrnl_id: true },
+      });
+      for (const j of journals) {
+        await prisma.journal.delete({ where: { jrnl_id: j.jrnl_id } });
+      }
+      return journals.length;
+    } catch (err) {
+      console.error("❌ Failed to delete finance journals:", err.message);
+      return 0;
+    } finally {
+      await prisma.$disconnect();
+    }
+  }
+
+  /**
+   * Update finance.
+   * - No payments: allow financial rebuild (EMI + journal resync)
+   * - Has payments: only fine / collect / other_info / channel info notes
+   * - CLOSED: only other_info
+   */
+  async update_finance(dbUrl, id, data) {
+    const prisma = this.getPrisma(dbUrl);
+    const finId = parseInt(id, 10);
+    let previousSnapshot = null;
+    try {
+      const existing = await prisma.finance.findUnique({
+        where: { fin_id: finId },
+        include: {
+          finance_trans: true,
+          finance_money_trans: { where: { fm_is_deleted: false } },
+        },
+      });
+      if (!existing || existing.fin_is_deleted) {
+        throw new Error("Finance record not found");
+      }
+
+      previousSnapshot = { ...existing };
+
+      const hasEmiPaid = (existing.finance_trans || []).some(
+        (e) => (parseFloat(e.ft_paid_amt) || 0) > 0
+      );
+      const hasMoney = (existing.finance_money_trans || []).length > 0;
+      const hasPayments =
+        hasEmiPaid ||
+        hasMoney ||
+        ["CLOSED", "COMPLETED"].includes(existing.fin_status);
+      const isClosed = existing.fin_status === "CLOSED";
+
+      const paidParts = sumPaidFineAndCollect(existing.finance_money_trans || []);
+
+      if (isClosed) {
+        const updated = await prisma.finance.update({
+          where: { fin_id: finId },
+          data: {
+            fin_other_info:
+              data.fin_other_info != null
+                ? data.fin_other_info
+                : existing.fin_other_info,
+          },
+        });
+        return { ...updated, has_payments: true };
+      }
+
+      // Always-safe optional fields (even after payments)
+      const fineAmt =
+        data.fin_fine_amt != null
+          ? parseFloat(data.fin_fine_amt) || 0
+          : parseFloat(existing.fin_fine_amt) || 0;
+      const fineEmiNo =
+        data.fin_fine_emi_no != null
+          ? parseInt(data.fin_fine_emi_no, 10) || 0
+          : parseInt(existing.fin_fine_emi_no, 10) || 0;
+      const collectAmt =
+        data.fin_collec_amt != null
+          ? parseFloat(data.fin_collec_amt) || 0
+          : parseFloat(existing.fin_collec_amt) || 0;
+
+      const emiCountForFine = hasPayments
+        ? existing.fin_no_of_emi
+        : parseInt(data.fin_no_of_emi != null ? data.fin_no_of_emi : existing.fin_no_of_emi, 10) ||
+          existing.fin_no_of_emi;
+
+      if (fineAmt > 0 || fineEmiNo > 0) {
+        if (!(fineAmt > 0 && fineEmiNo > 0)) {
+          throw new Error("Both Fine Amount and Fine EMI No are required when fine is set");
+        }
+        if (fineEmiNo > emiCountForFine) {
+          throw new Error(
+            `Fine EMI No (${fineEmiNo}) cannot exceed total number of EMIs (${emiCountForFine})`
+          );
+        }
+      }
+      if (collectAmt + 0.01 < paidParts.collectPaid) {
+        throw new Error(
+          `Collect Amount cannot be less than already collected (${paidParts.collectPaid.toFixed(2)})`
+        );
+      }
+
+      if (hasPayments) {
+        const updated = await prisma.finance.update({
+          where: { fin_id: finId },
+          data: {
+            fin_fine_amt: fineAmt,
+            fin_fine_emi_no: fineEmiNo,
+            fin_collec_amt: collectAmt,
+            fin_other_info:
+              data.fin_other_info != null
+                ? data.fin_other_info
+                : existing.fin_other_info,
+            fin_pay_info:
+              data.fin_pay_info != null ? data.fin_pay_info : existing.fin_pay_info,
+            fin_cash_info:
+              data.fin_cash_info != null
+                ? data.fin_cash_info
+                : existing.fin_cash_info,
+            fin_bank_info:
+              data.fin_bank_info != null
+                ? data.fin_bank_info
+                : existing.fin_bank_info,
+            fin_online_info:
+              data.fin_online_info != null
+                ? data.fin_online_info
+                : existing.fin_online_info,
+            fin_card_info:
+              data.fin_card_info != null
+                ? data.fin_card_info
+                : existing.fin_card_info,
+          },
+        });
+        return { ...updated, has_payments: true };
+      }
+
+      // Full financial update (no payments yet)
+      const firmId = data.fin_firm_id
+        ? parseInt(data.fin_firm_id, 10)
+        : existing.fin_firm_id;
+      const prin = parseFloat(
+        data.fin_prin_amt != null ? data.fin_prin_amt : existing.fin_prin_amt
+      ) || 0;
+      const processAmt = parseFloat(
+        data.fin_proccess_amt != null
+          ? data.fin_proccess_amt
+          : existing.fin_proccess_amt
+      ) || 0;
+      const roi = parseFloat(
+        data.fin_roi != null ? data.fin_roi : existing.fin_roi
+      ) || 0;
+      const n =
+        parseInt(
+          data.fin_no_of_emi != null ? data.fin_no_of_emi : existing.fin_no_of_emi,
+          10
+        ) || 0;
+
+      if (!(prin > 0)) throw new Error("Principal amount must be greater than 0");
+      if (!(n > 0)) throw new Error("Number of EMIs must be greater than 0");
+      if (processAmt < 0 || processAmt > prin) {
+        throw new Error("Process fee must be between 0 and principal");
+      }
+
+      const interestAmt =
+        roi > 0 ? parseFloat(((prin * roi) / 100).toFixed(2)) : 0;
+      const receivable = parseFloat((prin + interestAmt).toFixed(2));
+      const disbursed = parseFloat((prin - processAmt).toFixed(2));
+      const emiAmt = parseFloat((receivable / n).toFixed(2));
+      const incomeAmt = parseFloat((processAmt + interestAmt).toFixed(2));
+
+      const fin_cash_amt_val = parseFloat(
+        data.fin_cash_amt != null ? data.fin_cash_amt : existing.fin_cash_amt
+      ) || 0;
+      const fin_bank_amt_val = parseFloat(
+        data.fin_bank_amt != null ? data.fin_bank_amt : existing.fin_bank_amt
+      ) || 0;
+      const fin_online_amt_val = parseFloat(
+        data.fin_online_amt != null ? data.fin_online_amt : existing.fin_online_amt
+      ) || 0;
+      const fin_card_amt_val = parseFloat(
+        data.fin_card_amt != null ? data.fin_card_amt : existing.fin_card_amt
+      ) || 0;
+      const channelSum = parseFloat(
+        (fin_cash_amt_val + fin_bank_amt_val + fin_online_amt_val + fin_card_amt_val).toFixed(2)
+      );
+      if (Math.abs(channelSum - disbursed) > 0.01) {
+        throw new Error(
+          `Payment channels (${channelSum}) must equal disbursement amount (${disbursed})`
+        );
+      }
+
+      let fin_dr_acc_id = data.fin_dr_acc_id
+        ? parseInt(data.fin_dr_acc_id, 10)
+        : existing.fin_dr_acc_id;
+      if (!fin_dr_acc_id) {
+        fin_dr_acc_id = await this.resolveAccount(prisma, firmId, null, [
+          "Unsecured Loans",
+          "Loans & Advances",
+          "Finance Dr Account",
+          "Loan Account",
+        ]);
+      }
+      if (!fin_dr_acc_id) {
+        throw new Error("Loan receivable account (Unsecured Loans) not found for firm");
+      }
+
+      const feeIncomeAccId = await this.resolveAccount(prisma, firmId, null, [
+        "Interest Rec",
+        "Indirect Incomes",
+        "Direct Incomes",
+      ]);
+      if (incomeAmt > 0 && !feeIncomeAccId) {
+        throw new Error(
+          "Income account (Interest Rec) not found for firm. Required for process fee / interest."
+        );
+      }
+
+      const fin_cash_acc_id =
+        fin_cash_amt_val > 0
+          ? await this.resolveAccount(
+              prisma,
+              firmId,
+              data.fin_cash_acc_id != null
+                ? data.fin_cash_acc_id
+                : existing.fin_cash_acc_id,
+              ["Cash In Hand", "Cash"]
+            )
+          : null;
+      const fin_bank_acc_id =
+        fin_bank_amt_val > 0
+          ? await this.resolveAccount(
+              prisma,
+              firmId,
+              data.fin_bank_acc_id != null
+                ? data.fin_bank_acc_id
+                : existing.fin_bank_acc_id,
+              ["Bank Account", "Bank"]
+            )
+          : null;
+      const fin_online_acc_id =
+        fin_online_amt_val > 0
+          ? await this.resolveAccount(
+              prisma,
+              firmId,
+              data.fin_online_acc_id != null
+                ? data.fin_online_acc_id
+                : existing.fin_online_acc_id,
+              ["Online Account", "Online"]
+            )
+          : null;
+      const fin_card_acc_id =
+        fin_card_amt_val > 0
+          ? await this.resolveAccount(
+              prisma,
+              firmId,
+              data.fin_card_acc_id != null
+                ? data.fin_card_acc_id
+                : existing.fin_card_acc_id,
+              ["Card Account", "Card", "POS"]
+            )
+          : null;
+
+      const startDate =
+        data.fin_start_date != null ? data.fin_start_date : existing.fin_start_date;
+      const freqType =
+        data.fin_freq_type != null ? data.fin_freq_type : existing.fin_freq_type;
+      const freq = data.fin_freq != null ? data.fin_freq : existing.fin_freq;
+
+      const updated = await prisma.finance.update({
+        where: { fin_id: finId },
+        data: {
+          fin_firm_id: firmId,
+          fin_user_id:
+            data.fin_user_id != null
+              ? parseInt(data.fin_user_id, 10)
+              : existing.fin_user_id,
+          fin_prin_amt: prin,
+          fin_no_of_emi: n,
+          fin_start_date: startDate,
+          fin_freq_type: freqType || "MONTHLY",
+          fin_freq: freq || "",
+          fin_roi: data.fin_roi != null ? String(data.fin_roi) : existing.fin_roi,
+          fin_collec_amt: collectAmt,
+          fin_proccess_amt: processAmt,
+          fin_fine_amt: fineAmt,
+          fin_fine_emi_no: fineEmiNo,
+          fin_emi_amt: emiAmt,
+          fin_final_amt: disbursed,
+          fin_cash_amt: String(fin_cash_amt_val),
+          fin_bank_amt: String(fin_bank_amt_val),
+          fin_online_amt: String(fin_online_amt_val),
+          fin_card_amt: String(fin_card_amt_val),
+          fin_cash_acc_id,
+          fin_bank_acc_id,
+          fin_online_acc_id,
+          fin_card_acc_id,
+          fin_dr_acc_id,
+          fin_cash_info:
+            data.fin_cash_info != null
+              ? data.fin_cash_info
+              : existing.fin_cash_info,
+          fin_bank_info:
+            data.fin_bank_info != null
+              ? data.fin_bank_info
+              : existing.fin_bank_info,
+          fin_online_info:
+            data.fin_online_info != null
+              ? data.fin_online_info
+              : existing.fin_online_info,
+          fin_card_info:
+            data.fin_card_info != null
+              ? data.fin_card_info
+              : existing.fin_card_info,
+          fin_pay_info:
+            data.fin_pay_info != null ? data.fin_pay_info : existing.fin_pay_info,
+          fin_other_info:
+            data.fin_other_info != null
+              ? data.fin_other_info
+              : existing.fin_other_info,
+        },
+      });
+
+      await financeTransactionService.delete_finance_transaction(dbUrl, finId);
+      await financeTransactionService.create_finance_transaction(
+        dbUrl,
+        {
+          ft_firm_id: updated.fin_firm_id,
+          ft_own_id: updated.fin_own_id,
+          ft_user_id: updated.fin_user_id,
+          ft_fin_id: updated.fin_id,
+          ft_emi_amt: updated.fin_emi_amt,
+        },
+        updated.fin_no_of_emi,
+        parseInt(updated.fin_freq, 10) || 1,
+        updated.fin_freq_type,
+        updated.fin_start_date,
+        receivable
+      );
+
+      try {
+        await this.deleteFinanceJournalsByInfo(
+          dbUrl,
+          `Add New Finance | Fin No - ${finId}`
+        );
+
+        const journal_request = {
+          journal_date: {
+            jrnl_date: updated.fin_start_date,
+            jrnl_firm_id: updated.fin_firm_id,
+            jrnl_own_id: updated.fin_own_id,
+            jrnl_user_id: updated.fin_user_id,
+            jrnl_amt: receivable,
+            jrnl_panel: "Finance",
+            jrnl_other_info: `Add New Finance | Fin No - ${updated.fin_id}`,
+          },
+          joural_trans_data: [
+            {
+              jrtr_crdr: "CR",
+              jrtr_date: updated.fin_start_date,
+              jrtr_cr_acc_id: updated.fin_cash_acc_id,
+              jrtr_cr_amt: fin_cash_amt_val,
+              jrtr_acc_info: updated.fin_cash_info,
+            },
+            {
+              jrtr_crdr: "CR",
+              jrtr_date: updated.fin_start_date,
+              jrtr_cr_acc_id: updated.fin_bank_acc_id,
+              jrtr_cr_amt: fin_bank_amt_val,
+              jrtr_acc_info: updated.fin_bank_info,
+            },
+            {
+              jrtr_crdr: "CR",
+              jrtr_date: updated.fin_start_date,
+              jrtr_cr_acc_id: updated.fin_online_acc_id,
+              jrtr_cr_amt: fin_online_amt_val,
+              jrtr_acc_info: updated.fin_online_info,
+            },
+            {
+              jrtr_crdr: "CR",
+              jrtr_date: updated.fin_start_date,
+              jrtr_cr_acc_id: updated.fin_card_acc_id,
+              jrtr_cr_amt: fin_card_amt_val,
+              jrtr_acc_info: updated.fin_card_info,
+            },
+            {
+              jrtr_crdr: "CR",
+              jrtr_date: updated.fin_start_date,
+              jrtr_cr_acc_id: feeIncomeAccId,
+              jrtr_cr_amt: processAmt,
+              jrtr_acc_info: `Finance Process Fee : Fin No - ${updated.fin_id}`,
+            },
+            {
+              jrtr_crdr: "CR",
+              jrtr_date: updated.fin_start_date,
+              jrtr_cr_acc_id: feeIncomeAccId,
+              jrtr_cr_amt: interestAmt,
+              jrtr_acc_info: `Finance Interest : Fin No - ${updated.fin_id}`,
+            },
+            {
+              jrtr_crdr: "DR",
+              jrtr_date: updated.fin_start_date,
+              jrtr_dr_acc_id: updated.fin_dr_acc_id,
+              jrtr_dr_amt: receivable,
+              jrtr_acc_info: `Add New Finance : Fin No - ${updated.fin_id}`,
+            },
+          ].filter(
+            (t) =>
+              (t.jrtr_cr_amt && parseFloat(t.jrtr_cr_amt) > 0) ||
+              (t.jrtr_dr_amt && parseFloat(t.jrtr_dr_amt) > 0)
+          ),
+        };
+
+        const jrnl_id = await journalService.create_journal_entry(
+          dbUrl,
+          journal_request
+        );
+        return await prisma.finance.update({
+          where: { fin_id: finId },
+          data: { fin_jrnl_id: jrnl_id },
+        }).then((row) => ({ ...row, has_payments: false }));
+      } catch (journalErr) {
+        // Restore previous finance + EMI schedule + journal
+        try {
+          const {
+            finance_trans: _t,
+            finance_money_trans: _m,
+            ...restoreRow
+          } = previousSnapshot;
+          await prisma.finance.update({
+            where: { fin_id: finId },
+            data: {
+              fin_firm_id: restoreRow.fin_firm_id,
+              fin_user_id: restoreRow.fin_user_id,
+              fin_prin_amt: restoreRow.fin_prin_amt,
+              fin_no_of_emi: restoreRow.fin_no_of_emi,
+              fin_start_date: restoreRow.fin_start_date,
+              fin_freq_type: restoreRow.fin_freq_type,
+              fin_freq: restoreRow.fin_freq,
+              fin_roi: restoreRow.fin_roi,
+              fin_collec_amt: restoreRow.fin_collec_amt,
+              fin_proccess_amt: restoreRow.fin_proccess_amt,
+              fin_fine_amt: restoreRow.fin_fine_amt,
+              fin_fine_emi_no: restoreRow.fin_fine_emi_no,
+              fin_emi_amt: restoreRow.fin_emi_amt,
+              fin_final_amt: restoreRow.fin_final_amt,
+              fin_cash_amt: restoreRow.fin_cash_amt,
+              fin_bank_amt: restoreRow.fin_bank_amt,
+              fin_online_amt: restoreRow.fin_online_amt,
+              fin_card_amt: restoreRow.fin_card_amt,
+              fin_cash_acc_id: restoreRow.fin_cash_acc_id,
+              fin_bank_acc_id: restoreRow.fin_bank_acc_id,
+              fin_online_acc_id: restoreRow.fin_online_acc_id,
+              fin_card_acc_id: restoreRow.fin_card_acc_id,
+              fin_dr_acc_id: restoreRow.fin_dr_acc_id,
+              fin_cash_info: restoreRow.fin_cash_info,
+              fin_bank_info: restoreRow.fin_bank_info,
+              fin_online_info: restoreRow.fin_online_info,
+              fin_card_info: restoreRow.fin_card_info,
+              fin_pay_info: restoreRow.fin_pay_info,
+              fin_other_info: restoreRow.fin_other_info,
+              fin_jrnl_id: restoreRow.fin_jrnl_id,
+            },
+          });
+          await financeTransactionService.delete_finance_transaction(dbUrl, finId);
+          if (previousSnapshot.finance_trans?.length) {
+            await prisma.finance_Transaction.createMany({
+              data: previousSnapshot.finance_trans.map((e) => ({
+                ft_firm_id: e.ft_firm_id,
+                ft_own_id: e.ft_own_id,
+                ft_user_id: e.ft_user_id,
+                ft_fin_id: e.ft_fin_id,
+                ft_emi_no: e.ft_emi_no,
+                ft_start_date: e.ft_start_date,
+                ft_due_date: e.ft_due_date,
+                ft_emi_amt: e.ft_emi_amt,
+                ft_paid_amt: e.ft_paid_amt,
+                ft_pending_amt: e.ft_pending_amt,
+                ft_emi_status: e.ft_emi_status,
+                ft_add_date: e.ft_add_date,
+                ft_fine_amt: e.ft_fine_amt || 0,
+                ft_paid_date: e.ft_paid_date,
+              })),
+            });
+          }
+        } catch (restoreErr) {
+          console.error("❌ Finance update restore failed:", restoreErr.message);
+        }
+        throw new Error(
+          `Finance journal update failed and was rolled back: ${journalErr.message}`
+        );
+      }
+    } catch (error) {
+      console.error("❌ Error in update_finance:", error.message);
+      throw error;
     } finally {
       await prisma.$disconnect();
     }
@@ -351,39 +1077,194 @@ class FinanceService {
 
   async processPayment(dbUrl, data) {
     const prisma = this.getPrisma(dbUrl);
+    let moneyTransId = null;
+    const emiSnapshots = [];
+    let previousFinanceStatus = null;
     try {
       const fin_id = parseInt(data.fm_fin_id);
       const paymentAmt = parseFloat(data.fm_trans_amt);
-      const isRollback = data.fm_trans_type === "ROLLBACK";
+      const transType = data.fm_trans_type;
+      const isRollback = transType === "ROLLBACK";
+      const isClose = transType === "CLOSE";
+      const isFine = transType === "FINE";
+      const isCollection = transType === "PAID" || isClose;
 
-      // 1. Get Finance and relevant EMIs
+      if (!(paymentAmt > 0)) throw new Error("Payment amount must be greater than 0");
+
       const finance = await prisma.finance.findUnique({
         where: { fin_id },
         include: {
-          finance_trans: {
-            // If PAID: find pending/partial
-            // If ROLLBACK: find paid/partial
-            where: isRollback
-              ? { ft_paid_amt: { gt: 0 } }
-              : { ft_emi_status: { in: ["PENDING", "PARTIAL", "DUE"] } },
-            orderBy: { ft_emi_no: isRollback ? "desc" : "asc" },
-          },
+          finance_trans: isFine
+            ? { orderBy: { ft_emi_no: "asc" } }
+            : {
+                where: isRollback
+                  ? { ft_paid_amt: { gt: 0 } }
+                  : { ft_emi_status: { in: ["PENDING", "PARTIAL", "DUE"] } },
+                orderBy: { ft_emi_no: isRollback ? "desc" : "asc" },
+              },
+          ...(isFine
+            ? {
+                finance_money_trans: {
+                  where: { fm_is_deleted: false },
+                },
+              }
+            : {}),
         },
       });
 
       if (!finance) throw new Error("Finance record not found");
+      if (finance.fin_status === "CLOSED" && !isRollback) {
+        throw new Error("Cannot collect on a closed finance");
+      }
+      previousFinanceStatus = finance.fin_status;
 
       const fm_cash_amt = parseFloat(data.fm_cash_amt || 0);
       const fm_bank_amt = parseFloat(data.fm_bank_amt || 0);
       const fm_online_amt = parseFloat(data.fm_online_amt || 0);
       const fm_card_amt = parseFloat(data.fm_card_amt || 0);
+      const channelSum = parseFloat(
+        (fm_cash_amt + fm_bank_amt + fm_online_amt + fm_card_amt).toFixed(2)
+      );
+      if (Math.abs(channelSum - paymentAmt) > 0.01) {
+        throw new Error(
+          `Payment channels (${channelSum}) must equal transaction amount (${paymentAmt})`
+        );
+      }
 
-      const fm_cash_acc_id = fm_cash_amt > 0 ? await this.resolveAccount(prisma, finance.fin_firm_id, data.fm_cash_acc_id, ["Cash In Hand", "Cash"]) : null;
-      const fm_bank_acc_id = fm_bank_amt > 0 ? await this.resolveAccount(prisma, finance.fin_firm_id, data.fm_bank_acc_id, ["Bank Account", "Bank"]) : null;
-      const fm_online_acc_id = fm_online_amt > 0 ? await this.resolveAccount(prisma, finance.fin_firm_id, data.fm_online_acc_id, ["Online Account", "Online"]) : null;
-      const fm_card_acc_id = fm_card_amt > 0 ? await this.resolveAccount(prisma, finance.fin_firm_id, data.fm_card_acc_id, ["Card Account", "Card", "POS"]) : null;
+      let finePortion = 0;
+      let collectPortion = 0;
+      let incomeAccId = null;
 
-      // 2. Create Money Transaction Entry
+      if (isFine) {
+        const fineCalc = computeFinanceFine(
+          finance,
+          finance.finance_trans,
+          data.fm_trans_date
+        );
+        if (!fineCalc.enabled && !(fineCalc.collectAmt > 0)) {
+          throw new Error("Fine / collect amount is not configured for this finance");
+        }
+        const paid = sumPaidFineAndCollect(finance.finance_money_trans || []);
+        const pendingFine = Math.max(
+          0,
+          parseFloat((fineCalc.totalFine - paid.finePaid).toFixed(2))
+        );
+        const pendingCollect = Math.max(
+          0,
+          parseFloat((fineCalc.collectAmt - paid.collectPaid).toFixed(2))
+        );
+        const maxPayable = parseFloat((pendingFine + pendingCollect).toFixed(2));
+        if (!(maxPayable > 0)) {
+          throw new Error("No pending fine or collect amount to pay");
+        }
+        if (paymentAmt > maxPayable + 0.01) {
+          throw new Error(
+            `Fine/collect payment exceeds pending total (${maxPayable.toFixed(2)})`
+          );
+        }
+
+        const rawFine =
+          data.fm_fine_amt != null && data.fm_fine_amt !== ""
+            ? parseFloat(data.fm_fine_amt)
+            : NaN;
+        const rawCollect =
+          data.fm_collect_amt != null && data.fm_collect_amt !== ""
+            ? parseFloat(data.fm_collect_amt)
+            : NaN;
+
+        if (!Number.isNaN(rawFine) && !Number.isNaN(rawCollect)) {
+          finePortion = rawFine;
+          collectPortion = rawCollect;
+        } else {
+          finePortion = Math.min(paymentAmt, pendingFine);
+          collectPortion = parseFloat((paymentAmt - finePortion).toFixed(2));
+        }
+
+        finePortion = parseFloat((finePortion || 0).toFixed(2));
+        collectPortion = parseFloat((collectPortion || 0).toFixed(2));
+
+        if (finePortion < -0.01 || collectPortion < -0.01) {
+          throw new Error("Fine/collect portions cannot be negative");
+        }
+        if (finePortion > pendingFine + 0.01) {
+          throw new Error(`Fine portion exceeds pending fine (${pendingFine.toFixed(2)})`);
+        }
+        if (collectPortion > pendingCollect + 0.01) {
+          throw new Error(
+            `Collect portion exceeds pending collect (${pendingCollect.toFixed(2)})`
+          );
+        }
+        if (Math.abs(finePortion + collectPortion - paymentAmt) > 0.01) {
+          throw new Error("Fine + collect portions must equal payment amount");
+        }
+
+        incomeAccId = await this.resolveAccount(prisma, finance.fin_firm_id, null, [
+          "Interest Rec",
+          "Indirect Incomes",
+          "Direct Incomes",
+          "Extra Income",
+        ]);
+        if (!incomeAccId) {
+          throw new Error("Income account (Interest Rec) not found for firm");
+        }
+      }
+
+      const totalPending = finance.finance_trans.reduce(
+        (s, e) => s + (parseFloat(e.ft_pending_amt) || 0),
+        0
+      );
+      const totalPaid = finance.finance_trans.reduce(
+        (s, e) => s + (parseFloat(e.ft_paid_amt) || 0),
+        0
+      );
+
+      if (isCollection && paymentAmt > totalPending + 0.01) {
+        throw new Error(`Payment exceeds pending EMI total (${totalPending.toFixed(2)})`);
+      }
+      if (isRollback && paymentAmt > totalPaid + 0.01) {
+        throw new Error(`Rollback exceeds paid EMI total (${totalPaid.toFixed(2)})`);
+      }
+      // CLOSE must settle full pending receivable
+      if (isClose && Math.abs(paymentAmt - totalPending) > 0.01) {
+        throw new Error(
+          `Close payment must equal full pending amount (${totalPending.toFixed(2)})`
+        );
+      }
+
+      const fm_cash_acc_id =
+        fm_cash_amt > 0
+          ? await this.resolveAccount(prisma, finance.fin_firm_id, data.fm_cash_acc_id, [
+              "Cash In Hand",
+              "Cash",
+            ])
+          : null;
+      const fm_bank_acc_id =
+        fm_bank_amt > 0
+          ? await this.resolveAccount(prisma, finance.fin_firm_id, data.fm_bank_acc_id, [
+              "Bank Account",
+              "Bank",
+            ])
+          : null;
+      const fm_online_acc_id =
+        fm_online_amt > 0
+          ? await this.resolveAccount(prisma, finance.fin_firm_id, data.fm_online_acc_id, [
+              "Online Account",
+              "Online",
+            ])
+          : null;
+      const fm_card_acc_id =
+        fm_card_amt > 0
+          ? await this.resolveAccount(prisma, finance.fin_firm_id, data.fm_card_acc_id, [
+              "Card Account",
+              "Card",
+              "POS",
+            ])
+          : null;
+
+      const payInfo = isFine
+        ? `FINE:${finePortion.toFixed(2)}|COLLECT:${collectPortion.toFixed(2)}`
+        : data.fm_pay_info || "";
+
       const moneyTrans = await prisma.finance_Money_Transaction.create({
         data: {
           fm_own_id: finance.fin_own_id,
@@ -392,98 +1273,121 @@ class FinanceService {
           fm_fin_id: finance.fin_id,
           fm_trans_crdr: isRollback ? "CR" : "DR",
           fm_trans_date: data.fm_trans_date,
-          fm_trans_type: data.fm_trans_type,
+          fm_trans_type: transType,
           fm_trans_amt: paymentAmt,
-          fm_cash_amt: fm_cash_amt,
-          fm_bank_amt: fm_bank_amt,
-          fm_online_amt: fm_online_amt,
-          fm_card_amt: fm_card_amt,
-          fm_cash_acc_id: fm_cash_acc_id,
-          fm_bank_acc_id: fm_bank_acc_id,
-          fm_online_acc_id: fm_online_acc_id,
-          fm_card_acc_id: fm_card_acc_id,
-          fm_dr_acc_id: finance.fin_dr_acc_id,
+          fm_cash_amt,
+          fm_bank_amt,
+          fm_online_amt,
+          fm_card_amt,
+          fm_cash_acc_id,
+          fm_bank_acc_id,
+          fm_online_acc_id,
+          fm_card_acc_id,
+          fm_dr_acc_id: isFine ? incomeAccId : finance.fin_dr_acc_id,
           fm_cash_info: data.fm_cash_info || "",
           fm_bank_info: data.fm_bank_info || "",
           fm_online_info: data.fm_online_info || "",
           fm_card_info: data.fm_card_info || "",
-          fm_pay_info: data.fm_pay_info || "",
+          fm_pay_info: payInfo,
           fm_other_info: data.fm_other_info || "",
         },
       });
+      moneyTransId = moneyTrans.fm_id;
 
-      // 3. Update EMIs (Waterfall or Reverse Waterfall logic)
-      let remainingAmt = paymentAmt;
-      for (const emi of finance.finance_trans) {
-        if (remainingAmt <= 0) break;
-
-        let toApply = 0;
-        if (!isRollback) {
-          // PAID logic: Reduce pending, Increase paid
-          toApply = Math.min(remainingAmt, emi.ft_pending_amt);
-          const newPaidAmt = emi.ft_paid_amt + toApply;
-          const newPendingAmt = emi.ft_pending_amt - toApply;
-          const newStatus = newPendingAmt <= 0 ? "PAID" : newPaidAmt > 0 ? "PARTIAL" : "PENDING";
-
-          await prisma.finance_Transaction.update({
-            where: { ft_id: emi.ft_id },
-            data: {
-              ft_paid_amt: newPaidAmt,
-              ft_pending_amt: newPendingAmt,
-              ft_emi_status: newStatus,
-              ft_paid_date: newStatus === "PAID" ? data.fm_trans_date : emi.ft_paid_date,
-            },
+      if (!isFine) {
+        let remainingAmt = paymentAmt;
+        for (const emi of finance.finance_trans) {
+          if (remainingAmt <= 0) break;
+          emiSnapshots.push({
+            ft_id: emi.ft_id,
+            ft_paid_amt: emi.ft_paid_amt,
+            ft_pending_amt: emi.ft_pending_amt,
+            ft_emi_status: emi.ft_emi_status,
+            ft_paid_date: emi.ft_paid_date,
           });
-        } else {
-          // ROLLBACK logic: Increase pending, Reduce paid
-          toApply = Math.min(remainingAmt, emi.ft_paid_amt);
-          const newPaidAmt = emi.ft_paid_amt - toApply;
-          const newPendingAmt = emi.ft_pending_amt + toApply;
-          const newStatus = newPaidAmt <= 0 ? "PENDING" : "PARTIAL";
 
-          await prisma.finance_Transaction.update({
-            where: { ft_id: emi.ft_id },
-            data: {
-              ft_paid_amt: newPaidAmt,
-              ft_pending_amt: newPendingAmt,
-              ft_emi_status: newStatus,
-              ft_paid_date: newPaidAmt <= 0 ? null : emi.ft_paid_date,
-            },
-          });
+          let toApply = 0;
+          if (!isRollback) {
+            toApply = Math.min(remainingAmt, emi.ft_pending_amt);
+            const newPaidAmt = emi.ft_paid_amt + toApply;
+            const newPendingAmt = emi.ft_pending_amt - toApply;
+            const newStatus =
+              newPendingAmt <= 0 ? "PAID" : newPaidAmt > 0 ? "PARTIAL" : "PENDING";
+
+            await prisma.finance_Transaction.update({
+              where: { ft_id: emi.ft_id },
+              data: {
+                ft_paid_amt: newPaidAmt,
+                ft_pending_amt: newPendingAmt,
+                ft_emi_status: newStatus,
+                ft_paid_date: newStatus === "PAID" ? data.fm_trans_date : emi.ft_paid_date,
+              },
+            });
+          } else {
+            toApply = Math.min(remainingAmt, emi.ft_paid_amt);
+            const newPaidAmt = emi.ft_paid_amt - toApply;
+            const newPendingAmt = emi.ft_pending_amt + toApply;
+            const newStatus = newPaidAmt <= 0 ? "PENDING" : "PARTIAL";
+
+            await prisma.finance_Transaction.update({
+              where: { ft_id: emi.ft_id },
+              data: {
+                ft_paid_amt: newPaidAmt,
+                ft_pending_amt: newPendingAmt,
+                ft_emi_status: newStatus,
+                ft_paid_date: newPaidAmt <= 0 ? null : emi.ft_paid_date,
+              },
+            });
+          }
+
+          remainingAmt = parseFloat((remainingAmt - toApply).toFixed(2));
         }
 
-        remainingAmt -= toApply;
-      }
-
-      // Update Finance status
-      const allEmis = await prisma.finance_Transaction.findMany({
-        where: { ft_fin_id: finance.fin_id }
-      });
-      const allPaid = allEmis.length > 0 && allEmis.every(emi => emi.ft_emi_status === "PAID");
-      
-      let newFinanceStatus = finance.fin_status;
-      if (data.fm_trans_type === "CLOSE") {
-        newFinanceStatus = "CLOSED";
-      } else if (allPaid) {
-        if (finance.fin_status !== "CLOSED") {
-            newFinanceStatus = "COMPLETED";
+        if (remainingAmt > 0.01) {
+          throw new Error(
+            `Could not apply full amount to EMIs. Leftover ${remainingAmt.toFixed(2)}`
+          );
         }
-      } else {
-        if (finance.fin_status === "COMPLETED" || finance.fin_status === "CLOSED") {
-            newFinanceStatus = "ACTIVE";
-        }
-      }
 
-      if (newFinanceStatus !== finance.fin_status) {
-        await prisma.finance.update({
-          where: { fin_id: finance.fin_id },
-          data: { fin_status: newFinanceStatus }
+        const allEmis = await prisma.finance_Transaction.findMany({
+          where: { ft_fin_id: finance.fin_id },
         });
+        const allPaid =
+          allEmis.length > 0 && allEmis.every((emi) => emi.ft_emi_status === "PAID");
+
+        let newFinanceStatus = finance.fin_status;
+        if (isClose) {
+          if (!allPaid) {
+            throw new Error("Close requires all EMIs to be fully settled");
+          }
+          newFinanceStatus = "CLOSED";
+        } else if (allPaid) {
+          newFinanceStatus = "COMPLETED";
+        } else if (
+          finance.fin_status === "COMPLETED" ||
+          finance.fin_status === "CLOSED"
+        ) {
+          newFinanceStatus = "ACTIVE";
+        }
+
+        if (newFinanceStatus !== finance.fin_status) {
+          await prisma.finance.update({
+            where: { fin_id: finance.fin_id },
+            data: { fin_status: newFinanceStatus },
+          });
+        }
       }
 
-      // 4. Create Journal Entry
-      // PAID: DR Cash/Bank, CR Customer (Loan)
-      // ROLLBACK: DR Customer (Loan), CR Cash/Bank
+      const journalLabel = isRollback
+        ? "EMI Rollback"
+        : isClose
+          ? "EMI Close Payment"
+          : isFine
+            ? "Fine / Collect Payment"
+            : "EMI Payment";
+
+      const creditAccId = isFine ? incomeAccId : finance.fin_dr_acc_id;
+
       const journal_request = {
         journal_date: {
           jrnl_date: data.fm_trans_date,
@@ -492,59 +1396,144 @@ class FinanceService {
           jrnl_user_id: finance.fin_user_id,
           jrnl_amt: paymentAmt,
           jrnl_panel: "Finance",
-          jrnl_other_info: `${isRollback ? "EMI Rollback" : "EMI Payment"} | Fin No - ${finance.fin_id} | Money Trans - ${moneyTrans.fm_id}`,
+          jrnl_other_info: `${journalLabel} | Fin No - ${finance.fin_id} | Money Trans - ${moneyTrans.fm_id}`,
         },
         joural_trans_data: [
-          // If PAID: DR the assets. If ROLLBACK: CR the assets.
-          { 
-            jrtr_crdr: isRollback ? "CR" : "DR", 
-            jrtr_date: data.fm_trans_date, 
-            [isRollback ? "jrtr_cr_acc_id" : "jrtr_dr_acc_id"]: moneyTrans.fm_cash_acc_id, 
-            [isRollback ? "jrtr_cr_amt" : "jrtr_dr_amt"]: moneyTrans.fm_cash_amt, 
-            jrtr_acc_info: moneyTrans.fm_cash_info 
+          {
+            jrtr_crdr: isRollback ? "CR" : "DR",
+            jrtr_date: data.fm_trans_date,
+            [isRollback ? "jrtr_cr_acc_id" : "jrtr_dr_acc_id"]: moneyTrans.fm_cash_acc_id,
+            [isRollback ? "jrtr_cr_amt" : "jrtr_dr_amt"]: moneyTrans.fm_cash_amt,
+            jrtr_acc_info: moneyTrans.fm_cash_info,
           },
-          { 
-            jrtr_crdr: isRollback ? "CR" : "DR", 
-            jrtr_date: data.fm_trans_date, 
-            [isRollback ? "jrtr_cr_acc_id" : "jrtr_dr_acc_id"]: moneyTrans.fm_bank_acc_id, 
-            [isRollback ? "jrtr_cr_amt" : "jrtr_dr_amt"]: moneyTrans.fm_bank_amt, 
-            jrtr_acc_info: moneyTrans.fm_bank_info 
+          {
+            jrtr_crdr: isRollback ? "CR" : "DR",
+            jrtr_date: data.fm_trans_date,
+            [isRollback ? "jrtr_cr_acc_id" : "jrtr_dr_acc_id"]: moneyTrans.fm_bank_acc_id,
+            [isRollback ? "jrtr_cr_amt" : "jrtr_dr_amt"]: moneyTrans.fm_bank_amt,
+            jrtr_acc_info: moneyTrans.fm_bank_info,
           },
-          { 
-            jrtr_crdr: isRollback ? "CR" : "DR", 
-            jrtr_date: data.fm_trans_date, 
-            [isRollback ? "jrtr_cr_acc_id" : "jrtr_dr_acc_id"]: moneyTrans.fm_online_acc_id, 
-            [isRollback ? "jrtr_cr_amt" : "jrtr_dr_amt"]: moneyTrans.fm_online_amt, 
-            jrtr_acc_info: moneyTrans.fm_online_info 
+          {
+            jrtr_crdr: isRollback ? "CR" : "DR",
+            jrtr_date: data.fm_trans_date,
+            [isRollback ? "jrtr_cr_acc_id" : "jrtr_dr_acc_id"]: moneyTrans.fm_online_acc_id,
+            [isRollback ? "jrtr_cr_amt" : "jrtr_dr_amt"]: moneyTrans.fm_online_amt,
+            jrtr_acc_info: moneyTrans.fm_online_info,
           },
-          { 
-            jrtr_crdr: isRollback ? "CR" : "DR", 
-            jrtr_date: data.fm_trans_date, 
-            [isRollback ? "jrtr_cr_acc_id" : "jrtr_dr_acc_id"]: moneyTrans.fm_card_acc_id, 
-            [isRollback ? "jrtr_cr_amt" : "jrtr_dr_amt"]: moneyTrans.fm_card_amt, 
-            jrtr_acc_info: moneyTrans.fm_card_info 
+          {
+            jrtr_crdr: isRollback ? "CR" : "DR",
+            jrtr_date: data.fm_trans_date,
+            [isRollback ? "jrtr_cr_acc_id" : "jrtr_dr_acc_id"]: moneyTrans.fm_card_acc_id,
+            [isRollback ? "jrtr_cr_amt" : "jrtr_dr_amt"]: moneyTrans.fm_card_amt,
+            jrtr_acc_info: moneyTrans.fm_card_info,
           },
-          // The loan account (fin_dr_acc_id)
-          // If PAID: CR it. If ROLLBACK: DR it.
-          { 
-            jrtr_crdr: isRollback ? "DR" : "CR", 
-            jrtr_date: data.fm_trans_date, 
-            [isRollback ? "jrtr_dr_acc_id" : "jrtr_cr_acc_id"]: finance.fin_dr_acc_id, 
-            [isRollback ? "jrtr_dr_amt" : "jrtr_cr_amt"]: paymentAmt, 
-            jrtr_acc_info: `${isRollback ? "EMI Rollback" : "EMI Payment"} : Fin No - ${finance.fin_id}` 
-          }
-        ].filter(t => (t.jrtr_cr_amt && parseFloat(t.jrtr_cr_amt) > 0) || (t.jrtr_dr_amt && parseFloat(t.jrtr_dr_amt) > 0)),
+          {
+            jrtr_crdr: isRollback ? "DR" : "CR",
+            jrtr_date: data.fm_trans_date,
+            [isRollback ? "jrtr_dr_acc_id" : "jrtr_cr_acc_id"]: creditAccId,
+            [isRollback ? "jrtr_dr_amt" : "jrtr_cr_amt"]: paymentAmt,
+            jrtr_acc_info: isFine
+              ? `${journalLabel} (Fine ${finePortion.toFixed(2)} + Collect ${collectPortion.toFixed(2)}) : Fin No - ${finance.fin_id}`
+              : `${journalLabel} : Fin No - ${finance.fin_id}`,
+          },
+        ].filter(
+          (t) =>
+            (t.jrtr_cr_amt && parseFloat(t.jrtr_cr_amt) > 0) ||
+            (t.jrtr_dr_amt && parseFloat(t.jrtr_dr_amt) > 0)
+        ),
       };
 
-      const jrnl_id = await journalService.create_journal_entry(dbUrl, journal_request);
+      let jrnl_id;
+      try {
+        jrnl_id = await journalService.create_journal_entry(dbUrl, journal_request);
+      } catch (journalErr) {
+        // Compensate EMI + money row + status
+        for (const snap of emiSnapshots) {
+          await prisma.finance_Transaction.update({
+            where: { ft_id: snap.ft_id },
+            data: {
+              ft_paid_amt: snap.ft_paid_amt,
+              ft_pending_amt: snap.ft_pending_amt,
+              ft_emi_status: snap.ft_emi_status,
+              ft_paid_date: snap.ft_paid_date,
+            },
+          });
+        }
+        if (previousFinanceStatus != null) {
+          await prisma.finance.update({
+            where: { fin_id: finance.fin_id },
+            data: { fin_status: previousFinanceStatus },
+          });
+        }
+        await prisma.finance_Money_Transaction.delete({
+          where: { fm_id: moneyTrans.fm_id },
+        });
+        moneyTransId = null;
+        throw new Error(
+          `Finance payment account entry failed and was rolled back: ${journalErr.message}`
+        );
+      }
 
-      // 5. Update Money Trans with Journal ID
       await prisma.finance_Money_Transaction.update({
         where: { fm_id: moneyTrans.fm_id },
         data: { fm_jrnl_id: jrnl_id },
       });
 
+      if (transType === "PAID" || transType === "CLOSE") {
+        const user =
+          finance.fin_user_id > 0
+            ? await prisma.user.findUnique({ where: { user_id: finance.fin_user_id } })
+            : null;
+        const templateKey =
+          transType === "CLOSE" ? "finance_closed" : "finance_payment_received";
+        messageDispatchService.dispatchSafe({
+          dbUrl,
+          ownDb: messageDispatchService.ownDbFromUrl(dbUrl),
+          firmId: finance.fin_firm_id,
+          templateKey,
+          toPhone: user?.user_mobile_no,
+          toEmail: user?.user_email_id,
+          vars: {
+            1: user
+              ? `${user.user_first_name || ""} ${user.user_last_name || ""}`.trim()
+              : "",
+            2: finance.fin_unique_code || String(finance.fin_id),
+            3: String(paymentAmt),
+            4: data.fm_trans_date || new Date().toISOString().split("T")[0],
+          },
+        });
+      }
+
       return moneyTrans;
+    } catch (error) {
+      // If leftover/validation failed after money row created, clean it up
+      if (moneyTransId && !String(error.message || "").includes("rolled back")) {
+        try {
+          for (const snap of emiSnapshots) {
+            await prisma.finance_Transaction.update({
+              where: { ft_id: snap.ft_id },
+              data: {
+                ft_paid_amt: snap.ft_paid_amt,
+                ft_pending_amt: snap.ft_pending_amt,
+                ft_emi_status: snap.ft_emi_status,
+                ft_paid_date: snap.ft_paid_date,
+              },
+            });
+          }
+          if (previousFinanceStatus != null) {
+            await prisma.finance.update({
+              where: { fin_id: parseInt(data.fm_fin_id) },
+              data: { fin_status: previousFinanceStatus },
+            });
+          }
+          await prisma.finance_Money_Transaction.delete({
+            where: { fm_id: moneyTransId },
+          });
+        } catch (cleanupErr) {
+          console.error("❌ Finance payment cleanup failed:", cleanupErr.message);
+        }
+      }
+      throw error;
     } finally {
       await prisma.$disconnect();
     }

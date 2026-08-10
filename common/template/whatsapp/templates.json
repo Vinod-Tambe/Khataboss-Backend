@@ -1,0 +1,813 @@
+{
+  "channel": "whatsapp",
+  "version": 1,
+  "description": "whatsapp templates for owner, staff, customer, loan, finance",
+  "modules": [
+    "owner",
+    "staff",
+    "customer",
+    "loan",
+    "finance"
+  ],
+  "templates": [
+    {
+      "key": "owner_otp_login",
+      "name": "owner_otp_login",
+      "channel": "whatsapp",
+      "module": "owner",
+      "category": "OTP",
+      "language": "English (US)",
+      "subject": "",
+      "body": "Hello {{1}}, your owner login OTP is {{2}}. Valid for a short time. Do not share. — {{firm_name}}",
+      "has_attachment": false,
+      "attachment_hint": null,
+      "status": "Active",
+      "variables": [
+        {
+          "key": "{{1}}",
+          "label": "Person Name"
+        },
+        {
+          "key": "{{2}}",
+          "label": "Reference / Code / Login ID"
+        },
+        {
+          "key": "{{firm_name}}",
+          "label": "Firm Name"
+        }
+      ]
+    },
+    {
+      "key": "owner_password_updated",
+      "name": "owner_password_updated",
+      "channel": "whatsapp",
+      "module": "owner",
+      "category": "Transactional",
+      "language": "English (US)",
+      "subject": "",
+      "body": "Hello {{1}}, your owner password for {{firm_name}} was updated successfully on {{4}}. If this was not you, contact support.",
+      "has_attachment": false,
+      "attachment_hint": null,
+      "status": "Active",
+      "variables": [
+        {
+          "key": "{{1}}",
+          "label": "Person Name"
+        },
+        {
+          "key": "{{4}}",
+          "label": "Date / Extra"
+        },
+        {
+          "key": "{{firm_name}}",
+          "label": "Firm Name"
+        }
+      ]
+    },
+    {
+      "key": "owner_password_reset",
+      "name": "owner_password_reset",
+      "channel": "whatsapp",
+      "module": "owner",
+      "category": "Transactional",
+      "language": "English (US)",
+      "subject": "",
+      "body": "Hello {{1}}, your temporary owner password for {{firm_name}} is {{3}}. Please login and change it immediately.",
+      "has_attachment": false,
+      "attachment_hint": null,
+      "status": "Active",
+      "variables": [
+        {
+          "key": "{{1}}",
+          "label": "Person Name"
+        },
+        {
+          "key": "{{3}}",
+          "label": "Amount / Password / Detail"
+        },
+        {
+          "key": "{{firm_name}}",
+          "label": "Firm Name"
+        }
+      ]
+    },
+    {
+      "key": "staff_created",
+      "name": "staff_created",
+      "channel": "whatsapp",
+      "module": "staff",
+      "category": "Transactional",
+      "language": "English (US)",
+      "subject": "",
+      "body": "Hello {{1}}, your staff account is created at {{firm_name}}.\nLogin ID: {{2}}\nPassword: {{3}}\nPlease login and change your password.",
+      "has_attachment": false,
+      "attachment_hint": null,
+      "status": "Active",
+      "variables": [
+        {
+          "key": "{{1}}",
+          "label": "Person Name"
+        },
+        {
+          "key": "{{2}}",
+          "label": "Reference / Code / Login ID"
+        },
+        {
+          "key": "{{3}}",
+          "label": "Amount / Password / Detail"
+        },
+        {
+          "key": "{{firm_name}}",
+          "label": "Firm Name"
+        }
+      ]
+    },
+    {
+      "key": "staff_updated",
+      "name": "staff_updated",
+      "channel": "whatsapp",
+      "module": "staff",
+      "category": "Transactional",
+      "language": "English (US)",
+      "subject": "",
+      "body": "Hello {{1}}, your staff profile at {{firm_name}} was updated on {{4}}.",
+      "has_attachment": false,
+      "attachment_hint": null,
+      "status": "Active",
+      "variables": [
+        {
+          "key": "{{1}}",
+          "label": "Person Name"
+        },
+        {
+          "key": "{{4}}",
+          "label": "Date / Extra"
+        },
+        {
+          "key": "{{firm_name}}",
+          "label": "Firm Name"
+        }
+      ]
+    },
+    {
+      "key": "staff_password_updated",
+      "name": "staff_password_updated",
+      "channel": "whatsapp",
+      "module": "staff",
+      "category": "Transactional",
+      "language": "English (US)",
+      "subject": "",
+      "body": "Hello {{1}}, your staff password for {{firm_name}} was updated successfully on {{4}}.",
+      "has_attachment": false,
+      "attachment_hint": null,
+      "status": "Active",
+      "variables": [
+        {
+          "key": "{{1}}",
+          "label": "Person Name"
+        },
+        {
+          "key": "{{4}}",
+          "label": "Date / Extra"
+        },
+        {
+          "key": "{{firm_name}}",
+          "label": "Firm Name"
+        }
+      ]
+    },
+    {
+      "key": "staff_password_reset",
+      "name": "staff_password_reset",
+      "channel": "whatsapp",
+      "module": "staff",
+      "category": "Transactional",
+      "language": "English (US)",
+      "subject": "",
+      "body": "Hello {{1}}, your temporary staff password for {{firm_name}} is {{3}}. Login ID: {{2}}. Please change it after login.",
+      "has_attachment": false,
+      "attachment_hint": null,
+      "status": "Active",
+      "variables": [
+        {
+          "key": "{{1}}",
+          "label": "Person Name"
+        },
+        {
+          "key": "{{2}}",
+          "label": "Reference / Code / Login ID"
+        },
+        {
+          "key": "{{3}}",
+          "label": "Amount / Password / Detail"
+        },
+        {
+          "key": "{{firm_name}}",
+          "label": "Firm Name"
+        }
+      ]
+    },
+    {
+      "key": "staff_otp_login",
+      "name": "staff_otp_login",
+      "channel": "whatsapp",
+      "module": "staff",
+      "category": "OTP",
+      "language": "English (US)",
+      "subject": "",
+      "body": "Hello {{1}}, your staff login OTP is {{2}}. Do not share. — {{firm_name}}",
+      "has_attachment": false,
+      "attachment_hint": null,
+      "status": "Active",
+      "variables": [
+        {
+          "key": "{{1}}",
+          "label": "Person Name"
+        },
+        {
+          "key": "{{2}}",
+          "label": "Reference / Code / Login ID"
+        },
+        {
+          "key": "{{firm_name}}",
+          "label": "Firm Name"
+        }
+      ]
+    },
+    {
+      "key": "customer_created",
+      "name": "customer_created",
+      "channel": "whatsapp",
+      "module": "customer",
+      "category": "Marketing",
+      "language": "English (US)",
+      "subject": "",
+      "body": "Hello {{1}}, welcome to {{firm_name}}! Your customer profile is created.\nCustomer ID: {{2}}\nWe are happy to serve you.",
+      "has_attachment": false,
+      "attachment_hint": null,
+      "status": "Active",
+      "variables": [
+        {
+          "key": "{{1}}",
+          "label": "Person Name"
+        },
+        {
+          "key": "{{2}}",
+          "label": "Reference / Code / Login ID"
+        },
+        {
+          "key": "{{firm_name}}",
+          "label": "Firm Name"
+        }
+      ]
+    },
+    {
+      "key": "customer_updated",
+      "name": "customer_updated",
+      "channel": "whatsapp",
+      "module": "customer",
+      "category": "Transactional",
+      "language": "English (US)",
+      "subject": "",
+      "body": "Hello {{1}}, your customer details at {{firm_name}} were updated on {{4}}. Customer ID: {{2}}",
+      "has_attachment": false,
+      "attachment_hint": null,
+      "status": "Active",
+      "variables": [
+        {
+          "key": "{{1}}",
+          "label": "Person Name"
+        },
+        {
+          "key": "{{2}}",
+          "label": "Reference / Code / Login ID"
+        },
+        {
+          "key": "{{4}}",
+          "label": "Date / Extra"
+        },
+        {
+          "key": "{{firm_name}}",
+          "label": "Firm Name"
+        }
+      ]
+    },
+    {
+      "key": "customer_welcome",
+      "name": "customer_welcome",
+      "channel": "whatsapp",
+      "module": "customer",
+      "category": "Customer Care",
+      "language": "English (US)",
+      "subject": "",
+      "body": "Hello {{1}}, thank you for choosing {{firm_name}}. For any help contact us. Ref: {{2}}",
+      "has_attachment": false,
+      "attachment_hint": null,
+      "status": "Active",
+      "variables": [
+        {
+          "key": "{{1}}",
+          "label": "Person Name"
+        },
+        {
+          "key": "{{2}}",
+          "label": "Reference / Code / Login ID"
+        },
+        {
+          "key": "{{firm_name}}",
+          "label": "Firm Name"
+        }
+      ]
+    },
+    {
+      "key": "loan_created",
+      "name": "loan_created",
+      "channel": "whatsapp",
+      "module": "loan",
+      "category": "Transactional",
+      "language": "English (US)",
+      "subject": "",
+      "body": "Hi {{1}}, your loan is created at {{firm_name}}.\nLoan No: {{2}}\nAmount: {{3}}\nDate: {{4}}\nPlease keep this for records.",
+      "has_attachment": true,
+      "attachment_hint": "loan_receipt",
+      "status": "Active",
+      "variables": [
+        {
+          "key": "{{1}}",
+          "label": "Person Name"
+        },
+        {
+          "key": "{{2}}",
+          "label": "Reference / Code / Login ID"
+        },
+        {
+          "key": "{{3}}",
+          "label": "Amount / Password / Detail"
+        },
+        {
+          "key": "{{4}}",
+          "label": "Date / Extra"
+        },
+        {
+          "key": "{{firm_name}}",
+          "label": "Firm Name"
+        }
+      ]
+    },
+    {
+      "key": "loan_updated",
+      "name": "loan_updated",
+      "channel": "whatsapp",
+      "module": "loan",
+      "category": "Transactional",
+      "language": "English (US)",
+      "subject": "",
+      "body": "Hi {{1}}, loan {{2}} at {{firm_name}} was updated on {{4}}. Current amount: {{3}}.",
+      "has_attachment": false,
+      "attachment_hint": null,
+      "status": "Active",
+      "variables": [
+        {
+          "key": "{{1}}",
+          "label": "Person Name"
+        },
+        {
+          "key": "{{2}}",
+          "label": "Reference / Code / Login ID"
+        },
+        {
+          "key": "{{3}}",
+          "label": "Amount / Password / Detail"
+        },
+        {
+          "key": "{{4}}",
+          "label": "Date / Extra"
+        },
+        {
+          "key": "{{firm_name}}",
+          "label": "Firm Name"
+        }
+      ]
+    },
+    {
+      "key": "loan_deposit",
+      "name": "loan_deposit",
+      "channel": "whatsapp",
+      "module": "loan",
+      "category": "Transactional",
+      "language": "English (US)",
+      "subject": "",
+      "body": "Hello {{1}}, deposit received for loan {{2}} at {{firm_name}}.\nAmount: {{3}}\nDate: {{4}}\nThank you!",
+      "has_attachment": true,
+      "attachment_hint": "deposit_receipt",
+      "status": "Active",
+      "variables": [
+        {
+          "key": "{{1}}",
+          "label": "Person Name"
+        },
+        {
+          "key": "{{2}}",
+          "label": "Reference / Code / Login ID"
+        },
+        {
+          "key": "{{3}}",
+          "label": "Amount / Password / Detail"
+        },
+        {
+          "key": "{{4}}",
+          "label": "Date / Extra"
+        },
+        {
+          "key": "{{firm_name}}",
+          "label": "Firm Name"
+        }
+      ]
+    },
+    {
+      "key": "loan_add_principal",
+      "name": "loan_add_principal",
+      "channel": "whatsapp",
+      "module": "loan",
+      "category": "Transactional",
+      "language": "English (US)",
+      "subject": "",
+      "body": "Hello {{1}}, additional principal added to loan {{2}} at {{firm_name}}.\nAdded amount: {{3}}\nDate: {{4}}",
+      "has_attachment": true,
+      "attachment_hint": "principal_receipt",
+      "status": "Active",
+      "variables": [
+        {
+          "key": "{{1}}",
+          "label": "Person Name"
+        },
+        {
+          "key": "{{2}}",
+          "label": "Reference / Code / Login ID"
+        },
+        {
+          "key": "{{3}}",
+          "label": "Amount / Password / Detail"
+        },
+        {
+          "key": "{{4}}",
+          "label": "Date / Extra"
+        },
+        {
+          "key": "{{firm_name}}",
+          "label": "Firm Name"
+        }
+      ]
+    },
+    {
+      "key": "loan_release",
+      "name": "loan_release",
+      "channel": "whatsapp",
+      "module": "loan",
+      "category": "Transactional",
+      "language": "English (US)",
+      "subject": "",
+      "body": "Hello {{1}}, loan {{2}} is released at {{firm_name}}.\nFinal amount: {{3}}\nDate: {{4}}\nThank you for your business.",
+      "has_attachment": true,
+      "attachment_hint": "release_receipt",
+      "status": "Active",
+      "variables": [
+        {
+          "key": "{{1}}",
+          "label": "Person Name"
+        },
+        {
+          "key": "{{2}}",
+          "label": "Reference / Code / Login ID"
+        },
+        {
+          "key": "{{3}}",
+          "label": "Amount / Password / Detail"
+        },
+        {
+          "key": "{{4}}",
+          "label": "Date / Extra"
+        },
+        {
+          "key": "{{firm_name}}",
+          "label": "Firm Name"
+        }
+      ]
+    },
+    {
+      "key": "loan_transfer",
+      "name": "loan_transfer",
+      "channel": "whatsapp",
+      "module": "loan",
+      "category": "Transactional",
+      "language": "English (US)",
+      "subject": "",
+      "body": "Hello {{1}}, loan {{2}} transfer is completed at {{firm_name}} on {{4}}. Amount: {{3}}.",
+      "has_attachment": false,
+      "attachment_hint": null,
+      "status": "Active",
+      "variables": [
+        {
+          "key": "{{1}}",
+          "label": "Person Name"
+        },
+        {
+          "key": "{{2}}",
+          "label": "Reference / Code / Login ID"
+        },
+        {
+          "key": "{{3}}",
+          "label": "Amount / Password / Detail"
+        },
+        {
+          "key": "{{4}}",
+          "label": "Date / Extra"
+        },
+        {
+          "key": "{{firm_name}}",
+          "label": "Firm Name"
+        }
+      ]
+    },
+    {
+      "key": "loan_due_reminder",
+      "name": "loan_due_reminder",
+      "channel": "whatsapp",
+      "module": "loan",
+      "category": "Customer Care",
+      "language": "English (US)",
+      "subject": "",
+      "body": "Dear {{1}}, reminder from {{firm_name}}: loan {{2}} has due amount {{3}}. Due date: {{4}}. Please pay on time.",
+      "has_attachment": false,
+      "attachment_hint": null,
+      "status": "Active",
+      "variables": [
+        {
+          "key": "{{1}}",
+          "label": "Person Name"
+        },
+        {
+          "key": "{{2}}",
+          "label": "Reference / Code / Login ID"
+        },
+        {
+          "key": "{{3}}",
+          "label": "Amount / Password / Detail"
+        },
+        {
+          "key": "{{4}}",
+          "label": "Date / Extra"
+        },
+        {
+          "key": "{{firm_name}}",
+          "label": "Firm Name"
+        }
+      ]
+    },
+    {
+      "key": "loan_notice",
+      "name": "loan_notice",
+      "channel": "whatsapp",
+      "module": "loan",
+      "category": "Customer Care",
+      "language": "English (US)",
+      "subject": "",
+      "body": "Dear {{1}}, notice for loan {{2}} at {{firm_name}}. Outstanding: {{3}}. Date: {{4}}. Please contact us.",
+      "has_attachment": true,
+      "attachment_hint": "loan_notice",
+      "status": "Active",
+      "variables": [
+        {
+          "key": "{{1}}",
+          "label": "Person Name"
+        },
+        {
+          "key": "{{2}}",
+          "label": "Reference / Code / Login ID"
+        },
+        {
+          "key": "{{3}}",
+          "label": "Amount / Password / Detail"
+        },
+        {
+          "key": "{{4}}",
+          "label": "Date / Extra"
+        },
+        {
+          "key": "{{firm_name}}",
+          "label": "Firm Name"
+        }
+      ]
+    },
+    {
+      "key": "loan_auction",
+      "name": "loan_auction",
+      "channel": "whatsapp",
+      "module": "loan",
+      "category": "Transactional",
+      "language": "English (US)",
+      "subject": "",
+      "body": "Hello {{1}}, loan {{2}} is moved to auction process at {{firm_name}}.\nAmount: {{3}}\nDate: {{4}}",
+      "has_attachment": true,
+      "attachment_hint": "auction_notice",
+      "status": "Active",
+      "variables": [
+        {
+          "key": "{{1}}",
+          "label": "Person Name"
+        },
+        {
+          "key": "{{2}}",
+          "label": "Reference / Code / Login ID"
+        },
+        {
+          "key": "{{3}}",
+          "label": "Amount / Password / Detail"
+        },
+        {
+          "key": "{{4}}",
+          "label": "Date / Extra"
+        },
+        {
+          "key": "{{firm_name}}",
+          "label": "Firm Name"
+        }
+      ]
+    },
+    {
+      "key": "finance_created",
+      "name": "finance_created",
+      "channel": "whatsapp",
+      "module": "finance",
+      "category": "Transactional",
+      "language": "English (US)",
+      "subject": "",
+      "body": "Hello {{1}}, your finance account is created at {{firm_name}}.\nFinance No: {{2}}\nAmount: {{3}}\nStart date: {{4}}",
+      "has_attachment": true,
+      "attachment_hint": "finance_agreement",
+      "status": "Active",
+      "variables": [
+        {
+          "key": "{{1}}",
+          "label": "Person Name"
+        },
+        {
+          "key": "{{2}}",
+          "label": "Reference / Code / Login ID"
+        },
+        {
+          "key": "{{3}}",
+          "label": "Amount / Password / Detail"
+        },
+        {
+          "key": "{{4}}",
+          "label": "Date / Extra"
+        },
+        {
+          "key": "{{firm_name}}",
+          "label": "Firm Name"
+        }
+      ]
+    },
+    {
+      "key": "finance_emi_reminder",
+      "name": "finance_emi_reminder",
+      "channel": "whatsapp",
+      "module": "finance",
+      "category": "Transactional",
+      "language": "English (US)",
+      "subject": "",
+      "body": "Dear {{1}}, EMI reminder from {{firm_name}}.\nFinance No: {{2}}\nEMI amount: {{3}}\nDue date: {{4}}",
+      "has_attachment": false,
+      "attachment_hint": null,
+      "status": "Active",
+      "variables": [
+        {
+          "key": "{{1}}",
+          "label": "Person Name"
+        },
+        {
+          "key": "{{2}}",
+          "label": "Reference / Code / Login ID"
+        },
+        {
+          "key": "{{3}}",
+          "label": "Amount / Password / Detail"
+        },
+        {
+          "key": "{{4}}",
+          "label": "Date / Extra"
+        },
+        {
+          "key": "{{firm_name}}",
+          "label": "Firm Name"
+        }
+      ]
+    },
+    {
+      "key": "finance_payment_received",
+      "name": "finance_payment_received",
+      "channel": "whatsapp",
+      "module": "finance",
+      "category": "Transactional",
+      "language": "English (US)",
+      "subject": "",
+      "body": "Hello {{1}}, payment received for finance {{2}} at {{firm_name}}.\nAmount: {{3}}\nDate: {{4}}\nThank you!",
+      "has_attachment": true,
+      "attachment_hint": "emi_receipt",
+      "status": "Active",
+      "variables": [
+        {
+          "key": "{{1}}",
+          "label": "Person Name"
+        },
+        {
+          "key": "{{2}}",
+          "label": "Reference / Code / Login ID"
+        },
+        {
+          "key": "{{3}}",
+          "label": "Amount / Password / Detail"
+        },
+        {
+          "key": "{{4}}",
+          "label": "Date / Extra"
+        },
+        {
+          "key": "{{firm_name}}",
+          "label": "Firm Name"
+        }
+      ]
+    },
+    {
+      "key": "finance_collection_receipt",
+      "name": "finance_collection_receipt",
+      "channel": "whatsapp",
+      "module": "finance",
+      "category": "Transactional",
+      "language": "English (US)",
+      "subject": "",
+      "body": "Hello {{1}}, collection receipt for finance {{2}} at {{firm_name}}.\nCollected: {{3}}\nDate: {{4}}",
+      "has_attachment": true,
+      "attachment_hint": "collection_receipt",
+      "status": "Active",
+      "variables": [
+        {
+          "key": "{{1}}",
+          "label": "Person Name"
+        },
+        {
+          "key": "{{2}}",
+          "label": "Reference / Code / Login ID"
+        },
+        {
+          "key": "{{3}}",
+          "label": "Amount / Password / Detail"
+        },
+        {
+          "key": "{{4}}",
+          "label": "Date / Extra"
+        },
+        {
+          "key": "{{firm_name}}",
+          "label": "Firm Name"
+        }
+      ]
+    },
+    {
+      "key": "finance_closed",
+      "name": "finance_closed",
+      "channel": "whatsapp",
+      "module": "finance",
+      "category": "Transactional",
+      "language": "English (US)",
+      "subject": "",
+      "body": "Hello {{1}}, finance {{2}} is closed at {{firm_name}}.\nFinal settlement: {{3}}\nDate: {{4}}\nThank you!",
+      "has_attachment": true,
+      "attachment_hint": "finance_closure",
+      "status": "Active",
+      "variables": [
+        {
+          "key": "{{1}}",
+          "label": "Person Name"
+        },
+        {
+          "key": "{{2}}",
+          "label": "Reference / Code / Login ID"
+        },
+        {
+          "key": "{{3}}",
+          "label": "Amount / Password / Detail"
+        },
+        {
+          "key": "{{4}}",
+          "label": "Date / Extra"
+        },
+        {
+          "key": "{{firm_name}}",
+          "label": "Firm Name"
+        }
+      ]
+    }
+  ]
+}

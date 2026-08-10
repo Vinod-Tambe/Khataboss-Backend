@@ -1,0 +1,813 @@
+{
+  "channel": "sms",
+  "version": 1,
+  "description": "sms templates for owner, staff, customer, loan, finance",
+  "modules": [
+    "owner",
+    "staff",
+    "customer",
+    "loan",
+    "finance"
+  ],
+  "templates": [
+    {
+      "key": "owner_otp_login",
+      "name": "owner_otp_login",
+      "channel": "sms",
+      "module": "owner",
+      "category": "OTP",
+      "language": "English (US)",
+      "subject": "",
+      "body": "OTP {{2}} for owner login {{1}}. Do not share. - {{firm_name}}",
+      "has_attachment": false,
+      "attachment_hint": null,
+      "status": "Active",
+      "variables": [
+        {
+          "key": "{{1}}",
+          "label": "Person Name"
+        },
+        {
+          "key": "{{2}}",
+          "label": "Reference / Code / Login ID"
+        },
+        {
+          "key": "{{firm_name}}",
+          "label": "Firm Name"
+        }
+      ]
+    },
+    {
+      "key": "owner_password_updated",
+      "name": "owner_password_updated",
+      "channel": "sms",
+      "module": "owner",
+      "category": "Transactional",
+      "language": "English (US)",
+      "subject": "",
+      "body": "Owner password updated for {{1}} at {{firm_name}} on {{4}}.",
+      "has_attachment": false,
+      "attachment_hint": null,
+      "status": "Active",
+      "variables": [
+        {
+          "key": "{{1}}",
+          "label": "Person Name"
+        },
+        {
+          "key": "{{4}}",
+          "label": "Date / Extra"
+        },
+        {
+          "key": "{{firm_name}}",
+          "label": "Firm Name"
+        }
+      ]
+    },
+    {
+      "key": "owner_password_reset",
+      "name": "owner_password_reset",
+      "channel": "sms",
+      "module": "owner",
+      "category": "Transactional",
+      "language": "English (US)",
+      "subject": "",
+      "body": "Temp owner password for {{1}}: {{3}}. Change after login. - {{firm_name}}",
+      "has_attachment": false,
+      "attachment_hint": null,
+      "status": "Active",
+      "variables": [
+        {
+          "key": "{{1}}",
+          "label": "Person Name"
+        },
+        {
+          "key": "{{3}}",
+          "label": "Amount / Password / Detail"
+        },
+        {
+          "key": "{{firm_name}}",
+          "label": "Firm Name"
+        }
+      ]
+    },
+    {
+      "key": "staff_created",
+      "name": "staff_created",
+      "channel": "sms",
+      "module": "staff",
+      "category": "Transactional",
+      "language": "English (US)",
+      "subject": "",
+      "body": "Staff account created at {{firm_name}}. Login: {{2}} Pass: {{3}} - {{1}}",
+      "has_attachment": false,
+      "attachment_hint": null,
+      "status": "Active",
+      "variables": [
+        {
+          "key": "{{1}}",
+          "label": "Person Name"
+        },
+        {
+          "key": "{{2}}",
+          "label": "Reference / Code / Login ID"
+        },
+        {
+          "key": "{{3}}",
+          "label": "Amount / Password / Detail"
+        },
+        {
+          "key": "{{firm_name}}",
+          "label": "Firm Name"
+        }
+      ]
+    },
+    {
+      "key": "staff_updated",
+      "name": "staff_updated",
+      "channel": "sms",
+      "module": "staff",
+      "category": "Transactional",
+      "language": "English (US)",
+      "subject": "",
+      "body": "Staff profile updated for {{1}} at {{firm_name}} on {{4}}.",
+      "has_attachment": false,
+      "attachment_hint": null,
+      "status": "Active",
+      "variables": [
+        {
+          "key": "{{1}}",
+          "label": "Person Name"
+        },
+        {
+          "key": "{{4}}",
+          "label": "Date / Extra"
+        },
+        {
+          "key": "{{firm_name}}",
+          "label": "Firm Name"
+        }
+      ]
+    },
+    {
+      "key": "staff_password_updated",
+      "name": "staff_password_updated",
+      "channel": "sms",
+      "module": "staff",
+      "category": "Transactional",
+      "language": "English (US)",
+      "subject": "",
+      "body": "Staff password updated for {{1}} at {{firm_name}} on {{4}}.",
+      "has_attachment": false,
+      "attachment_hint": null,
+      "status": "Active",
+      "variables": [
+        {
+          "key": "{{1}}",
+          "label": "Person Name"
+        },
+        {
+          "key": "{{4}}",
+          "label": "Date / Extra"
+        },
+        {
+          "key": "{{firm_name}}",
+          "label": "Firm Name"
+        }
+      ]
+    },
+    {
+      "key": "staff_password_reset",
+      "name": "staff_password_reset",
+      "channel": "sms",
+      "module": "staff",
+      "category": "Transactional",
+      "language": "English (US)",
+      "subject": "",
+      "body": "Temp staff pass {{3}} for {{2}} at {{firm_name}}. Change after login.",
+      "has_attachment": false,
+      "attachment_hint": null,
+      "status": "Active",
+      "variables": [
+        {
+          "key": "{{1}}",
+          "label": "Person Name"
+        },
+        {
+          "key": "{{2}}",
+          "label": "Reference / Code / Login ID"
+        },
+        {
+          "key": "{{3}}",
+          "label": "Amount / Password / Detail"
+        },
+        {
+          "key": "{{firm_name}}",
+          "label": "Firm Name"
+        }
+      ]
+    },
+    {
+      "key": "staff_otp_login",
+      "name": "staff_otp_login",
+      "channel": "sms",
+      "module": "staff",
+      "category": "OTP",
+      "language": "English (US)",
+      "subject": "",
+      "body": "Staff OTP {{2}} for {{1}}. Do not share. - {{firm_name}}",
+      "has_attachment": false,
+      "attachment_hint": null,
+      "status": "Active",
+      "variables": [
+        {
+          "key": "{{1}}",
+          "label": "Person Name"
+        },
+        {
+          "key": "{{2}}",
+          "label": "Reference / Code / Login ID"
+        },
+        {
+          "key": "{{firm_name}}",
+          "label": "Firm Name"
+        }
+      ]
+    },
+    {
+      "key": "customer_created",
+      "name": "customer_created",
+      "channel": "sms",
+      "module": "customer",
+      "category": "Marketing",
+      "language": "English (US)",
+      "subject": "",
+      "body": "Welcome {{1}} to {{firm_name}}. Customer ID: {{2}}",
+      "has_attachment": false,
+      "attachment_hint": null,
+      "status": "Active",
+      "variables": [
+        {
+          "key": "{{1}}",
+          "label": "Person Name"
+        },
+        {
+          "key": "{{2}}",
+          "label": "Reference / Code / Login ID"
+        },
+        {
+          "key": "{{firm_name}}",
+          "label": "Firm Name"
+        }
+      ]
+    },
+    {
+      "key": "customer_updated",
+      "name": "customer_updated",
+      "channel": "sms",
+      "module": "customer",
+      "category": "Transactional",
+      "language": "English (US)",
+      "subject": "",
+      "body": "Customer details updated for {{1}} ({{2}}) at {{firm_name}} on {{4}}.",
+      "has_attachment": false,
+      "attachment_hint": null,
+      "status": "Active",
+      "variables": [
+        {
+          "key": "{{1}}",
+          "label": "Person Name"
+        },
+        {
+          "key": "{{2}}",
+          "label": "Reference / Code / Login ID"
+        },
+        {
+          "key": "{{4}}",
+          "label": "Date / Extra"
+        },
+        {
+          "key": "{{firm_name}}",
+          "label": "Firm Name"
+        }
+      ]
+    },
+    {
+      "key": "customer_welcome",
+      "name": "customer_welcome",
+      "channel": "sms",
+      "module": "customer",
+      "category": "Customer Care",
+      "language": "English (US)",
+      "subject": "",
+      "body": "Thanks {{1}} for choosing {{firm_name}}. Ref: {{2}}",
+      "has_attachment": false,
+      "attachment_hint": null,
+      "status": "Active",
+      "variables": [
+        {
+          "key": "{{1}}",
+          "label": "Person Name"
+        },
+        {
+          "key": "{{2}}",
+          "label": "Reference / Code / Login ID"
+        },
+        {
+          "key": "{{firm_name}}",
+          "label": "Firm Name"
+        }
+      ]
+    },
+    {
+      "key": "loan_created",
+      "name": "loan_created",
+      "channel": "sms",
+      "module": "loan",
+      "category": "Transactional",
+      "language": "English (US)",
+      "subject": "",
+      "body": "Loan created {{2}} for {{1}}. Amt {{3}} at {{firm_name}} on {{4}}.",
+      "has_attachment": false,
+      "attachment_hint": null,
+      "status": "Active",
+      "variables": [
+        {
+          "key": "{{1}}",
+          "label": "Person Name"
+        },
+        {
+          "key": "{{2}}",
+          "label": "Reference / Code / Login ID"
+        },
+        {
+          "key": "{{3}}",
+          "label": "Amount / Password / Detail"
+        },
+        {
+          "key": "{{4}}",
+          "label": "Date / Extra"
+        },
+        {
+          "key": "{{firm_name}}",
+          "label": "Firm Name"
+        }
+      ]
+    },
+    {
+      "key": "loan_updated",
+      "name": "loan_updated",
+      "channel": "sms",
+      "module": "loan",
+      "category": "Transactional",
+      "language": "English (US)",
+      "subject": "",
+      "body": "Loan {{2}} updated for {{1}}. Amt {{3}} - {{firm_name}}",
+      "has_attachment": false,
+      "attachment_hint": null,
+      "status": "Active",
+      "variables": [
+        {
+          "key": "{{1}}",
+          "label": "Person Name"
+        },
+        {
+          "key": "{{2}}",
+          "label": "Reference / Code / Login ID"
+        },
+        {
+          "key": "{{3}}",
+          "label": "Amount / Password / Detail"
+        },
+        {
+          "key": "{{4}}",
+          "label": "Date / Extra"
+        },
+        {
+          "key": "{{firm_name}}",
+          "label": "Firm Name"
+        }
+      ]
+    },
+    {
+      "key": "loan_deposit",
+      "name": "loan_deposit",
+      "channel": "sms",
+      "module": "loan",
+      "category": "Transactional",
+      "language": "English (US)",
+      "subject": "",
+      "body": "Deposit {{3}} for loan {{2}} received. {{1}} - {{firm_name}}",
+      "has_attachment": false,
+      "attachment_hint": null,
+      "status": "Active",
+      "variables": [
+        {
+          "key": "{{1}}",
+          "label": "Person Name"
+        },
+        {
+          "key": "{{2}}",
+          "label": "Reference / Code / Login ID"
+        },
+        {
+          "key": "{{3}}",
+          "label": "Amount / Password / Detail"
+        },
+        {
+          "key": "{{4}}",
+          "label": "Date / Extra"
+        },
+        {
+          "key": "{{firm_name}}",
+          "label": "Firm Name"
+        }
+      ]
+    },
+    {
+      "key": "loan_add_principal",
+      "name": "loan_add_principal",
+      "channel": "sms",
+      "module": "loan",
+      "category": "Transactional",
+      "language": "English (US)",
+      "subject": "",
+      "body": "Add principal {{3}} on loan {{2}} for {{1}} - {{firm_name}}",
+      "has_attachment": false,
+      "attachment_hint": null,
+      "status": "Active",
+      "variables": [
+        {
+          "key": "{{1}}",
+          "label": "Person Name"
+        },
+        {
+          "key": "{{2}}",
+          "label": "Reference / Code / Login ID"
+        },
+        {
+          "key": "{{3}}",
+          "label": "Amount / Password / Detail"
+        },
+        {
+          "key": "{{4}}",
+          "label": "Date / Extra"
+        },
+        {
+          "key": "{{firm_name}}",
+          "label": "Firm Name"
+        }
+      ]
+    },
+    {
+      "key": "loan_release",
+      "name": "loan_release",
+      "channel": "sms",
+      "module": "loan",
+      "category": "Transactional",
+      "language": "English (US)",
+      "subject": "",
+      "body": "Loan {{2}} released for {{1}}. Final {{3}} - {{firm_name}}",
+      "has_attachment": false,
+      "attachment_hint": null,
+      "status": "Active",
+      "variables": [
+        {
+          "key": "{{1}}",
+          "label": "Person Name"
+        },
+        {
+          "key": "{{2}}",
+          "label": "Reference / Code / Login ID"
+        },
+        {
+          "key": "{{3}}",
+          "label": "Amount / Password / Detail"
+        },
+        {
+          "key": "{{4}}",
+          "label": "Date / Extra"
+        },
+        {
+          "key": "{{firm_name}}",
+          "label": "Firm Name"
+        }
+      ]
+    },
+    {
+      "key": "loan_transfer",
+      "name": "loan_transfer",
+      "channel": "sms",
+      "module": "loan",
+      "category": "Transactional",
+      "language": "English (US)",
+      "subject": "",
+      "body": "Loan {{2}} transferred for {{1}}. Amt {{3}} - {{firm_name}}",
+      "has_attachment": false,
+      "attachment_hint": null,
+      "status": "Active",
+      "variables": [
+        {
+          "key": "{{1}}",
+          "label": "Person Name"
+        },
+        {
+          "key": "{{2}}",
+          "label": "Reference / Code / Login ID"
+        },
+        {
+          "key": "{{3}}",
+          "label": "Amount / Password / Detail"
+        },
+        {
+          "key": "{{4}}",
+          "label": "Date / Extra"
+        },
+        {
+          "key": "{{firm_name}}",
+          "label": "Firm Name"
+        }
+      ]
+    },
+    {
+      "key": "loan_due_reminder",
+      "name": "loan_due_reminder",
+      "channel": "sms",
+      "module": "loan",
+      "category": "Customer Care",
+      "language": "English (US)",
+      "subject": "",
+      "body": "Reminder: loan {{2}} due {{3}} for {{1}} by {{4}} - {{firm_name}}",
+      "has_attachment": false,
+      "attachment_hint": null,
+      "status": "Active",
+      "variables": [
+        {
+          "key": "{{1}}",
+          "label": "Person Name"
+        },
+        {
+          "key": "{{2}}",
+          "label": "Reference / Code / Login ID"
+        },
+        {
+          "key": "{{3}}",
+          "label": "Amount / Password / Detail"
+        },
+        {
+          "key": "{{4}}",
+          "label": "Date / Extra"
+        },
+        {
+          "key": "{{firm_name}}",
+          "label": "Firm Name"
+        }
+      ]
+    },
+    {
+      "key": "loan_notice",
+      "name": "loan_notice",
+      "channel": "sms",
+      "module": "loan",
+      "category": "Customer Care",
+      "language": "English (US)",
+      "subject": "",
+      "body": "Notice: loan {{2}} outstanding {{3}} for {{1}} - {{firm_name}}",
+      "has_attachment": false,
+      "attachment_hint": null,
+      "status": "Active",
+      "variables": [
+        {
+          "key": "{{1}}",
+          "label": "Person Name"
+        },
+        {
+          "key": "{{2}}",
+          "label": "Reference / Code / Login ID"
+        },
+        {
+          "key": "{{3}}",
+          "label": "Amount / Password / Detail"
+        },
+        {
+          "key": "{{4}}",
+          "label": "Date / Extra"
+        },
+        {
+          "key": "{{firm_name}}",
+          "label": "Firm Name"
+        }
+      ]
+    },
+    {
+      "key": "loan_auction",
+      "name": "loan_auction",
+      "channel": "sms",
+      "module": "loan",
+      "category": "Transactional",
+      "language": "English (US)",
+      "subject": "",
+      "body": "Loan {{2}} auction process for {{1}}. Amt {{3}} - {{firm_name}}",
+      "has_attachment": false,
+      "attachment_hint": null,
+      "status": "Active",
+      "variables": [
+        {
+          "key": "{{1}}",
+          "label": "Person Name"
+        },
+        {
+          "key": "{{2}}",
+          "label": "Reference / Code / Login ID"
+        },
+        {
+          "key": "{{3}}",
+          "label": "Amount / Password / Detail"
+        },
+        {
+          "key": "{{4}}",
+          "label": "Date / Extra"
+        },
+        {
+          "key": "{{firm_name}}",
+          "label": "Firm Name"
+        }
+      ]
+    },
+    {
+      "key": "finance_created",
+      "name": "finance_created",
+      "channel": "sms",
+      "module": "finance",
+      "category": "Transactional",
+      "language": "English (US)",
+      "subject": "",
+      "body": "Finance {{2}} created for {{1}}. Amt {{3}} - {{firm_name}}",
+      "has_attachment": false,
+      "attachment_hint": null,
+      "status": "Active",
+      "variables": [
+        {
+          "key": "{{1}}",
+          "label": "Person Name"
+        },
+        {
+          "key": "{{2}}",
+          "label": "Reference / Code / Login ID"
+        },
+        {
+          "key": "{{3}}",
+          "label": "Amount / Password / Detail"
+        },
+        {
+          "key": "{{4}}",
+          "label": "Date / Extra"
+        },
+        {
+          "key": "{{firm_name}}",
+          "label": "Firm Name"
+        }
+      ]
+    },
+    {
+      "key": "finance_emi_reminder",
+      "name": "finance_emi_reminder",
+      "channel": "sms",
+      "module": "finance",
+      "category": "Transactional",
+      "language": "English (US)",
+      "subject": "",
+      "body": "EMI due {{3}} for finance {{2}} by {{4}}. {{1}} - {{firm_name}}",
+      "has_attachment": false,
+      "attachment_hint": null,
+      "status": "Active",
+      "variables": [
+        {
+          "key": "{{1}}",
+          "label": "Person Name"
+        },
+        {
+          "key": "{{2}}",
+          "label": "Reference / Code / Login ID"
+        },
+        {
+          "key": "{{3}}",
+          "label": "Amount / Password / Detail"
+        },
+        {
+          "key": "{{4}}",
+          "label": "Date / Extra"
+        },
+        {
+          "key": "{{firm_name}}",
+          "label": "Firm Name"
+        }
+      ]
+    },
+    {
+      "key": "finance_payment_received",
+      "name": "finance_payment_received",
+      "channel": "sms",
+      "module": "finance",
+      "category": "Transactional",
+      "language": "English (US)",
+      "subject": "",
+      "body": "Payment {{3}} received for finance {{2}}. {{1}} - {{firm_name}}",
+      "has_attachment": false,
+      "attachment_hint": null,
+      "status": "Active",
+      "variables": [
+        {
+          "key": "{{1}}",
+          "label": "Person Name"
+        },
+        {
+          "key": "{{2}}",
+          "label": "Reference / Code / Login ID"
+        },
+        {
+          "key": "{{3}}",
+          "label": "Amount / Password / Detail"
+        },
+        {
+          "key": "{{4}}",
+          "label": "Date / Extra"
+        },
+        {
+          "key": "{{firm_name}}",
+          "label": "Firm Name"
+        }
+      ]
+    },
+    {
+      "key": "finance_collection_receipt",
+      "name": "finance_collection_receipt",
+      "channel": "sms",
+      "module": "finance",
+      "category": "Transactional",
+      "language": "English (US)",
+      "subject": "",
+      "body": "Collection {{3}} for finance {{2}} on {{4}}. {{1}} - {{firm_name}}",
+      "has_attachment": false,
+      "attachment_hint": null,
+      "status": "Active",
+      "variables": [
+        {
+          "key": "{{1}}",
+          "label": "Person Name"
+        },
+        {
+          "key": "{{2}}",
+          "label": "Reference / Code / Login ID"
+        },
+        {
+          "key": "{{3}}",
+          "label": "Amount / Password / Detail"
+        },
+        {
+          "key": "{{4}}",
+          "label": "Date / Extra"
+        },
+        {
+          "key": "{{firm_name}}",
+          "label": "Firm Name"
+        }
+      ]
+    },
+    {
+      "key": "finance_closed",
+      "name": "finance_closed",
+      "channel": "sms",
+      "module": "finance",
+      "category": "Transactional",
+      "language": "English (US)",
+      "subject": "",
+      "body": "Finance {{2}} closed for {{1}}. Final {{3}} - {{firm_name}}",
+      "has_attachment": false,
+      "attachment_hint": null,
+      "status": "Active",
+      "variables": [
+        {
+          "key": "{{1}}",
+          "label": "Person Name"
+        },
+        {
+          "key": "{{2}}",
+          "label": "Reference / Code / Login ID"
+        },
+        {
+          "key": "{{3}}",
+          "label": "Amount / Password / Detail"
+        },
+        {
+          "key": "{{4}}",
+          "label": "Date / Extra"
+        },
+        {
+          "key": "{{firm_name}}",
+          "label": "Firm Name"
+        }
+      ]
+    }
+  ]
+}

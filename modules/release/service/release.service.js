@@ -2,6 +2,7 @@
 
 const { PrismaClient } = require("../../../prisma/generated/main");
 const journalService = require("../../journal/service/journal.service");
+const messageDispatchService = require("../../../common/service/message-dispatch.service");
 
 class ReleaseService {
   getPrisma(dbUrl) {
@@ -47,11 +48,11 @@ class ReleaseService {
       const rel_online_acc_id = await this.resolveAccount(prisma, firmId, data.rel_online_acc_id, ["Online Account", "Online"]);
       const rel_card_acc_id = await this.resolveAccount(prisma, firmId, data.rel_card_acc_id, ["Card Account", "Card", "POS"]);
 
-      // Resolve special accounts
-      const rel_prin_acc_id = await this.resolveAccount(prisma, firmId, data.rel_prin_acc_id, ["Principal Account", "Secured Loans", "Unsecured Loans", "Girvi Account"]);
-      const rel_int_acc_id = await this.resolveAccount(prisma, firmId, data.rel_int_acc_id, ["Interest Account", "Interest Income"]);
-      const rel_disc_acc_id = await this.resolveAccount(prisma, firmId, data.rel_disc_acc_id, ["Discount Account", "Discount Expenses"]);
-      const rel_extra_acc_id = await this.resolveAccount(prisma, firmId, data.rel_extra_acc_id, ["Extra Income", "Other Income"]);
+      // Resolve special accounts (Interest Rec = default COA income account)
+      const rel_prin_acc_id = await this.resolveAccount(prisma, firmId, data.rel_prin_acc_id, ["Principal Account", "Secured Loans", "Unsecured Loans", "Girvi Account", "Loans & Advances"]);
+      const rel_int_acc_id = await this.resolveAccount(prisma, firmId, data.rel_int_acc_id, ["Interest Rec", "Interest Account", "Interest Income", "Indirect Incomes"]);
+      const rel_disc_acc_id = await this.resolveAccount(prisma, firmId, data.rel_disc_acc_id, ["Discount Account", "Discount Expenses", "Indirect Expenses", "Expenses (Indirect)"]);
+      const rel_extra_acc_id = await this.resolveAccount(prisma, firmId, data.rel_extra_acc_id, ["Extra Income", "Other Income", "Interest Rec", "Indirect Incomes"]);
 
       const result = await prisma.$transaction(async (tx) => {
         // 1. Fetch the parent Girvi/Loan record
@@ -154,16 +155,78 @@ class ReleaseService {
           { jrtr_crdr: "CR", jrtr_date: relRec.rel_trans_date, jrtr_cr_acc_id: result.girvi.girv_dr_acc_id || relRec.rel_prin_acc_id, jrtr_cr_amt: relRec.rel_prin_amt, jrtr_acc_info: `Principal Received (Release) : Loan No - ${relRec.rel_girv_id}` },
           { jrtr_crdr: "CR", jrtr_date: relRec.rel_trans_date, jrtr_cr_acc_id: relRec.rel_int_acc_id, jrtr_cr_amt: relRec.rel_int_amt, jrtr_acc_info: `Interest Received (Release) : Loan No - ${relRec.rel_girv_id}` },
           { jrtr_crdr: "CR", jrtr_date: relRec.rel_trans_date, jrtr_cr_acc_id: relRec.rel_extra_acc_id, jrtr_cr_amt: relRec.rel_extra_amt, jrtr_acc_info: `Extra Income (Release) : Loan No - ${relRec.rel_girv_id}` },
-        ].filter(t => (t.jrtr_cr_amt > 0 || t.jrtr_dr_amt > 0)) // Only keep rows with > 0 amounts
+        ].filter(
+          (t) =>
+            (t.jrtr_cr_amt && parseFloat(t.jrtr_cr_amt) > 0) ||
+            (t.jrtr_dr_amt && parseFloat(t.jrtr_dr_amt) > 0)
+        ),
       };
 
-      if (journal_request.joural_trans_data.length > 0) {
+      const rollbackRelease = async () => {
+        const prinRec = parseFloat(relRec.rel_prin_amt) || 0;
+        await prisma.girviRelease.delete({ where: { rel_id: relRec.rel_id } });
+        await prisma.girvi.update({
+          where: { girv_id: relRec.rel_girv_id },
+          data: {
+            girv_status: "ACTIVE",
+            ...(prinRec > 0
+              ? {
+                  girv_prin_amt: { increment: prinRec },
+                  girv_final_amt: { increment: prinRec },
+                }
+              : {}),
+          },
+        });
+      };
+
+      if (!journal_request.joural_trans_data.length) {
         try {
-          await journalService.addJournal(dbUrl, reqUser, journal_request);
-        } catch (jErr) {
-          console.error("Failed to insert release journal, but release was created:", jErr);
+          await rollbackRelease();
+        } catch (cleanupErr) {
+          console.error(
+            "❌ Failed to rollback release after empty journal:",
+            cleanupErr.message
+          );
         }
+        throw new Error(
+          "Release account entry has no valid journal lines. Check release amounts and accounts."
+        );
       }
+
+      try {
+        await journalService.create_journal_entry(dbUrl, journal_request);
+      } catch (jErr) {
+        console.error("Failed to insert release journal:", jErr);
+        try {
+          await rollbackRelease();
+        } catch (cleanupErr) {
+          console.error("❌ Failed to rollback release after journal error:", cleanupErr.message);
+        }
+        throw new Error(
+          `Release account entry failed and was rolled back: ${jErr.message}`
+        );
+      }
+
+      const user =
+        relRec.rel_user_id > 0
+          ? await prisma.user.findUnique({ where: { user_id: relRec.rel_user_id } })
+          : null;
+      messageDispatchService.dispatchSafe({
+        dbUrl,
+        ownDb: messageDispatchService.ownDbFromUrl(dbUrl),
+        firmId: relRec.rel_firm_id,
+        templateKey: "loan_release",
+        toPhone: user?.user_mobile_no,
+        toEmail: user?.user_email_id,
+        vars: {
+          1: user
+            ? `${user.user_first_name || ""} ${user.user_last_name || ""}`.trim()
+            : "",
+          2: String(relRec.rel_girv_id),
+          3: String(relRec.rel_payable_amt),
+          4: relRec.rel_trans_date,
+        },
+      });
 
       return result;
     } catch (error) {

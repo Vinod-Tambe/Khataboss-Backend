@@ -5,6 +5,8 @@ const imageService = require("../../../utils/image.service");
 const { BASE_URL } = require("../../../config/db");
 const { validateStrongPassword } = require("../../../common/service/password.validation");
 const { permissionMatrixToKeys } = require("../../../prisma/seeder/permission-seeder");
+const messageDispatchService = require("../../../common/service/message-dispatch.service");
+const { getTenantPrisma } = require("../../../utils/tenantPrisma");
 
 class StaffController {
   getDbUrl(dbName) {
@@ -127,7 +129,31 @@ class StaffController {
       }
 
       const permissionKeys = this.parsePermissionInput(req.body);
+      const plainPassword = staffData.staff_password;
       const created = await staffService.createStaff(dbUrl, staffData, permissionKeys);
+
+      const prisma = getTenantPrisma(dbUrl);
+      const firm = await prisma.firm.findFirst({
+        where: { firm_own_id: req.user.own_id, firm_is_deleted: false },
+        orderBy: { firm_id: "asc" },
+        select: { firm_id: true },
+      });
+      if (firm) {
+        const fullLogin = `${req.user.own_login_id}+${created.staff_login_id}`;
+        messageDispatchService.dispatchSafe({
+          dbUrl,
+          ownDb: req.user.own_db,
+          firmId: firm.firm_id,
+          templateKey: "staff_created",
+          toPhone: created.staff_mobile_no,
+          toEmail: created.staff_email_id,
+          vars: {
+            1: `${created.staff_first_name} ${created.staff_last_name}`.trim(),
+            2: fullLogin,
+            3: plainPassword,
+          },
+        });
+      }
 
       if (req.files && Object.keys(req.files).length > 0) {
         const movedFiles = await imageService.moveFiles("staff", created.staff_id, req.files);

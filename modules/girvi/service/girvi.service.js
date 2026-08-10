@@ -3,6 +3,8 @@
 const { PrismaClient } = require("../../../prisma/generated/main");
 const journalService = require("../../journal/service/journal.service");
 const serialNumberService = require("../../../common/service/serialNumber.service");
+const { calculateFirstMonthInterest } = require("../../../utils/loanInterest");
+const messageDispatchService = require("../../../common/service/message-dispatch.service");
 
 class GirviService {
   getPrisma(dbUrl) {
@@ -58,6 +60,14 @@ class GirviService {
       girviData.girv_online_acc_id = await this.resolveAccount(prisma, firmId, girviData.girv_online_acc_id, ["Online Account", "Online"]);
       girviData.girv_card_acc_id = await this.resolveAccount(prisma, firmId, girviData.girv_card_acc_id, ["Card Account", "Card", "POS"]);
 
+      // Fee income account (process/charge) — prefer Interest Rec
+      const feeIncomeAccId = await this.resolveAccount(prisma, firmId, null, [
+        "Interest Rec",
+        "Indirect Incomes",
+        "Direct Incomes",
+        "Income (Direct)",
+      ]);
+
       // 2. Create Girvi and Stock within transaction
       const newGirvi = await prisma.$transaction(async (tx) => {
         if (!girviData.girv_unique_code) {
@@ -100,35 +110,228 @@ class GirviService {
         return createdGirvi;
       });
 
-      // 3. Create Journal Entry
-      const journal_request = {
-        journal_date: {
-          jrnl_date: newGirvi.girv_start_date,
-          jrnl_firm_id: newGirvi.girv_firm_id,
-          jrnl_own_id: newGirvi.girv_own_id,
-          jrnl_user_id: newGirvi.girv_user_id,
-          jrnl_amt: newGirvi.girv_prin_amt,
-          jrnl_panel: "Girvi",
-          jrnl_other_info: `Add New Girvi | Girvi No - ${newGirvi.girv_id}`,
-        },
-        joural_trans_data: [
-          { jrtr_crdr: "CR", jrtr_date: newGirvi.girv_start_date, jrtr_cr_acc_id: newGirvi.girv_cash_acc_id, jrtr_cr_amt: newGirvi.girv_cash_amt, jrtr_acc_info: newGirvi.girv_cash_info },
-          { jrtr_crdr: "CR", jrtr_date: newGirvi.girv_start_date, jrtr_cr_acc_id: newGirvi.girv_bank_acc_id, jrtr_cr_amt: newGirvi.girv_bank_amt, jrtr_acc_info: newGirvi.girv_bank_info },
-          { jrtr_crdr: "CR", jrtr_date: newGirvi.girv_start_date, jrtr_cr_acc_id: newGirvi.girv_online_acc_id, jrtr_cr_amt: newGirvi.girv_online_amt, jrtr_acc_info: newGirvi.girv_online_info },
-          { jrtr_crdr: "CR", jrtr_date: newGirvi.girv_start_date, jrtr_cr_acc_id: newGirvi.girv_card_acc_id, jrtr_cr_amt: newGirvi.girv_card_amt, jrtr_acc_info: newGirvi.girv_card_info },
-          { jrtr_crdr: "DR", jrtr_date: newGirvi.girv_start_date, jrtr_dr_acc_id: newGirvi.girv_dr_acc_id, jrtr_dr_amt: newGirvi.girv_prin_amt, jrtr_acc_info: `Add New Girvi : Girvi No - ${newGirvi.girv_id}` }
-        ].filter(t => (t.jrtr_cr_amt && parseFloat(t.jrtr_cr_amt) > 0) || (t.jrtr_dr_amt && parseFloat(t.jrtr_dr_amt) > 0)),
-      };
-
+      // 3. Create Journal Entry (prin = payments + process + charge)
       try {
-        await journalService.create_journal_entry(dbUrl, journal_request);
+        await this.postAddLoanJournal(dbUrl, newGirvi, feeIncomeAccId);
+        await this.postFirstMonthInterestJournal(dbUrl, newGirvi);
       } catch (journalErr) {
-        console.error("❌ Failed to create journal entry for girvi:", journalErr.message);
+        // Compensate: remove journals + orphan loan if ledger post failed
+        try {
+          await this.deleteGirviJournalsByInfo(
+            dbUrl,
+            `Add New Girvi | Girvi No - ${newGirvi.girv_id}`
+          );
+          await this.deleteGirviJournalsByInfo(
+            dbUrl,
+            `First Month Interest | Girvi No - ${newGirvi.girv_id}`
+          );
+          await prisma.stock.deleteMany({
+            where: {
+              st_referance_panel: "girvi",
+              st_referance_id: newGirvi.girv_id,
+            },
+          });
+          await prisma.girvi.delete({ where: { girv_id: newGirvi.girv_id } });
+        } catch (cleanupErr) {
+          console.error("❌ Failed to rollback girvi after journal error:", cleanupErr.message);
+        }
+        throw journalErr;
       }
+
+      const user =
+        newGirvi.girv_user_id > 0
+          ? await prisma.user.findUnique({ where: { user_id: newGirvi.girv_user_id } })
+          : null;
+      messageDispatchService.dispatchSafe({
+        dbUrl,
+        ownDb: messageDispatchService.ownDbFromUrl(dbUrl),
+        firmId: newGirvi.girv_firm_id,
+        templateKey: "loan_created",
+        toPhone: user?.user_mobile_no,
+        toEmail: user?.user_email_id,
+        vars: {
+          1: user
+            ? `${user.user_first_name || ""} ${user.user_last_name || ""}`.trim()
+            : "",
+          2: newGirvi.girv_loan_no || String(newGirvi.girv_id),
+          3: String(newGirvi.girv_prin_amt),
+          4: newGirvi.girv_start_date,
+        },
+      });
 
       return newGirvi;
     } finally {
       await prisma.$disconnect();
+    }
+  }
+
+  /**
+   * Principal disbursement journal.
+   * DR Loan = principal; CR Cash/Bank = payments; CR Fee Income = process + charge.
+   */
+  async postAddLoanJournal(dbUrl, girvi, feeIncomeAccId = null) {
+    if (!girvi) return;
+    const processAmt = parseFloat(girvi.girv_process_amt) || 0;
+    const chargeAmt = parseFloat(girvi.girv_charge_amt) || 0;
+
+    const journal_request = {
+      journal_date: {
+        jrnl_date: girvi.girv_start_date,
+        jrnl_firm_id: girvi.girv_firm_id,
+        jrnl_own_id: girvi.girv_own_id,
+        jrnl_user_id: girvi.girv_user_id,
+        jrnl_amt: girvi.girv_prin_amt,
+        jrnl_panel: "Girvi",
+        jrnl_other_info: `Add New Girvi | Girvi No - ${girvi.girv_id}`,
+      },
+      joural_trans_data: [
+        {
+          jrtr_crdr: "CR",
+          jrtr_date: girvi.girv_start_date,
+          jrtr_cr_acc_id: girvi.girv_cash_acc_id,
+          jrtr_cr_amt: girvi.girv_cash_amt,
+          jrtr_acc_info: girvi.girv_cash_info,
+        },
+        {
+          jrtr_crdr: "CR",
+          jrtr_date: girvi.girv_start_date,
+          jrtr_cr_acc_id: girvi.girv_bank_acc_id,
+          jrtr_cr_amt: girvi.girv_bank_amt,
+          jrtr_acc_info: girvi.girv_bank_info,
+        },
+        {
+          jrtr_crdr: "CR",
+          jrtr_date: girvi.girv_start_date,
+          jrtr_cr_acc_id: girvi.girv_online_acc_id,
+          jrtr_cr_amt: girvi.girv_online_amt,
+          jrtr_acc_info: girvi.girv_online_info,
+        },
+        {
+          jrtr_crdr: "CR",
+          jrtr_date: girvi.girv_start_date,
+          jrtr_cr_acc_id: girvi.girv_card_acc_id,
+          jrtr_cr_amt: girvi.girv_card_amt,
+          jrtr_acc_info: girvi.girv_card_info,
+        },
+        {
+          jrtr_crdr: "CR",
+          jrtr_date: girvi.girv_start_date,
+          jrtr_cr_acc_id: feeIncomeAccId,
+          jrtr_cr_amt: processAmt,
+          jrtr_acc_info: `Process Charge : Girvi No - ${girvi.girv_id}`,
+        },
+        {
+          jrtr_crdr: "CR",
+          jrtr_date: girvi.girv_start_date,
+          jrtr_cr_acc_id: feeIncomeAccId,
+          jrtr_cr_amt: chargeAmt,
+          jrtr_acc_info: `Other Charge : Girvi No - ${girvi.girv_id}`,
+        },
+        {
+          jrtr_crdr: "DR",
+          jrtr_date: girvi.girv_start_date,
+          jrtr_dr_acc_id: girvi.girv_dr_acc_id,
+          jrtr_dr_amt: girvi.girv_prin_amt,
+          jrtr_acc_info: `Add New Girvi : Girvi No - ${girvi.girv_id}`,
+        },
+      ].filter(
+        (t) =>
+          (t.jrtr_cr_amt && parseFloat(t.jrtr_cr_amt) > 0) ||
+          (t.jrtr_dr_amt && parseFloat(t.jrtr_dr_amt) > 0)
+      ),
+    };
+
+    try {
+      await journalService.create_journal_entry(dbUrl, journal_request);
+    } catch (journalErr) {
+      console.error("❌ Failed to create journal entry for girvi:", journalErr.message);
+      throw new Error(
+        `Loan saved but account entry failed: ${journalErr.message}. Please edit/retry the loan so journals are posted.`
+      );
+    }
+  }
+
+  async deleteGirviJournalsByInfo(dbUrl, containsText) {
+    const prisma = this.getPrisma(dbUrl);
+    try {
+      const journals = await prisma.journal.findMany({
+        where: {
+          jrnl_other_info: { contains: containsText },
+          jrnl_is_deleted: false,
+        },
+        select: { jrnl_id: true },
+      });
+      for (const j of journals) {
+        await prisma.journal.delete({ where: { jrnl_id: j.jrnl_id } });
+      }
+      return journals.length;
+    } catch (err) {
+      console.error("❌ Failed to delete girvi journals:", err.message);
+      return 0;
+    } finally {
+      await prisma.$disconnect();
+    }
+  }
+
+  /**
+   * Post prepaid first-month interest journal when girv_first_int = Y.
+   */
+  async postFirstMonthInterestJournal(dbUrl, girvi) {
+    if (!girvi || girvi.girv_first_int !== "Y") return;
+
+    const amount = calculateFirstMonthInterest(
+      girvi.girv_prin_amt,
+      girvi.girv_roi,
+      girvi.girv_interest_method || "simple",
+      girvi.girv_compound_freq || "monthly",
+      girvi.girv_roi_type || "monthly"
+    );
+    if (!(amount > 0)) {
+      throw new Error(
+        "First-month interest is enabled but calculated amount is 0. Check principal and ROI."
+      );
+    }
+    if (!girvi.girv_first_int_dr_acc_id || !girvi.girv_first_int_cr_acc_id) {
+      throw new Error(
+        "First-month interest is enabled but DR/CR accounts are missing. Select Interest Payment accounts."
+      );
+    }
+
+    const journal_request = {
+      journal_date: {
+        jrnl_date: girvi.girv_start_date,
+        jrnl_firm_id: girvi.girv_firm_id,
+        jrnl_own_id: girvi.girv_own_id,
+        jrnl_user_id: girvi.girv_user_id,
+        jrnl_amt: amount,
+        jrnl_panel: "Girvi",
+        jrnl_other_info: `First Month Interest | Girvi No - ${girvi.girv_id}`,
+      },
+      joural_trans_data: [
+        {
+          jrtr_crdr: "DR",
+          jrtr_date: girvi.girv_start_date,
+          jrtr_dr_acc_id: girvi.girv_first_int_dr_acc_id,
+          jrtr_dr_amt: amount,
+          jrtr_acc_info: `First Month Interest : Girvi No - ${girvi.girv_id}`,
+        },
+        {
+          jrtr_crdr: "CR",
+          jrtr_date: girvi.girv_start_date,
+          jrtr_cr_acc_id: girvi.girv_first_int_cr_acc_id,
+          jrtr_cr_amt: amount,
+          jrtr_acc_info: `First Month Interest Rec : Girvi No - ${girvi.girv_id}`,
+        },
+      ],
+    };
+
+    try {
+      await journalService.create_journal_entry(dbUrl, journal_request);
+    } catch (journalErr) {
+      console.error("❌ Failed to create first-month interest journal:", journalErr.message);
+      throw new Error(
+        `First-month interest journal failed: ${journalErr.message}. Loan exists — fix accounts and update loan.`
+      );
     }
   }
 
@@ -329,12 +532,132 @@ class GirviService {
 
       updateData.girv_updated_at = new Date();
 
+      // Resolve accounts when financial update allowed
+      if (!hasTransactions && existing.girv_status === "ACTIVE") {
+        const firmId = updateData.girv_firm_id || existing.girv_firm_id;
+        const loanType = updateData.girv_type || existing.girv_type;
+        if (!updateData.girv_dr_acc_id) {
+          updateData.girv_dr_acc_id = await this.resolveAccount(
+            prisma,
+            firmId,
+            null,
+            [loanType === "unsecured" ? "Unsecured Loans" : "Secured Loans", "Loans & Advances"]
+          );
+        }
+        updateData.girv_cash_acc_id = await this.resolveAccount(
+          prisma,
+          firmId,
+          updateData.girv_cash_acc_id,
+          ["Cash In Hand", "Cash"]
+        );
+        updateData.girv_bank_acc_id = await this.resolveAccount(
+          prisma,
+          firmId,
+          updateData.girv_bank_acc_id,
+          ["Bank Account", "Bank"]
+        );
+        updateData.girv_online_acc_id = await this.resolveAccount(
+          prisma,
+          firmId,
+          updateData.girv_online_acc_id,
+          ["Online Account", "Online"]
+        );
+        updateData.girv_card_acc_id = await this.resolveAccount(
+          prisma,
+          firmId,
+          updateData.girv_card_acc_id,
+          ["Card Account", "Card", "POS"]
+        );
+      }
+
       const updatedGirvi = await prisma.girvi.update({
         where: { girv_uuid: girvUuid },
         data: updateData,
       });
 
-      // Update Stock Items if allowed (only if no transactions or status is active and allowFinancialUpdate is true)
+      // Resync disbursement + first-month journals when financial fields edited
+      if (!hasTransactions && existing.girv_status === "ACTIVE") {
+        const feeIncomeAccId = await this.resolveAccount(
+          prisma,
+          updatedGirvi.girv_firm_id,
+          null,
+          ["Interest Rec", "Indirect Incomes", "Direct Incomes", "Income (Direct)"]
+        );
+
+        try {
+          await this.deleteGirviJournalsByInfo(
+            dbUrl,
+            `Add New Girvi | Girvi No - ${updatedGirvi.girv_id}`
+          );
+          await this.deleteGirviJournalsByInfo(
+            dbUrl,
+            `First Month Interest | Girvi No - ${updatedGirvi.girv_id}`
+          );
+
+          await this.postAddLoanJournal(dbUrl, updatedGirvi, feeIncomeAccId);
+
+          if (updatedGirvi.girv_first_int === "Y") {
+            await this.postFirstMonthInterestJournal(dbUrl, updatedGirvi);
+          }
+        } catch (journalErr) {
+          // Restore prior loan financials + original journals
+          try {
+            const restoreFields = {
+              girv_prin_amt: existing.girv_prin_amt,
+              girv_final_amt: existing.girv_final_amt,
+              girv_roi: existing.girv_roi,
+              girv_roi_type: existing.girv_roi_type,
+              girv_interest_method: existing.girv_interest_method,
+              girv_compound_freq: existing.girv_compound_freq,
+              girv_process_amt: existing.girv_process_amt,
+              girv_process_per: existing.girv_process_per,
+              girv_charge_amt: existing.girv_charge_amt,
+              girv_charge_per: existing.girv_charge_per,
+              girv_start_date: existing.girv_start_date,
+              girv_type: existing.girv_type,
+              girv_first_int: existing.girv_first_int,
+              girv_first_int_dr_acc_id: existing.girv_first_int_dr_acc_id,
+              girv_first_int_cr_acc_id: existing.girv_first_int_cr_acc_id,
+              girv_cash_amt: existing.girv_cash_amt,
+              girv_bank_amt: existing.girv_bank_amt,
+              girv_online_amt: existing.girv_online_amt,
+              girv_card_amt: existing.girv_card_amt,
+              girv_cash_acc_id: existing.girv_cash_acc_id,
+              girv_bank_acc_id: existing.girv_bank_acc_id,
+              girv_online_acc_id: existing.girv_online_acc_id,
+              girv_card_acc_id: existing.girv_card_acc_id,
+              girv_dr_acc_id: existing.girv_dr_acc_id,
+              girv_firm_id: existing.girv_firm_id,
+            };
+            await prisma.girvi.update({
+              where: { girv_uuid: girvUuid },
+              data: restoreFields,
+            });
+            await this.deleteGirviJournalsByInfo(
+              dbUrl,
+              `Add New Girvi | Girvi No - ${existing.girv_id}`
+            );
+            await this.deleteGirviJournalsByInfo(
+              dbUrl,
+              `First Month Interest | Girvi No - ${existing.girv_id}`
+            );
+            await this.postAddLoanJournal(dbUrl, existing, feeIncomeAccId);
+            if (existing.girv_first_int === "Y") {
+              await this.postFirstMonthInterestJournal(dbUrl, existing);
+            }
+          } catch (restoreErr) {
+            console.error(
+              "❌ Failed to restore loan journals after update failure:",
+              restoreErr.message
+            );
+          }
+          throw new Error(
+            `Loan journal update failed and was rolled back: ${journalErr.message}`
+          );
+        }
+      }
+
+      // Update Stock Items if allowed (only if no transactions and status is active)
       if (!hasTransactions && existing.girv_status === 'ACTIVE' && stockItems) {
         // Delete old items
         await prisma.stock.deleteMany({
@@ -455,7 +778,42 @@ class GirviService {
         }
       });
 
-      return await prisma.$transaction(async (tx) => {
+      // Resolve TARGET firm accounts (do not reuse source firm account IDs)
+      const targetDrAccId = await this.resolveAccount(
+        prisma,
+        targetFirmId,
+        null,
+        [
+          existing.girv_type === "unsecured" ? "Unsecured Loans" : "Secured Loans",
+          "Loans & Advances",
+        ]
+      );
+      const targetCashAccId = await this.resolveAccount(
+        prisma,
+        targetFirmId,
+        formData.girv_cash_acc_id,
+        ["Cash In Hand", "Cash"]
+      );
+      const targetBankAccId = await this.resolveAccount(
+        prisma,
+        targetFirmId,
+        formData.girv_bank_acc_id,
+        ["Bank Account", "Bank"]
+      );
+      const targetOnlineAccId = await this.resolveAccount(
+        prisma,
+        targetFirmId,
+        formData.girv_online_acc_id,
+        ["Online Account", "Online"]
+      );
+      const targetCardAccId = await this.resolveAccount(
+        prisma,
+        targetFirmId,
+        formData.girv_card_acc_id,
+        ["Card Account", "Card", "POS"]
+      );
+
+      const newGirvi = await prisma.$transaction(async (tx) => {
         // 1. Create the new loan in the target firm
         const {
           girv_id,
@@ -468,12 +826,27 @@ class GirviService {
           girv_transfer_firm_id,
           girv_transfer_girv_id,
           girv_transfer_ml_id,
+          girv_is_transferred_in,
+          girv_transfer_from_girv_id,
+          girv_transfer_from_firm_id,
+          girv_dr_acc_id,
+          girv_first_int,
+          girv_first_int_cr_acc_id,
+          girv_first_int_dr_acc_id,
+          girv_cash_acc_id,
+          girv_bank_acc_id,
+          girv_online_acc_id,
+          girv_card_acc_id,
+          girv_cash_amt,
+          girv_bank_amt,
+          girv_online_amt,
+          girv_card_amt,
           user,
           transferMoneyLender,
           ...girviCloneData
         } = existing;
 
-        const newGirvi = await tx.girvi.create({
+        const created = await tx.girvi.create({
           data: {
             ...girviCloneData,
             girv_firm_id: targetFirmId,
@@ -482,6 +855,13 @@ class GirviService {
             girv_transfer_firm_id: null,
             girv_transfer_girv_id: null,
             girv_transfer_ml_id: null,
+            girv_is_transferred_in: true,
+            girv_transfer_from_girv_id: existing.girv_id,
+            girv_transfer_from_firm_id: existing.girv_firm_id,
+            girv_dr_acc_id: targetDrAccId,
+            girv_first_int: "N",
+            girv_first_int_cr_acc_id: null,
+            girv_first_int_dr_acc_id: null,
             girv_created_by: requestUser.own_login_id || "System Transfer",
             girv_start_date: formData.transfer_date || girviCloneData.girv_start_date,
             girv_prin_amt: formData.girv_prin_amt ? parseFloat(formData.girv_prin_amt) : girviCloneData.girv_prin_amt,
@@ -489,16 +869,16 @@ class GirviService {
             girv_interest_method: formData.girv_interest_method || girviCloneData.girv_interest_method,
             girv_packet_no: formData.girv_packet_no || girviCloneData.girv_packet_no,
             girv_locker_no: formData.girv_locker_no || girviCloneData.girv_locker_no,
-            girv_cash_acc_id: formData.girv_cash_acc_id ? parseInt(formData.girv_cash_acc_id) : null,
+            girv_cash_acc_id: targetCashAccId,
             girv_cash_info: formData.girv_cash_info || null,
             girv_cash_amt: formData.girv_cash_amt ? parseFloat(formData.girv_cash_amt) : 0,
-            girv_bank_acc_id: formData.girv_bank_acc_id ? parseInt(formData.girv_bank_acc_id) : null,
+            girv_bank_acc_id: targetBankAccId,
             girv_bank_info: formData.girv_bank_info || null,
             girv_bank_amt: formData.girv_bank_amt ? parseFloat(formData.girv_bank_amt) : 0,
-            girv_online_acc_id: formData.girv_online_acc_id ? parseInt(formData.girv_online_acc_id) : null,
+            girv_online_acc_id: targetOnlineAccId,
             girv_online_info: formData.girv_online_info || null,
             girv_online_amt: formData.girv_online_amt ? parseFloat(formData.girv_online_amt) : 0,
-            girv_card_acc_id: formData.girv_card_acc_id ? parseInt(formData.girv_card_acc_id) : null,
+            girv_card_acc_id: targetCardAccId,
             girv_card_info: formData.girv_card_info || null,
             girv_card_amt: formData.girv_card_amt ? parseFloat(formData.girv_card_amt) : 0,
             girv_pay_info: formData.girv_pay_info || null,
@@ -521,7 +901,7 @@ class GirviService {
             } = item;
             return {
               ...itemCloneData,
-              st_referance_id: newGirvi.girv_id,
+              st_referance_id: created.girv_id,
               st_firm_id: targetFirmId,
               st_user_id: targetUser.user_id,
               st_created_by: requestUser.own_login_id || "System Transfer"
@@ -540,20 +920,388 @@ class GirviService {
           ? `Transferred to money lender ${mlName || `#${targetMoneyLenderId}`} (ML ID: ${targetMoneyLenderId}) via firm ${targetFirm.firm_name} (ID: ${targetFirmId})`
           : `Transferred to firm ${targetFirm.firm_name} (ID: ${targetFirmId})`;
 
+        const sourcePrinBefore = parseFloat(existing.girv_prin_amt) || 0;
+        const sourceFinalBefore = parseFloat(existing.girv_final_amt) || 0;
+
         await tx.girvi.update({
           where: { girv_uuid: girvUuid },
           data: {
             girv_status: "TRANSFERRED",
             girv_transfer_firm_id: targetFirmId,
-            girv_transfer_girv_id: newGirvi.girv_id,
+            girv_transfer_girv_id: created.girv_id,
             girv_transfer_ml_id: isMoneyLenderTransfer ? targetMoneyLenderId : null,
+            girv_prin_amt: 0,
+            girv_final_amt: 0,
             girv_other_info:
-              transferNote + (existing.girv_other_info ? ` | ${existing.girv_other_info}` : "")
-          }
+              transferNote + (existing.girv_other_info ? ` | ${existing.girv_other_info}` : ""),
+          },
         });
 
-        return newGirvi;
+        created._sourcePrinBefore = sourcePrinBefore;
+        created._sourceFinalBefore = sourceFinalBefore;
+        return created;
       });
+
+      const settlementCash = parseFloat(formData.girv_cash_amt) || 0;
+      const settlementBank = parseFloat(formData.girv_bank_amt) || 0;
+      const settlementOnline = parseFloat(formData.girv_online_amt) || 0;
+      const settlementCard = parseFloat(formData.girv_card_amt) || 0;
+      const settlementTotal =
+        settlementCash + settlementBank + settlementOnline + settlementCard;
+      // Clear books using actual outstanding on source loan (not editable form prin)
+      const sourcePrin =
+        parseFloat(newGirvi._sourcePrinBefore) ||
+        parseFloat(existing.girv_prin_amt) ||
+        0;
+      const newPrin = parseFloat(newGirvi.girv_prin_amt) || sourcePrin;
+      let interestAmt = parseFloat(formData.transfer_int_amt);
+      if (Number.isNaN(interestAmt)) {
+        interestAmt = Math.max(0, parseFloat((settlementTotal - sourcePrin).toFixed(2)));
+      }
+      let extraAmt = 0;
+      let discAmt = 0;
+      const afterPrin = parseFloat((settlementTotal - sourcePrin).toFixed(2));
+      if (afterPrin >= 0) {
+        if (interestAmt > afterPrin) interestAmt = afterPrin;
+        extraAmt = parseFloat((afterPrin - interestAmt).toFixed(2));
+      } else {
+        interestAmt = 0;
+        discAmt = Math.abs(afterPrin);
+      }
+
+      // 4. Account entries for transfer settlement
+      try {
+        await this.postTransferLoanJournals(
+          dbUrl,
+          existing,
+          newGirvi,
+          isMoneyLenderTransfer,
+          {
+            cash: settlementCash,
+            bank: settlementBank,
+            online: settlementOnline,
+            card: settlementCard,
+            sourcePrin,
+            newPrin,
+            interestAmt,
+            extraAmt,
+            discAmt,
+          }
+        );
+      } catch (journalErr) {
+        await this.compensateFailedTransfer(
+          dbUrl,
+          existing,
+          newGirvi,
+          newGirvi._sourcePrinBefore,
+          newGirvi._sourceFinalBefore
+        );
+        throw journalErr;
+      }
+
+      return newGirvi;
+    } finally {
+      await prisma.$disconnect();
+    }
+  }
+
+  /**
+   * Scale payment channels so they sum to targetAmount (for transfer IN principal booking).
+   */
+  scaleChannelsToAmount(channels, targetAmount) {
+    const cash = parseFloat(channels.cash) || 0;
+    const bank = parseFloat(channels.bank) || 0;
+    const online = parseFloat(channels.online) || 0;
+    const card = parseFloat(channels.card) || 0;
+    const total = cash + bank + online + card;
+    const target = parseFloat(targetAmount) || 0;
+    if (!(target > 0)) return { cash: 0, bank: 0, online: 0, card: 0 };
+    if (!(total > 0)) return { cash: target, bank: 0, online: 0, card: 0 };
+    if (Math.abs(total - target) < 0.01) return { cash, bank, online, card };
+    const scale = target / total;
+    const scaled = {
+      cash: parseFloat((cash * scale).toFixed(2)),
+      bank: parseFloat((bank * scale).toFixed(2)),
+      online: parseFloat((online * scale).toFixed(2)),
+      card: parseFloat((card * scale).toFixed(2)),
+    };
+    // Fix rounding on largest channel
+    const sum = scaled.cash + scaled.bank + scaled.online + scaled.card;
+    const diff = parseFloat((target - sum).toFixed(2));
+    if (diff !== 0) {
+      const key = ["cash", "bank", "online", "card"].sort(
+        (a, b) => scaled[b] - scaled[a]
+      )[0];
+      scaled[key] = parseFloat((scaled[key] + diff).toFixed(2));
+    }
+    return scaled;
+  }
+
+  async compensateFailedTransfer(
+    dbUrl,
+    sourceGirvi,
+    newGirvi,
+    sourcePrinBefore,
+    sourceFinalBefore
+  ) {
+    const prisma = this.getPrisma(dbUrl);
+    try {
+      await this.deleteGirviJournalsByInfo(
+        dbUrl,
+        `Transfer Loan OUT | Loan No - ${sourceGirvi.girv_id}`
+      );
+      await this.deleteGirviJournalsByInfo(
+        dbUrl,
+        `Transfer Loan IN | Loan No - ${newGirvi.girv_id}`
+      );
+      await prisma.stock.deleteMany({
+        where: {
+          st_referance_panel: "girvi",
+          st_referance_id: newGirvi.girv_id,
+        },
+      });
+      await prisma.girvi.delete({ where: { girv_id: newGirvi.girv_id } }).catch(() => {});
+      await prisma.girvi.update({
+        where: { girv_id: sourceGirvi.girv_id },
+        data: {
+          girv_status: "ACTIVE",
+          girv_transfer_firm_id: null,
+          girv_transfer_girv_id: null,
+          girv_transfer_ml_id: null,
+          girv_prin_amt: sourcePrinBefore ?? sourceGirvi.girv_prin_amt,
+          girv_final_amt: sourceFinalBefore ?? sourceGirvi.girv_final_amt,
+        },
+      });
+    } catch (err) {
+      console.error("❌ Failed to compensate transfer after journal error:", err.message);
+    } finally {
+      await prisma.$disconnect();
+    }
+  }
+
+  /**
+   * TRANSFER LOAN OUT (source): DR cash · CR loan prin · CR Interest Rec (+ extra/disc)
+   * TRANSFER LOAN IN (target): DR loan prin · CR cash (principal only)
+   */
+  async postTransferLoanJournals(
+    dbUrl,
+    sourceGirvi,
+    targetGirvi,
+    isMoneyLenderTransfer = false,
+    amounts = {}
+  ) {
+    if (!sourceGirvi || !targetGirvi) return;
+
+    const prisma = this.getPrisma(dbUrl);
+    try {
+      const transferDate = targetGirvi.girv_start_date;
+      const cash = parseFloat(amounts.cash) || 0;
+      const bank = parseFloat(amounts.bank) || 0;
+      const online = parseFloat(amounts.online) || 0;
+      const card = parseFloat(amounts.card) || 0;
+      const settlement = cash + bank + online + card;
+      const sourcePrin = parseFloat(amounts.sourcePrin) || 0;
+      const newPrin = parseFloat(amounts.newPrin) || sourcePrin;
+      const interestAmt = parseFloat(amounts.interestAmt) || 0;
+      const extraAmt = parseFloat(amounts.extraAmt) || 0;
+      const discAmt = parseFloat(amounts.discAmt) || 0;
+      if (!(settlement > 0) && !(sourcePrin > 0)) return;
+
+      const sourceLoanAcc =
+        sourceGirvi.girv_dr_acc_id ||
+        (await this.resolveAccount(prisma, sourceGirvi.girv_firm_id, null, [
+          sourceGirvi.girv_type === "unsecured" ? "Unsecured Loans" : "Secured Loans",
+          "Loans & Advances",
+        ]));
+      const interestAccId = await this.resolveAccount(
+        prisma,
+        sourceGirvi.girv_firm_id,
+        null,
+        ["Interest Rec", "Interest Account", "Interest Income", "Indirect Incomes"]
+      );
+      const extraAccId = await this.resolveAccount(
+        prisma,
+        sourceGirvi.girv_firm_id,
+        null,
+        ["Interest Rec", "Extra Income", "Indirect Incomes"]
+      );
+      const discAccId = await this.resolveAccount(
+        prisma,
+        sourceGirvi.girv_firm_id,
+        null,
+        ["Indirect Expenses", "Discount Account", "Expenses (Indirect)"]
+      );
+
+      const sourceCashAcc = await this.resolveAccount(
+        prisma,
+        sourceGirvi.girv_firm_id,
+        null,
+        ["Cash In Hand", "Cash"]
+      );
+      const sourceBankAcc = await this.resolveAccount(
+        prisma,
+        sourceGirvi.girv_firm_id,
+        null,
+        ["Bank Account", "Bank"]
+      );
+      const sourceOnlineAcc = await this.resolveAccount(
+        prisma,
+        sourceGirvi.girv_firm_id,
+        null,
+        ["Online Account", "Online"]
+      );
+      const sourceCardAcc = await this.resolveAccount(
+        prisma,
+        sourceGirvi.girv_firm_id,
+        null,
+        ["Card Account", "Card", "POS"]
+      );
+
+      const toLabel = isMoneyLenderTransfer
+        ? `ML transfer from Loan ${sourceGirvi.girv_id}`
+        : `Firm transfer from Loan ${sourceGirvi.girv_id} → ${targetGirvi.girv_id}`;
+
+      const outJournal = {
+        journal_date: {
+          jrnl_date: transferDate,
+          jrnl_firm_id: sourceGirvi.girv_firm_id,
+          jrnl_own_id: sourceGirvi.girv_own_id,
+          jrnl_user_id: sourceGirvi.girv_user_id,
+          jrnl_amt: settlement || sourcePrin,
+          jrnl_panel: "Girvi",
+          jrnl_other_info: `Transfer Loan OUT | Loan No - ${sourceGirvi.girv_id} | New Loan - ${targetGirvi.girv_id}`,
+        },
+        joural_trans_data: [
+          {
+            jrtr_crdr: "DR",
+            jrtr_date: transferDate,
+            jrtr_dr_acc_id: sourceCashAcc,
+            jrtr_dr_amt: cash,
+            jrtr_acc_info: toLabel,
+          },
+          {
+            jrtr_crdr: "DR",
+            jrtr_date: transferDate,
+            jrtr_dr_acc_id: sourceBankAcc,
+            jrtr_dr_amt: bank,
+            jrtr_acc_info: toLabel,
+          },
+          {
+            jrtr_crdr: "DR",
+            jrtr_date: transferDate,
+            jrtr_dr_acc_id: sourceOnlineAcc,
+            jrtr_dr_amt: online,
+            jrtr_acc_info: toLabel,
+          },
+          {
+            jrtr_crdr: "DR",
+            jrtr_date: transferDate,
+            jrtr_dr_acc_id: sourceCardAcc,
+            jrtr_dr_amt: card,
+            jrtr_acc_info: toLabel,
+          },
+          {
+            jrtr_crdr: "DR",
+            jrtr_date: transferDate,
+            jrtr_dr_acc_id: discAccId,
+            jrtr_dr_amt: discAmt,
+            jrtr_acc_info: `Transfer Discount : Loan No - ${sourceGirvi.girv_id}`,
+          },
+          {
+            jrtr_crdr: "CR",
+            jrtr_date: transferDate,
+            jrtr_cr_acc_id: sourceLoanAcc,
+            jrtr_cr_amt: sourcePrin,
+            jrtr_acc_info: `Transfer Loan OUT principal : Loan No - ${sourceGirvi.girv_id}`,
+          },
+          {
+            jrtr_crdr: "CR",
+            jrtr_date: transferDate,
+            jrtr_cr_acc_id: interestAccId,
+            jrtr_cr_amt: interestAmt,
+            jrtr_acc_info: `Transfer Interest Rec : Loan No - ${sourceGirvi.girv_id}`,
+          },
+          {
+            jrtr_crdr: "CR",
+            jrtr_date: transferDate,
+            jrtr_cr_acc_id: extraAccId,
+            jrtr_cr_amt: extraAmt,
+            jrtr_acc_info: `Transfer Extra : Loan No - ${sourceGirvi.girv_id}`,
+          },
+        ].filter(
+          (t) =>
+            (t.jrtr_cr_amt && parseFloat(t.jrtr_cr_amt) > 0) ||
+            (t.jrtr_dr_amt && parseFloat(t.jrtr_dr_amt) > 0)
+        ),
+      };
+
+      await journalService.create_journal_entry(dbUrl, outJournal);
+
+      const inChannels = this.scaleChannelsToAmount(
+        { cash, bank, online, card },
+        newPrin
+      );
+      const targetLoanAcc =
+        targetGirvi.girv_dr_acc_id ||
+        (await this.resolveAccount(prisma, targetGirvi.girv_firm_id, null, [
+          targetGirvi.girv_type === "unsecured" ? "Unsecured Loans" : "Secured Loans",
+          "Loans & Advances",
+        ]));
+
+      const inJournal = {
+        journal_date: {
+          jrnl_date: transferDate,
+          jrnl_firm_id: targetGirvi.girv_firm_id,
+          jrnl_own_id: targetGirvi.girv_own_id,
+          jrnl_user_id: targetGirvi.girv_user_id,
+          jrnl_amt: newPrin,
+          jrnl_panel: "Girvi",
+          jrnl_other_info: `Transfer Loan IN | Loan No - ${targetGirvi.girv_id} | From Loan - ${sourceGirvi.girv_id}`,
+        },
+        joural_trans_data: [
+          {
+            jrtr_crdr: "CR",
+            jrtr_date: transferDate,
+            jrtr_cr_acc_id: targetGirvi.girv_cash_acc_id,
+            jrtr_cr_amt: inChannels.cash,
+            jrtr_acc_info: targetGirvi.girv_cash_info,
+          },
+          {
+            jrtr_crdr: "CR",
+            jrtr_date: transferDate,
+            jrtr_cr_acc_id: targetGirvi.girv_bank_acc_id,
+            jrtr_cr_amt: inChannels.bank,
+            jrtr_acc_info: targetGirvi.girv_bank_info,
+          },
+          {
+            jrtr_crdr: "CR",
+            jrtr_date: transferDate,
+            jrtr_cr_acc_id: targetGirvi.girv_online_acc_id,
+            jrtr_cr_amt: inChannels.online,
+            jrtr_acc_info: targetGirvi.girv_online_info,
+          },
+          {
+            jrtr_crdr: "CR",
+            jrtr_date: transferDate,
+            jrtr_cr_acc_id: targetGirvi.girv_card_acc_id,
+            jrtr_cr_amt: inChannels.card,
+            jrtr_acc_info: targetGirvi.girv_card_info,
+          },
+          {
+            jrtr_crdr: "DR",
+            jrtr_date: transferDate,
+            jrtr_dr_acc_id: targetLoanAcc,
+            jrtr_dr_amt: newPrin,
+            jrtr_acc_info: `Transfer Loan IN book : Loan No - ${targetGirvi.girv_id}`,
+          },
+        ].filter(
+          (t) =>
+            (t.jrtr_cr_amt && parseFloat(t.jrtr_cr_amt) > 0) ||
+            (t.jrtr_dr_amt && parseFloat(t.jrtr_dr_amt) > 0)
+        ),
+      };
+
+      await journalService.create_journal_entry(dbUrl, inJournal);
     } finally {
       await prisma.$disconnect();
     }

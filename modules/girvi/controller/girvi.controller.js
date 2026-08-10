@@ -3,6 +3,38 @@
 const girviService = require("../service/girvi.service");
 const { BASE_URL } = require("../../../config/db");
 const { PrismaClient } = require("../../../prisma/generated/main");
+const { normalizeRoiType } = require("../../../utils/loanInterest");
+
+const resolveInterestRecAccount = async (dbUrl, firmId, ownId) => {
+  const prisma = new PrismaClient({ datasources: { db: { url: dbUrl } } });
+  try {
+    let interestRecAcc = await prisma.account.findFirst({
+      where: {
+        acc_name: "Interest Rec",
+        acc_firm_id: parseInt(firmId, 10),
+        acc_is_deleted: false,
+      },
+    });
+
+    if (!interestRecAcc) {
+      interestRecAcc = await prisma.account.create({
+        data: {
+          acc_name: "Interest Rec",
+          acc_pre_acc: "Indirect Incomes",
+          acc_firm_id: parseInt(firmId, 10),
+          acc_own_id: ownId,
+          acc_is_system: true,
+          acc_balance_type: "CR",
+          acc_opening_date: new Date(),
+          acc_cash_balance: "0",
+        },
+      });
+    }
+    return interestRecAcc.acc_id;
+  } finally {
+    await prisma.$disconnect();
+  }
+};
 
 const parseStImage = (stImage) => {
   if (!stImage) return null;
@@ -65,37 +97,19 @@ class GirviController {
         return res.status(400).json({ error: "Missing required fields for loan creation." });
       }
 
-      let interestRecAccId = null;
-      if (data.girv_first_int === 'Y') {
-        const prisma = new PrismaClient({ datasources: { db: { url: dbUrl } } });
-        try {
-          let interestRecAcc = await prisma.account.findFirst({
-            where: {
-              acc_name: "Interest Rec",
-              acc_firm_id: parseInt(data.girv_firm_id),
-              acc_is_deleted: false
-            }
-          });
+      if (data.girv_first_int === "Y" && !data.girv_first_int_dr_acc_id) {
+        return res.status(400).json({
+          error: "Interest Payment Account (DR) is required for First Month Interest.",
+        });
+      }
 
-          if (!interestRecAcc) {
-            // Auto-create the Interest Rec account for existing firms
-            interestRecAcc = await prisma.account.create({
-              data: {
-                acc_name: "Interest Rec",
-                acc_pre_acc: "Indirect Incomes",
-                acc_firm_id: parseInt(data.girv_firm_id),
-                acc_own_id: req.user.own_id,
-                acc_is_system: true,
-                acc_balance_type: 'CR',
-                acc_opening_date: new Date(),
-                acc_cash_balance: "0"
-              }
-            });
-          }
-          interestRecAccId = interestRecAcc.acc_id;
-        } finally {
-          await prisma.$disconnect();
-        }
+      let interestRecAccId = null;
+      if (data.girv_first_int === "Y") {
+        interestRecAccId = await resolveInterestRecAccount(
+          dbUrl,
+          data.girv_firm_id,
+          req.user.own_id
+        );
       }
 
       // Map to DB columns for Girvi
@@ -114,7 +128,7 @@ class GirviController {
         girv_charge_per: data.girv_charge_per ? parseFloat(data.girv_charge_per) : 0,
         girv_charge_amt: data.girv_charge_amt ? parseFloat(data.girv_charge_amt) : 0,
         girv_roi: parseFloat(data.girv_roi),
-        girv_roi_type: data.girv_roi_type || "monthly",
+        girv_roi_type: normalizeRoiType(data.girv_roi_type),
         girv_type: data.girv_type, // 'secured' or 'unsecured'
         girv_interest_method: data.girv_interest_method || "simple",
         girv_compound_freq: data.girv_compound_freq || null,
@@ -244,6 +258,21 @@ class GirviController {
 
       let allowFinancialUpdate = true; // Service will double check based on transactions
 
+      if (data.girv_first_int === "Y" && !data.girv_first_int_dr_acc_id) {
+        return res.status(400).json({
+          error: "Interest Payment Account (DR) is required for First Month Interest.",
+        });
+      }
+
+      let interestRecAccId = null;
+      if (data.girv_first_int === "Y") {
+        interestRecAccId = await resolveInterestRecAccount(
+          dbUrl,
+          data.girv_firm_id,
+          req.user.own_id
+        );
+      }
+
       const girviData = {
         girv_firm_id: parseInt(data.girv_firm_id),
         girv_user_id: parseInt(data.girv_user_id),
@@ -257,11 +286,18 @@ class GirviController {
         girv_charge_per: data.girv_charge_per ? parseFloat(data.girv_charge_per) : 0,
         girv_charge_amt: data.girv_charge_amt ? parseFloat(data.girv_charge_amt) : 0,
         girv_roi: parseFloat(data.girv_roi),
-        girv_roi_type: data.girv_roi_type || "monthly",
+        girv_roi_type: normalizeRoiType(data.girv_roi_type),
         girv_type: data.girv_type,
         girv_interest_method: data.girv_interest_method || "simple",
         girv_compound_freq: data.girv_compound_freq || null,
         girv_final_amt: parseFloat(data.girv_prin_amt),
+
+        girv_first_int: data.girv_first_int || "N",
+        girv_first_int_cr_acc_id: data.girv_first_int === "Y" ? interestRecAccId : null,
+        girv_first_int_dr_acc_id:
+          data.girv_first_int === "Y" && data.girv_first_int_dr_acc_id
+            ? parseInt(data.girv_first_int_dr_acc_id, 10)
+            : null,
 
         girv_cash_amt: data.girv_cash_amt ? parseFloat(data.girv_cash_amt) : 0,
         girv_bank_amt: data.girv_bank_amt ? parseFloat(data.girv_bank_amt) : 0,

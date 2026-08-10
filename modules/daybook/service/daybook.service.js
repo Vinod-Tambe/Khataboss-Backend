@@ -43,6 +43,37 @@ class DaybookService {
     return name || "-";
   }
 
+  /**
+   * Scale cash channels so they sum to principal (transfer IN = principal out only).
+   */
+  scaleChannelsToAmount(channels = {}, targetAmount = 0) {
+    const cash = parseFloat(channels.cash) || 0;
+    const bank = parseFloat(channels.bank) || 0;
+    const online = parseFloat(channels.online) || 0;
+    const card = parseFloat(channels.card) || 0;
+    const total = cash + bank + online + card;
+    const target = parseFloat(targetAmount) || 0;
+    if (!(target > 0)) return { cash: 0, bank: 0, online: 0, card: 0 };
+    if (!(total > 0)) return { cash: target, bank: 0, online: 0, card: 0 };
+    if (Math.abs(total - target) < 0.01) return { cash, bank, online, card };
+    const scale = target / total;
+    const scaled = {
+      cash: parseFloat((cash * scale).toFixed(2)),
+      bank: parseFloat((bank * scale).toFixed(2)),
+      online: parseFloat((online * scale).toFixed(2)),
+      card: parseFloat((card * scale).toFixed(2)),
+    };
+    const sum = scaled.cash + scaled.bank + scaled.online + scaled.card;
+    const diff = parseFloat((target - sum).toFixed(2));
+    if (diff !== 0) {
+      const key = ["cash", "bank", "online", "card"].sort(
+        (a, b) => scaled[b] - scaled[a]
+      )[0];
+      scaled[key] = parseFloat((scaled[key] + diff).toFixed(2));
+    }
+    return scaled;
+  }
+
   // Centralized error handler
   handleError(error, title, colorClass, amtColor, isSummary = false) {
     console.error(`Error fetching ${title} data:`, error);
@@ -130,11 +161,28 @@ class DaybookService {
     }
   }
 
-  // 2. Girvi Added (Outflow)
+  // 2. Girvi Added (Outflow) — excludes loans created by firm/ML transfer
   async get_add_new_girvi_data(dbUrl, filters = {}) {
     const prisma = this.getPrisma(dbUrl);
     try {
-      const where = { girv_is_deleted: false };
+      // Also exclude legacy transfer targets (before girv_is_transferred_in existed)
+      const transferLinks = await prisma.girvi.findMany({
+        where: { girv_transfer_girv_id: { not: null } },
+        select: { girv_transfer_girv_id: true },
+      });
+      const transferTargetIds = [
+        ...new Set(
+          transferLinks.map((r) => r.girv_transfer_girv_id).filter(Boolean)
+        ),
+      ];
+
+      const where = {
+        girv_is_deleted: false,
+        girv_is_transferred_in: false,
+        ...(transferTargetIds.length > 0
+          ? { girv_id: { notIn: transferTargetIds } }
+          : {}),
+      };
       if (filters.firmId) {
         where.girv_firm_id = parseInt(filters.firmId);
       }
@@ -174,6 +222,239 @@ class DaybookService {
       };
     } catch (error) {
       return this.handleError(error, "LOAN ADDED", "bg-purple", "text-danger");
+    } finally {
+      await prisma.$disconnect();
+    }
+  }
+
+  /**
+   * TRANSFER LOAN OUT (Amount In / DR) — source firm side.
+   * Uses transferred source loans; settlement amounts/date come from the new target loan.
+   */
+  async get_transfer_loan_out_data(dbUrl, filters = {}) {
+    const prisma = this.getPrisma(dbUrl);
+    try {
+      const where = {
+        girv_is_deleted: false,
+        girv_status: "TRANSFERRED",
+        girv_transfer_girv_id: { not: null },
+      };
+      if (filters.firmId) {
+        where.girv_firm_id = parseInt(filters.firmId);
+      }
+
+      const sourceLoans = await prisma.girvi.findMany({
+        where,
+        select: {
+          girv_id: true,
+          girv_firm_id: true,
+          girv_user_id: true,
+          girv_transfer_girv_id: true,
+          girv_transfer_ml_id: true,
+          user: { select: { user_uuid: true } },
+          firm: { select: { firm_name: true } },
+          transferMoneyLender: {
+            select: { ml_first_name: true, ml_last_name: true },
+          },
+        },
+      });
+
+      if (sourceLoans.length === 0) return 0;
+
+      const targetIds = [
+        ...new Set(
+          sourceLoans.map((s) => s.girv_transfer_girv_id).filter(Boolean)
+        ),
+      ];
+      const targetLoans = await prisma.girvi.findMany({
+        where: { girv_id: { in: targetIds }, girv_is_deleted: false },
+        select: {
+          girv_id: true,
+          girv_start_date: true,
+          girv_cash_amt: true,
+          girv_bank_amt: true,
+          girv_online_amt: true,
+          girv_card_amt: true,
+          firm: { select: { firm_name: true } },
+        },
+      });
+      const targetMap = Object.fromEntries(
+        targetLoans.map((t) => [t.girv_id, t])
+      );
+
+      const inDateRange = (dateStr) => {
+        if (!dateStr) return false;
+        if (filters.startDate && dateStr < filters.startDate) return false;
+        if (filters.endDate && dateStr > filters.endDate) return false;
+        return true;
+      };
+
+      const mapped = [];
+      for (const source of sourceLoans) {
+        const target = targetMap[source.girv_transfer_girv_id];
+        if (!target || !inDateRange(target.girv_start_date)) continue;
+
+        const mlName = source.transferMoneyLender
+          ? [source.transferMoneyLender.ml_first_name, source.transferMoneyLender.ml_last_name]
+              .filter(Boolean)
+              .join(" ")
+              .trim()
+          : "";
+        const toLabel = mlName
+          ? `ML: ${mlName}`
+          : target.firm?.firm_name
+            ? `Firm: ${target.firm.firm_name}`
+            : "Transfer";
+
+        const row = await this.mapToResponse(dbUrl, {
+          girv_start_date: target.girv_start_date,
+          girv_user_id: source.girv_user_id,
+          girv_cash_amt: target.girv_cash_amt,
+          girv_bank_amt: target.girv_bank_amt,
+          girv_online_amt: target.girv_online_amt,
+          girv_card_amt: target.girv_card_amt,
+          user: source.user,
+          firm: source.firm,
+        });
+        row.db_customer_name = `${row.db_customer_name} (${toLabel})`;
+        mapped.push(row);
+      }
+
+      if (mapped.length === 0) return 0;
+
+      return {
+        title: "TRANSFER LOAN OUT",
+        colorClass: "bg-cust-info",
+        amtColor: "text-success",
+        column: ["DATE", "FIRM", "CUSTOMER NAME", "CUST ID", "CASH", "BANK", "ONLINE", "CARD", "DISC"],
+        data: mapped,
+      };
+    } catch (error) {
+      return this.handleError(error, "TRANSFER LOAN OUT", "bg-cust-info", "text-success");
+    } finally {
+      await prisma.$disconnect();
+    }
+  }
+
+  /**
+   * TRANSFER LOAN IN (Amount Out / CR) — target firm side.
+   * Includes same-firm ML transfers so Daybook cash matches journals and users can track both legs.
+   * Supports legacy rows via source.girv_transfer_girv_id links.
+   */
+  async get_transfer_loan_in_data(dbUrl, filters = {}) {
+    const prisma = this.getPrisma(dbUrl);
+    try {
+      const sourceLinks = await prisma.girvi.findMany({
+        where: {
+          girv_is_deleted: false,
+          girv_status: "TRANSFERRED",
+          girv_transfer_girv_id: { not: null },
+        },
+        select: {
+          girv_id: true,
+          girv_firm_id: true,
+          girv_transfer_girv_id: true,
+          girv_transfer_ml_id: true,
+          firm: { select: { firm_name: true } },
+          transferMoneyLender: {
+            select: { ml_first_name: true, ml_last_name: true },
+          },
+        },
+      });
+      if (sourceLinks.length === 0) return 0;
+
+      const targetIds = [
+        ...new Set(sourceLinks.map((s) => s.girv_transfer_girv_id).filter(Boolean)),
+      ];
+      const sourceByTargetId = Object.fromEntries(
+        sourceLinks.map((s) => [s.girv_transfer_girv_id, s])
+      );
+
+      const where = {
+        girv_is_deleted: false,
+        girv_id: { in: targetIds },
+      };
+      if (filters.firmId) {
+        where.girv_firm_id = parseInt(filters.firmId);
+      }
+      if (filters.startDate || filters.endDate) {
+        where.girv_start_date = {};
+        if (filters.startDate) where.girv_start_date.gte = filters.startDate;
+        if (filters.endDate) where.girv_start_date.lte = filters.endDate;
+      }
+
+      const records = await prisma.girvi.findMany({
+        where,
+        select: {
+          girv_id: true,
+          girv_start_date: true,
+          girv_firm_id: true,
+          girv_user_id: true,
+          girv_prin_amt: true,
+          girv_cash_amt: true,
+          girv_bank_amt: true,
+          girv_online_amt: true,
+          girv_card_amt: true,
+          girv_transfer_from_firm_id: true,
+          user: { select: { user_uuid: true } },
+          firm: { select: { firm_name: true } },
+        },
+      });
+
+      if (records.length === 0) return 0;
+
+      const data = await Promise.all(
+        records.map(async (item) => {
+          // IN = principal booking only (interest was recognized on OUT)
+          const scaled = this.scaleChannelsToAmount(
+            {
+              cash: item.girv_cash_amt,
+              bank: item.girv_bank_amt,
+              online: item.girv_online_amt,
+              card: item.girv_card_amt,
+            },
+            item.girv_prin_amt
+          );
+          const row = await this.mapToResponse(dbUrl, {
+            ...item,
+            girv_cash_amt: scaled.cash,
+            girv_bank_amt: scaled.bank,
+            girv_online_amt: scaled.online,
+            girv_card_amt: scaled.card,
+          });
+          const source = sourceByTargetId[item.girv_id];
+          const fromFirmId =
+            item.girv_transfer_from_firm_id ?? source?.girv_firm_id ?? null;
+          const isSameFirm =
+            fromFirmId != null && Number(fromFirmId) === Number(item.girv_firm_id);
+          const fromName = source?.firm?.firm_name || "Firm";
+          const mlName = source?.transferMoneyLender
+            ? [source.transferMoneyLender.ml_first_name, source.transferMoneyLender.ml_last_name]
+                .filter(Boolean)
+                .join(" ")
+                .trim()
+            : "";
+
+          if (isSameFirm && mlName) {
+            row.db_customer_name = `${row.db_customer_name} (ML: ${mlName})`;
+          } else if (isSameFirm) {
+            row.db_customer_name = `${row.db_customer_name} (Same Firm Transfer)`;
+          } else {
+            row.db_customer_name = `${row.db_customer_name} (From: ${fromName})`;
+          }
+          return row;
+        })
+      );
+
+      return {
+        title: "TRANSFER LOAN IN",
+        colorClass: "bg-info",
+        amtColor: "text-danger",
+        column: ["DATE", "FIRM", "CUSTOMER NAME", "CUST ID", "CASH", "BANK", "ONLINE", "CARD", "DISC"],
+        data,
+      };
+    } catch (error) {
+      return this.handleError(error, "TRANSFER LOAN IN", "bg-info", "text-danger");
     } finally {
       await prisma.$disconnect();
     }
@@ -393,12 +674,12 @@ class DaybookService {
     }
   }
 
-  // 7 & 8. Finance EMI Transaction Data (PAID = Inflow / ROLLBACK = Outflow)
+  // 7 & 8. Finance EMI Transaction Data (PAID/CLOSE/FINE = Inflow / ROLLBACK = Outflow)
   async get_finance_emi_data(dbUrl, type, title, colorClass, amtColor, filters = {}) {
     const prisma = this.getPrisma(dbUrl);
     try {
       const where = {
-        fm_trans_type: type,
+        fm_trans_type: Array.isArray(type) ? { in: type } : type,
         fm_is_deleted: false
       };
       if (filters.firmId) {
@@ -479,10 +760,23 @@ class DaybookService {
         { cash: 0, bank: 0, online: 0, card: 0 }
       );
 
-      // b) Girvi Added
+      // b) Girvi Added (exclude transfer-created loans — counted under TRANSFER LOAN IN)
+      const legacyTransferLinks = await prisma.girvi.findMany({
+        where: { girv_transfer_girv_id: { not: null } },
+        select: { girv_transfer_girv_id: true },
+      });
+      const legacyTransferTargetIds = [
+        ...new Set(
+          legacyTransferLinks.map((r) => r.girv_transfer_girv_id).filter(Boolean)
+        ),
+      ];
       const girviAdded = await prisma.girvi.findMany({
         where: {
           girv_is_deleted: false,
+          girv_is_transferred_in: false,
+          ...(legacyTransferTargetIds.length > 0
+            ? { girv_id: { notIn: legacyTransferTargetIds } }
+            : {}),
           ...(firmId && { girv_firm_id: firmId }),
           ...(startDate && { girv_start_date: { lt: startDate } }),
         },
@@ -497,6 +791,103 @@ class DaybookService {
         }),
         { cash: 0, bank: 0, online: 0, card: 0 }
       );
+
+      // e) Transfer Loan IN prior to startDate (all firms, including same-firm ML) → outflow
+      const transferInSourceLinks = await prisma.girvi.findMany({
+        where: {
+          girv_is_deleted: false,
+          girv_status: "TRANSFERRED",
+          girv_transfer_girv_id: { not: null },
+        },
+        select: {
+          girv_firm_id: true,
+          girv_transfer_girv_id: true,
+        },
+      });
+      const transferInTargetIds = [
+        ...new Set(
+          transferInSourceLinks.map((s) => s.girv_transfer_girv_id).filter(Boolean)
+        ),
+      ];
+      let sumTransferIn = { cash: 0, bank: 0, online: 0, card: 0 };
+      if (transferInTargetIds.length > 0) {
+        const transferInLoans = await prisma.girvi.findMany({
+          where: {
+            girv_is_deleted: false,
+            girv_id: { in: transferInTargetIds },
+            ...(firmId && { girv_firm_id: firmId }),
+            ...(startDate && { girv_start_date: { lt: startDate } }),
+          },
+          select: {
+            girv_id: true,
+            girv_firm_id: true,
+            girv_prin_amt: true,
+            girv_transfer_from_firm_id: true,
+            girv_cash_amt: true,
+            girv_bank_amt: true,
+            girv_online_amt: true,
+            girv_card_amt: true,
+          },
+        });
+        sumTransferIn = transferInLoans.reduce((acc, item) => {
+          const scaled = this.scaleChannelsToAmount(
+            {
+              cash: item.girv_cash_amt,
+              bank: item.girv_bank_amt,
+              online: item.girv_online_amt,
+              card: item.girv_card_amt,
+            },
+            item.girv_prin_amt
+          );
+          return {
+            cash: acc.cash + scaled.cash,
+            bank: acc.bank + scaled.bank,
+            online: acc.online + scaled.online,
+            card: acc.card + scaled.card,
+          };
+        }, { cash: 0, bank: 0, online: 0, card: 0 });
+      }
+
+      // f) Transfer Loan OUT prior to startDate → inflow for source firm
+      const transferOutSources = await prisma.girvi.findMany({
+        where: {
+          girv_is_deleted: false,
+          girv_status: "TRANSFERRED",
+          girv_transfer_girv_id: { not: null },
+          ...(firmId && { girv_firm_id: firmId }),
+        },
+        select: { girv_transfer_girv_id: true },
+      });
+      const transferOutTargetIds = [
+        ...new Set(
+          transferOutSources.map((s) => s.girv_transfer_girv_id).filter(Boolean)
+        ),
+      ];
+      let sumTransferOut = { cash: 0, bank: 0, online: 0, card: 0 };
+      if (transferOutTargetIds.length > 0) {
+        const transferOutTargets = await prisma.girvi.findMany({
+          where: {
+            girv_id: { in: transferOutTargetIds },
+            girv_is_deleted: false,
+            ...(startDate && { girv_start_date: { lt: startDate } }),
+          },
+          select: {
+            girv_cash_amt: true,
+            girv_bank_amt: true,
+            girv_online_amt: true,
+            girv_card_amt: true,
+          },
+        });
+        sumTransferOut = transferOutTargets.reduce(
+          (acc, item) => ({
+            cash: acc.cash + (parseFloat(item.girv_cash_amt) || 0),
+            bank: acc.bank + (parseFloat(item.girv_bank_amt) || 0),
+            online: acc.online + (parseFloat(item.girv_online_amt) || 0),
+            card: acc.card + (parseFloat(item.girv_card_amt) || 0),
+          }),
+          { cash: 0, bank: 0, online: 0, card: 0 }
+        );
+      }
 
       // c) Additional Principal
       const apAdded = await prisma.additionalPrincipal.findMany({
@@ -529,10 +920,10 @@ class DaybookService {
       });
 
       // 2. INFLOWS prior to startDate
-      // a) Finance EMI Paid
+      // a) Finance EMI Paid + Close + Fine/Collect (cash inflows)
       const emiPaid = await prisma.finance_Money_Transaction.aggregate({
         where: {
-          fm_trans_type: "PAID",
+          fm_trans_type: { in: ["PAID", "CLOSE", "FINE"] },
           fm_is_deleted: false,
           ...(firmId && { fm_firm_id: firmId }),
           ...(startDate && { fm_trans_date: { lt: startDate } }),
@@ -583,15 +974,55 @@ class DaybookService {
 
       const toNumber = (val) => (parseFloat(val) || 0).toFixed(2);
 
-      const inflowCash = (emiPaid._sum.fm_cash_amt || 0) + (girviDeposit._sum.dep_cash_amt || 0) + (girviRelease._sum.rel_cash_amt || 0) + (auctionLoan._sum.al_cash_amt || 0);
-      const inflowBank = (emiPaid._sum.fm_bank_amt || 0) + (girviDeposit._sum.dep_bank_amt || 0) + (girviRelease._sum.rel_bank_amt || 0) + (auctionLoan._sum.al_bank_amt || 0);
-      const inflowOnline = (emiPaid._sum.fm_online_amt || 0) + (girviDeposit._sum.dep_online_amt || 0) + (girviRelease._sum.rel_online_amt || 0) + (auctionLoan._sum.al_online_amt || 0);
-      const inflowCard = (emiPaid._sum.fm_card_amt || 0) + (girviDeposit._sum.dep_card_amt || 0) + (girviRelease._sum.rel_card_amt || 0) + (auctionLoan._sum.al_card_amt || 0);
+      const inflowCash =
+        (emiPaid._sum.fm_cash_amt || 0) +
+        (girviDeposit._sum.dep_cash_amt || 0) +
+        (girviRelease._sum.rel_cash_amt || 0) +
+        (auctionLoan._sum.al_cash_amt || 0) +
+        sumTransferOut.cash;
+      const inflowBank =
+        (emiPaid._sum.fm_bank_amt || 0) +
+        (girviDeposit._sum.dep_bank_amt || 0) +
+        (girviRelease._sum.rel_bank_amt || 0) +
+        (auctionLoan._sum.al_bank_amt || 0) +
+        sumTransferOut.bank;
+      const inflowOnline =
+        (emiPaid._sum.fm_online_amt || 0) +
+        (girviDeposit._sum.dep_online_amt || 0) +
+        (girviRelease._sum.rel_online_amt || 0) +
+        (auctionLoan._sum.al_online_amt || 0) +
+        sumTransferOut.online;
+      const inflowCard =
+        (emiPaid._sum.fm_card_amt || 0) +
+        (girviDeposit._sum.dep_card_amt || 0) +
+        (girviRelease._sum.rel_card_amt || 0) +
+        (auctionLoan._sum.al_card_amt || 0) +
+        sumTransferOut.card;
 
-      const outflowCash = sumFinance.cash + sumGirvi.cash + sumAp.cash + (emiRollback._sum.fm_cash_amt || 0);
-      const outflowBank = sumFinance.bank + sumGirvi.bank + sumAp.bank + (emiRollback._sum.fm_bank_amt || 0);
-      const outflowOnline = sumFinance.online + sumGirvi.online + sumAp.online + (emiRollback._sum.fm_online_amt || 0);
-      const outflowCard = sumFinance.card + sumGirvi.card + sumAp.card + (emiRollback._sum.fm_card_amt || 0);
+      const outflowCash =
+        sumFinance.cash +
+        sumGirvi.cash +
+        sumAp.cash +
+        (emiRollback._sum.fm_cash_amt || 0) +
+        sumTransferIn.cash;
+      const outflowBank =
+        sumFinance.bank +
+        sumGirvi.bank +
+        sumAp.bank +
+        (emiRollback._sum.fm_bank_amt || 0) +
+        sumTransferIn.bank;
+      const outflowOnline =
+        sumFinance.online +
+        sumGirvi.online +
+        sumAp.online +
+        (emiRollback._sum.fm_online_amt || 0) +
+        sumTransferIn.online;
+      const outflowCard =
+        sumFinance.card +
+        sumGirvi.card +
+        sumAp.card +
+        (emiRollback._sum.fm_card_amt || 0) +
+        sumTransferIn.card;
 
       // Formula: Opening = Acc_Opening + Inflows - Outflows
       const cash_open = toNumber(acc_cash_open + inflowCash - outflowCash);
@@ -627,6 +1058,8 @@ class DaybookService {
         auctionLoanData,
         paidEmiData,
         rollbackEmiData,
+        transferLoanOutData,
+        transferLoanInData,
         summaryData
       ] = await Promise.all([
         this.get_add_new_finance_data(dbUrl, filters),
@@ -635,8 +1068,10 @@ class DaybookService {
         this.get_girvi_deposit_data(dbUrl, filters),
         this.get_girvi_release_data(dbUrl, filters),
         this.get_auction_loan_data(dbUrl, filters),
-        this.get_finance_emi_data(dbUrl, "PAID", "FINANCE EMI DEPOSIT", "bg-red", "text-success", filters),
+        this.get_finance_emi_data(dbUrl, ["PAID", "CLOSE", "FINE"], "FINANCE EMI DEPOSIT", "bg-red", "text-success", filters),
         this.get_finance_emi_data(dbUrl, "ROLLBACK", "FINANCE EMI ROLLBACK", "bg-secondary", "text-danger", filters),
+        this.get_transfer_loan_out_data(dbUrl, filters),
+        this.get_transfer_loan_in_data(dbUrl, filters),
         this.get_day_book_summary(dbUrl, filters),
       ]);
 
@@ -649,6 +1084,8 @@ class DaybookService {
       if (auctionLoanData !== 0) response_arr.push(auctionLoanData);
       if (paidEmiData !== 0) response_arr.push(paidEmiData);
       if (rollbackEmiData !== 0) response_arr.push(rollbackEmiData);
+      if (transferLoanOutData !== 0) response_arr.push(transferLoanOutData);
+      if (transferLoanInData !== 0) response_arr.push(transferLoanInData);
 
       return { daybook_data: response_arr, summary: summaryData };
     } catch (error) {

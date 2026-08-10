@@ -28,6 +28,21 @@ class FinanceController {
     }
   }
 
+  async updateFinance(req, res) {
+    try {
+      const { id } = req.params;
+      const dbUrl = this.getDbUrl(req.user.own_db);
+      const result = await financeService.update_finance(dbUrl, id, req.body);
+      return res.status(200).json({
+        message: "Finance record updated successfully.",
+        data: result,
+      });
+    } catch (error) {
+      console.error("❌ Controller Error (updateFinance):", error.message);
+      return res.status(500).json({ error: error.message });
+    }
+  }
+
   async getFinances(req, res) {
     try {
       const { firmId, userId, status } = req.query;

@@ -56,6 +56,16 @@ model Owner {
   own_otp_expiry        DateTime?
 
   // ===============================
+  // Outbound email (Gmail / SMTP) — owner configures after login
+  // ===============================
+  own_mail_user        String?
+  own_mail_pass_enc    String?
+  own_mail_from_name   String?   @default("Khataboss")
+  own_mail_provider    String?   @default("gmail")
+  own_mail_status      String?   @default("NotConfigured")
+  own_mail_updated_at  DateTime?
+
+  // ===============================
   // Address Information
   // ===============================
   own_address String?
@@ -96,6 +106,8 @@ model Owner {
   purities             Purity[]                    @relation("OwnerPurities")
   moneyLenders         MoneyLender[]               @relation("OwnerMoneyLenders")
   staff                Staff[]                     @relation("OwnerStaff")
+  messageTemplates     MessageTemplate[]           @relation("OwnerMessageTemplate")
+  whatsappInstances    WhatsAppInstance[]          @relation("OwnerWhatsAppInstance")
 
   // ===============================
   // Indexes
@@ -237,6 +249,8 @@ model Firm {
   moneyLenders         MoneyLender[]               @relation("FirmMoneyLenders")
   auctionUsers         AuctionUser[]               @relation("FirmAuctionUser")
   auctionLoans         AuctionLoan[]               @relation("FirmAuctionLoan")
+  messageTemplates     MessageTemplate[]           @relation("FirmMessageTemplate")
+  whatsappInstance     WhatsAppInstance?           @relation("FirmWhatsAppInstance")
 }
 
 // Enum for balance type
@@ -888,6 +902,11 @@ model Girvi {
   girv_transfer_firm_id Int?
   girv_transfer_girv_id Int?
   girv_transfer_ml_id   Int? // money lender on source loan when transferred to ML
+
+  // Set on the NEW loan created in target firm (so Daybook can exclude from LOAN ADDED)
+  girv_is_transferred_in     Boolean @default(false)
+  girv_transfer_from_girv_id Int? // source loan id
+  girv_transfer_from_firm_id Int? // source firm id
 
   // Audit Fields
   girv_created_at DateTime  @default(now())
@@ -1545,5 +1564,111 @@ model SerialNumber {
   updated_at     DateTime @updatedAt
 
   @@map("serial_numbers")
+}
+
+// =============================================================================
+// Messaging — Email / WhatsApp / Text SMS templates (firm-wise)
+// =============================================================================
+
+enum MessageChannel {
+  whatsapp
+  sms
+  email
+}
+
+enum MessageTemplateStatus {
+  Active
+  Inactive
+}
+
+enum WhatsAppInstanceStatus {
+  Pending
+  Connected
+  Disconnected
+  Error
+}
+
+model MessageTemplate {
+  mt_id             Int                   @id @default(autoincrement())
+  mt_uuid           String                @unique @default(uuid())
+  mt_own_id         Int
+  mt_firm_id        Int
+  mt_channel        MessageChannel
+  mt_key            String
+  mt_name           String
+  mt_category       String                @default("Transactional")
+  mt_language       String                @default("English (US)")
+  mt_subject        String?
+  mt_body           String
+  mt_variables      Json?
+  mt_attachments    Json?
+  mt_has_attachment Boolean               @default(false)
+  mt_is_system      Boolean               @default(false)
+  mt_status         MessageTemplateStatus @default(Active)
+
+  mt_created_at DateTime  @default(now())
+  mt_created_by String?
+  mt_updated_at DateTime  @updatedAt
+  mt_updated_by String?
+  mt_deleted_at DateTime?
+  mt_deleted_by String?
+  mt_is_deleted Boolean   @default(false)
+
+  owner Owner @relation("OwnerMessageTemplate", fields: [mt_own_id], references: [own_id], onDelete: Cascade)
+  firm  Firm  @relation("FirmMessageTemplate", fields: [mt_firm_id], references: [firm_id], onDelete: Cascade)
+
+  @@unique([mt_firm_id, mt_channel, mt_name])
+  @@index([mt_own_id, mt_firm_id, mt_channel])
+  @@index([mt_key])
+  @@map("message_templates")
+}
+
+model WhatsAppInstance {
+  wa_id           Int                    @id @default(autoincrement())
+  wa_uuid         String                 @unique @default(uuid())
+  wa_own_id       Int
+  wa_firm_id      Int                    @unique
+  wa_provider     String                 @default("ultramsg")
+  wa_instance_id  String?
+  wa_token        String?
+  wa_api_url      String?
+  wa_phone_number String?
+  wa_status       WhatsAppInstanceStatus @default(Pending)
+  wa_qr_code      String?
+  wa_last_checked DateTime?
+  wa_meta         Json?
+
+  wa_created_at DateTime  @default(now())
+  wa_created_by String?
+  wa_updated_at DateTime  @updatedAt
+  wa_updated_by String?
+  wa_deleted_at DateTime?
+  wa_deleted_by String?
+  wa_is_deleted Boolean   @default(false)
+
+  owner Owner @relation("OwnerWhatsAppInstance", fields: [wa_own_id], references: [own_id], onDelete: Cascade)
+  firm  Firm  @relation("FirmWhatsAppInstance", fields: [wa_firm_id], references: [firm_id], onDelete: Cascade)
+
+  @@index([wa_own_id])
+  @@index([wa_status])
+  @@map("whatsapp_instances")
+}
+
+model MessageLog {
+  ml_id           Int            @id @default(autoincrement())
+  ml_uuid         String         @unique @default(uuid())
+  ml_own_id       Int
+  ml_firm_id      Int
+  ml_channel      MessageChannel
+  ml_template_key String
+  ml_to           String
+  ml_status       String
+  ml_error        String?
+  ml_meta         Json?
+  ml_created_at   DateTime       @default(now())
+
+  @@index([ml_firm_id, ml_template_key])
+  @@index([ml_created_at])
+  @@map("message_logs")
 }
 

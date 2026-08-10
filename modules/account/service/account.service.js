@@ -34,6 +34,33 @@ class AccountService {
   }
 
   /**
+   * Move legacy Secured/Unsecured loan COA under Loans & Advances (Asset).
+   * Safe to call repeatedly.
+   */
+  async repairLoanReceivableParents(dbUrl, firmId = null) {
+    const prisma = this.getPrisma(dbUrl);
+    try {
+      const where = {
+        acc_is_deleted: false,
+        acc_name: { in: ["Secured Loans", "Unsecured Loans"] },
+        acc_pre_acc: "Loans (Liability)",
+      };
+      if (firmId) {
+        where.acc_firm_id = parseInt(firmId);
+      }
+      return await prisma.account.updateMany({
+        where,
+        data: {
+          acc_pre_acc: "Loans & Advances (Asset)",
+          acc_balance_type: "DR",
+        },
+      });
+    } finally {
+      await prisma.$disconnect();
+    }
+  }
+
+  /**
    * Get all accounts (not deleted).
    * @param {string} dbUrl 
    * @param {number} firmId Optional firm ID to filter by
@@ -41,6 +68,20 @@ class AccountService {
   async getAccounts(dbUrl, firmId = null) {
     const prisma = this.getPrisma(dbUrl);
     try {
+      // Self-heal legacy loan receivable grouping for existing tenants
+      await prisma.account.updateMany({
+        where: {
+          acc_is_deleted: false,
+          acc_name: { in: ["Secured Loans", "Unsecured Loans"] },
+          acc_pre_acc: "Loans (Liability)",
+          ...(firmId ? { acc_firm_id: parseInt(firmId) } : {}),
+        },
+        data: {
+          acc_pre_acc: "Loans & Advances (Asset)",
+          acc_balance_type: "DR",
+        },
+      });
+
       const where = { acc_is_deleted: false };
       if (firmId) {
         where.acc_firm_id = parseInt(firmId);

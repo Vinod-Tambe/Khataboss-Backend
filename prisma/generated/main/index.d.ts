@@ -129,6 +129,21 @@ export type StaffPermission = $Result.DefaultSelection<Prisma.$StaffPermissionPa
  * 
  */
 export type SerialNumber = $Result.DefaultSelection<Prisma.$SerialNumberPayload>
+/**
+ * Model MessageTemplate
+ * 
+ */
+export type MessageTemplate = $Result.DefaultSelection<Prisma.$MessageTemplatePayload>
+/**
+ * Model WhatsAppInstance
+ * 
+ */
+export type WhatsAppInstance = $Result.DefaultSelection<Prisma.$WhatsAppInstancePayload>
+/**
+ * Model MessageLog
+ * 
+ */
+export type MessageLog = $Result.DefaultSelection<Prisma.$MessageLogPayload>
 
 /**
  * Enums
@@ -335,6 +350,33 @@ export const StaffStatus: {
 
 export type StaffStatus = (typeof StaffStatus)[keyof typeof StaffStatus]
 
+
+export const MessageChannel: {
+  whatsapp: 'whatsapp',
+  sms: 'sms',
+  email: 'email'
+};
+
+export type MessageChannel = (typeof MessageChannel)[keyof typeof MessageChannel]
+
+
+export const MessageTemplateStatus: {
+  Active: 'Active',
+  Inactive: 'Inactive'
+};
+
+export type MessageTemplateStatus = (typeof MessageTemplateStatus)[keyof typeof MessageTemplateStatus]
+
+
+export const WhatsAppInstanceStatus: {
+  Pending: 'Pending',
+  Connected: 'Connected',
+  Disconnected: 'Disconnected',
+  Error: 'Error'
+};
+
+export type WhatsAppInstanceStatus = (typeof WhatsAppInstanceStatus)[keyof typeof WhatsAppInstanceStatus]
+
 }
 
 export type OwnerStatus = $Enums.OwnerStatus
@@ -424,6 +466,18 @@ export const StaffMaritalStatus: typeof $Enums.StaffMaritalStatus
 export type StaffStatus = $Enums.StaffStatus
 
 export const StaffStatus: typeof $Enums.StaffStatus
+
+export type MessageChannel = $Enums.MessageChannel
+
+export const MessageChannel: typeof $Enums.MessageChannel
+
+export type MessageTemplateStatus = $Enums.MessageTemplateStatus
+
+export const MessageTemplateStatus: typeof $Enums.MessageTemplateStatus
+
+export type WhatsAppInstanceStatus = $Enums.WhatsAppInstanceStatus
+
+export const WhatsAppInstanceStatus: typeof $Enums.WhatsAppInstanceStatus
 
 /**
  * ##  Prisma Client ʲˢ
@@ -777,6 +831,36 @@ export class PrismaClient<
     * ```
     */
   get serialNumber(): Prisma.SerialNumberDelegate<ExtArgs>;
+
+  /**
+   * `prisma.messageTemplate`: Exposes CRUD operations for the **MessageTemplate** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more MessageTemplates
+    * const messageTemplates = await prisma.messageTemplate.findMany()
+    * ```
+    */
+  get messageTemplate(): Prisma.MessageTemplateDelegate<ExtArgs>;
+
+  /**
+   * `prisma.whatsAppInstance`: Exposes CRUD operations for the **WhatsAppInstance** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more WhatsAppInstances
+    * const whatsAppInstances = await prisma.whatsAppInstance.findMany()
+    * ```
+    */
+  get whatsAppInstance(): Prisma.WhatsAppInstanceDelegate<ExtArgs>;
+
+  /**
+   * `prisma.messageLog`: Exposes CRUD operations for the **MessageLog** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more MessageLogs
+    * const messageLogs = await prisma.messageLog.findMany()
+    * ```
+    */
+  get messageLog(): Prisma.MessageLogDelegate<ExtArgs>;
 }
 
 export namespace Prisma {
@@ -1240,7 +1324,10 @@ export namespace Prisma {
     Staff: 'Staff',
     Permission: 'Permission',
     StaffPermission: 'StaffPermission',
-    SerialNumber: 'SerialNumber'
+    SerialNumber: 'SerialNumber',
+    MessageTemplate: 'MessageTemplate',
+    WhatsAppInstance: 'WhatsAppInstance',
+    MessageLog: 'MessageLog'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1256,7 +1343,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "owner" | "firm" | "account" | "user" | "finance" | "finance_Transaction" | "finance_Money_Transaction" | "journal" | "journalTransaction" | "girvi" | "stock" | "additionalPrincipal" | "girviDeposit" | "girviRelease" | "rate" | "purity" | "moneyLender" | "auctionUser" | "auctionLoan" | "staff" | "permission" | "staffPermission" | "serialNumber"
+      modelProps: "owner" | "firm" | "account" | "user" | "finance" | "finance_Transaction" | "finance_Money_Transaction" | "journal" | "journalTransaction" | "girvi" | "stock" | "additionalPrincipal" | "girviDeposit" | "girviRelease" | "rate" | "purity" | "moneyLender" | "auctionUser" | "auctionLoan" | "staff" | "permission" | "staffPermission" | "serialNumber" | "messageTemplate" | "whatsAppInstance" | "messageLog"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -2870,6 +2957,216 @@ export namespace Prisma {
           }
         }
       }
+      MessageTemplate: {
+        payload: Prisma.$MessageTemplatePayload<ExtArgs>
+        fields: Prisma.MessageTemplateFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.MessageTemplateFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessageTemplatePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.MessageTemplateFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessageTemplatePayload>
+          }
+          findFirst: {
+            args: Prisma.MessageTemplateFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessageTemplatePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.MessageTemplateFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessageTemplatePayload>
+          }
+          findMany: {
+            args: Prisma.MessageTemplateFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessageTemplatePayload>[]
+          }
+          create: {
+            args: Prisma.MessageTemplateCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessageTemplatePayload>
+          }
+          createMany: {
+            args: Prisma.MessageTemplateCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.MessageTemplateCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessageTemplatePayload>[]
+          }
+          delete: {
+            args: Prisma.MessageTemplateDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessageTemplatePayload>
+          }
+          update: {
+            args: Prisma.MessageTemplateUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessageTemplatePayload>
+          }
+          deleteMany: {
+            args: Prisma.MessageTemplateDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.MessageTemplateUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.MessageTemplateUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessageTemplatePayload>
+          }
+          aggregate: {
+            args: Prisma.MessageTemplateAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateMessageTemplate>
+          }
+          groupBy: {
+            args: Prisma.MessageTemplateGroupByArgs<ExtArgs>
+            result: $Utils.Optional<MessageTemplateGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.MessageTemplateCountArgs<ExtArgs>
+            result: $Utils.Optional<MessageTemplateCountAggregateOutputType> | number
+          }
+        }
+      }
+      WhatsAppInstance: {
+        payload: Prisma.$WhatsAppInstancePayload<ExtArgs>
+        fields: Prisma.WhatsAppInstanceFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.WhatsAppInstanceFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WhatsAppInstancePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.WhatsAppInstanceFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WhatsAppInstancePayload>
+          }
+          findFirst: {
+            args: Prisma.WhatsAppInstanceFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WhatsAppInstancePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.WhatsAppInstanceFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WhatsAppInstancePayload>
+          }
+          findMany: {
+            args: Prisma.WhatsAppInstanceFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WhatsAppInstancePayload>[]
+          }
+          create: {
+            args: Prisma.WhatsAppInstanceCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WhatsAppInstancePayload>
+          }
+          createMany: {
+            args: Prisma.WhatsAppInstanceCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.WhatsAppInstanceCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WhatsAppInstancePayload>[]
+          }
+          delete: {
+            args: Prisma.WhatsAppInstanceDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WhatsAppInstancePayload>
+          }
+          update: {
+            args: Prisma.WhatsAppInstanceUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WhatsAppInstancePayload>
+          }
+          deleteMany: {
+            args: Prisma.WhatsAppInstanceDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.WhatsAppInstanceUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.WhatsAppInstanceUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WhatsAppInstancePayload>
+          }
+          aggregate: {
+            args: Prisma.WhatsAppInstanceAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateWhatsAppInstance>
+          }
+          groupBy: {
+            args: Prisma.WhatsAppInstanceGroupByArgs<ExtArgs>
+            result: $Utils.Optional<WhatsAppInstanceGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.WhatsAppInstanceCountArgs<ExtArgs>
+            result: $Utils.Optional<WhatsAppInstanceCountAggregateOutputType> | number
+          }
+        }
+      }
+      MessageLog: {
+        payload: Prisma.$MessageLogPayload<ExtArgs>
+        fields: Prisma.MessageLogFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.MessageLogFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessageLogPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.MessageLogFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessageLogPayload>
+          }
+          findFirst: {
+            args: Prisma.MessageLogFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessageLogPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.MessageLogFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessageLogPayload>
+          }
+          findMany: {
+            args: Prisma.MessageLogFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessageLogPayload>[]
+          }
+          create: {
+            args: Prisma.MessageLogCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessageLogPayload>
+          }
+          createMany: {
+            args: Prisma.MessageLogCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.MessageLogCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessageLogPayload>[]
+          }
+          delete: {
+            args: Prisma.MessageLogDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessageLogPayload>
+          }
+          update: {
+            args: Prisma.MessageLogUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessageLogPayload>
+          }
+          deleteMany: {
+            args: Prisma.MessageLogDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.MessageLogUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.MessageLogUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessageLogPayload>
+          }
+          aggregate: {
+            args: Prisma.MessageLogAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateMessageLog>
+          }
+          groupBy: {
+            args: Prisma.MessageLogGroupByArgs<ExtArgs>
+            result: $Utils.Optional<MessageLogGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.MessageLogCountArgs<ExtArgs>
+            result: $Utils.Optional<MessageLogCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -3048,6 +3345,8 @@ export namespace Prisma {
     purities: number
     moneyLenders: number
     staff: number
+    messageTemplates: number
+    whatsappInstances: number
   }
 
   export type OwnerCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3068,6 +3367,8 @@ export namespace Prisma {
     purities?: boolean | OwnerCountOutputTypeCountPuritiesArgs
     moneyLenders?: boolean | OwnerCountOutputTypeCountMoneyLendersArgs
     staff?: boolean | OwnerCountOutputTypeCountStaffArgs
+    messageTemplates?: boolean | OwnerCountOutputTypeCountMessageTemplatesArgs
+    whatsappInstances?: boolean | OwnerCountOutputTypeCountWhatsappInstancesArgs
   }
 
   // Custom InputTypes
@@ -3200,6 +3501,20 @@ export namespace Prisma {
     where?: StaffWhereInput
   }
 
+  /**
+   * OwnerCountOutputType without action
+   */
+  export type OwnerCountOutputTypeCountMessageTemplatesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MessageTemplateWhereInput
+  }
+
+  /**
+   * OwnerCountOutputType without action
+   */
+  export type OwnerCountOutputTypeCountWhatsappInstancesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: WhatsAppInstanceWhereInput
+  }
+
 
   /**
    * Count Type FirmCountOutputType
@@ -3222,6 +3537,7 @@ export namespace Prisma {
     moneyLenders: number
     auctionUsers: number
     auctionLoans: number
+    messageTemplates: number
   }
 
   export type FirmCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3241,6 +3557,7 @@ export namespace Prisma {
     moneyLenders?: boolean | FirmCountOutputTypeCountMoneyLendersArgs
     auctionUsers?: boolean | FirmCountOutputTypeCountAuctionUsersArgs
     auctionLoans?: boolean | FirmCountOutputTypeCountAuctionLoansArgs
+    messageTemplates?: boolean | FirmCountOutputTypeCountMessageTemplatesArgs
   }
 
   // Custom InputTypes
@@ -3364,6 +3681,13 @@ export namespace Prisma {
    */
   export type FirmCountOutputTypeCountAuctionLoansArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: AuctionLoanWhereInput
+  }
+
+  /**
+   * FirmCountOutputType without action
+   */
+  export type FirmCountOutputTypeCountMessageTemplatesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MessageTemplateWhereInput
   }
 
 
@@ -4198,6 +4522,12 @@ export namespace Prisma {
     own_login_status: boolean | null
     own_otp: string | null
     own_otp_expiry: Date | null
+    own_mail_user: string | null
+    own_mail_pass_enc: string | null
+    own_mail_from_name: string | null
+    own_mail_provider: string | null
+    own_mail_status: string | null
+    own_mail_updated_at: Date | null
     own_address: string | null
     own_village: string | null
     own_city: string | null
@@ -4234,6 +4564,12 @@ export namespace Prisma {
     own_login_status: boolean | null
     own_otp: string | null
     own_otp_expiry: Date | null
+    own_mail_user: string | null
+    own_mail_pass_enc: string | null
+    own_mail_from_name: string | null
+    own_mail_provider: string | null
+    own_mail_status: string | null
+    own_mail_updated_at: Date | null
     own_address: string | null
     own_village: string | null
     own_city: string | null
@@ -4272,6 +4608,12 @@ export namespace Prisma {
     own_last_login_system: number
     own_otp: number
     own_otp_expiry: number
+    own_mail_user: number
+    own_mail_pass_enc: number
+    own_mail_from_name: number
+    own_mail_provider: number
+    own_mail_status: number
+    own_mail_updated_at: number
     own_address: number
     own_village: number
     own_city: number
@@ -4320,6 +4662,12 @@ export namespace Prisma {
     own_login_status?: true
     own_otp?: true
     own_otp_expiry?: true
+    own_mail_user?: true
+    own_mail_pass_enc?: true
+    own_mail_from_name?: true
+    own_mail_provider?: true
+    own_mail_status?: true
+    own_mail_updated_at?: true
     own_address?: true
     own_village?: true
     own_city?: true
@@ -4356,6 +4704,12 @@ export namespace Prisma {
     own_login_status?: true
     own_otp?: true
     own_otp_expiry?: true
+    own_mail_user?: true
+    own_mail_pass_enc?: true
+    own_mail_from_name?: true
+    own_mail_provider?: true
+    own_mail_status?: true
+    own_mail_updated_at?: true
     own_address?: true
     own_village?: true
     own_city?: true
@@ -4394,6 +4748,12 @@ export namespace Prisma {
     own_last_login_system?: true
     own_otp?: true
     own_otp_expiry?: true
+    own_mail_user?: true
+    own_mail_pass_enc?: true
+    own_mail_from_name?: true
+    own_mail_provider?: true
+    own_mail_status?: true
+    own_mail_updated_at?: true
     own_address?: true
     own_village?: true
     own_city?: true
@@ -4519,6 +4879,12 @@ export namespace Prisma {
     own_last_login_system: JsonValue | null
     own_otp: string | null
     own_otp_expiry: Date | null
+    own_mail_user: string | null
+    own_mail_pass_enc: string | null
+    own_mail_from_name: string | null
+    own_mail_provider: string | null
+    own_mail_status: string | null
+    own_mail_updated_at: Date | null
     own_address: string | null
     own_village: string | null
     own_city: string | null
@@ -4576,6 +4942,12 @@ export namespace Prisma {
     own_last_login_system?: boolean
     own_otp?: boolean
     own_otp_expiry?: boolean
+    own_mail_user?: boolean
+    own_mail_pass_enc?: boolean
+    own_mail_from_name?: boolean
+    own_mail_provider?: boolean
+    own_mail_status?: boolean
+    own_mail_updated_at?: boolean
     own_address?: boolean
     own_village?: boolean
     own_city?: boolean
@@ -4605,6 +4977,8 @@ export namespace Prisma {
     purities?: boolean | Owner$puritiesArgs<ExtArgs>
     moneyLenders?: boolean | Owner$moneyLendersArgs<ExtArgs>
     staff?: boolean | Owner$staffArgs<ExtArgs>
+    messageTemplates?: boolean | Owner$messageTemplatesArgs<ExtArgs>
+    whatsappInstances?: boolean | Owner$whatsappInstancesArgs<ExtArgs>
     _count?: boolean | OwnerCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["owner"]>
 
@@ -4632,6 +5006,12 @@ export namespace Prisma {
     own_last_login_system?: boolean
     own_otp?: boolean
     own_otp_expiry?: boolean
+    own_mail_user?: boolean
+    own_mail_pass_enc?: boolean
+    own_mail_from_name?: boolean
+    own_mail_provider?: boolean
+    own_mail_status?: boolean
+    own_mail_updated_at?: boolean
     own_address?: boolean
     own_village?: boolean
     own_city?: boolean
@@ -4670,6 +5050,12 @@ export namespace Prisma {
     own_last_login_system?: boolean
     own_otp?: boolean
     own_otp_expiry?: boolean
+    own_mail_user?: boolean
+    own_mail_pass_enc?: boolean
+    own_mail_from_name?: boolean
+    own_mail_provider?: boolean
+    own_mail_status?: boolean
+    own_mail_updated_at?: boolean
     own_address?: boolean
     own_village?: boolean
     own_city?: boolean
@@ -4702,6 +5088,8 @@ export namespace Prisma {
     purities?: boolean | Owner$puritiesArgs<ExtArgs>
     moneyLenders?: boolean | Owner$moneyLendersArgs<ExtArgs>
     staff?: boolean | Owner$staffArgs<ExtArgs>
+    messageTemplates?: boolean | Owner$messageTemplatesArgs<ExtArgs>
+    whatsappInstances?: boolean | Owner$whatsappInstancesArgs<ExtArgs>
     _count?: boolean | OwnerCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type OwnerIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -4726,6 +5114,8 @@ export namespace Prisma {
       purities: Prisma.$PurityPayload<ExtArgs>[]
       moneyLenders: Prisma.$MoneyLenderPayload<ExtArgs>[]
       staff: Prisma.$StaffPayload<ExtArgs>[]
+      messageTemplates: Prisma.$MessageTemplatePayload<ExtArgs>[]
+      whatsappInstances: Prisma.$WhatsAppInstancePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       own_id: number
@@ -4751,6 +5141,12 @@ export namespace Prisma {
       own_last_login_system: Prisma.JsonValue | null
       own_otp: string | null
       own_otp_expiry: Date | null
+      own_mail_user: string | null
+      own_mail_pass_enc: string | null
+      own_mail_from_name: string | null
+      own_mail_provider: string | null
+      own_mail_status: string | null
+      own_mail_updated_at: Date | null
       own_address: string | null
       own_village: string | null
       own_city: string | null
@@ -5144,6 +5540,8 @@ export namespace Prisma {
     purities<T extends Owner$puritiesArgs<ExtArgs> = {}>(args?: Subset<T, Owner$puritiesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PurityPayload<ExtArgs>, T, "findMany"> | Null>
     moneyLenders<T extends Owner$moneyLendersArgs<ExtArgs> = {}>(args?: Subset<T, Owner$moneyLendersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MoneyLenderPayload<ExtArgs>, T, "findMany"> | Null>
     staff<T extends Owner$staffArgs<ExtArgs> = {}>(args?: Subset<T, Owner$staffArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StaffPayload<ExtArgs>, T, "findMany"> | Null>
+    messageTemplates<T extends Owner$messageTemplatesArgs<ExtArgs> = {}>(args?: Subset<T, Owner$messageTemplatesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessageTemplatePayload<ExtArgs>, T, "findMany"> | Null>
+    whatsappInstances<T extends Owner$whatsappInstancesArgs<ExtArgs> = {}>(args?: Subset<T, Owner$whatsappInstancesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WhatsAppInstancePayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5196,6 +5594,12 @@ export namespace Prisma {
     readonly own_last_login_system: FieldRef<"Owner", 'Json'>
     readonly own_otp: FieldRef<"Owner", 'String'>
     readonly own_otp_expiry: FieldRef<"Owner", 'DateTime'>
+    readonly own_mail_user: FieldRef<"Owner", 'String'>
+    readonly own_mail_pass_enc: FieldRef<"Owner", 'String'>
+    readonly own_mail_from_name: FieldRef<"Owner", 'String'>
+    readonly own_mail_provider: FieldRef<"Owner", 'String'>
+    readonly own_mail_status: FieldRef<"Owner", 'String'>
+    readonly own_mail_updated_at: FieldRef<"Owner", 'DateTime'>
     readonly own_address: FieldRef<"Owner", 'String'>
     readonly own_village: FieldRef<"Owner", 'String'>
     readonly own_city: FieldRef<"Owner", 'String'>
@@ -5862,6 +6266,46 @@ export namespace Prisma {
   }
 
   /**
+   * Owner.messageTemplates
+   */
+  export type Owner$messageTemplatesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MessageTemplate
+     */
+    select?: MessageTemplateSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageTemplateInclude<ExtArgs> | null
+    where?: MessageTemplateWhereInput
+    orderBy?: MessageTemplateOrderByWithRelationInput | MessageTemplateOrderByWithRelationInput[]
+    cursor?: MessageTemplateWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MessageTemplateScalarFieldEnum | MessageTemplateScalarFieldEnum[]
+  }
+
+  /**
+   * Owner.whatsappInstances
+   */
+  export type Owner$whatsappInstancesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsAppInstance
+     */
+    select?: WhatsAppInstanceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WhatsAppInstanceInclude<ExtArgs> | null
+    where?: WhatsAppInstanceWhereInput
+    orderBy?: WhatsAppInstanceOrderByWithRelationInput | WhatsAppInstanceOrderByWithRelationInput[]
+    cursor?: WhatsAppInstanceWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: WhatsAppInstanceScalarFieldEnum | WhatsAppInstanceScalarFieldEnum[]
+  }
+
+  /**
    * Owner without action
    */
   export type OwnerDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -6435,6 +6879,8 @@ export namespace Prisma {
     moneyLenders?: boolean | Firm$moneyLendersArgs<ExtArgs>
     auctionUsers?: boolean | Firm$auctionUsersArgs<ExtArgs>
     auctionLoans?: boolean | Firm$auctionLoansArgs<ExtArgs>
+    messageTemplates?: boolean | Firm$messageTemplatesArgs<ExtArgs>
+    whatsappInstance?: boolean | Firm$whatsappInstanceArgs<ExtArgs>
     _count?: boolean | FirmCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["firm"]>
 
@@ -6563,6 +7009,8 @@ export namespace Prisma {
     moneyLenders?: boolean | Firm$moneyLendersArgs<ExtArgs>
     auctionUsers?: boolean | Firm$auctionUsersArgs<ExtArgs>
     auctionLoans?: boolean | Firm$auctionLoansArgs<ExtArgs>
+    messageTemplates?: boolean | Firm$messageTemplatesArgs<ExtArgs>
+    whatsappInstance?: boolean | Firm$whatsappInstanceArgs<ExtArgs>
     _count?: boolean | FirmCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type FirmIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -6589,6 +7037,8 @@ export namespace Prisma {
       moneyLenders: Prisma.$MoneyLenderPayload<ExtArgs>[]
       auctionUsers: Prisma.$AuctionUserPayload<ExtArgs>[]
       auctionLoans: Prisma.$AuctionLoanPayload<ExtArgs>[]
+      messageTemplates: Prisma.$MessageTemplatePayload<ExtArgs>[]
+      whatsappInstance: Prisma.$WhatsAppInstancePayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       firm_id: number
@@ -7022,6 +7472,8 @@ export namespace Prisma {
     moneyLenders<T extends Firm$moneyLendersArgs<ExtArgs> = {}>(args?: Subset<T, Firm$moneyLendersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MoneyLenderPayload<ExtArgs>, T, "findMany"> | Null>
     auctionUsers<T extends Firm$auctionUsersArgs<ExtArgs> = {}>(args?: Subset<T, Firm$auctionUsersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AuctionUserPayload<ExtArgs>, T, "findMany"> | Null>
     auctionLoans<T extends Firm$auctionLoansArgs<ExtArgs> = {}>(args?: Subset<T, Firm$auctionLoansArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AuctionLoanPayload<ExtArgs>, T, "findMany"> | Null>
+    messageTemplates<T extends Firm$messageTemplatesArgs<ExtArgs> = {}>(args?: Subset<T, Firm$messageTemplatesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessageTemplatePayload<ExtArgs>, T, "findMany"> | Null>
+    whatsappInstance<T extends Firm$whatsappInstanceArgs<ExtArgs> = {}>(args?: Subset<T, Firm$whatsappInstanceArgs<ExtArgs>>): Prisma__WhatsAppInstanceClient<$Result.GetResult<Prisma.$WhatsAppInstancePayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -7736,6 +8188,41 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: AuctionLoanScalarFieldEnum | AuctionLoanScalarFieldEnum[]
+  }
+
+  /**
+   * Firm.messageTemplates
+   */
+  export type Firm$messageTemplatesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MessageTemplate
+     */
+    select?: MessageTemplateSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageTemplateInclude<ExtArgs> | null
+    where?: MessageTemplateWhereInput
+    orderBy?: MessageTemplateOrderByWithRelationInput | MessageTemplateOrderByWithRelationInput[]
+    cursor?: MessageTemplateWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MessageTemplateScalarFieldEnum | MessageTemplateScalarFieldEnum[]
+  }
+
+  /**
+   * Firm.whatsappInstance
+   */
+  export type Firm$whatsappInstanceArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsAppInstance
+     */
+    select?: WhatsAppInstanceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WhatsAppInstanceInclude<ExtArgs> | null
+    where?: WhatsAppInstanceWhereInput
   }
 
   /**
@@ -18910,6 +19397,8 @@ export namespace Prisma {
     girv_transfer_firm_id: number | null
     girv_transfer_girv_id: number | null
     girv_transfer_ml_id: number | null
+    girv_transfer_from_girv_id: number | null
+    girv_transfer_from_firm_id: number | null
   }
 
   export type GirviSumAggregateOutputType = {
@@ -18939,6 +19428,8 @@ export namespace Prisma {
     girv_transfer_firm_id: number | null
     girv_transfer_girv_id: number | null
     girv_transfer_ml_id: number | null
+    girv_transfer_from_girv_id: number | null
+    girv_transfer_from_firm_id: number | null
   }
 
   export type GirviMinAggregateOutputType = {
@@ -18988,6 +19479,9 @@ export namespace Prisma {
     girv_transfer_firm_id: number | null
     girv_transfer_girv_id: number | null
     girv_transfer_ml_id: number | null
+    girv_is_transferred_in: boolean | null
+    girv_transfer_from_girv_id: number | null
+    girv_transfer_from_firm_id: number | null
     girv_created_at: Date | null
     girv_created_by: string | null
     girv_updated_at: Date | null
@@ -19044,6 +19538,9 @@ export namespace Prisma {
     girv_transfer_firm_id: number | null
     girv_transfer_girv_id: number | null
     girv_transfer_ml_id: number | null
+    girv_is_transferred_in: boolean | null
+    girv_transfer_from_girv_id: number | null
+    girv_transfer_from_firm_id: number | null
     girv_created_at: Date | null
     girv_created_by: string | null
     girv_updated_at: Date | null
@@ -19100,6 +19597,9 @@ export namespace Prisma {
     girv_transfer_firm_id: number
     girv_transfer_girv_id: number
     girv_transfer_ml_id: number
+    girv_is_transferred_in: number
+    girv_transfer_from_girv_id: number
+    girv_transfer_from_firm_id: number
     girv_created_at: number
     girv_created_by: number
     girv_updated_at: number
@@ -19138,6 +19638,8 @@ export namespace Prisma {
     girv_transfer_firm_id?: true
     girv_transfer_girv_id?: true
     girv_transfer_ml_id?: true
+    girv_transfer_from_girv_id?: true
+    girv_transfer_from_firm_id?: true
   }
 
   export type GirviSumAggregateInputType = {
@@ -19167,6 +19669,8 @@ export namespace Prisma {
     girv_transfer_firm_id?: true
     girv_transfer_girv_id?: true
     girv_transfer_ml_id?: true
+    girv_transfer_from_girv_id?: true
+    girv_transfer_from_firm_id?: true
   }
 
   export type GirviMinAggregateInputType = {
@@ -19216,6 +19720,9 @@ export namespace Prisma {
     girv_transfer_firm_id?: true
     girv_transfer_girv_id?: true
     girv_transfer_ml_id?: true
+    girv_is_transferred_in?: true
+    girv_transfer_from_girv_id?: true
+    girv_transfer_from_firm_id?: true
     girv_created_at?: true
     girv_created_by?: true
     girv_updated_at?: true
@@ -19272,6 +19779,9 @@ export namespace Prisma {
     girv_transfer_firm_id?: true
     girv_transfer_girv_id?: true
     girv_transfer_ml_id?: true
+    girv_is_transferred_in?: true
+    girv_transfer_from_girv_id?: true
+    girv_transfer_from_firm_id?: true
     girv_created_at?: true
     girv_created_by?: true
     girv_updated_at?: true
@@ -19328,6 +19838,9 @@ export namespace Prisma {
     girv_transfer_firm_id?: true
     girv_transfer_girv_id?: true
     girv_transfer_ml_id?: true
+    girv_is_transferred_in?: true
+    girv_transfer_from_girv_id?: true
+    girv_transfer_from_firm_id?: true
     girv_created_at?: true
     girv_created_by?: true
     girv_updated_at?: true
@@ -19471,6 +19984,9 @@ export namespace Prisma {
     girv_transfer_firm_id: number | null
     girv_transfer_girv_id: number | null
     girv_transfer_ml_id: number | null
+    girv_is_transferred_in: boolean
+    girv_transfer_from_girv_id: number | null
+    girv_transfer_from_firm_id: number | null
     girv_created_at: Date
     girv_created_by: string | null
     girv_updated_at: Date
@@ -19546,6 +20062,9 @@ export namespace Prisma {
     girv_transfer_firm_id?: boolean
     girv_transfer_girv_id?: boolean
     girv_transfer_ml_id?: boolean
+    girv_is_transferred_in?: boolean
+    girv_transfer_from_girv_id?: boolean
+    girv_transfer_from_firm_id?: boolean
     girv_created_at?: boolean
     girv_created_by?: boolean
     girv_updated_at?: boolean
@@ -19618,6 +20137,9 @@ export namespace Prisma {
     girv_transfer_firm_id?: boolean
     girv_transfer_girv_id?: boolean
     girv_transfer_ml_id?: boolean
+    girv_is_transferred_in?: boolean
+    girv_transfer_from_girv_id?: boolean
+    girv_transfer_from_firm_id?: boolean
     girv_created_at?: boolean
     girv_created_by?: boolean
     girv_updated_at?: boolean
@@ -19685,6 +20207,9 @@ export namespace Prisma {
     girv_transfer_firm_id?: boolean
     girv_transfer_girv_id?: boolean
     girv_transfer_ml_id?: boolean
+    girv_is_transferred_in?: boolean
+    girv_transfer_from_girv_id?: boolean
+    girv_transfer_from_firm_id?: boolean
     girv_created_at?: boolean
     girv_created_by?: boolean
     girv_updated_at?: boolean
@@ -19792,6 +20317,9 @@ export namespace Prisma {
       girv_transfer_firm_id: number | null
       girv_transfer_girv_id: number | null
       girv_transfer_ml_id: number | null
+      girv_is_transferred_in: boolean
+      girv_transfer_from_girv_id: number | null
+      girv_transfer_from_firm_id: number | null
       girv_created_at: Date
       girv_created_by: string | null
       girv_updated_at: Date
@@ -20253,6 +20781,9 @@ export namespace Prisma {
     readonly girv_transfer_firm_id: FieldRef<"Girvi", 'Int'>
     readonly girv_transfer_girv_id: FieldRef<"Girvi", 'Int'>
     readonly girv_transfer_ml_id: FieldRef<"Girvi", 'Int'>
+    readonly girv_is_transferred_in: FieldRef<"Girvi", 'Boolean'>
+    readonly girv_transfer_from_girv_id: FieldRef<"Girvi", 'Int'>
+    readonly girv_transfer_from_firm_id: FieldRef<"Girvi", 'Int'>
     readonly girv_created_at: FieldRef<"Girvi", 'DateTime'>
     readonly girv_created_by: FieldRef<"Girvi", 'String'>
     readonly girv_updated_at: FieldRef<"Girvi", 'DateTime'>
@@ -37373,6 +37904,3340 @@ export namespace Prisma {
 
 
   /**
+   * Model MessageTemplate
+   */
+
+  export type AggregateMessageTemplate = {
+    _count: MessageTemplateCountAggregateOutputType | null
+    _avg: MessageTemplateAvgAggregateOutputType | null
+    _sum: MessageTemplateSumAggregateOutputType | null
+    _min: MessageTemplateMinAggregateOutputType | null
+    _max: MessageTemplateMaxAggregateOutputType | null
+  }
+
+  export type MessageTemplateAvgAggregateOutputType = {
+    mt_id: number | null
+    mt_own_id: number | null
+    mt_firm_id: number | null
+  }
+
+  export type MessageTemplateSumAggregateOutputType = {
+    mt_id: number | null
+    mt_own_id: number | null
+    mt_firm_id: number | null
+  }
+
+  export type MessageTemplateMinAggregateOutputType = {
+    mt_id: number | null
+    mt_uuid: string | null
+    mt_own_id: number | null
+    mt_firm_id: number | null
+    mt_channel: $Enums.MessageChannel | null
+    mt_key: string | null
+    mt_name: string | null
+    mt_category: string | null
+    mt_language: string | null
+    mt_subject: string | null
+    mt_body: string | null
+    mt_has_attachment: boolean | null
+    mt_is_system: boolean | null
+    mt_status: $Enums.MessageTemplateStatus | null
+    mt_created_at: Date | null
+    mt_created_by: string | null
+    mt_updated_at: Date | null
+    mt_updated_by: string | null
+    mt_deleted_at: Date | null
+    mt_deleted_by: string | null
+    mt_is_deleted: boolean | null
+  }
+
+  export type MessageTemplateMaxAggregateOutputType = {
+    mt_id: number | null
+    mt_uuid: string | null
+    mt_own_id: number | null
+    mt_firm_id: number | null
+    mt_channel: $Enums.MessageChannel | null
+    mt_key: string | null
+    mt_name: string | null
+    mt_category: string | null
+    mt_language: string | null
+    mt_subject: string | null
+    mt_body: string | null
+    mt_has_attachment: boolean | null
+    mt_is_system: boolean | null
+    mt_status: $Enums.MessageTemplateStatus | null
+    mt_created_at: Date | null
+    mt_created_by: string | null
+    mt_updated_at: Date | null
+    mt_updated_by: string | null
+    mt_deleted_at: Date | null
+    mt_deleted_by: string | null
+    mt_is_deleted: boolean | null
+  }
+
+  export type MessageTemplateCountAggregateOutputType = {
+    mt_id: number
+    mt_uuid: number
+    mt_own_id: number
+    mt_firm_id: number
+    mt_channel: number
+    mt_key: number
+    mt_name: number
+    mt_category: number
+    mt_language: number
+    mt_subject: number
+    mt_body: number
+    mt_variables: number
+    mt_attachments: number
+    mt_has_attachment: number
+    mt_is_system: number
+    mt_status: number
+    mt_created_at: number
+    mt_created_by: number
+    mt_updated_at: number
+    mt_updated_by: number
+    mt_deleted_at: number
+    mt_deleted_by: number
+    mt_is_deleted: number
+    _all: number
+  }
+
+
+  export type MessageTemplateAvgAggregateInputType = {
+    mt_id?: true
+    mt_own_id?: true
+    mt_firm_id?: true
+  }
+
+  export type MessageTemplateSumAggregateInputType = {
+    mt_id?: true
+    mt_own_id?: true
+    mt_firm_id?: true
+  }
+
+  export type MessageTemplateMinAggregateInputType = {
+    mt_id?: true
+    mt_uuid?: true
+    mt_own_id?: true
+    mt_firm_id?: true
+    mt_channel?: true
+    mt_key?: true
+    mt_name?: true
+    mt_category?: true
+    mt_language?: true
+    mt_subject?: true
+    mt_body?: true
+    mt_has_attachment?: true
+    mt_is_system?: true
+    mt_status?: true
+    mt_created_at?: true
+    mt_created_by?: true
+    mt_updated_at?: true
+    mt_updated_by?: true
+    mt_deleted_at?: true
+    mt_deleted_by?: true
+    mt_is_deleted?: true
+  }
+
+  export type MessageTemplateMaxAggregateInputType = {
+    mt_id?: true
+    mt_uuid?: true
+    mt_own_id?: true
+    mt_firm_id?: true
+    mt_channel?: true
+    mt_key?: true
+    mt_name?: true
+    mt_category?: true
+    mt_language?: true
+    mt_subject?: true
+    mt_body?: true
+    mt_has_attachment?: true
+    mt_is_system?: true
+    mt_status?: true
+    mt_created_at?: true
+    mt_created_by?: true
+    mt_updated_at?: true
+    mt_updated_by?: true
+    mt_deleted_at?: true
+    mt_deleted_by?: true
+    mt_is_deleted?: true
+  }
+
+  export type MessageTemplateCountAggregateInputType = {
+    mt_id?: true
+    mt_uuid?: true
+    mt_own_id?: true
+    mt_firm_id?: true
+    mt_channel?: true
+    mt_key?: true
+    mt_name?: true
+    mt_category?: true
+    mt_language?: true
+    mt_subject?: true
+    mt_body?: true
+    mt_variables?: true
+    mt_attachments?: true
+    mt_has_attachment?: true
+    mt_is_system?: true
+    mt_status?: true
+    mt_created_at?: true
+    mt_created_by?: true
+    mt_updated_at?: true
+    mt_updated_by?: true
+    mt_deleted_at?: true
+    mt_deleted_by?: true
+    mt_is_deleted?: true
+    _all?: true
+  }
+
+  export type MessageTemplateAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MessageTemplate to aggregate.
+     */
+    where?: MessageTemplateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MessageTemplates to fetch.
+     */
+    orderBy?: MessageTemplateOrderByWithRelationInput | MessageTemplateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: MessageTemplateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MessageTemplates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MessageTemplates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned MessageTemplates
+    **/
+    _count?: true | MessageTemplateCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: MessageTemplateAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: MessageTemplateSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: MessageTemplateMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: MessageTemplateMaxAggregateInputType
+  }
+
+  export type GetMessageTemplateAggregateType<T extends MessageTemplateAggregateArgs> = {
+        [P in keyof T & keyof AggregateMessageTemplate]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMessageTemplate[P]>
+      : GetScalarType<T[P], AggregateMessageTemplate[P]>
+  }
+
+
+
+
+  export type MessageTemplateGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MessageTemplateWhereInput
+    orderBy?: MessageTemplateOrderByWithAggregationInput | MessageTemplateOrderByWithAggregationInput[]
+    by: MessageTemplateScalarFieldEnum[] | MessageTemplateScalarFieldEnum
+    having?: MessageTemplateScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: MessageTemplateCountAggregateInputType | true
+    _avg?: MessageTemplateAvgAggregateInputType
+    _sum?: MessageTemplateSumAggregateInputType
+    _min?: MessageTemplateMinAggregateInputType
+    _max?: MessageTemplateMaxAggregateInputType
+  }
+
+  export type MessageTemplateGroupByOutputType = {
+    mt_id: number
+    mt_uuid: string
+    mt_own_id: number
+    mt_firm_id: number
+    mt_channel: $Enums.MessageChannel
+    mt_key: string
+    mt_name: string
+    mt_category: string
+    mt_language: string
+    mt_subject: string | null
+    mt_body: string
+    mt_variables: JsonValue | null
+    mt_attachments: JsonValue | null
+    mt_has_attachment: boolean
+    mt_is_system: boolean
+    mt_status: $Enums.MessageTemplateStatus
+    mt_created_at: Date
+    mt_created_by: string | null
+    mt_updated_at: Date
+    mt_updated_by: string | null
+    mt_deleted_at: Date | null
+    mt_deleted_by: string | null
+    mt_is_deleted: boolean
+    _count: MessageTemplateCountAggregateOutputType | null
+    _avg: MessageTemplateAvgAggregateOutputType | null
+    _sum: MessageTemplateSumAggregateOutputType | null
+    _min: MessageTemplateMinAggregateOutputType | null
+    _max: MessageTemplateMaxAggregateOutputType | null
+  }
+
+  type GetMessageTemplateGroupByPayload<T extends MessageTemplateGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<MessageTemplateGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof MessageTemplateGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], MessageTemplateGroupByOutputType[P]>
+            : GetScalarType<T[P], MessageTemplateGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type MessageTemplateSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    mt_id?: boolean
+    mt_uuid?: boolean
+    mt_own_id?: boolean
+    mt_firm_id?: boolean
+    mt_channel?: boolean
+    mt_key?: boolean
+    mt_name?: boolean
+    mt_category?: boolean
+    mt_language?: boolean
+    mt_subject?: boolean
+    mt_body?: boolean
+    mt_variables?: boolean
+    mt_attachments?: boolean
+    mt_has_attachment?: boolean
+    mt_is_system?: boolean
+    mt_status?: boolean
+    mt_created_at?: boolean
+    mt_created_by?: boolean
+    mt_updated_at?: boolean
+    mt_updated_by?: boolean
+    mt_deleted_at?: boolean
+    mt_deleted_by?: boolean
+    mt_is_deleted?: boolean
+    owner?: boolean | OwnerDefaultArgs<ExtArgs>
+    firm?: boolean | FirmDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["messageTemplate"]>
+
+  export type MessageTemplateSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    mt_id?: boolean
+    mt_uuid?: boolean
+    mt_own_id?: boolean
+    mt_firm_id?: boolean
+    mt_channel?: boolean
+    mt_key?: boolean
+    mt_name?: boolean
+    mt_category?: boolean
+    mt_language?: boolean
+    mt_subject?: boolean
+    mt_body?: boolean
+    mt_variables?: boolean
+    mt_attachments?: boolean
+    mt_has_attachment?: boolean
+    mt_is_system?: boolean
+    mt_status?: boolean
+    mt_created_at?: boolean
+    mt_created_by?: boolean
+    mt_updated_at?: boolean
+    mt_updated_by?: boolean
+    mt_deleted_at?: boolean
+    mt_deleted_by?: boolean
+    mt_is_deleted?: boolean
+    owner?: boolean | OwnerDefaultArgs<ExtArgs>
+    firm?: boolean | FirmDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["messageTemplate"]>
+
+  export type MessageTemplateSelectScalar = {
+    mt_id?: boolean
+    mt_uuid?: boolean
+    mt_own_id?: boolean
+    mt_firm_id?: boolean
+    mt_channel?: boolean
+    mt_key?: boolean
+    mt_name?: boolean
+    mt_category?: boolean
+    mt_language?: boolean
+    mt_subject?: boolean
+    mt_body?: boolean
+    mt_variables?: boolean
+    mt_attachments?: boolean
+    mt_has_attachment?: boolean
+    mt_is_system?: boolean
+    mt_status?: boolean
+    mt_created_at?: boolean
+    mt_created_by?: boolean
+    mt_updated_at?: boolean
+    mt_updated_by?: boolean
+    mt_deleted_at?: boolean
+    mt_deleted_by?: boolean
+    mt_is_deleted?: boolean
+  }
+
+  export type MessageTemplateInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    owner?: boolean | OwnerDefaultArgs<ExtArgs>
+    firm?: boolean | FirmDefaultArgs<ExtArgs>
+  }
+  export type MessageTemplateIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    owner?: boolean | OwnerDefaultArgs<ExtArgs>
+    firm?: boolean | FirmDefaultArgs<ExtArgs>
+  }
+
+  export type $MessageTemplatePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "MessageTemplate"
+    objects: {
+      owner: Prisma.$OwnerPayload<ExtArgs>
+      firm: Prisma.$FirmPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      mt_id: number
+      mt_uuid: string
+      mt_own_id: number
+      mt_firm_id: number
+      mt_channel: $Enums.MessageChannel
+      mt_key: string
+      mt_name: string
+      mt_category: string
+      mt_language: string
+      mt_subject: string | null
+      mt_body: string
+      mt_variables: Prisma.JsonValue | null
+      mt_attachments: Prisma.JsonValue | null
+      mt_has_attachment: boolean
+      mt_is_system: boolean
+      mt_status: $Enums.MessageTemplateStatus
+      mt_created_at: Date
+      mt_created_by: string | null
+      mt_updated_at: Date
+      mt_updated_by: string | null
+      mt_deleted_at: Date | null
+      mt_deleted_by: string | null
+      mt_is_deleted: boolean
+    }, ExtArgs["result"]["messageTemplate"]>
+    composites: {}
+  }
+
+  type MessageTemplateGetPayload<S extends boolean | null | undefined | MessageTemplateDefaultArgs> = $Result.GetResult<Prisma.$MessageTemplatePayload, S>
+
+  type MessageTemplateCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<MessageTemplateFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: MessageTemplateCountAggregateInputType | true
+    }
+
+  export interface MessageTemplateDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['MessageTemplate'], meta: { name: 'MessageTemplate' } }
+    /**
+     * Find zero or one MessageTemplate that matches the filter.
+     * @param {MessageTemplateFindUniqueArgs} args - Arguments to find a MessageTemplate
+     * @example
+     * // Get one MessageTemplate
+     * const messageTemplate = await prisma.messageTemplate.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends MessageTemplateFindUniqueArgs>(args: SelectSubset<T, MessageTemplateFindUniqueArgs<ExtArgs>>): Prisma__MessageTemplateClient<$Result.GetResult<Prisma.$MessageTemplatePayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one MessageTemplate that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {MessageTemplateFindUniqueOrThrowArgs} args - Arguments to find a MessageTemplate
+     * @example
+     * // Get one MessageTemplate
+     * const messageTemplate = await prisma.messageTemplate.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends MessageTemplateFindUniqueOrThrowArgs>(args: SelectSubset<T, MessageTemplateFindUniqueOrThrowArgs<ExtArgs>>): Prisma__MessageTemplateClient<$Result.GetResult<Prisma.$MessageTemplatePayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first MessageTemplate that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MessageTemplateFindFirstArgs} args - Arguments to find a MessageTemplate
+     * @example
+     * // Get one MessageTemplate
+     * const messageTemplate = await prisma.messageTemplate.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends MessageTemplateFindFirstArgs>(args?: SelectSubset<T, MessageTemplateFindFirstArgs<ExtArgs>>): Prisma__MessageTemplateClient<$Result.GetResult<Prisma.$MessageTemplatePayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first MessageTemplate that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MessageTemplateFindFirstOrThrowArgs} args - Arguments to find a MessageTemplate
+     * @example
+     * // Get one MessageTemplate
+     * const messageTemplate = await prisma.messageTemplate.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends MessageTemplateFindFirstOrThrowArgs>(args?: SelectSubset<T, MessageTemplateFindFirstOrThrowArgs<ExtArgs>>): Prisma__MessageTemplateClient<$Result.GetResult<Prisma.$MessageTemplatePayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more MessageTemplates that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MessageTemplateFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all MessageTemplates
+     * const messageTemplates = await prisma.messageTemplate.findMany()
+     * 
+     * // Get first 10 MessageTemplates
+     * const messageTemplates = await prisma.messageTemplate.findMany({ take: 10 })
+     * 
+     * // Only select the `mt_id`
+     * const messageTemplateWithMt_idOnly = await prisma.messageTemplate.findMany({ select: { mt_id: true } })
+     * 
+     */
+    findMany<T extends MessageTemplateFindManyArgs>(args?: SelectSubset<T, MessageTemplateFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessageTemplatePayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a MessageTemplate.
+     * @param {MessageTemplateCreateArgs} args - Arguments to create a MessageTemplate.
+     * @example
+     * // Create one MessageTemplate
+     * const MessageTemplate = await prisma.messageTemplate.create({
+     *   data: {
+     *     // ... data to create a MessageTemplate
+     *   }
+     * })
+     * 
+     */
+    create<T extends MessageTemplateCreateArgs>(args: SelectSubset<T, MessageTemplateCreateArgs<ExtArgs>>): Prisma__MessageTemplateClient<$Result.GetResult<Prisma.$MessageTemplatePayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many MessageTemplates.
+     * @param {MessageTemplateCreateManyArgs} args - Arguments to create many MessageTemplates.
+     * @example
+     * // Create many MessageTemplates
+     * const messageTemplate = await prisma.messageTemplate.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends MessageTemplateCreateManyArgs>(args?: SelectSubset<T, MessageTemplateCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many MessageTemplates and returns the data saved in the database.
+     * @param {MessageTemplateCreateManyAndReturnArgs} args - Arguments to create many MessageTemplates.
+     * @example
+     * // Create many MessageTemplates
+     * const messageTemplate = await prisma.messageTemplate.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many MessageTemplates and only return the `mt_id`
+     * const messageTemplateWithMt_idOnly = await prisma.messageTemplate.createManyAndReturn({ 
+     *   select: { mt_id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends MessageTemplateCreateManyAndReturnArgs>(args?: SelectSubset<T, MessageTemplateCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessageTemplatePayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a MessageTemplate.
+     * @param {MessageTemplateDeleteArgs} args - Arguments to delete one MessageTemplate.
+     * @example
+     * // Delete one MessageTemplate
+     * const MessageTemplate = await prisma.messageTemplate.delete({
+     *   where: {
+     *     // ... filter to delete one MessageTemplate
+     *   }
+     * })
+     * 
+     */
+    delete<T extends MessageTemplateDeleteArgs>(args: SelectSubset<T, MessageTemplateDeleteArgs<ExtArgs>>): Prisma__MessageTemplateClient<$Result.GetResult<Prisma.$MessageTemplatePayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one MessageTemplate.
+     * @param {MessageTemplateUpdateArgs} args - Arguments to update one MessageTemplate.
+     * @example
+     * // Update one MessageTemplate
+     * const messageTemplate = await prisma.messageTemplate.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends MessageTemplateUpdateArgs>(args: SelectSubset<T, MessageTemplateUpdateArgs<ExtArgs>>): Prisma__MessageTemplateClient<$Result.GetResult<Prisma.$MessageTemplatePayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more MessageTemplates.
+     * @param {MessageTemplateDeleteManyArgs} args - Arguments to filter MessageTemplates to delete.
+     * @example
+     * // Delete a few MessageTemplates
+     * const { count } = await prisma.messageTemplate.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends MessageTemplateDeleteManyArgs>(args?: SelectSubset<T, MessageTemplateDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MessageTemplates.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MessageTemplateUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many MessageTemplates
+     * const messageTemplate = await prisma.messageTemplate.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends MessageTemplateUpdateManyArgs>(args: SelectSubset<T, MessageTemplateUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one MessageTemplate.
+     * @param {MessageTemplateUpsertArgs} args - Arguments to update or create a MessageTemplate.
+     * @example
+     * // Update or create a MessageTemplate
+     * const messageTemplate = await prisma.messageTemplate.upsert({
+     *   create: {
+     *     // ... data to create a MessageTemplate
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the MessageTemplate we want to update
+     *   }
+     * })
+     */
+    upsert<T extends MessageTemplateUpsertArgs>(args: SelectSubset<T, MessageTemplateUpsertArgs<ExtArgs>>): Prisma__MessageTemplateClient<$Result.GetResult<Prisma.$MessageTemplatePayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of MessageTemplates.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MessageTemplateCountArgs} args - Arguments to filter MessageTemplates to count.
+     * @example
+     * // Count the number of MessageTemplates
+     * const count = await prisma.messageTemplate.count({
+     *   where: {
+     *     // ... the filter for the MessageTemplates we want to count
+     *   }
+     * })
+    **/
+    count<T extends MessageTemplateCountArgs>(
+      args?: Subset<T, MessageTemplateCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], MessageTemplateCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a MessageTemplate.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MessageTemplateAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends MessageTemplateAggregateArgs>(args: Subset<T, MessageTemplateAggregateArgs>): Prisma.PrismaPromise<GetMessageTemplateAggregateType<T>>
+
+    /**
+     * Group by MessageTemplate.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MessageTemplateGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends MessageTemplateGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: MessageTemplateGroupByArgs['orderBy'] }
+        : { orderBy?: MessageTemplateGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, MessageTemplateGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMessageTemplateGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the MessageTemplate model
+   */
+  readonly fields: MessageTemplateFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for MessageTemplate.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__MessageTemplateClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    owner<T extends OwnerDefaultArgs<ExtArgs> = {}>(args?: Subset<T, OwnerDefaultArgs<ExtArgs>>): Prisma__OwnerClient<$Result.GetResult<Prisma.$OwnerPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    firm<T extends FirmDefaultArgs<ExtArgs> = {}>(args?: Subset<T, FirmDefaultArgs<ExtArgs>>): Prisma__FirmClient<$Result.GetResult<Prisma.$FirmPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the MessageTemplate model
+   */ 
+  interface MessageTemplateFieldRefs {
+    readonly mt_id: FieldRef<"MessageTemplate", 'Int'>
+    readonly mt_uuid: FieldRef<"MessageTemplate", 'String'>
+    readonly mt_own_id: FieldRef<"MessageTemplate", 'Int'>
+    readonly mt_firm_id: FieldRef<"MessageTemplate", 'Int'>
+    readonly mt_channel: FieldRef<"MessageTemplate", 'MessageChannel'>
+    readonly mt_key: FieldRef<"MessageTemplate", 'String'>
+    readonly mt_name: FieldRef<"MessageTemplate", 'String'>
+    readonly mt_category: FieldRef<"MessageTemplate", 'String'>
+    readonly mt_language: FieldRef<"MessageTemplate", 'String'>
+    readonly mt_subject: FieldRef<"MessageTemplate", 'String'>
+    readonly mt_body: FieldRef<"MessageTemplate", 'String'>
+    readonly mt_variables: FieldRef<"MessageTemplate", 'Json'>
+    readonly mt_attachments: FieldRef<"MessageTemplate", 'Json'>
+    readonly mt_has_attachment: FieldRef<"MessageTemplate", 'Boolean'>
+    readonly mt_is_system: FieldRef<"MessageTemplate", 'Boolean'>
+    readonly mt_status: FieldRef<"MessageTemplate", 'MessageTemplateStatus'>
+    readonly mt_created_at: FieldRef<"MessageTemplate", 'DateTime'>
+    readonly mt_created_by: FieldRef<"MessageTemplate", 'String'>
+    readonly mt_updated_at: FieldRef<"MessageTemplate", 'DateTime'>
+    readonly mt_updated_by: FieldRef<"MessageTemplate", 'String'>
+    readonly mt_deleted_at: FieldRef<"MessageTemplate", 'DateTime'>
+    readonly mt_deleted_by: FieldRef<"MessageTemplate", 'String'>
+    readonly mt_is_deleted: FieldRef<"MessageTemplate", 'Boolean'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * MessageTemplate findUnique
+   */
+  export type MessageTemplateFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MessageTemplate
+     */
+    select?: MessageTemplateSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageTemplateInclude<ExtArgs> | null
+    /**
+     * Filter, which MessageTemplate to fetch.
+     */
+    where: MessageTemplateWhereUniqueInput
+  }
+
+  /**
+   * MessageTemplate findUniqueOrThrow
+   */
+  export type MessageTemplateFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MessageTemplate
+     */
+    select?: MessageTemplateSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageTemplateInclude<ExtArgs> | null
+    /**
+     * Filter, which MessageTemplate to fetch.
+     */
+    where: MessageTemplateWhereUniqueInput
+  }
+
+  /**
+   * MessageTemplate findFirst
+   */
+  export type MessageTemplateFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MessageTemplate
+     */
+    select?: MessageTemplateSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageTemplateInclude<ExtArgs> | null
+    /**
+     * Filter, which MessageTemplate to fetch.
+     */
+    where?: MessageTemplateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MessageTemplates to fetch.
+     */
+    orderBy?: MessageTemplateOrderByWithRelationInput | MessageTemplateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MessageTemplates.
+     */
+    cursor?: MessageTemplateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MessageTemplates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MessageTemplates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MessageTemplates.
+     */
+    distinct?: MessageTemplateScalarFieldEnum | MessageTemplateScalarFieldEnum[]
+  }
+
+  /**
+   * MessageTemplate findFirstOrThrow
+   */
+  export type MessageTemplateFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MessageTemplate
+     */
+    select?: MessageTemplateSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageTemplateInclude<ExtArgs> | null
+    /**
+     * Filter, which MessageTemplate to fetch.
+     */
+    where?: MessageTemplateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MessageTemplates to fetch.
+     */
+    orderBy?: MessageTemplateOrderByWithRelationInput | MessageTemplateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MessageTemplates.
+     */
+    cursor?: MessageTemplateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MessageTemplates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MessageTemplates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MessageTemplates.
+     */
+    distinct?: MessageTemplateScalarFieldEnum | MessageTemplateScalarFieldEnum[]
+  }
+
+  /**
+   * MessageTemplate findMany
+   */
+  export type MessageTemplateFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MessageTemplate
+     */
+    select?: MessageTemplateSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageTemplateInclude<ExtArgs> | null
+    /**
+     * Filter, which MessageTemplates to fetch.
+     */
+    where?: MessageTemplateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MessageTemplates to fetch.
+     */
+    orderBy?: MessageTemplateOrderByWithRelationInput | MessageTemplateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing MessageTemplates.
+     */
+    cursor?: MessageTemplateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MessageTemplates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MessageTemplates.
+     */
+    skip?: number
+    distinct?: MessageTemplateScalarFieldEnum | MessageTemplateScalarFieldEnum[]
+  }
+
+  /**
+   * MessageTemplate create
+   */
+  export type MessageTemplateCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MessageTemplate
+     */
+    select?: MessageTemplateSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageTemplateInclude<ExtArgs> | null
+    /**
+     * The data needed to create a MessageTemplate.
+     */
+    data: XOR<MessageTemplateCreateInput, MessageTemplateUncheckedCreateInput>
+  }
+
+  /**
+   * MessageTemplate createMany
+   */
+  export type MessageTemplateCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many MessageTemplates.
+     */
+    data: MessageTemplateCreateManyInput | MessageTemplateCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * MessageTemplate createManyAndReturn
+   */
+  export type MessageTemplateCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MessageTemplate
+     */
+    select?: MessageTemplateSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many MessageTemplates.
+     */
+    data: MessageTemplateCreateManyInput | MessageTemplateCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageTemplateIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * MessageTemplate update
+   */
+  export type MessageTemplateUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MessageTemplate
+     */
+    select?: MessageTemplateSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageTemplateInclude<ExtArgs> | null
+    /**
+     * The data needed to update a MessageTemplate.
+     */
+    data: XOR<MessageTemplateUpdateInput, MessageTemplateUncheckedUpdateInput>
+    /**
+     * Choose, which MessageTemplate to update.
+     */
+    where: MessageTemplateWhereUniqueInput
+  }
+
+  /**
+   * MessageTemplate updateMany
+   */
+  export type MessageTemplateUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update MessageTemplates.
+     */
+    data: XOR<MessageTemplateUpdateManyMutationInput, MessageTemplateUncheckedUpdateManyInput>
+    /**
+     * Filter which MessageTemplates to update
+     */
+    where?: MessageTemplateWhereInput
+  }
+
+  /**
+   * MessageTemplate upsert
+   */
+  export type MessageTemplateUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MessageTemplate
+     */
+    select?: MessageTemplateSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageTemplateInclude<ExtArgs> | null
+    /**
+     * The filter to search for the MessageTemplate to update in case it exists.
+     */
+    where: MessageTemplateWhereUniqueInput
+    /**
+     * In case the MessageTemplate found by the `where` argument doesn't exist, create a new MessageTemplate with this data.
+     */
+    create: XOR<MessageTemplateCreateInput, MessageTemplateUncheckedCreateInput>
+    /**
+     * In case the MessageTemplate was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<MessageTemplateUpdateInput, MessageTemplateUncheckedUpdateInput>
+  }
+
+  /**
+   * MessageTemplate delete
+   */
+  export type MessageTemplateDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MessageTemplate
+     */
+    select?: MessageTemplateSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageTemplateInclude<ExtArgs> | null
+    /**
+     * Filter which MessageTemplate to delete.
+     */
+    where: MessageTemplateWhereUniqueInput
+  }
+
+  /**
+   * MessageTemplate deleteMany
+   */
+  export type MessageTemplateDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MessageTemplates to delete
+     */
+    where?: MessageTemplateWhereInput
+  }
+
+  /**
+   * MessageTemplate without action
+   */
+  export type MessageTemplateDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MessageTemplate
+     */
+    select?: MessageTemplateSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageTemplateInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model WhatsAppInstance
+   */
+
+  export type AggregateWhatsAppInstance = {
+    _count: WhatsAppInstanceCountAggregateOutputType | null
+    _avg: WhatsAppInstanceAvgAggregateOutputType | null
+    _sum: WhatsAppInstanceSumAggregateOutputType | null
+    _min: WhatsAppInstanceMinAggregateOutputType | null
+    _max: WhatsAppInstanceMaxAggregateOutputType | null
+  }
+
+  export type WhatsAppInstanceAvgAggregateOutputType = {
+    wa_id: number | null
+    wa_own_id: number | null
+    wa_firm_id: number | null
+  }
+
+  export type WhatsAppInstanceSumAggregateOutputType = {
+    wa_id: number | null
+    wa_own_id: number | null
+    wa_firm_id: number | null
+  }
+
+  export type WhatsAppInstanceMinAggregateOutputType = {
+    wa_id: number | null
+    wa_uuid: string | null
+    wa_own_id: number | null
+    wa_firm_id: number | null
+    wa_provider: string | null
+    wa_instance_id: string | null
+    wa_token: string | null
+    wa_api_url: string | null
+    wa_phone_number: string | null
+    wa_status: $Enums.WhatsAppInstanceStatus | null
+    wa_qr_code: string | null
+    wa_last_checked: Date | null
+    wa_created_at: Date | null
+    wa_created_by: string | null
+    wa_updated_at: Date | null
+    wa_updated_by: string | null
+    wa_deleted_at: Date | null
+    wa_deleted_by: string | null
+    wa_is_deleted: boolean | null
+  }
+
+  export type WhatsAppInstanceMaxAggregateOutputType = {
+    wa_id: number | null
+    wa_uuid: string | null
+    wa_own_id: number | null
+    wa_firm_id: number | null
+    wa_provider: string | null
+    wa_instance_id: string | null
+    wa_token: string | null
+    wa_api_url: string | null
+    wa_phone_number: string | null
+    wa_status: $Enums.WhatsAppInstanceStatus | null
+    wa_qr_code: string | null
+    wa_last_checked: Date | null
+    wa_created_at: Date | null
+    wa_created_by: string | null
+    wa_updated_at: Date | null
+    wa_updated_by: string | null
+    wa_deleted_at: Date | null
+    wa_deleted_by: string | null
+    wa_is_deleted: boolean | null
+  }
+
+  export type WhatsAppInstanceCountAggregateOutputType = {
+    wa_id: number
+    wa_uuid: number
+    wa_own_id: number
+    wa_firm_id: number
+    wa_provider: number
+    wa_instance_id: number
+    wa_token: number
+    wa_api_url: number
+    wa_phone_number: number
+    wa_status: number
+    wa_qr_code: number
+    wa_last_checked: number
+    wa_meta: number
+    wa_created_at: number
+    wa_created_by: number
+    wa_updated_at: number
+    wa_updated_by: number
+    wa_deleted_at: number
+    wa_deleted_by: number
+    wa_is_deleted: number
+    _all: number
+  }
+
+
+  export type WhatsAppInstanceAvgAggregateInputType = {
+    wa_id?: true
+    wa_own_id?: true
+    wa_firm_id?: true
+  }
+
+  export type WhatsAppInstanceSumAggregateInputType = {
+    wa_id?: true
+    wa_own_id?: true
+    wa_firm_id?: true
+  }
+
+  export type WhatsAppInstanceMinAggregateInputType = {
+    wa_id?: true
+    wa_uuid?: true
+    wa_own_id?: true
+    wa_firm_id?: true
+    wa_provider?: true
+    wa_instance_id?: true
+    wa_token?: true
+    wa_api_url?: true
+    wa_phone_number?: true
+    wa_status?: true
+    wa_qr_code?: true
+    wa_last_checked?: true
+    wa_created_at?: true
+    wa_created_by?: true
+    wa_updated_at?: true
+    wa_updated_by?: true
+    wa_deleted_at?: true
+    wa_deleted_by?: true
+    wa_is_deleted?: true
+  }
+
+  export type WhatsAppInstanceMaxAggregateInputType = {
+    wa_id?: true
+    wa_uuid?: true
+    wa_own_id?: true
+    wa_firm_id?: true
+    wa_provider?: true
+    wa_instance_id?: true
+    wa_token?: true
+    wa_api_url?: true
+    wa_phone_number?: true
+    wa_status?: true
+    wa_qr_code?: true
+    wa_last_checked?: true
+    wa_created_at?: true
+    wa_created_by?: true
+    wa_updated_at?: true
+    wa_updated_by?: true
+    wa_deleted_at?: true
+    wa_deleted_by?: true
+    wa_is_deleted?: true
+  }
+
+  export type WhatsAppInstanceCountAggregateInputType = {
+    wa_id?: true
+    wa_uuid?: true
+    wa_own_id?: true
+    wa_firm_id?: true
+    wa_provider?: true
+    wa_instance_id?: true
+    wa_token?: true
+    wa_api_url?: true
+    wa_phone_number?: true
+    wa_status?: true
+    wa_qr_code?: true
+    wa_last_checked?: true
+    wa_meta?: true
+    wa_created_at?: true
+    wa_created_by?: true
+    wa_updated_at?: true
+    wa_updated_by?: true
+    wa_deleted_at?: true
+    wa_deleted_by?: true
+    wa_is_deleted?: true
+    _all?: true
+  }
+
+  export type WhatsAppInstanceAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which WhatsAppInstance to aggregate.
+     */
+    where?: WhatsAppInstanceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of WhatsAppInstances to fetch.
+     */
+    orderBy?: WhatsAppInstanceOrderByWithRelationInput | WhatsAppInstanceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: WhatsAppInstanceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` WhatsAppInstances from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` WhatsAppInstances.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned WhatsAppInstances
+    **/
+    _count?: true | WhatsAppInstanceCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: WhatsAppInstanceAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: WhatsAppInstanceSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: WhatsAppInstanceMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: WhatsAppInstanceMaxAggregateInputType
+  }
+
+  export type GetWhatsAppInstanceAggregateType<T extends WhatsAppInstanceAggregateArgs> = {
+        [P in keyof T & keyof AggregateWhatsAppInstance]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateWhatsAppInstance[P]>
+      : GetScalarType<T[P], AggregateWhatsAppInstance[P]>
+  }
+
+
+
+
+  export type WhatsAppInstanceGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: WhatsAppInstanceWhereInput
+    orderBy?: WhatsAppInstanceOrderByWithAggregationInput | WhatsAppInstanceOrderByWithAggregationInput[]
+    by: WhatsAppInstanceScalarFieldEnum[] | WhatsAppInstanceScalarFieldEnum
+    having?: WhatsAppInstanceScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: WhatsAppInstanceCountAggregateInputType | true
+    _avg?: WhatsAppInstanceAvgAggregateInputType
+    _sum?: WhatsAppInstanceSumAggregateInputType
+    _min?: WhatsAppInstanceMinAggregateInputType
+    _max?: WhatsAppInstanceMaxAggregateInputType
+  }
+
+  export type WhatsAppInstanceGroupByOutputType = {
+    wa_id: number
+    wa_uuid: string
+    wa_own_id: number
+    wa_firm_id: number
+    wa_provider: string
+    wa_instance_id: string | null
+    wa_token: string | null
+    wa_api_url: string | null
+    wa_phone_number: string | null
+    wa_status: $Enums.WhatsAppInstanceStatus
+    wa_qr_code: string | null
+    wa_last_checked: Date | null
+    wa_meta: JsonValue | null
+    wa_created_at: Date
+    wa_created_by: string | null
+    wa_updated_at: Date
+    wa_updated_by: string | null
+    wa_deleted_at: Date | null
+    wa_deleted_by: string | null
+    wa_is_deleted: boolean
+    _count: WhatsAppInstanceCountAggregateOutputType | null
+    _avg: WhatsAppInstanceAvgAggregateOutputType | null
+    _sum: WhatsAppInstanceSumAggregateOutputType | null
+    _min: WhatsAppInstanceMinAggregateOutputType | null
+    _max: WhatsAppInstanceMaxAggregateOutputType | null
+  }
+
+  type GetWhatsAppInstanceGroupByPayload<T extends WhatsAppInstanceGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<WhatsAppInstanceGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof WhatsAppInstanceGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], WhatsAppInstanceGroupByOutputType[P]>
+            : GetScalarType<T[P], WhatsAppInstanceGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type WhatsAppInstanceSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    wa_id?: boolean
+    wa_uuid?: boolean
+    wa_own_id?: boolean
+    wa_firm_id?: boolean
+    wa_provider?: boolean
+    wa_instance_id?: boolean
+    wa_token?: boolean
+    wa_api_url?: boolean
+    wa_phone_number?: boolean
+    wa_status?: boolean
+    wa_qr_code?: boolean
+    wa_last_checked?: boolean
+    wa_meta?: boolean
+    wa_created_at?: boolean
+    wa_created_by?: boolean
+    wa_updated_at?: boolean
+    wa_updated_by?: boolean
+    wa_deleted_at?: boolean
+    wa_deleted_by?: boolean
+    wa_is_deleted?: boolean
+    owner?: boolean | OwnerDefaultArgs<ExtArgs>
+    firm?: boolean | FirmDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["whatsAppInstance"]>
+
+  export type WhatsAppInstanceSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    wa_id?: boolean
+    wa_uuid?: boolean
+    wa_own_id?: boolean
+    wa_firm_id?: boolean
+    wa_provider?: boolean
+    wa_instance_id?: boolean
+    wa_token?: boolean
+    wa_api_url?: boolean
+    wa_phone_number?: boolean
+    wa_status?: boolean
+    wa_qr_code?: boolean
+    wa_last_checked?: boolean
+    wa_meta?: boolean
+    wa_created_at?: boolean
+    wa_created_by?: boolean
+    wa_updated_at?: boolean
+    wa_updated_by?: boolean
+    wa_deleted_at?: boolean
+    wa_deleted_by?: boolean
+    wa_is_deleted?: boolean
+    owner?: boolean | OwnerDefaultArgs<ExtArgs>
+    firm?: boolean | FirmDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["whatsAppInstance"]>
+
+  export type WhatsAppInstanceSelectScalar = {
+    wa_id?: boolean
+    wa_uuid?: boolean
+    wa_own_id?: boolean
+    wa_firm_id?: boolean
+    wa_provider?: boolean
+    wa_instance_id?: boolean
+    wa_token?: boolean
+    wa_api_url?: boolean
+    wa_phone_number?: boolean
+    wa_status?: boolean
+    wa_qr_code?: boolean
+    wa_last_checked?: boolean
+    wa_meta?: boolean
+    wa_created_at?: boolean
+    wa_created_by?: boolean
+    wa_updated_at?: boolean
+    wa_updated_by?: boolean
+    wa_deleted_at?: boolean
+    wa_deleted_by?: boolean
+    wa_is_deleted?: boolean
+  }
+
+  export type WhatsAppInstanceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    owner?: boolean | OwnerDefaultArgs<ExtArgs>
+    firm?: boolean | FirmDefaultArgs<ExtArgs>
+  }
+  export type WhatsAppInstanceIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    owner?: boolean | OwnerDefaultArgs<ExtArgs>
+    firm?: boolean | FirmDefaultArgs<ExtArgs>
+  }
+
+  export type $WhatsAppInstancePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "WhatsAppInstance"
+    objects: {
+      owner: Prisma.$OwnerPayload<ExtArgs>
+      firm: Prisma.$FirmPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      wa_id: number
+      wa_uuid: string
+      wa_own_id: number
+      wa_firm_id: number
+      wa_provider: string
+      wa_instance_id: string | null
+      wa_token: string | null
+      wa_api_url: string | null
+      wa_phone_number: string | null
+      wa_status: $Enums.WhatsAppInstanceStatus
+      wa_qr_code: string | null
+      wa_last_checked: Date | null
+      wa_meta: Prisma.JsonValue | null
+      wa_created_at: Date
+      wa_created_by: string | null
+      wa_updated_at: Date
+      wa_updated_by: string | null
+      wa_deleted_at: Date | null
+      wa_deleted_by: string | null
+      wa_is_deleted: boolean
+    }, ExtArgs["result"]["whatsAppInstance"]>
+    composites: {}
+  }
+
+  type WhatsAppInstanceGetPayload<S extends boolean | null | undefined | WhatsAppInstanceDefaultArgs> = $Result.GetResult<Prisma.$WhatsAppInstancePayload, S>
+
+  type WhatsAppInstanceCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<WhatsAppInstanceFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: WhatsAppInstanceCountAggregateInputType | true
+    }
+
+  export interface WhatsAppInstanceDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['WhatsAppInstance'], meta: { name: 'WhatsAppInstance' } }
+    /**
+     * Find zero or one WhatsAppInstance that matches the filter.
+     * @param {WhatsAppInstanceFindUniqueArgs} args - Arguments to find a WhatsAppInstance
+     * @example
+     * // Get one WhatsAppInstance
+     * const whatsAppInstance = await prisma.whatsAppInstance.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends WhatsAppInstanceFindUniqueArgs>(args: SelectSubset<T, WhatsAppInstanceFindUniqueArgs<ExtArgs>>): Prisma__WhatsAppInstanceClient<$Result.GetResult<Prisma.$WhatsAppInstancePayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one WhatsAppInstance that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {WhatsAppInstanceFindUniqueOrThrowArgs} args - Arguments to find a WhatsAppInstance
+     * @example
+     * // Get one WhatsAppInstance
+     * const whatsAppInstance = await prisma.whatsAppInstance.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends WhatsAppInstanceFindUniqueOrThrowArgs>(args: SelectSubset<T, WhatsAppInstanceFindUniqueOrThrowArgs<ExtArgs>>): Prisma__WhatsAppInstanceClient<$Result.GetResult<Prisma.$WhatsAppInstancePayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first WhatsAppInstance that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WhatsAppInstanceFindFirstArgs} args - Arguments to find a WhatsAppInstance
+     * @example
+     * // Get one WhatsAppInstance
+     * const whatsAppInstance = await prisma.whatsAppInstance.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends WhatsAppInstanceFindFirstArgs>(args?: SelectSubset<T, WhatsAppInstanceFindFirstArgs<ExtArgs>>): Prisma__WhatsAppInstanceClient<$Result.GetResult<Prisma.$WhatsAppInstancePayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first WhatsAppInstance that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WhatsAppInstanceFindFirstOrThrowArgs} args - Arguments to find a WhatsAppInstance
+     * @example
+     * // Get one WhatsAppInstance
+     * const whatsAppInstance = await prisma.whatsAppInstance.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends WhatsAppInstanceFindFirstOrThrowArgs>(args?: SelectSubset<T, WhatsAppInstanceFindFirstOrThrowArgs<ExtArgs>>): Prisma__WhatsAppInstanceClient<$Result.GetResult<Prisma.$WhatsAppInstancePayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more WhatsAppInstances that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WhatsAppInstanceFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all WhatsAppInstances
+     * const whatsAppInstances = await prisma.whatsAppInstance.findMany()
+     * 
+     * // Get first 10 WhatsAppInstances
+     * const whatsAppInstances = await prisma.whatsAppInstance.findMany({ take: 10 })
+     * 
+     * // Only select the `wa_id`
+     * const whatsAppInstanceWithWa_idOnly = await prisma.whatsAppInstance.findMany({ select: { wa_id: true } })
+     * 
+     */
+    findMany<T extends WhatsAppInstanceFindManyArgs>(args?: SelectSubset<T, WhatsAppInstanceFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WhatsAppInstancePayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a WhatsAppInstance.
+     * @param {WhatsAppInstanceCreateArgs} args - Arguments to create a WhatsAppInstance.
+     * @example
+     * // Create one WhatsAppInstance
+     * const WhatsAppInstance = await prisma.whatsAppInstance.create({
+     *   data: {
+     *     // ... data to create a WhatsAppInstance
+     *   }
+     * })
+     * 
+     */
+    create<T extends WhatsAppInstanceCreateArgs>(args: SelectSubset<T, WhatsAppInstanceCreateArgs<ExtArgs>>): Prisma__WhatsAppInstanceClient<$Result.GetResult<Prisma.$WhatsAppInstancePayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many WhatsAppInstances.
+     * @param {WhatsAppInstanceCreateManyArgs} args - Arguments to create many WhatsAppInstances.
+     * @example
+     * // Create many WhatsAppInstances
+     * const whatsAppInstance = await prisma.whatsAppInstance.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends WhatsAppInstanceCreateManyArgs>(args?: SelectSubset<T, WhatsAppInstanceCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many WhatsAppInstances and returns the data saved in the database.
+     * @param {WhatsAppInstanceCreateManyAndReturnArgs} args - Arguments to create many WhatsAppInstances.
+     * @example
+     * // Create many WhatsAppInstances
+     * const whatsAppInstance = await prisma.whatsAppInstance.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many WhatsAppInstances and only return the `wa_id`
+     * const whatsAppInstanceWithWa_idOnly = await prisma.whatsAppInstance.createManyAndReturn({ 
+     *   select: { wa_id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends WhatsAppInstanceCreateManyAndReturnArgs>(args?: SelectSubset<T, WhatsAppInstanceCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WhatsAppInstancePayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a WhatsAppInstance.
+     * @param {WhatsAppInstanceDeleteArgs} args - Arguments to delete one WhatsAppInstance.
+     * @example
+     * // Delete one WhatsAppInstance
+     * const WhatsAppInstance = await prisma.whatsAppInstance.delete({
+     *   where: {
+     *     // ... filter to delete one WhatsAppInstance
+     *   }
+     * })
+     * 
+     */
+    delete<T extends WhatsAppInstanceDeleteArgs>(args: SelectSubset<T, WhatsAppInstanceDeleteArgs<ExtArgs>>): Prisma__WhatsAppInstanceClient<$Result.GetResult<Prisma.$WhatsAppInstancePayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one WhatsAppInstance.
+     * @param {WhatsAppInstanceUpdateArgs} args - Arguments to update one WhatsAppInstance.
+     * @example
+     * // Update one WhatsAppInstance
+     * const whatsAppInstance = await prisma.whatsAppInstance.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends WhatsAppInstanceUpdateArgs>(args: SelectSubset<T, WhatsAppInstanceUpdateArgs<ExtArgs>>): Prisma__WhatsAppInstanceClient<$Result.GetResult<Prisma.$WhatsAppInstancePayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more WhatsAppInstances.
+     * @param {WhatsAppInstanceDeleteManyArgs} args - Arguments to filter WhatsAppInstances to delete.
+     * @example
+     * // Delete a few WhatsAppInstances
+     * const { count } = await prisma.whatsAppInstance.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends WhatsAppInstanceDeleteManyArgs>(args?: SelectSubset<T, WhatsAppInstanceDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more WhatsAppInstances.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WhatsAppInstanceUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many WhatsAppInstances
+     * const whatsAppInstance = await prisma.whatsAppInstance.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends WhatsAppInstanceUpdateManyArgs>(args: SelectSubset<T, WhatsAppInstanceUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one WhatsAppInstance.
+     * @param {WhatsAppInstanceUpsertArgs} args - Arguments to update or create a WhatsAppInstance.
+     * @example
+     * // Update or create a WhatsAppInstance
+     * const whatsAppInstance = await prisma.whatsAppInstance.upsert({
+     *   create: {
+     *     // ... data to create a WhatsAppInstance
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the WhatsAppInstance we want to update
+     *   }
+     * })
+     */
+    upsert<T extends WhatsAppInstanceUpsertArgs>(args: SelectSubset<T, WhatsAppInstanceUpsertArgs<ExtArgs>>): Prisma__WhatsAppInstanceClient<$Result.GetResult<Prisma.$WhatsAppInstancePayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of WhatsAppInstances.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WhatsAppInstanceCountArgs} args - Arguments to filter WhatsAppInstances to count.
+     * @example
+     * // Count the number of WhatsAppInstances
+     * const count = await prisma.whatsAppInstance.count({
+     *   where: {
+     *     // ... the filter for the WhatsAppInstances we want to count
+     *   }
+     * })
+    **/
+    count<T extends WhatsAppInstanceCountArgs>(
+      args?: Subset<T, WhatsAppInstanceCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], WhatsAppInstanceCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a WhatsAppInstance.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WhatsAppInstanceAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends WhatsAppInstanceAggregateArgs>(args: Subset<T, WhatsAppInstanceAggregateArgs>): Prisma.PrismaPromise<GetWhatsAppInstanceAggregateType<T>>
+
+    /**
+     * Group by WhatsAppInstance.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WhatsAppInstanceGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends WhatsAppInstanceGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: WhatsAppInstanceGroupByArgs['orderBy'] }
+        : { orderBy?: WhatsAppInstanceGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, WhatsAppInstanceGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetWhatsAppInstanceGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the WhatsAppInstance model
+   */
+  readonly fields: WhatsAppInstanceFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for WhatsAppInstance.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__WhatsAppInstanceClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    owner<T extends OwnerDefaultArgs<ExtArgs> = {}>(args?: Subset<T, OwnerDefaultArgs<ExtArgs>>): Prisma__OwnerClient<$Result.GetResult<Prisma.$OwnerPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    firm<T extends FirmDefaultArgs<ExtArgs> = {}>(args?: Subset<T, FirmDefaultArgs<ExtArgs>>): Prisma__FirmClient<$Result.GetResult<Prisma.$FirmPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the WhatsAppInstance model
+   */ 
+  interface WhatsAppInstanceFieldRefs {
+    readonly wa_id: FieldRef<"WhatsAppInstance", 'Int'>
+    readonly wa_uuid: FieldRef<"WhatsAppInstance", 'String'>
+    readonly wa_own_id: FieldRef<"WhatsAppInstance", 'Int'>
+    readonly wa_firm_id: FieldRef<"WhatsAppInstance", 'Int'>
+    readonly wa_provider: FieldRef<"WhatsAppInstance", 'String'>
+    readonly wa_instance_id: FieldRef<"WhatsAppInstance", 'String'>
+    readonly wa_token: FieldRef<"WhatsAppInstance", 'String'>
+    readonly wa_api_url: FieldRef<"WhatsAppInstance", 'String'>
+    readonly wa_phone_number: FieldRef<"WhatsAppInstance", 'String'>
+    readonly wa_status: FieldRef<"WhatsAppInstance", 'WhatsAppInstanceStatus'>
+    readonly wa_qr_code: FieldRef<"WhatsAppInstance", 'String'>
+    readonly wa_last_checked: FieldRef<"WhatsAppInstance", 'DateTime'>
+    readonly wa_meta: FieldRef<"WhatsAppInstance", 'Json'>
+    readonly wa_created_at: FieldRef<"WhatsAppInstance", 'DateTime'>
+    readonly wa_created_by: FieldRef<"WhatsAppInstance", 'String'>
+    readonly wa_updated_at: FieldRef<"WhatsAppInstance", 'DateTime'>
+    readonly wa_updated_by: FieldRef<"WhatsAppInstance", 'String'>
+    readonly wa_deleted_at: FieldRef<"WhatsAppInstance", 'DateTime'>
+    readonly wa_deleted_by: FieldRef<"WhatsAppInstance", 'String'>
+    readonly wa_is_deleted: FieldRef<"WhatsAppInstance", 'Boolean'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * WhatsAppInstance findUnique
+   */
+  export type WhatsAppInstanceFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsAppInstance
+     */
+    select?: WhatsAppInstanceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WhatsAppInstanceInclude<ExtArgs> | null
+    /**
+     * Filter, which WhatsAppInstance to fetch.
+     */
+    where: WhatsAppInstanceWhereUniqueInput
+  }
+
+  /**
+   * WhatsAppInstance findUniqueOrThrow
+   */
+  export type WhatsAppInstanceFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsAppInstance
+     */
+    select?: WhatsAppInstanceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WhatsAppInstanceInclude<ExtArgs> | null
+    /**
+     * Filter, which WhatsAppInstance to fetch.
+     */
+    where: WhatsAppInstanceWhereUniqueInput
+  }
+
+  /**
+   * WhatsAppInstance findFirst
+   */
+  export type WhatsAppInstanceFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsAppInstance
+     */
+    select?: WhatsAppInstanceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WhatsAppInstanceInclude<ExtArgs> | null
+    /**
+     * Filter, which WhatsAppInstance to fetch.
+     */
+    where?: WhatsAppInstanceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of WhatsAppInstances to fetch.
+     */
+    orderBy?: WhatsAppInstanceOrderByWithRelationInput | WhatsAppInstanceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for WhatsAppInstances.
+     */
+    cursor?: WhatsAppInstanceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` WhatsAppInstances from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` WhatsAppInstances.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of WhatsAppInstances.
+     */
+    distinct?: WhatsAppInstanceScalarFieldEnum | WhatsAppInstanceScalarFieldEnum[]
+  }
+
+  /**
+   * WhatsAppInstance findFirstOrThrow
+   */
+  export type WhatsAppInstanceFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsAppInstance
+     */
+    select?: WhatsAppInstanceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WhatsAppInstanceInclude<ExtArgs> | null
+    /**
+     * Filter, which WhatsAppInstance to fetch.
+     */
+    where?: WhatsAppInstanceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of WhatsAppInstances to fetch.
+     */
+    orderBy?: WhatsAppInstanceOrderByWithRelationInput | WhatsAppInstanceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for WhatsAppInstances.
+     */
+    cursor?: WhatsAppInstanceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` WhatsAppInstances from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` WhatsAppInstances.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of WhatsAppInstances.
+     */
+    distinct?: WhatsAppInstanceScalarFieldEnum | WhatsAppInstanceScalarFieldEnum[]
+  }
+
+  /**
+   * WhatsAppInstance findMany
+   */
+  export type WhatsAppInstanceFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsAppInstance
+     */
+    select?: WhatsAppInstanceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WhatsAppInstanceInclude<ExtArgs> | null
+    /**
+     * Filter, which WhatsAppInstances to fetch.
+     */
+    where?: WhatsAppInstanceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of WhatsAppInstances to fetch.
+     */
+    orderBy?: WhatsAppInstanceOrderByWithRelationInput | WhatsAppInstanceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing WhatsAppInstances.
+     */
+    cursor?: WhatsAppInstanceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` WhatsAppInstances from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` WhatsAppInstances.
+     */
+    skip?: number
+    distinct?: WhatsAppInstanceScalarFieldEnum | WhatsAppInstanceScalarFieldEnum[]
+  }
+
+  /**
+   * WhatsAppInstance create
+   */
+  export type WhatsAppInstanceCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsAppInstance
+     */
+    select?: WhatsAppInstanceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WhatsAppInstanceInclude<ExtArgs> | null
+    /**
+     * The data needed to create a WhatsAppInstance.
+     */
+    data: XOR<WhatsAppInstanceCreateInput, WhatsAppInstanceUncheckedCreateInput>
+  }
+
+  /**
+   * WhatsAppInstance createMany
+   */
+  export type WhatsAppInstanceCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many WhatsAppInstances.
+     */
+    data: WhatsAppInstanceCreateManyInput | WhatsAppInstanceCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * WhatsAppInstance createManyAndReturn
+   */
+  export type WhatsAppInstanceCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsAppInstance
+     */
+    select?: WhatsAppInstanceSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many WhatsAppInstances.
+     */
+    data: WhatsAppInstanceCreateManyInput | WhatsAppInstanceCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WhatsAppInstanceIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * WhatsAppInstance update
+   */
+  export type WhatsAppInstanceUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsAppInstance
+     */
+    select?: WhatsAppInstanceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WhatsAppInstanceInclude<ExtArgs> | null
+    /**
+     * The data needed to update a WhatsAppInstance.
+     */
+    data: XOR<WhatsAppInstanceUpdateInput, WhatsAppInstanceUncheckedUpdateInput>
+    /**
+     * Choose, which WhatsAppInstance to update.
+     */
+    where: WhatsAppInstanceWhereUniqueInput
+  }
+
+  /**
+   * WhatsAppInstance updateMany
+   */
+  export type WhatsAppInstanceUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update WhatsAppInstances.
+     */
+    data: XOR<WhatsAppInstanceUpdateManyMutationInput, WhatsAppInstanceUncheckedUpdateManyInput>
+    /**
+     * Filter which WhatsAppInstances to update
+     */
+    where?: WhatsAppInstanceWhereInput
+  }
+
+  /**
+   * WhatsAppInstance upsert
+   */
+  export type WhatsAppInstanceUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsAppInstance
+     */
+    select?: WhatsAppInstanceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WhatsAppInstanceInclude<ExtArgs> | null
+    /**
+     * The filter to search for the WhatsAppInstance to update in case it exists.
+     */
+    where: WhatsAppInstanceWhereUniqueInput
+    /**
+     * In case the WhatsAppInstance found by the `where` argument doesn't exist, create a new WhatsAppInstance with this data.
+     */
+    create: XOR<WhatsAppInstanceCreateInput, WhatsAppInstanceUncheckedCreateInput>
+    /**
+     * In case the WhatsAppInstance was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<WhatsAppInstanceUpdateInput, WhatsAppInstanceUncheckedUpdateInput>
+  }
+
+  /**
+   * WhatsAppInstance delete
+   */
+  export type WhatsAppInstanceDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsAppInstance
+     */
+    select?: WhatsAppInstanceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WhatsAppInstanceInclude<ExtArgs> | null
+    /**
+     * Filter which WhatsAppInstance to delete.
+     */
+    where: WhatsAppInstanceWhereUniqueInput
+  }
+
+  /**
+   * WhatsAppInstance deleteMany
+   */
+  export type WhatsAppInstanceDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which WhatsAppInstances to delete
+     */
+    where?: WhatsAppInstanceWhereInput
+  }
+
+  /**
+   * WhatsAppInstance without action
+   */
+  export type WhatsAppInstanceDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsAppInstance
+     */
+    select?: WhatsAppInstanceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WhatsAppInstanceInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model MessageLog
+   */
+
+  export type AggregateMessageLog = {
+    _count: MessageLogCountAggregateOutputType | null
+    _avg: MessageLogAvgAggregateOutputType | null
+    _sum: MessageLogSumAggregateOutputType | null
+    _min: MessageLogMinAggregateOutputType | null
+    _max: MessageLogMaxAggregateOutputType | null
+  }
+
+  export type MessageLogAvgAggregateOutputType = {
+    ml_id: number | null
+    ml_own_id: number | null
+    ml_firm_id: number | null
+  }
+
+  export type MessageLogSumAggregateOutputType = {
+    ml_id: number | null
+    ml_own_id: number | null
+    ml_firm_id: number | null
+  }
+
+  export type MessageLogMinAggregateOutputType = {
+    ml_id: number | null
+    ml_uuid: string | null
+    ml_own_id: number | null
+    ml_firm_id: number | null
+    ml_channel: $Enums.MessageChannel | null
+    ml_template_key: string | null
+    ml_to: string | null
+    ml_status: string | null
+    ml_error: string | null
+    ml_created_at: Date | null
+  }
+
+  export type MessageLogMaxAggregateOutputType = {
+    ml_id: number | null
+    ml_uuid: string | null
+    ml_own_id: number | null
+    ml_firm_id: number | null
+    ml_channel: $Enums.MessageChannel | null
+    ml_template_key: string | null
+    ml_to: string | null
+    ml_status: string | null
+    ml_error: string | null
+    ml_created_at: Date | null
+  }
+
+  export type MessageLogCountAggregateOutputType = {
+    ml_id: number
+    ml_uuid: number
+    ml_own_id: number
+    ml_firm_id: number
+    ml_channel: number
+    ml_template_key: number
+    ml_to: number
+    ml_status: number
+    ml_error: number
+    ml_meta: number
+    ml_created_at: number
+    _all: number
+  }
+
+
+  export type MessageLogAvgAggregateInputType = {
+    ml_id?: true
+    ml_own_id?: true
+    ml_firm_id?: true
+  }
+
+  export type MessageLogSumAggregateInputType = {
+    ml_id?: true
+    ml_own_id?: true
+    ml_firm_id?: true
+  }
+
+  export type MessageLogMinAggregateInputType = {
+    ml_id?: true
+    ml_uuid?: true
+    ml_own_id?: true
+    ml_firm_id?: true
+    ml_channel?: true
+    ml_template_key?: true
+    ml_to?: true
+    ml_status?: true
+    ml_error?: true
+    ml_created_at?: true
+  }
+
+  export type MessageLogMaxAggregateInputType = {
+    ml_id?: true
+    ml_uuid?: true
+    ml_own_id?: true
+    ml_firm_id?: true
+    ml_channel?: true
+    ml_template_key?: true
+    ml_to?: true
+    ml_status?: true
+    ml_error?: true
+    ml_created_at?: true
+  }
+
+  export type MessageLogCountAggregateInputType = {
+    ml_id?: true
+    ml_uuid?: true
+    ml_own_id?: true
+    ml_firm_id?: true
+    ml_channel?: true
+    ml_template_key?: true
+    ml_to?: true
+    ml_status?: true
+    ml_error?: true
+    ml_meta?: true
+    ml_created_at?: true
+    _all?: true
+  }
+
+  export type MessageLogAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MessageLog to aggregate.
+     */
+    where?: MessageLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MessageLogs to fetch.
+     */
+    orderBy?: MessageLogOrderByWithRelationInput | MessageLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: MessageLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MessageLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MessageLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned MessageLogs
+    **/
+    _count?: true | MessageLogCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: MessageLogAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: MessageLogSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: MessageLogMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: MessageLogMaxAggregateInputType
+  }
+
+  export type GetMessageLogAggregateType<T extends MessageLogAggregateArgs> = {
+        [P in keyof T & keyof AggregateMessageLog]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMessageLog[P]>
+      : GetScalarType<T[P], AggregateMessageLog[P]>
+  }
+
+
+
+
+  export type MessageLogGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MessageLogWhereInput
+    orderBy?: MessageLogOrderByWithAggregationInput | MessageLogOrderByWithAggregationInput[]
+    by: MessageLogScalarFieldEnum[] | MessageLogScalarFieldEnum
+    having?: MessageLogScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: MessageLogCountAggregateInputType | true
+    _avg?: MessageLogAvgAggregateInputType
+    _sum?: MessageLogSumAggregateInputType
+    _min?: MessageLogMinAggregateInputType
+    _max?: MessageLogMaxAggregateInputType
+  }
+
+  export type MessageLogGroupByOutputType = {
+    ml_id: number
+    ml_uuid: string
+    ml_own_id: number
+    ml_firm_id: number
+    ml_channel: $Enums.MessageChannel
+    ml_template_key: string
+    ml_to: string
+    ml_status: string
+    ml_error: string | null
+    ml_meta: JsonValue | null
+    ml_created_at: Date
+    _count: MessageLogCountAggregateOutputType | null
+    _avg: MessageLogAvgAggregateOutputType | null
+    _sum: MessageLogSumAggregateOutputType | null
+    _min: MessageLogMinAggregateOutputType | null
+    _max: MessageLogMaxAggregateOutputType | null
+  }
+
+  type GetMessageLogGroupByPayload<T extends MessageLogGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<MessageLogGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof MessageLogGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], MessageLogGroupByOutputType[P]>
+            : GetScalarType<T[P], MessageLogGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type MessageLogSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    ml_id?: boolean
+    ml_uuid?: boolean
+    ml_own_id?: boolean
+    ml_firm_id?: boolean
+    ml_channel?: boolean
+    ml_template_key?: boolean
+    ml_to?: boolean
+    ml_status?: boolean
+    ml_error?: boolean
+    ml_meta?: boolean
+    ml_created_at?: boolean
+  }, ExtArgs["result"]["messageLog"]>
+
+  export type MessageLogSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    ml_id?: boolean
+    ml_uuid?: boolean
+    ml_own_id?: boolean
+    ml_firm_id?: boolean
+    ml_channel?: boolean
+    ml_template_key?: boolean
+    ml_to?: boolean
+    ml_status?: boolean
+    ml_error?: boolean
+    ml_meta?: boolean
+    ml_created_at?: boolean
+  }, ExtArgs["result"]["messageLog"]>
+
+  export type MessageLogSelectScalar = {
+    ml_id?: boolean
+    ml_uuid?: boolean
+    ml_own_id?: boolean
+    ml_firm_id?: boolean
+    ml_channel?: boolean
+    ml_template_key?: boolean
+    ml_to?: boolean
+    ml_status?: boolean
+    ml_error?: boolean
+    ml_meta?: boolean
+    ml_created_at?: boolean
+  }
+
+
+  export type $MessageLogPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "MessageLog"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      ml_id: number
+      ml_uuid: string
+      ml_own_id: number
+      ml_firm_id: number
+      ml_channel: $Enums.MessageChannel
+      ml_template_key: string
+      ml_to: string
+      ml_status: string
+      ml_error: string | null
+      ml_meta: Prisma.JsonValue | null
+      ml_created_at: Date
+    }, ExtArgs["result"]["messageLog"]>
+    composites: {}
+  }
+
+  type MessageLogGetPayload<S extends boolean | null | undefined | MessageLogDefaultArgs> = $Result.GetResult<Prisma.$MessageLogPayload, S>
+
+  type MessageLogCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<MessageLogFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: MessageLogCountAggregateInputType | true
+    }
+
+  export interface MessageLogDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['MessageLog'], meta: { name: 'MessageLog' } }
+    /**
+     * Find zero or one MessageLog that matches the filter.
+     * @param {MessageLogFindUniqueArgs} args - Arguments to find a MessageLog
+     * @example
+     * // Get one MessageLog
+     * const messageLog = await prisma.messageLog.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends MessageLogFindUniqueArgs>(args: SelectSubset<T, MessageLogFindUniqueArgs<ExtArgs>>): Prisma__MessageLogClient<$Result.GetResult<Prisma.$MessageLogPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one MessageLog that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {MessageLogFindUniqueOrThrowArgs} args - Arguments to find a MessageLog
+     * @example
+     * // Get one MessageLog
+     * const messageLog = await prisma.messageLog.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends MessageLogFindUniqueOrThrowArgs>(args: SelectSubset<T, MessageLogFindUniqueOrThrowArgs<ExtArgs>>): Prisma__MessageLogClient<$Result.GetResult<Prisma.$MessageLogPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first MessageLog that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MessageLogFindFirstArgs} args - Arguments to find a MessageLog
+     * @example
+     * // Get one MessageLog
+     * const messageLog = await prisma.messageLog.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends MessageLogFindFirstArgs>(args?: SelectSubset<T, MessageLogFindFirstArgs<ExtArgs>>): Prisma__MessageLogClient<$Result.GetResult<Prisma.$MessageLogPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first MessageLog that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MessageLogFindFirstOrThrowArgs} args - Arguments to find a MessageLog
+     * @example
+     * // Get one MessageLog
+     * const messageLog = await prisma.messageLog.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends MessageLogFindFirstOrThrowArgs>(args?: SelectSubset<T, MessageLogFindFirstOrThrowArgs<ExtArgs>>): Prisma__MessageLogClient<$Result.GetResult<Prisma.$MessageLogPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more MessageLogs that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MessageLogFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all MessageLogs
+     * const messageLogs = await prisma.messageLog.findMany()
+     * 
+     * // Get first 10 MessageLogs
+     * const messageLogs = await prisma.messageLog.findMany({ take: 10 })
+     * 
+     * // Only select the `ml_id`
+     * const messageLogWithMl_idOnly = await prisma.messageLog.findMany({ select: { ml_id: true } })
+     * 
+     */
+    findMany<T extends MessageLogFindManyArgs>(args?: SelectSubset<T, MessageLogFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessageLogPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a MessageLog.
+     * @param {MessageLogCreateArgs} args - Arguments to create a MessageLog.
+     * @example
+     * // Create one MessageLog
+     * const MessageLog = await prisma.messageLog.create({
+     *   data: {
+     *     // ... data to create a MessageLog
+     *   }
+     * })
+     * 
+     */
+    create<T extends MessageLogCreateArgs>(args: SelectSubset<T, MessageLogCreateArgs<ExtArgs>>): Prisma__MessageLogClient<$Result.GetResult<Prisma.$MessageLogPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many MessageLogs.
+     * @param {MessageLogCreateManyArgs} args - Arguments to create many MessageLogs.
+     * @example
+     * // Create many MessageLogs
+     * const messageLog = await prisma.messageLog.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends MessageLogCreateManyArgs>(args?: SelectSubset<T, MessageLogCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many MessageLogs and returns the data saved in the database.
+     * @param {MessageLogCreateManyAndReturnArgs} args - Arguments to create many MessageLogs.
+     * @example
+     * // Create many MessageLogs
+     * const messageLog = await prisma.messageLog.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many MessageLogs and only return the `ml_id`
+     * const messageLogWithMl_idOnly = await prisma.messageLog.createManyAndReturn({ 
+     *   select: { ml_id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends MessageLogCreateManyAndReturnArgs>(args?: SelectSubset<T, MessageLogCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessageLogPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a MessageLog.
+     * @param {MessageLogDeleteArgs} args - Arguments to delete one MessageLog.
+     * @example
+     * // Delete one MessageLog
+     * const MessageLog = await prisma.messageLog.delete({
+     *   where: {
+     *     // ... filter to delete one MessageLog
+     *   }
+     * })
+     * 
+     */
+    delete<T extends MessageLogDeleteArgs>(args: SelectSubset<T, MessageLogDeleteArgs<ExtArgs>>): Prisma__MessageLogClient<$Result.GetResult<Prisma.$MessageLogPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one MessageLog.
+     * @param {MessageLogUpdateArgs} args - Arguments to update one MessageLog.
+     * @example
+     * // Update one MessageLog
+     * const messageLog = await prisma.messageLog.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends MessageLogUpdateArgs>(args: SelectSubset<T, MessageLogUpdateArgs<ExtArgs>>): Prisma__MessageLogClient<$Result.GetResult<Prisma.$MessageLogPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more MessageLogs.
+     * @param {MessageLogDeleteManyArgs} args - Arguments to filter MessageLogs to delete.
+     * @example
+     * // Delete a few MessageLogs
+     * const { count } = await prisma.messageLog.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends MessageLogDeleteManyArgs>(args?: SelectSubset<T, MessageLogDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MessageLogs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MessageLogUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many MessageLogs
+     * const messageLog = await prisma.messageLog.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends MessageLogUpdateManyArgs>(args: SelectSubset<T, MessageLogUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one MessageLog.
+     * @param {MessageLogUpsertArgs} args - Arguments to update or create a MessageLog.
+     * @example
+     * // Update or create a MessageLog
+     * const messageLog = await prisma.messageLog.upsert({
+     *   create: {
+     *     // ... data to create a MessageLog
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the MessageLog we want to update
+     *   }
+     * })
+     */
+    upsert<T extends MessageLogUpsertArgs>(args: SelectSubset<T, MessageLogUpsertArgs<ExtArgs>>): Prisma__MessageLogClient<$Result.GetResult<Prisma.$MessageLogPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of MessageLogs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MessageLogCountArgs} args - Arguments to filter MessageLogs to count.
+     * @example
+     * // Count the number of MessageLogs
+     * const count = await prisma.messageLog.count({
+     *   where: {
+     *     // ... the filter for the MessageLogs we want to count
+     *   }
+     * })
+    **/
+    count<T extends MessageLogCountArgs>(
+      args?: Subset<T, MessageLogCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], MessageLogCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a MessageLog.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MessageLogAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends MessageLogAggregateArgs>(args: Subset<T, MessageLogAggregateArgs>): Prisma.PrismaPromise<GetMessageLogAggregateType<T>>
+
+    /**
+     * Group by MessageLog.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MessageLogGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends MessageLogGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: MessageLogGroupByArgs['orderBy'] }
+        : { orderBy?: MessageLogGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, MessageLogGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMessageLogGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the MessageLog model
+   */
+  readonly fields: MessageLogFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for MessageLog.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__MessageLogClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the MessageLog model
+   */ 
+  interface MessageLogFieldRefs {
+    readonly ml_id: FieldRef<"MessageLog", 'Int'>
+    readonly ml_uuid: FieldRef<"MessageLog", 'String'>
+    readonly ml_own_id: FieldRef<"MessageLog", 'Int'>
+    readonly ml_firm_id: FieldRef<"MessageLog", 'Int'>
+    readonly ml_channel: FieldRef<"MessageLog", 'MessageChannel'>
+    readonly ml_template_key: FieldRef<"MessageLog", 'String'>
+    readonly ml_to: FieldRef<"MessageLog", 'String'>
+    readonly ml_status: FieldRef<"MessageLog", 'String'>
+    readonly ml_error: FieldRef<"MessageLog", 'String'>
+    readonly ml_meta: FieldRef<"MessageLog", 'Json'>
+    readonly ml_created_at: FieldRef<"MessageLog", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * MessageLog findUnique
+   */
+  export type MessageLogFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MessageLog
+     */
+    select?: MessageLogSelect<ExtArgs> | null
+    /**
+     * Filter, which MessageLog to fetch.
+     */
+    where: MessageLogWhereUniqueInput
+  }
+
+  /**
+   * MessageLog findUniqueOrThrow
+   */
+  export type MessageLogFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MessageLog
+     */
+    select?: MessageLogSelect<ExtArgs> | null
+    /**
+     * Filter, which MessageLog to fetch.
+     */
+    where: MessageLogWhereUniqueInput
+  }
+
+  /**
+   * MessageLog findFirst
+   */
+  export type MessageLogFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MessageLog
+     */
+    select?: MessageLogSelect<ExtArgs> | null
+    /**
+     * Filter, which MessageLog to fetch.
+     */
+    where?: MessageLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MessageLogs to fetch.
+     */
+    orderBy?: MessageLogOrderByWithRelationInput | MessageLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MessageLogs.
+     */
+    cursor?: MessageLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MessageLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MessageLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MessageLogs.
+     */
+    distinct?: MessageLogScalarFieldEnum | MessageLogScalarFieldEnum[]
+  }
+
+  /**
+   * MessageLog findFirstOrThrow
+   */
+  export type MessageLogFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MessageLog
+     */
+    select?: MessageLogSelect<ExtArgs> | null
+    /**
+     * Filter, which MessageLog to fetch.
+     */
+    where?: MessageLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MessageLogs to fetch.
+     */
+    orderBy?: MessageLogOrderByWithRelationInput | MessageLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MessageLogs.
+     */
+    cursor?: MessageLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MessageLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MessageLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MessageLogs.
+     */
+    distinct?: MessageLogScalarFieldEnum | MessageLogScalarFieldEnum[]
+  }
+
+  /**
+   * MessageLog findMany
+   */
+  export type MessageLogFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MessageLog
+     */
+    select?: MessageLogSelect<ExtArgs> | null
+    /**
+     * Filter, which MessageLogs to fetch.
+     */
+    where?: MessageLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MessageLogs to fetch.
+     */
+    orderBy?: MessageLogOrderByWithRelationInput | MessageLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing MessageLogs.
+     */
+    cursor?: MessageLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MessageLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MessageLogs.
+     */
+    skip?: number
+    distinct?: MessageLogScalarFieldEnum | MessageLogScalarFieldEnum[]
+  }
+
+  /**
+   * MessageLog create
+   */
+  export type MessageLogCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MessageLog
+     */
+    select?: MessageLogSelect<ExtArgs> | null
+    /**
+     * The data needed to create a MessageLog.
+     */
+    data: XOR<MessageLogCreateInput, MessageLogUncheckedCreateInput>
+  }
+
+  /**
+   * MessageLog createMany
+   */
+  export type MessageLogCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many MessageLogs.
+     */
+    data: MessageLogCreateManyInput | MessageLogCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * MessageLog createManyAndReturn
+   */
+  export type MessageLogCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MessageLog
+     */
+    select?: MessageLogSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many MessageLogs.
+     */
+    data: MessageLogCreateManyInput | MessageLogCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * MessageLog update
+   */
+  export type MessageLogUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MessageLog
+     */
+    select?: MessageLogSelect<ExtArgs> | null
+    /**
+     * The data needed to update a MessageLog.
+     */
+    data: XOR<MessageLogUpdateInput, MessageLogUncheckedUpdateInput>
+    /**
+     * Choose, which MessageLog to update.
+     */
+    where: MessageLogWhereUniqueInput
+  }
+
+  /**
+   * MessageLog updateMany
+   */
+  export type MessageLogUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update MessageLogs.
+     */
+    data: XOR<MessageLogUpdateManyMutationInput, MessageLogUncheckedUpdateManyInput>
+    /**
+     * Filter which MessageLogs to update
+     */
+    where?: MessageLogWhereInput
+  }
+
+  /**
+   * MessageLog upsert
+   */
+  export type MessageLogUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MessageLog
+     */
+    select?: MessageLogSelect<ExtArgs> | null
+    /**
+     * The filter to search for the MessageLog to update in case it exists.
+     */
+    where: MessageLogWhereUniqueInput
+    /**
+     * In case the MessageLog found by the `where` argument doesn't exist, create a new MessageLog with this data.
+     */
+    create: XOR<MessageLogCreateInput, MessageLogUncheckedCreateInput>
+    /**
+     * In case the MessageLog was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<MessageLogUpdateInput, MessageLogUncheckedUpdateInput>
+  }
+
+  /**
+   * MessageLog delete
+   */
+  export type MessageLogDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MessageLog
+     */
+    select?: MessageLogSelect<ExtArgs> | null
+    /**
+     * Filter which MessageLog to delete.
+     */
+    where: MessageLogWhereUniqueInput
+  }
+
+  /**
+   * MessageLog deleteMany
+   */
+  export type MessageLogDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MessageLogs to delete
+     */
+    where?: MessageLogWhereInput
+  }
+
+  /**
+   * MessageLog without action
+   */
+  export type MessageLogDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MessageLog
+     */
+    select?: MessageLogSelect<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -37410,6 +41275,12 @@ export namespace Prisma {
     own_last_login_system: 'own_last_login_system',
     own_otp: 'own_otp',
     own_otp_expiry: 'own_otp_expiry',
+    own_mail_user: 'own_mail_user',
+    own_mail_pass_enc: 'own_mail_pass_enc',
+    own_mail_from_name: 'own_mail_from_name',
+    own_mail_provider: 'own_mail_provider',
+    own_mail_status: 'own_mail_status',
+    own_mail_updated_at: 'own_mail_updated_at',
     own_address: 'own_address',
     own_village: 'own_village',
     own_city: 'own_city',
@@ -37796,6 +41667,9 @@ export namespace Prisma {
     girv_transfer_firm_id: 'girv_transfer_firm_id',
     girv_transfer_girv_id: 'girv_transfer_girv_id',
     girv_transfer_ml_id: 'girv_transfer_ml_id',
+    girv_is_transferred_in: 'girv_is_transferred_in',
+    girv_transfer_from_girv_id: 'girv_transfer_from_girv_id',
+    girv_transfer_from_firm_id: 'girv_transfer_from_firm_id',
     girv_created_at: 'girv_created_at',
     girv_created_by: 'girv_created_by',
     girv_updated_at: 'girv_updated_at',
@@ -38205,6 +42079,78 @@ export namespace Prisma {
   };
 
   export type SerialNumberScalarFieldEnum = (typeof SerialNumberScalarFieldEnum)[keyof typeof SerialNumberScalarFieldEnum]
+
+
+  export const MessageTemplateScalarFieldEnum: {
+    mt_id: 'mt_id',
+    mt_uuid: 'mt_uuid',
+    mt_own_id: 'mt_own_id',
+    mt_firm_id: 'mt_firm_id',
+    mt_channel: 'mt_channel',
+    mt_key: 'mt_key',
+    mt_name: 'mt_name',
+    mt_category: 'mt_category',
+    mt_language: 'mt_language',
+    mt_subject: 'mt_subject',
+    mt_body: 'mt_body',
+    mt_variables: 'mt_variables',
+    mt_attachments: 'mt_attachments',
+    mt_has_attachment: 'mt_has_attachment',
+    mt_is_system: 'mt_is_system',
+    mt_status: 'mt_status',
+    mt_created_at: 'mt_created_at',
+    mt_created_by: 'mt_created_by',
+    mt_updated_at: 'mt_updated_at',
+    mt_updated_by: 'mt_updated_by',
+    mt_deleted_at: 'mt_deleted_at',
+    mt_deleted_by: 'mt_deleted_by',
+    mt_is_deleted: 'mt_is_deleted'
+  };
+
+  export type MessageTemplateScalarFieldEnum = (typeof MessageTemplateScalarFieldEnum)[keyof typeof MessageTemplateScalarFieldEnum]
+
+
+  export const WhatsAppInstanceScalarFieldEnum: {
+    wa_id: 'wa_id',
+    wa_uuid: 'wa_uuid',
+    wa_own_id: 'wa_own_id',
+    wa_firm_id: 'wa_firm_id',
+    wa_provider: 'wa_provider',
+    wa_instance_id: 'wa_instance_id',
+    wa_token: 'wa_token',
+    wa_api_url: 'wa_api_url',
+    wa_phone_number: 'wa_phone_number',
+    wa_status: 'wa_status',
+    wa_qr_code: 'wa_qr_code',
+    wa_last_checked: 'wa_last_checked',
+    wa_meta: 'wa_meta',
+    wa_created_at: 'wa_created_at',
+    wa_created_by: 'wa_created_by',
+    wa_updated_at: 'wa_updated_at',
+    wa_updated_by: 'wa_updated_by',
+    wa_deleted_at: 'wa_deleted_at',
+    wa_deleted_by: 'wa_deleted_by',
+    wa_is_deleted: 'wa_is_deleted'
+  };
+
+  export type WhatsAppInstanceScalarFieldEnum = (typeof WhatsAppInstanceScalarFieldEnum)[keyof typeof WhatsAppInstanceScalarFieldEnum]
+
+
+  export const MessageLogScalarFieldEnum: {
+    ml_id: 'ml_id',
+    ml_uuid: 'ml_uuid',
+    ml_own_id: 'ml_own_id',
+    ml_firm_id: 'ml_firm_id',
+    ml_channel: 'ml_channel',
+    ml_template_key: 'ml_template_key',
+    ml_to: 'ml_to',
+    ml_status: 'ml_status',
+    ml_error: 'ml_error',
+    ml_meta: 'ml_meta',
+    ml_created_at: 'ml_created_at'
+  };
+
+  export type MessageLogScalarFieldEnum = (typeof MessageLogScalarFieldEnum)[keyof typeof MessageLogScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -38629,6 +42575,48 @@ export namespace Prisma {
    */
   export type ListEnumStaffStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StaffStatus[]'>
     
+
+
+  /**
+   * Reference to a field of type 'MessageChannel'
+   */
+  export type EnumMessageChannelFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MessageChannel'>
+    
+
+
+  /**
+   * Reference to a field of type 'MessageChannel[]'
+   */
+  export type ListEnumMessageChannelFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MessageChannel[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'MessageTemplateStatus'
+   */
+  export type EnumMessageTemplateStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MessageTemplateStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'MessageTemplateStatus[]'
+   */
+  export type ListEnumMessageTemplateStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MessageTemplateStatus[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'WhatsAppInstanceStatus'
+   */
+  export type EnumWhatsAppInstanceStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'WhatsAppInstanceStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'WhatsAppInstanceStatus[]'
+   */
+  export type ListEnumWhatsAppInstanceStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'WhatsAppInstanceStatus[]'>
+    
   /**
    * Deep Input Types
    */
@@ -38661,6 +42649,12 @@ export namespace Prisma {
     own_last_login_system?: JsonNullableFilter<"Owner">
     own_otp?: StringNullableFilter<"Owner"> | string | null
     own_otp_expiry?: DateTimeNullableFilter<"Owner"> | Date | string | null
+    own_mail_user?: StringNullableFilter<"Owner"> | string | null
+    own_mail_pass_enc?: StringNullableFilter<"Owner"> | string | null
+    own_mail_from_name?: StringNullableFilter<"Owner"> | string | null
+    own_mail_provider?: StringNullableFilter<"Owner"> | string | null
+    own_mail_status?: StringNullableFilter<"Owner"> | string | null
+    own_mail_updated_at?: DateTimeNullableFilter<"Owner"> | Date | string | null
     own_address?: StringNullableFilter<"Owner"> | string | null
     own_village?: StringNullableFilter<"Owner"> | string | null
     own_city?: StringNullableFilter<"Owner"> | string | null
@@ -38690,6 +42684,8 @@ export namespace Prisma {
     purities?: PurityListRelationFilter
     moneyLenders?: MoneyLenderListRelationFilter
     staff?: StaffListRelationFilter
+    messageTemplates?: MessageTemplateListRelationFilter
+    whatsappInstances?: WhatsAppInstanceListRelationFilter
   }
 
   export type OwnerOrderByWithRelationInput = {
@@ -38716,6 +42712,12 @@ export namespace Prisma {
     own_last_login_system?: SortOrderInput | SortOrder
     own_otp?: SortOrderInput | SortOrder
     own_otp_expiry?: SortOrderInput | SortOrder
+    own_mail_user?: SortOrderInput | SortOrder
+    own_mail_pass_enc?: SortOrderInput | SortOrder
+    own_mail_from_name?: SortOrderInput | SortOrder
+    own_mail_provider?: SortOrderInput | SortOrder
+    own_mail_status?: SortOrderInput | SortOrder
+    own_mail_updated_at?: SortOrderInput | SortOrder
     own_address?: SortOrderInput | SortOrder
     own_village?: SortOrderInput | SortOrder
     own_city?: SortOrderInput | SortOrder
@@ -38745,6 +42747,8 @@ export namespace Prisma {
     purities?: PurityOrderByRelationAggregateInput
     moneyLenders?: MoneyLenderOrderByRelationAggregateInput
     staff?: StaffOrderByRelationAggregateInput
+    messageTemplates?: MessageTemplateOrderByRelationAggregateInput
+    whatsappInstances?: WhatsAppInstanceOrderByRelationAggregateInput
   }
 
   export type OwnerWhereUniqueInput = Prisma.AtLeast<{
@@ -38774,6 +42778,12 @@ export namespace Prisma {
     own_last_login_system?: JsonNullableFilter<"Owner">
     own_otp?: StringNullableFilter<"Owner"> | string | null
     own_otp_expiry?: DateTimeNullableFilter<"Owner"> | Date | string | null
+    own_mail_user?: StringNullableFilter<"Owner"> | string | null
+    own_mail_pass_enc?: StringNullableFilter<"Owner"> | string | null
+    own_mail_from_name?: StringNullableFilter<"Owner"> | string | null
+    own_mail_provider?: StringNullableFilter<"Owner"> | string | null
+    own_mail_status?: StringNullableFilter<"Owner"> | string | null
+    own_mail_updated_at?: DateTimeNullableFilter<"Owner"> | Date | string | null
     own_address?: StringNullableFilter<"Owner"> | string | null
     own_village?: StringNullableFilter<"Owner"> | string | null
     own_city?: StringNullableFilter<"Owner"> | string | null
@@ -38803,6 +42813,8 @@ export namespace Prisma {
     purities?: PurityListRelationFilter
     moneyLenders?: MoneyLenderListRelationFilter
     staff?: StaffListRelationFilter
+    messageTemplates?: MessageTemplateListRelationFilter
+    whatsappInstances?: WhatsAppInstanceListRelationFilter
   }, "own_id" | "own_uuid" | "own_product_key" | "own_db" | "own_mobile_no" | "own_email" | "own_login_id">
 
   export type OwnerOrderByWithAggregationInput = {
@@ -38829,6 +42841,12 @@ export namespace Prisma {
     own_last_login_system?: SortOrderInput | SortOrder
     own_otp?: SortOrderInput | SortOrder
     own_otp_expiry?: SortOrderInput | SortOrder
+    own_mail_user?: SortOrderInput | SortOrder
+    own_mail_pass_enc?: SortOrderInput | SortOrder
+    own_mail_from_name?: SortOrderInput | SortOrder
+    own_mail_provider?: SortOrderInput | SortOrder
+    own_mail_status?: SortOrderInput | SortOrder
+    own_mail_updated_at?: SortOrderInput | SortOrder
     own_address?: SortOrderInput | SortOrder
     own_village?: SortOrderInput | SortOrder
     own_city?: SortOrderInput | SortOrder
@@ -38875,6 +42893,12 @@ export namespace Prisma {
     own_last_login_system?: JsonNullableWithAggregatesFilter<"Owner">
     own_otp?: StringNullableWithAggregatesFilter<"Owner"> | string | null
     own_otp_expiry?: DateTimeNullableWithAggregatesFilter<"Owner"> | Date | string | null
+    own_mail_user?: StringNullableWithAggregatesFilter<"Owner"> | string | null
+    own_mail_pass_enc?: StringNullableWithAggregatesFilter<"Owner"> | string | null
+    own_mail_from_name?: StringNullableWithAggregatesFilter<"Owner"> | string | null
+    own_mail_provider?: StringNullableWithAggregatesFilter<"Owner"> | string | null
+    own_mail_status?: StringNullableWithAggregatesFilter<"Owner"> | string | null
+    own_mail_updated_at?: DateTimeNullableWithAggregatesFilter<"Owner"> | Date | string | null
     own_address?: StringNullableWithAggregatesFilter<"Owner"> | string | null
     own_village?: StringNullableWithAggregatesFilter<"Owner"> | string | null
     own_city?: StringNullableWithAggregatesFilter<"Owner"> | string | null
@@ -38960,6 +42984,8 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderListRelationFilter
     auctionUsers?: AuctionUserListRelationFilter
     auctionLoans?: AuctionLoanListRelationFilter
+    messageTemplates?: MessageTemplateListRelationFilter
+    whatsappInstance?: XOR<WhatsAppInstanceNullableRelationFilter, WhatsAppInstanceWhereInput> | null
   }
 
   export type FirmOrderByWithRelationInput = {
@@ -39030,6 +43056,8 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderOrderByRelationAggregateInput
     auctionUsers?: AuctionUserOrderByRelationAggregateInput
     auctionLoans?: AuctionLoanOrderByRelationAggregateInput
+    messageTemplates?: MessageTemplateOrderByRelationAggregateInput
+    whatsappInstance?: WhatsAppInstanceOrderByWithRelationInput
   }
 
   export type FirmWhereUniqueInput = Prisma.AtLeast<{
@@ -39103,6 +43131,8 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderListRelationFilter
     auctionUsers?: AuctionUserListRelationFilter
     auctionLoans?: AuctionLoanListRelationFilter
+    messageTemplates?: MessageTemplateListRelationFilter
+    whatsappInstance?: XOR<WhatsAppInstanceNullableRelationFilter, WhatsAppInstanceWhereInput> | null
   }, "firm_id" | "firm_uuid" | "firm_unique_code" | "firm_name" | "firm_reg_no">
 
   export type FirmOrderByWithAggregationInput = {
@@ -40880,6 +44910,9 @@ export namespace Prisma {
     girv_transfer_firm_id?: IntNullableFilter<"Girvi"> | number | null
     girv_transfer_girv_id?: IntNullableFilter<"Girvi"> | number | null
     girv_transfer_ml_id?: IntNullableFilter<"Girvi"> | number | null
+    girv_is_transferred_in?: BoolFilter<"Girvi"> | boolean
+    girv_transfer_from_girv_id?: IntNullableFilter<"Girvi"> | number | null
+    girv_transfer_from_firm_id?: IntNullableFilter<"Girvi"> | number | null
     girv_created_at?: DateTimeFilter<"Girvi"> | Date | string
     girv_created_by?: StringNullableFilter<"Girvi"> | string | null
     girv_updated_at?: DateTimeFilter<"Girvi"> | Date | string
@@ -40951,6 +44984,9 @@ export namespace Prisma {
     girv_transfer_firm_id?: SortOrderInput | SortOrder
     girv_transfer_girv_id?: SortOrderInput | SortOrder
     girv_transfer_ml_id?: SortOrderInput | SortOrder
+    girv_is_transferred_in?: SortOrder
+    girv_transfer_from_girv_id?: SortOrderInput | SortOrder
+    girv_transfer_from_firm_id?: SortOrderInput | SortOrder
     girv_created_at?: SortOrder
     girv_created_by?: SortOrderInput | SortOrder
     girv_updated_at?: SortOrder
@@ -41025,6 +45061,9 @@ export namespace Prisma {
     girv_transfer_firm_id?: IntNullableFilter<"Girvi"> | number | null
     girv_transfer_girv_id?: IntNullableFilter<"Girvi"> | number | null
     girv_transfer_ml_id?: IntNullableFilter<"Girvi"> | number | null
+    girv_is_transferred_in?: BoolFilter<"Girvi"> | boolean
+    girv_transfer_from_girv_id?: IntNullableFilter<"Girvi"> | number | null
+    girv_transfer_from_firm_id?: IntNullableFilter<"Girvi"> | number | null
     girv_created_at?: DateTimeFilter<"Girvi"> | Date | string
     girv_created_by?: StringNullableFilter<"Girvi"> | string | null
     girv_updated_at?: DateTimeFilter<"Girvi"> | Date | string
@@ -41096,6 +45135,9 @@ export namespace Prisma {
     girv_transfer_firm_id?: SortOrderInput | SortOrder
     girv_transfer_girv_id?: SortOrderInput | SortOrder
     girv_transfer_ml_id?: SortOrderInput | SortOrder
+    girv_is_transferred_in?: SortOrder
+    girv_transfer_from_girv_id?: SortOrderInput | SortOrder
+    girv_transfer_from_firm_id?: SortOrderInput | SortOrder
     girv_created_at?: SortOrder
     girv_created_by?: SortOrderInput | SortOrder
     girv_updated_at?: SortOrder
@@ -41160,6 +45202,9 @@ export namespace Prisma {
     girv_transfer_firm_id?: IntNullableWithAggregatesFilter<"Girvi"> | number | null
     girv_transfer_girv_id?: IntNullableWithAggregatesFilter<"Girvi"> | number | null
     girv_transfer_ml_id?: IntNullableWithAggregatesFilter<"Girvi"> | number | null
+    girv_is_transferred_in?: BoolWithAggregatesFilter<"Girvi"> | boolean
+    girv_transfer_from_girv_id?: IntNullableWithAggregatesFilter<"Girvi"> | number | null
+    girv_transfer_from_firm_id?: IntNullableWithAggregatesFilter<"Girvi"> | number | null
     girv_created_at?: DateTimeWithAggregatesFilter<"Girvi"> | Date | string
     girv_created_by?: StringNullableWithAggregatesFilter<"Girvi"> | string | null
     girv_updated_at?: DateTimeWithAggregatesFilter<"Girvi"> | Date | string
@@ -43305,6 +47350,376 @@ export namespace Prisma {
     updated_at?: DateTimeWithAggregatesFilter<"SerialNumber"> | Date | string
   }
 
+  export type MessageTemplateWhereInput = {
+    AND?: MessageTemplateWhereInput | MessageTemplateWhereInput[]
+    OR?: MessageTemplateWhereInput[]
+    NOT?: MessageTemplateWhereInput | MessageTemplateWhereInput[]
+    mt_id?: IntFilter<"MessageTemplate"> | number
+    mt_uuid?: StringFilter<"MessageTemplate"> | string
+    mt_own_id?: IntFilter<"MessageTemplate"> | number
+    mt_firm_id?: IntFilter<"MessageTemplate"> | number
+    mt_channel?: EnumMessageChannelFilter<"MessageTemplate"> | $Enums.MessageChannel
+    mt_key?: StringFilter<"MessageTemplate"> | string
+    mt_name?: StringFilter<"MessageTemplate"> | string
+    mt_category?: StringFilter<"MessageTemplate"> | string
+    mt_language?: StringFilter<"MessageTemplate"> | string
+    mt_subject?: StringNullableFilter<"MessageTemplate"> | string | null
+    mt_body?: StringFilter<"MessageTemplate"> | string
+    mt_variables?: JsonNullableFilter<"MessageTemplate">
+    mt_attachments?: JsonNullableFilter<"MessageTemplate">
+    mt_has_attachment?: BoolFilter<"MessageTemplate"> | boolean
+    mt_is_system?: BoolFilter<"MessageTemplate"> | boolean
+    mt_status?: EnumMessageTemplateStatusFilter<"MessageTemplate"> | $Enums.MessageTemplateStatus
+    mt_created_at?: DateTimeFilter<"MessageTemplate"> | Date | string
+    mt_created_by?: StringNullableFilter<"MessageTemplate"> | string | null
+    mt_updated_at?: DateTimeFilter<"MessageTemplate"> | Date | string
+    mt_updated_by?: StringNullableFilter<"MessageTemplate"> | string | null
+    mt_deleted_at?: DateTimeNullableFilter<"MessageTemplate"> | Date | string | null
+    mt_deleted_by?: StringNullableFilter<"MessageTemplate"> | string | null
+    mt_is_deleted?: BoolFilter<"MessageTemplate"> | boolean
+    owner?: XOR<OwnerRelationFilter, OwnerWhereInput>
+    firm?: XOR<FirmRelationFilter, FirmWhereInput>
+  }
+
+  export type MessageTemplateOrderByWithRelationInput = {
+    mt_id?: SortOrder
+    mt_uuid?: SortOrder
+    mt_own_id?: SortOrder
+    mt_firm_id?: SortOrder
+    mt_channel?: SortOrder
+    mt_key?: SortOrder
+    mt_name?: SortOrder
+    mt_category?: SortOrder
+    mt_language?: SortOrder
+    mt_subject?: SortOrderInput | SortOrder
+    mt_body?: SortOrder
+    mt_variables?: SortOrderInput | SortOrder
+    mt_attachments?: SortOrderInput | SortOrder
+    mt_has_attachment?: SortOrder
+    mt_is_system?: SortOrder
+    mt_status?: SortOrder
+    mt_created_at?: SortOrder
+    mt_created_by?: SortOrderInput | SortOrder
+    mt_updated_at?: SortOrder
+    mt_updated_by?: SortOrderInput | SortOrder
+    mt_deleted_at?: SortOrderInput | SortOrder
+    mt_deleted_by?: SortOrderInput | SortOrder
+    mt_is_deleted?: SortOrder
+    owner?: OwnerOrderByWithRelationInput
+    firm?: FirmOrderByWithRelationInput
+  }
+
+  export type MessageTemplateWhereUniqueInput = Prisma.AtLeast<{
+    mt_id?: number
+    mt_uuid?: string
+    mt_firm_id_mt_channel_mt_name?: MessageTemplateMt_firm_idMt_channelMt_nameCompoundUniqueInput
+    AND?: MessageTemplateWhereInput | MessageTemplateWhereInput[]
+    OR?: MessageTemplateWhereInput[]
+    NOT?: MessageTemplateWhereInput | MessageTemplateWhereInput[]
+    mt_own_id?: IntFilter<"MessageTemplate"> | number
+    mt_firm_id?: IntFilter<"MessageTemplate"> | number
+    mt_channel?: EnumMessageChannelFilter<"MessageTemplate"> | $Enums.MessageChannel
+    mt_key?: StringFilter<"MessageTemplate"> | string
+    mt_name?: StringFilter<"MessageTemplate"> | string
+    mt_category?: StringFilter<"MessageTemplate"> | string
+    mt_language?: StringFilter<"MessageTemplate"> | string
+    mt_subject?: StringNullableFilter<"MessageTemplate"> | string | null
+    mt_body?: StringFilter<"MessageTemplate"> | string
+    mt_variables?: JsonNullableFilter<"MessageTemplate">
+    mt_attachments?: JsonNullableFilter<"MessageTemplate">
+    mt_has_attachment?: BoolFilter<"MessageTemplate"> | boolean
+    mt_is_system?: BoolFilter<"MessageTemplate"> | boolean
+    mt_status?: EnumMessageTemplateStatusFilter<"MessageTemplate"> | $Enums.MessageTemplateStatus
+    mt_created_at?: DateTimeFilter<"MessageTemplate"> | Date | string
+    mt_created_by?: StringNullableFilter<"MessageTemplate"> | string | null
+    mt_updated_at?: DateTimeFilter<"MessageTemplate"> | Date | string
+    mt_updated_by?: StringNullableFilter<"MessageTemplate"> | string | null
+    mt_deleted_at?: DateTimeNullableFilter<"MessageTemplate"> | Date | string | null
+    mt_deleted_by?: StringNullableFilter<"MessageTemplate"> | string | null
+    mt_is_deleted?: BoolFilter<"MessageTemplate"> | boolean
+    owner?: XOR<OwnerRelationFilter, OwnerWhereInput>
+    firm?: XOR<FirmRelationFilter, FirmWhereInput>
+  }, "mt_id" | "mt_uuid" | "mt_firm_id_mt_channel_mt_name">
+
+  export type MessageTemplateOrderByWithAggregationInput = {
+    mt_id?: SortOrder
+    mt_uuid?: SortOrder
+    mt_own_id?: SortOrder
+    mt_firm_id?: SortOrder
+    mt_channel?: SortOrder
+    mt_key?: SortOrder
+    mt_name?: SortOrder
+    mt_category?: SortOrder
+    mt_language?: SortOrder
+    mt_subject?: SortOrderInput | SortOrder
+    mt_body?: SortOrder
+    mt_variables?: SortOrderInput | SortOrder
+    mt_attachments?: SortOrderInput | SortOrder
+    mt_has_attachment?: SortOrder
+    mt_is_system?: SortOrder
+    mt_status?: SortOrder
+    mt_created_at?: SortOrder
+    mt_created_by?: SortOrderInput | SortOrder
+    mt_updated_at?: SortOrder
+    mt_updated_by?: SortOrderInput | SortOrder
+    mt_deleted_at?: SortOrderInput | SortOrder
+    mt_deleted_by?: SortOrderInput | SortOrder
+    mt_is_deleted?: SortOrder
+    _count?: MessageTemplateCountOrderByAggregateInput
+    _avg?: MessageTemplateAvgOrderByAggregateInput
+    _max?: MessageTemplateMaxOrderByAggregateInput
+    _min?: MessageTemplateMinOrderByAggregateInput
+    _sum?: MessageTemplateSumOrderByAggregateInput
+  }
+
+  export type MessageTemplateScalarWhereWithAggregatesInput = {
+    AND?: MessageTemplateScalarWhereWithAggregatesInput | MessageTemplateScalarWhereWithAggregatesInput[]
+    OR?: MessageTemplateScalarWhereWithAggregatesInput[]
+    NOT?: MessageTemplateScalarWhereWithAggregatesInput | MessageTemplateScalarWhereWithAggregatesInput[]
+    mt_id?: IntWithAggregatesFilter<"MessageTemplate"> | number
+    mt_uuid?: StringWithAggregatesFilter<"MessageTemplate"> | string
+    mt_own_id?: IntWithAggregatesFilter<"MessageTemplate"> | number
+    mt_firm_id?: IntWithAggregatesFilter<"MessageTemplate"> | number
+    mt_channel?: EnumMessageChannelWithAggregatesFilter<"MessageTemplate"> | $Enums.MessageChannel
+    mt_key?: StringWithAggregatesFilter<"MessageTemplate"> | string
+    mt_name?: StringWithAggregatesFilter<"MessageTemplate"> | string
+    mt_category?: StringWithAggregatesFilter<"MessageTemplate"> | string
+    mt_language?: StringWithAggregatesFilter<"MessageTemplate"> | string
+    mt_subject?: StringNullableWithAggregatesFilter<"MessageTemplate"> | string | null
+    mt_body?: StringWithAggregatesFilter<"MessageTemplate"> | string
+    mt_variables?: JsonNullableWithAggregatesFilter<"MessageTemplate">
+    mt_attachments?: JsonNullableWithAggregatesFilter<"MessageTemplate">
+    mt_has_attachment?: BoolWithAggregatesFilter<"MessageTemplate"> | boolean
+    mt_is_system?: BoolWithAggregatesFilter<"MessageTemplate"> | boolean
+    mt_status?: EnumMessageTemplateStatusWithAggregatesFilter<"MessageTemplate"> | $Enums.MessageTemplateStatus
+    mt_created_at?: DateTimeWithAggregatesFilter<"MessageTemplate"> | Date | string
+    mt_created_by?: StringNullableWithAggregatesFilter<"MessageTemplate"> | string | null
+    mt_updated_at?: DateTimeWithAggregatesFilter<"MessageTemplate"> | Date | string
+    mt_updated_by?: StringNullableWithAggregatesFilter<"MessageTemplate"> | string | null
+    mt_deleted_at?: DateTimeNullableWithAggregatesFilter<"MessageTemplate"> | Date | string | null
+    mt_deleted_by?: StringNullableWithAggregatesFilter<"MessageTemplate"> | string | null
+    mt_is_deleted?: BoolWithAggregatesFilter<"MessageTemplate"> | boolean
+  }
+
+  export type WhatsAppInstanceWhereInput = {
+    AND?: WhatsAppInstanceWhereInput | WhatsAppInstanceWhereInput[]
+    OR?: WhatsAppInstanceWhereInput[]
+    NOT?: WhatsAppInstanceWhereInput | WhatsAppInstanceWhereInput[]
+    wa_id?: IntFilter<"WhatsAppInstance"> | number
+    wa_uuid?: StringFilter<"WhatsAppInstance"> | string
+    wa_own_id?: IntFilter<"WhatsAppInstance"> | number
+    wa_firm_id?: IntFilter<"WhatsAppInstance"> | number
+    wa_provider?: StringFilter<"WhatsAppInstance"> | string
+    wa_instance_id?: StringNullableFilter<"WhatsAppInstance"> | string | null
+    wa_token?: StringNullableFilter<"WhatsAppInstance"> | string | null
+    wa_api_url?: StringNullableFilter<"WhatsAppInstance"> | string | null
+    wa_phone_number?: StringNullableFilter<"WhatsAppInstance"> | string | null
+    wa_status?: EnumWhatsAppInstanceStatusFilter<"WhatsAppInstance"> | $Enums.WhatsAppInstanceStatus
+    wa_qr_code?: StringNullableFilter<"WhatsAppInstance"> | string | null
+    wa_last_checked?: DateTimeNullableFilter<"WhatsAppInstance"> | Date | string | null
+    wa_meta?: JsonNullableFilter<"WhatsAppInstance">
+    wa_created_at?: DateTimeFilter<"WhatsAppInstance"> | Date | string
+    wa_created_by?: StringNullableFilter<"WhatsAppInstance"> | string | null
+    wa_updated_at?: DateTimeFilter<"WhatsAppInstance"> | Date | string
+    wa_updated_by?: StringNullableFilter<"WhatsAppInstance"> | string | null
+    wa_deleted_at?: DateTimeNullableFilter<"WhatsAppInstance"> | Date | string | null
+    wa_deleted_by?: StringNullableFilter<"WhatsAppInstance"> | string | null
+    wa_is_deleted?: BoolFilter<"WhatsAppInstance"> | boolean
+    owner?: XOR<OwnerRelationFilter, OwnerWhereInput>
+    firm?: XOR<FirmRelationFilter, FirmWhereInput>
+  }
+
+  export type WhatsAppInstanceOrderByWithRelationInput = {
+    wa_id?: SortOrder
+    wa_uuid?: SortOrder
+    wa_own_id?: SortOrder
+    wa_firm_id?: SortOrder
+    wa_provider?: SortOrder
+    wa_instance_id?: SortOrderInput | SortOrder
+    wa_token?: SortOrderInput | SortOrder
+    wa_api_url?: SortOrderInput | SortOrder
+    wa_phone_number?: SortOrderInput | SortOrder
+    wa_status?: SortOrder
+    wa_qr_code?: SortOrderInput | SortOrder
+    wa_last_checked?: SortOrderInput | SortOrder
+    wa_meta?: SortOrderInput | SortOrder
+    wa_created_at?: SortOrder
+    wa_created_by?: SortOrderInput | SortOrder
+    wa_updated_at?: SortOrder
+    wa_updated_by?: SortOrderInput | SortOrder
+    wa_deleted_at?: SortOrderInput | SortOrder
+    wa_deleted_by?: SortOrderInput | SortOrder
+    wa_is_deleted?: SortOrder
+    owner?: OwnerOrderByWithRelationInput
+    firm?: FirmOrderByWithRelationInput
+  }
+
+  export type WhatsAppInstanceWhereUniqueInput = Prisma.AtLeast<{
+    wa_id?: number
+    wa_uuid?: string
+    wa_firm_id?: number
+    AND?: WhatsAppInstanceWhereInput | WhatsAppInstanceWhereInput[]
+    OR?: WhatsAppInstanceWhereInput[]
+    NOT?: WhatsAppInstanceWhereInput | WhatsAppInstanceWhereInput[]
+    wa_own_id?: IntFilter<"WhatsAppInstance"> | number
+    wa_provider?: StringFilter<"WhatsAppInstance"> | string
+    wa_instance_id?: StringNullableFilter<"WhatsAppInstance"> | string | null
+    wa_token?: StringNullableFilter<"WhatsAppInstance"> | string | null
+    wa_api_url?: StringNullableFilter<"WhatsAppInstance"> | string | null
+    wa_phone_number?: StringNullableFilter<"WhatsAppInstance"> | string | null
+    wa_status?: EnumWhatsAppInstanceStatusFilter<"WhatsAppInstance"> | $Enums.WhatsAppInstanceStatus
+    wa_qr_code?: StringNullableFilter<"WhatsAppInstance"> | string | null
+    wa_last_checked?: DateTimeNullableFilter<"WhatsAppInstance"> | Date | string | null
+    wa_meta?: JsonNullableFilter<"WhatsAppInstance">
+    wa_created_at?: DateTimeFilter<"WhatsAppInstance"> | Date | string
+    wa_created_by?: StringNullableFilter<"WhatsAppInstance"> | string | null
+    wa_updated_at?: DateTimeFilter<"WhatsAppInstance"> | Date | string
+    wa_updated_by?: StringNullableFilter<"WhatsAppInstance"> | string | null
+    wa_deleted_at?: DateTimeNullableFilter<"WhatsAppInstance"> | Date | string | null
+    wa_deleted_by?: StringNullableFilter<"WhatsAppInstance"> | string | null
+    wa_is_deleted?: BoolFilter<"WhatsAppInstance"> | boolean
+    owner?: XOR<OwnerRelationFilter, OwnerWhereInput>
+    firm?: XOR<FirmRelationFilter, FirmWhereInput>
+  }, "wa_id" | "wa_uuid" | "wa_firm_id">
+
+  export type WhatsAppInstanceOrderByWithAggregationInput = {
+    wa_id?: SortOrder
+    wa_uuid?: SortOrder
+    wa_own_id?: SortOrder
+    wa_firm_id?: SortOrder
+    wa_provider?: SortOrder
+    wa_instance_id?: SortOrderInput | SortOrder
+    wa_token?: SortOrderInput | SortOrder
+    wa_api_url?: SortOrderInput | SortOrder
+    wa_phone_number?: SortOrderInput | SortOrder
+    wa_status?: SortOrder
+    wa_qr_code?: SortOrderInput | SortOrder
+    wa_last_checked?: SortOrderInput | SortOrder
+    wa_meta?: SortOrderInput | SortOrder
+    wa_created_at?: SortOrder
+    wa_created_by?: SortOrderInput | SortOrder
+    wa_updated_at?: SortOrder
+    wa_updated_by?: SortOrderInput | SortOrder
+    wa_deleted_at?: SortOrderInput | SortOrder
+    wa_deleted_by?: SortOrderInput | SortOrder
+    wa_is_deleted?: SortOrder
+    _count?: WhatsAppInstanceCountOrderByAggregateInput
+    _avg?: WhatsAppInstanceAvgOrderByAggregateInput
+    _max?: WhatsAppInstanceMaxOrderByAggregateInput
+    _min?: WhatsAppInstanceMinOrderByAggregateInput
+    _sum?: WhatsAppInstanceSumOrderByAggregateInput
+  }
+
+  export type WhatsAppInstanceScalarWhereWithAggregatesInput = {
+    AND?: WhatsAppInstanceScalarWhereWithAggregatesInput | WhatsAppInstanceScalarWhereWithAggregatesInput[]
+    OR?: WhatsAppInstanceScalarWhereWithAggregatesInput[]
+    NOT?: WhatsAppInstanceScalarWhereWithAggregatesInput | WhatsAppInstanceScalarWhereWithAggregatesInput[]
+    wa_id?: IntWithAggregatesFilter<"WhatsAppInstance"> | number
+    wa_uuid?: StringWithAggregatesFilter<"WhatsAppInstance"> | string
+    wa_own_id?: IntWithAggregatesFilter<"WhatsAppInstance"> | number
+    wa_firm_id?: IntWithAggregatesFilter<"WhatsAppInstance"> | number
+    wa_provider?: StringWithAggregatesFilter<"WhatsAppInstance"> | string
+    wa_instance_id?: StringNullableWithAggregatesFilter<"WhatsAppInstance"> | string | null
+    wa_token?: StringNullableWithAggregatesFilter<"WhatsAppInstance"> | string | null
+    wa_api_url?: StringNullableWithAggregatesFilter<"WhatsAppInstance"> | string | null
+    wa_phone_number?: StringNullableWithAggregatesFilter<"WhatsAppInstance"> | string | null
+    wa_status?: EnumWhatsAppInstanceStatusWithAggregatesFilter<"WhatsAppInstance"> | $Enums.WhatsAppInstanceStatus
+    wa_qr_code?: StringNullableWithAggregatesFilter<"WhatsAppInstance"> | string | null
+    wa_last_checked?: DateTimeNullableWithAggregatesFilter<"WhatsAppInstance"> | Date | string | null
+    wa_meta?: JsonNullableWithAggregatesFilter<"WhatsAppInstance">
+    wa_created_at?: DateTimeWithAggregatesFilter<"WhatsAppInstance"> | Date | string
+    wa_created_by?: StringNullableWithAggregatesFilter<"WhatsAppInstance"> | string | null
+    wa_updated_at?: DateTimeWithAggregatesFilter<"WhatsAppInstance"> | Date | string
+    wa_updated_by?: StringNullableWithAggregatesFilter<"WhatsAppInstance"> | string | null
+    wa_deleted_at?: DateTimeNullableWithAggregatesFilter<"WhatsAppInstance"> | Date | string | null
+    wa_deleted_by?: StringNullableWithAggregatesFilter<"WhatsAppInstance"> | string | null
+    wa_is_deleted?: BoolWithAggregatesFilter<"WhatsAppInstance"> | boolean
+  }
+
+  export type MessageLogWhereInput = {
+    AND?: MessageLogWhereInput | MessageLogWhereInput[]
+    OR?: MessageLogWhereInput[]
+    NOT?: MessageLogWhereInput | MessageLogWhereInput[]
+    ml_id?: IntFilter<"MessageLog"> | number
+    ml_uuid?: StringFilter<"MessageLog"> | string
+    ml_own_id?: IntFilter<"MessageLog"> | number
+    ml_firm_id?: IntFilter<"MessageLog"> | number
+    ml_channel?: EnumMessageChannelFilter<"MessageLog"> | $Enums.MessageChannel
+    ml_template_key?: StringFilter<"MessageLog"> | string
+    ml_to?: StringFilter<"MessageLog"> | string
+    ml_status?: StringFilter<"MessageLog"> | string
+    ml_error?: StringNullableFilter<"MessageLog"> | string | null
+    ml_meta?: JsonNullableFilter<"MessageLog">
+    ml_created_at?: DateTimeFilter<"MessageLog"> | Date | string
+  }
+
+  export type MessageLogOrderByWithRelationInput = {
+    ml_id?: SortOrder
+    ml_uuid?: SortOrder
+    ml_own_id?: SortOrder
+    ml_firm_id?: SortOrder
+    ml_channel?: SortOrder
+    ml_template_key?: SortOrder
+    ml_to?: SortOrder
+    ml_status?: SortOrder
+    ml_error?: SortOrderInput | SortOrder
+    ml_meta?: SortOrderInput | SortOrder
+    ml_created_at?: SortOrder
+  }
+
+  export type MessageLogWhereUniqueInput = Prisma.AtLeast<{
+    ml_id?: number
+    ml_uuid?: string
+    AND?: MessageLogWhereInput | MessageLogWhereInput[]
+    OR?: MessageLogWhereInput[]
+    NOT?: MessageLogWhereInput | MessageLogWhereInput[]
+    ml_own_id?: IntFilter<"MessageLog"> | number
+    ml_firm_id?: IntFilter<"MessageLog"> | number
+    ml_channel?: EnumMessageChannelFilter<"MessageLog"> | $Enums.MessageChannel
+    ml_template_key?: StringFilter<"MessageLog"> | string
+    ml_to?: StringFilter<"MessageLog"> | string
+    ml_status?: StringFilter<"MessageLog"> | string
+    ml_error?: StringNullableFilter<"MessageLog"> | string | null
+    ml_meta?: JsonNullableFilter<"MessageLog">
+    ml_created_at?: DateTimeFilter<"MessageLog"> | Date | string
+  }, "ml_id" | "ml_uuid">
+
+  export type MessageLogOrderByWithAggregationInput = {
+    ml_id?: SortOrder
+    ml_uuid?: SortOrder
+    ml_own_id?: SortOrder
+    ml_firm_id?: SortOrder
+    ml_channel?: SortOrder
+    ml_template_key?: SortOrder
+    ml_to?: SortOrder
+    ml_status?: SortOrder
+    ml_error?: SortOrderInput | SortOrder
+    ml_meta?: SortOrderInput | SortOrder
+    ml_created_at?: SortOrder
+    _count?: MessageLogCountOrderByAggregateInput
+    _avg?: MessageLogAvgOrderByAggregateInput
+    _max?: MessageLogMaxOrderByAggregateInput
+    _min?: MessageLogMinOrderByAggregateInput
+    _sum?: MessageLogSumOrderByAggregateInput
+  }
+
+  export type MessageLogScalarWhereWithAggregatesInput = {
+    AND?: MessageLogScalarWhereWithAggregatesInput | MessageLogScalarWhereWithAggregatesInput[]
+    OR?: MessageLogScalarWhereWithAggregatesInput[]
+    NOT?: MessageLogScalarWhereWithAggregatesInput | MessageLogScalarWhereWithAggregatesInput[]
+    ml_id?: IntWithAggregatesFilter<"MessageLog"> | number
+    ml_uuid?: StringWithAggregatesFilter<"MessageLog"> | string
+    ml_own_id?: IntWithAggregatesFilter<"MessageLog"> | number
+    ml_firm_id?: IntWithAggregatesFilter<"MessageLog"> | number
+    ml_channel?: EnumMessageChannelWithAggregatesFilter<"MessageLog"> | $Enums.MessageChannel
+    ml_template_key?: StringWithAggregatesFilter<"MessageLog"> | string
+    ml_to?: StringWithAggregatesFilter<"MessageLog"> | string
+    ml_status?: StringWithAggregatesFilter<"MessageLog"> | string
+    ml_error?: StringNullableWithAggregatesFilter<"MessageLog"> | string | null
+    ml_meta?: JsonNullableWithAggregatesFilter<"MessageLog">
+    ml_created_at?: DateTimeWithAggregatesFilter<"MessageLog"> | Date | string
+  }
+
   export type OwnerCreateInput = {
     own_uuid?: string
     own_product_key?: number
@@ -43328,6 +47743,12 @@ export namespace Prisma {
     own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
     own_otp?: string | null
     own_otp_expiry?: Date | string | null
+    own_mail_user?: string | null
+    own_mail_pass_enc?: string | null
+    own_mail_from_name?: string | null
+    own_mail_provider?: string | null
+    own_mail_status?: string | null
+    own_mail_updated_at?: Date | string | null
     own_address?: string | null
     own_village?: string | null
     own_city?: string | null
@@ -43357,6 +47778,8 @@ export namespace Prisma {
     purities?: PurityCreateNestedManyWithoutOwnerInput
     moneyLenders?: MoneyLenderCreateNestedManyWithoutOwnerInput
     staff?: StaffCreateNestedManyWithoutOwnerInput
+    messageTemplates?: MessageTemplateCreateNestedManyWithoutOwnerInput
+    whatsappInstances?: WhatsAppInstanceCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerUncheckedCreateInput = {
@@ -43383,6 +47806,12 @@ export namespace Prisma {
     own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
     own_otp?: string | null
     own_otp_expiry?: Date | string | null
+    own_mail_user?: string | null
+    own_mail_pass_enc?: string | null
+    own_mail_from_name?: string | null
+    own_mail_provider?: string | null
+    own_mail_status?: string | null
+    own_mail_updated_at?: Date | string | null
     own_address?: string | null
     own_village?: string | null
     own_city?: string | null
@@ -43412,6 +47841,8 @@ export namespace Prisma {
     purities?: PurityUncheckedCreateNestedManyWithoutOwnerInput
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutOwnerInput
     staff?: StaffUncheckedCreateNestedManyWithoutOwnerInput
+    messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutOwnerInput
+    whatsappInstances?: WhatsAppInstanceUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerUpdateInput = {
@@ -43436,6 +47867,12 @@ export namespace Prisma {
     own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
     own_otp?: NullableStringFieldUpdateOperationsInput | string | null
     own_otp_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_mail_user?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_pass_enc?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_from_name?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_provider?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_status?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_address?: NullableStringFieldUpdateOperationsInput | string | null
     own_village?: NullableStringFieldUpdateOperationsInput | string | null
     own_city?: NullableStringFieldUpdateOperationsInput | string | null
@@ -43465,6 +47902,8 @@ export namespace Prisma {
     purities?: PurityUpdateManyWithoutOwnerNestedInput
     moneyLenders?: MoneyLenderUpdateManyWithoutOwnerNestedInput
     staff?: StaffUpdateManyWithoutOwnerNestedInput
+    messageTemplates?: MessageTemplateUpdateManyWithoutOwnerNestedInput
+    whatsappInstances?: WhatsAppInstanceUpdateManyWithoutOwnerNestedInput
   }
 
   export type OwnerUncheckedUpdateInput = {
@@ -43491,6 +47930,12 @@ export namespace Prisma {
     own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
     own_otp?: NullableStringFieldUpdateOperationsInput | string | null
     own_otp_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_mail_user?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_pass_enc?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_from_name?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_provider?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_status?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_address?: NullableStringFieldUpdateOperationsInput | string | null
     own_village?: NullableStringFieldUpdateOperationsInput | string | null
     own_city?: NullableStringFieldUpdateOperationsInput | string | null
@@ -43520,6 +47965,8 @@ export namespace Prisma {
     purities?: PurityUncheckedUpdateManyWithoutOwnerNestedInput
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutOwnerNestedInput
     staff?: StaffUncheckedUpdateManyWithoutOwnerNestedInput
+    messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutOwnerNestedInput
+    whatsappInstances?: WhatsAppInstanceUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
   export type OwnerCreateManyInput = {
@@ -43546,6 +47993,12 @@ export namespace Prisma {
     own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
     own_otp?: string | null
     own_otp_expiry?: Date | string | null
+    own_mail_user?: string | null
+    own_mail_pass_enc?: string | null
+    own_mail_from_name?: string | null
+    own_mail_provider?: string | null
+    own_mail_status?: string | null
+    own_mail_updated_at?: Date | string | null
     own_address?: string | null
     own_village?: string | null
     own_city?: string | null
@@ -43582,6 +48035,12 @@ export namespace Prisma {
     own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
     own_otp?: NullableStringFieldUpdateOperationsInput | string | null
     own_otp_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_mail_user?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_pass_enc?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_from_name?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_provider?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_status?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_address?: NullableStringFieldUpdateOperationsInput | string | null
     own_village?: NullableStringFieldUpdateOperationsInput | string | null
     own_city?: NullableStringFieldUpdateOperationsInput | string | null
@@ -43620,6 +48079,12 @@ export namespace Prisma {
     own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
     own_otp?: NullableStringFieldUpdateOperationsInput | string | null
     own_otp_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_mail_user?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_pass_enc?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_from_name?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_provider?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_status?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_address?: NullableStringFieldUpdateOperationsInput | string | null
     own_village?: NullableStringFieldUpdateOperationsInput | string | null
     own_city?: NullableStringFieldUpdateOperationsInput | string | null
@@ -43700,6 +48165,8 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderCreateNestedManyWithoutFirmInput
     auctionUsers?: AuctionUserCreateNestedManyWithoutFirmInput
     auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
+    messageTemplates?: MessageTemplateCreateNestedManyWithoutFirmInput
+    whatsappInstance?: WhatsAppInstanceCreateNestedOneWithoutFirmInput
   }
 
   export type FirmUncheckedCreateInput = {
@@ -43769,6 +48236,8 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutFirmInput
     auctionUsers?: AuctionUserUncheckedCreateNestedManyWithoutFirmInput
     auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
+    messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutFirmInput
+    whatsappInstance?: WhatsAppInstanceUncheckedCreateNestedOneWithoutFirmInput
   }
 
   export type FirmUpdateInput = {
@@ -43837,6 +48306,8 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUpdateManyWithoutFirmNestedInput
     auctionUsers?: AuctionUserUpdateManyWithoutFirmNestedInput
     auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
+    messageTemplates?: MessageTemplateUpdateManyWithoutFirmNestedInput
+    whatsappInstance?: WhatsAppInstanceUpdateOneWithoutFirmNestedInput
   }
 
   export type FirmUncheckedUpdateInput = {
@@ -43906,6 +48377,8 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutFirmNestedInput
     auctionUsers?: AuctionUserUncheckedUpdateManyWithoutFirmNestedInput
     auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
+    messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutFirmNestedInput
+    whatsappInstance?: WhatsAppInstanceUncheckedUpdateOneWithoutFirmNestedInput
   }
 
   export type FirmCreateManyInput = {
@@ -45983,6 +50456,9 @@ export namespace Prisma {
     girv_pay_info?: string | null
     girv_transfer_firm_id?: number | null
     girv_transfer_girv_id?: number | null
+    girv_is_transferred_in?: boolean
+    girv_transfer_from_girv_id?: number | null
+    girv_transfer_from_firm_id?: number | null
     girv_created_at?: Date | string
     girv_created_by?: string | null
     girv_updated_at?: Date | string
@@ -46054,6 +50530,9 @@ export namespace Prisma {
     girv_transfer_firm_id?: number | null
     girv_transfer_girv_id?: number | null
     girv_transfer_ml_id?: number | null
+    girv_is_transferred_in?: boolean
+    girv_transfer_from_girv_id?: number | null
+    girv_transfer_from_firm_id?: number | null
     girv_created_at?: Date | string
     girv_created_by?: string | null
     girv_updated_at?: Date | string
@@ -46102,6 +50581,9 @@ export namespace Prisma {
     girv_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     girv_transfer_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_transfer_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_is_transferred_in?: BoolFieldUpdateOperationsInput | boolean
+    girv_transfer_from_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_transfer_from_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     girv_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     girv_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -46173,6 +50655,9 @@ export namespace Prisma {
     girv_transfer_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_transfer_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_transfer_ml_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_is_transferred_in?: BoolFieldUpdateOperationsInput | boolean
+    girv_transfer_from_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_transfer_from_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     girv_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     girv_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -46233,6 +50718,9 @@ export namespace Prisma {
     girv_transfer_firm_id?: number | null
     girv_transfer_girv_id?: number | null
     girv_transfer_ml_id?: number | null
+    girv_is_transferred_in?: boolean
+    girv_transfer_from_girv_id?: number | null
+    girv_transfer_from_firm_id?: number | null
     girv_created_at?: Date | string
     girv_created_by?: string | null
     girv_updated_at?: Date | string
@@ -46277,6 +50765,9 @@ export namespace Prisma {
     girv_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     girv_transfer_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_transfer_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_is_transferred_in?: BoolFieldUpdateOperationsInput | boolean
+    girv_transfer_from_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_transfer_from_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     girv_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     girv_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -46333,6 +50824,9 @@ export namespace Prisma {
     girv_transfer_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_transfer_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_transfer_ml_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_is_transferred_in?: BoolFieldUpdateOperationsInput | boolean
+    girv_transfer_from_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_transfer_from_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     girv_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     girv_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -48792,6 +53286,434 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type MessageTemplateCreateInput = {
+    mt_uuid?: string
+    mt_channel: $Enums.MessageChannel
+    mt_key: string
+    mt_name: string
+    mt_category?: string
+    mt_language?: string
+    mt_subject?: string | null
+    mt_body: string
+    mt_variables?: NullableJsonNullValueInput | InputJsonValue
+    mt_attachments?: NullableJsonNullValueInput | InputJsonValue
+    mt_has_attachment?: boolean
+    mt_is_system?: boolean
+    mt_status?: $Enums.MessageTemplateStatus
+    mt_created_at?: Date | string
+    mt_created_by?: string | null
+    mt_updated_at?: Date | string
+    mt_updated_by?: string | null
+    mt_deleted_at?: Date | string | null
+    mt_deleted_by?: string | null
+    mt_is_deleted?: boolean
+    owner: OwnerCreateNestedOneWithoutMessageTemplatesInput
+    firm: FirmCreateNestedOneWithoutMessageTemplatesInput
+  }
+
+  export type MessageTemplateUncheckedCreateInput = {
+    mt_id?: number
+    mt_uuid?: string
+    mt_own_id: number
+    mt_firm_id: number
+    mt_channel: $Enums.MessageChannel
+    mt_key: string
+    mt_name: string
+    mt_category?: string
+    mt_language?: string
+    mt_subject?: string | null
+    mt_body: string
+    mt_variables?: NullableJsonNullValueInput | InputJsonValue
+    mt_attachments?: NullableJsonNullValueInput | InputJsonValue
+    mt_has_attachment?: boolean
+    mt_is_system?: boolean
+    mt_status?: $Enums.MessageTemplateStatus
+    mt_created_at?: Date | string
+    mt_created_by?: string | null
+    mt_updated_at?: Date | string
+    mt_updated_by?: string | null
+    mt_deleted_at?: Date | string | null
+    mt_deleted_by?: string | null
+    mt_is_deleted?: boolean
+  }
+
+  export type MessageTemplateUpdateInput = {
+    mt_uuid?: StringFieldUpdateOperationsInput | string
+    mt_channel?: EnumMessageChannelFieldUpdateOperationsInput | $Enums.MessageChannel
+    mt_key?: StringFieldUpdateOperationsInput | string
+    mt_name?: StringFieldUpdateOperationsInput | string
+    mt_category?: StringFieldUpdateOperationsInput | string
+    mt_language?: StringFieldUpdateOperationsInput | string
+    mt_subject?: NullableStringFieldUpdateOperationsInput | string | null
+    mt_body?: StringFieldUpdateOperationsInput | string
+    mt_variables?: NullableJsonNullValueInput | InputJsonValue
+    mt_attachments?: NullableJsonNullValueInput | InputJsonValue
+    mt_has_attachment?: BoolFieldUpdateOperationsInput | boolean
+    mt_is_system?: BoolFieldUpdateOperationsInput | boolean
+    mt_status?: EnumMessageTemplateStatusFieldUpdateOperationsInput | $Enums.MessageTemplateStatus
+    mt_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    mt_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    mt_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    mt_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    mt_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    mt_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    mt_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    owner?: OwnerUpdateOneRequiredWithoutMessageTemplatesNestedInput
+    firm?: FirmUpdateOneRequiredWithoutMessageTemplatesNestedInput
+  }
+
+  export type MessageTemplateUncheckedUpdateInput = {
+    mt_id?: IntFieldUpdateOperationsInput | number
+    mt_uuid?: StringFieldUpdateOperationsInput | string
+    mt_own_id?: IntFieldUpdateOperationsInput | number
+    mt_firm_id?: IntFieldUpdateOperationsInput | number
+    mt_channel?: EnumMessageChannelFieldUpdateOperationsInput | $Enums.MessageChannel
+    mt_key?: StringFieldUpdateOperationsInput | string
+    mt_name?: StringFieldUpdateOperationsInput | string
+    mt_category?: StringFieldUpdateOperationsInput | string
+    mt_language?: StringFieldUpdateOperationsInput | string
+    mt_subject?: NullableStringFieldUpdateOperationsInput | string | null
+    mt_body?: StringFieldUpdateOperationsInput | string
+    mt_variables?: NullableJsonNullValueInput | InputJsonValue
+    mt_attachments?: NullableJsonNullValueInput | InputJsonValue
+    mt_has_attachment?: BoolFieldUpdateOperationsInput | boolean
+    mt_is_system?: BoolFieldUpdateOperationsInput | boolean
+    mt_status?: EnumMessageTemplateStatusFieldUpdateOperationsInput | $Enums.MessageTemplateStatus
+    mt_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    mt_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    mt_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    mt_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    mt_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    mt_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    mt_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type MessageTemplateCreateManyInput = {
+    mt_id?: number
+    mt_uuid?: string
+    mt_own_id: number
+    mt_firm_id: number
+    mt_channel: $Enums.MessageChannel
+    mt_key: string
+    mt_name: string
+    mt_category?: string
+    mt_language?: string
+    mt_subject?: string | null
+    mt_body: string
+    mt_variables?: NullableJsonNullValueInput | InputJsonValue
+    mt_attachments?: NullableJsonNullValueInput | InputJsonValue
+    mt_has_attachment?: boolean
+    mt_is_system?: boolean
+    mt_status?: $Enums.MessageTemplateStatus
+    mt_created_at?: Date | string
+    mt_created_by?: string | null
+    mt_updated_at?: Date | string
+    mt_updated_by?: string | null
+    mt_deleted_at?: Date | string | null
+    mt_deleted_by?: string | null
+    mt_is_deleted?: boolean
+  }
+
+  export type MessageTemplateUpdateManyMutationInput = {
+    mt_uuid?: StringFieldUpdateOperationsInput | string
+    mt_channel?: EnumMessageChannelFieldUpdateOperationsInput | $Enums.MessageChannel
+    mt_key?: StringFieldUpdateOperationsInput | string
+    mt_name?: StringFieldUpdateOperationsInput | string
+    mt_category?: StringFieldUpdateOperationsInput | string
+    mt_language?: StringFieldUpdateOperationsInput | string
+    mt_subject?: NullableStringFieldUpdateOperationsInput | string | null
+    mt_body?: StringFieldUpdateOperationsInput | string
+    mt_variables?: NullableJsonNullValueInput | InputJsonValue
+    mt_attachments?: NullableJsonNullValueInput | InputJsonValue
+    mt_has_attachment?: BoolFieldUpdateOperationsInput | boolean
+    mt_is_system?: BoolFieldUpdateOperationsInput | boolean
+    mt_status?: EnumMessageTemplateStatusFieldUpdateOperationsInput | $Enums.MessageTemplateStatus
+    mt_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    mt_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    mt_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    mt_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    mt_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    mt_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    mt_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type MessageTemplateUncheckedUpdateManyInput = {
+    mt_id?: IntFieldUpdateOperationsInput | number
+    mt_uuid?: StringFieldUpdateOperationsInput | string
+    mt_own_id?: IntFieldUpdateOperationsInput | number
+    mt_firm_id?: IntFieldUpdateOperationsInput | number
+    mt_channel?: EnumMessageChannelFieldUpdateOperationsInput | $Enums.MessageChannel
+    mt_key?: StringFieldUpdateOperationsInput | string
+    mt_name?: StringFieldUpdateOperationsInput | string
+    mt_category?: StringFieldUpdateOperationsInput | string
+    mt_language?: StringFieldUpdateOperationsInput | string
+    mt_subject?: NullableStringFieldUpdateOperationsInput | string | null
+    mt_body?: StringFieldUpdateOperationsInput | string
+    mt_variables?: NullableJsonNullValueInput | InputJsonValue
+    mt_attachments?: NullableJsonNullValueInput | InputJsonValue
+    mt_has_attachment?: BoolFieldUpdateOperationsInput | boolean
+    mt_is_system?: BoolFieldUpdateOperationsInput | boolean
+    mt_status?: EnumMessageTemplateStatusFieldUpdateOperationsInput | $Enums.MessageTemplateStatus
+    mt_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    mt_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    mt_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    mt_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    mt_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    mt_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    mt_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type WhatsAppInstanceCreateInput = {
+    wa_uuid?: string
+    wa_provider?: string
+    wa_instance_id?: string | null
+    wa_token?: string | null
+    wa_api_url?: string | null
+    wa_phone_number?: string | null
+    wa_status?: $Enums.WhatsAppInstanceStatus
+    wa_qr_code?: string | null
+    wa_last_checked?: Date | string | null
+    wa_meta?: NullableJsonNullValueInput | InputJsonValue
+    wa_created_at?: Date | string
+    wa_created_by?: string | null
+    wa_updated_at?: Date | string
+    wa_updated_by?: string | null
+    wa_deleted_at?: Date | string | null
+    wa_deleted_by?: string | null
+    wa_is_deleted?: boolean
+    owner: OwnerCreateNestedOneWithoutWhatsappInstancesInput
+    firm: FirmCreateNestedOneWithoutWhatsappInstanceInput
+  }
+
+  export type WhatsAppInstanceUncheckedCreateInput = {
+    wa_id?: number
+    wa_uuid?: string
+    wa_own_id: number
+    wa_firm_id: number
+    wa_provider?: string
+    wa_instance_id?: string | null
+    wa_token?: string | null
+    wa_api_url?: string | null
+    wa_phone_number?: string | null
+    wa_status?: $Enums.WhatsAppInstanceStatus
+    wa_qr_code?: string | null
+    wa_last_checked?: Date | string | null
+    wa_meta?: NullableJsonNullValueInput | InputJsonValue
+    wa_created_at?: Date | string
+    wa_created_by?: string | null
+    wa_updated_at?: Date | string
+    wa_updated_by?: string | null
+    wa_deleted_at?: Date | string | null
+    wa_deleted_by?: string | null
+    wa_is_deleted?: boolean
+  }
+
+  export type WhatsAppInstanceUpdateInput = {
+    wa_uuid?: StringFieldUpdateOperationsInput | string
+    wa_provider?: StringFieldUpdateOperationsInput | string
+    wa_instance_id?: NullableStringFieldUpdateOperationsInput | string | null
+    wa_token?: NullableStringFieldUpdateOperationsInput | string | null
+    wa_api_url?: NullableStringFieldUpdateOperationsInput | string | null
+    wa_phone_number?: NullableStringFieldUpdateOperationsInput | string | null
+    wa_status?: EnumWhatsAppInstanceStatusFieldUpdateOperationsInput | $Enums.WhatsAppInstanceStatus
+    wa_qr_code?: NullableStringFieldUpdateOperationsInput | string | null
+    wa_last_checked?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    wa_meta?: NullableJsonNullValueInput | InputJsonValue
+    wa_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    wa_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    wa_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    wa_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    wa_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    wa_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    wa_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    owner?: OwnerUpdateOneRequiredWithoutWhatsappInstancesNestedInput
+    firm?: FirmUpdateOneRequiredWithoutWhatsappInstanceNestedInput
+  }
+
+  export type WhatsAppInstanceUncheckedUpdateInput = {
+    wa_id?: IntFieldUpdateOperationsInput | number
+    wa_uuid?: StringFieldUpdateOperationsInput | string
+    wa_own_id?: IntFieldUpdateOperationsInput | number
+    wa_firm_id?: IntFieldUpdateOperationsInput | number
+    wa_provider?: StringFieldUpdateOperationsInput | string
+    wa_instance_id?: NullableStringFieldUpdateOperationsInput | string | null
+    wa_token?: NullableStringFieldUpdateOperationsInput | string | null
+    wa_api_url?: NullableStringFieldUpdateOperationsInput | string | null
+    wa_phone_number?: NullableStringFieldUpdateOperationsInput | string | null
+    wa_status?: EnumWhatsAppInstanceStatusFieldUpdateOperationsInput | $Enums.WhatsAppInstanceStatus
+    wa_qr_code?: NullableStringFieldUpdateOperationsInput | string | null
+    wa_last_checked?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    wa_meta?: NullableJsonNullValueInput | InputJsonValue
+    wa_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    wa_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    wa_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    wa_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    wa_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    wa_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    wa_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type WhatsAppInstanceCreateManyInput = {
+    wa_id?: number
+    wa_uuid?: string
+    wa_own_id: number
+    wa_firm_id: number
+    wa_provider?: string
+    wa_instance_id?: string | null
+    wa_token?: string | null
+    wa_api_url?: string | null
+    wa_phone_number?: string | null
+    wa_status?: $Enums.WhatsAppInstanceStatus
+    wa_qr_code?: string | null
+    wa_last_checked?: Date | string | null
+    wa_meta?: NullableJsonNullValueInput | InputJsonValue
+    wa_created_at?: Date | string
+    wa_created_by?: string | null
+    wa_updated_at?: Date | string
+    wa_updated_by?: string | null
+    wa_deleted_at?: Date | string | null
+    wa_deleted_by?: string | null
+    wa_is_deleted?: boolean
+  }
+
+  export type WhatsAppInstanceUpdateManyMutationInput = {
+    wa_uuid?: StringFieldUpdateOperationsInput | string
+    wa_provider?: StringFieldUpdateOperationsInput | string
+    wa_instance_id?: NullableStringFieldUpdateOperationsInput | string | null
+    wa_token?: NullableStringFieldUpdateOperationsInput | string | null
+    wa_api_url?: NullableStringFieldUpdateOperationsInput | string | null
+    wa_phone_number?: NullableStringFieldUpdateOperationsInput | string | null
+    wa_status?: EnumWhatsAppInstanceStatusFieldUpdateOperationsInput | $Enums.WhatsAppInstanceStatus
+    wa_qr_code?: NullableStringFieldUpdateOperationsInput | string | null
+    wa_last_checked?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    wa_meta?: NullableJsonNullValueInput | InputJsonValue
+    wa_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    wa_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    wa_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    wa_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    wa_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    wa_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    wa_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type WhatsAppInstanceUncheckedUpdateManyInput = {
+    wa_id?: IntFieldUpdateOperationsInput | number
+    wa_uuid?: StringFieldUpdateOperationsInput | string
+    wa_own_id?: IntFieldUpdateOperationsInput | number
+    wa_firm_id?: IntFieldUpdateOperationsInput | number
+    wa_provider?: StringFieldUpdateOperationsInput | string
+    wa_instance_id?: NullableStringFieldUpdateOperationsInput | string | null
+    wa_token?: NullableStringFieldUpdateOperationsInput | string | null
+    wa_api_url?: NullableStringFieldUpdateOperationsInput | string | null
+    wa_phone_number?: NullableStringFieldUpdateOperationsInput | string | null
+    wa_status?: EnumWhatsAppInstanceStatusFieldUpdateOperationsInput | $Enums.WhatsAppInstanceStatus
+    wa_qr_code?: NullableStringFieldUpdateOperationsInput | string | null
+    wa_last_checked?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    wa_meta?: NullableJsonNullValueInput | InputJsonValue
+    wa_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    wa_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    wa_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    wa_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    wa_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    wa_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    wa_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type MessageLogCreateInput = {
+    ml_uuid?: string
+    ml_own_id: number
+    ml_firm_id: number
+    ml_channel: $Enums.MessageChannel
+    ml_template_key: string
+    ml_to: string
+    ml_status: string
+    ml_error?: string | null
+    ml_meta?: NullableJsonNullValueInput | InputJsonValue
+    ml_created_at?: Date | string
+  }
+
+  export type MessageLogUncheckedCreateInput = {
+    ml_id?: number
+    ml_uuid?: string
+    ml_own_id: number
+    ml_firm_id: number
+    ml_channel: $Enums.MessageChannel
+    ml_template_key: string
+    ml_to: string
+    ml_status: string
+    ml_error?: string | null
+    ml_meta?: NullableJsonNullValueInput | InputJsonValue
+    ml_created_at?: Date | string
+  }
+
+  export type MessageLogUpdateInput = {
+    ml_uuid?: StringFieldUpdateOperationsInput | string
+    ml_own_id?: IntFieldUpdateOperationsInput | number
+    ml_firm_id?: IntFieldUpdateOperationsInput | number
+    ml_channel?: EnumMessageChannelFieldUpdateOperationsInput | $Enums.MessageChannel
+    ml_template_key?: StringFieldUpdateOperationsInput | string
+    ml_to?: StringFieldUpdateOperationsInput | string
+    ml_status?: StringFieldUpdateOperationsInput | string
+    ml_error?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_meta?: NullableJsonNullValueInput | InputJsonValue
+    ml_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MessageLogUncheckedUpdateInput = {
+    ml_id?: IntFieldUpdateOperationsInput | number
+    ml_uuid?: StringFieldUpdateOperationsInput | string
+    ml_own_id?: IntFieldUpdateOperationsInput | number
+    ml_firm_id?: IntFieldUpdateOperationsInput | number
+    ml_channel?: EnumMessageChannelFieldUpdateOperationsInput | $Enums.MessageChannel
+    ml_template_key?: StringFieldUpdateOperationsInput | string
+    ml_to?: StringFieldUpdateOperationsInput | string
+    ml_status?: StringFieldUpdateOperationsInput | string
+    ml_error?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_meta?: NullableJsonNullValueInput | InputJsonValue
+    ml_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MessageLogCreateManyInput = {
+    ml_id?: number
+    ml_uuid?: string
+    ml_own_id: number
+    ml_firm_id: number
+    ml_channel: $Enums.MessageChannel
+    ml_template_key: string
+    ml_to: string
+    ml_status: string
+    ml_error?: string | null
+    ml_meta?: NullableJsonNullValueInput | InputJsonValue
+    ml_created_at?: Date | string
+  }
+
+  export type MessageLogUpdateManyMutationInput = {
+    ml_uuid?: StringFieldUpdateOperationsInput | string
+    ml_own_id?: IntFieldUpdateOperationsInput | number
+    ml_firm_id?: IntFieldUpdateOperationsInput | number
+    ml_channel?: EnumMessageChannelFieldUpdateOperationsInput | $Enums.MessageChannel
+    ml_template_key?: StringFieldUpdateOperationsInput | string
+    ml_to?: StringFieldUpdateOperationsInput | string
+    ml_status?: StringFieldUpdateOperationsInput | string
+    ml_error?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_meta?: NullableJsonNullValueInput | InputJsonValue
+    ml_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MessageLogUncheckedUpdateManyInput = {
+    ml_id?: IntFieldUpdateOperationsInput | number
+    ml_uuid?: StringFieldUpdateOperationsInput | string
+    ml_own_id?: IntFieldUpdateOperationsInput | number
+    ml_firm_id?: IntFieldUpdateOperationsInput | number
+    ml_channel?: EnumMessageChannelFieldUpdateOperationsInput | $Enums.MessageChannel
+    ml_template_key?: StringFieldUpdateOperationsInput | string
+    ml_to?: StringFieldUpdateOperationsInput | string
+    ml_status?: StringFieldUpdateOperationsInput | string
+    ml_error?: NullableStringFieldUpdateOperationsInput | string | null
+    ml_meta?: NullableJsonNullValueInput | InputJsonValue
+    ml_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type IntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -48991,6 +53913,18 @@ export namespace Prisma {
     none?: StaffWhereInput
   }
 
+  export type MessageTemplateListRelationFilter = {
+    every?: MessageTemplateWhereInput
+    some?: MessageTemplateWhereInput
+    none?: MessageTemplateWhereInput
+  }
+
+  export type WhatsAppInstanceListRelationFilter = {
+    every?: WhatsAppInstanceWhereInput
+    some?: WhatsAppInstanceWhereInput
+    none?: WhatsAppInstanceWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -49064,6 +53998,14 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
+  export type MessageTemplateOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type WhatsAppInstanceOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type OwnerCountOrderByAggregateInput = {
     own_id?: SortOrder
     own_uuid?: SortOrder
@@ -49088,6 +54030,12 @@ export namespace Prisma {
     own_last_login_system?: SortOrder
     own_otp?: SortOrder
     own_otp_expiry?: SortOrder
+    own_mail_user?: SortOrder
+    own_mail_pass_enc?: SortOrder
+    own_mail_from_name?: SortOrder
+    own_mail_provider?: SortOrder
+    own_mail_status?: SortOrder
+    own_mail_updated_at?: SortOrder
     own_address?: SortOrder
     own_village?: SortOrder
     own_city?: SortOrder
@@ -49129,6 +54077,12 @@ export namespace Prisma {
     own_login_status?: SortOrder
     own_otp?: SortOrder
     own_otp_expiry?: SortOrder
+    own_mail_user?: SortOrder
+    own_mail_pass_enc?: SortOrder
+    own_mail_from_name?: SortOrder
+    own_mail_provider?: SortOrder
+    own_mail_status?: SortOrder
+    own_mail_updated_at?: SortOrder
     own_address?: SortOrder
     own_village?: SortOrder
     own_city?: SortOrder
@@ -49165,6 +54119,12 @@ export namespace Prisma {
     own_login_status?: SortOrder
     own_otp?: SortOrder
     own_otp_expiry?: SortOrder
+    own_mail_user?: SortOrder
+    own_mail_pass_enc?: SortOrder
+    own_mail_from_name?: SortOrder
+    own_mail_provider?: SortOrder
+    own_mail_status?: SortOrder
+    own_mail_updated_at?: SortOrder
     own_address?: SortOrder
     own_village?: SortOrder
     own_city?: SortOrder
@@ -49336,6 +54296,11 @@ export namespace Prisma {
     every?: AuctionLoanWhereInput
     some?: AuctionLoanWhereInput
     none?: AuctionLoanWhereInput
+  }
+
+  export type WhatsAppInstanceNullableRelationFilter = {
+    is?: WhatsAppInstanceWhereInput | null
+    isNot?: WhatsAppInstanceWhereInput | null
   }
 
   export type AuctionUserOrderByRelationAggregateInput = {
@@ -50769,6 +55734,9 @@ export namespace Prisma {
     girv_transfer_firm_id?: SortOrder
     girv_transfer_girv_id?: SortOrder
     girv_transfer_ml_id?: SortOrder
+    girv_is_transferred_in?: SortOrder
+    girv_transfer_from_girv_id?: SortOrder
+    girv_transfer_from_firm_id?: SortOrder
     girv_created_at?: SortOrder
     girv_created_by?: SortOrder
     girv_updated_at?: SortOrder
@@ -50805,6 +55773,8 @@ export namespace Prisma {
     girv_transfer_firm_id?: SortOrder
     girv_transfer_girv_id?: SortOrder
     girv_transfer_ml_id?: SortOrder
+    girv_transfer_from_girv_id?: SortOrder
+    girv_transfer_from_firm_id?: SortOrder
   }
 
   export type GirviMaxOrderByAggregateInput = {
@@ -50854,6 +55824,9 @@ export namespace Prisma {
     girv_transfer_firm_id?: SortOrder
     girv_transfer_girv_id?: SortOrder
     girv_transfer_ml_id?: SortOrder
+    girv_is_transferred_in?: SortOrder
+    girv_transfer_from_girv_id?: SortOrder
+    girv_transfer_from_firm_id?: SortOrder
     girv_created_at?: SortOrder
     girv_created_by?: SortOrder
     girv_updated_at?: SortOrder
@@ -50910,6 +55883,9 @@ export namespace Prisma {
     girv_transfer_firm_id?: SortOrder
     girv_transfer_girv_id?: SortOrder
     girv_transfer_ml_id?: SortOrder
+    girv_is_transferred_in?: SortOrder
+    girv_transfer_from_girv_id?: SortOrder
+    girv_transfer_from_firm_id?: SortOrder
     girv_created_at?: SortOrder
     girv_created_by?: SortOrder
     girv_updated_at?: SortOrder
@@ -50946,6 +55922,8 @@ export namespace Prisma {
     girv_transfer_firm_id?: SortOrder
     girv_transfer_girv_id?: SortOrder
     girv_transfer_ml_id?: SortOrder
+    girv_transfer_from_girv_id?: SortOrder
+    girv_transfer_from_firm_id?: SortOrder
   }
 
   export type EnumGirviRoiTypeWithAggregatesFilter<$PrismaModel = never> = {
@@ -52508,6 +57486,280 @@ export namespace Prisma {
     current_number?: SortOrder
   }
 
+  export type EnumMessageChannelFilter<$PrismaModel = never> = {
+    equals?: $Enums.MessageChannel | EnumMessageChannelFieldRefInput<$PrismaModel>
+    in?: $Enums.MessageChannel[] | ListEnumMessageChannelFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MessageChannel[] | ListEnumMessageChannelFieldRefInput<$PrismaModel>
+    not?: NestedEnumMessageChannelFilter<$PrismaModel> | $Enums.MessageChannel
+  }
+
+  export type EnumMessageTemplateStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.MessageTemplateStatus | EnumMessageTemplateStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.MessageTemplateStatus[] | ListEnumMessageTemplateStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MessageTemplateStatus[] | ListEnumMessageTemplateStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumMessageTemplateStatusFilter<$PrismaModel> | $Enums.MessageTemplateStatus
+  }
+
+  export type MessageTemplateMt_firm_idMt_channelMt_nameCompoundUniqueInput = {
+    mt_firm_id: number
+    mt_channel: $Enums.MessageChannel
+    mt_name: string
+  }
+
+  export type MessageTemplateCountOrderByAggregateInput = {
+    mt_id?: SortOrder
+    mt_uuid?: SortOrder
+    mt_own_id?: SortOrder
+    mt_firm_id?: SortOrder
+    mt_channel?: SortOrder
+    mt_key?: SortOrder
+    mt_name?: SortOrder
+    mt_category?: SortOrder
+    mt_language?: SortOrder
+    mt_subject?: SortOrder
+    mt_body?: SortOrder
+    mt_variables?: SortOrder
+    mt_attachments?: SortOrder
+    mt_has_attachment?: SortOrder
+    mt_is_system?: SortOrder
+    mt_status?: SortOrder
+    mt_created_at?: SortOrder
+    mt_created_by?: SortOrder
+    mt_updated_at?: SortOrder
+    mt_updated_by?: SortOrder
+    mt_deleted_at?: SortOrder
+    mt_deleted_by?: SortOrder
+    mt_is_deleted?: SortOrder
+  }
+
+  export type MessageTemplateAvgOrderByAggregateInput = {
+    mt_id?: SortOrder
+    mt_own_id?: SortOrder
+    mt_firm_id?: SortOrder
+  }
+
+  export type MessageTemplateMaxOrderByAggregateInput = {
+    mt_id?: SortOrder
+    mt_uuid?: SortOrder
+    mt_own_id?: SortOrder
+    mt_firm_id?: SortOrder
+    mt_channel?: SortOrder
+    mt_key?: SortOrder
+    mt_name?: SortOrder
+    mt_category?: SortOrder
+    mt_language?: SortOrder
+    mt_subject?: SortOrder
+    mt_body?: SortOrder
+    mt_has_attachment?: SortOrder
+    mt_is_system?: SortOrder
+    mt_status?: SortOrder
+    mt_created_at?: SortOrder
+    mt_created_by?: SortOrder
+    mt_updated_at?: SortOrder
+    mt_updated_by?: SortOrder
+    mt_deleted_at?: SortOrder
+    mt_deleted_by?: SortOrder
+    mt_is_deleted?: SortOrder
+  }
+
+  export type MessageTemplateMinOrderByAggregateInput = {
+    mt_id?: SortOrder
+    mt_uuid?: SortOrder
+    mt_own_id?: SortOrder
+    mt_firm_id?: SortOrder
+    mt_channel?: SortOrder
+    mt_key?: SortOrder
+    mt_name?: SortOrder
+    mt_category?: SortOrder
+    mt_language?: SortOrder
+    mt_subject?: SortOrder
+    mt_body?: SortOrder
+    mt_has_attachment?: SortOrder
+    mt_is_system?: SortOrder
+    mt_status?: SortOrder
+    mt_created_at?: SortOrder
+    mt_created_by?: SortOrder
+    mt_updated_at?: SortOrder
+    mt_updated_by?: SortOrder
+    mt_deleted_at?: SortOrder
+    mt_deleted_by?: SortOrder
+    mt_is_deleted?: SortOrder
+  }
+
+  export type MessageTemplateSumOrderByAggregateInput = {
+    mt_id?: SortOrder
+    mt_own_id?: SortOrder
+    mt_firm_id?: SortOrder
+  }
+
+  export type EnumMessageChannelWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.MessageChannel | EnumMessageChannelFieldRefInput<$PrismaModel>
+    in?: $Enums.MessageChannel[] | ListEnumMessageChannelFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MessageChannel[] | ListEnumMessageChannelFieldRefInput<$PrismaModel>
+    not?: NestedEnumMessageChannelWithAggregatesFilter<$PrismaModel> | $Enums.MessageChannel
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumMessageChannelFilter<$PrismaModel>
+    _max?: NestedEnumMessageChannelFilter<$PrismaModel>
+  }
+
+  export type EnumMessageTemplateStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.MessageTemplateStatus | EnumMessageTemplateStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.MessageTemplateStatus[] | ListEnumMessageTemplateStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MessageTemplateStatus[] | ListEnumMessageTemplateStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumMessageTemplateStatusWithAggregatesFilter<$PrismaModel> | $Enums.MessageTemplateStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumMessageTemplateStatusFilter<$PrismaModel>
+    _max?: NestedEnumMessageTemplateStatusFilter<$PrismaModel>
+  }
+
+  export type EnumWhatsAppInstanceStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.WhatsAppInstanceStatus | EnumWhatsAppInstanceStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.WhatsAppInstanceStatus[] | ListEnumWhatsAppInstanceStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.WhatsAppInstanceStatus[] | ListEnumWhatsAppInstanceStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumWhatsAppInstanceStatusFilter<$PrismaModel> | $Enums.WhatsAppInstanceStatus
+  }
+
+  export type WhatsAppInstanceCountOrderByAggregateInput = {
+    wa_id?: SortOrder
+    wa_uuid?: SortOrder
+    wa_own_id?: SortOrder
+    wa_firm_id?: SortOrder
+    wa_provider?: SortOrder
+    wa_instance_id?: SortOrder
+    wa_token?: SortOrder
+    wa_api_url?: SortOrder
+    wa_phone_number?: SortOrder
+    wa_status?: SortOrder
+    wa_qr_code?: SortOrder
+    wa_last_checked?: SortOrder
+    wa_meta?: SortOrder
+    wa_created_at?: SortOrder
+    wa_created_by?: SortOrder
+    wa_updated_at?: SortOrder
+    wa_updated_by?: SortOrder
+    wa_deleted_at?: SortOrder
+    wa_deleted_by?: SortOrder
+    wa_is_deleted?: SortOrder
+  }
+
+  export type WhatsAppInstanceAvgOrderByAggregateInput = {
+    wa_id?: SortOrder
+    wa_own_id?: SortOrder
+    wa_firm_id?: SortOrder
+  }
+
+  export type WhatsAppInstanceMaxOrderByAggregateInput = {
+    wa_id?: SortOrder
+    wa_uuid?: SortOrder
+    wa_own_id?: SortOrder
+    wa_firm_id?: SortOrder
+    wa_provider?: SortOrder
+    wa_instance_id?: SortOrder
+    wa_token?: SortOrder
+    wa_api_url?: SortOrder
+    wa_phone_number?: SortOrder
+    wa_status?: SortOrder
+    wa_qr_code?: SortOrder
+    wa_last_checked?: SortOrder
+    wa_created_at?: SortOrder
+    wa_created_by?: SortOrder
+    wa_updated_at?: SortOrder
+    wa_updated_by?: SortOrder
+    wa_deleted_at?: SortOrder
+    wa_deleted_by?: SortOrder
+    wa_is_deleted?: SortOrder
+  }
+
+  export type WhatsAppInstanceMinOrderByAggregateInput = {
+    wa_id?: SortOrder
+    wa_uuid?: SortOrder
+    wa_own_id?: SortOrder
+    wa_firm_id?: SortOrder
+    wa_provider?: SortOrder
+    wa_instance_id?: SortOrder
+    wa_token?: SortOrder
+    wa_api_url?: SortOrder
+    wa_phone_number?: SortOrder
+    wa_status?: SortOrder
+    wa_qr_code?: SortOrder
+    wa_last_checked?: SortOrder
+    wa_created_at?: SortOrder
+    wa_created_by?: SortOrder
+    wa_updated_at?: SortOrder
+    wa_updated_by?: SortOrder
+    wa_deleted_at?: SortOrder
+    wa_deleted_by?: SortOrder
+    wa_is_deleted?: SortOrder
+  }
+
+  export type WhatsAppInstanceSumOrderByAggregateInput = {
+    wa_id?: SortOrder
+    wa_own_id?: SortOrder
+    wa_firm_id?: SortOrder
+  }
+
+  export type EnumWhatsAppInstanceStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.WhatsAppInstanceStatus | EnumWhatsAppInstanceStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.WhatsAppInstanceStatus[] | ListEnumWhatsAppInstanceStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.WhatsAppInstanceStatus[] | ListEnumWhatsAppInstanceStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumWhatsAppInstanceStatusWithAggregatesFilter<$PrismaModel> | $Enums.WhatsAppInstanceStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumWhatsAppInstanceStatusFilter<$PrismaModel>
+    _max?: NestedEnumWhatsAppInstanceStatusFilter<$PrismaModel>
+  }
+
+  export type MessageLogCountOrderByAggregateInput = {
+    ml_id?: SortOrder
+    ml_uuid?: SortOrder
+    ml_own_id?: SortOrder
+    ml_firm_id?: SortOrder
+    ml_channel?: SortOrder
+    ml_template_key?: SortOrder
+    ml_to?: SortOrder
+    ml_status?: SortOrder
+    ml_error?: SortOrder
+    ml_meta?: SortOrder
+    ml_created_at?: SortOrder
+  }
+
+  export type MessageLogAvgOrderByAggregateInput = {
+    ml_id?: SortOrder
+    ml_own_id?: SortOrder
+    ml_firm_id?: SortOrder
+  }
+
+  export type MessageLogMaxOrderByAggregateInput = {
+    ml_id?: SortOrder
+    ml_uuid?: SortOrder
+    ml_own_id?: SortOrder
+    ml_firm_id?: SortOrder
+    ml_channel?: SortOrder
+    ml_template_key?: SortOrder
+    ml_to?: SortOrder
+    ml_status?: SortOrder
+    ml_error?: SortOrder
+    ml_created_at?: SortOrder
+  }
+
+  export type MessageLogMinOrderByAggregateInput = {
+    ml_id?: SortOrder
+    ml_uuid?: SortOrder
+    ml_own_id?: SortOrder
+    ml_firm_id?: SortOrder
+    ml_channel?: SortOrder
+    ml_template_key?: SortOrder
+    ml_to?: SortOrder
+    ml_status?: SortOrder
+    ml_error?: SortOrder
+    ml_created_at?: SortOrder
+  }
+
+  export type MessageLogSumOrderByAggregateInput = {
+    ml_id?: SortOrder
+    ml_own_id?: SortOrder
+    ml_firm_id?: SortOrder
+  }
+
   export type UserCreateNestedManyWithoutOwnerInput = {
     create?: XOR<UserCreateWithoutOwnerInput, UserUncheckedCreateWithoutOwnerInput> | UserCreateWithoutOwnerInput[] | UserUncheckedCreateWithoutOwnerInput[]
     connectOrCreate?: UserCreateOrConnectWithoutOwnerInput | UserCreateOrConnectWithoutOwnerInput[]
@@ -52627,6 +57879,20 @@ export namespace Prisma {
     connect?: StaffWhereUniqueInput | StaffWhereUniqueInput[]
   }
 
+  export type MessageTemplateCreateNestedManyWithoutOwnerInput = {
+    create?: XOR<MessageTemplateCreateWithoutOwnerInput, MessageTemplateUncheckedCreateWithoutOwnerInput> | MessageTemplateCreateWithoutOwnerInput[] | MessageTemplateUncheckedCreateWithoutOwnerInput[]
+    connectOrCreate?: MessageTemplateCreateOrConnectWithoutOwnerInput | MessageTemplateCreateOrConnectWithoutOwnerInput[]
+    createMany?: MessageTemplateCreateManyOwnerInputEnvelope
+    connect?: MessageTemplateWhereUniqueInput | MessageTemplateWhereUniqueInput[]
+  }
+
+  export type WhatsAppInstanceCreateNestedManyWithoutOwnerInput = {
+    create?: XOR<WhatsAppInstanceCreateWithoutOwnerInput, WhatsAppInstanceUncheckedCreateWithoutOwnerInput> | WhatsAppInstanceCreateWithoutOwnerInput[] | WhatsAppInstanceUncheckedCreateWithoutOwnerInput[]
+    connectOrCreate?: WhatsAppInstanceCreateOrConnectWithoutOwnerInput | WhatsAppInstanceCreateOrConnectWithoutOwnerInput[]
+    createMany?: WhatsAppInstanceCreateManyOwnerInputEnvelope
+    connect?: WhatsAppInstanceWhereUniqueInput | WhatsAppInstanceWhereUniqueInput[]
+  }
+
   export type UserUncheckedCreateNestedManyWithoutOwnerInput = {
     create?: XOR<UserCreateWithoutOwnerInput, UserUncheckedCreateWithoutOwnerInput> | UserCreateWithoutOwnerInput[] | UserUncheckedCreateWithoutOwnerInput[]
     connectOrCreate?: UserCreateOrConnectWithoutOwnerInput | UserCreateOrConnectWithoutOwnerInput[]
@@ -52744,6 +58010,20 @@ export namespace Prisma {
     connectOrCreate?: StaffCreateOrConnectWithoutOwnerInput | StaffCreateOrConnectWithoutOwnerInput[]
     createMany?: StaffCreateManyOwnerInputEnvelope
     connect?: StaffWhereUniqueInput | StaffWhereUniqueInput[]
+  }
+
+  export type MessageTemplateUncheckedCreateNestedManyWithoutOwnerInput = {
+    create?: XOR<MessageTemplateCreateWithoutOwnerInput, MessageTemplateUncheckedCreateWithoutOwnerInput> | MessageTemplateCreateWithoutOwnerInput[] | MessageTemplateUncheckedCreateWithoutOwnerInput[]
+    connectOrCreate?: MessageTemplateCreateOrConnectWithoutOwnerInput | MessageTemplateCreateOrConnectWithoutOwnerInput[]
+    createMany?: MessageTemplateCreateManyOwnerInputEnvelope
+    connect?: MessageTemplateWhereUniqueInput | MessageTemplateWhereUniqueInput[]
+  }
+
+  export type WhatsAppInstanceUncheckedCreateNestedManyWithoutOwnerInput = {
+    create?: XOR<WhatsAppInstanceCreateWithoutOwnerInput, WhatsAppInstanceUncheckedCreateWithoutOwnerInput> | WhatsAppInstanceCreateWithoutOwnerInput[] | WhatsAppInstanceUncheckedCreateWithoutOwnerInput[]
+    connectOrCreate?: WhatsAppInstanceCreateOrConnectWithoutOwnerInput | WhatsAppInstanceCreateOrConnectWithoutOwnerInput[]
+    createMany?: WhatsAppInstanceCreateManyOwnerInputEnvelope
+    connect?: WhatsAppInstanceWhereUniqueInput | WhatsAppInstanceWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -53008,6 +58288,34 @@ export namespace Prisma {
     deleteMany?: StaffScalarWhereInput | StaffScalarWhereInput[]
   }
 
+  export type MessageTemplateUpdateManyWithoutOwnerNestedInput = {
+    create?: XOR<MessageTemplateCreateWithoutOwnerInput, MessageTemplateUncheckedCreateWithoutOwnerInput> | MessageTemplateCreateWithoutOwnerInput[] | MessageTemplateUncheckedCreateWithoutOwnerInput[]
+    connectOrCreate?: MessageTemplateCreateOrConnectWithoutOwnerInput | MessageTemplateCreateOrConnectWithoutOwnerInput[]
+    upsert?: MessageTemplateUpsertWithWhereUniqueWithoutOwnerInput | MessageTemplateUpsertWithWhereUniqueWithoutOwnerInput[]
+    createMany?: MessageTemplateCreateManyOwnerInputEnvelope
+    set?: MessageTemplateWhereUniqueInput | MessageTemplateWhereUniqueInput[]
+    disconnect?: MessageTemplateWhereUniqueInput | MessageTemplateWhereUniqueInput[]
+    delete?: MessageTemplateWhereUniqueInput | MessageTemplateWhereUniqueInput[]
+    connect?: MessageTemplateWhereUniqueInput | MessageTemplateWhereUniqueInput[]
+    update?: MessageTemplateUpdateWithWhereUniqueWithoutOwnerInput | MessageTemplateUpdateWithWhereUniqueWithoutOwnerInput[]
+    updateMany?: MessageTemplateUpdateManyWithWhereWithoutOwnerInput | MessageTemplateUpdateManyWithWhereWithoutOwnerInput[]
+    deleteMany?: MessageTemplateScalarWhereInput | MessageTemplateScalarWhereInput[]
+  }
+
+  export type WhatsAppInstanceUpdateManyWithoutOwnerNestedInput = {
+    create?: XOR<WhatsAppInstanceCreateWithoutOwnerInput, WhatsAppInstanceUncheckedCreateWithoutOwnerInput> | WhatsAppInstanceCreateWithoutOwnerInput[] | WhatsAppInstanceUncheckedCreateWithoutOwnerInput[]
+    connectOrCreate?: WhatsAppInstanceCreateOrConnectWithoutOwnerInput | WhatsAppInstanceCreateOrConnectWithoutOwnerInput[]
+    upsert?: WhatsAppInstanceUpsertWithWhereUniqueWithoutOwnerInput | WhatsAppInstanceUpsertWithWhereUniqueWithoutOwnerInput[]
+    createMany?: WhatsAppInstanceCreateManyOwnerInputEnvelope
+    set?: WhatsAppInstanceWhereUniqueInput | WhatsAppInstanceWhereUniqueInput[]
+    disconnect?: WhatsAppInstanceWhereUniqueInput | WhatsAppInstanceWhereUniqueInput[]
+    delete?: WhatsAppInstanceWhereUniqueInput | WhatsAppInstanceWhereUniqueInput[]
+    connect?: WhatsAppInstanceWhereUniqueInput | WhatsAppInstanceWhereUniqueInput[]
+    update?: WhatsAppInstanceUpdateWithWhereUniqueWithoutOwnerInput | WhatsAppInstanceUpdateWithWhereUniqueWithoutOwnerInput[]
+    updateMany?: WhatsAppInstanceUpdateManyWithWhereWithoutOwnerInput | WhatsAppInstanceUpdateManyWithWhereWithoutOwnerInput[]
+    deleteMany?: WhatsAppInstanceScalarWhereInput | WhatsAppInstanceScalarWhereInput[]
+  }
+
   export type IntFieldUpdateOperationsInput = {
     set?: number
     increment?: number
@@ -53254,6 +58562,34 @@ export namespace Prisma {
     deleteMany?: StaffScalarWhereInput | StaffScalarWhereInput[]
   }
 
+  export type MessageTemplateUncheckedUpdateManyWithoutOwnerNestedInput = {
+    create?: XOR<MessageTemplateCreateWithoutOwnerInput, MessageTemplateUncheckedCreateWithoutOwnerInput> | MessageTemplateCreateWithoutOwnerInput[] | MessageTemplateUncheckedCreateWithoutOwnerInput[]
+    connectOrCreate?: MessageTemplateCreateOrConnectWithoutOwnerInput | MessageTemplateCreateOrConnectWithoutOwnerInput[]
+    upsert?: MessageTemplateUpsertWithWhereUniqueWithoutOwnerInput | MessageTemplateUpsertWithWhereUniqueWithoutOwnerInput[]
+    createMany?: MessageTemplateCreateManyOwnerInputEnvelope
+    set?: MessageTemplateWhereUniqueInput | MessageTemplateWhereUniqueInput[]
+    disconnect?: MessageTemplateWhereUniqueInput | MessageTemplateWhereUniqueInput[]
+    delete?: MessageTemplateWhereUniqueInput | MessageTemplateWhereUniqueInput[]
+    connect?: MessageTemplateWhereUniqueInput | MessageTemplateWhereUniqueInput[]
+    update?: MessageTemplateUpdateWithWhereUniqueWithoutOwnerInput | MessageTemplateUpdateWithWhereUniqueWithoutOwnerInput[]
+    updateMany?: MessageTemplateUpdateManyWithWhereWithoutOwnerInput | MessageTemplateUpdateManyWithWhereWithoutOwnerInput[]
+    deleteMany?: MessageTemplateScalarWhereInput | MessageTemplateScalarWhereInput[]
+  }
+
+  export type WhatsAppInstanceUncheckedUpdateManyWithoutOwnerNestedInput = {
+    create?: XOR<WhatsAppInstanceCreateWithoutOwnerInput, WhatsAppInstanceUncheckedCreateWithoutOwnerInput> | WhatsAppInstanceCreateWithoutOwnerInput[] | WhatsAppInstanceUncheckedCreateWithoutOwnerInput[]
+    connectOrCreate?: WhatsAppInstanceCreateOrConnectWithoutOwnerInput | WhatsAppInstanceCreateOrConnectWithoutOwnerInput[]
+    upsert?: WhatsAppInstanceUpsertWithWhereUniqueWithoutOwnerInput | WhatsAppInstanceUpsertWithWhereUniqueWithoutOwnerInput[]
+    createMany?: WhatsAppInstanceCreateManyOwnerInputEnvelope
+    set?: WhatsAppInstanceWhereUniqueInput | WhatsAppInstanceWhereUniqueInput[]
+    disconnect?: WhatsAppInstanceWhereUniqueInput | WhatsAppInstanceWhereUniqueInput[]
+    delete?: WhatsAppInstanceWhereUniqueInput | WhatsAppInstanceWhereUniqueInput[]
+    connect?: WhatsAppInstanceWhereUniqueInput | WhatsAppInstanceWhereUniqueInput[]
+    update?: WhatsAppInstanceUpdateWithWhereUniqueWithoutOwnerInput | WhatsAppInstanceUpdateWithWhereUniqueWithoutOwnerInput[]
+    updateMany?: WhatsAppInstanceUpdateManyWithWhereWithoutOwnerInput | WhatsAppInstanceUpdateManyWithWhereWithoutOwnerInput[]
+    deleteMany?: WhatsAppInstanceScalarWhereInput | WhatsAppInstanceScalarWhereInput[]
+  }
+
   export type UserCreateNestedManyWithoutFirmInput = {
     create?: XOR<UserCreateWithoutFirmInput, UserUncheckedCreateWithoutFirmInput> | UserCreateWithoutFirmInput[] | UserUncheckedCreateWithoutFirmInput[]
     connectOrCreate?: UserCreateOrConnectWithoutFirmInput | UserCreateOrConnectWithoutFirmInput[]
@@ -53372,6 +58708,19 @@ export namespace Prisma {
     connect?: AuctionLoanWhereUniqueInput | AuctionLoanWhereUniqueInput[]
   }
 
+  export type MessageTemplateCreateNestedManyWithoutFirmInput = {
+    create?: XOR<MessageTemplateCreateWithoutFirmInput, MessageTemplateUncheckedCreateWithoutFirmInput> | MessageTemplateCreateWithoutFirmInput[] | MessageTemplateUncheckedCreateWithoutFirmInput[]
+    connectOrCreate?: MessageTemplateCreateOrConnectWithoutFirmInput | MessageTemplateCreateOrConnectWithoutFirmInput[]
+    createMany?: MessageTemplateCreateManyFirmInputEnvelope
+    connect?: MessageTemplateWhereUniqueInput | MessageTemplateWhereUniqueInput[]
+  }
+
+  export type WhatsAppInstanceCreateNestedOneWithoutFirmInput = {
+    create?: XOR<WhatsAppInstanceCreateWithoutFirmInput, WhatsAppInstanceUncheckedCreateWithoutFirmInput>
+    connectOrCreate?: WhatsAppInstanceCreateOrConnectWithoutFirmInput
+    connect?: WhatsAppInstanceWhereUniqueInput
+  }
+
   export type UserUncheckedCreateNestedManyWithoutFirmInput = {
     create?: XOR<UserCreateWithoutFirmInput, UserUncheckedCreateWithoutFirmInput> | UserCreateWithoutFirmInput[] | UserUncheckedCreateWithoutFirmInput[]
     connectOrCreate?: UserCreateOrConnectWithoutFirmInput | UserCreateOrConnectWithoutFirmInput[]
@@ -53482,6 +58831,19 @@ export namespace Prisma {
     connectOrCreate?: AuctionLoanCreateOrConnectWithoutFirmInput | AuctionLoanCreateOrConnectWithoutFirmInput[]
     createMany?: AuctionLoanCreateManyFirmInputEnvelope
     connect?: AuctionLoanWhereUniqueInput | AuctionLoanWhereUniqueInput[]
+  }
+
+  export type MessageTemplateUncheckedCreateNestedManyWithoutFirmInput = {
+    create?: XOR<MessageTemplateCreateWithoutFirmInput, MessageTemplateUncheckedCreateWithoutFirmInput> | MessageTemplateCreateWithoutFirmInput[] | MessageTemplateUncheckedCreateWithoutFirmInput[]
+    connectOrCreate?: MessageTemplateCreateOrConnectWithoutFirmInput | MessageTemplateCreateOrConnectWithoutFirmInput[]
+    createMany?: MessageTemplateCreateManyFirmInputEnvelope
+    connect?: MessageTemplateWhereUniqueInput | MessageTemplateWhereUniqueInput[]
+  }
+
+  export type WhatsAppInstanceUncheckedCreateNestedOneWithoutFirmInput = {
+    create?: XOR<WhatsAppInstanceCreateWithoutFirmInput, WhatsAppInstanceUncheckedCreateWithoutFirmInput>
+    connectOrCreate?: WhatsAppInstanceCreateOrConnectWithoutFirmInput
+    connect?: WhatsAppInstanceWhereUniqueInput
   }
 
   export type EnumFirmTypeFieldUpdateOperationsInput = {
@@ -53724,6 +59086,30 @@ export namespace Prisma {
     deleteMany?: AuctionLoanScalarWhereInput | AuctionLoanScalarWhereInput[]
   }
 
+  export type MessageTemplateUpdateManyWithoutFirmNestedInput = {
+    create?: XOR<MessageTemplateCreateWithoutFirmInput, MessageTemplateUncheckedCreateWithoutFirmInput> | MessageTemplateCreateWithoutFirmInput[] | MessageTemplateUncheckedCreateWithoutFirmInput[]
+    connectOrCreate?: MessageTemplateCreateOrConnectWithoutFirmInput | MessageTemplateCreateOrConnectWithoutFirmInput[]
+    upsert?: MessageTemplateUpsertWithWhereUniqueWithoutFirmInput | MessageTemplateUpsertWithWhereUniqueWithoutFirmInput[]
+    createMany?: MessageTemplateCreateManyFirmInputEnvelope
+    set?: MessageTemplateWhereUniqueInput | MessageTemplateWhereUniqueInput[]
+    disconnect?: MessageTemplateWhereUniqueInput | MessageTemplateWhereUniqueInput[]
+    delete?: MessageTemplateWhereUniqueInput | MessageTemplateWhereUniqueInput[]
+    connect?: MessageTemplateWhereUniqueInput | MessageTemplateWhereUniqueInput[]
+    update?: MessageTemplateUpdateWithWhereUniqueWithoutFirmInput | MessageTemplateUpdateWithWhereUniqueWithoutFirmInput[]
+    updateMany?: MessageTemplateUpdateManyWithWhereWithoutFirmInput | MessageTemplateUpdateManyWithWhereWithoutFirmInput[]
+    deleteMany?: MessageTemplateScalarWhereInput | MessageTemplateScalarWhereInput[]
+  }
+
+  export type WhatsAppInstanceUpdateOneWithoutFirmNestedInput = {
+    create?: XOR<WhatsAppInstanceCreateWithoutFirmInput, WhatsAppInstanceUncheckedCreateWithoutFirmInput>
+    connectOrCreate?: WhatsAppInstanceCreateOrConnectWithoutFirmInput
+    upsert?: WhatsAppInstanceUpsertWithoutFirmInput
+    disconnect?: WhatsAppInstanceWhereInput | boolean
+    delete?: WhatsAppInstanceWhereInput | boolean
+    connect?: WhatsAppInstanceWhereUniqueInput
+    update?: XOR<XOR<WhatsAppInstanceUpdateToOneWithWhereWithoutFirmInput, WhatsAppInstanceUpdateWithoutFirmInput>, WhatsAppInstanceUncheckedUpdateWithoutFirmInput>
+  }
+
   export type UserUncheckedUpdateManyWithoutFirmNestedInput = {
     create?: XOR<UserCreateWithoutFirmInput, UserUncheckedCreateWithoutFirmInput> | UserCreateWithoutFirmInput[] | UserUncheckedCreateWithoutFirmInput[]
     connectOrCreate?: UserCreateOrConnectWithoutFirmInput | UserCreateOrConnectWithoutFirmInput[]
@@ -53946,6 +59332,30 @@ export namespace Prisma {
     update?: AuctionLoanUpdateWithWhereUniqueWithoutFirmInput | AuctionLoanUpdateWithWhereUniqueWithoutFirmInput[]
     updateMany?: AuctionLoanUpdateManyWithWhereWithoutFirmInput | AuctionLoanUpdateManyWithWhereWithoutFirmInput[]
     deleteMany?: AuctionLoanScalarWhereInput | AuctionLoanScalarWhereInput[]
+  }
+
+  export type MessageTemplateUncheckedUpdateManyWithoutFirmNestedInput = {
+    create?: XOR<MessageTemplateCreateWithoutFirmInput, MessageTemplateUncheckedCreateWithoutFirmInput> | MessageTemplateCreateWithoutFirmInput[] | MessageTemplateUncheckedCreateWithoutFirmInput[]
+    connectOrCreate?: MessageTemplateCreateOrConnectWithoutFirmInput | MessageTemplateCreateOrConnectWithoutFirmInput[]
+    upsert?: MessageTemplateUpsertWithWhereUniqueWithoutFirmInput | MessageTemplateUpsertWithWhereUniqueWithoutFirmInput[]
+    createMany?: MessageTemplateCreateManyFirmInputEnvelope
+    set?: MessageTemplateWhereUniqueInput | MessageTemplateWhereUniqueInput[]
+    disconnect?: MessageTemplateWhereUniqueInput | MessageTemplateWhereUniqueInput[]
+    delete?: MessageTemplateWhereUniqueInput | MessageTemplateWhereUniqueInput[]
+    connect?: MessageTemplateWhereUniqueInput | MessageTemplateWhereUniqueInput[]
+    update?: MessageTemplateUpdateWithWhereUniqueWithoutFirmInput | MessageTemplateUpdateWithWhereUniqueWithoutFirmInput[]
+    updateMany?: MessageTemplateUpdateManyWithWhereWithoutFirmInput | MessageTemplateUpdateManyWithWhereWithoutFirmInput[]
+    deleteMany?: MessageTemplateScalarWhereInput | MessageTemplateScalarWhereInput[]
+  }
+
+  export type WhatsAppInstanceUncheckedUpdateOneWithoutFirmNestedInput = {
+    create?: XOR<WhatsAppInstanceCreateWithoutFirmInput, WhatsAppInstanceUncheckedCreateWithoutFirmInput>
+    connectOrCreate?: WhatsAppInstanceCreateOrConnectWithoutFirmInput
+    upsert?: WhatsAppInstanceUpsertWithoutFirmInput
+    disconnect?: WhatsAppInstanceWhereInput | boolean
+    delete?: WhatsAppInstanceWhereInput | boolean
+    connect?: WhatsAppInstanceWhereUniqueInput
+    update?: XOR<XOR<WhatsAppInstanceUpdateToOneWithWhereWithoutFirmInput, WhatsAppInstanceUpdateWithoutFirmInput>, WhatsAppInstanceUncheckedUpdateWithoutFirmInput>
   }
 
   export type OwnerCreateNestedOneWithoutAccountsInput = {
@@ -58232,6 +63642,74 @@ export namespace Prisma {
     update?: XOR<XOR<PermissionUpdateToOneWithWhereWithoutStaffPermissionsInput, PermissionUpdateWithoutStaffPermissionsInput>, PermissionUncheckedUpdateWithoutStaffPermissionsInput>
   }
 
+  export type OwnerCreateNestedOneWithoutMessageTemplatesInput = {
+    create?: XOR<OwnerCreateWithoutMessageTemplatesInput, OwnerUncheckedCreateWithoutMessageTemplatesInput>
+    connectOrCreate?: OwnerCreateOrConnectWithoutMessageTemplatesInput
+    connect?: OwnerWhereUniqueInput
+  }
+
+  export type FirmCreateNestedOneWithoutMessageTemplatesInput = {
+    create?: XOR<FirmCreateWithoutMessageTemplatesInput, FirmUncheckedCreateWithoutMessageTemplatesInput>
+    connectOrCreate?: FirmCreateOrConnectWithoutMessageTemplatesInput
+    connect?: FirmWhereUniqueInput
+  }
+
+  export type EnumMessageChannelFieldUpdateOperationsInput = {
+    set?: $Enums.MessageChannel
+  }
+
+  export type EnumMessageTemplateStatusFieldUpdateOperationsInput = {
+    set?: $Enums.MessageTemplateStatus
+  }
+
+  export type OwnerUpdateOneRequiredWithoutMessageTemplatesNestedInput = {
+    create?: XOR<OwnerCreateWithoutMessageTemplatesInput, OwnerUncheckedCreateWithoutMessageTemplatesInput>
+    connectOrCreate?: OwnerCreateOrConnectWithoutMessageTemplatesInput
+    upsert?: OwnerUpsertWithoutMessageTemplatesInput
+    connect?: OwnerWhereUniqueInput
+    update?: XOR<XOR<OwnerUpdateToOneWithWhereWithoutMessageTemplatesInput, OwnerUpdateWithoutMessageTemplatesInput>, OwnerUncheckedUpdateWithoutMessageTemplatesInput>
+  }
+
+  export type FirmUpdateOneRequiredWithoutMessageTemplatesNestedInput = {
+    create?: XOR<FirmCreateWithoutMessageTemplatesInput, FirmUncheckedCreateWithoutMessageTemplatesInput>
+    connectOrCreate?: FirmCreateOrConnectWithoutMessageTemplatesInput
+    upsert?: FirmUpsertWithoutMessageTemplatesInput
+    connect?: FirmWhereUniqueInput
+    update?: XOR<XOR<FirmUpdateToOneWithWhereWithoutMessageTemplatesInput, FirmUpdateWithoutMessageTemplatesInput>, FirmUncheckedUpdateWithoutMessageTemplatesInput>
+  }
+
+  export type OwnerCreateNestedOneWithoutWhatsappInstancesInput = {
+    create?: XOR<OwnerCreateWithoutWhatsappInstancesInput, OwnerUncheckedCreateWithoutWhatsappInstancesInput>
+    connectOrCreate?: OwnerCreateOrConnectWithoutWhatsappInstancesInput
+    connect?: OwnerWhereUniqueInput
+  }
+
+  export type FirmCreateNestedOneWithoutWhatsappInstanceInput = {
+    create?: XOR<FirmCreateWithoutWhatsappInstanceInput, FirmUncheckedCreateWithoutWhatsappInstanceInput>
+    connectOrCreate?: FirmCreateOrConnectWithoutWhatsappInstanceInput
+    connect?: FirmWhereUniqueInput
+  }
+
+  export type EnumWhatsAppInstanceStatusFieldUpdateOperationsInput = {
+    set?: $Enums.WhatsAppInstanceStatus
+  }
+
+  export type OwnerUpdateOneRequiredWithoutWhatsappInstancesNestedInput = {
+    create?: XOR<OwnerCreateWithoutWhatsappInstancesInput, OwnerUncheckedCreateWithoutWhatsappInstancesInput>
+    connectOrCreate?: OwnerCreateOrConnectWithoutWhatsappInstancesInput
+    upsert?: OwnerUpsertWithoutWhatsappInstancesInput
+    connect?: OwnerWhereUniqueInput
+    update?: XOR<XOR<OwnerUpdateToOneWithWhereWithoutWhatsappInstancesInput, OwnerUpdateWithoutWhatsappInstancesInput>, OwnerUncheckedUpdateWithoutWhatsappInstancesInput>
+  }
+
+  export type FirmUpdateOneRequiredWithoutWhatsappInstanceNestedInput = {
+    create?: XOR<FirmCreateWithoutWhatsappInstanceInput, FirmUncheckedCreateWithoutWhatsappInstanceInput>
+    connectOrCreate?: FirmCreateOrConnectWithoutWhatsappInstanceInput
+    upsert?: FirmUpsertWithoutWhatsappInstanceInput
+    connect?: FirmWhereUniqueInput
+    update?: XOR<XOR<FirmUpdateToOneWithWhereWithoutWhatsappInstanceInput, FirmUpdateWithoutWhatsappInstanceInput>, FirmUncheckedUpdateWithoutWhatsappInstanceInput>
+  }
+
   export type NestedIntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -58861,6 +64339,57 @@ export namespace Prisma {
     _max?: NestedEnumStaffStatusFilter<$PrismaModel>
   }
 
+  export type NestedEnumMessageChannelFilter<$PrismaModel = never> = {
+    equals?: $Enums.MessageChannel | EnumMessageChannelFieldRefInput<$PrismaModel>
+    in?: $Enums.MessageChannel[] | ListEnumMessageChannelFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MessageChannel[] | ListEnumMessageChannelFieldRefInput<$PrismaModel>
+    not?: NestedEnumMessageChannelFilter<$PrismaModel> | $Enums.MessageChannel
+  }
+
+  export type NestedEnumMessageTemplateStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.MessageTemplateStatus | EnumMessageTemplateStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.MessageTemplateStatus[] | ListEnumMessageTemplateStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MessageTemplateStatus[] | ListEnumMessageTemplateStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumMessageTemplateStatusFilter<$PrismaModel> | $Enums.MessageTemplateStatus
+  }
+
+  export type NestedEnumMessageChannelWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.MessageChannel | EnumMessageChannelFieldRefInput<$PrismaModel>
+    in?: $Enums.MessageChannel[] | ListEnumMessageChannelFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MessageChannel[] | ListEnumMessageChannelFieldRefInput<$PrismaModel>
+    not?: NestedEnumMessageChannelWithAggregatesFilter<$PrismaModel> | $Enums.MessageChannel
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumMessageChannelFilter<$PrismaModel>
+    _max?: NestedEnumMessageChannelFilter<$PrismaModel>
+  }
+
+  export type NestedEnumMessageTemplateStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.MessageTemplateStatus | EnumMessageTemplateStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.MessageTemplateStatus[] | ListEnumMessageTemplateStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MessageTemplateStatus[] | ListEnumMessageTemplateStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumMessageTemplateStatusWithAggregatesFilter<$PrismaModel> | $Enums.MessageTemplateStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumMessageTemplateStatusFilter<$PrismaModel>
+    _max?: NestedEnumMessageTemplateStatusFilter<$PrismaModel>
+  }
+
+  export type NestedEnumWhatsAppInstanceStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.WhatsAppInstanceStatus | EnumWhatsAppInstanceStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.WhatsAppInstanceStatus[] | ListEnumWhatsAppInstanceStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.WhatsAppInstanceStatus[] | ListEnumWhatsAppInstanceStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumWhatsAppInstanceStatusFilter<$PrismaModel> | $Enums.WhatsAppInstanceStatus
+  }
+
+  export type NestedEnumWhatsAppInstanceStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.WhatsAppInstanceStatus | EnumWhatsAppInstanceStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.WhatsAppInstanceStatus[] | ListEnumWhatsAppInstanceStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.WhatsAppInstanceStatus[] | ListEnumWhatsAppInstanceStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumWhatsAppInstanceStatusWithAggregatesFilter<$PrismaModel> | $Enums.WhatsAppInstanceStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumWhatsAppInstanceStatusFilter<$PrismaModel>
+    _max?: NestedEnumWhatsAppInstanceStatusFilter<$PrismaModel>
+  }
+
   export type UserCreateWithoutOwnerInput = {
     user_uuid?: string
     user_unique_code?: string | null
@@ -59053,6 +64582,8 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderCreateNestedManyWithoutFirmInput
     auctionUsers?: AuctionUserCreateNestedManyWithoutFirmInput
     auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
+    messageTemplates?: MessageTemplateCreateNestedManyWithoutFirmInput
+    whatsappInstance?: WhatsAppInstanceCreateNestedOneWithoutFirmInput
   }
 
   export type FirmUncheckedCreateWithoutOwnerInput = {
@@ -59121,6 +64652,8 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutFirmInput
     auctionUsers?: AuctionUserUncheckedCreateNestedManyWithoutFirmInput
     auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
+    messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutFirmInput
+    whatsappInstance?: WhatsAppInstanceUncheckedCreateNestedOneWithoutFirmInput
   }
 
   export type FirmCreateOrConnectWithoutOwnerInput = {
@@ -59694,6 +65227,9 @@ export namespace Prisma {
     girv_pay_info?: string | null
     girv_transfer_firm_id?: number | null
     girv_transfer_girv_id?: number | null
+    girv_is_transferred_in?: boolean
+    girv_transfer_from_girv_id?: number | null
+    girv_transfer_from_firm_id?: number | null
     girv_created_at?: Date | string
     girv_created_by?: string | null
     girv_updated_at?: Date | string
@@ -59763,6 +65299,9 @@ export namespace Prisma {
     girv_transfer_firm_id?: number | null
     girv_transfer_girv_id?: number | null
     girv_transfer_ml_id?: number | null
+    girv_is_transferred_in?: boolean
+    girv_transfer_from_girv_id?: number | null
+    girv_transfer_from_firm_id?: number | null
     girv_created_at?: Date | string
     girv_created_by?: string | null
     girv_updated_at?: Date | string
@@ -60410,6 +65949,118 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type MessageTemplateCreateWithoutOwnerInput = {
+    mt_uuid?: string
+    mt_channel: $Enums.MessageChannel
+    mt_key: string
+    mt_name: string
+    mt_category?: string
+    mt_language?: string
+    mt_subject?: string | null
+    mt_body: string
+    mt_variables?: NullableJsonNullValueInput | InputJsonValue
+    mt_attachments?: NullableJsonNullValueInput | InputJsonValue
+    mt_has_attachment?: boolean
+    mt_is_system?: boolean
+    mt_status?: $Enums.MessageTemplateStatus
+    mt_created_at?: Date | string
+    mt_created_by?: string | null
+    mt_updated_at?: Date | string
+    mt_updated_by?: string | null
+    mt_deleted_at?: Date | string | null
+    mt_deleted_by?: string | null
+    mt_is_deleted?: boolean
+    firm: FirmCreateNestedOneWithoutMessageTemplatesInput
+  }
+
+  export type MessageTemplateUncheckedCreateWithoutOwnerInput = {
+    mt_id?: number
+    mt_uuid?: string
+    mt_firm_id: number
+    mt_channel: $Enums.MessageChannel
+    mt_key: string
+    mt_name: string
+    mt_category?: string
+    mt_language?: string
+    mt_subject?: string | null
+    mt_body: string
+    mt_variables?: NullableJsonNullValueInput | InputJsonValue
+    mt_attachments?: NullableJsonNullValueInput | InputJsonValue
+    mt_has_attachment?: boolean
+    mt_is_system?: boolean
+    mt_status?: $Enums.MessageTemplateStatus
+    mt_created_at?: Date | string
+    mt_created_by?: string | null
+    mt_updated_at?: Date | string
+    mt_updated_by?: string | null
+    mt_deleted_at?: Date | string | null
+    mt_deleted_by?: string | null
+    mt_is_deleted?: boolean
+  }
+
+  export type MessageTemplateCreateOrConnectWithoutOwnerInput = {
+    where: MessageTemplateWhereUniqueInput
+    create: XOR<MessageTemplateCreateWithoutOwnerInput, MessageTemplateUncheckedCreateWithoutOwnerInput>
+  }
+
+  export type MessageTemplateCreateManyOwnerInputEnvelope = {
+    data: MessageTemplateCreateManyOwnerInput | MessageTemplateCreateManyOwnerInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type WhatsAppInstanceCreateWithoutOwnerInput = {
+    wa_uuid?: string
+    wa_provider?: string
+    wa_instance_id?: string | null
+    wa_token?: string | null
+    wa_api_url?: string | null
+    wa_phone_number?: string | null
+    wa_status?: $Enums.WhatsAppInstanceStatus
+    wa_qr_code?: string | null
+    wa_last_checked?: Date | string | null
+    wa_meta?: NullableJsonNullValueInput | InputJsonValue
+    wa_created_at?: Date | string
+    wa_created_by?: string | null
+    wa_updated_at?: Date | string
+    wa_updated_by?: string | null
+    wa_deleted_at?: Date | string | null
+    wa_deleted_by?: string | null
+    wa_is_deleted?: boolean
+    firm: FirmCreateNestedOneWithoutWhatsappInstanceInput
+  }
+
+  export type WhatsAppInstanceUncheckedCreateWithoutOwnerInput = {
+    wa_id?: number
+    wa_uuid?: string
+    wa_firm_id: number
+    wa_provider?: string
+    wa_instance_id?: string | null
+    wa_token?: string | null
+    wa_api_url?: string | null
+    wa_phone_number?: string | null
+    wa_status?: $Enums.WhatsAppInstanceStatus
+    wa_qr_code?: string | null
+    wa_last_checked?: Date | string | null
+    wa_meta?: NullableJsonNullValueInput | InputJsonValue
+    wa_created_at?: Date | string
+    wa_created_by?: string | null
+    wa_updated_at?: Date | string
+    wa_updated_by?: string | null
+    wa_deleted_at?: Date | string | null
+    wa_deleted_by?: string | null
+    wa_is_deleted?: boolean
+  }
+
+  export type WhatsAppInstanceCreateOrConnectWithoutOwnerInput = {
+    where: WhatsAppInstanceWhereUniqueInput
+    create: XOR<WhatsAppInstanceCreateWithoutOwnerInput, WhatsAppInstanceUncheckedCreateWithoutOwnerInput>
+  }
+
+  export type WhatsAppInstanceCreateManyOwnerInputEnvelope = {
+    data: WhatsAppInstanceCreateManyOwnerInput | WhatsAppInstanceCreateManyOwnerInput[]
+    skipDuplicates?: boolean
+  }
+
   export type UserUpsertWithWhereUniqueWithoutOwnerInput = {
     where: UserWhereUniqueInput
     update: XOR<UserUpdateWithoutOwnerInput, UserUncheckedUpdateWithoutOwnerInput>
@@ -60926,6 +66577,9 @@ export namespace Prisma {
     girv_transfer_firm_id?: IntNullableFilter<"Girvi"> | number | null
     girv_transfer_girv_id?: IntNullableFilter<"Girvi"> | number | null
     girv_transfer_ml_id?: IntNullableFilter<"Girvi"> | number | null
+    girv_is_transferred_in?: BoolFilter<"Girvi"> | boolean
+    girv_transfer_from_girv_id?: IntNullableFilter<"Girvi"> | number | null
+    girv_transfer_from_firm_id?: IntNullableFilter<"Girvi"> | number | null
     girv_created_at?: DateTimeFilter<"Girvi"> | Date | string
     girv_created_by?: StringNullableFilter<"Girvi"> | string | null
     girv_updated_at?: DateTimeFilter<"Girvi"> | Date | string
@@ -61369,6 +67023,93 @@ export namespace Prisma {
     staff_is_deleted?: BoolFilter<"Staff"> | boolean
   }
 
+  export type MessageTemplateUpsertWithWhereUniqueWithoutOwnerInput = {
+    where: MessageTemplateWhereUniqueInput
+    update: XOR<MessageTemplateUpdateWithoutOwnerInput, MessageTemplateUncheckedUpdateWithoutOwnerInput>
+    create: XOR<MessageTemplateCreateWithoutOwnerInput, MessageTemplateUncheckedCreateWithoutOwnerInput>
+  }
+
+  export type MessageTemplateUpdateWithWhereUniqueWithoutOwnerInput = {
+    where: MessageTemplateWhereUniqueInput
+    data: XOR<MessageTemplateUpdateWithoutOwnerInput, MessageTemplateUncheckedUpdateWithoutOwnerInput>
+  }
+
+  export type MessageTemplateUpdateManyWithWhereWithoutOwnerInput = {
+    where: MessageTemplateScalarWhereInput
+    data: XOR<MessageTemplateUpdateManyMutationInput, MessageTemplateUncheckedUpdateManyWithoutOwnerInput>
+  }
+
+  export type MessageTemplateScalarWhereInput = {
+    AND?: MessageTemplateScalarWhereInput | MessageTemplateScalarWhereInput[]
+    OR?: MessageTemplateScalarWhereInput[]
+    NOT?: MessageTemplateScalarWhereInput | MessageTemplateScalarWhereInput[]
+    mt_id?: IntFilter<"MessageTemplate"> | number
+    mt_uuid?: StringFilter<"MessageTemplate"> | string
+    mt_own_id?: IntFilter<"MessageTemplate"> | number
+    mt_firm_id?: IntFilter<"MessageTemplate"> | number
+    mt_channel?: EnumMessageChannelFilter<"MessageTemplate"> | $Enums.MessageChannel
+    mt_key?: StringFilter<"MessageTemplate"> | string
+    mt_name?: StringFilter<"MessageTemplate"> | string
+    mt_category?: StringFilter<"MessageTemplate"> | string
+    mt_language?: StringFilter<"MessageTemplate"> | string
+    mt_subject?: StringNullableFilter<"MessageTemplate"> | string | null
+    mt_body?: StringFilter<"MessageTemplate"> | string
+    mt_variables?: JsonNullableFilter<"MessageTemplate">
+    mt_attachments?: JsonNullableFilter<"MessageTemplate">
+    mt_has_attachment?: BoolFilter<"MessageTemplate"> | boolean
+    mt_is_system?: BoolFilter<"MessageTemplate"> | boolean
+    mt_status?: EnumMessageTemplateStatusFilter<"MessageTemplate"> | $Enums.MessageTemplateStatus
+    mt_created_at?: DateTimeFilter<"MessageTemplate"> | Date | string
+    mt_created_by?: StringNullableFilter<"MessageTemplate"> | string | null
+    mt_updated_at?: DateTimeFilter<"MessageTemplate"> | Date | string
+    mt_updated_by?: StringNullableFilter<"MessageTemplate"> | string | null
+    mt_deleted_at?: DateTimeNullableFilter<"MessageTemplate"> | Date | string | null
+    mt_deleted_by?: StringNullableFilter<"MessageTemplate"> | string | null
+    mt_is_deleted?: BoolFilter<"MessageTemplate"> | boolean
+  }
+
+  export type WhatsAppInstanceUpsertWithWhereUniqueWithoutOwnerInput = {
+    where: WhatsAppInstanceWhereUniqueInput
+    update: XOR<WhatsAppInstanceUpdateWithoutOwnerInput, WhatsAppInstanceUncheckedUpdateWithoutOwnerInput>
+    create: XOR<WhatsAppInstanceCreateWithoutOwnerInput, WhatsAppInstanceUncheckedCreateWithoutOwnerInput>
+  }
+
+  export type WhatsAppInstanceUpdateWithWhereUniqueWithoutOwnerInput = {
+    where: WhatsAppInstanceWhereUniqueInput
+    data: XOR<WhatsAppInstanceUpdateWithoutOwnerInput, WhatsAppInstanceUncheckedUpdateWithoutOwnerInput>
+  }
+
+  export type WhatsAppInstanceUpdateManyWithWhereWithoutOwnerInput = {
+    where: WhatsAppInstanceScalarWhereInput
+    data: XOR<WhatsAppInstanceUpdateManyMutationInput, WhatsAppInstanceUncheckedUpdateManyWithoutOwnerInput>
+  }
+
+  export type WhatsAppInstanceScalarWhereInput = {
+    AND?: WhatsAppInstanceScalarWhereInput | WhatsAppInstanceScalarWhereInput[]
+    OR?: WhatsAppInstanceScalarWhereInput[]
+    NOT?: WhatsAppInstanceScalarWhereInput | WhatsAppInstanceScalarWhereInput[]
+    wa_id?: IntFilter<"WhatsAppInstance"> | number
+    wa_uuid?: StringFilter<"WhatsAppInstance"> | string
+    wa_own_id?: IntFilter<"WhatsAppInstance"> | number
+    wa_firm_id?: IntFilter<"WhatsAppInstance"> | number
+    wa_provider?: StringFilter<"WhatsAppInstance"> | string
+    wa_instance_id?: StringNullableFilter<"WhatsAppInstance"> | string | null
+    wa_token?: StringNullableFilter<"WhatsAppInstance"> | string | null
+    wa_api_url?: StringNullableFilter<"WhatsAppInstance"> | string | null
+    wa_phone_number?: StringNullableFilter<"WhatsAppInstance"> | string | null
+    wa_status?: EnumWhatsAppInstanceStatusFilter<"WhatsAppInstance"> | $Enums.WhatsAppInstanceStatus
+    wa_qr_code?: StringNullableFilter<"WhatsAppInstance"> | string | null
+    wa_last_checked?: DateTimeNullableFilter<"WhatsAppInstance"> | Date | string | null
+    wa_meta?: JsonNullableFilter<"WhatsAppInstance">
+    wa_created_at?: DateTimeFilter<"WhatsAppInstance"> | Date | string
+    wa_created_by?: StringNullableFilter<"WhatsAppInstance"> | string | null
+    wa_updated_at?: DateTimeFilter<"WhatsAppInstance"> | Date | string
+    wa_updated_by?: StringNullableFilter<"WhatsAppInstance"> | string | null
+    wa_deleted_at?: DateTimeNullableFilter<"WhatsAppInstance"> | Date | string | null
+    wa_deleted_by?: StringNullableFilter<"WhatsAppInstance"> | string | null
+    wa_is_deleted?: BoolFilter<"WhatsAppInstance"> | boolean
+  }
+
   export type UserCreateWithoutFirmInput = {
     user_uuid?: string
     user_unique_code?: string | null
@@ -61676,6 +67417,12 @@ export namespace Prisma {
     own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
     own_otp?: string | null
     own_otp_expiry?: Date | string | null
+    own_mail_user?: string | null
+    own_mail_pass_enc?: string | null
+    own_mail_from_name?: string | null
+    own_mail_provider?: string | null
+    own_mail_status?: string | null
+    own_mail_updated_at?: Date | string | null
     own_address?: string | null
     own_village?: string | null
     own_city?: string | null
@@ -61704,6 +67451,8 @@ export namespace Prisma {
     purities?: PurityCreateNestedManyWithoutOwnerInput
     moneyLenders?: MoneyLenderCreateNestedManyWithoutOwnerInput
     staff?: StaffCreateNestedManyWithoutOwnerInput
+    messageTemplates?: MessageTemplateCreateNestedManyWithoutOwnerInput
+    whatsappInstances?: WhatsAppInstanceCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerUncheckedCreateWithoutFirmsInput = {
@@ -61730,6 +67479,12 @@ export namespace Prisma {
     own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
     own_otp?: string | null
     own_otp_expiry?: Date | string | null
+    own_mail_user?: string | null
+    own_mail_pass_enc?: string | null
+    own_mail_from_name?: string | null
+    own_mail_provider?: string | null
+    own_mail_status?: string | null
+    own_mail_updated_at?: Date | string | null
     own_address?: string | null
     own_village?: string | null
     own_city?: string | null
@@ -61758,6 +67513,8 @@ export namespace Prisma {
     purities?: PurityUncheckedCreateNestedManyWithoutOwnerInput
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutOwnerInput
     staff?: StaffUncheckedCreateNestedManyWithoutOwnerInput
+    messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutOwnerInput
+    whatsappInstances?: WhatsAppInstanceUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerCreateOrConnectWithoutFirmsInput = {
@@ -62169,6 +67926,9 @@ export namespace Prisma {
     girv_pay_info?: string | null
     girv_transfer_firm_id?: number | null
     girv_transfer_girv_id?: number | null
+    girv_is_transferred_in?: boolean
+    girv_transfer_from_girv_id?: number | null
+    girv_transfer_from_firm_id?: number | null
     girv_created_at?: Date | string
     girv_created_by?: string | null
     girv_updated_at?: Date | string
@@ -62238,6 +67998,9 @@ export namespace Prisma {
     girv_transfer_firm_id?: number | null
     girv_transfer_girv_id?: number | null
     girv_transfer_ml_id?: number | null
+    girv_is_transferred_in?: boolean
+    girv_transfer_from_girv_id?: number | null
+    girv_transfer_from_firm_id?: number | null
     girv_created_at?: Date | string
     girv_created_by?: string | null
     girv_updated_at?: Date | string
@@ -62835,6 +68598,113 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type MessageTemplateCreateWithoutFirmInput = {
+    mt_uuid?: string
+    mt_channel: $Enums.MessageChannel
+    mt_key: string
+    mt_name: string
+    mt_category?: string
+    mt_language?: string
+    mt_subject?: string | null
+    mt_body: string
+    mt_variables?: NullableJsonNullValueInput | InputJsonValue
+    mt_attachments?: NullableJsonNullValueInput | InputJsonValue
+    mt_has_attachment?: boolean
+    mt_is_system?: boolean
+    mt_status?: $Enums.MessageTemplateStatus
+    mt_created_at?: Date | string
+    mt_created_by?: string | null
+    mt_updated_at?: Date | string
+    mt_updated_by?: string | null
+    mt_deleted_at?: Date | string | null
+    mt_deleted_by?: string | null
+    mt_is_deleted?: boolean
+    owner: OwnerCreateNestedOneWithoutMessageTemplatesInput
+  }
+
+  export type MessageTemplateUncheckedCreateWithoutFirmInput = {
+    mt_id?: number
+    mt_uuid?: string
+    mt_own_id: number
+    mt_channel: $Enums.MessageChannel
+    mt_key: string
+    mt_name: string
+    mt_category?: string
+    mt_language?: string
+    mt_subject?: string | null
+    mt_body: string
+    mt_variables?: NullableJsonNullValueInput | InputJsonValue
+    mt_attachments?: NullableJsonNullValueInput | InputJsonValue
+    mt_has_attachment?: boolean
+    mt_is_system?: boolean
+    mt_status?: $Enums.MessageTemplateStatus
+    mt_created_at?: Date | string
+    mt_created_by?: string | null
+    mt_updated_at?: Date | string
+    mt_updated_by?: string | null
+    mt_deleted_at?: Date | string | null
+    mt_deleted_by?: string | null
+    mt_is_deleted?: boolean
+  }
+
+  export type MessageTemplateCreateOrConnectWithoutFirmInput = {
+    where: MessageTemplateWhereUniqueInput
+    create: XOR<MessageTemplateCreateWithoutFirmInput, MessageTemplateUncheckedCreateWithoutFirmInput>
+  }
+
+  export type MessageTemplateCreateManyFirmInputEnvelope = {
+    data: MessageTemplateCreateManyFirmInput | MessageTemplateCreateManyFirmInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type WhatsAppInstanceCreateWithoutFirmInput = {
+    wa_uuid?: string
+    wa_provider?: string
+    wa_instance_id?: string | null
+    wa_token?: string | null
+    wa_api_url?: string | null
+    wa_phone_number?: string | null
+    wa_status?: $Enums.WhatsAppInstanceStatus
+    wa_qr_code?: string | null
+    wa_last_checked?: Date | string | null
+    wa_meta?: NullableJsonNullValueInput | InputJsonValue
+    wa_created_at?: Date | string
+    wa_created_by?: string | null
+    wa_updated_at?: Date | string
+    wa_updated_by?: string | null
+    wa_deleted_at?: Date | string | null
+    wa_deleted_by?: string | null
+    wa_is_deleted?: boolean
+    owner: OwnerCreateNestedOneWithoutWhatsappInstancesInput
+  }
+
+  export type WhatsAppInstanceUncheckedCreateWithoutFirmInput = {
+    wa_id?: number
+    wa_uuid?: string
+    wa_own_id: number
+    wa_provider?: string
+    wa_instance_id?: string | null
+    wa_token?: string | null
+    wa_api_url?: string | null
+    wa_phone_number?: string | null
+    wa_status?: $Enums.WhatsAppInstanceStatus
+    wa_qr_code?: string | null
+    wa_last_checked?: Date | string | null
+    wa_meta?: NullableJsonNullValueInput | InputJsonValue
+    wa_created_at?: Date | string
+    wa_created_by?: string | null
+    wa_updated_at?: Date | string
+    wa_updated_by?: string | null
+    wa_deleted_at?: Date | string | null
+    wa_deleted_by?: string | null
+    wa_is_deleted?: boolean
+  }
+
+  export type WhatsAppInstanceCreateOrConnectWithoutFirmInput = {
+    where: WhatsAppInstanceWhereUniqueInput
+    create: XOR<WhatsAppInstanceCreateWithoutFirmInput, WhatsAppInstanceUncheckedCreateWithoutFirmInput>
+  }
+
   export type UserUpsertWithWhereUniqueWithoutFirmInput = {
     where: UserWhereUniqueInput
     update: XOR<UserUpdateWithoutFirmInput, UserUncheckedUpdateWithoutFirmInput>
@@ -62900,6 +68770,12 @@ export namespace Prisma {
     own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
     own_otp?: NullableStringFieldUpdateOperationsInput | string | null
     own_otp_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_mail_user?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_pass_enc?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_from_name?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_provider?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_status?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_address?: NullableStringFieldUpdateOperationsInput | string | null
     own_village?: NullableStringFieldUpdateOperationsInput | string | null
     own_city?: NullableStringFieldUpdateOperationsInput | string | null
@@ -62928,6 +68804,8 @@ export namespace Prisma {
     purities?: PurityUpdateManyWithoutOwnerNestedInput
     moneyLenders?: MoneyLenderUpdateManyWithoutOwnerNestedInput
     staff?: StaffUpdateManyWithoutOwnerNestedInput
+    messageTemplates?: MessageTemplateUpdateManyWithoutOwnerNestedInput
+    whatsappInstances?: WhatsAppInstanceUpdateManyWithoutOwnerNestedInput
   }
 
   export type OwnerUncheckedUpdateWithoutFirmsInput = {
@@ -62954,6 +68832,12 @@ export namespace Prisma {
     own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
     own_otp?: NullableStringFieldUpdateOperationsInput | string | null
     own_otp_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_mail_user?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_pass_enc?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_from_name?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_provider?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_status?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_address?: NullableStringFieldUpdateOperationsInput | string | null
     own_village?: NullableStringFieldUpdateOperationsInput | string | null
     own_city?: NullableStringFieldUpdateOperationsInput | string | null
@@ -62982,6 +68866,8 @@ export namespace Prisma {
     purities?: PurityUncheckedUpdateManyWithoutOwnerNestedInput
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutOwnerNestedInput
     staff?: StaffUncheckedUpdateManyWithoutOwnerNestedInput
+    messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutOwnerNestedInput
+    whatsappInstances?: WhatsAppInstanceUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
   export type FinanceUpsertWithWhereUniqueWithoutFirmInput = {
@@ -63262,6 +69148,76 @@ export namespace Prisma {
     al_other_info?: StringNullableFilter<"AuctionLoan"> | string | null
   }
 
+  export type MessageTemplateUpsertWithWhereUniqueWithoutFirmInput = {
+    where: MessageTemplateWhereUniqueInput
+    update: XOR<MessageTemplateUpdateWithoutFirmInput, MessageTemplateUncheckedUpdateWithoutFirmInput>
+    create: XOR<MessageTemplateCreateWithoutFirmInput, MessageTemplateUncheckedCreateWithoutFirmInput>
+  }
+
+  export type MessageTemplateUpdateWithWhereUniqueWithoutFirmInput = {
+    where: MessageTemplateWhereUniqueInput
+    data: XOR<MessageTemplateUpdateWithoutFirmInput, MessageTemplateUncheckedUpdateWithoutFirmInput>
+  }
+
+  export type MessageTemplateUpdateManyWithWhereWithoutFirmInput = {
+    where: MessageTemplateScalarWhereInput
+    data: XOR<MessageTemplateUpdateManyMutationInput, MessageTemplateUncheckedUpdateManyWithoutFirmInput>
+  }
+
+  export type WhatsAppInstanceUpsertWithoutFirmInput = {
+    update: XOR<WhatsAppInstanceUpdateWithoutFirmInput, WhatsAppInstanceUncheckedUpdateWithoutFirmInput>
+    create: XOR<WhatsAppInstanceCreateWithoutFirmInput, WhatsAppInstanceUncheckedCreateWithoutFirmInput>
+    where?: WhatsAppInstanceWhereInput
+  }
+
+  export type WhatsAppInstanceUpdateToOneWithWhereWithoutFirmInput = {
+    where?: WhatsAppInstanceWhereInput
+    data: XOR<WhatsAppInstanceUpdateWithoutFirmInput, WhatsAppInstanceUncheckedUpdateWithoutFirmInput>
+  }
+
+  export type WhatsAppInstanceUpdateWithoutFirmInput = {
+    wa_uuid?: StringFieldUpdateOperationsInput | string
+    wa_provider?: StringFieldUpdateOperationsInput | string
+    wa_instance_id?: NullableStringFieldUpdateOperationsInput | string | null
+    wa_token?: NullableStringFieldUpdateOperationsInput | string | null
+    wa_api_url?: NullableStringFieldUpdateOperationsInput | string | null
+    wa_phone_number?: NullableStringFieldUpdateOperationsInput | string | null
+    wa_status?: EnumWhatsAppInstanceStatusFieldUpdateOperationsInput | $Enums.WhatsAppInstanceStatus
+    wa_qr_code?: NullableStringFieldUpdateOperationsInput | string | null
+    wa_last_checked?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    wa_meta?: NullableJsonNullValueInput | InputJsonValue
+    wa_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    wa_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    wa_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    wa_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    wa_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    wa_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    wa_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    owner?: OwnerUpdateOneRequiredWithoutWhatsappInstancesNestedInput
+  }
+
+  export type WhatsAppInstanceUncheckedUpdateWithoutFirmInput = {
+    wa_id?: IntFieldUpdateOperationsInput | number
+    wa_uuid?: StringFieldUpdateOperationsInput | string
+    wa_own_id?: IntFieldUpdateOperationsInput | number
+    wa_provider?: StringFieldUpdateOperationsInput | string
+    wa_instance_id?: NullableStringFieldUpdateOperationsInput | string | null
+    wa_token?: NullableStringFieldUpdateOperationsInput | string | null
+    wa_api_url?: NullableStringFieldUpdateOperationsInput | string | null
+    wa_phone_number?: NullableStringFieldUpdateOperationsInput | string | null
+    wa_status?: EnumWhatsAppInstanceStatusFieldUpdateOperationsInput | $Enums.WhatsAppInstanceStatus
+    wa_qr_code?: NullableStringFieldUpdateOperationsInput | string | null
+    wa_last_checked?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    wa_meta?: NullableJsonNullValueInput | InputJsonValue
+    wa_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    wa_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    wa_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    wa_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    wa_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    wa_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    wa_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
   export type OwnerCreateWithoutAccountsInput = {
     own_uuid?: string
     own_product_key?: number
@@ -63285,6 +69241,12 @@ export namespace Prisma {
     own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
     own_otp?: string | null
     own_otp_expiry?: Date | string | null
+    own_mail_user?: string | null
+    own_mail_pass_enc?: string | null
+    own_mail_from_name?: string | null
+    own_mail_provider?: string | null
+    own_mail_status?: string | null
+    own_mail_updated_at?: Date | string | null
     own_address?: string | null
     own_village?: string | null
     own_city?: string | null
@@ -63313,6 +69275,8 @@ export namespace Prisma {
     purities?: PurityCreateNestedManyWithoutOwnerInput
     moneyLenders?: MoneyLenderCreateNestedManyWithoutOwnerInput
     staff?: StaffCreateNestedManyWithoutOwnerInput
+    messageTemplates?: MessageTemplateCreateNestedManyWithoutOwnerInput
+    whatsappInstances?: WhatsAppInstanceCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerUncheckedCreateWithoutAccountsInput = {
@@ -63339,6 +69303,12 @@ export namespace Prisma {
     own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
     own_otp?: string | null
     own_otp_expiry?: Date | string | null
+    own_mail_user?: string | null
+    own_mail_pass_enc?: string | null
+    own_mail_from_name?: string | null
+    own_mail_provider?: string | null
+    own_mail_status?: string | null
+    own_mail_updated_at?: Date | string | null
     own_address?: string | null
     own_village?: string | null
     own_city?: string | null
@@ -63367,6 +69337,8 @@ export namespace Prisma {
     purities?: PurityUncheckedCreateNestedManyWithoutOwnerInput
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutOwnerInput
     staff?: StaffUncheckedCreateNestedManyWithoutOwnerInput
+    messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutOwnerInput
+    whatsappInstances?: WhatsAppInstanceUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerCreateOrConnectWithoutAccountsInput = {
@@ -63439,6 +69411,8 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderCreateNestedManyWithoutFirmInput
     auctionUsers?: AuctionUserCreateNestedManyWithoutFirmInput
     auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
+    messageTemplates?: MessageTemplateCreateNestedManyWithoutFirmInput
+    whatsappInstance?: WhatsAppInstanceCreateNestedOneWithoutFirmInput
   }
 
   export type FirmUncheckedCreateWithoutAccountsInput = {
@@ -63507,6 +69481,8 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutFirmInput
     auctionUsers?: AuctionUserUncheckedCreateNestedManyWithoutFirmInput
     auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
+    messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutFirmInput
+    whatsappInstance?: WhatsAppInstanceUncheckedCreateNestedOneWithoutFirmInput
   }
 
   export type FirmCreateOrConnectWithoutAccountsInput = {
@@ -64895,6 +70871,9 @@ export namespace Prisma {
     girv_pay_info?: string | null
     girv_transfer_firm_id?: number | null
     girv_transfer_girv_id?: number | null
+    girv_is_transferred_in?: boolean
+    girv_transfer_from_girv_id?: number | null
+    girv_transfer_from_firm_id?: number | null
     girv_created_at?: Date | string
     girv_created_by?: string | null
     girv_updated_at?: Date | string
@@ -64964,6 +70943,9 @@ export namespace Prisma {
     girv_transfer_firm_id?: number | null
     girv_transfer_girv_id?: number | null
     girv_transfer_ml_id?: number | null
+    girv_is_transferred_in?: boolean
+    girv_transfer_from_girv_id?: number | null
+    girv_transfer_from_firm_id?: number | null
     girv_created_at?: Date | string
     girv_created_by?: string | null
     girv_updated_at?: Date | string
@@ -65022,6 +71004,9 @@ export namespace Prisma {
     girv_pay_info?: string | null
     girv_transfer_firm_id?: number | null
     girv_transfer_girv_id?: number | null
+    girv_is_transferred_in?: boolean
+    girv_transfer_from_girv_id?: number | null
+    girv_transfer_from_firm_id?: number | null
     girv_created_at?: Date | string
     girv_created_by?: string | null
     girv_updated_at?: Date | string
@@ -65091,6 +71076,9 @@ export namespace Prisma {
     girv_transfer_firm_id?: number | null
     girv_transfer_girv_id?: number | null
     girv_transfer_ml_id?: number | null
+    girv_is_transferred_in?: boolean
+    girv_transfer_from_girv_id?: number | null
+    girv_transfer_from_firm_id?: number | null
     girv_created_at?: Date | string
     girv_created_by?: string | null
     girv_updated_at?: Date | string
@@ -65149,6 +71137,9 @@ export namespace Prisma {
     girv_pay_info?: string | null
     girv_transfer_firm_id?: number | null
     girv_transfer_girv_id?: number | null
+    girv_is_transferred_in?: boolean
+    girv_transfer_from_girv_id?: number | null
+    girv_transfer_from_firm_id?: number | null
     girv_created_at?: Date | string
     girv_created_by?: string | null
     girv_updated_at?: Date | string
@@ -65218,6 +71209,9 @@ export namespace Prisma {
     girv_transfer_firm_id?: number | null
     girv_transfer_girv_id?: number | null
     girv_transfer_ml_id?: number | null
+    girv_is_transferred_in?: boolean
+    girv_transfer_from_girv_id?: number | null
+    girv_transfer_from_firm_id?: number | null
     girv_created_at?: Date | string
     girv_created_by?: string | null
     girv_updated_at?: Date | string
@@ -65276,6 +71270,9 @@ export namespace Prisma {
     girv_pay_info?: string | null
     girv_transfer_firm_id?: number | null
     girv_transfer_girv_id?: number | null
+    girv_is_transferred_in?: boolean
+    girv_transfer_from_girv_id?: number | null
+    girv_transfer_from_firm_id?: number | null
     girv_created_at?: Date | string
     girv_created_by?: string | null
     girv_updated_at?: Date | string
@@ -65345,6 +71342,9 @@ export namespace Prisma {
     girv_transfer_firm_id?: number | null
     girv_transfer_girv_id?: number | null
     girv_transfer_ml_id?: number | null
+    girv_is_transferred_in?: boolean
+    girv_transfer_from_girv_id?: number | null
+    girv_transfer_from_firm_id?: number | null
     girv_created_at?: Date | string
     girv_created_by?: string | null
     girv_updated_at?: Date | string
@@ -65403,6 +71403,9 @@ export namespace Prisma {
     girv_pay_info?: string | null
     girv_transfer_firm_id?: number | null
     girv_transfer_girv_id?: number | null
+    girv_is_transferred_in?: boolean
+    girv_transfer_from_girv_id?: number | null
+    girv_transfer_from_firm_id?: number | null
     girv_created_at?: Date | string
     girv_created_by?: string | null
     girv_updated_at?: Date | string
@@ -65472,6 +71475,9 @@ export namespace Prisma {
     girv_transfer_firm_id?: number | null
     girv_transfer_girv_id?: number | null
     girv_transfer_ml_id?: number | null
+    girv_is_transferred_in?: boolean
+    girv_transfer_from_girv_id?: number | null
+    girv_transfer_from_firm_id?: number | null
     girv_created_at?: Date | string
     girv_created_by?: string | null
     girv_updated_at?: Date | string
@@ -65530,6 +71536,9 @@ export namespace Prisma {
     girv_pay_info?: string | null
     girv_transfer_firm_id?: number | null
     girv_transfer_girv_id?: number | null
+    girv_is_transferred_in?: boolean
+    girv_transfer_from_girv_id?: number | null
+    girv_transfer_from_firm_id?: number | null
     girv_created_at?: Date | string
     girv_created_by?: string | null
     girv_updated_at?: Date | string
@@ -65599,6 +71608,9 @@ export namespace Prisma {
     girv_transfer_firm_id?: number | null
     girv_transfer_girv_id?: number | null
     girv_transfer_ml_id?: number | null
+    girv_is_transferred_in?: boolean
+    girv_transfer_from_girv_id?: number | null
+    girv_transfer_from_firm_id?: number | null
     girv_created_at?: Date | string
     girv_created_by?: string | null
     girv_updated_at?: Date | string
@@ -65657,6 +71669,9 @@ export namespace Prisma {
     girv_pay_info?: string | null
     girv_transfer_firm_id?: number | null
     girv_transfer_girv_id?: number | null
+    girv_is_transferred_in?: boolean
+    girv_transfer_from_girv_id?: number | null
+    girv_transfer_from_firm_id?: number | null
     girv_created_at?: Date | string
     girv_created_by?: string | null
     girv_updated_at?: Date | string
@@ -65726,6 +71741,9 @@ export namespace Prisma {
     girv_transfer_firm_id?: number | null
     girv_transfer_girv_id?: number | null
     girv_transfer_ml_id?: number | null
+    girv_is_transferred_in?: boolean
+    girv_transfer_from_girv_id?: number | null
+    girv_transfer_from_firm_id?: number | null
     girv_created_at?: Date | string
     girv_created_by?: string | null
     girv_updated_at?: Date | string
@@ -67514,6 +73532,12 @@ export namespace Prisma {
     own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
     own_otp?: NullableStringFieldUpdateOperationsInput | string | null
     own_otp_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_mail_user?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_pass_enc?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_from_name?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_provider?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_status?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_address?: NullableStringFieldUpdateOperationsInput | string | null
     own_village?: NullableStringFieldUpdateOperationsInput | string | null
     own_city?: NullableStringFieldUpdateOperationsInput | string | null
@@ -67542,6 +73566,8 @@ export namespace Prisma {
     purities?: PurityUpdateManyWithoutOwnerNestedInput
     moneyLenders?: MoneyLenderUpdateManyWithoutOwnerNestedInput
     staff?: StaffUpdateManyWithoutOwnerNestedInput
+    messageTemplates?: MessageTemplateUpdateManyWithoutOwnerNestedInput
+    whatsappInstances?: WhatsAppInstanceUpdateManyWithoutOwnerNestedInput
   }
 
   export type OwnerUncheckedUpdateWithoutAccountsInput = {
@@ -67568,6 +73594,12 @@ export namespace Prisma {
     own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
     own_otp?: NullableStringFieldUpdateOperationsInput | string | null
     own_otp_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_mail_user?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_pass_enc?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_from_name?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_provider?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_status?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_address?: NullableStringFieldUpdateOperationsInput | string | null
     own_village?: NullableStringFieldUpdateOperationsInput | string | null
     own_city?: NullableStringFieldUpdateOperationsInput | string | null
@@ -67596,6 +73628,8 @@ export namespace Prisma {
     purities?: PurityUncheckedUpdateManyWithoutOwnerNestedInput
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutOwnerNestedInput
     staff?: StaffUncheckedUpdateManyWithoutOwnerNestedInput
+    messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutOwnerNestedInput
+    whatsappInstances?: WhatsAppInstanceUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
   export type FirmUpsertWithoutAccountsInput = {
@@ -67674,6 +73708,8 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUpdateManyWithoutFirmNestedInput
     auctionUsers?: AuctionUserUpdateManyWithoutFirmNestedInput
     auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
+    messageTemplates?: MessageTemplateUpdateManyWithoutFirmNestedInput
+    whatsappInstance?: WhatsAppInstanceUpdateOneWithoutFirmNestedInput
   }
 
   export type FirmUncheckedUpdateWithoutAccountsInput = {
@@ -67742,6 +73778,8 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutFirmNestedInput
     auctionUsers?: AuctionUserUncheckedUpdateManyWithoutFirmNestedInput
     auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
+    messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutFirmNestedInput
+    whatsappInstance?: WhatsAppInstanceUncheckedUpdateOneWithoutFirmNestedInput
   }
 
   export type FinanceUpsertWithWhereUniqueWithoutCashAccountInput = {
@@ -68455,6 +74493,12 @@ export namespace Prisma {
     own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
     own_otp?: string | null
     own_otp_expiry?: Date | string | null
+    own_mail_user?: string | null
+    own_mail_pass_enc?: string | null
+    own_mail_from_name?: string | null
+    own_mail_provider?: string | null
+    own_mail_status?: string | null
+    own_mail_updated_at?: Date | string | null
     own_address?: string | null
     own_village?: string | null
     own_city?: string | null
@@ -68483,6 +74527,8 @@ export namespace Prisma {
     purities?: PurityCreateNestedManyWithoutOwnerInput
     moneyLenders?: MoneyLenderCreateNestedManyWithoutOwnerInput
     staff?: StaffCreateNestedManyWithoutOwnerInput
+    messageTemplates?: MessageTemplateCreateNestedManyWithoutOwnerInput
+    whatsappInstances?: WhatsAppInstanceCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerUncheckedCreateWithoutUsersInput = {
@@ -68509,6 +74555,12 @@ export namespace Prisma {
     own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
     own_otp?: string | null
     own_otp_expiry?: Date | string | null
+    own_mail_user?: string | null
+    own_mail_pass_enc?: string | null
+    own_mail_from_name?: string | null
+    own_mail_provider?: string | null
+    own_mail_status?: string | null
+    own_mail_updated_at?: Date | string | null
     own_address?: string | null
     own_village?: string | null
     own_city?: string | null
@@ -68537,6 +74589,8 @@ export namespace Prisma {
     purities?: PurityUncheckedCreateNestedManyWithoutOwnerInput
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutOwnerInput
     staff?: StaffUncheckedCreateNestedManyWithoutOwnerInput
+    messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutOwnerInput
+    whatsappInstances?: WhatsAppInstanceUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerCreateOrConnectWithoutUsersInput = {
@@ -68609,6 +74663,8 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderCreateNestedManyWithoutFirmInput
     auctionUsers?: AuctionUserCreateNestedManyWithoutFirmInput
     auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
+    messageTemplates?: MessageTemplateCreateNestedManyWithoutFirmInput
+    whatsappInstance?: WhatsAppInstanceCreateNestedOneWithoutFirmInput
   }
 
   export type FirmUncheckedCreateWithoutUsersInput = {
@@ -68677,6 +74733,8 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutFirmInput
     auctionUsers?: AuctionUserUncheckedCreateNestedManyWithoutFirmInput
     auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
+    messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutFirmInput
+    whatsappInstance?: WhatsAppInstanceUncheckedCreateNestedOneWithoutFirmInput
   }
 
   export type FirmCreateOrConnectWithoutUsersInput = {
@@ -69088,6 +75146,9 @@ export namespace Prisma {
     girv_pay_info?: string | null
     girv_transfer_firm_id?: number | null
     girv_transfer_girv_id?: number | null
+    girv_is_transferred_in?: boolean
+    girv_transfer_from_girv_id?: number | null
+    girv_transfer_from_firm_id?: number | null
     girv_created_at?: Date | string
     girv_created_by?: string | null
     girv_updated_at?: Date | string
@@ -69157,6 +75218,9 @@ export namespace Prisma {
     girv_transfer_firm_id?: number | null
     girv_transfer_girv_id?: number | null
     girv_transfer_ml_id?: number | null
+    girv_is_transferred_in?: boolean
+    girv_transfer_from_girv_id?: number | null
+    girv_transfer_from_firm_id?: number | null
     girv_created_at?: Date | string
     girv_created_by?: string | null
     girv_updated_at?: Date | string
@@ -69543,6 +75607,12 @@ export namespace Prisma {
     own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
     own_otp?: NullableStringFieldUpdateOperationsInput | string | null
     own_otp_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_mail_user?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_pass_enc?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_from_name?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_provider?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_status?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_address?: NullableStringFieldUpdateOperationsInput | string | null
     own_village?: NullableStringFieldUpdateOperationsInput | string | null
     own_city?: NullableStringFieldUpdateOperationsInput | string | null
@@ -69571,6 +75641,8 @@ export namespace Prisma {
     purities?: PurityUpdateManyWithoutOwnerNestedInput
     moneyLenders?: MoneyLenderUpdateManyWithoutOwnerNestedInput
     staff?: StaffUpdateManyWithoutOwnerNestedInput
+    messageTemplates?: MessageTemplateUpdateManyWithoutOwnerNestedInput
+    whatsappInstances?: WhatsAppInstanceUpdateManyWithoutOwnerNestedInput
   }
 
   export type OwnerUncheckedUpdateWithoutUsersInput = {
@@ -69597,6 +75669,12 @@ export namespace Prisma {
     own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
     own_otp?: NullableStringFieldUpdateOperationsInput | string | null
     own_otp_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_mail_user?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_pass_enc?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_from_name?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_provider?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_status?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_address?: NullableStringFieldUpdateOperationsInput | string | null
     own_village?: NullableStringFieldUpdateOperationsInput | string | null
     own_city?: NullableStringFieldUpdateOperationsInput | string | null
@@ -69625,6 +75703,8 @@ export namespace Prisma {
     purities?: PurityUncheckedUpdateManyWithoutOwnerNestedInput
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutOwnerNestedInput
     staff?: StaffUncheckedUpdateManyWithoutOwnerNestedInput
+    messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutOwnerNestedInput
+    whatsappInstances?: WhatsAppInstanceUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
   export type FirmUpsertWithoutUsersInput = {
@@ -69703,6 +75783,8 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUpdateManyWithoutFirmNestedInput
     auctionUsers?: AuctionUserUpdateManyWithoutFirmNestedInput
     auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
+    messageTemplates?: MessageTemplateUpdateManyWithoutFirmNestedInput
+    whatsappInstance?: WhatsAppInstanceUpdateOneWithoutFirmNestedInput
   }
 
   export type FirmUncheckedUpdateWithoutUsersInput = {
@@ -69771,6 +75853,8 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutFirmNestedInput
     auctionUsers?: AuctionUserUncheckedUpdateManyWithoutFirmNestedInput
     auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
+    messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutFirmNestedInput
+    whatsappInstance?: WhatsAppInstanceUncheckedUpdateOneWithoutFirmNestedInput
   }
 
   export type FinanceUpsertWithWhereUniqueWithoutUserInput = {
@@ -69998,6 +76082,8 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderCreateNestedManyWithoutFirmInput
     auctionUsers?: AuctionUserCreateNestedManyWithoutFirmInput
     auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
+    messageTemplates?: MessageTemplateCreateNestedManyWithoutFirmInput
+    whatsappInstance?: WhatsAppInstanceCreateNestedOneWithoutFirmInput
   }
 
   export type FirmUncheckedCreateWithoutFinancesInput = {
@@ -70066,6 +76152,8 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutFirmInput
     auctionUsers?: AuctionUserUncheckedCreateNestedManyWithoutFirmInput
     auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
+    messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutFirmInput
+    whatsappInstance?: WhatsAppInstanceUncheckedCreateNestedOneWithoutFirmInput
   }
 
   export type FirmCreateOrConnectWithoutFinancesInput = {
@@ -71128,6 +77216,12 @@ export namespace Prisma {
     own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
     own_otp?: string | null
     own_otp_expiry?: Date | string | null
+    own_mail_user?: string | null
+    own_mail_pass_enc?: string | null
+    own_mail_from_name?: string | null
+    own_mail_provider?: string | null
+    own_mail_status?: string | null
+    own_mail_updated_at?: Date | string | null
     own_address?: string | null
     own_village?: string | null
     own_city?: string | null
@@ -71156,6 +77250,8 @@ export namespace Prisma {
     purities?: PurityCreateNestedManyWithoutOwnerInput
     moneyLenders?: MoneyLenderCreateNestedManyWithoutOwnerInput
     staff?: StaffCreateNestedManyWithoutOwnerInput
+    messageTemplates?: MessageTemplateCreateNestedManyWithoutOwnerInput
+    whatsappInstances?: WhatsAppInstanceCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerUncheckedCreateWithoutFinancesInput = {
@@ -71182,6 +77278,12 @@ export namespace Prisma {
     own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
     own_otp?: string | null
     own_otp_expiry?: Date | string | null
+    own_mail_user?: string | null
+    own_mail_pass_enc?: string | null
+    own_mail_from_name?: string | null
+    own_mail_provider?: string | null
+    own_mail_status?: string | null
+    own_mail_updated_at?: Date | string | null
     own_address?: string | null
     own_village?: string | null
     own_city?: string | null
@@ -71210,6 +77312,8 @@ export namespace Prisma {
     purities?: PurityUncheckedCreateNestedManyWithoutOwnerInput
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutOwnerInput
     staff?: StaffUncheckedCreateNestedManyWithoutOwnerInput
+    messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutOwnerInput
+    whatsappInstances?: WhatsAppInstanceUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerCreateOrConnectWithoutFinancesInput = {
@@ -71293,6 +77397,8 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUpdateManyWithoutFirmNestedInput
     auctionUsers?: AuctionUserUpdateManyWithoutFirmNestedInput
     auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
+    messageTemplates?: MessageTemplateUpdateManyWithoutFirmNestedInput
+    whatsappInstance?: WhatsAppInstanceUpdateOneWithoutFirmNestedInput
   }
 
   export type FirmUncheckedUpdateWithoutFinancesInput = {
@@ -71361,6 +77467,8 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutFirmNestedInput
     auctionUsers?: AuctionUserUncheckedUpdateManyWithoutFirmNestedInput
     auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
+    messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutFirmNestedInput
+    whatsappInstance?: WhatsAppInstanceUncheckedUpdateOneWithoutFirmNestedInput
   }
 
   export type UserUpsertWithoutFinancesInput = {
@@ -72346,6 +78454,12 @@ export namespace Prisma {
     own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
     own_otp?: NullableStringFieldUpdateOperationsInput | string | null
     own_otp_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_mail_user?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_pass_enc?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_from_name?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_provider?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_status?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_address?: NullableStringFieldUpdateOperationsInput | string | null
     own_village?: NullableStringFieldUpdateOperationsInput | string | null
     own_city?: NullableStringFieldUpdateOperationsInput | string | null
@@ -72374,6 +78488,8 @@ export namespace Prisma {
     purities?: PurityUpdateManyWithoutOwnerNestedInput
     moneyLenders?: MoneyLenderUpdateManyWithoutOwnerNestedInput
     staff?: StaffUpdateManyWithoutOwnerNestedInput
+    messageTemplates?: MessageTemplateUpdateManyWithoutOwnerNestedInput
+    whatsappInstances?: WhatsAppInstanceUpdateManyWithoutOwnerNestedInput
   }
 
   export type OwnerUncheckedUpdateWithoutFinancesInput = {
@@ -72400,6 +78516,12 @@ export namespace Prisma {
     own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
     own_otp?: NullableStringFieldUpdateOperationsInput | string | null
     own_otp_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_mail_user?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_pass_enc?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_from_name?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_provider?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_status?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_address?: NullableStringFieldUpdateOperationsInput | string | null
     own_village?: NullableStringFieldUpdateOperationsInput | string | null
     own_city?: NullableStringFieldUpdateOperationsInput | string | null
@@ -72428,6 +78550,8 @@ export namespace Prisma {
     purities?: PurityUncheckedUpdateManyWithoutOwnerNestedInput
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutOwnerNestedInput
     staff?: StaffUncheckedUpdateManyWithoutOwnerNestedInput
+    messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutOwnerNestedInput
+    whatsappInstances?: WhatsAppInstanceUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
   export type FirmCreateWithoutFinanceTransactionsInput = {
@@ -72495,6 +78619,8 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderCreateNestedManyWithoutFirmInput
     auctionUsers?: AuctionUserCreateNestedManyWithoutFirmInput
     auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
+    messageTemplates?: MessageTemplateCreateNestedManyWithoutFirmInput
+    whatsappInstance?: WhatsAppInstanceCreateNestedOneWithoutFirmInput
   }
 
   export type FirmUncheckedCreateWithoutFinanceTransactionsInput = {
@@ -72563,6 +78689,8 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutFirmInput
     auctionUsers?: AuctionUserUncheckedCreateNestedManyWithoutFirmInput
     auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
+    messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutFirmInput
+    whatsappInstance?: WhatsAppInstanceUncheckedCreateNestedOneWithoutFirmInput
   }
 
   export type FirmCreateOrConnectWithoutFinanceTransactionsInput = {
@@ -72715,6 +78843,12 @@ export namespace Prisma {
     own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
     own_otp?: string | null
     own_otp_expiry?: Date | string | null
+    own_mail_user?: string | null
+    own_mail_pass_enc?: string | null
+    own_mail_from_name?: string | null
+    own_mail_provider?: string | null
+    own_mail_status?: string | null
+    own_mail_updated_at?: Date | string | null
     own_address?: string | null
     own_village?: string | null
     own_city?: string | null
@@ -72743,6 +78877,8 @@ export namespace Prisma {
     purities?: PurityCreateNestedManyWithoutOwnerInput
     moneyLenders?: MoneyLenderCreateNestedManyWithoutOwnerInput
     staff?: StaffCreateNestedManyWithoutOwnerInput
+    messageTemplates?: MessageTemplateCreateNestedManyWithoutOwnerInput
+    whatsappInstances?: WhatsAppInstanceCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerUncheckedCreateWithoutFinanceTransactionsInput = {
@@ -72769,6 +78905,12 @@ export namespace Prisma {
     own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
     own_otp?: string | null
     own_otp_expiry?: Date | string | null
+    own_mail_user?: string | null
+    own_mail_pass_enc?: string | null
+    own_mail_from_name?: string | null
+    own_mail_provider?: string | null
+    own_mail_status?: string | null
+    own_mail_updated_at?: Date | string | null
     own_address?: string | null
     own_village?: string | null
     own_city?: string | null
@@ -72797,6 +78939,8 @@ export namespace Prisma {
     purities?: PurityUncheckedCreateNestedManyWithoutOwnerInput
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutOwnerInput
     staff?: StaffUncheckedCreateNestedManyWithoutOwnerInput
+    messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutOwnerInput
+    whatsappInstances?: WhatsAppInstanceUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerCreateOrConnectWithoutFinanceTransactionsInput = {
@@ -73592,6 +79736,8 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUpdateManyWithoutFirmNestedInput
     auctionUsers?: AuctionUserUpdateManyWithoutFirmNestedInput
     auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
+    messageTemplates?: MessageTemplateUpdateManyWithoutFirmNestedInput
+    whatsappInstance?: WhatsAppInstanceUpdateOneWithoutFirmNestedInput
   }
 
   export type FirmUncheckedUpdateWithoutFinanceTransactionsInput = {
@@ -73660,6 +79806,8 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutFirmNestedInput
     auctionUsers?: AuctionUserUncheckedUpdateManyWithoutFirmNestedInput
     auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
+    messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutFirmNestedInput
+    whatsappInstance?: WhatsAppInstanceUncheckedUpdateOneWithoutFirmNestedInput
   }
 
   export type UserUpsertWithoutFinanceTransactionsInput = {
@@ -73823,6 +79971,12 @@ export namespace Prisma {
     own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
     own_otp?: NullableStringFieldUpdateOperationsInput | string | null
     own_otp_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_mail_user?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_pass_enc?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_from_name?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_provider?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_status?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_address?: NullableStringFieldUpdateOperationsInput | string | null
     own_village?: NullableStringFieldUpdateOperationsInput | string | null
     own_city?: NullableStringFieldUpdateOperationsInput | string | null
@@ -73851,6 +80005,8 @@ export namespace Prisma {
     purities?: PurityUpdateManyWithoutOwnerNestedInput
     moneyLenders?: MoneyLenderUpdateManyWithoutOwnerNestedInput
     staff?: StaffUpdateManyWithoutOwnerNestedInput
+    messageTemplates?: MessageTemplateUpdateManyWithoutOwnerNestedInput
+    whatsappInstances?: WhatsAppInstanceUpdateManyWithoutOwnerNestedInput
   }
 
   export type OwnerUncheckedUpdateWithoutFinanceTransactionsInput = {
@@ -73877,6 +80033,12 @@ export namespace Prisma {
     own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
     own_otp?: NullableStringFieldUpdateOperationsInput | string | null
     own_otp_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_mail_user?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_pass_enc?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_from_name?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_provider?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_status?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_address?: NullableStringFieldUpdateOperationsInput | string | null
     own_village?: NullableStringFieldUpdateOperationsInput | string | null
     own_city?: NullableStringFieldUpdateOperationsInput | string | null
@@ -73905,6 +80067,8 @@ export namespace Prisma {
     purities?: PurityUncheckedUpdateManyWithoutOwnerNestedInput
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutOwnerNestedInput
     staff?: StaffUncheckedUpdateManyWithoutOwnerNestedInput
+    messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutOwnerNestedInput
+    whatsappInstances?: WhatsAppInstanceUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
   export type FinanceUpsertWithoutFinance_transInput = {
@@ -74714,6 +80878,8 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderCreateNestedManyWithoutFirmInput
     auctionUsers?: AuctionUserCreateNestedManyWithoutFirmInput
     auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
+    messageTemplates?: MessageTemplateCreateNestedManyWithoutFirmInput
+    whatsappInstance?: WhatsAppInstanceCreateNestedOneWithoutFirmInput
   }
 
   export type FirmUncheckedCreateWithoutFinanceMoneyTransInput = {
@@ -74782,6 +80948,8 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutFirmInput
     auctionUsers?: AuctionUserUncheckedCreateNestedManyWithoutFirmInput
     auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
+    messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutFirmInput
+    whatsappInstance?: WhatsAppInstanceUncheckedCreateNestedOneWithoutFirmInput
   }
 
   export type FirmCreateOrConnectWithoutFinanceMoneyTransInput = {
@@ -74934,6 +81102,12 @@ export namespace Prisma {
     own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
     own_otp?: string | null
     own_otp_expiry?: Date | string | null
+    own_mail_user?: string | null
+    own_mail_pass_enc?: string | null
+    own_mail_from_name?: string | null
+    own_mail_provider?: string | null
+    own_mail_status?: string | null
+    own_mail_updated_at?: Date | string | null
     own_address?: string | null
     own_village?: string | null
     own_city?: string | null
@@ -74962,6 +81136,8 @@ export namespace Prisma {
     purities?: PurityCreateNestedManyWithoutOwnerInput
     moneyLenders?: MoneyLenderCreateNestedManyWithoutOwnerInput
     staff?: StaffCreateNestedManyWithoutOwnerInput
+    messageTemplates?: MessageTemplateCreateNestedManyWithoutOwnerInput
+    whatsappInstances?: WhatsAppInstanceCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerUncheckedCreateWithoutFinanceMoneyTransInput = {
@@ -74988,6 +81164,12 @@ export namespace Prisma {
     own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
     own_otp?: string | null
     own_otp_expiry?: Date | string | null
+    own_mail_user?: string | null
+    own_mail_pass_enc?: string | null
+    own_mail_from_name?: string | null
+    own_mail_provider?: string | null
+    own_mail_status?: string | null
+    own_mail_updated_at?: Date | string | null
     own_address?: string | null
     own_village?: string | null
     own_city?: string | null
@@ -75016,6 +81198,8 @@ export namespace Prisma {
     purities?: PurityUncheckedCreateNestedManyWithoutOwnerInput
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutOwnerInput
     staff?: StaffUncheckedCreateNestedManyWithoutOwnerInput
+    messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutOwnerInput
+    whatsappInstances?: WhatsAppInstanceUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerCreateOrConnectWithoutFinanceMoneyTransInput = {
@@ -76009,6 +82193,8 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUpdateManyWithoutFirmNestedInput
     auctionUsers?: AuctionUserUpdateManyWithoutFirmNestedInput
     auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
+    messageTemplates?: MessageTemplateUpdateManyWithoutFirmNestedInput
+    whatsappInstance?: WhatsAppInstanceUpdateOneWithoutFirmNestedInput
   }
 
   export type FirmUncheckedUpdateWithoutFinanceMoneyTransInput = {
@@ -76077,6 +82263,8 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutFirmNestedInput
     auctionUsers?: AuctionUserUncheckedUpdateManyWithoutFirmNestedInput
     auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
+    messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutFirmNestedInput
+    whatsappInstance?: WhatsAppInstanceUncheckedUpdateOneWithoutFirmNestedInput
   }
 
   export type UserUpsertWithoutFinanceMoneyTransInput = {
@@ -76240,6 +82428,12 @@ export namespace Prisma {
     own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
     own_otp?: NullableStringFieldUpdateOperationsInput | string | null
     own_otp_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_mail_user?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_pass_enc?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_from_name?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_provider?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_status?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_address?: NullableStringFieldUpdateOperationsInput | string | null
     own_village?: NullableStringFieldUpdateOperationsInput | string | null
     own_city?: NullableStringFieldUpdateOperationsInput | string | null
@@ -76268,6 +82462,8 @@ export namespace Prisma {
     purities?: PurityUpdateManyWithoutOwnerNestedInput
     moneyLenders?: MoneyLenderUpdateManyWithoutOwnerNestedInput
     staff?: StaffUpdateManyWithoutOwnerNestedInput
+    messageTemplates?: MessageTemplateUpdateManyWithoutOwnerNestedInput
+    whatsappInstances?: WhatsAppInstanceUpdateManyWithoutOwnerNestedInput
   }
 
   export type OwnerUncheckedUpdateWithoutFinanceMoneyTransInput = {
@@ -76294,6 +82490,12 @@ export namespace Prisma {
     own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
     own_otp?: NullableStringFieldUpdateOperationsInput | string | null
     own_otp_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_mail_user?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_pass_enc?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_from_name?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_provider?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_status?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_address?: NullableStringFieldUpdateOperationsInput | string | null
     own_village?: NullableStringFieldUpdateOperationsInput | string | null
     own_city?: NullableStringFieldUpdateOperationsInput | string | null
@@ -76322,6 +82524,8 @@ export namespace Prisma {
     purities?: PurityUncheckedUpdateManyWithoutOwnerNestedInput
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutOwnerNestedInput
     staff?: StaffUncheckedUpdateManyWithoutOwnerNestedInput
+    messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutOwnerNestedInput
+    whatsappInstances?: WhatsAppInstanceUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
   export type FinanceUpsertWithoutFinance_money_transInput = {
@@ -77424,6 +83628,8 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderCreateNestedManyWithoutFirmInput
     auctionUsers?: AuctionUserCreateNestedManyWithoutFirmInput
     auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
+    messageTemplates?: MessageTemplateCreateNestedManyWithoutFirmInput
+    whatsappInstance?: WhatsAppInstanceCreateNestedOneWithoutFirmInput
   }
 
   export type FirmUncheckedCreateWithoutJournalsInput = {
@@ -77492,6 +83698,8 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutFirmInput
     auctionUsers?: AuctionUserUncheckedCreateNestedManyWithoutFirmInput
     auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
+    messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutFirmInput
+    whatsappInstance?: WhatsAppInstanceUncheckedCreateNestedOneWithoutFirmInput
   }
 
   export type FirmCreateOrConnectWithoutJournalsInput = {
@@ -77644,6 +83852,12 @@ export namespace Prisma {
     own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
     own_otp?: string | null
     own_otp_expiry?: Date | string | null
+    own_mail_user?: string | null
+    own_mail_pass_enc?: string | null
+    own_mail_from_name?: string | null
+    own_mail_provider?: string | null
+    own_mail_status?: string | null
+    own_mail_updated_at?: Date | string | null
     own_address?: string | null
     own_village?: string | null
     own_city?: string | null
@@ -77672,6 +83886,8 @@ export namespace Prisma {
     purities?: PurityCreateNestedManyWithoutOwnerInput
     moneyLenders?: MoneyLenderCreateNestedManyWithoutOwnerInput
     staff?: StaffCreateNestedManyWithoutOwnerInput
+    messageTemplates?: MessageTemplateCreateNestedManyWithoutOwnerInput
+    whatsappInstances?: WhatsAppInstanceCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerUncheckedCreateWithoutJournalsInput = {
@@ -77698,6 +83914,12 @@ export namespace Prisma {
     own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
     own_otp?: string | null
     own_otp_expiry?: Date | string | null
+    own_mail_user?: string | null
+    own_mail_pass_enc?: string | null
+    own_mail_from_name?: string | null
+    own_mail_provider?: string | null
+    own_mail_status?: string | null
+    own_mail_updated_at?: Date | string | null
     own_address?: string | null
     own_village?: string | null
     own_city?: string | null
@@ -77726,6 +83948,8 @@ export namespace Prisma {
     purities?: PurityUncheckedCreateNestedManyWithoutOwnerInput
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutOwnerInput
     staff?: StaffUncheckedCreateNestedManyWithoutOwnerInput
+    messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutOwnerInput
+    whatsappInstances?: WhatsAppInstanceUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerCreateOrConnectWithoutJournalsInput = {
@@ -77884,6 +84108,8 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUpdateManyWithoutFirmNestedInput
     auctionUsers?: AuctionUserUpdateManyWithoutFirmNestedInput
     auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
+    messageTemplates?: MessageTemplateUpdateManyWithoutFirmNestedInput
+    whatsappInstance?: WhatsAppInstanceUpdateOneWithoutFirmNestedInput
   }
 
   export type FirmUncheckedUpdateWithoutJournalsInput = {
@@ -77952,6 +84178,8 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutFirmNestedInput
     auctionUsers?: AuctionUserUncheckedUpdateManyWithoutFirmNestedInput
     auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
+    messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutFirmNestedInput
+    whatsappInstance?: WhatsAppInstanceUncheckedUpdateOneWithoutFirmNestedInput
   }
 
   export type UserUpsertWithoutJournalsInput = {
@@ -78115,6 +84343,12 @@ export namespace Prisma {
     own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
     own_otp?: NullableStringFieldUpdateOperationsInput | string | null
     own_otp_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_mail_user?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_pass_enc?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_from_name?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_provider?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_status?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_address?: NullableStringFieldUpdateOperationsInput | string | null
     own_village?: NullableStringFieldUpdateOperationsInput | string | null
     own_city?: NullableStringFieldUpdateOperationsInput | string | null
@@ -78143,6 +84377,8 @@ export namespace Prisma {
     purities?: PurityUpdateManyWithoutOwnerNestedInput
     moneyLenders?: MoneyLenderUpdateManyWithoutOwnerNestedInput
     staff?: StaffUpdateManyWithoutOwnerNestedInput
+    messageTemplates?: MessageTemplateUpdateManyWithoutOwnerNestedInput
+    whatsappInstances?: WhatsAppInstanceUpdateManyWithoutOwnerNestedInput
   }
 
   export type OwnerUncheckedUpdateWithoutJournalsInput = {
@@ -78169,6 +84405,12 @@ export namespace Prisma {
     own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
     own_otp?: NullableStringFieldUpdateOperationsInput | string | null
     own_otp_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_mail_user?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_pass_enc?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_from_name?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_provider?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_status?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_address?: NullableStringFieldUpdateOperationsInput | string | null
     own_village?: NullableStringFieldUpdateOperationsInput | string | null
     own_city?: NullableStringFieldUpdateOperationsInput | string | null
@@ -78197,6 +84439,8 @@ export namespace Prisma {
     purities?: PurityUncheckedUpdateManyWithoutOwnerNestedInput
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutOwnerNestedInput
     staff?: StaffUncheckedUpdateManyWithoutOwnerNestedInput
+    messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutOwnerNestedInput
+    whatsappInstances?: WhatsAppInstanceUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
   export type JournalTransactionUpsertWithWhereUniqueWithoutJournalInput = {
@@ -78326,6 +84570,8 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderCreateNestedManyWithoutFirmInput
     auctionUsers?: AuctionUserCreateNestedManyWithoutFirmInput
     auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
+    messageTemplates?: MessageTemplateCreateNestedManyWithoutFirmInput
+    whatsappInstance?: WhatsAppInstanceCreateNestedOneWithoutFirmInput
   }
 
   export type FirmUncheckedCreateWithoutJournalTransactionsInput = {
@@ -78394,6 +84640,8 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutFirmInput
     auctionUsers?: AuctionUserUncheckedCreateNestedManyWithoutFirmInput
     auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
+    messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutFirmInput
+    whatsappInstance?: WhatsAppInstanceUncheckedCreateNestedOneWithoutFirmInput
   }
 
   export type FirmCreateOrConnectWithoutJournalTransactionsInput = {
@@ -78546,6 +84794,12 @@ export namespace Prisma {
     own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
     own_otp?: string | null
     own_otp_expiry?: Date | string | null
+    own_mail_user?: string | null
+    own_mail_pass_enc?: string | null
+    own_mail_from_name?: string | null
+    own_mail_provider?: string | null
+    own_mail_status?: string | null
+    own_mail_updated_at?: Date | string | null
     own_address?: string | null
     own_village?: string | null
     own_city?: string | null
@@ -78574,6 +84828,8 @@ export namespace Prisma {
     purities?: PurityCreateNestedManyWithoutOwnerInput
     moneyLenders?: MoneyLenderCreateNestedManyWithoutOwnerInput
     staff?: StaffCreateNestedManyWithoutOwnerInput
+    messageTemplates?: MessageTemplateCreateNestedManyWithoutOwnerInput
+    whatsappInstances?: WhatsAppInstanceCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerUncheckedCreateWithoutJournalTransactionsInput = {
@@ -78600,6 +84856,12 @@ export namespace Prisma {
     own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
     own_otp?: string | null
     own_otp_expiry?: Date | string | null
+    own_mail_user?: string | null
+    own_mail_pass_enc?: string | null
+    own_mail_from_name?: string | null
+    own_mail_provider?: string | null
+    own_mail_status?: string | null
+    own_mail_updated_at?: Date | string | null
     own_address?: string | null
     own_village?: string | null
     own_city?: string | null
@@ -78628,6 +84890,8 @@ export namespace Prisma {
     purities?: PurityUncheckedCreateNestedManyWithoutOwnerInput
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutOwnerInput
     staff?: StaffUncheckedCreateNestedManyWithoutOwnerInput
+    messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutOwnerInput
+    whatsappInstances?: WhatsAppInstanceUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerCreateOrConnectWithoutJournalTransactionsInput = {
@@ -79067,6 +85331,8 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUpdateManyWithoutFirmNestedInput
     auctionUsers?: AuctionUserUpdateManyWithoutFirmNestedInput
     auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
+    messageTemplates?: MessageTemplateUpdateManyWithoutFirmNestedInput
+    whatsappInstance?: WhatsAppInstanceUpdateOneWithoutFirmNestedInput
   }
 
   export type FirmUncheckedUpdateWithoutJournalTransactionsInput = {
@@ -79135,6 +85401,8 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutFirmNestedInput
     auctionUsers?: AuctionUserUncheckedUpdateManyWithoutFirmNestedInput
     auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
+    messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutFirmNestedInput
+    whatsappInstance?: WhatsAppInstanceUncheckedUpdateOneWithoutFirmNestedInput
   }
 
   export type UserUpsertWithoutJournalTransactionsInput = {
@@ -79298,6 +85566,12 @@ export namespace Prisma {
     own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
     own_otp?: NullableStringFieldUpdateOperationsInput | string | null
     own_otp_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_mail_user?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_pass_enc?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_from_name?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_provider?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_status?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_address?: NullableStringFieldUpdateOperationsInput | string | null
     own_village?: NullableStringFieldUpdateOperationsInput | string | null
     own_city?: NullableStringFieldUpdateOperationsInput | string | null
@@ -79326,6 +85600,8 @@ export namespace Prisma {
     purities?: PurityUpdateManyWithoutOwnerNestedInput
     moneyLenders?: MoneyLenderUpdateManyWithoutOwnerNestedInput
     staff?: StaffUpdateManyWithoutOwnerNestedInput
+    messageTemplates?: MessageTemplateUpdateManyWithoutOwnerNestedInput
+    whatsappInstances?: WhatsAppInstanceUpdateManyWithoutOwnerNestedInput
   }
 
   export type OwnerUncheckedUpdateWithoutJournalTransactionsInput = {
@@ -79352,6 +85628,12 @@ export namespace Prisma {
     own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
     own_otp?: NullableStringFieldUpdateOperationsInput | string | null
     own_otp_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_mail_user?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_pass_enc?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_from_name?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_provider?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_status?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_address?: NullableStringFieldUpdateOperationsInput | string | null
     own_village?: NullableStringFieldUpdateOperationsInput | string | null
     own_city?: NullableStringFieldUpdateOperationsInput | string | null
@@ -79380,6 +85662,8 @@ export namespace Prisma {
     purities?: PurityUncheckedUpdateManyWithoutOwnerNestedInput
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutOwnerNestedInput
     staff?: StaffUncheckedUpdateManyWithoutOwnerNestedInput
+    messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutOwnerNestedInput
+    whatsappInstances?: WhatsAppInstanceUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
   export type AccountUpsertWithoutJrtrCreditInput = {
@@ -79721,6 +86005,12 @@ export namespace Prisma {
     own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
     own_otp?: string | null
     own_otp_expiry?: Date | string | null
+    own_mail_user?: string | null
+    own_mail_pass_enc?: string | null
+    own_mail_from_name?: string | null
+    own_mail_provider?: string | null
+    own_mail_status?: string | null
+    own_mail_updated_at?: Date | string | null
     own_address?: string | null
     own_village?: string | null
     own_city?: string | null
@@ -79749,6 +86039,8 @@ export namespace Prisma {
     purities?: PurityCreateNestedManyWithoutOwnerInput
     moneyLenders?: MoneyLenderCreateNestedManyWithoutOwnerInput
     staff?: StaffCreateNestedManyWithoutOwnerInput
+    messageTemplates?: MessageTemplateCreateNestedManyWithoutOwnerInput
+    whatsappInstances?: WhatsAppInstanceCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerUncheckedCreateWithoutGirvisInput = {
@@ -79775,6 +86067,12 @@ export namespace Prisma {
     own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
     own_otp?: string | null
     own_otp_expiry?: Date | string | null
+    own_mail_user?: string | null
+    own_mail_pass_enc?: string | null
+    own_mail_from_name?: string | null
+    own_mail_provider?: string | null
+    own_mail_status?: string | null
+    own_mail_updated_at?: Date | string | null
     own_address?: string | null
     own_village?: string | null
     own_city?: string | null
@@ -79803,6 +86101,8 @@ export namespace Prisma {
     purities?: PurityUncheckedCreateNestedManyWithoutOwnerInput
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutOwnerInput
     staff?: StaffUncheckedCreateNestedManyWithoutOwnerInput
+    messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutOwnerInput
+    whatsappInstances?: WhatsAppInstanceUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerCreateOrConnectWithoutGirvisInput = {
@@ -79875,6 +86175,8 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderCreateNestedManyWithoutFirmInput
     auctionUsers?: AuctionUserCreateNestedManyWithoutFirmInput
     auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
+    messageTemplates?: MessageTemplateCreateNestedManyWithoutFirmInput
+    whatsappInstance?: WhatsAppInstanceCreateNestedOneWithoutFirmInput
   }
 
   export type FirmUncheckedCreateWithoutGirvisInput = {
@@ -79943,6 +86245,8 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutFirmInput
     auctionUsers?: AuctionUserUncheckedCreateNestedManyWithoutFirmInput
     auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
+    messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutFirmInput
+    whatsappInstance?: WhatsAppInstanceUncheckedCreateNestedOneWithoutFirmInput
   }
 
   export type FirmCreateOrConnectWithoutGirvisInput = {
@@ -81563,6 +87867,12 @@ export namespace Prisma {
     own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
     own_otp?: NullableStringFieldUpdateOperationsInput | string | null
     own_otp_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_mail_user?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_pass_enc?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_from_name?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_provider?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_status?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_address?: NullableStringFieldUpdateOperationsInput | string | null
     own_village?: NullableStringFieldUpdateOperationsInput | string | null
     own_city?: NullableStringFieldUpdateOperationsInput | string | null
@@ -81591,6 +87901,8 @@ export namespace Prisma {
     purities?: PurityUpdateManyWithoutOwnerNestedInput
     moneyLenders?: MoneyLenderUpdateManyWithoutOwnerNestedInput
     staff?: StaffUpdateManyWithoutOwnerNestedInput
+    messageTemplates?: MessageTemplateUpdateManyWithoutOwnerNestedInput
+    whatsappInstances?: WhatsAppInstanceUpdateManyWithoutOwnerNestedInput
   }
 
   export type OwnerUncheckedUpdateWithoutGirvisInput = {
@@ -81617,6 +87929,12 @@ export namespace Prisma {
     own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
     own_otp?: NullableStringFieldUpdateOperationsInput | string | null
     own_otp_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_mail_user?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_pass_enc?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_from_name?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_provider?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_status?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_address?: NullableStringFieldUpdateOperationsInput | string | null
     own_village?: NullableStringFieldUpdateOperationsInput | string | null
     own_city?: NullableStringFieldUpdateOperationsInput | string | null
@@ -81645,6 +87963,8 @@ export namespace Prisma {
     purities?: PurityUncheckedUpdateManyWithoutOwnerNestedInput
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutOwnerNestedInput
     staff?: StaffUncheckedUpdateManyWithoutOwnerNestedInput
+    messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutOwnerNestedInput
+    whatsappInstances?: WhatsAppInstanceUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
   export type FirmUpsertWithoutGirvisInput = {
@@ -81723,6 +88043,8 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUpdateManyWithoutFirmNestedInput
     auctionUsers?: AuctionUserUpdateManyWithoutFirmNestedInput
     auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
+    messageTemplates?: MessageTemplateUpdateManyWithoutFirmNestedInput
+    whatsappInstance?: WhatsAppInstanceUpdateOneWithoutFirmNestedInput
   }
 
   export type FirmUncheckedUpdateWithoutGirvisInput = {
@@ -81791,6 +88113,8 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutFirmNestedInput
     auctionUsers?: AuctionUserUncheckedUpdateManyWithoutFirmNestedInput
     auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
+    messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutFirmNestedInput
+    whatsappInstance?: WhatsAppInstanceUncheckedUpdateOneWithoutFirmNestedInput
   }
 
   export type UserUpsertWithoutGirvisInput = {
@@ -83198,6 +89522,12 @@ export namespace Prisma {
     own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
     own_otp?: string | null
     own_otp_expiry?: Date | string | null
+    own_mail_user?: string | null
+    own_mail_pass_enc?: string | null
+    own_mail_from_name?: string | null
+    own_mail_provider?: string | null
+    own_mail_status?: string | null
+    own_mail_updated_at?: Date | string | null
     own_address?: string | null
     own_village?: string | null
     own_city?: string | null
@@ -83226,6 +89556,8 @@ export namespace Prisma {
     purities?: PurityCreateNestedManyWithoutOwnerInput
     moneyLenders?: MoneyLenderCreateNestedManyWithoutOwnerInput
     staff?: StaffCreateNestedManyWithoutOwnerInput
+    messageTemplates?: MessageTemplateCreateNestedManyWithoutOwnerInput
+    whatsappInstances?: WhatsAppInstanceCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerUncheckedCreateWithoutStocksInput = {
@@ -83252,6 +89584,12 @@ export namespace Prisma {
     own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
     own_otp?: string | null
     own_otp_expiry?: Date | string | null
+    own_mail_user?: string | null
+    own_mail_pass_enc?: string | null
+    own_mail_from_name?: string | null
+    own_mail_provider?: string | null
+    own_mail_status?: string | null
+    own_mail_updated_at?: Date | string | null
     own_address?: string | null
     own_village?: string | null
     own_city?: string | null
@@ -83280,6 +89618,8 @@ export namespace Prisma {
     purities?: PurityUncheckedCreateNestedManyWithoutOwnerInput
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutOwnerInput
     staff?: StaffUncheckedCreateNestedManyWithoutOwnerInput
+    messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutOwnerInput
+    whatsappInstances?: WhatsAppInstanceUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerCreateOrConnectWithoutStocksInput = {
@@ -83352,6 +89692,8 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderCreateNestedManyWithoutFirmInput
     auctionUsers?: AuctionUserCreateNestedManyWithoutFirmInput
     auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
+    messageTemplates?: MessageTemplateCreateNestedManyWithoutFirmInput
+    whatsappInstance?: WhatsAppInstanceCreateNestedOneWithoutFirmInput
   }
 
   export type FirmUncheckedCreateWithoutStocksInput = {
@@ -83420,6 +89762,8 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutFirmInput
     auctionUsers?: AuctionUserUncheckedCreateNestedManyWithoutFirmInput
     auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
+    messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutFirmInput
+    whatsappInstance?: WhatsAppInstanceUncheckedCreateNestedOneWithoutFirmInput
   }
 
   export type FirmCreateOrConnectWithoutStocksInput = {
@@ -83582,6 +89926,12 @@ export namespace Prisma {
     own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
     own_otp?: NullableStringFieldUpdateOperationsInput | string | null
     own_otp_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_mail_user?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_pass_enc?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_from_name?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_provider?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_status?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_address?: NullableStringFieldUpdateOperationsInput | string | null
     own_village?: NullableStringFieldUpdateOperationsInput | string | null
     own_city?: NullableStringFieldUpdateOperationsInput | string | null
@@ -83610,6 +89960,8 @@ export namespace Prisma {
     purities?: PurityUpdateManyWithoutOwnerNestedInput
     moneyLenders?: MoneyLenderUpdateManyWithoutOwnerNestedInput
     staff?: StaffUpdateManyWithoutOwnerNestedInput
+    messageTemplates?: MessageTemplateUpdateManyWithoutOwnerNestedInput
+    whatsappInstances?: WhatsAppInstanceUpdateManyWithoutOwnerNestedInput
   }
 
   export type OwnerUncheckedUpdateWithoutStocksInput = {
@@ -83636,6 +89988,12 @@ export namespace Prisma {
     own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
     own_otp?: NullableStringFieldUpdateOperationsInput | string | null
     own_otp_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_mail_user?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_pass_enc?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_from_name?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_provider?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_status?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_address?: NullableStringFieldUpdateOperationsInput | string | null
     own_village?: NullableStringFieldUpdateOperationsInput | string | null
     own_city?: NullableStringFieldUpdateOperationsInput | string | null
@@ -83664,6 +90022,8 @@ export namespace Prisma {
     purities?: PurityUncheckedUpdateManyWithoutOwnerNestedInput
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutOwnerNestedInput
     staff?: StaffUncheckedUpdateManyWithoutOwnerNestedInput
+    messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutOwnerNestedInput
+    whatsappInstances?: WhatsAppInstanceUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
   export type FirmUpsertWithoutStocksInput = {
@@ -83742,6 +90102,8 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUpdateManyWithoutFirmNestedInput
     auctionUsers?: AuctionUserUpdateManyWithoutFirmNestedInput
     auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
+    messageTemplates?: MessageTemplateUpdateManyWithoutFirmNestedInput
+    whatsappInstance?: WhatsAppInstanceUpdateOneWithoutFirmNestedInput
   }
 
   export type FirmUncheckedUpdateWithoutStocksInput = {
@@ -83810,6 +90172,8 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutFirmNestedInput
     auctionUsers?: AuctionUserUncheckedUpdateManyWithoutFirmNestedInput
     auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
+    messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutFirmNestedInput
+    whatsappInstance?: WhatsAppInstanceUncheckedUpdateOneWithoutFirmNestedInput
   }
 
   export type UserUpsertWithoutStocksInput = {
@@ -83963,6 +90327,12 @@ export namespace Prisma {
     own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
     own_otp?: string | null
     own_otp_expiry?: Date | string | null
+    own_mail_user?: string | null
+    own_mail_pass_enc?: string | null
+    own_mail_from_name?: string | null
+    own_mail_provider?: string | null
+    own_mail_status?: string | null
+    own_mail_updated_at?: Date | string | null
     own_address?: string | null
     own_village?: string | null
     own_city?: string | null
@@ -83991,6 +90361,8 @@ export namespace Prisma {
     purities?: PurityCreateNestedManyWithoutOwnerInput
     moneyLenders?: MoneyLenderCreateNestedManyWithoutOwnerInput
     staff?: StaffCreateNestedManyWithoutOwnerInput
+    messageTemplates?: MessageTemplateCreateNestedManyWithoutOwnerInput
+    whatsappInstances?: WhatsAppInstanceCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerUncheckedCreateWithoutAdditionalPrincipalsInput = {
@@ -84017,6 +90389,12 @@ export namespace Prisma {
     own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
     own_otp?: string | null
     own_otp_expiry?: Date | string | null
+    own_mail_user?: string | null
+    own_mail_pass_enc?: string | null
+    own_mail_from_name?: string | null
+    own_mail_provider?: string | null
+    own_mail_status?: string | null
+    own_mail_updated_at?: Date | string | null
     own_address?: string | null
     own_village?: string | null
     own_city?: string | null
@@ -84045,6 +90423,8 @@ export namespace Prisma {
     purities?: PurityUncheckedCreateNestedManyWithoutOwnerInput
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutOwnerInput
     staff?: StaffUncheckedCreateNestedManyWithoutOwnerInput
+    messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutOwnerInput
+    whatsappInstances?: WhatsAppInstanceUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerCreateOrConnectWithoutAdditionalPrincipalsInput = {
@@ -84117,6 +90497,8 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderCreateNestedManyWithoutFirmInput
     auctionUsers?: AuctionUserCreateNestedManyWithoutFirmInput
     auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
+    messageTemplates?: MessageTemplateCreateNestedManyWithoutFirmInput
+    whatsappInstance?: WhatsAppInstanceCreateNestedOneWithoutFirmInput
   }
 
   export type FirmUncheckedCreateWithoutAdditionalPrincipalsInput = {
@@ -84185,6 +90567,8 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutFirmInput
     auctionUsers?: AuctionUserUncheckedCreateNestedManyWithoutFirmInput
     auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
+    messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutFirmInput
+    whatsappInstance?: WhatsAppInstanceUncheckedCreateNestedOneWithoutFirmInput
   }
 
   export type FirmCreateOrConnectWithoutAdditionalPrincipalsInput = {
@@ -84349,6 +90733,9 @@ export namespace Prisma {
     girv_pay_info?: string | null
     girv_transfer_firm_id?: number | null
     girv_transfer_girv_id?: number | null
+    girv_is_transferred_in?: boolean
+    girv_transfer_from_girv_id?: number | null
+    girv_transfer_from_firm_id?: number | null
     girv_created_at?: Date | string
     girv_created_by?: string | null
     girv_updated_at?: Date | string
@@ -84419,6 +90806,9 @@ export namespace Prisma {
     girv_transfer_firm_id?: number | null
     girv_transfer_girv_id?: number | null
     girv_transfer_ml_id?: number | null
+    girv_is_transferred_in?: boolean
+    girv_transfer_from_girv_id?: number | null
+    girv_transfer_from_firm_id?: number | null
     girv_created_at?: Date | string
     girv_created_by?: string | null
     girv_updated_at?: Date | string
@@ -85077,6 +91467,12 @@ export namespace Prisma {
     own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
     own_otp?: NullableStringFieldUpdateOperationsInput | string | null
     own_otp_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_mail_user?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_pass_enc?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_from_name?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_provider?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_status?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_address?: NullableStringFieldUpdateOperationsInput | string | null
     own_village?: NullableStringFieldUpdateOperationsInput | string | null
     own_city?: NullableStringFieldUpdateOperationsInput | string | null
@@ -85105,6 +91501,8 @@ export namespace Prisma {
     purities?: PurityUpdateManyWithoutOwnerNestedInput
     moneyLenders?: MoneyLenderUpdateManyWithoutOwnerNestedInput
     staff?: StaffUpdateManyWithoutOwnerNestedInput
+    messageTemplates?: MessageTemplateUpdateManyWithoutOwnerNestedInput
+    whatsappInstances?: WhatsAppInstanceUpdateManyWithoutOwnerNestedInput
   }
 
   export type OwnerUncheckedUpdateWithoutAdditionalPrincipalsInput = {
@@ -85131,6 +91529,12 @@ export namespace Prisma {
     own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
     own_otp?: NullableStringFieldUpdateOperationsInput | string | null
     own_otp_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_mail_user?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_pass_enc?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_from_name?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_provider?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_status?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_address?: NullableStringFieldUpdateOperationsInput | string | null
     own_village?: NullableStringFieldUpdateOperationsInput | string | null
     own_city?: NullableStringFieldUpdateOperationsInput | string | null
@@ -85159,6 +91563,8 @@ export namespace Prisma {
     purities?: PurityUncheckedUpdateManyWithoutOwnerNestedInput
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutOwnerNestedInput
     staff?: StaffUncheckedUpdateManyWithoutOwnerNestedInput
+    messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutOwnerNestedInput
+    whatsappInstances?: WhatsAppInstanceUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
   export type FirmUpsertWithoutAdditionalPrincipalsInput = {
@@ -85237,6 +91643,8 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUpdateManyWithoutFirmNestedInput
     auctionUsers?: AuctionUserUpdateManyWithoutFirmNestedInput
     auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
+    messageTemplates?: MessageTemplateUpdateManyWithoutFirmNestedInput
+    whatsappInstance?: WhatsAppInstanceUpdateOneWithoutFirmNestedInput
   }
 
   export type FirmUncheckedUpdateWithoutAdditionalPrincipalsInput = {
@@ -85305,6 +91713,8 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutFirmNestedInput
     auctionUsers?: AuctionUserUncheckedUpdateManyWithoutFirmNestedInput
     auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
+    messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutFirmNestedInput
+    whatsappInstance?: WhatsAppInstanceUncheckedUpdateOneWithoutFirmNestedInput
   }
 
   export type UserUpsertWithoutAdditionalPrincipalsInput = {
@@ -85481,6 +91891,9 @@ export namespace Prisma {
     girv_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     girv_transfer_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_transfer_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_is_transferred_in?: BoolFieldUpdateOperationsInput | boolean
+    girv_transfer_from_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_transfer_from_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     girv_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     girv_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -85551,6 +91964,9 @@ export namespace Prisma {
     girv_transfer_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_transfer_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_transfer_ml_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_is_transferred_in?: BoolFieldUpdateOperationsInput | boolean
+    girv_transfer_from_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_transfer_from_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     girv_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     girv_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -86218,6 +92634,12 @@ export namespace Prisma {
     own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
     own_otp?: string | null
     own_otp_expiry?: Date | string | null
+    own_mail_user?: string | null
+    own_mail_pass_enc?: string | null
+    own_mail_from_name?: string | null
+    own_mail_provider?: string | null
+    own_mail_status?: string | null
+    own_mail_updated_at?: Date | string | null
     own_address?: string | null
     own_village?: string | null
     own_city?: string | null
@@ -86246,6 +92668,8 @@ export namespace Prisma {
     purities?: PurityCreateNestedManyWithoutOwnerInput
     moneyLenders?: MoneyLenderCreateNestedManyWithoutOwnerInput
     staff?: StaffCreateNestedManyWithoutOwnerInput
+    messageTemplates?: MessageTemplateCreateNestedManyWithoutOwnerInput
+    whatsappInstances?: WhatsAppInstanceCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerUncheckedCreateWithoutDepositsInput = {
@@ -86272,6 +92696,12 @@ export namespace Prisma {
     own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
     own_otp?: string | null
     own_otp_expiry?: Date | string | null
+    own_mail_user?: string | null
+    own_mail_pass_enc?: string | null
+    own_mail_from_name?: string | null
+    own_mail_provider?: string | null
+    own_mail_status?: string | null
+    own_mail_updated_at?: Date | string | null
     own_address?: string | null
     own_village?: string | null
     own_city?: string | null
@@ -86300,6 +92730,8 @@ export namespace Prisma {
     purities?: PurityUncheckedCreateNestedManyWithoutOwnerInput
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutOwnerInput
     staff?: StaffUncheckedCreateNestedManyWithoutOwnerInput
+    messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutOwnerInput
+    whatsappInstances?: WhatsAppInstanceUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerCreateOrConnectWithoutDepositsInput = {
@@ -86372,6 +92804,8 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderCreateNestedManyWithoutFirmInput
     auctionUsers?: AuctionUserCreateNestedManyWithoutFirmInput
     auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
+    messageTemplates?: MessageTemplateCreateNestedManyWithoutFirmInput
+    whatsappInstance?: WhatsAppInstanceCreateNestedOneWithoutFirmInput
   }
 
   export type FirmUncheckedCreateWithoutDepositsInput = {
@@ -86440,6 +92874,8 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutFirmInput
     auctionUsers?: AuctionUserUncheckedCreateNestedManyWithoutFirmInput
     auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
+    messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutFirmInput
+    whatsappInstance?: WhatsAppInstanceUncheckedCreateNestedOneWithoutFirmInput
   }
 
   export type FirmCreateOrConnectWithoutDepositsInput = {
@@ -86604,6 +93040,9 @@ export namespace Prisma {
     girv_pay_info?: string | null
     girv_transfer_firm_id?: number | null
     girv_transfer_girv_id?: number | null
+    girv_is_transferred_in?: boolean
+    girv_transfer_from_girv_id?: number | null
+    girv_transfer_from_firm_id?: number | null
     girv_created_at?: Date | string
     girv_created_by?: string | null
     girv_updated_at?: Date | string
@@ -86674,6 +93113,9 @@ export namespace Prisma {
     girv_transfer_firm_id?: number | null
     girv_transfer_girv_id?: number | null
     girv_transfer_ml_id?: number | null
+    girv_is_transferred_in?: boolean
+    girv_transfer_from_girv_id?: number | null
+    girv_transfer_from_firm_id?: number | null
     girv_created_at?: Date | string
     girv_created_by?: string | null
     girv_updated_at?: Date | string
@@ -87940,6 +94382,12 @@ export namespace Prisma {
     own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
     own_otp?: NullableStringFieldUpdateOperationsInput | string | null
     own_otp_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_mail_user?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_pass_enc?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_from_name?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_provider?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_status?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_address?: NullableStringFieldUpdateOperationsInput | string | null
     own_village?: NullableStringFieldUpdateOperationsInput | string | null
     own_city?: NullableStringFieldUpdateOperationsInput | string | null
@@ -87968,6 +94416,8 @@ export namespace Prisma {
     purities?: PurityUpdateManyWithoutOwnerNestedInput
     moneyLenders?: MoneyLenderUpdateManyWithoutOwnerNestedInput
     staff?: StaffUpdateManyWithoutOwnerNestedInput
+    messageTemplates?: MessageTemplateUpdateManyWithoutOwnerNestedInput
+    whatsappInstances?: WhatsAppInstanceUpdateManyWithoutOwnerNestedInput
   }
 
   export type OwnerUncheckedUpdateWithoutDepositsInput = {
@@ -87994,6 +94444,12 @@ export namespace Prisma {
     own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
     own_otp?: NullableStringFieldUpdateOperationsInput | string | null
     own_otp_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_mail_user?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_pass_enc?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_from_name?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_provider?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_status?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_address?: NullableStringFieldUpdateOperationsInput | string | null
     own_village?: NullableStringFieldUpdateOperationsInput | string | null
     own_city?: NullableStringFieldUpdateOperationsInput | string | null
@@ -88022,6 +94478,8 @@ export namespace Prisma {
     purities?: PurityUncheckedUpdateManyWithoutOwnerNestedInput
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutOwnerNestedInput
     staff?: StaffUncheckedUpdateManyWithoutOwnerNestedInput
+    messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutOwnerNestedInput
+    whatsappInstances?: WhatsAppInstanceUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
   export type FirmUpsertWithoutDepositsInput = {
@@ -88100,6 +94558,8 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUpdateManyWithoutFirmNestedInput
     auctionUsers?: AuctionUserUpdateManyWithoutFirmNestedInput
     auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
+    messageTemplates?: MessageTemplateUpdateManyWithoutFirmNestedInput
+    whatsappInstance?: WhatsAppInstanceUpdateOneWithoutFirmNestedInput
   }
 
   export type FirmUncheckedUpdateWithoutDepositsInput = {
@@ -88168,6 +94628,8 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutFirmNestedInput
     auctionUsers?: AuctionUserUncheckedUpdateManyWithoutFirmNestedInput
     auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
+    messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutFirmNestedInput
+    whatsappInstance?: WhatsAppInstanceUncheckedUpdateOneWithoutFirmNestedInput
   }
 
   export type UserUpsertWithoutDepositsInput = {
@@ -88344,6 +94806,9 @@ export namespace Prisma {
     girv_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     girv_transfer_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_transfer_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_is_transferred_in?: BoolFieldUpdateOperationsInput | boolean
+    girv_transfer_from_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_transfer_from_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     girv_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     girv_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -88414,6 +94879,9 @@ export namespace Prisma {
     girv_transfer_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_transfer_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_transfer_ml_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_is_transferred_in?: BoolFieldUpdateOperationsInput | boolean
+    girv_transfer_from_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_transfer_from_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     girv_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     girv_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -89713,6 +96181,12 @@ export namespace Prisma {
     own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
     own_otp?: string | null
     own_otp_expiry?: Date | string | null
+    own_mail_user?: string | null
+    own_mail_pass_enc?: string | null
+    own_mail_from_name?: string | null
+    own_mail_provider?: string | null
+    own_mail_status?: string | null
+    own_mail_updated_at?: Date | string | null
     own_address?: string | null
     own_village?: string | null
     own_city?: string | null
@@ -89741,6 +96215,8 @@ export namespace Prisma {
     purities?: PurityCreateNestedManyWithoutOwnerInput
     moneyLenders?: MoneyLenderCreateNestedManyWithoutOwnerInput
     staff?: StaffCreateNestedManyWithoutOwnerInput
+    messageTemplates?: MessageTemplateCreateNestedManyWithoutOwnerInput
+    whatsappInstances?: WhatsAppInstanceCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerUncheckedCreateWithoutReleasesInput = {
@@ -89767,6 +96243,12 @@ export namespace Prisma {
     own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
     own_otp?: string | null
     own_otp_expiry?: Date | string | null
+    own_mail_user?: string | null
+    own_mail_pass_enc?: string | null
+    own_mail_from_name?: string | null
+    own_mail_provider?: string | null
+    own_mail_status?: string | null
+    own_mail_updated_at?: Date | string | null
     own_address?: string | null
     own_village?: string | null
     own_city?: string | null
@@ -89795,6 +96277,8 @@ export namespace Prisma {
     purities?: PurityUncheckedCreateNestedManyWithoutOwnerInput
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutOwnerInput
     staff?: StaffUncheckedCreateNestedManyWithoutOwnerInput
+    messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutOwnerInput
+    whatsappInstances?: WhatsAppInstanceUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerCreateOrConnectWithoutReleasesInput = {
@@ -89867,6 +96351,8 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderCreateNestedManyWithoutFirmInput
     auctionUsers?: AuctionUserCreateNestedManyWithoutFirmInput
     auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
+    messageTemplates?: MessageTemplateCreateNestedManyWithoutFirmInput
+    whatsappInstance?: WhatsAppInstanceCreateNestedOneWithoutFirmInput
   }
 
   export type FirmUncheckedCreateWithoutReleasesInput = {
@@ -89935,6 +96421,8 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutFirmInput
     auctionUsers?: AuctionUserUncheckedCreateNestedManyWithoutFirmInput
     auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
+    messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutFirmInput
+    whatsappInstance?: WhatsAppInstanceUncheckedCreateNestedOneWithoutFirmInput
   }
 
   export type FirmCreateOrConnectWithoutReleasesInput = {
@@ -90099,6 +96587,9 @@ export namespace Prisma {
     girv_pay_info?: string | null
     girv_transfer_firm_id?: number | null
     girv_transfer_girv_id?: number | null
+    girv_is_transferred_in?: boolean
+    girv_transfer_from_girv_id?: number | null
+    girv_transfer_from_firm_id?: number | null
     girv_created_at?: Date | string
     girv_created_by?: string | null
     girv_updated_at?: Date | string
@@ -90169,6 +96660,9 @@ export namespace Prisma {
     girv_transfer_firm_id?: number | null
     girv_transfer_girv_id?: number | null
     girv_transfer_ml_id?: number | null
+    girv_is_transferred_in?: boolean
+    girv_transfer_from_girv_id?: number | null
+    girv_transfer_from_firm_id?: number | null
     girv_created_at?: Date | string
     girv_created_by?: string | null
     girv_updated_at?: Date | string
@@ -91435,6 +97929,12 @@ export namespace Prisma {
     own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
     own_otp?: NullableStringFieldUpdateOperationsInput | string | null
     own_otp_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_mail_user?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_pass_enc?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_from_name?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_provider?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_status?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_address?: NullableStringFieldUpdateOperationsInput | string | null
     own_village?: NullableStringFieldUpdateOperationsInput | string | null
     own_city?: NullableStringFieldUpdateOperationsInput | string | null
@@ -91463,6 +97963,8 @@ export namespace Prisma {
     purities?: PurityUpdateManyWithoutOwnerNestedInput
     moneyLenders?: MoneyLenderUpdateManyWithoutOwnerNestedInput
     staff?: StaffUpdateManyWithoutOwnerNestedInput
+    messageTemplates?: MessageTemplateUpdateManyWithoutOwnerNestedInput
+    whatsappInstances?: WhatsAppInstanceUpdateManyWithoutOwnerNestedInput
   }
 
   export type OwnerUncheckedUpdateWithoutReleasesInput = {
@@ -91489,6 +97991,12 @@ export namespace Prisma {
     own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
     own_otp?: NullableStringFieldUpdateOperationsInput | string | null
     own_otp_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_mail_user?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_pass_enc?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_from_name?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_provider?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_status?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_address?: NullableStringFieldUpdateOperationsInput | string | null
     own_village?: NullableStringFieldUpdateOperationsInput | string | null
     own_city?: NullableStringFieldUpdateOperationsInput | string | null
@@ -91517,6 +98025,8 @@ export namespace Prisma {
     purities?: PurityUncheckedUpdateManyWithoutOwnerNestedInput
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutOwnerNestedInput
     staff?: StaffUncheckedUpdateManyWithoutOwnerNestedInput
+    messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutOwnerNestedInput
+    whatsappInstances?: WhatsAppInstanceUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
   export type FirmUpsertWithoutReleasesInput = {
@@ -91595,6 +98105,8 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUpdateManyWithoutFirmNestedInput
     auctionUsers?: AuctionUserUpdateManyWithoutFirmNestedInput
     auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
+    messageTemplates?: MessageTemplateUpdateManyWithoutFirmNestedInput
+    whatsappInstance?: WhatsAppInstanceUpdateOneWithoutFirmNestedInput
   }
 
   export type FirmUncheckedUpdateWithoutReleasesInput = {
@@ -91663,6 +98175,8 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutFirmNestedInput
     auctionUsers?: AuctionUserUncheckedUpdateManyWithoutFirmNestedInput
     auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
+    messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutFirmNestedInput
+    whatsappInstance?: WhatsAppInstanceUncheckedUpdateOneWithoutFirmNestedInput
   }
 
   export type UserUpsertWithoutReleasesInput = {
@@ -91839,6 +98353,9 @@ export namespace Prisma {
     girv_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     girv_transfer_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_transfer_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_is_transferred_in?: BoolFieldUpdateOperationsInput | boolean
+    girv_transfer_from_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_transfer_from_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     girv_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     girv_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -91909,6 +98426,9 @@ export namespace Prisma {
     girv_transfer_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_transfer_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_transfer_ml_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_is_transferred_in?: BoolFieldUpdateOperationsInput | boolean
+    girv_transfer_from_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_transfer_from_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     girv_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     girv_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -93208,6 +99728,12 @@ export namespace Prisma {
     own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
     own_otp?: string | null
     own_otp_expiry?: Date | string | null
+    own_mail_user?: string | null
+    own_mail_pass_enc?: string | null
+    own_mail_from_name?: string | null
+    own_mail_provider?: string | null
+    own_mail_status?: string | null
+    own_mail_updated_at?: Date | string | null
     own_address?: string | null
     own_village?: string | null
     own_city?: string | null
@@ -93236,6 +99762,8 @@ export namespace Prisma {
     purities?: PurityCreateNestedManyWithoutOwnerInput
     moneyLenders?: MoneyLenderCreateNestedManyWithoutOwnerInput
     staff?: StaffCreateNestedManyWithoutOwnerInput
+    messageTemplates?: MessageTemplateCreateNestedManyWithoutOwnerInput
+    whatsappInstances?: WhatsAppInstanceCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerUncheckedCreateWithoutRatesInput = {
@@ -93262,6 +99790,12 @@ export namespace Prisma {
     own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
     own_otp?: string | null
     own_otp_expiry?: Date | string | null
+    own_mail_user?: string | null
+    own_mail_pass_enc?: string | null
+    own_mail_from_name?: string | null
+    own_mail_provider?: string | null
+    own_mail_status?: string | null
+    own_mail_updated_at?: Date | string | null
     own_address?: string | null
     own_village?: string | null
     own_city?: string | null
@@ -93290,6 +99824,8 @@ export namespace Prisma {
     purities?: PurityUncheckedCreateNestedManyWithoutOwnerInput
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutOwnerInput
     staff?: StaffUncheckedCreateNestedManyWithoutOwnerInput
+    messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutOwnerInput
+    whatsappInstances?: WhatsAppInstanceUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerCreateOrConnectWithoutRatesInput = {
@@ -93362,6 +99898,8 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderCreateNestedManyWithoutFirmInput
     auctionUsers?: AuctionUserCreateNestedManyWithoutFirmInput
     auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
+    messageTemplates?: MessageTemplateCreateNestedManyWithoutFirmInput
+    whatsappInstance?: WhatsAppInstanceCreateNestedOneWithoutFirmInput
   }
 
   export type FirmUncheckedCreateWithoutRatesInput = {
@@ -93430,6 +99968,8 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutFirmInput
     auctionUsers?: AuctionUserUncheckedCreateNestedManyWithoutFirmInput
     auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
+    messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutFirmInput
+    whatsappInstance?: WhatsAppInstanceUncheckedCreateNestedOneWithoutFirmInput
   }
 
   export type FirmCreateOrConnectWithoutRatesInput = {
@@ -93470,6 +100010,12 @@ export namespace Prisma {
     own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
     own_otp?: NullableStringFieldUpdateOperationsInput | string | null
     own_otp_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_mail_user?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_pass_enc?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_from_name?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_provider?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_status?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_address?: NullableStringFieldUpdateOperationsInput | string | null
     own_village?: NullableStringFieldUpdateOperationsInput | string | null
     own_city?: NullableStringFieldUpdateOperationsInput | string | null
@@ -93498,6 +100044,8 @@ export namespace Prisma {
     purities?: PurityUpdateManyWithoutOwnerNestedInput
     moneyLenders?: MoneyLenderUpdateManyWithoutOwnerNestedInput
     staff?: StaffUpdateManyWithoutOwnerNestedInput
+    messageTemplates?: MessageTemplateUpdateManyWithoutOwnerNestedInput
+    whatsappInstances?: WhatsAppInstanceUpdateManyWithoutOwnerNestedInput
   }
 
   export type OwnerUncheckedUpdateWithoutRatesInput = {
@@ -93524,6 +100072,12 @@ export namespace Prisma {
     own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
     own_otp?: NullableStringFieldUpdateOperationsInput | string | null
     own_otp_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_mail_user?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_pass_enc?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_from_name?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_provider?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_status?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_address?: NullableStringFieldUpdateOperationsInput | string | null
     own_village?: NullableStringFieldUpdateOperationsInput | string | null
     own_city?: NullableStringFieldUpdateOperationsInput | string | null
@@ -93552,6 +100106,8 @@ export namespace Prisma {
     purities?: PurityUncheckedUpdateManyWithoutOwnerNestedInput
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutOwnerNestedInput
     staff?: StaffUncheckedUpdateManyWithoutOwnerNestedInput
+    messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutOwnerNestedInput
+    whatsappInstances?: WhatsAppInstanceUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
   export type FirmUpsertWithoutRatesInput = {
@@ -93630,6 +100186,8 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUpdateManyWithoutFirmNestedInput
     auctionUsers?: AuctionUserUpdateManyWithoutFirmNestedInput
     auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
+    messageTemplates?: MessageTemplateUpdateManyWithoutFirmNestedInput
+    whatsappInstance?: WhatsAppInstanceUpdateOneWithoutFirmNestedInput
   }
 
   export type FirmUncheckedUpdateWithoutRatesInput = {
@@ -93698,6 +100256,8 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutFirmNestedInput
     auctionUsers?: AuctionUserUncheckedUpdateManyWithoutFirmNestedInput
     auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
+    messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutFirmNestedInput
+    whatsappInstance?: WhatsAppInstanceUncheckedUpdateOneWithoutFirmNestedInput
   }
 
   export type OwnerCreateWithoutPuritiesInput = {
@@ -93723,6 +100283,12 @@ export namespace Prisma {
     own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
     own_otp?: string | null
     own_otp_expiry?: Date | string | null
+    own_mail_user?: string | null
+    own_mail_pass_enc?: string | null
+    own_mail_from_name?: string | null
+    own_mail_provider?: string | null
+    own_mail_status?: string | null
+    own_mail_updated_at?: Date | string | null
     own_address?: string | null
     own_village?: string | null
     own_city?: string | null
@@ -93751,6 +100317,8 @@ export namespace Prisma {
     rates?: RateCreateNestedManyWithoutOwnerInput
     moneyLenders?: MoneyLenderCreateNestedManyWithoutOwnerInput
     staff?: StaffCreateNestedManyWithoutOwnerInput
+    messageTemplates?: MessageTemplateCreateNestedManyWithoutOwnerInput
+    whatsappInstances?: WhatsAppInstanceCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerUncheckedCreateWithoutPuritiesInput = {
@@ -93777,6 +100345,12 @@ export namespace Prisma {
     own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
     own_otp?: string | null
     own_otp_expiry?: Date | string | null
+    own_mail_user?: string | null
+    own_mail_pass_enc?: string | null
+    own_mail_from_name?: string | null
+    own_mail_provider?: string | null
+    own_mail_status?: string | null
+    own_mail_updated_at?: Date | string | null
     own_address?: string | null
     own_village?: string | null
     own_city?: string | null
@@ -93805,6 +100379,8 @@ export namespace Prisma {
     rates?: RateUncheckedCreateNestedManyWithoutOwnerInput
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutOwnerInput
     staff?: StaffUncheckedCreateNestedManyWithoutOwnerInput
+    messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutOwnerInput
+    whatsappInstances?: WhatsAppInstanceUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerCreateOrConnectWithoutPuritiesInput = {
@@ -93845,6 +100421,12 @@ export namespace Prisma {
     own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
     own_otp?: NullableStringFieldUpdateOperationsInput | string | null
     own_otp_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_mail_user?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_pass_enc?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_from_name?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_provider?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_status?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_address?: NullableStringFieldUpdateOperationsInput | string | null
     own_village?: NullableStringFieldUpdateOperationsInput | string | null
     own_city?: NullableStringFieldUpdateOperationsInput | string | null
@@ -93873,6 +100455,8 @@ export namespace Prisma {
     rates?: RateUpdateManyWithoutOwnerNestedInput
     moneyLenders?: MoneyLenderUpdateManyWithoutOwnerNestedInput
     staff?: StaffUpdateManyWithoutOwnerNestedInput
+    messageTemplates?: MessageTemplateUpdateManyWithoutOwnerNestedInput
+    whatsappInstances?: WhatsAppInstanceUpdateManyWithoutOwnerNestedInput
   }
 
   export type OwnerUncheckedUpdateWithoutPuritiesInput = {
@@ -93899,6 +100483,12 @@ export namespace Prisma {
     own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
     own_otp?: NullableStringFieldUpdateOperationsInput | string | null
     own_otp_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_mail_user?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_pass_enc?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_from_name?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_provider?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_status?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_address?: NullableStringFieldUpdateOperationsInput | string | null
     own_village?: NullableStringFieldUpdateOperationsInput | string | null
     own_city?: NullableStringFieldUpdateOperationsInput | string | null
@@ -93927,6 +100517,8 @@ export namespace Prisma {
     rates?: RateUncheckedUpdateManyWithoutOwnerNestedInput
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutOwnerNestedInput
     staff?: StaffUncheckedUpdateManyWithoutOwnerNestedInput
+    messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutOwnerNestedInput
+    whatsappInstances?: WhatsAppInstanceUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
   export type OwnerCreateWithoutMoneyLendersInput = {
@@ -93952,6 +100544,12 @@ export namespace Prisma {
     own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
     own_otp?: string | null
     own_otp_expiry?: Date | string | null
+    own_mail_user?: string | null
+    own_mail_pass_enc?: string | null
+    own_mail_from_name?: string | null
+    own_mail_provider?: string | null
+    own_mail_status?: string | null
+    own_mail_updated_at?: Date | string | null
     own_address?: string | null
     own_village?: string | null
     own_city?: string | null
@@ -93980,6 +100578,8 @@ export namespace Prisma {
     rates?: RateCreateNestedManyWithoutOwnerInput
     purities?: PurityCreateNestedManyWithoutOwnerInput
     staff?: StaffCreateNestedManyWithoutOwnerInput
+    messageTemplates?: MessageTemplateCreateNestedManyWithoutOwnerInput
+    whatsappInstances?: WhatsAppInstanceCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerUncheckedCreateWithoutMoneyLendersInput = {
@@ -94006,6 +100606,12 @@ export namespace Prisma {
     own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
     own_otp?: string | null
     own_otp_expiry?: Date | string | null
+    own_mail_user?: string | null
+    own_mail_pass_enc?: string | null
+    own_mail_from_name?: string | null
+    own_mail_provider?: string | null
+    own_mail_status?: string | null
+    own_mail_updated_at?: Date | string | null
     own_address?: string | null
     own_village?: string | null
     own_city?: string | null
@@ -94034,6 +100640,8 @@ export namespace Prisma {
     rates?: RateUncheckedCreateNestedManyWithoutOwnerInput
     purities?: PurityUncheckedCreateNestedManyWithoutOwnerInput
     staff?: StaffUncheckedCreateNestedManyWithoutOwnerInput
+    messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutOwnerInput
+    whatsappInstances?: WhatsAppInstanceUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerCreateOrConnectWithoutMoneyLendersInput = {
@@ -94106,6 +100714,8 @@ export namespace Prisma {
     rates?: RateCreateNestedManyWithoutFirmInput
     auctionUsers?: AuctionUserCreateNestedManyWithoutFirmInput
     auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
+    messageTemplates?: MessageTemplateCreateNestedManyWithoutFirmInput
+    whatsappInstance?: WhatsAppInstanceCreateNestedOneWithoutFirmInput
   }
 
   export type FirmUncheckedCreateWithoutMoneyLendersInput = {
@@ -94174,6 +100784,8 @@ export namespace Prisma {
     rates?: RateUncheckedCreateNestedManyWithoutFirmInput
     auctionUsers?: AuctionUserUncheckedCreateNestedManyWithoutFirmInput
     auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
+    messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutFirmInput
+    whatsappInstance?: WhatsAppInstanceUncheckedCreateNestedOneWithoutFirmInput
   }
 
   export type FirmCreateOrConnectWithoutMoneyLendersInput = {
@@ -94216,6 +100828,9 @@ export namespace Prisma {
     girv_pay_info?: string | null
     girv_transfer_firm_id?: number | null
     girv_transfer_girv_id?: number | null
+    girv_is_transferred_in?: boolean
+    girv_transfer_from_girv_id?: number | null
+    girv_transfer_from_firm_id?: number | null
     girv_created_at?: Date | string
     girv_created_by?: string | null
     girv_updated_at?: Date | string
@@ -94285,6 +100900,9 @@ export namespace Prisma {
     girv_pay_info?: string | null
     girv_transfer_firm_id?: number | null
     girv_transfer_girv_id?: number | null
+    girv_is_transferred_in?: boolean
+    girv_transfer_from_girv_id?: number | null
+    girv_transfer_from_firm_id?: number | null
     girv_created_at?: Date | string
     girv_created_by?: string | null
     girv_updated_at?: Date | string
@@ -94341,6 +100959,12 @@ export namespace Prisma {
     own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
     own_otp?: NullableStringFieldUpdateOperationsInput | string | null
     own_otp_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_mail_user?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_pass_enc?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_from_name?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_provider?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_status?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_address?: NullableStringFieldUpdateOperationsInput | string | null
     own_village?: NullableStringFieldUpdateOperationsInput | string | null
     own_city?: NullableStringFieldUpdateOperationsInput | string | null
@@ -94369,6 +100993,8 @@ export namespace Prisma {
     rates?: RateUpdateManyWithoutOwnerNestedInput
     purities?: PurityUpdateManyWithoutOwnerNestedInput
     staff?: StaffUpdateManyWithoutOwnerNestedInput
+    messageTemplates?: MessageTemplateUpdateManyWithoutOwnerNestedInput
+    whatsappInstances?: WhatsAppInstanceUpdateManyWithoutOwnerNestedInput
   }
 
   export type OwnerUncheckedUpdateWithoutMoneyLendersInput = {
@@ -94395,6 +101021,12 @@ export namespace Prisma {
     own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
     own_otp?: NullableStringFieldUpdateOperationsInput | string | null
     own_otp_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_mail_user?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_pass_enc?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_from_name?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_provider?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_status?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_address?: NullableStringFieldUpdateOperationsInput | string | null
     own_village?: NullableStringFieldUpdateOperationsInput | string | null
     own_city?: NullableStringFieldUpdateOperationsInput | string | null
@@ -94423,6 +101055,8 @@ export namespace Prisma {
     rates?: RateUncheckedUpdateManyWithoutOwnerNestedInput
     purities?: PurityUncheckedUpdateManyWithoutOwnerNestedInput
     staff?: StaffUncheckedUpdateManyWithoutOwnerNestedInput
+    messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutOwnerNestedInput
+    whatsappInstances?: WhatsAppInstanceUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
   export type FirmUpsertWithoutMoneyLendersInput = {
@@ -94501,6 +101135,8 @@ export namespace Prisma {
     rates?: RateUpdateManyWithoutFirmNestedInput
     auctionUsers?: AuctionUserUpdateManyWithoutFirmNestedInput
     auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
+    messageTemplates?: MessageTemplateUpdateManyWithoutFirmNestedInput
+    whatsappInstance?: WhatsAppInstanceUpdateOneWithoutFirmNestedInput
   }
 
   export type FirmUncheckedUpdateWithoutMoneyLendersInput = {
@@ -94569,6 +101205,8 @@ export namespace Prisma {
     rates?: RateUncheckedUpdateManyWithoutFirmNestedInput
     auctionUsers?: AuctionUserUncheckedUpdateManyWithoutFirmNestedInput
     auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
+    messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutFirmNestedInput
+    whatsappInstance?: WhatsAppInstanceUncheckedUpdateOneWithoutFirmNestedInput
   }
 
   export type GirviUpsertWithWhereUniqueWithoutTransferMoneyLenderInput = {
@@ -94652,6 +101290,8 @@ export namespace Prisma {
     rates?: RateCreateNestedManyWithoutFirmInput
     moneyLenders?: MoneyLenderCreateNestedManyWithoutFirmInput
     auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
+    messageTemplates?: MessageTemplateCreateNestedManyWithoutFirmInput
+    whatsappInstance?: WhatsAppInstanceCreateNestedOneWithoutFirmInput
   }
 
   export type FirmUncheckedCreateWithoutAuctionUsersInput = {
@@ -94720,6 +101360,8 @@ export namespace Prisma {
     rates?: RateUncheckedCreateNestedManyWithoutFirmInput
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutFirmInput
     auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
+    messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutFirmInput
+    whatsappInstance?: WhatsAppInstanceUncheckedCreateNestedOneWithoutFirmInput
   }
 
   export type FirmCreateOrConnectWithoutAuctionUsersInput = {
@@ -94864,6 +101506,8 @@ export namespace Prisma {
     rates?: RateUpdateManyWithoutFirmNestedInput
     moneyLenders?: MoneyLenderUpdateManyWithoutFirmNestedInput
     auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
+    messageTemplates?: MessageTemplateUpdateManyWithoutFirmNestedInput
+    whatsappInstance?: WhatsAppInstanceUpdateOneWithoutFirmNestedInput
   }
 
   export type FirmUncheckedUpdateWithoutAuctionUsersInput = {
@@ -94932,6 +101576,8 @@ export namespace Prisma {
     rates?: RateUncheckedUpdateManyWithoutFirmNestedInput
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutFirmNestedInput
     auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
+    messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutFirmNestedInput
+    whatsappInstance?: WhatsAppInstanceUncheckedUpdateOneWithoutFirmNestedInput
   }
 
   export type AuctionLoanUpsertWithWhereUniqueWithoutBuyerInput = {
@@ -95015,6 +101661,8 @@ export namespace Prisma {
     rates?: RateCreateNestedManyWithoutFirmInput
     moneyLenders?: MoneyLenderCreateNestedManyWithoutFirmInput
     auctionUsers?: AuctionUserCreateNestedManyWithoutFirmInput
+    messageTemplates?: MessageTemplateCreateNestedManyWithoutFirmInput
+    whatsappInstance?: WhatsAppInstanceCreateNestedOneWithoutFirmInput
   }
 
   export type FirmUncheckedCreateWithoutAuctionLoansInput = {
@@ -95083,6 +101731,8 @@ export namespace Prisma {
     rates?: RateUncheckedCreateNestedManyWithoutFirmInput
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutFirmInput
     auctionUsers?: AuctionUserUncheckedCreateNestedManyWithoutFirmInput
+    messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutFirmInput
+    whatsappInstance?: WhatsAppInstanceUncheckedCreateNestedOneWithoutFirmInput
   }
 
   export type FirmCreateOrConnectWithoutAuctionLoansInput = {
@@ -95125,6 +101775,9 @@ export namespace Prisma {
     girv_pay_info?: string | null
     girv_transfer_firm_id?: number | null
     girv_transfer_girv_id?: number | null
+    girv_is_transferred_in?: boolean
+    girv_transfer_from_girv_id?: number | null
+    girv_transfer_from_firm_id?: number | null
     girv_created_at?: Date | string
     girv_created_by?: string | null
     girv_updated_at?: Date | string
@@ -95195,6 +101848,9 @@ export namespace Prisma {
     girv_transfer_firm_id?: number | null
     girv_transfer_girv_id?: number | null
     girv_transfer_ml_id?: number | null
+    girv_is_transferred_in?: boolean
+    girv_transfer_from_girv_id?: number | null
+    girv_transfer_from_firm_id?: number | null
     girv_created_at?: Date | string
     girv_created_by?: string | null
     girv_updated_at?: Date | string
@@ -95334,6 +101990,8 @@ export namespace Prisma {
     rates?: RateUpdateManyWithoutFirmNestedInput
     moneyLenders?: MoneyLenderUpdateManyWithoutFirmNestedInput
     auctionUsers?: AuctionUserUpdateManyWithoutFirmNestedInput
+    messageTemplates?: MessageTemplateUpdateManyWithoutFirmNestedInput
+    whatsappInstance?: WhatsAppInstanceUpdateOneWithoutFirmNestedInput
   }
 
   export type FirmUncheckedUpdateWithoutAuctionLoansInput = {
@@ -95402,6 +102060,8 @@ export namespace Prisma {
     rates?: RateUncheckedUpdateManyWithoutFirmNestedInput
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutFirmNestedInput
     auctionUsers?: AuctionUserUncheckedUpdateManyWithoutFirmNestedInput
+    messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutFirmNestedInput
+    whatsappInstance?: WhatsAppInstanceUncheckedUpdateOneWithoutFirmNestedInput
   }
 
   export type GirviUpsertWithoutAuctionLoansInput = {
@@ -95450,6 +102110,9 @@ export namespace Prisma {
     girv_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     girv_transfer_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_transfer_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_is_transferred_in?: BoolFieldUpdateOperationsInput | boolean
+    girv_transfer_from_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_transfer_from_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     girv_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     girv_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -95520,6 +102183,9 @@ export namespace Prisma {
     girv_transfer_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_transfer_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_transfer_ml_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_is_transferred_in?: BoolFieldUpdateOperationsInput | boolean
+    girv_transfer_from_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_transfer_from_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     girv_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     girv_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -95607,6 +102273,12 @@ export namespace Prisma {
     own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
     own_otp?: string | null
     own_otp_expiry?: Date | string | null
+    own_mail_user?: string | null
+    own_mail_pass_enc?: string | null
+    own_mail_from_name?: string | null
+    own_mail_provider?: string | null
+    own_mail_status?: string | null
+    own_mail_updated_at?: Date | string | null
     own_address?: string | null
     own_village?: string | null
     own_city?: string | null
@@ -95635,6 +102307,8 @@ export namespace Prisma {
     rates?: RateCreateNestedManyWithoutOwnerInput
     purities?: PurityCreateNestedManyWithoutOwnerInput
     moneyLenders?: MoneyLenderCreateNestedManyWithoutOwnerInput
+    messageTemplates?: MessageTemplateCreateNestedManyWithoutOwnerInput
+    whatsappInstances?: WhatsAppInstanceCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerUncheckedCreateWithoutStaffInput = {
@@ -95661,6 +102335,12 @@ export namespace Prisma {
     own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
     own_otp?: string | null
     own_otp_expiry?: Date | string | null
+    own_mail_user?: string | null
+    own_mail_pass_enc?: string | null
+    own_mail_from_name?: string | null
+    own_mail_provider?: string | null
+    own_mail_status?: string | null
+    own_mail_updated_at?: Date | string | null
     own_address?: string | null
     own_village?: string | null
     own_city?: string | null
@@ -95689,6 +102369,8 @@ export namespace Prisma {
     rates?: RateUncheckedCreateNestedManyWithoutOwnerInput
     purities?: PurityUncheckedCreateNestedManyWithoutOwnerInput
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutOwnerInput
+    messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutOwnerInput
+    whatsappInstances?: WhatsAppInstanceUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerCreateOrConnectWithoutStaffInput = {
@@ -95754,6 +102436,12 @@ export namespace Prisma {
     own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
     own_otp?: NullableStringFieldUpdateOperationsInput | string | null
     own_otp_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_mail_user?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_pass_enc?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_from_name?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_provider?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_status?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_address?: NullableStringFieldUpdateOperationsInput | string | null
     own_village?: NullableStringFieldUpdateOperationsInput | string | null
     own_city?: NullableStringFieldUpdateOperationsInput | string | null
@@ -95782,6 +102470,8 @@ export namespace Prisma {
     rates?: RateUpdateManyWithoutOwnerNestedInput
     purities?: PurityUpdateManyWithoutOwnerNestedInput
     moneyLenders?: MoneyLenderUpdateManyWithoutOwnerNestedInput
+    messageTemplates?: MessageTemplateUpdateManyWithoutOwnerNestedInput
+    whatsappInstances?: WhatsAppInstanceUpdateManyWithoutOwnerNestedInput
   }
 
   export type OwnerUncheckedUpdateWithoutStaffInput = {
@@ -95808,6 +102498,12 @@ export namespace Prisma {
     own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
     own_otp?: NullableStringFieldUpdateOperationsInput | string | null
     own_otp_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_mail_user?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_pass_enc?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_from_name?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_provider?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_status?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_address?: NullableStringFieldUpdateOperationsInput | string | null
     own_village?: NullableStringFieldUpdateOperationsInput | string | null
     own_city?: NullableStringFieldUpdateOperationsInput | string | null
@@ -95836,6 +102532,8 @@ export namespace Prisma {
     rates?: RateUncheckedUpdateManyWithoutOwnerNestedInput
     purities?: PurityUncheckedUpdateManyWithoutOwnerNestedInput
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutOwnerNestedInput
+    messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutOwnerNestedInput
+    whatsappInstances?: WhatsAppInstanceUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
   export type StaffPermissionUpsertWithWhereUniqueWithoutStaffInput = {
@@ -96211,6 +102909,1116 @@ export namespace Prisma {
     perm_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type OwnerCreateWithoutMessageTemplatesInput = {
+    own_uuid?: string
+    own_product_key?: number
+    own_db: string
+    own_add_date?: Date | string
+    own_first_name: string
+    own_middle_name?: string | null
+    own_last_name: string
+    own_phone_no?: string | null
+    own_mobile_no: string
+    own_email: string
+    own_login_id: string
+    own_password: string
+    own_status?: $Enums.OwnerStatus
+    own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_refresh_token?: string | null
+    own_refresh_expiry?: Date | string | null
+    own_jwt_token?: string | null
+    own_jwt_expiry?: Date | string | null
+    own_login_status?: boolean
+    own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
+    own_otp?: string | null
+    own_otp_expiry?: Date | string | null
+    own_mail_user?: string | null
+    own_mail_pass_enc?: string | null
+    own_mail_from_name?: string | null
+    own_mail_provider?: string | null
+    own_mail_status?: string | null
+    own_mail_updated_at?: Date | string | null
+    own_address?: string | null
+    own_village?: string | null
+    own_city?: string | null
+    own_state?: string | null
+    own_pincode?: string | null
+    own_created_at?: Date | string
+    own_created_by?: string | null
+    own_updated_at?: Date | string
+    own_updated_by?: string | null
+    own_deleted_at?: Date | string | null
+    own_deleted_by?: string | null
+    own_is_deleted?: boolean
+    users?: UserCreateNestedManyWithoutOwnerInput
+    firms?: FirmCreateNestedManyWithoutOwnerInput
+    accounts?: AccountCreateNestedManyWithoutOwnerInput
+    finances?: FinanceCreateNestedManyWithoutOwnerInput
+    financeTransactions?: Finance_TransactionCreateNestedManyWithoutOwnerInput
+    financeMoneyTrans?: Finance_Money_TransactionCreateNestedManyWithoutOwnerInput
+    journals?: JournalCreateNestedManyWithoutOwnerInput
+    journalTransactions?: JournalTransactionCreateNestedManyWithoutOwnerInput
+    girvis?: GirviCreateNestedManyWithoutOwnerInput
+    stocks?: StockCreateNestedManyWithoutOwnerInput
+    additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutOwnerInput
+    deposits?: GirviDepositCreateNestedManyWithoutOwnerInput
+    releases?: GirviReleaseCreateNestedManyWithoutOwnerInput
+    rates?: RateCreateNestedManyWithoutOwnerInput
+    purities?: PurityCreateNestedManyWithoutOwnerInput
+    moneyLenders?: MoneyLenderCreateNestedManyWithoutOwnerInput
+    staff?: StaffCreateNestedManyWithoutOwnerInput
+    whatsappInstances?: WhatsAppInstanceCreateNestedManyWithoutOwnerInput
+  }
+
+  export type OwnerUncheckedCreateWithoutMessageTemplatesInput = {
+    own_id?: number
+    own_uuid?: string
+    own_product_key?: number
+    own_db: string
+    own_add_date?: Date | string
+    own_first_name: string
+    own_middle_name?: string | null
+    own_last_name: string
+    own_phone_no?: string | null
+    own_mobile_no: string
+    own_email: string
+    own_login_id: string
+    own_password: string
+    own_status?: $Enums.OwnerStatus
+    own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_refresh_token?: string | null
+    own_refresh_expiry?: Date | string | null
+    own_jwt_token?: string | null
+    own_jwt_expiry?: Date | string | null
+    own_login_status?: boolean
+    own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
+    own_otp?: string | null
+    own_otp_expiry?: Date | string | null
+    own_mail_user?: string | null
+    own_mail_pass_enc?: string | null
+    own_mail_from_name?: string | null
+    own_mail_provider?: string | null
+    own_mail_status?: string | null
+    own_mail_updated_at?: Date | string | null
+    own_address?: string | null
+    own_village?: string | null
+    own_city?: string | null
+    own_state?: string | null
+    own_pincode?: string | null
+    own_created_at?: Date | string
+    own_created_by?: string | null
+    own_updated_at?: Date | string
+    own_updated_by?: string | null
+    own_deleted_at?: Date | string | null
+    own_deleted_by?: string | null
+    own_is_deleted?: boolean
+    users?: UserUncheckedCreateNestedManyWithoutOwnerInput
+    firms?: FirmUncheckedCreateNestedManyWithoutOwnerInput
+    accounts?: AccountUncheckedCreateNestedManyWithoutOwnerInput
+    finances?: FinanceUncheckedCreateNestedManyWithoutOwnerInput
+    financeTransactions?: Finance_TransactionUncheckedCreateNestedManyWithoutOwnerInput
+    financeMoneyTrans?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutOwnerInput
+    journals?: JournalUncheckedCreateNestedManyWithoutOwnerInput
+    journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutOwnerInput
+    girvis?: GirviUncheckedCreateNestedManyWithoutOwnerInput
+    stocks?: StockUncheckedCreateNestedManyWithoutOwnerInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutOwnerInput
+    deposits?: GirviDepositUncheckedCreateNestedManyWithoutOwnerInput
+    releases?: GirviReleaseUncheckedCreateNestedManyWithoutOwnerInput
+    rates?: RateUncheckedCreateNestedManyWithoutOwnerInput
+    purities?: PurityUncheckedCreateNestedManyWithoutOwnerInput
+    moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutOwnerInput
+    staff?: StaffUncheckedCreateNestedManyWithoutOwnerInput
+    whatsappInstances?: WhatsAppInstanceUncheckedCreateNestedManyWithoutOwnerInput
+  }
+
+  export type OwnerCreateOrConnectWithoutMessageTemplatesInput = {
+    where: OwnerWhereUniqueInput
+    create: XOR<OwnerCreateWithoutMessageTemplatesInput, OwnerUncheckedCreateWithoutMessageTemplatesInput>
+  }
+
+  export type FirmCreateWithoutMessageTemplatesInput = {
+    firm_uuid?: string
+    firm_unique_code?: string | null
+    firm_add_date?: Date | string
+    firm_name: string
+    firm_reg_no: string
+    firm_shop_name: string
+    firm_desc?: string | null
+    firm_address?: string | null
+    firm_city?: string | null
+    firm_pincode?: string | null
+    firm_phone_no?: string | null
+    firm_email_id?: string | null
+    firm_website_link?: string | null
+    firm_type?: $Enums.FirmType
+    firm_owner?: string | null
+    firm_other_info?: string | null
+    firm_geo_latitude?: string | null
+    firm_geo_longitude?: string | null
+    firm_whatsapp_link?: string | null
+    firm_facebook_link?: string | null
+    firm_insta_link?: string | null
+    firm_bank_name?: string | null
+    firm_bank_acc_no?: string | null
+    firm_bank_branch?: string | null
+    firm_bank_address?: string | null
+    firm_acc_holder?: string | null
+    firm_acc_type?: string | null
+    firm_ifsc_code?: string | null
+    firm_start_date?: Date | string | null
+    firm_balance?: string | null
+    firm_balance_type?: $Enums.FirmBalanceType
+    firm_gstin_no?: string | null
+    firm_pan_no?: string | null
+    firm_adhaar_no?: string | null
+    firm_form_header?: string | null
+    firm_form_footer?: string | null
+    firm_own_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_left_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_right_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_qr_code_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_pan_no_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_created_at?: Date | string
+    firm_created_by?: string | null
+    firm_updated_at?: Date | string
+    firm_updated_by?: string | null
+    firm_deleted_at?: Date | string | null
+    firm_deleted_by?: string | null
+    firm_is_deleted?: boolean
+    users?: UserCreateNestedManyWithoutFirmInput
+    accounts?: AccountCreateNestedManyWithoutFirmInput
+    owner?: OwnerCreateNestedOneWithoutFirmsInput
+    finances?: FinanceCreateNestedManyWithoutFirmInput
+    financeTransactions?: Finance_TransactionCreateNestedManyWithoutFirmInput
+    financeMoneyTrans?: Finance_Money_TransactionCreateNestedManyWithoutFirmInput
+    journals?: JournalCreateNestedManyWithoutFirmInput
+    journalTransactions?: JournalTransactionCreateNestedManyWithoutFirmInput
+    girvis?: GirviCreateNestedManyWithoutFirmInput
+    stocks?: StockCreateNestedManyWithoutFirmInput
+    additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutFirmInput
+    deposits?: GirviDepositCreateNestedManyWithoutFirmInput
+    releases?: GirviReleaseCreateNestedManyWithoutFirmInput
+    rates?: RateCreateNestedManyWithoutFirmInput
+    moneyLenders?: MoneyLenderCreateNestedManyWithoutFirmInput
+    auctionUsers?: AuctionUserCreateNestedManyWithoutFirmInput
+    auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
+    whatsappInstance?: WhatsAppInstanceCreateNestedOneWithoutFirmInput
+  }
+
+  export type FirmUncheckedCreateWithoutMessageTemplatesInput = {
+    firm_id?: number
+    firm_uuid?: string
+    firm_unique_code?: string | null
+    firm_add_date?: Date | string
+    firm_own_id?: number
+    firm_name: string
+    firm_reg_no: string
+    firm_shop_name: string
+    firm_desc?: string | null
+    firm_address?: string | null
+    firm_city?: string | null
+    firm_pincode?: string | null
+    firm_phone_no?: string | null
+    firm_email_id?: string | null
+    firm_website_link?: string | null
+    firm_type?: $Enums.FirmType
+    firm_owner?: string | null
+    firm_other_info?: string | null
+    firm_geo_latitude?: string | null
+    firm_geo_longitude?: string | null
+    firm_whatsapp_link?: string | null
+    firm_facebook_link?: string | null
+    firm_insta_link?: string | null
+    firm_bank_name?: string | null
+    firm_bank_acc_no?: string | null
+    firm_bank_branch?: string | null
+    firm_bank_address?: string | null
+    firm_acc_holder?: string | null
+    firm_acc_type?: string | null
+    firm_ifsc_code?: string | null
+    firm_start_date?: Date | string | null
+    firm_balance?: string | null
+    firm_balance_type?: $Enums.FirmBalanceType
+    firm_gstin_no?: string | null
+    firm_pan_no?: string | null
+    firm_adhaar_no?: string | null
+    firm_form_header?: string | null
+    firm_form_footer?: string | null
+    firm_own_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_left_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_right_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_qr_code_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_pan_no_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_created_at?: Date | string
+    firm_created_by?: string | null
+    firm_updated_at?: Date | string
+    firm_updated_by?: string | null
+    firm_deleted_at?: Date | string | null
+    firm_deleted_by?: string | null
+    firm_is_deleted?: boolean
+    users?: UserUncheckedCreateNestedManyWithoutFirmInput
+    accounts?: AccountUncheckedCreateNestedManyWithoutFirmInput
+    finances?: FinanceUncheckedCreateNestedManyWithoutFirmInput
+    financeTransactions?: Finance_TransactionUncheckedCreateNestedManyWithoutFirmInput
+    financeMoneyTrans?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutFirmInput
+    journals?: JournalUncheckedCreateNestedManyWithoutFirmInput
+    journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutFirmInput
+    girvis?: GirviUncheckedCreateNestedManyWithoutFirmInput
+    stocks?: StockUncheckedCreateNestedManyWithoutFirmInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutFirmInput
+    deposits?: GirviDepositUncheckedCreateNestedManyWithoutFirmInput
+    releases?: GirviReleaseUncheckedCreateNestedManyWithoutFirmInput
+    rates?: RateUncheckedCreateNestedManyWithoutFirmInput
+    moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutFirmInput
+    auctionUsers?: AuctionUserUncheckedCreateNestedManyWithoutFirmInput
+    auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
+    whatsappInstance?: WhatsAppInstanceUncheckedCreateNestedOneWithoutFirmInput
+  }
+
+  export type FirmCreateOrConnectWithoutMessageTemplatesInput = {
+    where: FirmWhereUniqueInput
+    create: XOR<FirmCreateWithoutMessageTemplatesInput, FirmUncheckedCreateWithoutMessageTemplatesInput>
+  }
+
+  export type OwnerUpsertWithoutMessageTemplatesInput = {
+    update: XOR<OwnerUpdateWithoutMessageTemplatesInput, OwnerUncheckedUpdateWithoutMessageTemplatesInput>
+    create: XOR<OwnerCreateWithoutMessageTemplatesInput, OwnerUncheckedCreateWithoutMessageTemplatesInput>
+    where?: OwnerWhereInput
+  }
+
+  export type OwnerUpdateToOneWithWhereWithoutMessageTemplatesInput = {
+    where?: OwnerWhereInput
+    data: XOR<OwnerUpdateWithoutMessageTemplatesInput, OwnerUncheckedUpdateWithoutMessageTemplatesInput>
+  }
+
+  export type OwnerUpdateWithoutMessageTemplatesInput = {
+    own_uuid?: StringFieldUpdateOperationsInput | string
+    own_db?: StringFieldUpdateOperationsInput | string
+    own_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    own_first_name?: StringFieldUpdateOperationsInput | string
+    own_middle_name?: NullableStringFieldUpdateOperationsInput | string | null
+    own_last_name?: StringFieldUpdateOperationsInput | string
+    own_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mobile_no?: StringFieldUpdateOperationsInput | string
+    own_email?: StringFieldUpdateOperationsInput | string
+    own_login_id?: StringFieldUpdateOperationsInput | string
+    own_password?: StringFieldUpdateOperationsInput | string
+    own_status?: EnumOwnerStatusFieldUpdateOperationsInput | $Enums.OwnerStatus
+    own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
+    own_refresh_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_jwt_token?: NullableStringFieldUpdateOperationsInput | string | null
+    own_jwt_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_login_status?: BoolFieldUpdateOperationsInput | boolean
+    own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
+    own_otp?: NullableStringFieldUpdateOperationsInput | string | null
+    own_otp_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_mail_user?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_pass_enc?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_from_name?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_provider?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_status?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_address?: NullableStringFieldUpdateOperationsInput | string | null
+    own_village?: NullableStringFieldUpdateOperationsInput | string | null
+    own_city?: NullableStringFieldUpdateOperationsInput | string | null
+    own_state?: NullableStringFieldUpdateOperationsInput | string | null
+    own_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    own_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    own_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    own_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    own_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    own_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    own_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    users?: UserUpdateManyWithoutOwnerNestedInput
+    firms?: FirmUpdateManyWithoutOwnerNestedInput
+    accounts?: AccountUpdateManyWithoutOwnerNestedInput
+    finances?: FinanceUpdateManyWithoutOwnerNestedInput
+    financeTransactions?: Finance_TransactionUpdateManyWithoutOwnerNestedInput
+    financeMoneyTrans?: Finance_Money_TransactionUpdateManyWithoutOwnerNestedInput
+    journals?: JournalUpdateManyWithoutOwnerNestedInput
+    journalTransactions?: JournalTransactionUpdateManyWithoutOwnerNestedInput
+    girvis?: GirviUpdateManyWithoutOwnerNestedInput
+    stocks?: StockUpdateManyWithoutOwnerNestedInput
+    additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutOwnerNestedInput
+    deposits?: GirviDepositUpdateManyWithoutOwnerNestedInput
+    releases?: GirviReleaseUpdateManyWithoutOwnerNestedInput
+    rates?: RateUpdateManyWithoutOwnerNestedInput
+    purities?: PurityUpdateManyWithoutOwnerNestedInput
+    moneyLenders?: MoneyLenderUpdateManyWithoutOwnerNestedInput
+    staff?: StaffUpdateManyWithoutOwnerNestedInput
+    whatsappInstances?: WhatsAppInstanceUpdateManyWithoutOwnerNestedInput
+  }
+
+  export type OwnerUncheckedUpdateWithoutMessageTemplatesInput = {
+    own_id?: IntFieldUpdateOperationsInput | number
+    own_uuid?: StringFieldUpdateOperationsInput | string
+    own_product_key?: IntFieldUpdateOperationsInput | number
+    own_db?: StringFieldUpdateOperationsInput | string
+    own_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    own_first_name?: StringFieldUpdateOperationsInput | string
+    own_middle_name?: NullableStringFieldUpdateOperationsInput | string | null
+    own_last_name?: StringFieldUpdateOperationsInput | string
+    own_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mobile_no?: StringFieldUpdateOperationsInput | string
+    own_email?: StringFieldUpdateOperationsInput | string
+    own_login_id?: StringFieldUpdateOperationsInput | string
+    own_password?: StringFieldUpdateOperationsInput | string
+    own_status?: EnumOwnerStatusFieldUpdateOperationsInput | $Enums.OwnerStatus
+    own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
+    own_refresh_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_jwt_token?: NullableStringFieldUpdateOperationsInput | string | null
+    own_jwt_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_login_status?: BoolFieldUpdateOperationsInput | boolean
+    own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
+    own_otp?: NullableStringFieldUpdateOperationsInput | string | null
+    own_otp_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_mail_user?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_pass_enc?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_from_name?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_provider?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_status?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_address?: NullableStringFieldUpdateOperationsInput | string | null
+    own_village?: NullableStringFieldUpdateOperationsInput | string | null
+    own_city?: NullableStringFieldUpdateOperationsInput | string | null
+    own_state?: NullableStringFieldUpdateOperationsInput | string | null
+    own_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    own_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    own_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    own_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    own_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    own_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    own_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    users?: UserUncheckedUpdateManyWithoutOwnerNestedInput
+    firms?: FirmUncheckedUpdateManyWithoutOwnerNestedInput
+    accounts?: AccountUncheckedUpdateManyWithoutOwnerNestedInput
+    finances?: FinanceUncheckedUpdateManyWithoutOwnerNestedInput
+    financeTransactions?: Finance_TransactionUncheckedUpdateManyWithoutOwnerNestedInput
+    financeMoneyTrans?: Finance_Money_TransactionUncheckedUpdateManyWithoutOwnerNestedInput
+    journals?: JournalUncheckedUpdateManyWithoutOwnerNestedInput
+    journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutOwnerNestedInput
+    girvis?: GirviUncheckedUpdateManyWithoutOwnerNestedInput
+    stocks?: StockUncheckedUpdateManyWithoutOwnerNestedInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutOwnerNestedInput
+    deposits?: GirviDepositUncheckedUpdateManyWithoutOwnerNestedInput
+    releases?: GirviReleaseUncheckedUpdateManyWithoutOwnerNestedInput
+    rates?: RateUncheckedUpdateManyWithoutOwnerNestedInput
+    purities?: PurityUncheckedUpdateManyWithoutOwnerNestedInput
+    moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutOwnerNestedInput
+    staff?: StaffUncheckedUpdateManyWithoutOwnerNestedInput
+    whatsappInstances?: WhatsAppInstanceUncheckedUpdateManyWithoutOwnerNestedInput
+  }
+
+  export type FirmUpsertWithoutMessageTemplatesInput = {
+    update: XOR<FirmUpdateWithoutMessageTemplatesInput, FirmUncheckedUpdateWithoutMessageTemplatesInput>
+    create: XOR<FirmCreateWithoutMessageTemplatesInput, FirmUncheckedCreateWithoutMessageTemplatesInput>
+    where?: FirmWhereInput
+  }
+
+  export type FirmUpdateToOneWithWhereWithoutMessageTemplatesInput = {
+    where?: FirmWhereInput
+    data: XOR<FirmUpdateWithoutMessageTemplatesInput, FirmUncheckedUpdateWithoutMessageTemplatesInput>
+  }
+
+  export type FirmUpdateWithoutMessageTemplatesInput = {
+    firm_uuid?: StringFieldUpdateOperationsInput | string
+    firm_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    firm_name?: StringFieldUpdateOperationsInput | string
+    firm_reg_no?: StringFieldUpdateOperationsInput | string
+    firm_shop_name?: StringFieldUpdateOperationsInput | string
+    firm_desc?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_address?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_city?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_email_id?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_website_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_type?: EnumFirmTypeFieldUpdateOperationsInput | $Enums.FirmType
+    firm_owner?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_geo_latitude?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_geo_longitude?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_whatsapp_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_facebook_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_insta_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_name?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_acc_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_branch?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_address?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_acc_holder?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_acc_type?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firm_balance?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_balance_type?: EnumFirmBalanceTypeFieldUpdateOperationsInput | $Enums.FirmBalanceType
+    firm_gstin_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_adhaar_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_form_header?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_form_footer?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_own_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_left_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_right_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_qr_code_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_pan_no_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    firm_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    firm_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firm_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    users?: UserUpdateManyWithoutFirmNestedInput
+    accounts?: AccountUpdateManyWithoutFirmNestedInput
+    owner?: OwnerUpdateOneRequiredWithoutFirmsNestedInput
+    finances?: FinanceUpdateManyWithoutFirmNestedInput
+    financeTransactions?: Finance_TransactionUpdateManyWithoutFirmNestedInput
+    financeMoneyTrans?: Finance_Money_TransactionUpdateManyWithoutFirmNestedInput
+    journals?: JournalUpdateManyWithoutFirmNestedInput
+    journalTransactions?: JournalTransactionUpdateManyWithoutFirmNestedInput
+    girvis?: GirviUpdateManyWithoutFirmNestedInput
+    stocks?: StockUpdateManyWithoutFirmNestedInput
+    additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutFirmNestedInput
+    deposits?: GirviDepositUpdateManyWithoutFirmNestedInput
+    releases?: GirviReleaseUpdateManyWithoutFirmNestedInput
+    rates?: RateUpdateManyWithoutFirmNestedInput
+    moneyLenders?: MoneyLenderUpdateManyWithoutFirmNestedInput
+    auctionUsers?: AuctionUserUpdateManyWithoutFirmNestedInput
+    auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
+    whatsappInstance?: WhatsAppInstanceUpdateOneWithoutFirmNestedInput
+  }
+
+  export type FirmUncheckedUpdateWithoutMessageTemplatesInput = {
+    firm_id?: IntFieldUpdateOperationsInput | number
+    firm_uuid?: StringFieldUpdateOperationsInput | string
+    firm_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    firm_own_id?: IntFieldUpdateOperationsInput | number
+    firm_name?: StringFieldUpdateOperationsInput | string
+    firm_reg_no?: StringFieldUpdateOperationsInput | string
+    firm_shop_name?: StringFieldUpdateOperationsInput | string
+    firm_desc?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_address?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_city?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_email_id?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_website_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_type?: EnumFirmTypeFieldUpdateOperationsInput | $Enums.FirmType
+    firm_owner?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_geo_latitude?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_geo_longitude?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_whatsapp_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_facebook_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_insta_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_name?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_acc_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_branch?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_address?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_acc_holder?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_acc_type?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firm_balance?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_balance_type?: EnumFirmBalanceTypeFieldUpdateOperationsInput | $Enums.FirmBalanceType
+    firm_gstin_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_adhaar_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_form_header?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_form_footer?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_own_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_left_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_right_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_qr_code_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_pan_no_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    firm_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    firm_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firm_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    users?: UserUncheckedUpdateManyWithoutFirmNestedInput
+    accounts?: AccountUncheckedUpdateManyWithoutFirmNestedInput
+    finances?: FinanceUncheckedUpdateManyWithoutFirmNestedInput
+    financeTransactions?: Finance_TransactionUncheckedUpdateManyWithoutFirmNestedInput
+    financeMoneyTrans?: Finance_Money_TransactionUncheckedUpdateManyWithoutFirmNestedInput
+    journals?: JournalUncheckedUpdateManyWithoutFirmNestedInput
+    journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutFirmNestedInput
+    girvis?: GirviUncheckedUpdateManyWithoutFirmNestedInput
+    stocks?: StockUncheckedUpdateManyWithoutFirmNestedInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutFirmNestedInput
+    deposits?: GirviDepositUncheckedUpdateManyWithoutFirmNestedInput
+    releases?: GirviReleaseUncheckedUpdateManyWithoutFirmNestedInput
+    rates?: RateUncheckedUpdateManyWithoutFirmNestedInput
+    moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutFirmNestedInput
+    auctionUsers?: AuctionUserUncheckedUpdateManyWithoutFirmNestedInput
+    auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
+    whatsappInstance?: WhatsAppInstanceUncheckedUpdateOneWithoutFirmNestedInput
+  }
+
+  export type OwnerCreateWithoutWhatsappInstancesInput = {
+    own_uuid?: string
+    own_product_key?: number
+    own_db: string
+    own_add_date?: Date | string
+    own_first_name: string
+    own_middle_name?: string | null
+    own_last_name: string
+    own_phone_no?: string | null
+    own_mobile_no: string
+    own_email: string
+    own_login_id: string
+    own_password: string
+    own_status?: $Enums.OwnerStatus
+    own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_refresh_token?: string | null
+    own_refresh_expiry?: Date | string | null
+    own_jwt_token?: string | null
+    own_jwt_expiry?: Date | string | null
+    own_login_status?: boolean
+    own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
+    own_otp?: string | null
+    own_otp_expiry?: Date | string | null
+    own_mail_user?: string | null
+    own_mail_pass_enc?: string | null
+    own_mail_from_name?: string | null
+    own_mail_provider?: string | null
+    own_mail_status?: string | null
+    own_mail_updated_at?: Date | string | null
+    own_address?: string | null
+    own_village?: string | null
+    own_city?: string | null
+    own_state?: string | null
+    own_pincode?: string | null
+    own_created_at?: Date | string
+    own_created_by?: string | null
+    own_updated_at?: Date | string
+    own_updated_by?: string | null
+    own_deleted_at?: Date | string | null
+    own_deleted_by?: string | null
+    own_is_deleted?: boolean
+    users?: UserCreateNestedManyWithoutOwnerInput
+    firms?: FirmCreateNestedManyWithoutOwnerInput
+    accounts?: AccountCreateNestedManyWithoutOwnerInput
+    finances?: FinanceCreateNestedManyWithoutOwnerInput
+    financeTransactions?: Finance_TransactionCreateNestedManyWithoutOwnerInput
+    financeMoneyTrans?: Finance_Money_TransactionCreateNestedManyWithoutOwnerInput
+    journals?: JournalCreateNestedManyWithoutOwnerInput
+    journalTransactions?: JournalTransactionCreateNestedManyWithoutOwnerInput
+    girvis?: GirviCreateNestedManyWithoutOwnerInput
+    stocks?: StockCreateNestedManyWithoutOwnerInput
+    additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutOwnerInput
+    deposits?: GirviDepositCreateNestedManyWithoutOwnerInput
+    releases?: GirviReleaseCreateNestedManyWithoutOwnerInput
+    rates?: RateCreateNestedManyWithoutOwnerInput
+    purities?: PurityCreateNestedManyWithoutOwnerInput
+    moneyLenders?: MoneyLenderCreateNestedManyWithoutOwnerInput
+    staff?: StaffCreateNestedManyWithoutOwnerInput
+    messageTemplates?: MessageTemplateCreateNestedManyWithoutOwnerInput
+  }
+
+  export type OwnerUncheckedCreateWithoutWhatsappInstancesInput = {
+    own_id?: number
+    own_uuid?: string
+    own_product_key?: number
+    own_db: string
+    own_add_date?: Date | string
+    own_first_name: string
+    own_middle_name?: string | null
+    own_last_name: string
+    own_phone_no?: string | null
+    own_mobile_no: string
+    own_email: string
+    own_login_id: string
+    own_password: string
+    own_status?: $Enums.OwnerStatus
+    own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_refresh_token?: string | null
+    own_refresh_expiry?: Date | string | null
+    own_jwt_token?: string | null
+    own_jwt_expiry?: Date | string | null
+    own_login_status?: boolean
+    own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
+    own_otp?: string | null
+    own_otp_expiry?: Date | string | null
+    own_mail_user?: string | null
+    own_mail_pass_enc?: string | null
+    own_mail_from_name?: string | null
+    own_mail_provider?: string | null
+    own_mail_status?: string | null
+    own_mail_updated_at?: Date | string | null
+    own_address?: string | null
+    own_village?: string | null
+    own_city?: string | null
+    own_state?: string | null
+    own_pincode?: string | null
+    own_created_at?: Date | string
+    own_created_by?: string | null
+    own_updated_at?: Date | string
+    own_updated_by?: string | null
+    own_deleted_at?: Date | string | null
+    own_deleted_by?: string | null
+    own_is_deleted?: boolean
+    users?: UserUncheckedCreateNestedManyWithoutOwnerInput
+    firms?: FirmUncheckedCreateNestedManyWithoutOwnerInput
+    accounts?: AccountUncheckedCreateNestedManyWithoutOwnerInput
+    finances?: FinanceUncheckedCreateNestedManyWithoutOwnerInput
+    financeTransactions?: Finance_TransactionUncheckedCreateNestedManyWithoutOwnerInput
+    financeMoneyTrans?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutOwnerInput
+    journals?: JournalUncheckedCreateNestedManyWithoutOwnerInput
+    journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutOwnerInput
+    girvis?: GirviUncheckedCreateNestedManyWithoutOwnerInput
+    stocks?: StockUncheckedCreateNestedManyWithoutOwnerInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutOwnerInput
+    deposits?: GirviDepositUncheckedCreateNestedManyWithoutOwnerInput
+    releases?: GirviReleaseUncheckedCreateNestedManyWithoutOwnerInput
+    rates?: RateUncheckedCreateNestedManyWithoutOwnerInput
+    purities?: PurityUncheckedCreateNestedManyWithoutOwnerInput
+    moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutOwnerInput
+    staff?: StaffUncheckedCreateNestedManyWithoutOwnerInput
+    messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutOwnerInput
+  }
+
+  export type OwnerCreateOrConnectWithoutWhatsappInstancesInput = {
+    where: OwnerWhereUniqueInput
+    create: XOR<OwnerCreateWithoutWhatsappInstancesInput, OwnerUncheckedCreateWithoutWhatsappInstancesInput>
+  }
+
+  export type FirmCreateWithoutWhatsappInstanceInput = {
+    firm_uuid?: string
+    firm_unique_code?: string | null
+    firm_add_date?: Date | string
+    firm_name: string
+    firm_reg_no: string
+    firm_shop_name: string
+    firm_desc?: string | null
+    firm_address?: string | null
+    firm_city?: string | null
+    firm_pincode?: string | null
+    firm_phone_no?: string | null
+    firm_email_id?: string | null
+    firm_website_link?: string | null
+    firm_type?: $Enums.FirmType
+    firm_owner?: string | null
+    firm_other_info?: string | null
+    firm_geo_latitude?: string | null
+    firm_geo_longitude?: string | null
+    firm_whatsapp_link?: string | null
+    firm_facebook_link?: string | null
+    firm_insta_link?: string | null
+    firm_bank_name?: string | null
+    firm_bank_acc_no?: string | null
+    firm_bank_branch?: string | null
+    firm_bank_address?: string | null
+    firm_acc_holder?: string | null
+    firm_acc_type?: string | null
+    firm_ifsc_code?: string | null
+    firm_start_date?: Date | string | null
+    firm_balance?: string | null
+    firm_balance_type?: $Enums.FirmBalanceType
+    firm_gstin_no?: string | null
+    firm_pan_no?: string | null
+    firm_adhaar_no?: string | null
+    firm_form_header?: string | null
+    firm_form_footer?: string | null
+    firm_own_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_left_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_right_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_qr_code_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_pan_no_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_created_at?: Date | string
+    firm_created_by?: string | null
+    firm_updated_at?: Date | string
+    firm_updated_by?: string | null
+    firm_deleted_at?: Date | string | null
+    firm_deleted_by?: string | null
+    firm_is_deleted?: boolean
+    users?: UserCreateNestedManyWithoutFirmInput
+    accounts?: AccountCreateNestedManyWithoutFirmInput
+    owner?: OwnerCreateNestedOneWithoutFirmsInput
+    finances?: FinanceCreateNestedManyWithoutFirmInput
+    financeTransactions?: Finance_TransactionCreateNestedManyWithoutFirmInput
+    financeMoneyTrans?: Finance_Money_TransactionCreateNestedManyWithoutFirmInput
+    journals?: JournalCreateNestedManyWithoutFirmInput
+    journalTransactions?: JournalTransactionCreateNestedManyWithoutFirmInput
+    girvis?: GirviCreateNestedManyWithoutFirmInput
+    stocks?: StockCreateNestedManyWithoutFirmInput
+    additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutFirmInput
+    deposits?: GirviDepositCreateNestedManyWithoutFirmInput
+    releases?: GirviReleaseCreateNestedManyWithoutFirmInput
+    rates?: RateCreateNestedManyWithoutFirmInput
+    moneyLenders?: MoneyLenderCreateNestedManyWithoutFirmInput
+    auctionUsers?: AuctionUserCreateNestedManyWithoutFirmInput
+    auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
+    messageTemplates?: MessageTemplateCreateNestedManyWithoutFirmInput
+  }
+
+  export type FirmUncheckedCreateWithoutWhatsappInstanceInput = {
+    firm_id?: number
+    firm_uuid?: string
+    firm_unique_code?: string | null
+    firm_add_date?: Date | string
+    firm_own_id?: number
+    firm_name: string
+    firm_reg_no: string
+    firm_shop_name: string
+    firm_desc?: string | null
+    firm_address?: string | null
+    firm_city?: string | null
+    firm_pincode?: string | null
+    firm_phone_no?: string | null
+    firm_email_id?: string | null
+    firm_website_link?: string | null
+    firm_type?: $Enums.FirmType
+    firm_owner?: string | null
+    firm_other_info?: string | null
+    firm_geo_latitude?: string | null
+    firm_geo_longitude?: string | null
+    firm_whatsapp_link?: string | null
+    firm_facebook_link?: string | null
+    firm_insta_link?: string | null
+    firm_bank_name?: string | null
+    firm_bank_acc_no?: string | null
+    firm_bank_branch?: string | null
+    firm_bank_address?: string | null
+    firm_acc_holder?: string | null
+    firm_acc_type?: string | null
+    firm_ifsc_code?: string | null
+    firm_start_date?: Date | string | null
+    firm_balance?: string | null
+    firm_balance_type?: $Enums.FirmBalanceType
+    firm_gstin_no?: string | null
+    firm_pan_no?: string | null
+    firm_adhaar_no?: string | null
+    firm_form_header?: string | null
+    firm_form_footer?: string | null
+    firm_own_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_left_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_right_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_qr_code_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_pan_no_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_created_at?: Date | string
+    firm_created_by?: string | null
+    firm_updated_at?: Date | string
+    firm_updated_by?: string | null
+    firm_deleted_at?: Date | string | null
+    firm_deleted_by?: string | null
+    firm_is_deleted?: boolean
+    users?: UserUncheckedCreateNestedManyWithoutFirmInput
+    accounts?: AccountUncheckedCreateNestedManyWithoutFirmInput
+    finances?: FinanceUncheckedCreateNestedManyWithoutFirmInput
+    financeTransactions?: Finance_TransactionUncheckedCreateNestedManyWithoutFirmInput
+    financeMoneyTrans?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutFirmInput
+    journals?: JournalUncheckedCreateNestedManyWithoutFirmInput
+    journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutFirmInput
+    girvis?: GirviUncheckedCreateNestedManyWithoutFirmInput
+    stocks?: StockUncheckedCreateNestedManyWithoutFirmInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutFirmInput
+    deposits?: GirviDepositUncheckedCreateNestedManyWithoutFirmInput
+    releases?: GirviReleaseUncheckedCreateNestedManyWithoutFirmInput
+    rates?: RateUncheckedCreateNestedManyWithoutFirmInput
+    moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutFirmInput
+    auctionUsers?: AuctionUserUncheckedCreateNestedManyWithoutFirmInput
+    auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
+    messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutFirmInput
+  }
+
+  export type FirmCreateOrConnectWithoutWhatsappInstanceInput = {
+    where: FirmWhereUniqueInput
+    create: XOR<FirmCreateWithoutWhatsappInstanceInput, FirmUncheckedCreateWithoutWhatsappInstanceInput>
+  }
+
+  export type OwnerUpsertWithoutWhatsappInstancesInput = {
+    update: XOR<OwnerUpdateWithoutWhatsappInstancesInput, OwnerUncheckedUpdateWithoutWhatsappInstancesInput>
+    create: XOR<OwnerCreateWithoutWhatsappInstancesInput, OwnerUncheckedCreateWithoutWhatsappInstancesInput>
+    where?: OwnerWhereInput
+  }
+
+  export type OwnerUpdateToOneWithWhereWithoutWhatsappInstancesInput = {
+    where?: OwnerWhereInput
+    data: XOR<OwnerUpdateWithoutWhatsappInstancesInput, OwnerUncheckedUpdateWithoutWhatsappInstancesInput>
+  }
+
+  export type OwnerUpdateWithoutWhatsappInstancesInput = {
+    own_uuid?: StringFieldUpdateOperationsInput | string
+    own_db?: StringFieldUpdateOperationsInput | string
+    own_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    own_first_name?: StringFieldUpdateOperationsInput | string
+    own_middle_name?: NullableStringFieldUpdateOperationsInput | string | null
+    own_last_name?: StringFieldUpdateOperationsInput | string
+    own_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mobile_no?: StringFieldUpdateOperationsInput | string
+    own_email?: StringFieldUpdateOperationsInput | string
+    own_login_id?: StringFieldUpdateOperationsInput | string
+    own_password?: StringFieldUpdateOperationsInput | string
+    own_status?: EnumOwnerStatusFieldUpdateOperationsInput | $Enums.OwnerStatus
+    own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
+    own_refresh_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_jwt_token?: NullableStringFieldUpdateOperationsInput | string | null
+    own_jwt_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_login_status?: BoolFieldUpdateOperationsInput | boolean
+    own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
+    own_otp?: NullableStringFieldUpdateOperationsInput | string | null
+    own_otp_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_mail_user?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_pass_enc?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_from_name?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_provider?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_status?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_address?: NullableStringFieldUpdateOperationsInput | string | null
+    own_village?: NullableStringFieldUpdateOperationsInput | string | null
+    own_city?: NullableStringFieldUpdateOperationsInput | string | null
+    own_state?: NullableStringFieldUpdateOperationsInput | string | null
+    own_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    own_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    own_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    own_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    own_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    own_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    own_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    users?: UserUpdateManyWithoutOwnerNestedInput
+    firms?: FirmUpdateManyWithoutOwnerNestedInput
+    accounts?: AccountUpdateManyWithoutOwnerNestedInput
+    finances?: FinanceUpdateManyWithoutOwnerNestedInput
+    financeTransactions?: Finance_TransactionUpdateManyWithoutOwnerNestedInput
+    financeMoneyTrans?: Finance_Money_TransactionUpdateManyWithoutOwnerNestedInput
+    journals?: JournalUpdateManyWithoutOwnerNestedInput
+    journalTransactions?: JournalTransactionUpdateManyWithoutOwnerNestedInput
+    girvis?: GirviUpdateManyWithoutOwnerNestedInput
+    stocks?: StockUpdateManyWithoutOwnerNestedInput
+    additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutOwnerNestedInput
+    deposits?: GirviDepositUpdateManyWithoutOwnerNestedInput
+    releases?: GirviReleaseUpdateManyWithoutOwnerNestedInput
+    rates?: RateUpdateManyWithoutOwnerNestedInput
+    purities?: PurityUpdateManyWithoutOwnerNestedInput
+    moneyLenders?: MoneyLenderUpdateManyWithoutOwnerNestedInput
+    staff?: StaffUpdateManyWithoutOwnerNestedInput
+    messageTemplates?: MessageTemplateUpdateManyWithoutOwnerNestedInput
+  }
+
+  export type OwnerUncheckedUpdateWithoutWhatsappInstancesInput = {
+    own_id?: IntFieldUpdateOperationsInput | number
+    own_uuid?: StringFieldUpdateOperationsInput | string
+    own_product_key?: IntFieldUpdateOperationsInput | number
+    own_db?: StringFieldUpdateOperationsInput | string
+    own_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    own_first_name?: StringFieldUpdateOperationsInput | string
+    own_middle_name?: NullableStringFieldUpdateOperationsInput | string | null
+    own_last_name?: StringFieldUpdateOperationsInput | string
+    own_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mobile_no?: StringFieldUpdateOperationsInput | string
+    own_email?: StringFieldUpdateOperationsInput | string
+    own_login_id?: StringFieldUpdateOperationsInput | string
+    own_password?: StringFieldUpdateOperationsInput | string
+    own_status?: EnumOwnerStatusFieldUpdateOperationsInput | $Enums.OwnerStatus
+    own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
+    own_refresh_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_jwt_token?: NullableStringFieldUpdateOperationsInput | string | null
+    own_jwt_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_login_status?: BoolFieldUpdateOperationsInput | boolean
+    own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
+    own_otp?: NullableStringFieldUpdateOperationsInput | string | null
+    own_otp_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_mail_user?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_pass_enc?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_from_name?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_provider?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_status?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_address?: NullableStringFieldUpdateOperationsInput | string | null
+    own_village?: NullableStringFieldUpdateOperationsInput | string | null
+    own_city?: NullableStringFieldUpdateOperationsInput | string | null
+    own_state?: NullableStringFieldUpdateOperationsInput | string | null
+    own_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    own_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    own_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    own_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    own_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    own_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    own_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    users?: UserUncheckedUpdateManyWithoutOwnerNestedInput
+    firms?: FirmUncheckedUpdateManyWithoutOwnerNestedInput
+    accounts?: AccountUncheckedUpdateManyWithoutOwnerNestedInput
+    finances?: FinanceUncheckedUpdateManyWithoutOwnerNestedInput
+    financeTransactions?: Finance_TransactionUncheckedUpdateManyWithoutOwnerNestedInput
+    financeMoneyTrans?: Finance_Money_TransactionUncheckedUpdateManyWithoutOwnerNestedInput
+    journals?: JournalUncheckedUpdateManyWithoutOwnerNestedInput
+    journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutOwnerNestedInput
+    girvis?: GirviUncheckedUpdateManyWithoutOwnerNestedInput
+    stocks?: StockUncheckedUpdateManyWithoutOwnerNestedInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutOwnerNestedInput
+    deposits?: GirviDepositUncheckedUpdateManyWithoutOwnerNestedInput
+    releases?: GirviReleaseUncheckedUpdateManyWithoutOwnerNestedInput
+    rates?: RateUncheckedUpdateManyWithoutOwnerNestedInput
+    purities?: PurityUncheckedUpdateManyWithoutOwnerNestedInput
+    moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutOwnerNestedInput
+    staff?: StaffUncheckedUpdateManyWithoutOwnerNestedInput
+    messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutOwnerNestedInput
+  }
+
+  export type FirmUpsertWithoutWhatsappInstanceInput = {
+    update: XOR<FirmUpdateWithoutWhatsappInstanceInput, FirmUncheckedUpdateWithoutWhatsappInstanceInput>
+    create: XOR<FirmCreateWithoutWhatsappInstanceInput, FirmUncheckedCreateWithoutWhatsappInstanceInput>
+    where?: FirmWhereInput
+  }
+
+  export type FirmUpdateToOneWithWhereWithoutWhatsappInstanceInput = {
+    where?: FirmWhereInput
+    data: XOR<FirmUpdateWithoutWhatsappInstanceInput, FirmUncheckedUpdateWithoutWhatsappInstanceInput>
+  }
+
+  export type FirmUpdateWithoutWhatsappInstanceInput = {
+    firm_uuid?: StringFieldUpdateOperationsInput | string
+    firm_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    firm_name?: StringFieldUpdateOperationsInput | string
+    firm_reg_no?: StringFieldUpdateOperationsInput | string
+    firm_shop_name?: StringFieldUpdateOperationsInput | string
+    firm_desc?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_address?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_city?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_email_id?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_website_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_type?: EnumFirmTypeFieldUpdateOperationsInput | $Enums.FirmType
+    firm_owner?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_geo_latitude?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_geo_longitude?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_whatsapp_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_facebook_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_insta_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_name?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_acc_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_branch?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_address?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_acc_holder?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_acc_type?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firm_balance?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_balance_type?: EnumFirmBalanceTypeFieldUpdateOperationsInput | $Enums.FirmBalanceType
+    firm_gstin_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_adhaar_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_form_header?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_form_footer?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_own_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_left_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_right_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_qr_code_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_pan_no_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    firm_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    firm_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firm_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    users?: UserUpdateManyWithoutFirmNestedInput
+    accounts?: AccountUpdateManyWithoutFirmNestedInput
+    owner?: OwnerUpdateOneRequiredWithoutFirmsNestedInput
+    finances?: FinanceUpdateManyWithoutFirmNestedInput
+    financeTransactions?: Finance_TransactionUpdateManyWithoutFirmNestedInput
+    financeMoneyTrans?: Finance_Money_TransactionUpdateManyWithoutFirmNestedInput
+    journals?: JournalUpdateManyWithoutFirmNestedInput
+    journalTransactions?: JournalTransactionUpdateManyWithoutFirmNestedInput
+    girvis?: GirviUpdateManyWithoutFirmNestedInput
+    stocks?: StockUpdateManyWithoutFirmNestedInput
+    additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutFirmNestedInput
+    deposits?: GirviDepositUpdateManyWithoutFirmNestedInput
+    releases?: GirviReleaseUpdateManyWithoutFirmNestedInput
+    rates?: RateUpdateManyWithoutFirmNestedInput
+    moneyLenders?: MoneyLenderUpdateManyWithoutFirmNestedInput
+    auctionUsers?: AuctionUserUpdateManyWithoutFirmNestedInput
+    auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
+    messageTemplates?: MessageTemplateUpdateManyWithoutFirmNestedInput
+  }
+
+  export type FirmUncheckedUpdateWithoutWhatsappInstanceInput = {
+    firm_id?: IntFieldUpdateOperationsInput | number
+    firm_uuid?: StringFieldUpdateOperationsInput | string
+    firm_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    firm_own_id?: IntFieldUpdateOperationsInput | number
+    firm_name?: StringFieldUpdateOperationsInput | string
+    firm_reg_no?: StringFieldUpdateOperationsInput | string
+    firm_shop_name?: StringFieldUpdateOperationsInput | string
+    firm_desc?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_address?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_city?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_email_id?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_website_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_type?: EnumFirmTypeFieldUpdateOperationsInput | $Enums.FirmType
+    firm_owner?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_geo_latitude?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_geo_longitude?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_whatsapp_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_facebook_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_insta_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_name?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_acc_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_branch?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_address?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_acc_holder?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_acc_type?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firm_balance?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_balance_type?: EnumFirmBalanceTypeFieldUpdateOperationsInput | $Enums.FirmBalanceType
+    firm_gstin_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_adhaar_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_form_header?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_form_footer?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_own_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_left_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_right_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_qr_code_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_pan_no_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    firm_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    firm_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firm_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    users?: UserUncheckedUpdateManyWithoutFirmNestedInput
+    accounts?: AccountUncheckedUpdateManyWithoutFirmNestedInput
+    finances?: FinanceUncheckedUpdateManyWithoutFirmNestedInput
+    financeTransactions?: Finance_TransactionUncheckedUpdateManyWithoutFirmNestedInput
+    financeMoneyTrans?: Finance_Money_TransactionUncheckedUpdateManyWithoutFirmNestedInput
+    journals?: JournalUncheckedUpdateManyWithoutFirmNestedInput
+    journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutFirmNestedInput
+    girvis?: GirviUncheckedUpdateManyWithoutFirmNestedInput
+    stocks?: StockUncheckedUpdateManyWithoutFirmNestedInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutFirmNestedInput
+    deposits?: GirviDepositUncheckedUpdateManyWithoutFirmNestedInput
+    releases?: GirviReleaseUncheckedUpdateManyWithoutFirmNestedInput
+    rates?: RateUncheckedUpdateManyWithoutFirmNestedInput
+    moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutFirmNestedInput
+    auctionUsers?: AuctionUserUncheckedUpdateManyWithoutFirmNestedInput
+    auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
+    messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutFirmNestedInput
+  }
+
   export type UserCreateManyOwnerInput = {
     user_id?: number
     user_uuid?: string
@@ -96547,6 +104355,9 @@ export namespace Prisma {
     girv_transfer_firm_id?: number | null
     girv_transfer_girv_id?: number | null
     girv_transfer_ml_id?: number | null
+    girv_is_transferred_in?: boolean
+    girv_transfer_from_girv_id?: number | null
+    girv_transfer_from_firm_id?: number | null
     girv_created_at?: Date | string
     girv_created_by?: string | null
     girv_updated_at?: Date | string
@@ -96830,6 +104641,53 @@ export namespace Prisma {
     staff_is_deleted?: boolean
   }
 
+  export type MessageTemplateCreateManyOwnerInput = {
+    mt_id?: number
+    mt_uuid?: string
+    mt_firm_id: number
+    mt_channel: $Enums.MessageChannel
+    mt_key: string
+    mt_name: string
+    mt_category?: string
+    mt_language?: string
+    mt_subject?: string | null
+    mt_body: string
+    mt_variables?: NullableJsonNullValueInput | InputJsonValue
+    mt_attachments?: NullableJsonNullValueInput | InputJsonValue
+    mt_has_attachment?: boolean
+    mt_is_system?: boolean
+    mt_status?: $Enums.MessageTemplateStatus
+    mt_created_at?: Date | string
+    mt_created_by?: string | null
+    mt_updated_at?: Date | string
+    mt_updated_by?: string | null
+    mt_deleted_at?: Date | string | null
+    mt_deleted_by?: string | null
+    mt_is_deleted?: boolean
+  }
+
+  export type WhatsAppInstanceCreateManyOwnerInput = {
+    wa_id?: number
+    wa_uuid?: string
+    wa_firm_id: number
+    wa_provider?: string
+    wa_instance_id?: string | null
+    wa_token?: string | null
+    wa_api_url?: string | null
+    wa_phone_number?: string | null
+    wa_status?: $Enums.WhatsAppInstanceStatus
+    wa_qr_code?: string | null
+    wa_last_checked?: Date | string | null
+    wa_meta?: NullableJsonNullValueInput | InputJsonValue
+    wa_created_at?: Date | string
+    wa_created_by?: string | null
+    wa_updated_at?: Date | string
+    wa_updated_by?: string | null
+    wa_deleted_at?: Date | string | null
+    wa_deleted_by?: string | null
+    wa_is_deleted?: boolean
+  }
+
   export type UserUpdateWithoutOwnerInput = {
     user_uuid?: StringFieldUpdateOperationsInput | string
     user_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
@@ -97061,6 +104919,8 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUpdateManyWithoutFirmNestedInput
     auctionUsers?: AuctionUserUpdateManyWithoutFirmNestedInput
     auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
+    messageTemplates?: MessageTemplateUpdateManyWithoutFirmNestedInput
+    whatsappInstance?: WhatsAppInstanceUpdateOneWithoutFirmNestedInput
   }
 
   export type FirmUncheckedUpdateWithoutOwnerInput = {
@@ -97129,6 +104989,8 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutFirmNestedInput
     auctionUsers?: AuctionUserUncheckedUpdateManyWithoutFirmNestedInput
     auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
+    messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutFirmNestedInput
+    whatsappInstance?: WhatsAppInstanceUncheckedUpdateOneWithoutFirmNestedInput
   }
 
   export type FirmUncheckedUpdateManyWithoutOwnerInput = {
@@ -97873,6 +105735,9 @@ export namespace Prisma {
     girv_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     girv_transfer_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_transfer_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_is_transferred_in?: BoolFieldUpdateOperationsInput | boolean
+    girv_transfer_from_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_transfer_from_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     girv_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     girv_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -97942,6 +105807,9 @@ export namespace Prisma {
     girv_transfer_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_transfer_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_transfer_ml_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_is_transferred_in?: BoolFieldUpdateOperationsInput | boolean
+    girv_transfer_from_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_transfer_from_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     girv_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     girv_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -98001,6 +105869,9 @@ export namespace Prisma {
     girv_transfer_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_transfer_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_transfer_ml_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_is_transferred_in?: BoolFieldUpdateOperationsInput | boolean
+    girv_transfer_from_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_transfer_from_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     girv_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     girv_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -98828,6 +106699,145 @@ export namespace Prisma {
     staff_is_deleted?: BoolFieldUpdateOperationsInput | boolean
   }
 
+  export type MessageTemplateUpdateWithoutOwnerInput = {
+    mt_uuid?: StringFieldUpdateOperationsInput | string
+    mt_channel?: EnumMessageChannelFieldUpdateOperationsInput | $Enums.MessageChannel
+    mt_key?: StringFieldUpdateOperationsInput | string
+    mt_name?: StringFieldUpdateOperationsInput | string
+    mt_category?: StringFieldUpdateOperationsInput | string
+    mt_language?: StringFieldUpdateOperationsInput | string
+    mt_subject?: NullableStringFieldUpdateOperationsInput | string | null
+    mt_body?: StringFieldUpdateOperationsInput | string
+    mt_variables?: NullableJsonNullValueInput | InputJsonValue
+    mt_attachments?: NullableJsonNullValueInput | InputJsonValue
+    mt_has_attachment?: BoolFieldUpdateOperationsInput | boolean
+    mt_is_system?: BoolFieldUpdateOperationsInput | boolean
+    mt_status?: EnumMessageTemplateStatusFieldUpdateOperationsInput | $Enums.MessageTemplateStatus
+    mt_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    mt_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    mt_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    mt_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    mt_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    mt_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    mt_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    firm?: FirmUpdateOneRequiredWithoutMessageTemplatesNestedInput
+  }
+
+  export type MessageTemplateUncheckedUpdateWithoutOwnerInput = {
+    mt_id?: IntFieldUpdateOperationsInput | number
+    mt_uuid?: StringFieldUpdateOperationsInput | string
+    mt_firm_id?: IntFieldUpdateOperationsInput | number
+    mt_channel?: EnumMessageChannelFieldUpdateOperationsInput | $Enums.MessageChannel
+    mt_key?: StringFieldUpdateOperationsInput | string
+    mt_name?: StringFieldUpdateOperationsInput | string
+    mt_category?: StringFieldUpdateOperationsInput | string
+    mt_language?: StringFieldUpdateOperationsInput | string
+    mt_subject?: NullableStringFieldUpdateOperationsInput | string | null
+    mt_body?: StringFieldUpdateOperationsInput | string
+    mt_variables?: NullableJsonNullValueInput | InputJsonValue
+    mt_attachments?: NullableJsonNullValueInput | InputJsonValue
+    mt_has_attachment?: BoolFieldUpdateOperationsInput | boolean
+    mt_is_system?: BoolFieldUpdateOperationsInput | boolean
+    mt_status?: EnumMessageTemplateStatusFieldUpdateOperationsInput | $Enums.MessageTemplateStatus
+    mt_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    mt_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    mt_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    mt_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    mt_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    mt_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    mt_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type MessageTemplateUncheckedUpdateManyWithoutOwnerInput = {
+    mt_id?: IntFieldUpdateOperationsInput | number
+    mt_uuid?: StringFieldUpdateOperationsInput | string
+    mt_firm_id?: IntFieldUpdateOperationsInput | number
+    mt_channel?: EnumMessageChannelFieldUpdateOperationsInput | $Enums.MessageChannel
+    mt_key?: StringFieldUpdateOperationsInput | string
+    mt_name?: StringFieldUpdateOperationsInput | string
+    mt_category?: StringFieldUpdateOperationsInput | string
+    mt_language?: StringFieldUpdateOperationsInput | string
+    mt_subject?: NullableStringFieldUpdateOperationsInput | string | null
+    mt_body?: StringFieldUpdateOperationsInput | string
+    mt_variables?: NullableJsonNullValueInput | InputJsonValue
+    mt_attachments?: NullableJsonNullValueInput | InputJsonValue
+    mt_has_attachment?: BoolFieldUpdateOperationsInput | boolean
+    mt_is_system?: BoolFieldUpdateOperationsInput | boolean
+    mt_status?: EnumMessageTemplateStatusFieldUpdateOperationsInput | $Enums.MessageTemplateStatus
+    mt_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    mt_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    mt_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    mt_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    mt_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    mt_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    mt_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type WhatsAppInstanceUpdateWithoutOwnerInput = {
+    wa_uuid?: StringFieldUpdateOperationsInput | string
+    wa_provider?: StringFieldUpdateOperationsInput | string
+    wa_instance_id?: NullableStringFieldUpdateOperationsInput | string | null
+    wa_token?: NullableStringFieldUpdateOperationsInput | string | null
+    wa_api_url?: NullableStringFieldUpdateOperationsInput | string | null
+    wa_phone_number?: NullableStringFieldUpdateOperationsInput | string | null
+    wa_status?: EnumWhatsAppInstanceStatusFieldUpdateOperationsInput | $Enums.WhatsAppInstanceStatus
+    wa_qr_code?: NullableStringFieldUpdateOperationsInput | string | null
+    wa_last_checked?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    wa_meta?: NullableJsonNullValueInput | InputJsonValue
+    wa_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    wa_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    wa_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    wa_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    wa_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    wa_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    wa_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    firm?: FirmUpdateOneRequiredWithoutWhatsappInstanceNestedInput
+  }
+
+  export type WhatsAppInstanceUncheckedUpdateWithoutOwnerInput = {
+    wa_id?: IntFieldUpdateOperationsInput | number
+    wa_uuid?: StringFieldUpdateOperationsInput | string
+    wa_firm_id?: IntFieldUpdateOperationsInput | number
+    wa_provider?: StringFieldUpdateOperationsInput | string
+    wa_instance_id?: NullableStringFieldUpdateOperationsInput | string | null
+    wa_token?: NullableStringFieldUpdateOperationsInput | string | null
+    wa_api_url?: NullableStringFieldUpdateOperationsInput | string | null
+    wa_phone_number?: NullableStringFieldUpdateOperationsInput | string | null
+    wa_status?: EnumWhatsAppInstanceStatusFieldUpdateOperationsInput | $Enums.WhatsAppInstanceStatus
+    wa_qr_code?: NullableStringFieldUpdateOperationsInput | string | null
+    wa_last_checked?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    wa_meta?: NullableJsonNullValueInput | InputJsonValue
+    wa_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    wa_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    wa_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    wa_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    wa_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    wa_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    wa_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type WhatsAppInstanceUncheckedUpdateManyWithoutOwnerInput = {
+    wa_id?: IntFieldUpdateOperationsInput | number
+    wa_uuid?: StringFieldUpdateOperationsInput | string
+    wa_firm_id?: IntFieldUpdateOperationsInput | number
+    wa_provider?: StringFieldUpdateOperationsInput | string
+    wa_instance_id?: NullableStringFieldUpdateOperationsInput | string | null
+    wa_token?: NullableStringFieldUpdateOperationsInput | string | null
+    wa_api_url?: NullableStringFieldUpdateOperationsInput | string | null
+    wa_phone_number?: NullableStringFieldUpdateOperationsInput | string | null
+    wa_status?: EnumWhatsAppInstanceStatusFieldUpdateOperationsInput | $Enums.WhatsAppInstanceStatus
+    wa_qr_code?: NullableStringFieldUpdateOperationsInput | string | null
+    wa_last_checked?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    wa_meta?: NullableJsonNullValueInput | InputJsonValue
+    wa_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    wa_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    wa_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    wa_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    wa_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    wa_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    wa_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
   export type UserCreateManyFirmInput = {
     user_id?: number
     user_uuid?: string
@@ -99112,6 +107122,9 @@ export namespace Prisma {
     girv_transfer_firm_id?: number | null
     girv_transfer_girv_id?: number | null
     girv_transfer_ml_id?: number | null
+    girv_is_transferred_in?: boolean
+    girv_transfer_from_girv_id?: number | null
+    girv_transfer_from_firm_id?: number | null
     girv_created_at?: Date | string
     girv_created_by?: string | null
     girv_updated_at?: Date | string
@@ -99368,6 +107381,31 @@ export namespace Prisma {
     al_card_amt?: number | null
     al_pay_info?: string | null
     al_other_info?: string | null
+  }
+
+  export type MessageTemplateCreateManyFirmInput = {
+    mt_id?: number
+    mt_uuid?: string
+    mt_own_id: number
+    mt_channel: $Enums.MessageChannel
+    mt_key: string
+    mt_name: string
+    mt_category?: string
+    mt_language?: string
+    mt_subject?: string | null
+    mt_body: string
+    mt_variables?: NullableJsonNullValueInput | InputJsonValue
+    mt_attachments?: NullableJsonNullValueInput | InputJsonValue
+    mt_has_attachment?: boolean
+    mt_is_system?: boolean
+    mt_status?: $Enums.MessageTemplateStatus
+    mt_created_at?: Date | string
+    mt_created_by?: string | null
+    mt_updated_at?: Date | string
+    mt_updated_by?: string | null
+    mt_deleted_at?: Date | string | null
+    mt_deleted_by?: string | null
+    mt_is_deleted?: boolean
   }
 
   export type UserUpdateWithoutFirmInput = {
@@ -100226,6 +108264,9 @@ export namespace Prisma {
     girv_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     girv_transfer_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_transfer_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_is_transferred_in?: BoolFieldUpdateOperationsInput | boolean
+    girv_transfer_from_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_transfer_from_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     girv_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     girv_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -100295,6 +108336,9 @@ export namespace Prisma {
     girv_transfer_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_transfer_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_transfer_ml_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_is_transferred_in?: BoolFieldUpdateOperationsInput | boolean
+    girv_transfer_from_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_transfer_from_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     girv_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     girv_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -100354,6 +108398,9 @@ export namespace Prisma {
     girv_transfer_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_transfer_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_transfer_ml_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_is_transferred_in?: BoolFieldUpdateOperationsInput | boolean
+    girv_transfer_from_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_transfer_from_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     girv_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     girv_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -101106,6 +109153,80 @@ export namespace Prisma {
     al_other_info?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
+  export type MessageTemplateUpdateWithoutFirmInput = {
+    mt_uuid?: StringFieldUpdateOperationsInput | string
+    mt_channel?: EnumMessageChannelFieldUpdateOperationsInput | $Enums.MessageChannel
+    mt_key?: StringFieldUpdateOperationsInput | string
+    mt_name?: StringFieldUpdateOperationsInput | string
+    mt_category?: StringFieldUpdateOperationsInput | string
+    mt_language?: StringFieldUpdateOperationsInput | string
+    mt_subject?: NullableStringFieldUpdateOperationsInput | string | null
+    mt_body?: StringFieldUpdateOperationsInput | string
+    mt_variables?: NullableJsonNullValueInput | InputJsonValue
+    mt_attachments?: NullableJsonNullValueInput | InputJsonValue
+    mt_has_attachment?: BoolFieldUpdateOperationsInput | boolean
+    mt_is_system?: BoolFieldUpdateOperationsInput | boolean
+    mt_status?: EnumMessageTemplateStatusFieldUpdateOperationsInput | $Enums.MessageTemplateStatus
+    mt_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    mt_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    mt_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    mt_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    mt_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    mt_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    mt_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    owner?: OwnerUpdateOneRequiredWithoutMessageTemplatesNestedInput
+  }
+
+  export type MessageTemplateUncheckedUpdateWithoutFirmInput = {
+    mt_id?: IntFieldUpdateOperationsInput | number
+    mt_uuid?: StringFieldUpdateOperationsInput | string
+    mt_own_id?: IntFieldUpdateOperationsInput | number
+    mt_channel?: EnumMessageChannelFieldUpdateOperationsInput | $Enums.MessageChannel
+    mt_key?: StringFieldUpdateOperationsInput | string
+    mt_name?: StringFieldUpdateOperationsInput | string
+    mt_category?: StringFieldUpdateOperationsInput | string
+    mt_language?: StringFieldUpdateOperationsInput | string
+    mt_subject?: NullableStringFieldUpdateOperationsInput | string | null
+    mt_body?: StringFieldUpdateOperationsInput | string
+    mt_variables?: NullableJsonNullValueInput | InputJsonValue
+    mt_attachments?: NullableJsonNullValueInput | InputJsonValue
+    mt_has_attachment?: BoolFieldUpdateOperationsInput | boolean
+    mt_is_system?: BoolFieldUpdateOperationsInput | boolean
+    mt_status?: EnumMessageTemplateStatusFieldUpdateOperationsInput | $Enums.MessageTemplateStatus
+    mt_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    mt_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    mt_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    mt_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    mt_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    mt_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    mt_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type MessageTemplateUncheckedUpdateManyWithoutFirmInput = {
+    mt_id?: IntFieldUpdateOperationsInput | number
+    mt_uuid?: StringFieldUpdateOperationsInput | string
+    mt_own_id?: IntFieldUpdateOperationsInput | number
+    mt_channel?: EnumMessageChannelFieldUpdateOperationsInput | $Enums.MessageChannel
+    mt_key?: StringFieldUpdateOperationsInput | string
+    mt_name?: StringFieldUpdateOperationsInput | string
+    mt_category?: StringFieldUpdateOperationsInput | string
+    mt_language?: StringFieldUpdateOperationsInput | string
+    mt_subject?: NullableStringFieldUpdateOperationsInput | string | null
+    mt_body?: StringFieldUpdateOperationsInput | string
+    mt_variables?: NullableJsonNullValueInput | InputJsonValue
+    mt_attachments?: NullableJsonNullValueInput | InputJsonValue
+    mt_has_attachment?: BoolFieldUpdateOperationsInput | boolean
+    mt_is_system?: BoolFieldUpdateOperationsInput | boolean
+    mt_status?: EnumMessageTemplateStatusFieldUpdateOperationsInput | $Enums.MessageTemplateStatus
+    mt_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    mt_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    mt_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    mt_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    mt_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    mt_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    mt_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
   export type FinanceCreateManyCashAccountInput = {
     fin_id?: number
     fin_uuid?: string
@@ -101743,6 +109864,9 @@ export namespace Prisma {
     girv_transfer_firm_id?: number | null
     girv_transfer_girv_id?: number | null
     girv_transfer_ml_id?: number | null
+    girv_is_transferred_in?: boolean
+    girv_transfer_from_girv_id?: number | null
+    girv_transfer_from_firm_id?: number | null
     girv_created_at?: Date | string
     girv_created_by?: string | null
     girv_updated_at?: Date | string
@@ -101798,6 +109922,9 @@ export namespace Prisma {
     girv_transfer_firm_id?: number | null
     girv_transfer_girv_id?: number | null
     girv_transfer_ml_id?: number | null
+    girv_is_transferred_in?: boolean
+    girv_transfer_from_girv_id?: number | null
+    girv_transfer_from_firm_id?: number | null
     girv_created_at?: Date | string
     girv_created_by?: string | null
     girv_updated_at?: Date | string
@@ -101853,6 +109980,9 @@ export namespace Prisma {
     girv_transfer_firm_id?: number | null
     girv_transfer_girv_id?: number | null
     girv_transfer_ml_id?: number | null
+    girv_is_transferred_in?: boolean
+    girv_transfer_from_girv_id?: number | null
+    girv_transfer_from_firm_id?: number | null
     girv_created_at?: Date | string
     girv_created_by?: string | null
     girv_updated_at?: Date | string
@@ -101908,6 +110038,9 @@ export namespace Prisma {
     girv_transfer_firm_id?: number | null
     girv_transfer_girv_id?: number | null
     girv_transfer_ml_id?: number | null
+    girv_is_transferred_in?: boolean
+    girv_transfer_from_girv_id?: number | null
+    girv_transfer_from_firm_id?: number | null
     girv_created_at?: Date | string
     girv_created_by?: string | null
     girv_updated_at?: Date | string
@@ -101963,6 +110096,9 @@ export namespace Prisma {
     girv_transfer_firm_id?: number | null
     girv_transfer_girv_id?: number | null
     girv_transfer_ml_id?: number | null
+    girv_is_transferred_in?: boolean
+    girv_transfer_from_girv_id?: number | null
+    girv_transfer_from_firm_id?: number | null
     girv_created_at?: Date | string
     girv_created_by?: string | null
     girv_updated_at?: Date | string
@@ -102018,6 +110154,9 @@ export namespace Prisma {
     girv_transfer_firm_id?: number | null
     girv_transfer_girv_id?: number | null
     girv_transfer_ml_id?: number | null
+    girv_is_transferred_in?: boolean
+    girv_transfer_from_girv_id?: number | null
+    girv_transfer_from_firm_id?: number | null
     girv_created_at?: Date | string
     girv_created_by?: string | null
     girv_updated_at?: Date | string
@@ -102073,6 +110212,9 @@ export namespace Prisma {
     girv_transfer_firm_id?: number | null
     girv_transfer_girv_id?: number | null
     girv_transfer_ml_id?: number | null
+    girv_is_transferred_in?: boolean
+    girv_transfer_from_girv_id?: number | null
+    girv_transfer_from_firm_id?: number | null
     girv_created_at?: Date | string
     girv_created_by?: string | null
     girv_updated_at?: Date | string
@@ -104670,6 +112812,9 @@ export namespace Prisma {
     girv_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     girv_transfer_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_transfer_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_is_transferred_in?: BoolFieldUpdateOperationsInput | boolean
+    girv_transfer_from_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_transfer_from_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     girv_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     girv_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -104739,6 +112884,9 @@ export namespace Prisma {
     girv_transfer_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_transfer_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_transfer_ml_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_is_transferred_in?: BoolFieldUpdateOperationsInput | boolean
+    girv_transfer_from_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_transfer_from_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     girv_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     girv_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -104798,6 +112946,9 @@ export namespace Prisma {
     girv_transfer_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_transfer_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_transfer_ml_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_is_transferred_in?: BoolFieldUpdateOperationsInput | boolean
+    girv_transfer_from_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_transfer_from_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     girv_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     girv_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -104842,6 +112993,9 @@ export namespace Prisma {
     girv_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     girv_transfer_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_transfer_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_is_transferred_in?: BoolFieldUpdateOperationsInput | boolean
+    girv_transfer_from_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_transfer_from_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     girv_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     girv_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -104911,6 +113065,9 @@ export namespace Prisma {
     girv_transfer_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_transfer_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_transfer_ml_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_is_transferred_in?: BoolFieldUpdateOperationsInput | boolean
+    girv_transfer_from_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_transfer_from_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     girv_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     girv_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -104970,6 +113127,9 @@ export namespace Prisma {
     girv_transfer_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_transfer_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_transfer_ml_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_is_transferred_in?: BoolFieldUpdateOperationsInput | boolean
+    girv_transfer_from_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_transfer_from_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     girv_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     girv_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -105014,6 +113174,9 @@ export namespace Prisma {
     girv_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     girv_transfer_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_transfer_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_is_transferred_in?: BoolFieldUpdateOperationsInput | boolean
+    girv_transfer_from_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_transfer_from_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     girv_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     girv_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -105083,6 +113246,9 @@ export namespace Prisma {
     girv_transfer_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_transfer_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_transfer_ml_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_is_transferred_in?: BoolFieldUpdateOperationsInput | boolean
+    girv_transfer_from_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_transfer_from_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     girv_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     girv_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -105142,6 +113308,9 @@ export namespace Prisma {
     girv_transfer_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_transfer_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_transfer_ml_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_is_transferred_in?: BoolFieldUpdateOperationsInput | boolean
+    girv_transfer_from_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_transfer_from_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     girv_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     girv_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -105186,6 +113355,9 @@ export namespace Prisma {
     girv_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     girv_transfer_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_transfer_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_is_transferred_in?: BoolFieldUpdateOperationsInput | boolean
+    girv_transfer_from_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_transfer_from_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     girv_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     girv_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -105255,6 +113427,9 @@ export namespace Prisma {
     girv_transfer_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_transfer_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_transfer_ml_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_is_transferred_in?: BoolFieldUpdateOperationsInput | boolean
+    girv_transfer_from_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_transfer_from_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     girv_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     girv_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -105314,6 +113489,9 @@ export namespace Prisma {
     girv_transfer_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_transfer_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_transfer_ml_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_is_transferred_in?: BoolFieldUpdateOperationsInput | boolean
+    girv_transfer_from_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_transfer_from_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     girv_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     girv_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -105358,6 +113536,9 @@ export namespace Prisma {
     girv_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     girv_transfer_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_transfer_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_is_transferred_in?: BoolFieldUpdateOperationsInput | boolean
+    girv_transfer_from_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_transfer_from_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     girv_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     girv_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -105427,6 +113608,9 @@ export namespace Prisma {
     girv_transfer_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_transfer_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_transfer_ml_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_is_transferred_in?: BoolFieldUpdateOperationsInput | boolean
+    girv_transfer_from_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_transfer_from_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     girv_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     girv_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -105486,6 +113670,9 @@ export namespace Prisma {
     girv_transfer_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_transfer_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_transfer_ml_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_is_transferred_in?: BoolFieldUpdateOperationsInput | boolean
+    girv_transfer_from_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_transfer_from_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     girv_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     girv_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -105530,6 +113717,9 @@ export namespace Prisma {
     girv_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     girv_transfer_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_transfer_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_is_transferred_in?: BoolFieldUpdateOperationsInput | boolean
+    girv_transfer_from_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_transfer_from_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     girv_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     girv_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -105599,6 +113789,9 @@ export namespace Prisma {
     girv_transfer_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_transfer_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_transfer_ml_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_is_transferred_in?: BoolFieldUpdateOperationsInput | boolean
+    girv_transfer_from_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_transfer_from_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     girv_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     girv_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -105658,6 +113851,9 @@ export namespace Prisma {
     girv_transfer_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_transfer_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_transfer_ml_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_is_transferred_in?: BoolFieldUpdateOperationsInput | boolean
+    girv_transfer_from_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_transfer_from_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     girv_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     girv_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -105702,6 +113898,9 @@ export namespace Prisma {
     girv_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     girv_transfer_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_transfer_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_is_transferred_in?: BoolFieldUpdateOperationsInput | boolean
+    girv_transfer_from_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_transfer_from_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     girv_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     girv_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -105771,6 +113970,9 @@ export namespace Prisma {
     girv_transfer_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_transfer_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_transfer_ml_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_is_transferred_in?: BoolFieldUpdateOperationsInput | boolean
+    girv_transfer_from_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_transfer_from_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     girv_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     girv_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -105830,6 +114032,9 @@ export namespace Prisma {
     girv_transfer_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_transfer_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_transfer_ml_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_is_transferred_in?: BoolFieldUpdateOperationsInput | boolean
+    girv_transfer_from_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_transfer_from_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     girv_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     girv_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -108351,6 +116556,9 @@ export namespace Prisma {
     girv_transfer_firm_id?: number | null
     girv_transfer_girv_id?: number | null
     girv_transfer_ml_id?: number | null
+    girv_is_transferred_in?: boolean
+    girv_transfer_from_girv_id?: number | null
+    girv_transfer_from_firm_id?: number | null
     girv_created_at?: Date | string
     girv_created_by?: string | null
     girv_updated_at?: Date | string
@@ -109019,6 +117227,9 @@ export namespace Prisma {
     girv_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     girv_transfer_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_transfer_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_is_transferred_in?: BoolFieldUpdateOperationsInput | boolean
+    girv_transfer_from_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_transfer_from_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     girv_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     girv_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -109088,6 +117299,9 @@ export namespace Prisma {
     girv_transfer_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_transfer_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_transfer_ml_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_is_transferred_in?: BoolFieldUpdateOperationsInput | boolean
+    girv_transfer_from_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_transfer_from_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     girv_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     girv_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -109147,6 +117361,9 @@ export namespace Prisma {
     girv_transfer_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_transfer_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_transfer_ml_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_is_transferred_in?: BoolFieldUpdateOperationsInput | boolean
+    girv_transfer_from_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_transfer_from_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     girv_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     girv_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -110703,6 +118920,9 @@ export namespace Prisma {
     girv_pay_info?: string | null
     girv_transfer_firm_id?: number | null
     girv_transfer_girv_id?: number | null
+    girv_is_transferred_in?: boolean
+    girv_transfer_from_girv_id?: number | null
+    girv_transfer_from_firm_id?: number | null
     girv_created_at?: Date | string
     girv_created_by?: string | null
     girv_updated_at?: Date | string
@@ -110747,6 +118967,9 @@ export namespace Prisma {
     girv_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     girv_transfer_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_transfer_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_is_transferred_in?: BoolFieldUpdateOperationsInput | boolean
+    girv_transfer_from_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_transfer_from_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     girv_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     girv_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -110816,6 +119039,9 @@ export namespace Prisma {
     girv_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     girv_transfer_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_transfer_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_is_transferred_in?: BoolFieldUpdateOperationsInput | boolean
+    girv_transfer_from_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_transfer_from_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     girv_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     girv_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -110875,6 +119101,9 @@ export namespace Prisma {
     girv_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     girv_transfer_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_transfer_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_is_transferred_in?: BoolFieldUpdateOperationsInput | boolean
+    girv_transfer_from_girv_id?: NullableIntFieldUpdateOperationsInput | number | null
+    girv_transfer_from_firm_id?: NullableIntFieldUpdateOperationsInput | number | null
     girv_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     girv_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     girv_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -111190,6 +119419,18 @@ export namespace Prisma {
      * @deprecated Use SerialNumberDefaultArgs instead
      */
     export type SerialNumberArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = SerialNumberDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use MessageTemplateDefaultArgs instead
+     */
+    export type MessageTemplateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = MessageTemplateDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use WhatsAppInstanceDefaultArgs instead
+     */
+    export type WhatsAppInstanceArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = WhatsAppInstanceDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use MessageLogDefaultArgs instead
+     */
+    export type MessageLogArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = MessageLogDefaultArgs<ExtArgs>
 
   /**
    * Batch Payload for updateMany & deleteMany & createMany

@@ -18,15 +18,19 @@ class JournalTransService {
 
   /**
    * Get aggregated journal transaction totals for all accounts within a date range.
-   * @param {string} dbUrl 
-   * @param {string} startDate 
-   * @param {string} endDate 
-   * @param {number|string} firmId 
+   * Excludes soft-deleted journal lines and soft-deleted parent journals.
+   * @param {string} dbUrl
+   * @param {string} startDate
+   * @param {string} endDate
+   * @param {number|string} firmId
    */
   async get_all_acc_journal_trans(dbUrl, startDate, endDate, firmId) {
     const prisma = this.getPrisma(dbUrl);
     try {
-      const where = {};
+      const where = {
+        jrtr_is_deleted: false,
+        journal: { jrnl_is_deleted: false },
+      };
       if (firmId && firmId !== "N") {
         where.jrtr_firm_id = parseInt(firmId);
       }
@@ -38,55 +42,41 @@ class JournalTransService {
         where.jrtr_date = dateQuery;
       }
 
-      // Group by Credit Account
-      const crAggregates = await prisma.journalTransaction.groupBy({
-        by: ["jrtr_cr_acc_id"],
-        where: {
-          ...where,
-          jrtr_cr_acc_id: { not: null },
-        },
-        _sum: {
+      // findMany supports relation filters; groupBy does not
+      const rows = await prisma.journalTransaction.findMany({
+        where,
+        select: {
+          jrtr_cr_acc_id: true,
+          jrtr_dr_acc_id: true,
           jrtr_cr_amt: true,
-        },
-      });
-
-      // Group by Debit Account
-      const drAggregates = await prisma.journalTransaction.groupBy({
-        by: ["jrtr_dr_acc_id"],
-        where: {
-          ...where,
-          jrtr_dr_acc_id: { not: null },
-        },
-        _sum: {
           jrtr_dr_amt: true,
         },
       });
 
-      // Merge results
       const accountMap = new Map();
 
-      crAggregates.forEach((item) => {
-        const accId = item.jrtr_cr_acc_id;
-        accountMap.set(accId, {
-          acc_id: accId,
-          total_cr_amt: parseFloat(item._sum.jrtr_cr_amt || 0),
-          total_dr_amt: 0,
-        });
-      });
-
-      drAggregates.forEach((item) => {
-        const accId = item.jrtr_dr_acc_id;
-        const existing = accountMap.get(accId);
-        if (existing) {
-          existing.total_dr_amt = parseFloat(item._sum.jrtr_dr_amt || 0);
-        } else {
-          accountMap.set(accId, {
+      for (const item of rows) {
+        if (item.jrtr_cr_acc_id != null) {
+          const accId = item.jrtr_cr_acc_id;
+          const existing = accountMap.get(accId) || {
             acc_id: accId,
             total_cr_amt: 0,
-            total_dr_amt: parseFloat(item._sum.jrtr_dr_amt || 0),
-          });
+            total_dr_amt: 0,
+          };
+          existing.total_cr_amt += parseFloat(item.jrtr_cr_amt || 0);
+          accountMap.set(accId, existing);
         }
-      });
+        if (item.jrtr_dr_acc_id != null) {
+          const accId = item.jrtr_dr_acc_id;
+          const existing = accountMap.get(accId) || {
+            acc_id: accId,
+            total_cr_amt: 0,
+            total_dr_amt: 0,
+          };
+          existing.total_dr_amt += parseFloat(item.jrtr_dr_amt || 0);
+          accountMap.set(accId, existing);
+        }
+      }
 
       return Array.from(accountMap.values());
     } catch (error) {

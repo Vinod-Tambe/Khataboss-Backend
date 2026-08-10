@@ -47,11 +47,11 @@ class DepositService {
       const dep_online_acc_id = await this.resolveAccount(prisma, firmId, data.dep_online_acc_id, ["Online Account", "Online"]);
       const dep_card_acc_id = await this.resolveAccount(prisma, firmId, data.dep_card_acc_id, ["Card Account", "Card", "POS"]);
 
-      // Resolve special accounts
-      const dep_prin_acc_id = await this.resolveAccount(prisma, firmId, data.dep_prin_acc_id, ["Principal Account", "Secured Loans", "Unsecured Loans", "Girvi Account"]);
-      const dep_int_acc_id = await this.resolveAccount(prisma, firmId, data.dep_int_acc_id, ["Interest Account", "Interest Income"]);
-      const dep_disc_acc_id = await this.resolveAccount(prisma, firmId, data.dep_disc_acc_id, ["Discount Account", "Discount Expenses"]);
-      const dep_extra_acc_id = await this.resolveAccount(prisma, firmId, data.dep_extra_acc_id, ["Extra Income", "Other Income"]);
+      // Resolve special accounts (Interest Rec = default COA income account)
+      const dep_prin_acc_id = await this.resolveAccount(prisma, firmId, data.dep_prin_acc_id, ["Principal Account", "Secured Loans", "Unsecured Loans", "Girvi Account", "Loans & Advances"]);
+      const dep_int_acc_id = await this.resolveAccount(prisma, firmId, data.dep_int_acc_id, ["Interest Rec", "Interest Account", "Interest Income", "Indirect Incomes"]);
+      const dep_disc_acc_id = await this.resolveAccount(prisma, firmId, data.dep_disc_acc_id, ["Discount Account", "Discount Expenses", "Indirect Expenses", "Expenses (Indirect)"]);
+      const dep_extra_acc_id = await this.resolveAccount(prisma, firmId, data.dep_extra_acc_id, ["Extra Income", "Other Income", "Interest Rec", "Indirect Incomes"]);
 
       const result = await prisma.$transaction(async (tx) => {
         // 1. Fetch the parent Girvi/Loan record
@@ -157,6 +157,25 @@ class DepositService {
         await journalService.create_journal_entry(dbUrl, journal_request);
       } catch (journalErr) {
         console.error("❌ Failed to create journal entry for deposit:", journalErr.message);
+        // Compensate operational row so Daybook/ledger stay aligned
+        try {
+          const prinRec = parseFloat(depRec.dep_prin_amt) || 0;
+          await prisma.girviDeposit.delete({ where: { dep_id: depRec.dep_id } });
+          if (prinRec > 0) {
+            await prisma.girvi.update({
+              where: { girv_id: depRec.dep_girv_id },
+              data: {
+                girv_prin_amt: { increment: prinRec },
+                girv_final_amt: { increment: prinRec },
+              },
+            });
+          }
+        } catch (cleanupErr) {
+          console.error("❌ Failed to rollback deposit after journal error:", cleanupErr.message);
+        }
+        throw new Error(
+          `Deposit account entry failed and was rolled back: ${journalErr.message}`
+        );
       }
 
       return result;

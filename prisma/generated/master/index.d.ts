@@ -3212,6 +3212,12 @@ export namespace Prisma {
     own_login_status: boolean | null
     own_otp: string | null
     own_otp_expiry: Date | null
+    own_mail_user: string | null
+    own_mail_pass_enc: string | null
+    own_mail_from_name: string | null
+    own_mail_provider: string | null
+    own_mail_status: string | null
+    own_mail_updated_at: Date | null
     own_address: string | null
     own_village: string | null
     own_city: string | null
@@ -3248,6 +3254,12 @@ export namespace Prisma {
     own_login_status: boolean | null
     own_otp: string | null
     own_otp_expiry: Date | null
+    own_mail_user: string | null
+    own_mail_pass_enc: string | null
+    own_mail_from_name: string | null
+    own_mail_provider: string | null
+    own_mail_status: string | null
+    own_mail_updated_at: Date | null
     own_address: string | null
     own_village: string | null
     own_city: string | null
@@ -3286,6 +3298,12 @@ export namespace Prisma {
     own_last_login_system: number
     own_otp: number
     own_otp_expiry: number
+    own_mail_user: number
+    own_mail_pass_enc: number
+    own_mail_from_name: number
+    own_mail_provider: number
+    own_mail_status: number
+    own_mail_updated_at: number
     own_address: number
     own_village: number
     own_city: number
@@ -3334,6 +3352,12 @@ export namespace Prisma {
     own_login_status?: true
     own_otp?: true
     own_otp_expiry?: true
+    own_mail_user?: true
+    own_mail_pass_enc?: true
+    own_mail_from_name?: true
+    own_mail_provider?: true
+    own_mail_status?: true
+    own_mail_updated_at?: true
     own_address?: true
     own_village?: true
     own_city?: true
@@ -3370,6 +3394,12 @@ export namespace Prisma {
     own_login_status?: true
     own_otp?: true
     own_otp_expiry?: true
+    own_mail_user?: true
+    own_mail_pass_enc?: true
+    own_mail_from_name?: true
+    own_mail_provider?: true
+    own_mail_status?: true
+    own_mail_updated_at?: true
     own_address?: true
     own_village?: true
     own_city?: true
@@ -3408,6 +3438,12 @@ export namespace Prisma {
     own_last_login_system?: true
     own_otp?: true
     own_otp_expiry?: true
+    own_mail_user?: true
+    own_mail_pass_enc?: true
+    own_mail_from_name?: true
+    own_mail_provider?: true
+    own_mail_status?: true
+    own_mail_updated_at?: true
     own_address?: true
     own_village?: true
     own_city?: true
@@ -3533,6 +3569,12 @@ export namespace Prisma {
     own_last_login_system: JsonValue | null
     own_otp: string | null
     own_otp_expiry: Date | null
+    own_mail_user: string | null
+    own_mail_pass_enc: string | null
+    own_mail_from_name: string | null
+    own_mail_provider: string | null
+    own_mail_status: string | null
+    own_mail_updated_at: Date | null
     own_address: string | null
     own_village: string | null
     own_city: string | null
@@ -3590,6 +3632,12 @@ export namespace Prisma {
     own_last_login_system?: boolean
     own_otp?: boolean
     own_otp_expiry?: boolean
+    own_mail_user?: boolean
+    own_mail_pass_enc?: boolean
+    own_mail_from_name?: boolean
+    own_mail_provider?: boolean
+    own_mail_status?: boolean
+    own_mail_updated_at?: boolean
     own_address?: boolean
     own_village?: boolean
     own_city?: boolean
@@ -3628,6 +3676,12 @@ export namespace Prisma {
     own_last_login_system?: boolean
     own_otp?: boolean
     own_otp_expiry?: boolean
+    own_mail_user?: boolean
+    own_mail_pass_enc?: boolean
+    own_mail_from_name?: boolean
+    own_mail_provider?: boolean
+    own_mail_status?: boolean
+    own_mail_updated_at?: boolean
     own_address?: boolean
     own_village?: boolean
     own_city?: boolean
@@ -3666,6 +3720,12 @@ export namespace Prisma {
     own_last_login_system?: boolean
     own_otp?: boolean
     own_otp_expiry?: boolean
+    own_mail_user?: boolean
+    own_mail_pass_enc?: boolean
+    own_mail_from_name?: boolean
+    own_mail_provider?: boolean
+    own_mail_status?: boolean
+    own_mail_updated_at?: boolean
     own_address?: boolean
     own_village?: boolean
     own_city?: boolean
@@ -3708,6 +3768,12 @@ export namespace Prisma {
       own_last_login_system: Prisma.JsonValue | null
       own_otp: string | null
       own_otp_expiry: Date | null
+      own_mail_user: string | null
+      own_mail_pass_enc: string | null
+      own_mail_from_name: string | null
+      own_mail_provider: string | null
+      own_mail_status: string | null
+      own_mail_updated_at: Date | null
       own_address: string | null
       own_village: string | null
       own_city: string | null
@@ -4136,6 +4202,12 @@ export namespace Prisma {
     readonly own_last_login_system: FieldRef<"Owner", 'Json'>
     readonly own_otp: FieldRef<"Owner", 'String'>
     readonly own_otp_expiry: FieldRef<"Owner", 'DateTime'>
+    readonly own_mail_user: FieldRef<"Owner", 'String'>
+    readonly own_mail_pass_enc: FieldRef<"Owner", 'String'>
+    readonly own_mail_from_name: FieldRef<"Owner", 'String'>
+    readonly own_mail_provider: FieldRef<"Owner", 'String'>
+    readonly own_mail_status: FieldRef<"Owner", 'String'>
+    readonly own_mail_updated_at: FieldRef<"Owner", 'DateTime'>
     readonly own_address: FieldRef<"Owner", 'String'>
     readonly own_village: FieldRef<"Owner", 'String'>
     readonly own_city: FieldRef<"Owner", 'String'>
@@ -4522,6 +4594,12 @@ export namespace Prisma {
     own_last_login_system: 'own_last_login_system',
     own_otp: 'own_otp',
     own_otp_expiry: 'own_otp_expiry',
+    own_mail_user: 'own_mail_user',
+    own_mail_pass_enc: 'own_mail_pass_enc',
+    own_mail_from_name: 'own_mail_from_name',
+    own_mail_provider: 'own_mail_provider',
+    own_mail_status: 'own_mail_status',
+    own_mail_updated_at: 'own_mail_updated_at',
     own_address: 'own_address',
     own_village: 'own_village',
     own_city: 'own_city',
@@ -4937,6 +5015,12 @@ export namespace Prisma {
     own_last_login_system?: JsonNullableFilter<"Owner">
     own_otp?: StringNullableFilter<"Owner"> | string | null
     own_otp_expiry?: DateTimeNullableFilter<"Owner"> | Date | string | null
+    own_mail_user?: StringNullableFilter<"Owner"> | string | null
+    own_mail_pass_enc?: StringNullableFilter<"Owner"> | string | null
+    own_mail_from_name?: StringNullableFilter<"Owner"> | string | null
+    own_mail_provider?: StringNullableFilter<"Owner"> | string | null
+    own_mail_status?: StringNullableFilter<"Owner"> | string | null
+    own_mail_updated_at?: DateTimeNullableFilter<"Owner"> | Date | string | null
     own_address?: StringNullableFilter<"Owner"> | string | null
     own_village?: StringNullableFilter<"Owner"> | string | null
     own_city?: StringNullableFilter<"Owner"> | string | null
@@ -4975,6 +5059,12 @@ export namespace Prisma {
     own_last_login_system?: SortOrderInput | SortOrder
     own_otp?: SortOrderInput | SortOrder
     own_otp_expiry?: SortOrderInput | SortOrder
+    own_mail_user?: SortOrderInput | SortOrder
+    own_mail_pass_enc?: SortOrderInput | SortOrder
+    own_mail_from_name?: SortOrderInput | SortOrder
+    own_mail_provider?: SortOrderInput | SortOrder
+    own_mail_status?: SortOrderInput | SortOrder
+    own_mail_updated_at?: SortOrderInput | SortOrder
     own_address?: SortOrderInput | SortOrder
     own_village?: SortOrderInput | SortOrder
     own_city?: SortOrderInput | SortOrder
@@ -5016,6 +5106,12 @@ export namespace Prisma {
     own_last_login_system?: JsonNullableFilter<"Owner">
     own_otp?: StringNullableFilter<"Owner"> | string | null
     own_otp_expiry?: DateTimeNullableFilter<"Owner"> | Date | string | null
+    own_mail_user?: StringNullableFilter<"Owner"> | string | null
+    own_mail_pass_enc?: StringNullableFilter<"Owner"> | string | null
+    own_mail_from_name?: StringNullableFilter<"Owner"> | string | null
+    own_mail_provider?: StringNullableFilter<"Owner"> | string | null
+    own_mail_status?: StringNullableFilter<"Owner"> | string | null
+    own_mail_updated_at?: DateTimeNullableFilter<"Owner"> | Date | string | null
     own_address?: StringNullableFilter<"Owner"> | string | null
     own_village?: StringNullableFilter<"Owner"> | string | null
     own_city?: StringNullableFilter<"Owner"> | string | null
@@ -5054,6 +5150,12 @@ export namespace Prisma {
     own_last_login_system?: SortOrderInput | SortOrder
     own_otp?: SortOrderInput | SortOrder
     own_otp_expiry?: SortOrderInput | SortOrder
+    own_mail_user?: SortOrderInput | SortOrder
+    own_mail_pass_enc?: SortOrderInput | SortOrder
+    own_mail_from_name?: SortOrderInput | SortOrder
+    own_mail_provider?: SortOrderInput | SortOrder
+    own_mail_status?: SortOrderInput | SortOrder
+    own_mail_updated_at?: SortOrderInput | SortOrder
     own_address?: SortOrderInput | SortOrder
     own_village?: SortOrderInput | SortOrder
     own_city?: SortOrderInput | SortOrder
@@ -5100,6 +5202,12 @@ export namespace Prisma {
     own_last_login_system?: JsonNullableWithAggregatesFilter<"Owner">
     own_otp?: StringNullableWithAggregatesFilter<"Owner"> | string | null
     own_otp_expiry?: DateTimeNullableWithAggregatesFilter<"Owner"> | Date | string | null
+    own_mail_user?: StringNullableWithAggregatesFilter<"Owner"> | string | null
+    own_mail_pass_enc?: StringNullableWithAggregatesFilter<"Owner"> | string | null
+    own_mail_from_name?: StringNullableWithAggregatesFilter<"Owner"> | string | null
+    own_mail_provider?: StringNullableWithAggregatesFilter<"Owner"> | string | null
+    own_mail_status?: StringNullableWithAggregatesFilter<"Owner"> | string | null
+    own_mail_updated_at?: DateTimeNullableWithAggregatesFilter<"Owner"> | Date | string | null
     own_address?: StringNullableWithAggregatesFilter<"Owner"> | string | null
     own_village?: StringNullableWithAggregatesFilter<"Owner"> | string | null
     own_city?: StringNullableWithAggregatesFilter<"Owner"> | string | null
@@ -5425,6 +5533,12 @@ export namespace Prisma {
     own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
     own_otp?: string | null
     own_otp_expiry?: Date | string | null
+    own_mail_user?: string | null
+    own_mail_pass_enc?: string | null
+    own_mail_from_name?: string | null
+    own_mail_provider?: string | null
+    own_mail_status?: string | null
+    own_mail_updated_at?: Date | string | null
     own_address?: string | null
     own_village?: string | null
     own_city?: string | null
@@ -5463,6 +5577,12 @@ export namespace Prisma {
     own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
     own_otp?: string | null
     own_otp_expiry?: Date | string | null
+    own_mail_user?: string | null
+    own_mail_pass_enc?: string | null
+    own_mail_from_name?: string | null
+    own_mail_provider?: string | null
+    own_mail_status?: string | null
+    own_mail_updated_at?: Date | string | null
     own_address?: string | null
     own_village?: string | null
     own_city?: string | null
@@ -5499,6 +5619,12 @@ export namespace Prisma {
     own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
     own_otp?: NullableStringFieldUpdateOperationsInput | string | null
     own_otp_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_mail_user?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_pass_enc?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_from_name?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_provider?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_status?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_address?: NullableStringFieldUpdateOperationsInput | string | null
     own_village?: NullableStringFieldUpdateOperationsInput | string | null
     own_city?: NullableStringFieldUpdateOperationsInput | string | null
@@ -5537,6 +5663,12 @@ export namespace Prisma {
     own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
     own_otp?: NullableStringFieldUpdateOperationsInput | string | null
     own_otp_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_mail_user?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_pass_enc?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_from_name?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_provider?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_status?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_address?: NullableStringFieldUpdateOperationsInput | string | null
     own_village?: NullableStringFieldUpdateOperationsInput | string | null
     own_city?: NullableStringFieldUpdateOperationsInput | string | null
@@ -5575,6 +5707,12 @@ export namespace Prisma {
     own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
     own_otp?: string | null
     own_otp_expiry?: Date | string | null
+    own_mail_user?: string | null
+    own_mail_pass_enc?: string | null
+    own_mail_from_name?: string | null
+    own_mail_provider?: string | null
+    own_mail_status?: string | null
+    own_mail_updated_at?: Date | string | null
     own_address?: string | null
     own_village?: string | null
     own_city?: string | null
@@ -5611,6 +5749,12 @@ export namespace Prisma {
     own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
     own_otp?: NullableStringFieldUpdateOperationsInput | string | null
     own_otp_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_mail_user?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_pass_enc?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_from_name?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_provider?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_status?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_address?: NullableStringFieldUpdateOperationsInput | string | null
     own_village?: NullableStringFieldUpdateOperationsInput | string | null
     own_city?: NullableStringFieldUpdateOperationsInput | string | null
@@ -5649,6 +5793,12 @@ export namespace Prisma {
     own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
     own_otp?: NullableStringFieldUpdateOperationsInput | string | null
     own_otp_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_mail_user?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_pass_enc?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_from_name?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_provider?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_status?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_address?: NullableStringFieldUpdateOperationsInput | string | null
     own_village?: NullableStringFieldUpdateOperationsInput | string | null
     own_city?: NullableStringFieldUpdateOperationsInput | string | null
@@ -6044,6 +6194,12 @@ export namespace Prisma {
     own_last_login_system?: SortOrder
     own_otp?: SortOrder
     own_otp_expiry?: SortOrder
+    own_mail_user?: SortOrder
+    own_mail_pass_enc?: SortOrder
+    own_mail_from_name?: SortOrder
+    own_mail_provider?: SortOrder
+    own_mail_status?: SortOrder
+    own_mail_updated_at?: SortOrder
     own_address?: SortOrder
     own_village?: SortOrder
     own_city?: SortOrder
@@ -6085,6 +6241,12 @@ export namespace Prisma {
     own_login_status?: SortOrder
     own_otp?: SortOrder
     own_otp_expiry?: SortOrder
+    own_mail_user?: SortOrder
+    own_mail_pass_enc?: SortOrder
+    own_mail_from_name?: SortOrder
+    own_mail_provider?: SortOrder
+    own_mail_status?: SortOrder
+    own_mail_updated_at?: SortOrder
     own_address?: SortOrder
     own_village?: SortOrder
     own_city?: SortOrder
@@ -6121,6 +6283,12 @@ export namespace Prisma {
     own_login_status?: SortOrder
     own_otp?: SortOrder
     own_otp_expiry?: SortOrder
+    own_mail_user?: SortOrder
+    own_mail_pass_enc?: SortOrder
+    own_mail_from_name?: SortOrder
+    own_mail_provider?: SortOrder
+    own_mail_status?: SortOrder
+    own_mail_updated_at?: SortOrder
     own_address?: SortOrder
     own_village?: SortOrder
     own_city?: SortOrder

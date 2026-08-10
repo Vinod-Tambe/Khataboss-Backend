@@ -16,10 +16,9 @@ class TrialBalanceService {
         throw new Error("Missing required filters: startDate, or endDate");
       }
 
-      // Calculate previous day for startDate
-      const start = new Date(filters.startDate);
-      const prevDay = new Date(start);
-      prevDay.setDate(start.getDate() - 1);
+      // Previous day in a timezone-independent way (aligned with P&L / Balance Sheet)
+      const [year, month, day] = filters.startDate.split("-").map(Number);
+      const prevDay = new Date(Date.UTC(year, month - 1, day - 1));
       const get_end_date = prevDay.toISOString().split("T")[0];
 
       // Fetch data concurrently
