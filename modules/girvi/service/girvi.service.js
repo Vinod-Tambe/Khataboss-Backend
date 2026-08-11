@@ -547,6 +547,26 @@ class GirviService {
         updateData = { ...girviData };
       }
 
+      // Validate girv_firm_id to prevent FK constraint failure
+      if (updateData.girv_firm_id) {
+        const firmExists = await prisma.firm.findUnique({
+          where: { firm_id: parseInt(updateData.girv_firm_id) }
+        });
+        if (!firmExists) {
+          updateData.girv_firm_id = existing.girv_firm_id;
+        }
+      }
+
+      // Validate girv_user_id to prevent FK constraint failure
+      if (updateData.girv_user_id) {
+        const userExists = await prisma.user.findUnique({
+          where: { user_id: parseInt(updateData.girv_user_id) }
+        });
+        if (!userExists) {
+          updateData.girv_user_id = existing.girv_user_id;
+        }
+      }
+
       updateData.girv_updated_at = new Date();
 
       // Resolve accounts when financial update allowed

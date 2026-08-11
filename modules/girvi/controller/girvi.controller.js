@@ -48,7 +48,7 @@ const parseStImage = (stImage) => {
   let parsed = stImage;
   if (typeof stImage === 'string') {
     if (stImage.startsWith('{')) {
-      try { parsed = JSON.parse(stImage); } catch (e) {}
+      try { parsed = JSON.parse(stImage); } catch (e) { }
     } else {
       parsed = { path: stImage };
     }
