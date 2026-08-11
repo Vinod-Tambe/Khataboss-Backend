@@ -51,6 +51,46 @@ class AddPrincipalController {
       return res.status(500).json({ error: error.message });
     }
   }
+
+  async deleteAdditionalPrincipal(req, res) {
+    try {
+      const dbUrl = this.getDbUrl(req.user.own_db);
+      const { ap_id } = req.params;
+
+      if (!ap_id) {
+        return res.status(400).json({ error: "Additional principal ID is required." });
+      }
+
+      const result = await addPrincipalService.deleteAdditionalPrincipal(
+        dbUrl,
+        req.user,
+        ap_id
+      );
+      const girvi = result?.updatedGirvi || result?.girvi;
+      const ap = result?.apRecord || result;
+
+      logActivity(dbUrl, req.user, {
+        firmId: ap?.ap_firm_id || girvi?.girv_firm_id,
+        module: MODULE.LOAN,
+        action: ACTION.ROLLBACK,
+        subject: "Additional Principal Reverted",
+        description: (at) => descriptions.loanAddPrincipalRevert(girvi, ap, at),
+        transDate: ap?.ap_trans_date,
+        entityType: "girvi",
+        entityId: ap?.ap_girv_id || girvi?.girv_id,
+        refNo: formatLoanNo(girvi),
+        amount: ap?.ap_payable_amt ?? ap?.ap_prin_amt,
+      });
+
+      return res.status(200).json({
+        message: "Additional principal reverted successfully.",
+        data: result,
+      });
+    } catch (error) {
+      console.error("❌ Error deleting additional principal:", error.message);
+      return res.status(500).json({ error: error.message });
+    }
+  }
 }
 
 module.exports = new AddPrincipalController();

@@ -6,6 +6,11 @@ const {
   addPrincipalVoucher,
   loanLine,
 } = require("../../../utils/journalNarration");
+const { assertActiveLoan } = require("../../../utils/loanValidation");
+const {
+  findPanelJournal,
+  deletePanelJournal,
+} = require("../../../utils/loanJournalHelper");
 
 class AddPrincipalService {
   getPrisma(dbUrl) {
@@ -60,6 +65,7 @@ class AddPrincipalService {
         if (!girvi) {
           throw new Error("Girvi (Loan) record not found");
         }
+        assertActiveLoan(girvi, "accept additional principal");
 
         // 2. Insert AdditionalPrincipal record
         const apRecord = await tx.additionalPrincipal.create({
@@ -160,6 +166,88 @@ class AddPrincipalService {
         throw new Error(
           `Additional principal account entry failed and was rolled back: ${journalErr.message}`
         );
+      }
+
+      return result;
+    } finally {
+      await prisma.$disconnect();
+    }
+  }
+
+  async deleteAdditionalPrincipal(dbUrl, reqUser, ap_id) {
+    const prisma = this.getPrisma(dbUrl);
+    try {
+      const apRecord = await prisma.additionalPrincipal.findFirst({
+        where: {
+          ap_id: parseInt(ap_id, 10),
+          ap_is_deleted: false,
+        },
+      });
+
+      if (!apRecord) {
+        throw new Error("Additional principal record not found.");
+      }
+
+      const girviBefore = await prisma.girvi.findUnique({
+        where: { girv_id: apRecord.ap_girv_id },
+      });
+
+      if (!girviBefore) {
+        throw new Error("Parent Girvi (Loan) record not found.");
+      }
+      assertActiveLoan(girviBefore, "revert additional principal");
+
+      const voucherInfo = addPrincipalVoucher(girviBefore, apRecord.ap_trans_date);
+      const journal = await findPanelJournal(prisma, {
+        voucherInfo,
+        firmId: apRecord.ap_firm_id,
+        amount: apRecord.ap_prin_amt,
+      });
+
+      const result = await prisma.$transaction(async (tx) => {
+        const currentGirvi = await tx.girvi.findUnique({
+          where: { girv_id: apRecord.ap_girv_id },
+        });
+        if (!currentGirvi) {
+          throw new Error("Parent Girvi (Loan) record not found.");
+        }
+        assertActiveLoan(currentGirvi, "revert additional principal");
+
+        const prinAmt = parseFloat(apRecord.ap_prin_amt) || 0;
+        if (prinAmt > 0) {
+          const currentPrin = parseFloat(currentGirvi.girv_prin_amt) || 0;
+          if (prinAmt > currentPrin + 0.01) {
+            throw new Error(
+              "Cannot revert additional principal: loan principal is lower than the added amount."
+            );
+          }
+          await tx.girvi.update({
+            where: { girv_id: currentGirvi.girv_id },
+            data: {
+              girv_prin_amt: { decrement: prinAmt },
+              girv_final_amt: { decrement: prinAmt },
+            },
+          });
+        }
+
+        await tx.additionalPrincipal.update({
+          where: { ap_id: apRecord.ap_id },
+          data: {
+            ap_is_deleted: true,
+            ap_deleted_at: new Date(),
+            ap_deleted_by: reqUser?.own_login_id || "Admin",
+          },
+        });
+
+        const updatedGirvi = await tx.girvi.findUnique({
+          where: { girv_id: currentGirvi.girv_id },
+        });
+
+        return { success: true, updatedGirvi, apRecord, girvi: girviBefore };
+      });
+
+      if (journal) {
+        await deletePanelJournal(dbUrl, journal);
       }
 
       return result;

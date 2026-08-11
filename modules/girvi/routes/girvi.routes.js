@@ -58,4 +58,11 @@ router.post(
   (req, res) => girviController.transferLoan(req, res)
 );
 
+router.delete(
+  "/:id",
+  authenticateOwner,
+  requirePermission("loan.delete"),
+  (req, res) => girviController.deleteGirvi(req, res)
+);
+
 module.exports = router;

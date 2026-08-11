@@ -449,6 +449,39 @@ class GirviController {
       return res.status(500).json({ error: error.message });
     }
   }
+
+  async deleteGirvi(req, res) {
+    try {
+      const dbUrl = this.getDbUrl(req.user.own_db);
+      const girvId = req.params.id;
+
+      if (!girvId) {
+        return res.status(400).json({ error: "Loan ID is required." });
+      }
+
+      const deleted = await girviService.deleteGirvi(dbUrl, req.user, girvId);
+
+      logActivity(dbUrl, req.user, {
+        firmId: deleted.girv_firm_id,
+        module: MODULE.LOAN,
+        action: ACTION.DELETE,
+        subject: "Loan Deleted",
+        description: (at) => descriptions.loanDeleted(deleted, at),
+        entityType: "girvi",
+        entityId: deleted.girv_id,
+        refNo: formatLoanNo(deleted),
+        amount: deleted.girv_prin_amt,
+      });
+
+      return res.status(200).json({
+        message: "Loan deleted successfully.",
+        data: deleted,
+      });
+    } catch (error) {
+      console.error("❌ Error deleting girvi loan:", error.message);
+      return res.status(500).json({ error: error.message });
+    }
+  }
 }
 
 module.exports = new GirviController();

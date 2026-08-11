@@ -7,6 +7,7 @@ const {
   releaseVoucher,
   loanLine,
 } = require("../../../utils/journalNarration");
+const { assertActiveLoan } = require("../../../utils/loanValidation");
 
 class ReleaseService {
   getPrisma(dbUrl) {
@@ -67,6 +68,7 @@ class ReleaseService {
         if (!girvi) {
           throw new Error("Girvi (Loan) record not found");
         }
+        assertActiveLoan(girvi, "be released");
 
         // 2. Insert GirviRelease record
         const releaseRecord = await tx.girviRelease.create({
@@ -113,6 +115,8 @@ class ReleaseService {
 
         // 3. Update Parent Girvi Record
         const prinRec = releaseRecord.rel_prin_amt || 0;
+        const currentPrin = parseFloat(girvi.girv_prin_amt) || 0;
+        const newPrin = Math.max(0, currentPrin - prinRec);
         let updateData = {};
         
         if (prinRec > 0) {
@@ -120,8 +124,10 @@ class ReleaseService {
             updateData.girv_final_amt = { decrement: prinRec };
         }
         
-        // Ensure status is marked as RELEASED
-        updateData.girv_status = "RELEASED";
+        const markedReleased = newPrin <= 0.01;
+        if (markedReleased) {
+            updateData.girv_status = "RELEASED";
+        }
 
         let updatedGirvi = girvi;
         if (Object.keys(updateData).length > 0) {
@@ -131,7 +137,7 @@ class ReleaseService {
             });
         }
 
-        return { releaseRecord, updatedGirvi, girvi };
+        return { releaseRecord, updatedGirvi, girvi, markedReleased };
       });
 
       // 4. Create Journal Entry (same pattern as Deposit)
@@ -172,7 +178,7 @@ class ReleaseService {
         await prisma.girvi.update({
           where: { girv_id: relRec.rel_girv_id },
           data: {
-            girv_status: "ACTIVE",
+            girv_status: result.markedReleased ? "ACTIVE" : result.girvi.girv_status,
             ...(prinRec > 0
               ? {
                   girv_prin_amt: { increment: prinRec },
@@ -251,8 +257,15 @@ class ReleaseService {
         throw new Error("Release record not found.");
       }
 
+      const girviBefore = await prisma.girvi.findUnique({
+        where: { girv_id: releaseRecord.rel_girv_id },
+      });
+
+      if (!girviBefore) {
+        throw new Error("Parent Girvi (Loan) record not found.");
+      }
+
       const result = await prisma.$transaction(async (tx) => {
-        // 1. Fetch Parent Girvi
         const girvi = await tx.girvi.findUnique({
           where: { girv_id: releaseRecord.rel_girv_id }
         });
@@ -261,46 +274,47 @@ class ReleaseService {
           throw new Error("Parent Girvi (Loan) record not found.");
         }
 
-        // 2. Revert principal amount & status
         const prinRec = releaseRecord.rel_prin_amt || 0;
-        let updateData = {};
+        const restoredPrin = Math.max(0, (parseFloat(girvi.girv_prin_amt) || 0) + prinRec);
+        const updateData = {
+          girv_status: restoredPrin <= 0.01 ? "RELEASED" : "ACTIVE",
+        };
         
         if (prinRec > 0) {
             updateData.girv_prin_amt = { increment: prinRec };
             updateData.girv_final_amt = { increment: prinRec };
         }
-        
-        // Revert status to ACTIVE
-        updateData.girv_status = "ACTIVE";
 
         const updatedGirvi = await tx.girvi.update({
             where: { girv_id: girvi.girv_id },
             data: updateData
         });
 
-        // 3. Delete GirviRelease record
         await tx.girviRelease.delete({
           where: { rel_id: parseInt(rel_id) }
         });
 
-        // 4. Delete associated Journal Entry
-        // The journal entry was created with jrnl_other_info containing `Release No - ${rel_id}`
-        const journal = await tx.journal.findFirst({
-          where: {
-            jrnl_other_info: {
-              contains: `Release No - ${rel_id}`
-            }
-          }
-        });
-
-        if (journal) {
-          await tx.journal.delete({
-            where: { jrnl_id: journal.jrnl_id }
-          });
-        }
-
         return { success: true, updatedGirvi, releaseRecord, girvi };
       });
+
+      const voucherInfo = releaseVoucher(girviBefore, releaseRecord.rel_trans_date);
+      const journal = await prisma.journal.findFirst({
+        where: {
+          jrnl_other_info: voucherInfo,
+          jrnl_panel: "Girvi",
+          jrnl_amt: releaseRecord.rel_payable_amt,
+          jrnl_firm_id: releaseRecord.rel_firm_id,
+        },
+      });
+
+      if (journal) {
+        await journalService.delete_journal_entry(
+          dbUrl,
+          journal.jrnl_id,
+          releaseRecord.rel_own_id,
+          releaseRecord.rel_firm_id
+        );
+      }
 
       return result;
     } catch (error) {

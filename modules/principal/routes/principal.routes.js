@@ -13,4 +13,11 @@ router.post(
   (req, res) => principalController.addAdditionalPrincipal(req, res)
 );
 
+router.delete(
+  "/:ap_id",
+  authenticateOwner,
+  requirePermission("loan.addPrincipal"),
+  (req, res) => principalController.deleteAdditionalPrincipal(req, res)
+);
+
 module.exports = router;

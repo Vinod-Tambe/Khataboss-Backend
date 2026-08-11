@@ -129,7 +129,7 @@ class FinanceTransactionService {
     try {
       const today = asOfDate || new Date().toISOString().split("T")[0];
       const where = {
-        ft_emi_status: "PENDING",
+        ft_emi_status: { in: ["PENDING", "PARTIAL"] },
         ft_pending_amt: { gt: 0 },
         ft_due_date: { lt: today },
       };

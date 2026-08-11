@@ -7,6 +7,7 @@ const {
   auctionVoucher,
   loanLine,
 } = require("../../../utils/journalNarration");
+const { assertActiveLoan } = require("../../../utils/loanValidation");
 
 class AuctionService {
   getPrisma(dbUrl) {
@@ -124,6 +125,7 @@ class AuctionService {
       if (!originalGirvi) {
         throw new Error("Original loan not found for auction.");
       }
+      assertActiveLoan(originalGirvi, "be auctioned");
 
       const loanDrAccId =
         originalGirvi.girv_dr_acc_id ||

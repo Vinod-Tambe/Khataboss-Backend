@@ -180,6 +180,22 @@ const descriptions = {
     return `Additional principal added. Principal: ${fmtAmt(ap?.ap_prin_amt)}, Payable: ${fmtAmt(ap?.ap_payable_amt)}. ${baseLine(ref, ap?.ap_payable_amt, ap?.ap_trans_date, loggedAt)}`;
   },
 
+  loanDepositRevert(girvi, deposit, loggedAt) {
+    const ref = formatLoanNo(girvi);
+    const amt = deposit?.dep_payable_amt ?? deposit?.dep_prin_amt;
+    return `Deposit reverted on loan. Total: ${fmtAmt(amt)}. ${baseLine(ref, amt, deposit?.dep_trans_date, loggedAt)}`;
+  },
+
+  loanAddPrincipalRevert(girvi, ap, loggedAt) {
+    const ref = formatLoanNo(girvi);
+    return `Additional principal reverted. Principal: ${fmtAmt(ap?.ap_prin_amt)}. ${baseLine(ref, ap?.ap_payable_amt, ap?.ap_trans_date, loggedAt)}`;
+  },
+
+  loanDeleted(girvi, loggedAt) {
+    const ref = formatLoanNo(girvi);
+    return `Loan deleted. ${baseLine(ref, girvi?.girv_prin_amt, girvi?.girv_start_date, loggedAt)}`;
+  },
+
   financeCreated(finance, loggedAt) {
     const ref = formatFinNo(finance);
     return `New finance record created. Principal: ${fmtAmt(finance?.fin_prin_amt)}, ROI: ${finance?.fin_roi}%. ${baseLine(ref, finance?.fin_prin_amt, finance?.fin_start_date, loggedAt)}`;

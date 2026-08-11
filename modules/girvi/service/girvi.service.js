@@ -3,7 +3,7 @@
 const { PrismaClient } = require("../../../prisma/generated/main");
 const journalService = require("../../journal/service/journal.service");
 const serialNumberService = require("../../../common/service/serialNumber.service");
-const { calculateFirstMonthInterest } = require("../../../utils/loanInterest");
+const { calculateFirstMonthInterest, getLoanInterestSummary } = require("../../../utils/loanInterest");
 const messageDispatchService = require("../../../common/service/message-dispatch.service");
 const {
   addLoanVoucher,
@@ -14,6 +14,7 @@ const {
   loanJournalDeletePatterns,
   formatLoanNo,
 } = require("../../../utils/journalNarration");
+const { deletePanelJournal } = require("../../../utils/loanJournalHelper");
 
 class GirviService {
   getPrisma(dbUrl) {
@@ -468,7 +469,8 @@ class GirviService {
 
       const additionalPrincipals = await prisma.additionalPrincipal.findMany({
         where: {
-          ap_girv_id: targetId
+          ap_girv_id: targetId,
+          ap_is_deleted: false,
         },
         orderBy: {
           ap_trans_date: 'asc'
@@ -500,7 +502,13 @@ class GirviService {
         items,
         additionalPrincipals,
         deposits,
-        releases
+        releases,
+        interest_summary: getLoanInterestSummary({
+          ...girvi,
+          additionalPrincipals,
+          deposits,
+          releases,
+        }),
       };
     } finally {
       await prisma.$disconnect();
@@ -1291,6 +1299,120 @@ class GirviService {
       };
 
       await journalService.create_journal_entry(dbUrl, inJournal);
+    } finally {
+      await prisma.$disconnect();
+    }
+  }
+
+  async deleteCreationJournals(dbUrl, girvi) {
+    const prisma = this.getPrisma(dbUrl);
+    try {
+      const patterns = loanJournalDeletePatterns(girvi, ["add", "firstMonth"]);
+      const deletedIds = new Set();
+
+      for (const pattern of patterns) {
+        const journals = await prisma.journal.findMany({
+          where: {
+            jrnl_other_info: pattern,
+            jrnl_panel: "Girvi",
+            jrnl_firm_id: girvi.girv_firm_id,
+            jrnl_is_deleted: false,
+          },
+        });
+
+        for (const journal of journals) {
+          if (deletedIds.has(journal.jrnl_id)) continue;
+          await deletePanelJournal(dbUrl, journal);
+          deletedIds.add(journal.jrnl_id);
+        }
+      }
+
+      return deletedIds.size;
+    } finally {
+      await prisma.$disconnect();
+    }
+  }
+
+  async deleteGirvi(dbUrl, reqUser, girvId) {
+    const prisma = this.getPrisma(dbUrl);
+    try {
+      const isNum = !isNaN(girvId) && !isNaN(parseInt(girvId, 10));
+      let girvi = null;
+
+      if (isNum) {
+        girvi = await prisma.girvi.findFirst({
+          where: {
+            girv_id: parseInt(girvId, 10),
+            girv_is_deleted: false,
+          },
+        });
+      }
+
+      if (!girvi && typeof girvId === "string") {
+        girvi = await prisma.girvi.findFirst({
+          where: {
+            girv_is_deleted: false,
+            OR: [
+              { girv_unique_code: girvId.trim() },
+              { girv_loan_no: girvId.trim() },
+            ],
+          },
+        });
+      }
+
+      if (!girvi) {
+        throw new Error("Girvi (Loan) record not found.");
+      }
+
+      if (girvi.girv_status !== "ACTIVE") {
+        throw new Error(`Only ACTIVE loans can be deleted. Current status: ${girvi.girv_status}.`);
+      }
+
+      const [depositCount, releaseCount, apCount, auctionCount] = await Promise.all([
+        prisma.girviDeposit.count({
+          where: { dep_girv_id: girvi.girv_id, dep_is_deleted: false },
+        }),
+        prisma.girviRelease.count({
+          where: { rel_girv_id: girvi.girv_id, rel_is_deleted: false },
+        }),
+        prisma.additionalPrincipal.count({
+          where: { ap_girv_id: girvi.girv_id, ap_is_deleted: false },
+        }),
+        prisma.auctionLoan.count({
+          where: { al_girv_id: girvi.girv_id },
+        }),
+      ]);
+
+      if (depositCount > 0 || releaseCount > 0 || apCount > 0 || auctionCount > 0) {
+        throw new Error(
+          "Cannot delete loan with deposits, releases, additional principal, or auction records. Remove those transactions first."
+        );
+      }
+
+      await this.deleteCreationJournals(dbUrl, girvi);
+
+      const deleted = await prisma.girvi.update({
+        where: { girv_id: girvi.girv_id },
+        data: {
+          girv_is_deleted: true,
+          girv_deleted_at: new Date(),
+          girv_deleted_by: reqUser?.own_login_id || "Admin",
+        },
+      });
+
+      await prisma.stock.updateMany({
+        where: {
+          st_referance_panel: "girvi",
+          st_referance_id: girvi.girv_id,
+          st_is_deleted: false,
+        },
+        data: {
+          st_is_deleted: true,
+          st_deleted_at: new Date(),
+        },
+      });
+
+      return deleted;
     } finally {
       await prisma.$disconnect();
     }

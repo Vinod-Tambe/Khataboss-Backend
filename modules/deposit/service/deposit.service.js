@@ -6,6 +6,11 @@ const {
   depositVoucher,
   loanLine,
 } = require("../../../utils/journalNarration");
+const { assertActiveLoan } = require("../../../utils/loanValidation");
+const {
+  findPanelJournal,
+  deletePanelJournal,
+} = require("../../../utils/loanJournalHelper");
 
 class DepositService {
   getPrisma(dbUrl) {
@@ -66,6 +71,7 @@ class DepositService {
         if (!girvi) {
           throw new Error("Girvi (Loan) record not found");
         }
+        assertActiveLoan(girvi, "accept deposits");
 
         // 2. Insert GirviDeposit record
         const depositRecord = await tx.girviDeposit.create({
@@ -180,6 +186,84 @@ class DepositService {
         throw new Error(
           `Deposit account entry failed and was rolled back: ${journalErr.message}`
         );
+      }
+
+      return result;
+    } finally {
+      await prisma.$disconnect();
+    }
+  }
+
+  async deleteDeposit(dbUrl, reqUser, dep_id) {
+    const prisma = this.getPrisma(dbUrl);
+    try {
+      const depositRecord = await prisma.girviDeposit.findFirst({
+        where: {
+          dep_id: parseInt(dep_id, 10),
+          dep_is_deleted: false,
+        },
+      });
+
+      if (!depositRecord) {
+        throw new Error("Deposit record not found.");
+      }
+
+      const girviBefore = await prisma.girvi.findUnique({
+        where: { girv_id: depositRecord.dep_girv_id },
+      });
+
+      if (!girviBefore) {
+        throw new Error("Parent Girvi (Loan) record not found.");
+      }
+      assertActiveLoan(girviBefore, "revert deposits");
+
+      const voucherInfo = depositVoucher(girviBefore, depositRecord.dep_trans_date);
+      const journal = await findPanelJournal(prisma, {
+        voucherInfo,
+        firmId: depositRecord.dep_firm_id,
+        amount: depositRecord.dep_payable_amt,
+      });
+
+      const result = await prisma.$transaction(async (tx) => {
+        const currentGirvi = await tx.girvi.findUnique({
+          where: { girv_id: depositRecord.dep_girv_id },
+        });
+        if (!currentGirvi) {
+          throw new Error("Parent Girvi (Loan) record not found.");
+        }
+        assertActiveLoan(currentGirvi, "revert deposits");
+
+        const prinRec = parseFloat(depositRecord.dep_prin_amt) || 0;
+        const updateData = {
+          dep_is_deleted: true,
+          dep_deleted_at: new Date(),
+          dep_deleted_by: reqUser?.own_login_id || "Admin",
+        };
+
+        if (prinRec > 0) {
+          await tx.girvi.update({
+            where: { girv_id: currentGirvi.girv_id },
+            data: {
+              girv_prin_amt: { increment: prinRec },
+              girv_final_amt: { increment: prinRec },
+            },
+          });
+        }
+
+        await tx.girviDeposit.update({
+          where: { dep_id: depositRecord.dep_id },
+          data: updateData,
+        });
+
+        const updatedGirvi = await tx.girvi.findUnique({
+          where: { girv_id: currentGirvi.girv_id },
+        });
+
+        return { success: true, updatedGirvi, depositRecord, girvi: girviBefore };
+      });
+
+      if (journal) {
+        await deletePanelJournal(dbUrl, journal);
       }
 
       return result;

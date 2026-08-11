@@ -51,6 +51,42 @@ class DepositController {
       return res.status(500).json({ error: error.message });
     }
   }
+
+  async deleteDeposit(req, res) {
+    try {
+      const dbUrl = this.getDbUrl(req.user.own_db);
+      const { dep_id } = req.params;
+
+      if (!dep_id) {
+        return res.status(400).json({ error: "Deposit ID is required." });
+      }
+
+      const result = await depositService.deleteDeposit(dbUrl, req.user, dep_id);
+      const girvi = result?.updatedGirvi || result?.girvi;
+      const deposit = result?.depositRecord || result;
+
+      logActivity(dbUrl, req.user, {
+        firmId: deposit?.dep_firm_id || girvi?.girv_firm_id,
+        module: MODULE.LOAN,
+        action: ACTION.ROLLBACK,
+        subject: "Deposit Reverted",
+        description: (at) => descriptions.loanDepositRevert(girvi, deposit, at),
+        transDate: deposit?.dep_trans_date,
+        entityType: "girvi",
+        entityId: deposit?.dep_girv_id || girvi?.girv_id,
+        refNo: formatLoanNo(girvi),
+        amount: deposit?.dep_payable_amt ?? deposit?.dep_prin_amt,
+      });
+
+      return res.status(200).json({
+        message: "Deposit reverted successfully.",
+        data: result,
+      });
+    } catch (error) {
+      console.error("❌ Error deleting deposit:", error.message);
+      return res.status(500).json({ error: error.message });
+    }
+  }
 }
 
 module.exports = new DepositController();

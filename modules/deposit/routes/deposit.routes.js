@@ -13,4 +13,11 @@ router.post(
   (req, res) => depositController.addDeposit(req, res)
 );
 
+router.delete(
+  "/:dep_id",
+  authenticateOwner,
+  requirePermission("loan.deposit"),
+  (req, res) => depositController.deleteDeposit(req, res)
+);
+
 module.exports = router;

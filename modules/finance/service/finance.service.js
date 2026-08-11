@@ -1391,6 +1391,28 @@ class FinanceService {
           );
         }
       }
+      if (isClose) {
+        const fineCalc = computeFinanceFine(
+          finance,
+          finance.finance_trans,
+          data.fm_trans_date
+        );
+        const paidFine = sumPaidFineAndCollect(finance.finance_money_trans || []);
+        const pendingFine = Math.max(
+          0,
+          parseFloat((fineCalc.totalFine - paidFine.finePaid).toFixed(2))
+        );
+        const pendingCollect = Math.max(
+          0,
+          parseFloat((fineCalc.collectAmt - paidFine.collectPaid).toFixed(2))
+        );
+        const pendingFineTotal = parseFloat((pendingFine + pendingCollect).toFixed(2));
+        if (pendingFineTotal > 0.01) {
+          throw new Error(
+            `Pay pending fine/collect (₹${pendingFineTotal.toFixed(2)}) before closing`
+          );
+        }
+      }
       if (isClose && Math.abs(paymentAmt - totalPending) > 0.01) {
         throw new Error(
           `Close payment must equal full pending amount (${totalPending.toFixed(2)})`
@@ -1766,6 +1788,27 @@ class FinanceService {
       });
 
       if (!finance) throw new Error("Finance record not found");
+
+      const paymentCount = await prisma.finance_Money_Transaction.count({
+        where: { fm_fin_id: parseInt(id), fm_is_deleted: false },
+      });
+      if (paymentCount > 0) {
+        throw new Error(
+          "Cannot delete finance with existing payments. Roll back payments first."
+        );
+      }
+
+      const paidEmiCount = await prisma.finance_Transaction.count({
+        where: {
+          ft_fin_id: parseInt(id),
+          ft_paid_amt: { gt: 0 },
+        },
+      });
+      if (paidEmiCount > 0) {
+        throw new Error(
+          "Cannot delete finance with paid EMIs. Roll back payments first."
+        );
+      }
 
       // Soft delete or hard delete based on requirements. User logic seems to imply hard delete for relations.
       await financeTransactionService.delete_finance_transaction(dbUrl, id);
