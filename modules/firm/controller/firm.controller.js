@@ -6,6 +6,12 @@ const firmService = require("../service/firm.service");
 const imageService = require("../../../utils/image.service");
 const { BASE_URL } = require("../../../config/db");
 const { PrismaClient: MasterPrismaClient } = require("../../../prisma/generated/master");
+const {
+  logActivity,
+  MODULE,
+  ACTION,
+  descriptions,
+} = require("../../../common/service/activityLog.service");
 
 const masterPrisma = new MasterPrismaClient();
 
@@ -52,6 +58,17 @@ class FirmController {
 
       // 1. Create Firm record first (to get firm_id)
       const newFirm = await firmService.createFirm(dbUrl, firmData);
+
+      logActivity(dbUrl, req.user, {
+        firmId: newFirm.firm_id,
+        module: MODULE.FIRM,
+        action: ACTION.CREATE,
+        subject: "Firm Added",
+        description: (at) => descriptions.firmCreated(newFirm, at),
+        entityType: "firm",
+        entityId: newFirm.firm_id,
+        refNo: newFirm.firm_unique_id || String(newFirm.firm_id),
+      });
 
       // 2. Create Default Accounts
       await firmService.createDefaultAccounts(
@@ -235,6 +252,17 @@ class FirmController {
 
       const updatedFirm = await firmService.updateFirmByUuid(dbUrl, uuid, updateData);
 
+      logActivity(dbUrl, req.user, {
+        firmId: updatedFirm.firm_id,
+        module: MODULE.FIRM,
+        action: ACTION.UPDATE,
+        subject: "Firm Updated",
+        description: (at) => descriptions.firmUpdated(updatedFirm, at),
+        entityType: "firm",
+        entityId: updatedFirm.firm_id,
+        refNo: updatedFirm.firm_unique_id || String(updatedFirm.firm_id),
+      });
+
       // 3. Sync Capital Account balance if firm_balance is updated
       if (updateData.firm_balance !== undefined) {
         await firmService.updateCapitalAccountBalance(dbUrl, updatedFirm.firm_id, updatedFirm.firm_balance);
@@ -258,7 +286,23 @@ class FirmController {
     try {
       const { uuid } = req.params;
       const dbUrl = this.getDbUrl(req.user.own_db);
-      await firmService.deleteFirmByUuid(dbUrl, uuid, "Admin");
+      const firmToDelete = await firmService.getFirmByUuid(dbUrl, uuid);
+      if (!firmToDelete) {
+        return res.status(404).json({ error: "Firm not found." });
+      }
+
+      await firmService.deleteFirmByUuid(dbUrl, uuid, req.user.own_login_id || "Admin");
+
+      logActivity(dbUrl, req.user, {
+        firmId: firmToDelete.firm_id,
+        module: MODULE.FIRM,
+        action: ACTION.DELETE,
+        subject: "Firm Deleted",
+        description: (at) => descriptions.firmDeleted(firmToDelete, at),
+        entityType: "firm",
+        entityId: firmToDelete.firm_id,
+        refNo: firmToDelete.firm_unique_id || String(firmToDelete.firm_id),
+      });
 
       return res.status(200).json({
         success: true,

@@ -2,6 +2,10 @@
 
 const { PrismaClient } = require("../../../prisma/generated/main");
 const journalService = require("../../journal/service/journal.service");
+const {
+  addPrincipalVoucher,
+  loanLine,
+} = require("../../../utils/journalNarration");
 
 class AddPrincipalService {
   getPrisma(dbUrl) {
@@ -118,14 +122,14 @@ class AddPrincipalService {
           jrnl_user_id: result.apRecord.ap_user_id,
           jrnl_amt: result.apRecord.ap_prin_amt,
           jrnl_panel: "Girvi",
-          jrnl_other_info: `Add Additional Principal | Loan No - ${result.apRecord.ap_girv_id} | Add No - ${result.apRecord.ap_id}`,
+          jrnl_other_info: addPrincipalVoucher(result.girvi, result.apRecord.ap_trans_date),
         },
         joural_trans_data: [
           { jrtr_crdr: "CR", jrtr_date: result.apRecord.ap_trans_date, jrtr_cr_acc_id: result.apRecord.ap_cash_acc_id, jrtr_cr_amt: result.apRecord.ap_cash_amt, jrtr_acc_info: result.apRecord.ap_cash_info },
           { jrtr_crdr: "CR", jrtr_date: result.apRecord.ap_trans_date, jrtr_cr_acc_id: result.apRecord.ap_bank_acc_id, jrtr_cr_amt: result.apRecord.ap_bank_amt, jrtr_acc_info: result.apRecord.ap_bank_info },
           { jrtr_crdr: "CR", jrtr_date: result.apRecord.ap_trans_date, jrtr_cr_acc_id: result.apRecord.ap_online_acc_id, jrtr_cr_amt: result.apRecord.ap_online_amt, jrtr_acc_info: result.apRecord.ap_online_info },
           { jrtr_crdr: "CR", jrtr_date: result.apRecord.ap_trans_date, jrtr_cr_acc_id: result.apRecord.ap_card_acc_id, jrtr_cr_amt: result.apRecord.ap_card_amt, jrtr_acc_info: result.apRecord.ap_card_info },
-          { jrtr_crdr: "DR", jrtr_date: result.apRecord.ap_trans_date, jrtr_dr_acc_id: drAccount, jrtr_dr_amt: result.apRecord.ap_prin_amt, jrtr_acc_info: `Add Add. Principal : Loan No - ${result.apRecord.ap_girv_id}` }
+          { jrtr_crdr: "DR", jrtr_date: result.apRecord.ap_trans_date, jrtr_dr_acc_id: drAccount, jrtr_dr_amt: result.apRecord.ap_prin_amt, jrtr_acc_info: loanLine("Add Add. Principal", result.girvi) }
         ].filter(t => (t.jrtr_cr_amt && parseFloat(t.jrtr_cr_amt) > 0) || (t.jrtr_dr_amt && parseFloat(t.jrtr_dr_amt) > 0)),
       };
 

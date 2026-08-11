@@ -7,6 +7,13 @@ const { validateStrongPassword } = require("../../../common/service/password.val
 const { permissionMatrixToKeys } = require("../../../prisma/seeder/permission-seeder");
 const messageDispatchService = require("../../../common/service/message-dispatch.service");
 const { getTenantPrisma } = require("../../../utils/tenantPrisma");
+const {
+  logActivity,
+  GLOBAL_FIRM_ID,
+  MODULE,
+  ACTION,
+  descriptions,
+} = require("../../../common/service/activityLog.service");
 
 class StaffController {
   getDbUrl(dbName) {
@@ -131,6 +138,18 @@ class StaffController {
       const permissionKeys = this.parsePermissionInput(req.body);
       const plainPassword = staffData.staff_password;
       const created = await staffService.createStaff(dbUrl, staffData, permissionKeys);
+      const fullLogin = `${req.user.own_login_id}+${created.staff_login_id}`;
+
+      logActivity(dbUrl, req.user, {
+        firmId: GLOBAL_FIRM_ID,
+        module: MODULE.STAFF,
+        action: ACTION.CREATE,
+        subject: "Staff Added",
+        description: (at) => descriptions.staffCreated(created, fullLogin, at),
+        entityType: "staff",
+        entityId: created.staff_id,
+        refNo: fullLogin,
+      });
 
       const prisma = getTenantPrisma(dbUrl);
       const firm = await prisma.firm.findFirst({
@@ -244,6 +263,18 @@ class StaffController {
       }
 
       let updated = await staffService.updateStaff(dbUrl, req.params.uuid, mapped);
+      const fullLogin = `${req.user.own_login_id}+${updated.staff_login_id}`;
+
+      logActivity(dbUrl, req.user, {
+        firmId: GLOBAL_FIRM_ID,
+        module: MODULE.STAFF,
+        action: ACTION.UPDATE,
+        subject: "Staff Updated",
+        description: (at) => descriptions.staffUpdated(updated, fullLogin, at),
+        entityType: "staff",
+        entityId: updated.staff_id,
+        refNo: fullLogin,
+      });
 
       if (req.files && Object.keys(req.files).length > 0) {
         const movedFiles = await imageService.moveFiles("staff", existing.staff_id, req.files);
@@ -322,6 +353,19 @@ class StaffController {
         staff_login_id: loginId,
         staff_password: password,
       });
+      const targetLogin = `${req.user.own_login_id}+${updated.staff_login_id}`;
+
+      logActivity(dbUrl, req.user, {
+        firmId: GLOBAL_FIRM_ID,
+        module: MODULE.STAFF,
+        action: ACTION.PASSWORD,
+        subject: "Staff Password Reset",
+        description: (at) =>
+          descriptions.staffPasswordChanged(targetLogin, req.user.staff_login_id || req.user.own_login_id, at),
+        entityType: "staff",
+        entityId: updated.staff_id,
+        refNo: targetLogin,
+      });
 
       return res.status(200).json({
         message: "Staff login credentials updated.",
@@ -367,6 +411,19 @@ class StaffController {
       }
 
       await staffService.softDeleteStaff(dbUrl, req.params.uuid, req.user.own_login_id);
+      const fullLogin = `${req.user.own_login_id}+${existing.staff_login_id}`;
+
+      logActivity(dbUrl, req.user, {
+        firmId: GLOBAL_FIRM_ID,
+        module: MODULE.STAFF,
+        action: ACTION.DELETE,
+        subject: "Staff Deleted",
+        description: (at) => descriptions.staffDeleted(existing, fullLogin, at),
+        entityType: "staff",
+        entityId: existing.staff_id,
+        refNo: fullLogin,
+      });
+
       return res.status(200).json({ message: "Staff deleted successfully." });
     } catch (error) {
       console.error("❌  deleteStaff:", error.message);

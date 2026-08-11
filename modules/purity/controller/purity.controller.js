@@ -2,6 +2,13 @@
 
 const purityService = require("../service/purity.service");
 const { BASE_URL } = require("../../../config/db");
+const {
+  logActivity,
+  GLOBAL_FIRM_ID,
+  MODULE,
+  ACTION,
+  descriptions,
+} = require("../../../common/service/activityLog.service");
 
 class PurityController {
   getDbUrl(dbName) {
@@ -14,8 +21,19 @@ class PurityController {
       const data = req.body;
       data.purity_created_by = req.user?.user_name || "Admin";
       data.purity_own_id = req.user?.own_id || 1;
-      
+
       const purity = await purityService.createPurity(dbUrl, data);
+
+      logActivity(dbUrl, req.user, {
+        firmId: GLOBAL_FIRM_ID,
+        module: MODULE.SETTINGS,
+        action: ACTION.CREATE,
+        subject: "Purity Saved",
+        description: (at) => descriptions.puritySaved(purity, at),
+        entityType: "purity",
+        entityId: purity.purity_id,
+      });
+
       res.status(201).json({ message: "Purity saved successfully", data: purity });
     } catch (error) {
       console.error("Create Purity Error:", error);
@@ -41,8 +59,19 @@ class PurityController {
       const { uuid } = req.params;
       const data = req.body;
       data.purity_updated_by = req.user?.user_name || "Admin";
-      
+
       const purity = await purityService.updatePurity(dbUrl, uuid, data);
+
+      logActivity(dbUrl, req.user, {
+        firmId: GLOBAL_FIRM_ID,
+        module: MODULE.SETTINGS,
+        action: ACTION.UPDATE,
+        subject: "Purity Updated",
+        description: (at) => descriptions.puritySaved(purity, at),
+        entityType: "purity",
+        entityId: purity.purity_id,
+      });
+
       res.status(200).json({ message: "Purity updated successfully", data: purity });
     } catch (error) {
       console.error("Update Purity Error:", error);
@@ -54,7 +83,18 @@ class PurityController {
     try {
       const dbUrl = this.getDbUrl(req.user.own_db);
       const { uuid } = req.params;
-      await purityService.deletePurity(dbUrl, uuid);
+      const deleted = await purityService.deletePurity(dbUrl, uuid);
+
+      logActivity(dbUrl, req.user, {
+        firmId: GLOBAL_FIRM_ID,
+        module: MODULE.SETTINGS,
+        action: ACTION.DELETE,
+        subject: "Purity Deleted",
+        description: (at) => descriptions.purityDeleted(deleted, at),
+        entityType: "purity",
+        entityId: deleted?.purity_id,
+      });
+
       res.status(200).json({ message: "Purity deleted successfully" });
     } catch (error) {
       console.error("Delete Purity Error:", error);

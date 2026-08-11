@@ -2,6 +2,13 @@
 
 const rateService = require("../service/rate.service");
 const { BASE_URL } = require("../../../config/db");
+const {
+  logActivity,
+  GLOBAL_FIRM_ID,
+  MODULE,
+  ACTION,
+  descriptions,
+} = require("../../../common/service/activityLog.service");
 
 class RateController {
   getDbUrl(dbName) {
@@ -14,8 +21,21 @@ class RateController {
       const data = req.body;
       data.rate_created_by = req.user?.user_name || "Admin";
       data.rate_own_id = req.user?.own_id || 1;
-      
+
       const rate = await rateService.createRate(dbUrl, data);
+
+      logActivity(dbUrl, req.user, {
+        firmId: rate.rate_firm_id || data.rate_firm_id || GLOBAL_FIRM_ID,
+        module: MODULE.SETTINGS,
+        action: ACTION.CREATE,
+        subject: "Rate Saved",
+        description: (at) => descriptions.rateSaved(rate, at),
+        entityType: "rate",
+        entityId: rate.rate_id,
+        amount: rate.rate_amount,
+        transDate: rate.rate_date,
+      });
+
       res.status(201).json({ message: "Rate saved successfully", data: rate });
     } catch (error) {
       console.error("Create Rate Error:", error);
@@ -29,8 +49,21 @@ class RateController {
       const { uuid } = req.params;
       const data = req.body;
       data.rate_updated_by = req.user?.user_name || "Admin";
-      
+
       const rate = await rateService.updateRate(dbUrl, uuid, data);
+
+      logActivity(dbUrl, req.user, {
+        firmId: rate.rate_firm_id || GLOBAL_FIRM_ID,
+        module: MODULE.SETTINGS,
+        action: ACTION.UPDATE,
+        subject: "Rate Updated",
+        description: (at) => descriptions.rateSaved(rate, at),
+        entityType: "rate",
+        entityId: rate.rate_id,
+        amount: rate.rate_amount,
+        transDate: rate.rate_date,
+      });
+
       res.status(200).json({ message: "Rate updated successfully", data: rate });
     } catch (error) {
       console.error("Update Rate Error:", error);
@@ -54,7 +87,19 @@ class RateController {
     try {
       const dbUrl = this.getDbUrl(req.user.own_db);
       const { uuid } = req.params;
-      await rateService.deleteRate(dbUrl, uuid);
+      const deleted = await rateService.deleteRate(dbUrl, uuid);
+
+      logActivity(dbUrl, req.user, {
+        firmId: deleted?.rate_firm_id || GLOBAL_FIRM_ID,
+        module: MODULE.SETTINGS,
+        action: ACTION.DELETE,
+        subject: "Rate Deleted",
+        description: (at) => descriptions.rateDeleted(deleted, at),
+        entityType: "rate",
+        entityId: deleted?.rate_id,
+        amount: deleted?.rate_amount,
+      });
+
       res.status(200).json({ message: "Rate deleted successfully" });
     } catch (error) {
       console.error("Delete Rate Error:", error);

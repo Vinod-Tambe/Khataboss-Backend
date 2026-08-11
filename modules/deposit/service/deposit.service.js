@@ -2,6 +2,10 @@
 
 const { PrismaClient } = require("../../../prisma/generated/main");
 const journalService = require("../../journal/service/journal.service");
+const {
+  depositVoucher,
+  loanLine,
+} = require("../../../utils/journalNarration");
 
 class DepositService {
   getPrisma(dbUrl) {
@@ -136,7 +140,7 @@ class DepositService {
           jrnl_user_id: depRec.dep_user_id,
           jrnl_amt: depRec.dep_payable_amt,
           jrnl_panel: "Girvi",
-          jrnl_other_info: `Deposit Received | Loan No - ${depRec.dep_girv_id} | Dep No - ${depRec.dep_id}`,
+          jrnl_other_info: depositVoucher(result.girvi, depRec.dep_trans_date),
         },
         joural_trans_data: [
           // Debits (Money Coming In & Discount Given)
@@ -144,12 +148,12 @@ class DepositService {
           { jrtr_crdr: "DR", jrtr_date: depRec.dep_trans_date, jrtr_dr_acc_id: depRec.dep_bank_acc_id, jrtr_dr_amt: depRec.dep_bank_amt, jrtr_acc_info: depRec.dep_bank_info },
           { jrtr_crdr: "DR", jrtr_date: depRec.dep_trans_date, jrtr_dr_acc_id: depRec.dep_online_acc_id, jrtr_dr_amt: depRec.dep_online_amt, jrtr_acc_info: depRec.dep_online_info },
           { jrtr_crdr: "DR", jrtr_date: depRec.dep_trans_date, jrtr_dr_acc_id: depRec.dep_card_acc_id, jrtr_dr_amt: depRec.dep_card_amt, jrtr_acc_info: depRec.dep_card_info },
-          { jrtr_crdr: "DR", jrtr_date: depRec.dep_trans_date, jrtr_dr_acc_id: depRec.dep_disc_acc_id, jrtr_dr_amt: depRec.dep_disc_amt, jrtr_acc_info: `Discount Given : Loan No - ${depRec.dep_girv_id}` },
+          { jrtr_crdr: "DR", jrtr_date: depRec.dep_trans_date, jrtr_dr_acc_id: depRec.dep_disc_acc_id, jrtr_dr_amt: depRec.dep_disc_amt, jrtr_acc_info: loanLine("Discount Given", result.girvi) },
           
           // Credits (Reduction of Loan, Income)
-          { jrtr_crdr: "CR", jrtr_date: depRec.dep_trans_date, jrtr_cr_acc_id: result.girvi.girv_dr_acc_id || depRec.dep_prin_acc_id, jrtr_cr_amt: depRec.dep_prin_amt, jrtr_acc_info: `Principal Received : Loan No - ${depRec.dep_girv_id}` },
-          { jrtr_crdr: "CR", jrtr_date: depRec.dep_trans_date, jrtr_cr_acc_id: depRec.dep_int_acc_id, jrtr_cr_amt: depRec.dep_int_amt, jrtr_acc_info: `Interest Received : Loan No - ${depRec.dep_girv_id}` },
-          { jrtr_crdr: "CR", jrtr_date: depRec.dep_trans_date, jrtr_cr_acc_id: depRec.dep_extra_acc_id, jrtr_cr_amt: depRec.dep_extra_amt, jrtr_acc_info: `Extra Amount Received : Loan No - ${depRec.dep_girv_id}` }
+          { jrtr_crdr: "CR", jrtr_date: depRec.dep_trans_date, jrtr_cr_acc_id: result.girvi.girv_dr_acc_id || depRec.dep_prin_acc_id, jrtr_cr_amt: depRec.dep_prin_amt, jrtr_acc_info: loanLine("Principal Received", result.girvi) },
+          { jrtr_crdr: "CR", jrtr_date: depRec.dep_trans_date, jrtr_cr_acc_id: depRec.dep_int_acc_id, jrtr_cr_amt: depRec.dep_int_amt, jrtr_acc_info: loanLine("Interest Received", result.girvi) },
+          { jrtr_crdr: "CR", jrtr_date: depRec.dep_trans_date, jrtr_cr_acc_id: depRec.dep_extra_acc_id, jrtr_cr_amt: depRec.dep_extra_amt, jrtr_acc_info: loanLine("Extra Amount Received", result.girvi) }
         ].filter(t => (t.jrtr_cr_amt && parseFloat(t.jrtr_cr_amt) > 0) || (t.jrtr_dr_amt && parseFloat(t.jrtr_dr_amt) > 0)),
       };
 

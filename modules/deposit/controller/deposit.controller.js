@@ -2,6 +2,13 @@
 
 const depositService = require("../service/deposit.service");
 const { BASE_URL } = require("../../../config/db");
+const {
+  logActivity,
+  MODULE,
+  ACTION,
+  descriptions,
+} = require("../../../common/service/activityLog.service");
+const { formatLoanNo } = require("../../../utils/journalNarration");
 
 class DepositController {
   getDbUrl(dbName) {
@@ -19,6 +26,21 @@ class DepositController {
       }
 
       const result = await depositService.addDeposit(dbUrl, req.user, data);
+
+      const girvi = result?.girvi || result?.updatedGirvi;
+      const deposit = result?.depositRecord || result;
+      logActivity(dbUrl, req.user, {
+        firmId: data.dep_firm_id,
+        module: MODULE.LOAN,
+        action: ACTION.DEPOSIT,
+        subject: "Loan Deposit",
+        description: (at) => descriptions.loanDeposit(girvi, deposit, at),
+        transDate: deposit?.dep_trans_date,
+        entityType: "girvi",
+        entityId: data.dep_girv_id,
+        refNo: formatLoanNo(girvi),
+        amount: deposit?.dep_payable_amt ?? deposit?.dep_prin_amt,
+      });
 
       return res.status(201).json({
         message: "Deposit added successfully.",

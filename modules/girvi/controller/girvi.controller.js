@@ -4,6 +4,13 @@ const girviService = require("../service/girvi.service");
 const { BASE_URL } = require("../../../config/db");
 const { PrismaClient } = require("../../../prisma/generated/main");
 const { normalizeRoiType } = require("../../../utils/loanInterest");
+const {
+  logActivity,
+  MODULE,
+  ACTION,
+  descriptions,
+} = require("../../../common/service/activityLog.service");
+const { formatLoanNo } = require("../../../utils/journalNarration");
 
 const resolveInterestRecAccount = async (dbUrl, firmId, ownId) => {
   const prisma = new PrismaClient({ datasources: { db: { url: dbUrl } } });
@@ -192,6 +199,18 @@ class GirviController {
 
       const newGirvi = await girviService.createGirvi(dbUrl, girviData, stockItems);
 
+      logActivity(dbUrl, req.user, {
+        firmId: newGirvi.girv_firm_id,
+        module: MODULE.LOAN,
+        action: ACTION.CREATE,
+        subject: "Loan Added",
+        description: (at) => descriptions.loanCreated(newGirvi, at),
+        entityType: "girvi",
+        entityId: newGirvi.girv_id,
+        refNo: formatLoanNo(newGirvi),
+        amount: newGirvi.girv_prin_amt,
+      });
+
       return res.status(201).json({
         message: "Loan created successfully.",
         data: newGirvi,
@@ -347,6 +366,18 @@ class GirviController {
 
       const updatedGirvi = await girviService.updateGirvi(dbUrl, girvUuid, girviData, stockItems, allowFinancialUpdate);
 
+      logActivity(dbUrl, req.user, {
+        firmId: updatedGirvi.girv_firm_id,
+        module: MODULE.LOAN,
+        action: ACTION.UPDATE,
+        subject: "Loan Updated",
+        description: (at) => descriptions.loanUpdated(updatedGirvi, at),
+        entityType: "girvi",
+        entityId: updatedGirvi.girv_id,
+        refNo: formatLoanNo(updatedGirvi),
+        amount: updatedGirvi.girv_prin_amt,
+      });
+
       return res.status(200).json({
         message: "Loan updated successfully.",
         data: updatedGirvi,
@@ -373,6 +404,38 @@ class GirviController {
       }
 
       const result = await girviService.transferLoan(dbUrl, girvUuid, formData, req.user);
+
+      const sourceGirvi = {
+        girv_id: result.girv_transfer_from_girv_id,
+        girv_unique_code: null,
+        girv_loan_no: null,
+      };
+
+      if (result.girv_transfer_from_girv_id) {
+        logActivity(dbUrl, req.user, {
+          firmId: result.girv_transfer_from_firm_id,
+          module: MODULE.LOAN,
+          action: ACTION.TRANSFER,
+          subject: "Loan Transfer Out",
+          description: (at) => descriptions.loanTransferOut(sourceGirvi, result, at),
+          entityType: "girvi",
+          entityId: result.girv_transfer_from_girv_id,
+          refNo: formatLoanNo({ girv_id: result.girv_transfer_from_girv_id }),
+          amount: result.girv_prin_amt,
+        });
+      }
+
+      logActivity(dbUrl, req.user, {
+        firmId: result.girv_firm_id,
+        module: MODULE.LOAN,
+        action: ACTION.TRANSFER,
+        subject: "Loan Transfer In",
+        description: (at) => descriptions.loanTransferIn(result, sourceGirvi, at),
+        entityType: "girvi",
+        entityId: result.girv_id,
+        refNo: formatLoanNo(result),
+        amount: result.girv_prin_amt,
+      });
 
       return res.status(200).json({
         message:

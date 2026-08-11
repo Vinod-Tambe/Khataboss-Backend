@@ -2,6 +2,13 @@
 
 const addPrincipalService = require("../service/principal.service");
 const { BASE_URL } = require("../../../config/db");
+const {
+  logActivity,
+  MODULE,
+  ACTION,
+  descriptions,
+} = require("../../../common/service/activityLog.service");
+const { formatLoanNo } = require("../../../utils/journalNarration");
 
 class AddPrincipalController {
   getDbUrl(dbName) {
@@ -19,6 +26,21 @@ class AddPrincipalController {
       }
 
       const result = await addPrincipalService.addAdditionalPrincipal(dbUrl, req.user, data);
+
+      const girvi = result?.girvi || result?.updatedGirvi;
+      const ap = result?.apRecord || result;
+      logActivity(dbUrl, req.user, {
+        firmId: data.ap_firm_id,
+        module: MODULE.LOAN,
+        action: ACTION.ADD_PRINCIPAL,
+        subject: "Additional Principal",
+        description: (at) => descriptions.loanAddPrincipal(girvi, ap, at),
+        transDate: ap?.ap_trans_date,
+        entityType: "girvi",
+        entityId: data.ap_girv_id,
+        refNo: formatLoanNo(girvi),
+        amount: ap?.ap_payable_amt ?? ap?.ap_prin_amt,
+      });
 
       return res.status(201).json({
         message: "Additional principal added successfully.",

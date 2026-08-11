@@ -16,8 +16,76 @@ const {
   ROLE_STAFF,
   getAllPermissionKeys,
 } = require("../../../common/service/permission.helper");
+const {
+  logSystemActivity,
+  MODULE,
+  ACTION,
+  descriptions,
+  GLOBAL_FIRM_ID,
+} = require("../../../common/service/activityLog.service");
 
 const masterPrisma = new MasterPrismaClient();
+
+function recordAuthLogin(owner, loginId, roleLabel, systemInfo = {}, displayName = "") {
+  if (!owner?.own_db || owner?.own_id == null) return;
+  const loginUser =
+    displayName ||
+    formatPersonName(owner.own_first_name, owner.own_middle_name, owner.own_last_name) ||
+    loginId;
+  logSystemActivity(`${BASE_URL}/${owner.own_db}`, {
+    ownId: owner.own_id,
+    firmId: GLOBAL_FIRM_ID,
+    loginId,
+    loginName: loginUser,
+    module: MODULE.AUTH,
+    action: ACTION.LOGIN,
+    subject: roleLabel === "Staff" ? "Staff Login" : "Owner Login",
+    description: (at) => descriptions.authLogin(loginUser, roleLabel, systemInfo, at),
+    meta: { role: roleLabel, login_id: loginId },
+  });
+}
+
+function formatPersonName(first, middle, last) {
+  return [first, middle, last].filter(Boolean).join(" ").trim();
+}
+
+function recordAuthPasswordChange(owner, loginId, displayName = "") {
+  if (!owner?.own_db || owner?.own_id == null) return;
+  const loginUser =
+    displayName ||
+    formatPersonName(owner.own_first_name, owner.own_middle_name, owner.own_last_name) ||
+    loginId;
+  logSystemActivity(`${BASE_URL}/${owner.own_db}`, {
+    ownId: owner.own_id,
+    firmId: GLOBAL_FIRM_ID,
+    loginId,
+    loginName: loginUser,
+    module: MODULE.AUTH,
+    action: ACTION.PASSWORD,
+    subject: "Password Changed",
+    description: (at) => descriptions.authPasswordChanged(loginUser, at),
+    meta: { login_id: loginId },
+  });
+}
+
+function recordAuthProfileUpdate(owner, loginId, displayName = "") {
+  if (!owner?.own_db || owner?.own_id == null) return;
+  const loginUser =
+    displayName ||
+    formatPersonName(owner.own_first_name, owner.own_middle_name, owner.own_last_name) ||
+    loginId;
+  logSystemActivity(`${BASE_URL}/${owner.own_db}`, {
+    ownId: owner.own_id,
+    firmId: GLOBAL_FIRM_ID,
+    loginId,
+    loginName: loginUser,
+    module: MODULE.AUTH,
+    action: ACTION.PROFILE,
+    subject: "Profile Updated",
+    description: (at) => descriptions.authProfileUpdated(loginUser, at),
+    meta: { login_id: loginId },
+  });
+}
 
 const toPublicOwner = (owner) => ({
   own_uuid: owner.own_uuid,
@@ -161,6 +229,13 @@ class AuthService {
     }
 
     const user = toPublicStaffUser(owner, staff, permissionKeys);
+    recordAuthLogin(
+      owner,
+      `${owner.own_login_id}+${staff.staff_login_id}`,
+      "Staff",
+      system_info,
+      `${staff.staff_first_name || ""} ${staff.staff_last_name || ""}`.trim()
+    );
     return {
       token: accessToken,
       refreshToken,
@@ -238,6 +313,13 @@ class AuthService {
     });
 
     const publicOwner = toPublicOwner(owner);
+    recordAuthLogin(
+      owner,
+      owner.own_login_id,
+      "Owner",
+      system_info,
+      formatPersonName(owner.own_first_name, owner.own_middle_name, owner.own_last_name)
+    );
 
     // 5. Return success data (exclude password and technical/expiry details)
     return {
@@ -434,6 +516,13 @@ class AuthService {
     });
 
     const publicOwner = toPublicOwner(owner);
+    recordAuthLogin(
+      owner,
+      owner.own_login_id,
+      "Owner",
+      system_info,
+      formatPersonName(owner.own_first_name, owner.own_middle_name, owner.own_last_name)
+    );
 
     // 6. Return success data
     return {
@@ -585,6 +674,11 @@ class AuthService {
 
     const dbUrl = `${BASE_URL}/${ownDb}`;
     const updated = await ownerService.updateOwner(dbUrl, ownUuid, dataToUpdate);
+    recordAuthProfileUpdate(
+      { own_id: updated.own_id, own_db: ownDb },
+      updated.own_login_id,
+      formatPersonName(updated.own_first_name, updated.own_middle_name, updated.own_last_name)
+    );
     return toPublicOwner(updated);
   }
 
@@ -644,6 +738,11 @@ class AuthService {
 
     const updated = await staffService.updateStaff(dbUrl, staff.staff_uuid, mapped);
     const keys = await staffService.getStaffPermissionKeys(dbUrl, updated.staff_id);
+    recordAuthProfileUpdate(
+      owner,
+      `${owner.own_login_id}+${updated.staff_login_id}`,
+      `${updated.staff_first_name || ""} ${updated.staff_last_name || ""}`.trim()
+    );
     return toPublicStaffUser(owner, updated, keys);
   }
 
@@ -715,6 +814,11 @@ class AuthService {
     await staffService.updateStaff(dbUrl, staff.staff_uuid, {
       staff_password: newPassword,
     });
+    recordAuthPasswordChange(
+      owner,
+      `${owner.own_login_id}+${staff.staff_login_id}`,
+      `${staff.staff_first_name || ""} ${staff.staff_last_name || ""}`.trim()
+    );
     return { message: "Password updated successfully." };
   }
 
@@ -770,6 +874,11 @@ class AuthService {
 
     const dbUrl = `${BASE_URL}/${authUser.own_db}`;
     await ownerService.updateOwner(dbUrl, authUser.own_uuid, { own_password: newPassword });
+    recordAuthPasswordChange(
+      owner,
+      owner.own_login_id,
+      formatPersonName(owner.own_first_name, owner.own_middle_name, owner.own_last_name)
+    );
     return { message: "Password updated successfully." };
   }
 }

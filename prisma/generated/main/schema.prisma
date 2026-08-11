@@ -1671,3 +1671,26 @@ model MessageLog {
   @@index([ml_created_at])
   @@map("message_logs")
 }
+
+model ActivityLog {
+  al_id          Int      @id @default(autoincrement())
+  al_uuid        String   @unique @default(uuid())
+  al_own_id      Int
+  al_firm_id     Int
+  al_module      String
+  al_action      String
+  al_subject     String
+  al_description String   @db.Text
+  al_entity_type String?
+  al_entity_id   Int?
+  al_ref_no      String?
+  al_amount      Decimal? @db.Decimal(18, 2)
+  al_login_id    String
+  al_meta        Json?
+  al_created_at  DateTime @default(now())
+
+  @@index([al_firm_id, al_created_at(sort: Desc)])
+  @@index([al_firm_id, al_entity_type, al_entity_id])
+  @@index([al_own_id, al_created_at(sort: Desc)])
+  @@map("activity_logs")
+}

@@ -3,6 +3,12 @@
 const accountService = require("../service/account.service");
 const accountLedgerService = require("../service/account_ledger.service");
 const { BASE_URL } = require("../../../config/db");
+const {
+  logActivity,
+  MODULE,
+  ACTION,
+  descriptions,
+} = require("../../../common/service/activityLog.service");
 
 class AccountController {
   /**
@@ -46,6 +52,18 @@ class AccountController {
       }
 
       const newAccount = await accountService.createAccount(dbUrl, accountData);
+
+      logActivity(dbUrl, req.user, {
+        firmId: newAccount.acc_firm_id,
+        module: MODULE.ACCOUNT,
+        action: ACTION.CREATE,
+        subject: "Account Added",
+        description: (at) => descriptions.accountCreated(newAccount, at),
+        transDate: newAccount.acc_opening_date,
+        entityType: "account",
+        entityId: newAccount.acc_id,
+        amount: newAccount.acc_cash_balance,
+      });
 
       return res.status(201).json({
         message: "Account created successfully.",
@@ -177,6 +195,17 @@ class AccountController {
 
       const updatedAccount = await accountService.updateAccountByUuid(dbUrl, uuid, updateData);
 
+      logActivity(dbUrl, req.user, {
+        firmId: updatedAccount.acc_firm_id,
+        module: MODULE.ACCOUNT,
+        action: ACTION.UPDATE,
+        subject: "Account Update",
+        description: (at) => descriptions.accountUpdated(updatedAccount, at),
+        entityType: "account",
+        entityId: updatedAccount.acc_id,
+        amount: updatedAccount.acc_cash_balance,
+      });
+
       return res.status(200).json({
         message: "Account updated successfully.",
         data: updatedAccount,
@@ -201,7 +230,23 @@ class AccountController {
         return res.status(403).json({ error: "This account is a system base account, you cannot delete this." });
       }
 
+      const accountToDelete = await accountService.getAccountByUuid(dbUrl, uuid);
+      if (!accountToDelete) {
+        return res.status(404).json({ error: "Account not found." });
+      }
+
       await accountService.deleteAccountByUuid(dbUrl, uuid, req.user.own_login_id || "Admin");
+
+      logActivity(dbUrl, req.user, {
+        firmId: accountToDelete.acc_firm_id,
+        module: MODULE.ACCOUNT,
+        action: ACTION.DELETE,
+        subject: "Account Deleted",
+        description: (at) => descriptions.accountDeleted(accountToDelete, at),
+        entityType: "account",
+        entityId: accountToDelete.acc_id,
+        amount: accountToDelete.acc_cash_balance,
+      });
 
       return res.status(200).json({
         message: "Account deleted successfully (soft delete).",
@@ -219,6 +264,20 @@ class AccountController {
     try {
       const { firmId, startDate, endDate, acc_id } = req.query;
       const dbUrl = this.getDbUrl(req.user.own_db);
+
+      if (!acc_id) {
+        return res.status(400).json({
+          success: false,
+          message: "Account id (acc_id) is required",
+        });
+      }
+
+      if (!startDate || !endDate) {
+        return res.status(400).json({
+          success: false,
+          message: "startDate and endDate are required",
+        });
+      }
 
       // Validate date format (YYYY-MM-DD) if provided
       const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
@@ -270,6 +329,18 @@ class AccountController {
       });
     } catch (error) {
       console.error("Error fetching ledger entries:", error);
+      if (error.message === "Account not found") {
+        return res.status(404).json({
+          success: false,
+          message: "Account not found",
+        });
+      }
+      if (error.message === "Account id is required") {
+        return res.status(400).json({
+          success: false,
+          message: error.message,
+        });
+      }
       return res.status(500).json({
         success: false,
         message: "Failed to fetch ledger entries",

@@ -946,6 +946,24 @@ exports.Prisma.MessageLogScalarFieldEnum = {
   ml_created_at: 'ml_created_at'
 };
 
+exports.Prisma.ActivityLogScalarFieldEnum = {
+  al_id: 'al_id',
+  al_uuid: 'al_uuid',
+  al_own_id: 'al_own_id',
+  al_firm_id: 'al_firm_id',
+  al_module: 'al_module',
+  al_action: 'al_action',
+  al_subject: 'al_subject',
+  al_description: 'al_description',
+  al_entity_type: 'al_entity_type',
+  al_entity_id: 'al_entity_id',
+  al_ref_no: 'al_ref_no',
+  al_amount: 'al_amount',
+  al_login_id: 'al_login_id',
+  al_meta: 'al_meta',
+  al_created_at: 'al_created_at'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -1151,7 +1169,8 @@ exports.Prisma.ModelName = {
   SerialNumber: 'SerialNumber',
   MessageTemplate: 'MessageTemplate',
   WhatsAppInstance: 'WhatsAppInstance',
-  MessageLog: 'MessageLog'
+  MessageLog: 'MessageLog',
+  ActivityLog: 'ActivityLog'
 };
 
 /**

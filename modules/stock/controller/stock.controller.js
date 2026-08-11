@@ -2,6 +2,12 @@
 
 const stockService = require("../service/stock.service");
 const { BASE_URL } = require("../../../config/db");
+const {
+  logActivity,
+  MODULE,
+  ACTION,
+  descriptions,
+} = require("../../../common/service/activityLog.service");
 
 class StockController {
   getDbUrl(dbName) {
@@ -55,6 +61,17 @@ class StockController {
       };
 
       const newStock = await stockService.createStock(dbUrl, stockData);
+
+      logActivity(dbUrl, req.user, {
+        firmId: newStock.st_firm_id,
+        module: MODULE.STOCK,
+        action: ACTION.CREATE,
+        subject: "Stock Inventory",
+        description: (at) => descriptions.stockCreated(newStock, at),
+        entityType: "stock",
+        entityId: newStock.st_id,
+        amount: newStock.st_valuation,
+      });
 
       return res.status(201).json({
         message: "Stock created successfully.",

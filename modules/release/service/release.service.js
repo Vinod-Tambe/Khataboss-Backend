@@ -3,6 +3,10 @@
 const { PrismaClient } = require("../../../prisma/generated/main");
 const journalService = require("../../journal/service/journal.service");
 const messageDispatchService = require("../../../common/service/message-dispatch.service");
+const {
+  releaseVoucher,
+  loanLine,
+} = require("../../../utils/journalNarration");
 
 class ReleaseService {
   getPrisma(dbUrl) {
@@ -141,7 +145,7 @@ class ReleaseService {
           jrnl_user_id: relRec.rel_user_id,
           jrnl_amt: relRec.rel_payable_amt,
           jrnl_panel: "Girvi",
-          jrnl_other_info: `Loan Released | Loan No - ${relRec.rel_girv_id} | Release No - ${relRec.rel_id}`,
+          jrnl_other_info: releaseVoucher(result.girvi, relRec.rel_trans_date),
         },
         joural_trans_data: [
           // Debits (Money Coming In & Discount Given)
@@ -149,12 +153,12 @@ class ReleaseService {
           { jrtr_crdr: "DR", jrtr_date: relRec.rel_trans_date, jrtr_dr_acc_id: relRec.rel_bank_acc_id, jrtr_dr_amt: relRec.rel_bank_amt, jrtr_acc_info: relRec.rel_bank_info },
           { jrtr_crdr: "DR", jrtr_date: relRec.rel_trans_date, jrtr_dr_acc_id: relRec.rel_online_acc_id, jrtr_dr_amt: relRec.rel_online_amt, jrtr_acc_info: relRec.rel_online_info },
           { jrtr_crdr: "DR", jrtr_date: relRec.rel_trans_date, jrtr_dr_acc_id: relRec.rel_card_acc_id, jrtr_dr_amt: relRec.rel_card_amt, jrtr_acc_info: relRec.rel_card_info },
-          { jrtr_crdr: "DR", jrtr_date: relRec.rel_trans_date, jrtr_dr_acc_id: relRec.rel_disc_acc_id, jrtr_dr_amt: relRec.rel_disc_amt, jrtr_acc_info: `Discount Given : Loan No - ${relRec.rel_girv_id}` },
+          { jrtr_crdr: "DR", jrtr_date: relRec.rel_trans_date, jrtr_dr_acc_id: relRec.rel_disc_acc_id, jrtr_dr_amt: relRec.rel_disc_amt, jrtr_acc_info: loanLine("Discount Given", result.girvi) },
           
           // Credits (Reduction of Loan, Income)
-          { jrtr_crdr: "CR", jrtr_date: relRec.rel_trans_date, jrtr_cr_acc_id: result.girvi.girv_dr_acc_id || relRec.rel_prin_acc_id, jrtr_cr_amt: relRec.rel_prin_amt, jrtr_acc_info: `Principal Received (Release) : Loan No - ${relRec.rel_girv_id}` },
-          { jrtr_crdr: "CR", jrtr_date: relRec.rel_trans_date, jrtr_cr_acc_id: relRec.rel_int_acc_id, jrtr_cr_amt: relRec.rel_int_amt, jrtr_acc_info: `Interest Received (Release) : Loan No - ${relRec.rel_girv_id}` },
-          { jrtr_crdr: "CR", jrtr_date: relRec.rel_trans_date, jrtr_cr_acc_id: relRec.rel_extra_acc_id, jrtr_cr_amt: relRec.rel_extra_amt, jrtr_acc_info: `Extra Income (Release) : Loan No - ${relRec.rel_girv_id}` },
+          { jrtr_crdr: "CR", jrtr_date: relRec.rel_trans_date, jrtr_cr_acc_id: result.girvi.girv_dr_acc_id || relRec.rel_prin_acc_id, jrtr_cr_amt: relRec.rel_prin_amt, jrtr_acc_info: loanLine("Principal Received (Release)", result.girvi) },
+          { jrtr_crdr: "CR", jrtr_date: relRec.rel_trans_date, jrtr_cr_acc_id: relRec.rel_int_acc_id, jrtr_cr_amt: relRec.rel_int_amt, jrtr_acc_info: loanLine("Interest Received (Release)", result.girvi) },
+          { jrtr_crdr: "CR", jrtr_date: relRec.rel_trans_date, jrtr_cr_acc_id: relRec.rel_extra_acc_id, jrtr_cr_amt: relRec.rel_extra_amt, jrtr_acc_info: loanLine("Extra Income (Release)", result.girvi) },
         ].filter(
           (t) =>
             (t.jrtr_cr_amt && parseFloat(t.jrtr_cr_amt) > 0) ||
@@ -295,7 +299,7 @@ class ReleaseService {
           });
         }
 
-        return { success: true, updatedGirvi };
+        return { success: true, updatedGirvi, releaseRecord, girvi };
       });
 
       return result;

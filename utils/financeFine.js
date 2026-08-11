@@ -81,12 +81,19 @@ function sumPaidFineAndCollect(moneyTrans = []) {
       }
     } else if (type === "COLLECT") {
       collectPaid += amt;
+    } else if (type === "ROLLBACK") {
+      const m = /ROLLBACK_FINE:([\d.]+)\|COLLECT:([\d.]+)/i.exec(info);
+      if (m) {
+        finePaid -= parseFloat(m[1]) || 0;
+        collectPaid -= parseFloat(m[2]) || 0;
+      }
     }
   }
 
   return {
-    finePaid: parseFloat(finePaid.toFixed(2)),
-    collectPaid: parseFloat(collectPaid.toFixed(2)),
+    finePaid: parseFloat(Math.max(0, finePaid).toFixed(2)),
+    collectPaid: parseFloat(Math.max(0, collectPaid).toFixed(2)),
+    fineCollectPaid: parseFloat(Math.max(0, finePaid + collectPaid).toFixed(2)),
   };
 }
 

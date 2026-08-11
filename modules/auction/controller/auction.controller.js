@@ -3,6 +3,13 @@
 const auctionService = require("../service/auction.service");
 const imageService = require("../../../utils/image.service");
 const { BASE_URL } = require("../../../config/db");
+const {
+  logActivity,
+  MODULE,
+  ACTION,
+  descriptions,
+} = require("../../../common/service/activityLog.service");
+const { formatLoanNo } = require("../../../utils/journalNarration");
 
 const getDbUrl = (dbName) => `${BASE_URL}/${dbName}`;
 
@@ -28,6 +35,28 @@ exports.addAuction = async (req, res) => {
         newAuctionLoan.auc_user_image = movedFile.filename; 
       }
     }
+
+    logActivity(dbUrl, reqUser, {
+      firmId: newAuctionLoan.al_firm_id || data.al_firm_id,
+      module: MODULE.AUCTION,
+      action: ACTION.AUCTION,
+      subject: "Auction Loan",
+      description: (at) =>
+        descriptions.auctionCreated(
+          { girv_id: newAuctionLoan.al_girv_id },
+          {
+            auc_payable_amt: newAuctionLoan.al_payable_amt,
+            auc_prin_amt: newAuctionLoan.al_prin_amt,
+            auc_trans_date: newAuctionLoan.al_date,
+          },
+          at
+        ),
+      transDate: newAuctionLoan.al_date,
+      entityType: "girvi",
+      entityId: newAuctionLoan.al_girv_id,
+      refNo: formatLoanNo({ girv_id: newAuctionLoan.al_girv_id }),
+      amount: newAuctionLoan.al_payable_amt ?? newAuctionLoan.al_prin_amt,
+    });
 
     return res.status(201).json({ message: "Auction submitted successfully", newAuction: newAuctionLoan });
   } catch (error) {

@@ -75,6 +75,7 @@ v1Router.use("/purity", require("./modules/purity/routes/purity.routes"));
 v1Router.use("/money-lender", require("./modules/money_lender/routes/money_lender.routes"));
 v1Router.use("/serial-number", require("./modules/serial_number/routes/serial_number.routes"));
 v1Router.use("/messaging", require("./modules/messaging/routes/messaging.routes"));
+v1Router.use("/logs", require("./modules/log/routes/log.routes"));
 app.use("/api/v1", v1Router);
 
 module.exports = app;

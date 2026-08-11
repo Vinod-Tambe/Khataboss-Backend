@@ -55,7 +55,7 @@ class FinanceTransactionService {
         throw new Error("Date parsing error: " + e.message);
       }
 
-      const baseEmi = parseFloat(data.ft_emi_amt) || 0;
+      const baseEmi = Math.round(parseFloat(data.ft_emi_amt) || 0);
       const receivable =
         totalReceivable != null
           ? parseFloat(totalReceivable)
@@ -79,7 +79,7 @@ class FinanceTransactionService {
         if (i === count) {
           emiAmt = parseFloat((receivable - allocated).toFixed(2));
         } else {
-          emiAmt = parseFloat(baseEmi.toFixed(2));
+          emiAmt = baseEmi;
           allocated = parseFloat((allocated + emiAmt).toFixed(2));
         }
 

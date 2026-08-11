@@ -2,6 +2,13 @@
 
 const releaseService = require("../service/release.service");
 const { BASE_URL } = require("../../../config/db");
+const {
+  logActivity,
+  MODULE,
+  ACTION,
+  descriptions,
+} = require("../../../common/service/activityLog.service");
+const { formatLoanNo } = require("../../../utils/journalNarration");
 
 class ReleaseController {
   getDbUrl(dbName) {
@@ -19,6 +26,21 @@ class ReleaseController {
       }
 
       const result = await releaseService.addRelease(dbUrl, req.user, data);
+
+      const girvi = result?.girvi || result?.updatedGirvi;
+      const release = result?.releaseRecord || result;
+      logActivity(dbUrl, req.user, {
+        firmId: data.rel_firm_id,
+        module: MODULE.LOAN,
+        action: ACTION.RELEASE,
+        subject: "Loan Release",
+        description: (at) => descriptions.loanRelease(girvi, release, at),
+        transDate: release?.rel_trans_date,
+        entityType: "girvi",
+        entityId: data.rel_girv_id,
+        refNo: formatLoanNo(girvi),
+        amount: release?.rel_payable_amt ?? release?.rel_prin_amt,
+      });
 
       return res.status(201).json({
         message: "Loan released successfully.",
@@ -40,6 +62,21 @@ class ReleaseController {
       }
 
       const result = await releaseService.deleteRelease(dbUrl, req.user, rel_id);
+
+      const girvi = result?.updatedGirvi || result?.girvi;
+      const release = result?.releaseRecord || result;
+      logActivity(dbUrl, req.user, {
+        firmId: release?.rel_firm_id || girvi?.girv_firm_id,
+        module: MODULE.LOAN,
+        action: ACTION.ROLLBACK,
+        subject: "Release Reverted",
+        description: (at) => descriptions.loanReleaseRevert(girvi, release, at),
+        transDate: release?.rel_trans_date,
+        entityType: "girvi",
+        entityId: release?.rel_girv_id || girvi?.girv_id,
+        refNo: formatLoanNo(girvi),
+        amount: release?.rel_payable_amt ?? release?.rel_prin_amt,
+      });
 
       return res.status(200).json({
         message: "Loan release reverted successfully.",

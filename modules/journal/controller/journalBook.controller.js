@@ -10,10 +10,7 @@ class JournalBookController {
 
   async getAllJournals(req, res) {
     try {
-      const firmId = req.query.firmId || req.user.firm_id;
-      if (!firmId) {
-        return res.status(400).json({ error: "firmId is required" });
-      }
+      const firmId = req.query.firmId ?? req.user.firm_id ?? "all";
 
       const dbUrl = this.getDbUrl(req.user.own_db);
       const journals = await journalBookService.getAllJournals(dbUrl, firmId);

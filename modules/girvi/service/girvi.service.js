@@ -5,6 +5,15 @@ const journalService = require("../../journal/service/journal.service");
 const serialNumberService = require("../../../common/service/serialNumber.service");
 const { calculateFirstMonthInterest } = require("../../../utils/loanInterest");
 const messageDispatchService = require("../../../common/service/message-dispatch.service");
+const {
+  addLoanVoucher,
+  firstMonthInterestVoucher,
+  transferOutVoucher,
+  transferInVoucher,
+  loanLine,
+  loanJournalDeletePatterns,
+  formatLoanNo,
+} = require("../../../utils/journalNarration");
 
 class GirviService {
   getPrisma(dbUrl) {
@@ -117,14 +126,7 @@ class GirviService {
       } catch (journalErr) {
         // Compensate: remove journals + orphan loan if ledger post failed
         try {
-          await this.deleteGirviJournalsByInfo(
-            dbUrl,
-            `Add New Girvi | Girvi No - ${newGirvi.girv_id}`
-          );
-          await this.deleteGirviJournalsByInfo(
-            dbUrl,
-            `First Month Interest | Girvi No - ${newGirvi.girv_id}`
-          );
+          await this.deleteLoanJournalVouchers(dbUrl, newGirvi, ["add", "firstMonth"]);
           await prisma.stock.deleteMany({
             where: {
               st_referance_panel: "girvi",
@@ -182,7 +184,7 @@ class GirviService {
         jrnl_user_id: girvi.girv_user_id,
         jrnl_amt: girvi.girv_prin_amt,
         jrnl_panel: "Girvi",
-        jrnl_other_info: `Add New Girvi | Girvi No - ${girvi.girv_id}`,
+        jrnl_other_info: addLoanVoucher(girvi),
       },
       joural_trans_data: [
         {
@@ -218,21 +220,21 @@ class GirviService {
           jrtr_date: girvi.girv_start_date,
           jrtr_cr_acc_id: feeIncomeAccId,
           jrtr_cr_amt: processAmt,
-          jrtr_acc_info: `Process Charge : Girvi No - ${girvi.girv_id}`,
+          jrtr_acc_info: loanLine("Process Charge", girvi),
         },
         {
           jrtr_crdr: "CR",
           jrtr_date: girvi.girv_start_date,
           jrtr_cr_acc_id: feeIncomeAccId,
           jrtr_cr_amt: chargeAmt,
-          jrtr_acc_info: `Other Charge : Girvi No - ${girvi.girv_id}`,
+          jrtr_acc_info: loanLine("Other Charge", girvi),
         },
         {
           jrtr_crdr: "DR",
           jrtr_date: girvi.girv_start_date,
           jrtr_dr_acc_id: girvi.girv_dr_acc_id,
           jrtr_dr_amt: girvi.girv_prin_amt,
-          jrtr_acc_info: `Add New Girvi : Girvi No - ${girvi.girv_id}`,
+          jrtr_acc_info: loanLine("Add New Loan", girvi),
         },
       ].filter(
         (t) =>
@@ -248,6 +250,13 @@ class GirviService {
       throw new Error(
         `Loan saved but account entry failed: ${journalErr.message}. Please edit/retry the loan so journals are posted.`
       );
+    }
+  }
+
+  async deleteLoanJournalVouchers(dbUrl, girvi, kinds = []) {
+    const patterns = loanJournalDeletePatterns(girvi, kinds);
+    for (const pattern of patterns) {
+      await this.deleteGirviJournalsByInfo(dbUrl, pattern);
     }
   }
 
@@ -305,7 +314,7 @@ class GirviService {
         jrnl_user_id: girvi.girv_user_id,
         jrnl_amt: amount,
         jrnl_panel: "Girvi",
-        jrnl_other_info: `First Month Interest | Girvi No - ${girvi.girv_id}`,
+        jrnl_other_info: firstMonthInterestVoucher(girvi),
       },
       joural_trans_data: [
         {
@@ -313,14 +322,14 @@ class GirviService {
           jrtr_date: girvi.girv_start_date,
           jrtr_dr_acc_id: girvi.girv_first_int_dr_acc_id,
           jrtr_dr_amt: amount,
-          jrtr_acc_info: `First Month Interest : Girvi No - ${girvi.girv_id}`,
+          jrtr_acc_info: loanLine("First Month Interest", girvi),
         },
         {
           jrtr_crdr: "CR",
           jrtr_date: girvi.girv_start_date,
           jrtr_cr_acc_id: girvi.girv_first_int_cr_acc_id,
           jrtr_cr_amt: amount,
-          jrtr_acc_info: `First Month Interest Rec : Girvi No - ${girvi.girv_id}`,
+          jrtr_acc_info: loanLine("First Month Interest Rec", girvi),
         },
       ],
     };
@@ -585,14 +594,7 @@ class GirviService {
         );
 
         try {
-          await this.deleteGirviJournalsByInfo(
-            dbUrl,
-            `Add New Girvi | Girvi No - ${updatedGirvi.girv_id}`
-          );
-          await this.deleteGirviJournalsByInfo(
-            dbUrl,
-            `First Month Interest | Girvi No - ${updatedGirvi.girv_id}`
-          );
+          await this.deleteLoanJournalVouchers(dbUrl, updatedGirvi, ["add", "firstMonth"]);
 
           await this.postAddLoanJournal(dbUrl, updatedGirvi, feeIncomeAccId);
 
@@ -633,14 +635,7 @@ class GirviService {
               where: { girv_uuid: girvUuid },
               data: restoreFields,
             });
-            await this.deleteGirviJournalsByInfo(
-              dbUrl,
-              `Add New Girvi | Girvi No - ${existing.girv_id}`
-            );
-            await this.deleteGirviJournalsByInfo(
-              dbUrl,
-              `First Month Interest | Girvi No - ${existing.girv_id}`
-            );
+            await this.deleteLoanJournalVouchers(dbUrl, existing, ["add", "firstMonth"]);
             await this.postAddLoanJournal(dbUrl, existing, feeIncomeAccId);
             if (existing.girv_first_int === "Y") {
               await this.postFirstMonthInterestJournal(dbUrl, existing);
@@ -1046,14 +1041,8 @@ class GirviService {
   ) {
     const prisma = this.getPrisma(dbUrl);
     try {
-      await this.deleteGirviJournalsByInfo(
-        dbUrl,
-        `Transfer Loan OUT | Loan No - ${sourceGirvi.girv_id}`
-      );
-      await this.deleteGirviJournalsByInfo(
-        dbUrl,
-        `Transfer Loan IN | Loan No - ${newGirvi.girv_id}`
-      );
+      await this.deleteLoanJournalVouchers(dbUrl, sourceGirvi, ["transferOut"]);
+      await this.deleteLoanJournalVouchers(dbUrl, newGirvi, ["transferIn"]);
       await prisma.stock.deleteMany({
         where: {
           st_referance_panel: "girvi",
@@ -1158,8 +1147,8 @@ class GirviService {
       );
 
       const toLabel = isMoneyLenderTransfer
-        ? `ML transfer from Loan ${sourceGirvi.girv_id}`
-        : `Firm transfer from Loan ${sourceGirvi.girv_id} → ${targetGirvi.girv_id}`;
+        ? `ML transfer from Loan ${formatLoanNo(sourceGirvi)}`
+        : `Firm transfer from Loan ${formatLoanNo(sourceGirvi)} → ${formatLoanNo(targetGirvi)}`;
 
       const outJournal = {
         journal_date: {
@@ -1169,7 +1158,7 @@ class GirviService {
           jrnl_user_id: sourceGirvi.girv_user_id,
           jrnl_amt: settlement || sourcePrin,
           jrnl_panel: "Girvi",
-          jrnl_other_info: `Transfer Loan OUT | Loan No - ${sourceGirvi.girv_id} | New Loan - ${targetGirvi.girv_id}`,
+          jrnl_other_info: transferOutVoucher(sourceGirvi, targetGirvi),
         },
         joural_trans_data: [
           {
@@ -1205,28 +1194,28 @@ class GirviService {
             jrtr_date: transferDate,
             jrtr_dr_acc_id: discAccId,
             jrtr_dr_amt: discAmt,
-            jrtr_acc_info: `Transfer Discount : Loan No - ${sourceGirvi.girv_id}`,
+            jrtr_acc_info: loanLine("Transfer Discount", sourceGirvi),
           },
           {
             jrtr_crdr: "CR",
             jrtr_date: transferDate,
             jrtr_cr_acc_id: sourceLoanAcc,
             jrtr_cr_amt: sourcePrin,
-            jrtr_acc_info: `Transfer Loan OUT principal : Loan No - ${sourceGirvi.girv_id}`,
+            jrtr_acc_info: loanLine("Transfer Loan OUT principal", sourceGirvi),
           },
           {
             jrtr_crdr: "CR",
             jrtr_date: transferDate,
             jrtr_cr_acc_id: interestAccId,
             jrtr_cr_amt: interestAmt,
-            jrtr_acc_info: `Transfer Interest Rec : Loan No - ${sourceGirvi.girv_id}`,
+            jrtr_acc_info: loanLine("Transfer Interest Rec", sourceGirvi),
           },
           {
             jrtr_crdr: "CR",
             jrtr_date: transferDate,
             jrtr_cr_acc_id: extraAccId,
             jrtr_cr_amt: extraAmt,
-            jrtr_acc_info: `Transfer Extra : Loan No - ${sourceGirvi.girv_id}`,
+            jrtr_acc_info: loanLine("Transfer Extra", sourceGirvi),
           },
         ].filter(
           (t) =>
@@ -1256,7 +1245,7 @@ class GirviService {
           jrnl_user_id: targetGirvi.girv_user_id,
           jrnl_amt: newPrin,
           jrnl_panel: "Girvi",
-          jrnl_other_info: `Transfer Loan IN | Loan No - ${targetGirvi.girv_id} | From Loan - ${sourceGirvi.girv_id}`,
+          jrnl_other_info: transferInVoucher(targetGirvi, sourceGirvi),
         },
         joural_trans_data: [
           {
@@ -1292,7 +1281,7 @@ class GirviService {
             jrtr_date: transferDate,
             jrtr_dr_acc_id: targetLoanAcc,
             jrtr_dr_amt: newPrin,
-            jrtr_acc_info: `Transfer Loan IN book : Loan No - ${targetGirvi.girv_id}`,
+            jrtr_acc_info: loanLine("Transfer Loan IN book", targetGirvi),
           },
         ].filter(
           (t) =>

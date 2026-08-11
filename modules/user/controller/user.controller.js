@@ -4,6 +4,12 @@ const userService = require("../service/user.service");
 const imageService = require("../../../utils/image.service");
 const { BASE_URL } = require("../../../config/db");
 const messageDispatchService = require("../../../common/service/message-dispatch.service");
+const {
+  logActivity,
+  MODULE,
+  ACTION,
+  descriptions,
+} = require("../../../common/service/activityLog.service");
 
 class UserController {
   getDbUrl(dbName) {
@@ -60,6 +66,17 @@ class UserController {
 
       // 1. Create User record
       const newUser = await userService.createUser(dbUrl, userData);
+
+      logActivity(dbUrl, req.user, {
+        firmId: newUser.user_firm_id,
+        module: MODULE.USER,
+        action: ACTION.CREATE,
+        subject: "Customer Added",
+        description: (at) => descriptions.customerCreated(newUser, at),
+        entityType: "user",
+        entityId: newUser.user_id,
+        refNo: newUser.user_unique_code,
+      });
 
       messageDispatchService.dispatchSafe({
         dbUrl,
@@ -153,7 +170,23 @@ class UserController {
       const { uuid } = req.params;
       const dbUrl = this.getDbUrl(req.user.own_db);
 
+      const userToDelete = await userService.getUserByUuid(dbUrl, uuid);
+      if (!userToDelete) {
+        return res.status(404).json({ error: "User not found." });
+      }
+
       await userService.deleteUserByUuid(dbUrl, uuid, req.user.own_login_id || "Admin");
+
+      logActivity(dbUrl, req.user, {
+        firmId: userToDelete.user_firm_id,
+        module: MODULE.USER,
+        action: ACTION.DELETE,
+        subject: "Customer Deleted",
+        description: (at) => descriptions.customerDeleted(userToDelete, at),
+        entityType: "user",
+        entityId: userToDelete.user_id,
+        refNo: userToDelete.user_unique_code,
+      });
 
       return res.status(200).json({
         message: "User deleted successfully (soft delete).",
@@ -266,6 +299,17 @@ class UserController {
       }
 
       const updatedUser = await userService.updateUserByUuid(dbUrl, uuid, updateData);
+
+      logActivity(dbUrl, req.user, {
+        firmId: updatedUser.user_firm_id,
+        module: MODULE.USER,
+        action: ACTION.UPDATE,
+        subject: "Customer Updated",
+        description: (at) => descriptions.customerUpdated(updatedUser, at),
+        entityType: "user",
+        entityId: updatedUser.user_id,
+        refNo: updatedUser.user_unique_code,
+      });
 
       return res.status(200).json({
         message: "User updated successfully.",

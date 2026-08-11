@@ -3,6 +3,10 @@
 const { PrismaClient } = require("../../../prisma/generated/main");
 const journalService = require("../../journal/service/journal.service");
 const serialNumberService = require("../../../common/service/serialNumber.service");
+const {
+  auctionVoucher,
+  loanLine,
+} = require("../../../utils/journalNarration");
 
 class AuctionService {
   getPrisma(dbUrl) {
@@ -201,7 +205,7 @@ class AuctionService {
           jrnl_date: auctionDate,
           jrnl_amt: paymentTotal || payableAmt,
           jrnl_panel: "Auction",
-          jrnl_other_info: `Auction Payment | Auc No - ${newAuctionLoan.al_id} | Loan No - ${originalGirvi.girv_id}`,
+          jrnl_other_info: auctionVoucher(originalGirvi, auctionDate),
         },
         joural_trans_data: [
           {
@@ -237,14 +241,14 @@ class AuctionService {
             jrtr_date: auctionDate,
             jrtr_cr_acc_id: loanDrAccId,
             jrtr_cr_amt: prinAmt,
-            jrtr_acc_info: `Auction Principal : Auc No - ${newAuctionLoan.al_id}`,
+            jrtr_acc_info: loanLine("Auction Principal", originalGirvi),
           },
           {
             jrtr_crdr: "CR",
             jrtr_date: auctionDate,
             jrtr_cr_acc_id: interestAccId,
             jrtr_cr_amt: intAmt,
-            jrtr_acc_info: `Auction Interest : Auc No - ${newAuctionLoan.al_id}`,
+            jrtr_acc_info: loanLine("Auction Interest", originalGirvi),
           },
           // Extra received beyond prin+int
           ...(balanceDiff > 0.009
@@ -254,7 +258,7 @@ class AuctionService {
                   jrtr_date: auctionDate,
                   jrtr_cr_acc_id: extraAccId,
                   jrtr_cr_amt: balanceDiff,
-                  jrtr_acc_info: `Auction Extra : Auc No - ${newAuctionLoan.al_id}`,
+                  jrtr_acc_info: loanLine("Auction Extra", originalGirvi),
                 },
               ]
             : []),
@@ -266,7 +270,7 @@ class AuctionService {
                   jrtr_date: auctionDate,
                   jrtr_dr_acc_id: discAccId,
                   jrtr_dr_amt: Math.abs(balanceDiff),
-                  jrtr_acc_info: `Auction Discount : Auc No - ${newAuctionLoan.al_id}`,
+                  jrtr_acc_info: loanLine("Auction Discount", originalGirvi),
                 },
               ]
             : []),
