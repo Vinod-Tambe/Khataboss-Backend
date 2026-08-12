@@ -24,6 +24,8 @@ class SerialNumberService {
       ACTION_USER: "AUCTION_USER",
       AUCTION_USER: "AUCTION_USER",
       AUCTIONUSER: "AUCTION_USER",
+      RELEASE_USER: "RELEASE_USER",
+      RELEASEUSER: "RELEASE_USER",
     };
 
     return ALIAS_MAP[key] || key;

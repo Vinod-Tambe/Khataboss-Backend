@@ -2,6 +2,10 @@
 
 const moneyLenderService = require("../service/money_lender.service");
 const imageService = require("../../../utils/image.service");
+const {
+  stripArrayFileFields,
+  applyOtherImagesUpdate,
+} = require("../../../utils/otherImages.helper");
 const { BASE_URL } = require("../../../config/db");
 
 class MoneyLenderController {
@@ -13,27 +17,43 @@ class MoneyLenderController {
     try {
       const dbUrl = this.getDbUrl(req.user.own_db);
       const data = { ...req.body };
-      
+
       data.ml_own_id = req.user.own_id;
 
-      // 0. Pre-validate Uniqueness
       const validationError = await moneyLenderService.checkUniqueFields(dbUrl, data);
       if (validationError) {
         return res.status(409).json({ error: validationError.error });
       }
 
-      // Create without files first to get the ml_id for image folders
       const newMl = await moneyLenderService.createMoneyLender(dbUrl, data);
 
-      if (req.files && Object.keys(req.files).length > 0) {
-        // Move files to uploads/moneyLender/<id>
-        const movedFiles = await imageService.moveFiles("moneyLender", newMl.ml_id, req.files);
+      const hasFiles =
+        (req.files && Object.keys(req.files).length > 0) ||
+        data.other_images_remove ||
+        data.other_images_meta ||
+        data.other_images_update;
+
+      if (hasFiles) {
+        const movedFiles = await imageService.moveFiles(
+          "moneyLender",
+          newMl.ml_id,
+          stripArrayFileFields(req.files)
+        );
 
         const updateData = {};
+        if (movedFiles.photo) updateData.ml_profile_img = movedFiles.photo;
         if (movedFiles.ml_profile_img) updateData.ml_profile_img = movedFiles.ml_profile_img;
-        if (movedFiles.ml_adhaar_front_img) updateData.ml_adhaar_front_img = movedFiles.ml_adhaar_front_img;
-        if (movedFiles.ml_adhaar_back_img) updateData.ml_adhaar_back_img = movedFiles.ml_adhaar_back_img;
-        if (movedFiles.ml_pan_img) updateData.ml_pan_img = movedFiles.ml_pan_img;
+
+        const otherImages = await applyOtherImagesUpdate({
+          moduleName: "moneyLender",
+          entityId: newMl.ml_id,
+          existingJson: [],
+          reqFiles: req.files,
+          removePathsJson: data.other_images_remove,
+          metaJson: data.other_images_meta,
+          updateMetaJson: data.other_images_update,
+        });
+        if (otherImages.length) updateData.ml_other_images = otherImages;
 
         if (Object.keys(updateData).length > 0) {
           const updatedMl = await moneyLenderService.updateMoneyLender(dbUrl, newMl.ml_uuid, updateData);
@@ -72,7 +92,7 @@ class MoneyLenderController {
       const dbUrl = this.getDbUrl(req.user.own_db);
       const { uuid } = req.params;
       const ml = await moneyLenderService.getMoneyLenderByUuid(dbUrl, uuid);
-      
+
       if (!ml) {
         return res.status(404).json({ error: "Money Lender not found." });
       }
@@ -90,25 +110,41 @@ class MoneyLenderController {
       const { uuid } = req.params;
       const data = { ...req.body };
 
-      // Ensure ml exists
       const ml = await moneyLenderService.getMoneyLenderByUuid(dbUrl, uuid);
       if (!ml) {
         return res.status(404).json({ error: "Money Lender not found." });
       }
 
-      // Pre-validate uniqueness excluding the current UUID
       const validationError = await moneyLenderService.checkUniqueFields(dbUrl, data, uuid);
       if (validationError) {
         return res.status(409).json({ error: validationError.error });
       }
 
-      // Handle file updates
       if (req.files && Object.keys(req.files).length > 0) {
-        const movedFiles = await imageService.moveFiles("moneyLender", ml.ml_id, req.files);
+        const movedFiles = await imageService.moveFiles(
+          "moneyLender",
+          ml.ml_id,
+          stripArrayFileFields(req.files)
+        );
+        if (movedFiles.photo) data.ml_profile_img = movedFiles.photo;
         if (movedFiles.ml_profile_img) data.ml_profile_img = movedFiles.ml_profile_img;
-        if (movedFiles.ml_adhaar_front_img) data.ml_adhaar_front_img = movedFiles.ml_adhaar_front_img;
-        if (movedFiles.ml_adhaar_back_img) data.ml_adhaar_back_img = movedFiles.ml_adhaar_back_img;
-        if (movedFiles.ml_pan_img) data.ml_pan_img = movedFiles.ml_pan_img;
+      }
+
+      if (
+        (req.files && req.files.other_images) ||
+        data.other_images_remove ||
+        data.other_images_meta ||
+        data.other_images_update
+      ) {
+        data.ml_other_images = await applyOtherImagesUpdate({
+          moduleName: "moneyLender",
+          entityId: ml.ml_id,
+          existingJson: ml.ml_other_images,
+          reqFiles: req.files,
+          removePathsJson: data.other_images_remove,
+          metaJson: data.other_images_meta,
+          updateMetaJson: data.other_images_update,
+        });
       }
 
       const updatedMl = await moneyLenderService.updateMoneyLender(dbUrl, uuid, data);

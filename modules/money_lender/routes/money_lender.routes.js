@@ -8,10 +8,9 @@ const authenticateOwner = require("../../../middlewares/auth.middleware");
 const requirePermission = require("../../../middlewares/permission.middleware");
 
 const mlUploadFields = [
+  { name: "photo", maxCount: 1 },
   { name: "ml_profile_img", maxCount: 1 },
-  { name: "ml_adhaar_front_img", maxCount: 1 },
-  { name: "ml_adhaar_back_img", maxCount: 1 },
-  { name: "ml_pan_img", maxCount: 1 },
+  { name: "other_images", maxCount: 10 },
 ];
 
 router.get("/", authenticateOwner, requirePermission("moneyLender.view"), (req, res) => moneyLenderController.getMoneyLenders(req, res));

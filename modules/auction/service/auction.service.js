@@ -106,7 +106,6 @@ class AuctionService {
             au_country: data.auc_user_country || "",
             au_village: data.auc_user_village || "",
             au_pincode: data.auc_user_pincode || "",
-            au_image: data.auc_user_image || "",
           }
         });
         auctionUserId = newUser.au_id;
@@ -413,12 +412,35 @@ class AuctionService {
     }
   }
 
-  async updateAuctionImage(dbUrl, au_id, imageFileName) {
+  async updateAuctionUserProfile(dbUrl, auId, profileImg) {
     const prisma = this.getPrisma(dbUrl);
     try {
-      await prisma.auctionUser.update({
-        where: { au_id: parseInt(au_id) },
-        data: { au_image: imageFileName }
+      return await prisma.auctionUser.update({
+        where: { au_id: parseInt(auId) },
+        data: { au_profile_img: profileImg },
+      });
+    } finally {
+      await prisma.$disconnect();
+    }
+  }
+
+  async getAuctionUserById(dbUrl, auId) {
+    const prisma = this.getPrisma(dbUrl);
+    try {
+      return await prisma.auctionUser.findUnique({
+        where: { au_id: parseInt(auId) },
+      });
+    } finally {
+      await prisma.$disconnect();
+    }
+  }
+
+  async updateAuctionUserOtherImages(dbUrl, auId, otherImages) {
+    const prisma = this.getPrisma(dbUrl);
+    try {
+      return await prisma.auctionUser.update({
+        where: { au_id: parseInt(auId) },
+        data: { au_other_images: otherImages },
       });
     } finally {
       await prisma.$disconnect();

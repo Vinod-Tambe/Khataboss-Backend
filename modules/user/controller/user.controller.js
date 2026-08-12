@@ -2,6 +2,7 @@
 
 const userService = require("../service/user.service");
 const imageService = require("../../../utils/image.service");
+const { stripArrayFileFields, applyOtherImagesUpdate } = require("../../../utils/otherImages.helper");
 const { BASE_URL } = require("../../../config/db");
 const messageDispatchService = require("../../../common/service/message-dispatch.service");
 const {
@@ -95,14 +96,21 @@ class UserController {
 
       // 2. Handle File Uploads
       if (req.files && Object.keys(req.files).length > 0) {
-        const movedFiles = await imageService.moveFiles("user", newUser.user_id, req.files);
+        const movedFiles = await imageService.moveFiles("user", newUser.user_id, stripArrayFileFields(req.files));
 
         const updateData = {};
         if (movedFiles.photo) updateData.user_profile_img = movedFiles.photo;
-        if (movedFiles.adhaarFront) updateData.user_adhaar_front_img = movedFiles.adhaarFront;
-        if (movedFiles.adhaarBack) updateData.user_adhaar_back_img = movedFiles.adhaarBack;
-        if (movedFiles.panCard) updateData.user_pan_card_img = movedFiles.panCard;
-        if (movedFiles.signature) updateData.user_sign_img = movedFiles.signature;
+
+        const otherImages = await applyOtherImagesUpdate({
+          moduleName: "user",
+          entityId: newUser.user_id,
+          existingJson: [],
+          reqFiles: req.files,
+          removePathsJson: data.other_images_remove,
+          metaJson: data.other_images_meta,
+          updateMetaJson: data.other_images_update,
+        });
+        if (otherImages.length) updateData.user_other_images = otherImages;
 
         if (Object.keys(updateData).length > 0) {
           const updatedUser = await userService.updateUserByUuid(dbUrl, newUser.user_uuid, updateData);
@@ -288,14 +296,26 @@ class UserController {
 
       // Handle File Uploads for update
       if (req.files && Object.keys(req.files).length > 0) {
-        const imageService = require("../../../utils/image.service");
-        const movedFiles = await imageService.moveFiles("user", existingUser.user_id, req.files);
+        const movedFiles = await imageService.moveFiles("user", existingUser.user_id, stripArrayFileFields(req.files));
 
         if (movedFiles.photo) updateData.user_profile_img = movedFiles.photo;
-        if (movedFiles.adhaarFront) updateData.user_adhaar_front_img = movedFiles.adhaarFront;
-        if (movedFiles.adhaarBack) updateData.user_adhaar_back_img = movedFiles.adhaarBack;
-        if (movedFiles.panCard) updateData.user_pan_card_img = movedFiles.panCard;
-        if (movedFiles.signature) updateData.user_sign_img = movedFiles.signature;
+      }
+
+      if (
+        (req.files && req.files.other_images) ||
+        data.other_images_remove ||
+        data.other_images_meta ||
+        data.other_images_update
+      ) {
+        updateData.user_other_images = await applyOtherImagesUpdate({
+          moduleName: "user",
+          entityId: existingUser.user_id,
+          existingJson: existingUser.user_other_images,
+          reqFiles: req.files,
+          removePathsJson: data.other_images_remove,
+          metaJson: data.other_images_meta,
+          updateMetaJson: data.other_images_update,
+        });
       }
 
       const updatedUser = await userService.updateUserByUuid(dbUrl, uuid, updateData);

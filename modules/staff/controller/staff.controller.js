@@ -2,6 +2,7 @@
 
 const staffService = require("../service/staff.service");
 const imageService = require("../../../utils/image.service");
+const { stripArrayFileFields, applyOtherImagesUpdate } = require("../../../utils/otherImages.helper");
 const { BASE_URL } = require("../../../config/db");
 const { validateStrongPassword } = require("../../../common/service/password.validation");
 const { permissionMatrixToKeys } = require("../../../prisma/seeder/permission-seeder");
@@ -175,13 +176,20 @@ class StaffController {
       }
 
       if (req.files && Object.keys(req.files).length > 0) {
-        const movedFiles = await imageService.moveFiles("staff", created.staff_id, req.files);
+        const movedFiles = await imageService.moveFiles("staff", created.staff_id, stripArrayFileFields(req.files));
         const updateData = {};
         if (movedFiles.photo) updateData.staff_profile_img = movedFiles.photo;
-        if (movedFiles.adhaarFront) updateData.staff_adhaar_front_img = movedFiles.adhaarFront;
-        if (movedFiles.adhaarBack) updateData.staff_adhaar_back_img = movedFiles.adhaarBack;
-        if (movedFiles.panCard) updateData.staff_pan_card_img = movedFiles.panCard;
-        if (movedFiles.signature) updateData.staff_sign_img = movedFiles.signature;
+
+        const otherImages = await applyOtherImagesUpdate({
+          moduleName: "staff",
+          entityId: created.staff_id,
+          existingJson: [],
+          reqFiles: req.files,
+          removePathsJson: req.body.other_images_remove,
+          metaJson: req.body.other_images_meta,
+          updateMetaJson: req.body.other_images_update,
+        });
+        if (otherImages.length) updateData.staff_other_images = otherImages;
 
         if (Object.keys(updateData).length > 0) {
           const updated = await staffService.updateStaff(dbUrl, created.staff_uuid, updateData);
@@ -277,16 +285,31 @@ class StaffController {
       });
 
       if (req.files && Object.keys(req.files).length > 0) {
-        const movedFiles = await imageService.moveFiles("staff", existing.staff_id, req.files);
+        const movedFiles = await imageService.moveFiles("staff", existing.staff_id, stripArrayFileFields(req.files));
         const fileData = {};
         if (movedFiles.photo) fileData.staff_profile_img = movedFiles.photo;
-        if (movedFiles.adhaarFront) fileData.staff_adhaar_front_img = movedFiles.adhaarFront;
-        if (movedFiles.adhaarBack) fileData.staff_adhaar_back_img = movedFiles.adhaarBack;
-        if (movedFiles.panCard) fileData.staff_pan_card_img = movedFiles.panCard;
-        if (movedFiles.signature) fileData.staff_sign_img = movedFiles.signature;
         if (Object.keys(fileData).length > 0) {
           updated = await staffService.updateStaff(dbUrl, req.params.uuid, fileData);
         }
+      }
+
+      if (
+        (req.files && req.files.other_images) ||
+        req.body.other_images_remove ||
+        req.body.other_images_meta ||
+        req.body.other_images_update
+      ) {
+        updated = await staffService.updateStaff(dbUrl, req.params.uuid, {
+          staff_other_images: await applyOtherImagesUpdate({
+            moduleName: "staff",
+            entityId: existing.staff_id,
+            existingJson: existing.staff_other_images,
+            reqFiles: req.files,
+            removePathsJson: req.body.other_images_remove,
+            metaJson: req.body.other_images_meta,
+            updateMetaJson: req.body.other_images_update,
+          }),
+        });
       }
 
       return res.status(200).json({

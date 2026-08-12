@@ -2,6 +2,7 @@
 
 const auctionService = require("../service/auction.service");
 const imageService = require("../../../utils/image.service");
+const { applyOtherImagesUpdate } = require("../../../utils/otherImages.helper");
 const { BASE_URL } = require("../../../config/db");
 const {
   logActivity,
@@ -26,14 +27,32 @@ exports.addAuction = async (req, res) => {
     const service = new auctionService();
     const { newAuctionLoan, auctionUserId } = await service.addAuction(dbUrl, reqUser, data);
 
-    if (req.file) {
-      const movedFile = await imageService.moveSingleFile("auction", auctionUserId, req.file, "photo");
+    const profileFile = req.files?.photo?.[0];
+    if (profileFile) {
+      const movedFile = await imageService.moveSingleFile("auction", auctionUserId, profileFile, "photo");
       if (movedFile) {
-        await service.updateAuctionImage(dbUrl, auctionUserId, movedFile.filename);
-        // We do not append image to newAuctionLoan as the image belongs to AuctionUser,
-        // but if frontend expects it, we can just attach it.
-        newAuctionLoan.auc_user_image = movedFile.filename; 
+        await service.updateAuctionUserProfile(dbUrl, auctionUserId, movedFile);
       }
+    }
+
+    const otherImagesField = req.files?.other_images;
+    if (
+      otherImagesField ||
+      req.body.other_images_remove ||
+      req.body.other_images_meta ||
+      req.body.other_images_update
+    ) {
+      const existingUser = await service.getAuctionUserById(dbUrl, auctionUserId);
+      const otherImages = await applyOtherImagesUpdate({
+        moduleName: "auction",
+        entityId: auctionUserId,
+        existingJson: existingUser?.au_other_images,
+        reqFiles: req.files,
+        removePathsJson: req.body.other_images_remove,
+        metaJson: req.body.other_images_meta,
+        updateMetaJson: req.body.other_images_update,
+      });
+      await service.updateAuctionUserOtherImages(dbUrl, auctionUserId, otherImages);
     }
 
     logActivity(dbUrl, reqUser, {

@@ -249,6 +249,7 @@ model Firm {
   moneyLenders         MoneyLender[]               @relation("FirmMoneyLenders")
   auctionUsers         AuctionUser[]               @relation("FirmAuctionUser")
   auctionLoans         AuctionLoan[]               @relation("FirmAuctionLoan")
+  releaseUsers         ReleaseUser[]               @relation("FirmReleaseUser")
   messageTemplates     MessageTemplate[]           @relation("FirmMessageTemplate")
   whatsappInstance     WhatsAppInstance?           @relation("FirmWhatsAppInstance")
 }
@@ -407,10 +408,7 @@ model User {
   user_pan_no    String? @db.VarChar(10)
   user_adhaar_no String? @db.VarChar(12)
 
-  user_profile_img      Json?
-  user_adhaar_front_img Json?
-  user_adhaar_back_img  Json?
-  user_pan_card_img     Json?
+  user_profile_img Json?
 
   user_per_address  String?
   user_curr_address String?
@@ -427,8 +425,8 @@ model User {
   user_bank_acc_no String?
   user_ifsc_code   String? @db.VarChar(11)
 
-  user_sign_img   Json?
-  user_other_info String?
+  user_other_images Json?
+  user_other_info   String?
 
   // ===============================
   // Audit Fields
@@ -1197,6 +1195,14 @@ model GirviRelease {
   // 📝 Other Remarks & Audit
   rel_pay_info   String? @default("")
   rel_other_info String? @default("")
+  rel_remark     String? @default("")
+
+  // 📦 Secured loan release item images (JSON array, max 4)
+  rel_item_images Json?
+
+  // 👤 Other user pickup at release (not the loan holder)
+  rel_is_other_user  Boolean @default(false)
+  rel_pickup_user_id Int?
 
   // 🛡️ Audit Fields
   rel_created_at DateTime  @default(now())
@@ -1218,12 +1224,45 @@ model GirviRelease {
   discAccount  Account? @relation("GirviReleaseDiscAccount", fields: [rel_disc_acc_id], references: [acc_id])
   extraAccount Account? @relation("GirviReleaseExtraAccount", fields: [rel_extra_acc_id], references: [acc_id])
 
-  cashAccount   Account? @relation("GirviReleaseCashAccount", fields: [rel_cash_acc_id], references: [acc_id])
-  bankAccount   Account? @relation("GirviReleaseBankAccount", fields: [rel_bank_acc_id], references: [acc_id])
-  onlineAccount Account? @relation("GirviReleaseOnlineAccount", fields: [rel_online_acc_id], references: [acc_id])
-  cardAccount   Account? @relation("GirviReleaseCardAccount", fields: [rel_card_acc_id], references: [acc_id])
+  cashAccount   Account?     @relation("GirviReleaseCashAccount", fields: [rel_cash_acc_id], references: [acc_id])
+  bankAccount   Account?     @relation("GirviReleaseBankAccount", fields: [rel_bank_acc_id], references: [acc_id])
+  onlineAccount Account?     @relation("GirviReleaseOnlineAccount", fields: [rel_online_acc_id], references: [acc_id])
+  cardAccount   Account?     @relation("GirviReleaseCardAccount", fields: [rel_card_acc_id], references: [acc_id])
+  pickupUser    ReleaseUser? @relation("ReleaseUserGirviRelease", fields: [rel_pickup_user_id], references: [ru_id])
 
   @@map("girvi_release")
+}
+
+// =============================================================================
+// MODEL: ReleaseUser (release_users) — person who collected items at release
+// =============================================================================
+model ReleaseUser {
+  ru_id          Int     @id @default(autoincrement())
+  ru_uuid        String  @unique @default(uuid())
+  ru_unique_code String? @unique
+  ru_date        String? @default("")
+
+  ru_firm_id Int
+
+  ru_full_name String?
+  ru_mobile    String?
+  ru_email     String?
+  ru_aadhaar   String?
+  ru_gender    String?
+  ru_pan       String?
+  ru_address   String?
+  ru_state     String?
+  ru_city      String?
+  ru_country   String?
+  ru_village   String?
+  ru_pincode   String?
+
+  ru_other_images Json?
+
+  firm     Firm           @relation("FirmReleaseUser", fields: [ru_firm_id], references: [firm_id], onDelete: Cascade)
+  releases GirviRelease[] @relation("ReleaseUserGirviRelease")
+
+  @@map("release_users")
 }
 
 // =============================================================================
@@ -1325,11 +1364,9 @@ model MoneyLender {
   // Additional Information
   ml_notes String? @db.Text
 
-  // Documents (Stored as JSON objects representing { path, filename, mimetype })
-  ml_profile_img      Json?
-  ml_adhaar_front_img Json?
-  ml_adhaar_back_img  Json?
-  ml_pan_img          Json?
+  // Documents (profile + other images JSON array)
+  ml_profile_img  Json?
+  ml_other_images Json?
 
   // Timestamps & Meta
   is_active  Boolean  @default(true)
@@ -1353,19 +1390,20 @@ model AuctionUser {
 
   au_firm_id Int
 
-  au_full_name String?
-  au_mobile    String?
-  au_email     String?
-  au_aadhaar   String?
-  au_gender    String?
-  au_pan       String?
-  au_address   String?
-  au_state     String?
-  au_city      String?
-  au_country   String?
-  au_village   String?
-  au_pincode   String?
-  au_image     String?
+  au_full_name    String?
+  au_mobile       String?
+  au_email        String?
+  au_aadhaar      String?
+  au_gender       String?
+  au_pan          String?
+  au_address      String?
+  au_state        String?
+  au_city         String?
+  au_country      String?
+  au_village      String?
+  au_pincode      String?
+  au_profile_img  Json?
+  au_other_images Json?
 
   // Relations
   firm         Firm          @relation("FirmAuctionUser", fields: [au_firm_id], references: [firm_id], onDelete: Cascade)
@@ -1472,11 +1510,8 @@ model Staff {
   staff_password String
   staff_status   StaffStatus @default(Active)
 
-  staff_profile_img      Json?
-  staff_adhaar_front_img Json?
-  staff_adhaar_back_img  Json?
-  staff_pan_card_img     Json?
-  staff_sign_img         Json?
+  staff_profile_img  Json?
+  staff_other_images Json?
 
   staff_per_address  String?
   staff_curr_address String?

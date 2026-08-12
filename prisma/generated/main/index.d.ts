@@ -84,6 +84,11 @@ export type GirviDeposit = $Result.DefaultSelection<Prisma.$GirviDepositPayload>
  */
 export type GirviRelease = $Result.DefaultSelection<Prisma.$GirviReleasePayload>
 /**
+ * Model ReleaseUser
+ * 
+ */
+export type ReleaseUser = $Result.DefaultSelection<Prisma.$ReleaseUserPayload>
+/**
  * Model Rate
  * 
  */
@@ -748,6 +753,16 @@ export class PrismaClient<
   get girviRelease(): Prisma.GirviReleaseDelegate<ExtArgs>;
 
   /**
+   * `prisma.releaseUser`: Exposes CRUD operations for the **ReleaseUser** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ReleaseUsers
+    * const releaseUsers = await prisma.releaseUser.findMany()
+    * ```
+    */
+  get releaseUser(): Prisma.ReleaseUserDelegate<ExtArgs>;
+
+  /**
    * `prisma.rate`: Exposes CRUD operations for the **Rate** model.
     * Example usage:
     * ```ts
@@ -1331,6 +1346,7 @@ export namespace Prisma {
     AdditionalPrincipal: 'AdditionalPrincipal',
     GirviDeposit: 'GirviDeposit',
     GirviRelease: 'GirviRelease',
+    ReleaseUser: 'ReleaseUser',
     Rate: 'Rate',
     Purity: 'Purity',
     MoneyLender: 'MoneyLender',
@@ -1359,7 +1375,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "owner" | "firm" | "account" | "user" | "finance" | "finance_Transaction" | "finance_Money_Transaction" | "journal" | "journalTransaction" | "girvi" | "stock" | "additionalPrincipal" | "girviDeposit" | "girviRelease" | "rate" | "purity" | "moneyLender" | "auctionUser" | "auctionLoan" | "staff" | "permission" | "staffPermission" | "serialNumber" | "messageTemplate" | "whatsAppInstance" | "messageLog" | "activityLog"
+      modelProps: "owner" | "firm" | "account" | "user" | "finance" | "finance_Transaction" | "finance_Money_Transaction" | "journal" | "journalTransaction" | "girvi" | "stock" | "additionalPrincipal" | "girviDeposit" | "girviRelease" | "releaseUser" | "rate" | "purity" | "moneyLender" | "auctionUser" | "auctionLoan" | "staff" | "permission" | "staffPermission" | "serialNumber" | "messageTemplate" | "whatsAppInstance" | "messageLog" | "activityLog"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -2340,6 +2356,76 @@ export namespace Prisma {
           count: {
             args: Prisma.GirviReleaseCountArgs<ExtArgs>
             result: $Utils.Optional<GirviReleaseCountAggregateOutputType> | number
+          }
+        }
+      }
+      ReleaseUser: {
+        payload: Prisma.$ReleaseUserPayload<ExtArgs>
+        fields: Prisma.ReleaseUserFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ReleaseUserFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReleaseUserPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ReleaseUserFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReleaseUserPayload>
+          }
+          findFirst: {
+            args: Prisma.ReleaseUserFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReleaseUserPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ReleaseUserFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReleaseUserPayload>
+          }
+          findMany: {
+            args: Prisma.ReleaseUserFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReleaseUserPayload>[]
+          }
+          create: {
+            args: Prisma.ReleaseUserCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReleaseUserPayload>
+          }
+          createMany: {
+            args: Prisma.ReleaseUserCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ReleaseUserCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReleaseUserPayload>[]
+          }
+          delete: {
+            args: Prisma.ReleaseUserDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReleaseUserPayload>
+          }
+          update: {
+            args: Prisma.ReleaseUserUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReleaseUserPayload>
+          }
+          deleteMany: {
+            args: Prisma.ReleaseUserDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ReleaseUserUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.ReleaseUserUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReleaseUserPayload>
+          }
+          aggregate: {
+            args: Prisma.ReleaseUserAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateReleaseUser>
+          }
+          groupBy: {
+            args: Prisma.ReleaseUserGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ReleaseUserGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ReleaseUserCountArgs<ExtArgs>
+            result: $Utils.Optional<ReleaseUserCountAggregateOutputType> | number
           }
         }
       }
@@ -3623,6 +3709,7 @@ export namespace Prisma {
     moneyLenders: number
     auctionUsers: number
     auctionLoans: number
+    releaseUsers: number
     messageTemplates: number
   }
 
@@ -3643,6 +3730,7 @@ export namespace Prisma {
     moneyLenders?: boolean | FirmCountOutputTypeCountMoneyLendersArgs
     auctionUsers?: boolean | FirmCountOutputTypeCountAuctionUsersArgs
     auctionLoans?: boolean | FirmCountOutputTypeCountAuctionLoansArgs
+    releaseUsers?: boolean | FirmCountOutputTypeCountReleaseUsersArgs
     messageTemplates?: boolean | FirmCountOutputTypeCountMessageTemplatesArgs
   }
 
@@ -3767,6 +3855,13 @@ export namespace Prisma {
    */
   export type FirmCountOutputTypeCountAuctionLoansArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: AuctionLoanWhereInput
+  }
+
+  /**
+   * FirmCountOutputType without action
+   */
+  export type FirmCountOutputTypeCountReleaseUsersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ReleaseUserWhereInput
   }
 
   /**
@@ -4433,6 +4528,37 @@ export namespace Prisma {
    */
   export type GirviCountOutputTypeCountAuctionLoansArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: AuctionLoanWhereInput
+  }
+
+
+  /**
+   * Count Type ReleaseUserCountOutputType
+   */
+
+  export type ReleaseUserCountOutputType = {
+    releases: number
+  }
+
+  export type ReleaseUserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    releases?: boolean | ReleaseUserCountOutputTypeCountReleasesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * ReleaseUserCountOutputType without action
+   */
+  export type ReleaseUserCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ReleaseUserCountOutputType
+     */
+    select?: ReleaseUserCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * ReleaseUserCountOutputType without action
+   */
+  export type ReleaseUserCountOutputTypeCountReleasesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GirviReleaseWhereInput
   }
 
 
@@ -6965,6 +7091,7 @@ export namespace Prisma {
     moneyLenders?: boolean | Firm$moneyLendersArgs<ExtArgs>
     auctionUsers?: boolean | Firm$auctionUsersArgs<ExtArgs>
     auctionLoans?: boolean | Firm$auctionLoansArgs<ExtArgs>
+    releaseUsers?: boolean | Firm$releaseUsersArgs<ExtArgs>
     messageTemplates?: boolean | Firm$messageTemplatesArgs<ExtArgs>
     whatsappInstance?: boolean | Firm$whatsappInstanceArgs<ExtArgs>
     _count?: boolean | FirmCountOutputTypeDefaultArgs<ExtArgs>
@@ -7095,6 +7222,7 @@ export namespace Prisma {
     moneyLenders?: boolean | Firm$moneyLendersArgs<ExtArgs>
     auctionUsers?: boolean | Firm$auctionUsersArgs<ExtArgs>
     auctionLoans?: boolean | Firm$auctionLoansArgs<ExtArgs>
+    releaseUsers?: boolean | Firm$releaseUsersArgs<ExtArgs>
     messageTemplates?: boolean | Firm$messageTemplatesArgs<ExtArgs>
     whatsappInstance?: boolean | Firm$whatsappInstanceArgs<ExtArgs>
     _count?: boolean | FirmCountOutputTypeDefaultArgs<ExtArgs>
@@ -7123,6 +7251,7 @@ export namespace Prisma {
       moneyLenders: Prisma.$MoneyLenderPayload<ExtArgs>[]
       auctionUsers: Prisma.$AuctionUserPayload<ExtArgs>[]
       auctionLoans: Prisma.$AuctionLoanPayload<ExtArgs>[]
+      releaseUsers: Prisma.$ReleaseUserPayload<ExtArgs>[]
       messageTemplates: Prisma.$MessageTemplatePayload<ExtArgs>[]
       whatsappInstance: Prisma.$WhatsAppInstancePayload<ExtArgs> | null
     }
@@ -7558,6 +7687,7 @@ export namespace Prisma {
     moneyLenders<T extends Firm$moneyLendersArgs<ExtArgs> = {}>(args?: Subset<T, Firm$moneyLendersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MoneyLenderPayload<ExtArgs>, T, "findMany"> | Null>
     auctionUsers<T extends Firm$auctionUsersArgs<ExtArgs> = {}>(args?: Subset<T, Firm$auctionUsersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AuctionUserPayload<ExtArgs>, T, "findMany"> | Null>
     auctionLoans<T extends Firm$auctionLoansArgs<ExtArgs> = {}>(args?: Subset<T, Firm$auctionLoansArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AuctionLoanPayload<ExtArgs>, T, "findMany"> | Null>
+    releaseUsers<T extends Firm$releaseUsersArgs<ExtArgs> = {}>(args?: Subset<T, Firm$releaseUsersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReleaseUserPayload<ExtArgs>, T, "findMany"> | Null>
     messageTemplates<T extends Firm$messageTemplatesArgs<ExtArgs> = {}>(args?: Subset<T, Firm$messageTemplatesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessageTemplatePayload<ExtArgs>, T, "findMany"> | Null>
     whatsappInstance<T extends Firm$whatsappInstanceArgs<ExtArgs> = {}>(args?: Subset<T, Firm$whatsappInstanceArgs<ExtArgs>>): Prisma__WhatsAppInstanceClient<$Result.GetResult<Prisma.$WhatsAppInstancePayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     /**
@@ -8274,6 +8404,26 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: AuctionLoanScalarFieldEnum | AuctionLoanScalarFieldEnum[]
+  }
+
+  /**
+   * Firm.releaseUsers
+   */
+  export type Firm$releaseUsersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ReleaseUser
+     */
+    select?: ReleaseUserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReleaseUserInclude<ExtArgs> | null
+    where?: ReleaseUserWhereInput
+    orderBy?: ReleaseUserOrderByWithRelationInput | ReleaseUserOrderByWithRelationInput[]
+    cursor?: ReleaseUserWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ReleaseUserScalarFieldEnum | ReleaseUserScalarFieldEnum[]
   }
 
   /**
@@ -10767,9 +10917,6 @@ export namespace Prisma {
     user_pan_no: number
     user_adhaar_no: number
     user_profile_img: number
-    user_adhaar_front_img: number
-    user_adhaar_back_img: number
-    user_pan_card_img: number
     user_per_address: number
     user_curr_address: number
     user_village: number
@@ -10782,7 +10929,7 @@ export namespace Prisma {
     user_bank_name: number
     user_bank_acc_no: number
     user_ifsc_code: number
-    user_sign_img: number
+    user_other_images: number
     user_other_info: number
     user_created_at: number
     user_created_by: number
@@ -10921,9 +11068,6 @@ export namespace Prisma {
     user_pan_no?: true
     user_adhaar_no?: true
     user_profile_img?: true
-    user_adhaar_front_img?: true
-    user_adhaar_back_img?: true
-    user_pan_card_img?: true
     user_per_address?: true
     user_curr_address?: true
     user_village?: true
@@ -10936,7 +11080,7 @@ export namespace Prisma {
     user_bank_name?: true
     user_bank_acc_no?: true
     user_ifsc_code?: true
-    user_sign_img?: true
+    user_other_images?: true
     user_other_info?: true
     user_created_at?: true
     user_created_by?: true
@@ -11058,9 +11202,6 @@ export namespace Prisma {
     user_pan_no: string | null
     user_adhaar_no: string | null
     user_profile_img: JsonValue | null
-    user_adhaar_front_img: JsonValue | null
-    user_adhaar_back_img: JsonValue | null
-    user_pan_card_img: JsonValue | null
     user_per_address: string | null
     user_curr_address: string | null
     user_village: string | null
@@ -11073,7 +11214,7 @@ export namespace Prisma {
     user_bank_name: string | null
     user_bank_acc_no: string | null
     user_ifsc_code: string | null
-    user_sign_img: JsonValue | null
+    user_other_images: JsonValue | null
     user_other_info: string | null
     user_created_at: Date
     user_created_by: string | null
@@ -11127,9 +11268,6 @@ export namespace Prisma {
     user_pan_no?: boolean
     user_adhaar_no?: boolean
     user_profile_img?: boolean
-    user_adhaar_front_img?: boolean
-    user_adhaar_back_img?: boolean
-    user_pan_card_img?: boolean
     user_per_address?: boolean
     user_curr_address?: boolean
     user_village?: boolean
@@ -11142,7 +11280,7 @@ export namespace Prisma {
     user_bank_name?: boolean
     user_bank_acc_no?: boolean
     user_ifsc_code?: boolean
-    user_sign_img?: boolean
+    user_other_images?: boolean
     user_other_info?: boolean
     user_created_at?: boolean
     user_created_by?: boolean
@@ -11190,9 +11328,6 @@ export namespace Prisma {
     user_pan_no?: boolean
     user_adhaar_no?: boolean
     user_profile_img?: boolean
-    user_adhaar_front_img?: boolean
-    user_adhaar_back_img?: boolean
-    user_pan_card_img?: boolean
     user_per_address?: boolean
     user_curr_address?: boolean
     user_village?: boolean
@@ -11205,7 +11340,7 @@ export namespace Prisma {
     user_bank_name?: boolean
     user_bank_acc_no?: boolean
     user_ifsc_code?: boolean
-    user_sign_img?: boolean
+    user_other_images?: boolean
     user_other_info?: boolean
     user_created_at?: boolean
     user_created_by?: boolean
@@ -11242,9 +11377,6 @@ export namespace Prisma {
     user_pan_no?: boolean
     user_adhaar_no?: boolean
     user_profile_img?: boolean
-    user_adhaar_front_img?: boolean
-    user_adhaar_back_img?: boolean
-    user_pan_card_img?: boolean
     user_per_address?: boolean
     user_curr_address?: boolean
     user_village?: boolean
@@ -11257,7 +11389,7 @@ export namespace Prisma {
     user_bank_name?: boolean
     user_bank_acc_no?: boolean
     user_ifsc_code?: boolean
-    user_sign_img?: boolean
+    user_other_images?: boolean
     user_other_info?: boolean
     user_created_at?: boolean
     user_created_by?: boolean
@@ -11328,9 +11460,6 @@ export namespace Prisma {
       user_pan_no: string | null
       user_adhaar_no: string | null
       user_profile_img: Prisma.JsonValue | null
-      user_adhaar_front_img: Prisma.JsonValue | null
-      user_adhaar_back_img: Prisma.JsonValue | null
-      user_pan_card_img: Prisma.JsonValue | null
       user_per_address: string | null
       user_curr_address: string | null
       user_village: string | null
@@ -11343,7 +11472,7 @@ export namespace Prisma {
       user_bank_name: string | null
       user_bank_acc_no: string | null
       user_ifsc_code: string | null
-      user_sign_img: Prisma.JsonValue | null
+      user_other_images: Prisma.JsonValue | null
       user_other_info: string | null
       user_created_at: Date
       user_created_by: string | null
@@ -11780,9 +11909,6 @@ export namespace Prisma {
     readonly user_pan_no: FieldRef<"User", 'String'>
     readonly user_adhaar_no: FieldRef<"User", 'String'>
     readonly user_profile_img: FieldRef<"User", 'Json'>
-    readonly user_adhaar_front_img: FieldRef<"User", 'Json'>
-    readonly user_adhaar_back_img: FieldRef<"User", 'Json'>
-    readonly user_pan_card_img: FieldRef<"User", 'Json'>
     readonly user_per_address: FieldRef<"User", 'String'>
     readonly user_curr_address: FieldRef<"User", 'String'>
     readonly user_village: FieldRef<"User", 'String'>
@@ -11795,7 +11921,7 @@ export namespace Prisma {
     readonly user_bank_name: FieldRef<"User", 'String'>
     readonly user_bank_acc_no: FieldRef<"User", 'String'>
     readonly user_ifsc_code: FieldRef<"User", 'String'>
-    readonly user_sign_img: FieldRef<"User", 'Json'>
+    readonly user_other_images: FieldRef<"User", 'Json'>
     readonly user_other_info: FieldRef<"User", 'String'>
     readonly user_created_at: FieldRef<"User", 'DateTime'>
     readonly user_created_by: FieldRef<"User", 'String'>
@@ -25882,6 +26008,7 @@ export namespace Prisma {
     rel_online_acc_id: number | null
     rel_card_amt: number | null
     rel_card_acc_id: number | null
+    rel_pickup_user_id: number | null
   }
 
   export type GirviReleaseSumAggregateOutputType = {
@@ -25908,6 +26035,7 @@ export namespace Prisma {
     rel_online_acc_id: number | null
     rel_card_amt: number | null
     rel_card_acc_id: number | null
+    rel_pickup_user_id: number | null
   }
 
   export type GirviReleaseMinAggregateOutputType = {
@@ -25942,6 +26070,9 @@ export namespace Prisma {
     rel_card_info: string | null
     rel_pay_info: string | null
     rel_other_info: string | null
+    rel_remark: string | null
+    rel_is_other_user: boolean | null
+    rel_pickup_user_id: number | null
     rel_created_at: Date | null
     rel_created_by: string | null
     rel_updated_at: Date | null
@@ -25983,6 +26114,9 @@ export namespace Prisma {
     rel_card_info: string | null
     rel_pay_info: string | null
     rel_other_info: string | null
+    rel_remark: string | null
+    rel_is_other_user: boolean | null
+    rel_pickup_user_id: number | null
     rel_created_at: Date | null
     rel_created_by: string | null
     rel_updated_at: Date | null
@@ -26024,6 +26158,10 @@ export namespace Prisma {
     rel_card_info: number
     rel_pay_info: number
     rel_other_info: number
+    rel_remark: number
+    rel_item_images: number
+    rel_is_other_user: number
+    rel_pickup_user_id: number
     rel_created_at: number
     rel_created_by: number
     rel_updated_at: number
@@ -26059,6 +26197,7 @@ export namespace Prisma {
     rel_online_acc_id?: true
     rel_card_amt?: true
     rel_card_acc_id?: true
+    rel_pickup_user_id?: true
   }
 
   export type GirviReleaseSumAggregateInputType = {
@@ -26085,6 +26224,7 @@ export namespace Prisma {
     rel_online_acc_id?: true
     rel_card_amt?: true
     rel_card_acc_id?: true
+    rel_pickup_user_id?: true
   }
 
   export type GirviReleaseMinAggregateInputType = {
@@ -26119,6 +26259,9 @@ export namespace Prisma {
     rel_card_info?: true
     rel_pay_info?: true
     rel_other_info?: true
+    rel_remark?: true
+    rel_is_other_user?: true
+    rel_pickup_user_id?: true
     rel_created_at?: true
     rel_created_by?: true
     rel_updated_at?: true
@@ -26160,6 +26303,9 @@ export namespace Prisma {
     rel_card_info?: true
     rel_pay_info?: true
     rel_other_info?: true
+    rel_remark?: true
+    rel_is_other_user?: true
+    rel_pickup_user_id?: true
     rel_created_at?: true
     rel_created_by?: true
     rel_updated_at?: true
@@ -26201,6 +26347,10 @@ export namespace Prisma {
     rel_card_info?: true
     rel_pay_info?: true
     rel_other_info?: true
+    rel_remark?: true
+    rel_item_images?: true
+    rel_is_other_user?: true
+    rel_pickup_user_id?: true
     rel_created_at?: true
     rel_created_by?: true
     rel_updated_at?: true
@@ -26329,6 +26479,10 @@ export namespace Prisma {
     rel_card_info: string | null
     rel_pay_info: string | null
     rel_other_info: string | null
+    rel_remark: string | null
+    rel_item_images: JsonValue | null
+    rel_is_other_user: boolean
+    rel_pickup_user_id: number | null
     rel_created_at: Date
     rel_created_by: string | null
     rel_updated_at: Date
@@ -26389,6 +26543,10 @@ export namespace Prisma {
     rel_card_info?: boolean
     rel_pay_info?: boolean
     rel_other_info?: boolean
+    rel_remark?: boolean
+    rel_item_images?: boolean
+    rel_is_other_user?: boolean
+    rel_pickup_user_id?: boolean
     rel_created_at?: boolean
     rel_created_by?: boolean
     rel_updated_at?: boolean
@@ -26408,6 +26566,7 @@ export namespace Prisma {
     bankAccount?: boolean | GirviRelease$bankAccountArgs<ExtArgs>
     onlineAccount?: boolean | GirviRelease$onlineAccountArgs<ExtArgs>
     cardAccount?: boolean | GirviRelease$cardAccountArgs<ExtArgs>
+    pickupUser?: boolean | GirviRelease$pickupUserArgs<ExtArgs>
   }, ExtArgs["result"]["girviRelease"]>
 
   export type GirviReleaseSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -26442,6 +26601,10 @@ export namespace Prisma {
     rel_card_info?: boolean
     rel_pay_info?: boolean
     rel_other_info?: boolean
+    rel_remark?: boolean
+    rel_item_images?: boolean
+    rel_is_other_user?: boolean
+    rel_pickup_user_id?: boolean
     rel_created_at?: boolean
     rel_created_by?: boolean
     rel_updated_at?: boolean
@@ -26461,6 +26624,7 @@ export namespace Prisma {
     bankAccount?: boolean | GirviRelease$bankAccountArgs<ExtArgs>
     onlineAccount?: boolean | GirviRelease$onlineAccountArgs<ExtArgs>
     cardAccount?: boolean | GirviRelease$cardAccountArgs<ExtArgs>
+    pickupUser?: boolean | GirviRelease$pickupUserArgs<ExtArgs>
   }, ExtArgs["result"]["girviRelease"]>
 
   export type GirviReleaseSelectScalar = {
@@ -26495,6 +26659,10 @@ export namespace Prisma {
     rel_card_info?: boolean
     rel_pay_info?: boolean
     rel_other_info?: boolean
+    rel_remark?: boolean
+    rel_item_images?: boolean
+    rel_is_other_user?: boolean
+    rel_pickup_user_id?: boolean
     rel_created_at?: boolean
     rel_created_by?: boolean
     rel_updated_at?: boolean
@@ -26517,6 +26685,7 @@ export namespace Prisma {
     bankAccount?: boolean | GirviRelease$bankAccountArgs<ExtArgs>
     onlineAccount?: boolean | GirviRelease$onlineAccountArgs<ExtArgs>
     cardAccount?: boolean | GirviRelease$cardAccountArgs<ExtArgs>
+    pickupUser?: boolean | GirviRelease$pickupUserArgs<ExtArgs>
   }
   export type GirviReleaseIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     owner?: boolean | OwnerDefaultArgs<ExtArgs>
@@ -26531,6 +26700,7 @@ export namespace Prisma {
     bankAccount?: boolean | GirviRelease$bankAccountArgs<ExtArgs>
     onlineAccount?: boolean | GirviRelease$onlineAccountArgs<ExtArgs>
     cardAccount?: boolean | GirviRelease$cardAccountArgs<ExtArgs>
+    pickupUser?: boolean | GirviRelease$pickupUserArgs<ExtArgs>
   }
 
   export type $GirviReleasePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -26548,6 +26718,7 @@ export namespace Prisma {
       bankAccount: Prisma.$AccountPayload<ExtArgs> | null
       onlineAccount: Prisma.$AccountPayload<ExtArgs> | null
       cardAccount: Prisma.$AccountPayload<ExtArgs> | null
+      pickupUser: Prisma.$ReleaseUserPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       rel_id: number
@@ -26581,6 +26752,10 @@ export namespace Prisma {
       rel_card_info: string | null
       rel_pay_info: string | null
       rel_other_info: string | null
+      rel_remark: string | null
+      rel_item_images: Prisma.JsonValue | null
+      rel_is_other_user: boolean
+      rel_pickup_user_id: number | null
       rel_created_at: Date
       rel_created_by: string | null
       rel_updated_at: Date
@@ -26964,6 +27139,7 @@ export namespace Prisma {
     bankAccount<T extends GirviRelease$bankAccountArgs<ExtArgs> = {}>(args?: Subset<T, GirviRelease$bankAccountArgs<ExtArgs>>): Prisma__AccountClient<$Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     onlineAccount<T extends GirviRelease$onlineAccountArgs<ExtArgs> = {}>(args?: Subset<T, GirviRelease$onlineAccountArgs<ExtArgs>>): Prisma__AccountClient<$Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     cardAccount<T extends GirviRelease$cardAccountArgs<ExtArgs> = {}>(args?: Subset<T, GirviRelease$cardAccountArgs<ExtArgs>>): Prisma__AccountClient<$Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    pickupUser<T extends GirviRelease$pickupUserArgs<ExtArgs> = {}>(args?: Subset<T, GirviRelease$pickupUserArgs<ExtArgs>>): Prisma__ReleaseUserClient<$Result.GetResult<Prisma.$ReleaseUserPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -27024,6 +27200,10 @@ export namespace Prisma {
     readonly rel_card_info: FieldRef<"GirviRelease", 'String'>
     readonly rel_pay_info: FieldRef<"GirviRelease", 'String'>
     readonly rel_other_info: FieldRef<"GirviRelease", 'String'>
+    readonly rel_remark: FieldRef<"GirviRelease", 'String'>
+    readonly rel_item_images: FieldRef<"GirviRelease", 'Json'>
+    readonly rel_is_other_user: FieldRef<"GirviRelease", 'Boolean'>
+    readonly rel_pickup_user_id: FieldRef<"GirviRelease", 'Int'>
     readonly rel_created_at: FieldRef<"GirviRelease", 'DateTime'>
     readonly rel_created_by: FieldRef<"GirviRelease", 'String'>
     readonly rel_updated_at: FieldRef<"GirviRelease", 'DateTime'>
@@ -27469,6 +27649,21 @@ export namespace Prisma {
   }
 
   /**
+   * GirviRelease.pickupUser
+   */
+  export type GirviRelease$pickupUserArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ReleaseUser
+     */
+    select?: ReleaseUserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReleaseUserInclude<ExtArgs> | null
+    where?: ReleaseUserWhereInput
+  }
+
+  /**
    * GirviRelease without action
    */
   export type GirviReleaseDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -27480,6 +27675,1155 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: GirviReleaseInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model ReleaseUser
+   */
+
+  export type AggregateReleaseUser = {
+    _count: ReleaseUserCountAggregateOutputType | null
+    _avg: ReleaseUserAvgAggregateOutputType | null
+    _sum: ReleaseUserSumAggregateOutputType | null
+    _min: ReleaseUserMinAggregateOutputType | null
+    _max: ReleaseUserMaxAggregateOutputType | null
+  }
+
+  export type ReleaseUserAvgAggregateOutputType = {
+    ru_id: number | null
+    ru_firm_id: number | null
+  }
+
+  export type ReleaseUserSumAggregateOutputType = {
+    ru_id: number | null
+    ru_firm_id: number | null
+  }
+
+  export type ReleaseUserMinAggregateOutputType = {
+    ru_id: number | null
+    ru_uuid: string | null
+    ru_unique_code: string | null
+    ru_date: string | null
+    ru_firm_id: number | null
+    ru_full_name: string | null
+    ru_mobile: string | null
+    ru_email: string | null
+    ru_aadhaar: string | null
+    ru_gender: string | null
+    ru_pan: string | null
+    ru_address: string | null
+    ru_state: string | null
+    ru_city: string | null
+    ru_country: string | null
+    ru_village: string | null
+    ru_pincode: string | null
+  }
+
+  export type ReleaseUserMaxAggregateOutputType = {
+    ru_id: number | null
+    ru_uuid: string | null
+    ru_unique_code: string | null
+    ru_date: string | null
+    ru_firm_id: number | null
+    ru_full_name: string | null
+    ru_mobile: string | null
+    ru_email: string | null
+    ru_aadhaar: string | null
+    ru_gender: string | null
+    ru_pan: string | null
+    ru_address: string | null
+    ru_state: string | null
+    ru_city: string | null
+    ru_country: string | null
+    ru_village: string | null
+    ru_pincode: string | null
+  }
+
+  export type ReleaseUserCountAggregateOutputType = {
+    ru_id: number
+    ru_uuid: number
+    ru_unique_code: number
+    ru_date: number
+    ru_firm_id: number
+    ru_full_name: number
+    ru_mobile: number
+    ru_email: number
+    ru_aadhaar: number
+    ru_gender: number
+    ru_pan: number
+    ru_address: number
+    ru_state: number
+    ru_city: number
+    ru_country: number
+    ru_village: number
+    ru_pincode: number
+    ru_other_images: number
+    _all: number
+  }
+
+
+  export type ReleaseUserAvgAggregateInputType = {
+    ru_id?: true
+    ru_firm_id?: true
+  }
+
+  export type ReleaseUserSumAggregateInputType = {
+    ru_id?: true
+    ru_firm_id?: true
+  }
+
+  export type ReleaseUserMinAggregateInputType = {
+    ru_id?: true
+    ru_uuid?: true
+    ru_unique_code?: true
+    ru_date?: true
+    ru_firm_id?: true
+    ru_full_name?: true
+    ru_mobile?: true
+    ru_email?: true
+    ru_aadhaar?: true
+    ru_gender?: true
+    ru_pan?: true
+    ru_address?: true
+    ru_state?: true
+    ru_city?: true
+    ru_country?: true
+    ru_village?: true
+    ru_pincode?: true
+  }
+
+  export type ReleaseUserMaxAggregateInputType = {
+    ru_id?: true
+    ru_uuid?: true
+    ru_unique_code?: true
+    ru_date?: true
+    ru_firm_id?: true
+    ru_full_name?: true
+    ru_mobile?: true
+    ru_email?: true
+    ru_aadhaar?: true
+    ru_gender?: true
+    ru_pan?: true
+    ru_address?: true
+    ru_state?: true
+    ru_city?: true
+    ru_country?: true
+    ru_village?: true
+    ru_pincode?: true
+  }
+
+  export type ReleaseUserCountAggregateInputType = {
+    ru_id?: true
+    ru_uuid?: true
+    ru_unique_code?: true
+    ru_date?: true
+    ru_firm_id?: true
+    ru_full_name?: true
+    ru_mobile?: true
+    ru_email?: true
+    ru_aadhaar?: true
+    ru_gender?: true
+    ru_pan?: true
+    ru_address?: true
+    ru_state?: true
+    ru_city?: true
+    ru_country?: true
+    ru_village?: true
+    ru_pincode?: true
+    ru_other_images?: true
+    _all?: true
+  }
+
+  export type ReleaseUserAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ReleaseUser to aggregate.
+     */
+    where?: ReleaseUserWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ReleaseUsers to fetch.
+     */
+    orderBy?: ReleaseUserOrderByWithRelationInput | ReleaseUserOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ReleaseUserWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ReleaseUsers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ReleaseUsers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ReleaseUsers
+    **/
+    _count?: true | ReleaseUserCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ReleaseUserAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ReleaseUserSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ReleaseUserMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ReleaseUserMaxAggregateInputType
+  }
+
+  export type GetReleaseUserAggregateType<T extends ReleaseUserAggregateArgs> = {
+        [P in keyof T & keyof AggregateReleaseUser]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateReleaseUser[P]>
+      : GetScalarType<T[P], AggregateReleaseUser[P]>
+  }
+
+
+
+
+  export type ReleaseUserGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ReleaseUserWhereInput
+    orderBy?: ReleaseUserOrderByWithAggregationInput | ReleaseUserOrderByWithAggregationInput[]
+    by: ReleaseUserScalarFieldEnum[] | ReleaseUserScalarFieldEnum
+    having?: ReleaseUserScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ReleaseUserCountAggregateInputType | true
+    _avg?: ReleaseUserAvgAggregateInputType
+    _sum?: ReleaseUserSumAggregateInputType
+    _min?: ReleaseUserMinAggregateInputType
+    _max?: ReleaseUserMaxAggregateInputType
+  }
+
+  export type ReleaseUserGroupByOutputType = {
+    ru_id: number
+    ru_uuid: string
+    ru_unique_code: string | null
+    ru_date: string | null
+    ru_firm_id: number
+    ru_full_name: string | null
+    ru_mobile: string | null
+    ru_email: string | null
+    ru_aadhaar: string | null
+    ru_gender: string | null
+    ru_pan: string | null
+    ru_address: string | null
+    ru_state: string | null
+    ru_city: string | null
+    ru_country: string | null
+    ru_village: string | null
+    ru_pincode: string | null
+    ru_other_images: JsonValue | null
+    _count: ReleaseUserCountAggregateOutputType | null
+    _avg: ReleaseUserAvgAggregateOutputType | null
+    _sum: ReleaseUserSumAggregateOutputType | null
+    _min: ReleaseUserMinAggregateOutputType | null
+    _max: ReleaseUserMaxAggregateOutputType | null
+  }
+
+  type GetReleaseUserGroupByPayload<T extends ReleaseUserGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ReleaseUserGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ReleaseUserGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ReleaseUserGroupByOutputType[P]>
+            : GetScalarType<T[P], ReleaseUserGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ReleaseUserSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    ru_id?: boolean
+    ru_uuid?: boolean
+    ru_unique_code?: boolean
+    ru_date?: boolean
+    ru_firm_id?: boolean
+    ru_full_name?: boolean
+    ru_mobile?: boolean
+    ru_email?: boolean
+    ru_aadhaar?: boolean
+    ru_gender?: boolean
+    ru_pan?: boolean
+    ru_address?: boolean
+    ru_state?: boolean
+    ru_city?: boolean
+    ru_country?: boolean
+    ru_village?: boolean
+    ru_pincode?: boolean
+    ru_other_images?: boolean
+    firm?: boolean | FirmDefaultArgs<ExtArgs>
+    releases?: boolean | ReleaseUser$releasesArgs<ExtArgs>
+    _count?: boolean | ReleaseUserCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["releaseUser"]>
+
+  export type ReleaseUserSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    ru_id?: boolean
+    ru_uuid?: boolean
+    ru_unique_code?: boolean
+    ru_date?: boolean
+    ru_firm_id?: boolean
+    ru_full_name?: boolean
+    ru_mobile?: boolean
+    ru_email?: boolean
+    ru_aadhaar?: boolean
+    ru_gender?: boolean
+    ru_pan?: boolean
+    ru_address?: boolean
+    ru_state?: boolean
+    ru_city?: boolean
+    ru_country?: boolean
+    ru_village?: boolean
+    ru_pincode?: boolean
+    ru_other_images?: boolean
+    firm?: boolean | FirmDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["releaseUser"]>
+
+  export type ReleaseUserSelectScalar = {
+    ru_id?: boolean
+    ru_uuid?: boolean
+    ru_unique_code?: boolean
+    ru_date?: boolean
+    ru_firm_id?: boolean
+    ru_full_name?: boolean
+    ru_mobile?: boolean
+    ru_email?: boolean
+    ru_aadhaar?: boolean
+    ru_gender?: boolean
+    ru_pan?: boolean
+    ru_address?: boolean
+    ru_state?: boolean
+    ru_city?: boolean
+    ru_country?: boolean
+    ru_village?: boolean
+    ru_pincode?: boolean
+    ru_other_images?: boolean
+  }
+
+  export type ReleaseUserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    firm?: boolean | FirmDefaultArgs<ExtArgs>
+    releases?: boolean | ReleaseUser$releasesArgs<ExtArgs>
+    _count?: boolean | ReleaseUserCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type ReleaseUserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    firm?: boolean | FirmDefaultArgs<ExtArgs>
+  }
+
+  export type $ReleaseUserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ReleaseUser"
+    objects: {
+      firm: Prisma.$FirmPayload<ExtArgs>
+      releases: Prisma.$GirviReleasePayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      ru_id: number
+      ru_uuid: string
+      ru_unique_code: string | null
+      ru_date: string | null
+      ru_firm_id: number
+      ru_full_name: string | null
+      ru_mobile: string | null
+      ru_email: string | null
+      ru_aadhaar: string | null
+      ru_gender: string | null
+      ru_pan: string | null
+      ru_address: string | null
+      ru_state: string | null
+      ru_city: string | null
+      ru_country: string | null
+      ru_village: string | null
+      ru_pincode: string | null
+      ru_other_images: Prisma.JsonValue | null
+    }, ExtArgs["result"]["releaseUser"]>
+    composites: {}
+  }
+
+  type ReleaseUserGetPayload<S extends boolean | null | undefined | ReleaseUserDefaultArgs> = $Result.GetResult<Prisma.$ReleaseUserPayload, S>
+
+  type ReleaseUserCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<ReleaseUserFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: ReleaseUserCountAggregateInputType | true
+    }
+
+  export interface ReleaseUserDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ReleaseUser'], meta: { name: 'ReleaseUser' } }
+    /**
+     * Find zero or one ReleaseUser that matches the filter.
+     * @param {ReleaseUserFindUniqueArgs} args - Arguments to find a ReleaseUser
+     * @example
+     * // Get one ReleaseUser
+     * const releaseUser = await prisma.releaseUser.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ReleaseUserFindUniqueArgs>(args: SelectSubset<T, ReleaseUserFindUniqueArgs<ExtArgs>>): Prisma__ReleaseUserClient<$Result.GetResult<Prisma.$ReleaseUserPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one ReleaseUser that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {ReleaseUserFindUniqueOrThrowArgs} args - Arguments to find a ReleaseUser
+     * @example
+     * // Get one ReleaseUser
+     * const releaseUser = await prisma.releaseUser.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ReleaseUserFindUniqueOrThrowArgs>(args: SelectSubset<T, ReleaseUserFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ReleaseUserClient<$Result.GetResult<Prisma.$ReleaseUserPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first ReleaseUser that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ReleaseUserFindFirstArgs} args - Arguments to find a ReleaseUser
+     * @example
+     * // Get one ReleaseUser
+     * const releaseUser = await prisma.releaseUser.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ReleaseUserFindFirstArgs>(args?: SelectSubset<T, ReleaseUserFindFirstArgs<ExtArgs>>): Prisma__ReleaseUserClient<$Result.GetResult<Prisma.$ReleaseUserPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first ReleaseUser that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ReleaseUserFindFirstOrThrowArgs} args - Arguments to find a ReleaseUser
+     * @example
+     * // Get one ReleaseUser
+     * const releaseUser = await prisma.releaseUser.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ReleaseUserFindFirstOrThrowArgs>(args?: SelectSubset<T, ReleaseUserFindFirstOrThrowArgs<ExtArgs>>): Prisma__ReleaseUserClient<$Result.GetResult<Prisma.$ReleaseUserPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more ReleaseUsers that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ReleaseUserFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ReleaseUsers
+     * const releaseUsers = await prisma.releaseUser.findMany()
+     * 
+     * // Get first 10 ReleaseUsers
+     * const releaseUsers = await prisma.releaseUser.findMany({ take: 10 })
+     * 
+     * // Only select the `ru_id`
+     * const releaseUserWithRu_idOnly = await prisma.releaseUser.findMany({ select: { ru_id: true } })
+     * 
+     */
+    findMany<T extends ReleaseUserFindManyArgs>(args?: SelectSubset<T, ReleaseUserFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReleaseUserPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a ReleaseUser.
+     * @param {ReleaseUserCreateArgs} args - Arguments to create a ReleaseUser.
+     * @example
+     * // Create one ReleaseUser
+     * const ReleaseUser = await prisma.releaseUser.create({
+     *   data: {
+     *     // ... data to create a ReleaseUser
+     *   }
+     * })
+     * 
+     */
+    create<T extends ReleaseUserCreateArgs>(args: SelectSubset<T, ReleaseUserCreateArgs<ExtArgs>>): Prisma__ReleaseUserClient<$Result.GetResult<Prisma.$ReleaseUserPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many ReleaseUsers.
+     * @param {ReleaseUserCreateManyArgs} args - Arguments to create many ReleaseUsers.
+     * @example
+     * // Create many ReleaseUsers
+     * const releaseUser = await prisma.releaseUser.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ReleaseUserCreateManyArgs>(args?: SelectSubset<T, ReleaseUserCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many ReleaseUsers and returns the data saved in the database.
+     * @param {ReleaseUserCreateManyAndReturnArgs} args - Arguments to create many ReleaseUsers.
+     * @example
+     * // Create many ReleaseUsers
+     * const releaseUser = await prisma.releaseUser.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many ReleaseUsers and only return the `ru_id`
+     * const releaseUserWithRu_idOnly = await prisma.releaseUser.createManyAndReturn({ 
+     *   select: { ru_id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ReleaseUserCreateManyAndReturnArgs>(args?: SelectSubset<T, ReleaseUserCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReleaseUserPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a ReleaseUser.
+     * @param {ReleaseUserDeleteArgs} args - Arguments to delete one ReleaseUser.
+     * @example
+     * // Delete one ReleaseUser
+     * const ReleaseUser = await prisma.releaseUser.delete({
+     *   where: {
+     *     // ... filter to delete one ReleaseUser
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ReleaseUserDeleteArgs>(args: SelectSubset<T, ReleaseUserDeleteArgs<ExtArgs>>): Prisma__ReleaseUserClient<$Result.GetResult<Prisma.$ReleaseUserPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one ReleaseUser.
+     * @param {ReleaseUserUpdateArgs} args - Arguments to update one ReleaseUser.
+     * @example
+     * // Update one ReleaseUser
+     * const releaseUser = await prisma.releaseUser.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ReleaseUserUpdateArgs>(args: SelectSubset<T, ReleaseUserUpdateArgs<ExtArgs>>): Prisma__ReleaseUserClient<$Result.GetResult<Prisma.$ReleaseUserPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more ReleaseUsers.
+     * @param {ReleaseUserDeleteManyArgs} args - Arguments to filter ReleaseUsers to delete.
+     * @example
+     * // Delete a few ReleaseUsers
+     * const { count } = await prisma.releaseUser.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ReleaseUserDeleteManyArgs>(args?: SelectSubset<T, ReleaseUserDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ReleaseUsers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ReleaseUserUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ReleaseUsers
+     * const releaseUser = await prisma.releaseUser.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ReleaseUserUpdateManyArgs>(args: SelectSubset<T, ReleaseUserUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one ReleaseUser.
+     * @param {ReleaseUserUpsertArgs} args - Arguments to update or create a ReleaseUser.
+     * @example
+     * // Update or create a ReleaseUser
+     * const releaseUser = await prisma.releaseUser.upsert({
+     *   create: {
+     *     // ... data to create a ReleaseUser
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ReleaseUser we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ReleaseUserUpsertArgs>(args: SelectSubset<T, ReleaseUserUpsertArgs<ExtArgs>>): Prisma__ReleaseUserClient<$Result.GetResult<Prisma.$ReleaseUserPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of ReleaseUsers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ReleaseUserCountArgs} args - Arguments to filter ReleaseUsers to count.
+     * @example
+     * // Count the number of ReleaseUsers
+     * const count = await prisma.releaseUser.count({
+     *   where: {
+     *     // ... the filter for the ReleaseUsers we want to count
+     *   }
+     * })
+    **/
+    count<T extends ReleaseUserCountArgs>(
+      args?: Subset<T, ReleaseUserCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ReleaseUserCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ReleaseUser.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ReleaseUserAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ReleaseUserAggregateArgs>(args: Subset<T, ReleaseUserAggregateArgs>): Prisma.PrismaPromise<GetReleaseUserAggregateType<T>>
+
+    /**
+     * Group by ReleaseUser.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ReleaseUserGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ReleaseUserGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ReleaseUserGroupByArgs['orderBy'] }
+        : { orderBy?: ReleaseUserGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ReleaseUserGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetReleaseUserGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ReleaseUser model
+   */
+  readonly fields: ReleaseUserFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ReleaseUser.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ReleaseUserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    firm<T extends FirmDefaultArgs<ExtArgs> = {}>(args?: Subset<T, FirmDefaultArgs<ExtArgs>>): Prisma__FirmClient<$Result.GetResult<Prisma.$FirmPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    releases<T extends ReleaseUser$releasesArgs<ExtArgs> = {}>(args?: Subset<T, ReleaseUser$releasesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GirviReleasePayload<ExtArgs>, T, "findMany"> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the ReleaseUser model
+   */ 
+  interface ReleaseUserFieldRefs {
+    readonly ru_id: FieldRef<"ReleaseUser", 'Int'>
+    readonly ru_uuid: FieldRef<"ReleaseUser", 'String'>
+    readonly ru_unique_code: FieldRef<"ReleaseUser", 'String'>
+    readonly ru_date: FieldRef<"ReleaseUser", 'String'>
+    readonly ru_firm_id: FieldRef<"ReleaseUser", 'Int'>
+    readonly ru_full_name: FieldRef<"ReleaseUser", 'String'>
+    readonly ru_mobile: FieldRef<"ReleaseUser", 'String'>
+    readonly ru_email: FieldRef<"ReleaseUser", 'String'>
+    readonly ru_aadhaar: FieldRef<"ReleaseUser", 'String'>
+    readonly ru_gender: FieldRef<"ReleaseUser", 'String'>
+    readonly ru_pan: FieldRef<"ReleaseUser", 'String'>
+    readonly ru_address: FieldRef<"ReleaseUser", 'String'>
+    readonly ru_state: FieldRef<"ReleaseUser", 'String'>
+    readonly ru_city: FieldRef<"ReleaseUser", 'String'>
+    readonly ru_country: FieldRef<"ReleaseUser", 'String'>
+    readonly ru_village: FieldRef<"ReleaseUser", 'String'>
+    readonly ru_pincode: FieldRef<"ReleaseUser", 'String'>
+    readonly ru_other_images: FieldRef<"ReleaseUser", 'Json'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * ReleaseUser findUnique
+   */
+  export type ReleaseUserFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ReleaseUser
+     */
+    select?: ReleaseUserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReleaseUserInclude<ExtArgs> | null
+    /**
+     * Filter, which ReleaseUser to fetch.
+     */
+    where: ReleaseUserWhereUniqueInput
+  }
+
+  /**
+   * ReleaseUser findUniqueOrThrow
+   */
+  export type ReleaseUserFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ReleaseUser
+     */
+    select?: ReleaseUserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReleaseUserInclude<ExtArgs> | null
+    /**
+     * Filter, which ReleaseUser to fetch.
+     */
+    where: ReleaseUserWhereUniqueInput
+  }
+
+  /**
+   * ReleaseUser findFirst
+   */
+  export type ReleaseUserFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ReleaseUser
+     */
+    select?: ReleaseUserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReleaseUserInclude<ExtArgs> | null
+    /**
+     * Filter, which ReleaseUser to fetch.
+     */
+    where?: ReleaseUserWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ReleaseUsers to fetch.
+     */
+    orderBy?: ReleaseUserOrderByWithRelationInput | ReleaseUserOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ReleaseUsers.
+     */
+    cursor?: ReleaseUserWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ReleaseUsers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ReleaseUsers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ReleaseUsers.
+     */
+    distinct?: ReleaseUserScalarFieldEnum | ReleaseUserScalarFieldEnum[]
+  }
+
+  /**
+   * ReleaseUser findFirstOrThrow
+   */
+  export type ReleaseUserFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ReleaseUser
+     */
+    select?: ReleaseUserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReleaseUserInclude<ExtArgs> | null
+    /**
+     * Filter, which ReleaseUser to fetch.
+     */
+    where?: ReleaseUserWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ReleaseUsers to fetch.
+     */
+    orderBy?: ReleaseUserOrderByWithRelationInput | ReleaseUserOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ReleaseUsers.
+     */
+    cursor?: ReleaseUserWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ReleaseUsers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ReleaseUsers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ReleaseUsers.
+     */
+    distinct?: ReleaseUserScalarFieldEnum | ReleaseUserScalarFieldEnum[]
+  }
+
+  /**
+   * ReleaseUser findMany
+   */
+  export type ReleaseUserFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ReleaseUser
+     */
+    select?: ReleaseUserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReleaseUserInclude<ExtArgs> | null
+    /**
+     * Filter, which ReleaseUsers to fetch.
+     */
+    where?: ReleaseUserWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ReleaseUsers to fetch.
+     */
+    orderBy?: ReleaseUserOrderByWithRelationInput | ReleaseUserOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ReleaseUsers.
+     */
+    cursor?: ReleaseUserWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ReleaseUsers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ReleaseUsers.
+     */
+    skip?: number
+    distinct?: ReleaseUserScalarFieldEnum | ReleaseUserScalarFieldEnum[]
+  }
+
+  /**
+   * ReleaseUser create
+   */
+  export type ReleaseUserCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ReleaseUser
+     */
+    select?: ReleaseUserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReleaseUserInclude<ExtArgs> | null
+    /**
+     * The data needed to create a ReleaseUser.
+     */
+    data: XOR<ReleaseUserCreateInput, ReleaseUserUncheckedCreateInput>
+  }
+
+  /**
+   * ReleaseUser createMany
+   */
+  export type ReleaseUserCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ReleaseUsers.
+     */
+    data: ReleaseUserCreateManyInput | ReleaseUserCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ReleaseUser createManyAndReturn
+   */
+  export type ReleaseUserCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ReleaseUser
+     */
+    select?: ReleaseUserSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many ReleaseUsers.
+     */
+    data: ReleaseUserCreateManyInput | ReleaseUserCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReleaseUserIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ReleaseUser update
+   */
+  export type ReleaseUserUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ReleaseUser
+     */
+    select?: ReleaseUserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReleaseUserInclude<ExtArgs> | null
+    /**
+     * The data needed to update a ReleaseUser.
+     */
+    data: XOR<ReleaseUserUpdateInput, ReleaseUserUncheckedUpdateInput>
+    /**
+     * Choose, which ReleaseUser to update.
+     */
+    where: ReleaseUserWhereUniqueInput
+  }
+
+  /**
+   * ReleaseUser updateMany
+   */
+  export type ReleaseUserUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ReleaseUsers.
+     */
+    data: XOR<ReleaseUserUpdateManyMutationInput, ReleaseUserUncheckedUpdateManyInput>
+    /**
+     * Filter which ReleaseUsers to update
+     */
+    where?: ReleaseUserWhereInput
+  }
+
+  /**
+   * ReleaseUser upsert
+   */
+  export type ReleaseUserUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ReleaseUser
+     */
+    select?: ReleaseUserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReleaseUserInclude<ExtArgs> | null
+    /**
+     * The filter to search for the ReleaseUser to update in case it exists.
+     */
+    where: ReleaseUserWhereUniqueInput
+    /**
+     * In case the ReleaseUser found by the `where` argument doesn't exist, create a new ReleaseUser with this data.
+     */
+    create: XOR<ReleaseUserCreateInput, ReleaseUserUncheckedCreateInput>
+    /**
+     * In case the ReleaseUser was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ReleaseUserUpdateInput, ReleaseUserUncheckedUpdateInput>
+  }
+
+  /**
+   * ReleaseUser delete
+   */
+  export type ReleaseUserDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ReleaseUser
+     */
+    select?: ReleaseUserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReleaseUserInclude<ExtArgs> | null
+    /**
+     * Filter which ReleaseUser to delete.
+     */
+    where: ReleaseUserWhereUniqueInput
+  }
+
+  /**
+   * ReleaseUser deleteMany
+   */
+  export type ReleaseUserDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ReleaseUsers to delete
+     */
+    where?: ReleaseUserWhereInput
+  }
+
+  /**
+   * ReleaseUser.releases
+   */
+  export type ReleaseUser$releasesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GirviRelease
+     */
+    select?: GirviReleaseSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GirviReleaseInclude<ExtArgs> | null
+    where?: GirviReleaseWhereInput
+    orderBy?: GirviReleaseOrderByWithRelationInput | GirviReleaseOrderByWithRelationInput[]
+    cursor?: GirviReleaseWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: GirviReleaseScalarFieldEnum | GirviReleaseScalarFieldEnum[]
+  }
+
+  /**
+   * ReleaseUser without action
+   */
+  export type ReleaseUserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ReleaseUser
+     */
+    select?: ReleaseUserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReleaseUserInclude<ExtArgs> | null
   }
 
 
@@ -29802,9 +31146,7 @@ export namespace Prisma {
     ml_address: number
     ml_notes: number
     ml_profile_img: number
-    ml_adhaar_front_img: number
-    ml_adhaar_back_img: number
-    ml_pan_img: number
+    ml_other_images: number
     is_active: number
     created_at: number
     updated_at: number
@@ -29919,9 +31261,7 @@ export namespace Prisma {
     ml_address?: true
     ml_notes?: true
     ml_profile_img?: true
-    ml_adhaar_front_img?: true
-    ml_adhaar_back_img?: true
-    ml_pan_img?: true
+    ml_other_images?: true
     is_active?: true
     created_at?: true
     updated_at?: true
@@ -30043,9 +31383,7 @@ export namespace Prisma {
     ml_address: string | null
     ml_notes: string | null
     ml_profile_img: JsonValue | null
-    ml_adhaar_front_img: JsonValue | null
-    ml_adhaar_back_img: JsonValue | null
-    ml_pan_img: JsonValue | null
+    ml_other_images: JsonValue | null
     is_active: boolean
     created_at: Date
     updated_at: Date
@@ -30099,9 +31437,7 @@ export namespace Prisma {
     ml_address?: boolean
     ml_notes?: boolean
     ml_profile_img?: boolean
-    ml_adhaar_front_img?: boolean
-    ml_adhaar_back_img?: boolean
-    ml_pan_img?: boolean
+    ml_other_images?: boolean
     is_active?: boolean
     created_at?: boolean
     updated_at?: boolean
@@ -30140,9 +31476,7 @@ export namespace Prisma {
     ml_address?: boolean
     ml_notes?: boolean
     ml_profile_img?: boolean
-    ml_adhaar_front_img?: boolean
-    ml_adhaar_back_img?: boolean
-    ml_pan_img?: boolean
+    ml_other_images?: boolean
     is_active?: boolean
     created_at?: boolean
     updated_at?: boolean
@@ -30179,9 +31513,7 @@ export namespace Prisma {
     ml_address?: boolean
     ml_notes?: boolean
     ml_profile_img?: boolean
-    ml_adhaar_front_img?: boolean
-    ml_adhaar_back_img?: boolean
-    ml_pan_img?: boolean
+    ml_other_images?: boolean
     is_active?: boolean
     created_at?: boolean
     updated_at?: boolean
@@ -30234,9 +31566,7 @@ export namespace Prisma {
       ml_address: string | null
       ml_notes: string | null
       ml_profile_img: Prisma.JsonValue | null
-      ml_adhaar_front_img: Prisma.JsonValue | null
-      ml_adhaar_back_img: Prisma.JsonValue | null
-      ml_pan_img: Prisma.JsonValue | null
+      ml_other_images: Prisma.JsonValue | null
       is_active: boolean
       created_at: Date
       updated_at: Date
@@ -30664,9 +31994,7 @@ export namespace Prisma {
     readonly ml_address: FieldRef<"MoneyLender", 'String'>
     readonly ml_notes: FieldRef<"MoneyLender", 'String'>
     readonly ml_profile_img: FieldRef<"MoneyLender", 'Json'>
-    readonly ml_adhaar_front_img: FieldRef<"MoneyLender", 'Json'>
-    readonly ml_adhaar_back_img: FieldRef<"MoneyLender", 'Json'>
-    readonly ml_pan_img: FieldRef<"MoneyLender", 'Json'>
+    readonly ml_other_images: FieldRef<"MoneyLender", 'Json'>
     readonly is_active: FieldRef<"MoneyLender", 'Boolean'>
     readonly created_at: FieldRef<"MoneyLender", 'DateTime'>
     readonly updated_at: FieldRef<"MoneyLender", 'DateTime'>
@@ -31077,7 +32405,6 @@ export namespace Prisma {
     au_country: string | null
     au_village: string | null
     au_pincode: string | null
-    au_image: string | null
   }
 
   export type AuctionUserMaxAggregateOutputType = {
@@ -31098,7 +32425,6 @@ export namespace Prisma {
     au_country: string | null
     au_village: string | null
     au_pincode: string | null
-    au_image: string | null
   }
 
   export type AuctionUserCountAggregateOutputType = {
@@ -31119,7 +32445,8 @@ export namespace Prisma {
     au_country: number
     au_village: number
     au_pincode: number
-    au_image: number
+    au_profile_img: number
+    au_other_images: number
     _all: number
   }
 
@@ -31152,7 +32479,6 @@ export namespace Prisma {
     au_country?: true
     au_village?: true
     au_pincode?: true
-    au_image?: true
   }
 
   export type AuctionUserMaxAggregateInputType = {
@@ -31173,7 +32499,6 @@ export namespace Prisma {
     au_country?: true
     au_village?: true
     au_pincode?: true
-    au_image?: true
   }
 
   export type AuctionUserCountAggregateInputType = {
@@ -31194,7 +32519,8 @@ export namespace Prisma {
     au_country?: true
     au_village?: true
     au_pincode?: true
-    au_image?: true
+    au_profile_img?: true
+    au_other_images?: true
     _all?: true
   }
 
@@ -31302,7 +32628,8 @@ export namespace Prisma {
     au_country: string | null
     au_village: string | null
     au_pincode: string | null
-    au_image: string | null
+    au_profile_img: JsonValue | null
+    au_other_images: JsonValue | null
     _count: AuctionUserCountAggregateOutputType | null
     _avg: AuctionUserAvgAggregateOutputType | null
     _sum: AuctionUserSumAggregateOutputType | null
@@ -31342,7 +32669,8 @@ export namespace Prisma {
     au_country?: boolean
     au_village?: boolean
     au_pincode?: boolean
-    au_image?: boolean
+    au_profile_img?: boolean
+    au_other_images?: boolean
     firm?: boolean | FirmDefaultArgs<ExtArgs>
     auctionLoans?: boolean | AuctionUser$auctionLoansArgs<ExtArgs>
     _count?: boolean | AuctionUserCountOutputTypeDefaultArgs<ExtArgs>
@@ -31366,7 +32694,8 @@ export namespace Prisma {
     au_country?: boolean
     au_village?: boolean
     au_pincode?: boolean
-    au_image?: boolean
+    au_profile_img?: boolean
+    au_other_images?: boolean
     firm?: boolean | FirmDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["auctionUser"]>
 
@@ -31388,7 +32717,8 @@ export namespace Prisma {
     au_country?: boolean
     au_village?: boolean
     au_pincode?: boolean
-    au_image?: boolean
+    au_profile_img?: boolean
+    au_other_images?: boolean
   }
 
   export type AuctionUserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -31424,7 +32754,8 @@ export namespace Prisma {
       au_country: string | null
       au_village: string | null
       au_pincode: string | null
-      au_image: string | null
+      au_profile_img: Prisma.JsonValue | null
+      au_other_images: Prisma.JsonValue | null
     }, ExtArgs["result"]["auctionUser"]>
     composites: {}
   }
@@ -31837,7 +33168,8 @@ export namespace Prisma {
     readonly au_country: FieldRef<"AuctionUser", 'String'>
     readonly au_village: FieldRef<"AuctionUser", 'String'>
     readonly au_pincode: FieldRef<"AuctionUser", 'String'>
-    readonly au_image: FieldRef<"AuctionUser", 'String'>
+    readonly au_profile_img: FieldRef<"AuctionUser", 'Json'>
+    readonly au_other_images: FieldRef<"AuctionUser", 'Json'>
   }
     
 
@@ -33609,10 +34941,7 @@ export namespace Prisma {
     staff_password: number
     staff_status: number
     staff_profile_img: number
-    staff_adhaar_front_img: number
-    staff_adhaar_back_img: number
-    staff_pan_card_img: number
-    staff_sign_img: number
+    staff_other_images: number
     staff_per_address: number
     staff_curr_address: number
     staff_village: number
@@ -33783,10 +35112,7 @@ export namespace Prisma {
     staff_password?: true
     staff_status?: true
     staff_profile_img?: true
-    staff_adhaar_front_img?: true
-    staff_adhaar_back_img?: true
-    staff_pan_card_img?: true
-    staff_sign_img?: true
+    staff_other_images?: true
     staff_per_address?: true
     staff_curr_address?: true
     staff_village?: true
@@ -33928,10 +35254,7 @@ export namespace Prisma {
     staff_password: string
     staff_status: $Enums.StaffStatus
     staff_profile_img: JsonValue | null
-    staff_adhaar_front_img: JsonValue | null
-    staff_adhaar_back_img: JsonValue | null
-    staff_pan_card_img: JsonValue | null
-    staff_sign_img: JsonValue | null
+    staff_other_images: JsonValue | null
     staff_per_address: string | null
     staff_curr_address: string | null
     staff_village: string | null
@@ -34005,10 +35328,7 @@ export namespace Prisma {
     staff_password?: boolean
     staff_status?: boolean
     staff_profile_img?: boolean
-    staff_adhaar_front_img?: boolean
-    staff_adhaar_back_img?: boolean
-    staff_pan_card_img?: boolean
-    staff_sign_img?: boolean
+    staff_other_images?: boolean
     staff_per_address?: boolean
     staff_curr_address?: boolean
     staff_village?: boolean
@@ -34066,10 +35386,7 @@ export namespace Prisma {
     staff_password?: boolean
     staff_status?: boolean
     staff_profile_img?: boolean
-    staff_adhaar_front_img?: boolean
-    staff_adhaar_back_img?: boolean
-    staff_pan_card_img?: boolean
-    staff_sign_img?: boolean
+    staff_other_images?: boolean
     staff_per_address?: boolean
     staff_curr_address?: boolean
     staff_village?: boolean
@@ -34125,10 +35442,7 @@ export namespace Prisma {
     staff_password?: boolean
     staff_status?: boolean
     staff_profile_img?: boolean
-    staff_adhaar_front_img?: boolean
-    staff_adhaar_back_img?: boolean
-    staff_pan_card_img?: boolean
-    staff_sign_img?: boolean
+    staff_other_images?: boolean
     staff_per_address?: boolean
     staff_curr_address?: boolean
     staff_village?: boolean
@@ -34198,10 +35512,7 @@ export namespace Prisma {
       staff_password: string
       staff_status: $Enums.StaffStatus
       staff_profile_img: Prisma.JsonValue | null
-      staff_adhaar_front_img: Prisma.JsonValue | null
-      staff_adhaar_back_img: Prisma.JsonValue | null
-      staff_pan_card_img: Prisma.JsonValue | null
-      staff_sign_img: Prisma.JsonValue | null
+      staff_other_images: Prisma.JsonValue | null
       staff_per_address: string | null
       staff_curr_address: string | null
       staff_village: string | null
@@ -34648,10 +35959,7 @@ export namespace Prisma {
     readonly staff_password: FieldRef<"Staff", 'String'>
     readonly staff_status: FieldRef<"Staff", 'StaffStatus'>
     readonly staff_profile_img: FieldRef<"Staff", 'Json'>
-    readonly staff_adhaar_front_img: FieldRef<"Staff", 'Json'>
-    readonly staff_adhaar_back_img: FieldRef<"Staff", 'Json'>
-    readonly staff_pan_card_img: FieldRef<"Staff", 'Json'>
-    readonly staff_sign_img: FieldRef<"Staff", 'Json'>
+    readonly staff_other_images: FieldRef<"Staff", 'Json'>
     readonly staff_per_address: FieldRef<"Staff", 'String'>
     readonly staff_curr_address: FieldRef<"Staff", 'String'>
     readonly staff_village: FieldRef<"Staff", 'String'>
@@ -42543,9 +43851,6 @@ export namespace Prisma {
     user_pan_no: 'user_pan_no',
     user_adhaar_no: 'user_adhaar_no',
     user_profile_img: 'user_profile_img',
-    user_adhaar_front_img: 'user_adhaar_front_img',
-    user_adhaar_back_img: 'user_adhaar_back_img',
-    user_pan_card_img: 'user_pan_card_img',
     user_per_address: 'user_per_address',
     user_curr_address: 'user_curr_address',
     user_village: 'user_village',
@@ -42558,7 +43863,7 @@ export namespace Prisma {
     user_bank_name: 'user_bank_name',
     user_bank_acc_no: 'user_bank_acc_no',
     user_ifsc_code: 'user_ifsc_code',
-    user_sign_img: 'user_sign_img',
+    user_other_images: 'user_other_images',
     user_other_info: 'user_other_info',
     user_created_at: 'user_created_at',
     user_created_by: 'user_created_by',
@@ -42963,6 +44268,10 @@ export namespace Prisma {
     rel_card_info: 'rel_card_info',
     rel_pay_info: 'rel_pay_info',
     rel_other_info: 'rel_other_info',
+    rel_remark: 'rel_remark',
+    rel_item_images: 'rel_item_images',
+    rel_is_other_user: 'rel_is_other_user',
+    rel_pickup_user_id: 'rel_pickup_user_id',
     rel_created_at: 'rel_created_at',
     rel_created_by: 'rel_created_by',
     rel_updated_at: 'rel_updated_at',
@@ -42973,6 +44282,30 @@ export namespace Prisma {
   };
 
   export type GirviReleaseScalarFieldEnum = (typeof GirviReleaseScalarFieldEnum)[keyof typeof GirviReleaseScalarFieldEnum]
+
+
+  export const ReleaseUserScalarFieldEnum: {
+    ru_id: 'ru_id',
+    ru_uuid: 'ru_uuid',
+    ru_unique_code: 'ru_unique_code',
+    ru_date: 'ru_date',
+    ru_firm_id: 'ru_firm_id',
+    ru_full_name: 'ru_full_name',
+    ru_mobile: 'ru_mobile',
+    ru_email: 'ru_email',
+    ru_aadhaar: 'ru_aadhaar',
+    ru_gender: 'ru_gender',
+    ru_pan: 'ru_pan',
+    ru_address: 'ru_address',
+    ru_state: 'ru_state',
+    ru_city: 'ru_city',
+    ru_country: 'ru_country',
+    ru_village: 'ru_village',
+    ru_pincode: 'ru_pincode',
+    ru_other_images: 'ru_other_images'
+  };
+
+  export type ReleaseUserScalarFieldEnum = (typeof ReleaseUserScalarFieldEnum)[keyof typeof ReleaseUserScalarFieldEnum]
 
 
   export const RateScalarFieldEnum: {
@@ -43046,9 +44379,7 @@ export namespace Prisma {
     ml_address: 'ml_address',
     ml_notes: 'ml_notes',
     ml_profile_img: 'ml_profile_img',
-    ml_adhaar_front_img: 'ml_adhaar_front_img',
-    ml_adhaar_back_img: 'ml_adhaar_back_img',
-    ml_pan_img: 'ml_pan_img',
+    ml_other_images: 'ml_other_images',
     is_active: 'is_active',
     created_at: 'created_at',
     updated_at: 'updated_at'
@@ -43075,7 +44406,8 @@ export namespace Prisma {
     au_country: 'au_country',
     au_village: 'au_village',
     au_pincode: 'au_pincode',
-    au_image: 'au_image'
+    au_profile_img: 'au_profile_img',
+    au_other_images: 'au_other_images'
   };
 
   export type AuctionUserScalarFieldEnum = (typeof AuctionUserScalarFieldEnum)[keyof typeof AuctionUserScalarFieldEnum]
@@ -43137,10 +44469,7 @@ export namespace Prisma {
     staff_password: 'staff_password',
     staff_status: 'staff_status',
     staff_profile_img: 'staff_profile_img',
-    staff_adhaar_front_img: 'staff_adhaar_front_img',
-    staff_adhaar_back_img: 'staff_adhaar_back_img',
-    staff_pan_card_img: 'staff_pan_card_img',
-    staff_sign_img: 'staff_sign_img',
+    staff_other_images: 'staff_other_images',
     staff_per_address: 'staff_per_address',
     staff_curr_address: 'staff_curr_address',
     staff_village: 'staff_village',
@@ -44149,6 +45478,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderListRelationFilter
     auctionUsers?: AuctionUserListRelationFilter
     auctionLoans?: AuctionLoanListRelationFilter
+    releaseUsers?: ReleaseUserListRelationFilter
     messageTemplates?: MessageTemplateListRelationFilter
     whatsappInstance?: XOR<WhatsAppInstanceNullableRelationFilter, WhatsAppInstanceWhereInput> | null
   }
@@ -44221,6 +45551,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderOrderByRelationAggregateInput
     auctionUsers?: AuctionUserOrderByRelationAggregateInput
     auctionLoans?: AuctionLoanOrderByRelationAggregateInput
+    releaseUsers?: ReleaseUserOrderByRelationAggregateInput
     messageTemplates?: MessageTemplateOrderByRelationAggregateInput
     whatsappInstance?: WhatsAppInstanceOrderByWithRelationInput
   }
@@ -44296,6 +45627,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderListRelationFilter
     auctionUsers?: AuctionUserListRelationFilter
     auctionLoans?: AuctionLoanListRelationFilter
+    releaseUsers?: ReleaseUserListRelationFilter
     messageTemplates?: MessageTemplateListRelationFilter
     whatsappInstance?: XOR<WhatsAppInstanceNullableRelationFilter, WhatsAppInstanceWhereInput> | null
   }, "firm_id" | "firm_uuid" | "firm_unique_code" | "firm_name" | "firm_reg_no">
@@ -44750,9 +46082,6 @@ export namespace Prisma {
     user_pan_no?: StringNullableFilter<"User"> | string | null
     user_adhaar_no?: StringNullableFilter<"User"> | string | null
     user_profile_img?: JsonNullableFilter<"User">
-    user_adhaar_front_img?: JsonNullableFilter<"User">
-    user_adhaar_back_img?: JsonNullableFilter<"User">
-    user_pan_card_img?: JsonNullableFilter<"User">
     user_per_address?: StringNullableFilter<"User"> | string | null
     user_curr_address?: StringNullableFilter<"User"> | string | null
     user_village?: StringNullableFilter<"User"> | string | null
@@ -44765,7 +46094,7 @@ export namespace Prisma {
     user_bank_name?: StringNullableFilter<"User"> | string | null
     user_bank_acc_no?: StringNullableFilter<"User"> | string | null
     user_ifsc_code?: StringNullableFilter<"User"> | string | null
-    user_sign_img?: JsonNullableFilter<"User">
+    user_other_images?: JsonNullableFilter<"User">
     user_other_info?: StringNullableFilter<"User"> | string | null
     user_created_at?: DateTimeFilter<"User"> | Date | string
     user_created_by?: StringNullableFilter<"User"> | string | null
@@ -44812,9 +46141,6 @@ export namespace Prisma {
     user_pan_no?: SortOrderInput | SortOrder
     user_adhaar_no?: SortOrderInput | SortOrder
     user_profile_img?: SortOrderInput | SortOrder
-    user_adhaar_front_img?: SortOrderInput | SortOrder
-    user_adhaar_back_img?: SortOrderInput | SortOrder
-    user_pan_card_img?: SortOrderInput | SortOrder
     user_per_address?: SortOrderInput | SortOrder
     user_curr_address?: SortOrderInput | SortOrder
     user_village?: SortOrderInput | SortOrder
@@ -44827,7 +46153,7 @@ export namespace Prisma {
     user_bank_name?: SortOrderInput | SortOrder
     user_bank_acc_no?: SortOrderInput | SortOrder
     user_ifsc_code?: SortOrderInput | SortOrder
-    user_sign_img?: SortOrderInput | SortOrder
+    user_other_images?: SortOrderInput | SortOrder
     user_other_info?: SortOrderInput | SortOrder
     user_created_at?: SortOrder
     user_created_by?: SortOrderInput | SortOrder
@@ -44877,9 +46203,6 @@ export namespace Prisma {
     user_pan_no?: StringNullableFilter<"User"> | string | null
     user_adhaar_no?: StringNullableFilter<"User"> | string | null
     user_profile_img?: JsonNullableFilter<"User">
-    user_adhaar_front_img?: JsonNullableFilter<"User">
-    user_adhaar_back_img?: JsonNullableFilter<"User">
-    user_pan_card_img?: JsonNullableFilter<"User">
     user_per_address?: StringNullableFilter<"User"> | string | null
     user_curr_address?: StringNullableFilter<"User"> | string | null
     user_village?: StringNullableFilter<"User"> | string | null
@@ -44892,7 +46215,7 @@ export namespace Prisma {
     user_bank_name?: StringNullableFilter<"User"> | string | null
     user_bank_acc_no?: StringNullableFilter<"User"> | string | null
     user_ifsc_code?: StringNullableFilter<"User"> | string | null
-    user_sign_img?: JsonNullableFilter<"User">
+    user_other_images?: JsonNullableFilter<"User">
     user_other_info?: StringNullableFilter<"User"> | string | null
     user_created_at?: DateTimeFilter<"User"> | Date | string
     user_created_by?: StringNullableFilter<"User"> | string | null
@@ -44939,9 +46262,6 @@ export namespace Prisma {
     user_pan_no?: SortOrderInput | SortOrder
     user_adhaar_no?: SortOrderInput | SortOrder
     user_profile_img?: SortOrderInput | SortOrder
-    user_adhaar_front_img?: SortOrderInput | SortOrder
-    user_adhaar_back_img?: SortOrderInput | SortOrder
-    user_pan_card_img?: SortOrderInput | SortOrder
     user_per_address?: SortOrderInput | SortOrder
     user_curr_address?: SortOrderInput | SortOrder
     user_village?: SortOrderInput | SortOrder
@@ -44954,7 +46274,7 @@ export namespace Prisma {
     user_bank_name?: SortOrderInput | SortOrder
     user_bank_acc_no?: SortOrderInput | SortOrder
     user_ifsc_code?: SortOrderInput | SortOrder
-    user_sign_img?: SortOrderInput | SortOrder
+    user_other_images?: SortOrderInput | SortOrder
     user_other_info?: SortOrderInput | SortOrder
     user_created_at?: SortOrder
     user_created_by?: SortOrderInput | SortOrder
@@ -44997,9 +46317,6 @@ export namespace Prisma {
     user_pan_no?: StringNullableWithAggregatesFilter<"User"> | string | null
     user_adhaar_no?: StringNullableWithAggregatesFilter<"User"> | string | null
     user_profile_img?: JsonNullableWithAggregatesFilter<"User">
-    user_adhaar_front_img?: JsonNullableWithAggregatesFilter<"User">
-    user_adhaar_back_img?: JsonNullableWithAggregatesFilter<"User">
-    user_pan_card_img?: JsonNullableWithAggregatesFilter<"User">
     user_per_address?: StringNullableWithAggregatesFilter<"User"> | string | null
     user_curr_address?: StringNullableWithAggregatesFilter<"User"> | string | null
     user_village?: StringNullableWithAggregatesFilter<"User"> | string | null
@@ -45012,7 +46329,7 @@ export namespace Prisma {
     user_bank_name?: StringNullableWithAggregatesFilter<"User"> | string | null
     user_bank_acc_no?: StringNullableWithAggregatesFilter<"User"> | string | null
     user_ifsc_code?: StringNullableWithAggregatesFilter<"User"> | string | null
-    user_sign_img?: JsonNullableWithAggregatesFilter<"User">
+    user_other_images?: JsonNullableWithAggregatesFilter<"User">
     user_other_info?: StringNullableWithAggregatesFilter<"User"> | string | null
     user_created_at?: DateTimeWithAggregatesFilter<"User"> | Date | string
     user_created_by?: StringNullableWithAggregatesFilter<"User"> | string | null
@@ -47075,6 +48392,10 @@ export namespace Prisma {
     rel_card_info?: StringNullableFilter<"GirviRelease"> | string | null
     rel_pay_info?: StringNullableFilter<"GirviRelease"> | string | null
     rel_other_info?: StringNullableFilter<"GirviRelease"> | string | null
+    rel_remark?: StringNullableFilter<"GirviRelease"> | string | null
+    rel_item_images?: JsonNullableFilter<"GirviRelease">
+    rel_is_other_user?: BoolFilter<"GirviRelease"> | boolean
+    rel_pickup_user_id?: IntNullableFilter<"GirviRelease"> | number | null
     rel_created_at?: DateTimeFilter<"GirviRelease"> | Date | string
     rel_created_by?: StringNullableFilter<"GirviRelease"> | string | null
     rel_updated_at?: DateTimeFilter<"GirviRelease"> | Date | string
@@ -47094,6 +48415,7 @@ export namespace Prisma {
     bankAccount?: XOR<AccountNullableRelationFilter, AccountWhereInput> | null
     onlineAccount?: XOR<AccountNullableRelationFilter, AccountWhereInput> | null
     cardAccount?: XOR<AccountNullableRelationFilter, AccountWhereInput> | null
+    pickupUser?: XOR<ReleaseUserNullableRelationFilter, ReleaseUserWhereInput> | null
   }
 
   export type GirviReleaseOrderByWithRelationInput = {
@@ -47128,6 +48450,10 @@ export namespace Prisma {
     rel_card_info?: SortOrderInput | SortOrder
     rel_pay_info?: SortOrderInput | SortOrder
     rel_other_info?: SortOrderInput | SortOrder
+    rel_remark?: SortOrderInput | SortOrder
+    rel_item_images?: SortOrderInput | SortOrder
+    rel_is_other_user?: SortOrder
+    rel_pickup_user_id?: SortOrderInput | SortOrder
     rel_created_at?: SortOrder
     rel_created_by?: SortOrderInput | SortOrder
     rel_updated_at?: SortOrder
@@ -47147,6 +48473,7 @@ export namespace Prisma {
     bankAccount?: AccountOrderByWithRelationInput
     onlineAccount?: AccountOrderByWithRelationInput
     cardAccount?: AccountOrderByWithRelationInput
+    pickupUser?: ReleaseUserOrderByWithRelationInput
   }
 
   export type GirviReleaseWhereUniqueInput = Prisma.AtLeast<{
@@ -47184,6 +48511,10 @@ export namespace Prisma {
     rel_card_info?: StringNullableFilter<"GirviRelease"> | string | null
     rel_pay_info?: StringNullableFilter<"GirviRelease"> | string | null
     rel_other_info?: StringNullableFilter<"GirviRelease"> | string | null
+    rel_remark?: StringNullableFilter<"GirviRelease"> | string | null
+    rel_item_images?: JsonNullableFilter<"GirviRelease">
+    rel_is_other_user?: BoolFilter<"GirviRelease"> | boolean
+    rel_pickup_user_id?: IntNullableFilter<"GirviRelease"> | number | null
     rel_created_at?: DateTimeFilter<"GirviRelease"> | Date | string
     rel_created_by?: StringNullableFilter<"GirviRelease"> | string | null
     rel_updated_at?: DateTimeFilter<"GirviRelease"> | Date | string
@@ -47203,6 +48534,7 @@ export namespace Prisma {
     bankAccount?: XOR<AccountNullableRelationFilter, AccountWhereInput> | null
     onlineAccount?: XOR<AccountNullableRelationFilter, AccountWhereInput> | null
     cardAccount?: XOR<AccountNullableRelationFilter, AccountWhereInput> | null
+    pickupUser?: XOR<ReleaseUserNullableRelationFilter, ReleaseUserWhereInput> | null
   }, "rel_id" | "rel_uuid">
 
   export type GirviReleaseOrderByWithAggregationInput = {
@@ -47237,6 +48569,10 @@ export namespace Prisma {
     rel_card_info?: SortOrderInput | SortOrder
     rel_pay_info?: SortOrderInput | SortOrder
     rel_other_info?: SortOrderInput | SortOrder
+    rel_remark?: SortOrderInput | SortOrder
+    rel_item_images?: SortOrderInput | SortOrder
+    rel_is_other_user?: SortOrder
+    rel_pickup_user_id?: SortOrderInput | SortOrder
     rel_created_at?: SortOrder
     rel_created_by?: SortOrderInput | SortOrder
     rel_updated_at?: SortOrder
@@ -47286,6 +48622,10 @@ export namespace Prisma {
     rel_card_info?: StringNullableWithAggregatesFilter<"GirviRelease"> | string | null
     rel_pay_info?: StringNullableWithAggregatesFilter<"GirviRelease"> | string | null
     rel_other_info?: StringNullableWithAggregatesFilter<"GirviRelease"> | string | null
+    rel_remark?: StringNullableWithAggregatesFilter<"GirviRelease"> | string | null
+    rel_item_images?: JsonNullableWithAggregatesFilter<"GirviRelease">
+    rel_is_other_user?: BoolWithAggregatesFilter<"GirviRelease"> | boolean
+    rel_pickup_user_id?: IntNullableWithAggregatesFilter<"GirviRelease"> | number | null
     rel_created_at?: DateTimeWithAggregatesFilter<"GirviRelease"> | Date | string
     rel_created_by?: StringNullableWithAggregatesFilter<"GirviRelease"> | string | null
     rel_updated_at?: DateTimeWithAggregatesFilter<"GirviRelease"> | Date | string
@@ -47293,6 +48633,131 @@ export namespace Prisma {
     rel_deleted_at?: DateTimeNullableWithAggregatesFilter<"GirviRelease"> | Date | string | null
     rel_deleted_by?: StringNullableWithAggregatesFilter<"GirviRelease"> | string | null
     rel_is_deleted?: BoolWithAggregatesFilter<"GirviRelease"> | boolean
+  }
+
+  export type ReleaseUserWhereInput = {
+    AND?: ReleaseUserWhereInput | ReleaseUserWhereInput[]
+    OR?: ReleaseUserWhereInput[]
+    NOT?: ReleaseUserWhereInput | ReleaseUserWhereInput[]
+    ru_id?: IntFilter<"ReleaseUser"> | number
+    ru_uuid?: StringFilter<"ReleaseUser"> | string
+    ru_unique_code?: StringNullableFilter<"ReleaseUser"> | string | null
+    ru_date?: StringNullableFilter<"ReleaseUser"> | string | null
+    ru_firm_id?: IntFilter<"ReleaseUser"> | number
+    ru_full_name?: StringNullableFilter<"ReleaseUser"> | string | null
+    ru_mobile?: StringNullableFilter<"ReleaseUser"> | string | null
+    ru_email?: StringNullableFilter<"ReleaseUser"> | string | null
+    ru_aadhaar?: StringNullableFilter<"ReleaseUser"> | string | null
+    ru_gender?: StringNullableFilter<"ReleaseUser"> | string | null
+    ru_pan?: StringNullableFilter<"ReleaseUser"> | string | null
+    ru_address?: StringNullableFilter<"ReleaseUser"> | string | null
+    ru_state?: StringNullableFilter<"ReleaseUser"> | string | null
+    ru_city?: StringNullableFilter<"ReleaseUser"> | string | null
+    ru_country?: StringNullableFilter<"ReleaseUser"> | string | null
+    ru_village?: StringNullableFilter<"ReleaseUser"> | string | null
+    ru_pincode?: StringNullableFilter<"ReleaseUser"> | string | null
+    ru_other_images?: JsonNullableFilter<"ReleaseUser">
+    firm?: XOR<FirmRelationFilter, FirmWhereInput>
+    releases?: GirviReleaseListRelationFilter
+  }
+
+  export type ReleaseUserOrderByWithRelationInput = {
+    ru_id?: SortOrder
+    ru_uuid?: SortOrder
+    ru_unique_code?: SortOrderInput | SortOrder
+    ru_date?: SortOrderInput | SortOrder
+    ru_firm_id?: SortOrder
+    ru_full_name?: SortOrderInput | SortOrder
+    ru_mobile?: SortOrderInput | SortOrder
+    ru_email?: SortOrderInput | SortOrder
+    ru_aadhaar?: SortOrderInput | SortOrder
+    ru_gender?: SortOrderInput | SortOrder
+    ru_pan?: SortOrderInput | SortOrder
+    ru_address?: SortOrderInput | SortOrder
+    ru_state?: SortOrderInput | SortOrder
+    ru_city?: SortOrderInput | SortOrder
+    ru_country?: SortOrderInput | SortOrder
+    ru_village?: SortOrderInput | SortOrder
+    ru_pincode?: SortOrderInput | SortOrder
+    ru_other_images?: SortOrderInput | SortOrder
+    firm?: FirmOrderByWithRelationInput
+    releases?: GirviReleaseOrderByRelationAggregateInput
+  }
+
+  export type ReleaseUserWhereUniqueInput = Prisma.AtLeast<{
+    ru_id?: number
+    ru_uuid?: string
+    ru_unique_code?: string
+    AND?: ReleaseUserWhereInput | ReleaseUserWhereInput[]
+    OR?: ReleaseUserWhereInput[]
+    NOT?: ReleaseUserWhereInput | ReleaseUserWhereInput[]
+    ru_date?: StringNullableFilter<"ReleaseUser"> | string | null
+    ru_firm_id?: IntFilter<"ReleaseUser"> | number
+    ru_full_name?: StringNullableFilter<"ReleaseUser"> | string | null
+    ru_mobile?: StringNullableFilter<"ReleaseUser"> | string | null
+    ru_email?: StringNullableFilter<"ReleaseUser"> | string | null
+    ru_aadhaar?: StringNullableFilter<"ReleaseUser"> | string | null
+    ru_gender?: StringNullableFilter<"ReleaseUser"> | string | null
+    ru_pan?: StringNullableFilter<"ReleaseUser"> | string | null
+    ru_address?: StringNullableFilter<"ReleaseUser"> | string | null
+    ru_state?: StringNullableFilter<"ReleaseUser"> | string | null
+    ru_city?: StringNullableFilter<"ReleaseUser"> | string | null
+    ru_country?: StringNullableFilter<"ReleaseUser"> | string | null
+    ru_village?: StringNullableFilter<"ReleaseUser"> | string | null
+    ru_pincode?: StringNullableFilter<"ReleaseUser"> | string | null
+    ru_other_images?: JsonNullableFilter<"ReleaseUser">
+    firm?: XOR<FirmRelationFilter, FirmWhereInput>
+    releases?: GirviReleaseListRelationFilter
+  }, "ru_id" | "ru_uuid" | "ru_unique_code">
+
+  export type ReleaseUserOrderByWithAggregationInput = {
+    ru_id?: SortOrder
+    ru_uuid?: SortOrder
+    ru_unique_code?: SortOrderInput | SortOrder
+    ru_date?: SortOrderInput | SortOrder
+    ru_firm_id?: SortOrder
+    ru_full_name?: SortOrderInput | SortOrder
+    ru_mobile?: SortOrderInput | SortOrder
+    ru_email?: SortOrderInput | SortOrder
+    ru_aadhaar?: SortOrderInput | SortOrder
+    ru_gender?: SortOrderInput | SortOrder
+    ru_pan?: SortOrderInput | SortOrder
+    ru_address?: SortOrderInput | SortOrder
+    ru_state?: SortOrderInput | SortOrder
+    ru_city?: SortOrderInput | SortOrder
+    ru_country?: SortOrderInput | SortOrder
+    ru_village?: SortOrderInput | SortOrder
+    ru_pincode?: SortOrderInput | SortOrder
+    ru_other_images?: SortOrderInput | SortOrder
+    _count?: ReleaseUserCountOrderByAggregateInput
+    _avg?: ReleaseUserAvgOrderByAggregateInput
+    _max?: ReleaseUserMaxOrderByAggregateInput
+    _min?: ReleaseUserMinOrderByAggregateInput
+    _sum?: ReleaseUserSumOrderByAggregateInput
+  }
+
+  export type ReleaseUserScalarWhereWithAggregatesInput = {
+    AND?: ReleaseUserScalarWhereWithAggregatesInput | ReleaseUserScalarWhereWithAggregatesInput[]
+    OR?: ReleaseUserScalarWhereWithAggregatesInput[]
+    NOT?: ReleaseUserScalarWhereWithAggregatesInput | ReleaseUserScalarWhereWithAggregatesInput[]
+    ru_id?: IntWithAggregatesFilter<"ReleaseUser"> | number
+    ru_uuid?: StringWithAggregatesFilter<"ReleaseUser"> | string
+    ru_unique_code?: StringNullableWithAggregatesFilter<"ReleaseUser"> | string | null
+    ru_date?: StringNullableWithAggregatesFilter<"ReleaseUser"> | string | null
+    ru_firm_id?: IntWithAggregatesFilter<"ReleaseUser"> | number
+    ru_full_name?: StringNullableWithAggregatesFilter<"ReleaseUser"> | string | null
+    ru_mobile?: StringNullableWithAggregatesFilter<"ReleaseUser"> | string | null
+    ru_email?: StringNullableWithAggregatesFilter<"ReleaseUser"> | string | null
+    ru_aadhaar?: StringNullableWithAggregatesFilter<"ReleaseUser"> | string | null
+    ru_gender?: StringNullableWithAggregatesFilter<"ReleaseUser"> | string | null
+    ru_pan?: StringNullableWithAggregatesFilter<"ReleaseUser"> | string | null
+    ru_address?: StringNullableWithAggregatesFilter<"ReleaseUser"> | string | null
+    ru_state?: StringNullableWithAggregatesFilter<"ReleaseUser"> | string | null
+    ru_city?: StringNullableWithAggregatesFilter<"ReleaseUser"> | string | null
+    ru_country?: StringNullableWithAggregatesFilter<"ReleaseUser"> | string | null
+    ru_village?: StringNullableWithAggregatesFilter<"ReleaseUser"> | string | null
+    ru_pincode?: StringNullableWithAggregatesFilter<"ReleaseUser"> | string | null
+    ru_other_images?: JsonNullableWithAggregatesFilter<"ReleaseUser">
   }
 
   export type RateWhereInput = {
@@ -47544,9 +49009,7 @@ export namespace Prisma {
     ml_address?: StringNullableFilter<"MoneyLender"> | string | null
     ml_notes?: StringNullableFilter<"MoneyLender"> | string | null
     ml_profile_img?: JsonNullableFilter<"MoneyLender">
-    ml_adhaar_front_img?: JsonNullableFilter<"MoneyLender">
-    ml_adhaar_back_img?: JsonNullableFilter<"MoneyLender">
-    ml_pan_img?: JsonNullableFilter<"MoneyLender">
+    ml_other_images?: JsonNullableFilter<"MoneyLender">
     is_active?: BoolFilter<"MoneyLender"> | boolean
     created_at?: DateTimeFilter<"MoneyLender"> | Date | string
     updated_at?: DateTimeFilter<"MoneyLender"> | Date | string
@@ -47584,9 +49047,7 @@ export namespace Prisma {
     ml_address?: SortOrderInput | SortOrder
     ml_notes?: SortOrderInput | SortOrder
     ml_profile_img?: SortOrderInput | SortOrder
-    ml_adhaar_front_img?: SortOrderInput | SortOrder
-    ml_adhaar_back_img?: SortOrderInput | SortOrder
-    ml_pan_img?: SortOrderInput | SortOrder
+    ml_other_images?: SortOrderInput | SortOrder
     is_active?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
@@ -47627,9 +49088,7 @@ export namespace Prisma {
     ml_address?: StringNullableFilter<"MoneyLender"> | string | null
     ml_notes?: StringNullableFilter<"MoneyLender"> | string | null
     ml_profile_img?: JsonNullableFilter<"MoneyLender">
-    ml_adhaar_front_img?: JsonNullableFilter<"MoneyLender">
-    ml_adhaar_back_img?: JsonNullableFilter<"MoneyLender">
-    ml_pan_img?: JsonNullableFilter<"MoneyLender">
+    ml_other_images?: JsonNullableFilter<"MoneyLender">
     is_active?: BoolFilter<"MoneyLender"> | boolean
     created_at?: DateTimeFilter<"MoneyLender"> | Date | string
     updated_at?: DateTimeFilter<"MoneyLender"> | Date | string
@@ -47667,9 +49126,7 @@ export namespace Prisma {
     ml_address?: SortOrderInput | SortOrder
     ml_notes?: SortOrderInput | SortOrder
     ml_profile_img?: SortOrderInput | SortOrder
-    ml_adhaar_front_img?: SortOrderInput | SortOrder
-    ml_adhaar_back_img?: SortOrderInput | SortOrder
-    ml_pan_img?: SortOrderInput | SortOrder
+    ml_other_images?: SortOrderInput | SortOrder
     is_active?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
@@ -47712,9 +49169,7 @@ export namespace Prisma {
     ml_address?: StringNullableWithAggregatesFilter<"MoneyLender"> | string | null
     ml_notes?: StringNullableWithAggregatesFilter<"MoneyLender"> | string | null
     ml_profile_img?: JsonNullableWithAggregatesFilter<"MoneyLender">
-    ml_adhaar_front_img?: JsonNullableWithAggregatesFilter<"MoneyLender">
-    ml_adhaar_back_img?: JsonNullableWithAggregatesFilter<"MoneyLender">
-    ml_pan_img?: JsonNullableWithAggregatesFilter<"MoneyLender">
+    ml_other_images?: JsonNullableWithAggregatesFilter<"MoneyLender">
     is_active?: BoolWithAggregatesFilter<"MoneyLender"> | boolean
     created_at?: DateTimeWithAggregatesFilter<"MoneyLender"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"MoneyLender"> | Date | string
@@ -47741,7 +49196,8 @@ export namespace Prisma {
     au_country?: StringNullableFilter<"AuctionUser"> | string | null
     au_village?: StringNullableFilter<"AuctionUser"> | string | null
     au_pincode?: StringNullableFilter<"AuctionUser"> | string | null
-    au_image?: StringNullableFilter<"AuctionUser"> | string | null
+    au_profile_img?: JsonNullableFilter<"AuctionUser">
+    au_other_images?: JsonNullableFilter<"AuctionUser">
     firm?: XOR<FirmRelationFilter, FirmWhereInput>
     auctionLoans?: AuctionLoanListRelationFilter
   }
@@ -47764,7 +49220,8 @@ export namespace Prisma {
     au_country?: SortOrderInput | SortOrder
     au_village?: SortOrderInput | SortOrder
     au_pincode?: SortOrderInput | SortOrder
-    au_image?: SortOrderInput | SortOrder
+    au_profile_img?: SortOrderInput | SortOrder
+    au_other_images?: SortOrderInput | SortOrder
     firm?: FirmOrderByWithRelationInput
     auctionLoans?: AuctionLoanOrderByRelationAggregateInput
   }
@@ -47790,7 +49247,8 @@ export namespace Prisma {
     au_country?: StringNullableFilter<"AuctionUser"> | string | null
     au_village?: StringNullableFilter<"AuctionUser"> | string | null
     au_pincode?: StringNullableFilter<"AuctionUser"> | string | null
-    au_image?: StringNullableFilter<"AuctionUser"> | string | null
+    au_profile_img?: JsonNullableFilter<"AuctionUser">
+    au_other_images?: JsonNullableFilter<"AuctionUser">
     firm?: XOR<FirmRelationFilter, FirmWhereInput>
     auctionLoans?: AuctionLoanListRelationFilter
   }, "au_id" | "au_uuid" | "au_unique_code">
@@ -47813,7 +49271,8 @@ export namespace Prisma {
     au_country?: SortOrderInput | SortOrder
     au_village?: SortOrderInput | SortOrder
     au_pincode?: SortOrderInput | SortOrder
-    au_image?: SortOrderInput | SortOrder
+    au_profile_img?: SortOrderInput | SortOrder
+    au_other_images?: SortOrderInput | SortOrder
     _count?: AuctionUserCountOrderByAggregateInput
     _avg?: AuctionUserAvgOrderByAggregateInput
     _max?: AuctionUserMaxOrderByAggregateInput
@@ -47842,7 +49301,8 @@ export namespace Prisma {
     au_country?: StringNullableWithAggregatesFilter<"AuctionUser"> | string | null
     au_village?: StringNullableWithAggregatesFilter<"AuctionUser"> | string | null
     au_pincode?: StringNullableWithAggregatesFilter<"AuctionUser"> | string | null
-    au_image?: StringNullableWithAggregatesFilter<"AuctionUser"> | string | null
+    au_profile_img?: JsonNullableWithAggregatesFilter<"AuctionUser">
+    au_other_images?: JsonNullableWithAggregatesFilter<"AuctionUser">
   }
 
   export type AuctionLoanWhereInput = {
@@ -48032,10 +49492,7 @@ export namespace Prisma {
     staff_password?: StringFilter<"Staff"> | string
     staff_status?: EnumStaffStatusFilter<"Staff"> | $Enums.StaffStatus
     staff_profile_img?: JsonNullableFilter<"Staff">
-    staff_adhaar_front_img?: JsonNullableFilter<"Staff">
-    staff_adhaar_back_img?: JsonNullableFilter<"Staff">
-    staff_pan_card_img?: JsonNullableFilter<"Staff">
-    staff_sign_img?: JsonNullableFilter<"Staff">
+    staff_other_images?: JsonNullableFilter<"Staff">
     staff_per_address?: StringNullableFilter<"Staff"> | string | null
     staff_curr_address?: StringNullableFilter<"Staff"> | string | null
     staff_village?: StringNullableFilter<"Staff"> | string | null
@@ -48092,10 +49549,7 @@ export namespace Prisma {
     staff_password?: SortOrder
     staff_status?: SortOrder
     staff_profile_img?: SortOrderInput | SortOrder
-    staff_adhaar_front_img?: SortOrderInput | SortOrder
-    staff_adhaar_back_img?: SortOrderInput | SortOrder
-    staff_pan_card_img?: SortOrderInput | SortOrder
-    staff_sign_img?: SortOrderInput | SortOrder
+    staff_other_images?: SortOrderInput | SortOrder
     staff_per_address?: SortOrderInput | SortOrder
     staff_curr_address?: SortOrderInput | SortOrder
     staff_village?: SortOrderInput | SortOrder
@@ -48155,10 +49609,7 @@ export namespace Prisma {
     staff_password?: StringFilter<"Staff"> | string
     staff_status?: EnumStaffStatusFilter<"Staff"> | $Enums.StaffStatus
     staff_profile_img?: JsonNullableFilter<"Staff">
-    staff_adhaar_front_img?: JsonNullableFilter<"Staff">
-    staff_adhaar_back_img?: JsonNullableFilter<"Staff">
-    staff_pan_card_img?: JsonNullableFilter<"Staff">
-    staff_sign_img?: JsonNullableFilter<"Staff">
+    staff_other_images?: JsonNullableFilter<"Staff">
     staff_per_address?: StringNullableFilter<"Staff"> | string | null
     staff_curr_address?: StringNullableFilter<"Staff"> | string | null
     staff_village?: StringNullableFilter<"Staff"> | string | null
@@ -48215,10 +49666,7 @@ export namespace Prisma {
     staff_password?: SortOrder
     staff_status?: SortOrder
     staff_profile_img?: SortOrderInput | SortOrder
-    staff_adhaar_front_img?: SortOrderInput | SortOrder
-    staff_adhaar_back_img?: SortOrderInput | SortOrder
-    staff_pan_card_img?: SortOrderInput | SortOrder
-    staff_sign_img?: SortOrderInput | SortOrder
+    staff_other_images?: SortOrderInput | SortOrder
     staff_per_address?: SortOrderInput | SortOrder
     staff_curr_address?: SortOrderInput | SortOrder
     staff_village?: SortOrderInput | SortOrder
@@ -48281,10 +49729,7 @@ export namespace Prisma {
     staff_password?: StringWithAggregatesFilter<"Staff"> | string
     staff_status?: EnumStaffStatusWithAggregatesFilter<"Staff"> | $Enums.StaffStatus
     staff_profile_img?: JsonNullableWithAggregatesFilter<"Staff">
-    staff_adhaar_front_img?: JsonNullableWithAggregatesFilter<"Staff">
-    staff_adhaar_back_img?: JsonNullableWithAggregatesFilter<"Staff">
-    staff_pan_card_img?: JsonNullableWithAggregatesFilter<"Staff">
-    staff_sign_img?: JsonNullableWithAggregatesFilter<"Staff">
+    staff_other_images?: JsonNullableWithAggregatesFilter<"Staff">
     staff_per_address?: StringNullableWithAggregatesFilter<"Staff"> | string | null
     staff_curr_address?: StringNullableWithAggregatesFilter<"Staff"> | string | null
     staff_village?: StringNullableWithAggregatesFilter<"Staff"> | string | null
@@ -49434,6 +50879,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderCreateNestedManyWithoutFirmInput
     auctionUsers?: AuctionUserCreateNestedManyWithoutFirmInput
     auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
+    releaseUsers?: ReleaseUserCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateCreateNestedManyWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceCreateNestedOneWithoutFirmInput
   }
@@ -49505,6 +50951,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutFirmInput
     auctionUsers?: AuctionUserUncheckedCreateNestedManyWithoutFirmInput
     auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
+    releaseUsers?: ReleaseUserUncheckedCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceUncheckedCreateNestedOneWithoutFirmInput
   }
@@ -49575,6 +51022,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUpdateManyWithoutFirmNestedInput
     auctionUsers?: AuctionUserUpdateManyWithoutFirmNestedInput
     auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
+    releaseUsers?: ReleaseUserUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUpdateManyWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUpdateOneWithoutFirmNestedInput
   }
@@ -49646,6 +51094,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutFirmNestedInput
     auctionUsers?: AuctionUserUncheckedUpdateManyWithoutFirmNestedInput
     auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
+    releaseUsers?: ReleaseUserUncheckedUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUncheckedUpdateOneWithoutFirmNestedInput
   }
@@ -50219,9 +51668,6 @@ export namespace Prisma {
     user_pan_no?: string | null
     user_adhaar_no?: string | null
     user_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    user_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
     user_per_address?: string | null
     user_curr_address?: string | null
     user_village?: string | null
@@ -50234,7 +51680,7 @@ export namespace Prisma {
     user_bank_name?: string | null
     user_bank_acc_no?: string | null
     user_ifsc_code?: string | null
-    user_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: string | null
     user_created_at?: Date | string
     user_created_by?: string | null
@@ -50281,9 +51727,6 @@ export namespace Prisma {
     user_pan_no?: string | null
     user_adhaar_no?: string | null
     user_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    user_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
     user_per_address?: string | null
     user_curr_address?: string | null
     user_village?: string | null
@@ -50296,7 +51739,7 @@ export namespace Prisma {
     user_bank_name?: string | null
     user_bank_acc_no?: string | null
     user_ifsc_code?: string | null
-    user_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: string | null
     user_created_at?: Date | string
     user_created_by?: string | null
@@ -50338,9 +51781,6 @@ export namespace Prisma {
     user_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_adhaar_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    user_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
     user_per_address?: NullableStringFieldUpdateOperationsInput | string | null
     user_curr_address?: NullableStringFieldUpdateOperationsInput | string | null
     user_village?: NullableStringFieldUpdateOperationsInput | string | null
@@ -50353,7 +51793,7 @@ export namespace Prisma {
     user_bank_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_bank_acc_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
-    user_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: NullableStringFieldUpdateOperationsInput | string | null
     user_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user_created_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -50400,9 +51840,6 @@ export namespace Prisma {
     user_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_adhaar_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    user_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
     user_per_address?: NullableStringFieldUpdateOperationsInput | string | null
     user_curr_address?: NullableStringFieldUpdateOperationsInput | string | null
     user_village?: NullableStringFieldUpdateOperationsInput | string | null
@@ -50415,7 +51852,7 @@ export namespace Prisma {
     user_bank_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_bank_acc_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
-    user_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: NullableStringFieldUpdateOperationsInput | string | null
     user_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user_created_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -50460,9 +51897,6 @@ export namespace Prisma {
     user_pan_no?: string | null
     user_adhaar_no?: string | null
     user_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    user_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
     user_per_address?: string | null
     user_curr_address?: string | null
     user_village?: string | null
@@ -50475,7 +51909,7 @@ export namespace Prisma {
     user_bank_name?: string | null
     user_bank_acc_no?: string | null
     user_ifsc_code?: string | null
-    user_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: string | null
     user_created_at?: Date | string
     user_created_by?: string | null
@@ -50507,9 +51941,6 @@ export namespace Prisma {
     user_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_adhaar_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    user_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
     user_per_address?: NullableStringFieldUpdateOperationsInput | string | null
     user_curr_address?: NullableStringFieldUpdateOperationsInput | string | null
     user_village?: NullableStringFieldUpdateOperationsInput | string | null
@@ -50522,7 +51953,7 @@ export namespace Prisma {
     user_bank_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_bank_acc_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
-    user_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: NullableStringFieldUpdateOperationsInput | string | null
     user_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user_created_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -50557,9 +51988,6 @@ export namespace Prisma {
     user_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_adhaar_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    user_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
     user_per_address?: NullableStringFieldUpdateOperationsInput | string | null
     user_curr_address?: NullableStringFieldUpdateOperationsInput | string | null
     user_village?: NullableStringFieldUpdateOperationsInput | string | null
@@ -50572,7 +52000,7 @@ export namespace Prisma {
     user_bank_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_bank_acc_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
-    user_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: NullableStringFieldUpdateOperationsInput | string | null
     user_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user_created_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -52862,6 +54290,9 @@ export namespace Prisma {
     rel_card_info?: string | null
     rel_pay_info?: string | null
     rel_other_info?: string | null
+    rel_remark?: string | null
+    rel_item_images?: NullableJsonNullValueInput | InputJsonValue
+    rel_is_other_user?: boolean
     rel_created_at?: Date | string
     rel_created_by?: string | null
     rel_updated_at?: Date | string
@@ -52881,6 +54312,7 @@ export namespace Prisma {
     bankAccount?: AccountCreateNestedOneWithoutRelBankInput
     onlineAccount?: AccountCreateNestedOneWithoutRelOnlineInput
     cardAccount?: AccountCreateNestedOneWithoutRelCardInput
+    pickupUser?: ReleaseUserCreateNestedOneWithoutReleasesInput
   }
 
   export type GirviReleaseUncheckedCreateInput = {
@@ -52915,6 +54347,10 @@ export namespace Prisma {
     rel_card_info?: string | null
     rel_pay_info?: string | null
     rel_other_info?: string | null
+    rel_remark?: string | null
+    rel_item_images?: NullableJsonNullValueInput | InputJsonValue
+    rel_is_other_user?: boolean
+    rel_pickup_user_id?: number | null
     rel_created_at?: Date | string
     rel_created_by?: string | null
     rel_updated_at?: Date | string
@@ -52943,6 +54379,9 @@ export namespace Prisma {
     rel_card_info?: NullableStringFieldUpdateOperationsInput | string | null
     rel_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     rel_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_remark?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_item_images?: NullableJsonNullValueInput | InputJsonValue
+    rel_is_other_user?: BoolFieldUpdateOperationsInput | boolean
     rel_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     rel_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     rel_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -52962,6 +54401,7 @@ export namespace Prisma {
     bankAccount?: AccountUpdateOneWithoutRelBankNestedInput
     onlineAccount?: AccountUpdateOneWithoutRelOnlineNestedInput
     cardAccount?: AccountUpdateOneWithoutRelCardNestedInput
+    pickupUser?: ReleaseUserUpdateOneWithoutReleasesNestedInput
   }
 
   export type GirviReleaseUncheckedUpdateInput = {
@@ -52996,6 +54436,10 @@ export namespace Prisma {
     rel_card_info?: NullableStringFieldUpdateOperationsInput | string | null
     rel_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     rel_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_remark?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_item_images?: NullableJsonNullValueInput | InputJsonValue
+    rel_is_other_user?: BoolFieldUpdateOperationsInput | boolean
+    rel_pickup_user_id?: NullableIntFieldUpdateOperationsInput | number | null
     rel_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     rel_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     rel_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -53037,6 +54481,10 @@ export namespace Prisma {
     rel_card_info?: string | null
     rel_pay_info?: string | null
     rel_other_info?: string | null
+    rel_remark?: string | null
+    rel_item_images?: NullableJsonNullValueInput | InputJsonValue
+    rel_is_other_user?: boolean
+    rel_pickup_user_id?: number | null
     rel_created_at?: Date | string
     rel_created_by?: string | null
     rel_updated_at?: Date | string
@@ -53065,6 +54513,9 @@ export namespace Prisma {
     rel_card_info?: NullableStringFieldUpdateOperationsInput | string | null
     rel_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     rel_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_remark?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_item_images?: NullableJsonNullValueInput | InputJsonValue
+    rel_is_other_user?: BoolFieldUpdateOperationsInput | boolean
     rel_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     rel_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     rel_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -53106,6 +54557,10 @@ export namespace Prisma {
     rel_card_info?: NullableStringFieldUpdateOperationsInput | string | null
     rel_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     rel_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_remark?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_item_images?: NullableJsonNullValueInput | InputJsonValue
+    rel_is_other_user?: BoolFieldUpdateOperationsInput | boolean
+    rel_pickup_user_id?: NullableIntFieldUpdateOperationsInput | number | null
     rel_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     rel_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     rel_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -53113,6 +54568,153 @@ export namespace Prisma {
     rel_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     rel_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     rel_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type ReleaseUserCreateInput = {
+    ru_uuid?: string
+    ru_unique_code?: string | null
+    ru_date?: string | null
+    ru_full_name?: string | null
+    ru_mobile?: string | null
+    ru_email?: string | null
+    ru_aadhaar?: string | null
+    ru_gender?: string | null
+    ru_pan?: string | null
+    ru_address?: string | null
+    ru_state?: string | null
+    ru_city?: string | null
+    ru_country?: string | null
+    ru_village?: string | null
+    ru_pincode?: string | null
+    ru_other_images?: NullableJsonNullValueInput | InputJsonValue
+    firm: FirmCreateNestedOneWithoutReleaseUsersInput
+    releases?: GirviReleaseCreateNestedManyWithoutPickupUserInput
+  }
+
+  export type ReleaseUserUncheckedCreateInput = {
+    ru_id?: number
+    ru_uuid?: string
+    ru_unique_code?: string | null
+    ru_date?: string | null
+    ru_firm_id: number
+    ru_full_name?: string | null
+    ru_mobile?: string | null
+    ru_email?: string | null
+    ru_aadhaar?: string | null
+    ru_gender?: string | null
+    ru_pan?: string | null
+    ru_address?: string | null
+    ru_state?: string | null
+    ru_city?: string | null
+    ru_country?: string | null
+    ru_village?: string | null
+    ru_pincode?: string | null
+    ru_other_images?: NullableJsonNullValueInput | InputJsonValue
+    releases?: GirviReleaseUncheckedCreateNestedManyWithoutPickupUserInput
+  }
+
+  export type ReleaseUserUpdateInput = {
+    ru_uuid?: StringFieldUpdateOperationsInput | string
+    ru_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_date?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_full_name?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_mobile?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_email?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_aadhaar?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_gender?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_pan?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_address?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_state?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_city?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_country?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_village?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_other_images?: NullableJsonNullValueInput | InputJsonValue
+    firm?: FirmUpdateOneRequiredWithoutReleaseUsersNestedInput
+    releases?: GirviReleaseUpdateManyWithoutPickupUserNestedInput
+  }
+
+  export type ReleaseUserUncheckedUpdateInput = {
+    ru_id?: IntFieldUpdateOperationsInput | number
+    ru_uuid?: StringFieldUpdateOperationsInput | string
+    ru_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_date?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_firm_id?: IntFieldUpdateOperationsInput | number
+    ru_full_name?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_mobile?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_email?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_aadhaar?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_gender?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_pan?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_address?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_state?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_city?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_country?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_village?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_other_images?: NullableJsonNullValueInput | InputJsonValue
+    releases?: GirviReleaseUncheckedUpdateManyWithoutPickupUserNestedInput
+  }
+
+  export type ReleaseUserCreateManyInput = {
+    ru_id?: number
+    ru_uuid?: string
+    ru_unique_code?: string | null
+    ru_date?: string | null
+    ru_firm_id: number
+    ru_full_name?: string | null
+    ru_mobile?: string | null
+    ru_email?: string | null
+    ru_aadhaar?: string | null
+    ru_gender?: string | null
+    ru_pan?: string | null
+    ru_address?: string | null
+    ru_state?: string | null
+    ru_city?: string | null
+    ru_country?: string | null
+    ru_village?: string | null
+    ru_pincode?: string | null
+    ru_other_images?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type ReleaseUserUpdateManyMutationInput = {
+    ru_uuid?: StringFieldUpdateOperationsInput | string
+    ru_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_date?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_full_name?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_mobile?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_email?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_aadhaar?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_gender?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_pan?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_address?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_state?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_city?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_country?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_village?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_other_images?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type ReleaseUserUncheckedUpdateManyInput = {
+    ru_id?: IntFieldUpdateOperationsInput | number
+    ru_uuid?: StringFieldUpdateOperationsInput | string
+    ru_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_date?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_firm_id?: IntFieldUpdateOperationsInput | number
+    ru_full_name?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_mobile?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_email?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_aadhaar?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_gender?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_pan?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_address?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_state?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_city?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_country?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_village?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_other_images?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type RateCreateInput = {
@@ -53384,9 +54986,7 @@ export namespace Prisma {
     ml_address?: string | null
     ml_notes?: string | null
     ml_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    ml_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    ml_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    ml_pan_img?: NullableJsonNullValueInput | InputJsonValue
+    ml_other_images?: NullableJsonNullValueInput | InputJsonValue
     is_active?: boolean
     created_at?: Date | string
     updated_at?: Date | string
@@ -53424,9 +55024,7 @@ export namespace Prisma {
     ml_address?: string | null
     ml_notes?: string | null
     ml_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    ml_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    ml_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    ml_pan_img?: NullableJsonNullValueInput | InputJsonValue
+    ml_other_images?: NullableJsonNullValueInput | InputJsonValue
     is_active?: boolean
     created_at?: Date | string
     updated_at?: Date | string
@@ -53459,9 +55057,7 @@ export namespace Prisma {
     ml_address?: NullableStringFieldUpdateOperationsInput | string | null
     ml_notes?: NullableStringFieldUpdateOperationsInput | string | null
     ml_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    ml_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    ml_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    ml_pan_img?: NullableJsonNullValueInput | InputJsonValue
+    ml_other_images?: NullableJsonNullValueInput | InputJsonValue
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -53499,9 +55095,7 @@ export namespace Prisma {
     ml_address?: NullableStringFieldUpdateOperationsInput | string | null
     ml_notes?: NullableStringFieldUpdateOperationsInput | string | null
     ml_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    ml_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    ml_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    ml_pan_img?: NullableJsonNullValueInput | InputJsonValue
+    ml_other_images?: NullableJsonNullValueInput | InputJsonValue
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -53537,9 +55131,7 @@ export namespace Prisma {
     ml_address?: string | null
     ml_notes?: string | null
     ml_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    ml_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    ml_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    ml_pan_img?: NullableJsonNullValueInput | InputJsonValue
+    ml_other_images?: NullableJsonNullValueInput | InputJsonValue
     is_active?: boolean
     created_at?: Date | string
     updated_at?: Date | string
@@ -53571,9 +55163,7 @@ export namespace Prisma {
     ml_address?: NullableStringFieldUpdateOperationsInput | string | null
     ml_notes?: NullableStringFieldUpdateOperationsInput | string | null
     ml_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    ml_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    ml_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    ml_pan_img?: NullableJsonNullValueInput | InputJsonValue
+    ml_other_images?: NullableJsonNullValueInput | InputJsonValue
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -53608,9 +55198,7 @@ export namespace Prisma {
     ml_address?: NullableStringFieldUpdateOperationsInput | string | null
     ml_notes?: NullableStringFieldUpdateOperationsInput | string | null
     ml_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    ml_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    ml_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    ml_pan_img?: NullableJsonNullValueInput | InputJsonValue
+    ml_other_images?: NullableJsonNullValueInput | InputJsonValue
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -53632,7 +55220,8 @@ export namespace Prisma {
     au_country?: string | null
     au_village?: string | null
     au_pincode?: string | null
-    au_image?: string | null
+    au_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    au_other_images?: NullableJsonNullValueInput | InputJsonValue
     firm: FirmCreateNestedOneWithoutAuctionUsersInput
     auctionLoans?: AuctionLoanCreateNestedManyWithoutBuyerInput
   }
@@ -53655,7 +55244,8 @@ export namespace Prisma {
     au_country?: string | null
     au_village?: string | null
     au_pincode?: string | null
-    au_image?: string | null
+    au_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    au_other_images?: NullableJsonNullValueInput | InputJsonValue
     auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutBuyerInput
   }
 
@@ -53675,7 +55265,8 @@ export namespace Prisma {
     au_country?: NullableStringFieldUpdateOperationsInput | string | null
     au_village?: NullableStringFieldUpdateOperationsInput | string | null
     au_pincode?: NullableStringFieldUpdateOperationsInput | string | null
-    au_image?: NullableStringFieldUpdateOperationsInput | string | null
+    au_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    au_other_images?: NullableJsonNullValueInput | InputJsonValue
     firm?: FirmUpdateOneRequiredWithoutAuctionUsersNestedInput
     auctionLoans?: AuctionLoanUpdateManyWithoutBuyerNestedInput
   }
@@ -53698,7 +55289,8 @@ export namespace Prisma {
     au_country?: NullableStringFieldUpdateOperationsInput | string | null
     au_village?: NullableStringFieldUpdateOperationsInput | string | null
     au_pincode?: NullableStringFieldUpdateOperationsInput | string | null
-    au_image?: NullableStringFieldUpdateOperationsInput | string | null
+    au_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    au_other_images?: NullableJsonNullValueInput | InputJsonValue
     auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutBuyerNestedInput
   }
 
@@ -53720,7 +55312,8 @@ export namespace Prisma {
     au_country?: string | null
     au_village?: string | null
     au_pincode?: string | null
-    au_image?: string | null
+    au_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    au_other_images?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type AuctionUserUpdateManyMutationInput = {
@@ -53739,7 +55332,8 @@ export namespace Prisma {
     au_country?: NullableStringFieldUpdateOperationsInput | string | null
     au_village?: NullableStringFieldUpdateOperationsInput | string | null
     au_pincode?: NullableStringFieldUpdateOperationsInput | string | null
-    au_image?: NullableStringFieldUpdateOperationsInput | string | null
+    au_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    au_other_images?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type AuctionUserUncheckedUpdateManyInput = {
@@ -53760,7 +55354,8 @@ export namespace Prisma {
     au_country?: NullableStringFieldUpdateOperationsInput | string | null
     au_village?: NullableStringFieldUpdateOperationsInput | string | null
     au_pincode?: NullableStringFieldUpdateOperationsInput | string | null
-    au_image?: NullableStringFieldUpdateOperationsInput | string | null
+    au_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    au_other_images?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type AuctionLoanCreateInput = {
@@ -53970,10 +55565,7 @@ export namespace Prisma {
     staff_password: string
     staff_status?: $Enums.StaffStatus
     staff_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    staff_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    staff_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    staff_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
-    staff_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_other_images?: NullableJsonNullValueInput | InputJsonValue
     staff_per_address?: string | null
     staff_curr_address?: string | null
     staff_village?: string | null
@@ -54030,10 +55622,7 @@ export namespace Prisma {
     staff_password: string
     staff_status?: $Enums.StaffStatus
     staff_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    staff_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    staff_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    staff_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
-    staff_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_other_images?: NullableJsonNullValueInput | InputJsonValue
     staff_per_address?: string | null
     staff_curr_address?: string | null
     staff_village?: string | null
@@ -54087,10 +55676,7 @@ export namespace Prisma {
     staff_password?: StringFieldUpdateOperationsInput | string
     staff_status?: EnumStaffStatusFieldUpdateOperationsInput | $Enums.StaffStatus
     staff_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    staff_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    staff_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    staff_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
-    staff_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_other_images?: NullableJsonNullValueInput | InputJsonValue
     staff_per_address?: NullableStringFieldUpdateOperationsInput | string | null
     staff_curr_address?: NullableStringFieldUpdateOperationsInput | string | null
     staff_village?: NullableStringFieldUpdateOperationsInput | string | null
@@ -54147,10 +55733,7 @@ export namespace Prisma {
     staff_password?: StringFieldUpdateOperationsInput | string
     staff_status?: EnumStaffStatusFieldUpdateOperationsInput | $Enums.StaffStatus
     staff_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    staff_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    staff_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    staff_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
-    staff_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_other_images?: NullableJsonNullValueInput | InputJsonValue
     staff_per_address?: NullableStringFieldUpdateOperationsInput | string | null
     staff_curr_address?: NullableStringFieldUpdateOperationsInput | string | null
     staff_village?: NullableStringFieldUpdateOperationsInput | string | null
@@ -54206,10 +55789,7 @@ export namespace Prisma {
     staff_password: string
     staff_status?: $Enums.StaffStatus
     staff_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    staff_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    staff_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    staff_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
-    staff_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_other_images?: NullableJsonNullValueInput | InputJsonValue
     staff_per_address?: string | null
     staff_curr_address?: string | null
     staff_village?: string | null
@@ -54262,10 +55842,7 @@ export namespace Prisma {
     staff_password?: StringFieldUpdateOperationsInput | string
     staff_status?: EnumStaffStatusFieldUpdateOperationsInput | $Enums.StaffStatus
     staff_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    staff_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    staff_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    staff_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
-    staff_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_other_images?: NullableJsonNullValueInput | InputJsonValue
     staff_per_address?: NullableStringFieldUpdateOperationsInput | string | null
     staff_curr_address?: NullableStringFieldUpdateOperationsInput | string | null
     staff_village?: NullableStringFieldUpdateOperationsInput | string | null
@@ -54320,10 +55897,7 @@ export namespace Prisma {
     staff_password?: StringFieldUpdateOperationsInput | string
     staff_status?: EnumStaffStatusFieldUpdateOperationsInput | $Enums.StaffStatus
     staff_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    staff_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    staff_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    staff_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
-    staff_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_other_images?: NullableJsonNullValueInput | InputJsonValue
     staff_per_address?: NullableStringFieldUpdateOperationsInput | string | null
     staff_curr_address?: NullableStringFieldUpdateOperationsInput | string | null
     staff_village?: NullableStringFieldUpdateOperationsInput | string | null
@@ -55690,6 +57264,12 @@ export namespace Prisma {
     none?: AuctionLoanWhereInput
   }
 
+  export type ReleaseUserListRelationFilter = {
+    every?: ReleaseUserWhereInput
+    some?: ReleaseUserWhereInput
+    none?: ReleaseUserWhereInput
+  }
+
   export type WhatsAppInstanceNullableRelationFilter = {
     is?: WhatsAppInstanceWhereInput | null
     isNot?: WhatsAppInstanceWhereInput | null
@@ -55700,6 +57280,10 @@ export namespace Prisma {
   }
 
   export type AuctionLoanOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ReleaseUserOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -56050,9 +57634,6 @@ export namespace Prisma {
     user_pan_no?: SortOrder
     user_adhaar_no?: SortOrder
     user_profile_img?: SortOrder
-    user_adhaar_front_img?: SortOrder
-    user_adhaar_back_img?: SortOrder
-    user_pan_card_img?: SortOrder
     user_per_address?: SortOrder
     user_curr_address?: SortOrder
     user_village?: SortOrder
@@ -56065,7 +57646,7 @@ export namespace Prisma {
     user_bank_name?: SortOrder
     user_bank_acc_no?: SortOrder
     user_ifsc_code?: SortOrder
-    user_sign_img?: SortOrder
+    user_other_images?: SortOrder
     user_other_info?: SortOrder
     user_created_at?: SortOrder
     user_created_by?: SortOrder
@@ -57880,6 +59461,11 @@ export namespace Prisma {
     dep_card_acc_id?: SortOrder
   }
 
+  export type ReleaseUserNullableRelationFilter = {
+    is?: ReleaseUserWhereInput | null
+    isNot?: ReleaseUserWhereInput | null
+  }
+
   export type GirviReleaseCountOrderByAggregateInput = {
     rel_id?: SortOrder
     rel_uuid?: SortOrder
@@ -57912,6 +59498,10 @@ export namespace Prisma {
     rel_card_info?: SortOrder
     rel_pay_info?: SortOrder
     rel_other_info?: SortOrder
+    rel_remark?: SortOrder
+    rel_item_images?: SortOrder
+    rel_is_other_user?: SortOrder
+    rel_pickup_user_id?: SortOrder
     rel_created_at?: SortOrder
     rel_created_by?: SortOrder
     rel_updated_at?: SortOrder
@@ -57945,6 +59535,7 @@ export namespace Prisma {
     rel_online_acc_id?: SortOrder
     rel_card_amt?: SortOrder
     rel_card_acc_id?: SortOrder
+    rel_pickup_user_id?: SortOrder
   }
 
   export type GirviReleaseMaxOrderByAggregateInput = {
@@ -57979,6 +59570,9 @@ export namespace Prisma {
     rel_card_info?: SortOrder
     rel_pay_info?: SortOrder
     rel_other_info?: SortOrder
+    rel_remark?: SortOrder
+    rel_is_other_user?: SortOrder
+    rel_pickup_user_id?: SortOrder
     rel_created_at?: SortOrder
     rel_created_by?: SortOrder
     rel_updated_at?: SortOrder
@@ -58020,6 +59614,9 @@ export namespace Prisma {
     rel_card_info?: SortOrder
     rel_pay_info?: SortOrder
     rel_other_info?: SortOrder
+    rel_remark?: SortOrder
+    rel_is_other_user?: SortOrder
+    rel_pickup_user_id?: SortOrder
     rel_created_at?: SortOrder
     rel_created_by?: SortOrder
     rel_updated_at?: SortOrder
@@ -58053,6 +59650,78 @@ export namespace Prisma {
     rel_online_acc_id?: SortOrder
     rel_card_amt?: SortOrder
     rel_card_acc_id?: SortOrder
+    rel_pickup_user_id?: SortOrder
+  }
+
+  export type ReleaseUserCountOrderByAggregateInput = {
+    ru_id?: SortOrder
+    ru_uuid?: SortOrder
+    ru_unique_code?: SortOrder
+    ru_date?: SortOrder
+    ru_firm_id?: SortOrder
+    ru_full_name?: SortOrder
+    ru_mobile?: SortOrder
+    ru_email?: SortOrder
+    ru_aadhaar?: SortOrder
+    ru_gender?: SortOrder
+    ru_pan?: SortOrder
+    ru_address?: SortOrder
+    ru_state?: SortOrder
+    ru_city?: SortOrder
+    ru_country?: SortOrder
+    ru_village?: SortOrder
+    ru_pincode?: SortOrder
+    ru_other_images?: SortOrder
+  }
+
+  export type ReleaseUserAvgOrderByAggregateInput = {
+    ru_id?: SortOrder
+    ru_firm_id?: SortOrder
+  }
+
+  export type ReleaseUserMaxOrderByAggregateInput = {
+    ru_id?: SortOrder
+    ru_uuid?: SortOrder
+    ru_unique_code?: SortOrder
+    ru_date?: SortOrder
+    ru_firm_id?: SortOrder
+    ru_full_name?: SortOrder
+    ru_mobile?: SortOrder
+    ru_email?: SortOrder
+    ru_aadhaar?: SortOrder
+    ru_gender?: SortOrder
+    ru_pan?: SortOrder
+    ru_address?: SortOrder
+    ru_state?: SortOrder
+    ru_city?: SortOrder
+    ru_country?: SortOrder
+    ru_village?: SortOrder
+    ru_pincode?: SortOrder
+  }
+
+  export type ReleaseUserMinOrderByAggregateInput = {
+    ru_id?: SortOrder
+    ru_uuid?: SortOrder
+    ru_unique_code?: SortOrder
+    ru_date?: SortOrder
+    ru_firm_id?: SortOrder
+    ru_full_name?: SortOrder
+    ru_mobile?: SortOrder
+    ru_email?: SortOrder
+    ru_aadhaar?: SortOrder
+    ru_gender?: SortOrder
+    ru_pan?: SortOrder
+    ru_address?: SortOrder
+    ru_state?: SortOrder
+    ru_city?: SortOrder
+    ru_country?: SortOrder
+    ru_village?: SortOrder
+    ru_pincode?: SortOrder
+  }
+
+  export type ReleaseUserSumOrderByAggregateInput = {
+    ru_id?: SortOrder
+    ru_firm_id?: SortOrder
   }
 
   export type RateCountOrderByAggregateInput = {
@@ -58223,9 +59892,7 @@ export namespace Prisma {
     ml_address?: SortOrder
     ml_notes?: SortOrder
     ml_profile_img?: SortOrder
-    ml_adhaar_front_img?: SortOrder
-    ml_adhaar_back_img?: SortOrder
-    ml_pan_img?: SortOrder
+    ml_other_images?: SortOrder
     is_active?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
@@ -58327,7 +59994,8 @@ export namespace Prisma {
     au_country?: SortOrder
     au_village?: SortOrder
     au_pincode?: SortOrder
-    au_image?: SortOrder
+    au_profile_img?: SortOrder
+    au_other_images?: SortOrder
   }
 
   export type AuctionUserAvgOrderByAggregateInput = {
@@ -58353,7 +60021,6 @@ export namespace Prisma {
     au_country?: SortOrder
     au_village?: SortOrder
     au_pincode?: SortOrder
-    au_image?: SortOrder
   }
 
   export type AuctionUserMinOrderByAggregateInput = {
@@ -58374,7 +60041,6 @@ export namespace Prisma {
     au_country?: SortOrder
     au_village?: SortOrder
     au_pincode?: SortOrder
-    au_image?: SortOrder
   }
 
   export type AuctionUserSumOrderByAggregateInput = {
@@ -58563,10 +60229,7 @@ export namespace Prisma {
     staff_password?: SortOrder
     staff_status?: SortOrder
     staff_profile_img?: SortOrder
-    staff_adhaar_front_img?: SortOrder
-    staff_adhaar_back_img?: SortOrder
-    staff_pan_card_img?: SortOrder
-    staff_sign_img?: SortOrder
+    staff_other_images?: SortOrder
     staff_per_address?: SortOrder
     staff_curr_address?: SortOrder
     staff_village?: SortOrder
@@ -60195,6 +61858,13 @@ export namespace Prisma {
     connect?: AuctionLoanWhereUniqueInput | AuctionLoanWhereUniqueInput[]
   }
 
+  export type ReleaseUserCreateNestedManyWithoutFirmInput = {
+    create?: XOR<ReleaseUserCreateWithoutFirmInput, ReleaseUserUncheckedCreateWithoutFirmInput> | ReleaseUserCreateWithoutFirmInput[] | ReleaseUserUncheckedCreateWithoutFirmInput[]
+    connectOrCreate?: ReleaseUserCreateOrConnectWithoutFirmInput | ReleaseUserCreateOrConnectWithoutFirmInput[]
+    createMany?: ReleaseUserCreateManyFirmInputEnvelope
+    connect?: ReleaseUserWhereUniqueInput | ReleaseUserWhereUniqueInput[]
+  }
+
   export type MessageTemplateCreateNestedManyWithoutFirmInput = {
     create?: XOR<MessageTemplateCreateWithoutFirmInput, MessageTemplateUncheckedCreateWithoutFirmInput> | MessageTemplateCreateWithoutFirmInput[] | MessageTemplateUncheckedCreateWithoutFirmInput[]
     connectOrCreate?: MessageTemplateCreateOrConnectWithoutFirmInput | MessageTemplateCreateOrConnectWithoutFirmInput[]
@@ -60318,6 +61988,13 @@ export namespace Prisma {
     connectOrCreate?: AuctionLoanCreateOrConnectWithoutFirmInput | AuctionLoanCreateOrConnectWithoutFirmInput[]
     createMany?: AuctionLoanCreateManyFirmInputEnvelope
     connect?: AuctionLoanWhereUniqueInput | AuctionLoanWhereUniqueInput[]
+  }
+
+  export type ReleaseUserUncheckedCreateNestedManyWithoutFirmInput = {
+    create?: XOR<ReleaseUserCreateWithoutFirmInput, ReleaseUserUncheckedCreateWithoutFirmInput> | ReleaseUserCreateWithoutFirmInput[] | ReleaseUserUncheckedCreateWithoutFirmInput[]
+    connectOrCreate?: ReleaseUserCreateOrConnectWithoutFirmInput | ReleaseUserCreateOrConnectWithoutFirmInput[]
+    createMany?: ReleaseUserCreateManyFirmInputEnvelope
+    connect?: ReleaseUserWhereUniqueInput | ReleaseUserWhereUniqueInput[]
   }
 
   export type MessageTemplateUncheckedCreateNestedManyWithoutFirmInput = {
@@ -60573,6 +62250,20 @@ export namespace Prisma {
     deleteMany?: AuctionLoanScalarWhereInput | AuctionLoanScalarWhereInput[]
   }
 
+  export type ReleaseUserUpdateManyWithoutFirmNestedInput = {
+    create?: XOR<ReleaseUserCreateWithoutFirmInput, ReleaseUserUncheckedCreateWithoutFirmInput> | ReleaseUserCreateWithoutFirmInput[] | ReleaseUserUncheckedCreateWithoutFirmInput[]
+    connectOrCreate?: ReleaseUserCreateOrConnectWithoutFirmInput | ReleaseUserCreateOrConnectWithoutFirmInput[]
+    upsert?: ReleaseUserUpsertWithWhereUniqueWithoutFirmInput | ReleaseUserUpsertWithWhereUniqueWithoutFirmInput[]
+    createMany?: ReleaseUserCreateManyFirmInputEnvelope
+    set?: ReleaseUserWhereUniqueInput | ReleaseUserWhereUniqueInput[]
+    disconnect?: ReleaseUserWhereUniqueInput | ReleaseUserWhereUniqueInput[]
+    delete?: ReleaseUserWhereUniqueInput | ReleaseUserWhereUniqueInput[]
+    connect?: ReleaseUserWhereUniqueInput | ReleaseUserWhereUniqueInput[]
+    update?: ReleaseUserUpdateWithWhereUniqueWithoutFirmInput | ReleaseUserUpdateWithWhereUniqueWithoutFirmInput[]
+    updateMany?: ReleaseUserUpdateManyWithWhereWithoutFirmInput | ReleaseUserUpdateManyWithWhereWithoutFirmInput[]
+    deleteMany?: ReleaseUserScalarWhereInput | ReleaseUserScalarWhereInput[]
+  }
+
   export type MessageTemplateUpdateManyWithoutFirmNestedInput = {
     create?: XOR<MessageTemplateCreateWithoutFirmInput, MessageTemplateUncheckedCreateWithoutFirmInput> | MessageTemplateCreateWithoutFirmInput[] | MessageTemplateUncheckedCreateWithoutFirmInput[]
     connectOrCreate?: MessageTemplateCreateOrConnectWithoutFirmInput | MessageTemplateCreateOrConnectWithoutFirmInput[]
@@ -60819,6 +62510,20 @@ export namespace Prisma {
     update?: AuctionLoanUpdateWithWhereUniqueWithoutFirmInput | AuctionLoanUpdateWithWhereUniqueWithoutFirmInput[]
     updateMany?: AuctionLoanUpdateManyWithWhereWithoutFirmInput | AuctionLoanUpdateManyWithWhereWithoutFirmInput[]
     deleteMany?: AuctionLoanScalarWhereInput | AuctionLoanScalarWhereInput[]
+  }
+
+  export type ReleaseUserUncheckedUpdateManyWithoutFirmNestedInput = {
+    create?: XOR<ReleaseUserCreateWithoutFirmInput, ReleaseUserUncheckedCreateWithoutFirmInput> | ReleaseUserCreateWithoutFirmInput[] | ReleaseUserUncheckedCreateWithoutFirmInput[]
+    connectOrCreate?: ReleaseUserCreateOrConnectWithoutFirmInput | ReleaseUserCreateOrConnectWithoutFirmInput[]
+    upsert?: ReleaseUserUpsertWithWhereUniqueWithoutFirmInput | ReleaseUserUpsertWithWhereUniqueWithoutFirmInput[]
+    createMany?: ReleaseUserCreateManyFirmInputEnvelope
+    set?: ReleaseUserWhereUniqueInput | ReleaseUserWhereUniqueInput[]
+    disconnect?: ReleaseUserWhereUniqueInput | ReleaseUserWhereUniqueInput[]
+    delete?: ReleaseUserWhereUniqueInput | ReleaseUserWhereUniqueInput[]
+    connect?: ReleaseUserWhereUniqueInput | ReleaseUserWhereUniqueInput[]
+    update?: ReleaseUserUpdateWithWhereUniqueWithoutFirmInput | ReleaseUserUpdateWithWhereUniqueWithoutFirmInput[]
+    updateMany?: ReleaseUserUpdateManyWithWhereWithoutFirmInput | ReleaseUserUpdateManyWithWhereWithoutFirmInput[]
+    deleteMany?: ReleaseUserScalarWhereInput | ReleaseUserScalarWhereInput[]
   }
 
   export type MessageTemplateUncheckedUpdateManyWithoutFirmNestedInput = {
@@ -64667,6 +66372,12 @@ export namespace Prisma {
     connect?: AccountWhereUniqueInput
   }
 
+  export type ReleaseUserCreateNestedOneWithoutReleasesInput = {
+    create?: XOR<ReleaseUserCreateWithoutReleasesInput, ReleaseUserUncheckedCreateWithoutReleasesInput>
+    connectOrCreate?: ReleaseUserCreateOrConnectWithoutReleasesInput
+    connect?: ReleaseUserWhereUniqueInput
+  }
+
   export type OwnerUpdateOneRequiredWithoutReleasesNestedInput = {
     create?: XOR<OwnerCreateWithoutReleasesInput, OwnerUncheckedCreateWithoutReleasesInput>
     connectOrCreate?: OwnerCreateOrConnectWithoutReleasesInput
@@ -64777,6 +66488,72 @@ export namespace Prisma {
     delete?: AccountWhereInput | boolean
     connect?: AccountWhereUniqueInput
     update?: XOR<XOR<AccountUpdateToOneWithWhereWithoutRelCardInput, AccountUpdateWithoutRelCardInput>, AccountUncheckedUpdateWithoutRelCardInput>
+  }
+
+  export type ReleaseUserUpdateOneWithoutReleasesNestedInput = {
+    create?: XOR<ReleaseUserCreateWithoutReleasesInput, ReleaseUserUncheckedCreateWithoutReleasesInput>
+    connectOrCreate?: ReleaseUserCreateOrConnectWithoutReleasesInput
+    upsert?: ReleaseUserUpsertWithoutReleasesInput
+    disconnect?: ReleaseUserWhereInput | boolean
+    delete?: ReleaseUserWhereInput | boolean
+    connect?: ReleaseUserWhereUniqueInput
+    update?: XOR<XOR<ReleaseUserUpdateToOneWithWhereWithoutReleasesInput, ReleaseUserUpdateWithoutReleasesInput>, ReleaseUserUncheckedUpdateWithoutReleasesInput>
+  }
+
+  export type FirmCreateNestedOneWithoutReleaseUsersInput = {
+    create?: XOR<FirmCreateWithoutReleaseUsersInput, FirmUncheckedCreateWithoutReleaseUsersInput>
+    connectOrCreate?: FirmCreateOrConnectWithoutReleaseUsersInput
+    connect?: FirmWhereUniqueInput
+  }
+
+  export type GirviReleaseCreateNestedManyWithoutPickupUserInput = {
+    create?: XOR<GirviReleaseCreateWithoutPickupUserInput, GirviReleaseUncheckedCreateWithoutPickupUserInput> | GirviReleaseCreateWithoutPickupUserInput[] | GirviReleaseUncheckedCreateWithoutPickupUserInput[]
+    connectOrCreate?: GirviReleaseCreateOrConnectWithoutPickupUserInput | GirviReleaseCreateOrConnectWithoutPickupUserInput[]
+    createMany?: GirviReleaseCreateManyPickupUserInputEnvelope
+    connect?: GirviReleaseWhereUniqueInput | GirviReleaseWhereUniqueInput[]
+  }
+
+  export type GirviReleaseUncheckedCreateNestedManyWithoutPickupUserInput = {
+    create?: XOR<GirviReleaseCreateWithoutPickupUserInput, GirviReleaseUncheckedCreateWithoutPickupUserInput> | GirviReleaseCreateWithoutPickupUserInput[] | GirviReleaseUncheckedCreateWithoutPickupUserInput[]
+    connectOrCreate?: GirviReleaseCreateOrConnectWithoutPickupUserInput | GirviReleaseCreateOrConnectWithoutPickupUserInput[]
+    createMany?: GirviReleaseCreateManyPickupUserInputEnvelope
+    connect?: GirviReleaseWhereUniqueInput | GirviReleaseWhereUniqueInput[]
+  }
+
+  export type FirmUpdateOneRequiredWithoutReleaseUsersNestedInput = {
+    create?: XOR<FirmCreateWithoutReleaseUsersInput, FirmUncheckedCreateWithoutReleaseUsersInput>
+    connectOrCreate?: FirmCreateOrConnectWithoutReleaseUsersInput
+    upsert?: FirmUpsertWithoutReleaseUsersInput
+    connect?: FirmWhereUniqueInput
+    update?: XOR<XOR<FirmUpdateToOneWithWhereWithoutReleaseUsersInput, FirmUpdateWithoutReleaseUsersInput>, FirmUncheckedUpdateWithoutReleaseUsersInput>
+  }
+
+  export type GirviReleaseUpdateManyWithoutPickupUserNestedInput = {
+    create?: XOR<GirviReleaseCreateWithoutPickupUserInput, GirviReleaseUncheckedCreateWithoutPickupUserInput> | GirviReleaseCreateWithoutPickupUserInput[] | GirviReleaseUncheckedCreateWithoutPickupUserInput[]
+    connectOrCreate?: GirviReleaseCreateOrConnectWithoutPickupUserInput | GirviReleaseCreateOrConnectWithoutPickupUserInput[]
+    upsert?: GirviReleaseUpsertWithWhereUniqueWithoutPickupUserInput | GirviReleaseUpsertWithWhereUniqueWithoutPickupUserInput[]
+    createMany?: GirviReleaseCreateManyPickupUserInputEnvelope
+    set?: GirviReleaseWhereUniqueInput | GirviReleaseWhereUniqueInput[]
+    disconnect?: GirviReleaseWhereUniqueInput | GirviReleaseWhereUniqueInput[]
+    delete?: GirviReleaseWhereUniqueInput | GirviReleaseWhereUniqueInput[]
+    connect?: GirviReleaseWhereUniqueInput | GirviReleaseWhereUniqueInput[]
+    update?: GirviReleaseUpdateWithWhereUniqueWithoutPickupUserInput | GirviReleaseUpdateWithWhereUniqueWithoutPickupUserInput[]
+    updateMany?: GirviReleaseUpdateManyWithWhereWithoutPickupUserInput | GirviReleaseUpdateManyWithWhereWithoutPickupUserInput[]
+    deleteMany?: GirviReleaseScalarWhereInput | GirviReleaseScalarWhereInput[]
+  }
+
+  export type GirviReleaseUncheckedUpdateManyWithoutPickupUserNestedInput = {
+    create?: XOR<GirviReleaseCreateWithoutPickupUserInput, GirviReleaseUncheckedCreateWithoutPickupUserInput> | GirviReleaseCreateWithoutPickupUserInput[] | GirviReleaseUncheckedCreateWithoutPickupUserInput[]
+    connectOrCreate?: GirviReleaseCreateOrConnectWithoutPickupUserInput | GirviReleaseCreateOrConnectWithoutPickupUserInput[]
+    upsert?: GirviReleaseUpsertWithWhereUniqueWithoutPickupUserInput | GirviReleaseUpsertWithWhereUniqueWithoutPickupUserInput[]
+    createMany?: GirviReleaseCreateManyPickupUserInputEnvelope
+    set?: GirviReleaseWhereUniqueInput | GirviReleaseWhereUniqueInput[]
+    disconnect?: GirviReleaseWhereUniqueInput | GirviReleaseWhereUniqueInput[]
+    delete?: GirviReleaseWhereUniqueInput | GirviReleaseWhereUniqueInput[]
+    connect?: GirviReleaseWhereUniqueInput | GirviReleaseWhereUniqueInput[]
+    update?: GirviReleaseUpdateWithWhereUniqueWithoutPickupUserInput | GirviReleaseUpdateWithWhereUniqueWithoutPickupUserInput[]
+    updateMany?: GirviReleaseUpdateManyWithWhereWithoutPickupUserInput | GirviReleaseUpdateManyWithWhereWithoutPickupUserInput[]
+    deleteMany?: GirviReleaseScalarWhereInput | GirviReleaseScalarWhereInput[]
   }
 
   export type OwnerCreateNestedOneWithoutRatesInput = {
@@ -65933,9 +67710,6 @@ export namespace Prisma {
     user_pan_no?: string | null
     user_adhaar_no?: string | null
     user_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    user_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
     user_per_address?: string | null
     user_curr_address?: string | null
     user_village?: string | null
@@ -65948,7 +67722,7 @@ export namespace Prisma {
     user_bank_name?: string | null
     user_bank_acc_no?: string | null
     user_ifsc_code?: string | null
-    user_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: string | null
     user_created_at?: Date | string
     user_created_by?: string | null
@@ -65993,9 +67767,6 @@ export namespace Prisma {
     user_pan_no?: string | null
     user_adhaar_no?: string | null
     user_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    user_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
     user_per_address?: string | null
     user_curr_address?: string | null
     user_village?: string | null
@@ -66008,7 +67779,7 @@ export namespace Prisma {
     user_bank_name?: string | null
     user_bank_acc_no?: string | null
     user_ifsc_code?: string | null
-    user_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: string | null
     user_created_at?: Date | string
     user_created_by?: string | null
@@ -66104,6 +67875,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderCreateNestedManyWithoutFirmInput
     auctionUsers?: AuctionUserCreateNestedManyWithoutFirmInput
     auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
+    releaseUsers?: ReleaseUserCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateCreateNestedManyWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceCreateNestedOneWithoutFirmInput
   }
@@ -66174,6 +67946,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutFirmInput
     auctionUsers?: AuctionUserUncheckedCreateNestedManyWithoutFirmInput
     auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
+    releaseUsers?: ReleaseUserUncheckedCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceUncheckedCreateNestedOneWithoutFirmInput
   }
@@ -67107,6 +68880,9 @@ export namespace Prisma {
     rel_card_info?: string | null
     rel_pay_info?: string | null
     rel_other_info?: string | null
+    rel_remark?: string | null
+    rel_item_images?: NullableJsonNullValueInput | InputJsonValue
+    rel_is_other_user?: boolean
     rel_created_at?: Date | string
     rel_created_by?: string | null
     rel_updated_at?: Date | string
@@ -67125,6 +68901,7 @@ export namespace Prisma {
     bankAccount?: AccountCreateNestedOneWithoutRelBankInput
     onlineAccount?: AccountCreateNestedOneWithoutRelOnlineInput
     cardAccount?: AccountCreateNestedOneWithoutRelCardInput
+    pickupUser?: ReleaseUserCreateNestedOneWithoutReleasesInput
   }
 
   export type GirviReleaseUncheckedCreateWithoutOwnerInput = {
@@ -67158,6 +68935,10 @@ export namespace Prisma {
     rel_card_info?: string | null
     rel_pay_info?: string | null
     rel_other_info?: string | null
+    rel_remark?: string | null
+    rel_item_images?: NullableJsonNullValueInput | InputJsonValue
+    rel_is_other_user?: boolean
+    rel_pickup_user_id?: number | null
     rel_created_at?: Date | string
     rel_created_by?: string | null
     rel_updated_at?: Date | string
@@ -67289,9 +69070,7 @@ export namespace Prisma {
     ml_address?: string | null
     ml_notes?: string | null
     ml_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    ml_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    ml_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    ml_pan_img?: NullableJsonNullValueInput | InputJsonValue
+    ml_other_images?: NullableJsonNullValueInput | InputJsonValue
     is_active?: boolean
     created_at?: Date | string
     updated_at?: Date | string
@@ -67327,9 +69106,7 @@ export namespace Prisma {
     ml_address?: string | null
     ml_notes?: string | null
     ml_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    ml_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    ml_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    ml_pan_img?: NullableJsonNullValueInput | InputJsonValue
+    ml_other_images?: NullableJsonNullValueInput | InputJsonValue
     is_active?: boolean
     created_at?: Date | string
     updated_at?: Date | string
@@ -67370,10 +69147,7 @@ export namespace Prisma {
     staff_password: string
     staff_status?: $Enums.StaffStatus
     staff_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    staff_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    staff_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    staff_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
-    staff_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_other_images?: NullableJsonNullValueInput | InputJsonValue
     staff_per_address?: string | null
     staff_curr_address?: string | null
     staff_village?: string | null
@@ -67428,10 +69202,7 @@ export namespace Prisma {
     staff_password: string
     staff_status?: $Enums.StaffStatus
     staff_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    staff_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    staff_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    staff_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
-    staff_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_other_images?: NullableJsonNullValueInput | InputJsonValue
     staff_per_address?: string | null
     staff_curr_address?: string | null
     staff_village?: string | null
@@ -67626,9 +69397,6 @@ export namespace Prisma {
     user_pan_no?: StringNullableFilter<"User"> | string | null
     user_adhaar_no?: StringNullableFilter<"User"> | string | null
     user_profile_img?: JsonNullableFilter<"User">
-    user_adhaar_front_img?: JsonNullableFilter<"User">
-    user_adhaar_back_img?: JsonNullableFilter<"User">
-    user_pan_card_img?: JsonNullableFilter<"User">
     user_per_address?: StringNullableFilter<"User"> | string | null
     user_curr_address?: StringNullableFilter<"User"> | string | null
     user_village?: StringNullableFilter<"User"> | string | null
@@ -67641,7 +69409,7 @@ export namespace Prisma {
     user_bank_name?: StringNullableFilter<"User"> | string | null
     user_bank_acc_no?: StringNullableFilter<"User"> | string | null
     user_ifsc_code?: StringNullableFilter<"User"> | string | null
-    user_sign_img?: JsonNullableFilter<"User">
+    user_other_images?: JsonNullableFilter<"User">
     user_other_info?: StringNullableFilter<"User"> | string | null
     user_created_at?: DateTimeFilter<"User"> | Date | string
     user_created_by?: StringNullableFilter<"User"> | string | null
@@ -68329,6 +70097,10 @@ export namespace Prisma {
     rel_card_info?: StringNullableFilter<"GirviRelease"> | string | null
     rel_pay_info?: StringNullableFilter<"GirviRelease"> | string | null
     rel_other_info?: StringNullableFilter<"GirviRelease"> | string | null
+    rel_remark?: StringNullableFilter<"GirviRelease"> | string | null
+    rel_item_images?: JsonNullableFilter<"GirviRelease">
+    rel_is_other_user?: BoolFilter<"GirviRelease"> | boolean
+    rel_pickup_user_id?: IntNullableFilter<"GirviRelease"> | number | null
     rel_created_at?: DateTimeFilter<"GirviRelease"> | Date | string
     rel_created_by?: StringNullableFilter<"GirviRelease"> | string | null
     rel_updated_at?: DateTimeFilter<"GirviRelease"> | Date | string
@@ -68460,9 +70232,7 @@ export namespace Prisma {
     ml_address?: StringNullableFilter<"MoneyLender"> | string | null
     ml_notes?: StringNullableFilter<"MoneyLender"> | string | null
     ml_profile_img?: JsonNullableFilter<"MoneyLender">
-    ml_adhaar_front_img?: JsonNullableFilter<"MoneyLender">
-    ml_adhaar_back_img?: JsonNullableFilter<"MoneyLender">
-    ml_pan_img?: JsonNullableFilter<"MoneyLender">
+    ml_other_images?: JsonNullableFilter<"MoneyLender">
     is_active?: BoolFilter<"MoneyLender"> | boolean
     created_at?: DateTimeFilter<"MoneyLender"> | Date | string
     updated_at?: DateTimeFilter<"MoneyLender"> | Date | string
@@ -68513,10 +70283,7 @@ export namespace Prisma {
     staff_password?: StringFilter<"Staff"> | string
     staff_status?: EnumStaffStatusFilter<"Staff"> | $Enums.StaffStatus
     staff_profile_img?: JsonNullableFilter<"Staff">
-    staff_adhaar_front_img?: JsonNullableFilter<"Staff">
-    staff_adhaar_back_img?: JsonNullableFilter<"Staff">
-    staff_pan_card_img?: JsonNullableFilter<"Staff">
-    staff_sign_img?: JsonNullableFilter<"Staff">
+    staff_other_images?: JsonNullableFilter<"Staff">
     staff_per_address?: StringNullableFilter<"Staff"> | string | null
     staff_curr_address?: StringNullableFilter<"Staff"> | string | null
     staff_village?: StringNullableFilter<"Staff"> | string | null
@@ -68653,9 +70420,6 @@ export namespace Prisma {
     user_pan_no?: string | null
     user_adhaar_no?: string | null
     user_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    user_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
     user_per_address?: string | null
     user_curr_address?: string | null
     user_village?: string | null
@@ -68668,7 +70432,7 @@ export namespace Prisma {
     user_bank_name?: string | null
     user_bank_acc_no?: string | null
     user_ifsc_code?: string | null
-    user_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: string | null
     user_created_at?: Date | string
     user_created_by?: string | null
@@ -68713,9 +70477,6 @@ export namespace Prisma {
     user_pan_no?: string | null
     user_adhaar_no?: string | null
     user_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    user_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
     user_per_address?: string | null
     user_curr_address?: string | null
     user_village?: string | null
@@ -68728,7 +70489,7 @@ export namespace Prisma {
     user_bank_name?: string | null
     user_bank_acc_no?: string | null
     user_ifsc_code?: string | null
-    user_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: string | null
     user_created_at?: Date | string
     user_created_by?: string | null
@@ -69806,6 +71567,9 @@ export namespace Prisma {
     rel_card_info?: string | null
     rel_pay_info?: string | null
     rel_other_info?: string | null
+    rel_remark?: string | null
+    rel_item_images?: NullableJsonNullValueInput | InputJsonValue
+    rel_is_other_user?: boolean
     rel_created_at?: Date | string
     rel_created_by?: string | null
     rel_updated_at?: Date | string
@@ -69824,6 +71588,7 @@ export namespace Prisma {
     bankAccount?: AccountCreateNestedOneWithoutRelBankInput
     onlineAccount?: AccountCreateNestedOneWithoutRelOnlineInput
     cardAccount?: AccountCreateNestedOneWithoutRelCardInput
+    pickupUser?: ReleaseUserCreateNestedOneWithoutReleasesInput
   }
 
   export type GirviReleaseUncheckedCreateWithoutFirmInput = {
@@ -69857,6 +71622,10 @@ export namespace Prisma {
     rel_card_info?: string | null
     rel_pay_info?: string | null
     rel_other_info?: string | null
+    rel_remark?: string | null
+    rel_item_images?: NullableJsonNullValueInput | InputJsonValue
+    rel_is_other_user?: boolean
+    rel_pickup_user_id?: number | null
     rel_created_at?: Date | string
     rel_created_by?: string | null
     rel_updated_at?: Date | string
@@ -69951,9 +71720,7 @@ export namespace Prisma {
     ml_address?: string | null
     ml_notes?: string | null
     ml_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    ml_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    ml_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    ml_pan_img?: NullableJsonNullValueInput | InputJsonValue
+    ml_other_images?: NullableJsonNullValueInput | InputJsonValue
     is_active?: boolean
     created_at?: Date | string
     updated_at?: Date | string
@@ -69989,9 +71756,7 @@ export namespace Prisma {
     ml_address?: string | null
     ml_notes?: string | null
     ml_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    ml_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    ml_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    ml_pan_img?: NullableJsonNullValueInput | InputJsonValue
+    ml_other_images?: NullableJsonNullValueInput | InputJsonValue
     is_active?: boolean
     created_at?: Date | string
     updated_at?: Date | string
@@ -70024,7 +71789,8 @@ export namespace Prisma {
     au_country?: string | null
     au_village?: string | null
     au_pincode?: string | null
-    au_image?: string | null
+    au_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    au_other_images?: NullableJsonNullValueInput | InputJsonValue
     auctionLoans?: AuctionLoanCreateNestedManyWithoutBuyerInput
   }
 
@@ -70045,7 +71811,8 @@ export namespace Prisma {
     au_country?: string | null
     au_village?: string | null
     au_pincode?: string | null
-    au_image?: string | null
+    au_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    au_other_images?: NullableJsonNullValueInput | InputJsonValue
     auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutBuyerInput
   }
 
@@ -70117,6 +71884,57 @@ export namespace Prisma {
 
   export type AuctionLoanCreateManyFirmInputEnvelope = {
     data: AuctionLoanCreateManyFirmInput | AuctionLoanCreateManyFirmInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ReleaseUserCreateWithoutFirmInput = {
+    ru_uuid?: string
+    ru_unique_code?: string | null
+    ru_date?: string | null
+    ru_full_name?: string | null
+    ru_mobile?: string | null
+    ru_email?: string | null
+    ru_aadhaar?: string | null
+    ru_gender?: string | null
+    ru_pan?: string | null
+    ru_address?: string | null
+    ru_state?: string | null
+    ru_city?: string | null
+    ru_country?: string | null
+    ru_village?: string | null
+    ru_pincode?: string | null
+    ru_other_images?: NullableJsonNullValueInput | InputJsonValue
+    releases?: GirviReleaseCreateNestedManyWithoutPickupUserInput
+  }
+
+  export type ReleaseUserUncheckedCreateWithoutFirmInput = {
+    ru_id?: number
+    ru_uuid?: string
+    ru_unique_code?: string | null
+    ru_date?: string | null
+    ru_full_name?: string | null
+    ru_mobile?: string | null
+    ru_email?: string | null
+    ru_aadhaar?: string | null
+    ru_gender?: string | null
+    ru_pan?: string | null
+    ru_address?: string | null
+    ru_state?: string | null
+    ru_city?: string | null
+    ru_country?: string | null
+    ru_village?: string | null
+    ru_pincode?: string | null
+    ru_other_images?: NullableJsonNullValueInput | InputJsonValue
+    releases?: GirviReleaseUncheckedCreateNestedManyWithoutPickupUserInput
+  }
+
+  export type ReleaseUserCreateOrConnectWithoutFirmInput = {
+    where: ReleaseUserWhereUniqueInput
+    create: XOR<ReleaseUserCreateWithoutFirmInput, ReleaseUserUncheckedCreateWithoutFirmInput>
+  }
+
+  export type ReleaseUserCreateManyFirmInputEnvelope = {
+    data: ReleaseUserCreateManyFirmInput | ReleaseUserCreateManyFirmInput[]
     skipDuplicates?: boolean
   }
 
@@ -70621,7 +72439,8 @@ export namespace Prisma {
     au_country?: StringNullableFilter<"AuctionUser"> | string | null
     au_village?: StringNullableFilter<"AuctionUser"> | string | null
     au_pincode?: StringNullableFilter<"AuctionUser"> | string | null
-    au_image?: StringNullableFilter<"AuctionUser"> | string | null
+    au_profile_img?: JsonNullableFilter<"AuctionUser">
+    au_other_images?: JsonNullableFilter<"AuctionUser">
   }
 
   export type AuctionLoanUpsertWithWhereUniqueWithoutFirmInput = {
@@ -70668,6 +72487,46 @@ export namespace Prisma {
     al_card_amt?: FloatNullableFilter<"AuctionLoan"> | number | null
     al_pay_info?: StringNullableFilter<"AuctionLoan"> | string | null
     al_other_info?: StringNullableFilter<"AuctionLoan"> | string | null
+  }
+
+  export type ReleaseUserUpsertWithWhereUniqueWithoutFirmInput = {
+    where: ReleaseUserWhereUniqueInput
+    update: XOR<ReleaseUserUpdateWithoutFirmInput, ReleaseUserUncheckedUpdateWithoutFirmInput>
+    create: XOR<ReleaseUserCreateWithoutFirmInput, ReleaseUserUncheckedCreateWithoutFirmInput>
+  }
+
+  export type ReleaseUserUpdateWithWhereUniqueWithoutFirmInput = {
+    where: ReleaseUserWhereUniqueInput
+    data: XOR<ReleaseUserUpdateWithoutFirmInput, ReleaseUserUncheckedUpdateWithoutFirmInput>
+  }
+
+  export type ReleaseUserUpdateManyWithWhereWithoutFirmInput = {
+    where: ReleaseUserScalarWhereInput
+    data: XOR<ReleaseUserUpdateManyMutationInput, ReleaseUserUncheckedUpdateManyWithoutFirmInput>
+  }
+
+  export type ReleaseUserScalarWhereInput = {
+    AND?: ReleaseUserScalarWhereInput | ReleaseUserScalarWhereInput[]
+    OR?: ReleaseUserScalarWhereInput[]
+    NOT?: ReleaseUserScalarWhereInput | ReleaseUserScalarWhereInput[]
+    ru_id?: IntFilter<"ReleaseUser"> | number
+    ru_uuid?: StringFilter<"ReleaseUser"> | string
+    ru_unique_code?: StringNullableFilter<"ReleaseUser"> | string | null
+    ru_date?: StringNullableFilter<"ReleaseUser"> | string | null
+    ru_firm_id?: IntFilter<"ReleaseUser"> | number
+    ru_full_name?: StringNullableFilter<"ReleaseUser"> | string | null
+    ru_mobile?: StringNullableFilter<"ReleaseUser"> | string | null
+    ru_email?: StringNullableFilter<"ReleaseUser"> | string | null
+    ru_aadhaar?: StringNullableFilter<"ReleaseUser"> | string | null
+    ru_gender?: StringNullableFilter<"ReleaseUser"> | string | null
+    ru_pan?: StringNullableFilter<"ReleaseUser"> | string | null
+    ru_address?: StringNullableFilter<"ReleaseUser"> | string | null
+    ru_state?: StringNullableFilter<"ReleaseUser"> | string | null
+    ru_city?: StringNullableFilter<"ReleaseUser"> | string | null
+    ru_country?: StringNullableFilter<"ReleaseUser"> | string | null
+    ru_village?: StringNullableFilter<"ReleaseUser"> | string | null
+    ru_pincode?: StringNullableFilter<"ReleaseUser"> | string | null
+    ru_other_images?: JsonNullableFilter<"ReleaseUser">
   }
 
   export type MessageTemplateUpsertWithWhereUniqueWithoutFirmInput = {
@@ -70933,6 +72792,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderCreateNestedManyWithoutFirmInput
     auctionUsers?: AuctionUserCreateNestedManyWithoutFirmInput
     auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
+    releaseUsers?: ReleaseUserCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateCreateNestedManyWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceCreateNestedOneWithoutFirmInput
   }
@@ -71003,6 +72863,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutFirmInput
     auctionUsers?: AuctionUserUncheckedCreateNestedManyWithoutFirmInput
     auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
+    releaseUsers?: ReleaseUserUncheckedCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceUncheckedCreateNestedOneWithoutFirmInput
   }
@@ -74328,6 +76189,9 @@ export namespace Prisma {
     rel_card_info?: string | null
     rel_pay_info?: string | null
     rel_other_info?: string | null
+    rel_remark?: string | null
+    rel_item_images?: NullableJsonNullValueInput | InputJsonValue
+    rel_is_other_user?: boolean
     rel_created_at?: Date | string
     rel_created_by?: string | null
     rel_updated_at?: Date | string
@@ -74346,6 +76210,7 @@ export namespace Prisma {
     bankAccount?: AccountCreateNestedOneWithoutRelBankInput
     onlineAccount?: AccountCreateNestedOneWithoutRelOnlineInput
     cardAccount?: AccountCreateNestedOneWithoutRelCardInput
+    pickupUser?: ReleaseUserCreateNestedOneWithoutReleasesInput
   }
 
   export type GirviReleaseUncheckedCreateWithoutPrinAccountInput = {
@@ -74379,6 +76244,10 @@ export namespace Prisma {
     rel_card_info?: string | null
     rel_pay_info?: string | null
     rel_other_info?: string | null
+    rel_remark?: string | null
+    rel_item_images?: NullableJsonNullValueInput | InputJsonValue
+    rel_is_other_user?: boolean
+    rel_pickup_user_id?: number | null
     rel_created_at?: Date | string
     rel_created_by?: string | null
     rel_updated_at?: Date | string
@@ -74417,6 +76286,9 @@ export namespace Prisma {
     rel_card_info?: string | null
     rel_pay_info?: string | null
     rel_other_info?: string | null
+    rel_remark?: string | null
+    rel_item_images?: NullableJsonNullValueInput | InputJsonValue
+    rel_is_other_user?: boolean
     rel_created_at?: Date | string
     rel_created_by?: string | null
     rel_updated_at?: Date | string
@@ -74435,6 +76307,7 @@ export namespace Prisma {
     bankAccount?: AccountCreateNestedOneWithoutRelBankInput
     onlineAccount?: AccountCreateNestedOneWithoutRelOnlineInput
     cardAccount?: AccountCreateNestedOneWithoutRelCardInput
+    pickupUser?: ReleaseUserCreateNestedOneWithoutReleasesInput
   }
 
   export type GirviReleaseUncheckedCreateWithoutIntAccountInput = {
@@ -74468,6 +76341,10 @@ export namespace Prisma {
     rel_card_info?: string | null
     rel_pay_info?: string | null
     rel_other_info?: string | null
+    rel_remark?: string | null
+    rel_item_images?: NullableJsonNullValueInput | InputJsonValue
+    rel_is_other_user?: boolean
+    rel_pickup_user_id?: number | null
     rel_created_at?: Date | string
     rel_created_by?: string | null
     rel_updated_at?: Date | string
@@ -74506,6 +76383,9 @@ export namespace Prisma {
     rel_card_info?: string | null
     rel_pay_info?: string | null
     rel_other_info?: string | null
+    rel_remark?: string | null
+    rel_item_images?: NullableJsonNullValueInput | InputJsonValue
+    rel_is_other_user?: boolean
     rel_created_at?: Date | string
     rel_created_by?: string | null
     rel_updated_at?: Date | string
@@ -74524,6 +76404,7 @@ export namespace Prisma {
     bankAccount?: AccountCreateNestedOneWithoutRelBankInput
     onlineAccount?: AccountCreateNestedOneWithoutRelOnlineInput
     cardAccount?: AccountCreateNestedOneWithoutRelCardInput
+    pickupUser?: ReleaseUserCreateNestedOneWithoutReleasesInput
   }
 
   export type GirviReleaseUncheckedCreateWithoutDiscAccountInput = {
@@ -74557,6 +76438,10 @@ export namespace Prisma {
     rel_card_info?: string | null
     rel_pay_info?: string | null
     rel_other_info?: string | null
+    rel_remark?: string | null
+    rel_item_images?: NullableJsonNullValueInput | InputJsonValue
+    rel_is_other_user?: boolean
+    rel_pickup_user_id?: number | null
     rel_created_at?: Date | string
     rel_created_by?: string | null
     rel_updated_at?: Date | string
@@ -74595,6 +76480,9 @@ export namespace Prisma {
     rel_card_info?: string | null
     rel_pay_info?: string | null
     rel_other_info?: string | null
+    rel_remark?: string | null
+    rel_item_images?: NullableJsonNullValueInput | InputJsonValue
+    rel_is_other_user?: boolean
     rel_created_at?: Date | string
     rel_created_by?: string | null
     rel_updated_at?: Date | string
@@ -74613,6 +76501,7 @@ export namespace Prisma {
     bankAccount?: AccountCreateNestedOneWithoutRelBankInput
     onlineAccount?: AccountCreateNestedOneWithoutRelOnlineInput
     cardAccount?: AccountCreateNestedOneWithoutRelCardInput
+    pickupUser?: ReleaseUserCreateNestedOneWithoutReleasesInput
   }
 
   export type GirviReleaseUncheckedCreateWithoutExtraAccountInput = {
@@ -74646,6 +76535,10 @@ export namespace Prisma {
     rel_card_info?: string | null
     rel_pay_info?: string | null
     rel_other_info?: string | null
+    rel_remark?: string | null
+    rel_item_images?: NullableJsonNullValueInput | InputJsonValue
+    rel_is_other_user?: boolean
+    rel_pickup_user_id?: number | null
     rel_created_at?: Date | string
     rel_created_by?: string | null
     rel_updated_at?: Date | string
@@ -74684,6 +76577,9 @@ export namespace Prisma {
     rel_card_info?: string | null
     rel_pay_info?: string | null
     rel_other_info?: string | null
+    rel_remark?: string | null
+    rel_item_images?: NullableJsonNullValueInput | InputJsonValue
+    rel_is_other_user?: boolean
     rel_created_at?: Date | string
     rel_created_by?: string | null
     rel_updated_at?: Date | string
@@ -74702,6 +76598,7 @@ export namespace Prisma {
     bankAccount?: AccountCreateNestedOneWithoutRelBankInput
     onlineAccount?: AccountCreateNestedOneWithoutRelOnlineInput
     cardAccount?: AccountCreateNestedOneWithoutRelCardInput
+    pickupUser?: ReleaseUserCreateNestedOneWithoutReleasesInput
   }
 
   export type GirviReleaseUncheckedCreateWithoutCashAccountInput = {
@@ -74735,6 +76632,10 @@ export namespace Prisma {
     rel_card_info?: string | null
     rel_pay_info?: string | null
     rel_other_info?: string | null
+    rel_remark?: string | null
+    rel_item_images?: NullableJsonNullValueInput | InputJsonValue
+    rel_is_other_user?: boolean
+    rel_pickup_user_id?: number | null
     rel_created_at?: Date | string
     rel_created_by?: string | null
     rel_updated_at?: Date | string
@@ -74773,6 +76674,9 @@ export namespace Prisma {
     rel_card_info?: string | null
     rel_pay_info?: string | null
     rel_other_info?: string | null
+    rel_remark?: string | null
+    rel_item_images?: NullableJsonNullValueInput | InputJsonValue
+    rel_is_other_user?: boolean
     rel_created_at?: Date | string
     rel_created_by?: string | null
     rel_updated_at?: Date | string
@@ -74791,6 +76695,7 @@ export namespace Prisma {
     cashAccount?: AccountCreateNestedOneWithoutRelCashInput
     onlineAccount?: AccountCreateNestedOneWithoutRelOnlineInput
     cardAccount?: AccountCreateNestedOneWithoutRelCardInput
+    pickupUser?: ReleaseUserCreateNestedOneWithoutReleasesInput
   }
 
   export type GirviReleaseUncheckedCreateWithoutBankAccountInput = {
@@ -74824,6 +76729,10 @@ export namespace Prisma {
     rel_card_info?: string | null
     rel_pay_info?: string | null
     rel_other_info?: string | null
+    rel_remark?: string | null
+    rel_item_images?: NullableJsonNullValueInput | InputJsonValue
+    rel_is_other_user?: boolean
+    rel_pickup_user_id?: number | null
     rel_created_at?: Date | string
     rel_created_by?: string | null
     rel_updated_at?: Date | string
@@ -74862,6 +76771,9 @@ export namespace Prisma {
     rel_card_info?: string | null
     rel_pay_info?: string | null
     rel_other_info?: string | null
+    rel_remark?: string | null
+    rel_item_images?: NullableJsonNullValueInput | InputJsonValue
+    rel_is_other_user?: boolean
     rel_created_at?: Date | string
     rel_created_by?: string | null
     rel_updated_at?: Date | string
@@ -74880,6 +76792,7 @@ export namespace Prisma {
     cashAccount?: AccountCreateNestedOneWithoutRelCashInput
     bankAccount?: AccountCreateNestedOneWithoutRelBankInput
     cardAccount?: AccountCreateNestedOneWithoutRelCardInput
+    pickupUser?: ReleaseUserCreateNestedOneWithoutReleasesInput
   }
 
   export type GirviReleaseUncheckedCreateWithoutOnlineAccountInput = {
@@ -74913,6 +76826,10 @@ export namespace Prisma {
     rel_card_info?: string | null
     rel_pay_info?: string | null
     rel_other_info?: string | null
+    rel_remark?: string | null
+    rel_item_images?: NullableJsonNullValueInput | InputJsonValue
+    rel_is_other_user?: boolean
+    rel_pickup_user_id?: number | null
     rel_created_at?: Date | string
     rel_created_by?: string | null
     rel_updated_at?: Date | string
@@ -74951,6 +76868,9 @@ export namespace Prisma {
     rel_card_info?: string | null
     rel_pay_info?: string | null
     rel_other_info?: string | null
+    rel_remark?: string | null
+    rel_item_images?: NullableJsonNullValueInput | InputJsonValue
+    rel_is_other_user?: boolean
     rel_created_at?: Date | string
     rel_created_by?: string | null
     rel_updated_at?: Date | string
@@ -74969,6 +76889,7 @@ export namespace Prisma {
     cashAccount?: AccountCreateNestedOneWithoutRelCashInput
     bankAccount?: AccountCreateNestedOneWithoutRelBankInput
     onlineAccount?: AccountCreateNestedOneWithoutRelOnlineInput
+    pickupUser?: ReleaseUserCreateNestedOneWithoutReleasesInput
   }
 
   export type GirviReleaseUncheckedCreateWithoutCardAccountInput = {
@@ -75002,6 +76923,10 @@ export namespace Prisma {
     rel_card_info?: string | null
     rel_pay_info?: string | null
     rel_other_info?: string | null
+    rel_remark?: string | null
+    rel_item_images?: NullableJsonNullValueInput | InputJsonValue
+    rel_is_other_user?: boolean
+    rel_pickup_user_id?: number | null
     rel_created_at?: Date | string
     rel_created_by?: string | null
     rel_updated_at?: Date | string
@@ -75230,6 +77155,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUpdateManyWithoutFirmNestedInput
     auctionUsers?: AuctionUserUpdateManyWithoutFirmNestedInput
     auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
+    releaseUsers?: ReleaseUserUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUpdateManyWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUpdateOneWithoutFirmNestedInput
   }
@@ -75300,6 +77226,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutFirmNestedInput
     auctionUsers?: AuctionUserUncheckedUpdateManyWithoutFirmNestedInput
     auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
+    releaseUsers?: ReleaseUserUncheckedUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUncheckedUpdateOneWithoutFirmNestedInput
   }
@@ -76185,6 +78112,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderCreateNestedManyWithoutFirmInput
     auctionUsers?: AuctionUserCreateNestedManyWithoutFirmInput
     auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
+    releaseUsers?: ReleaseUserCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateCreateNestedManyWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceCreateNestedOneWithoutFirmInput
   }
@@ -76255,6 +78183,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutFirmInput
     auctionUsers?: AuctionUserUncheckedCreateNestedManyWithoutFirmInput
     auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
+    releaseUsers?: ReleaseUserUncheckedCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceUncheckedCreateNestedOneWithoutFirmInput
   }
@@ -77026,6 +78955,9 @@ export namespace Prisma {
     rel_card_info?: string | null
     rel_pay_info?: string | null
     rel_other_info?: string | null
+    rel_remark?: string | null
+    rel_item_images?: NullableJsonNullValueInput | InputJsonValue
+    rel_is_other_user?: boolean
     rel_created_at?: Date | string
     rel_created_by?: string | null
     rel_updated_at?: Date | string
@@ -77044,6 +78976,7 @@ export namespace Prisma {
     bankAccount?: AccountCreateNestedOneWithoutRelBankInput
     onlineAccount?: AccountCreateNestedOneWithoutRelOnlineInput
     cardAccount?: AccountCreateNestedOneWithoutRelCardInput
+    pickupUser?: ReleaseUserCreateNestedOneWithoutReleasesInput
   }
 
   export type GirviReleaseUncheckedCreateWithoutUserInput = {
@@ -77077,6 +79010,10 @@ export namespace Prisma {
     rel_card_info?: string | null
     rel_pay_info?: string | null
     rel_other_info?: string | null
+    rel_remark?: string | null
+    rel_item_images?: NullableJsonNullValueInput | InputJsonValue
+    rel_is_other_user?: boolean
+    rel_pickup_user_id?: number | null
     rel_created_at?: Date | string
     rel_created_by?: string | null
     rel_updated_at?: Date | string
@@ -77305,6 +79242,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUpdateManyWithoutFirmNestedInput
     auctionUsers?: AuctionUserUpdateManyWithoutFirmNestedInput
     auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
+    releaseUsers?: ReleaseUserUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUpdateManyWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUpdateOneWithoutFirmNestedInput
   }
@@ -77375,6 +79313,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutFirmNestedInput
     auctionUsers?: AuctionUserUncheckedUpdateManyWithoutFirmNestedInput
     auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
+    releaseUsers?: ReleaseUserUncheckedUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUncheckedUpdateOneWithoutFirmNestedInput
   }
@@ -77604,6 +79543,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderCreateNestedManyWithoutFirmInput
     auctionUsers?: AuctionUserCreateNestedManyWithoutFirmInput
     auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
+    releaseUsers?: ReleaseUserCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateCreateNestedManyWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceCreateNestedOneWithoutFirmInput
   }
@@ -77674,6 +79614,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutFirmInput
     auctionUsers?: AuctionUserUncheckedCreateNestedManyWithoutFirmInput
     auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
+    releaseUsers?: ReleaseUserUncheckedCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceUncheckedCreateNestedOneWithoutFirmInput
   }
@@ -77704,9 +79645,6 @@ export namespace Prisma {
     user_pan_no?: string | null
     user_adhaar_no?: string | null
     user_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    user_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
     user_per_address?: string | null
     user_curr_address?: string | null
     user_village?: string | null
@@ -77719,7 +79657,7 @@ export namespace Prisma {
     user_bank_name?: string | null
     user_bank_acc_no?: string | null
     user_ifsc_code?: string | null
-    user_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: string | null
     user_created_at?: Date | string
     user_created_by?: string | null
@@ -77765,9 +79703,6 @@ export namespace Prisma {
     user_pan_no?: string | null
     user_adhaar_no?: string | null
     user_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    user_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
     user_per_address?: string | null
     user_curr_address?: string | null
     user_village?: string | null
@@ -77780,7 +79715,7 @@ export namespace Prisma {
     user_bank_name?: string | null
     user_bank_acc_no?: string | null
     user_ifsc_code?: string | null
-    user_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: string | null
     user_created_at?: Date | string
     user_created_by?: string | null
@@ -78919,6 +80854,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUpdateManyWithoutFirmNestedInput
     auctionUsers?: AuctionUserUpdateManyWithoutFirmNestedInput
     auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
+    releaseUsers?: ReleaseUserUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUpdateManyWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUpdateOneWithoutFirmNestedInput
   }
@@ -78989,6 +80925,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutFirmNestedInput
     auctionUsers?: AuctionUserUncheckedUpdateManyWithoutFirmNestedInput
     auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
+    releaseUsers?: ReleaseUserUncheckedUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUncheckedUpdateOneWithoutFirmNestedInput
   }
@@ -79025,9 +80962,6 @@ export namespace Prisma {
     user_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_adhaar_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    user_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
     user_per_address?: NullableStringFieldUpdateOperationsInput | string | null
     user_curr_address?: NullableStringFieldUpdateOperationsInput | string | null
     user_village?: NullableStringFieldUpdateOperationsInput | string | null
@@ -79040,7 +80974,7 @@ export namespace Prisma {
     user_bank_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_bank_acc_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
-    user_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: NullableStringFieldUpdateOperationsInput | string | null
     user_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user_created_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -79086,9 +81020,6 @@ export namespace Prisma {
     user_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_adhaar_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    user_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
     user_per_address?: NullableStringFieldUpdateOperationsInput | string | null
     user_curr_address?: NullableStringFieldUpdateOperationsInput | string | null
     user_village?: NullableStringFieldUpdateOperationsInput | string | null
@@ -79101,7 +81032,7 @@ export namespace Prisma {
     user_bank_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_bank_acc_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
-    user_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: NullableStringFieldUpdateOperationsInput | string | null
     user_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user_created_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -80141,6 +82072,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderCreateNestedManyWithoutFirmInput
     auctionUsers?: AuctionUserCreateNestedManyWithoutFirmInput
     auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
+    releaseUsers?: ReleaseUserCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateCreateNestedManyWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceCreateNestedOneWithoutFirmInput
   }
@@ -80211,6 +82143,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutFirmInput
     auctionUsers?: AuctionUserUncheckedCreateNestedManyWithoutFirmInput
     auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
+    releaseUsers?: ReleaseUserUncheckedCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceUncheckedCreateNestedOneWithoutFirmInput
   }
@@ -80241,9 +82174,6 @@ export namespace Prisma {
     user_pan_no?: string | null
     user_adhaar_no?: string | null
     user_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    user_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
     user_per_address?: string | null
     user_curr_address?: string | null
     user_village?: string | null
@@ -80256,7 +82186,7 @@ export namespace Prisma {
     user_bank_name?: string | null
     user_bank_acc_no?: string | null
     user_ifsc_code?: string | null
-    user_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: string | null
     user_created_at?: Date | string
     user_created_by?: string | null
@@ -80302,9 +82232,6 @@ export namespace Prisma {
     user_pan_no?: string | null
     user_adhaar_no?: string | null
     user_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    user_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
     user_per_address?: string | null
     user_curr_address?: string | null
     user_village?: string | null
@@ -80317,7 +82244,7 @@ export namespace Prisma {
     user_bank_name?: string | null
     user_bank_acc_no?: string | null
     user_ifsc_code?: string | null
-    user_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: string | null
     user_created_at?: Date | string
     user_created_by?: string | null
@@ -81258,6 +83185,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUpdateManyWithoutFirmNestedInput
     auctionUsers?: AuctionUserUpdateManyWithoutFirmNestedInput
     auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
+    releaseUsers?: ReleaseUserUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUpdateManyWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUpdateOneWithoutFirmNestedInput
   }
@@ -81328,6 +83256,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutFirmNestedInput
     auctionUsers?: AuctionUserUncheckedUpdateManyWithoutFirmNestedInput
     auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
+    releaseUsers?: ReleaseUserUncheckedUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUncheckedUpdateOneWithoutFirmNestedInput
   }
@@ -81364,9 +83293,6 @@ export namespace Prisma {
     user_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_adhaar_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    user_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
     user_per_address?: NullableStringFieldUpdateOperationsInput | string | null
     user_curr_address?: NullableStringFieldUpdateOperationsInput | string | null
     user_village?: NullableStringFieldUpdateOperationsInput | string | null
@@ -81379,7 +83305,7 @@ export namespace Prisma {
     user_bank_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_bank_acc_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
-    user_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: NullableStringFieldUpdateOperationsInput | string | null
     user_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user_created_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -81425,9 +83351,6 @@ export namespace Prisma {
     user_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_adhaar_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    user_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
     user_per_address?: NullableStringFieldUpdateOperationsInput | string | null
     user_curr_address?: NullableStringFieldUpdateOperationsInput | string | null
     user_village?: NullableStringFieldUpdateOperationsInput | string | null
@@ -81440,7 +83363,7 @@ export namespace Prisma {
     user_bank_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_bank_acc_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
-    user_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: NullableStringFieldUpdateOperationsInput | string | null
     user_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user_created_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -82400,6 +84323,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderCreateNestedManyWithoutFirmInput
     auctionUsers?: AuctionUserCreateNestedManyWithoutFirmInput
     auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
+    releaseUsers?: ReleaseUserCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateCreateNestedManyWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceCreateNestedOneWithoutFirmInput
   }
@@ -82470,6 +84394,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutFirmInput
     auctionUsers?: AuctionUserUncheckedCreateNestedManyWithoutFirmInput
     auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
+    releaseUsers?: ReleaseUserUncheckedCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceUncheckedCreateNestedOneWithoutFirmInput
   }
@@ -82500,9 +84425,6 @@ export namespace Prisma {
     user_pan_no?: string | null
     user_adhaar_no?: string | null
     user_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    user_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
     user_per_address?: string | null
     user_curr_address?: string | null
     user_village?: string | null
@@ -82515,7 +84437,7 @@ export namespace Prisma {
     user_bank_name?: string | null
     user_bank_acc_no?: string | null
     user_ifsc_code?: string | null
-    user_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: string | null
     user_created_at?: Date | string
     user_created_by?: string | null
@@ -82561,9 +84483,6 @@ export namespace Prisma {
     user_pan_no?: string | null
     user_adhaar_no?: string | null
     user_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    user_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
     user_per_address?: string | null
     user_curr_address?: string | null
     user_village?: string | null
@@ -82576,7 +84495,7 @@ export namespace Prisma {
     user_bank_name?: string | null
     user_bank_acc_no?: string | null
     user_ifsc_code?: string | null
-    user_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: string | null
     user_created_at?: Date | string
     user_created_by?: string | null
@@ -83715,6 +85634,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUpdateManyWithoutFirmNestedInput
     auctionUsers?: AuctionUserUpdateManyWithoutFirmNestedInput
     auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
+    releaseUsers?: ReleaseUserUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUpdateManyWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUpdateOneWithoutFirmNestedInput
   }
@@ -83785,6 +85705,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutFirmNestedInput
     auctionUsers?: AuctionUserUncheckedUpdateManyWithoutFirmNestedInput
     auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
+    releaseUsers?: ReleaseUserUncheckedUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUncheckedUpdateOneWithoutFirmNestedInput
   }
@@ -83821,9 +85742,6 @@ export namespace Prisma {
     user_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_adhaar_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    user_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
     user_per_address?: NullableStringFieldUpdateOperationsInput | string | null
     user_curr_address?: NullableStringFieldUpdateOperationsInput | string | null
     user_village?: NullableStringFieldUpdateOperationsInput | string | null
@@ -83836,7 +85754,7 @@ export namespace Prisma {
     user_bank_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_bank_acc_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
-    user_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: NullableStringFieldUpdateOperationsInput | string | null
     user_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user_created_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -83882,9 +85800,6 @@ export namespace Prisma {
     user_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_adhaar_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    user_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
     user_per_address?: NullableStringFieldUpdateOperationsInput | string | null
     user_curr_address?: NullableStringFieldUpdateOperationsInput | string | null
     user_village?: NullableStringFieldUpdateOperationsInput | string | null
@@ -83897,7 +85812,7 @@ export namespace Prisma {
     user_bank_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_bank_acc_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
-    user_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: NullableStringFieldUpdateOperationsInput | string | null
     user_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user_created_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -85150,6 +87065,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderCreateNestedManyWithoutFirmInput
     auctionUsers?: AuctionUserCreateNestedManyWithoutFirmInput
     auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
+    releaseUsers?: ReleaseUserCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateCreateNestedManyWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceCreateNestedOneWithoutFirmInput
   }
@@ -85220,6 +87136,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutFirmInput
     auctionUsers?: AuctionUserUncheckedCreateNestedManyWithoutFirmInput
     auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
+    releaseUsers?: ReleaseUserUncheckedCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceUncheckedCreateNestedOneWithoutFirmInput
   }
@@ -85250,9 +87167,6 @@ export namespace Prisma {
     user_pan_no?: string | null
     user_adhaar_no?: string | null
     user_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    user_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
     user_per_address?: string | null
     user_curr_address?: string | null
     user_village?: string | null
@@ -85265,7 +87179,7 @@ export namespace Prisma {
     user_bank_name?: string | null
     user_bank_acc_no?: string | null
     user_ifsc_code?: string | null
-    user_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: string | null
     user_created_at?: Date | string
     user_created_by?: string | null
@@ -85311,9 +87225,6 @@ export namespace Prisma {
     user_pan_no?: string | null
     user_adhaar_no?: string | null
     user_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    user_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
     user_per_address?: string | null
     user_curr_address?: string | null
     user_village?: string | null
@@ -85326,7 +87237,7 @@ export namespace Prisma {
     user_bank_name?: string | null
     user_bank_acc_no?: string | null
     user_ifsc_code?: string | null
-    user_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: string | null
     user_created_at?: Date | string
     user_created_by?: string | null
@@ -85630,6 +87541,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUpdateManyWithoutFirmNestedInput
     auctionUsers?: AuctionUserUpdateManyWithoutFirmNestedInput
     auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
+    releaseUsers?: ReleaseUserUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUpdateManyWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUpdateOneWithoutFirmNestedInput
   }
@@ -85700,6 +87612,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutFirmNestedInput
     auctionUsers?: AuctionUserUncheckedUpdateManyWithoutFirmNestedInput
     auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
+    releaseUsers?: ReleaseUserUncheckedUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUncheckedUpdateOneWithoutFirmNestedInput
   }
@@ -85736,9 +87649,6 @@ export namespace Prisma {
     user_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_adhaar_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    user_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
     user_per_address?: NullableStringFieldUpdateOperationsInput | string | null
     user_curr_address?: NullableStringFieldUpdateOperationsInput | string | null
     user_village?: NullableStringFieldUpdateOperationsInput | string | null
@@ -85751,7 +87661,7 @@ export namespace Prisma {
     user_bank_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_bank_acc_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
-    user_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: NullableStringFieldUpdateOperationsInput | string | null
     user_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user_created_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -85797,9 +87707,6 @@ export namespace Prisma {
     user_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_adhaar_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    user_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
     user_per_address?: NullableStringFieldUpdateOperationsInput | string | null
     user_curr_address?: NullableStringFieldUpdateOperationsInput | string | null
     user_village?: NullableStringFieldUpdateOperationsInput | string | null
@@ -85812,7 +87719,7 @@ export namespace Prisma {
     user_bank_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_bank_acc_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
-    user_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: NullableStringFieldUpdateOperationsInput | string | null
     user_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user_created_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -86092,6 +87999,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderCreateNestedManyWithoutFirmInput
     auctionUsers?: AuctionUserCreateNestedManyWithoutFirmInput
     auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
+    releaseUsers?: ReleaseUserCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateCreateNestedManyWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceCreateNestedOneWithoutFirmInput
   }
@@ -86162,6 +88070,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutFirmInput
     auctionUsers?: AuctionUserUncheckedCreateNestedManyWithoutFirmInput
     auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
+    releaseUsers?: ReleaseUserUncheckedCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceUncheckedCreateNestedOneWithoutFirmInput
   }
@@ -86192,9 +88101,6 @@ export namespace Prisma {
     user_pan_no?: string | null
     user_adhaar_no?: string | null
     user_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    user_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
     user_per_address?: string | null
     user_curr_address?: string | null
     user_village?: string | null
@@ -86207,7 +88113,7 @@ export namespace Prisma {
     user_bank_name?: string | null
     user_bank_acc_no?: string | null
     user_ifsc_code?: string | null
-    user_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: string | null
     user_created_at?: Date | string
     user_created_by?: string | null
@@ -86253,9 +88159,6 @@ export namespace Prisma {
     user_pan_no?: string | null
     user_adhaar_no?: string | null
     user_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    user_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
     user_per_address?: string | null
     user_curr_address?: string | null
     user_village?: string | null
@@ -86268,7 +88171,7 @@ export namespace Prisma {
     user_bank_name?: string | null
     user_bank_acc_no?: string | null
     user_ifsc_code?: string | null
-    user_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: string | null
     user_created_at?: Date | string
     user_created_by?: string | null
@@ -86853,6 +88756,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUpdateManyWithoutFirmNestedInput
     auctionUsers?: AuctionUserUpdateManyWithoutFirmNestedInput
     auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
+    releaseUsers?: ReleaseUserUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUpdateManyWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUpdateOneWithoutFirmNestedInput
   }
@@ -86923,6 +88827,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutFirmNestedInput
     auctionUsers?: AuctionUserUncheckedUpdateManyWithoutFirmNestedInput
     auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
+    releaseUsers?: ReleaseUserUncheckedUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUncheckedUpdateOneWithoutFirmNestedInput
   }
@@ -86959,9 +88864,6 @@ export namespace Prisma {
     user_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_adhaar_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    user_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
     user_per_address?: NullableStringFieldUpdateOperationsInput | string | null
     user_curr_address?: NullableStringFieldUpdateOperationsInput | string | null
     user_village?: NullableStringFieldUpdateOperationsInput | string | null
@@ -86974,7 +88876,7 @@ export namespace Prisma {
     user_bank_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_bank_acc_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
-    user_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: NullableStringFieldUpdateOperationsInput | string | null
     user_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user_created_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -87020,9 +88922,6 @@ export namespace Prisma {
     user_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_adhaar_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    user_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
     user_per_address?: NullableStringFieldUpdateOperationsInput | string | null
     user_curr_address?: NullableStringFieldUpdateOperationsInput | string | null
     user_village?: NullableStringFieldUpdateOperationsInput | string | null
@@ -87035,7 +88934,7 @@ export namespace Prisma {
     user_bank_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_bank_acc_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
-    user_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: NullableStringFieldUpdateOperationsInput | string | null
     user_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user_created_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -87697,6 +89596,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderCreateNestedManyWithoutFirmInput
     auctionUsers?: AuctionUserCreateNestedManyWithoutFirmInput
     auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
+    releaseUsers?: ReleaseUserCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateCreateNestedManyWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceCreateNestedOneWithoutFirmInput
   }
@@ -87767,6 +89667,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutFirmInput
     auctionUsers?: AuctionUserUncheckedCreateNestedManyWithoutFirmInput
     auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
+    releaseUsers?: ReleaseUserUncheckedCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceUncheckedCreateNestedOneWithoutFirmInput
   }
@@ -87797,9 +89698,6 @@ export namespace Prisma {
     user_pan_no?: string | null
     user_adhaar_no?: string | null
     user_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    user_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
     user_per_address?: string | null
     user_curr_address?: string | null
     user_village?: string | null
@@ -87812,7 +89710,7 @@ export namespace Prisma {
     user_bank_name?: string | null
     user_bank_acc_no?: string | null
     user_ifsc_code?: string | null
-    user_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: string | null
     user_created_at?: Date | string
     user_created_by?: string | null
@@ -87858,9 +89756,6 @@ export namespace Prisma {
     user_pan_no?: string | null
     user_adhaar_no?: string | null
     user_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    user_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
     user_per_address?: string | null
     user_curr_address?: string | null
     user_village?: string | null
@@ -87873,7 +89768,7 @@ export namespace Prisma {
     user_bank_name?: string | null
     user_bank_acc_no?: string | null
     user_ifsc_code?: string | null
-    user_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: string | null
     user_created_at?: Date | string
     user_created_by?: string | null
@@ -87924,9 +89819,7 @@ export namespace Prisma {
     ml_address?: string | null
     ml_notes?: string | null
     ml_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    ml_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    ml_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    ml_pan_img?: NullableJsonNullValueInput | InputJsonValue
+    ml_other_images?: NullableJsonNullValueInput | InputJsonValue
     is_active?: boolean
     created_at?: Date | string
     updated_at?: Date | string
@@ -87963,9 +89856,7 @@ export namespace Prisma {
     ml_address?: string | null
     ml_notes?: string | null
     ml_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    ml_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    ml_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    ml_pan_img?: NullableJsonNullValueInput | InputJsonValue
+    ml_other_images?: NullableJsonNullValueInput | InputJsonValue
     is_active?: boolean
     created_at?: Date | string
     updated_at?: Date | string
@@ -89225,6 +91116,9 @@ export namespace Prisma {
     rel_card_info?: string | null
     rel_pay_info?: string | null
     rel_other_info?: string | null
+    rel_remark?: string | null
+    rel_item_images?: NullableJsonNullValueInput | InputJsonValue
+    rel_is_other_user?: boolean
     rel_created_at?: Date | string
     rel_created_by?: string | null
     rel_updated_at?: Date | string
@@ -89243,6 +91137,7 @@ export namespace Prisma {
     bankAccount?: AccountCreateNestedOneWithoutRelBankInput
     onlineAccount?: AccountCreateNestedOneWithoutRelOnlineInput
     cardAccount?: AccountCreateNestedOneWithoutRelCardInput
+    pickupUser?: ReleaseUserCreateNestedOneWithoutReleasesInput
   }
 
   export type GirviReleaseUncheckedCreateWithoutGirviInput = {
@@ -89276,6 +91171,10 @@ export namespace Prisma {
     rel_card_info?: string | null
     rel_pay_info?: string | null
     rel_other_info?: string | null
+    rel_remark?: string | null
+    rel_item_images?: NullableJsonNullValueInput | InputJsonValue
+    rel_is_other_user?: boolean
+    rel_pickup_user_id?: number | null
     rel_created_at?: Date | string
     rel_created_by?: string | null
     rel_updated_at?: Date | string
@@ -89565,6 +91464,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUpdateManyWithoutFirmNestedInput
     auctionUsers?: AuctionUserUpdateManyWithoutFirmNestedInput
     auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
+    releaseUsers?: ReleaseUserUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUpdateManyWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUpdateOneWithoutFirmNestedInput
   }
@@ -89635,6 +91535,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutFirmNestedInput
     auctionUsers?: AuctionUserUncheckedUpdateManyWithoutFirmNestedInput
     auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
+    releaseUsers?: ReleaseUserUncheckedUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUncheckedUpdateOneWithoutFirmNestedInput
   }
@@ -89671,9 +91572,6 @@ export namespace Prisma {
     user_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_adhaar_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    user_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
     user_per_address?: NullableStringFieldUpdateOperationsInput | string | null
     user_curr_address?: NullableStringFieldUpdateOperationsInput | string | null
     user_village?: NullableStringFieldUpdateOperationsInput | string | null
@@ -89686,7 +91584,7 @@ export namespace Prisma {
     user_bank_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_bank_acc_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
-    user_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: NullableStringFieldUpdateOperationsInput | string | null
     user_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user_created_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -89732,9 +91630,6 @@ export namespace Prisma {
     user_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_adhaar_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    user_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
     user_per_address?: NullableStringFieldUpdateOperationsInput | string | null
     user_curr_address?: NullableStringFieldUpdateOperationsInput | string | null
     user_village?: NullableStringFieldUpdateOperationsInput | string | null
@@ -89747,7 +91642,7 @@ export namespace Prisma {
     user_bank_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_bank_acc_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
-    user_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: NullableStringFieldUpdateOperationsInput | string | null
     user_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user_created_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -89804,9 +91699,7 @@ export namespace Prisma {
     ml_address?: NullableStringFieldUpdateOperationsInput | string | null
     ml_notes?: NullableStringFieldUpdateOperationsInput | string | null
     ml_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    ml_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    ml_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    ml_pan_img?: NullableJsonNullValueInput | InputJsonValue
+    ml_other_images?: NullableJsonNullValueInput | InputJsonValue
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -89843,9 +91736,7 @@ export namespace Prisma {
     ml_address?: NullableStringFieldUpdateOperationsInput | string | null
     ml_notes?: NullableStringFieldUpdateOperationsInput | string | null
     ml_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    ml_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    ml_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    ml_pan_img?: NullableJsonNullValueInput | InputJsonValue
+    ml_other_images?: NullableJsonNullValueInput | InputJsonValue
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -91214,6 +93105,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderCreateNestedManyWithoutFirmInput
     auctionUsers?: AuctionUserCreateNestedManyWithoutFirmInput
     auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
+    releaseUsers?: ReleaseUserCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateCreateNestedManyWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceCreateNestedOneWithoutFirmInput
   }
@@ -91284,6 +93176,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutFirmInput
     auctionUsers?: AuctionUserUncheckedCreateNestedManyWithoutFirmInput
     auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
+    releaseUsers?: ReleaseUserUncheckedCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceUncheckedCreateNestedOneWithoutFirmInput
   }
@@ -91314,9 +93207,6 @@ export namespace Prisma {
     user_pan_no?: string | null
     user_adhaar_no?: string | null
     user_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    user_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
     user_per_address?: string | null
     user_curr_address?: string | null
     user_village?: string | null
@@ -91329,7 +93219,7 @@ export namespace Prisma {
     user_bank_name?: string | null
     user_bank_acc_no?: string | null
     user_ifsc_code?: string | null
-    user_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: string | null
     user_created_at?: Date | string
     user_created_by?: string | null
@@ -91375,9 +93265,6 @@ export namespace Prisma {
     user_pan_no?: string | null
     user_adhaar_no?: string | null
     user_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    user_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
     user_per_address?: string | null
     user_curr_address?: string | null
     user_village?: string | null
@@ -91390,7 +93277,7 @@ export namespace Prisma {
     user_bank_name?: string | null
     user_bank_acc_no?: string | null
     user_ifsc_code?: string | null
-    user_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: string | null
     user_created_at?: Date | string
     user_created_by?: string | null
@@ -91624,6 +93511,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUpdateManyWithoutFirmNestedInput
     auctionUsers?: AuctionUserUpdateManyWithoutFirmNestedInput
     auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
+    releaseUsers?: ReleaseUserUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUpdateManyWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUpdateOneWithoutFirmNestedInput
   }
@@ -91694,6 +93582,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutFirmNestedInput
     auctionUsers?: AuctionUserUncheckedUpdateManyWithoutFirmNestedInput
     auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
+    releaseUsers?: ReleaseUserUncheckedUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUncheckedUpdateOneWithoutFirmNestedInput
   }
@@ -91730,9 +93619,6 @@ export namespace Prisma {
     user_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_adhaar_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    user_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
     user_per_address?: NullableStringFieldUpdateOperationsInput | string | null
     user_curr_address?: NullableStringFieldUpdateOperationsInput | string | null
     user_village?: NullableStringFieldUpdateOperationsInput | string | null
@@ -91745,7 +93631,7 @@ export namespace Prisma {
     user_bank_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_bank_acc_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
-    user_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: NullableStringFieldUpdateOperationsInput | string | null
     user_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user_created_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -91791,9 +93677,6 @@ export namespace Prisma {
     user_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_adhaar_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    user_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
     user_per_address?: NullableStringFieldUpdateOperationsInput | string | null
     user_curr_address?: NullableStringFieldUpdateOperationsInput | string | null
     user_village?: NullableStringFieldUpdateOperationsInput | string | null
@@ -91806,7 +93689,7 @@ export namespace Prisma {
     user_bank_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_bank_acc_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
-    user_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: NullableStringFieldUpdateOperationsInput | string | null
     user_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user_created_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -92019,6 +93902,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderCreateNestedManyWithoutFirmInput
     auctionUsers?: AuctionUserCreateNestedManyWithoutFirmInput
     auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
+    releaseUsers?: ReleaseUserCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateCreateNestedManyWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceCreateNestedOneWithoutFirmInput
   }
@@ -92089,6 +93973,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutFirmInput
     auctionUsers?: AuctionUserUncheckedCreateNestedManyWithoutFirmInput
     auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
+    releaseUsers?: ReleaseUserUncheckedCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceUncheckedCreateNestedOneWithoutFirmInput
   }
@@ -92119,9 +94004,6 @@ export namespace Prisma {
     user_pan_no?: string | null
     user_adhaar_no?: string | null
     user_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    user_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
     user_per_address?: string | null
     user_curr_address?: string | null
     user_village?: string | null
@@ -92134,7 +94016,7 @@ export namespace Prisma {
     user_bank_name?: string | null
     user_bank_acc_no?: string | null
     user_ifsc_code?: string | null
-    user_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: string | null
     user_created_at?: Date | string
     user_created_by?: string | null
@@ -92180,9 +94062,6 @@ export namespace Prisma {
     user_pan_no?: string | null
     user_adhaar_no?: string | null
     user_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    user_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
     user_per_address?: string | null
     user_curr_address?: string | null
     user_village?: string | null
@@ -92195,7 +94074,7 @@ export namespace Prisma {
     user_bank_name?: string | null
     user_bank_acc_no?: string | null
     user_ifsc_code?: string | null
-    user_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: string | null
     user_created_at?: Date | string
     user_created_by?: string | null
@@ -93165,6 +95044,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUpdateManyWithoutFirmNestedInput
     auctionUsers?: AuctionUserUpdateManyWithoutFirmNestedInput
     auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
+    releaseUsers?: ReleaseUserUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUpdateManyWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUpdateOneWithoutFirmNestedInput
   }
@@ -93235,6 +95115,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutFirmNestedInput
     auctionUsers?: AuctionUserUncheckedUpdateManyWithoutFirmNestedInput
     auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
+    releaseUsers?: ReleaseUserUncheckedUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUncheckedUpdateOneWithoutFirmNestedInput
   }
@@ -93271,9 +95152,6 @@ export namespace Prisma {
     user_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_adhaar_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    user_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
     user_per_address?: NullableStringFieldUpdateOperationsInput | string | null
     user_curr_address?: NullableStringFieldUpdateOperationsInput | string | null
     user_village?: NullableStringFieldUpdateOperationsInput | string | null
@@ -93286,7 +95164,7 @@ export namespace Prisma {
     user_bank_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_bank_acc_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
-    user_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: NullableStringFieldUpdateOperationsInput | string | null
     user_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user_created_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -93332,9 +95210,6 @@ export namespace Prisma {
     user_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_adhaar_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    user_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
     user_per_address?: NullableStringFieldUpdateOperationsInput | string | null
     user_curr_address?: NullableStringFieldUpdateOperationsInput | string | null
     user_village?: NullableStringFieldUpdateOperationsInput | string | null
@@ -93347,7 +95222,7 @@ export namespace Prisma {
     user_bank_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_bank_acc_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
-    user_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: NullableStringFieldUpdateOperationsInput | string | null
     user_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user_created_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -94326,6 +96201,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderCreateNestedManyWithoutFirmInput
     auctionUsers?: AuctionUserCreateNestedManyWithoutFirmInput
     auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
+    releaseUsers?: ReleaseUserCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateCreateNestedManyWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceCreateNestedOneWithoutFirmInput
   }
@@ -94396,6 +96272,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutFirmInput
     auctionUsers?: AuctionUserUncheckedCreateNestedManyWithoutFirmInput
     auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
+    releaseUsers?: ReleaseUserUncheckedCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceUncheckedCreateNestedOneWithoutFirmInput
   }
@@ -94426,9 +96303,6 @@ export namespace Prisma {
     user_pan_no?: string | null
     user_adhaar_no?: string | null
     user_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    user_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
     user_per_address?: string | null
     user_curr_address?: string | null
     user_village?: string | null
@@ -94441,7 +96315,7 @@ export namespace Prisma {
     user_bank_name?: string | null
     user_bank_acc_no?: string | null
     user_ifsc_code?: string | null
-    user_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: string | null
     user_created_at?: Date | string
     user_created_by?: string | null
@@ -94487,9 +96361,6 @@ export namespace Prisma {
     user_pan_no?: string | null
     user_adhaar_no?: string | null
     user_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    user_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
     user_per_address?: string | null
     user_curr_address?: string | null
     user_village?: string | null
@@ -94502,7 +96373,7 @@ export namespace Prisma {
     user_bank_name?: string | null
     user_bank_acc_no?: string | null
     user_ifsc_code?: string | null
-    user_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: string | null
     user_created_at?: Date | string
     user_created_by?: string | null
@@ -96080,6 +97951,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUpdateManyWithoutFirmNestedInput
     auctionUsers?: AuctionUserUpdateManyWithoutFirmNestedInput
     auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
+    releaseUsers?: ReleaseUserUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUpdateManyWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUpdateOneWithoutFirmNestedInput
   }
@@ -96150,6 +98022,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutFirmNestedInput
     auctionUsers?: AuctionUserUncheckedUpdateManyWithoutFirmNestedInput
     auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
+    releaseUsers?: ReleaseUserUncheckedUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUncheckedUpdateOneWithoutFirmNestedInput
   }
@@ -96186,9 +98059,6 @@ export namespace Prisma {
     user_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_adhaar_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    user_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
     user_per_address?: NullableStringFieldUpdateOperationsInput | string | null
     user_curr_address?: NullableStringFieldUpdateOperationsInput | string | null
     user_village?: NullableStringFieldUpdateOperationsInput | string | null
@@ -96201,7 +98071,7 @@ export namespace Prisma {
     user_bank_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_bank_acc_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
-    user_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: NullableStringFieldUpdateOperationsInput | string | null
     user_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user_created_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -96247,9 +98117,6 @@ export namespace Prisma {
     user_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_adhaar_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    user_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
     user_per_address?: NullableStringFieldUpdateOperationsInput | string | null
     user_curr_address?: NullableStringFieldUpdateOperationsInput | string | null
     user_village?: NullableStringFieldUpdateOperationsInput | string | null
@@ -96262,7 +98129,7 @@ export namespace Prisma {
     user_bank_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_bank_acc_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
-    user_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: NullableStringFieldUpdateOperationsInput | string | null
     user_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user_created_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -97873,6 +99740,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderCreateNestedManyWithoutFirmInput
     auctionUsers?: AuctionUserCreateNestedManyWithoutFirmInput
     auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
+    releaseUsers?: ReleaseUserCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateCreateNestedManyWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceCreateNestedOneWithoutFirmInput
   }
@@ -97943,6 +99811,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutFirmInput
     auctionUsers?: AuctionUserUncheckedCreateNestedManyWithoutFirmInput
     auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
+    releaseUsers?: ReleaseUserUncheckedCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceUncheckedCreateNestedOneWithoutFirmInput
   }
@@ -97973,9 +99842,6 @@ export namespace Prisma {
     user_pan_no?: string | null
     user_adhaar_no?: string | null
     user_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    user_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
     user_per_address?: string | null
     user_curr_address?: string | null
     user_village?: string | null
@@ -97988,7 +99854,7 @@ export namespace Prisma {
     user_bank_name?: string | null
     user_bank_acc_no?: string | null
     user_ifsc_code?: string | null
-    user_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: string | null
     user_created_at?: Date | string
     user_created_by?: string | null
@@ -98034,9 +99900,6 @@ export namespace Prisma {
     user_pan_no?: string | null
     user_adhaar_no?: string | null
     user_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    user_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
     user_per_address?: string | null
     user_curr_address?: string | null
     user_village?: string | null
@@ -98049,7 +99912,7 @@ export namespace Prisma {
     user_bank_name?: string | null
     user_bank_acc_no?: string | null
     user_ifsc_code?: string | null
-    user_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: string | null
     user_created_at?: Date | string
     user_created_by?: string | null
@@ -99418,6 +101281,52 @@ export namespace Prisma {
     create: XOR<AccountCreateWithoutRelCardInput, AccountUncheckedCreateWithoutRelCardInput>
   }
 
+  export type ReleaseUserCreateWithoutReleasesInput = {
+    ru_uuid?: string
+    ru_unique_code?: string | null
+    ru_date?: string | null
+    ru_full_name?: string | null
+    ru_mobile?: string | null
+    ru_email?: string | null
+    ru_aadhaar?: string | null
+    ru_gender?: string | null
+    ru_pan?: string | null
+    ru_address?: string | null
+    ru_state?: string | null
+    ru_city?: string | null
+    ru_country?: string | null
+    ru_village?: string | null
+    ru_pincode?: string | null
+    ru_other_images?: NullableJsonNullValueInput | InputJsonValue
+    firm: FirmCreateNestedOneWithoutReleaseUsersInput
+  }
+
+  export type ReleaseUserUncheckedCreateWithoutReleasesInput = {
+    ru_id?: number
+    ru_uuid?: string
+    ru_unique_code?: string | null
+    ru_date?: string | null
+    ru_firm_id: number
+    ru_full_name?: string | null
+    ru_mobile?: string | null
+    ru_email?: string | null
+    ru_aadhaar?: string | null
+    ru_gender?: string | null
+    ru_pan?: string | null
+    ru_address?: string | null
+    ru_state?: string | null
+    ru_city?: string | null
+    ru_country?: string | null
+    ru_village?: string | null
+    ru_pincode?: string | null
+    ru_other_images?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type ReleaseUserCreateOrConnectWithoutReleasesInput = {
+    where: ReleaseUserWhereUniqueInput
+    create: XOR<ReleaseUserCreateWithoutReleasesInput, ReleaseUserUncheckedCreateWithoutReleasesInput>
+  }
+
   export type OwnerUpsertWithoutReleasesInput = {
     update: XOR<OwnerUpdateWithoutReleasesInput, OwnerUncheckedUpdateWithoutReleasesInput>
     create: XOR<OwnerCreateWithoutReleasesInput, OwnerUncheckedCreateWithoutReleasesInput>
@@ -99627,6 +101536,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUpdateManyWithoutFirmNestedInput
     auctionUsers?: AuctionUserUpdateManyWithoutFirmNestedInput
     auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
+    releaseUsers?: ReleaseUserUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUpdateManyWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUpdateOneWithoutFirmNestedInput
   }
@@ -99697,6 +101607,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutFirmNestedInput
     auctionUsers?: AuctionUserUncheckedUpdateManyWithoutFirmNestedInput
     auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
+    releaseUsers?: ReleaseUserUncheckedUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUncheckedUpdateOneWithoutFirmNestedInput
   }
@@ -99733,9 +101644,6 @@ export namespace Prisma {
     user_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_adhaar_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    user_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
     user_per_address?: NullableStringFieldUpdateOperationsInput | string | null
     user_curr_address?: NullableStringFieldUpdateOperationsInput | string | null
     user_village?: NullableStringFieldUpdateOperationsInput | string | null
@@ -99748,7 +101656,7 @@ export namespace Prisma {
     user_bank_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_bank_acc_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
-    user_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: NullableStringFieldUpdateOperationsInput | string | null
     user_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user_created_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -99794,9 +101702,6 @@ export namespace Prisma {
     user_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_adhaar_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    user_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
     user_per_address?: NullableStringFieldUpdateOperationsInput | string | null
     user_curr_address?: NullableStringFieldUpdateOperationsInput | string | null
     user_village?: NullableStringFieldUpdateOperationsInput | string | null
@@ -99809,7 +101714,7 @@ export namespace Prisma {
     user_bank_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_bank_acc_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
-    user_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: NullableStringFieldUpdateOperationsInput | string | null
     user_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user_created_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -101227,6 +103132,469 @@ export namespace Prisma {
     relOnline?: GirviReleaseUncheckedUpdateManyWithoutOnlineAccountNestedInput
   }
 
+  export type ReleaseUserUpsertWithoutReleasesInput = {
+    update: XOR<ReleaseUserUpdateWithoutReleasesInput, ReleaseUserUncheckedUpdateWithoutReleasesInput>
+    create: XOR<ReleaseUserCreateWithoutReleasesInput, ReleaseUserUncheckedCreateWithoutReleasesInput>
+    where?: ReleaseUserWhereInput
+  }
+
+  export type ReleaseUserUpdateToOneWithWhereWithoutReleasesInput = {
+    where?: ReleaseUserWhereInput
+    data: XOR<ReleaseUserUpdateWithoutReleasesInput, ReleaseUserUncheckedUpdateWithoutReleasesInput>
+  }
+
+  export type ReleaseUserUpdateWithoutReleasesInput = {
+    ru_uuid?: StringFieldUpdateOperationsInput | string
+    ru_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_date?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_full_name?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_mobile?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_email?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_aadhaar?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_gender?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_pan?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_address?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_state?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_city?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_country?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_village?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_other_images?: NullableJsonNullValueInput | InputJsonValue
+    firm?: FirmUpdateOneRequiredWithoutReleaseUsersNestedInput
+  }
+
+  export type ReleaseUserUncheckedUpdateWithoutReleasesInput = {
+    ru_id?: IntFieldUpdateOperationsInput | number
+    ru_uuid?: StringFieldUpdateOperationsInput | string
+    ru_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_date?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_firm_id?: IntFieldUpdateOperationsInput | number
+    ru_full_name?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_mobile?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_email?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_aadhaar?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_gender?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_pan?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_address?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_state?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_city?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_country?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_village?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_other_images?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type FirmCreateWithoutReleaseUsersInput = {
+    firm_uuid?: string
+    firm_unique_code?: string | null
+    firm_add_date?: Date | string
+    firm_name: string
+    firm_reg_no: string
+    firm_shop_name: string
+    firm_desc?: string | null
+    firm_address?: string | null
+    firm_city?: string | null
+    firm_pincode?: string | null
+    firm_phone_no?: string | null
+    firm_email_id?: string | null
+    firm_website_link?: string | null
+    firm_type?: $Enums.FirmType
+    firm_owner?: string | null
+    firm_other_info?: string | null
+    firm_geo_latitude?: string | null
+    firm_geo_longitude?: string | null
+    firm_whatsapp_link?: string | null
+    firm_facebook_link?: string | null
+    firm_insta_link?: string | null
+    firm_bank_name?: string | null
+    firm_bank_acc_no?: string | null
+    firm_bank_branch?: string | null
+    firm_bank_address?: string | null
+    firm_acc_holder?: string | null
+    firm_acc_type?: string | null
+    firm_ifsc_code?: string | null
+    firm_start_date?: Date | string | null
+    firm_balance?: string | null
+    firm_balance_type?: $Enums.FirmBalanceType
+    firm_gstin_no?: string | null
+    firm_pan_no?: string | null
+    firm_adhaar_no?: string | null
+    firm_form_header?: string | null
+    firm_form_footer?: string | null
+    firm_own_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_left_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_right_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_qr_code_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_pan_no_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_created_at?: Date | string
+    firm_created_by?: string | null
+    firm_updated_at?: Date | string
+    firm_updated_by?: string | null
+    firm_deleted_at?: Date | string | null
+    firm_deleted_by?: string | null
+    firm_is_deleted?: boolean
+    users?: UserCreateNestedManyWithoutFirmInput
+    accounts?: AccountCreateNestedManyWithoutFirmInput
+    owner?: OwnerCreateNestedOneWithoutFirmsInput
+    finances?: FinanceCreateNestedManyWithoutFirmInput
+    financeTransactions?: Finance_TransactionCreateNestedManyWithoutFirmInput
+    financeMoneyTrans?: Finance_Money_TransactionCreateNestedManyWithoutFirmInput
+    journals?: JournalCreateNestedManyWithoutFirmInput
+    journalTransactions?: JournalTransactionCreateNestedManyWithoutFirmInput
+    girvis?: GirviCreateNestedManyWithoutFirmInput
+    stocks?: StockCreateNestedManyWithoutFirmInput
+    additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutFirmInput
+    deposits?: GirviDepositCreateNestedManyWithoutFirmInput
+    releases?: GirviReleaseCreateNestedManyWithoutFirmInput
+    rates?: RateCreateNestedManyWithoutFirmInput
+    moneyLenders?: MoneyLenderCreateNestedManyWithoutFirmInput
+    auctionUsers?: AuctionUserCreateNestedManyWithoutFirmInput
+    auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
+    messageTemplates?: MessageTemplateCreateNestedManyWithoutFirmInput
+    whatsappInstance?: WhatsAppInstanceCreateNestedOneWithoutFirmInput
+  }
+
+  export type FirmUncheckedCreateWithoutReleaseUsersInput = {
+    firm_id?: number
+    firm_uuid?: string
+    firm_unique_code?: string | null
+    firm_add_date?: Date | string
+    firm_own_id?: number
+    firm_name: string
+    firm_reg_no: string
+    firm_shop_name: string
+    firm_desc?: string | null
+    firm_address?: string | null
+    firm_city?: string | null
+    firm_pincode?: string | null
+    firm_phone_no?: string | null
+    firm_email_id?: string | null
+    firm_website_link?: string | null
+    firm_type?: $Enums.FirmType
+    firm_owner?: string | null
+    firm_other_info?: string | null
+    firm_geo_latitude?: string | null
+    firm_geo_longitude?: string | null
+    firm_whatsapp_link?: string | null
+    firm_facebook_link?: string | null
+    firm_insta_link?: string | null
+    firm_bank_name?: string | null
+    firm_bank_acc_no?: string | null
+    firm_bank_branch?: string | null
+    firm_bank_address?: string | null
+    firm_acc_holder?: string | null
+    firm_acc_type?: string | null
+    firm_ifsc_code?: string | null
+    firm_start_date?: Date | string | null
+    firm_balance?: string | null
+    firm_balance_type?: $Enums.FirmBalanceType
+    firm_gstin_no?: string | null
+    firm_pan_no?: string | null
+    firm_adhaar_no?: string | null
+    firm_form_header?: string | null
+    firm_form_footer?: string | null
+    firm_own_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_left_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_right_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_qr_code_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_pan_no_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_created_at?: Date | string
+    firm_created_by?: string | null
+    firm_updated_at?: Date | string
+    firm_updated_by?: string | null
+    firm_deleted_at?: Date | string | null
+    firm_deleted_by?: string | null
+    firm_is_deleted?: boolean
+    users?: UserUncheckedCreateNestedManyWithoutFirmInput
+    accounts?: AccountUncheckedCreateNestedManyWithoutFirmInput
+    finances?: FinanceUncheckedCreateNestedManyWithoutFirmInput
+    financeTransactions?: Finance_TransactionUncheckedCreateNestedManyWithoutFirmInput
+    financeMoneyTrans?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutFirmInput
+    journals?: JournalUncheckedCreateNestedManyWithoutFirmInput
+    journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutFirmInput
+    girvis?: GirviUncheckedCreateNestedManyWithoutFirmInput
+    stocks?: StockUncheckedCreateNestedManyWithoutFirmInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutFirmInput
+    deposits?: GirviDepositUncheckedCreateNestedManyWithoutFirmInput
+    releases?: GirviReleaseUncheckedCreateNestedManyWithoutFirmInput
+    rates?: RateUncheckedCreateNestedManyWithoutFirmInput
+    moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutFirmInput
+    auctionUsers?: AuctionUserUncheckedCreateNestedManyWithoutFirmInput
+    auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
+    messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutFirmInput
+    whatsappInstance?: WhatsAppInstanceUncheckedCreateNestedOneWithoutFirmInput
+  }
+
+  export type FirmCreateOrConnectWithoutReleaseUsersInput = {
+    where: FirmWhereUniqueInput
+    create: XOR<FirmCreateWithoutReleaseUsersInput, FirmUncheckedCreateWithoutReleaseUsersInput>
+  }
+
+  export type GirviReleaseCreateWithoutPickupUserInput = {
+    rel_uuid?: string
+    rel_staff_id?: number
+    rel_trans_date: string
+    rel_prin_amt?: number
+    rel_int_amt?: number
+    rel_disc_amt?: number
+    rel_extra_amt?: number
+    rel_payable_amt?: number
+    rel_cash_amt?: number | null
+    rel_cash_info?: string | null
+    rel_bank_amt?: number | null
+    rel_bank_info?: string | null
+    rel_online_amt?: number | null
+    rel_online_info?: string | null
+    rel_card_amt?: number | null
+    rel_card_info?: string | null
+    rel_pay_info?: string | null
+    rel_other_info?: string | null
+    rel_remark?: string | null
+    rel_item_images?: NullableJsonNullValueInput | InputJsonValue
+    rel_is_other_user?: boolean
+    rel_created_at?: Date | string
+    rel_created_by?: string | null
+    rel_updated_at?: Date | string
+    rel_updated_by?: string | null
+    rel_deleted_at?: Date | string | null
+    rel_deleted_by?: string | null
+    rel_is_deleted?: boolean
+    owner?: OwnerCreateNestedOneWithoutReleasesInput
+    firm?: FirmCreateNestedOneWithoutReleasesInput
+    user?: UserCreateNestedOneWithoutReleasesInput
+    girvi?: GirviCreateNestedOneWithoutReleasesInput
+    prinAccount?: AccountCreateNestedOneWithoutRelPrinInput
+    intAccount?: AccountCreateNestedOneWithoutRelIntInput
+    discAccount?: AccountCreateNestedOneWithoutRelDiscInput
+    extraAccount?: AccountCreateNestedOneWithoutRelExtraInput
+    cashAccount?: AccountCreateNestedOneWithoutRelCashInput
+    bankAccount?: AccountCreateNestedOneWithoutRelBankInput
+    onlineAccount?: AccountCreateNestedOneWithoutRelOnlineInput
+    cardAccount?: AccountCreateNestedOneWithoutRelCardInput
+  }
+
+  export type GirviReleaseUncheckedCreateWithoutPickupUserInput = {
+    rel_id?: number
+    rel_uuid?: string
+    rel_own_id?: number
+    rel_firm_id?: number
+    rel_user_id?: number
+    rel_girv_id?: number
+    rel_staff_id?: number
+    rel_trans_date: string
+    rel_prin_amt?: number
+    rel_int_amt?: number
+    rel_disc_amt?: number
+    rel_extra_amt?: number
+    rel_payable_amt?: number
+    rel_prin_acc_id?: number | null
+    rel_int_acc_id?: number | null
+    rel_disc_acc_id?: number | null
+    rel_extra_acc_id?: number | null
+    rel_cash_amt?: number | null
+    rel_cash_acc_id?: number | null
+    rel_cash_info?: string | null
+    rel_bank_amt?: number | null
+    rel_bank_acc_id?: number | null
+    rel_bank_info?: string | null
+    rel_online_amt?: number | null
+    rel_online_acc_id?: number | null
+    rel_online_info?: string | null
+    rel_card_amt?: number | null
+    rel_card_acc_id?: number | null
+    rel_card_info?: string | null
+    rel_pay_info?: string | null
+    rel_other_info?: string | null
+    rel_remark?: string | null
+    rel_item_images?: NullableJsonNullValueInput | InputJsonValue
+    rel_is_other_user?: boolean
+    rel_created_at?: Date | string
+    rel_created_by?: string | null
+    rel_updated_at?: Date | string
+    rel_updated_by?: string | null
+    rel_deleted_at?: Date | string | null
+    rel_deleted_by?: string | null
+    rel_is_deleted?: boolean
+  }
+
+  export type GirviReleaseCreateOrConnectWithoutPickupUserInput = {
+    where: GirviReleaseWhereUniqueInput
+    create: XOR<GirviReleaseCreateWithoutPickupUserInput, GirviReleaseUncheckedCreateWithoutPickupUserInput>
+  }
+
+  export type GirviReleaseCreateManyPickupUserInputEnvelope = {
+    data: GirviReleaseCreateManyPickupUserInput | GirviReleaseCreateManyPickupUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type FirmUpsertWithoutReleaseUsersInput = {
+    update: XOR<FirmUpdateWithoutReleaseUsersInput, FirmUncheckedUpdateWithoutReleaseUsersInput>
+    create: XOR<FirmCreateWithoutReleaseUsersInput, FirmUncheckedCreateWithoutReleaseUsersInput>
+    where?: FirmWhereInput
+  }
+
+  export type FirmUpdateToOneWithWhereWithoutReleaseUsersInput = {
+    where?: FirmWhereInput
+    data: XOR<FirmUpdateWithoutReleaseUsersInput, FirmUncheckedUpdateWithoutReleaseUsersInput>
+  }
+
+  export type FirmUpdateWithoutReleaseUsersInput = {
+    firm_uuid?: StringFieldUpdateOperationsInput | string
+    firm_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    firm_name?: StringFieldUpdateOperationsInput | string
+    firm_reg_no?: StringFieldUpdateOperationsInput | string
+    firm_shop_name?: StringFieldUpdateOperationsInput | string
+    firm_desc?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_address?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_city?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_email_id?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_website_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_type?: EnumFirmTypeFieldUpdateOperationsInput | $Enums.FirmType
+    firm_owner?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_geo_latitude?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_geo_longitude?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_whatsapp_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_facebook_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_insta_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_name?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_acc_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_branch?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_address?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_acc_holder?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_acc_type?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firm_balance?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_balance_type?: EnumFirmBalanceTypeFieldUpdateOperationsInput | $Enums.FirmBalanceType
+    firm_gstin_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_adhaar_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_form_header?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_form_footer?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_own_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_left_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_right_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_qr_code_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_pan_no_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    firm_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    firm_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firm_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    users?: UserUpdateManyWithoutFirmNestedInput
+    accounts?: AccountUpdateManyWithoutFirmNestedInput
+    owner?: OwnerUpdateOneRequiredWithoutFirmsNestedInput
+    finances?: FinanceUpdateManyWithoutFirmNestedInput
+    financeTransactions?: Finance_TransactionUpdateManyWithoutFirmNestedInput
+    financeMoneyTrans?: Finance_Money_TransactionUpdateManyWithoutFirmNestedInput
+    journals?: JournalUpdateManyWithoutFirmNestedInput
+    journalTransactions?: JournalTransactionUpdateManyWithoutFirmNestedInput
+    girvis?: GirviUpdateManyWithoutFirmNestedInput
+    stocks?: StockUpdateManyWithoutFirmNestedInput
+    additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutFirmNestedInput
+    deposits?: GirviDepositUpdateManyWithoutFirmNestedInput
+    releases?: GirviReleaseUpdateManyWithoutFirmNestedInput
+    rates?: RateUpdateManyWithoutFirmNestedInput
+    moneyLenders?: MoneyLenderUpdateManyWithoutFirmNestedInput
+    auctionUsers?: AuctionUserUpdateManyWithoutFirmNestedInput
+    auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
+    messageTemplates?: MessageTemplateUpdateManyWithoutFirmNestedInput
+    whatsappInstance?: WhatsAppInstanceUpdateOneWithoutFirmNestedInput
+  }
+
+  export type FirmUncheckedUpdateWithoutReleaseUsersInput = {
+    firm_id?: IntFieldUpdateOperationsInput | number
+    firm_uuid?: StringFieldUpdateOperationsInput | string
+    firm_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    firm_own_id?: IntFieldUpdateOperationsInput | number
+    firm_name?: StringFieldUpdateOperationsInput | string
+    firm_reg_no?: StringFieldUpdateOperationsInput | string
+    firm_shop_name?: StringFieldUpdateOperationsInput | string
+    firm_desc?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_address?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_city?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_email_id?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_website_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_type?: EnumFirmTypeFieldUpdateOperationsInput | $Enums.FirmType
+    firm_owner?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_geo_latitude?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_geo_longitude?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_whatsapp_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_facebook_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_insta_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_name?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_acc_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_branch?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_address?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_acc_holder?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_acc_type?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firm_balance?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_balance_type?: EnumFirmBalanceTypeFieldUpdateOperationsInput | $Enums.FirmBalanceType
+    firm_gstin_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_adhaar_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_form_header?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_form_footer?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_own_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_left_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_right_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_qr_code_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_pan_no_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    firm_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    firm_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firm_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    users?: UserUncheckedUpdateManyWithoutFirmNestedInput
+    accounts?: AccountUncheckedUpdateManyWithoutFirmNestedInput
+    finances?: FinanceUncheckedUpdateManyWithoutFirmNestedInput
+    financeTransactions?: Finance_TransactionUncheckedUpdateManyWithoutFirmNestedInput
+    financeMoneyTrans?: Finance_Money_TransactionUncheckedUpdateManyWithoutFirmNestedInput
+    journals?: JournalUncheckedUpdateManyWithoutFirmNestedInput
+    journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutFirmNestedInput
+    girvis?: GirviUncheckedUpdateManyWithoutFirmNestedInput
+    stocks?: StockUncheckedUpdateManyWithoutFirmNestedInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutFirmNestedInput
+    deposits?: GirviDepositUncheckedUpdateManyWithoutFirmNestedInput
+    releases?: GirviReleaseUncheckedUpdateManyWithoutFirmNestedInput
+    rates?: RateUncheckedUpdateManyWithoutFirmNestedInput
+    moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutFirmNestedInput
+    auctionUsers?: AuctionUserUncheckedUpdateManyWithoutFirmNestedInput
+    auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
+    messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutFirmNestedInput
+    whatsappInstance?: WhatsAppInstanceUncheckedUpdateOneWithoutFirmNestedInput
+  }
+
+  export type GirviReleaseUpsertWithWhereUniqueWithoutPickupUserInput = {
+    where: GirviReleaseWhereUniqueInput
+    update: XOR<GirviReleaseUpdateWithoutPickupUserInput, GirviReleaseUncheckedUpdateWithoutPickupUserInput>
+    create: XOR<GirviReleaseCreateWithoutPickupUserInput, GirviReleaseUncheckedCreateWithoutPickupUserInput>
+  }
+
+  export type GirviReleaseUpdateWithWhereUniqueWithoutPickupUserInput = {
+    where: GirviReleaseWhereUniqueInput
+    data: XOR<GirviReleaseUpdateWithoutPickupUserInput, GirviReleaseUncheckedUpdateWithoutPickupUserInput>
+  }
+
+  export type GirviReleaseUpdateManyWithWhereWithoutPickupUserInput = {
+    where: GirviReleaseScalarWhereInput
+    data: XOR<GirviReleaseUpdateManyMutationInput, GirviReleaseUncheckedUpdateManyWithoutPickupUserInput>
+  }
+
   export type OwnerCreateWithoutRatesInput = {
     own_uuid?: string
     own_product_key?: number
@@ -101420,6 +103788,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderCreateNestedManyWithoutFirmInput
     auctionUsers?: AuctionUserCreateNestedManyWithoutFirmInput
     auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
+    releaseUsers?: ReleaseUserCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateCreateNestedManyWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceCreateNestedOneWithoutFirmInput
   }
@@ -101490,6 +103859,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutFirmInput
     auctionUsers?: AuctionUserUncheckedCreateNestedManyWithoutFirmInput
     auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
+    releaseUsers?: ReleaseUserUncheckedCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceUncheckedCreateNestedOneWithoutFirmInput
   }
@@ -101708,6 +104078,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUpdateManyWithoutFirmNestedInput
     auctionUsers?: AuctionUserUpdateManyWithoutFirmNestedInput
     auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
+    releaseUsers?: ReleaseUserUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUpdateManyWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUpdateOneWithoutFirmNestedInput
   }
@@ -101778,6 +104149,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutFirmNestedInput
     auctionUsers?: AuctionUserUncheckedUpdateManyWithoutFirmNestedInput
     auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
+    releaseUsers?: ReleaseUserUncheckedUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUncheckedUpdateOneWithoutFirmNestedInput
   }
@@ -102236,6 +104608,7 @@ export namespace Prisma {
     rates?: RateCreateNestedManyWithoutFirmInput
     auctionUsers?: AuctionUserCreateNestedManyWithoutFirmInput
     auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
+    releaseUsers?: ReleaseUserCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateCreateNestedManyWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceCreateNestedOneWithoutFirmInput
   }
@@ -102306,6 +104679,7 @@ export namespace Prisma {
     rates?: RateUncheckedCreateNestedManyWithoutFirmInput
     auctionUsers?: AuctionUserUncheckedCreateNestedManyWithoutFirmInput
     auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
+    releaseUsers?: ReleaseUserUncheckedCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceUncheckedCreateNestedOneWithoutFirmInput
   }
@@ -102657,6 +105031,7 @@ export namespace Prisma {
     rates?: RateUpdateManyWithoutFirmNestedInput
     auctionUsers?: AuctionUserUpdateManyWithoutFirmNestedInput
     auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
+    releaseUsers?: ReleaseUserUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUpdateManyWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUpdateOneWithoutFirmNestedInput
   }
@@ -102727,6 +105102,7 @@ export namespace Prisma {
     rates?: RateUncheckedUpdateManyWithoutFirmNestedInput
     auctionUsers?: AuctionUserUncheckedUpdateManyWithoutFirmNestedInput
     auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
+    releaseUsers?: ReleaseUserUncheckedUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUncheckedUpdateOneWithoutFirmNestedInput
   }
@@ -102812,6 +105188,7 @@ export namespace Prisma {
     rates?: RateCreateNestedManyWithoutFirmInput
     moneyLenders?: MoneyLenderCreateNestedManyWithoutFirmInput
     auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
+    releaseUsers?: ReleaseUserCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateCreateNestedManyWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceCreateNestedOneWithoutFirmInput
   }
@@ -102882,6 +105259,7 @@ export namespace Prisma {
     rates?: RateUncheckedCreateNestedManyWithoutFirmInput
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutFirmInput
     auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
+    releaseUsers?: ReleaseUserUncheckedCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceUncheckedCreateNestedOneWithoutFirmInput
   }
@@ -103028,6 +105406,7 @@ export namespace Prisma {
     rates?: RateUpdateManyWithoutFirmNestedInput
     moneyLenders?: MoneyLenderUpdateManyWithoutFirmNestedInput
     auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
+    releaseUsers?: ReleaseUserUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUpdateManyWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUpdateOneWithoutFirmNestedInput
   }
@@ -103098,6 +105477,7 @@ export namespace Prisma {
     rates?: RateUncheckedUpdateManyWithoutFirmNestedInput
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutFirmNestedInput
     auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
+    releaseUsers?: ReleaseUserUncheckedUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUncheckedUpdateOneWithoutFirmNestedInput
   }
@@ -103183,6 +105563,7 @@ export namespace Prisma {
     rates?: RateCreateNestedManyWithoutFirmInput
     moneyLenders?: MoneyLenderCreateNestedManyWithoutFirmInput
     auctionUsers?: AuctionUserCreateNestedManyWithoutFirmInput
+    releaseUsers?: ReleaseUserCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateCreateNestedManyWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceCreateNestedOneWithoutFirmInput
   }
@@ -103253,6 +105634,7 @@ export namespace Prisma {
     rates?: RateUncheckedCreateNestedManyWithoutFirmInput
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutFirmInput
     auctionUsers?: AuctionUserUncheckedCreateNestedManyWithoutFirmInput
+    releaseUsers?: ReleaseUserUncheckedCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceUncheckedCreateNestedOneWithoutFirmInput
   }
@@ -103406,7 +105788,8 @@ export namespace Prisma {
     au_country?: string | null
     au_village?: string | null
     au_pincode?: string | null
-    au_image?: string | null
+    au_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    au_other_images?: NullableJsonNullValueInput | InputJsonValue
     firm: FirmCreateNestedOneWithoutAuctionUsersInput
   }
 
@@ -103428,7 +105811,8 @@ export namespace Prisma {
     au_country?: string | null
     au_village?: string | null
     au_pincode?: string | null
-    au_image?: string | null
+    au_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    au_other_images?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type AuctionUserCreateOrConnectWithoutAuctionLoansInput = {
@@ -103512,6 +105896,7 @@ export namespace Prisma {
     rates?: RateUpdateManyWithoutFirmNestedInput
     moneyLenders?: MoneyLenderUpdateManyWithoutFirmNestedInput
     auctionUsers?: AuctionUserUpdateManyWithoutFirmNestedInput
+    releaseUsers?: ReleaseUserUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUpdateManyWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUpdateOneWithoutFirmNestedInput
   }
@@ -103582,6 +105967,7 @@ export namespace Prisma {
     rates?: RateUncheckedUpdateManyWithoutFirmNestedInput
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutFirmNestedInput
     auctionUsers?: AuctionUserUncheckedUpdateManyWithoutFirmNestedInput
+    releaseUsers?: ReleaseUserUncheckedUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUncheckedUpdateOneWithoutFirmNestedInput
   }
@@ -103747,7 +106133,8 @@ export namespace Prisma {
     au_country?: NullableStringFieldUpdateOperationsInput | string | null
     au_village?: NullableStringFieldUpdateOperationsInput | string | null
     au_pincode?: NullableStringFieldUpdateOperationsInput | string | null
-    au_image?: NullableStringFieldUpdateOperationsInput | string | null
+    au_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    au_other_images?: NullableJsonNullValueInput | InputJsonValue
     firm?: FirmUpdateOneRequiredWithoutAuctionUsersNestedInput
   }
 
@@ -103769,7 +106156,8 @@ export namespace Prisma {
     au_country?: NullableStringFieldUpdateOperationsInput | string | null
     au_village?: NullableStringFieldUpdateOperationsInput | string | null
     au_pincode?: NullableStringFieldUpdateOperationsInput | string | null
-    au_image?: NullableStringFieldUpdateOperationsInput | string | null
+    au_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    au_other_images?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type OwnerCreateWithoutStaffInput = {
@@ -104151,10 +106539,7 @@ export namespace Prisma {
     staff_password: string
     staff_status?: $Enums.StaffStatus
     staff_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    staff_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    staff_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    staff_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
-    staff_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_other_images?: NullableJsonNullValueInput | InputJsonValue
     staff_per_address?: string | null
     staff_curr_address?: string | null
     staff_village?: string | null
@@ -104210,10 +106595,7 @@ export namespace Prisma {
     staff_password: string
     staff_status?: $Enums.StaffStatus
     staff_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    staff_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    staff_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    staff_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
-    staff_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_other_images?: NullableJsonNullValueInput | InputJsonValue
     staff_per_address?: string | null
     staff_curr_address?: string | null
     staff_village?: string | null
@@ -104308,10 +106690,7 @@ export namespace Prisma {
     staff_password?: StringFieldUpdateOperationsInput | string
     staff_status?: EnumStaffStatusFieldUpdateOperationsInput | $Enums.StaffStatus
     staff_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    staff_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    staff_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    staff_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
-    staff_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_other_images?: NullableJsonNullValueInput | InputJsonValue
     staff_per_address?: NullableStringFieldUpdateOperationsInput | string | null
     staff_curr_address?: NullableStringFieldUpdateOperationsInput | string | null
     staff_village?: NullableStringFieldUpdateOperationsInput | string | null
@@ -104367,10 +106746,7 @@ export namespace Prisma {
     staff_password?: StringFieldUpdateOperationsInput | string
     staff_status?: EnumStaffStatusFieldUpdateOperationsInput | $Enums.StaffStatus
     staff_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    staff_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    staff_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    staff_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
-    staff_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_other_images?: NullableJsonNullValueInput | InputJsonValue
     staff_per_address?: NullableStringFieldUpdateOperationsInput | string | null
     staff_curr_address?: NullableStringFieldUpdateOperationsInput | string | null
     staff_village?: NullableStringFieldUpdateOperationsInput | string | null
@@ -104625,6 +107001,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderCreateNestedManyWithoutFirmInput
     auctionUsers?: AuctionUserCreateNestedManyWithoutFirmInput
     auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
+    releaseUsers?: ReleaseUserCreateNestedManyWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceCreateNestedOneWithoutFirmInput
   }
 
@@ -104695,6 +107072,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutFirmInput
     auctionUsers?: AuctionUserUncheckedCreateNestedManyWithoutFirmInput
     auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
+    releaseUsers?: ReleaseUserUncheckedCreateNestedManyWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceUncheckedCreateNestedOneWithoutFirmInput
   }
 
@@ -104913,6 +107291,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUpdateManyWithoutFirmNestedInput
     auctionUsers?: AuctionUserUpdateManyWithoutFirmNestedInput
     auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
+    releaseUsers?: ReleaseUserUpdateManyWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUpdateOneWithoutFirmNestedInput
   }
 
@@ -104983,6 +107362,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutFirmNestedInput
     auctionUsers?: AuctionUserUncheckedUpdateManyWithoutFirmNestedInput
     auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
+    releaseUsers?: ReleaseUserUncheckedUpdateManyWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUncheckedUpdateOneWithoutFirmNestedInput
   }
 
@@ -105180,6 +107560,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderCreateNestedManyWithoutFirmInput
     auctionUsers?: AuctionUserCreateNestedManyWithoutFirmInput
     auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
+    releaseUsers?: ReleaseUserCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateCreateNestedManyWithoutFirmInput
   }
 
@@ -105250,6 +107631,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutFirmInput
     auctionUsers?: AuctionUserUncheckedCreateNestedManyWithoutFirmInput
     auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
+    releaseUsers?: ReleaseUserUncheckedCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutFirmInput
   }
 
@@ -105468,6 +107850,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUpdateManyWithoutFirmNestedInput
     auctionUsers?: AuctionUserUpdateManyWithoutFirmNestedInput
     auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
+    releaseUsers?: ReleaseUserUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUpdateManyWithoutFirmNestedInput
   }
 
@@ -105538,6 +107921,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutFirmNestedInput
     auctionUsers?: AuctionUserUncheckedUpdateManyWithoutFirmNestedInput
     auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
+    releaseUsers?: ReleaseUserUncheckedUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutFirmNestedInput
   }
 
@@ -105564,9 +107948,6 @@ export namespace Prisma {
     user_pan_no?: string | null
     user_adhaar_no?: string | null
     user_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    user_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
     user_per_address?: string | null
     user_curr_address?: string | null
     user_village?: string | null
@@ -105579,7 +107960,7 @@ export namespace Prisma {
     user_bank_name?: string | null
     user_bank_acc_no?: string | null
     user_ifsc_code?: string | null
-    user_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: string | null
     user_created_at?: Date | string
     user_created_by?: string | null
@@ -106027,6 +108408,10 @@ export namespace Prisma {
     rel_card_info?: string | null
     rel_pay_info?: string | null
     rel_other_info?: string | null
+    rel_remark?: string | null
+    rel_item_images?: NullableJsonNullValueInput | InputJsonValue
+    rel_is_other_user?: boolean
+    rel_pickup_user_id?: number | null
     rel_created_at?: Date | string
     rel_created_by?: string | null
     rel_updated_at?: Date | string
@@ -106098,9 +108483,7 @@ export namespace Prisma {
     ml_address?: string | null
     ml_notes?: string | null
     ml_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    ml_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    ml_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    ml_pan_img?: NullableJsonNullValueInput | InputJsonValue
+    ml_other_images?: NullableJsonNullValueInput | InputJsonValue
     is_active?: boolean
     created_at?: Date | string
     updated_at?: Date | string
@@ -106131,10 +108514,7 @@ export namespace Prisma {
     staff_password: string
     staff_status?: $Enums.StaffStatus
     staff_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    staff_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    staff_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    staff_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
-    staff_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_other_images?: NullableJsonNullValueInput | InputJsonValue
     staff_per_address?: string | null
     staff_curr_address?: string | null
     staff_village?: string | null
@@ -106231,9 +108611,6 @@ export namespace Prisma {
     user_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_adhaar_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    user_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
     user_per_address?: NullableStringFieldUpdateOperationsInput | string | null
     user_curr_address?: NullableStringFieldUpdateOperationsInput | string | null
     user_village?: NullableStringFieldUpdateOperationsInput | string | null
@@ -106246,7 +108623,7 @@ export namespace Prisma {
     user_bank_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_bank_acc_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
-    user_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: NullableStringFieldUpdateOperationsInput | string | null
     user_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user_created_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -106291,9 +108668,6 @@ export namespace Prisma {
     user_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_adhaar_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    user_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
     user_per_address?: NullableStringFieldUpdateOperationsInput | string | null
     user_curr_address?: NullableStringFieldUpdateOperationsInput | string | null
     user_village?: NullableStringFieldUpdateOperationsInput | string | null
@@ -106306,7 +108680,7 @@ export namespace Prisma {
     user_bank_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_bank_acc_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
-    user_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: NullableStringFieldUpdateOperationsInput | string | null
     user_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user_created_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -106350,9 +108724,6 @@ export namespace Prisma {
     user_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_adhaar_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    user_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
     user_per_address?: NullableStringFieldUpdateOperationsInput | string | null
     user_curr_address?: NullableStringFieldUpdateOperationsInput | string | null
     user_village?: NullableStringFieldUpdateOperationsInput | string | null
@@ -106365,7 +108736,7 @@ export namespace Prisma {
     user_bank_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_bank_acc_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
-    user_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: NullableStringFieldUpdateOperationsInput | string | null
     user_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user_created_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -106441,6 +108812,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUpdateManyWithoutFirmNestedInput
     auctionUsers?: AuctionUserUpdateManyWithoutFirmNestedInput
     auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
+    releaseUsers?: ReleaseUserUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUpdateManyWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUpdateOneWithoutFirmNestedInput
   }
@@ -106511,6 +108883,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutFirmNestedInput
     auctionUsers?: AuctionUserUncheckedUpdateManyWithoutFirmNestedInput
     auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
+    releaseUsers?: ReleaseUserUncheckedUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUncheckedUpdateOneWithoutFirmNestedInput
   }
@@ -107740,6 +110113,9 @@ export namespace Prisma {
     rel_card_info?: NullableStringFieldUpdateOperationsInput | string | null
     rel_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     rel_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_remark?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_item_images?: NullableJsonNullValueInput | InputJsonValue
+    rel_is_other_user?: BoolFieldUpdateOperationsInput | boolean
     rel_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     rel_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     rel_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -107758,6 +110134,7 @@ export namespace Prisma {
     bankAccount?: AccountUpdateOneWithoutRelBankNestedInput
     onlineAccount?: AccountUpdateOneWithoutRelOnlineNestedInput
     cardAccount?: AccountUpdateOneWithoutRelCardNestedInput
+    pickupUser?: ReleaseUserUpdateOneWithoutReleasesNestedInput
   }
 
   export type GirviReleaseUncheckedUpdateWithoutOwnerInput = {
@@ -107791,6 +110168,10 @@ export namespace Prisma {
     rel_card_info?: NullableStringFieldUpdateOperationsInput | string | null
     rel_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     rel_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_remark?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_item_images?: NullableJsonNullValueInput | InputJsonValue
+    rel_is_other_user?: BoolFieldUpdateOperationsInput | boolean
+    rel_pickup_user_id?: NullableIntFieldUpdateOperationsInput | number | null
     rel_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     rel_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     rel_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -107831,6 +110212,10 @@ export namespace Prisma {
     rel_card_info?: NullableStringFieldUpdateOperationsInput | string | null
     rel_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     rel_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_remark?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_item_images?: NullableJsonNullValueInput | InputJsonValue
+    rel_is_other_user?: BoolFieldUpdateOperationsInput | boolean
+    rel_pickup_user_id?: NullableIntFieldUpdateOperationsInput | number | null
     rel_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     rel_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     rel_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -107966,9 +110351,7 @@ export namespace Prisma {
     ml_address?: NullableStringFieldUpdateOperationsInput | string | null
     ml_notes?: NullableStringFieldUpdateOperationsInput | string | null
     ml_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    ml_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    ml_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    ml_pan_img?: NullableJsonNullValueInput | InputJsonValue
+    ml_other_images?: NullableJsonNullValueInput | InputJsonValue
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -108004,9 +110387,7 @@ export namespace Prisma {
     ml_address?: NullableStringFieldUpdateOperationsInput | string | null
     ml_notes?: NullableStringFieldUpdateOperationsInput | string | null
     ml_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    ml_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    ml_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    ml_pan_img?: NullableJsonNullValueInput | InputJsonValue
+    ml_other_images?: NullableJsonNullValueInput | InputJsonValue
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -108041,9 +110422,7 @@ export namespace Prisma {
     ml_address?: NullableStringFieldUpdateOperationsInput | string | null
     ml_notes?: NullableStringFieldUpdateOperationsInput | string | null
     ml_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    ml_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    ml_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    ml_pan_img?: NullableJsonNullValueInput | InputJsonValue
+    ml_other_images?: NullableJsonNullValueInput | InputJsonValue
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -108073,10 +110452,7 @@ export namespace Prisma {
     staff_password?: StringFieldUpdateOperationsInput | string
     staff_status?: EnumStaffStatusFieldUpdateOperationsInput | $Enums.StaffStatus
     staff_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    staff_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    staff_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    staff_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
-    staff_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_other_images?: NullableJsonNullValueInput | InputJsonValue
     staff_per_address?: NullableStringFieldUpdateOperationsInput | string | null
     staff_curr_address?: NullableStringFieldUpdateOperationsInput | string | null
     staff_village?: NullableStringFieldUpdateOperationsInput | string | null
@@ -108131,10 +110507,7 @@ export namespace Prisma {
     staff_password?: StringFieldUpdateOperationsInput | string
     staff_status?: EnumStaffStatusFieldUpdateOperationsInput | $Enums.StaffStatus
     staff_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    staff_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    staff_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    staff_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
-    staff_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_other_images?: NullableJsonNullValueInput | InputJsonValue
     staff_per_address?: NullableStringFieldUpdateOperationsInput | string | null
     staff_curr_address?: NullableStringFieldUpdateOperationsInput | string | null
     staff_village?: NullableStringFieldUpdateOperationsInput | string | null
@@ -108189,10 +110562,7 @@ export namespace Prisma {
     staff_password?: StringFieldUpdateOperationsInput | string
     staff_status?: EnumStaffStatusFieldUpdateOperationsInput | $Enums.StaffStatus
     staff_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    staff_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    staff_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    staff_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
-    staff_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    staff_other_images?: NullableJsonNullValueInput | InputJsonValue
     staff_per_address?: NullableStringFieldUpdateOperationsInput | string | null
     staff_curr_address?: NullableStringFieldUpdateOperationsInput | string | null
     staff_village?: NullableStringFieldUpdateOperationsInput | string | null
@@ -108383,9 +110753,6 @@ export namespace Prisma {
     user_pan_no?: string | null
     user_adhaar_no?: string | null
     user_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    user_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
     user_per_address?: string | null
     user_curr_address?: string | null
     user_village?: string | null
@@ -108398,7 +110765,7 @@ export namespace Prisma {
     user_bank_name?: string | null
     user_bank_acc_no?: string | null
     user_ifsc_code?: string | null
-    user_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: string | null
     user_created_at?: Date | string
     user_created_by?: string | null
@@ -108794,6 +111161,10 @@ export namespace Prisma {
     rel_card_info?: string | null
     rel_pay_info?: string | null
     rel_other_info?: string | null
+    rel_remark?: string | null
+    rel_item_images?: NullableJsonNullValueInput | InputJsonValue
+    rel_is_other_user?: boolean
+    rel_pickup_user_id?: number | null
     rel_created_at?: Date | string
     rel_created_by?: string | null
     rel_updated_at?: Date | string
@@ -108851,9 +111222,7 @@ export namespace Prisma {
     ml_address?: string | null
     ml_notes?: string | null
     ml_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    ml_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    ml_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    ml_pan_img?: NullableJsonNullValueInput | InputJsonValue
+    ml_other_images?: NullableJsonNullValueInput | InputJsonValue
     is_active?: boolean
     created_at?: Date | string
     updated_at?: Date | string
@@ -108876,7 +111245,8 @@ export namespace Prisma {
     au_country?: string | null
     au_village?: string | null
     au_pincode?: string | null
-    au_image?: string | null
+    au_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    au_other_images?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type AuctionLoanCreateManyFirmInput = {
@@ -108903,6 +111273,26 @@ export namespace Prisma {
     al_card_amt?: number | null
     al_pay_info?: string | null
     al_other_info?: string | null
+  }
+
+  export type ReleaseUserCreateManyFirmInput = {
+    ru_id?: number
+    ru_uuid?: string
+    ru_unique_code?: string | null
+    ru_date?: string | null
+    ru_full_name?: string | null
+    ru_mobile?: string | null
+    ru_email?: string | null
+    ru_aadhaar?: string | null
+    ru_gender?: string | null
+    ru_pan?: string | null
+    ru_address?: string | null
+    ru_state?: string | null
+    ru_city?: string | null
+    ru_country?: string | null
+    ru_village?: string | null
+    ru_pincode?: string | null
+    ru_other_images?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type MessageTemplateCreateManyFirmInput = {
@@ -108951,9 +111341,6 @@ export namespace Prisma {
     user_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_adhaar_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    user_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
     user_per_address?: NullableStringFieldUpdateOperationsInput | string | null
     user_curr_address?: NullableStringFieldUpdateOperationsInput | string | null
     user_village?: NullableStringFieldUpdateOperationsInput | string | null
@@ -108966,7 +111353,7 @@ export namespace Prisma {
     user_bank_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_bank_acc_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
-    user_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: NullableStringFieldUpdateOperationsInput | string | null
     user_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user_created_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -109011,9 +111398,6 @@ export namespace Prisma {
     user_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_adhaar_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    user_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
     user_per_address?: NullableStringFieldUpdateOperationsInput | string | null
     user_curr_address?: NullableStringFieldUpdateOperationsInput | string | null
     user_village?: NullableStringFieldUpdateOperationsInput | string | null
@@ -109026,7 +111410,7 @@ export namespace Prisma {
     user_bank_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_bank_acc_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
-    user_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: NullableStringFieldUpdateOperationsInput | string | null
     user_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user_created_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -109070,9 +111454,6 @@ export namespace Prisma {
     user_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_adhaar_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    user_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    user_pan_card_img?: NullableJsonNullValueInput | InputJsonValue
     user_per_address?: NullableStringFieldUpdateOperationsInput | string | null
     user_curr_address?: NullableStringFieldUpdateOperationsInput | string | null
     user_village?: NullableStringFieldUpdateOperationsInput | string | null
@@ -109085,7 +111466,7 @@ export namespace Prisma {
     user_bank_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_bank_acc_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
-    user_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: NullableStringFieldUpdateOperationsInput | string | null
     user_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user_created_by?: NullableStringFieldUpdateOperationsInput | string | null
@@ -110269,6 +112650,9 @@ export namespace Prisma {
     rel_card_info?: NullableStringFieldUpdateOperationsInput | string | null
     rel_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     rel_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_remark?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_item_images?: NullableJsonNullValueInput | InputJsonValue
+    rel_is_other_user?: BoolFieldUpdateOperationsInput | boolean
     rel_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     rel_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     rel_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -110287,6 +112671,7 @@ export namespace Prisma {
     bankAccount?: AccountUpdateOneWithoutRelBankNestedInput
     onlineAccount?: AccountUpdateOneWithoutRelOnlineNestedInput
     cardAccount?: AccountUpdateOneWithoutRelCardNestedInput
+    pickupUser?: ReleaseUserUpdateOneWithoutReleasesNestedInput
   }
 
   export type GirviReleaseUncheckedUpdateWithoutFirmInput = {
@@ -110320,6 +112705,10 @@ export namespace Prisma {
     rel_card_info?: NullableStringFieldUpdateOperationsInput | string | null
     rel_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     rel_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_remark?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_item_images?: NullableJsonNullValueInput | InputJsonValue
+    rel_is_other_user?: BoolFieldUpdateOperationsInput | boolean
+    rel_pickup_user_id?: NullableIntFieldUpdateOperationsInput | number | null
     rel_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     rel_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     rel_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -110360,6 +112749,10 @@ export namespace Prisma {
     rel_card_info?: NullableStringFieldUpdateOperationsInput | string | null
     rel_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     rel_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_remark?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_item_images?: NullableJsonNullValueInput | InputJsonValue
+    rel_is_other_user?: BoolFieldUpdateOperationsInput | boolean
+    rel_pickup_user_id?: NullableIntFieldUpdateOperationsInput | number | null
     rel_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     rel_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     rel_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -110454,9 +112847,7 @@ export namespace Prisma {
     ml_address?: NullableStringFieldUpdateOperationsInput | string | null
     ml_notes?: NullableStringFieldUpdateOperationsInput | string | null
     ml_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    ml_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    ml_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    ml_pan_img?: NullableJsonNullValueInput | InputJsonValue
+    ml_other_images?: NullableJsonNullValueInput | InputJsonValue
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -110492,9 +112883,7 @@ export namespace Prisma {
     ml_address?: NullableStringFieldUpdateOperationsInput | string | null
     ml_notes?: NullableStringFieldUpdateOperationsInput | string | null
     ml_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    ml_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    ml_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    ml_pan_img?: NullableJsonNullValueInput | InputJsonValue
+    ml_other_images?: NullableJsonNullValueInput | InputJsonValue
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -110529,9 +112918,7 @@ export namespace Prisma {
     ml_address?: NullableStringFieldUpdateOperationsInput | string | null
     ml_notes?: NullableStringFieldUpdateOperationsInput | string | null
     ml_profile_img?: NullableJsonNullValueInput | InputJsonValue
-    ml_adhaar_front_img?: NullableJsonNullValueInput | InputJsonValue
-    ml_adhaar_back_img?: NullableJsonNullValueInput | InputJsonValue
-    ml_pan_img?: NullableJsonNullValueInput | InputJsonValue
+    ml_other_images?: NullableJsonNullValueInput | InputJsonValue
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -110553,7 +112940,8 @@ export namespace Prisma {
     au_country?: NullableStringFieldUpdateOperationsInput | string | null
     au_village?: NullableStringFieldUpdateOperationsInput | string | null
     au_pincode?: NullableStringFieldUpdateOperationsInput | string | null
-    au_image?: NullableStringFieldUpdateOperationsInput | string | null
+    au_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    au_other_images?: NullableJsonNullValueInput | InputJsonValue
     auctionLoans?: AuctionLoanUpdateManyWithoutBuyerNestedInput
   }
 
@@ -110574,7 +112962,8 @@ export namespace Prisma {
     au_country?: NullableStringFieldUpdateOperationsInput | string | null
     au_village?: NullableStringFieldUpdateOperationsInput | string | null
     au_pincode?: NullableStringFieldUpdateOperationsInput | string | null
-    au_image?: NullableStringFieldUpdateOperationsInput | string | null
+    au_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    au_other_images?: NullableJsonNullValueInput | InputJsonValue
     auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutBuyerNestedInput
   }
 
@@ -110595,7 +112984,8 @@ export namespace Prisma {
     au_country?: NullableStringFieldUpdateOperationsInput | string | null
     au_village?: NullableStringFieldUpdateOperationsInput | string | null
     au_pincode?: NullableStringFieldUpdateOperationsInput | string | null
-    au_image?: NullableStringFieldUpdateOperationsInput | string | null
+    au_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    au_other_images?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type AuctionLoanUpdateWithoutFirmInput = {
@@ -110673,6 +113063,67 @@ export namespace Prisma {
     al_card_amt?: NullableFloatFieldUpdateOperationsInput | number | null
     al_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     al_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type ReleaseUserUpdateWithoutFirmInput = {
+    ru_uuid?: StringFieldUpdateOperationsInput | string
+    ru_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_date?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_full_name?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_mobile?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_email?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_aadhaar?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_gender?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_pan?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_address?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_state?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_city?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_country?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_village?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_other_images?: NullableJsonNullValueInput | InputJsonValue
+    releases?: GirviReleaseUpdateManyWithoutPickupUserNestedInput
+  }
+
+  export type ReleaseUserUncheckedUpdateWithoutFirmInput = {
+    ru_id?: IntFieldUpdateOperationsInput | number
+    ru_uuid?: StringFieldUpdateOperationsInput | string
+    ru_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_date?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_full_name?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_mobile?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_email?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_aadhaar?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_gender?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_pan?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_address?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_state?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_city?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_country?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_village?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_other_images?: NullableJsonNullValueInput | InputJsonValue
+    releases?: GirviReleaseUncheckedUpdateManyWithoutPickupUserNestedInput
+  }
+
+  export type ReleaseUserUncheckedUpdateManyWithoutFirmInput = {
+    ru_id?: IntFieldUpdateOperationsInput | number
+    ru_uuid?: StringFieldUpdateOperationsInput | string
+    ru_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_date?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_full_name?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_mobile?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_email?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_aadhaar?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_gender?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_pan?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_address?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_state?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_city?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_country?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_village?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    ru_other_images?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type MessageTemplateUpdateWithoutFirmInput = {
@@ -112233,6 +114684,10 @@ export namespace Prisma {
     rel_card_info?: string | null
     rel_pay_info?: string | null
     rel_other_info?: string | null
+    rel_remark?: string | null
+    rel_item_images?: NullableJsonNullValueInput | InputJsonValue
+    rel_is_other_user?: boolean
+    rel_pickup_user_id?: number | null
     rel_created_at?: Date | string
     rel_created_by?: string | null
     rel_updated_at?: Date | string
@@ -112273,6 +114728,10 @@ export namespace Prisma {
     rel_card_info?: string | null
     rel_pay_info?: string | null
     rel_other_info?: string | null
+    rel_remark?: string | null
+    rel_item_images?: NullableJsonNullValueInput | InputJsonValue
+    rel_is_other_user?: boolean
+    rel_pickup_user_id?: number | null
     rel_created_at?: Date | string
     rel_created_by?: string | null
     rel_updated_at?: Date | string
@@ -112313,6 +114772,10 @@ export namespace Prisma {
     rel_card_info?: string | null
     rel_pay_info?: string | null
     rel_other_info?: string | null
+    rel_remark?: string | null
+    rel_item_images?: NullableJsonNullValueInput | InputJsonValue
+    rel_is_other_user?: boolean
+    rel_pickup_user_id?: number | null
     rel_created_at?: Date | string
     rel_created_by?: string | null
     rel_updated_at?: Date | string
@@ -112353,6 +114816,10 @@ export namespace Prisma {
     rel_card_info?: string | null
     rel_pay_info?: string | null
     rel_other_info?: string | null
+    rel_remark?: string | null
+    rel_item_images?: NullableJsonNullValueInput | InputJsonValue
+    rel_is_other_user?: boolean
+    rel_pickup_user_id?: number | null
     rel_created_at?: Date | string
     rel_created_by?: string | null
     rel_updated_at?: Date | string
@@ -112393,6 +114860,10 @@ export namespace Prisma {
     rel_card_info?: string | null
     rel_pay_info?: string | null
     rel_other_info?: string | null
+    rel_remark?: string | null
+    rel_item_images?: NullableJsonNullValueInput | InputJsonValue
+    rel_is_other_user?: boolean
+    rel_pickup_user_id?: number | null
     rel_created_at?: Date | string
     rel_created_by?: string | null
     rel_updated_at?: Date | string
@@ -112433,6 +114904,10 @@ export namespace Prisma {
     rel_card_info?: string | null
     rel_pay_info?: string | null
     rel_other_info?: string | null
+    rel_remark?: string | null
+    rel_item_images?: NullableJsonNullValueInput | InputJsonValue
+    rel_is_other_user?: boolean
+    rel_pickup_user_id?: number | null
     rel_created_at?: Date | string
     rel_created_by?: string | null
     rel_updated_at?: Date | string
@@ -112473,6 +114948,10 @@ export namespace Prisma {
     rel_card_info?: string | null
     rel_pay_info?: string | null
     rel_other_info?: string | null
+    rel_remark?: string | null
+    rel_item_images?: NullableJsonNullValueInput | InputJsonValue
+    rel_is_other_user?: boolean
+    rel_pickup_user_id?: number | null
     rel_created_at?: Date | string
     rel_created_by?: string | null
     rel_updated_at?: Date | string
@@ -112513,6 +114992,10 @@ export namespace Prisma {
     rel_card_info?: string | null
     rel_pay_info?: string | null
     rel_other_info?: string | null
+    rel_remark?: string | null
+    rel_item_images?: NullableJsonNullValueInput | InputJsonValue
+    rel_is_other_user?: boolean
+    rel_pickup_user_id?: number | null
     rel_created_at?: Date | string
     rel_created_by?: string | null
     rel_updated_at?: Date | string
@@ -116941,6 +119424,9 @@ export namespace Prisma {
     rel_card_info?: NullableStringFieldUpdateOperationsInput | string | null
     rel_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     rel_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_remark?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_item_images?: NullableJsonNullValueInput | InputJsonValue
+    rel_is_other_user?: BoolFieldUpdateOperationsInput | boolean
     rel_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     rel_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     rel_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -116959,6 +119445,7 @@ export namespace Prisma {
     bankAccount?: AccountUpdateOneWithoutRelBankNestedInput
     onlineAccount?: AccountUpdateOneWithoutRelOnlineNestedInput
     cardAccount?: AccountUpdateOneWithoutRelCardNestedInput
+    pickupUser?: ReleaseUserUpdateOneWithoutReleasesNestedInput
   }
 
   export type GirviReleaseUncheckedUpdateWithoutPrinAccountInput = {
@@ -116992,6 +119479,10 @@ export namespace Prisma {
     rel_card_info?: NullableStringFieldUpdateOperationsInput | string | null
     rel_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     rel_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_remark?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_item_images?: NullableJsonNullValueInput | InputJsonValue
+    rel_is_other_user?: BoolFieldUpdateOperationsInput | boolean
+    rel_pickup_user_id?: NullableIntFieldUpdateOperationsInput | number | null
     rel_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     rel_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     rel_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -117032,6 +119523,10 @@ export namespace Prisma {
     rel_card_info?: NullableStringFieldUpdateOperationsInput | string | null
     rel_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     rel_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_remark?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_item_images?: NullableJsonNullValueInput | InputJsonValue
+    rel_is_other_user?: BoolFieldUpdateOperationsInput | boolean
+    rel_pickup_user_id?: NullableIntFieldUpdateOperationsInput | number | null
     rel_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     rel_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     rel_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -117060,6 +119555,9 @@ export namespace Prisma {
     rel_card_info?: NullableStringFieldUpdateOperationsInput | string | null
     rel_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     rel_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_remark?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_item_images?: NullableJsonNullValueInput | InputJsonValue
+    rel_is_other_user?: BoolFieldUpdateOperationsInput | boolean
     rel_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     rel_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     rel_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -117078,6 +119576,7 @@ export namespace Prisma {
     bankAccount?: AccountUpdateOneWithoutRelBankNestedInput
     onlineAccount?: AccountUpdateOneWithoutRelOnlineNestedInput
     cardAccount?: AccountUpdateOneWithoutRelCardNestedInput
+    pickupUser?: ReleaseUserUpdateOneWithoutReleasesNestedInput
   }
 
   export type GirviReleaseUncheckedUpdateWithoutIntAccountInput = {
@@ -117111,6 +119610,10 @@ export namespace Prisma {
     rel_card_info?: NullableStringFieldUpdateOperationsInput | string | null
     rel_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     rel_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_remark?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_item_images?: NullableJsonNullValueInput | InputJsonValue
+    rel_is_other_user?: BoolFieldUpdateOperationsInput | boolean
+    rel_pickup_user_id?: NullableIntFieldUpdateOperationsInput | number | null
     rel_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     rel_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     rel_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -117151,6 +119654,10 @@ export namespace Prisma {
     rel_card_info?: NullableStringFieldUpdateOperationsInput | string | null
     rel_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     rel_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_remark?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_item_images?: NullableJsonNullValueInput | InputJsonValue
+    rel_is_other_user?: BoolFieldUpdateOperationsInput | boolean
+    rel_pickup_user_id?: NullableIntFieldUpdateOperationsInput | number | null
     rel_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     rel_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     rel_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -117179,6 +119686,9 @@ export namespace Prisma {
     rel_card_info?: NullableStringFieldUpdateOperationsInput | string | null
     rel_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     rel_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_remark?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_item_images?: NullableJsonNullValueInput | InputJsonValue
+    rel_is_other_user?: BoolFieldUpdateOperationsInput | boolean
     rel_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     rel_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     rel_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -117197,6 +119707,7 @@ export namespace Prisma {
     bankAccount?: AccountUpdateOneWithoutRelBankNestedInput
     onlineAccount?: AccountUpdateOneWithoutRelOnlineNestedInput
     cardAccount?: AccountUpdateOneWithoutRelCardNestedInput
+    pickupUser?: ReleaseUserUpdateOneWithoutReleasesNestedInput
   }
 
   export type GirviReleaseUncheckedUpdateWithoutDiscAccountInput = {
@@ -117230,6 +119741,10 @@ export namespace Prisma {
     rel_card_info?: NullableStringFieldUpdateOperationsInput | string | null
     rel_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     rel_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_remark?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_item_images?: NullableJsonNullValueInput | InputJsonValue
+    rel_is_other_user?: BoolFieldUpdateOperationsInput | boolean
+    rel_pickup_user_id?: NullableIntFieldUpdateOperationsInput | number | null
     rel_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     rel_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     rel_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -117270,6 +119785,10 @@ export namespace Prisma {
     rel_card_info?: NullableStringFieldUpdateOperationsInput | string | null
     rel_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     rel_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_remark?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_item_images?: NullableJsonNullValueInput | InputJsonValue
+    rel_is_other_user?: BoolFieldUpdateOperationsInput | boolean
+    rel_pickup_user_id?: NullableIntFieldUpdateOperationsInput | number | null
     rel_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     rel_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     rel_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -117298,6 +119817,9 @@ export namespace Prisma {
     rel_card_info?: NullableStringFieldUpdateOperationsInput | string | null
     rel_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     rel_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_remark?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_item_images?: NullableJsonNullValueInput | InputJsonValue
+    rel_is_other_user?: BoolFieldUpdateOperationsInput | boolean
     rel_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     rel_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     rel_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -117316,6 +119838,7 @@ export namespace Prisma {
     bankAccount?: AccountUpdateOneWithoutRelBankNestedInput
     onlineAccount?: AccountUpdateOneWithoutRelOnlineNestedInput
     cardAccount?: AccountUpdateOneWithoutRelCardNestedInput
+    pickupUser?: ReleaseUserUpdateOneWithoutReleasesNestedInput
   }
 
   export type GirviReleaseUncheckedUpdateWithoutExtraAccountInput = {
@@ -117349,6 +119872,10 @@ export namespace Prisma {
     rel_card_info?: NullableStringFieldUpdateOperationsInput | string | null
     rel_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     rel_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_remark?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_item_images?: NullableJsonNullValueInput | InputJsonValue
+    rel_is_other_user?: BoolFieldUpdateOperationsInput | boolean
+    rel_pickup_user_id?: NullableIntFieldUpdateOperationsInput | number | null
     rel_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     rel_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     rel_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -117389,6 +119916,10 @@ export namespace Prisma {
     rel_card_info?: NullableStringFieldUpdateOperationsInput | string | null
     rel_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     rel_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_remark?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_item_images?: NullableJsonNullValueInput | InputJsonValue
+    rel_is_other_user?: BoolFieldUpdateOperationsInput | boolean
+    rel_pickup_user_id?: NullableIntFieldUpdateOperationsInput | number | null
     rel_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     rel_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     rel_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -117417,6 +119948,9 @@ export namespace Prisma {
     rel_card_info?: NullableStringFieldUpdateOperationsInput | string | null
     rel_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     rel_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_remark?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_item_images?: NullableJsonNullValueInput | InputJsonValue
+    rel_is_other_user?: BoolFieldUpdateOperationsInput | boolean
     rel_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     rel_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     rel_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -117435,6 +119969,7 @@ export namespace Prisma {
     bankAccount?: AccountUpdateOneWithoutRelBankNestedInput
     onlineAccount?: AccountUpdateOneWithoutRelOnlineNestedInput
     cardAccount?: AccountUpdateOneWithoutRelCardNestedInput
+    pickupUser?: ReleaseUserUpdateOneWithoutReleasesNestedInput
   }
 
   export type GirviReleaseUncheckedUpdateWithoutCashAccountInput = {
@@ -117468,6 +120003,10 @@ export namespace Prisma {
     rel_card_info?: NullableStringFieldUpdateOperationsInput | string | null
     rel_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     rel_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_remark?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_item_images?: NullableJsonNullValueInput | InputJsonValue
+    rel_is_other_user?: BoolFieldUpdateOperationsInput | boolean
+    rel_pickup_user_id?: NullableIntFieldUpdateOperationsInput | number | null
     rel_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     rel_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     rel_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -117508,6 +120047,10 @@ export namespace Prisma {
     rel_card_info?: NullableStringFieldUpdateOperationsInput | string | null
     rel_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     rel_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_remark?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_item_images?: NullableJsonNullValueInput | InputJsonValue
+    rel_is_other_user?: BoolFieldUpdateOperationsInput | boolean
+    rel_pickup_user_id?: NullableIntFieldUpdateOperationsInput | number | null
     rel_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     rel_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     rel_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -117536,6 +120079,9 @@ export namespace Prisma {
     rel_card_info?: NullableStringFieldUpdateOperationsInput | string | null
     rel_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     rel_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_remark?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_item_images?: NullableJsonNullValueInput | InputJsonValue
+    rel_is_other_user?: BoolFieldUpdateOperationsInput | boolean
     rel_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     rel_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     rel_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -117554,6 +120100,7 @@ export namespace Prisma {
     cashAccount?: AccountUpdateOneWithoutRelCashNestedInput
     onlineAccount?: AccountUpdateOneWithoutRelOnlineNestedInput
     cardAccount?: AccountUpdateOneWithoutRelCardNestedInput
+    pickupUser?: ReleaseUserUpdateOneWithoutReleasesNestedInput
   }
 
   export type GirviReleaseUncheckedUpdateWithoutBankAccountInput = {
@@ -117587,6 +120134,10 @@ export namespace Prisma {
     rel_card_info?: NullableStringFieldUpdateOperationsInput | string | null
     rel_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     rel_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_remark?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_item_images?: NullableJsonNullValueInput | InputJsonValue
+    rel_is_other_user?: BoolFieldUpdateOperationsInput | boolean
+    rel_pickup_user_id?: NullableIntFieldUpdateOperationsInput | number | null
     rel_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     rel_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     rel_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -117627,6 +120178,10 @@ export namespace Prisma {
     rel_card_info?: NullableStringFieldUpdateOperationsInput | string | null
     rel_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     rel_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_remark?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_item_images?: NullableJsonNullValueInput | InputJsonValue
+    rel_is_other_user?: BoolFieldUpdateOperationsInput | boolean
+    rel_pickup_user_id?: NullableIntFieldUpdateOperationsInput | number | null
     rel_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     rel_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     rel_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -117655,6 +120210,9 @@ export namespace Prisma {
     rel_card_info?: NullableStringFieldUpdateOperationsInput | string | null
     rel_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     rel_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_remark?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_item_images?: NullableJsonNullValueInput | InputJsonValue
+    rel_is_other_user?: BoolFieldUpdateOperationsInput | boolean
     rel_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     rel_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     rel_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -117673,6 +120231,7 @@ export namespace Prisma {
     cashAccount?: AccountUpdateOneWithoutRelCashNestedInput
     bankAccount?: AccountUpdateOneWithoutRelBankNestedInput
     cardAccount?: AccountUpdateOneWithoutRelCardNestedInput
+    pickupUser?: ReleaseUserUpdateOneWithoutReleasesNestedInput
   }
 
   export type GirviReleaseUncheckedUpdateWithoutOnlineAccountInput = {
@@ -117706,6 +120265,10 @@ export namespace Prisma {
     rel_card_info?: NullableStringFieldUpdateOperationsInput | string | null
     rel_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     rel_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_remark?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_item_images?: NullableJsonNullValueInput | InputJsonValue
+    rel_is_other_user?: BoolFieldUpdateOperationsInput | boolean
+    rel_pickup_user_id?: NullableIntFieldUpdateOperationsInput | number | null
     rel_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     rel_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     rel_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -117746,6 +120309,10 @@ export namespace Prisma {
     rel_card_info?: NullableStringFieldUpdateOperationsInput | string | null
     rel_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     rel_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_remark?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_item_images?: NullableJsonNullValueInput | InputJsonValue
+    rel_is_other_user?: BoolFieldUpdateOperationsInput | boolean
+    rel_pickup_user_id?: NullableIntFieldUpdateOperationsInput | number | null
     rel_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     rel_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     rel_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -117774,6 +120341,9 @@ export namespace Prisma {
     rel_card_info?: NullableStringFieldUpdateOperationsInput | string | null
     rel_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     rel_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_remark?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_item_images?: NullableJsonNullValueInput | InputJsonValue
+    rel_is_other_user?: BoolFieldUpdateOperationsInput | boolean
     rel_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     rel_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     rel_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -117792,6 +120362,7 @@ export namespace Prisma {
     cashAccount?: AccountUpdateOneWithoutRelCashNestedInput
     bankAccount?: AccountUpdateOneWithoutRelBankNestedInput
     onlineAccount?: AccountUpdateOneWithoutRelOnlineNestedInput
+    pickupUser?: ReleaseUserUpdateOneWithoutReleasesNestedInput
   }
 
   export type GirviReleaseUncheckedUpdateWithoutCardAccountInput = {
@@ -117825,6 +120396,10 @@ export namespace Prisma {
     rel_card_info?: NullableStringFieldUpdateOperationsInput | string | null
     rel_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     rel_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_remark?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_item_images?: NullableJsonNullValueInput | InputJsonValue
+    rel_is_other_user?: BoolFieldUpdateOperationsInput | boolean
+    rel_pickup_user_id?: NullableIntFieldUpdateOperationsInput | number | null
     rel_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     rel_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     rel_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -117865,6 +120440,10 @@ export namespace Prisma {
     rel_card_info?: NullableStringFieldUpdateOperationsInput | string | null
     rel_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     rel_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_remark?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_item_images?: NullableJsonNullValueInput | InputJsonValue
+    rel_is_other_user?: BoolFieldUpdateOperationsInput | boolean
+    rel_pickup_user_id?: NullableIntFieldUpdateOperationsInput | number | null
     rel_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     rel_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     rel_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -118228,6 +120807,10 @@ export namespace Prisma {
     rel_card_info?: string | null
     rel_pay_info?: string | null
     rel_other_info?: string | null
+    rel_remark?: string | null
+    rel_item_images?: NullableJsonNullValueInput | InputJsonValue
+    rel_is_other_user?: boolean
+    rel_pickup_user_id?: number | null
     rel_created_at?: Date | string
     rel_created_by?: string | null
     rel_updated_at?: Date | string
@@ -119232,6 +121815,9 @@ export namespace Prisma {
     rel_card_info?: NullableStringFieldUpdateOperationsInput | string | null
     rel_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     rel_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_remark?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_item_images?: NullableJsonNullValueInput | InputJsonValue
+    rel_is_other_user?: BoolFieldUpdateOperationsInput | boolean
     rel_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     rel_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     rel_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -119250,6 +121836,7 @@ export namespace Prisma {
     bankAccount?: AccountUpdateOneWithoutRelBankNestedInput
     onlineAccount?: AccountUpdateOneWithoutRelOnlineNestedInput
     cardAccount?: AccountUpdateOneWithoutRelCardNestedInput
+    pickupUser?: ReleaseUserUpdateOneWithoutReleasesNestedInput
   }
 
   export type GirviReleaseUncheckedUpdateWithoutUserInput = {
@@ -119283,6 +121870,10 @@ export namespace Prisma {
     rel_card_info?: NullableStringFieldUpdateOperationsInput | string | null
     rel_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     rel_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_remark?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_item_images?: NullableJsonNullValueInput | InputJsonValue
+    rel_is_other_user?: BoolFieldUpdateOperationsInput | boolean
+    rel_pickup_user_id?: NullableIntFieldUpdateOperationsInput | number | null
     rel_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     rel_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     rel_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -119323,6 +121914,10 @@ export namespace Prisma {
     rel_card_info?: NullableStringFieldUpdateOperationsInput | string | null
     rel_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     rel_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_remark?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_item_images?: NullableJsonNullValueInput | InputJsonValue
+    rel_is_other_user?: BoolFieldUpdateOperationsInput | boolean
+    rel_pickup_user_id?: NullableIntFieldUpdateOperationsInput | number | null
     rel_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     rel_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     rel_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -119945,6 +122540,10 @@ export namespace Prisma {
     rel_card_info?: string | null
     rel_pay_info?: string | null
     rel_other_info?: string | null
+    rel_remark?: string | null
+    rel_item_images?: NullableJsonNullValueInput | InputJsonValue
+    rel_is_other_user?: boolean
+    rel_pickup_user_id?: number | null
     rel_created_at?: Date | string
     rel_created_by?: string | null
     rel_updated_at?: Date | string
@@ -120219,6 +122818,9 @@ export namespace Prisma {
     rel_card_info?: NullableStringFieldUpdateOperationsInput | string | null
     rel_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     rel_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_remark?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_item_images?: NullableJsonNullValueInput | InputJsonValue
+    rel_is_other_user?: BoolFieldUpdateOperationsInput | boolean
     rel_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     rel_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     rel_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -120237,6 +122839,7 @@ export namespace Prisma {
     bankAccount?: AccountUpdateOneWithoutRelBankNestedInput
     onlineAccount?: AccountUpdateOneWithoutRelOnlineNestedInput
     cardAccount?: AccountUpdateOneWithoutRelCardNestedInput
+    pickupUser?: ReleaseUserUpdateOneWithoutReleasesNestedInput
   }
 
   export type GirviReleaseUncheckedUpdateWithoutGirviInput = {
@@ -120270,6 +122873,10 @@ export namespace Prisma {
     rel_card_info?: NullableStringFieldUpdateOperationsInput | string | null
     rel_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     rel_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_remark?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_item_images?: NullableJsonNullValueInput | InputJsonValue
+    rel_is_other_user?: BoolFieldUpdateOperationsInput | boolean
+    rel_pickup_user_id?: NullableIntFieldUpdateOperationsInput | number | null
     rel_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     rel_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     rel_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -120310,6 +122917,10 @@ export namespace Prisma {
     rel_card_info?: NullableStringFieldUpdateOperationsInput | string | null
     rel_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     rel_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_remark?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_item_images?: NullableJsonNullValueInput | InputJsonValue
+    rel_is_other_user?: BoolFieldUpdateOperationsInput | boolean
+    rel_pickup_user_id?: NullableIntFieldUpdateOperationsInput | number | null
     rel_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     rel_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     rel_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -120394,6 +123005,181 @@ export namespace Prisma {
     al_card_amt?: NullableFloatFieldUpdateOperationsInput | number | null
     al_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     al_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type GirviReleaseCreateManyPickupUserInput = {
+    rel_id?: number
+    rel_uuid?: string
+    rel_own_id?: number
+    rel_firm_id?: number
+    rel_user_id?: number
+    rel_girv_id?: number
+    rel_staff_id?: number
+    rel_trans_date: string
+    rel_prin_amt?: number
+    rel_int_amt?: number
+    rel_disc_amt?: number
+    rel_extra_amt?: number
+    rel_payable_amt?: number
+    rel_prin_acc_id?: number | null
+    rel_int_acc_id?: number | null
+    rel_disc_acc_id?: number | null
+    rel_extra_acc_id?: number | null
+    rel_cash_amt?: number | null
+    rel_cash_acc_id?: number | null
+    rel_cash_info?: string | null
+    rel_bank_amt?: number | null
+    rel_bank_acc_id?: number | null
+    rel_bank_info?: string | null
+    rel_online_amt?: number | null
+    rel_online_acc_id?: number | null
+    rel_online_info?: string | null
+    rel_card_amt?: number | null
+    rel_card_acc_id?: number | null
+    rel_card_info?: string | null
+    rel_pay_info?: string | null
+    rel_other_info?: string | null
+    rel_remark?: string | null
+    rel_item_images?: NullableJsonNullValueInput | InputJsonValue
+    rel_is_other_user?: boolean
+    rel_created_at?: Date | string
+    rel_created_by?: string | null
+    rel_updated_at?: Date | string
+    rel_updated_by?: string | null
+    rel_deleted_at?: Date | string | null
+    rel_deleted_by?: string | null
+    rel_is_deleted?: boolean
+  }
+
+  export type GirviReleaseUpdateWithoutPickupUserInput = {
+    rel_uuid?: StringFieldUpdateOperationsInput | string
+    rel_staff_id?: IntFieldUpdateOperationsInput | number
+    rel_trans_date?: StringFieldUpdateOperationsInput | string
+    rel_prin_amt?: FloatFieldUpdateOperationsInput | number
+    rel_int_amt?: FloatFieldUpdateOperationsInput | number
+    rel_disc_amt?: FloatFieldUpdateOperationsInput | number
+    rel_extra_amt?: FloatFieldUpdateOperationsInput | number
+    rel_payable_amt?: FloatFieldUpdateOperationsInput | number
+    rel_cash_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    rel_cash_info?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_bank_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    rel_bank_info?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_online_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    rel_online_info?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_card_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    rel_card_info?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_remark?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_item_images?: NullableJsonNullValueInput | InputJsonValue
+    rel_is_other_user?: BoolFieldUpdateOperationsInput | boolean
+    rel_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    rel_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    rel_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rel_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    owner?: OwnerUpdateOneRequiredWithoutReleasesNestedInput
+    firm?: FirmUpdateOneRequiredWithoutReleasesNestedInput
+    user?: UserUpdateOneRequiredWithoutReleasesNestedInput
+    girvi?: GirviUpdateOneRequiredWithoutReleasesNestedInput
+    prinAccount?: AccountUpdateOneWithoutRelPrinNestedInput
+    intAccount?: AccountUpdateOneWithoutRelIntNestedInput
+    discAccount?: AccountUpdateOneWithoutRelDiscNestedInput
+    extraAccount?: AccountUpdateOneWithoutRelExtraNestedInput
+    cashAccount?: AccountUpdateOneWithoutRelCashNestedInput
+    bankAccount?: AccountUpdateOneWithoutRelBankNestedInput
+    onlineAccount?: AccountUpdateOneWithoutRelOnlineNestedInput
+    cardAccount?: AccountUpdateOneWithoutRelCardNestedInput
+  }
+
+  export type GirviReleaseUncheckedUpdateWithoutPickupUserInput = {
+    rel_id?: IntFieldUpdateOperationsInput | number
+    rel_uuid?: StringFieldUpdateOperationsInput | string
+    rel_own_id?: IntFieldUpdateOperationsInput | number
+    rel_firm_id?: IntFieldUpdateOperationsInput | number
+    rel_user_id?: IntFieldUpdateOperationsInput | number
+    rel_girv_id?: IntFieldUpdateOperationsInput | number
+    rel_staff_id?: IntFieldUpdateOperationsInput | number
+    rel_trans_date?: StringFieldUpdateOperationsInput | string
+    rel_prin_amt?: FloatFieldUpdateOperationsInput | number
+    rel_int_amt?: FloatFieldUpdateOperationsInput | number
+    rel_disc_amt?: FloatFieldUpdateOperationsInput | number
+    rel_extra_amt?: FloatFieldUpdateOperationsInput | number
+    rel_payable_amt?: FloatFieldUpdateOperationsInput | number
+    rel_prin_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    rel_int_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    rel_disc_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    rel_extra_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    rel_cash_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    rel_cash_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    rel_cash_info?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_bank_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    rel_bank_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    rel_bank_info?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_online_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    rel_online_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    rel_online_info?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_card_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    rel_card_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    rel_card_info?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_remark?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_item_images?: NullableJsonNullValueInput | InputJsonValue
+    rel_is_other_user?: BoolFieldUpdateOperationsInput | boolean
+    rel_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    rel_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    rel_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rel_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type GirviReleaseUncheckedUpdateManyWithoutPickupUserInput = {
+    rel_id?: IntFieldUpdateOperationsInput | number
+    rel_uuid?: StringFieldUpdateOperationsInput | string
+    rel_own_id?: IntFieldUpdateOperationsInput | number
+    rel_firm_id?: IntFieldUpdateOperationsInput | number
+    rel_user_id?: IntFieldUpdateOperationsInput | number
+    rel_girv_id?: IntFieldUpdateOperationsInput | number
+    rel_staff_id?: IntFieldUpdateOperationsInput | number
+    rel_trans_date?: StringFieldUpdateOperationsInput | string
+    rel_prin_amt?: FloatFieldUpdateOperationsInput | number
+    rel_int_amt?: FloatFieldUpdateOperationsInput | number
+    rel_disc_amt?: FloatFieldUpdateOperationsInput | number
+    rel_extra_amt?: FloatFieldUpdateOperationsInput | number
+    rel_payable_amt?: FloatFieldUpdateOperationsInput | number
+    rel_prin_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    rel_int_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    rel_disc_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    rel_extra_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    rel_cash_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    rel_cash_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    rel_cash_info?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_bank_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    rel_bank_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    rel_bank_info?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_online_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    rel_online_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    rel_online_info?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_card_amt?: NullableFloatFieldUpdateOperationsInput | number | null
+    rel_card_acc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    rel_card_info?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_remark?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_item_images?: NullableJsonNullValueInput | InputJsonValue
+    rel_is_other_user?: BoolFieldUpdateOperationsInput | boolean
+    rel_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    rel_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    rel_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rel_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    rel_is_deleted?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type GirviCreateManyTransferMoneyLenderInput = {
@@ -120834,6 +123620,10 @@ export namespace Prisma {
      */
     export type GirviCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = GirviCountOutputTypeDefaultArgs<ExtArgs>
     /**
+     * @deprecated Use ReleaseUserCountOutputTypeDefaultArgs instead
+     */
+    export type ReleaseUserCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ReleaseUserCountOutputTypeDefaultArgs<ExtArgs>
+    /**
      * @deprecated Use MoneyLenderCountOutputTypeDefaultArgs instead
      */
     export type MoneyLenderCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = MoneyLenderCountOutputTypeDefaultArgs<ExtArgs>
@@ -120905,6 +123695,10 @@ export namespace Prisma {
      * @deprecated Use GirviReleaseDefaultArgs instead
      */
     export type GirviReleaseArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = GirviReleaseDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use ReleaseUserDefaultArgs instead
+     */
+    export type ReleaseUserArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ReleaseUserDefaultArgs<ExtArgs>
     /**
      * @deprecated Use RateDefaultArgs instead
      */

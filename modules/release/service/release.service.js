@@ -3,6 +3,7 @@
 const { PrismaClient } = require("../../../prisma/generated/main");
 const journalService = require("../../journal/service/journal.service");
 const messageDispatchService = require("../../../common/service/message-dispatch.service");
+const serialNumberService = require("../../../common/service/serialNumber.service");
 const {
   releaseVoucher,
   loanLine,
@@ -42,10 +43,182 @@ class ReleaseService {
     return null;
   }
 
+  parseBoolean(value) {
+    return value === true || value === "true" || value === 1 || value === "1";
+  }
+
+  parseItemImages(value) {
+    if (!value) return null;
+    if (Array.isArray(value)) return value;
+    if (typeof value === "string") {
+      try {
+        const parsed = JSON.parse(value);
+        return Array.isArray(parsed) ? parsed : null;
+      } catch {
+        return null;
+      }
+    }
+    return null;
+  }
+
+  async findOrCreateReleaseUser(tx, firmId, data) {
+    const searchConditions = [];
+    if (data.ru_mobile) searchConditions.push({ ru_mobile: data.ru_mobile });
+    if (data.ru_email) searchConditions.push({ ru_email: data.ru_email });
+    if (data.ru_aadhaar) searchConditions.push({ ru_aadhaar: data.ru_aadhaar });
+    if (data.ru_pan) searchConditions.push({ ru_pan: data.ru_pan });
+
+    if (searchConditions.length === 0 && data.ru_full_name) {
+      searchConditions.push({ ru_full_name: data.ru_full_name });
+    }
+
+    let releaseUserId = null;
+
+    if (searchConditions.length > 0) {
+      const existingUsers = await tx.releaseUser.findMany({
+        where: {
+          ru_firm_id: firmId,
+          OR: searchConditions,
+        },
+      });
+
+      if (existingUsers.length > 0) {
+        const exactMatch = existingUsers.find(
+          (existing) =>
+            (existing.ru_full_name || "") === (data.ru_full_name || "") &&
+            (existing.ru_mobile || "") === (data.ru_mobile || "") &&
+            (existing.ru_email || "") === (data.ru_email || "") &&
+            (existing.ru_aadhaar || "") === (data.ru_aadhaar || "") &&
+            (existing.ru_pan || "") === (data.ru_pan || "")
+        );
+
+        if (exactMatch) {
+          releaseUserId = exactMatch.ru_id;
+        } else {
+          throw new Error("Release user already exists with mismatched details.");
+        }
+      }
+    }
+
+    if (!releaseUserId) {
+      const ruUniqueCode = await serialNumberService.getNextSerialNumber(tx, "RELEASE_USER");
+      const newUser = await tx.releaseUser.create({
+        data: {
+          ru_unique_code: ruUniqueCode,
+          ru_firm_id: firmId,
+          ru_full_name: data.ru_full_name || "",
+          ru_mobile: data.ru_mobile || "",
+          ru_email: data.ru_email || "",
+          ru_aadhaar: data.ru_aadhaar || "",
+          ru_gender: data.ru_gender || "",
+          ru_pan: data.ru_pan || "",
+          ru_address: data.ru_address || "",
+          ru_state: data.ru_state || "",
+          ru_city: data.ru_city || "",
+          ru_country: data.ru_country || "",
+          ru_village: data.ru_village || "",
+          ru_pincode: data.ru_pincode || "",
+        },
+      });
+      releaseUserId = newUser.ru_id;
+    }
+
+    return releaseUserId;
+  }
+
+  async getReleaseUserById(dbUrl, ruId) {
+    const prisma = this.getPrisma(dbUrl);
+    try {
+      return await prisma.releaseUser.findUnique({
+        where: { ru_id: parseInt(ruId) },
+      });
+    } finally {
+      await prisma.$disconnect();
+    }
+  }
+
+  async updateReleaseUserOtherImages(dbUrl, ruId, otherImages) {
+    const prisma = this.getPrisma(dbUrl);
+    try {
+      return await prisma.releaseUser.update({
+        where: { ru_id: parseInt(ruId) },
+        data: { ru_other_images: otherImages },
+      });
+    } finally {
+      await prisma.$disconnect();
+    }
+  }
+
+  async getReleaseUsers(dbUrl, { firmId, girvId, search } = {}) {
+    const prisma = this.getPrisma(dbUrl);
+    try {
+      if (girvId) {
+        const releases = await prisma.girviRelease.findMany({
+          where: {
+            rel_girv_id: parseInt(girvId),
+            rel_is_other_user: true,
+            rel_pickup_user_id: { not: null },
+            rel_is_deleted: false,
+          },
+          include: { pickupUser: true },
+          orderBy: { rel_trans_date: "asc" },
+        });
+
+        const byUserId = new Map();
+        releases.forEach((rel) => {
+          const user = rel.pickupUser;
+          if (!user) return;
+          if (!byUserId.has(user.ru_id)) {
+            byUserId.set(user.ru_id, {
+              ...user,
+              release_dates: [],
+            });
+          }
+          const entry = byUserId.get(user.ru_id);
+          if (rel.rel_trans_date && !entry.release_dates.includes(rel.rel_trans_date)) {
+            entry.release_dates.push(rel.rel_trans_date);
+          }
+        });
+        return Array.from(byUserId.values());
+      }
+
+      const whereClause = {};
+      if (firmId && firmId !== "all") {
+        whereClause.ru_firm_id = parseInt(firmId);
+      }
+      if (search) {
+        whereClause.OR = [
+          { ru_full_name: { contains: search, mode: "insensitive" } },
+          { ru_mobile: { contains: search, mode: "insensitive" } },
+          { ru_email: { contains: search, mode: "insensitive" } },
+          { ru_aadhaar: { contains: search, mode: "insensitive" } },
+        ];
+      }
+
+      return prisma.releaseUser.findMany({
+        where: whereClause,
+        orderBy: { ru_id: "desc" },
+      });
+    } finally {
+      await prisma.$disconnect();
+    }
+  }
+
   async addRelease(dbUrl, reqUser, data) {
     const prisma = this.getPrisma(dbUrl);
     try {
       const firmId = parseInt(data.rel_firm_id);
+      const isOtherUser = this.parseBoolean(data.rel_is_other_user);
+      const itemImages = this.parseItemImages(data.rel_item_images);
+
+      if (isOtherUser) {
+        if (!data.ru_full_name || !String(data.ru_full_name).trim()) {
+          throw new Error("Release user full name is required.");
+        }
+        if (!data.ru_mobile || String(data.ru_mobile).trim().length < 10) {
+          throw new Error("Valid release user mobile number is required.");
+        }
+      }
       
       // Resolve payment accounts
       const rel_cash_acc_id = await this.resolveAccount(prisma, firmId, data.rel_cash_acc_id, ["Cash In Hand", "Cash"]);
@@ -69,6 +242,11 @@ class ReleaseService {
           throw new Error("Girvi (Loan) record not found");
         }
         assertActiveLoan(girvi, "be released");
+
+        let pickupUserId = null;
+        if (isOtherUser) {
+          pickupUserId = await this.findOrCreateReleaseUser(tx, firmId, data);
+        }
 
         // 2. Insert GirviRelease record
         const releaseRecord = await tx.girviRelease.create({
@@ -109,6 +287,11 @@ class ReleaseService {
 
             rel_pay_info: data.rel_pay_info || "",
             rel_other_info: data.rel_other_info || "",
+            rel_remark: data.rel_remark || "",
+            rel_item_images: itemImages,
+            rel_is_other_user: isOtherUser,
+            rel_pickup_user_id: pickupUserId,
+
             rel_created_by: reqUser.own_login_id || "Admin",
           }
         });
@@ -137,7 +320,7 @@ class ReleaseService {
             });
         }
 
-        return { releaseRecord, updatedGirvi, girvi, markedReleased };
+        return { releaseRecord, updatedGirvi, girvi, markedReleased, releaseUserId: pickupUserId };
       });
 
       // 4. Create Journal Entry (same pattern as Deposit)

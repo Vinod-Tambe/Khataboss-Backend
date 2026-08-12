@@ -46,6 +46,12 @@ const DEFAULT_SERIAL_CONFIGS = [
     current_number: 1000,
     number_prefix: "AUC-",
   },
+  {
+    entity_type: "RELEASE_USER",
+    start_number: 1001,
+    current_number: 1000,
+    number_prefix: "REL-",
+  },
 ];
 
 /**

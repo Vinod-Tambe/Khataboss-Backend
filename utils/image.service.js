@@ -52,6 +52,33 @@ class ImageService {
   }
 
   /**
+   * Moves multiple files from the same field (multer.fields other_images array).
+   * @returns {Array<object>} Metadata objects
+   */
+  async appendArrayFiles(moduleName, entityId, fileArray, fieldPrefix = "other") {
+    if (!fileArray || !fileArray.length) return [];
+
+    const targetDir = this.getTargetDir(moduleName, entityId);
+    const moved = [];
+
+    for (const file of fileArray) {
+      if (!file) continue;
+      const newFileName = `${fieldPrefix}-${Date.now()}-${Math.round(Math.random() * 1e9)}${path.extname(file.originalname)}`;
+      const newPath = path.join(targetDir, newFileName);
+      fs.renameSync(file.path, newPath);
+      moved.push({
+        filename: newFileName,
+        originalName: file.originalname,
+        path: `uploads/${moduleName}/${entityId}/${newFileName}`,
+        mimetype: file.mimetype,
+        size: file.size,
+      });
+    }
+
+    return moved;
+  }
+
+  /**
    * Moves a single file from temporary storage to its final destination.
    * Typically used with multer.single().
    * @param {string} moduleName

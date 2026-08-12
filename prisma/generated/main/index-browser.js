@@ -275,9 +275,6 @@ exports.Prisma.UserScalarFieldEnum = {
   user_pan_no: 'user_pan_no',
   user_adhaar_no: 'user_adhaar_no',
   user_profile_img: 'user_profile_img',
-  user_adhaar_front_img: 'user_adhaar_front_img',
-  user_adhaar_back_img: 'user_adhaar_back_img',
-  user_pan_card_img: 'user_pan_card_img',
   user_per_address: 'user_per_address',
   user_curr_address: 'user_curr_address',
   user_village: 'user_village',
@@ -290,7 +287,7 @@ exports.Prisma.UserScalarFieldEnum = {
   user_bank_name: 'user_bank_name',
   user_bank_acc_no: 'user_bank_acc_no',
   user_ifsc_code: 'user_ifsc_code',
-  user_sign_img: 'user_sign_img',
+  user_other_images: 'user_other_images',
   user_other_info: 'user_other_info',
   user_created_at: 'user_created_at',
   user_created_by: 'user_created_by',
@@ -665,6 +662,10 @@ exports.Prisma.GirviReleaseScalarFieldEnum = {
   rel_card_info: 'rel_card_info',
   rel_pay_info: 'rel_pay_info',
   rel_other_info: 'rel_other_info',
+  rel_remark: 'rel_remark',
+  rel_item_images: 'rel_item_images',
+  rel_is_other_user: 'rel_is_other_user',
+  rel_pickup_user_id: 'rel_pickup_user_id',
   rel_created_at: 'rel_created_at',
   rel_created_by: 'rel_created_by',
   rel_updated_at: 'rel_updated_at',
@@ -672,6 +673,27 @@ exports.Prisma.GirviReleaseScalarFieldEnum = {
   rel_deleted_at: 'rel_deleted_at',
   rel_deleted_by: 'rel_deleted_by',
   rel_is_deleted: 'rel_is_deleted'
+};
+
+exports.Prisma.ReleaseUserScalarFieldEnum = {
+  ru_id: 'ru_id',
+  ru_uuid: 'ru_uuid',
+  ru_unique_code: 'ru_unique_code',
+  ru_date: 'ru_date',
+  ru_firm_id: 'ru_firm_id',
+  ru_full_name: 'ru_full_name',
+  ru_mobile: 'ru_mobile',
+  ru_email: 'ru_email',
+  ru_aadhaar: 'ru_aadhaar',
+  ru_gender: 'ru_gender',
+  ru_pan: 'ru_pan',
+  ru_address: 'ru_address',
+  ru_state: 'ru_state',
+  ru_city: 'ru_city',
+  ru_country: 'ru_country',
+  ru_village: 'ru_village',
+  ru_pincode: 'ru_pincode',
+  ru_other_images: 'ru_other_images'
 };
 
 exports.Prisma.RateScalarFieldEnum = {
@@ -739,9 +761,7 @@ exports.Prisma.MoneyLenderScalarFieldEnum = {
   ml_address: 'ml_address',
   ml_notes: 'ml_notes',
   ml_profile_img: 'ml_profile_img',
-  ml_adhaar_front_img: 'ml_adhaar_front_img',
-  ml_adhaar_back_img: 'ml_adhaar_back_img',
-  ml_pan_img: 'ml_pan_img',
+  ml_other_images: 'ml_other_images',
   is_active: 'is_active',
   created_at: 'created_at',
   updated_at: 'updated_at'
@@ -765,7 +785,8 @@ exports.Prisma.AuctionUserScalarFieldEnum = {
   au_country: 'au_country',
   au_village: 'au_village',
   au_pincode: 'au_pincode',
-  au_image: 'au_image'
+  au_profile_img: 'au_profile_img',
+  au_other_images: 'au_other_images'
 };
 
 exports.Prisma.AuctionLoanScalarFieldEnum = {
@@ -821,10 +842,7 @@ exports.Prisma.StaffScalarFieldEnum = {
   staff_password: 'staff_password',
   staff_status: 'staff_status',
   staff_profile_img: 'staff_profile_img',
-  staff_adhaar_front_img: 'staff_adhaar_front_img',
-  staff_adhaar_back_img: 'staff_adhaar_back_img',
-  staff_pan_card_img: 'staff_pan_card_img',
-  staff_sign_img: 'staff_sign_img',
+  staff_other_images: 'staff_other_images',
   staff_per_address: 'staff_per_address',
   staff_curr_address: 'staff_curr_address',
   staff_village: 'staff_village',
@@ -1158,6 +1176,7 @@ exports.Prisma.ModelName = {
   AdditionalPrincipal: 'AdditionalPrincipal',
   GirviDeposit: 'GirviDeposit',
   GirviRelease: 'GirviRelease',
+  ReleaseUser: 'ReleaseUser',
   Rate: 'Rate',
   Purity: 'Purity',
   MoneyLender: 'MoneyLender',

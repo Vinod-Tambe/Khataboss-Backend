@@ -492,6 +492,9 @@ class GirviService {
           rel_girv_id: targetId,
           rel_is_deleted: false
         },
+        include: {
+          pickupUser: true,
+        },
         orderBy: {
           rel_trans_date: 'asc'
         }

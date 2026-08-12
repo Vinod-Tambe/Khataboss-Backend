@@ -9,10 +9,7 @@ const requirePermission = require("../../../middlewares/permission.middleware");
 
 const userUploadFields = [
   { name: "photo", maxCount: 1 },
-  { name: "adhaarFront", maxCount: 1 },
-  { name: "adhaarBack", maxCount: 1 },
-  { name: "panCard", maxCount: 1 },
-  { name: "signature", maxCount: 1 },
+  { name: "other_images", maxCount: 10 },
 ];
 
 router.post(
