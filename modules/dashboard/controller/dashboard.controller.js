@@ -22,6 +22,21 @@ class DashboardController {
       return res.status(500).json({ error: error.message });
     }
   }
+
+  async getOwnerDashboard(req, res) {
+    try {
+      const { firmId } = req.query;
+      const dbUrl = this.getDbUrl(req.user.own_db);
+      const result = await dashboardService.getOwnerDashboard(dbUrl, firmId);
+      return res.status(200).json({
+        message: "Dashboard data fetched successfully.",
+        data: result,
+      });
+    } catch (error) {
+      console.error("❌ Controller Error (getOwnerDashboard):", error.message);
+      return res.status(500).json({ error: error.message });
+    }
+  }
 }
 
 module.exports = new DashboardController();
