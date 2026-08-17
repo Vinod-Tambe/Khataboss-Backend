@@ -2,7 +2,7 @@
 
 const path = require("path");
 const fs = require("fs");
-const { PrismaClient } = require("../generated/main");
+const { getTenantPrisma } = require("../../utils/tenantPrisma");
 
 const PERMISSIONS_PATH = path.join(__dirname, "../core-data/permissions.json");
 
@@ -25,36 +25,30 @@ const loadPermissionCatalog = () => {
  */
 const seedPermissions = async (dbUrl) => {
   const catalog = loadPermissionCatalog();
-  const prisma = new PrismaClient({
-    datasources: { db: { url: dbUrl } },
-  });
+  const prisma = getTenantPrisma(dbUrl);
 
-  try {
-    for (const item of catalog) {
-      await prisma.permission.upsert({
-        where: { perm_key: item.perm_key },
-        create: {
-          perm_key: item.perm_key,
-          perm_module: item.perm_module,
-          perm_action: item.perm_action,
-          perm_label: item.perm_label,
-          perm_sort_order: item.perm_sort_order ?? 0,
-        },
-        update: {
-          perm_module: item.perm_module,
-          perm_action: item.perm_action,
-          perm_label: item.perm_label,
-          perm_sort_order: item.perm_sort_order ?? 0,
-        },
-      });
-    }
-
-    const keys = catalog.map((p) => p.perm_key);
-    console.log(`✅  Seeded ${keys.length} permissions for tenant.`);
-    return { count: keys.length, keys };
-  } finally {
-    await prisma.$disconnect();
+  for (const item of catalog) {
+    await prisma.permission.upsert({
+      where: { perm_key: item.perm_key },
+      create: {
+        perm_key: item.perm_key,
+        perm_module: item.perm_module,
+        perm_action: item.perm_action,
+        perm_label: item.perm_label,
+        perm_sort_order: item.perm_sort_order ?? 0,
+      },
+      update: {
+        perm_module: item.perm_module,
+        perm_action: item.perm_action,
+        perm_label: item.perm_label,
+        perm_sort_order: item.perm_sort_order ?? 0,
+      },
+    });
   }
+
+  const keys = catalog.map((p) => p.perm_key);
+  console.log(`✅  Seeded ${keys.length} permissions for tenant.`);
+  return { count: keys.length, keys };
 };
 
 /**
@@ -83,12 +77,18 @@ const keysToPermissionMatrix = (keys = []) => {
  * Convert nested UI matrix into flat permission keys.
  */
 const permissionMatrixToKeys = (matrix = {}) => {
+  const catalog = loadPermissionCatalog();
+  const validKeys = new Set(catalog.map((p) => p.perm_key));
   const keys = [];
+
   for (const [module, actions] of Object.entries(matrix || {})) {
     for (const [action, enabled] of Object.entries(actions || {})) {
-      if (enabled) keys.push(`${module}.${action}`);
+      if (!enabled) continue;
+      const key = `${module}.${action}`;
+      if (validKeys.has(key)) keys.push(key);
     }
   }
+
   return keys;
 };
 
