@@ -1,6 +1,6 @@
 "use strict";
 
-const { PrismaClient } = require("../../../prisma/generated/main");
+const { getTenantPrisma } = require("../../../utils/tenantPrisma");
 const serialNumberService = require("../../../common/service/serialNumber.service");
 
 class FirmService {
@@ -9,13 +9,7 @@ class FirmService {
    * @param {string} dbUrl 
    */
   getPrisma(dbUrl) {
-    return new PrismaClient({
-      datasources: {
-        db: {
-          url: dbUrl,
-        },
-      },
-    });
+    return getTenantPrisma(dbUrl);
   }
 
   /**
@@ -25,16 +19,14 @@ class FirmService {
    */
   async createFirm(dbUrl, firmData) {
     const prisma = this.getPrisma(dbUrl);
-    try {
+
       if (!firmData.firm_unique_code) {
         firmData.firm_unique_code = await serialNumberService.getNextSerialNumber(prisma, "FIRM");
       }
       return await prisma.firm.create({
         data: firmData,
       });
-    } finally {
-      await prisma.$disconnect();
-    }
+    
   }
 
   /**
@@ -43,14 +35,12 @@ class FirmService {
    */
   async getFirms(dbUrl) {
     const prisma = this.getPrisma(dbUrl);
-    try {
+
       return await prisma.firm.findMany({
         where: { firm_is_deleted: false },
         orderBy: { firm_created_at: "desc" },
       });
-    } finally {
-      await prisma.$disconnect();
-    }
+    
   }
 
   /**
@@ -59,7 +49,7 @@ class FirmService {
    */
   async getFirmsDropdown(dbUrl) {
     const prisma = this.getPrisma(dbUrl);
-    try {
+
       return await prisma.firm.findMany({
         where: { firm_is_deleted: false },
         select: {
@@ -69,9 +59,7 @@ class FirmService {
         },
         orderBy: { firm_name: "asc" },
       });
-    } finally {
-      await prisma.$disconnect();
-    }
+    
   }
 
   /**
@@ -81,13 +69,11 @@ class FirmService {
    */
   async getFirmByUuid(dbUrl, firm_uuid) {
     const prisma = this.getPrisma(dbUrl);
-    try {
+
       return await prisma.firm.findUnique({
         where: { firm_uuid: firm_uuid, firm_is_deleted: false },
       });
-    } finally {
-      await prisma.$disconnect();
-    }
+    
   }
 
   /**
@@ -98,14 +84,12 @@ class FirmService {
    */
   async updateFirmByUuid(dbUrl, firm_uuid, updateData) {
     const prisma = this.getPrisma(dbUrl);
-    try {
+
       return await prisma.firm.update({
         where: { firm_uuid: firm_uuid },
         data: updateData,
       });
-    } finally {
-      await prisma.$disconnect();
-    }
+    
   }
 
   /**
@@ -116,7 +100,7 @@ class FirmService {
    */
   async checkUniqueFields(dbUrl, firmData, excludeUuid = null) {
     const prisma = this.getPrisma(dbUrl);
-    try {
+
       // 1. Check Firm ID (firm_name)
       if (firmData.firm_name) {
         const existingName = await prisma.firm.findFirst({
@@ -146,9 +130,7 @@ class FirmService {
       }
 
       return null; // All good
-    } finally {
-      await prisma.$disconnect();
-    }
+    
   }
 
   /**
@@ -159,7 +141,7 @@ class FirmService {
    */
   async deleteFirmByUuid(dbUrl, firm_uuid, deletedBy = null) {
     const prisma = this.getPrisma(dbUrl);
-    try {
+
       return await prisma.firm.update({
         where: { firm_uuid: firm_uuid },
         data: {
@@ -168,9 +150,7 @@ class FirmService {
           firm_deleted_by: deletedBy,
         },
       });
-    } finally {
-      await prisma.$disconnect();
-    }
+    
   }
 
   /**
@@ -183,7 +163,7 @@ class FirmService {
    */
   async createDefaultAccounts(dbUrl, firmId, ownId, firmBalance, openingDate) {
     const prisma = this.getPrisma(dbUrl);
-    try {
+
       const { cr_accounts, dr_accounts } = require("../../../common/default-data/account");
       const accountsToCreate = [];
 
@@ -214,9 +194,7 @@ class FirmService {
       return await prisma.account.createMany({
         data: accountsToCreate,
       });
-    } finally {
-      await prisma.$disconnect();
-    }
+    
   }
 
   /**
@@ -227,7 +205,7 @@ class FirmService {
    */
   async updateCapitalAccountBalance(dbUrl, firmId, firmBalance) {
     const prisma = this.getPrisma(dbUrl);
-    try {
+
       return await prisma.account.updateMany({
         where: {
           acc_firm_id: firmId,
@@ -238,9 +216,7 @@ class FirmService {
           acc_cash_balance: String(firmBalance)
         }
       });
-    } finally {
-      await prisma.$disconnect();
-    }
+    
   }
 }
 

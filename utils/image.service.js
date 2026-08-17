@@ -2,146 +2,252 @@
 
 const fs = require("fs");
 const path = require("path");
+const {
+  PutObjectCommand,
+  DeleteObjectCommand,
+  GetObjectCommand,
+} = require("@aws-sdk/client-s3");
+const {
+  getR2Client,
+  isR2Configured,
+  R2_BUCKET,
+  R2_PUBLIC_URL,
+} = require("../config/r2");
+const { MAX_UPLOAD_FILE_SIZE } = require("../config/upload");
+const {
+  assertCloudflareImageAccess,
+  isCloudflareAccessEnabled,
+  IMAGE_ACCESS_DENIED,
+  R2_NOT_CONFIGURED,
+  createImageAccessError,
+} = require("../config/storage");
 
 class ImageService {
-  /**
-   * Helper to ensure the module-specific directory exists.
-   * @param {string} moduleName - e.g., 'firm', 'owner', 'staff'
-   * @param {string|number} entityId - e.g., '1' or UUID
-   * @returns {string} - The target directory path
-   */
-  getTargetDir(moduleName, entityId) {
-    const targetDir = path.join(__dirname, "../../uploads", moduleName, entityId.toString());
-    if (!fs.existsSync(targetDir)) {
-      fs.mkdirSync(targetDir, { recursive: true });
+  _assertStorageReady() {
+    assertCloudflareImageAccess();
+    if (!isR2Configured()) {
+      throw createImageAccessError(R2_NOT_CONFIGURED, 503);
     }
-    return targetDir;
   }
 
   /**
-   * Moves multiple files from temporary storage to their final destination.
-   * Typically used with multer.fields().
-   * @param {string} moduleName
-   * @param {string|number} entityId
-   * @param {object} files - req.files object from Multer
-   * @returns {object} - Object with original fieldnames as keys and metadata as values
+   * Owner-scoped storage key: owner/{ownId}/{module}/{entityId}/{fileName}
    */
-  async moveFiles(moduleName, entityId, files) {
-    if (!files || Object.keys(files).length === 0) return {};
-
-    const targetDir = this.getTargetDir(moduleName, entityId);
-    const movedFiles = {};
-
-    for (const fieldname in files) {
-      const file = files[fieldname][0];
-      const newFileName = `${fieldname}-${Date.now()}${path.extname(file.originalname)}`;
-      const newPath = path.join(targetDir, newFileName);
-
-      fs.renameSync(file.path, newPath);
-
-      movedFiles[fieldname] = {
-        filename: newFileName,
-        originalName: file.originalname,
-        path: `uploads/${moduleName}/${entityId}/${newFileName}`,
-        mimetype: file.mimetype,
-        size: file.size,
-      };
-    }
-
-    return movedFiles;
+  buildStorageKey(ownId, moduleName, entityId, fileName) {
+    return `owner/${ownId}/${moduleName}/${entityId}/${fileName}`;
   }
 
-  /**
-   * Moves multiple files from the same field (multer.fields other_images array).
-   * @returns {Array<object>} Metadata objects
-   */
-  async appendArrayFiles(moduleName, entityId, fileArray, fieldPrefix = "other") {
-    if (!fileArray || !fileArray.length) return [];
-
-    const targetDir = this.getTargetDir(moduleName, entityId);
-    const moved = [];
-
-    for (const file of fileArray) {
-      if (!file) continue;
-      const newFileName = `${fieldPrefix}-${Date.now()}-${Math.round(Math.random() * 1e9)}${path.extname(file.originalname)}`;
-      const newPath = path.join(targetDir, newFileName);
-      fs.renameSync(file.path, newPath);
-      moved.push({
-        filename: newFileName,
-        originalName: file.originalname,
-        path: `uploads/${moduleName}/${entityId}/${newFileName}`,
-        mimetype: file.mimetype,
-        size: file.size,
-      });
-    }
-
-    return moved;
+  normalizeStoredPath(relativePath) {
+    if (!relativePath) return null;
+    return String(relativePath).replace(/\\/g, "/").replace(/^\/+/, "");
   }
 
-  /**
-   * Moves a single file from temporary storage to its final destination.
-   * Typically used with multer.single().
-   * @param {string} moduleName
-   * @param {string|number} entityId
-   * @param {object} file - req.file object from Multer
-   * @param {string} fieldName - Optional fieldname (defaults to file.fieldname)
-   * @returns {object} - Metadata for the moved file
-   */
-  async moveSingleFile(moduleName, entityId, file, fieldName) {
-    if (!file) return null;
+  resolveStorageKey(storedPath) {
+    const norm = this.normalizeStoredPath(storedPath);
+    if (!norm) return null;
+    if (norm.startsWith("owner/")) return norm;
+    if (norm.startsWith("uploads/owner/")) return norm.slice("uploads/".length);
+    return null;
+  }
 
-    const targetDir = this.getTargetDir(moduleName, entityId);
-    const actualFieldName = fieldName || file.fieldname;
-    const newFileName = `${actualFieldName}-${Date.now()}${path.extname(file.originalname)}`;
-    const newPath = path.join(targetDir, newFileName);
+  getLocalFullPath(storedPath) {
+    const norm = this.normalizeStoredPath(storedPath);
+    if (!norm) return null;
+    if (norm.startsWith("owner/")) {
+      return path.join(__dirname, "../../uploads", norm);
+    }
+    return path.join(__dirname, "../../", norm);
+  }
 
-    fs.renameSync(file.path, newPath);
+  async _readMulterFile(file) {
+    const buffer = fs.readFileSync(file.path);
+    if (buffer.length > MAX_UPLOAD_FILE_SIZE) {
+      throw new Error("File size must be less than 2MB");
+    }
+    return buffer;
+  }
 
+  _cleanupTempFile(file) {
+    if (!file?.path) return;
+    try {
+      if (fs.existsSync(file.path)) fs.unlinkSync(file.path);
+    } catch {
+      /* ignore */
+    }
+  }
+
+  async _uploadBuffer(key, buffer, mimetype) {
+    this._assertStorageReady();
+    await getR2Client().send(
+      new PutObjectCommand({
+        Bucket: R2_BUCKET,
+        Key: key,
+        Body: buffer,
+        ContentType: mimetype || "application/octet-stream",
+      })
+    );
+  }
+
+  _buildFileMeta(key, file, fieldName) {
+    const fileName = path.basename(key);
     return {
-      filename: newFileName,
+      filename: fileName,
       originalName: file.originalname,
-      path: `uploads/${moduleName}/${entityId}/${newFileName}`,
+      path: key,
       mimetype: file.mimetype,
       size: file.size,
+      field: fieldName || file.fieldname,
     };
   }
 
-  /**
-   * Deletes a file from the filesystem.
-   * @param {string} relativePath - Path relative to the app root (e.g., 'uploads/...')
-   */
+  async _processMulterFile(ownId, moduleName, entityId, file, fieldName) {
+    if (!file) return null;
+
+    this._assertStorageReady();
+
+    const actualFieldName = fieldName || file.fieldname;
+    const newFileName = `${actualFieldName}-${Date.now()}${path.extname(file.originalname)}`;
+    const key = this.buildStorageKey(ownId, moduleName, entityId, newFileName);
+
+    const buffer = await this._readMulterFile(file);
+    await this._uploadBuffer(key, buffer, file.mimetype);
+    this._cleanupTempFile(file);
+
+    return this._buildFileMeta(key, file, actualFieldName);
+  }
+
+  async moveFiles(ownId, moduleName, entityId, files) {
+    if (!files || Object.keys(files).length === 0) return {};
+
+    const movedFiles = {};
+    for (const fieldname in files) {
+      const file = files[fieldname][0];
+      movedFiles[fieldname] = await this._processMulterFile(
+        ownId,
+        moduleName,
+        entityId,
+        file,
+        fieldname
+      );
+    }
+    return movedFiles;
+  }
+
+  async appendArrayFiles(ownId, moduleName, entityId, fileArray, fieldPrefix = "other") {
+    if (!fileArray || !fileArray.length) return [];
+
+    this._assertStorageReady();
+
+    const moved = [];
+    for (const file of fileArray) {
+      if (!file) continue;
+      const newFileName = `${fieldPrefix}-${Date.now()}-${Math.round(Math.random() * 1e9)}${path.extname(file.originalname)}`;
+      const key = this.buildStorageKey(ownId, moduleName, entityId, newFileName);
+      const buffer = await this._readMulterFile(file);
+      await this._uploadBuffer(key, buffer, file.mimetype);
+      this._cleanupTempFile(file);
+      moved.push(this._buildFileMeta(key, file, fieldPrefix));
+    }
+    return moved;
+  }
+
+  async moveSingleFile(ownId, moduleName, entityId, file, fieldName) {
+    return this._processMulterFile(ownId, moduleName, entityId, file, fieldName);
+  }
+
   async deleteFile(relativePath) {
     if (!relativePath) return;
-    const fullPath = path.join(__dirname, "../../", relativePath);
-    if (fs.existsSync(fullPath)) {
-      fs.unlinkSync(fullPath);
+
+    const norm = this.normalizeStoredPath(relativePath);
+    const r2Key = this.resolveStorageKey(norm);
+
+    if (r2Key) {
+      this._assertStorageReady();
+      try {
+        await getR2Client().send(
+          new DeleteObjectCommand({ Bucket: R2_BUCKET, Key: r2Key })
+        );
+      } catch (err) {
+        console.warn("R2 delete failed:", r2Key, err.message);
+      }
+      return;
+    }
+
+    // Legacy local paths only (pre-Cloudflare)
+    if (!isCloudflareAccessEnabled()) {
+      throw createImageAccessError(IMAGE_ACCESS_DENIED, 403);
+    }
+
+    const localPath = this.getLocalFullPath(norm);
+    if (localPath && fs.existsSync(localPath)) {
+      fs.unlinkSync(localPath);
     }
   }
 
-  /**
-   * Deletes a directory and its contents from the filesystem.
-   * @param {string} moduleName - e.g., 'firm', 'owner'
-   * @param {string|number} entityId - e.g., '6'
-   */
-  async deleteDirectory(moduleName, entityId) {
-    if (!moduleName || !entityId) return;
-    const targetDir = path.join(__dirname, "../../uploads", moduleName, entityId.toString());
+  async deleteDirectory(ownId, moduleName, entityId) {
+    if (!ownId || !moduleName || !entityId) return;
+    if (!isCloudflareAccessEnabled()) {
+      throw createImageAccessError(IMAGE_ACCESS_DENIED, 403);
+    }
+    const targetDir = path.join(
+      __dirname,
+      "../../uploads",
+      "owner",
+      ownId.toString(),
+      moduleName,
+      entityId.toString()
+    );
     if (fs.existsSync(targetDir)) {
       fs.rmSync(targetDir, { recursive: true, force: true });
     }
   }
 
-  /**
-   * Returns the full public URL for an image.
-   * @param {object} req - Express request object (to construct host)
-   * @param {string} relativePath - Path relative to the app root
-   * @returns {string} - Full URL
-   */
+  getPublicUrl(storedPath) {
+    if (!storedPath) return null;
+    const norm = this.normalizeStoredPath(storedPath);
+    if (norm.startsWith("http")) return norm;
+
+    const key = this.resolveStorageKey(norm);
+    if (key) {
+      if (!isCloudflareAccessEnabled()) return null;
+      if (!isR2Configured() || !R2_PUBLIC_URL) return null;
+      return `${R2_PUBLIC_URL}/${key}`;
+    }
+
+    const base =
+      process.env.API_PUBLIC_URL ||
+      `http://localhost:${process.env.APP_PORT || 9000}`;
+    const uploadsPath = norm.startsWith("uploads/") ? norm : `uploads/${norm}`;
+    return `${String(base).replace(/\/$/, "")}/${uploadsPath}`;
+  }
+
   getImageUrl(req, relativePath) {
-    if (!relativePath) return null;
-    const protocol = req.protocol;
-    const host = req.get("host");
-    return `${protocol}://${host}/${relativePath}`;
+    return this.getPublicUrl(relativePath);
+  }
+
+  async getFileBuffer(storedPath) {
+    if (!storedPath) return null;
+
+    if (fs.existsSync(storedPath)) {
+      return fs.readFileSync(storedPath);
+    }
+
+    const key = this.resolveStorageKey(storedPath);
+    if (key) {
+      this._assertStorageReady();
+      const resp = await getR2Client().send(
+        new GetObjectCommand({ Bucket: R2_BUCKET, Key: key })
+      );
+      const chunks = [];
+      for await (const chunk of resp.Body) chunks.push(chunk);
+      return Buffer.concat(chunks);
+    }
+
+    const localPath = this.getLocalFullPath(storedPath);
+    if (localPath && fs.existsSync(localPath)) {
+      return fs.readFileSync(localPath);
+    }
+    return null;
   }
 }
 

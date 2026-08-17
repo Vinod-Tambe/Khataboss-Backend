@@ -1,6 +1,6 @@
 "use strict";
 
-const { PrismaClient } = require("../../../prisma/generated/main");
+const { getTenantPrisma } = require("../../../utils/tenantPrisma");
 const serialNumberService = require("../../../common/service/serialNumber.service");
 
 class UserService {
@@ -9,13 +9,7 @@ class UserService {
    * @param {string} dbUrl 
    */
   getPrisma(dbUrl) {
-    return new PrismaClient({
-      datasources: {
-        db: {
-          url: dbUrl,
-        },
-      },
-    });
+    return getTenantPrisma(dbUrl);
   }
 
   /**
@@ -25,16 +19,14 @@ class UserService {
    */
   async createUser(dbUrl, userData) {
     const prisma = this.getPrisma(dbUrl);
-    try {
+
       if (!userData.user_unique_code) {
         userData.user_unique_code = await serialNumberService.getNextSerialNumber(prisma, "USER");
       }
       return await prisma.user.create({
         data: userData,
       });
-    } finally {
-      await prisma.$disconnect();
-    }
+    
   }
 
   /**
@@ -44,7 +36,7 @@ class UserService {
    */
   async getUserByUuid(dbUrl, user_uuid) {
     const prisma = this.getPrisma(dbUrl);
-    try {
+
       return await prisma.user.findUnique({
         where: { user_uuid: user_uuid },
         include: {
@@ -56,9 +48,7 @@ class UserService {
           },
         },
       });
-    } finally {
-      await prisma.$disconnect();
-    }
+    
   }
 
   /**
@@ -69,19 +59,17 @@ class UserService {
    */
   async updateUserByUuid(dbUrl, user_uuid, updateData) {
     const prisma = this.getPrisma(dbUrl);
-    try {
+
       return await prisma.user.update({
         where: { user_uuid: user_uuid },
         data: updateData,
       });
-    } finally {
-      await prisma.$disconnect();
-    }
+    
   }
 
   async checkUniqueFields(dbUrl, userData, excludeUuid = null) {
     const prisma = this.getPrisma(dbUrl);
-    try {
+
       // 5-field combined duplicate check
       const matchingUser = await prisma.user.findFirst({
         where: {
@@ -102,9 +90,7 @@ class UserService {
       }
 
       return null;
-    } finally {
-      await prisma.$disconnect();
-    }
+    
   }
   /**
    * Fast autocomplete search for header suggestions.
@@ -112,7 +98,7 @@ class UserService {
    */
   async searchUsers(dbUrl, firmId, q = "", limit = 12) {
     const prisma = this.getPrisma(dbUrl);
-    try {
+
       const search = String(q || "").trim();
       if (search.length < 1) return [];
 
@@ -181,9 +167,7 @@ class UserService {
           user_pincode: true,
         },
       });
-    } finally {
-      await prisma.$disconnect();
-    }
+    
   }
 
   /**
@@ -194,7 +178,7 @@ class UserService {
    */
   async getUsers(dbUrl, firmId, search = "") {
     const prisma = this.getPrisma(dbUrl);
-    try {
+
       const where = {
         user_is_deleted: false,
       };
@@ -236,9 +220,7 @@ class UserService {
           user_created_at: "desc",
         },
       });
-    } finally {
-      await prisma.$disconnect();
-    }
+    
   }
 
   /**
@@ -249,7 +231,7 @@ class UserService {
    */
   async deleteUserByUuid(dbUrl, user_uuid, deletedBy) {
     const prisma = this.getPrisma(dbUrl);
-    try {
+
       return await prisma.user.update({
         where: { user_uuid: user_uuid },
         data: {
@@ -258,9 +240,7 @@ class UserService {
           user_deleted_by: deletedBy,
         },
       });
-    } finally {
-      await prisma.$disconnect();
-    }
+    
   }
   /**
    * Get user full name by ID.
@@ -269,15 +249,13 @@ class UserService {
    */
   async get_user_full_name(dbUrl, userId) {
     const prisma = this.getPrisma(dbUrl);
-    try {
+
       const user = await prisma.user.findUnique({
         where: { user_id: parseInt(userId) },
         select: { user_first_name: true, user_last_name: true },
       });
       return user ? `${user.user_first_name} ${user.user_last_name || ""}`.trim() : null;
-    } finally {
-      await prisma.$disconnect();
-    }
+    
   }
 }
 

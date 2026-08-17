@@ -1,118 +1,51 @@
 "use strict";
 
-const PASSWORD_MIN_LENGTH = 10;
-const PASSWORD_MAX_LENGTH = 24;
+const PASSWORD_MIN_LENGTH = 8;
+const PASSWORD_MAX_LENGTH = 128;
+const PASSWORD_SPECIAL_CHARS = "$!@%&";
 
-const COMMON_PASSWORDS = [
-  "password",
-  "password1",
-  "password123",
-  "1234567890",
-  "123456789",
-  "qwertyuiop",
-  "qwerty123",
-  "abcdefghij",
-  "admin12345",
-  "welcome123",
-  "letmein123",
-  "iloveyou12",
-  "changeme12",
-  "passw0rd12",
-];
-
-const SEQUENCES = [
-  "0123456789",
-  "9876543210",
-  "abcdefghijklmnopqrstuvwxyz",
-  "zyxwvutsrqponmlkjihgfedcba",
-  "qwertyuiop",
-  "asdfghjkl",
-  "zxcvbnm",
-];
-
-const normalizeToken = (value) =>
-  String(value || "")
-    .toLowerCase()
-    .replace(/[^a-z0-9]/g, "");
-
-const hasPredictableSequence = (value) => {
-  const lower = String(value || "").toLowerCase();
-  return SEQUENCES.some((seq) => {
-    for (let i = 0; i <= seq.length - 4; i += 1) {
-      if (lower.includes(seq.slice(i, i + 4))) return true;
-    }
-    return false;
-  });
-};
-
-const containsPersonalInfo = (password, owner = {}) => {
-  const lowerPwd = String(password || "").toLowerCase();
-  const tokens = [
-    owner.own_first_name,
-    owner.own_last_name,
-    owner.own_middle_name,
-    owner.own_login_id,
-    owner.own_email ? String(owner.own_email).split("@")[0] : "",
-    owner.own_mobile_no,
-  ]
-    .map(normalizeToken)
-    .filter((t) => t && t.length >= 3);
-
-  return tokens.some((token) => lowerPwd.includes(token));
+const hasEdgeWhitespace = (value) => {
+  if (!value) return false;
+  return value !== String(value).trim();
 };
 
 /**
- * Validate strong password policy.
+ * Validate password policy for owner and staff.
  * @returns {{ ok: boolean, message?: string }}
  */
 const validateStrongPassword = (password, options = {}) => {
   const value = String(password || "");
-  const { oldPassword = "", owner = {} } = options;
+  const { oldPassword = "" } = options;
 
   if (!value) {
-    return { ok: false, message: "New password is required." };
+    return { ok: false, message: "Password is required." };
   }
+
+  if (hasEdgeWhitespace(value)) {
+    return {
+      ok: false,
+      message: "Password must not have leading or trailing whitespace.",
+    };
+  }
+
   if (value.length < PASSWORD_MIN_LENGTH || value.length > PASSWORD_MAX_LENGTH) {
     return {
       ok: false,
-      message: `Password must be ${PASSWORD_MIN_LENGTH}–${PASSWORD_MAX_LENGTH} characters.`,
-    };
-  }
-  if (!/[A-Z]/.test(value)) {
-    return { ok: false, message: "Password must include at least one uppercase letter (A–Z)." };
-  }
-  if (!/[a-z]/.test(value)) {
-    return { ok: false, message: "Password must include at least one lowercase letter (a–z)." };
-  }
-  if (!/[0-9]/.test(value)) {
-    return { ok: false, message: "Password must include at least one number (0–9)." };
-  }
-  if (!/[!@#$%^&*\-_+=?]/.test(value)) {
-    return {
-      ok: false,
-      message: "Password must include at least one special character (!@#$%^&*-_+=?).",
-    };
-  }
-  if (/(.)\1{2,}/.test(value)) {
-    return { ok: false, message: "Password must not contain repeated characters (e.g. aaa, 111)." };
-  }
-  if (hasPredictableSequence(value)) {
-    return {
-      ok: false,
-      message: "Password must not contain predictable patterns (e.g. 1234, qwerty).",
+      message: `Password must be at least ${PASSWORD_MIN_LENGTH} characters.`,
     };
   }
 
-  const lower = value.toLowerCase();
-  if (COMMON_PASSWORDS.some((item) => lower.includes(item) || lower === item)) {
-    return { ok: false, message: "Password is too common. Please choose a stronger password." };
+  if (!/\d/.test(value)) {
+    return { ok: false, message: "Password must include at least one number (0–9)." };
   }
-  if (containsPersonalInfo(value, owner)) {
+
+  if (!/[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?`~]/.test(value)) {
     return {
       ok: false,
-      message: "Password must not contain personal information (name, email, mobile).",
+      message: `Password must include at least one special character (e.g. ${PASSWORD_SPECIAL_CHARS}).`,
     };
   }
+
   if (oldPassword && value === oldPassword) {
     return { ok: false, message: "New password must be different from old password." };
   }
@@ -123,5 +56,6 @@ const validateStrongPassword = (password, options = {}) => {
 module.exports = {
   PASSWORD_MIN_LENGTH,
   PASSWORD_MAX_LENGTH,
+  PASSWORD_SPECIAL_CHARS,
   validateStrongPassword,
 };

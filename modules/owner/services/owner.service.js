@@ -1,10 +1,10 @@
 "use strict";
 
-const { PrismaClient: MainPrismaClient } = require("../../../prisma/generated/main");
-const { PrismaClient: MasterPrismaClient } = require("../../../prisma/generated/master");
+const { getTenantPrisma } = require("../../../utils/tenantPrisma");
+const { getMasterPrisma } = require("../../../utils/masterPrisma");
 const { hashPassword } = require("../../../common/service/bcrypt.service");
 
-const masterPrisma = new MasterPrismaClient();
+const masterPrisma = getMasterPrisma();
 
 /**
  * Service to handle owner record operations in both master and tenant databases.
@@ -26,15 +26,9 @@ class OwnerService {
    * @param {object} ownerData - The owner data to insert.
    */
   async createOwner(dbUrl, ownerData) {
-    const tenantPrisma = new MainPrismaClient({
-      datasources: {
-        db: {
-          url: dbUrl,
-        },
-      },
-    });
+    const tenantPrisma = getTenantPrisma(dbUrl);
 
-    try {
+
       // Hash the password
       const hashedPassword = await hashPassword(ownerData.own_password);
       const finalOwnerData = {
@@ -73,9 +67,7 @@ class OwnerService {
       });
 
       return masterOwner;
-    } finally {
-      await tenantPrisma.$disconnect();
-    }
+    
   }
 
   /**
@@ -85,15 +77,9 @@ class OwnerService {
    * @param {object} updateData - The owner data to update.
    */
   async updateOwner(dbUrl, ownUuid, updateData) {
-    const tenantPrisma = new MainPrismaClient({
-      datasources: {
-        db: {
-          url: dbUrl,
-        },
-      },
-    });
+    const tenantPrisma = getTenantPrisma(dbUrl);
 
-    try {
+
       const dataToUpdate = { ...updateData };
 
       // Hash password if provided
@@ -123,9 +109,7 @@ class OwnerService {
       });
 
       return updatedMasterOwner;
-    } finally {
-      await tenantPrisma.$disconnect();
-    }
+    
   }
 
   /**
@@ -135,15 +119,9 @@ class OwnerService {
    * @param {string} deletedBy - The user who is deleting the record.
    */
   async deleteOwner(dbUrl, ownUuid, deletedBy = null) {
-    const tenantPrisma = new MainPrismaClient({
-      datasources: {
-        db: {
-          url: dbUrl,
-        },
-      },
-    });
+    const tenantPrisma = getTenantPrisma(dbUrl);
 
-    try {
+
       const deleteData = {
         own_is_deleted: true,
         own_deleted_at: new Date(),
@@ -164,9 +142,7 @@ class OwnerService {
         where: { own_uuid: ownUuid },
         data: deleteData,
       });
-    } finally {
-      await tenantPrisma.$disconnect();
-    }
+    
   }
 }
 

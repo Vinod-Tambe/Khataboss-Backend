@@ -1,21 +1,15 @@
 "use strict";
 
-const { PrismaClient } = require("../../../prisma/generated/main");
+const { getTenantPrisma } = require("../../../utils/tenantPrisma");
 
 class StockService {
   getPrisma(dbUrl) {
-    return new PrismaClient({
-      datasources: {
-        db: {
-          url: dbUrl,
-        },
-      },
-    });
+    return getTenantPrisma(dbUrl);
   }
 
   async getStocks(dbUrl, firmId) {
     const prisma = this.getPrisma(dbUrl);
-    try {
+
       const where = { st_is_deleted: false };
       if (firmId) {
         where.st_firm_id = parseInt(firmId);
@@ -24,20 +18,16 @@ class StockService {
         where,
         orderBy: { st_created_at: "desc" },
       });
-    } finally {
-      await prisma.$disconnect();
-    }
+    
   }
 
   async createStock(dbUrl, stockData) {
     const prisma = this.getPrisma(dbUrl);
-    try {
+
       return await prisma.stock.create({
         data: stockData,
       });
-    } finally {
-      await prisma.$disconnect();
-    }
+    
   }
 }
 

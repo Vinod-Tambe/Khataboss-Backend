@@ -2,6 +2,11 @@
 const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
+const { MAX_UPLOAD_FILE_SIZE } = require("../config/upload");
+const {
+  isCloudflareAccessEnabled,
+  IMAGE_ACCESS_DENIED,
+} = require("../config/storage");
 
 // Storage configuration (initially upload to temp)
 const storage = multer.diskStorage({
@@ -30,7 +35,21 @@ const fileFilter = (req, file, cb) => {
 const upload = multer({
   storage: storage,
   fileFilter: fileFilter,
-  limits: { fileSize: 5 * 1024 * 1024 }, // 5MB limit
+  limits: { fileSize: MAX_UPLOAD_FILE_SIZE },
 });
 
+function requireCloudflareImageAccess(req, res, next) {
+  if (!isCloudflareAccessEnabled()) {
+    return res.status(403).json({ error: IMAGE_ACCESS_DENIED });
+  }
+  next();
+}
+
+/** Chain before multer: blocks upload when CLOUDFLARE_ACCESS is false */
+function withCloudflareAccess(...middlewares) {
+  return [requireCloudflareImageAccess, ...middlewares];
+}
+
 module.exports = upload;
+module.exports.requireCloudflareImageAccess = requireCloudflareImageAccess;
+module.exports.withCloudflareAccess = withCloudflareAccess;

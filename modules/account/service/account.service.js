@@ -1,6 +1,6 @@
 "use strict";
 
-const { PrismaClient } = require("../../../prisma/generated/main");
+const { getTenantPrisma } = require("../../../utils/tenantPrisma");
 
 class AccountService {
   /**
@@ -8,13 +8,7 @@ class AccountService {
    * @param {string} dbUrl 
    */
   getPrisma(dbUrl) {
-    return new PrismaClient({
-      datasources: {
-        db: {
-          url: dbUrl,
-        },
-      },
-    });
+    return getTenantPrisma(dbUrl);
   }
 
   /**
@@ -24,13 +18,11 @@ class AccountService {
    */
   async createAccount(dbUrl, accountData) {
     const prisma = this.getPrisma(dbUrl);
-    try {
+
       return await prisma.account.create({
         data: accountData,
       });
-    } finally {
-      await prisma.$disconnect();
-    }
+    
   }
 
   /**
@@ -39,7 +31,7 @@ class AccountService {
    */
   async repairLoanReceivableParents(dbUrl, firmId = null) {
     const prisma = this.getPrisma(dbUrl);
-    try {
+
       const where = {
         acc_is_deleted: false,
         acc_name: { in: ["Secured Loans", "Unsecured Loans"] },
@@ -55,9 +47,7 @@ class AccountService {
           acc_balance_type: "DR",
         },
       });
-    } finally {
-      await prisma.$disconnect();
-    }
+    
   }
 
   /**
@@ -67,7 +57,7 @@ class AccountService {
    */
   async getAccounts(dbUrl, firmId = null) {
     const prisma = this.getPrisma(dbUrl);
-    try {
+
       // Self-heal legacy loan receivable grouping for existing tenants
       await prisma.account.updateMany({
         where: {
@@ -99,9 +89,7 @@ class AccountService {
           }
         }
       });
-    } finally {
-      await prisma.$disconnect();
-    }
+    
   }
 
   /**
@@ -111,7 +99,7 @@ class AccountService {
    */
   async getAccountByUuid(dbUrl, acc_uuid) {
     const prisma = this.getPrisma(dbUrl);
-    try {
+
       return await prisma.account.findUnique({
         where: { acc_uuid: acc_uuid, acc_is_deleted: false },
         include: {
@@ -123,9 +111,7 @@ class AccountService {
           }
         }
       });
-    } finally {
-      await prisma.$disconnect();
-    }
+    
   }
 
   /**
@@ -136,14 +122,12 @@ class AccountService {
    */
   async updateAccountByUuid(dbUrl, acc_uuid, updateData) {
     const prisma = this.getPrisma(dbUrl);
-    try {
+
       return await prisma.account.update({
         where: { acc_uuid: acc_uuid },
         data: updateData,
       });
-    } finally {
-      await prisma.$disconnect();
-    }
+    
   }
 
   /**
@@ -154,7 +138,7 @@ class AccountService {
    */
   async deleteAccountByUuid(dbUrl, acc_uuid, deletedBy = null) {
     const prisma = this.getPrisma(dbUrl);
-    try {
+
       return await prisma.account.update({
         where: { acc_uuid: acc_uuid },
         data: {
@@ -163,9 +147,7 @@ class AccountService {
           acc_deleted_by: deletedBy,
         },
       });
-    } finally {
-      await prisma.$disconnect();
-    }
+    
   }
 
   /**
@@ -175,7 +157,7 @@ class AccountService {
    */
   async getAccountsDropdown(dbUrl, firmId = null) {
     const prisma = this.getPrisma(dbUrl);
-    try {
+
       const where = { acc_is_deleted: false };
       if (firmId) {
         where.acc_firm_id = parseInt(firmId);
@@ -190,9 +172,7 @@ class AccountService {
         },
         orderBy: { acc_name: "asc" },
       });
-    } finally {
-      await prisma.$disconnect();
-    }
+    
   }
 
   /**
@@ -202,15 +182,13 @@ class AccountService {
    */
   async isSystemAccount(dbUrl, acc_uuid) {
     const prisma = this.getPrisma(dbUrl);
-    try {
+
       const account = await prisma.account.findUnique({
         where: { acc_uuid: acc_uuid },
         select: { acc_is_system: true }
       });
       return account?.acc_is_system === true;
-    } finally {
-      await prisma.$disconnect();
-    }
+    
   }
 
   /**
@@ -223,7 +201,7 @@ class AccountService {
    */
   async checkDuplicateName(dbUrl, acc_name, firmId, preAcc, excludeUuid = null) {
     const prisma = this.getPrisma(dbUrl);
-    try {
+
       const existing = await prisma.account.findFirst({
         where: {
           acc_name: acc_name,
@@ -234,9 +212,7 @@ class AccountService {
         },
       });
       return existing ? true : false;
-    } finally {
-      await prisma.$disconnect();
-    }
+    
   }
 
   /**
@@ -248,7 +224,7 @@ class AccountService {
    */
   async get_acc_opening_balance(dbUrl, firmId = "N", startDate, accId = "N") {
     const prisma = this.getPrisma(dbUrl);
-    try {
+
       // Ensure startDate is treated as UTC end-of-day to include all accounts created on that date
       const [year, month, day] = startDate.split("-").map(Number);
       const endOfStartDate = new Date(Date.UTC(year, month - 1, day, 23, 59, 59, 999));
@@ -284,9 +260,7 @@ class AccountService {
           acc_pre_acc: true,
         },
       });
-    } finally {
-      await prisma.$disconnect();
-    }
+    
   }
 
   /**
@@ -296,7 +270,7 @@ class AccountService {
    */
   async getAccountTotals(dbUrl, firmId = null) {
     const prisma = this.getPrisma(dbUrl);
-    try {
+
       const where = { acc_is_deleted: false };
       if (firmId) {
         where.acc_firm_id = parseInt(firmId);
@@ -329,9 +303,7 @@ class AccountService {
         creditTotal,
         difference,
       };
-    } finally {
-      await prisma.$disconnect();
-    }
+    
   }
 }
 

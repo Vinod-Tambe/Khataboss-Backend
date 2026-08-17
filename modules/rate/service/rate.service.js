@@ -1,6 +1,6 @@
 "use strict";
 
-const { PrismaClient } = require("../../../prisma/generated/main");
+const { getTenantPrisma } = require("../../../utils/tenantPrisma");
 
 class RateService {
   calculateDynamicRate(baseAmount, inputPurityValue, targetPurityValue) {
@@ -14,18 +14,12 @@ class RateService {
    * @param {string} dbUrl 
    */
   getPrisma(dbUrl) {
-    return new PrismaClient({
-      datasources: {
-        db: {
-          url: dbUrl,
-        },
-      },
-    });
+    return getTenantPrisma(dbUrl);
   }
 
   async createRate(dbUrl, data) {
     const prisma = this.getPrisma(dbUrl);
-    try {
+
       const {
         rate_own_id,
         rate_firm_id,
@@ -147,14 +141,12 @@ class RateService {
           }
         });
       }
-    } finally {
-      await prisma.$disconnect();
-    }
+    
   }
 
   async updateRate(dbUrl, uuid, data) {
     const prisma = this.getPrisma(dbUrl);
-    try {
+
       const {
         rate_firm_id,
         rate_metal,
@@ -254,14 +246,12 @@ class RateService {
           }
         });
       }
-    } finally {
-      await prisma.$disconnect();
-    }
+    
   }
 
   async getRates(dbUrl, firmId) {
     const prisma = this.getPrisma(dbUrl);
-    try {
+
       const whereClause = { rate_is_deleted: false };
       if (firmId && firmId !== 'all') {
         whereClause.rate_firm_id = parseInt(firmId);
@@ -280,21 +270,17 @@ class RateService {
           }
         }
       });
-    } finally {
-      await prisma.$disconnect();
-    }
+    
   }
 
   async deleteRate(dbUrl, uuid) {
     const prisma = this.getPrisma(dbUrl);
-    try {
+
       return await prisma.rate.update({
         where: { rate_uuid: uuid },
         data: { rate_is_deleted: true, rate_deleted_at: new Date() }
       });
-    } finally {
-      await prisma.$disconnect();
-    }
+    
   }
 }
 

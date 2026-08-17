@@ -1,6 +1,6 @@
 "use strict";
 
-const { PrismaClient } = require("../../../prisma/generated/main");
+const { getTenantPrisma } = require("../../../utils/tenantPrisma");
 const financeTransactionService = require("./finance_transaction.service");
 const financeMoneyTransService = require("./finance_money_trans.service");
 const journalService = require("../../journal/service/journal.service");
@@ -77,13 +77,7 @@ function evaluateFinanceSettlement(finance, moneyTrans, emis, asOfDate = null) {
 
 class FinanceService {
   getPrisma(dbUrl) {
-    return new PrismaClient({
-      datasources: {
-        db: {
-          url: dbUrl,
-        },
-      },
-    });
+    return getTenantPrisma(dbUrl);
   }
 
   /**

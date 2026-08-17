@@ -78,4 +78,7 @@ v1Router.use("/messaging", require("./modules/messaging/routes/messaging.routes"
 v1Router.use("/logs", require("./modules/log/routes/log.routes"));
 app.use("/api/v1", v1Router);
 
+const uploadErrorHandler = require("./middlewares/uploadError.middleware");
+app.use(uploadErrorHandler);
+
 module.exports = app;

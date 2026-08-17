@@ -1,18 +1,16 @@
 "use strict";
 
-const { PrismaClient } = require("../../../prisma/generated/main");
+const { getTenantPrisma } = require("../../../utils/tenantPrisma");
 const serialNumberService = require("../../../common/service/serialNumber.service");
 
 class MoneyLenderService {
   getPrisma(dbUrl) {
-    return new PrismaClient({
-      datasources: { db: { url: dbUrl } },
-    });
+    return getTenantPrisma(dbUrl);
   }
 
   async checkUniqueFields(dbUrl, data, excludeUuid = null) {
     const prisma = this.getPrisma(dbUrl);
-    try {
+
       if (data.ml_phone) {
         const existingPhone = await prisma.moneyLender.findFirst({
           where: {
@@ -58,14 +56,12 @@ class MoneyLenderService {
       }
 
       return null;
-    } finally {
-      await prisma.$disconnect();
-    }
+    
   }
 
   async createMoneyLender(dbUrl, data) {
     const prisma = this.getPrisma(dbUrl);
-    try {
+
       if (data.ml_dob) data.ml_dob = new Date(data.ml_dob); else delete data.ml_dob;
       if (data.ml_firm_id) data.ml_firm_id = parseInt(data.ml_firm_id); else delete data.ml_firm_id;
       if (data.ml_own_id) data.ml_own_id = parseInt(data.ml_own_id);
@@ -82,37 +78,31 @@ class MoneyLenderService {
       return await prisma.moneyLender.create({
         data,
       });
-    } finally {
-      await prisma.$disconnect();
-    }
+    
   }
 
   async getMoneyLenders(dbUrl) {
     const prisma = this.getPrisma(dbUrl);
-    try {
+
       return await prisma.moneyLender.findMany({
         where: { is_active: true },
         orderBy: { created_at: "desc" },
       });
-    } finally {
-      await prisma.$disconnect();
-    }
+    
   }
 
   async getMoneyLenderByUuid(dbUrl, uuid) {
     const prisma = this.getPrisma(dbUrl);
-    try {
+
       return await prisma.moneyLender.findUnique({
         where: { ml_uuid: uuid },
       });
-    } finally {
-      await prisma.$disconnect();
-    }
+    
   }
 
   async updateMoneyLender(dbUrl, uuid, data) {
     const prisma = this.getPrisma(dbUrl);
-    try {
+
       if (data.ml_dob) data.ml_dob = new Date(data.ml_dob); else delete data.ml_dob;
       if (data.ml_firm_id) data.ml_firm_id = parseInt(data.ml_firm_id); else delete data.ml_firm_id;
       
@@ -124,23 +114,19 @@ class MoneyLenderService {
         where: { ml_uuid: uuid },
         data,
       });
-    } finally {
-      await prisma.$disconnect();
-    }
+    
   }
 
   async deleteMoneyLender(dbUrl, uuid) {
     const prisma = this.getPrisma(dbUrl);
-    try {
+
       return await prisma.moneyLender.update({
         where: { ml_uuid: uuid },
         data: {
           is_active: false,
         },
       });
-    } finally {
-      await prisma.$disconnect();
-    }
+    
   }
 }
 

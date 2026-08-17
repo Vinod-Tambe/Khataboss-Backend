@@ -1,33 +1,25 @@
 "use strict";
 
-const { PrismaClient } = require("../../../prisma/generated/main");
+const { getTenantPrisma } = require("../../../utils/tenantPrisma");
 const journalService = require("../../journal/service/journal.service");
 
 class FinanceMoneyTransService {
   getPrisma(dbUrl) {
-    return new PrismaClient({
-      datasources: {
-        db: {
-          url: dbUrl,
-        },
-      },
-    });
+    return getTenantPrisma(dbUrl);
   }
 
   async create_finance_money_entry(dbUrl, transData) {
     const prisma = this.getPrisma(dbUrl);
-    try {
+
       return await prisma.finance_Money_Transaction.create({
         data: transData,
       });
-    } finally {
-      await prisma.$disconnect();
-    }
+    
   }
 
   async delete_finance_money_entries(dbUrl, fin_id) {
     const prisma = this.getPrisma(dbUrl);
-    try {
+
       const entries = await prisma.finance_Money_Transaction.findMany({
         where: { fm_fin_id: parseInt(fin_id) },
       });
@@ -48,9 +40,7 @@ class FinanceMoneyTransService {
         deletedCount: result.count,
         deletedEntries: entries,
       };
-    } finally {
-      await prisma.$disconnect();
-    }
+    
   }
 }
 

@@ -2,7 +2,7 @@
 
 const girviService = require("../service/girvi.service");
 const { BASE_URL } = require("../../../config/db");
-const { PrismaClient } = require("../../../prisma/generated/main");
+const { getTenantPrisma } = require("../../../utils/tenantPrisma");
 const { normalizeRoiType } = require("../../../utils/loanInterest");
 const {
   logActivity,
@@ -13,8 +13,8 @@ const {
 const { formatLoanNo } = require("../../../utils/journalNarration");
 
 const resolveInterestRecAccount = async (dbUrl, firmId, ownId) => {
-  const prisma = new PrismaClient({ datasources: { db: { url: dbUrl } } });
-  try {
+  const prisma = getTenantPrisma(dbUrl);
+
     let interestRecAcc = await prisma.account.findFirst({
       where: {
         acc_name: "Interest Rec",
@@ -38,9 +38,7 @@ const resolveInterestRecAccount = async (dbUrl, firmId, ownId) => {
       });
     }
     return interestRecAcc.acc_id;
-  } finally {
-    await prisma.$disconnect();
-  }
+  
 };
 
 const parseStImage = (stImage) => {

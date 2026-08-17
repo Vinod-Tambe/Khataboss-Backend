@@ -4,7 +4,7 @@ const fs = require("fs");
 const path = require("path");
 const { Client } = require("pg");
 const { execSync } = require("child_process");
-require("dotenv").config();
+require("dotenv").config({ path: path.join(__dirname, "../.env") });
 
 // ─── Resolve Database URL based on Environment ────────────────────────────────
 const TARGET_DB = process.env.MASTER_DB_NAME || "master";
@@ -225,4 +225,4 @@ const setupOwnerDatabase = async (dbName) => {
   }
 };
 
-module.exports = { BASE_URL, bootstrapDatabase, setupOwnerDatabase };
+module.exports = { BASE_URL, MASTER_DB_URL, bootstrapDatabase, setupOwnerDatabase };

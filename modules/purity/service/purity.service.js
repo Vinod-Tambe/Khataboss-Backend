@@ -1,17 +1,15 @@
 "use strict";
 
-const { PrismaClient } = require("../../../prisma/generated/main");
+const { getTenantPrisma } = require("../../../utils/tenantPrisma");
 
 class PurityService {
   getPrisma(dbUrl) {
-    return new PrismaClient({
-      datasources: { db: { url: dbUrl } },
-    });
+    return getTenantPrisma(dbUrl);
   }
 
   async createPurity(dbUrl, data) {
     const prisma = this.getPrisma(dbUrl);
-    try {
+
       const {
         purity_own_id,
         purity_metal,
@@ -31,14 +29,12 @@ class PurityService {
           purity_created_by,
         },
       });
-    } finally {
-      await prisma.$disconnect();
-    }
+    
   }
 
   async getPurities(dbUrl, metal) {
     const prisma = this.getPrisma(dbUrl);
-    try {
+
       const whereClause = { purity_is_deleted: false };
       if (metal) {
         whereClause.purity_metal = metal;
@@ -48,14 +44,12 @@ class PurityService {
         where: whereClause,
         orderBy: { purity_value: "desc" },
       });
-    } finally {
-      await prisma.$disconnect();
-    }
+    
   }
 
   async updatePurity(dbUrl, uuid, data) {
     const prisma = this.getPrisma(dbUrl);
-    try {
+
       const {
         purity_metal,
         purity_name,
@@ -99,14 +93,12 @@ class PurityService {
           purity_updated_at: new Date(),
         },
       });
-    } finally {
-      await prisma.$disconnect();
-    }
+    
   }
 
   async deletePurity(dbUrl, uuid) {
     const prisma = this.getPrisma(dbUrl);
-    try {
+
       const existingPurity = await prisma.purity.findUnique({
         where: { purity_uuid: uuid }
       });
@@ -132,9 +124,7 @@ class PurityService {
           purity_updated_at: new Date(),
         },
       });
-    } finally {
-      await prisma.$disconnect();
-    }
+    
   }
 }
 

@@ -1,7 +1,7 @@
 "use strict";
 
 const jwtService = require("../utils/jwt.service");
-const { PrismaClient: MasterPrismaClient } = require("../prisma/generated/master");
+const { getMasterPrisma } = require("../utils/masterPrisma");
 const { getTenantPrisma } = require("../utils/tenantPrisma");
 const { BASE_URL } = require("../config/db");
 const {
@@ -10,7 +10,7 @@ const {
   getAllPermissionKeys,
 } = require("../common/service/permission.helper");
 
-const masterPrisma = new MasterPrismaClient();
+const masterPrisma = getMasterPrisma();
 
 /**
  * Authenticate owner or staff JWT.

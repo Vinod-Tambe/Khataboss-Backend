@@ -3,6 +3,7 @@
 const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
+const { MAX_UPLOAD_FILE_SIZE } = require("../config/upload");
 
 const ALLOWED_MIME = new Set([
   "image/jpeg",
@@ -40,7 +41,7 @@ const fileFilter = (req, file, cb) => {
 const uploadMessage = multer({
   storage,
   fileFilter,
-  limits: { fileSize: 10 * 1024 * 1024 },
+  limits: { fileSize: MAX_UPLOAD_FILE_SIZE },
 });
 
 module.exports = uploadMessage;

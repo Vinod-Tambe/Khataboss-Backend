@@ -49,6 +49,7 @@ function attachMetaToNewFiles(newMeta, metaJson) {
 }
 
 async function applyOtherImagesUpdate({
+  ownId,
   moduleName,
   entityId,
   existingJson,
@@ -68,7 +69,12 @@ async function applyOtherImagesUpdate({
   kept = applyMetaUpdates(kept, updateMetaJson);
 
   const fileArray = reqFiles?.other_images || [];
-  const newMeta = await imageService.appendArrayFiles(moduleName, entityId, fileArray);
+  const newMeta = await imageService.appendArrayFiles(
+    ownId,
+    moduleName,
+    entityId,
+    fileArray
+  );
   const newWithMeta = attachMetaToNewFiles(newMeta, metaJson);
 
   return [...kept, ...newWithMeta];

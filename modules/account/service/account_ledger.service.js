@@ -1,6 +1,6 @@
 "use strict";
 
-const { PrismaClient } = require("../../../prisma/generated/main");
+const { getTenantPrisma } = require("../../../utils/tenantPrisma");
 const accountService = require("./account.service");
 const {
   collectReferenceIds,
@@ -13,13 +13,7 @@ class AccountLedgerService {
    * Get the prisma client for the given tenant database URL.
    */
   getPrisma(dbUrl) {
-    return new PrismaClient({
-      datasources: {
-        db: {
-          url: dbUrl,
-        },
-      },
-    });
+    return getTenantPrisma(dbUrl);
   }
 
   /**
@@ -52,7 +46,7 @@ class AccountLedgerService {
    */
   async get_journal_trans_entries(dbUrl, startDate, endDate, acc_id, firm_id = "N") {
     const prisma = this.getPrisma(dbUrl);
-    try {
+
       const query = this.baseJournalWhere(acc_id, {
         jrtr_date: {
           gte: startDate,
@@ -82,9 +76,7 @@ class AccountLedgerService {
         },
         orderBy: [{ jrtr_date: "asc" }, { jrtr_id: "asc" }],
       });
-    } finally {
-      await prisma.$disconnect();
-    }
+    
   }
 
   /**
@@ -92,7 +84,7 @@ class AccountLedgerService {
    */
   async get_all_acc_journal_trans(dbUrl, endDate, firm_id, acc_id) {
     const prisma = this.getPrisma(dbUrl);
-    try {
+
       const where = this.baseJournalWhere(acc_id, {
         jrtr_date: { lte: endDate },
       });
@@ -125,9 +117,7 @@ class AccountLedgerService {
       }
 
       return [{ total_cr_amt, total_dr_amt }];
-    } finally {
-      await prisma.$disconnect();
-    }
+    
   }
 
   /**
@@ -142,7 +132,7 @@ class AccountLedgerService {
     const { girviIds, finIds } = collectReferenceIds(narrationTexts);
 
     const prisma = this.getPrisma(dbUrl);
-    try {
+
       const refMaps = await loadReferenceMaps(prisma, girviIds, finIds);
       const humanize = (text) => humanizeJournalNarration(text, refMaps);
 
@@ -153,9 +143,7 @@ class AccountLedgerService {
           display_details: humanize(rawDetails),
         };
       });
-    } finally {
-      await prisma.$disconnect();
-    }
+    
   }
 
   /**

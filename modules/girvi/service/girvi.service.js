@@ -1,6 +1,6 @@
 "use strict";
 
-const { PrismaClient } = require("../../../prisma/generated/main");
+const { getTenantPrisma } = require("../../../utils/tenantPrisma");
 const journalService = require("../../journal/service/journal.service");
 const serialNumberService = require("../../../common/service/serialNumber.service");
 const { calculateFirstMonthInterest, getLoanInterestSummary } = require("../../../utils/loanInterest");
@@ -18,13 +18,7 @@ const { deletePanelJournal } = require("../../../utils/loanJournalHelper");
 
 class GirviService {
   getPrisma(dbUrl) {
-    return new PrismaClient({
-      datasources: {
-        db: {
-          url: dbUrl,
-        },
-      },
-    });
+    return getTenantPrisma(dbUrl);
   }
 
   /**

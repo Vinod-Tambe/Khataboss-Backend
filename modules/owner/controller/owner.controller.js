@@ -4,9 +4,9 @@ const { BASE_URL, setupOwnerDatabase } = require("../../../config/db");
 const { seedPermissions } = require("../../../prisma/seeder/permission-seeder");
 const ownerService = require("../services/owner.service");
 const imageService = require("../../../utils/image.service");
-const { PrismaClient } = require("../../../prisma/generated/master");
+const { getMasterPrisma } = require("../../../utils/masterPrisma");
 
-const masterPrisma = new PrismaClient();
+const masterPrisma = getMasterPrisma();
 
 /**
  * Controller to handle owner creation logic.

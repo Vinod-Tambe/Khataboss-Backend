@@ -1,6 +1,6 @@
 "use strict";
 
-const { PrismaClient } = require("../../../prisma/generated/main");
+const { getTenantPrisma } = require("../../../utils/tenantPrisma");
 const accountService = require("../../account/service/account.service");
 const userService = require("../../user/service/user.service");
 
@@ -10,13 +10,7 @@ class DaybookService {
    * @param {string} dbUrl 
    */
   getPrisma(dbUrl) {
-    return new PrismaClient({
-      datasources: {
-        db: {
-          url: dbUrl,
-        },
-      },
-    });
+    return getTenantPrisma(dbUrl);
   }
 
   // Reusable function to format date as DD-MM-YYYY

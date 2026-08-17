@@ -1,7 +1,7 @@
 "use strict";
 
-const { PrismaClient: MasterPrismaClient } = require("../../../prisma/generated/master");
-const { PrismaClient: MainPrismaClient } = require("../../../prisma/generated/main");
+const { getTenantPrisma } = require("../../../utils/tenantPrisma");
+const { getMasterPrisma } = require("../../../utils/masterPrisma");
 const { comparePassword } = require("../../../common/service/bcrypt.service");
 const { validateStrongPassword } = require("../../../common/service/password.validation");
 const jwtService = require("../../../utils/jwt.service");
@@ -24,7 +24,7 @@ const {
   GLOBAL_FIRM_ID,
 } = require("../../../common/service/activityLog.service");
 
-const masterPrisma = new MasterPrismaClient();
+const masterPrisma = getMasterPrisma();
 
 function recordAuthLogin(owner, loginId, roleLabel, systemInfo = {}, displayName = "") {
   if (!owner?.own_db || owner?.own_id == null) return;
@@ -211,10 +211,8 @@ class AuthService {
     const accessToken = jwtService.generateAccessToken(payload);
     const refreshToken = jwtService.generateRefreshToken(payload);
 
-    const tenantPrisma = new MainPrismaClient({
-      datasources: { db: { url: dbUrl } },
-    });
-    try {
+    const tenantPrisma = getTenantPrisma(dbUrl);
+
       await tenantPrisma.staff.update({
         where: { staff_id: staff.staff_id },
         data: {
@@ -224,9 +222,7 @@ class AuthService {
           staff_last_login_system: system_info,
         },
       });
-    } finally {
-      await tenantPrisma.$disconnect();
-    }
+    
 
     const user = toPublicStaffUser(owner, staff, permissionKeys);
     recordAuthLogin(
@@ -374,9 +370,7 @@ class AuthService {
 
     // 4. Send OTP via seeded templates (email + WhatsApp when connected)
     const dbUrl = `${BASE_URL}/${owner.own_db}`;
-    const tenantPrisma = new MainPrismaClient({
-      datasources: { db: { url: dbUrl } },
-    });
+    const tenantPrisma = getTenantPrisma(dbUrl);
     try {
       const firm = await tenantPrisma.firm.findFirst({
         where: { firm_own_id: owner.own_id, firm_is_deleted: false },
@@ -445,8 +439,6 @@ class AuthService {
           { ownId: owner.own_id, dbUrl }
         );
       }
-    } finally {
-      await tenantPrisma.$disconnect();
     }
 
     return { message: "otp send your register email" };

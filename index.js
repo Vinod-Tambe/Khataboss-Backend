@@ -1,6 +1,8 @@
 "use strict";
 
-require("dotenv").config();
+const path = require("path");
+require("dotenv").config({ path: path.join(__dirname, ".env") });
+require("./config/db");
 
 const app = require("./server");
 const { bootstrapDatabase } = require("./config/db");
@@ -26,8 +28,17 @@ const startServer = async () => {
       });
 
     // Step 3: Start Express server
+    const { isR2Configured } = require("./config/r2");
+    const { isCloudflareAccessEnabled } = require("./config/storage");
     app.listen(PORT, () => {
       console.log(`🚀  Server running on port ${PORT}`);
+      if (!isCloudflareAccessEnabled()) {
+        console.log("🚫  Image storage: disabled (CLOUDFLARE_ACCESS=false)");
+      } else if (isR2Configured()) {
+        console.log("☁️  Image storage: Cloudflare R2 (owner-scoped paths)");
+      } else {
+        console.log("⚠️  Image storage: CLOUDFLARE_ACCESS=true but R2 credentials missing");
+      }
     });
   } catch (error) {
     console.error("❌  Failed to start server:", error.message);

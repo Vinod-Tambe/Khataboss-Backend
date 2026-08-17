@@ -1,6 +1,6 @@
 "use strict";
 
-const { PrismaClient } = require("../../../prisma/generated/main");
+const { getTenantPrisma } = require("../../../utils/tenantPrisma");
 const journalService = require("../../journal/service/journal.service");
 const messageDispatchService = require("../../../common/service/message-dispatch.service");
 const serialNumberService = require("../../../common/service/serialNumber.service");
@@ -12,13 +12,7 @@ const { assertActiveLoan } = require("../../../utils/loanValidation");
 
 class ReleaseService {
   getPrisma(dbUrl) {
-    return new PrismaClient({
-      datasources: {
-        db: {
-          url: dbUrl,
-        },
-      },
-    });
+    return getTenantPrisma(dbUrl);
   }
 
   async resolveAccount(prisma, firmId, customAccId, fallbackNames) {
@@ -128,30 +122,26 @@ class ReleaseService {
 
   async getReleaseUserById(dbUrl, ruId) {
     const prisma = this.getPrisma(dbUrl);
-    try {
+
       return await prisma.releaseUser.findUnique({
         where: { ru_id: parseInt(ruId) },
       });
-    } finally {
-      await prisma.$disconnect();
-    }
+    
   }
 
   async updateReleaseUserOtherImages(dbUrl, ruId, otherImages) {
     const prisma = this.getPrisma(dbUrl);
-    try {
+
       return await prisma.releaseUser.update({
         where: { ru_id: parseInt(ruId) },
         data: { ru_other_images: otherImages },
       });
-    } finally {
-      await prisma.$disconnect();
-    }
+    
   }
 
   async getReleaseUsers(dbUrl, { firmId, girvId, search } = {}) {
     const prisma = this.getPrisma(dbUrl);
-    try {
+
       if (girvId) {
         const releases = await prisma.girviRelease.findMany({
           where: {
@@ -199,9 +189,7 @@ class ReleaseService {
         where: whereClause,
         orderBy: { ru_id: "desc" },
       });
-    } finally {
-      await prisma.$disconnect();
-    }
+    
   }
 
   async addRelease(dbUrl, reqUser, data) {

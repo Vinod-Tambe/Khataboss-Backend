@@ -1,6 +1,6 @@
 "use strict";
 
-const { PrismaClient } = require("../../../prisma/generated/main");
+const { getTenantPrisma } = require("../../../utils/tenantPrisma");
 const {
   collectReferenceIds,
   loadReferenceMaps,
@@ -9,13 +9,7 @@ const {
 
 class JournalBookService {
   getPrisma(dbUrl) {
-    return new PrismaClient({
-      datasources: {
-        db: {
-          url: dbUrl,
-        },
-      },
-    });
+    return getTenantPrisma(dbUrl);
   }
 
   mapTransactionLine(t, humanize) {
@@ -91,7 +85,7 @@ class JournalBookService {
       where.jrnl_firm_id = parsedFirmId;
     }
 
-    try {
+
       const journals = await prisma.journal.findMany({
         where,
         orderBy: [{ jrnl_date: "desc" }, { jrnl_id: "desc" }],
@@ -160,9 +154,7 @@ class JournalBookService {
             jrtr_cr_amt: totalCr,
           };
         });
-    } finally {
-      await prisma.$disconnect();
-    }
+    
   }
 }
 
