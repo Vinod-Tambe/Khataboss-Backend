@@ -96,12 +96,18 @@ class UserController {
 
       // 2. Handle File Uploads
       if (req.files && Object.keys(req.files).length > 0) {
-        const movedFiles = await imageService.moveFiles("user", newUser.user_id, stripArrayFileFields(req.files));
+        const movedFiles = await imageService.moveFiles(
+          req.user.own_id,
+          "user",
+          newUser.user_id,
+          stripArrayFileFields(req.files)
+        );
 
         const updateData = {};
         if (movedFiles.photo) updateData.user_profile_img = movedFiles.photo;
 
         const otherImages = await applyOtherImagesUpdate({
+          ownId: req.user.own_id,
           moduleName: "user",
           entityId: newUser.user_id,
           existingJson: [],
@@ -296,7 +302,14 @@ class UserController {
 
       // Handle File Uploads for update
       if (req.files && Object.keys(req.files).length > 0) {
-        const movedFiles = await imageService.moveFiles("user", existingUser.user_id, stripArrayFileFields(req.files));
+        const movedFiles = await imageService.replaceFiles(
+          req.user.own_id,
+          "user",
+          existingUser.user_id,
+          stripArrayFileFields(req.files),
+          existingUser,
+          { photo: "user_profile_img" }
+        );
 
         if (movedFiles.photo) updateData.user_profile_img = movedFiles.photo;
       }
@@ -308,6 +321,7 @@ class UserController {
         data.other_images_update
       ) {
         updateData.user_other_images = await applyOtherImagesUpdate({
+          ownId: req.user.own_id,
           moduleName: "user",
           entityId: existingUser.user_id,
           existingJson: existingUser.user_other_images,

@@ -176,11 +176,17 @@ class StaffController {
       }
 
       if (req.files && Object.keys(req.files).length > 0) {
-        const movedFiles = await imageService.moveFiles("staff", created.staff_id, stripArrayFileFields(req.files));
+        const movedFiles = await imageService.moveFiles(
+          req.user.own_id,
+          "staff",
+          created.staff_id,
+          stripArrayFileFields(req.files)
+        );
         const updateData = {};
         if (movedFiles.photo) updateData.staff_profile_img = movedFiles.photo;
 
         const otherImages = await applyOtherImagesUpdate({
+          ownId: req.user.own_id,
           moduleName: "staff",
           entityId: created.staff_id,
           existingJson: [],
@@ -285,7 +291,14 @@ class StaffController {
       });
 
       if (req.files && Object.keys(req.files).length > 0) {
-        const movedFiles = await imageService.moveFiles("staff", existing.staff_id, stripArrayFileFields(req.files));
+        const movedFiles = await imageService.replaceFiles(
+          req.user.own_id,
+          "staff",
+          existing.staff_id,
+          stripArrayFileFields(req.files),
+          existing,
+          { photo: "staff_profile_img" }
+        );
         const fileData = {};
         if (movedFiles.photo) fileData.staff_profile_img = movedFiles.photo;
         if (Object.keys(fileData).length > 0) {
@@ -301,6 +314,7 @@ class StaffController {
       ) {
         updated = await staffService.updateStaff(dbUrl, req.params.uuid, {
           staff_other_images: await applyOtherImagesUpdate({
+            ownId: req.user.own_id,
             moduleName: "staff",
             entityId: existing.staff_id,
             existingJson: existing.staff_other_images,

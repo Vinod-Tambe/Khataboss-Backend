@@ -94,7 +94,12 @@ class FirmController {
       }
 
       if (req.files && Object.keys(req.files).length > 0) {
-        const movedFiles = await imageService.moveFiles("firm", newFirm.firm_id, req.files);
+        const movedFiles = await imageService.moveFiles(
+          newFirm.firm_own_id,
+          "firm",
+          newFirm.firm_id,
+          req.files
+        );
 
         const updateData = {};
         if (movedFiles.firm_own_sign_img) updateData.firm_own_sign_img = movedFiles.firm_own_sign_img;
@@ -227,21 +232,13 @@ class FirmController {
         }
         const firmId = firm.firm_id;
 
-        const movedFiles = await imageService.moveFiles("firm", firmId, req.files);
-        
-        // Delete old files if new ones were uploaded
-        const imageFields = [
-          "firm_own_sign_img",
-          "firm_left_logo_img",
-          "firm_right_logo_img",
-          "firm_qr_code_img",
-          "firm_pan_no_img"
-        ];
-        for (const field of imageFields) {
-          if (movedFiles[field] && firm[field] && firm[field].path) {
-            await imageService.deleteFile(firm[field].path);
-          }
-        }
+        const movedFiles = await imageService.replaceFiles(
+          req.user.own_id,
+          "firm",
+          firmId,
+          req.files,
+          firm
+        );
 
         if (movedFiles.firm_own_sign_img) updateData.firm_own_sign_img = movedFiles.firm_own_sign_img;
         if (movedFiles.firm_left_logo_img) updateData.firm_left_logo_img = movedFiles.firm_left_logo_img;

@@ -38,6 +38,7 @@ class ReleaseController {
         ) {
           const existingUser = await releaseService.getReleaseUserById(dbUrl, releaseUserId);
           const otherImages = await applyOtherImagesUpdate({
+            ownId: req.user.own_id,
             moduleName: "release_user",
             entityId: releaseUserId,
             existingJson: existingUser?.ru_other_images,

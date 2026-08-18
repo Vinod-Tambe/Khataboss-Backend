@@ -35,6 +35,7 @@ class MoneyLenderController {
 
       if (hasFiles) {
         const movedFiles = await imageService.moveFiles(
+          req.user.own_id,
           "moneyLender",
           newMl.ml_id,
           stripArrayFileFields(req.files)
@@ -45,6 +46,7 @@ class MoneyLenderController {
         if (movedFiles.ml_profile_img) updateData.ml_profile_img = movedFiles.ml_profile_img;
 
         const otherImages = await applyOtherImagesUpdate({
+          ownId: req.user.own_id,
           moduleName: "moneyLender",
           entityId: newMl.ml_id,
           existingJson: [],
@@ -121,10 +123,13 @@ class MoneyLenderController {
       }
 
       if (req.files && Object.keys(req.files).length > 0) {
-        const movedFiles = await imageService.moveFiles(
+        const movedFiles = await imageService.replaceFiles(
+          req.user.own_id,
           "moneyLender",
           ml.ml_id,
-          stripArrayFileFields(req.files)
+          stripArrayFileFields(req.files),
+          ml,
+          { photo: "ml_profile_img", ml_profile_img: "ml_profile_img" }
         );
         if (movedFiles.photo) data.ml_profile_img = movedFiles.photo;
         if (movedFiles.ml_profile_img) data.ml_profile_img = movedFiles.ml_profile_img;
@@ -137,6 +142,7 @@ class MoneyLenderController {
         data.other_images_update
       ) {
         data.ml_other_images = await applyOtherImagesUpdate({
+          ownId: req.user.own_id,
           moduleName: "moneyLender",
           entityId: ml.ml_id,
           existingJson: ml.ml_other_images,

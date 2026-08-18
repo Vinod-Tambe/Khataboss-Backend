@@ -120,7 +120,13 @@ class OwnerController {
 
       // 6. Handle File Upload (Move from temp to owner-specific dir)
       if (req.file) {
-        const profileImgData = await imageService.moveSingleFile("owner", newOwner.own_id, req.file, "own_profile_img");
+        const profileImgData = await imageService.moveSingleFile(
+          newOwner.own_id,
+          "owner",
+          newOwner.own_id,
+          req.file,
+          "own_profile_img"
+        );
         await ownerService.updateOwner(dbUrl, newOwner.own_uuid, { own_profile_img: profileImgData });
       }
 
@@ -153,7 +159,7 @@ class OwnerController {
       console.log(`🔍  Resolving db name for owner ${uuid} from Master DB...`);
       const ownerRecord = await masterPrisma.owner.findUnique({
         where: { own_uuid: uuid, own_is_deleted: false },
-        select: { own_id: true, own_db: true }
+        select: { own_id: true, own_db: true, own_profile_img: true }
       });
 
       if (!ownerRecord) {
@@ -195,7 +201,14 @@ class OwnerController {
 
       // Handle File Upload for profile image
       if (req.file) {
-        updateData.own_profile_img = await imageService.moveSingleFile("owner", ownerRecord.own_id, req.file, "own_profile_img");
+        updateData.own_profile_img = await imageService.replaceSingleFile(
+          ownerRecord.own_id,
+          "owner",
+          ownerRecord.own_id,
+          req.file,
+          "own_profile_img",
+          ownerRecord.own_profile_img
+        );
       }
 
       // Construct dbUrl (assuming the same logic as createOwner)

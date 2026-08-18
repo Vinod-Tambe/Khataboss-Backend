@@ -225,6 +225,7 @@ class MessagingService {
 
     for (const file of files) {
       const meta = await imageService.moveSingleFile(
+        existing.mt_own_id,
         "message-templates",
         existing.mt_id,
         file,

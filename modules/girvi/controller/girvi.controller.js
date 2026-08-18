@@ -1,6 +1,7 @@
 "use strict";
 
 const girviService = require("../service/girvi.service");
+const imageService = require("../../../utils/image.service");
 const { BASE_URL } = require("../../../config/db");
 const { getTenantPrisma } = require("../../../utils/tenantPrisma");
 const { normalizeRoiType } = require("../../../utils/loanInterest");
@@ -70,21 +71,28 @@ class GirviController {
         return res.status(400).json({ error: "No image file provided." });
       }
 
-      const normPath = req.file.path.replace(/\\/g, "/");
-      const relativePath = normPath.includes("/uploads/")
-        ? "uploads/" + normPath.split("/uploads/").pop()
-        : `uploads/temp/${req.file.filename}`;
+      const entityId = req.body.st_id || req.body.girv_id || "temp";
+      let previousStored = req.body.previousImage || req.body.previous_image || null;
+      if (typeof previousStored === "string" && previousStored.trim().startsWith("{")) {
+        try {
+          previousStored = JSON.parse(previousStored);
+        } catch {
+          /* keep raw string */
+        }
+      }
 
-      const fileData = {
-        path: relativePath,
-        filename: req.file.filename,
-        mimetype: req.file.mimetype,
-        size: req.file.size
-      };
+      const fileData = await imageService.replaceSingleFile(
+        req.user.own_id,
+        "stock",
+        entityId,
+        req.file,
+        "itemImage",
+        previousStored
+      );
 
       return res.status(200).json({
         message: "Image uploaded successfully.",
-        data: fileData
+        data: fileData,
       });
     } catch (error) {
       console.error("❌ Error uploading item image:", error.message);

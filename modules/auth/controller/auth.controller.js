@@ -151,11 +151,16 @@ class AuthController {
 
       if (req.file) {
         const isStaff = req.user.role === "STAFF";
-        updateData.own_profile_img = await imageService.moveSingleFile(
+        const previousImg = isStaff
+          ? req.user.staffProfile?.staff_profile_img
+          : req.user.ownerProfile?.own_profile_img;
+        updateData.own_profile_img = await imageService.replaceSingleFile(
+          req.user.own_id,
           isStaff ? "staff" : "owner",
           isStaff ? req.user.staff_id : req.user.own_id,
           req.file,
-          isStaff ? "staff_profile_img" : "own_profile_img"
+          isStaff ? "staff_profile_img" : "own_profile_img",
+          previousImg
         );
       }
 

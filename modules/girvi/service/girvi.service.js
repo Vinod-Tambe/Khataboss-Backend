@@ -15,6 +15,7 @@ const {
   formatLoanNo,
 } = require("../../../utils/journalNarration");
 const { deletePanelJournal } = require("../../../utils/loanJournalHelper");
+const imageService = require("../../../utils/image.service");
 
 class GirviService {
   getPrisma(dbUrl) {
@@ -679,6 +680,27 @@ class GirviService {
 
       // Update Stock Items if allowed (only if no transactions and status is active)
       if (!hasTransactions && existing.girv_status === 'ACTIVE' && stockItems) {
+        const oldStocks = await prisma.stock.findMany({
+          where: {
+            st_referance_panel: 'girvi',
+            st_referance_id: existing.girv_id,
+          },
+          select: { st_image: true },
+        });
+
+        const newPaths = new Set(
+          stockItems
+            .map((item) => imageService.resolveStoredPath(item.st_image))
+            .filter(Boolean)
+        );
+
+        for (const old of oldStocks) {
+          const oldPath = imageService.resolveStoredPath(old.st_image);
+          if (oldPath && !newPaths.has(oldPath)) {
+            await imageService.deleteFile(oldPath);
+          }
+        }
+
         // Delete old items
         await prisma.stock.deleteMany({
           where: { 

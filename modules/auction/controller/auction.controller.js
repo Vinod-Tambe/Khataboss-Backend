@@ -29,7 +29,13 @@ exports.addAuction = async (req, res) => {
 
     const profileFile = req.files?.photo?.[0];
     if (profileFile) {
-      const movedFile = await imageService.moveSingleFile("auction", auctionUserId, profileFile, "photo");
+      const movedFile = await imageService.moveSingleFile(
+        reqUser.own_id,
+        "auction",
+        auctionUserId,
+        profileFile,
+        "photo"
+      );
       if (movedFile) {
         await service.updateAuctionUserProfile(dbUrl, auctionUserId, movedFile);
       }
@@ -44,6 +50,7 @@ exports.addAuction = async (req, res) => {
     ) {
       const existingUser = await service.getAuctionUserById(dbUrl, auctionUserId);
       const otherImages = await applyOtherImagesUpdate({
+        ownId: reqUser.own_id,
         moduleName: "auction",
         entityId: auctionUserId,
         existingJson: existingUser?.au_other_images,
