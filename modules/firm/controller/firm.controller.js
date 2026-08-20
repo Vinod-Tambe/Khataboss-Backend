@@ -93,6 +93,18 @@ class FirmController {
         console.warn("⚠️ Failed to seed message templates:", seedErr.message);
       }
 
+      // 4. Seed firm-wise form template (non-blocking, one per firm)
+      try {
+        const { seedFormTemplateForFirm } = require("../../../prisma/seeder/form-template-seeder");
+        await seedFormTemplateForFirm(dbUrl, {
+          ownId: newFirm.firm_own_id,
+          firmId: newFirm.firm_id,
+          firmName: newFirm.firm_name,
+        });
+      } catch (templateErr) {
+        console.warn("⚠️ Failed to seed form template:", templateErr.message);
+      }
+
       if (req.files && Object.keys(req.files).length > 0) {
         const movedFiles = await imageService.moveFiles(
           newFirm.firm_own_id,

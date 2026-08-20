@@ -6,6 +6,7 @@ const path = require("path");
 const { BASE_URL } = require("../config/db");
 const { seedPermissions } = require("../prisma/seeder/permission-seeder");
 const { seedMessageTemplatesForTenant } = require("../prisma/seeder/message-template-seeder");
+const { seedFormTemplatesForTenant } = require("../prisma/seeder/form-template-seeder");
 
 const syncTenants = async () => {
   const masterDbUrl = `${BASE_URL}/master`;
@@ -49,6 +50,13 @@ const syncTenants = async () => {
           await seedMessageTemplatesForTenant(tenantDbUrl);
         } catch (seedErr) {
           console.warn(`⚠️  Message template seed skipped for "${dbName}": ${seedErr.message}`);
+        }
+
+        console.log(`📄  Seeding form templates for "${dbName}"...`);
+        try {
+          await seedFormTemplatesForTenant(tenantDbUrl);
+        } catch (templateErr) {
+          console.warn(`⚠️  Form template seed skipped for "${dbName}": ${templateErr.message}`);
         }
       } catch (err) {
         console.error(`❌  Failed to sync "${dbName}":`, err.message);

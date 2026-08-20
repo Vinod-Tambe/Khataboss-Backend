@@ -179,6 +179,26 @@ class UserController {
   }
 
   /**
+   * GET /user/global-search?q=&firmId=&limit=
+   * Header search: customers, loan IDs, finance IDs.
+   */
+  async globalSearch(req, res) {
+    try {
+      const { q = "", firmId, limit } = req.query;
+      const dbUrl = this.getDbUrl(req.user.own_db);
+      const data = await userService.globalSearch(dbUrl, firmId, q, limit);
+
+      return res.status(200).json({
+        message: "Global search completed.",
+        data,
+      });
+    } catch (error) {
+      console.error("❌ Error in global search:", error.message);
+      return res.status(500).json({ error: error.message });
+    }
+  }
+
+  /**
    * DELETE /user/:uuid
    */
   async deleteUser(req, res) {

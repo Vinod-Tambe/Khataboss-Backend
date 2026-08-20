@@ -35,6 +35,13 @@ router.get(
   (req, res) => userController.searchUsers(req, res)
 );
 
+router.get(
+  "/global-search",
+  authenticateOwner,
+  requirePermission(["user.view", "loan.view", "finance.view", "loan.create", "finance.create"], { mode: "any" }),
+  (req, res) => userController.globalSearch(req, res)
+);
+
 router.delete(
   "/:uuid",
   authenticateOwner,

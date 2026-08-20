@@ -928,6 +928,23 @@ exports.Prisma.MessageTemplateScalarFieldEnum = {
   mt_is_deleted: 'mt_is_deleted'
 };
 
+exports.Prisma.FormTemplateScalarFieldEnum = {
+  ft_id: 'ft_id',
+  ft_uuid: 'ft_uuid',
+  ft_own_id: 'ft_own_id',
+  ft_firm_id: 'ft_firm_id',
+  ft_config: 'ft_config',
+  ft_status: 'ft_status',
+  ft_is_system: 'ft_is_system',
+  ft_created_at: 'ft_created_at',
+  ft_created_by: 'ft_created_by',
+  ft_updated_at: 'ft_updated_at',
+  ft_updated_by: 'ft_updated_by',
+  ft_deleted_at: 'ft_deleted_at',
+  ft_deleted_by: 'ft_deleted_by',
+  ft_is_deleted: 'ft_is_deleted'
+};
+
 exports.Prisma.WhatsAppInstanceScalarFieldEnum = {
   wa_id: 'wa_id',
   wa_uuid: 'wa_uuid',
@@ -990,6 +1007,10 @@ exports.Prisma.SortOrder = {
 
 exports.Prisma.NullableJsonNullValueInput = {
   DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull
+};
+
+exports.Prisma.JsonNullValueInput = {
   JsonNull: Prisma.JsonNull
 };
 
@@ -1155,6 +1176,11 @@ exports.MessageTemplateStatus = exports.$Enums.MessageTemplateStatus = {
   Inactive: 'Inactive'
 };
 
+exports.FormTemplateStatus = exports.$Enums.FormTemplateStatus = {
+  Active: 'Active',
+  Inactive: 'Inactive'
+};
+
 exports.WhatsAppInstanceStatus = exports.$Enums.WhatsAppInstanceStatus = {
   Pending: 'Pending',
   Connected: 'Connected',
@@ -1188,6 +1214,7 @@ exports.Prisma.ModelName = {
   StaffPermission: 'StaffPermission',
   SerialNumber: 'SerialNumber',
   MessageTemplate: 'MessageTemplate',
+  FormTemplate: 'FormTemplate',
   WhatsAppInstance: 'WhatsAppInstance',
   MessageLog: 'MessageLog',
   ActivityLog: 'ActivityLog'

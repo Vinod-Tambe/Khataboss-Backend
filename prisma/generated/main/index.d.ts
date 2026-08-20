@@ -140,6 +140,11 @@ export type SerialNumber = $Result.DefaultSelection<Prisma.$SerialNumberPayload>
  */
 export type MessageTemplate = $Result.DefaultSelection<Prisma.$MessageTemplatePayload>
 /**
+ * Model FormTemplate
+ * 
+ */
+export type FormTemplate = $Result.DefaultSelection<Prisma.$FormTemplatePayload>
+/**
  * Model WhatsAppInstance
  * 
  */
@@ -378,6 +383,14 @@ export const MessageTemplateStatus: {
 export type MessageTemplateStatus = (typeof MessageTemplateStatus)[keyof typeof MessageTemplateStatus]
 
 
+export const FormTemplateStatus: {
+  Active: 'Active',
+  Inactive: 'Inactive'
+};
+
+export type FormTemplateStatus = (typeof FormTemplateStatus)[keyof typeof FormTemplateStatus]
+
+
 export const WhatsAppInstanceStatus: {
   Pending: 'Pending',
   Connected: 'Connected',
@@ -484,6 +497,10 @@ export const MessageChannel: typeof $Enums.MessageChannel
 export type MessageTemplateStatus = $Enums.MessageTemplateStatus
 
 export const MessageTemplateStatus: typeof $Enums.MessageTemplateStatus
+
+export type FormTemplateStatus = $Enums.FormTemplateStatus
+
+export const FormTemplateStatus: typeof $Enums.FormTemplateStatus
 
 export type WhatsAppInstanceStatus = $Enums.WhatsAppInstanceStatus
 
@@ -861,6 +878,16 @@ export class PrismaClient<
     * ```
     */
   get messageTemplate(): Prisma.MessageTemplateDelegate<ExtArgs>;
+
+  /**
+   * `prisma.formTemplate`: Exposes CRUD operations for the **FormTemplate** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more FormTemplates
+    * const formTemplates = await prisma.formTemplate.findMany()
+    * ```
+    */
+  get formTemplate(): Prisma.FormTemplateDelegate<ExtArgs>;
 
   /**
    * `prisma.whatsAppInstance`: Exposes CRUD operations for the **WhatsAppInstance** model.
@@ -1357,6 +1384,7 @@ export namespace Prisma {
     StaffPermission: 'StaffPermission',
     SerialNumber: 'SerialNumber',
     MessageTemplate: 'MessageTemplate',
+    FormTemplate: 'FormTemplate',
     WhatsAppInstance: 'WhatsAppInstance',
     MessageLog: 'MessageLog',
     ActivityLog: 'ActivityLog'
@@ -1375,7 +1403,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "owner" | "firm" | "account" | "user" | "finance" | "finance_Transaction" | "finance_Money_Transaction" | "journal" | "journalTransaction" | "girvi" | "stock" | "additionalPrincipal" | "girviDeposit" | "girviRelease" | "releaseUser" | "rate" | "purity" | "moneyLender" | "auctionUser" | "auctionLoan" | "staff" | "permission" | "staffPermission" | "serialNumber" | "messageTemplate" | "whatsAppInstance" | "messageLog" | "activityLog"
+      modelProps: "owner" | "firm" | "account" | "user" | "finance" | "finance_Transaction" | "finance_Money_Transaction" | "journal" | "journalTransaction" | "girvi" | "stock" | "additionalPrincipal" | "girviDeposit" | "girviRelease" | "releaseUser" | "rate" | "purity" | "moneyLender" | "auctionUser" | "auctionLoan" | "staff" | "permission" | "staffPermission" | "serialNumber" | "messageTemplate" | "formTemplate" | "whatsAppInstance" | "messageLog" | "activityLog"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -3129,6 +3157,76 @@ export namespace Prisma {
           }
         }
       }
+      FormTemplate: {
+        payload: Prisma.$FormTemplatePayload<ExtArgs>
+        fields: Prisma.FormTemplateFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.FormTemplateFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FormTemplatePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.FormTemplateFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FormTemplatePayload>
+          }
+          findFirst: {
+            args: Prisma.FormTemplateFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FormTemplatePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.FormTemplateFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FormTemplatePayload>
+          }
+          findMany: {
+            args: Prisma.FormTemplateFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FormTemplatePayload>[]
+          }
+          create: {
+            args: Prisma.FormTemplateCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FormTemplatePayload>
+          }
+          createMany: {
+            args: Prisma.FormTemplateCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.FormTemplateCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FormTemplatePayload>[]
+          }
+          delete: {
+            args: Prisma.FormTemplateDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FormTemplatePayload>
+          }
+          update: {
+            args: Prisma.FormTemplateUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FormTemplatePayload>
+          }
+          deleteMany: {
+            args: Prisma.FormTemplateDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.FormTemplateUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.FormTemplateUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FormTemplatePayload>
+          }
+          aggregate: {
+            args: Prisma.FormTemplateAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateFormTemplate>
+          }
+          groupBy: {
+            args: Prisma.FormTemplateGroupByArgs<ExtArgs>
+            result: $Utils.Optional<FormTemplateGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.FormTemplateCountArgs<ExtArgs>
+            result: $Utils.Optional<FormTemplateCountAggregateOutputType> | number
+          }
+        }
+      }
       WhatsAppInstance: {
         payload: Prisma.$WhatsAppInstancePayload<ExtArgs>
         fields: Prisma.WhatsAppInstanceFieldRefs
@@ -3518,6 +3616,7 @@ export namespace Prisma {
     moneyLenders: number
     staff: number
     messageTemplates: number
+    formTemplates: number
     whatsappInstances: number
   }
 
@@ -3540,6 +3639,7 @@ export namespace Prisma {
     moneyLenders?: boolean | OwnerCountOutputTypeCountMoneyLendersArgs
     staff?: boolean | OwnerCountOutputTypeCountStaffArgs
     messageTemplates?: boolean | OwnerCountOutputTypeCountMessageTemplatesArgs
+    formTemplates?: boolean | OwnerCountOutputTypeCountFormTemplatesArgs
     whatsappInstances?: boolean | OwnerCountOutputTypeCountWhatsappInstancesArgs
   }
 
@@ -3678,6 +3778,13 @@ export namespace Prisma {
    */
   export type OwnerCountOutputTypeCountMessageTemplatesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: MessageTemplateWhereInput
+  }
+
+  /**
+   * OwnerCountOutputType without action
+   */
+  export type OwnerCountOutputTypeCountFormTemplatesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FormTemplateWhereInput
   }
 
   /**
@@ -5190,6 +5297,7 @@ export namespace Prisma {
     moneyLenders?: boolean | Owner$moneyLendersArgs<ExtArgs>
     staff?: boolean | Owner$staffArgs<ExtArgs>
     messageTemplates?: boolean | Owner$messageTemplatesArgs<ExtArgs>
+    formTemplates?: boolean | Owner$formTemplatesArgs<ExtArgs>
     whatsappInstances?: boolean | Owner$whatsappInstancesArgs<ExtArgs>
     _count?: boolean | OwnerCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["owner"]>
@@ -5301,6 +5409,7 @@ export namespace Prisma {
     moneyLenders?: boolean | Owner$moneyLendersArgs<ExtArgs>
     staff?: boolean | Owner$staffArgs<ExtArgs>
     messageTemplates?: boolean | Owner$messageTemplatesArgs<ExtArgs>
+    formTemplates?: boolean | Owner$formTemplatesArgs<ExtArgs>
     whatsappInstances?: boolean | Owner$whatsappInstancesArgs<ExtArgs>
     _count?: boolean | OwnerCountOutputTypeDefaultArgs<ExtArgs>
   }
@@ -5327,6 +5436,7 @@ export namespace Prisma {
       moneyLenders: Prisma.$MoneyLenderPayload<ExtArgs>[]
       staff: Prisma.$StaffPayload<ExtArgs>[]
       messageTemplates: Prisma.$MessageTemplatePayload<ExtArgs>[]
+      formTemplates: Prisma.$FormTemplatePayload<ExtArgs>[]
       whatsappInstances: Prisma.$WhatsAppInstancePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -5753,6 +5863,7 @@ export namespace Prisma {
     moneyLenders<T extends Owner$moneyLendersArgs<ExtArgs> = {}>(args?: Subset<T, Owner$moneyLendersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MoneyLenderPayload<ExtArgs>, T, "findMany"> | Null>
     staff<T extends Owner$staffArgs<ExtArgs> = {}>(args?: Subset<T, Owner$staffArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StaffPayload<ExtArgs>, T, "findMany"> | Null>
     messageTemplates<T extends Owner$messageTemplatesArgs<ExtArgs> = {}>(args?: Subset<T, Owner$messageTemplatesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessageTemplatePayload<ExtArgs>, T, "findMany"> | Null>
+    formTemplates<T extends Owner$formTemplatesArgs<ExtArgs> = {}>(args?: Subset<T, Owner$formTemplatesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FormTemplatePayload<ExtArgs>, T, "findMany"> | Null>
     whatsappInstances<T extends Owner$whatsappInstancesArgs<ExtArgs> = {}>(args?: Subset<T, Owner$whatsappInstancesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WhatsAppInstancePayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -6498,6 +6609,26 @@ export namespace Prisma {
   }
 
   /**
+   * Owner.formTemplates
+   */
+  export type Owner$formTemplatesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FormTemplate
+     */
+    select?: FormTemplateSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FormTemplateInclude<ExtArgs> | null
+    where?: FormTemplateWhereInput
+    orderBy?: FormTemplateOrderByWithRelationInput | FormTemplateOrderByWithRelationInput[]
+    cursor?: FormTemplateWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: FormTemplateScalarFieldEnum | FormTemplateScalarFieldEnum[]
+  }
+
+  /**
    * Owner.whatsappInstances
    */
   export type Owner$whatsappInstancesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7093,6 +7224,7 @@ export namespace Prisma {
     auctionLoans?: boolean | Firm$auctionLoansArgs<ExtArgs>
     releaseUsers?: boolean | Firm$releaseUsersArgs<ExtArgs>
     messageTemplates?: boolean | Firm$messageTemplatesArgs<ExtArgs>
+    formTemplate?: boolean | Firm$formTemplateArgs<ExtArgs>
     whatsappInstance?: boolean | Firm$whatsappInstanceArgs<ExtArgs>
     _count?: boolean | FirmCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["firm"]>
@@ -7224,6 +7356,7 @@ export namespace Prisma {
     auctionLoans?: boolean | Firm$auctionLoansArgs<ExtArgs>
     releaseUsers?: boolean | Firm$releaseUsersArgs<ExtArgs>
     messageTemplates?: boolean | Firm$messageTemplatesArgs<ExtArgs>
+    formTemplate?: boolean | Firm$formTemplateArgs<ExtArgs>
     whatsappInstance?: boolean | Firm$whatsappInstanceArgs<ExtArgs>
     _count?: boolean | FirmCountOutputTypeDefaultArgs<ExtArgs>
   }
@@ -7253,6 +7386,7 @@ export namespace Prisma {
       auctionLoans: Prisma.$AuctionLoanPayload<ExtArgs>[]
       releaseUsers: Prisma.$ReleaseUserPayload<ExtArgs>[]
       messageTemplates: Prisma.$MessageTemplatePayload<ExtArgs>[]
+      formTemplate: Prisma.$FormTemplatePayload<ExtArgs> | null
       whatsappInstance: Prisma.$WhatsAppInstancePayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -7689,6 +7823,7 @@ export namespace Prisma {
     auctionLoans<T extends Firm$auctionLoansArgs<ExtArgs> = {}>(args?: Subset<T, Firm$auctionLoansArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AuctionLoanPayload<ExtArgs>, T, "findMany"> | Null>
     releaseUsers<T extends Firm$releaseUsersArgs<ExtArgs> = {}>(args?: Subset<T, Firm$releaseUsersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReleaseUserPayload<ExtArgs>, T, "findMany"> | Null>
     messageTemplates<T extends Firm$messageTemplatesArgs<ExtArgs> = {}>(args?: Subset<T, Firm$messageTemplatesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessageTemplatePayload<ExtArgs>, T, "findMany"> | Null>
+    formTemplate<T extends Firm$formTemplateArgs<ExtArgs> = {}>(args?: Subset<T, Firm$formTemplateArgs<ExtArgs>>): Prisma__FormTemplateClient<$Result.GetResult<Prisma.$FormTemplatePayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     whatsappInstance<T extends Firm$whatsappInstanceArgs<ExtArgs> = {}>(args?: Subset<T, Firm$whatsappInstanceArgs<ExtArgs>>): Prisma__WhatsAppInstanceClient<$Result.GetResult<Prisma.$WhatsAppInstancePayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -8444,6 +8579,21 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: MessageTemplateScalarFieldEnum | MessageTemplateScalarFieldEnum[]
+  }
+
+  /**
+   * Firm.formTemplate
+   */
+  export type Firm$formTemplateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FormTemplate
+     */
+    select?: FormTemplateSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FormTemplateInclude<ExtArgs> | null
+    where?: FormTemplateWhereInput
   }
 
   /**
@@ -40499,6 +40649,1091 @@ export namespace Prisma {
 
 
   /**
+   * Model FormTemplate
+   */
+
+  export type AggregateFormTemplate = {
+    _count: FormTemplateCountAggregateOutputType | null
+    _avg: FormTemplateAvgAggregateOutputType | null
+    _sum: FormTemplateSumAggregateOutputType | null
+    _min: FormTemplateMinAggregateOutputType | null
+    _max: FormTemplateMaxAggregateOutputType | null
+  }
+
+  export type FormTemplateAvgAggregateOutputType = {
+    ft_id: number | null
+    ft_own_id: number | null
+    ft_firm_id: number | null
+  }
+
+  export type FormTemplateSumAggregateOutputType = {
+    ft_id: number | null
+    ft_own_id: number | null
+    ft_firm_id: number | null
+  }
+
+  export type FormTemplateMinAggregateOutputType = {
+    ft_id: number | null
+    ft_uuid: string | null
+    ft_own_id: number | null
+    ft_firm_id: number | null
+    ft_status: $Enums.FormTemplateStatus | null
+    ft_is_system: boolean | null
+    ft_created_at: Date | null
+    ft_created_by: string | null
+    ft_updated_at: Date | null
+    ft_updated_by: string | null
+    ft_deleted_at: Date | null
+    ft_deleted_by: string | null
+    ft_is_deleted: boolean | null
+  }
+
+  export type FormTemplateMaxAggregateOutputType = {
+    ft_id: number | null
+    ft_uuid: string | null
+    ft_own_id: number | null
+    ft_firm_id: number | null
+    ft_status: $Enums.FormTemplateStatus | null
+    ft_is_system: boolean | null
+    ft_created_at: Date | null
+    ft_created_by: string | null
+    ft_updated_at: Date | null
+    ft_updated_by: string | null
+    ft_deleted_at: Date | null
+    ft_deleted_by: string | null
+    ft_is_deleted: boolean | null
+  }
+
+  export type FormTemplateCountAggregateOutputType = {
+    ft_id: number
+    ft_uuid: number
+    ft_own_id: number
+    ft_firm_id: number
+    ft_config: number
+    ft_status: number
+    ft_is_system: number
+    ft_created_at: number
+    ft_created_by: number
+    ft_updated_at: number
+    ft_updated_by: number
+    ft_deleted_at: number
+    ft_deleted_by: number
+    ft_is_deleted: number
+    _all: number
+  }
+
+
+  export type FormTemplateAvgAggregateInputType = {
+    ft_id?: true
+    ft_own_id?: true
+    ft_firm_id?: true
+  }
+
+  export type FormTemplateSumAggregateInputType = {
+    ft_id?: true
+    ft_own_id?: true
+    ft_firm_id?: true
+  }
+
+  export type FormTemplateMinAggregateInputType = {
+    ft_id?: true
+    ft_uuid?: true
+    ft_own_id?: true
+    ft_firm_id?: true
+    ft_status?: true
+    ft_is_system?: true
+    ft_created_at?: true
+    ft_created_by?: true
+    ft_updated_at?: true
+    ft_updated_by?: true
+    ft_deleted_at?: true
+    ft_deleted_by?: true
+    ft_is_deleted?: true
+  }
+
+  export type FormTemplateMaxAggregateInputType = {
+    ft_id?: true
+    ft_uuid?: true
+    ft_own_id?: true
+    ft_firm_id?: true
+    ft_status?: true
+    ft_is_system?: true
+    ft_created_at?: true
+    ft_created_by?: true
+    ft_updated_at?: true
+    ft_updated_by?: true
+    ft_deleted_at?: true
+    ft_deleted_by?: true
+    ft_is_deleted?: true
+  }
+
+  export type FormTemplateCountAggregateInputType = {
+    ft_id?: true
+    ft_uuid?: true
+    ft_own_id?: true
+    ft_firm_id?: true
+    ft_config?: true
+    ft_status?: true
+    ft_is_system?: true
+    ft_created_at?: true
+    ft_created_by?: true
+    ft_updated_at?: true
+    ft_updated_by?: true
+    ft_deleted_at?: true
+    ft_deleted_by?: true
+    ft_is_deleted?: true
+    _all?: true
+  }
+
+  export type FormTemplateAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which FormTemplate to aggregate.
+     */
+    where?: FormTemplateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FormTemplates to fetch.
+     */
+    orderBy?: FormTemplateOrderByWithRelationInput | FormTemplateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: FormTemplateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FormTemplates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FormTemplates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned FormTemplates
+    **/
+    _count?: true | FormTemplateCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: FormTemplateAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: FormTemplateSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: FormTemplateMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: FormTemplateMaxAggregateInputType
+  }
+
+  export type GetFormTemplateAggregateType<T extends FormTemplateAggregateArgs> = {
+        [P in keyof T & keyof AggregateFormTemplate]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateFormTemplate[P]>
+      : GetScalarType<T[P], AggregateFormTemplate[P]>
+  }
+
+
+
+
+  export type FormTemplateGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FormTemplateWhereInput
+    orderBy?: FormTemplateOrderByWithAggregationInput | FormTemplateOrderByWithAggregationInput[]
+    by: FormTemplateScalarFieldEnum[] | FormTemplateScalarFieldEnum
+    having?: FormTemplateScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: FormTemplateCountAggregateInputType | true
+    _avg?: FormTemplateAvgAggregateInputType
+    _sum?: FormTemplateSumAggregateInputType
+    _min?: FormTemplateMinAggregateInputType
+    _max?: FormTemplateMaxAggregateInputType
+  }
+
+  export type FormTemplateGroupByOutputType = {
+    ft_id: number
+    ft_uuid: string
+    ft_own_id: number
+    ft_firm_id: number
+    ft_config: JsonValue
+    ft_status: $Enums.FormTemplateStatus
+    ft_is_system: boolean
+    ft_created_at: Date
+    ft_created_by: string | null
+    ft_updated_at: Date
+    ft_updated_by: string | null
+    ft_deleted_at: Date | null
+    ft_deleted_by: string | null
+    ft_is_deleted: boolean
+    _count: FormTemplateCountAggregateOutputType | null
+    _avg: FormTemplateAvgAggregateOutputType | null
+    _sum: FormTemplateSumAggregateOutputType | null
+    _min: FormTemplateMinAggregateOutputType | null
+    _max: FormTemplateMaxAggregateOutputType | null
+  }
+
+  type GetFormTemplateGroupByPayload<T extends FormTemplateGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<FormTemplateGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof FormTemplateGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], FormTemplateGroupByOutputType[P]>
+            : GetScalarType<T[P], FormTemplateGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type FormTemplateSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    ft_id?: boolean
+    ft_uuid?: boolean
+    ft_own_id?: boolean
+    ft_firm_id?: boolean
+    ft_config?: boolean
+    ft_status?: boolean
+    ft_is_system?: boolean
+    ft_created_at?: boolean
+    ft_created_by?: boolean
+    ft_updated_at?: boolean
+    ft_updated_by?: boolean
+    ft_deleted_at?: boolean
+    ft_deleted_by?: boolean
+    ft_is_deleted?: boolean
+    owner?: boolean | OwnerDefaultArgs<ExtArgs>
+    firm?: boolean | FirmDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["formTemplate"]>
+
+  export type FormTemplateSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    ft_id?: boolean
+    ft_uuid?: boolean
+    ft_own_id?: boolean
+    ft_firm_id?: boolean
+    ft_config?: boolean
+    ft_status?: boolean
+    ft_is_system?: boolean
+    ft_created_at?: boolean
+    ft_created_by?: boolean
+    ft_updated_at?: boolean
+    ft_updated_by?: boolean
+    ft_deleted_at?: boolean
+    ft_deleted_by?: boolean
+    ft_is_deleted?: boolean
+    owner?: boolean | OwnerDefaultArgs<ExtArgs>
+    firm?: boolean | FirmDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["formTemplate"]>
+
+  export type FormTemplateSelectScalar = {
+    ft_id?: boolean
+    ft_uuid?: boolean
+    ft_own_id?: boolean
+    ft_firm_id?: boolean
+    ft_config?: boolean
+    ft_status?: boolean
+    ft_is_system?: boolean
+    ft_created_at?: boolean
+    ft_created_by?: boolean
+    ft_updated_at?: boolean
+    ft_updated_by?: boolean
+    ft_deleted_at?: boolean
+    ft_deleted_by?: boolean
+    ft_is_deleted?: boolean
+  }
+
+  export type FormTemplateInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    owner?: boolean | OwnerDefaultArgs<ExtArgs>
+    firm?: boolean | FirmDefaultArgs<ExtArgs>
+  }
+  export type FormTemplateIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    owner?: boolean | OwnerDefaultArgs<ExtArgs>
+    firm?: boolean | FirmDefaultArgs<ExtArgs>
+  }
+
+  export type $FormTemplatePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "FormTemplate"
+    objects: {
+      owner: Prisma.$OwnerPayload<ExtArgs>
+      firm: Prisma.$FirmPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      ft_id: number
+      ft_uuid: string
+      ft_own_id: number
+      ft_firm_id: number
+      ft_config: Prisma.JsonValue
+      ft_status: $Enums.FormTemplateStatus
+      ft_is_system: boolean
+      ft_created_at: Date
+      ft_created_by: string | null
+      ft_updated_at: Date
+      ft_updated_by: string | null
+      ft_deleted_at: Date | null
+      ft_deleted_by: string | null
+      ft_is_deleted: boolean
+    }, ExtArgs["result"]["formTemplate"]>
+    composites: {}
+  }
+
+  type FormTemplateGetPayload<S extends boolean | null | undefined | FormTemplateDefaultArgs> = $Result.GetResult<Prisma.$FormTemplatePayload, S>
+
+  type FormTemplateCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<FormTemplateFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: FormTemplateCountAggregateInputType | true
+    }
+
+  export interface FormTemplateDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['FormTemplate'], meta: { name: 'FormTemplate' } }
+    /**
+     * Find zero or one FormTemplate that matches the filter.
+     * @param {FormTemplateFindUniqueArgs} args - Arguments to find a FormTemplate
+     * @example
+     * // Get one FormTemplate
+     * const formTemplate = await prisma.formTemplate.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends FormTemplateFindUniqueArgs>(args: SelectSubset<T, FormTemplateFindUniqueArgs<ExtArgs>>): Prisma__FormTemplateClient<$Result.GetResult<Prisma.$FormTemplatePayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one FormTemplate that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {FormTemplateFindUniqueOrThrowArgs} args - Arguments to find a FormTemplate
+     * @example
+     * // Get one FormTemplate
+     * const formTemplate = await prisma.formTemplate.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends FormTemplateFindUniqueOrThrowArgs>(args: SelectSubset<T, FormTemplateFindUniqueOrThrowArgs<ExtArgs>>): Prisma__FormTemplateClient<$Result.GetResult<Prisma.$FormTemplatePayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first FormTemplate that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FormTemplateFindFirstArgs} args - Arguments to find a FormTemplate
+     * @example
+     * // Get one FormTemplate
+     * const formTemplate = await prisma.formTemplate.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends FormTemplateFindFirstArgs>(args?: SelectSubset<T, FormTemplateFindFirstArgs<ExtArgs>>): Prisma__FormTemplateClient<$Result.GetResult<Prisma.$FormTemplatePayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first FormTemplate that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FormTemplateFindFirstOrThrowArgs} args - Arguments to find a FormTemplate
+     * @example
+     * // Get one FormTemplate
+     * const formTemplate = await prisma.formTemplate.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends FormTemplateFindFirstOrThrowArgs>(args?: SelectSubset<T, FormTemplateFindFirstOrThrowArgs<ExtArgs>>): Prisma__FormTemplateClient<$Result.GetResult<Prisma.$FormTemplatePayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more FormTemplates that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FormTemplateFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all FormTemplates
+     * const formTemplates = await prisma.formTemplate.findMany()
+     * 
+     * // Get first 10 FormTemplates
+     * const formTemplates = await prisma.formTemplate.findMany({ take: 10 })
+     * 
+     * // Only select the `ft_id`
+     * const formTemplateWithFt_idOnly = await prisma.formTemplate.findMany({ select: { ft_id: true } })
+     * 
+     */
+    findMany<T extends FormTemplateFindManyArgs>(args?: SelectSubset<T, FormTemplateFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FormTemplatePayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a FormTemplate.
+     * @param {FormTemplateCreateArgs} args - Arguments to create a FormTemplate.
+     * @example
+     * // Create one FormTemplate
+     * const FormTemplate = await prisma.formTemplate.create({
+     *   data: {
+     *     // ... data to create a FormTemplate
+     *   }
+     * })
+     * 
+     */
+    create<T extends FormTemplateCreateArgs>(args: SelectSubset<T, FormTemplateCreateArgs<ExtArgs>>): Prisma__FormTemplateClient<$Result.GetResult<Prisma.$FormTemplatePayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many FormTemplates.
+     * @param {FormTemplateCreateManyArgs} args - Arguments to create many FormTemplates.
+     * @example
+     * // Create many FormTemplates
+     * const formTemplate = await prisma.formTemplate.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends FormTemplateCreateManyArgs>(args?: SelectSubset<T, FormTemplateCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many FormTemplates and returns the data saved in the database.
+     * @param {FormTemplateCreateManyAndReturnArgs} args - Arguments to create many FormTemplates.
+     * @example
+     * // Create many FormTemplates
+     * const formTemplate = await prisma.formTemplate.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many FormTemplates and only return the `ft_id`
+     * const formTemplateWithFt_idOnly = await prisma.formTemplate.createManyAndReturn({ 
+     *   select: { ft_id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends FormTemplateCreateManyAndReturnArgs>(args?: SelectSubset<T, FormTemplateCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FormTemplatePayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a FormTemplate.
+     * @param {FormTemplateDeleteArgs} args - Arguments to delete one FormTemplate.
+     * @example
+     * // Delete one FormTemplate
+     * const FormTemplate = await prisma.formTemplate.delete({
+     *   where: {
+     *     // ... filter to delete one FormTemplate
+     *   }
+     * })
+     * 
+     */
+    delete<T extends FormTemplateDeleteArgs>(args: SelectSubset<T, FormTemplateDeleteArgs<ExtArgs>>): Prisma__FormTemplateClient<$Result.GetResult<Prisma.$FormTemplatePayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one FormTemplate.
+     * @param {FormTemplateUpdateArgs} args - Arguments to update one FormTemplate.
+     * @example
+     * // Update one FormTemplate
+     * const formTemplate = await prisma.formTemplate.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends FormTemplateUpdateArgs>(args: SelectSubset<T, FormTemplateUpdateArgs<ExtArgs>>): Prisma__FormTemplateClient<$Result.GetResult<Prisma.$FormTemplatePayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more FormTemplates.
+     * @param {FormTemplateDeleteManyArgs} args - Arguments to filter FormTemplates to delete.
+     * @example
+     * // Delete a few FormTemplates
+     * const { count } = await prisma.formTemplate.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends FormTemplateDeleteManyArgs>(args?: SelectSubset<T, FormTemplateDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more FormTemplates.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FormTemplateUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many FormTemplates
+     * const formTemplate = await prisma.formTemplate.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends FormTemplateUpdateManyArgs>(args: SelectSubset<T, FormTemplateUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one FormTemplate.
+     * @param {FormTemplateUpsertArgs} args - Arguments to update or create a FormTemplate.
+     * @example
+     * // Update or create a FormTemplate
+     * const formTemplate = await prisma.formTemplate.upsert({
+     *   create: {
+     *     // ... data to create a FormTemplate
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the FormTemplate we want to update
+     *   }
+     * })
+     */
+    upsert<T extends FormTemplateUpsertArgs>(args: SelectSubset<T, FormTemplateUpsertArgs<ExtArgs>>): Prisma__FormTemplateClient<$Result.GetResult<Prisma.$FormTemplatePayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of FormTemplates.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FormTemplateCountArgs} args - Arguments to filter FormTemplates to count.
+     * @example
+     * // Count the number of FormTemplates
+     * const count = await prisma.formTemplate.count({
+     *   where: {
+     *     // ... the filter for the FormTemplates we want to count
+     *   }
+     * })
+    **/
+    count<T extends FormTemplateCountArgs>(
+      args?: Subset<T, FormTemplateCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], FormTemplateCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a FormTemplate.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FormTemplateAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends FormTemplateAggregateArgs>(args: Subset<T, FormTemplateAggregateArgs>): Prisma.PrismaPromise<GetFormTemplateAggregateType<T>>
+
+    /**
+     * Group by FormTemplate.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FormTemplateGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends FormTemplateGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: FormTemplateGroupByArgs['orderBy'] }
+        : { orderBy?: FormTemplateGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, FormTemplateGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetFormTemplateGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the FormTemplate model
+   */
+  readonly fields: FormTemplateFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for FormTemplate.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__FormTemplateClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    owner<T extends OwnerDefaultArgs<ExtArgs> = {}>(args?: Subset<T, OwnerDefaultArgs<ExtArgs>>): Prisma__OwnerClient<$Result.GetResult<Prisma.$OwnerPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    firm<T extends FirmDefaultArgs<ExtArgs> = {}>(args?: Subset<T, FirmDefaultArgs<ExtArgs>>): Prisma__FirmClient<$Result.GetResult<Prisma.$FirmPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the FormTemplate model
+   */ 
+  interface FormTemplateFieldRefs {
+    readonly ft_id: FieldRef<"FormTemplate", 'Int'>
+    readonly ft_uuid: FieldRef<"FormTemplate", 'String'>
+    readonly ft_own_id: FieldRef<"FormTemplate", 'Int'>
+    readonly ft_firm_id: FieldRef<"FormTemplate", 'Int'>
+    readonly ft_config: FieldRef<"FormTemplate", 'Json'>
+    readonly ft_status: FieldRef<"FormTemplate", 'FormTemplateStatus'>
+    readonly ft_is_system: FieldRef<"FormTemplate", 'Boolean'>
+    readonly ft_created_at: FieldRef<"FormTemplate", 'DateTime'>
+    readonly ft_created_by: FieldRef<"FormTemplate", 'String'>
+    readonly ft_updated_at: FieldRef<"FormTemplate", 'DateTime'>
+    readonly ft_updated_by: FieldRef<"FormTemplate", 'String'>
+    readonly ft_deleted_at: FieldRef<"FormTemplate", 'DateTime'>
+    readonly ft_deleted_by: FieldRef<"FormTemplate", 'String'>
+    readonly ft_is_deleted: FieldRef<"FormTemplate", 'Boolean'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * FormTemplate findUnique
+   */
+  export type FormTemplateFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FormTemplate
+     */
+    select?: FormTemplateSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FormTemplateInclude<ExtArgs> | null
+    /**
+     * Filter, which FormTemplate to fetch.
+     */
+    where: FormTemplateWhereUniqueInput
+  }
+
+  /**
+   * FormTemplate findUniqueOrThrow
+   */
+  export type FormTemplateFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FormTemplate
+     */
+    select?: FormTemplateSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FormTemplateInclude<ExtArgs> | null
+    /**
+     * Filter, which FormTemplate to fetch.
+     */
+    where: FormTemplateWhereUniqueInput
+  }
+
+  /**
+   * FormTemplate findFirst
+   */
+  export type FormTemplateFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FormTemplate
+     */
+    select?: FormTemplateSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FormTemplateInclude<ExtArgs> | null
+    /**
+     * Filter, which FormTemplate to fetch.
+     */
+    where?: FormTemplateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FormTemplates to fetch.
+     */
+    orderBy?: FormTemplateOrderByWithRelationInput | FormTemplateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for FormTemplates.
+     */
+    cursor?: FormTemplateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FormTemplates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FormTemplates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of FormTemplates.
+     */
+    distinct?: FormTemplateScalarFieldEnum | FormTemplateScalarFieldEnum[]
+  }
+
+  /**
+   * FormTemplate findFirstOrThrow
+   */
+  export type FormTemplateFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FormTemplate
+     */
+    select?: FormTemplateSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FormTemplateInclude<ExtArgs> | null
+    /**
+     * Filter, which FormTemplate to fetch.
+     */
+    where?: FormTemplateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FormTemplates to fetch.
+     */
+    orderBy?: FormTemplateOrderByWithRelationInput | FormTemplateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for FormTemplates.
+     */
+    cursor?: FormTemplateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FormTemplates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FormTemplates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of FormTemplates.
+     */
+    distinct?: FormTemplateScalarFieldEnum | FormTemplateScalarFieldEnum[]
+  }
+
+  /**
+   * FormTemplate findMany
+   */
+  export type FormTemplateFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FormTemplate
+     */
+    select?: FormTemplateSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FormTemplateInclude<ExtArgs> | null
+    /**
+     * Filter, which FormTemplates to fetch.
+     */
+    where?: FormTemplateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FormTemplates to fetch.
+     */
+    orderBy?: FormTemplateOrderByWithRelationInput | FormTemplateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing FormTemplates.
+     */
+    cursor?: FormTemplateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FormTemplates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FormTemplates.
+     */
+    skip?: number
+    distinct?: FormTemplateScalarFieldEnum | FormTemplateScalarFieldEnum[]
+  }
+
+  /**
+   * FormTemplate create
+   */
+  export type FormTemplateCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FormTemplate
+     */
+    select?: FormTemplateSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FormTemplateInclude<ExtArgs> | null
+    /**
+     * The data needed to create a FormTemplate.
+     */
+    data: XOR<FormTemplateCreateInput, FormTemplateUncheckedCreateInput>
+  }
+
+  /**
+   * FormTemplate createMany
+   */
+  export type FormTemplateCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many FormTemplates.
+     */
+    data: FormTemplateCreateManyInput | FormTemplateCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * FormTemplate createManyAndReturn
+   */
+  export type FormTemplateCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FormTemplate
+     */
+    select?: FormTemplateSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many FormTemplates.
+     */
+    data: FormTemplateCreateManyInput | FormTemplateCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FormTemplateIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * FormTemplate update
+   */
+  export type FormTemplateUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FormTemplate
+     */
+    select?: FormTemplateSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FormTemplateInclude<ExtArgs> | null
+    /**
+     * The data needed to update a FormTemplate.
+     */
+    data: XOR<FormTemplateUpdateInput, FormTemplateUncheckedUpdateInput>
+    /**
+     * Choose, which FormTemplate to update.
+     */
+    where: FormTemplateWhereUniqueInput
+  }
+
+  /**
+   * FormTemplate updateMany
+   */
+  export type FormTemplateUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update FormTemplates.
+     */
+    data: XOR<FormTemplateUpdateManyMutationInput, FormTemplateUncheckedUpdateManyInput>
+    /**
+     * Filter which FormTemplates to update
+     */
+    where?: FormTemplateWhereInput
+  }
+
+  /**
+   * FormTemplate upsert
+   */
+  export type FormTemplateUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FormTemplate
+     */
+    select?: FormTemplateSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FormTemplateInclude<ExtArgs> | null
+    /**
+     * The filter to search for the FormTemplate to update in case it exists.
+     */
+    where: FormTemplateWhereUniqueInput
+    /**
+     * In case the FormTemplate found by the `where` argument doesn't exist, create a new FormTemplate with this data.
+     */
+    create: XOR<FormTemplateCreateInput, FormTemplateUncheckedCreateInput>
+    /**
+     * In case the FormTemplate was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<FormTemplateUpdateInput, FormTemplateUncheckedUpdateInput>
+  }
+
+  /**
+   * FormTemplate delete
+   */
+  export type FormTemplateDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FormTemplate
+     */
+    select?: FormTemplateSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FormTemplateInclude<ExtArgs> | null
+    /**
+     * Filter which FormTemplate to delete.
+     */
+    where: FormTemplateWhereUniqueInput
+  }
+
+  /**
+   * FormTemplate deleteMany
+   */
+  export type FormTemplateDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which FormTemplates to delete
+     */
+    where?: FormTemplateWhereInput
+  }
+
+  /**
+   * FormTemplate without action
+   */
+  export type FormTemplateDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FormTemplate
+     */
+    select?: FormTemplateSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FormTemplateInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Model WhatsAppInstance
    */
 
@@ -44582,6 +45817,26 @@ export namespace Prisma {
   export type MessageTemplateScalarFieldEnum = (typeof MessageTemplateScalarFieldEnum)[keyof typeof MessageTemplateScalarFieldEnum]
 
 
+  export const FormTemplateScalarFieldEnum: {
+    ft_id: 'ft_id',
+    ft_uuid: 'ft_uuid',
+    ft_own_id: 'ft_own_id',
+    ft_firm_id: 'ft_firm_id',
+    ft_config: 'ft_config',
+    ft_status: 'ft_status',
+    ft_is_system: 'ft_is_system',
+    ft_created_at: 'ft_created_at',
+    ft_created_by: 'ft_created_by',
+    ft_updated_at: 'ft_updated_at',
+    ft_updated_by: 'ft_updated_by',
+    ft_deleted_at: 'ft_deleted_at',
+    ft_deleted_by: 'ft_deleted_by',
+    ft_is_deleted: 'ft_is_deleted'
+  };
+
+  export type FormTemplateScalarFieldEnum = (typeof FormTemplateScalarFieldEnum)[keyof typeof FormTemplateScalarFieldEnum]
+
+
   export const WhatsAppInstanceScalarFieldEnum: {
     wa_id: 'wa_id',
     wa_uuid: 'wa_uuid',
@@ -44660,6 +45915,13 @@ export namespace Prisma {
   };
 
   export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
+
+
+  export const JsonNullValueInput: {
+    JsonNull: typeof JsonNull
+  };
+
+  export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
 
 
   export const QueryMode: {
@@ -45099,6 +46361,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'FormTemplateStatus'
+   */
+  export type EnumFormTemplateStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FormTemplateStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'FormTemplateStatus[]'
+   */
+  export type ListEnumFormTemplateStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FormTemplateStatus[]'>
+    
+
+
+  /**
    * Reference to a field of type 'WhatsAppInstanceStatus'
    */
   export type EnumWhatsAppInstanceStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'WhatsAppInstanceStatus'>
@@ -45192,6 +46468,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderListRelationFilter
     staff?: StaffListRelationFilter
     messageTemplates?: MessageTemplateListRelationFilter
+    formTemplates?: FormTemplateListRelationFilter
     whatsappInstances?: WhatsAppInstanceListRelationFilter
   }
 
@@ -45255,6 +46532,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderOrderByRelationAggregateInput
     staff?: StaffOrderByRelationAggregateInput
     messageTemplates?: MessageTemplateOrderByRelationAggregateInput
+    formTemplates?: FormTemplateOrderByRelationAggregateInput
     whatsappInstances?: WhatsAppInstanceOrderByRelationAggregateInput
   }
 
@@ -45321,6 +46599,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderListRelationFilter
     staff?: StaffListRelationFilter
     messageTemplates?: MessageTemplateListRelationFilter
+    formTemplates?: FormTemplateListRelationFilter
     whatsappInstances?: WhatsAppInstanceListRelationFilter
   }, "own_id" | "own_uuid" | "own_product_key" | "own_db" | "own_mobile_no" | "own_email" | "own_login_id">
 
@@ -45493,6 +46772,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanListRelationFilter
     releaseUsers?: ReleaseUserListRelationFilter
     messageTemplates?: MessageTemplateListRelationFilter
+    formTemplate?: XOR<FormTemplateNullableRelationFilter, FormTemplateWhereInput> | null
     whatsappInstance?: XOR<WhatsAppInstanceNullableRelationFilter, WhatsAppInstanceWhereInput> | null
   }
 
@@ -45566,6 +46846,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanOrderByRelationAggregateInput
     releaseUsers?: ReleaseUserOrderByRelationAggregateInput
     messageTemplates?: MessageTemplateOrderByRelationAggregateInput
+    formTemplate?: FormTemplateOrderByWithRelationInput
     whatsappInstance?: WhatsAppInstanceOrderByWithRelationInput
   }
 
@@ -45642,6 +46923,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanListRelationFilter
     releaseUsers?: ReleaseUserListRelationFilter
     messageTemplates?: MessageTemplateListRelationFilter
+    formTemplate?: XOR<FormTemplateNullableRelationFilter, FormTemplateWhereInput> | null
     whatsappInstance?: XOR<WhatsAppInstanceNullableRelationFilter, WhatsAppInstanceWhereInput> | null
   }, "firm_id" | "firm_uuid" | "firm_unique_code" | "firm_name" | "firm_reg_no">
 
@@ -50129,6 +51411,111 @@ export namespace Prisma {
     mt_is_deleted?: BoolWithAggregatesFilter<"MessageTemplate"> | boolean
   }
 
+  export type FormTemplateWhereInput = {
+    AND?: FormTemplateWhereInput | FormTemplateWhereInput[]
+    OR?: FormTemplateWhereInput[]
+    NOT?: FormTemplateWhereInput | FormTemplateWhereInput[]
+    ft_id?: IntFilter<"FormTemplate"> | number
+    ft_uuid?: StringFilter<"FormTemplate"> | string
+    ft_own_id?: IntFilter<"FormTemplate"> | number
+    ft_firm_id?: IntFilter<"FormTemplate"> | number
+    ft_config?: JsonFilter<"FormTemplate">
+    ft_status?: EnumFormTemplateStatusFilter<"FormTemplate"> | $Enums.FormTemplateStatus
+    ft_is_system?: BoolFilter<"FormTemplate"> | boolean
+    ft_created_at?: DateTimeFilter<"FormTemplate"> | Date | string
+    ft_created_by?: StringNullableFilter<"FormTemplate"> | string | null
+    ft_updated_at?: DateTimeFilter<"FormTemplate"> | Date | string
+    ft_updated_by?: StringNullableFilter<"FormTemplate"> | string | null
+    ft_deleted_at?: DateTimeNullableFilter<"FormTemplate"> | Date | string | null
+    ft_deleted_by?: StringNullableFilter<"FormTemplate"> | string | null
+    ft_is_deleted?: BoolFilter<"FormTemplate"> | boolean
+    owner?: XOR<OwnerRelationFilter, OwnerWhereInput>
+    firm?: XOR<FirmRelationFilter, FirmWhereInput>
+  }
+
+  export type FormTemplateOrderByWithRelationInput = {
+    ft_id?: SortOrder
+    ft_uuid?: SortOrder
+    ft_own_id?: SortOrder
+    ft_firm_id?: SortOrder
+    ft_config?: SortOrder
+    ft_status?: SortOrder
+    ft_is_system?: SortOrder
+    ft_created_at?: SortOrder
+    ft_created_by?: SortOrderInput | SortOrder
+    ft_updated_at?: SortOrder
+    ft_updated_by?: SortOrderInput | SortOrder
+    ft_deleted_at?: SortOrderInput | SortOrder
+    ft_deleted_by?: SortOrderInput | SortOrder
+    ft_is_deleted?: SortOrder
+    owner?: OwnerOrderByWithRelationInput
+    firm?: FirmOrderByWithRelationInput
+  }
+
+  export type FormTemplateWhereUniqueInput = Prisma.AtLeast<{
+    ft_id?: number
+    ft_uuid?: string
+    ft_firm_id?: number
+    AND?: FormTemplateWhereInput | FormTemplateWhereInput[]
+    OR?: FormTemplateWhereInput[]
+    NOT?: FormTemplateWhereInput | FormTemplateWhereInput[]
+    ft_own_id?: IntFilter<"FormTemplate"> | number
+    ft_config?: JsonFilter<"FormTemplate">
+    ft_status?: EnumFormTemplateStatusFilter<"FormTemplate"> | $Enums.FormTemplateStatus
+    ft_is_system?: BoolFilter<"FormTemplate"> | boolean
+    ft_created_at?: DateTimeFilter<"FormTemplate"> | Date | string
+    ft_created_by?: StringNullableFilter<"FormTemplate"> | string | null
+    ft_updated_at?: DateTimeFilter<"FormTemplate"> | Date | string
+    ft_updated_by?: StringNullableFilter<"FormTemplate"> | string | null
+    ft_deleted_at?: DateTimeNullableFilter<"FormTemplate"> | Date | string | null
+    ft_deleted_by?: StringNullableFilter<"FormTemplate"> | string | null
+    ft_is_deleted?: BoolFilter<"FormTemplate"> | boolean
+    owner?: XOR<OwnerRelationFilter, OwnerWhereInput>
+    firm?: XOR<FirmRelationFilter, FirmWhereInput>
+  }, "ft_id" | "ft_uuid" | "ft_firm_id">
+
+  export type FormTemplateOrderByWithAggregationInput = {
+    ft_id?: SortOrder
+    ft_uuid?: SortOrder
+    ft_own_id?: SortOrder
+    ft_firm_id?: SortOrder
+    ft_config?: SortOrder
+    ft_status?: SortOrder
+    ft_is_system?: SortOrder
+    ft_created_at?: SortOrder
+    ft_created_by?: SortOrderInput | SortOrder
+    ft_updated_at?: SortOrder
+    ft_updated_by?: SortOrderInput | SortOrder
+    ft_deleted_at?: SortOrderInput | SortOrder
+    ft_deleted_by?: SortOrderInput | SortOrder
+    ft_is_deleted?: SortOrder
+    _count?: FormTemplateCountOrderByAggregateInput
+    _avg?: FormTemplateAvgOrderByAggregateInput
+    _max?: FormTemplateMaxOrderByAggregateInput
+    _min?: FormTemplateMinOrderByAggregateInput
+    _sum?: FormTemplateSumOrderByAggregateInput
+  }
+
+  export type FormTemplateScalarWhereWithAggregatesInput = {
+    AND?: FormTemplateScalarWhereWithAggregatesInput | FormTemplateScalarWhereWithAggregatesInput[]
+    OR?: FormTemplateScalarWhereWithAggregatesInput[]
+    NOT?: FormTemplateScalarWhereWithAggregatesInput | FormTemplateScalarWhereWithAggregatesInput[]
+    ft_id?: IntWithAggregatesFilter<"FormTemplate"> | number
+    ft_uuid?: StringWithAggregatesFilter<"FormTemplate"> | string
+    ft_own_id?: IntWithAggregatesFilter<"FormTemplate"> | number
+    ft_firm_id?: IntWithAggregatesFilter<"FormTemplate"> | number
+    ft_config?: JsonWithAggregatesFilter<"FormTemplate">
+    ft_status?: EnumFormTemplateStatusWithAggregatesFilter<"FormTemplate"> | $Enums.FormTemplateStatus
+    ft_is_system?: BoolWithAggregatesFilter<"FormTemplate"> | boolean
+    ft_created_at?: DateTimeWithAggregatesFilter<"FormTemplate"> | Date | string
+    ft_created_by?: StringNullableWithAggregatesFilter<"FormTemplate"> | string | null
+    ft_updated_at?: DateTimeWithAggregatesFilter<"FormTemplate"> | Date | string
+    ft_updated_by?: StringNullableWithAggregatesFilter<"FormTemplate"> | string | null
+    ft_deleted_at?: DateTimeNullableWithAggregatesFilter<"FormTemplate"> | Date | string | null
+    ft_deleted_by?: StringNullableWithAggregatesFilter<"FormTemplate"> | string | null
+    ft_is_deleted?: BoolWithAggregatesFilter<"FormTemplate"> | boolean
+  }
+
   export type WhatsAppInstanceWhereInput = {
     AND?: WhatsAppInstanceWhereInput | WhatsAppInstanceWhereInput[]
     OR?: WhatsAppInstanceWhereInput[]
@@ -50511,6 +51898,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderCreateNestedManyWithoutOwnerInput
     staff?: StaffCreateNestedManyWithoutOwnerInput
     messageTemplates?: MessageTemplateCreateNestedManyWithoutOwnerInput
+    formTemplates?: FormTemplateCreateNestedManyWithoutOwnerInput
     whatsappInstances?: WhatsAppInstanceCreateNestedManyWithoutOwnerInput
   }
 
@@ -50574,6 +51962,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutOwnerInput
     staff?: StaffUncheckedCreateNestedManyWithoutOwnerInput
     messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutOwnerInput
+    formTemplates?: FormTemplateUncheckedCreateNestedManyWithoutOwnerInput
     whatsappInstances?: WhatsAppInstanceUncheckedCreateNestedManyWithoutOwnerInput
   }
 
@@ -50635,6 +52024,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUpdateManyWithoutOwnerNestedInput
     staff?: StaffUpdateManyWithoutOwnerNestedInput
     messageTemplates?: MessageTemplateUpdateManyWithoutOwnerNestedInput
+    formTemplates?: FormTemplateUpdateManyWithoutOwnerNestedInput
     whatsappInstances?: WhatsAppInstanceUpdateManyWithoutOwnerNestedInput
   }
 
@@ -50698,6 +52088,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutOwnerNestedInput
     staff?: StaffUncheckedUpdateManyWithoutOwnerNestedInput
     messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutOwnerNestedInput
+    formTemplates?: FormTemplateUncheckedUpdateManyWithoutOwnerNestedInput
     whatsappInstances?: WhatsAppInstanceUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
@@ -50899,6 +52290,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
     releaseUsers?: ReleaseUserCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateCreateNestedManyWithoutFirmInput
+    formTemplate?: FormTemplateCreateNestedOneWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceCreateNestedOneWithoutFirmInput
   }
 
@@ -50971,6 +52363,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
     releaseUsers?: ReleaseUserUncheckedCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutFirmInput
+    formTemplate?: FormTemplateUncheckedCreateNestedOneWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceUncheckedCreateNestedOneWithoutFirmInput
   }
 
@@ -51042,6 +52435,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
     releaseUsers?: ReleaseUserUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUpdateManyWithoutFirmNestedInput
+    formTemplate?: FormTemplateUpdateOneWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUpdateOneWithoutFirmNestedInput
   }
 
@@ -51114,6 +52508,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
     releaseUsers?: ReleaseUserUncheckedUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutFirmNestedInput
+    formTemplate?: FormTemplateUncheckedUpdateOneWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUncheckedUpdateOneWithoutFirmNestedInput
   }
 
@@ -56331,6 +57726,120 @@ export namespace Prisma {
     mt_is_deleted?: BoolFieldUpdateOperationsInput | boolean
   }
 
+  export type FormTemplateCreateInput = {
+    ft_uuid?: string
+    ft_config: JsonNullValueInput | InputJsonValue
+    ft_status?: $Enums.FormTemplateStatus
+    ft_is_system?: boolean
+    ft_created_at?: Date | string
+    ft_created_by?: string | null
+    ft_updated_at?: Date | string
+    ft_updated_by?: string | null
+    ft_deleted_at?: Date | string | null
+    ft_deleted_by?: string | null
+    ft_is_deleted?: boolean
+    owner: OwnerCreateNestedOneWithoutFormTemplatesInput
+    firm: FirmCreateNestedOneWithoutFormTemplateInput
+  }
+
+  export type FormTemplateUncheckedCreateInput = {
+    ft_id?: number
+    ft_uuid?: string
+    ft_own_id: number
+    ft_firm_id: number
+    ft_config: JsonNullValueInput | InputJsonValue
+    ft_status?: $Enums.FormTemplateStatus
+    ft_is_system?: boolean
+    ft_created_at?: Date | string
+    ft_created_by?: string | null
+    ft_updated_at?: Date | string
+    ft_updated_by?: string | null
+    ft_deleted_at?: Date | string | null
+    ft_deleted_by?: string | null
+    ft_is_deleted?: boolean
+  }
+
+  export type FormTemplateUpdateInput = {
+    ft_uuid?: StringFieldUpdateOperationsInput | string
+    ft_config?: JsonNullValueInput | InputJsonValue
+    ft_status?: EnumFormTemplateStatusFieldUpdateOperationsInput | $Enums.FormTemplateStatus
+    ft_is_system?: BoolFieldUpdateOperationsInput | boolean
+    ft_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    ft_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ft_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    ft_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ft_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ft_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ft_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    owner?: OwnerUpdateOneRequiredWithoutFormTemplatesNestedInput
+    firm?: FirmUpdateOneRequiredWithoutFormTemplateNestedInput
+  }
+
+  export type FormTemplateUncheckedUpdateInput = {
+    ft_id?: IntFieldUpdateOperationsInput | number
+    ft_uuid?: StringFieldUpdateOperationsInput | string
+    ft_own_id?: IntFieldUpdateOperationsInput | number
+    ft_firm_id?: IntFieldUpdateOperationsInput | number
+    ft_config?: JsonNullValueInput | InputJsonValue
+    ft_status?: EnumFormTemplateStatusFieldUpdateOperationsInput | $Enums.FormTemplateStatus
+    ft_is_system?: BoolFieldUpdateOperationsInput | boolean
+    ft_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    ft_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ft_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    ft_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ft_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ft_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ft_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type FormTemplateCreateManyInput = {
+    ft_id?: number
+    ft_uuid?: string
+    ft_own_id: number
+    ft_firm_id: number
+    ft_config: JsonNullValueInput | InputJsonValue
+    ft_status?: $Enums.FormTemplateStatus
+    ft_is_system?: boolean
+    ft_created_at?: Date | string
+    ft_created_by?: string | null
+    ft_updated_at?: Date | string
+    ft_updated_by?: string | null
+    ft_deleted_at?: Date | string | null
+    ft_deleted_by?: string | null
+    ft_is_deleted?: boolean
+  }
+
+  export type FormTemplateUpdateManyMutationInput = {
+    ft_uuid?: StringFieldUpdateOperationsInput | string
+    ft_config?: JsonNullValueInput | InputJsonValue
+    ft_status?: EnumFormTemplateStatusFieldUpdateOperationsInput | $Enums.FormTemplateStatus
+    ft_is_system?: BoolFieldUpdateOperationsInput | boolean
+    ft_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    ft_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ft_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    ft_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ft_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ft_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ft_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type FormTemplateUncheckedUpdateManyInput = {
+    ft_id?: IntFieldUpdateOperationsInput | number
+    ft_uuid?: StringFieldUpdateOperationsInput | string
+    ft_own_id?: IntFieldUpdateOperationsInput | number
+    ft_firm_id?: IntFieldUpdateOperationsInput | number
+    ft_config?: JsonNullValueInput | InputJsonValue
+    ft_status?: EnumFormTemplateStatusFieldUpdateOperationsInput | $Enums.FormTemplateStatus
+    ft_is_system?: BoolFieldUpdateOperationsInput | boolean
+    ft_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    ft_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ft_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    ft_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ft_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ft_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ft_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
   export type WhatsAppInstanceCreateInput = {
     wa_uuid?: string
     wa_provider?: string
@@ -56910,6 +58419,12 @@ export namespace Prisma {
     none?: MessageTemplateWhereInput
   }
 
+  export type FormTemplateListRelationFilter = {
+    every?: FormTemplateWhereInput
+    some?: FormTemplateWhereInput
+    none?: FormTemplateWhereInput
+  }
+
   export type WhatsAppInstanceListRelationFilter = {
     every?: WhatsAppInstanceWhereInput
     some?: WhatsAppInstanceWhereInput
@@ -56990,6 +58505,10 @@ export namespace Prisma {
   }
 
   export type MessageTemplateOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type FormTemplateOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -57293,6 +58812,11 @@ export namespace Prisma {
     every?: ReleaseUserWhereInput
     some?: ReleaseUserWhereInput
     none?: ReleaseUserWhereInput
+  }
+
+  export type FormTemplateNullableRelationFilter = {
+    is?: FormTemplateWhereInput | null
+    isNot?: FormTemplateWhereInput | null
   }
 
   export type WhatsAppInstanceNullableRelationFilter = {
@@ -60694,6 +62218,131 @@ export namespace Prisma {
     _min?: NestedEnumMessageTemplateStatusFilter<$PrismaModel>
     _max?: NestedEnumMessageTemplateStatusFilter<$PrismaModel>
   }
+  export type JsonFilter<$PrismaModel = never> = 
+    | PatchUndefined<
+        Either<Required<JsonFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
+
+  export type EnumFormTemplateStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.FormTemplateStatus | EnumFormTemplateStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.FormTemplateStatus[] | ListEnumFormTemplateStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.FormTemplateStatus[] | ListEnumFormTemplateStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumFormTemplateStatusFilter<$PrismaModel> | $Enums.FormTemplateStatus
+  }
+
+  export type FormTemplateCountOrderByAggregateInput = {
+    ft_id?: SortOrder
+    ft_uuid?: SortOrder
+    ft_own_id?: SortOrder
+    ft_firm_id?: SortOrder
+    ft_config?: SortOrder
+    ft_status?: SortOrder
+    ft_is_system?: SortOrder
+    ft_created_at?: SortOrder
+    ft_created_by?: SortOrder
+    ft_updated_at?: SortOrder
+    ft_updated_by?: SortOrder
+    ft_deleted_at?: SortOrder
+    ft_deleted_by?: SortOrder
+    ft_is_deleted?: SortOrder
+  }
+
+  export type FormTemplateAvgOrderByAggregateInput = {
+    ft_id?: SortOrder
+    ft_own_id?: SortOrder
+    ft_firm_id?: SortOrder
+  }
+
+  export type FormTemplateMaxOrderByAggregateInput = {
+    ft_id?: SortOrder
+    ft_uuid?: SortOrder
+    ft_own_id?: SortOrder
+    ft_firm_id?: SortOrder
+    ft_status?: SortOrder
+    ft_is_system?: SortOrder
+    ft_created_at?: SortOrder
+    ft_created_by?: SortOrder
+    ft_updated_at?: SortOrder
+    ft_updated_by?: SortOrder
+    ft_deleted_at?: SortOrder
+    ft_deleted_by?: SortOrder
+    ft_is_deleted?: SortOrder
+  }
+
+  export type FormTemplateMinOrderByAggregateInput = {
+    ft_id?: SortOrder
+    ft_uuid?: SortOrder
+    ft_own_id?: SortOrder
+    ft_firm_id?: SortOrder
+    ft_status?: SortOrder
+    ft_is_system?: SortOrder
+    ft_created_at?: SortOrder
+    ft_created_by?: SortOrder
+    ft_updated_at?: SortOrder
+    ft_updated_by?: SortOrder
+    ft_deleted_at?: SortOrder
+    ft_deleted_by?: SortOrder
+    ft_is_deleted?: SortOrder
+  }
+
+  export type FormTemplateSumOrderByAggregateInput = {
+    ft_id?: SortOrder
+    ft_own_id?: SortOrder
+    ft_firm_id?: SortOrder
+  }
+  export type JsonWithAggregatesFilter<$PrismaModel = never> = 
+    | PatchUndefined<
+        Either<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedJsonFilter<$PrismaModel>
+    _max?: NestedJsonFilter<$PrismaModel>
+  }
+
+  export type EnumFormTemplateStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.FormTemplateStatus | EnumFormTemplateStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.FormTemplateStatus[] | ListEnumFormTemplateStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.FormTemplateStatus[] | ListEnumFormTemplateStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumFormTemplateStatusWithAggregatesFilter<$PrismaModel> | $Enums.FormTemplateStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumFormTemplateStatusFilter<$PrismaModel>
+    _max?: NestedEnumFormTemplateStatusFilter<$PrismaModel>
+  }
 
   export type EnumWhatsAppInstanceStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.WhatsAppInstanceStatus | EnumWhatsAppInstanceStatusFieldRefInput<$PrismaModel>
@@ -61064,6 +62713,13 @@ export namespace Prisma {
     connect?: MessageTemplateWhereUniqueInput | MessageTemplateWhereUniqueInput[]
   }
 
+  export type FormTemplateCreateNestedManyWithoutOwnerInput = {
+    create?: XOR<FormTemplateCreateWithoutOwnerInput, FormTemplateUncheckedCreateWithoutOwnerInput> | FormTemplateCreateWithoutOwnerInput[] | FormTemplateUncheckedCreateWithoutOwnerInput[]
+    connectOrCreate?: FormTemplateCreateOrConnectWithoutOwnerInput | FormTemplateCreateOrConnectWithoutOwnerInput[]
+    createMany?: FormTemplateCreateManyOwnerInputEnvelope
+    connect?: FormTemplateWhereUniqueInput | FormTemplateWhereUniqueInput[]
+  }
+
   export type WhatsAppInstanceCreateNestedManyWithoutOwnerInput = {
     create?: XOR<WhatsAppInstanceCreateWithoutOwnerInput, WhatsAppInstanceUncheckedCreateWithoutOwnerInput> | WhatsAppInstanceCreateWithoutOwnerInput[] | WhatsAppInstanceUncheckedCreateWithoutOwnerInput[]
     connectOrCreate?: WhatsAppInstanceCreateOrConnectWithoutOwnerInput | WhatsAppInstanceCreateOrConnectWithoutOwnerInput[]
@@ -61195,6 +62851,13 @@ export namespace Prisma {
     connectOrCreate?: MessageTemplateCreateOrConnectWithoutOwnerInput | MessageTemplateCreateOrConnectWithoutOwnerInput[]
     createMany?: MessageTemplateCreateManyOwnerInputEnvelope
     connect?: MessageTemplateWhereUniqueInput | MessageTemplateWhereUniqueInput[]
+  }
+
+  export type FormTemplateUncheckedCreateNestedManyWithoutOwnerInput = {
+    create?: XOR<FormTemplateCreateWithoutOwnerInput, FormTemplateUncheckedCreateWithoutOwnerInput> | FormTemplateCreateWithoutOwnerInput[] | FormTemplateUncheckedCreateWithoutOwnerInput[]
+    connectOrCreate?: FormTemplateCreateOrConnectWithoutOwnerInput | FormTemplateCreateOrConnectWithoutOwnerInput[]
+    createMany?: FormTemplateCreateManyOwnerInputEnvelope
+    connect?: FormTemplateWhereUniqueInput | FormTemplateWhereUniqueInput[]
   }
 
   export type WhatsAppInstanceUncheckedCreateNestedManyWithoutOwnerInput = {
@@ -61480,6 +63143,20 @@ export namespace Prisma {
     deleteMany?: MessageTemplateScalarWhereInput | MessageTemplateScalarWhereInput[]
   }
 
+  export type FormTemplateUpdateManyWithoutOwnerNestedInput = {
+    create?: XOR<FormTemplateCreateWithoutOwnerInput, FormTemplateUncheckedCreateWithoutOwnerInput> | FormTemplateCreateWithoutOwnerInput[] | FormTemplateUncheckedCreateWithoutOwnerInput[]
+    connectOrCreate?: FormTemplateCreateOrConnectWithoutOwnerInput | FormTemplateCreateOrConnectWithoutOwnerInput[]
+    upsert?: FormTemplateUpsertWithWhereUniqueWithoutOwnerInput | FormTemplateUpsertWithWhereUniqueWithoutOwnerInput[]
+    createMany?: FormTemplateCreateManyOwnerInputEnvelope
+    set?: FormTemplateWhereUniqueInput | FormTemplateWhereUniqueInput[]
+    disconnect?: FormTemplateWhereUniqueInput | FormTemplateWhereUniqueInput[]
+    delete?: FormTemplateWhereUniqueInput | FormTemplateWhereUniqueInput[]
+    connect?: FormTemplateWhereUniqueInput | FormTemplateWhereUniqueInput[]
+    update?: FormTemplateUpdateWithWhereUniqueWithoutOwnerInput | FormTemplateUpdateWithWhereUniqueWithoutOwnerInput[]
+    updateMany?: FormTemplateUpdateManyWithWhereWithoutOwnerInput | FormTemplateUpdateManyWithWhereWithoutOwnerInput[]
+    deleteMany?: FormTemplateScalarWhereInput | FormTemplateScalarWhereInput[]
+  }
+
   export type WhatsAppInstanceUpdateManyWithoutOwnerNestedInput = {
     create?: XOR<WhatsAppInstanceCreateWithoutOwnerInput, WhatsAppInstanceUncheckedCreateWithoutOwnerInput> | WhatsAppInstanceCreateWithoutOwnerInput[] | WhatsAppInstanceUncheckedCreateWithoutOwnerInput[]
     connectOrCreate?: WhatsAppInstanceCreateOrConnectWithoutOwnerInput | WhatsAppInstanceCreateOrConnectWithoutOwnerInput[]
@@ -61754,6 +63431,20 @@ export namespace Prisma {
     deleteMany?: MessageTemplateScalarWhereInput | MessageTemplateScalarWhereInput[]
   }
 
+  export type FormTemplateUncheckedUpdateManyWithoutOwnerNestedInput = {
+    create?: XOR<FormTemplateCreateWithoutOwnerInput, FormTemplateUncheckedCreateWithoutOwnerInput> | FormTemplateCreateWithoutOwnerInput[] | FormTemplateUncheckedCreateWithoutOwnerInput[]
+    connectOrCreate?: FormTemplateCreateOrConnectWithoutOwnerInput | FormTemplateCreateOrConnectWithoutOwnerInput[]
+    upsert?: FormTemplateUpsertWithWhereUniqueWithoutOwnerInput | FormTemplateUpsertWithWhereUniqueWithoutOwnerInput[]
+    createMany?: FormTemplateCreateManyOwnerInputEnvelope
+    set?: FormTemplateWhereUniqueInput | FormTemplateWhereUniqueInput[]
+    disconnect?: FormTemplateWhereUniqueInput | FormTemplateWhereUniqueInput[]
+    delete?: FormTemplateWhereUniqueInput | FormTemplateWhereUniqueInput[]
+    connect?: FormTemplateWhereUniqueInput | FormTemplateWhereUniqueInput[]
+    update?: FormTemplateUpdateWithWhereUniqueWithoutOwnerInput | FormTemplateUpdateWithWhereUniqueWithoutOwnerInput[]
+    updateMany?: FormTemplateUpdateManyWithWhereWithoutOwnerInput | FormTemplateUpdateManyWithWhereWithoutOwnerInput[]
+    deleteMany?: FormTemplateScalarWhereInput | FormTemplateScalarWhereInput[]
+  }
+
   export type WhatsAppInstanceUncheckedUpdateManyWithoutOwnerNestedInput = {
     create?: XOR<WhatsAppInstanceCreateWithoutOwnerInput, WhatsAppInstanceUncheckedCreateWithoutOwnerInput> | WhatsAppInstanceCreateWithoutOwnerInput[] | WhatsAppInstanceUncheckedCreateWithoutOwnerInput[]
     connectOrCreate?: WhatsAppInstanceCreateOrConnectWithoutOwnerInput | WhatsAppInstanceCreateOrConnectWithoutOwnerInput[]
@@ -61900,6 +63591,12 @@ export namespace Prisma {
     connect?: MessageTemplateWhereUniqueInput | MessageTemplateWhereUniqueInput[]
   }
 
+  export type FormTemplateCreateNestedOneWithoutFirmInput = {
+    create?: XOR<FormTemplateCreateWithoutFirmInput, FormTemplateUncheckedCreateWithoutFirmInput>
+    connectOrCreate?: FormTemplateCreateOrConnectWithoutFirmInput
+    connect?: FormTemplateWhereUniqueInput
+  }
+
   export type WhatsAppInstanceCreateNestedOneWithoutFirmInput = {
     create?: XOR<WhatsAppInstanceCreateWithoutFirmInput, WhatsAppInstanceUncheckedCreateWithoutFirmInput>
     connectOrCreate?: WhatsAppInstanceCreateOrConnectWithoutFirmInput
@@ -62030,6 +63727,12 @@ export namespace Prisma {
     connectOrCreate?: MessageTemplateCreateOrConnectWithoutFirmInput | MessageTemplateCreateOrConnectWithoutFirmInput[]
     createMany?: MessageTemplateCreateManyFirmInputEnvelope
     connect?: MessageTemplateWhereUniqueInput | MessageTemplateWhereUniqueInput[]
+  }
+
+  export type FormTemplateUncheckedCreateNestedOneWithoutFirmInput = {
+    create?: XOR<FormTemplateCreateWithoutFirmInput, FormTemplateUncheckedCreateWithoutFirmInput>
+    connectOrCreate?: FormTemplateCreateOrConnectWithoutFirmInput
+    connect?: FormTemplateWhereUniqueInput
   }
 
   export type WhatsAppInstanceUncheckedCreateNestedOneWithoutFirmInput = {
@@ -62306,6 +64009,16 @@ export namespace Prisma {
     deleteMany?: MessageTemplateScalarWhereInput | MessageTemplateScalarWhereInput[]
   }
 
+  export type FormTemplateUpdateOneWithoutFirmNestedInput = {
+    create?: XOR<FormTemplateCreateWithoutFirmInput, FormTemplateUncheckedCreateWithoutFirmInput>
+    connectOrCreate?: FormTemplateCreateOrConnectWithoutFirmInput
+    upsert?: FormTemplateUpsertWithoutFirmInput
+    disconnect?: FormTemplateWhereInput | boolean
+    delete?: FormTemplateWhereInput | boolean
+    connect?: FormTemplateWhereUniqueInput
+    update?: XOR<XOR<FormTemplateUpdateToOneWithWhereWithoutFirmInput, FormTemplateUpdateWithoutFirmInput>, FormTemplateUncheckedUpdateWithoutFirmInput>
+  }
+
   export type WhatsAppInstanceUpdateOneWithoutFirmNestedInput = {
     create?: XOR<WhatsAppInstanceCreateWithoutFirmInput, WhatsAppInstanceUncheckedCreateWithoutFirmInput>
     connectOrCreate?: WhatsAppInstanceCreateOrConnectWithoutFirmInput
@@ -62566,6 +64279,16 @@ export namespace Prisma {
     update?: MessageTemplateUpdateWithWhereUniqueWithoutFirmInput | MessageTemplateUpdateWithWhereUniqueWithoutFirmInput[]
     updateMany?: MessageTemplateUpdateManyWithWhereWithoutFirmInput | MessageTemplateUpdateManyWithWhereWithoutFirmInput[]
     deleteMany?: MessageTemplateScalarWhereInput | MessageTemplateScalarWhereInput[]
+  }
+
+  export type FormTemplateUncheckedUpdateOneWithoutFirmNestedInput = {
+    create?: XOR<FormTemplateCreateWithoutFirmInput, FormTemplateUncheckedCreateWithoutFirmInput>
+    connectOrCreate?: FormTemplateCreateOrConnectWithoutFirmInput
+    upsert?: FormTemplateUpsertWithoutFirmInput
+    disconnect?: FormTemplateWhereInput | boolean
+    delete?: FormTemplateWhereInput | boolean
+    connect?: FormTemplateWhereUniqueInput
+    update?: XOR<XOR<FormTemplateUpdateToOneWithWhereWithoutFirmInput, FormTemplateUpdateWithoutFirmInput>, FormTemplateUncheckedUpdateWithoutFirmInput>
   }
 
   export type WhatsAppInstanceUncheckedUpdateOneWithoutFirmNestedInput = {
@@ -66970,6 +68693,38 @@ export namespace Prisma {
     update?: XOR<XOR<FirmUpdateToOneWithWhereWithoutMessageTemplatesInput, FirmUpdateWithoutMessageTemplatesInput>, FirmUncheckedUpdateWithoutMessageTemplatesInput>
   }
 
+  export type OwnerCreateNestedOneWithoutFormTemplatesInput = {
+    create?: XOR<OwnerCreateWithoutFormTemplatesInput, OwnerUncheckedCreateWithoutFormTemplatesInput>
+    connectOrCreate?: OwnerCreateOrConnectWithoutFormTemplatesInput
+    connect?: OwnerWhereUniqueInput
+  }
+
+  export type FirmCreateNestedOneWithoutFormTemplateInput = {
+    create?: XOR<FirmCreateWithoutFormTemplateInput, FirmUncheckedCreateWithoutFormTemplateInput>
+    connectOrCreate?: FirmCreateOrConnectWithoutFormTemplateInput
+    connect?: FirmWhereUniqueInput
+  }
+
+  export type EnumFormTemplateStatusFieldUpdateOperationsInput = {
+    set?: $Enums.FormTemplateStatus
+  }
+
+  export type OwnerUpdateOneRequiredWithoutFormTemplatesNestedInput = {
+    create?: XOR<OwnerCreateWithoutFormTemplatesInput, OwnerUncheckedCreateWithoutFormTemplatesInput>
+    connectOrCreate?: OwnerCreateOrConnectWithoutFormTemplatesInput
+    upsert?: OwnerUpsertWithoutFormTemplatesInput
+    connect?: OwnerWhereUniqueInput
+    update?: XOR<XOR<OwnerUpdateToOneWithWhereWithoutFormTemplatesInput, OwnerUpdateWithoutFormTemplatesInput>, OwnerUncheckedUpdateWithoutFormTemplatesInput>
+  }
+
+  export type FirmUpdateOneRequiredWithoutFormTemplateNestedInput = {
+    create?: XOR<FirmCreateWithoutFormTemplateInput, FirmUncheckedCreateWithoutFormTemplateInput>
+    connectOrCreate?: FirmCreateOrConnectWithoutFormTemplateInput
+    upsert?: FirmUpsertWithoutFormTemplateInput
+    connect?: FirmWhereUniqueInput
+    update?: XOR<XOR<FirmUpdateToOneWithWhereWithoutFormTemplateInput, FirmUpdateWithoutFormTemplateInput>, FirmUncheckedUpdateWithoutFormTemplateInput>
+  }
+
   export type OwnerCreateNestedOneWithoutWhatsappInstancesInput = {
     create?: XOR<OwnerCreateWithoutWhatsappInstancesInput, OwnerUncheckedCreateWithoutWhatsappInstancesInput>
     connectOrCreate?: OwnerCreateOrConnectWithoutWhatsappInstancesInput
@@ -67673,6 +69428,45 @@ export namespace Prisma {
     _max?: NestedEnumMessageTemplateStatusFilter<$PrismaModel>
   }
 
+  export type NestedEnumFormTemplateStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.FormTemplateStatus | EnumFormTemplateStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.FormTemplateStatus[] | ListEnumFormTemplateStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.FormTemplateStatus[] | ListEnumFormTemplateStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumFormTemplateStatusFilter<$PrismaModel> | $Enums.FormTemplateStatus
+  }
+  export type NestedJsonFilter<$PrismaModel = never> = 
+    | PatchUndefined<
+        Either<Required<NestedJsonFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>
+
+  export type NestedJsonFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
+
+  export type NestedEnumFormTemplateStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.FormTemplateStatus | EnumFormTemplateStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.FormTemplateStatus[] | ListEnumFormTemplateStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.FormTemplateStatus[] | ListEnumFormTemplateStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumFormTemplateStatusWithAggregatesFilter<$PrismaModel> | $Enums.FormTemplateStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumFormTemplateStatusFilter<$PrismaModel>
+    _max?: NestedEnumFormTemplateStatusFilter<$PrismaModel>
+  }
+
   export type NestedEnumWhatsAppInstanceStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.WhatsAppInstanceStatus | EnumWhatsAppInstanceStatusFieldRefInput<$PrismaModel>
     in?: $Enums.WhatsAppInstanceStatus[] | ListEnumWhatsAppInstanceStatusFieldRefInput<$PrismaModel>
@@ -67907,6 +69701,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
     releaseUsers?: ReleaseUserCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateCreateNestedManyWithoutFirmInput
+    formTemplate?: FormTemplateCreateNestedOneWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceCreateNestedOneWithoutFirmInput
   }
 
@@ -67978,6 +69773,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
     releaseUsers?: ReleaseUserUncheckedCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutFirmInput
+    formTemplate?: FormTemplateUncheckedCreateNestedOneWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceUncheckedCreateNestedOneWithoutFirmInput
   }
 
@@ -69331,6 +71127,47 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type FormTemplateCreateWithoutOwnerInput = {
+    ft_uuid?: string
+    ft_config: JsonNullValueInput | InputJsonValue
+    ft_status?: $Enums.FormTemplateStatus
+    ft_is_system?: boolean
+    ft_created_at?: Date | string
+    ft_created_by?: string | null
+    ft_updated_at?: Date | string
+    ft_updated_by?: string | null
+    ft_deleted_at?: Date | string | null
+    ft_deleted_by?: string | null
+    ft_is_deleted?: boolean
+    firm: FirmCreateNestedOneWithoutFormTemplateInput
+  }
+
+  export type FormTemplateUncheckedCreateWithoutOwnerInput = {
+    ft_id?: number
+    ft_uuid?: string
+    ft_firm_id: number
+    ft_config: JsonNullValueInput | InputJsonValue
+    ft_status?: $Enums.FormTemplateStatus
+    ft_is_system?: boolean
+    ft_created_at?: Date | string
+    ft_created_by?: string | null
+    ft_updated_at?: Date | string
+    ft_updated_by?: string | null
+    ft_deleted_at?: Date | string | null
+    ft_deleted_by?: string | null
+    ft_is_deleted?: boolean
+  }
+
+  export type FormTemplateCreateOrConnectWithoutOwnerInput = {
+    where: FormTemplateWhereUniqueInput
+    create: XOR<FormTemplateCreateWithoutOwnerInput, FormTemplateUncheckedCreateWithoutOwnerInput>
+  }
+
+  export type FormTemplateCreateManyOwnerInputEnvelope = {
+    data: FormTemplateCreateManyOwnerInput | FormTemplateCreateManyOwnerInput[]
+    skipDuplicates?: boolean
+  }
+
   export type WhatsAppInstanceCreateWithoutOwnerInput = {
     wa_uuid?: string
     wa_provider?: string
@@ -70388,6 +72225,42 @@ export namespace Prisma {
     mt_is_deleted?: BoolFilter<"MessageTemplate"> | boolean
   }
 
+  export type FormTemplateUpsertWithWhereUniqueWithoutOwnerInput = {
+    where: FormTemplateWhereUniqueInput
+    update: XOR<FormTemplateUpdateWithoutOwnerInput, FormTemplateUncheckedUpdateWithoutOwnerInput>
+    create: XOR<FormTemplateCreateWithoutOwnerInput, FormTemplateUncheckedCreateWithoutOwnerInput>
+  }
+
+  export type FormTemplateUpdateWithWhereUniqueWithoutOwnerInput = {
+    where: FormTemplateWhereUniqueInput
+    data: XOR<FormTemplateUpdateWithoutOwnerInput, FormTemplateUncheckedUpdateWithoutOwnerInput>
+  }
+
+  export type FormTemplateUpdateManyWithWhereWithoutOwnerInput = {
+    where: FormTemplateScalarWhereInput
+    data: XOR<FormTemplateUpdateManyMutationInput, FormTemplateUncheckedUpdateManyWithoutOwnerInput>
+  }
+
+  export type FormTemplateScalarWhereInput = {
+    AND?: FormTemplateScalarWhereInput | FormTemplateScalarWhereInput[]
+    OR?: FormTemplateScalarWhereInput[]
+    NOT?: FormTemplateScalarWhereInput | FormTemplateScalarWhereInput[]
+    ft_id?: IntFilter<"FormTemplate"> | number
+    ft_uuid?: StringFilter<"FormTemplate"> | string
+    ft_own_id?: IntFilter<"FormTemplate"> | number
+    ft_firm_id?: IntFilter<"FormTemplate"> | number
+    ft_config?: JsonFilter<"FormTemplate">
+    ft_status?: EnumFormTemplateStatusFilter<"FormTemplate"> | $Enums.FormTemplateStatus
+    ft_is_system?: BoolFilter<"FormTemplate"> | boolean
+    ft_created_at?: DateTimeFilter<"FormTemplate"> | Date | string
+    ft_created_by?: StringNullableFilter<"FormTemplate"> | string | null
+    ft_updated_at?: DateTimeFilter<"FormTemplate"> | Date | string
+    ft_updated_by?: StringNullableFilter<"FormTemplate"> | string | null
+    ft_deleted_at?: DateTimeNullableFilter<"FormTemplate"> | Date | string | null
+    ft_deleted_by?: StringNullableFilter<"FormTemplate"> | string | null
+    ft_is_deleted?: BoolFilter<"FormTemplate"> | boolean
+  }
+
   export type WhatsAppInstanceUpsertWithWhereUniqueWithoutOwnerInput = {
     where: WhatsAppInstanceWhereUniqueInput
     update: XOR<WhatsAppInstanceUpdateWithoutOwnerInput, WhatsAppInstanceUncheckedUpdateWithoutOwnerInput>
@@ -70768,6 +72641,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderCreateNestedManyWithoutOwnerInput
     staff?: StaffCreateNestedManyWithoutOwnerInput
     messageTemplates?: MessageTemplateCreateNestedManyWithoutOwnerInput
+    formTemplates?: FormTemplateCreateNestedManyWithoutOwnerInput
     whatsappInstances?: WhatsAppInstanceCreateNestedManyWithoutOwnerInput
   }
 
@@ -70830,6 +72704,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutOwnerInput
     staff?: StaffUncheckedCreateNestedManyWithoutOwnerInput
     messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutOwnerInput
+    formTemplates?: FormTemplateUncheckedCreateNestedManyWithoutOwnerInput
     whatsappInstances?: WhatsAppInstanceUncheckedCreateNestedManyWithoutOwnerInput
   }
 
@@ -72030,6 +73905,42 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type FormTemplateCreateWithoutFirmInput = {
+    ft_uuid?: string
+    ft_config: JsonNullValueInput | InputJsonValue
+    ft_status?: $Enums.FormTemplateStatus
+    ft_is_system?: boolean
+    ft_created_at?: Date | string
+    ft_created_by?: string | null
+    ft_updated_at?: Date | string
+    ft_updated_by?: string | null
+    ft_deleted_at?: Date | string | null
+    ft_deleted_by?: string | null
+    ft_is_deleted?: boolean
+    owner: OwnerCreateNestedOneWithoutFormTemplatesInput
+  }
+
+  export type FormTemplateUncheckedCreateWithoutFirmInput = {
+    ft_id?: number
+    ft_uuid?: string
+    ft_own_id: number
+    ft_config: JsonNullValueInput | InputJsonValue
+    ft_status?: $Enums.FormTemplateStatus
+    ft_is_system?: boolean
+    ft_created_at?: Date | string
+    ft_created_by?: string | null
+    ft_updated_at?: Date | string
+    ft_updated_by?: string | null
+    ft_deleted_at?: Date | string | null
+    ft_deleted_by?: string | null
+    ft_is_deleted?: boolean
+  }
+
+  export type FormTemplateCreateOrConnectWithoutFirmInput = {
+    where: FormTemplateWhereUniqueInput
+    create: XOR<FormTemplateCreateWithoutFirmInput, FormTemplateUncheckedCreateWithoutFirmInput>
+  }
+
   export type WhatsAppInstanceCreateWithoutFirmInput = {
     wa_uuid?: string
     wa_provider?: string
@@ -72178,6 +74089,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUpdateManyWithoutOwnerNestedInput
     staff?: StaffUpdateManyWithoutOwnerNestedInput
     messageTemplates?: MessageTemplateUpdateManyWithoutOwnerNestedInput
+    formTemplates?: FormTemplateUpdateManyWithoutOwnerNestedInput
     whatsappInstances?: WhatsAppInstanceUpdateManyWithoutOwnerNestedInput
   }
 
@@ -72240,6 +74152,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutOwnerNestedInput
     staff?: StaffUncheckedUpdateManyWithoutOwnerNestedInput
     messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutOwnerNestedInput
+    formTemplates?: FormTemplateUncheckedUpdateManyWithoutOwnerNestedInput
     whatsappInstances?: WhatsAppInstanceUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
@@ -72578,6 +74491,48 @@ export namespace Prisma {
     data: XOR<MessageTemplateUpdateManyMutationInput, MessageTemplateUncheckedUpdateManyWithoutFirmInput>
   }
 
+  export type FormTemplateUpsertWithoutFirmInput = {
+    update: XOR<FormTemplateUpdateWithoutFirmInput, FormTemplateUncheckedUpdateWithoutFirmInput>
+    create: XOR<FormTemplateCreateWithoutFirmInput, FormTemplateUncheckedCreateWithoutFirmInput>
+    where?: FormTemplateWhereInput
+  }
+
+  export type FormTemplateUpdateToOneWithWhereWithoutFirmInput = {
+    where?: FormTemplateWhereInput
+    data: XOR<FormTemplateUpdateWithoutFirmInput, FormTemplateUncheckedUpdateWithoutFirmInput>
+  }
+
+  export type FormTemplateUpdateWithoutFirmInput = {
+    ft_uuid?: StringFieldUpdateOperationsInput | string
+    ft_config?: JsonNullValueInput | InputJsonValue
+    ft_status?: EnumFormTemplateStatusFieldUpdateOperationsInput | $Enums.FormTemplateStatus
+    ft_is_system?: BoolFieldUpdateOperationsInput | boolean
+    ft_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    ft_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ft_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    ft_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ft_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ft_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ft_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    owner?: OwnerUpdateOneRequiredWithoutFormTemplatesNestedInput
+  }
+
+  export type FormTemplateUncheckedUpdateWithoutFirmInput = {
+    ft_id?: IntFieldUpdateOperationsInput | number
+    ft_uuid?: StringFieldUpdateOperationsInput | string
+    ft_own_id?: IntFieldUpdateOperationsInput | number
+    ft_config?: JsonNullValueInput | InputJsonValue
+    ft_status?: EnumFormTemplateStatusFieldUpdateOperationsInput | $Enums.FormTemplateStatus
+    ft_is_system?: BoolFieldUpdateOperationsInput | boolean
+    ft_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    ft_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ft_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    ft_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ft_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ft_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ft_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
   export type WhatsAppInstanceUpsertWithoutFirmInput = {
     update: XOR<WhatsAppInstanceUpdateWithoutFirmInput, WhatsAppInstanceUncheckedUpdateWithoutFirmInput>
     create: XOR<WhatsAppInstanceCreateWithoutFirmInput, WhatsAppInstanceUncheckedCreateWithoutFirmInput>
@@ -72690,6 +74645,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderCreateNestedManyWithoutOwnerInput
     staff?: StaffCreateNestedManyWithoutOwnerInput
     messageTemplates?: MessageTemplateCreateNestedManyWithoutOwnerInput
+    formTemplates?: FormTemplateCreateNestedManyWithoutOwnerInput
     whatsappInstances?: WhatsAppInstanceCreateNestedManyWithoutOwnerInput
   }
 
@@ -72752,6 +74708,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutOwnerInput
     staff?: StaffUncheckedCreateNestedManyWithoutOwnerInput
     messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutOwnerInput
+    formTemplates?: FormTemplateUncheckedCreateNestedManyWithoutOwnerInput
     whatsappInstances?: WhatsAppInstanceUncheckedCreateNestedManyWithoutOwnerInput
   }
 
@@ -72827,6 +74784,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
     releaseUsers?: ReleaseUserCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateCreateNestedManyWithoutFirmInput
+    formTemplate?: FormTemplateCreateNestedOneWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceCreateNestedOneWithoutFirmInput
   }
 
@@ -72898,6 +74856,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
     releaseUsers?: ReleaseUserUncheckedCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutFirmInput
+    formTemplate?: FormTemplateUncheckedCreateNestedOneWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceUncheckedCreateNestedOneWithoutFirmInput
   }
 
@@ -77047,6 +79006,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUpdateManyWithoutOwnerNestedInput
     staff?: StaffUpdateManyWithoutOwnerNestedInput
     messageTemplates?: MessageTemplateUpdateManyWithoutOwnerNestedInput
+    formTemplates?: FormTemplateUpdateManyWithoutOwnerNestedInput
     whatsappInstances?: WhatsAppInstanceUpdateManyWithoutOwnerNestedInput
   }
 
@@ -77109,6 +79069,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutOwnerNestedInput
     staff?: StaffUncheckedUpdateManyWithoutOwnerNestedInput
     messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutOwnerNestedInput
+    formTemplates?: FormTemplateUncheckedUpdateManyWithoutOwnerNestedInput
     whatsappInstances?: WhatsAppInstanceUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
@@ -77190,6 +79151,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
     releaseUsers?: ReleaseUserUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUpdateManyWithoutFirmNestedInput
+    formTemplate?: FormTemplateUpdateOneWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUpdateOneWithoutFirmNestedInput
   }
 
@@ -77261,6 +79223,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
     releaseUsers?: ReleaseUserUncheckedUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutFirmNestedInput
+    formTemplate?: FormTemplateUncheckedUpdateOneWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUncheckedUpdateOneWithoutFirmNestedInput
   }
 
@@ -78010,6 +79973,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderCreateNestedManyWithoutOwnerInput
     staff?: StaffCreateNestedManyWithoutOwnerInput
     messageTemplates?: MessageTemplateCreateNestedManyWithoutOwnerInput
+    formTemplates?: FormTemplateCreateNestedManyWithoutOwnerInput
     whatsappInstances?: WhatsAppInstanceCreateNestedManyWithoutOwnerInput
   }
 
@@ -78072,6 +80036,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutOwnerInput
     staff?: StaffUncheckedCreateNestedManyWithoutOwnerInput
     messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutOwnerInput
+    formTemplates?: FormTemplateUncheckedCreateNestedManyWithoutOwnerInput
     whatsappInstances?: WhatsAppInstanceUncheckedCreateNestedManyWithoutOwnerInput
   }
 
@@ -78147,6 +80112,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
     releaseUsers?: ReleaseUserCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateCreateNestedManyWithoutFirmInput
+    formTemplate?: FormTemplateCreateNestedOneWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceCreateNestedOneWithoutFirmInput
   }
 
@@ -78218,6 +80184,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
     releaseUsers?: ReleaseUserUncheckedCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutFirmInput
+    formTemplate?: FormTemplateUncheckedCreateNestedOneWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceUncheckedCreateNestedOneWithoutFirmInput
   }
 
@@ -79134,6 +81101,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUpdateManyWithoutOwnerNestedInput
     staff?: StaffUpdateManyWithoutOwnerNestedInput
     messageTemplates?: MessageTemplateUpdateManyWithoutOwnerNestedInput
+    formTemplates?: FormTemplateUpdateManyWithoutOwnerNestedInput
     whatsappInstances?: WhatsAppInstanceUpdateManyWithoutOwnerNestedInput
   }
 
@@ -79196,6 +81164,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutOwnerNestedInput
     staff?: StaffUncheckedUpdateManyWithoutOwnerNestedInput
     messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutOwnerNestedInput
+    formTemplates?: FormTemplateUncheckedUpdateManyWithoutOwnerNestedInput
     whatsappInstances?: WhatsAppInstanceUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
@@ -79277,6 +81246,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
     releaseUsers?: ReleaseUserUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUpdateManyWithoutFirmNestedInput
+    formTemplate?: FormTemplateUpdateOneWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUpdateOneWithoutFirmNestedInput
   }
 
@@ -79348,6 +81318,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
     releaseUsers?: ReleaseUserUncheckedUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutFirmNestedInput
+    formTemplate?: FormTemplateUncheckedUpdateOneWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUncheckedUpdateOneWithoutFirmNestedInput
   }
 
@@ -79578,6 +81549,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
     releaseUsers?: ReleaseUserCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateCreateNestedManyWithoutFirmInput
+    formTemplate?: FormTemplateCreateNestedOneWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceCreateNestedOneWithoutFirmInput
   }
 
@@ -79649,6 +81621,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
     releaseUsers?: ReleaseUserUncheckedCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutFirmInput
+    formTemplate?: FormTemplateUncheckedCreateNestedOneWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceUncheckedCreateNestedOneWithoutFirmInput
   }
 
@@ -80743,6 +82716,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderCreateNestedManyWithoutOwnerInput
     staff?: StaffCreateNestedManyWithoutOwnerInput
     messageTemplates?: MessageTemplateCreateNestedManyWithoutOwnerInput
+    formTemplates?: FormTemplateCreateNestedManyWithoutOwnerInput
     whatsappInstances?: WhatsAppInstanceCreateNestedManyWithoutOwnerInput
   }
 
@@ -80805,6 +82779,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutOwnerInput
     staff?: StaffUncheckedCreateNestedManyWithoutOwnerInput
     messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutOwnerInput
+    formTemplates?: FormTemplateUncheckedCreateNestedManyWithoutOwnerInput
     whatsappInstances?: WhatsAppInstanceUncheckedCreateNestedManyWithoutOwnerInput
   }
 
@@ -80891,6 +82866,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
     releaseUsers?: ReleaseUserUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUpdateManyWithoutFirmNestedInput
+    formTemplate?: FormTemplateUpdateOneWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUpdateOneWithoutFirmNestedInput
   }
 
@@ -80962,6 +82938,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
     releaseUsers?: ReleaseUserUncheckedUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutFirmNestedInput
+    formTemplate?: FormTemplateUncheckedUpdateOneWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUncheckedUpdateOneWithoutFirmNestedInput
   }
 
@@ -81979,6 +83956,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUpdateManyWithoutOwnerNestedInput
     staff?: StaffUpdateManyWithoutOwnerNestedInput
     messageTemplates?: MessageTemplateUpdateManyWithoutOwnerNestedInput
+    formTemplates?: FormTemplateUpdateManyWithoutOwnerNestedInput
     whatsappInstances?: WhatsAppInstanceUpdateManyWithoutOwnerNestedInput
   }
 
@@ -82041,6 +84019,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutOwnerNestedInput
     staff?: StaffUncheckedUpdateManyWithoutOwnerNestedInput
     messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutOwnerNestedInput
+    formTemplates?: FormTemplateUncheckedUpdateManyWithoutOwnerNestedInput
     whatsappInstances?: WhatsAppInstanceUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
@@ -82111,6 +84090,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
     releaseUsers?: ReleaseUserCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateCreateNestedManyWithoutFirmInput
+    formTemplate?: FormTemplateCreateNestedOneWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceCreateNestedOneWithoutFirmInput
   }
 
@@ -82182,6 +84162,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
     releaseUsers?: ReleaseUserUncheckedCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutFirmInput
+    formTemplate?: FormTemplateUncheckedCreateNestedOneWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceUncheckedCreateNestedOneWithoutFirmInput
   }
 
@@ -82366,6 +84347,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderCreateNestedManyWithoutOwnerInput
     staff?: StaffCreateNestedManyWithoutOwnerInput
     messageTemplates?: MessageTemplateCreateNestedManyWithoutOwnerInput
+    formTemplates?: FormTemplateCreateNestedManyWithoutOwnerInput
     whatsappInstances?: WhatsAppInstanceCreateNestedManyWithoutOwnerInput
   }
 
@@ -82428,6 +84410,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutOwnerInput
     staff?: StaffUncheckedCreateNestedManyWithoutOwnerInput
     messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutOwnerInput
+    formTemplates?: FormTemplateUncheckedCreateNestedManyWithoutOwnerInput
     whatsappInstances?: WhatsAppInstanceUncheckedCreateNestedManyWithoutOwnerInput
   }
 
@@ -83226,6 +85209,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
     releaseUsers?: ReleaseUserUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUpdateManyWithoutFirmNestedInput
+    formTemplate?: FormTemplateUpdateOneWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUpdateOneWithoutFirmNestedInput
   }
 
@@ -83297,6 +85281,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
     releaseUsers?: ReleaseUserUncheckedUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutFirmNestedInput
+    formTemplate?: FormTemplateUncheckedUpdateOneWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUncheckedUpdateOneWithoutFirmNestedInput
   }
 
@@ -83492,6 +85477,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUpdateManyWithoutOwnerNestedInput
     staff?: StaffUpdateManyWithoutOwnerNestedInput
     messageTemplates?: MessageTemplateUpdateManyWithoutOwnerNestedInput
+    formTemplates?: FormTemplateUpdateManyWithoutOwnerNestedInput
     whatsappInstances?: WhatsAppInstanceUpdateManyWithoutOwnerNestedInput
   }
 
@@ -83554,6 +85540,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutOwnerNestedInput
     staff?: StaffUncheckedUpdateManyWithoutOwnerNestedInput
     messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutOwnerNestedInput
+    formTemplates?: FormTemplateUncheckedUpdateManyWithoutOwnerNestedInput
     whatsappInstances?: WhatsAppInstanceUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
@@ -84366,6 +86353,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
     releaseUsers?: ReleaseUserCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateCreateNestedManyWithoutFirmInput
+    formTemplate?: FormTemplateCreateNestedOneWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceCreateNestedOneWithoutFirmInput
   }
 
@@ -84437,6 +86425,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
     releaseUsers?: ReleaseUserUncheckedCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutFirmInput
+    formTemplate?: FormTemplateUncheckedCreateNestedOneWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceUncheckedCreateNestedOneWithoutFirmInput
   }
 
@@ -84621,6 +86610,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderCreateNestedManyWithoutOwnerInput
     staff?: StaffCreateNestedManyWithoutOwnerInput
     messageTemplates?: MessageTemplateCreateNestedManyWithoutOwnerInput
+    formTemplates?: FormTemplateCreateNestedManyWithoutOwnerInput
     whatsappInstances?: WhatsAppInstanceCreateNestedManyWithoutOwnerInput
   }
 
@@ -84683,6 +86673,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutOwnerInput
     staff?: StaffUncheckedCreateNestedManyWithoutOwnerInput
     messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutOwnerInput
+    formTemplates?: FormTemplateUncheckedCreateNestedManyWithoutOwnerInput
     whatsappInstances?: WhatsAppInstanceUncheckedCreateNestedManyWithoutOwnerInput
   }
 
@@ -85679,6 +87670,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
     releaseUsers?: ReleaseUserUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUpdateManyWithoutFirmNestedInput
+    formTemplate?: FormTemplateUpdateOneWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUpdateOneWithoutFirmNestedInput
   }
 
@@ -85750,6 +87742,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
     releaseUsers?: ReleaseUserUncheckedUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutFirmNestedInput
+    formTemplate?: FormTemplateUncheckedUpdateOneWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUncheckedUpdateOneWithoutFirmNestedInput
   }
 
@@ -85945,6 +87938,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUpdateManyWithoutOwnerNestedInput
     staff?: StaffUpdateManyWithoutOwnerNestedInput
     messageTemplates?: MessageTemplateUpdateManyWithoutOwnerNestedInput
+    formTemplates?: FormTemplateUpdateManyWithoutOwnerNestedInput
     whatsappInstances?: WhatsAppInstanceUpdateManyWithoutOwnerNestedInput
   }
 
@@ -86007,6 +88001,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutOwnerNestedInput
     staff?: StaffUncheckedUpdateManyWithoutOwnerNestedInput
     messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutOwnerNestedInput
+    formTemplates?: FormTemplateUncheckedUpdateManyWithoutOwnerNestedInput
     whatsappInstances?: WhatsAppInstanceUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
@@ -87112,6 +89107,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
     releaseUsers?: ReleaseUserCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateCreateNestedManyWithoutFirmInput
+    formTemplate?: FormTemplateCreateNestedOneWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceCreateNestedOneWithoutFirmInput
   }
 
@@ -87183,6 +89179,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
     releaseUsers?: ReleaseUserUncheckedCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutFirmInput
+    formTemplate?: FormTemplateUncheckedCreateNestedOneWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceUncheckedCreateNestedOneWithoutFirmInput
   }
 
@@ -87367,6 +89364,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderCreateNestedManyWithoutOwnerInput
     staff?: StaffCreateNestedManyWithoutOwnerInput
     messageTemplates?: MessageTemplateCreateNestedManyWithoutOwnerInput
+    formTemplates?: FormTemplateCreateNestedManyWithoutOwnerInput
     whatsappInstances?: WhatsAppInstanceCreateNestedManyWithoutOwnerInput
   }
 
@@ -87429,6 +89427,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutOwnerInput
     staff?: StaffUncheckedCreateNestedManyWithoutOwnerInput
     messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutOwnerInput
+    formTemplates?: FormTemplateUncheckedCreateNestedManyWithoutOwnerInput
     whatsappInstances?: WhatsAppInstanceUncheckedCreateNestedManyWithoutOwnerInput
   }
 
@@ -87590,6 +89589,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
     releaseUsers?: ReleaseUserUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUpdateManyWithoutFirmNestedInput
+    formTemplate?: FormTemplateUpdateOneWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUpdateOneWithoutFirmNestedInput
   }
 
@@ -87661,6 +89661,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
     releaseUsers?: ReleaseUserUncheckedUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutFirmNestedInput
+    formTemplate?: FormTemplateUncheckedUpdateOneWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUncheckedUpdateOneWithoutFirmNestedInput
   }
 
@@ -87856,6 +89857,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUpdateManyWithoutOwnerNestedInput
     staff?: StaffUpdateManyWithoutOwnerNestedInput
     messageTemplates?: MessageTemplateUpdateManyWithoutOwnerNestedInput
+    formTemplates?: FormTemplateUpdateManyWithoutOwnerNestedInput
     whatsappInstances?: WhatsAppInstanceUpdateManyWithoutOwnerNestedInput
   }
 
@@ -87918,6 +89920,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutOwnerNestedInput
     staff?: StaffUncheckedUpdateManyWithoutOwnerNestedInput
     messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutOwnerNestedInput
+    formTemplates?: FormTemplateUncheckedUpdateManyWithoutOwnerNestedInput
     whatsappInstances?: WhatsAppInstanceUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
@@ -88050,6 +90053,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
     releaseUsers?: ReleaseUserCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateCreateNestedManyWithoutFirmInput
+    formTemplate?: FormTemplateCreateNestedOneWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceCreateNestedOneWithoutFirmInput
   }
 
@@ -88121,6 +90125,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
     releaseUsers?: ReleaseUserUncheckedCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutFirmInput
+    formTemplate?: FormTemplateUncheckedCreateNestedOneWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceUncheckedCreateNestedOneWithoutFirmInput
   }
 
@@ -88305,6 +90310,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderCreateNestedManyWithoutOwnerInput
     staff?: StaffCreateNestedManyWithoutOwnerInput
     messageTemplates?: MessageTemplateCreateNestedManyWithoutOwnerInput
+    formTemplates?: FormTemplateCreateNestedManyWithoutOwnerInput
     whatsappInstances?: WhatsAppInstanceCreateNestedManyWithoutOwnerInput
   }
 
@@ -88367,6 +90373,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutOwnerInput
     staff?: StaffUncheckedCreateNestedManyWithoutOwnerInput
     messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutOwnerInput
+    formTemplates?: FormTemplateUncheckedCreateNestedManyWithoutOwnerInput
     whatsappInstances?: WhatsAppInstanceUncheckedCreateNestedManyWithoutOwnerInput
   }
 
@@ -88809,6 +90816,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
     releaseUsers?: ReleaseUserUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUpdateManyWithoutFirmNestedInput
+    formTemplate?: FormTemplateUpdateOneWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUpdateOneWithoutFirmNestedInput
   }
 
@@ -88880,6 +90888,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
     releaseUsers?: ReleaseUserUncheckedUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutFirmNestedInput
+    formTemplate?: FormTemplateUncheckedUpdateOneWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUncheckedUpdateOneWithoutFirmNestedInput
   }
 
@@ -89075,6 +91084,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUpdateManyWithoutOwnerNestedInput
     staff?: StaffUpdateManyWithoutOwnerNestedInput
     messageTemplates?: MessageTemplateUpdateManyWithoutOwnerNestedInput
+    formTemplates?: FormTemplateUpdateManyWithoutOwnerNestedInput
     whatsappInstances?: WhatsAppInstanceUpdateManyWithoutOwnerNestedInput
   }
 
@@ -89137,6 +91147,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutOwnerNestedInput
     staff?: StaffUncheckedUpdateManyWithoutOwnerNestedInput
     messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutOwnerNestedInput
+    formTemplates?: FormTemplateUncheckedUpdateManyWithoutOwnerNestedInput
     whatsappInstances?: WhatsAppInstanceUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
@@ -89514,6 +91525,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderCreateNestedManyWithoutOwnerInput
     staff?: StaffCreateNestedManyWithoutOwnerInput
     messageTemplates?: MessageTemplateCreateNestedManyWithoutOwnerInput
+    formTemplates?: FormTemplateCreateNestedManyWithoutOwnerInput
     whatsappInstances?: WhatsAppInstanceCreateNestedManyWithoutOwnerInput
   }
 
@@ -89576,6 +91588,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutOwnerInput
     staff?: StaffUncheckedCreateNestedManyWithoutOwnerInput
     messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutOwnerInput
+    formTemplates?: FormTemplateUncheckedCreateNestedManyWithoutOwnerInput
     whatsappInstances?: WhatsAppInstanceUncheckedCreateNestedManyWithoutOwnerInput
   }
 
@@ -89651,6 +91664,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
     releaseUsers?: ReleaseUserCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateCreateNestedManyWithoutFirmInput
+    formTemplate?: FormTemplateCreateNestedOneWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceCreateNestedOneWithoutFirmInput
   }
 
@@ -89722,6 +91736,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
     releaseUsers?: ReleaseUserUncheckedCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutFirmInput
+    formTemplate?: FormTemplateUncheckedCreateNestedOneWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceUncheckedCreateNestedOneWithoutFirmInput
   }
 
@@ -91378,6 +93393,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUpdateManyWithoutOwnerNestedInput
     staff?: StaffUpdateManyWithoutOwnerNestedInput
     messageTemplates?: MessageTemplateUpdateManyWithoutOwnerNestedInput
+    formTemplates?: FormTemplateUpdateManyWithoutOwnerNestedInput
     whatsappInstances?: WhatsAppInstanceUpdateManyWithoutOwnerNestedInput
   }
 
@@ -91440,6 +93456,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutOwnerNestedInput
     staff?: StaffUncheckedUpdateManyWithoutOwnerNestedInput
     messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutOwnerNestedInput
+    formTemplates?: FormTemplateUncheckedUpdateManyWithoutOwnerNestedInput
     whatsappInstances?: WhatsAppInstanceUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
@@ -91521,6 +93538,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
     releaseUsers?: ReleaseUserUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUpdateManyWithoutFirmNestedInput
+    formTemplate?: FormTemplateUpdateOneWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUpdateOneWithoutFirmNestedInput
   }
 
@@ -91592,6 +93610,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
     releaseUsers?: ReleaseUserUncheckedUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutFirmNestedInput
+    formTemplate?: FormTemplateUncheckedUpdateOneWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUncheckedUpdateOneWithoutFirmNestedInput
   }
 
@@ -93027,6 +95046,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderCreateNestedManyWithoutOwnerInput
     staff?: StaffCreateNestedManyWithoutOwnerInput
     messageTemplates?: MessageTemplateCreateNestedManyWithoutOwnerInput
+    formTemplates?: FormTemplateCreateNestedManyWithoutOwnerInput
     whatsappInstances?: WhatsAppInstanceCreateNestedManyWithoutOwnerInput
   }
 
@@ -93089,6 +95109,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutOwnerInput
     staff?: StaffUncheckedCreateNestedManyWithoutOwnerInput
     messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutOwnerInput
+    formTemplates?: FormTemplateUncheckedCreateNestedManyWithoutOwnerInput
     whatsappInstances?: WhatsAppInstanceUncheckedCreateNestedManyWithoutOwnerInput
   }
 
@@ -93164,6 +95185,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
     releaseUsers?: ReleaseUserCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateCreateNestedManyWithoutFirmInput
+    formTemplate?: FormTemplateCreateNestedOneWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceCreateNestedOneWithoutFirmInput
   }
 
@@ -93235,6 +95257,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
     releaseUsers?: ReleaseUserUncheckedCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutFirmInput
+    formTemplate?: FormTemplateUncheckedCreateNestedOneWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceUncheckedCreateNestedOneWithoutFirmInput
   }
 
@@ -93429,6 +95452,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUpdateManyWithoutOwnerNestedInput
     staff?: StaffUpdateManyWithoutOwnerNestedInput
     messageTemplates?: MessageTemplateUpdateManyWithoutOwnerNestedInput
+    formTemplates?: FormTemplateUpdateManyWithoutOwnerNestedInput
     whatsappInstances?: WhatsAppInstanceUpdateManyWithoutOwnerNestedInput
   }
 
@@ -93491,6 +95515,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutOwnerNestedInput
     staff?: StaffUncheckedUpdateManyWithoutOwnerNestedInput
     messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutOwnerNestedInput
+    formTemplates?: FormTemplateUncheckedUpdateManyWithoutOwnerNestedInput
     whatsappInstances?: WhatsAppInstanceUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
@@ -93572,6 +95597,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
     releaseUsers?: ReleaseUserUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUpdateManyWithoutFirmNestedInput
+    formTemplate?: FormTemplateUpdateOneWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUpdateOneWithoutFirmNestedInput
   }
 
@@ -93643,6 +95669,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
     releaseUsers?: ReleaseUserUncheckedUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutFirmNestedInput
+    formTemplate?: FormTemplateUncheckedUpdateOneWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUncheckedUpdateOneWithoutFirmNestedInput
   }
 
@@ -93828,6 +95855,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderCreateNestedManyWithoutOwnerInput
     staff?: StaffCreateNestedManyWithoutOwnerInput
     messageTemplates?: MessageTemplateCreateNestedManyWithoutOwnerInput
+    formTemplates?: FormTemplateCreateNestedManyWithoutOwnerInput
     whatsappInstances?: WhatsAppInstanceCreateNestedManyWithoutOwnerInput
   }
 
@@ -93890,6 +95918,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutOwnerInput
     staff?: StaffUncheckedCreateNestedManyWithoutOwnerInput
     messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutOwnerInput
+    formTemplates?: FormTemplateUncheckedCreateNestedManyWithoutOwnerInput
     whatsappInstances?: WhatsAppInstanceUncheckedCreateNestedManyWithoutOwnerInput
   }
 
@@ -93965,6 +95994,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
     releaseUsers?: ReleaseUserCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateCreateNestedManyWithoutFirmInput
+    formTemplate?: FormTemplateCreateNestedOneWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceCreateNestedOneWithoutFirmInput
   }
 
@@ -94036,6 +96066,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
     releaseUsers?: ReleaseUserUncheckedCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutFirmInput
+    formTemplate?: FormTemplateUncheckedCreateNestedOneWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceUncheckedCreateNestedOneWithoutFirmInput
   }
 
@@ -94966,6 +96997,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUpdateManyWithoutOwnerNestedInput
     staff?: StaffUpdateManyWithoutOwnerNestedInput
     messageTemplates?: MessageTemplateUpdateManyWithoutOwnerNestedInput
+    formTemplates?: FormTemplateUpdateManyWithoutOwnerNestedInput
     whatsappInstances?: WhatsAppInstanceUpdateManyWithoutOwnerNestedInput
   }
 
@@ -95028,6 +97060,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutOwnerNestedInput
     staff?: StaffUncheckedUpdateManyWithoutOwnerNestedInput
     messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutOwnerNestedInput
+    formTemplates?: FormTemplateUncheckedUpdateManyWithoutOwnerNestedInput
     whatsappInstances?: WhatsAppInstanceUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
@@ -95109,6 +97142,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
     releaseUsers?: ReleaseUserUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUpdateManyWithoutFirmNestedInput
+    formTemplate?: FormTemplateUpdateOneWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUpdateOneWithoutFirmNestedInput
   }
 
@@ -95180,6 +97214,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
     releaseUsers?: ReleaseUserUncheckedUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutFirmNestedInput
+    formTemplate?: FormTemplateUncheckedUpdateOneWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUncheckedUpdateOneWithoutFirmNestedInput
   }
 
@@ -96131,6 +98166,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderCreateNestedManyWithoutOwnerInput
     staff?: StaffCreateNestedManyWithoutOwnerInput
     messageTemplates?: MessageTemplateCreateNestedManyWithoutOwnerInput
+    formTemplates?: FormTemplateCreateNestedManyWithoutOwnerInput
     whatsappInstances?: WhatsAppInstanceCreateNestedManyWithoutOwnerInput
   }
 
@@ -96193,6 +98229,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutOwnerInput
     staff?: StaffUncheckedCreateNestedManyWithoutOwnerInput
     messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutOwnerInput
+    formTemplates?: FormTemplateUncheckedCreateNestedManyWithoutOwnerInput
     whatsappInstances?: WhatsAppInstanceUncheckedCreateNestedManyWithoutOwnerInput
   }
 
@@ -96268,6 +98305,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
     releaseUsers?: ReleaseUserCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateCreateNestedManyWithoutFirmInput
+    formTemplate?: FormTemplateCreateNestedOneWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceCreateNestedOneWithoutFirmInput
   }
 
@@ -96339,6 +98377,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
     releaseUsers?: ReleaseUserUncheckedCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutFirmInput
+    formTemplate?: FormTemplateUncheckedCreateNestedOneWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceUncheckedCreateNestedOneWithoutFirmInput
   }
 
@@ -97877,6 +99916,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUpdateManyWithoutOwnerNestedInput
     staff?: StaffUpdateManyWithoutOwnerNestedInput
     messageTemplates?: MessageTemplateUpdateManyWithoutOwnerNestedInput
+    formTemplates?: FormTemplateUpdateManyWithoutOwnerNestedInput
     whatsappInstances?: WhatsAppInstanceUpdateManyWithoutOwnerNestedInput
   }
 
@@ -97939,6 +99979,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutOwnerNestedInput
     staff?: StaffUncheckedUpdateManyWithoutOwnerNestedInput
     messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutOwnerNestedInput
+    formTemplates?: FormTemplateUncheckedUpdateManyWithoutOwnerNestedInput
     whatsappInstances?: WhatsAppInstanceUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
@@ -98020,6 +100061,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
     releaseUsers?: ReleaseUserUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUpdateManyWithoutFirmNestedInput
+    formTemplate?: FormTemplateUpdateOneWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUpdateOneWithoutFirmNestedInput
   }
 
@@ -98091,6 +100133,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
     releaseUsers?: ReleaseUserUncheckedUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutFirmNestedInput
+    formTemplate?: FormTemplateUncheckedUpdateOneWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUncheckedUpdateOneWithoutFirmNestedInput
   }
 
@@ -99674,6 +101717,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderCreateNestedManyWithoutOwnerInput
     staff?: StaffCreateNestedManyWithoutOwnerInput
     messageTemplates?: MessageTemplateCreateNestedManyWithoutOwnerInput
+    formTemplates?: FormTemplateCreateNestedManyWithoutOwnerInput
     whatsappInstances?: WhatsAppInstanceCreateNestedManyWithoutOwnerInput
   }
 
@@ -99736,6 +101780,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutOwnerInput
     staff?: StaffUncheckedCreateNestedManyWithoutOwnerInput
     messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutOwnerInput
+    formTemplates?: FormTemplateUncheckedCreateNestedManyWithoutOwnerInput
     whatsappInstances?: WhatsAppInstanceUncheckedCreateNestedManyWithoutOwnerInput
   }
 
@@ -99811,6 +101856,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
     releaseUsers?: ReleaseUserCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateCreateNestedManyWithoutFirmInput
+    formTemplate?: FormTemplateCreateNestedOneWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceCreateNestedOneWithoutFirmInput
   }
 
@@ -99882,6 +101928,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
     releaseUsers?: ReleaseUserUncheckedCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutFirmInput
+    formTemplate?: FormTemplateUncheckedCreateNestedOneWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceUncheckedCreateNestedOneWithoutFirmInput
   }
 
@@ -101466,6 +103513,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUpdateManyWithoutOwnerNestedInput
     staff?: StaffUpdateManyWithoutOwnerNestedInput
     messageTemplates?: MessageTemplateUpdateManyWithoutOwnerNestedInput
+    formTemplates?: FormTemplateUpdateManyWithoutOwnerNestedInput
     whatsappInstances?: WhatsAppInstanceUpdateManyWithoutOwnerNestedInput
   }
 
@@ -101528,6 +103576,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutOwnerNestedInput
     staff?: StaffUncheckedUpdateManyWithoutOwnerNestedInput
     messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutOwnerNestedInput
+    formTemplates?: FormTemplateUncheckedUpdateManyWithoutOwnerNestedInput
     whatsappInstances?: WhatsAppInstanceUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
@@ -101609,6 +103658,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
     releaseUsers?: ReleaseUserUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUpdateManyWithoutFirmNestedInput
+    formTemplate?: FormTemplateUpdateOneWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUpdateOneWithoutFirmNestedInput
   }
 
@@ -101680,6 +103730,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
     releaseUsers?: ReleaseUserUncheckedUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutFirmNestedInput
+    formTemplate?: FormTemplateUncheckedUpdateOneWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUncheckedUpdateOneWithoutFirmNestedInput
   }
 
@@ -103324,6 +105375,7 @@ export namespace Prisma {
     auctionUsers?: AuctionUserCreateNestedManyWithoutFirmInput
     auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateCreateNestedManyWithoutFirmInput
+    formTemplate?: FormTemplateCreateNestedOneWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceCreateNestedOneWithoutFirmInput
   }
 
@@ -103395,6 +105447,7 @@ export namespace Prisma {
     auctionUsers?: AuctionUserUncheckedCreateNestedManyWithoutFirmInput
     auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutFirmInput
+    formTemplate?: FormTemplateUncheckedCreateNestedOneWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceUncheckedCreateNestedOneWithoutFirmInput
   }
 
@@ -103578,6 +105631,7 @@ export namespace Prisma {
     auctionUsers?: AuctionUserUpdateManyWithoutFirmNestedInput
     auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUpdateManyWithoutFirmNestedInput
+    formTemplate?: FormTemplateUpdateOneWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUpdateOneWithoutFirmNestedInput
   }
 
@@ -103649,6 +105703,7 @@ export namespace Prisma {
     auctionUsers?: AuctionUserUncheckedUpdateManyWithoutFirmNestedInput
     auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutFirmNestedInput
+    formTemplate?: FormTemplateUncheckedUpdateOneWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUncheckedUpdateOneWithoutFirmNestedInput
   }
 
@@ -103726,6 +105781,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderCreateNestedManyWithoutOwnerInput
     staff?: StaffCreateNestedManyWithoutOwnerInput
     messageTemplates?: MessageTemplateCreateNestedManyWithoutOwnerInput
+    formTemplates?: FormTemplateCreateNestedManyWithoutOwnerInput
     whatsappInstances?: WhatsAppInstanceCreateNestedManyWithoutOwnerInput
   }
 
@@ -103788,6 +105844,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutOwnerInput
     staff?: StaffUncheckedCreateNestedManyWithoutOwnerInput
     messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutOwnerInput
+    formTemplates?: FormTemplateUncheckedCreateNestedManyWithoutOwnerInput
     whatsappInstances?: WhatsAppInstanceUncheckedCreateNestedManyWithoutOwnerInput
   }
 
@@ -103863,6 +105920,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
     releaseUsers?: ReleaseUserCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateCreateNestedManyWithoutFirmInput
+    formTemplate?: FormTemplateCreateNestedOneWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceCreateNestedOneWithoutFirmInput
   }
 
@@ -103934,6 +105992,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
     releaseUsers?: ReleaseUserUncheckedCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutFirmInput
+    formTemplate?: FormTemplateUncheckedCreateNestedOneWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceUncheckedCreateNestedOneWithoutFirmInput
   }
 
@@ -104010,6 +106069,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUpdateManyWithoutOwnerNestedInput
     staff?: StaffUpdateManyWithoutOwnerNestedInput
     messageTemplates?: MessageTemplateUpdateManyWithoutOwnerNestedInput
+    formTemplates?: FormTemplateUpdateManyWithoutOwnerNestedInput
     whatsappInstances?: WhatsAppInstanceUpdateManyWithoutOwnerNestedInput
   }
 
@@ -104072,6 +106132,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutOwnerNestedInput
     staff?: StaffUncheckedUpdateManyWithoutOwnerNestedInput
     messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutOwnerNestedInput
+    formTemplates?: FormTemplateUncheckedUpdateManyWithoutOwnerNestedInput
     whatsappInstances?: WhatsAppInstanceUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
@@ -104153,6 +106214,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
     releaseUsers?: ReleaseUserUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUpdateManyWithoutFirmNestedInput
+    formTemplate?: FormTemplateUpdateOneWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUpdateOneWithoutFirmNestedInput
   }
 
@@ -104224,6 +106286,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
     releaseUsers?: ReleaseUserUncheckedUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutFirmNestedInput
+    formTemplate?: FormTemplateUncheckedUpdateOneWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUncheckedUpdateOneWithoutFirmNestedInput
   }
 
@@ -104285,6 +106348,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderCreateNestedManyWithoutOwnerInput
     staff?: StaffCreateNestedManyWithoutOwnerInput
     messageTemplates?: MessageTemplateCreateNestedManyWithoutOwnerInput
+    formTemplates?: FormTemplateCreateNestedManyWithoutOwnerInput
     whatsappInstances?: WhatsAppInstanceCreateNestedManyWithoutOwnerInput
   }
 
@@ -104347,6 +106411,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutOwnerInput
     staff?: StaffUncheckedCreateNestedManyWithoutOwnerInput
     messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutOwnerInput
+    formTemplates?: FormTemplateUncheckedCreateNestedManyWithoutOwnerInput
     whatsappInstances?: WhatsAppInstanceUncheckedCreateNestedManyWithoutOwnerInput
   }
 
@@ -104423,6 +106488,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUpdateManyWithoutOwnerNestedInput
     staff?: StaffUpdateManyWithoutOwnerNestedInput
     messageTemplates?: MessageTemplateUpdateManyWithoutOwnerNestedInput
+    formTemplates?: FormTemplateUpdateManyWithoutOwnerNestedInput
     whatsappInstances?: WhatsAppInstanceUpdateManyWithoutOwnerNestedInput
   }
 
@@ -104485,6 +106551,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutOwnerNestedInput
     staff?: StaffUncheckedUpdateManyWithoutOwnerNestedInput
     messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutOwnerNestedInput
+    formTemplates?: FormTemplateUncheckedUpdateManyWithoutOwnerNestedInput
     whatsappInstances?: WhatsAppInstanceUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
@@ -104546,6 +106613,7 @@ export namespace Prisma {
     purities?: PurityCreateNestedManyWithoutOwnerInput
     staff?: StaffCreateNestedManyWithoutOwnerInput
     messageTemplates?: MessageTemplateCreateNestedManyWithoutOwnerInput
+    formTemplates?: FormTemplateCreateNestedManyWithoutOwnerInput
     whatsappInstances?: WhatsAppInstanceCreateNestedManyWithoutOwnerInput
   }
 
@@ -104608,6 +106676,7 @@ export namespace Prisma {
     purities?: PurityUncheckedCreateNestedManyWithoutOwnerInput
     staff?: StaffUncheckedCreateNestedManyWithoutOwnerInput
     messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutOwnerInput
+    formTemplates?: FormTemplateUncheckedCreateNestedManyWithoutOwnerInput
     whatsappInstances?: WhatsAppInstanceUncheckedCreateNestedManyWithoutOwnerInput
   }
 
@@ -104683,6 +106752,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
     releaseUsers?: ReleaseUserCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateCreateNestedManyWithoutFirmInput
+    formTemplate?: FormTemplateCreateNestedOneWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceCreateNestedOneWithoutFirmInput
   }
 
@@ -104754,6 +106824,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
     releaseUsers?: ReleaseUserUncheckedCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutFirmInput
+    formTemplate?: FormTemplateUncheckedCreateNestedOneWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceUncheckedCreateNestedOneWithoutFirmInput
   }
 
@@ -104963,6 +107034,7 @@ export namespace Prisma {
     purities?: PurityUpdateManyWithoutOwnerNestedInput
     staff?: StaffUpdateManyWithoutOwnerNestedInput
     messageTemplates?: MessageTemplateUpdateManyWithoutOwnerNestedInput
+    formTemplates?: FormTemplateUpdateManyWithoutOwnerNestedInput
     whatsappInstances?: WhatsAppInstanceUpdateManyWithoutOwnerNestedInput
   }
 
@@ -105025,6 +107097,7 @@ export namespace Prisma {
     purities?: PurityUncheckedUpdateManyWithoutOwnerNestedInput
     staff?: StaffUncheckedUpdateManyWithoutOwnerNestedInput
     messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutOwnerNestedInput
+    formTemplates?: FormTemplateUncheckedUpdateManyWithoutOwnerNestedInput
     whatsappInstances?: WhatsAppInstanceUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
@@ -105106,6 +107179,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
     releaseUsers?: ReleaseUserUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUpdateManyWithoutFirmNestedInput
+    formTemplate?: FormTemplateUpdateOneWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUpdateOneWithoutFirmNestedInput
   }
 
@@ -105177,6 +107251,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
     releaseUsers?: ReleaseUserUncheckedUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutFirmNestedInput
+    formTemplate?: FormTemplateUncheckedUpdateOneWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUncheckedUpdateOneWithoutFirmNestedInput
   }
 
@@ -105263,6 +107338,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
     releaseUsers?: ReleaseUserCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateCreateNestedManyWithoutFirmInput
+    formTemplate?: FormTemplateCreateNestedOneWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceCreateNestedOneWithoutFirmInput
   }
 
@@ -105334,6 +107410,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
     releaseUsers?: ReleaseUserUncheckedCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutFirmInput
+    formTemplate?: FormTemplateUncheckedCreateNestedOneWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceUncheckedCreateNestedOneWithoutFirmInput
   }
 
@@ -105481,6 +107558,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
     releaseUsers?: ReleaseUserUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUpdateManyWithoutFirmNestedInput
+    formTemplate?: FormTemplateUpdateOneWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUpdateOneWithoutFirmNestedInput
   }
 
@@ -105552,6 +107630,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
     releaseUsers?: ReleaseUserUncheckedUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutFirmNestedInput
+    formTemplate?: FormTemplateUncheckedUpdateOneWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUncheckedUpdateOneWithoutFirmNestedInput
   }
 
@@ -105638,6 +107717,7 @@ export namespace Prisma {
     auctionUsers?: AuctionUserCreateNestedManyWithoutFirmInput
     releaseUsers?: ReleaseUserCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateCreateNestedManyWithoutFirmInput
+    formTemplate?: FormTemplateCreateNestedOneWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceCreateNestedOneWithoutFirmInput
   }
 
@@ -105709,6 +107789,7 @@ export namespace Prisma {
     auctionUsers?: AuctionUserUncheckedCreateNestedManyWithoutFirmInput
     releaseUsers?: ReleaseUserUncheckedCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutFirmInput
+    formTemplate?: FormTemplateUncheckedCreateNestedOneWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceUncheckedCreateNestedOneWithoutFirmInput
   }
 
@@ -105971,6 +108052,7 @@ export namespace Prisma {
     auctionUsers?: AuctionUserUpdateManyWithoutFirmNestedInput
     releaseUsers?: ReleaseUserUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUpdateManyWithoutFirmNestedInput
+    formTemplate?: FormTemplateUpdateOneWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUpdateOneWithoutFirmNestedInput
   }
 
@@ -106042,6 +108124,7 @@ export namespace Prisma {
     auctionUsers?: AuctionUserUncheckedUpdateManyWithoutFirmNestedInput
     releaseUsers?: ReleaseUserUncheckedUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutFirmNestedInput
+    formTemplate?: FormTemplateUncheckedUpdateOneWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUncheckedUpdateOneWithoutFirmNestedInput
   }
 
@@ -106291,6 +108374,7 @@ export namespace Prisma {
     purities?: PurityCreateNestedManyWithoutOwnerInput
     moneyLenders?: MoneyLenderCreateNestedManyWithoutOwnerInput
     messageTemplates?: MessageTemplateCreateNestedManyWithoutOwnerInput
+    formTemplates?: FormTemplateCreateNestedManyWithoutOwnerInput
     whatsappInstances?: WhatsAppInstanceCreateNestedManyWithoutOwnerInput
   }
 
@@ -106353,6 +108437,7 @@ export namespace Prisma {
     purities?: PurityUncheckedCreateNestedManyWithoutOwnerInput
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutOwnerInput
     messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutOwnerInput
+    formTemplates?: FormTemplateUncheckedCreateNestedManyWithoutOwnerInput
     whatsappInstances?: WhatsAppInstanceUncheckedCreateNestedManyWithoutOwnerInput
   }
 
@@ -106454,6 +108539,7 @@ export namespace Prisma {
     purities?: PurityUpdateManyWithoutOwnerNestedInput
     moneyLenders?: MoneyLenderUpdateManyWithoutOwnerNestedInput
     messageTemplates?: MessageTemplateUpdateManyWithoutOwnerNestedInput
+    formTemplates?: FormTemplateUpdateManyWithoutOwnerNestedInput
     whatsappInstances?: WhatsAppInstanceUpdateManyWithoutOwnerNestedInput
   }
 
@@ -106516,6 +108602,7 @@ export namespace Prisma {
     purities?: PurityUncheckedUpdateManyWithoutOwnerNestedInput
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutOwnerNestedInput
     messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutOwnerNestedInput
+    formTemplates?: FormTemplateUncheckedUpdateManyWithoutOwnerNestedInput
     whatsappInstances?: WhatsAppInstanceUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
@@ -106938,6 +109025,7 @@ export namespace Prisma {
     purities?: PurityCreateNestedManyWithoutOwnerInput
     moneyLenders?: MoneyLenderCreateNestedManyWithoutOwnerInput
     staff?: StaffCreateNestedManyWithoutOwnerInput
+    formTemplates?: FormTemplateCreateNestedManyWithoutOwnerInput
     whatsappInstances?: WhatsAppInstanceCreateNestedManyWithoutOwnerInput
   }
 
@@ -107000,6 +109088,7 @@ export namespace Prisma {
     purities?: PurityUncheckedCreateNestedManyWithoutOwnerInput
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutOwnerInput
     staff?: StaffUncheckedCreateNestedManyWithoutOwnerInput
+    formTemplates?: FormTemplateUncheckedCreateNestedManyWithoutOwnerInput
     whatsappInstances?: WhatsAppInstanceUncheckedCreateNestedManyWithoutOwnerInput
   }
 
@@ -107075,6 +109164,7 @@ export namespace Prisma {
     auctionUsers?: AuctionUserCreateNestedManyWithoutFirmInput
     auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
     releaseUsers?: ReleaseUserCreateNestedManyWithoutFirmInput
+    formTemplate?: FormTemplateCreateNestedOneWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceCreateNestedOneWithoutFirmInput
   }
 
@@ -107146,6 +109236,7 @@ export namespace Prisma {
     auctionUsers?: AuctionUserUncheckedCreateNestedManyWithoutFirmInput
     auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
     releaseUsers?: ReleaseUserUncheckedCreateNestedManyWithoutFirmInput
+    formTemplate?: FormTemplateUncheckedCreateNestedOneWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceUncheckedCreateNestedOneWithoutFirmInput
   }
 
@@ -107222,6 +109313,7 @@ export namespace Prisma {
     purities?: PurityUpdateManyWithoutOwnerNestedInput
     moneyLenders?: MoneyLenderUpdateManyWithoutOwnerNestedInput
     staff?: StaffUpdateManyWithoutOwnerNestedInput
+    formTemplates?: FormTemplateUpdateManyWithoutOwnerNestedInput
     whatsappInstances?: WhatsAppInstanceUpdateManyWithoutOwnerNestedInput
   }
 
@@ -107284,6 +109376,7 @@ export namespace Prisma {
     purities?: PurityUncheckedUpdateManyWithoutOwnerNestedInput
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutOwnerNestedInput
     staff?: StaffUncheckedUpdateManyWithoutOwnerNestedInput
+    formTemplates?: FormTemplateUncheckedUpdateManyWithoutOwnerNestedInput
     whatsappInstances?: WhatsAppInstanceUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
@@ -107365,6 +109458,7 @@ export namespace Prisma {
     auctionUsers?: AuctionUserUpdateManyWithoutFirmNestedInput
     auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
     releaseUsers?: ReleaseUserUpdateManyWithoutFirmNestedInput
+    formTemplate?: FormTemplateUpdateOneWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUpdateOneWithoutFirmNestedInput
   }
 
@@ -107436,6 +109530,574 @@ export namespace Prisma {
     auctionUsers?: AuctionUserUncheckedUpdateManyWithoutFirmNestedInput
     auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
     releaseUsers?: ReleaseUserUncheckedUpdateManyWithoutFirmNestedInput
+    formTemplate?: FormTemplateUncheckedUpdateOneWithoutFirmNestedInput
+    whatsappInstance?: WhatsAppInstanceUncheckedUpdateOneWithoutFirmNestedInput
+  }
+
+  export type OwnerCreateWithoutFormTemplatesInput = {
+    own_uuid?: string
+    own_product_key?: number
+    own_db: string
+    own_add_date?: Date | string
+    own_first_name: string
+    own_middle_name?: string | null
+    own_last_name: string
+    own_phone_no?: string | null
+    own_mobile_no: string
+    own_email: string
+    own_login_id: string
+    own_password: string
+    own_status?: $Enums.OwnerStatus
+    own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_refresh_token?: string | null
+    own_refresh_expiry?: Date | string | null
+    own_jwt_token?: string | null
+    own_jwt_expiry?: Date | string | null
+    own_login_status?: boolean
+    own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
+    own_otp?: string | null
+    own_otp_expiry?: Date | string | null
+    own_mail_user?: string | null
+    own_mail_pass_enc?: string | null
+    own_mail_from_name?: string | null
+    own_mail_provider?: string | null
+    own_mail_status?: string | null
+    own_mail_updated_at?: Date | string | null
+    own_address?: string | null
+    own_village?: string | null
+    own_city?: string | null
+    own_state?: string | null
+    own_pincode?: string | null
+    own_created_at?: Date | string
+    own_created_by?: string | null
+    own_updated_at?: Date | string
+    own_updated_by?: string | null
+    own_deleted_at?: Date | string | null
+    own_deleted_by?: string | null
+    own_is_deleted?: boolean
+    users?: UserCreateNestedManyWithoutOwnerInput
+    firms?: FirmCreateNestedManyWithoutOwnerInput
+    accounts?: AccountCreateNestedManyWithoutOwnerInput
+    finances?: FinanceCreateNestedManyWithoutOwnerInput
+    financeTransactions?: Finance_TransactionCreateNestedManyWithoutOwnerInput
+    financeMoneyTrans?: Finance_Money_TransactionCreateNestedManyWithoutOwnerInput
+    journals?: JournalCreateNestedManyWithoutOwnerInput
+    journalTransactions?: JournalTransactionCreateNestedManyWithoutOwnerInput
+    girvis?: GirviCreateNestedManyWithoutOwnerInput
+    stocks?: StockCreateNestedManyWithoutOwnerInput
+    additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutOwnerInput
+    deposits?: GirviDepositCreateNestedManyWithoutOwnerInput
+    releases?: GirviReleaseCreateNestedManyWithoutOwnerInput
+    rates?: RateCreateNestedManyWithoutOwnerInput
+    purities?: PurityCreateNestedManyWithoutOwnerInput
+    moneyLenders?: MoneyLenderCreateNestedManyWithoutOwnerInput
+    staff?: StaffCreateNestedManyWithoutOwnerInput
+    messageTemplates?: MessageTemplateCreateNestedManyWithoutOwnerInput
+    whatsappInstances?: WhatsAppInstanceCreateNestedManyWithoutOwnerInput
+  }
+
+  export type OwnerUncheckedCreateWithoutFormTemplatesInput = {
+    own_id?: number
+    own_uuid?: string
+    own_product_key?: number
+    own_db: string
+    own_add_date?: Date | string
+    own_first_name: string
+    own_middle_name?: string | null
+    own_last_name: string
+    own_phone_no?: string | null
+    own_mobile_no: string
+    own_email: string
+    own_login_id: string
+    own_password: string
+    own_status?: $Enums.OwnerStatus
+    own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_refresh_token?: string | null
+    own_refresh_expiry?: Date | string | null
+    own_jwt_token?: string | null
+    own_jwt_expiry?: Date | string | null
+    own_login_status?: boolean
+    own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
+    own_otp?: string | null
+    own_otp_expiry?: Date | string | null
+    own_mail_user?: string | null
+    own_mail_pass_enc?: string | null
+    own_mail_from_name?: string | null
+    own_mail_provider?: string | null
+    own_mail_status?: string | null
+    own_mail_updated_at?: Date | string | null
+    own_address?: string | null
+    own_village?: string | null
+    own_city?: string | null
+    own_state?: string | null
+    own_pincode?: string | null
+    own_created_at?: Date | string
+    own_created_by?: string | null
+    own_updated_at?: Date | string
+    own_updated_by?: string | null
+    own_deleted_at?: Date | string | null
+    own_deleted_by?: string | null
+    own_is_deleted?: boolean
+    users?: UserUncheckedCreateNestedManyWithoutOwnerInput
+    firms?: FirmUncheckedCreateNestedManyWithoutOwnerInput
+    accounts?: AccountUncheckedCreateNestedManyWithoutOwnerInput
+    finances?: FinanceUncheckedCreateNestedManyWithoutOwnerInput
+    financeTransactions?: Finance_TransactionUncheckedCreateNestedManyWithoutOwnerInput
+    financeMoneyTrans?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutOwnerInput
+    journals?: JournalUncheckedCreateNestedManyWithoutOwnerInput
+    journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutOwnerInput
+    girvis?: GirviUncheckedCreateNestedManyWithoutOwnerInput
+    stocks?: StockUncheckedCreateNestedManyWithoutOwnerInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutOwnerInput
+    deposits?: GirviDepositUncheckedCreateNestedManyWithoutOwnerInput
+    releases?: GirviReleaseUncheckedCreateNestedManyWithoutOwnerInput
+    rates?: RateUncheckedCreateNestedManyWithoutOwnerInput
+    purities?: PurityUncheckedCreateNestedManyWithoutOwnerInput
+    moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutOwnerInput
+    staff?: StaffUncheckedCreateNestedManyWithoutOwnerInput
+    messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutOwnerInput
+    whatsappInstances?: WhatsAppInstanceUncheckedCreateNestedManyWithoutOwnerInput
+  }
+
+  export type OwnerCreateOrConnectWithoutFormTemplatesInput = {
+    where: OwnerWhereUniqueInput
+    create: XOR<OwnerCreateWithoutFormTemplatesInput, OwnerUncheckedCreateWithoutFormTemplatesInput>
+  }
+
+  export type FirmCreateWithoutFormTemplateInput = {
+    firm_uuid?: string
+    firm_unique_code?: string | null
+    firm_add_date?: Date | string
+    firm_name: string
+    firm_reg_no: string
+    firm_shop_name: string
+    firm_desc?: string | null
+    firm_address?: string | null
+    firm_city?: string | null
+    firm_pincode?: string | null
+    firm_phone_no?: string | null
+    firm_email_id?: string | null
+    firm_website_link?: string | null
+    firm_type?: $Enums.FirmType
+    firm_owner?: string | null
+    firm_other_info?: string | null
+    firm_geo_latitude?: string | null
+    firm_geo_longitude?: string | null
+    firm_whatsapp_link?: string | null
+    firm_facebook_link?: string | null
+    firm_insta_link?: string | null
+    firm_bank_name?: string | null
+    firm_bank_acc_no?: string | null
+    firm_bank_branch?: string | null
+    firm_bank_address?: string | null
+    firm_acc_holder?: string | null
+    firm_acc_type?: string | null
+    firm_ifsc_code?: string | null
+    firm_start_date?: Date | string | null
+    firm_balance?: string | null
+    firm_balance_type?: $Enums.FirmBalanceType
+    firm_gstin_no?: string | null
+    firm_pan_no?: string | null
+    firm_adhaar_no?: string | null
+    firm_form_header?: string | null
+    firm_form_footer?: string | null
+    firm_own_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_left_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_right_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_qr_code_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_pan_no_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_created_at?: Date | string
+    firm_created_by?: string | null
+    firm_updated_at?: Date | string
+    firm_updated_by?: string | null
+    firm_deleted_at?: Date | string | null
+    firm_deleted_by?: string | null
+    firm_is_deleted?: boolean
+    users?: UserCreateNestedManyWithoutFirmInput
+    accounts?: AccountCreateNestedManyWithoutFirmInput
+    owner?: OwnerCreateNestedOneWithoutFirmsInput
+    finances?: FinanceCreateNestedManyWithoutFirmInput
+    financeTransactions?: Finance_TransactionCreateNestedManyWithoutFirmInput
+    financeMoneyTrans?: Finance_Money_TransactionCreateNestedManyWithoutFirmInput
+    journals?: JournalCreateNestedManyWithoutFirmInput
+    journalTransactions?: JournalTransactionCreateNestedManyWithoutFirmInput
+    girvis?: GirviCreateNestedManyWithoutFirmInput
+    stocks?: StockCreateNestedManyWithoutFirmInput
+    additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutFirmInput
+    deposits?: GirviDepositCreateNestedManyWithoutFirmInput
+    releases?: GirviReleaseCreateNestedManyWithoutFirmInput
+    rates?: RateCreateNestedManyWithoutFirmInput
+    moneyLenders?: MoneyLenderCreateNestedManyWithoutFirmInput
+    auctionUsers?: AuctionUserCreateNestedManyWithoutFirmInput
+    auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
+    releaseUsers?: ReleaseUserCreateNestedManyWithoutFirmInput
+    messageTemplates?: MessageTemplateCreateNestedManyWithoutFirmInput
+    whatsappInstance?: WhatsAppInstanceCreateNestedOneWithoutFirmInput
+  }
+
+  export type FirmUncheckedCreateWithoutFormTemplateInput = {
+    firm_id?: number
+    firm_uuid?: string
+    firm_unique_code?: string | null
+    firm_add_date?: Date | string
+    firm_own_id?: number
+    firm_name: string
+    firm_reg_no: string
+    firm_shop_name: string
+    firm_desc?: string | null
+    firm_address?: string | null
+    firm_city?: string | null
+    firm_pincode?: string | null
+    firm_phone_no?: string | null
+    firm_email_id?: string | null
+    firm_website_link?: string | null
+    firm_type?: $Enums.FirmType
+    firm_owner?: string | null
+    firm_other_info?: string | null
+    firm_geo_latitude?: string | null
+    firm_geo_longitude?: string | null
+    firm_whatsapp_link?: string | null
+    firm_facebook_link?: string | null
+    firm_insta_link?: string | null
+    firm_bank_name?: string | null
+    firm_bank_acc_no?: string | null
+    firm_bank_branch?: string | null
+    firm_bank_address?: string | null
+    firm_acc_holder?: string | null
+    firm_acc_type?: string | null
+    firm_ifsc_code?: string | null
+    firm_start_date?: Date | string | null
+    firm_balance?: string | null
+    firm_balance_type?: $Enums.FirmBalanceType
+    firm_gstin_no?: string | null
+    firm_pan_no?: string | null
+    firm_adhaar_no?: string | null
+    firm_form_header?: string | null
+    firm_form_footer?: string | null
+    firm_own_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_left_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_right_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_qr_code_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_pan_no_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_created_at?: Date | string
+    firm_created_by?: string | null
+    firm_updated_at?: Date | string
+    firm_updated_by?: string | null
+    firm_deleted_at?: Date | string | null
+    firm_deleted_by?: string | null
+    firm_is_deleted?: boolean
+    users?: UserUncheckedCreateNestedManyWithoutFirmInput
+    accounts?: AccountUncheckedCreateNestedManyWithoutFirmInput
+    finances?: FinanceUncheckedCreateNestedManyWithoutFirmInput
+    financeTransactions?: Finance_TransactionUncheckedCreateNestedManyWithoutFirmInput
+    financeMoneyTrans?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutFirmInput
+    journals?: JournalUncheckedCreateNestedManyWithoutFirmInput
+    journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutFirmInput
+    girvis?: GirviUncheckedCreateNestedManyWithoutFirmInput
+    stocks?: StockUncheckedCreateNestedManyWithoutFirmInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutFirmInput
+    deposits?: GirviDepositUncheckedCreateNestedManyWithoutFirmInput
+    releases?: GirviReleaseUncheckedCreateNestedManyWithoutFirmInput
+    rates?: RateUncheckedCreateNestedManyWithoutFirmInput
+    moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutFirmInput
+    auctionUsers?: AuctionUserUncheckedCreateNestedManyWithoutFirmInput
+    auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
+    releaseUsers?: ReleaseUserUncheckedCreateNestedManyWithoutFirmInput
+    messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutFirmInput
+    whatsappInstance?: WhatsAppInstanceUncheckedCreateNestedOneWithoutFirmInput
+  }
+
+  export type FirmCreateOrConnectWithoutFormTemplateInput = {
+    where: FirmWhereUniqueInput
+    create: XOR<FirmCreateWithoutFormTemplateInput, FirmUncheckedCreateWithoutFormTemplateInput>
+  }
+
+  export type OwnerUpsertWithoutFormTemplatesInput = {
+    update: XOR<OwnerUpdateWithoutFormTemplatesInput, OwnerUncheckedUpdateWithoutFormTemplatesInput>
+    create: XOR<OwnerCreateWithoutFormTemplatesInput, OwnerUncheckedCreateWithoutFormTemplatesInput>
+    where?: OwnerWhereInput
+  }
+
+  export type OwnerUpdateToOneWithWhereWithoutFormTemplatesInput = {
+    where?: OwnerWhereInput
+    data: XOR<OwnerUpdateWithoutFormTemplatesInput, OwnerUncheckedUpdateWithoutFormTemplatesInput>
+  }
+
+  export type OwnerUpdateWithoutFormTemplatesInput = {
+    own_uuid?: StringFieldUpdateOperationsInput | string
+    own_db?: StringFieldUpdateOperationsInput | string
+    own_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    own_first_name?: StringFieldUpdateOperationsInput | string
+    own_middle_name?: NullableStringFieldUpdateOperationsInput | string | null
+    own_last_name?: StringFieldUpdateOperationsInput | string
+    own_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mobile_no?: StringFieldUpdateOperationsInput | string
+    own_email?: StringFieldUpdateOperationsInput | string
+    own_login_id?: StringFieldUpdateOperationsInput | string
+    own_password?: StringFieldUpdateOperationsInput | string
+    own_status?: EnumOwnerStatusFieldUpdateOperationsInput | $Enums.OwnerStatus
+    own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
+    own_refresh_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_jwt_token?: NullableStringFieldUpdateOperationsInput | string | null
+    own_jwt_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_login_status?: BoolFieldUpdateOperationsInput | boolean
+    own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
+    own_otp?: NullableStringFieldUpdateOperationsInput | string | null
+    own_otp_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_mail_user?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_pass_enc?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_from_name?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_provider?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_status?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_address?: NullableStringFieldUpdateOperationsInput | string | null
+    own_village?: NullableStringFieldUpdateOperationsInput | string | null
+    own_city?: NullableStringFieldUpdateOperationsInput | string | null
+    own_state?: NullableStringFieldUpdateOperationsInput | string | null
+    own_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    own_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    own_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    own_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    own_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    own_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    own_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    users?: UserUpdateManyWithoutOwnerNestedInput
+    firms?: FirmUpdateManyWithoutOwnerNestedInput
+    accounts?: AccountUpdateManyWithoutOwnerNestedInput
+    finances?: FinanceUpdateManyWithoutOwnerNestedInput
+    financeTransactions?: Finance_TransactionUpdateManyWithoutOwnerNestedInput
+    financeMoneyTrans?: Finance_Money_TransactionUpdateManyWithoutOwnerNestedInput
+    journals?: JournalUpdateManyWithoutOwnerNestedInput
+    journalTransactions?: JournalTransactionUpdateManyWithoutOwnerNestedInput
+    girvis?: GirviUpdateManyWithoutOwnerNestedInput
+    stocks?: StockUpdateManyWithoutOwnerNestedInput
+    additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutOwnerNestedInput
+    deposits?: GirviDepositUpdateManyWithoutOwnerNestedInput
+    releases?: GirviReleaseUpdateManyWithoutOwnerNestedInput
+    rates?: RateUpdateManyWithoutOwnerNestedInput
+    purities?: PurityUpdateManyWithoutOwnerNestedInput
+    moneyLenders?: MoneyLenderUpdateManyWithoutOwnerNestedInput
+    staff?: StaffUpdateManyWithoutOwnerNestedInput
+    messageTemplates?: MessageTemplateUpdateManyWithoutOwnerNestedInput
+    whatsappInstances?: WhatsAppInstanceUpdateManyWithoutOwnerNestedInput
+  }
+
+  export type OwnerUncheckedUpdateWithoutFormTemplatesInput = {
+    own_id?: IntFieldUpdateOperationsInput | number
+    own_uuid?: StringFieldUpdateOperationsInput | string
+    own_product_key?: IntFieldUpdateOperationsInput | number
+    own_db?: StringFieldUpdateOperationsInput | string
+    own_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    own_first_name?: StringFieldUpdateOperationsInput | string
+    own_middle_name?: NullableStringFieldUpdateOperationsInput | string | null
+    own_last_name?: StringFieldUpdateOperationsInput | string
+    own_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mobile_no?: StringFieldUpdateOperationsInput | string
+    own_email?: StringFieldUpdateOperationsInput | string
+    own_login_id?: StringFieldUpdateOperationsInput | string
+    own_password?: StringFieldUpdateOperationsInput | string
+    own_status?: EnumOwnerStatusFieldUpdateOperationsInput | $Enums.OwnerStatus
+    own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
+    own_refresh_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_jwt_token?: NullableStringFieldUpdateOperationsInput | string | null
+    own_jwt_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_login_status?: BoolFieldUpdateOperationsInput | boolean
+    own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
+    own_otp?: NullableStringFieldUpdateOperationsInput | string | null
+    own_otp_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_mail_user?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_pass_enc?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_from_name?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_provider?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_status?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_address?: NullableStringFieldUpdateOperationsInput | string | null
+    own_village?: NullableStringFieldUpdateOperationsInput | string | null
+    own_city?: NullableStringFieldUpdateOperationsInput | string | null
+    own_state?: NullableStringFieldUpdateOperationsInput | string | null
+    own_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    own_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    own_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    own_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    own_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    own_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    own_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    users?: UserUncheckedUpdateManyWithoutOwnerNestedInput
+    firms?: FirmUncheckedUpdateManyWithoutOwnerNestedInput
+    accounts?: AccountUncheckedUpdateManyWithoutOwnerNestedInput
+    finances?: FinanceUncheckedUpdateManyWithoutOwnerNestedInput
+    financeTransactions?: Finance_TransactionUncheckedUpdateManyWithoutOwnerNestedInput
+    financeMoneyTrans?: Finance_Money_TransactionUncheckedUpdateManyWithoutOwnerNestedInput
+    journals?: JournalUncheckedUpdateManyWithoutOwnerNestedInput
+    journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutOwnerNestedInput
+    girvis?: GirviUncheckedUpdateManyWithoutOwnerNestedInput
+    stocks?: StockUncheckedUpdateManyWithoutOwnerNestedInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutOwnerNestedInput
+    deposits?: GirviDepositUncheckedUpdateManyWithoutOwnerNestedInput
+    releases?: GirviReleaseUncheckedUpdateManyWithoutOwnerNestedInput
+    rates?: RateUncheckedUpdateManyWithoutOwnerNestedInput
+    purities?: PurityUncheckedUpdateManyWithoutOwnerNestedInput
+    moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutOwnerNestedInput
+    staff?: StaffUncheckedUpdateManyWithoutOwnerNestedInput
+    messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutOwnerNestedInput
+    whatsappInstances?: WhatsAppInstanceUncheckedUpdateManyWithoutOwnerNestedInput
+  }
+
+  export type FirmUpsertWithoutFormTemplateInput = {
+    update: XOR<FirmUpdateWithoutFormTemplateInput, FirmUncheckedUpdateWithoutFormTemplateInput>
+    create: XOR<FirmCreateWithoutFormTemplateInput, FirmUncheckedCreateWithoutFormTemplateInput>
+    where?: FirmWhereInput
+  }
+
+  export type FirmUpdateToOneWithWhereWithoutFormTemplateInput = {
+    where?: FirmWhereInput
+    data: XOR<FirmUpdateWithoutFormTemplateInput, FirmUncheckedUpdateWithoutFormTemplateInput>
+  }
+
+  export type FirmUpdateWithoutFormTemplateInput = {
+    firm_uuid?: StringFieldUpdateOperationsInput | string
+    firm_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    firm_name?: StringFieldUpdateOperationsInput | string
+    firm_reg_no?: StringFieldUpdateOperationsInput | string
+    firm_shop_name?: StringFieldUpdateOperationsInput | string
+    firm_desc?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_address?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_city?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_email_id?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_website_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_type?: EnumFirmTypeFieldUpdateOperationsInput | $Enums.FirmType
+    firm_owner?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_geo_latitude?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_geo_longitude?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_whatsapp_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_facebook_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_insta_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_name?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_acc_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_branch?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_address?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_acc_holder?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_acc_type?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firm_balance?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_balance_type?: EnumFirmBalanceTypeFieldUpdateOperationsInput | $Enums.FirmBalanceType
+    firm_gstin_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_adhaar_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_form_header?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_form_footer?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_own_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_left_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_right_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_qr_code_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_pan_no_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    firm_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    firm_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firm_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    users?: UserUpdateManyWithoutFirmNestedInput
+    accounts?: AccountUpdateManyWithoutFirmNestedInput
+    owner?: OwnerUpdateOneRequiredWithoutFirmsNestedInput
+    finances?: FinanceUpdateManyWithoutFirmNestedInput
+    financeTransactions?: Finance_TransactionUpdateManyWithoutFirmNestedInput
+    financeMoneyTrans?: Finance_Money_TransactionUpdateManyWithoutFirmNestedInput
+    journals?: JournalUpdateManyWithoutFirmNestedInput
+    journalTransactions?: JournalTransactionUpdateManyWithoutFirmNestedInput
+    girvis?: GirviUpdateManyWithoutFirmNestedInput
+    stocks?: StockUpdateManyWithoutFirmNestedInput
+    additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutFirmNestedInput
+    deposits?: GirviDepositUpdateManyWithoutFirmNestedInput
+    releases?: GirviReleaseUpdateManyWithoutFirmNestedInput
+    rates?: RateUpdateManyWithoutFirmNestedInput
+    moneyLenders?: MoneyLenderUpdateManyWithoutFirmNestedInput
+    auctionUsers?: AuctionUserUpdateManyWithoutFirmNestedInput
+    auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
+    releaseUsers?: ReleaseUserUpdateManyWithoutFirmNestedInput
+    messageTemplates?: MessageTemplateUpdateManyWithoutFirmNestedInput
+    whatsappInstance?: WhatsAppInstanceUpdateOneWithoutFirmNestedInput
+  }
+
+  export type FirmUncheckedUpdateWithoutFormTemplateInput = {
+    firm_id?: IntFieldUpdateOperationsInput | number
+    firm_uuid?: StringFieldUpdateOperationsInput | string
+    firm_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    firm_own_id?: IntFieldUpdateOperationsInput | number
+    firm_name?: StringFieldUpdateOperationsInput | string
+    firm_reg_no?: StringFieldUpdateOperationsInput | string
+    firm_shop_name?: StringFieldUpdateOperationsInput | string
+    firm_desc?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_address?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_city?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_email_id?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_website_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_type?: EnumFirmTypeFieldUpdateOperationsInput | $Enums.FirmType
+    firm_owner?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_geo_latitude?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_geo_longitude?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_whatsapp_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_facebook_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_insta_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_name?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_acc_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_branch?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_address?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_acc_holder?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_acc_type?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firm_balance?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_balance_type?: EnumFirmBalanceTypeFieldUpdateOperationsInput | $Enums.FirmBalanceType
+    firm_gstin_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_adhaar_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_form_header?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_form_footer?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_own_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_left_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_right_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_qr_code_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_pan_no_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    firm_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    firm_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firm_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    users?: UserUncheckedUpdateManyWithoutFirmNestedInput
+    accounts?: AccountUncheckedUpdateManyWithoutFirmNestedInput
+    finances?: FinanceUncheckedUpdateManyWithoutFirmNestedInput
+    financeTransactions?: Finance_TransactionUncheckedUpdateManyWithoutFirmNestedInput
+    financeMoneyTrans?: Finance_Money_TransactionUncheckedUpdateManyWithoutFirmNestedInput
+    journals?: JournalUncheckedUpdateManyWithoutFirmNestedInput
+    journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutFirmNestedInput
+    girvis?: GirviUncheckedUpdateManyWithoutFirmNestedInput
+    stocks?: StockUncheckedUpdateManyWithoutFirmNestedInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutFirmNestedInput
+    deposits?: GirviDepositUncheckedUpdateManyWithoutFirmNestedInput
+    releases?: GirviReleaseUncheckedUpdateManyWithoutFirmNestedInput
+    rates?: RateUncheckedUpdateManyWithoutFirmNestedInput
+    moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutFirmNestedInput
+    auctionUsers?: AuctionUserUncheckedUpdateManyWithoutFirmNestedInput
+    auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
+    releaseUsers?: ReleaseUserUncheckedUpdateManyWithoutFirmNestedInput
+    messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUncheckedUpdateOneWithoutFirmNestedInput
   }
 
@@ -107498,6 +110160,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderCreateNestedManyWithoutOwnerInput
     staff?: StaffCreateNestedManyWithoutOwnerInput
     messageTemplates?: MessageTemplateCreateNestedManyWithoutOwnerInput
+    formTemplates?: FormTemplateCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerUncheckedCreateWithoutWhatsappInstancesInput = {
@@ -107560,6 +110223,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutOwnerInput
     staff?: StaffUncheckedCreateNestedManyWithoutOwnerInput
     messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutOwnerInput
+    formTemplates?: FormTemplateUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerCreateOrConnectWithoutWhatsappInstancesInput = {
@@ -107635,6 +110299,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
     releaseUsers?: ReleaseUserCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateCreateNestedManyWithoutFirmInput
+    formTemplate?: FormTemplateCreateNestedOneWithoutFirmInput
   }
 
   export type FirmUncheckedCreateWithoutWhatsappInstanceInput = {
@@ -107706,6 +110371,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
     releaseUsers?: ReleaseUserUncheckedCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutFirmInput
+    formTemplate?: FormTemplateUncheckedCreateNestedOneWithoutFirmInput
   }
 
   export type FirmCreateOrConnectWithoutWhatsappInstanceInput = {
@@ -107782,6 +110448,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUpdateManyWithoutOwnerNestedInput
     staff?: StaffUpdateManyWithoutOwnerNestedInput
     messageTemplates?: MessageTemplateUpdateManyWithoutOwnerNestedInput
+    formTemplates?: FormTemplateUpdateManyWithoutOwnerNestedInput
   }
 
   export type OwnerUncheckedUpdateWithoutWhatsappInstancesInput = {
@@ -107844,6 +110511,7 @@ export namespace Prisma {
     moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutOwnerNestedInput
     staff?: StaffUncheckedUpdateManyWithoutOwnerNestedInput
     messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutOwnerNestedInput
+    formTemplates?: FormTemplateUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
   export type FirmUpsertWithoutWhatsappInstanceInput = {
@@ -107925,6 +110593,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
     releaseUsers?: ReleaseUserUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUpdateManyWithoutFirmNestedInput
+    formTemplate?: FormTemplateUpdateOneWithoutFirmNestedInput
   }
 
   export type FirmUncheckedUpdateWithoutWhatsappInstanceInput = {
@@ -107996,6 +110665,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
     releaseUsers?: ReleaseUserUncheckedUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutFirmNestedInput
+    formTemplate?: FormTemplateUncheckedUpdateOneWithoutFirmNestedInput
   }
 
   export type UserCreateManyOwnerInput = {
@@ -108642,6 +111312,22 @@ export namespace Prisma {
     mt_is_deleted?: boolean
   }
 
+  export type FormTemplateCreateManyOwnerInput = {
+    ft_id?: number
+    ft_uuid?: string
+    ft_firm_id: number
+    ft_config: JsonNullValueInput | InputJsonValue
+    ft_status?: $Enums.FormTemplateStatus
+    ft_is_system?: boolean
+    ft_created_at?: Date | string
+    ft_created_by?: string | null
+    ft_updated_at?: Date | string
+    ft_updated_by?: string | null
+    ft_deleted_at?: Date | string | null
+    ft_deleted_by?: string | null
+    ft_is_deleted?: boolean
+  }
+
   export type WhatsAppInstanceCreateManyOwnerInput = {
     wa_id?: number
     wa_uuid?: string
@@ -108891,6 +111577,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
     releaseUsers?: ReleaseUserUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUpdateManyWithoutFirmNestedInput
+    formTemplate?: FormTemplateUpdateOneWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUpdateOneWithoutFirmNestedInput
   }
 
@@ -108962,6 +111649,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
     releaseUsers?: ReleaseUserUncheckedUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutFirmNestedInput
+    formTemplate?: FormTemplateUncheckedUpdateOneWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUncheckedUpdateOneWithoutFirmNestedInput
   }
 
@@ -110740,6 +113428,53 @@ export namespace Prisma {
     mt_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     mt_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     mt_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type FormTemplateUpdateWithoutOwnerInput = {
+    ft_uuid?: StringFieldUpdateOperationsInput | string
+    ft_config?: JsonNullValueInput | InputJsonValue
+    ft_status?: EnumFormTemplateStatusFieldUpdateOperationsInput | $Enums.FormTemplateStatus
+    ft_is_system?: BoolFieldUpdateOperationsInput | boolean
+    ft_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    ft_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ft_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    ft_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ft_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ft_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ft_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    firm?: FirmUpdateOneRequiredWithoutFormTemplateNestedInput
+  }
+
+  export type FormTemplateUncheckedUpdateWithoutOwnerInput = {
+    ft_id?: IntFieldUpdateOperationsInput | number
+    ft_uuid?: StringFieldUpdateOperationsInput | string
+    ft_firm_id?: IntFieldUpdateOperationsInput | number
+    ft_config?: JsonNullValueInput | InputJsonValue
+    ft_status?: EnumFormTemplateStatusFieldUpdateOperationsInput | $Enums.FormTemplateStatus
+    ft_is_system?: BoolFieldUpdateOperationsInput | boolean
+    ft_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    ft_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ft_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    ft_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ft_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ft_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ft_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type FormTemplateUncheckedUpdateManyWithoutOwnerInput = {
+    ft_id?: IntFieldUpdateOperationsInput | number
+    ft_uuid?: StringFieldUpdateOperationsInput | string
+    ft_firm_id?: IntFieldUpdateOperationsInput | number
+    ft_config?: JsonNullValueInput | InputJsonValue
+    ft_status?: EnumFormTemplateStatusFieldUpdateOperationsInput | $Enums.FormTemplateStatus
+    ft_is_system?: BoolFieldUpdateOperationsInput | boolean
+    ft_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    ft_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ft_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    ft_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ft_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ft_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ft_is_deleted?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type WhatsAppInstanceUpdateWithoutOwnerInput = {
@@ -123820,6 +126555,10 @@ export namespace Prisma {
      * @deprecated Use MessageTemplateDefaultArgs instead
      */
     export type MessageTemplateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = MessageTemplateDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use FormTemplateDefaultArgs instead
+     */
+    export type FormTemplateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = FormTemplateDefaultArgs<ExtArgs>
     /**
      * @deprecated Use WhatsAppInstanceDefaultArgs instead
      */

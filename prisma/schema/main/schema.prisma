@@ -107,6 +107,7 @@ model Owner {
   moneyLenders         MoneyLender[]               @relation("OwnerMoneyLenders")
   staff                Staff[]                     @relation("OwnerStaff")
   messageTemplates     MessageTemplate[]           @relation("OwnerMessageTemplate")
+  formTemplates         FormTemplate[]              @relation("OwnerFormTemplate")
   whatsappInstances    WhatsAppInstance[]          @relation("OwnerWhatsAppInstance")
 
   // ===============================
@@ -251,6 +252,7 @@ model Firm {
   auctionLoans         AuctionLoan[]               @relation("FirmAuctionLoan")
   releaseUsers         ReleaseUser[]               @relation("FirmReleaseUser")
   messageTemplates     MessageTemplate[]           @relation("FirmMessageTemplate")
+  formTemplate         FormTemplate?               @relation("FirmFormTemplate")
   whatsappInstance     WhatsAppInstance?           @relation("FirmWhatsAppInstance")
 }
 
@@ -1657,6 +1659,35 @@ model MessageTemplate {
   @@index([mt_own_id, mt_firm_id, mt_channel])
   @@index([mt_key])
   @@map("message_templates")
+}
+
+enum FormTemplateStatus {
+  Active
+  Inactive
+}
+
+model FormTemplate {
+  ft_id         Int                @id @default(autoincrement())
+  ft_uuid       String             @unique @default(uuid())
+  ft_own_id     Int
+  ft_firm_id    Int                @unique
+  ft_config     Json
+  ft_status     FormTemplateStatus @default(Active)
+  ft_is_system  Boolean            @default(true)
+
+  ft_created_at DateTime  @default(now())
+  ft_created_by String?
+  ft_updated_at DateTime  @updatedAt
+  ft_updated_by String?
+  ft_deleted_at DateTime?
+  ft_deleted_by String?
+  ft_is_deleted Boolean   @default(false)
+
+  owner Owner @relation("OwnerFormTemplate", fields: [ft_own_id], references: [own_id], onDelete: Cascade)
+  firm  Firm  @relation("FirmFormTemplate", fields: [ft_firm_id], references: [firm_id], onDelete: Cascade)
+
+  @@index([ft_own_id, ft_firm_id])
+  @@map("form_templates")
 }
 
 model WhatsAppInstance {

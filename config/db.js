@@ -133,8 +133,17 @@ const generateClientIfNeeded = () => {
   ];
 
   for (const schema of schemas) {
-    if (fs.existsSync(schema.generated)) {
-      console.log(`✅  Prisma client for "${schema.name}" already exists. Skipping generation.`);
+    const schemaMtime = fs.existsSync(schema.path)
+      ? fs.statSync(schema.path).mtimeMs
+      : 0;
+    const generatedMtime = fs.existsSync(schema.generated)
+      ? fs.statSync(schema.generated).mtimeMs
+      : 0;
+    const needsGenerate =
+      !fs.existsSync(schema.generated) || schemaMtime > generatedMtime;
+
+    if (!needsGenerate) {
+      console.log(`✅  Prisma client for "${schema.name}" is up to date.`);
       continue;
     }
 
