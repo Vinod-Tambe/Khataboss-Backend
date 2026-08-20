@@ -3,6 +3,7 @@
 const { getTenantPrisma } = require("../../../utils/tenantPrisma");
 const journalService = require("../../journal/service/journal.service");
 const messageDispatchService = require("../../../common/service/message-dispatch.service");
+const { getCustomerWhatsAppNo } = require("../../../utils/customer.helper");
 const serialNumberService = require("../../../common/service/serialNumber.service");
 const {
   releaseVoucher,
@@ -397,7 +398,7 @@ class ReleaseService {
         ownDb: messageDispatchService.ownDbFromUrl(dbUrl),
         firmId: relRec.rel_firm_id,
         templateKey: "loan_release",
-        toPhone: user?.user_mobile_no,
+        toPhone: getCustomerWhatsAppNo(user),
         toEmail: user?.user_email_id,
         vars: {
           1: user

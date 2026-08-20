@@ -98,6 +98,39 @@ class SerialNumberService {
   }
 
   /**
+   * Preview the next serial code without incrementing the counter.
+   * @param {object} prisma Prisma Client instance
+   * @param {string} entityType Target entity
+   * @returns {Promise<string>}
+   */
+  async peekNextSerialNumber(prisma, entityType) {
+    const typeKey = this.normalizeEntityType(entityType);
+    if (!typeKey) {
+      throw new Error("Entity type is required to preview serial number.");
+    }
+
+    let config = await prisma.serialNumber.findUnique({
+      where: { entity_type: typeKey },
+    });
+
+    if (!config) {
+      config =
+        DEFAULT_SERIAL_CONFIGS.find((c) => c.entity_type === typeKey) || {
+          entity_type: typeKey,
+          start_number: 1001,
+          current_number: 1000,
+          number_prefix: `${typeKey.substring(0, 3)}-`,
+        };
+    }
+
+    const startNum = config.start_number ?? 1001;
+    const currentNum = config.current_number ?? 1000;
+    const nextNum = currentNum < startNum ? startNum : currentNum + 1;
+    const prefix = config.number_prefix || "";
+    return `${prefix}${nextNum}`;
+  }
+
+  /**
    * Get all serial number configurations for a tenant DB.
    * @param {object} prisma Prisma Client instance
    */

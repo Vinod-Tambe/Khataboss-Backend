@@ -5,6 +5,7 @@ const imageService = require("../../../utils/image.service");
 const { stripArrayFileFields, applyOtherImagesUpdate } = require("../../../utils/otherImages.helper");
 const { BASE_URL } = require("../../../config/db");
 const messageDispatchService = require("../../../common/service/message-dispatch.service");
+const { getCustomerWhatsAppNo } = require("../../../utils/customer.helper");
 const {
   logActivity,
   MODULE,
@@ -34,6 +35,7 @@ class UserController {
         user_mother_name: sanitize(data.user_mother_name),
         user_mobile_no: data.user_mobile_no,
         user_phone_no: sanitize(data.user_phone_no),
+        user_whatsapp_no: sanitize(data.user_whatsapp_no),
         user_email_id: sanitize(data.user_email_id),
         user_gender: data.user_gender,
         user_cast: sanitize(data.user_cast),
@@ -84,7 +86,7 @@ class UserController {
         ownDb: req.user.own_db,
         firmId: userData.user_firm_id,
         templateKey: "customer_created",
-        toPhone: newUser.user_mobile_no,
+        toPhone: getCustomerWhatsAppNo(newUser),
         toEmail: newUser.user_email_id,
         vars: {
           1: `${newUser.user_first_name || ""} ${newUser.user_last_name || ""}`.trim(),
@@ -260,6 +262,7 @@ class UserController {
       if (data.user_mother_name !== undefined) updateData.user_mother_name = sanitize(data.user_mother_name);
       if (data.user_mobile_no) updateData.user_mobile_no = data.user_mobile_no;
       if (data.user_phone_no !== undefined) updateData.user_phone_no = sanitize(data.user_phone_no);
+      if (data.user_whatsapp_no !== undefined) updateData.user_whatsapp_no = sanitize(data.user_whatsapp_no);
       if (data.user_email_id !== undefined) updateData.user_email_id = sanitize(data.user_email_id);
       if (data.user_gender) updateData.user_gender = data.user_gender;
       if (data.user_cast !== undefined) updateData.user_cast = sanitize(data.user_cast);
@@ -334,6 +337,8 @@ class UserController {
 
       const updatedUser = await userService.updateUserByUuid(dbUrl, uuid, updateData);
 
+      const userWithFirm = await userService.getUserByUuid(dbUrl, uuid);
+
       logActivity(dbUrl, req.user, {
         firmId: updatedUser.user_firm_id,
         module: MODULE.USER,
@@ -347,7 +352,7 @@ class UserController {
 
       return res.status(200).json({
         message: "User updated successfully.",
-        data: updatedUser,
+        data: userWithFirm || updatedUser,
       });
     } catch (error) {
       console.error("❌ Error updating user:", error.message);

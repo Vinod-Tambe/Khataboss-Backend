@@ -2,6 +2,7 @@
 
 const { Prisma } = require("../../../prisma/generated/main");
 const { getTenantPrisma } = require("../../../utils/tenantPrisma");
+const girviService = require("../../girvi/service/girvi.service");
 
 const MONTH_LABELS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 const DAY_LABELS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -508,6 +509,8 @@ class DashboardService {
       journalList,
     });
 
+    const enrichedLatestLoans = await girviService.enrichGirvisListData(prisma, latestLoans);
+
     return {
       totals: {
         totalActiveFinance: financeStats.activeCount,
@@ -521,7 +524,7 @@ class DashboardService {
         totalFinancePending: pendingAgg._sum.ft_pending_amt || 0,
       },
       latestFinances,
-      latestLoans,
+      latestLoans: enrichedLatestLoans,
       latestTransactions,
     };
   }

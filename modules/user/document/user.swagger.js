@@ -32,6 +32,8 @@
  *           type: string
  *         user_phone_no:
  *           type: string
+ *         user_whatsapp_no:
+ *           type: string
  *         user_email_id:
  *           type: string
  *         user_gender:
@@ -102,6 +104,9 @@
  *               user_phone_no:
  *                 type: string
  *                 description: Optional phone number
+ *               user_whatsapp_no:
+ *                 type: string
+ *                 description: Optional WhatsApp number for messaging
  *               user_email_id:
  *                 type: string
  *               user_gender:
@@ -285,6 +290,8 @@
  *               user_mobile_no:
  *                 type: string
  *               user_phone_no:
+ *                 type: string
+ *               user_whatsapp_no:
  *                 type: string
  *               user_email_id:
  *                 type: string

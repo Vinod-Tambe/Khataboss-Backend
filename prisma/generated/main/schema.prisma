@@ -392,9 +392,10 @@ model User {
   user_last_name   String
   user_mother_name String?
 
-  user_mobile_no String
-  user_phone_no  String?
-  user_email_id  String?
+  user_mobile_no   String
+  user_phone_no    String?
+  user_whatsapp_no String?
+  user_email_id    String?
 
   user_gender         UserGender?
   user_cast           String?

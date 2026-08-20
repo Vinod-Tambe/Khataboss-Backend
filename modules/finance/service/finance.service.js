@@ -10,6 +10,7 @@ const {
   sumPaidFineAndCollect,
 } = require("../../../utils/financeFine");
 const messageDispatchService = require("../../../common/service/message-dispatch.service");
+const { getCustomerWhatsAppNo } = require("../../../utils/customer.helper");
 const {
   addFinanceVoucher,
   financeCollectionVoucher,
@@ -360,7 +361,7 @@ class FinanceService {
         ownDb: messageDispatchService.ownDbFromUrl(dbUrl),
         firmId: finance.fin_firm_id,
         templateKey: "finance_created",
-        toPhone: user?.user_mobile_no,
+        toPhone: getCustomerWhatsAppNo(user),
         toEmail: user?.user_email_id,
         vars: {
           1: user
@@ -1726,7 +1727,7 @@ class FinanceService {
           ownDb: messageDispatchService.ownDbFromUrl(dbUrl),
           firmId: finance.fin_firm_id,
           templateKey,
-          toPhone: user?.user_mobile_no,
+          toPhone: getCustomerWhatsAppNo(user),
           toEmail: user?.user_email_id,
           vars: {
             1: user

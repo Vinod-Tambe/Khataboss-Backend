@@ -2,14 +2,19 @@
 
 const serialNumberService = require("../../../common/service/serialNumber.service");
 const { getTenantPrisma } = require("../../../utils/tenantPrisma");
+const { BASE_URL } = require("../../../config/db");
 
 class SerialNumberController {
+  getDbUrl(ownDb) {
+    return `${BASE_URL}/${ownDb}`;
+  }
+
   /**
    * Get all serial number configurations.
    */
   async getConfigs(req, res) {
     try {
-      const dbUrl = req.user?.db_url || process.env.DATABASE_MAIN_URL;
+      const dbUrl = this.getDbUrl(req.user.own_db);
       const prisma = getTenantPrisma(dbUrl);
 
       const configs = await serialNumberService.getAllConfigs(prisma);
@@ -28,11 +33,37 @@ class SerialNumberController {
   }
 
   /**
+   * Preview next serial number without consuming it.
+   */
+  async previewNextCode(req, res) {
+    try {
+      const dbUrl = this.getDbUrl(req.user.own_db);
+      const prisma = getTenantPrisma(dbUrl);
+      const { entity_type } = req.params;
+      const previewCode = await serialNumberService.peekNextSerialNumber(prisma, entity_type);
+      const typeKey = serialNumberService.normalizeEntityType(entity_type);
+
+      return res.status(200).json({
+        success: true,
+        entity_type: typeKey,
+        preview_code: previewCode,
+      });
+    } catch (error) {
+      console.error("❌ Error in previewNextCode:", error.message);
+      return res.status(500).json({
+        success: false,
+        message: "Failed to preview next serial code",
+        error: error.message,
+      });
+    }
+  }
+
+  /**
    * Update serial number configuration for an entity type.
    */
   async updateConfig(req, res) {
     try {
-      const dbUrl = req.user?.db_url || process.env.DATABASE_MAIN_URL;
+      const dbUrl = this.getDbUrl(req.user.own_db);
       const prisma = getTenantPrisma(dbUrl);
 
       const { entity_type } = req.params;
@@ -64,7 +95,7 @@ class SerialNumberController {
    */
   async generateNextCode(req, res) {
     try {
-      const dbUrl = req.user?.db_url || process.env.DATABASE_MAIN_URL;
+      const dbUrl = this.getDbUrl(req.user.own_db);
       const prisma = getTenantPrisma(dbUrl);
 
       const { entity_type } = req.params;

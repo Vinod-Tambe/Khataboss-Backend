@@ -10816,6 +10816,7 @@ export namespace Prisma {
     user_mother_name: string | null
     user_mobile_no: string | null
     user_phone_no: string | null
+    user_whatsapp_no: string | null
     user_email_id: string | null
     user_gender: $Enums.UserGender | null
     user_cast: string | null
@@ -10861,6 +10862,7 @@ export namespace Prisma {
     user_mother_name: string | null
     user_mobile_no: string | null
     user_phone_no: string | null
+    user_whatsapp_no: string | null
     user_email_id: string | null
     user_gender: $Enums.UserGender | null
     user_cast: string | null
@@ -10906,6 +10908,7 @@ export namespace Prisma {
     user_mother_name: number
     user_mobile_no: number
     user_phone_no: number
+    user_whatsapp_no: number
     user_email_id: number
     user_gender: number
     user_cast: number
@@ -10967,6 +10970,7 @@ export namespace Prisma {
     user_mother_name?: true
     user_mobile_no?: true
     user_phone_no?: true
+    user_whatsapp_no?: true
     user_email_id?: true
     user_gender?: true
     user_cast?: true
@@ -11012,6 +11016,7 @@ export namespace Prisma {
     user_mother_name?: true
     user_mobile_no?: true
     user_phone_no?: true
+    user_whatsapp_no?: true
     user_email_id?: true
     user_gender?: true
     user_cast?: true
@@ -11057,6 +11062,7 @@ export namespace Prisma {
     user_mother_name?: true
     user_mobile_no?: true
     user_phone_no?: true
+    user_whatsapp_no?: true
     user_email_id?: true
     user_gender?: true
     user_cast?: true
@@ -11191,6 +11197,7 @@ export namespace Prisma {
     user_mother_name: string | null
     user_mobile_no: string
     user_phone_no: string | null
+    user_whatsapp_no: string | null
     user_email_id: string | null
     user_gender: $Enums.UserGender | null
     user_cast: string | null
@@ -11257,6 +11264,7 @@ export namespace Prisma {
     user_mother_name?: boolean
     user_mobile_no?: boolean
     user_phone_no?: boolean
+    user_whatsapp_no?: boolean
     user_email_id?: boolean
     user_gender?: boolean
     user_cast?: boolean
@@ -11317,6 +11325,7 @@ export namespace Prisma {
     user_mother_name?: boolean
     user_mobile_no?: boolean
     user_phone_no?: boolean
+    user_whatsapp_no?: boolean
     user_email_id?: boolean
     user_gender?: boolean
     user_cast?: boolean
@@ -11366,6 +11375,7 @@ export namespace Prisma {
     user_mother_name?: boolean
     user_mobile_no?: boolean
     user_phone_no?: boolean
+    user_whatsapp_no?: boolean
     user_email_id?: boolean
     user_gender?: boolean
     user_cast?: boolean
@@ -11449,6 +11459,7 @@ export namespace Prisma {
       user_mother_name: string | null
       user_mobile_no: string
       user_phone_no: string | null
+      user_whatsapp_no: string | null
       user_email_id: string | null
       user_gender: $Enums.UserGender | null
       user_cast: string | null
@@ -11898,6 +11909,7 @@ export namespace Prisma {
     readonly user_mother_name: FieldRef<"User", 'String'>
     readonly user_mobile_no: FieldRef<"User", 'String'>
     readonly user_phone_no: FieldRef<"User", 'String'>
+    readonly user_whatsapp_no: FieldRef<"User", 'String'>
     readonly user_email_id: FieldRef<"User", 'String'>
     readonly user_gender: FieldRef<"User", 'UserGender'>
     readonly user_cast: FieldRef<"User", 'String'>
@@ -43840,6 +43852,7 @@ export namespace Prisma {
     user_mother_name: 'user_mother_name',
     user_mobile_no: 'user_mobile_no',
     user_phone_no: 'user_phone_no',
+    user_whatsapp_no: 'user_whatsapp_no',
     user_email_id: 'user_email_id',
     user_gender: 'user_gender',
     user_cast: 'user_cast',
@@ -46071,6 +46084,7 @@ export namespace Prisma {
     user_mother_name?: StringNullableFilter<"User"> | string | null
     user_mobile_no?: StringFilter<"User"> | string
     user_phone_no?: StringNullableFilter<"User"> | string | null
+    user_whatsapp_no?: StringNullableFilter<"User"> | string | null
     user_email_id?: StringNullableFilter<"User"> | string | null
     user_gender?: EnumUserGenderNullableFilter<"User"> | $Enums.UserGender | null
     user_cast?: StringNullableFilter<"User"> | string | null
@@ -46130,6 +46144,7 @@ export namespace Prisma {
     user_mother_name?: SortOrderInput | SortOrder
     user_mobile_no?: SortOrder
     user_phone_no?: SortOrderInput | SortOrder
+    user_whatsapp_no?: SortOrderInput | SortOrder
     user_email_id?: SortOrderInput | SortOrder
     user_gender?: SortOrderInput | SortOrder
     user_cast?: SortOrderInput | SortOrder
@@ -46192,6 +46207,7 @@ export namespace Prisma {
     user_mother_name?: StringNullableFilter<"User"> | string | null
     user_mobile_no?: StringFilter<"User"> | string
     user_phone_no?: StringNullableFilter<"User"> | string | null
+    user_whatsapp_no?: StringNullableFilter<"User"> | string | null
     user_email_id?: StringNullableFilter<"User"> | string | null
     user_gender?: EnumUserGenderNullableFilter<"User"> | $Enums.UserGender | null
     user_cast?: StringNullableFilter<"User"> | string | null
@@ -46251,6 +46267,7 @@ export namespace Prisma {
     user_mother_name?: SortOrderInput | SortOrder
     user_mobile_no?: SortOrder
     user_phone_no?: SortOrderInput | SortOrder
+    user_whatsapp_no?: SortOrderInput | SortOrder
     user_email_id?: SortOrderInput | SortOrder
     user_gender?: SortOrderInput | SortOrder
     user_cast?: SortOrderInput | SortOrder
@@ -46306,6 +46323,7 @@ export namespace Prisma {
     user_mother_name?: StringNullableWithAggregatesFilter<"User"> | string | null
     user_mobile_no?: StringWithAggregatesFilter<"User"> | string
     user_phone_no?: StringNullableWithAggregatesFilter<"User"> | string | null
+    user_whatsapp_no?: StringNullableWithAggregatesFilter<"User"> | string | null
     user_email_id?: StringNullableWithAggregatesFilter<"User"> | string | null
     user_gender?: EnumUserGenderNullableWithAggregatesFilter<"User"> | $Enums.UserGender | null
     user_cast?: StringNullableWithAggregatesFilter<"User"> | string | null
@@ -51657,6 +51675,7 @@ export namespace Prisma {
     user_mother_name?: string | null
     user_mobile_no: string
     user_phone_no?: string | null
+    user_whatsapp_no?: string | null
     user_email_id?: string | null
     user_gender?: $Enums.UserGender | null
     user_cast?: string | null
@@ -51716,6 +51735,7 @@ export namespace Prisma {
     user_mother_name?: string | null
     user_mobile_no: string
     user_phone_no?: string | null
+    user_whatsapp_no?: string | null
     user_email_id?: string | null
     user_gender?: $Enums.UserGender | null
     user_cast?: string | null
@@ -51770,6 +51790,7 @@ export namespace Prisma {
     user_mother_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_mobile_no?: StringFieldUpdateOperationsInput | string
     user_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_whatsapp_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_email_id?: NullableStringFieldUpdateOperationsInput | string | null
     user_gender?: NullableEnumUserGenderFieldUpdateOperationsInput | $Enums.UserGender | null
     user_cast?: NullableStringFieldUpdateOperationsInput | string | null
@@ -51829,6 +51850,7 @@ export namespace Prisma {
     user_mother_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_mobile_no?: StringFieldUpdateOperationsInput | string
     user_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_whatsapp_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_email_id?: NullableStringFieldUpdateOperationsInput | string | null
     user_gender?: NullableEnumUserGenderFieldUpdateOperationsInput | $Enums.UserGender | null
     user_cast?: NullableStringFieldUpdateOperationsInput | string | null
@@ -51886,6 +51908,7 @@ export namespace Prisma {
     user_mother_name?: string | null
     user_mobile_no: string
     user_phone_no?: string | null
+    user_whatsapp_no?: string | null
     user_email_id?: string | null
     user_gender?: $Enums.UserGender | null
     user_cast?: string | null
@@ -51930,6 +51953,7 @@ export namespace Prisma {
     user_mother_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_mobile_no?: StringFieldUpdateOperationsInput | string
     user_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_whatsapp_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_email_id?: NullableStringFieldUpdateOperationsInput | string | null
     user_gender?: NullableEnumUserGenderFieldUpdateOperationsInput | $Enums.UserGender | null
     user_cast?: NullableStringFieldUpdateOperationsInput | string | null
@@ -51977,6 +52001,7 @@ export namespace Prisma {
     user_mother_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_mobile_no?: StringFieldUpdateOperationsInput | string
     user_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_whatsapp_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_email_id?: NullableStringFieldUpdateOperationsInput | string | null
     user_gender?: NullableEnumUserGenderFieldUpdateOperationsInput | $Enums.UserGender | null
     user_cast?: NullableStringFieldUpdateOperationsInput | string | null
@@ -57623,6 +57648,7 @@ export namespace Prisma {
     user_mother_name?: SortOrder
     user_mobile_no?: SortOrder
     user_phone_no?: SortOrder
+    user_whatsapp_no?: SortOrder
     user_email_id?: SortOrder
     user_gender?: SortOrder
     user_cast?: SortOrder
@@ -57676,6 +57702,7 @@ export namespace Prisma {
     user_mother_name?: SortOrder
     user_mobile_no?: SortOrder
     user_phone_no?: SortOrder
+    user_whatsapp_no?: SortOrder
     user_email_id?: SortOrder
     user_gender?: SortOrder
     user_cast?: SortOrder
@@ -57721,6 +57748,7 @@ export namespace Prisma {
     user_mother_name?: SortOrder
     user_mobile_no?: SortOrder
     user_phone_no?: SortOrder
+    user_whatsapp_no?: SortOrder
     user_email_id?: SortOrder
     user_gender?: SortOrder
     user_cast?: SortOrder
@@ -67699,6 +67727,7 @@ export namespace Prisma {
     user_mother_name?: string | null
     user_mobile_no: string
     user_phone_no?: string | null
+    user_whatsapp_no?: string | null
     user_email_id?: string | null
     user_gender?: $Enums.UserGender | null
     user_cast?: string | null
@@ -67756,6 +67785,7 @@ export namespace Prisma {
     user_mother_name?: string | null
     user_mobile_no: string
     user_phone_no?: string | null
+    user_whatsapp_no?: string | null
     user_email_id?: string | null
     user_gender?: $Enums.UserGender | null
     user_cast?: string | null
@@ -69386,6 +69416,7 @@ export namespace Prisma {
     user_mother_name?: StringNullableFilter<"User"> | string | null
     user_mobile_no?: StringFilter<"User"> | string
     user_phone_no?: StringNullableFilter<"User"> | string | null
+    user_whatsapp_no?: StringNullableFilter<"User"> | string | null
     user_email_id?: StringNullableFilter<"User"> | string | null
     user_gender?: EnumUserGenderNullableFilter<"User"> | $Enums.UserGender | null
     user_cast?: StringNullableFilter<"User"> | string | null
@@ -70409,6 +70440,7 @@ export namespace Prisma {
     user_mother_name?: string | null
     user_mobile_no: string
     user_phone_no?: string | null
+    user_whatsapp_no?: string | null
     user_email_id?: string | null
     user_gender?: $Enums.UserGender | null
     user_cast?: string | null
@@ -70466,6 +70498,7 @@ export namespace Prisma {
     user_mother_name?: string | null
     user_mobile_no: string
     user_phone_no?: string | null
+    user_whatsapp_no?: string | null
     user_email_id?: string | null
     user_gender?: $Enums.UserGender | null
     user_cast?: string | null
@@ -79634,6 +79667,7 @@ export namespace Prisma {
     user_mother_name?: string | null
     user_mobile_no: string
     user_phone_no?: string | null
+    user_whatsapp_no?: string | null
     user_email_id?: string | null
     user_gender?: $Enums.UserGender | null
     user_cast?: string | null
@@ -79692,6 +79726,7 @@ export namespace Prisma {
     user_mother_name?: string | null
     user_mobile_no: string
     user_phone_no?: string | null
+    user_whatsapp_no?: string | null
     user_email_id?: string | null
     user_gender?: $Enums.UserGender | null
     user_cast?: string | null
@@ -80951,6 +80986,7 @@ export namespace Prisma {
     user_mother_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_mobile_no?: StringFieldUpdateOperationsInput | string
     user_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_whatsapp_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_email_id?: NullableStringFieldUpdateOperationsInput | string | null
     user_gender?: NullableEnumUserGenderFieldUpdateOperationsInput | $Enums.UserGender | null
     user_cast?: NullableStringFieldUpdateOperationsInput | string | null
@@ -81009,6 +81045,7 @@ export namespace Prisma {
     user_mother_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_mobile_no?: StringFieldUpdateOperationsInput | string
     user_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_whatsapp_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_email_id?: NullableStringFieldUpdateOperationsInput | string | null
     user_gender?: NullableEnumUserGenderFieldUpdateOperationsInput | $Enums.UserGender | null
     user_cast?: NullableStringFieldUpdateOperationsInput | string | null
@@ -82163,6 +82200,7 @@ export namespace Prisma {
     user_mother_name?: string | null
     user_mobile_no: string
     user_phone_no?: string | null
+    user_whatsapp_no?: string | null
     user_email_id?: string | null
     user_gender?: $Enums.UserGender | null
     user_cast?: string | null
@@ -82221,6 +82259,7 @@ export namespace Prisma {
     user_mother_name?: string | null
     user_mobile_no: string
     user_phone_no?: string | null
+    user_whatsapp_no?: string | null
     user_email_id?: string | null
     user_gender?: $Enums.UserGender | null
     user_cast?: string | null
@@ -83282,6 +83321,7 @@ export namespace Prisma {
     user_mother_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_mobile_no?: StringFieldUpdateOperationsInput | string
     user_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_whatsapp_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_email_id?: NullableStringFieldUpdateOperationsInput | string | null
     user_gender?: NullableEnumUserGenderFieldUpdateOperationsInput | $Enums.UserGender | null
     user_cast?: NullableStringFieldUpdateOperationsInput | string | null
@@ -83340,6 +83380,7 @@ export namespace Prisma {
     user_mother_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_mobile_no?: StringFieldUpdateOperationsInput | string
     user_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_whatsapp_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_email_id?: NullableStringFieldUpdateOperationsInput | string | null
     user_gender?: NullableEnumUserGenderFieldUpdateOperationsInput | $Enums.UserGender | null
     user_cast?: NullableStringFieldUpdateOperationsInput | string | null
@@ -84414,6 +84455,7 @@ export namespace Prisma {
     user_mother_name?: string | null
     user_mobile_no: string
     user_phone_no?: string | null
+    user_whatsapp_no?: string | null
     user_email_id?: string | null
     user_gender?: $Enums.UserGender | null
     user_cast?: string | null
@@ -84472,6 +84514,7 @@ export namespace Prisma {
     user_mother_name?: string | null
     user_mobile_no: string
     user_phone_no?: string | null
+    user_whatsapp_no?: string | null
     user_email_id?: string | null
     user_gender?: $Enums.UserGender | null
     user_cast?: string | null
@@ -85731,6 +85774,7 @@ export namespace Prisma {
     user_mother_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_mobile_no?: StringFieldUpdateOperationsInput | string
     user_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_whatsapp_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_email_id?: NullableStringFieldUpdateOperationsInput | string | null
     user_gender?: NullableEnumUserGenderFieldUpdateOperationsInput | $Enums.UserGender | null
     user_cast?: NullableStringFieldUpdateOperationsInput | string | null
@@ -85789,6 +85833,7 @@ export namespace Prisma {
     user_mother_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_mobile_no?: StringFieldUpdateOperationsInput | string
     user_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_whatsapp_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_email_id?: NullableStringFieldUpdateOperationsInput | string | null
     user_gender?: NullableEnumUserGenderFieldUpdateOperationsInput | $Enums.UserGender | null
     user_cast?: NullableStringFieldUpdateOperationsInput | string | null
@@ -87156,6 +87201,7 @@ export namespace Prisma {
     user_mother_name?: string | null
     user_mobile_no: string
     user_phone_no?: string | null
+    user_whatsapp_no?: string | null
     user_email_id?: string | null
     user_gender?: $Enums.UserGender | null
     user_cast?: string | null
@@ -87214,6 +87260,7 @@ export namespace Prisma {
     user_mother_name?: string | null
     user_mobile_no: string
     user_phone_no?: string | null
+    user_whatsapp_no?: string | null
     user_email_id?: string | null
     user_gender?: $Enums.UserGender | null
     user_cast?: string | null
@@ -87638,6 +87685,7 @@ export namespace Prisma {
     user_mother_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_mobile_no?: StringFieldUpdateOperationsInput | string
     user_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_whatsapp_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_email_id?: NullableStringFieldUpdateOperationsInput | string | null
     user_gender?: NullableEnumUserGenderFieldUpdateOperationsInput | $Enums.UserGender | null
     user_cast?: NullableStringFieldUpdateOperationsInput | string | null
@@ -87696,6 +87744,7 @@ export namespace Prisma {
     user_mother_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_mobile_no?: StringFieldUpdateOperationsInput | string
     user_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_whatsapp_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_email_id?: NullableStringFieldUpdateOperationsInput | string | null
     user_gender?: NullableEnumUserGenderFieldUpdateOperationsInput | $Enums.UserGender | null
     user_cast?: NullableStringFieldUpdateOperationsInput | string | null
@@ -88090,6 +88139,7 @@ export namespace Prisma {
     user_mother_name?: string | null
     user_mobile_no: string
     user_phone_no?: string | null
+    user_whatsapp_no?: string | null
     user_email_id?: string | null
     user_gender?: $Enums.UserGender | null
     user_cast?: string | null
@@ -88148,6 +88198,7 @@ export namespace Prisma {
     user_mother_name?: string | null
     user_mobile_no: string
     user_phone_no?: string | null
+    user_whatsapp_no?: string | null
     user_email_id?: string | null
     user_gender?: $Enums.UserGender | null
     user_cast?: string | null
@@ -88853,6 +88904,7 @@ export namespace Prisma {
     user_mother_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_mobile_no?: StringFieldUpdateOperationsInput | string
     user_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_whatsapp_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_email_id?: NullableStringFieldUpdateOperationsInput | string | null
     user_gender?: NullableEnumUserGenderFieldUpdateOperationsInput | $Enums.UserGender | null
     user_cast?: NullableStringFieldUpdateOperationsInput | string | null
@@ -88911,6 +88963,7 @@ export namespace Prisma {
     user_mother_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_mobile_no?: StringFieldUpdateOperationsInput | string
     user_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_whatsapp_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_email_id?: NullableStringFieldUpdateOperationsInput | string | null
     user_gender?: NullableEnumUserGenderFieldUpdateOperationsInput | $Enums.UserGender | null
     user_cast?: NullableStringFieldUpdateOperationsInput | string | null
@@ -89687,6 +89740,7 @@ export namespace Prisma {
     user_mother_name?: string | null
     user_mobile_no: string
     user_phone_no?: string | null
+    user_whatsapp_no?: string | null
     user_email_id?: string | null
     user_gender?: $Enums.UserGender | null
     user_cast?: string | null
@@ -89745,6 +89799,7 @@ export namespace Prisma {
     user_mother_name?: string | null
     user_mobile_no: string
     user_phone_no?: string | null
+    user_whatsapp_no?: string | null
     user_email_id?: string | null
     user_gender?: $Enums.UserGender | null
     user_cast?: string | null
@@ -91561,6 +91616,7 @@ export namespace Prisma {
     user_mother_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_mobile_no?: StringFieldUpdateOperationsInput | string
     user_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_whatsapp_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_email_id?: NullableStringFieldUpdateOperationsInput | string | null
     user_gender?: NullableEnumUserGenderFieldUpdateOperationsInput | $Enums.UserGender | null
     user_cast?: NullableStringFieldUpdateOperationsInput | string | null
@@ -91619,6 +91675,7 @@ export namespace Prisma {
     user_mother_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_mobile_no?: StringFieldUpdateOperationsInput | string
     user_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_whatsapp_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_email_id?: NullableStringFieldUpdateOperationsInput | string | null
     user_gender?: NullableEnumUserGenderFieldUpdateOperationsInput | $Enums.UserGender | null
     user_cast?: NullableStringFieldUpdateOperationsInput | string | null
@@ -93196,6 +93253,7 @@ export namespace Prisma {
     user_mother_name?: string | null
     user_mobile_no: string
     user_phone_no?: string | null
+    user_whatsapp_no?: string | null
     user_email_id?: string | null
     user_gender?: $Enums.UserGender | null
     user_cast?: string | null
@@ -93254,6 +93312,7 @@ export namespace Prisma {
     user_mother_name?: string | null
     user_mobile_no: string
     user_phone_no?: string | null
+    user_whatsapp_no?: string | null
     user_email_id?: string | null
     user_gender?: $Enums.UserGender | null
     user_cast?: string | null
@@ -93608,6 +93667,7 @@ export namespace Prisma {
     user_mother_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_mobile_no?: StringFieldUpdateOperationsInput | string
     user_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_whatsapp_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_email_id?: NullableStringFieldUpdateOperationsInput | string | null
     user_gender?: NullableEnumUserGenderFieldUpdateOperationsInput | $Enums.UserGender | null
     user_cast?: NullableStringFieldUpdateOperationsInput | string | null
@@ -93666,6 +93726,7 @@ export namespace Prisma {
     user_mother_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_mobile_no?: StringFieldUpdateOperationsInput | string
     user_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_whatsapp_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_email_id?: NullableStringFieldUpdateOperationsInput | string | null
     user_gender?: NullableEnumUserGenderFieldUpdateOperationsInput | $Enums.UserGender | null
     user_cast?: NullableStringFieldUpdateOperationsInput | string | null
@@ -93993,6 +94054,7 @@ export namespace Prisma {
     user_mother_name?: string | null
     user_mobile_no: string
     user_phone_no?: string | null
+    user_whatsapp_no?: string | null
     user_email_id?: string | null
     user_gender?: $Enums.UserGender | null
     user_cast?: string | null
@@ -94051,6 +94113,7 @@ export namespace Prisma {
     user_mother_name?: string | null
     user_mobile_no: string
     user_phone_no?: string | null
+    user_whatsapp_no?: string | null
     user_email_id?: string | null
     user_gender?: $Enums.UserGender | null
     user_cast?: string | null
@@ -95141,6 +95204,7 @@ export namespace Prisma {
     user_mother_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_mobile_no?: StringFieldUpdateOperationsInput | string
     user_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_whatsapp_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_email_id?: NullableStringFieldUpdateOperationsInput | string | null
     user_gender?: NullableEnumUserGenderFieldUpdateOperationsInput | $Enums.UserGender | null
     user_cast?: NullableStringFieldUpdateOperationsInput | string | null
@@ -95199,6 +95263,7 @@ export namespace Prisma {
     user_mother_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_mobile_no?: StringFieldUpdateOperationsInput | string
     user_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_whatsapp_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_email_id?: NullableStringFieldUpdateOperationsInput | string | null
     user_gender?: NullableEnumUserGenderFieldUpdateOperationsInput | $Enums.UserGender | null
     user_cast?: NullableStringFieldUpdateOperationsInput | string | null
@@ -96292,6 +96357,7 @@ export namespace Prisma {
     user_mother_name?: string | null
     user_mobile_no: string
     user_phone_no?: string | null
+    user_whatsapp_no?: string | null
     user_email_id?: string | null
     user_gender?: $Enums.UserGender | null
     user_cast?: string | null
@@ -96350,6 +96416,7 @@ export namespace Prisma {
     user_mother_name?: string | null
     user_mobile_no: string
     user_phone_no?: string | null
+    user_whatsapp_no?: string | null
     user_email_id?: string | null
     user_gender?: $Enums.UserGender | null
     user_cast?: string | null
@@ -98048,6 +98115,7 @@ export namespace Prisma {
     user_mother_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_mobile_no?: StringFieldUpdateOperationsInput | string
     user_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_whatsapp_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_email_id?: NullableStringFieldUpdateOperationsInput | string | null
     user_gender?: NullableEnumUserGenderFieldUpdateOperationsInput | $Enums.UserGender | null
     user_cast?: NullableStringFieldUpdateOperationsInput | string | null
@@ -98106,6 +98174,7 @@ export namespace Prisma {
     user_mother_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_mobile_no?: StringFieldUpdateOperationsInput | string
     user_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_whatsapp_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_email_id?: NullableStringFieldUpdateOperationsInput | string | null
     user_gender?: NullableEnumUserGenderFieldUpdateOperationsInput | $Enums.UserGender | null
     user_cast?: NullableStringFieldUpdateOperationsInput | string | null
@@ -99831,6 +99900,7 @@ export namespace Prisma {
     user_mother_name?: string | null
     user_mobile_no: string
     user_phone_no?: string | null
+    user_whatsapp_no?: string | null
     user_email_id?: string | null
     user_gender?: $Enums.UserGender | null
     user_cast?: string | null
@@ -99889,6 +99959,7 @@ export namespace Prisma {
     user_mother_name?: string | null
     user_mobile_no: string
     user_phone_no?: string | null
+    user_whatsapp_no?: string | null
     user_email_id?: string | null
     user_gender?: $Enums.UserGender | null
     user_cast?: string | null
@@ -101633,6 +101704,7 @@ export namespace Prisma {
     user_mother_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_mobile_no?: StringFieldUpdateOperationsInput | string
     user_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_whatsapp_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_email_id?: NullableStringFieldUpdateOperationsInput | string | null
     user_gender?: NullableEnumUserGenderFieldUpdateOperationsInput | $Enums.UserGender | null
     user_cast?: NullableStringFieldUpdateOperationsInput | string | null
@@ -101691,6 +101763,7 @@ export namespace Prisma {
     user_mother_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_mobile_no?: StringFieldUpdateOperationsInput | string
     user_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_whatsapp_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_email_id?: NullableStringFieldUpdateOperationsInput | string | null
     user_gender?: NullableEnumUserGenderFieldUpdateOperationsInput | $Enums.UserGender | null
     user_cast?: NullableStringFieldUpdateOperationsInput | string | null
@@ -107937,6 +108010,7 @@ export namespace Prisma {
     user_mother_name?: string | null
     user_mobile_no: string
     user_phone_no?: string | null
+    user_whatsapp_no?: string | null
     user_email_id?: string | null
     user_gender?: $Enums.UserGender | null
     user_cast?: string | null
@@ -108600,6 +108674,7 @@ export namespace Prisma {
     user_mother_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_mobile_no?: StringFieldUpdateOperationsInput | string
     user_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_whatsapp_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_email_id?: NullableStringFieldUpdateOperationsInput | string | null
     user_gender?: NullableEnumUserGenderFieldUpdateOperationsInput | $Enums.UserGender | null
     user_cast?: NullableStringFieldUpdateOperationsInput | string | null
@@ -108657,6 +108732,7 @@ export namespace Prisma {
     user_mother_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_mobile_no?: StringFieldUpdateOperationsInput | string
     user_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_whatsapp_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_email_id?: NullableStringFieldUpdateOperationsInput | string | null
     user_gender?: NullableEnumUserGenderFieldUpdateOperationsInput | $Enums.UserGender | null
     user_cast?: NullableStringFieldUpdateOperationsInput | string | null
@@ -108713,6 +108789,7 @@ export namespace Prisma {
     user_mother_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_mobile_no?: StringFieldUpdateOperationsInput | string
     user_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_whatsapp_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_email_id?: NullableStringFieldUpdateOperationsInput | string | null
     user_gender?: NullableEnumUserGenderFieldUpdateOperationsInput | $Enums.UserGender | null
     user_cast?: NullableStringFieldUpdateOperationsInput | string | null
@@ -110742,6 +110819,7 @@ export namespace Prisma {
     user_mother_name?: string | null
     user_mobile_no: string
     user_phone_no?: string | null
+    user_whatsapp_no?: string | null
     user_email_id?: string | null
     user_gender?: $Enums.UserGender | null
     user_cast?: string | null
@@ -111330,6 +111408,7 @@ export namespace Prisma {
     user_mother_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_mobile_no?: StringFieldUpdateOperationsInput | string
     user_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_whatsapp_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_email_id?: NullableStringFieldUpdateOperationsInput | string | null
     user_gender?: NullableEnumUserGenderFieldUpdateOperationsInput | $Enums.UserGender | null
     user_cast?: NullableStringFieldUpdateOperationsInput | string | null
@@ -111387,6 +111466,7 @@ export namespace Prisma {
     user_mother_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_mobile_no?: StringFieldUpdateOperationsInput | string
     user_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_whatsapp_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_email_id?: NullableStringFieldUpdateOperationsInput | string | null
     user_gender?: NullableEnumUserGenderFieldUpdateOperationsInput | $Enums.UserGender | null
     user_cast?: NullableStringFieldUpdateOperationsInput | string | null
@@ -111443,6 +111523,7 @@ export namespace Prisma {
     user_mother_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_mobile_no?: StringFieldUpdateOperationsInput | string
     user_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    user_whatsapp_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_email_id?: NullableStringFieldUpdateOperationsInput | string | null
     user_gender?: NullableEnumUserGenderFieldUpdateOperationsInput | $Enums.UserGender | null
     user_cast?: NullableStringFieldUpdateOperationsInput | string | null

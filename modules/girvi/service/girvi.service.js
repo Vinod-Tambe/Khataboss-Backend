@@ -5,6 +5,7 @@ const journalService = require("../../journal/service/journal.service");
 const serialNumberService = require("../../../common/service/serialNumber.service");
 const { calculateFirstMonthInterest, getLoanInterestSummary } = require("../../../utils/loanInterest");
 const messageDispatchService = require("../../../common/service/message-dispatch.service");
+const { getCustomerWhatsAppNo } = require("../../../utils/customer.helper");
 const {
   addLoanVoucher,
   firstMonthInterestVoucher,
@@ -145,7 +146,7 @@ class GirviService {
         ownDb: messageDispatchService.ownDbFromUrl(dbUrl),
         firmId: newGirvi.girv_firm_id,
         templateKey: "loan_created",
-        toPhone: user?.user_mobile_no,
+        toPhone: getCustomerWhatsAppNo(user),
         toEmail: user?.user_email_id,
         vars: {
           1: user
@@ -340,6 +341,80 @@ class GirviService {
     }
   }
 
+  async enrichGirvisListData(prisma, girvis) {
+    if (!girvis?.length) return [];
+
+    const girvIds = girvis.map((g) => g.girv_id);
+
+    const [additionalPrincipals, deposits, releases, stocks] = await Promise.all([
+      prisma.additionalPrincipal.findMany({
+        where: { ap_girv_id: { in: girvIds }, ap_is_deleted: false },
+      }),
+      prisma.girviDeposit.findMany({
+        where: { dep_girv_id: { in: girvIds }, dep_is_deleted: false },
+      }),
+      prisma.girviRelease.findMany({
+        where: { rel_girv_id: { in: girvIds }, rel_is_deleted: false },
+        orderBy: { rel_trans_date: "asc" },
+      }),
+      prisma.stock.findMany({
+        where: {
+          st_referance_panel: "girvi",
+          st_referance_id: { in: girvIds },
+          st_is_deleted: false,
+        },
+      }),
+    ]);
+
+    const groupBy = (rows, idKey) =>
+      rows.reduce((acc, row) => {
+        const id = row[idKey];
+        if (!acc[id]) acc[id] = [];
+        acc[id].push(row);
+        return acc;
+      }, {});
+
+    const apByGirv = groupBy(additionalPrincipals, "ap_girv_id");
+    const depByGirv = groupBy(deposits, "dep_girv_id");
+    const relByGirv = groupBy(releases, "rel_girv_id");
+    const stockByGirv = groupBy(stocks, "st_referance_id");
+
+    return girvis.map((g) => {
+      const aps = apByGirv[g.girv_id] || [];
+      const deps = depByGirv[g.girv_id] || [];
+      const rels = relByGirv[g.girv_id] || [];
+      const items = stockByGirv[g.girv_id] || [];
+      const interest_summary = getLoanInterestSummary({
+        ...g,
+        additionalPrincipals: aps,
+        deposits: deps,
+        releases: rels,
+      });
+      const total_valuation = items.reduce(
+        (sum, item) =>
+          sum + (parseFloat(item.st_final_valuation || item.st_valuation) || 0),
+        0
+      );
+      const isSecured = String(g.girv_type || "").toLowerCase() === "secured";
+      const finalPay = interest_summary.totalDueAmount ?? interest_summary.pending;
+      const profit_loss =
+        isSecured && total_valuation > 0
+          ? parseFloat((total_valuation - finalPay).toFixed(2))
+          : null;
+
+      return {
+        ...g,
+        additionalPrincipals: aps,
+        deposits: deps,
+        releases: rels,
+        items,
+        interest_summary,
+        total_valuation,
+        profit_loss,
+      };
+    });
+  }
+
   async getGirvis(dbUrl, firmId, userId, status) {
     const prisma = this.getPrisma(dbUrl);
     try {
@@ -382,7 +457,9 @@ class GirviService {
         );
       }
 
-      return girvis.map((g) => ({
+      const enriched = await this.enrichGirvisListData(prisma, girvis);
+
+      return enriched.map((g) => ({
         ...g,
         transferFirm: g.girv_transfer_firm_id
           ? transferFirmMap[g.girv_transfer_firm_id] || null

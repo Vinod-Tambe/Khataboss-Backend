@@ -556,6 +556,10 @@ async function listActivityLogs(dbUrl, filters) {
     }
   }
 
+  if (filters.loginId) {
+    where.al_login_id = String(filters.loginId);
+  }
+
   const limit = Math.min(Math.max(parseInt(filters.limit, 10) || 200, 1), 500);
   const page = Math.max(parseInt(filters.page, 10) || 1, 1);
   const skip = (page - 1) * limit;

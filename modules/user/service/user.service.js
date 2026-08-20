@@ -117,6 +117,7 @@ class UserService {
         { user_unique_code: { contains: search, mode: "insensitive" } },
         { user_mobile_no: { contains: search, mode: "insensitive" } },
         { user_phone_no: { contains: search, mode: "insensitive" } },
+        { user_whatsapp_no: { contains: search, mode: "insensitive" } },
         { user_email_id: { contains: search, mode: "insensitive" } },
         { user_first_name: { contains: search, mode: "insensitive" } },
         { user_last_name: { contains: search, mode: "insensitive" } },
@@ -132,6 +133,7 @@ class UserService {
       if (digitsOnly.length >= 3 && digitsOnly !== search) {
         or.unshift({ user_mobile_no: { contains: digitsOnly } });
         or.unshift({ user_phone_no: { contains: digitsOnly } });
+        or.unshift({ user_whatsapp_no: { contains: digitsOnly } });
       }
 
       if (/^\d+$/.test(search)) {
@@ -155,6 +157,8 @@ class UserService {
           user_last_name: true,
           user_father_name: true,
           user_mobile_no: true,
+          user_phone_no: true,
+          user_whatsapp_no: true,
           user_email_id: true,
           user_firm_id: true,
           user_profile_img: true,
@@ -165,6 +169,13 @@ class UserService {
           user_state: true,
           user_country: true,
           user_pincode: true,
+          firm: {
+            select: {
+              firm_name: true,
+              firm_phone_no: true,
+              firm_city: true,
+            },
+          },
         },
       });
     
@@ -198,6 +209,7 @@ class UserService {
           { user_father_name: { contains: cleanSearch, mode: "insensitive" } },
           { user_mobile_no: { contains: cleanSearch, mode: "insensitive" } },
           { user_phone_no: { contains: cleanSearch, mode: "insensitive" } },
+          { user_whatsapp_no: { contains: cleanSearch, mode: "insensitive" } },
           { user_email_id: { contains: cleanSearch, mode: "insensitive" } },
           { user_city: { contains: cleanSearch, mode: "insensitive" } },
           { user_state: { contains: cleanSearch, mode: "insensitive" } },
@@ -209,6 +221,7 @@ class UserService {
         if (digitsOnly.length >= 3 && digitsOnly !== cleanSearch) {
           or.unshift({ user_mobile_no: { contains: digitsOnly } });
           or.unshift({ user_phone_no: { contains: digitsOnly } });
+          or.unshift({ user_whatsapp_no: { contains: digitsOnly } });
         }
 
         where.OR = or;
@@ -218,6 +231,15 @@ class UserService {
         where,
         orderBy: {
           user_created_at: "desc",
+        },
+        include: {
+          firm: {
+            select: {
+              firm_name: true,
+              firm_phone_no: true,
+              firm_city: true,
+            },
+          },
         },
       });
     
