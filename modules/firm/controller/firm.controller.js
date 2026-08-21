@@ -105,6 +105,20 @@ class FirmController {
         console.warn("⚠️ Failed to seed form template:", templateErr.message);
       }
 
+      // 5. Seed firm-wise agreement templates — Loan & Finance (non-blocking)
+      try {
+        const {
+          seedAgreementTemplatesForFirm,
+        } = require("../../../prisma/seeder/agreement-template-seeder");
+        await seedAgreementTemplatesForFirm(dbUrl, {
+          ownId: newFirm.firm_own_id,
+          firmId: newFirm.firm_id,
+          firmName: newFirm.firm_name,
+        });
+      } catch (agreementErr) {
+        console.warn("⚠️ Failed to seed agreement templates:", agreementErr.message);
+      }
+
       if (req.files && Object.keys(req.files).length > 0) {
         const movedFiles = await imageService.moveFiles(
           newFirm.firm_own_id,

@@ -2,6 +2,14 @@
 
 const accountService = require("../../account/service/account.service");
 const journalTransService = require("../../trial_balance/service/journal_trans.service");
+const { formatIndirectIncomesForPnl } = require("../../../utils/incomeAccounts");
+const {
+  buildScheduleIIIOtherIncome,
+  buildComplianceMeta,
+  summariseGstPayables,
+  ensureComplianceAccounts,
+} = require("../../../utils/indianCompliance");
+const { getTenantPrisma } = require("../../../utils/tenantPrisma");
 
 class ProfitLossService {
   /**
@@ -195,6 +203,46 @@ class ProfitLossService {
       const pnlTotalExpenditure = pnlDebits + netProfit;
       const pnlTotalRevenue = pnlCredits + netLoss;
 
+      const formattedIndirectIncomes = formatIndirectIncomesForPnl(indirectIncomesList);
+      const scheduleIII = buildScheduleIIIOtherIncome(formattedIndirectIncomes);
+      const gstSummary = summariseGstPayables(trialBalanceMap, accountMap);
+
+      let firm = null;
+      if (filters.firmId && filters.firmId !== "N") {
+        const prisma = getTenantPrisma(dbUrl);
+        try {
+          firm = await prisma.firm.findFirst({
+            where: {
+              firm_id: parseInt(filters.firmId, 10),
+              firm_is_deleted: false,
+            },
+            select: {
+              firm_id: true,
+              firm_name: true,
+              firm_gstin_no: true,
+              firm_pan_no: true,
+              firm_own_id: true,
+            },
+          });
+          if (firm) {
+            await ensureComplianceAccounts(
+              prisma,
+              firm.firm_id,
+              firm.firm_own_id || 1
+            );
+          }
+        } finally {
+          await prisma.$disconnect();
+        }
+      }
+
+      const compliance = buildComplianceMeta({
+        firm,
+        startDate: filters.startDate,
+        endDate: filters.endDate,
+        gstSummary,
+      });
+
       // 3. Capital Account Calculations
       const closingCapital = openingCapital + additions + netProfit - netLoss - drawings;
 
@@ -219,7 +267,7 @@ class ProfitLossService {
             ...indirectExpensesList
           ],
           revenue: [
-            ...indirectIncomesList
+            ...formattedIndirectIncomes
           ],
           netProfit,
           netLoss,
@@ -233,7 +281,9 @@ class ProfitLossService {
           netProfit,
           netLoss,
           closingCapital
-        }
+        },
+        scheduleIII,
+        compliance,
       };
     } catch (error) {
       console.error('❌ Error in get_profit_loss_data:', error.message);

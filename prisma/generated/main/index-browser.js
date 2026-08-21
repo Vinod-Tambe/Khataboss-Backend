@@ -945,6 +945,24 @@ exports.Prisma.FormTemplateScalarFieldEnum = {
   ft_is_deleted: 'ft_is_deleted'
 };
 
+exports.Prisma.AgreementTemplateScalarFieldEnum = {
+  at_id: 'at_id',
+  at_uuid: 'at_uuid',
+  at_own_id: 'at_own_id',
+  at_firm_id: 'at_firm_id',
+  at_type: 'at_type',
+  at_config: 'at_config',
+  at_status: 'at_status',
+  at_is_system: 'at_is_system',
+  at_created_at: 'at_created_at',
+  at_created_by: 'at_created_by',
+  at_updated_at: 'at_updated_at',
+  at_updated_by: 'at_updated_by',
+  at_deleted_at: 'at_deleted_at',
+  at_deleted_by: 'at_deleted_by',
+  at_is_deleted: 'at_is_deleted'
+};
+
 exports.Prisma.WhatsAppInstanceScalarFieldEnum = {
   wa_id: 'wa_id',
   wa_uuid: 'wa_uuid',
@@ -1181,6 +1199,11 @@ exports.FormTemplateStatus = exports.$Enums.FormTemplateStatus = {
   Inactive: 'Inactive'
 };
 
+exports.AgreementTemplateType = exports.$Enums.AgreementTemplateType = {
+  Loan: 'Loan',
+  Finance: 'Finance'
+};
+
 exports.WhatsAppInstanceStatus = exports.$Enums.WhatsAppInstanceStatus = {
   Pending: 'Pending',
   Connected: 'Connected',
@@ -1215,6 +1238,7 @@ exports.Prisma.ModelName = {
   SerialNumber: 'SerialNumber',
   MessageTemplate: 'MessageTemplate',
   FormTemplate: 'FormTemplate',
+  AgreementTemplate: 'AgreementTemplate',
   WhatsAppInstance: 'WhatsAppInstance',
   MessageLog: 'MessageLog',
   ActivityLog: 'ActivityLog'

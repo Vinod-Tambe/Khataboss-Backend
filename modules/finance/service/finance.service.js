@@ -23,6 +23,14 @@ const {
   buildFinanceInterestSummary,
   isBundledInterestFinance,
 } = require("../../../utils/financeInterest");
+const {
+  resolveIncomeAccount,
+  buildFinanceIncomeCreditLines,
+} = require("../../../utils/incomeAccounts");
+const {
+  buildGstInclusiveCreditLines,
+  buildFineCollectCreditLinesWithGst,
+} = require("../../../utils/indianCompliance");
 
 function buildFinanceRollbackSummary(finance = {}) {
   const emiPaid = (finance.finance_trans || []).reduce(
@@ -113,7 +121,7 @@ class FinanceService {
    * Accounting (loan-aligned, interest collected separately):
    *   DR Unsecured Loans = principal
    *   CR Cash/Bank/...   = disbursed (prin − process fee)
-   *   CR Interest Rec    = process fee only (ROI interest via INTEREST payments)
+   *   CR Processing Fees = process fee only (ROI interest via INTEREST payments)
    */
   async create_finance(dbUrl, data) {
     const prisma = this.getPrisma(dbUrl);
@@ -177,14 +185,15 @@ class FinanceService {
         throw new Error("Loan receivable account (Unsecured Loans) not found for firm");
       }
 
-      const feeIncomeAccId = await this.resolveAccount(prisma, firmId, null, [
-        "Interest Rec",
-        "Indirect Incomes",
-        "Direct Incomes",
-      ]);
-      if (processAmt > 0 && !feeIncomeAccId) {
+      const processingFeesAccId = await resolveIncomeAccount(
+        prisma,
+        firmId,
+        data.fin_own_id || 1,
+        "PROCESSING"
+      );
+      if (processAmt > 0 && !processingFeesAccId) {
         throw new Error(
-          "Income account (Interest Rec) not found for firm. Required for process fee."
+          "Income account (Processing Fees) not found for firm. Required for process fee."
         );
       }
 
@@ -270,7 +279,26 @@ class FinanceService {
         prin
       );
 
-      // DR Loan = principal; CR Cash = disbursed; CR Interest Rec = process fee only (interest collected separately)
+      const firm = await prisma.firm.findFirst({
+        where: { firm_id: firmId, firm_is_deleted: false },
+        select: { firm_gstin_no: true, firm_pan_no: true, firm_own_id: true },
+      });
+
+      const processFeeLines =
+        processAmt > 0
+          ? await buildGstInclusiveCreditLines({
+              prisma,
+              firm,
+              firmId,
+              ownId: data.fin_own_id || 1,
+              grossAmount: processAmt,
+              incomeAccId: processingFeesAccId,
+              transDate: finance.fin_start_date,
+              narration: finLine("Finance Process Fee", finance),
+            })
+          : [];
+
+      // DR Loan = principal; CR Cash = disbursed; CR Processing Fees = process fee only
       const journal_request = {
         journal_date: {
           jrnl_date: finance.fin_start_date,
@@ -310,13 +338,7 @@ class FinanceService {
             jrtr_cr_amt: fin_card_amt_val,
             jrtr_acc_info: finance.fin_card_info,
           },
-          {
-            jrtr_crdr: "CR",
-            jrtr_date: finance.fin_start_date,
-            jrtr_cr_acc_id: feeIncomeAccId,
-            jrtr_cr_amt: processAmt,
-            jrtr_acc_info: finLine("Finance Process Fee", finance),
-          },
+          ...processFeeLines,
           {
             jrtr_crdr: "DR",
             jrtr_date: finance.fin_start_date,
@@ -835,14 +857,15 @@ class FinanceService {
         throw new Error("Loan receivable account (Unsecured Loans) not found for firm");
       }
 
-      const feeIncomeAccId = await this.resolveAccount(prisma, firmId, null, [
-        "Interest Rec",
-        "Indirect Incomes",
-        "Direct Incomes",
-      ]);
-      if (processAmt > 0 && !feeIncomeAccId) {
+      const processingFeesAccId = await resolveIncomeAccount(
+        prisma,
+        firmId,
+        existing.fin_own_id || data.fin_own_id || 1,
+        "PROCESSING"
+      );
+      if (processAmt > 0 && !processingFeesAccId) {
         throw new Error(
-          "Income account (Interest Rec) not found for firm. Required for process fee."
+          "Income account (Processing Fees) not found for firm. Required for process fee."
         );
       }
 
@@ -978,6 +1001,25 @@ class FinanceService {
           await this.deleteFinanceJournalsByInfo(dbUrl, pattern);
         }
 
+        const firm = await prisma.firm.findFirst({
+          where: { firm_id: firmId, firm_is_deleted: false },
+          select: { firm_gstin_no: true, firm_pan_no: true, firm_own_id: true },
+        });
+
+        const processFeeLines =
+          processAmt > 0
+            ? await buildGstInclusiveCreditLines({
+                prisma,
+                firm,
+                firmId,
+                ownId: existing.fin_own_id || data.fin_own_id || 1,
+                grossAmount: processAmt,
+                incomeAccId: processingFeesAccId,
+                transDate: updated.fin_start_date,
+                narration: finLine("Finance Process Fee", updated),
+              })
+            : [];
+
         const journal_request = {
           journal_date: {
             jrnl_date: updated.fin_start_date,
@@ -1017,13 +1059,7 @@ class FinanceService {
               jrtr_cr_amt: fin_card_amt_val,
               jrtr_acc_info: updated.fin_card_info,
             },
-            {
-              jrtr_crdr: "CR",
-              jrtr_date: updated.fin_start_date,
-              jrtr_cr_acc_id: feeIncomeAccId,
-              jrtr_cr_amt: processAmt,
-              jrtr_acc_info: finLine("Finance Process Fee", updated),
-            },
+            ...processFeeLines,
             {
               jrtr_crdr: "DR",
               jrtr_date: updated.fin_start_date,
@@ -1167,6 +1203,11 @@ class FinanceService {
       }
       previousFinanceStatus = finance.fin_status;
 
+      const firm = await prisma.firm.findFirst({
+        where: { firm_id: finance.fin_firm_id, firm_is_deleted: false },
+        select: { firm_gstin_no: true, firm_pan_no: true, firm_own_id: true },
+      });
+
       const fm_cash_amt = parseFloat(data.fm_cash_amt || 0);
       const fm_bank_amt = parseFloat(data.fm_bank_amt || 0);
       const fm_online_amt = parseFloat(data.fm_online_amt || 0);
@@ -1182,7 +1223,10 @@ class FinanceService {
 
       let finePortion = 0;
       let collectPortion = 0;
-      let incomeAccId = null;
+      let fineAccId = null;
+      let collectAccId = null;
+      let interestAccId = null;
+      const firmOwnId = finance.fin_own_id || 1;
 
       if (isFine) {
         const fineCalc = computeFinanceFine(
@@ -1247,14 +1291,21 @@ class FinanceService {
           throw new Error("Fine + collect portions must equal payment amount");
         }
 
-        incomeAccId = await this.resolveAccount(prisma, finance.fin_firm_id, null, [
-          "Interest Rec",
-          "Indirect Incomes",
-          "Direct Incomes",
-          "Extra Income",
-        ]);
-        if (!incomeAccId) {
-          throw new Error("Income account (Interest Rec) not found for firm");
+        if (finePortion > 0) {
+          fineAccId = await resolveIncomeAccount(
+            prisma,
+            finance.fin_firm_id,
+            firmOwnId,
+            "FINE"
+          );
+        }
+        if (collectPortion > 0) {
+          collectAccId = await resolveIncomeAccount(
+            prisma,
+            finance.fin_firm_id,
+            firmOwnId,
+            "COLLECT"
+          );
         }
       }
 
@@ -1277,13 +1328,13 @@ class FinanceService {
             `Interest payment exceeds pending amount (${pendingInt.toFixed(2)})`
           );
         }
-        incomeAccId = await this.resolveAccount(prisma, finance.fin_firm_id, null, [
-          "Interest Rec",
-          "Indirect Incomes",
-          "Direct Incomes",
-          "Extra Income",
-        ]);
-        if (!incomeAccId) {
+        interestAccId = await resolveIncomeAccount(
+          prisma,
+          finance.fin_firm_id,
+          firmOwnId,
+          "INTEREST"
+        );
+        if (!interestAccId) {
           throw new Error("Income account (Interest Rec) not found for firm");
         }
       }
@@ -1306,13 +1357,13 @@ class FinanceService {
             `Interest rollback exceeds paid interest (${intSummary.interest_paid.toFixed(2)})`
           );
         }
-        incomeAccId = await this.resolveAccount(prisma, finance.fin_firm_id, null, [
-          "Interest Rec",
-          "Indirect Incomes",
-          "Direct Incomes",
-          "Extra Income",
-        ]);
-        if (!incomeAccId) {
+        interestAccId = await resolveIncomeAccount(
+          prisma,
+          finance.fin_firm_id,
+          firmOwnId,
+          "INTEREST"
+        );
+        if (!interestAccId) {
           throw new Error("Income account (Interest Rec) not found for firm");
         }
       }
@@ -1352,14 +1403,21 @@ class FinanceService {
         if (Math.abs(finePortion + collectPortion - paymentAmt) > 0.01) {
           throw new Error("Fine + collect rollback portions must equal total amount");
         }
-        incomeAccId = await this.resolveAccount(prisma, finance.fin_firm_id, null, [
-          "Interest Rec",
-          "Indirect Incomes",
-          "Direct Incomes",
-          "Extra Income",
-        ]);
-        if (!incomeAccId) {
-          throw new Error("Income account (Interest Rec) not found for firm");
+        if (finePortion > 0) {
+          fineAccId = await resolveIncomeAccount(
+            prisma,
+            finance.fin_firm_id,
+            firmOwnId,
+            "FINE"
+          );
+        }
+        if (collectPortion > 0) {
+          collectAccId = await resolveIncomeAccount(
+            prisma,
+            finance.fin_firm_id,
+            firmOwnId,
+            "COLLECT"
+          );
         }
       }
 
@@ -1477,7 +1535,9 @@ class FinanceService {
           fm_bank_acc_id,
           fm_online_acc_id,
           fm_card_acc_id,
-          fm_dr_acc_id: creditIncomeTypes ? incomeAccId : finance.fin_dr_acc_id,
+          fm_dr_acc_id: creditIncomeTypes
+            ? collectAccId || fineAccId || interestAccId
+            : finance.fin_dr_acc_id,
           fm_cash_info: data.fm_cash_info || "",
           fm_bank_info: data.fm_bank_info || "",
           fm_online_info: data.fm_online_info || "",
@@ -1613,10 +1673,48 @@ class FinanceService {
                     ? "Interest Payment"
                     : "EMI Payment";
 
-      const creditAccId =
-        isFine || isInterest || isInterestRollback || isFineRollback
-          ? incomeAccId
-          : finance.fin_dr_acc_id;
+      const fineCollectNarration =
+        isFine || isFineRollback
+          ? `${journalLabel} (Fine ${finePortion.toFixed(2)} + Collect ${collectPortion.toFixed(2)}) : ${finRef(finance)}`
+          : "";
+
+      let incomeCreditLines;
+      if (isFine || isFineRollback) {
+        incomeCreditLines = await buildFineCollectCreditLinesWithGst({
+          prisma,
+          firm,
+          firmId: finance.fin_firm_id,
+          ownId: finance.fin_own_id || 1,
+          isRollback,
+          transDate: data.fm_trans_date,
+          finePortion,
+          collectPortion,
+          fineAccId,
+          collectAccId,
+          narration: fineCollectNarration,
+        });
+      } else {
+        incomeCreditLines = buildFinanceIncomeCreditLines({
+          isRollback,
+          transDate: data.fm_trans_date,
+          isFine,
+          isFineRollback,
+          isInterest,
+          isInterestRollback,
+          finePortion,
+          collectPortion,
+          paymentAmt,
+          fineAccId,
+          collectAccId,
+          interestAccId,
+          loanAccId: finance.fin_dr_acc_id,
+          narrationFineCollect: fineCollectNarration,
+          narrationInterest: isInterestRollback
+            ? finLine("Interest Rollback", finance)
+            : finLine("Interest Received", finance),
+          narrationEmi: finLine(journalLabel, finance),
+        });
+      }
 
       const journal_request = {
         journal_date: {
@@ -1657,21 +1755,7 @@ class FinanceService {
             [isRollback ? "jrtr_cr_amt" : "jrtr_dr_amt"]: moneyTrans.fm_card_amt,
             jrtr_acc_info: moneyTrans.fm_card_info,
           },
-          {
-            jrtr_crdr: isRollback ? "DR" : "CR",
-            jrtr_date: data.fm_trans_date,
-            [isRollback ? "jrtr_dr_acc_id" : "jrtr_cr_acc_id"]: creditAccId,
-            [isRollback ? "jrtr_dr_amt" : "jrtr_cr_amt"]: paymentAmt,
-            jrtr_acc_info: isFine
-              ? `${journalLabel} (Fine ${finePortion.toFixed(2)} + Collect ${collectPortion.toFixed(2)}) : ${finRef(finance)}`
-              : isFineRollback
-                ? `${journalLabel} (Fine ${finePortion.toFixed(2)} + Collect ${collectPortion.toFixed(2)}) : ${finRef(finance)}`
-              : isInterest
-                ? finLine("Interest Received", finance)
-                : isInterestRollback
-                  ? finLine("Interest Rollback", finance)
-                  : finLine(journalLabel, finance),
-          },
+          ...incomeCreditLines,
         ].filter(
           (t) =>
             (t.jrtr_cr_amt && parseFloat(t.jrtr_cr_amt) > 0) ||

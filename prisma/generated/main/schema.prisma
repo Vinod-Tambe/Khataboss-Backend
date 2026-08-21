@@ -108,6 +108,7 @@ model Owner {
   staff                Staff[]                     @relation("OwnerStaff")
   messageTemplates     MessageTemplate[]           @relation("OwnerMessageTemplate")
   formTemplates        FormTemplate[]              @relation("OwnerFormTemplate")
+  agreementTemplates   AgreementTemplate[]         @relation("OwnerAgreementTemplate")
   whatsappInstances    WhatsAppInstance[]          @relation("OwnerWhatsAppInstance")
 
   // ===============================
@@ -253,6 +254,7 @@ model Firm {
   releaseUsers         ReleaseUser[]               @relation("FirmReleaseUser")
   messageTemplates     MessageTemplate[]           @relation("FirmMessageTemplate")
   formTemplate         FormTemplate?               @relation("FirmFormTemplate")
+  agreementTemplates   AgreementTemplate[]         @relation("FirmAgreementTemplate")
   whatsappInstance     WhatsAppInstance?           @relation("FirmWhatsAppInstance")
 }
 
@@ -1688,6 +1690,37 @@ model FormTemplate {
 
   @@index([ft_own_id, ft_firm_id])
   @@map("form_templates")
+}
+
+enum AgreementTemplateType {
+  Loan
+  Finance
+}
+
+model AgreementTemplate {
+  at_id        Int                   @id @default(autoincrement())
+  at_uuid      String                @unique @default(uuid())
+  at_own_id    Int
+  at_firm_id   Int
+  at_type      AgreementTemplateType
+  at_config    Json
+  at_status    FormTemplateStatus    @default(Active)
+  at_is_system Boolean               @default(true)
+
+  at_created_at DateTime  @default(now())
+  at_created_by String?
+  at_updated_at DateTime  @updatedAt
+  at_updated_by String?
+  at_deleted_at DateTime?
+  at_deleted_by String?
+  at_is_deleted Boolean   @default(false)
+
+  owner Owner @relation("OwnerAgreementTemplate", fields: [at_own_id], references: [own_id], onDelete: Cascade)
+  firm  Firm  @relation("FirmAgreementTemplate", fields: [at_firm_id], references: [firm_id], onDelete: Cascade)
+
+  @@unique([at_firm_id, at_type])
+  @@index([at_own_id, at_firm_id, at_type])
+  @@map("agreement_templates")
 }
 
 model WhatsAppInstance {

@@ -76,6 +76,7 @@ v1Router.use("/money-lender", require("./modules/money_lender/routes/money_lende
 v1Router.use("/serial-number", require("./modules/serial_number/routes/serial_number.routes"));
 v1Router.use("/messaging", require("./modules/messaging/routes/messaging.routes"));
 v1Router.use("/form-templates", require("./modules/form_template/routes/form-template.routes"));
+v1Router.use("/agreement-templates", require("./modules/agreement_template/routes/agreement-template.routes"));
 v1Router.use("/logs", require("./modules/log/routes/log.routes"));
 app.use("/api/v1", v1Router);
 

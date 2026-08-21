@@ -7,7 +7,15 @@ const cr_accounts = [
   { acc_name: "Provisions", acc_pre_acc: "Provisions" },
   { acc_name: "Reserves & Surplus", acc_pre_acc: "Reserves & Surplus" },
   { acc_name: "Sundry Creditors", acc_pre_acc: "Sundry Creditors" },
-  { acc_name: "Interest Rec", acc_pre_acc: "Indirect Incomes" }
+  { acc_name: "Interest Rec", acc_pre_acc: "Indirect Incomes" },
+  { acc_name: "Processing Fees", acc_pre_acc: "Indirect Incomes" },
+  { acc_name: "Collect Amount", acc_pre_acc: "Indirect Incomes" },
+  { acc_name: "Extra Income", acc_pre_acc: "Indirect Incomes" },
+  { acc_name: "Fine Income", acc_pre_acc: "Indirect Incomes" },
+  { acc_name: "CGST Payable", acc_pre_acc: "Duties & Taxes" },
+  { acc_name: "SGST Payable", acc_pre_acc: "Duties & Taxes" },
+  { acc_name: "IGST Payable", acc_pre_acc: "Duties & Taxes" },
+  { acc_name: "TDS Payable", acc_pre_acc: "Duties & Taxes" },
 ];
 
 const dr_accounts = [

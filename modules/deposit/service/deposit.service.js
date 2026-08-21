@@ -7,6 +7,7 @@ const {
   loanLine,
 } = require("../../../utils/journalNarration");
 const { assertActiveLoan } = require("../../../utils/loanValidation");
+const { resolveIncomeAccount } = require("../../../utils/incomeAccounts");
 const {
   findPanelJournal,
   deletePanelJournal,
@@ -50,11 +51,28 @@ class DepositService {
       const dep_online_acc_id = await this.resolveAccount(prisma, firmId, data.dep_online_acc_id, ["Online Account", "Online"]);
       const dep_card_acc_id = await this.resolveAccount(prisma, firmId, data.dep_card_acc_id, ["Card Account", "Card", "POS"]);
 
-      // Resolve special accounts (Interest Rec = default COA income account)
+      // Resolve special accounts — P&L split income types when not overridden
       const dep_prin_acc_id = await this.resolveAccount(prisma, firmId, data.dep_prin_acc_id, ["Principal Account", "Secured Loans", "Unsecured Loans", "Girvi Account", "Loans & Advances"]);
-      const dep_int_acc_id = await this.resolveAccount(prisma, firmId, data.dep_int_acc_id, ["Interest Rec", "Interest Account", "Interest Income", "Indirect Incomes"]);
+      const ownId = reqUser?.own_id || data.dep_own_id || 1;
+      const dep_int_acc_id =
+        data.dep_int_acc_id && parseInt(data.dep_int_acc_id, 10) > 0
+          ? await this.resolveAccount(prisma, firmId, data.dep_int_acc_id, [
+              "Interest Rec",
+              "Interest Account",
+              "Interest Income",
+              "Indirect Incomes",
+            ])
+          : await resolveIncomeAccount(prisma, firmId, ownId, "INTEREST");
       const dep_disc_acc_id = await this.resolveAccount(prisma, firmId, data.dep_disc_acc_id, ["Discount Account", "Discount Expenses", "Indirect Expenses", "Expenses (Indirect)"]);
-      const dep_extra_acc_id = await this.resolveAccount(prisma, firmId, data.dep_extra_acc_id, ["Extra Income", "Other Income", "Interest Rec", "Indirect Incomes"]);
+      const dep_extra_acc_id =
+        data.dep_extra_acc_id && parseInt(data.dep_extra_acc_id, 10) > 0
+          ? await this.resolveAccount(prisma, firmId, data.dep_extra_acc_id, [
+              "Extra Income",
+              "Other Income",
+              "Interest Rec",
+              "Indirect Incomes",
+            ])
+          : await resolveIncomeAccount(prisma, firmId, ownId, "EXTRA");
 
       const result = await prisma.$transaction(async (tx) => {
         // 1. Fetch the parent Girvi/Loan record

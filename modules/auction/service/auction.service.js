@@ -8,6 +8,7 @@ const {
   loanLine,
 } = require("../../../utils/journalNarration");
 const { assertActiveLoan } = require("../../../utils/loanValidation");
+const { resolveIncomeAccount } = require("../../../utils/incomeAccounts");
 
 class AuctionService {
   getPrisma(dbUrl) {
@@ -126,12 +127,12 @@ class AuctionService {
           originalGirvi.girv_type === "unsecured" ? "Unsecured Loans" : "Secured Loans",
           "Loans & Advances",
         ]));
-      const interestAccId = await this.resolveAccount(prisma, firmId, null, [
-        "Interest Rec",
-        "Interest Account",
-        "Interest Income",
-        "Indirect Incomes",
-      ]);
+      const interestAccId = await resolveIncomeAccount(
+        prisma,
+        firmId,
+        reqUser.own_id || originalGirvi.girv_own_id || 1,
+        "INTEREST"
+      );
 
       const auctionDate = data.auc_date || new Date().toISOString().split("T")[0];
       const prinAmt = parseFloat(data.auc_prin_amt) || 0;
@@ -179,11 +180,12 @@ class AuctionService {
         (parseFloat(newAuctionLoan.al_card_amt) || 0);
       const creditCore = prinAmt + intAmt;
       const balanceDiff = parseFloat((paymentTotal - creditCore).toFixed(2));
-      const extraAccId = await this.resolveAccount(prisma, firmId, null, [
-        "Interest Rec",
-        "Extra Income",
-        "Indirect Incomes",
-      ]);
+      const extraAccId = await resolveIncomeAccount(
+        prisma,
+        firmId,
+        reqUser.own_id || originalGirvi.girv_own_id || 1,
+        "EXTRA"
+      );
       const discAccId = await this.resolveAccount(prisma, firmId, null, [
         "Indirect Expenses",
         "Discount Account",

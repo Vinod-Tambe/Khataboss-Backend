@@ -29,6 +29,7 @@
   { "perm_key": "loan.edit", "perm_module": "loan", "perm_action": "edit", "perm_label": "Update Loan", "perm_sort_order": 330 },
   { "perm_key": "loan.delete", "perm_module": "loan", "perm_action": "delete", "perm_label": "Delete Loan", "perm_sort_order": 340 },
   { "perm_key": "loan.form8", "perm_module": "loan", "perm_action": "form8", "perm_label": "FORM 8", "perm_sort_order": 350 },
+  { "perm_key": "loan.agreement", "perm_module": "loan", "perm_action": "agreement", "perm_label": "Loan Agreement", "perm_sort_order": 355 },
   { "perm_key": "loan.deposit", "perm_module": "loan", "perm_action": "deposit", "perm_label": "Deposit", "perm_sort_order": 360 },
   { "perm_key": "loan.addPrincipal", "perm_module": "loan", "perm_action": "addPrincipal", "perm_label": "Additional Principal", "perm_sort_order": 370 },
   { "perm_key": "loan.transfer", "perm_module": "loan", "perm_action": "transfer", "perm_label": "Transfer Loan", "perm_sort_order": 380 },
@@ -47,6 +48,7 @@
   { "perm_key": "finance.rollback", "perm_module": "finance", "perm_action": "rollback", "perm_label": "Finance Collection Rollback", "perm_sort_order": 560 },
   { "perm_key": "finance.history", "perm_module": "finance", "perm_action": "history", "perm_label": "Finance History", "perm_sort_order": 570 },
   { "perm_key": "finance.printReceipt", "perm_module": "finance", "perm_action": "printReceipt", "perm_label": "Print EMI Receipt", "perm_sort_order": 580 },
+  { "perm_key": "finance.agreement", "perm_module": "finance", "perm_action": "agreement", "perm_label": "Finance Agreement", "perm_sort_order": 585 },
 
   { "perm_key": "reports.daybook", "perm_module": "reports", "perm_action": "daybook", "perm_label": "List Daybook", "perm_sort_order": 610 },
   { "perm_key": "reports.balanceSheet", "perm_module": "reports", "perm_action": "balanceSheet", "perm_label": "List Balance Sheet", "perm_sort_order": 620 },

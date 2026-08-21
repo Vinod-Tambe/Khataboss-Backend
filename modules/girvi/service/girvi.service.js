@@ -15,6 +15,8 @@ const {
   loanJournalDeletePatterns,
   formatLoanNo,
 } = require("../../../utils/journalNarration");
+const { resolveIncomeAccount } = require("../../../utils/incomeAccounts");
+const { buildGstInclusiveCreditLines } = require("../../../utils/indianCompliance");
 const { deletePanelJournal } = require("../../../utils/loanJournalHelper");
 const imageService = require("../../../utils/image.service");
 
@@ -66,13 +68,13 @@ class GirviService {
       girviData.girv_online_acc_id = await this.resolveAccount(prisma, firmId, girviData.girv_online_acc_id, ["Online Account", "Online"]);
       girviData.girv_card_acc_id = await this.resolveAccount(prisma, firmId, girviData.girv_card_acc_id, ["Card Account", "Card", "POS"]);
 
-      // Fee income account (process/charge) — prefer Interest Rec
-      const feeIncomeAccId = await this.resolveAccount(prisma, firmId, null, [
-        "Interest Rec",
-        "Indirect Incomes",
-        "Direct Incomes",
-        "Income (Direct)",
-      ]);
+      // Processing fee income account
+      const processingFeesAccId = await resolveIncomeAccount(
+        prisma,
+        firmId,
+        girviData.girv_own_id || 1,
+        "PROCESSING"
+      );
 
       // 2. Create Girvi and Stock within transaction
       const newGirvi = await prisma.$transaction(async (tx) => {
@@ -118,7 +120,7 @@ class GirviService {
 
       // 3. Create Journal Entry (prin = payments + process + charge)
       try {
-        await this.postAddLoanJournal(dbUrl, newGirvi, feeIncomeAccId);
+        await this.postAddLoanJournal(dbUrl, newGirvi, processingFeesAccId);
         await this.postFirstMonthInterestJournal(dbUrl, newGirvi);
       } catch (journalErr) {
         // Compensate: remove journals + orphan loan if ledger post failed
@@ -166,12 +168,54 @@ class GirviService {
 
   /**
    * Principal disbursement journal.
-   * DR Loan = principal; CR Cash/Bank = payments; CR Fee Income = process + charge.
+   * DR Loan = principal; CR Cash/Bank = payments; CR Processing Fees = process + charge.
    */
-  async postAddLoanJournal(dbUrl, girvi, feeIncomeAccId = null) {
+  async postAddLoanJournal(dbUrl, girvi, processingFeesAccId = null) {
     if (!girvi) return;
+    const prisma = this.getPrisma(dbUrl);
+    if (!processingFeesAccId) {
+      processingFeesAccId = await resolveIncomeAccount(
+        prisma,
+        girvi.girv_firm_id,
+        girvi.girv_own_id || 1,
+        "PROCESSING"
+      );
+    }
     const processAmt = parseFloat(girvi.girv_process_amt) || 0;
     const chargeAmt = parseFloat(girvi.girv_charge_amt) || 0;
+
+    const firm = await prisma.firm.findFirst({
+      where: { firm_id: girvi.girv_firm_id, firm_is_deleted: false },
+      select: { firm_gstin_no: true, firm_pan_no: true, firm_own_id: true },
+    });
+
+    const processFeeLines =
+      processAmt > 0
+        ? await buildGstInclusiveCreditLines({
+            prisma,
+            firm,
+            firmId: girvi.girv_firm_id,
+            ownId: girvi.girv_own_id || 1,
+            grossAmount: processAmt,
+            incomeAccId: processingFeesAccId,
+            transDate: girvi.girv_start_date,
+            narration: loanLine("Process Charge", girvi),
+          })
+        : [];
+
+    const chargeFeeLines =
+      chargeAmt > 0
+        ? await buildGstInclusiveCreditLines({
+            prisma,
+            firm,
+            firmId: girvi.girv_firm_id,
+            ownId: girvi.girv_own_id || 1,
+            grossAmount: chargeAmt,
+            incomeAccId: processingFeesAccId,
+            transDate: girvi.girv_start_date,
+            narration: loanLine("Other Charge", girvi),
+          })
+        : [];
 
     const journal_request = {
       journal_date: {
@@ -210,24 +254,12 @@ class GirviService {
           jrtr_date: girvi.girv_start_date,
           jrtr_cr_acc_id: girvi.girv_card_acc_id,
           jrtr_cr_amt: girvi.girv_card_amt,
-          jrtr_acc_info: girvi.girv_card_info,
-        },
-        {
-          jrtr_crdr: "CR",
-          jrtr_date: girvi.girv_start_date,
-          jrtr_cr_acc_id: feeIncomeAccId,
-          jrtr_cr_amt: processAmt,
-          jrtr_acc_info: loanLine("Process Charge", girvi),
-        },
-        {
-          jrtr_crdr: "CR",
-          jrtr_date: girvi.girv_start_date,
-          jrtr_cr_acc_id: feeIncomeAccId,
-          jrtr_cr_amt: chargeAmt,
-          jrtr_acc_info: loanLine("Other Charge", girvi),
-        },
-        {
-          jrtr_crdr: "DR",
+            jrtr_acc_info: girvi.girv_card_info,
+          },
+          ...processFeeLines,
+          ...chargeFeeLines,
+          {
+            jrtr_crdr: "DR",
           jrtr_date: girvi.girv_start_date,
           jrtr_dr_acc_id: girvi.girv_dr_acc_id,
           jrtr_dr_amt: girvi.girv_prin_amt,
@@ -689,17 +721,17 @@ class GirviService {
 
       // Resync disbursement + first-month journals when financial fields edited
       if (!hasTransactions && existing.girv_status === "ACTIVE") {
-        const feeIncomeAccId = await this.resolveAccount(
+        const processingFeesAccId = await resolveIncomeAccount(
           prisma,
           updatedGirvi.girv_firm_id,
-          null,
-          ["Interest Rec", "Indirect Incomes", "Direct Incomes", "Income (Direct)"]
+          updatedGirvi.girv_own_id || 1,
+          "PROCESSING"
         );
 
         try {
           await this.deleteLoanJournalVouchers(dbUrl, updatedGirvi, ["add", "firstMonth"]);
 
-          await this.postAddLoanJournal(dbUrl, updatedGirvi, feeIncomeAccId);
+          await this.postAddLoanJournal(dbUrl, updatedGirvi, processingFeesAccId);
 
           if (updatedGirvi.girv_first_int === "Y") {
             await this.postFirstMonthInterestJournal(dbUrl, updatedGirvi);
@@ -739,7 +771,7 @@ class GirviService {
               data: restoreFields,
             });
             await this.deleteLoanJournalVouchers(dbUrl, existing, ["add", "firstMonth"]);
-            await this.postAddLoanJournal(dbUrl, existing, feeIncomeAccId);
+            await this.postAddLoanJournal(dbUrl, existing, processingFeesAccId);
             if (existing.girv_first_int === "Y") {
               await this.postFirstMonthInterestJournal(dbUrl, existing);
             }
@@ -1226,17 +1258,17 @@ class GirviService {
           sourceGirvi.girv_type === "unsecured" ? "Unsecured Loans" : "Secured Loans",
           "Loans & Advances",
         ]));
-      const interestAccId = await this.resolveAccount(
+      const interestAccId = await resolveIncomeAccount(
         prisma,
         sourceGirvi.girv_firm_id,
-        null,
-        ["Interest Rec", "Interest Account", "Interest Income", "Indirect Incomes"]
+        sourceGirvi.girv_own_id || 1,
+        "INTEREST"
       );
-      const extraAccId = await this.resolveAccount(
+      const extraAccId = await resolveIncomeAccount(
         prisma,
         sourceGirvi.girv_firm_id,
-        null,
-        ["Interest Rec", "Extra Income", "Indirect Incomes"]
+        sourceGirvi.girv_own_id || 1,
+        "EXTRA"
       );
       const discAccId = await this.resolveAccount(
         prisma,
