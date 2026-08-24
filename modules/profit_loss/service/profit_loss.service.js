@@ -2,7 +2,7 @@
 
 const accountService = require("../../account/service/account.service");
 const journalTransService = require("../../trial_balance/service/journal_trans.service");
-const { formatIndirectIncomesForPnl } = require("../../../utils/incomeAccounts");
+const { formatIndirectIncomesForPnl, splitInterestRecJournalLines, applyLegacyInterestRecSplit, INCOME_ACCOUNT_TYPES } = require("../../../utils/incomeAccounts");
 const {
   buildScheduleIIIOtherIncome,
   buildComplianceMeta,
@@ -203,7 +203,30 @@ class ProfitLossService {
       const pnlTotalExpenditure = pnlDebits + netProfit;
       const pnlTotalRevenue = pnlCredits + netLoss;
 
-      const formattedIndirectIncomes = formatIndirectIncomesForPnl(indirectIncomesList);
+      // Split legacy Interest Rec lines so Processing Amount shows separately on P&L
+      let interestRecAccId = null;
+      for (const [accId, entry] of trialBalanceMap.entries()) {
+        const name = (entry.acc_name || "").trim().toLowerCase();
+        if (name === INCOME_ACCOUNT_TYPES.INTEREST.acc_name.toLowerCase()) {
+          interestRecAccId = accId;
+          break;
+        }
+      }
+
+      let adjustedIndirectIncomes = indirectIncomesList;
+      if (interestRecAccId) {
+        const interestRecLines = await journalTransService.get_journal_lines_for_accounts(
+          dbUrl,
+          filters.startDate,
+          filters.endDate,
+          filters.firmId,
+          [interestRecAccId]
+        );
+        const splits = splitInterestRecJournalLines(interestRecLines, interestRecAccId);
+        adjustedIndirectIncomes = applyLegacyInterestRecSplit(indirectIncomesList, splits);
+      }
+
+      const formattedIndirectIncomes = formatIndirectIncomesForPnl(adjustedIndirectIncomes);
       const scheduleIII = buildScheduleIIIOtherIncome(formattedIndirectIncomes);
       const gstSummary = summariseGstPayables(trialBalanceMap, accountMap);
 

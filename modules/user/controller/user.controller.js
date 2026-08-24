@@ -33,6 +33,7 @@ class UserController {
         user_last_name: data.user_last_name,
         user_father_name: sanitize(data.user_father_name),
         user_mother_name: sanitize(data.user_mother_name),
+        user_spouse_name: sanitize(data.user_spouse_name),
         user_mobile_no: data.user_mobile_no,
         user_phone_no: sanitize(data.user_phone_no),
         user_whatsapp_no: sanitize(data.user_whatsapp_no),
@@ -59,6 +60,10 @@ class UserController {
         user_country: sanitize(data.user_country),
         user_pincode: sanitize(data.user_pincode),
         user_other_info: sanitize(data.user_other_info),
+        user_nominee_name: sanitize(data.user_nominee_name),
+        user_nominee_relation: sanitize(data.user_nominee_relation),
+        user_nominee_mobile: sanitize(data.user_nominee_mobile),
+        user_nominee_address: sanitize(data.user_nominee_address),
       };
 
       // 0. Pre-validate Uniqueness
@@ -280,6 +285,7 @@ class UserController {
       if (data.user_last_name) updateData.user_last_name = data.user_last_name;
       if (data.user_father_name !== undefined) updateData.user_father_name = sanitize(data.user_father_name);
       if (data.user_mother_name !== undefined) updateData.user_mother_name = sanitize(data.user_mother_name);
+      if (data.user_spouse_name !== undefined) updateData.user_spouse_name = sanitize(data.user_spouse_name);
       if (data.user_mobile_no) updateData.user_mobile_no = data.user_mobile_no;
       if (data.user_phone_no !== undefined) updateData.user_phone_no = sanitize(data.user_phone_no);
       if (data.user_whatsapp_no !== undefined) updateData.user_whatsapp_no = sanitize(data.user_whatsapp_no);
@@ -306,6 +312,10 @@ class UserController {
       if (data.user_country !== undefined) updateData.user_country = sanitize(data.user_country);
       if (data.user_pincode !== undefined) updateData.user_pincode = sanitize(data.user_pincode);
       if (data.user_other_info !== undefined) updateData.user_other_info = sanitize(data.user_other_info);
+      if (data.user_nominee_name !== undefined) updateData.user_nominee_name = sanitize(data.user_nominee_name);
+      if (data.user_nominee_relation !== undefined) updateData.user_nominee_relation = sanitize(data.user_nominee_relation);
+      if (data.user_nominee_mobile !== undefined) updateData.user_nominee_mobile = sanitize(data.user_nominee_mobile);
+      if (data.user_nominee_address !== undefined) updateData.user_nominee_address = sanitize(data.user_nominee_address);
 
       updateData.user_updated_by = req.user.own_login_id || "Admin";
 

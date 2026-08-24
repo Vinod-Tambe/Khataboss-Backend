@@ -14,8 +14,8 @@ const getMonthlyRate = (roi, roiType = "monthly") => {
 };
 
 /**
- * Accrued interest for a principal over `months` tenure.
- * `rate` is the stored ROI; `roiType` decides monthly vs annual.
+ * Accrued interest for a principal over `months` tenure (whole months).
+ * Each calendar month or part thereof = 1 full month charge.
  */
 const calculateInterest = (
   principal,
@@ -27,7 +27,7 @@ const calculateInterest = (
 ) => {
   const p = parseFloat(principal) || 0;
   const monthlyRate = getMonthlyRate(rate, roiType);
-  const m = parseFloat(months) || 0;
+  const m = Math.max(0, Math.round(parseFloat(months) || 0));
   if (!p || !monthlyRate || !m) return 0;
 
   if (method === "compound") {
@@ -55,23 +55,77 @@ const calculateFirstMonthInterest = (
   roiType = "monthly"
 ) => calculateInterest(principal, rate, 1, method, freq, roiType);
 
-const parseDate = (value) => {
+/** Parse YYYY-MM-DD (or ISO) as calendar date parts — avoids UTC day shift. */
+const parseCalendarDate = (value) => {
   if (!value) return null;
+  const str = String(value).trim().slice(0, 10);
+  const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(str);
+  if (match) {
+    return {
+      y: Number(match[1]),
+      m: Number(match[2]) - 1,
+      d: Number(match[3]),
+    };
+  }
   const d = value instanceof Date ? value : new Date(value);
-  return Number.isNaN(d.getTime()) ? null : d;
+  if (Number.isNaN(d.getTime())) return null;
+  return { y: d.getFullYear(), m: d.getMonth(), d: d.getDate() };
 };
 
-const getTenureMonths = (startDate, endDate = new Date()) => {
-  const start = parseDate(startDate);
-  const end = parseDate(endDate);
-  if (!start || !end) return 1;
+const calendarDayMs = ({ y, m, d }) => Date.UTC(y, m, d);
 
-  let months = (end.getFullYear() - start.getFullYear()) * 12 + (end.getMonth() - start.getMonth());
-  if (end.getDate() < start.getDate()) {
-    months--;
+const daysInMonth = (y, m) => new Date(y, m + 1, 0).getDate();
+
+/** Decompose start→end into calendar years, months, remaining days. */
+const decomposePeriod = (start, end) => {
+  let years = end.y - start.y;
+  let months = end.m - start.m;
+  let days = end.d - start.d;
+
+  if (days < 0) {
+    months -= 1;
+    days += daysInMonth(end.y, end.m - 1);
+  }
+  if (months < 0) {
+    years -= 1;
+    months += 12;
   }
 
-  return Math.max(1, months);
+  return { years, months, days };
+};
+
+/**
+ * Count billable months: each full month + any extra days = +1 full month.
+ * Min 1 month (even same-day loan).
+ */
+const getTenureMonths = (startDate, endDate = new Date()) => {
+  const start = parseCalendarDate(startDate);
+  const end = parseCalendarDate(endDate);
+  if (!start || !end) return 1;
+
+  const startMs = calendarDayMs(start);
+  const endMs = calendarDayMs(end);
+  if (endMs < startMs) return 0;
+
+  const { years, months, days } = decomposePeriod(start, end);
+  let totalMonths = years * 12 + months;
+  if (days > 0) totalMonths += 1;
+
+  return Math.max(1, totalMonths);
+};
+
+/** Single entry: billable months from dates, then interest (all method/ROI types). */
+const calculateInterestForPeriod = (
+  principal,
+  rate,
+  startDate,
+  endDate = new Date(),
+  method = "simple",
+  freq = "monthly",
+  roiType = "monthly"
+) => {
+  const months = getTenureMonths(startDate, endDate);
+  return calculateInterest(principal, rate, months, method, freq, roiType);
 };
 
 const isFirstMonthInterestEnabled = (loan) =>
@@ -123,11 +177,11 @@ const getLoanInterestSummary = (data, asOfDate = new Date()) => {
   const interestMethod = data.girv_interest_method || "simple";
   const compoundFreq = data.girv_compound_freq || "monthly";
 
-  const origMonths = getTenureMonths(data.girv_start_date, asOfDate);
-  const origInterest = calculateInterest(
+  const origInterest = calculateInterestForPeriod(
     originalPrincipal,
     roi,
-    origMonths,
+    data.girv_start_date,
+    asOfDate,
     interestMethod,
     compoundFreq,
     roiType
@@ -138,11 +192,11 @@ const getLoanInterestSummary = (data, asOfDate = new Date()) => {
     data.additionalPrincipals.forEach((ap) => {
       const apPrin = parseFloat(ap.ap_prin_amt) || 0;
       const apRoi = parseFloat(ap.ap_roi) || roi;
-      const apMonths = getTenureMonths(ap.ap_trans_date, asOfDate);
-      additionalInterestTotal += calculateInterest(
+      additionalInterestTotal += calculateInterestForPeriod(
         apPrin,
         apRoi,
-        apMonths,
+        ap.ap_trans_date,
+        asOfDate,
         interestMethod,
         compoundFreq,
         roiType
@@ -173,10 +227,8 @@ const getLoanInterestSummary = (data, asOfDate = new Date()) => {
     )
   );
   const pendingPrincipal = currentTotalPrincipal;
-  const pending = pendingPrincipal + pendingInterest;
-  const totalDueAmount = parseFloat(
-    (currentTotalPrincipal + origInterest + additionalInterestTotal - firstMonthInterest).toFixed(2)
-  );
+  const pending = parseFloat((pendingPrincipal + pendingInterest).toFixed(2));
+  const totalDueAmount = pending;
 
   return {
     originalPrincipal,
@@ -205,6 +257,7 @@ module.exports = {
   getMonthlyRate,
   calculateInterest,
   calculateFirstMonthInterest,
+  calculateInterestForPeriod,
   getTenureMonths,
   isFirstMonthInterestEnabled,
   getLoanInterestSummary,

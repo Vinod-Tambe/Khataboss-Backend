@@ -395,6 +395,7 @@ model User {
   user_father_name String?
   user_last_name   String
   user_mother_name String?
+  user_spouse_name String?
 
   user_mobile_no   String
   user_phone_no    String?
@@ -432,6 +433,11 @@ model User {
 
   user_other_images Json?
   user_other_info String?
+
+  user_nominee_name     String?
+  user_nominee_relation String?
+  user_nominee_mobile   String?
+  user_nominee_address  String?
 
   // ===============================
   // Audit Fields

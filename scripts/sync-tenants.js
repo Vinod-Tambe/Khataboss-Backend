@@ -8,6 +8,7 @@ const { seedPermissions } = require("../prisma/seeder/permission-seeder");
 const { seedMessageTemplatesForTenant } = require("../prisma/seeder/message-template-seeder");
 const { seedFormTemplatesForTenant } = require("../prisma/seeder/form-template-seeder");
 const { seedAgreementTemplatesForTenant } = require("../prisma/seeder/agreement-template-seeder");
+const { seedIncomeAccountsForTenant } = require("../prisma/seeder/income-account-seeder");
 
 const syncTenants = async () => {
   const masterDbUrl = `${BASE_URL}/master`;
@@ -65,6 +66,14 @@ const syncTenants = async () => {
           await seedAgreementTemplatesForTenant(tenantDbUrl);
         } catch (agreementErr) {
           console.warn(`⚠️  Agreement template seed skipped for "${dbName}": ${agreementErr.message}`);
+        }
+
+        console.log(`💰  Seeding income accounts for "${dbName}"...`);
+        try {
+          const firmCount = await seedIncomeAccountsForTenant(tenantDbUrl);
+          console.log(`   Income accounts ensured for ${firmCount} firm(s).`);
+        } catch (incomeErr) {
+          console.warn(`⚠️  Income account seed skipped for "${dbName}": ${incomeErr.message}`);
         }
       } catch (err) {
         console.error(`❌  Failed to sync "${dbName}":`, err.message);

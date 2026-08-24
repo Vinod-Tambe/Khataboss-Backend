@@ -11128,6 +11128,7 @@ export namespace Prisma {
     user_father_name: string | null
     user_last_name: string | null
     user_mother_name: string | null
+    user_spouse_name: string | null
     user_mobile_no: string | null
     user_phone_no: string | null
     user_whatsapp_no: string | null
@@ -11154,6 +11155,10 @@ export namespace Prisma {
     user_bank_acc_no: string | null
     user_ifsc_code: string | null
     user_other_info: string | null
+    user_nominee_name: string | null
+    user_nominee_relation: string | null
+    user_nominee_mobile: string | null
+    user_nominee_address: string | null
     user_created_at: Date | null
     user_created_by: string | null
     user_updated_at: Date | null
@@ -11174,6 +11179,7 @@ export namespace Prisma {
     user_father_name: string | null
     user_last_name: string | null
     user_mother_name: string | null
+    user_spouse_name: string | null
     user_mobile_no: string | null
     user_phone_no: string | null
     user_whatsapp_no: string | null
@@ -11200,6 +11206,10 @@ export namespace Prisma {
     user_bank_acc_no: string | null
     user_ifsc_code: string | null
     user_other_info: string | null
+    user_nominee_name: string | null
+    user_nominee_relation: string | null
+    user_nominee_mobile: string | null
+    user_nominee_address: string | null
     user_created_at: Date | null
     user_created_by: string | null
     user_updated_at: Date | null
@@ -11220,6 +11230,7 @@ export namespace Prisma {
     user_father_name: number
     user_last_name: number
     user_mother_name: number
+    user_spouse_name: number
     user_mobile_no: number
     user_phone_no: number
     user_whatsapp_no: number
@@ -11248,6 +11259,10 @@ export namespace Prisma {
     user_ifsc_code: number
     user_other_images: number
     user_other_info: number
+    user_nominee_name: number
+    user_nominee_relation: number
+    user_nominee_mobile: number
+    user_nominee_address: number
     user_created_at: number
     user_created_by: number
     user_updated_at: number
@@ -11282,6 +11297,7 @@ export namespace Prisma {
     user_father_name?: true
     user_last_name?: true
     user_mother_name?: true
+    user_spouse_name?: true
     user_mobile_no?: true
     user_phone_no?: true
     user_whatsapp_no?: true
@@ -11308,6 +11324,10 @@ export namespace Prisma {
     user_bank_acc_no?: true
     user_ifsc_code?: true
     user_other_info?: true
+    user_nominee_name?: true
+    user_nominee_relation?: true
+    user_nominee_mobile?: true
+    user_nominee_address?: true
     user_created_at?: true
     user_created_by?: true
     user_updated_at?: true
@@ -11328,6 +11348,7 @@ export namespace Prisma {
     user_father_name?: true
     user_last_name?: true
     user_mother_name?: true
+    user_spouse_name?: true
     user_mobile_no?: true
     user_phone_no?: true
     user_whatsapp_no?: true
@@ -11354,6 +11375,10 @@ export namespace Prisma {
     user_bank_acc_no?: true
     user_ifsc_code?: true
     user_other_info?: true
+    user_nominee_name?: true
+    user_nominee_relation?: true
+    user_nominee_mobile?: true
+    user_nominee_address?: true
     user_created_at?: true
     user_created_by?: true
     user_updated_at?: true
@@ -11374,6 +11399,7 @@ export namespace Prisma {
     user_father_name?: true
     user_last_name?: true
     user_mother_name?: true
+    user_spouse_name?: true
     user_mobile_no?: true
     user_phone_no?: true
     user_whatsapp_no?: true
@@ -11402,6 +11428,10 @@ export namespace Prisma {
     user_ifsc_code?: true
     user_other_images?: true
     user_other_info?: true
+    user_nominee_name?: true
+    user_nominee_relation?: true
+    user_nominee_mobile?: true
+    user_nominee_address?: true
     user_created_at?: true
     user_created_by?: true
     user_updated_at?: true
@@ -11509,6 +11539,7 @@ export namespace Prisma {
     user_father_name: string | null
     user_last_name: string
     user_mother_name: string | null
+    user_spouse_name: string | null
     user_mobile_no: string
     user_phone_no: string | null
     user_whatsapp_no: string | null
@@ -11537,6 +11568,10 @@ export namespace Prisma {
     user_ifsc_code: string | null
     user_other_images: JsonValue | null
     user_other_info: string | null
+    user_nominee_name: string | null
+    user_nominee_relation: string | null
+    user_nominee_mobile: string | null
+    user_nominee_address: string | null
     user_created_at: Date
     user_created_by: string | null
     user_updated_at: Date
@@ -11576,6 +11611,7 @@ export namespace Prisma {
     user_father_name?: boolean
     user_last_name?: boolean
     user_mother_name?: boolean
+    user_spouse_name?: boolean
     user_mobile_no?: boolean
     user_phone_no?: boolean
     user_whatsapp_no?: boolean
@@ -11604,6 +11640,10 @@ export namespace Prisma {
     user_ifsc_code?: boolean
     user_other_images?: boolean
     user_other_info?: boolean
+    user_nominee_name?: boolean
+    user_nominee_relation?: boolean
+    user_nominee_mobile?: boolean
+    user_nominee_address?: boolean
     user_created_at?: boolean
     user_created_by?: boolean
     user_updated_at?: boolean
@@ -11637,6 +11677,7 @@ export namespace Prisma {
     user_father_name?: boolean
     user_last_name?: boolean
     user_mother_name?: boolean
+    user_spouse_name?: boolean
     user_mobile_no?: boolean
     user_phone_no?: boolean
     user_whatsapp_no?: boolean
@@ -11665,6 +11706,10 @@ export namespace Prisma {
     user_ifsc_code?: boolean
     user_other_images?: boolean
     user_other_info?: boolean
+    user_nominee_name?: boolean
+    user_nominee_relation?: boolean
+    user_nominee_mobile?: boolean
+    user_nominee_address?: boolean
     user_created_at?: boolean
     user_created_by?: boolean
     user_updated_at?: boolean
@@ -11687,6 +11732,7 @@ export namespace Prisma {
     user_father_name?: boolean
     user_last_name?: boolean
     user_mother_name?: boolean
+    user_spouse_name?: boolean
     user_mobile_no?: boolean
     user_phone_no?: boolean
     user_whatsapp_no?: boolean
@@ -11715,6 +11761,10 @@ export namespace Prisma {
     user_ifsc_code?: boolean
     user_other_images?: boolean
     user_other_info?: boolean
+    user_nominee_name?: boolean
+    user_nominee_relation?: boolean
+    user_nominee_mobile?: boolean
+    user_nominee_address?: boolean
     user_created_at?: boolean
     user_created_by?: boolean
     user_updated_at?: boolean
@@ -11771,6 +11821,7 @@ export namespace Prisma {
       user_father_name: string | null
       user_last_name: string
       user_mother_name: string | null
+      user_spouse_name: string | null
       user_mobile_no: string
       user_phone_no: string | null
       user_whatsapp_no: string | null
@@ -11799,6 +11850,10 @@ export namespace Prisma {
       user_ifsc_code: string | null
       user_other_images: Prisma.JsonValue | null
       user_other_info: string | null
+      user_nominee_name: string | null
+      user_nominee_relation: string | null
+      user_nominee_mobile: string | null
+      user_nominee_address: string | null
       user_created_at: Date
       user_created_by: string | null
       user_updated_at: Date
@@ -12221,6 +12276,7 @@ export namespace Prisma {
     readonly user_father_name: FieldRef<"User", 'String'>
     readonly user_last_name: FieldRef<"User", 'String'>
     readonly user_mother_name: FieldRef<"User", 'String'>
+    readonly user_spouse_name: FieldRef<"User", 'String'>
     readonly user_mobile_no: FieldRef<"User", 'String'>
     readonly user_phone_no: FieldRef<"User", 'String'>
     readonly user_whatsapp_no: FieldRef<"User", 'String'>
@@ -12249,6 +12305,10 @@ export namespace Prisma {
     readonly user_ifsc_code: FieldRef<"User", 'String'>
     readonly user_other_images: FieldRef<"User", 'Json'>
     readonly user_other_info: FieldRef<"User", 'String'>
+    readonly user_nominee_name: FieldRef<"User", 'String'>
+    readonly user_nominee_relation: FieldRef<"User", 'String'>
+    readonly user_nominee_mobile: FieldRef<"User", 'String'>
+    readonly user_nominee_address: FieldRef<"User", 'String'>
     readonly user_created_at: FieldRef<"User", 'DateTime'>
     readonly user_created_by: FieldRef<"User", 'String'>
     readonly user_updated_at: FieldRef<"User", 'DateTime'>
@@ -46346,6 +46406,7 @@ export namespace Prisma {
     user_father_name: 'user_father_name',
     user_last_name: 'user_last_name',
     user_mother_name: 'user_mother_name',
+    user_spouse_name: 'user_spouse_name',
     user_mobile_no: 'user_mobile_no',
     user_phone_no: 'user_phone_no',
     user_whatsapp_no: 'user_whatsapp_no',
@@ -46374,6 +46435,10 @@ export namespace Prisma {
     user_ifsc_code: 'user_ifsc_code',
     user_other_images: 'user_other_images',
     user_other_info: 'user_other_info',
+    user_nominee_name: 'user_nominee_name',
+    user_nominee_relation: 'user_nominee_relation',
+    user_nominee_mobile: 'user_nominee_mobile',
+    user_nominee_address: 'user_nominee_address',
     user_created_at: 'user_created_at',
     user_created_by: 'user_created_by',
     user_updated_at: 'user_updated_at',
@@ -48666,6 +48731,7 @@ export namespace Prisma {
     user_father_name?: StringNullableFilter<"User"> | string | null
     user_last_name?: StringFilter<"User"> | string
     user_mother_name?: StringNullableFilter<"User"> | string | null
+    user_spouse_name?: StringNullableFilter<"User"> | string | null
     user_mobile_no?: StringFilter<"User"> | string
     user_phone_no?: StringNullableFilter<"User"> | string | null
     user_whatsapp_no?: StringNullableFilter<"User"> | string | null
@@ -48694,6 +48760,10 @@ export namespace Prisma {
     user_ifsc_code?: StringNullableFilter<"User"> | string | null
     user_other_images?: JsonNullableFilter<"User">
     user_other_info?: StringNullableFilter<"User"> | string | null
+    user_nominee_name?: StringNullableFilter<"User"> | string | null
+    user_nominee_relation?: StringNullableFilter<"User"> | string | null
+    user_nominee_mobile?: StringNullableFilter<"User"> | string | null
+    user_nominee_address?: StringNullableFilter<"User"> | string | null
     user_created_at?: DateTimeFilter<"User"> | Date | string
     user_created_by?: StringNullableFilter<"User"> | string | null
     user_updated_at?: DateTimeFilter<"User"> | Date | string
@@ -48726,6 +48796,7 @@ export namespace Prisma {
     user_father_name?: SortOrderInput | SortOrder
     user_last_name?: SortOrder
     user_mother_name?: SortOrderInput | SortOrder
+    user_spouse_name?: SortOrderInput | SortOrder
     user_mobile_no?: SortOrder
     user_phone_no?: SortOrderInput | SortOrder
     user_whatsapp_no?: SortOrderInput | SortOrder
@@ -48754,6 +48825,10 @@ export namespace Prisma {
     user_ifsc_code?: SortOrderInput | SortOrder
     user_other_images?: SortOrderInput | SortOrder
     user_other_info?: SortOrderInput | SortOrder
+    user_nominee_name?: SortOrderInput | SortOrder
+    user_nominee_relation?: SortOrderInput | SortOrder
+    user_nominee_mobile?: SortOrderInput | SortOrder
+    user_nominee_address?: SortOrderInput | SortOrder
     user_created_at?: SortOrder
     user_created_by?: SortOrderInput | SortOrder
     user_updated_at?: SortOrder
@@ -48789,6 +48864,7 @@ export namespace Prisma {
     user_father_name?: StringNullableFilter<"User"> | string | null
     user_last_name?: StringFilter<"User"> | string
     user_mother_name?: StringNullableFilter<"User"> | string | null
+    user_spouse_name?: StringNullableFilter<"User"> | string | null
     user_mobile_no?: StringFilter<"User"> | string
     user_phone_no?: StringNullableFilter<"User"> | string | null
     user_whatsapp_no?: StringNullableFilter<"User"> | string | null
@@ -48817,6 +48893,10 @@ export namespace Prisma {
     user_ifsc_code?: StringNullableFilter<"User"> | string | null
     user_other_images?: JsonNullableFilter<"User">
     user_other_info?: StringNullableFilter<"User"> | string | null
+    user_nominee_name?: StringNullableFilter<"User"> | string | null
+    user_nominee_relation?: StringNullableFilter<"User"> | string | null
+    user_nominee_mobile?: StringNullableFilter<"User"> | string | null
+    user_nominee_address?: StringNullableFilter<"User"> | string | null
     user_created_at?: DateTimeFilter<"User"> | Date | string
     user_created_by?: StringNullableFilter<"User"> | string | null
     user_updated_at?: DateTimeFilter<"User"> | Date | string
@@ -48849,6 +48929,7 @@ export namespace Prisma {
     user_father_name?: SortOrderInput | SortOrder
     user_last_name?: SortOrder
     user_mother_name?: SortOrderInput | SortOrder
+    user_spouse_name?: SortOrderInput | SortOrder
     user_mobile_no?: SortOrder
     user_phone_no?: SortOrderInput | SortOrder
     user_whatsapp_no?: SortOrderInput | SortOrder
@@ -48877,6 +48958,10 @@ export namespace Prisma {
     user_ifsc_code?: SortOrderInput | SortOrder
     user_other_images?: SortOrderInput | SortOrder
     user_other_info?: SortOrderInput | SortOrder
+    user_nominee_name?: SortOrderInput | SortOrder
+    user_nominee_relation?: SortOrderInput | SortOrder
+    user_nominee_mobile?: SortOrderInput | SortOrder
+    user_nominee_address?: SortOrderInput | SortOrder
     user_created_at?: SortOrder
     user_created_by?: SortOrderInput | SortOrder
     user_updated_at?: SortOrder
@@ -48905,6 +48990,7 @@ export namespace Prisma {
     user_father_name?: StringNullableWithAggregatesFilter<"User"> | string | null
     user_last_name?: StringWithAggregatesFilter<"User"> | string
     user_mother_name?: StringNullableWithAggregatesFilter<"User"> | string | null
+    user_spouse_name?: StringNullableWithAggregatesFilter<"User"> | string | null
     user_mobile_no?: StringWithAggregatesFilter<"User"> | string
     user_phone_no?: StringNullableWithAggregatesFilter<"User"> | string | null
     user_whatsapp_no?: StringNullableWithAggregatesFilter<"User"> | string | null
@@ -48933,6 +49019,10 @@ export namespace Prisma {
     user_ifsc_code?: StringNullableWithAggregatesFilter<"User"> | string | null
     user_other_images?: JsonNullableWithAggregatesFilter<"User">
     user_other_info?: StringNullableWithAggregatesFilter<"User"> | string | null
+    user_nominee_name?: StringNullableWithAggregatesFilter<"User"> | string | null
+    user_nominee_relation?: StringNullableWithAggregatesFilter<"User"> | string | null
+    user_nominee_mobile?: StringNullableWithAggregatesFilter<"User"> | string | null
+    user_nominee_address?: StringNullableWithAggregatesFilter<"User"> | string | null
     user_created_at?: DateTimeWithAggregatesFilter<"User"> | Date | string
     user_created_by?: StringNullableWithAggregatesFilter<"User"> | string | null
     user_updated_at?: DateTimeWithAggregatesFilter<"User"> | Date | string
@@ -54489,6 +54579,7 @@ export namespace Prisma {
     user_father_name?: string | null
     user_last_name: string
     user_mother_name?: string | null
+    user_spouse_name?: string | null
     user_mobile_no: string
     user_phone_no?: string | null
     user_whatsapp_no?: string | null
@@ -54517,6 +54608,10 @@ export namespace Prisma {
     user_ifsc_code?: string | null
     user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: string | null
+    user_nominee_name?: string | null
+    user_nominee_relation?: string | null
+    user_nominee_mobile?: string | null
+    user_nominee_address?: string | null
     user_created_at?: Date | string
     user_created_by?: string | null
     user_updated_at?: Date | string
@@ -54549,6 +54644,7 @@ export namespace Prisma {
     user_father_name?: string | null
     user_last_name: string
     user_mother_name?: string | null
+    user_spouse_name?: string | null
     user_mobile_no: string
     user_phone_no?: string | null
     user_whatsapp_no?: string | null
@@ -54577,6 +54673,10 @@ export namespace Prisma {
     user_ifsc_code?: string | null
     user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: string | null
+    user_nominee_name?: string | null
+    user_nominee_relation?: string | null
+    user_nominee_mobile?: string | null
+    user_nominee_address?: string | null
     user_created_at?: Date | string
     user_created_by?: string | null
     user_updated_at?: Date | string
@@ -54604,6 +54704,7 @@ export namespace Prisma {
     user_father_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_last_name?: StringFieldUpdateOperationsInput | string
     user_mother_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_spouse_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_mobile_no?: StringFieldUpdateOperationsInput | string
     user_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_whatsapp_no?: NullableStringFieldUpdateOperationsInput | string | null
@@ -54632,6 +54733,10 @@ export namespace Prisma {
     user_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
     user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_relation?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_mobile?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_address?: NullableStringFieldUpdateOperationsInput | string | null
     user_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     user_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -54664,6 +54769,7 @@ export namespace Prisma {
     user_father_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_last_name?: StringFieldUpdateOperationsInput | string
     user_mother_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_spouse_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_mobile_no?: StringFieldUpdateOperationsInput | string
     user_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_whatsapp_no?: NullableStringFieldUpdateOperationsInput | string | null
@@ -54692,6 +54798,10 @@ export namespace Prisma {
     user_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
     user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_relation?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_mobile?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_address?: NullableStringFieldUpdateOperationsInput | string | null
     user_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     user_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -54722,6 +54832,7 @@ export namespace Prisma {
     user_father_name?: string | null
     user_last_name: string
     user_mother_name?: string | null
+    user_spouse_name?: string | null
     user_mobile_no: string
     user_phone_no?: string | null
     user_whatsapp_no?: string | null
@@ -54750,6 +54861,10 @@ export namespace Prisma {
     user_ifsc_code?: string | null
     user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: string | null
+    user_nominee_name?: string | null
+    user_nominee_relation?: string | null
+    user_nominee_mobile?: string | null
+    user_nominee_address?: string | null
     user_created_at?: Date | string
     user_created_by?: string | null
     user_updated_at?: Date | string
@@ -54767,6 +54882,7 @@ export namespace Prisma {
     user_father_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_last_name?: StringFieldUpdateOperationsInput | string
     user_mother_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_spouse_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_mobile_no?: StringFieldUpdateOperationsInput | string
     user_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_whatsapp_no?: NullableStringFieldUpdateOperationsInput | string | null
@@ -54795,6 +54911,10 @@ export namespace Prisma {
     user_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
     user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_relation?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_mobile?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_address?: NullableStringFieldUpdateOperationsInput | string | null
     user_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     user_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -54815,6 +54935,7 @@ export namespace Prisma {
     user_father_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_last_name?: StringFieldUpdateOperationsInput | string
     user_mother_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_spouse_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_mobile_no?: StringFieldUpdateOperationsInput | string
     user_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_whatsapp_no?: NullableStringFieldUpdateOperationsInput | string | null
@@ -54843,6 +54964,10 @@ export namespace Prisma {
     user_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
     user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_relation?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_mobile?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_address?: NullableStringFieldUpdateOperationsInput | string | null
     user_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     user_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -60722,6 +60847,7 @@ export namespace Prisma {
     user_father_name?: SortOrder
     user_last_name?: SortOrder
     user_mother_name?: SortOrder
+    user_spouse_name?: SortOrder
     user_mobile_no?: SortOrder
     user_phone_no?: SortOrder
     user_whatsapp_no?: SortOrder
@@ -60750,6 +60876,10 @@ export namespace Prisma {
     user_ifsc_code?: SortOrder
     user_other_images?: SortOrder
     user_other_info?: SortOrder
+    user_nominee_name?: SortOrder
+    user_nominee_relation?: SortOrder
+    user_nominee_mobile?: SortOrder
+    user_nominee_address?: SortOrder
     user_created_at?: SortOrder
     user_created_by?: SortOrder
     user_updated_at?: SortOrder
@@ -60776,6 +60906,7 @@ export namespace Prisma {
     user_father_name?: SortOrder
     user_last_name?: SortOrder
     user_mother_name?: SortOrder
+    user_spouse_name?: SortOrder
     user_mobile_no?: SortOrder
     user_phone_no?: SortOrder
     user_whatsapp_no?: SortOrder
@@ -60802,6 +60933,10 @@ export namespace Prisma {
     user_bank_acc_no?: SortOrder
     user_ifsc_code?: SortOrder
     user_other_info?: SortOrder
+    user_nominee_name?: SortOrder
+    user_nominee_relation?: SortOrder
+    user_nominee_mobile?: SortOrder
+    user_nominee_address?: SortOrder
     user_created_at?: SortOrder
     user_created_by?: SortOrder
     user_updated_at?: SortOrder
@@ -60822,6 +60957,7 @@ export namespace Prisma {
     user_father_name?: SortOrder
     user_last_name?: SortOrder
     user_mother_name?: SortOrder
+    user_spouse_name?: SortOrder
     user_mobile_no?: SortOrder
     user_phone_no?: SortOrder
     user_whatsapp_no?: SortOrder
@@ -60848,6 +60984,10 @@ export namespace Prisma {
     user_bank_acc_no?: SortOrder
     user_ifsc_code?: SortOrder
     user_other_info?: SortOrder
+    user_nominee_name?: SortOrder
+    user_nominee_relation?: SortOrder
+    user_nominee_mobile?: SortOrder
+    user_nominee_address?: SortOrder
     user_created_at?: SortOrder
     user_created_by?: SortOrder
     user_updated_at?: SortOrder
@@ -71290,6 +71430,7 @@ export namespace Prisma {
     user_father_name?: string | null
     user_last_name: string
     user_mother_name?: string | null
+    user_spouse_name?: string | null
     user_mobile_no: string
     user_phone_no?: string | null
     user_whatsapp_no?: string | null
@@ -71318,6 +71459,10 @@ export namespace Prisma {
     user_ifsc_code?: string | null
     user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: string | null
+    user_nominee_name?: string | null
+    user_nominee_relation?: string | null
+    user_nominee_mobile?: string | null
+    user_nominee_address?: string | null
     user_created_at?: Date | string
     user_created_by?: string | null
     user_updated_at?: Date | string
@@ -71348,6 +71493,7 @@ export namespace Prisma {
     user_father_name?: string | null
     user_last_name: string
     user_mother_name?: string | null
+    user_spouse_name?: string | null
     user_mobile_no: string
     user_phone_no?: string | null
     user_whatsapp_no?: string | null
@@ -71376,6 +71522,10 @@ export namespace Prisma {
     user_ifsc_code?: string | null
     user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: string | null
+    user_nominee_name?: string | null
+    user_nominee_relation?: string | null
+    user_nominee_mobile?: string | null
+    user_nominee_address?: string | null
     user_created_at?: Date | string
     user_created_by?: string | null
     user_updated_at?: Date | string
@@ -73067,6 +73217,7 @@ export namespace Prisma {
     user_father_name?: StringNullableFilter<"User"> | string | null
     user_last_name?: StringFilter<"User"> | string
     user_mother_name?: StringNullableFilter<"User"> | string | null
+    user_spouse_name?: StringNullableFilter<"User"> | string | null
     user_mobile_no?: StringFilter<"User"> | string
     user_phone_no?: StringNullableFilter<"User"> | string | null
     user_whatsapp_no?: StringNullableFilter<"User"> | string | null
@@ -73095,6 +73246,10 @@ export namespace Prisma {
     user_ifsc_code?: StringNullableFilter<"User"> | string | null
     user_other_images?: JsonNullableFilter<"User">
     user_other_info?: StringNullableFilter<"User"> | string | null
+    user_nominee_name?: StringNullableFilter<"User"> | string | null
+    user_nominee_relation?: StringNullableFilter<"User"> | string | null
+    user_nominee_mobile?: StringNullableFilter<"User"> | string | null
+    user_nominee_address?: StringNullableFilter<"User"> | string | null
     user_created_at?: DateTimeFilter<"User"> | Date | string
     user_created_by?: StringNullableFilter<"User"> | string | null
     user_updated_at?: DateTimeFilter<"User"> | Date | string
@@ -74164,6 +74319,7 @@ export namespace Prisma {
     user_father_name?: string | null
     user_last_name: string
     user_mother_name?: string | null
+    user_spouse_name?: string | null
     user_mobile_no: string
     user_phone_no?: string | null
     user_whatsapp_no?: string | null
@@ -74192,6 +74348,10 @@ export namespace Prisma {
     user_ifsc_code?: string | null
     user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: string | null
+    user_nominee_name?: string | null
+    user_nominee_relation?: string | null
+    user_nominee_mobile?: string | null
+    user_nominee_address?: string | null
     user_created_at?: Date | string
     user_created_by?: string | null
     user_updated_at?: Date | string
@@ -74222,6 +74382,7 @@ export namespace Prisma {
     user_father_name?: string | null
     user_last_name: string
     user_mother_name?: string | null
+    user_spouse_name?: string | null
     user_mobile_no: string
     user_phone_no?: string | null
     user_whatsapp_no?: string | null
@@ -74250,6 +74411,10 @@ export namespace Prisma {
     user_ifsc_code?: string | null
     user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: string | null
+    user_nominee_name?: string | null
+    user_nominee_relation?: string | null
+    user_nominee_mobile?: string | null
+    user_nominee_address?: string | null
     user_created_at?: Date | string
     user_created_by?: string | null
     user_updated_at?: Date | string
@@ -83572,6 +83737,7 @@ export namespace Prisma {
     user_father_name?: string | null
     user_last_name: string
     user_mother_name?: string | null
+    user_spouse_name?: string | null
     user_mobile_no: string
     user_phone_no?: string | null
     user_whatsapp_no?: string | null
@@ -83600,6 +83766,10 @@ export namespace Prisma {
     user_ifsc_code?: string | null
     user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: string | null
+    user_nominee_name?: string | null
+    user_nominee_relation?: string | null
+    user_nominee_mobile?: string | null
+    user_nominee_address?: string | null
     user_created_at?: Date | string
     user_created_by?: string | null
     user_updated_at?: Date | string
@@ -83631,6 +83801,7 @@ export namespace Prisma {
     user_father_name?: string | null
     user_last_name: string
     user_mother_name?: string | null
+    user_spouse_name?: string | null
     user_mobile_no: string
     user_phone_no?: string | null
     user_whatsapp_no?: string | null
@@ -83659,6 +83830,10 @@ export namespace Prisma {
     user_ifsc_code?: string | null
     user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: string | null
+    user_nominee_name?: string | null
+    user_nominee_relation?: string | null
+    user_nominee_mobile?: string | null
+    user_nominee_address?: string | null
     user_created_at?: Date | string
     user_created_by?: string | null
     user_updated_at?: Date | string
@@ -84899,6 +85074,7 @@ export namespace Prisma {
     user_father_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_last_name?: StringFieldUpdateOperationsInput | string
     user_mother_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_spouse_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_mobile_no?: StringFieldUpdateOperationsInput | string
     user_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_whatsapp_no?: NullableStringFieldUpdateOperationsInput | string | null
@@ -84927,6 +85103,10 @@ export namespace Prisma {
     user_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
     user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_relation?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_mobile?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_address?: NullableStringFieldUpdateOperationsInput | string | null
     user_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     user_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -84958,6 +85138,7 @@ export namespace Prisma {
     user_father_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_last_name?: StringFieldUpdateOperationsInput | string
     user_mother_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_spouse_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_mobile_no?: StringFieldUpdateOperationsInput | string
     user_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_whatsapp_no?: NullableStringFieldUpdateOperationsInput | string | null
@@ -84986,6 +85167,10 @@ export namespace Prisma {
     user_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
     user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_relation?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_mobile?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_address?: NullableStringFieldUpdateOperationsInput | string | null
     user_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     user_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -86121,6 +86306,7 @@ export namespace Prisma {
     user_father_name?: string | null
     user_last_name: string
     user_mother_name?: string | null
+    user_spouse_name?: string | null
     user_mobile_no: string
     user_phone_no?: string | null
     user_whatsapp_no?: string | null
@@ -86149,6 +86335,10 @@ export namespace Prisma {
     user_ifsc_code?: string | null
     user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: string | null
+    user_nominee_name?: string | null
+    user_nominee_relation?: string | null
+    user_nominee_mobile?: string | null
+    user_nominee_address?: string | null
     user_created_at?: Date | string
     user_created_by?: string | null
     user_updated_at?: Date | string
@@ -86180,6 +86370,7 @@ export namespace Prisma {
     user_father_name?: string | null
     user_last_name: string
     user_mother_name?: string | null
+    user_spouse_name?: string | null
     user_mobile_no: string
     user_phone_no?: string | null
     user_whatsapp_no?: string | null
@@ -86208,6 +86399,10 @@ export namespace Prisma {
     user_ifsc_code?: string | null
     user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: string | null
+    user_nominee_name?: string | null
+    user_nominee_relation?: string | null
+    user_nominee_mobile?: string | null
+    user_nominee_address?: string | null
     user_created_at?: Date | string
     user_created_by?: string | null
     user_updated_at?: Date | string
@@ -87250,6 +87445,7 @@ export namespace Prisma {
     user_father_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_last_name?: StringFieldUpdateOperationsInput | string
     user_mother_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_spouse_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_mobile_no?: StringFieldUpdateOperationsInput | string
     user_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_whatsapp_no?: NullableStringFieldUpdateOperationsInput | string | null
@@ -87278,6 +87474,10 @@ export namespace Prisma {
     user_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
     user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_relation?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_mobile?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_address?: NullableStringFieldUpdateOperationsInput | string | null
     user_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     user_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -87309,6 +87509,7 @@ export namespace Prisma {
     user_father_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_last_name?: StringFieldUpdateOperationsInput | string
     user_mother_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_spouse_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_mobile_no?: StringFieldUpdateOperationsInput | string
     user_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_whatsapp_no?: NullableStringFieldUpdateOperationsInput | string | null
@@ -87337,6 +87538,10 @@ export namespace Prisma {
     user_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
     user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_relation?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_mobile?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_address?: NullableStringFieldUpdateOperationsInput | string | null
     user_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     user_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -88392,6 +88597,7 @@ export namespace Prisma {
     user_father_name?: string | null
     user_last_name: string
     user_mother_name?: string | null
+    user_spouse_name?: string | null
     user_mobile_no: string
     user_phone_no?: string | null
     user_whatsapp_no?: string | null
@@ -88420,6 +88626,10 @@ export namespace Prisma {
     user_ifsc_code?: string | null
     user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: string | null
+    user_nominee_name?: string | null
+    user_nominee_relation?: string | null
+    user_nominee_mobile?: string | null
+    user_nominee_address?: string | null
     user_created_at?: Date | string
     user_created_by?: string | null
     user_updated_at?: Date | string
@@ -88451,6 +88661,7 @@ export namespace Prisma {
     user_father_name?: string | null
     user_last_name: string
     user_mother_name?: string | null
+    user_spouse_name?: string | null
     user_mobile_no: string
     user_phone_no?: string | null
     user_whatsapp_no?: string | null
@@ -88479,6 +88690,10 @@ export namespace Prisma {
     user_ifsc_code?: string | null
     user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: string | null
+    user_nominee_name?: string | null
+    user_nominee_relation?: string | null
+    user_nominee_mobile?: string | null
+    user_nominee_address?: string | null
     user_created_at?: Date | string
     user_created_by?: string | null
     user_updated_at?: Date | string
@@ -89719,6 +89934,7 @@ export namespace Prisma {
     user_father_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_last_name?: StringFieldUpdateOperationsInput | string
     user_mother_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_spouse_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_mobile_no?: StringFieldUpdateOperationsInput | string
     user_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_whatsapp_no?: NullableStringFieldUpdateOperationsInput | string | null
@@ -89747,6 +89963,10 @@ export namespace Prisma {
     user_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
     user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_relation?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_mobile?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_address?: NullableStringFieldUpdateOperationsInput | string | null
     user_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     user_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -89778,6 +89998,7 @@ export namespace Prisma {
     user_father_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_last_name?: StringFieldUpdateOperationsInput | string
     user_mother_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_spouse_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_mobile_no?: StringFieldUpdateOperationsInput | string
     user_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_whatsapp_no?: NullableStringFieldUpdateOperationsInput | string | null
@@ -89806,6 +90027,10 @@ export namespace Prisma {
     user_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
     user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_relation?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_mobile?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_address?: NullableStringFieldUpdateOperationsInput | string | null
     user_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     user_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -91154,6 +91379,7 @@ export namespace Prisma {
     user_father_name?: string | null
     user_last_name: string
     user_mother_name?: string | null
+    user_spouse_name?: string | null
     user_mobile_no: string
     user_phone_no?: string | null
     user_whatsapp_no?: string | null
@@ -91182,6 +91408,10 @@ export namespace Prisma {
     user_ifsc_code?: string | null
     user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: string | null
+    user_nominee_name?: string | null
+    user_nominee_relation?: string | null
+    user_nominee_mobile?: string | null
+    user_nominee_address?: string | null
     user_created_at?: Date | string
     user_created_by?: string | null
     user_updated_at?: Date | string
@@ -91213,6 +91443,7 @@ export namespace Prisma {
     user_father_name?: string | null
     user_last_name: string
     user_mother_name?: string | null
+    user_spouse_name?: string | null
     user_mobile_no: string
     user_phone_no?: string | null
     user_whatsapp_no?: string | null
@@ -91241,6 +91472,10 @@ export namespace Prisma {
     user_ifsc_code?: string | null
     user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: string | null
+    user_nominee_name?: string | null
+    user_nominee_relation?: string | null
+    user_nominee_mobile?: string | null
+    user_nominee_address?: string | null
     user_created_at?: Date | string
     user_created_by?: string | null
     user_updated_at?: Date | string
@@ -91646,6 +91881,7 @@ export namespace Prisma {
     user_father_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_last_name?: StringFieldUpdateOperationsInput | string
     user_mother_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_spouse_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_mobile_no?: StringFieldUpdateOperationsInput | string
     user_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_whatsapp_no?: NullableStringFieldUpdateOperationsInput | string | null
@@ -91674,6 +91910,10 @@ export namespace Prisma {
     user_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
     user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_relation?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_mobile?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_address?: NullableStringFieldUpdateOperationsInput | string | null
     user_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     user_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -91705,6 +91945,7 @@ export namespace Prisma {
     user_father_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_last_name?: StringFieldUpdateOperationsInput | string
     user_mother_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_spouse_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_mobile_no?: StringFieldUpdateOperationsInput | string
     user_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_whatsapp_no?: NullableStringFieldUpdateOperationsInput | string | null
@@ -91733,6 +91974,10 @@ export namespace Prisma {
     user_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
     user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_relation?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_mobile?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_address?: NullableStringFieldUpdateOperationsInput | string | null
     user_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     user_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -92108,6 +92353,7 @@ export namespace Prisma {
     user_father_name?: string | null
     user_last_name: string
     user_mother_name?: string | null
+    user_spouse_name?: string | null
     user_mobile_no: string
     user_phone_no?: string | null
     user_whatsapp_no?: string | null
@@ -92136,6 +92382,10 @@ export namespace Prisma {
     user_ifsc_code?: string | null
     user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: string | null
+    user_nominee_name?: string | null
+    user_nominee_relation?: string | null
+    user_nominee_mobile?: string | null
+    user_nominee_address?: string | null
     user_created_at?: Date | string
     user_created_by?: string | null
     user_updated_at?: Date | string
@@ -92167,6 +92417,7 @@ export namespace Prisma {
     user_father_name?: string | null
     user_last_name: string
     user_mother_name?: string | null
+    user_spouse_name?: string | null
     user_mobile_no: string
     user_phone_no?: string | null
     user_whatsapp_no?: string | null
@@ -92195,6 +92446,10 @@ export namespace Prisma {
     user_ifsc_code?: string | null
     user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: string | null
+    user_nominee_name?: string | null
+    user_nominee_relation?: string | null
+    user_nominee_mobile?: string | null
+    user_nominee_address?: string | null
     user_created_at?: Date | string
     user_created_by?: string | null
     user_updated_at?: Date | string
@@ -92881,6 +93136,7 @@ export namespace Prisma {
     user_father_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_last_name?: StringFieldUpdateOperationsInput | string
     user_mother_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_spouse_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_mobile_no?: StringFieldUpdateOperationsInput | string
     user_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_whatsapp_no?: NullableStringFieldUpdateOperationsInput | string | null
@@ -92909,6 +93165,10 @@ export namespace Prisma {
     user_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
     user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_relation?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_mobile?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_address?: NullableStringFieldUpdateOperationsInput | string | null
     user_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     user_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -92940,6 +93200,7 @@ export namespace Prisma {
     user_father_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_last_name?: StringFieldUpdateOperationsInput | string
     user_mother_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_spouse_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_mobile_no?: StringFieldUpdateOperationsInput | string
     user_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_whatsapp_no?: NullableStringFieldUpdateOperationsInput | string | null
@@ -92968,6 +93229,10 @@ export namespace Prisma {
     user_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
     user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_relation?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_mobile?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_address?: NullableStringFieldUpdateOperationsInput | string | null
     user_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     user_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -93729,6 +93994,7 @@ export namespace Prisma {
     user_father_name?: string | null
     user_last_name: string
     user_mother_name?: string | null
+    user_spouse_name?: string | null
     user_mobile_no: string
     user_phone_no?: string | null
     user_whatsapp_no?: string | null
@@ -93757,6 +94023,10 @@ export namespace Prisma {
     user_ifsc_code?: string | null
     user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: string | null
+    user_nominee_name?: string | null
+    user_nominee_relation?: string | null
+    user_nominee_mobile?: string | null
+    user_nominee_address?: string | null
     user_created_at?: Date | string
     user_created_by?: string | null
     user_updated_at?: Date | string
@@ -93788,6 +94058,7 @@ export namespace Prisma {
     user_father_name?: string | null
     user_last_name: string
     user_mother_name?: string | null
+    user_spouse_name?: string | null
     user_mobile_no: string
     user_phone_no?: string | null
     user_whatsapp_no?: string | null
@@ -93816,6 +94087,10 @@ export namespace Prisma {
     user_ifsc_code?: string | null
     user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: string | null
+    user_nominee_name?: string | null
+    user_nominee_relation?: string | null
+    user_nominee_mobile?: string | null
+    user_nominee_address?: string | null
     user_created_at?: Date | string
     user_created_by?: string | null
     user_updated_at?: Date | string
@@ -95613,6 +95888,7 @@ export namespace Prisma {
     user_father_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_last_name?: StringFieldUpdateOperationsInput | string
     user_mother_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_spouse_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_mobile_no?: StringFieldUpdateOperationsInput | string
     user_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_whatsapp_no?: NullableStringFieldUpdateOperationsInput | string | null
@@ -95641,6 +95917,10 @@ export namespace Prisma {
     user_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
     user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_relation?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_mobile?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_address?: NullableStringFieldUpdateOperationsInput | string | null
     user_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     user_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -95672,6 +95952,7 @@ export namespace Prisma {
     user_father_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_last_name?: StringFieldUpdateOperationsInput | string
     user_mother_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_spouse_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_mobile_no?: StringFieldUpdateOperationsInput | string
     user_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_whatsapp_no?: NullableStringFieldUpdateOperationsInput | string | null
@@ -95700,6 +95981,10 @@ export namespace Prisma {
     user_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
     user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_relation?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_mobile?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_address?: NullableStringFieldUpdateOperationsInput | string | null
     user_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     user_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -97258,6 +97543,7 @@ export namespace Prisma {
     user_father_name?: string | null
     user_last_name: string
     user_mother_name?: string | null
+    user_spouse_name?: string | null
     user_mobile_no: string
     user_phone_no?: string | null
     user_whatsapp_no?: string | null
@@ -97286,6 +97572,10 @@ export namespace Prisma {
     user_ifsc_code?: string | null
     user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: string | null
+    user_nominee_name?: string | null
+    user_nominee_relation?: string | null
+    user_nominee_mobile?: string | null
+    user_nominee_address?: string | null
     user_created_at?: Date | string
     user_created_by?: string | null
     user_updated_at?: Date | string
@@ -97317,6 +97607,7 @@ export namespace Prisma {
     user_father_name?: string | null
     user_last_name: string
     user_mother_name?: string | null
+    user_spouse_name?: string | null
     user_mobile_no: string
     user_phone_no?: string | null
     user_whatsapp_no?: string | null
@@ -97345,6 +97636,10 @@ export namespace Prisma {
     user_ifsc_code?: string | null
     user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: string | null
+    user_nominee_name?: string | null
+    user_nominee_relation?: string | null
+    user_nominee_mobile?: string | null
+    user_nominee_address?: string | null
     user_created_at?: Date | string
     user_created_by?: string | null
     user_updated_at?: Date | string
@@ -97680,6 +97975,7 @@ export namespace Prisma {
     user_father_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_last_name?: StringFieldUpdateOperationsInput | string
     user_mother_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_spouse_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_mobile_no?: StringFieldUpdateOperationsInput | string
     user_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_whatsapp_no?: NullableStringFieldUpdateOperationsInput | string | null
@@ -97708,6 +98004,10 @@ export namespace Prisma {
     user_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
     user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_relation?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_mobile?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_address?: NullableStringFieldUpdateOperationsInput | string | null
     user_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     user_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -97739,6 +98039,7 @@ export namespace Prisma {
     user_father_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_last_name?: StringFieldUpdateOperationsInput | string
     user_mother_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_spouse_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_mobile_no?: StringFieldUpdateOperationsInput | string
     user_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_whatsapp_no?: NullableStringFieldUpdateOperationsInput | string | null
@@ -97767,6 +98068,10 @@ export namespace Prisma {
     user_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
     user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_relation?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_mobile?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_address?: NullableStringFieldUpdateOperationsInput | string | null
     user_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     user_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -98075,6 +98380,7 @@ export namespace Prisma {
     user_father_name?: string | null
     user_last_name: string
     user_mother_name?: string | null
+    user_spouse_name?: string | null
     user_mobile_no: string
     user_phone_no?: string | null
     user_whatsapp_no?: string | null
@@ -98103,6 +98409,10 @@ export namespace Prisma {
     user_ifsc_code?: string | null
     user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: string | null
+    user_nominee_name?: string | null
+    user_nominee_relation?: string | null
+    user_nominee_mobile?: string | null
+    user_nominee_address?: string | null
     user_created_at?: Date | string
     user_created_by?: string | null
     user_updated_at?: Date | string
@@ -98134,6 +98444,7 @@ export namespace Prisma {
     user_father_name?: string | null
     user_last_name: string
     user_mother_name?: string | null
+    user_spouse_name?: string | null
     user_mobile_no: string
     user_phone_no?: string | null
     user_whatsapp_no?: string | null
@@ -98162,6 +98473,10 @@ export namespace Prisma {
     user_ifsc_code?: string | null
     user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: string | null
+    user_nominee_name?: string | null
+    user_nominee_relation?: string | null
+    user_nominee_mobile?: string | null
+    user_nominee_address?: string | null
     user_created_at?: Date | string
     user_created_by?: string | null
     user_updated_at?: Date | string
@@ -99233,6 +99548,7 @@ export namespace Prisma {
     user_father_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_last_name?: StringFieldUpdateOperationsInput | string
     user_mother_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_spouse_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_mobile_no?: StringFieldUpdateOperationsInput | string
     user_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_whatsapp_no?: NullableStringFieldUpdateOperationsInput | string | null
@@ -99261,6 +99577,10 @@ export namespace Prisma {
     user_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
     user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_relation?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_mobile?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_address?: NullableStringFieldUpdateOperationsInput | string | null
     user_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     user_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -99292,6 +99612,7 @@ export namespace Prisma {
     user_father_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_last_name?: StringFieldUpdateOperationsInput | string
     user_mother_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_spouse_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_mobile_no?: StringFieldUpdateOperationsInput | string
     user_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_whatsapp_no?: NullableStringFieldUpdateOperationsInput | string | null
@@ -99320,6 +99641,10 @@ export namespace Prisma {
     user_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
     user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_relation?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_mobile?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_address?: NullableStringFieldUpdateOperationsInput | string | null
     user_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     user_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -100394,6 +100719,7 @@ export namespace Prisma {
     user_father_name?: string | null
     user_last_name: string
     user_mother_name?: string | null
+    user_spouse_name?: string | null
     user_mobile_no: string
     user_phone_no?: string | null
     user_whatsapp_no?: string | null
@@ -100422,6 +100748,10 @@ export namespace Prisma {
     user_ifsc_code?: string | null
     user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: string | null
+    user_nominee_name?: string | null
+    user_nominee_relation?: string | null
+    user_nominee_mobile?: string | null
+    user_nominee_address?: string | null
     user_created_at?: Date | string
     user_created_by?: string | null
     user_updated_at?: Date | string
@@ -100453,6 +100783,7 @@ export namespace Prisma {
     user_father_name?: string | null
     user_last_name: string
     user_mother_name?: string | null
+    user_spouse_name?: string | null
     user_mobile_no: string
     user_phone_no?: string | null
     user_whatsapp_no?: string | null
@@ -100481,6 +100812,10 @@ export namespace Prisma {
     user_ifsc_code?: string | null
     user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: string | null
+    user_nominee_name?: string | null
+    user_nominee_relation?: string | null
+    user_nominee_mobile?: string | null
+    user_nominee_address?: string | null
     user_created_at?: Date | string
     user_created_by?: string | null
     user_updated_at?: Date | string
@@ -102160,6 +102495,7 @@ export namespace Prisma {
     user_father_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_last_name?: StringFieldUpdateOperationsInput | string
     user_mother_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_spouse_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_mobile_no?: StringFieldUpdateOperationsInput | string
     user_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_whatsapp_no?: NullableStringFieldUpdateOperationsInput | string | null
@@ -102188,6 +102524,10 @@ export namespace Prisma {
     user_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
     user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_relation?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_mobile?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_address?: NullableStringFieldUpdateOperationsInput | string | null
     user_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     user_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -102219,6 +102559,7 @@ export namespace Prisma {
     user_father_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_last_name?: StringFieldUpdateOperationsInput | string
     user_mother_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_spouse_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_mobile_no?: StringFieldUpdateOperationsInput | string
     user_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_whatsapp_no?: NullableStringFieldUpdateOperationsInput | string | null
@@ -102247,6 +102588,10 @@ export namespace Prisma {
     user_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
     user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_relation?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_mobile?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_address?: NullableStringFieldUpdateOperationsInput | string | null
     user_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     user_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -103953,6 +104298,7 @@ export namespace Prisma {
     user_father_name?: string | null
     user_last_name: string
     user_mother_name?: string | null
+    user_spouse_name?: string | null
     user_mobile_no: string
     user_phone_no?: string | null
     user_whatsapp_no?: string | null
@@ -103981,6 +104327,10 @@ export namespace Prisma {
     user_ifsc_code?: string | null
     user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: string | null
+    user_nominee_name?: string | null
+    user_nominee_relation?: string | null
+    user_nominee_mobile?: string | null
+    user_nominee_address?: string | null
     user_created_at?: Date | string
     user_created_by?: string | null
     user_updated_at?: Date | string
@@ -104012,6 +104362,7 @@ export namespace Prisma {
     user_father_name?: string | null
     user_last_name: string
     user_mother_name?: string | null
+    user_spouse_name?: string | null
     user_mobile_no: string
     user_phone_no?: string | null
     user_whatsapp_no?: string | null
@@ -104040,6 +104391,10 @@ export namespace Prisma {
     user_ifsc_code?: string | null
     user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: string | null
+    user_nominee_name?: string | null
+    user_nominee_relation?: string | null
+    user_nominee_mobile?: string | null
+    user_nominee_address?: string | null
     user_created_at?: Date | string
     user_created_by?: string | null
     user_updated_at?: Date | string
@@ -105765,6 +106120,7 @@ export namespace Prisma {
     user_father_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_last_name?: StringFieldUpdateOperationsInput | string
     user_mother_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_spouse_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_mobile_no?: StringFieldUpdateOperationsInput | string
     user_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_whatsapp_no?: NullableStringFieldUpdateOperationsInput | string | null
@@ -105793,6 +106149,10 @@ export namespace Prisma {
     user_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
     user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_relation?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_mobile?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_address?: NullableStringFieldUpdateOperationsInput | string | null
     user_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     user_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -105824,6 +106184,7 @@ export namespace Prisma {
     user_father_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_last_name?: StringFieldUpdateOperationsInput | string
     user_mother_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_spouse_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_mobile_no?: StringFieldUpdateOperationsInput | string
     user_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_whatsapp_no?: NullableStringFieldUpdateOperationsInput | string | null
@@ -105852,6 +106213,10 @@ export namespace Prisma {
     user_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
     user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_relation?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_mobile?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_address?: NullableStringFieldUpdateOperationsInput | string | null
     user_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     user_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -113325,6 +113690,7 @@ export namespace Prisma {
     user_father_name?: string | null
     user_last_name: string
     user_mother_name?: string | null
+    user_spouse_name?: string | null
     user_mobile_no: string
     user_phone_no?: string | null
     user_whatsapp_no?: string | null
@@ -113353,6 +113719,10 @@ export namespace Prisma {
     user_ifsc_code?: string | null
     user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: string | null
+    user_nominee_name?: string | null
+    user_nominee_relation?: string | null
+    user_nominee_mobile?: string | null
+    user_nominee_address?: string | null
     user_created_at?: Date | string
     user_created_by?: string | null
     user_updated_at?: Date | string
@@ -114022,6 +114392,7 @@ export namespace Prisma {
     user_father_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_last_name?: StringFieldUpdateOperationsInput | string
     user_mother_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_spouse_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_mobile_no?: StringFieldUpdateOperationsInput | string
     user_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_whatsapp_no?: NullableStringFieldUpdateOperationsInput | string | null
@@ -114050,6 +114421,10 @@ export namespace Prisma {
     user_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
     user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_relation?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_mobile?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_address?: NullableStringFieldUpdateOperationsInput | string | null
     user_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     user_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -114080,6 +114455,7 @@ export namespace Prisma {
     user_father_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_last_name?: StringFieldUpdateOperationsInput | string
     user_mother_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_spouse_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_mobile_no?: StringFieldUpdateOperationsInput | string
     user_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_whatsapp_no?: NullableStringFieldUpdateOperationsInput | string | null
@@ -114108,6 +114484,10 @@ export namespace Prisma {
     user_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
     user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_relation?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_mobile?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_address?: NullableStringFieldUpdateOperationsInput | string | null
     user_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     user_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -114137,6 +114517,7 @@ export namespace Prisma {
     user_father_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_last_name?: StringFieldUpdateOperationsInput | string
     user_mother_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_spouse_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_mobile_no?: StringFieldUpdateOperationsInput | string
     user_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_whatsapp_no?: NullableStringFieldUpdateOperationsInput | string | null
@@ -114165,6 +114546,10 @@ export namespace Prisma {
     user_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
     user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_relation?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_mobile?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_address?: NullableStringFieldUpdateOperationsInput | string | null
     user_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     user_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -116268,6 +116653,7 @@ export namespace Prisma {
     user_father_name?: string | null
     user_last_name: string
     user_mother_name?: string | null
+    user_spouse_name?: string | null
     user_mobile_no: string
     user_phone_no?: string | null
     user_whatsapp_no?: string | null
@@ -116296,6 +116682,10 @@ export namespace Prisma {
     user_ifsc_code?: string | null
     user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: string | null
+    user_nominee_name?: string | null
+    user_nominee_relation?: string | null
+    user_nominee_mobile?: string | null
+    user_nominee_address?: string | null
     user_created_at?: Date | string
     user_created_by?: string | null
     user_updated_at?: Date | string
@@ -116874,6 +117264,7 @@ export namespace Prisma {
     user_father_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_last_name?: StringFieldUpdateOperationsInput | string
     user_mother_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_spouse_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_mobile_no?: StringFieldUpdateOperationsInput | string
     user_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_whatsapp_no?: NullableStringFieldUpdateOperationsInput | string | null
@@ -116902,6 +117293,10 @@ export namespace Prisma {
     user_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
     user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_relation?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_mobile?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_address?: NullableStringFieldUpdateOperationsInput | string | null
     user_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     user_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -116932,6 +117327,7 @@ export namespace Prisma {
     user_father_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_last_name?: StringFieldUpdateOperationsInput | string
     user_mother_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_spouse_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_mobile_no?: StringFieldUpdateOperationsInput | string
     user_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_whatsapp_no?: NullableStringFieldUpdateOperationsInput | string | null
@@ -116960,6 +117356,10 @@ export namespace Prisma {
     user_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
     user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_relation?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_mobile?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_address?: NullableStringFieldUpdateOperationsInput | string | null
     user_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     user_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -116989,6 +117389,7 @@ export namespace Prisma {
     user_father_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_last_name?: StringFieldUpdateOperationsInput | string
     user_mother_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_spouse_name?: NullableStringFieldUpdateOperationsInput | string | null
     user_mobile_no?: StringFieldUpdateOperationsInput | string
     user_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
     user_whatsapp_no?: NullableStringFieldUpdateOperationsInput | string | null
@@ -117017,6 +117418,10 @@ export namespace Prisma {
     user_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
     user_other_images?: NullableJsonNullValueInput | InputJsonValue
     user_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_relation?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_mobile?: NullableStringFieldUpdateOperationsInput | string | null
+    user_nominee_address?: NullableStringFieldUpdateOperationsInput | string | null
     user_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     user_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string

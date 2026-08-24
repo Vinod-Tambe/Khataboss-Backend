@@ -41,6 +41,171 @@ const PNL_LABEL_BY_ACC_NAME = Object.fromEntries(
   Object.values(INCOME_ACCOUNT_TYPES).map((t) => [t.acc_name, t.pnl_label])
 );
 
+const PNL_LABEL_BY_ACC_NAME_LOWER = Object.fromEntries(
+  Object.entries(PNL_LABEL_BY_ACC_NAME).map(([name, label]) => [
+    name.toLowerCase(),
+    label,
+  ])
+);
+
+/** Map ledger account name → P&L display label (case-insensitive). */
+function getPnlIncomeLabel(accName) {
+  const trimmed = String(accName || "").trim();
+  if (!trimmed) return trimmed;
+  if (PNL_LABEL_BY_ACC_NAME[trimmed]) return PNL_LABEL_BY_ACC_NAME[trimmed];
+  return PNL_LABEL_BY_ACC_NAME_LOWER[trimmed.toLowerCase()] || trimmed;
+}
+
+/** Classify legacy Interest Rec journal line by narration text. */
+function classifyIncomeNarration(narration, netAmount) {
+  const text = String(narration || "").trim();
+  const amount = Number(netAmount) || 0;
+  if (!text) return { type: "INTEREST", amount };
+
+  if (
+    /Process Charge|Process Fee|Other Charge|Finance Process Fee|Processing Fee/i.test(
+      text
+    )
+  ) {
+    return { type: "PROCESSING", amount };
+  }
+
+  const fineCollectMatch = text.match(
+    /Fine\s+([\d.]+)\s*\+\s*Collect\s+([\d.]+)/i
+  );
+  if (fineCollectMatch) {
+    const sign = amount >= 0 ? 1 : -1;
+    return {
+      type: "FINE_COLLECT",
+      fine: (parseFloat(fineCollectMatch[1]) || 0) * sign,
+      collect: (parseFloat(fineCollectMatch[2]) || 0) * sign,
+    };
+  }
+
+  if (/Fine|Overdue/i.test(text) && !/Interest/i.test(text)) {
+    return { type: "FINE", amount };
+  }
+  if (
+    /Collect Amount|Collect Payment|Collect Rollback|\bCollect\b/i.test(text) &&
+    !/Fine/i.test(text)
+  ) {
+    return { type: "COLLECT", amount };
+  }
+  if (/Extra|Discount/i.test(text)) {
+    return { type: "EXTRA", amount };
+  }
+
+  return { type: "INTEREST", amount };
+}
+
+/**
+ * Split Interest Rec journal lines into P&L income buckets (legacy postings).
+ */
+function splitInterestRecJournalLines(lines = [], interestRecAccId) {
+  const accId = Number(interestRecAccId);
+  const splits = {
+    processing: 0,
+    collect: 0,
+    fine: 0,
+    extra: 0,
+    interest: 0,
+  };
+
+  if (!accId) return splits;
+
+  for (const line of lines) {
+    let net = 0;
+    if (Number(line.jrtr_cr_acc_id) === accId) {
+      net += parseFloat(line.jrtr_cr_amt) || 0;
+    }
+    if (Number(line.jrtr_dr_acc_id) === accId) {
+      net -= parseFloat(line.jrtr_dr_amt) || 0;
+    }
+    if (!net) continue;
+
+    const classified = classifyIncomeNarration(line.jrtr_acc_info, net);
+    if (classified.type === "FINE_COLLECT") {
+      splits.fine += classified.fine || 0;
+      splits.collect += classified.collect || 0;
+      continue;
+    }
+
+    switch (classified.type) {
+      case "PROCESSING":
+        splits.processing += classified.amount;
+        break;
+      case "COLLECT":
+        splits.collect += classified.amount;
+        break;
+      case "FINE":
+        splits.fine += classified.amount;
+        break;
+      case "EXTRA":
+        splits.extra += classified.amount;
+        break;
+      default:
+        splits.interest += classified.amount;
+        break;
+    }
+  }
+
+  for (const key of Object.keys(splits)) {
+    splits[key] = parseFloat(splits[key].toFixed(2));
+  }
+
+  return splits;
+}
+
+/**
+ * Re-allocate legacy Interest Rec totals into separate income account rows for P&L.
+ */
+function applyLegacyInterestRecSplit(rows = [], splits = {}) {
+  const list = (rows || []).map((row) => ({
+    item: row.item,
+    amount: Number(row.amount || 0),
+  }));
+
+  const hasSplit =
+    splits.processing ||
+    splits.collect ||
+    splits.fine ||
+    splits.extra ||
+    splits.interest;
+
+  if (!hasSplit) return list;
+
+  const bump = (accName, amt) => {
+    const value = Number(amt || 0);
+    if (!value) return;
+    const idx = list.findIndex(
+      (row) => String(row.item || "").toLowerCase() === accName.toLowerCase()
+    );
+    if (idx >= 0) list[idx].amount = parseFloat((list[idx].amount + value).toFixed(2));
+    else list.push({ item: accName, amount: value });
+  };
+
+  const interestRecIdx = list.findIndex(
+    (row) => getPnlIncomeLabel(row.item) === "Interest Received"
+  );
+
+  if (interestRecIdx >= 0) {
+    if (splits.interest) {
+      list[interestRecIdx].amount = splits.interest;
+    } else {
+      list.splice(interestRecIdx, 1);
+    }
+  } else if (splits.interest) {
+    list.push({ item: "Interest Rec", amount: splits.interest });
+  }
+
+  bump("Processing Fees", splits.processing);
+  bump("Collect Amount", splits.collect);
+  bump("Fine Income", splits.fine);
+  bump("Extra Income", splits.extra);
+
+  return list.filter((row) => row.amount !== 0);
+}
+
 /**
  * Find or create a firm income account by type key.
  * @param {import('@prisma/client').PrismaClient} prisma
@@ -102,7 +267,7 @@ function formatIndirectIncomesForPnl(rows = []) {
 
   for (const row of rows) {
     const rawName = (row.item || "").trim();
-    const label = PNL_LABEL_BY_ACC_NAME[rawName] || rawName;
+    const label = getPnlIncomeLabel(rawName);
     const amount = Number(row.amount || 0);
     if (!amount) continue;
     merged.set(label, (merged.get(label) || 0) + amount);
@@ -233,6 +398,10 @@ module.exports = {
   PNL_INCOME_ORDER,
   ensureIncomeAccount,
   resolveIncomeAccount,
+  getPnlIncomeLabel,
+  classifyIncomeNarration,
+  splitInterestRecJournalLines,
+  applyLegacyInterestRecSplit,
   formatIndirectIncomesForPnl,
   buildFineCollectIncomeLines,
   buildFinanceIncomeCreditLines,

@@ -80,6 +80,53 @@ class JournalTransService {
       await prisma.$disconnect();
     }
   }
+
+  /**
+   * Journal lines touching given account ids (for P&L income narration split).
+   */
+  async get_journal_lines_for_accounts(dbUrl, startDate, endDate, firmId, accountIds = []) {
+    const prisma = this.getPrisma(dbUrl);
+    const parsedIds = [...new Set(accountIds.map((id) => parseInt(id, 10)).filter(Boolean))];
+    if (!parsedIds.length) return [];
+
+    try {
+      const where = {
+        jrtr_is_deleted: false,
+        journal: { jrnl_is_deleted: false },
+        OR: [
+          { jrtr_cr_acc_id: { in: parsedIds } },
+          { jrtr_dr_acc_id: { in: parsedIds } },
+        ],
+      };
+
+      if (firmId && firmId !== "N") {
+        where.jrtr_firm_id = parseInt(firmId, 10);
+      }
+
+      const dateQuery = {};
+      if (startDate) dateQuery.gte = startDate;
+      if (endDate) dateQuery.lte = endDate;
+      if (Object.keys(dateQuery).length > 0) {
+        where.jrtr_date = dateQuery;
+      }
+
+      return await prisma.journalTransaction.findMany({
+        where,
+        select: {
+          jrtr_cr_acc_id: true,
+          jrtr_dr_acc_id: true,
+          jrtr_cr_amt: true,
+          jrtr_dr_amt: true,
+          jrtr_acc_info: true,
+        },
+      });
+    } catch (error) {
+      console.error("❌ Error in get_journal_lines_for_accounts:", error.message);
+      throw error;
+    } finally {
+      await prisma.$disconnect();
+    }
+  }
 }
 
 module.exports = new JournalTransService();
