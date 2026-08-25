@@ -7,6 +7,12 @@ const authenticateOwner = require("../../../middlewares/auth.middleware");
 const requirePermission = require("../../../middlewares/permission.middleware");
 
 router.get(
+  "/alerts",
+  authenticateOwner,
+  (req, res) => logController.getAlerts(req, res)
+);
+
+router.get(
   "/",
   authenticateOwner,
   requirePermission(["reports.logs", "loan.loanLogs"], { mode: "any" }),

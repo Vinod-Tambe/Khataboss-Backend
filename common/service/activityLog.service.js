@@ -503,6 +503,7 @@ function mapLogRow(log, firmName = null, loginUserOverride = null) {
     sno: log.al_id,
     log_date: istDate,
     date: fmtDateTime(log.al_created_at),
+    created_at: createdAt ? createdAt.toISOString() : null,
     time: createdAt
       ? fmtDateTime(log.al_created_at).split(" ").slice(-1)[0]
       : "",
@@ -558,6 +559,13 @@ async function listActivityLogs(dbUrl, filters) {
 
   if (filters.loginId) {
     where.al_login_id = String(filters.loginId);
+  }
+
+  const excludeActions = Array.isArray(filters.excludeActions)
+    ? filters.excludeActions.map((action) => String(action).toUpperCase()).filter(Boolean)
+    : [];
+  if (excludeActions.length) {
+    where.al_action = { notIn: excludeActions };
   }
 
   const limit = Math.min(Math.max(parseInt(filters.limit, 10) || 200, 1), 500);

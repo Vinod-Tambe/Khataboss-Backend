@@ -4,6 +4,9 @@ const { getTenantPrisma } = require("../../../utils/tenantPrisma");
 const accountService = require("../../account/service/account.service");
 const userService = require("../../user/service/user.service");
 
+/** Finance money-trans types counted as cash inflows in Day Book + opening balance. */
+const FINANCE_COLLECTION_INFLOW_TYPES = ["PAID", "CLOSE", "FINE", "INTEREST"];
+
 class DaybookService {
   /**
    * Get the prisma client for the given tenant database URL.
@@ -668,7 +671,7 @@ class DaybookService {
     }
   }
 
-  // 7 & 8. Finance EMI Transaction Data (PAID/CLOSE/FINE = Inflow / ROLLBACK = Outflow)
+  // 7 & 8. Finance collections (PAID/CLOSE/FINE/INTEREST = Inflow / ROLLBACK = Outflow)
   async get_finance_emi_data(dbUrl, type, title, colorClass, amtColor, filters = {}) {
     const prisma = this.getPrisma(dbUrl);
     try {
@@ -914,10 +917,10 @@ class DaybookService {
       });
 
       // 2. INFLOWS prior to startDate
-      // a) Finance EMI Paid + Close + Fine/Collect (cash inflows)
+      // a) Finance EMI/interest/fine paid + close (cash inflows)
       const emiPaid = await prisma.finance_Money_Transaction.aggregate({
         where: {
-          fm_trans_type: { in: ["PAID", "CLOSE", "FINE"] },
+          fm_trans_type: { in: FINANCE_COLLECTION_INFLOW_TYPES },
           fm_is_deleted: false,
           ...(firmId && { fm_firm_id: firmId }),
           ...(startDate && { fm_trans_date: { lt: startDate } }),
@@ -1062,7 +1065,7 @@ class DaybookService {
         this.get_girvi_deposit_data(dbUrl, filters),
         this.get_girvi_release_data(dbUrl, filters),
         this.get_auction_loan_data(dbUrl, filters),
-        this.get_finance_emi_data(dbUrl, ["PAID", "CLOSE", "FINE"], "FINANCE EMI DEPOSIT", "bg-red", "text-success", filters),
+        this.get_finance_emi_data(dbUrl, FINANCE_COLLECTION_INFLOW_TYPES, "FINANCE EMI DEPOSIT", "bg-red", "text-success", filters),
         this.get_finance_emi_data(dbUrl, "ROLLBACK", "FINANCE EMI ROLLBACK", "bg-secondary", "text-danger", filters),
         this.get_transfer_loan_out_data(dbUrl, filters),
         this.get_transfer_loan_in_data(dbUrl, filters),

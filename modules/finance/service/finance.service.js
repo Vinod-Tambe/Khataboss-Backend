@@ -564,10 +564,12 @@ class FinanceService {
               select: { firm_name: true }
             },
             finance_trans: {
-              orderBy: { ft_emi_no: "asc" }
+              where: { ft_is_deleted: false },
+              orderBy: { ft_emi_no: "asc" },
             },
             finance_money_trans: {
-              orderBy: { fm_created_at: "desc" }
+              where: { fm_is_deleted: false },
+              orderBy: { fm_created_at: "desc" },
             }
           }
         });
@@ -583,10 +585,12 @@ class FinanceService {
               select: { firm_name: true }
             },
             finance_trans: {
-              orderBy: { ft_emi_no: "asc" }
+              where: { ft_is_deleted: false },
+              orderBy: { ft_emi_no: "asc" },
             },
             finance_money_trans: {
-              orderBy: { fm_created_at: "desc" }
+              where: { fm_is_deleted: false },
+              orderBy: { fm_created_at: "desc" },
             }
           }
         });
@@ -596,7 +600,7 @@ class FinanceService {
 
       await financeTransactionService.mark_overdue_emis_due(dbUrl, finance.fin_id);
       finance.finance_trans = await prisma.finance_Transaction.findMany({
-        where: { ft_fin_id: finance.fin_id },
+        where: { ft_fin_id: finance.fin_id, ft_is_deleted: false },
         orderBy: { ft_emi_no: "asc" },
       });
 
@@ -997,9 +1001,7 @@ class FinanceService {
       );
 
       try {
-        for (const pattern of financeJournalDeletePatterns(updated)) {
-          await this.deleteFinanceJournalsByInfo(dbUrl, pattern);
-        }
+        const oldJournalPatterns = financeJournalDeletePatterns(previousSnapshot);
 
         const firm = await prisma.firm.findFirst({
           where: { firm_id: firmId, firm_is_deleted: false },
@@ -1078,10 +1080,17 @@ class FinanceService {
           dbUrl,
           journal_request
         );
-        return await prisma.finance.update({
+
+        const row = await prisma.finance.update({
           where: { fin_id: finId },
           data: { fin_jrnl_id: jrnl_id },
-        }).then((row) => ({ ...row, has_payments: false }));
+        });
+
+        for (const pattern of oldJournalPatterns) {
+          await this.deleteFinanceJournalsByInfo(dbUrl, pattern);
+        }
+
+        return { ...row, has_payments: false };
       } catch (journalErr) {
         // Restore previous finance + EMI schedule + journal
         try {
@@ -1623,7 +1632,7 @@ class FinanceService {
       }
 
       const allEmisAfter = await prisma.finance_Transaction.findMany({
-        where: { ft_fin_id: finance.fin_id },
+        where: { ft_fin_id: finance.fin_id, ft_is_deleted: false },
       });
       const moneyTransAfter = [...(finance.finance_money_trans || []), moneyTrans];
       const settlement = evaluateFinanceSettlement(
@@ -1824,7 +1833,10 @@ class FinanceService {
         });
       }
 
-      return moneyTrans;
+      return {
+        ...moneyTrans,
+        fin_unique_code: finance.fin_unique_code || null,
+      };
     } catch (error) {
       // If leftover/validation failed after money row created, clean it up
       if (moneyTransId && !String(error.message || "").includes("rolled back")) {

@@ -182,7 +182,10 @@ class FinanceController {
       const dbUrl = this.getDbUrl(req.user.own_db);
       const result = await financeService.processPayment(dbUrl, req.body);
 
-      const finance = { fin_id: result.fm_fin_id, fin_unique_code: null };
+      const finance = {
+        fin_id: result.fm_fin_id,
+        fin_unique_code: result.fin_unique_code || null,
+      };
       const transType = req.body.fm_trans_type || result.fm_trans_type;
       logActivity(dbUrl, req.user, {
         firmId: result.fm_firm_id,

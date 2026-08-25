@@ -60,6 +60,40 @@ class LogController {
       return res.status(500).json({ error: error.message });
     }
   }
+
+  /** Header bell: owner sees all activity, staff sees only their own. */
+  async getAlerts(req, res) {
+    try {
+      const { firmId, limit } = req.query;
+      const dbUrl = this.getDbUrl(req.user.own_db);
+      const listFilters = {
+        firmId: firmId || "all",
+        page: 1,
+        limit: Math.min(Math.max(parseInt(limit, 10) || 30, 1), 50),
+        excludeActions: ["LOGIN"],
+      };
+
+      if (req.user.role === ROLE_STAFF) {
+        listFilters.loginId = getActorLoginId(req.user);
+      }
+
+      const result = await listActivityLogs(dbUrl, listFilters);
+
+      return res.status(200).json({
+        message: "Alerts fetched successfully.",
+        data: result.rows,
+        meta: {
+          total: result.total,
+          page: result.page,
+          limit: result.limit,
+          scopedToStaff: req.user.role === ROLE_STAFF,
+        },
+      });
+    } catch (error) {
+      console.error("Error fetching alerts:", error.message);
+      return res.status(500).json({ error: error.message });
+    }
+  }
 }
 
 module.exports = new LogController();

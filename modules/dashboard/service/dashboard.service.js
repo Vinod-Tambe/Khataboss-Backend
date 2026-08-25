@@ -74,7 +74,7 @@ function buildUnifiedTransactions({ fmtList, depList, relList, apList, journalLi
 
   fmtList.forEach((fm) => {
     unified.push({
-      sortDate: new Date(fm.fm_created_at || fm.fm_trans_date).getTime(),
+      sortDate: new Date(fm.fm_trans_date || fm.fm_created_at).getTime(),
       jrnl_id: fm.fm_id,
       transNo: `FMT-${fm.fm_id}`,
       jrnl_amt: fm.fm_trans_amt,
@@ -320,10 +320,11 @@ class DashboardService {
         ${firmRelSql}
         GROUP BY 1 ORDER BY 1`,
       prisma.$queryRaw`
-        SELECT DATE(fm_created_at) AS day,
+        SELECT DATE(COALESCE(fm_trans_date, fm_created_at)) AS day,
                COALESCE(SUM(fm_trans_amt), 0)::float AS amount
         FROM finance_money_trans
-        WHERE fm_is_deleted = false AND fm_created_at >= ${last7Start}
+        WHERE fm_is_deleted = false
+          AND COALESCE(fm_trans_date, fm_created_at) >= ${last7Start}
         ${firmFmtSql}
         GROUP BY 1 ORDER BY 1`,
     ]);
