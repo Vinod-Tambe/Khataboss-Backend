@@ -320,11 +320,11 @@ class DashboardService {
         ${firmRelSql}
         GROUP BY 1 ORDER BY 1`,
       prisma.$queryRaw`
-        SELECT DATE(COALESCE(fm_trans_date, fm_created_at)) AS day,
+        SELECT DATE(COALESCE(NULLIF(BTRIM(fm_trans_date), '')::timestamp, fm_created_at)) AS day,
                COALESCE(SUM(fm_trans_amt), 0)::float AS amount
         FROM finance_money_trans
         WHERE fm_is_deleted = false
-          AND COALESCE(fm_trans_date, fm_created_at) >= ${last7Start}
+          AND COALESCE(NULLIF(BTRIM(fm_trans_date), '')::timestamp, fm_created_at) >= ${last7Start}
         ${firmFmtSql}
         GROUP BY 1 ORDER BY 1`,
     ]);
