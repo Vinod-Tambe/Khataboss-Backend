@@ -638,7 +638,7 @@ class GirviService {
       let updateData = {};
 
       if (hasTransactions || existing.girv_status !== 'ACTIVE') {
-        // Only allow non-financial fields
+        // Only allow non-financial fields; interest settings remain editable on active loans
         updateData = {
           girv_packet_no: girviData.girv_packet_no,
           girv_locker_no: girviData.girv_locker_no,
@@ -649,6 +649,13 @@ class GirviService {
           girv_online_info: girviData.girv_online_info,
           girv_card_info: girviData.girv_card_info,
         };
+
+        if (existing.girv_status === 'ACTIVE') {
+          updateData.girv_roi = girviData.girv_roi;
+          updateData.girv_roi_type = girviData.girv_roi_type;
+          updateData.girv_interest_method = girviData.girv_interest_method;
+          updateData.girv_compound_freq = girviData.girv_compound_freq;
+        }
       } else {
         // Allow all updates
         updateData = { ...girviData };

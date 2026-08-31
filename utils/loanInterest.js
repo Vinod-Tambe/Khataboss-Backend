@@ -131,6 +131,26 @@ const calculateInterestForPeriod = (
 const isFirstMonthInterestEnabled = (loan) =>
   loan?.girv_first_int === "Y" || loan?.girv_first_int === true;
 
+/** Last date interest should accrue — stops after full principal is deposited. */
+const resolveLoanInterestEndDate = (data, asOfDate = new Date()) => {
+  const currentTotalPrincipal = parseFloat(data?.girv_prin_amt) || 0;
+  if (currentTotalPrincipal > 0 || !data?.deposits?.length) return asOfDate;
+
+  const principalDepositDates = data.deposits
+    .filter((dep) => (parseFloat(dep.dep_prin_amt) || 0) > 0)
+    .map((dep) => parseCalendarDate(dep.dep_trans_date))
+    .filter(Boolean);
+  if (!principalDepositDates.length) return asOfDate;
+
+  const latest = principalDepositDates.reduce((maxDate, date) => {
+    const dateMs = calendarDayMs(date);
+    const maxMs = calendarDayMs(maxDate);
+    return dateMs > maxMs ? date : maxDate;
+  }, principalDepositDates[0]);
+
+  return new Date(calendarDayMs(latest));
+};
+
 /**
  * Full pending interest breakdown for a loan (includes AP + first-month prepaid).
  */
@@ -177,18 +197,20 @@ const getLoanInterestSummary = (data, asOfDate = new Date()) => {
   const interestMethod = data.girv_interest_method || "simple";
   const compoundFreq = data.girv_compound_freq || "monthly";
 
+  const interestEndDate = resolveLoanInterestEndDate(data, asOfDate);
+
   const origInterest = calculateInterestForPeriod(
     originalPrincipal,
     roi,
     data.girv_start_date,
-    asOfDate,
+    interestEndDate,
     interestMethod,
     compoundFreq,
     roiType
   );
 
   let additionalInterestTotal = 0;
-  if (data.additionalPrincipals?.length) {
+  if (currentTotalPrincipal > 0 && data.additionalPrincipals?.length) {
     data.additionalPrincipals.forEach((ap) => {
       const apPrin = parseFloat(ap.ap_prin_amt) || 0;
       const apRoi = parseFloat(ap.ap_roi) || roi;
@@ -196,7 +218,7 @@ const getLoanInterestSummary = (data, asOfDate = new Date()) => {
         apPrin,
         apRoi,
         ap.ap_trans_date,
-        asOfDate,
+        interestEndDate,
         interestMethod,
         compoundFreq,
         roiType
@@ -260,5 +282,6 @@ module.exports = {
   calculateInterestForPeriod,
   getTenureMonths,
   isFirstMonthInterestEnabled,
+  resolveLoanInterestEndDate,
   getLoanInterestSummary,
 };
