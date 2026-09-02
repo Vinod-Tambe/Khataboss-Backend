@@ -167,8 +167,64 @@ class GirviService {
   }
 
   /**
+   * Map first-month interest DR account to cash / bank / online / card channel.
+   */
+  resolveFirstMonthIntChannel(girvi = {}, drAccount = null) {
+    const id = parseInt(girvi.girv_first_int_dr_acc_id, 10) || 0;
+    if (!id) return "cash";
+    if (id === parseInt(girvi.girv_cash_acc_id, 10)) return "cash";
+    if (id === parseInt(girvi.girv_bank_acc_id, 10)) return "bank";
+    if (id === parseInt(girvi.girv_online_acc_id, 10)) return "online";
+    if (id === parseInt(girvi.girv_card_acc_id, 10)) return "card";
+
+    const name = String(drAccount?.acc_name || "").toLowerCase();
+    if (name.includes("bank")) return "bank";
+    if (name.includes("online")) return "online";
+    if (name.includes("card")) return "card";
+    return "cash";
+  }
+
+  /**
+   * Gross disbursement per channel for the add-loan journal.
+   * When first-month interest is prepaid, add it back so DR principal = total CR.
+   */
+  getGrossDisbursementAmounts(girvi = {}, drAccount = null) {
+    const cash = parseFloat(girvi.girv_cash_amt) || 0;
+    const bank = parseFloat(girvi.girv_bank_amt) || 0;
+    const online = parseFloat(girvi.girv_online_amt) || 0;
+    const card = parseFloat(girvi.girv_card_amt) || 0;
+
+    if (girvi.girv_first_int !== "Y") {
+      return { cash, bank, online, card };
+    }
+
+    const firstMonthInt =
+      calculateFirstMonthInterest(
+        girvi.girv_prin_amt,
+        girvi.girv_roi,
+        girvi.girv_interest_method || "simple",
+        girvi.girv_compound_freq || "monthly",
+        girvi.girv_roi_type || "monthly"
+      ) || 0;
+
+    if (!(firstMonthInt > 0)) {
+      return { cash, bank, online, card };
+    }
+
+    const channel = this.resolveFirstMonthIntChannel(girvi, drAccount);
+    return {
+      cash: cash + (channel === "cash" ? firstMonthInt : 0),
+      bank: bank + (channel === "bank" ? firstMonthInt : 0),
+      online: online + (channel === "online" ? firstMonthInt : 0),
+      card: card + (channel === "card" ? firstMonthInt : 0),
+    };
+  }
+
+  /**
    * Principal disbursement journal.
-   * DR Loan = principal; CR Cash/Bank = payments; CR Processing Fees = process + charge.
+   * DR Loan = principal; CR Cash/Bank = gross payments; CR Processing Fees = process + charge.
+   * When first-month interest is prepaid, gross payment CR includes that amount so the
+   * separate first-month interest journal (DR Cash, CR Interest Rec) keeps trial balance in sync.
    */
   async postAddLoanJournal(dbUrl, girvi, processingFeesAccId = null) {
     if (!girvi) return;
@@ -183,6 +239,15 @@ class GirviService {
     }
     const processAmt = parseFloat(girvi.girv_process_amt) || 0;
     const chargeAmt = parseFloat(girvi.girv_charge_amt) || 0;
+
+    let drAccount = null;
+    if (girvi.girv_first_int === "Y" && girvi.girv_first_int_dr_acc_id) {
+      drAccount = await prisma.account.findFirst({
+        where: { acc_id: parseInt(girvi.girv_first_int_dr_acc_id, 10) },
+        select: { acc_id: true, acc_name: true },
+      });
+    }
+    const disbursement = this.getGrossDisbursementAmounts(girvi, drAccount);
 
     const firm = await prisma.firm.findFirst({
       where: { firm_id: girvi.girv_firm_id, firm_is_deleted: false },
@@ -232,28 +297,28 @@ class GirviService {
           jrtr_crdr: "CR",
           jrtr_date: girvi.girv_start_date,
           jrtr_cr_acc_id: girvi.girv_cash_acc_id,
-          jrtr_cr_amt: girvi.girv_cash_amt,
+          jrtr_cr_amt: disbursement.cash,
           jrtr_acc_info: girvi.girv_cash_info,
         },
         {
           jrtr_crdr: "CR",
           jrtr_date: girvi.girv_start_date,
           jrtr_cr_acc_id: girvi.girv_bank_acc_id,
-          jrtr_cr_amt: girvi.girv_bank_amt,
+          jrtr_cr_amt: disbursement.bank,
           jrtr_acc_info: girvi.girv_bank_info,
         },
         {
           jrtr_crdr: "CR",
           jrtr_date: girvi.girv_start_date,
           jrtr_cr_acc_id: girvi.girv_online_acc_id,
-          jrtr_cr_amt: girvi.girv_online_amt,
+          jrtr_cr_amt: disbursement.online,
           jrtr_acc_info: girvi.girv_online_info,
         },
         {
           jrtr_crdr: "CR",
           jrtr_date: girvi.girv_start_date,
           jrtr_cr_acc_id: girvi.girv_card_acc_id,
-          jrtr_cr_amt: girvi.girv_card_amt,
+          jrtr_cr_amt: disbursement.card,
             jrtr_acc_info: girvi.girv_card_info,
           },
           ...processFeeLines,

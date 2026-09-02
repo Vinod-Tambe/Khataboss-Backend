@@ -171,13 +171,148 @@ class DaybookService {
     return finance.fin_unique_code || (finance.fin_id ? `Fin-${finance.fin_id}` : "-");
   }
 
+  /** Map interest payment DR account to cash / bank / online / card channel. */
+  resolvePaymentChannel(drAccId, loan = {}, drAccount = null) {
+    const id = parseInt(drAccId, 10) || 0;
+    if (!id) return "cash";
+    if (id === parseInt(loan.girv_cash_acc_id, 10)) return "cash";
+    if (id === parseInt(loan.girv_bank_acc_id, 10)) return "bank";
+    if (id === parseInt(loan.girv_online_acc_id, 10)) return "online";
+    if (id === parseInt(loan.girv_card_acc_id, 10)) return "card";
+
+    const name = String(drAccount?.acc_name || "").toLowerCase();
+    if (name.includes("bank")) return "bank";
+    if (name.includes("online")) return "online";
+    if (name.includes("card")) return "card";
+    return "cash";
+  }
+
+  getFirstMonthInterestAmount(item = {}) {
+    if (item.girv_first_int !== "Y") return 0;
+    return (
+      calculateFirstMonthInterest(
+        item.girv_prin_amt,
+        item.girv_roi,
+        item.girv_interest_method || "simple",
+        item.girv_compound_freq || "monthly",
+        item.girv_roi_type || "monthly"
+      ) || 0
+    );
+  }
+
+  /** Allocate process + charge across disbursement channels (same ratio as net payment). */
+  getProcessingChannels(item = {}) {
+    const processAmt = parseFloat(item.girv_process_amt ?? item.fin_proccess_amt) || 0;
+    const chargeAmt = parseFloat(item.girv_charge_amt) || 0;
+    const total = parseFloat((processAmt + chargeAmt).toFixed(2));
+
+    if (!(total > 0)) {
+      return { cash: 0, bank: 0, online: 0, card: 0, process: 0, charge: 0, total: 0 };
+    }
+
+    const base = {
+      cash: parseFloat(item.girv_cash_amt ?? item.fin_cash_amt) || 0,
+      bank: parseFloat(item.girv_bank_amt ?? item.fin_bank_amt) || 0,
+      online: parseFloat(item.girv_online_amt ?? item.fin_online_amt) || 0,
+      card: parseFloat(item.girv_card_amt ?? item.fin_card_amt) || 0,
+    };
+    const channels = this.scaleChannelsToAmount(base, total);
+
+    return {
+      cash: channels.cash,
+      bank: channels.bank,
+      online: channels.online,
+      card: channels.card,
+      process: processAmt,
+      charge: chargeAmt,
+      total,
+    };
+  }
+
+  /** Full principal disbursement channels for LOAN ADDED (includes process, charge, first-month interest). */
+  getLoanAddedChannels(item = {}) {
+    const cash = parseFloat(item.girv_cash_amt) || 0;
+    const bank = parseFloat(item.girv_bank_amt) || 0;
+    const online = parseFloat(item.girv_online_amt) || 0;
+    const card = parseFloat(item.girv_card_amt) || 0;
+    const base = { cash, bank, online, card };
+
+    const processAmt = parseFloat(item.girv_process_amt) || 0;
+    const chargeAmt = parseFloat(item.girv_charge_amt) || 0;
+    const processChargeTotal = processAmt + chargeAmt;
+
+    let channels = { cash, bank, online, card };
+    if (processChargeTotal > 0) {
+      const allocated = this.scaleChannelsToAmount(base, processChargeTotal);
+      channels = {
+        cash: channels.cash + allocated.cash,
+        bank: channels.bank + allocated.bank,
+        online: channels.online + allocated.online,
+        card: channels.card + allocated.card,
+      };
+    }
+
+    const interestAmt = this.getFirstMonthInterestAmount(item);
+    if (interestAmt > 0) {
+      const channel = this.resolvePaymentChannel(
+        item.girv_first_int_dr_acc_id,
+        item,
+        item.firstIntDrAccount
+      );
+      channels[channel] = parseFloat((channels[channel] + interestAmt).toFixed(2));
+    }
+
+    return channels;
+  }
+
+  /** Payment channels for prepaid first-month interest (cash inflow). */
+  getFirstMonthInterestChannels(item = {}) {
+    const interestAmt = this.getFirstMonthInterestAmount(item);
+    if (!(interestAmt > 0)) {
+      return { cash: 0, bank: 0, online: 0, card: 0, interest: 0 };
+    }
+
+    const channel = this.resolvePaymentChannel(
+      item.girv_first_int_dr_acc_id,
+      item,
+      item.firstIntDrAccount
+    );
+
+    return {
+      cash: channel === "cash" ? interestAmt : 0,
+      bank: channel === "bank" ? interestAmt : 0,
+      online: channel === "online" ? interestAmt : 0,
+      card: channel === "card" ? interestAmt : 0,
+      interest: interestAmt,
+    };
+  }
+
+  async mapLoanAddedRow(dbUrl, item) {
+    const toNumber = (value) => (parseFloat(value) || 0).toFixed(2);
+    const userId = item.girv_user_id || "";
+    const customerName = await this.getCustomerName(dbUrl, userId);
+    const channels = this.getLoanAddedChannels(item);
+
+    return {
+      db_date: this.formatDateToDDMMYYYY(item.girv_start_date),
+      db_firm: item.firm?.firm_name || "-",
+      db_customer_name: customerName,
+      db_cust_id: userId ? `C${userId}` : "-",
+      db_user_id: userId,
+      db_user_uuid: item.user?.user_uuid || "",
+      db_cash_amt: toNumber(channels.cash),
+      db_bank_amt: toNumber(channels.bank),
+      db_online_amt: toNumber(channels.online),
+      db_card_amt: toNumber(channels.card),
+      db_disc_amt: "0.00",
+    };
+  }
+
   async mapProcessingRow(dbUrl, item) {
     const toNumber = (value) => (parseFloat(value) || 0).toFixed(2);
     const userId = item.girv_user_id || item.fin_user_id || "";
     const customerName = await this.getCustomerName(dbUrl, userId);
-    const processAmt = parseFloat(item.girv_process_amt ?? item.fin_proccess_amt) || 0;
-    const chargeAmt = parseFloat(item.girv_charge_amt) || 0;
-    const totalAmt = parseFloat((processAmt + chargeAmt).toFixed(2));
+    const channels = this.getProcessingChannels(item);
 
     return {
       db_date: this.formatDateToDDMMYYYY(item.girv_start_date || item.fin_start_date),
@@ -191,13 +326,13 @@ class DaybookService {
       db_girv_id: item.girv_id || null,
       db_girv_uuid: item.girv_uuid || null,
       db_fin_id: item.fin_id || null,
-      db_process_amt: toNumber(processAmt),
-      db_charge_amt: toNumber(chargeAmt),
-      db_total_amt: toNumber(totalAmt),
-      db_cash_amt: "0.00",
-      db_bank_amt: "0.00",
-      db_online_amt: "0.00",
-      db_card_amt: "0.00",
+      db_process_amt: toNumber(channels.process),
+      db_charge_amt: toNumber(channels.charge),
+      db_total_amt: toNumber(channels.total),
+      db_cash_amt: toNumber(channels.cash),
+      db_bank_amt: toNumber(channels.bank),
+      db_online_amt: toNumber(channels.online),
+      db_card_amt: toNumber(channels.card),
       db_disc_amt: "0.00",
     };
   }
@@ -206,13 +341,7 @@ class DaybookService {
     const toNumber = (value) => (parseFloat(value) || 0).toFixed(2);
     const userId = item.girv_user_id || "";
     const customerName = await this.getCustomerName(dbUrl, userId);
-    const interestAmt = calculateFirstMonthInterest(
-      item.girv_prin_amt,
-      item.girv_roi,
-      item.girv_interest_method || "simple",
-      item.girv_compound_freq || "monthly",
-      item.girv_roi_type || "monthly"
-    );
+    const channels = this.getFirstMonthInterestChannels(item);
 
     return {
       db_date: this.formatDateToDDMMYYYY(item.girv_start_date),
@@ -225,11 +354,11 @@ class DaybookService {
       db_ref_type: "LOAN",
       db_girv_id: item.girv_id || null,
       db_girv_uuid: item.girv_uuid || null,
-      db_interest_amt: toNumber(interestAmt),
-      db_cash_amt: "0.00",
-      db_bank_amt: "0.00",
-      db_online_amt: "0.00",
-      db_card_amt: "0.00",
+      db_interest_amt: toNumber(channels.interest),
+      db_cash_amt: toNumber(channels.cash),
+      db_bank_amt: toNumber(channels.bank),
+      db_online_amt: toNumber(channels.online),
+      db_card_amt: toNumber(channels.card),
       db_disc_amt: "0.00",
     };
   }
@@ -280,6 +409,15 @@ class DaybookService {
           girv_interest_method: true,
           girv_compound_freq: true,
           girv_roi_type: true,
+          girv_first_int: true,
+          girv_first_int_dr_acc_id: true,
+          girv_cash_acc_id: true,
+          girv_bank_acc_id: true,
+          girv_online_acc_id: true,
+          girv_card_acc_id: true,
+          firstIntDrAccount: {
+            select: { acc_id: true, acc_name: true },
+          },
           user: { select: { user_uuid: true } },
           firm: { select: { firm_name: true } },
         },
@@ -309,7 +447,11 @@ class DaybookService {
           "CUSTOMER NAME",
           "REF NO",
           "TYPE",
-          "INTEREST",
+          "CASH",
+          "BANK",
+          "ONLINE",
+          "CARD",
+          "DISC",
         ],
         data: rows,
       };
@@ -380,6 +522,10 @@ class DaybookService {
             girv_user_id: true,
             girv_process_amt: true,
             girv_charge_amt: true,
+            girv_cash_amt: true,
+            girv_bank_amt: true,
+            girv_online_amt: true,
+            girv_card_amt: true,
             user: { select: { user_uuid: true } },
             firm: { select: { firm_name: true } },
           },
@@ -393,6 +539,10 @@ class DaybookService {
             fin_firm_id: true,
             fin_user_id: true,
             fin_proccess_amt: true,
+            fin_cash_amt: true,
+            fin_bank_amt: true,
+            fin_online_amt: true,
+            fin_card_amt: true,
             user: { select: { user_uuid: true } },
             firm: { select: { firm_name: true } },
           },
@@ -424,9 +574,11 @@ class DaybookService {
           "CUSTOMER NAME",
           "REF NO",
           "TYPE",
-          "PROCESS",
-          "CHARGE",
-          "TOTAL",
+          "CASH",
+          "BANK",
+          "ONLINE",
+          "CARD",
+          "DISC",
         ],
         data: rows,
       };
@@ -474,10 +626,26 @@ class DaybookService {
           girv_start_date: true,
           girv_firm_id: true,
           girv_user_id: true,
+          girv_prin_amt: true,
+          girv_roi: true,
+          girv_interest_method: true,
+          girv_compound_freq: true,
+          girv_roi_type: true,
+          girv_first_int: true,
+          girv_first_int_dr_acc_id: true,
+          girv_process_amt: true,
+          girv_charge_amt: true,
           girv_cash_amt: true,
           girv_bank_amt: true,
           girv_online_amt: true,
           girv_card_amt: true,
+          girv_cash_acc_id: true,
+          girv_bank_acc_id: true,
+          girv_online_acc_id: true,
+          girv_card_acc_id: true,
+          firstIntDrAccount: {
+            select: { acc_id: true, acc_name: true },
+          },
           user: { select: { user_uuid: true } },
           firm: { select: { firm_name: true } }
         },
@@ -486,7 +654,7 @@ class DaybookService {
       if (girviRecords.length === 0) return 0;
 
       const data = await Promise.all(
-        girviRecords.map((item) => this.mapToResponse(dbUrl, item))
+        girviRecords.map((item) => this.mapLoanAddedRow(dbUrl, item))
       );
 
       return {
@@ -1056,15 +1224,39 @@ class DaybookService {
           ...(firmId && { girv_firm_id: firmId }),
           ...(startDate && { girv_start_date: { lt: startDate } }),
         },
-        select: { girv_cash_amt: true, girv_bank_amt: true, girv_online_amt: true, girv_card_amt: true },
+        select: {
+          girv_cash_amt: true,
+          girv_bank_amt: true,
+          girv_online_amt: true,
+          girv_card_amt: true,
+          girv_prin_amt: true,
+          girv_roi: true,
+          girv_interest_method: true,
+          girv_compound_freq: true,
+          girv_roi_type: true,
+          girv_first_int: true,
+          girv_first_int_dr_acc_id: true,
+          girv_process_amt: true,
+          girv_charge_amt: true,
+          girv_cash_acc_id: true,
+          girv_bank_acc_id: true,
+          girv_online_acc_id: true,
+          girv_card_acc_id: true,
+          firstIntDrAccount: {
+            select: { acc_id: true, acc_name: true },
+          },
+        },
       });
       const sumGirvi = girviAdded.reduce(
-        (acc, item) => ({
-          cash: acc.cash + (parseFloat(item.girv_cash_amt) || 0),
-          bank: acc.bank + (parseFloat(item.girv_bank_amt) || 0),
-          online: acc.online + (parseFloat(item.girv_online_amt) || 0),
-          card: acc.card + (parseFloat(item.girv_card_amt) || 0),
-        }),
+        (acc, item) => {
+          const channels = this.getLoanAddedChannels(item);
+          return {
+            cash: acc.cash + channels.cash,
+            bank: acc.bank + channels.bank,
+            online: acc.online + channels.online,
+            card: acc.card + channels.card,
+          };
+        },
         { cash: 0, bank: 0, online: 0, card: 0 }
       );
 
@@ -1236,6 +1428,99 @@ class DaybookService {
         _sum: { al_cash_amt: true, al_bank_amt: true, al_online_amt: true, al_card_amt: true },
       });
 
+      // e) Prepaid first-month interest at loan creation (cash inflow)
+      const girviFirstMonthInt = await prisma.girvi.findMany({
+        where: {
+          girv_is_deleted: false,
+          girv_is_transferred_in: false,
+          girv_first_int: "Y",
+          ...(legacyTransferTargetIds.length > 0
+            ? { girv_id: { notIn: legacyTransferTargetIds } }
+            : {}),
+          ...(firmId && { girv_firm_id: firmId }),
+          ...(startDate && { girv_start_date: { lt: startDate } }),
+        },
+        select: {
+          girv_prin_amt: true,
+          girv_roi: true,
+          girv_interest_method: true,
+          girv_compound_freq: true,
+          girv_roi_type: true,
+          girv_first_int: true,
+          girv_first_int_dr_acc_id: true,
+          girv_cash_acc_id: true,
+          girv_bank_acc_id: true,
+          girv_online_acc_id: true,
+          girv_card_acc_id: true,
+          firstIntDrAccount: {
+            select: { acc_id: true, acc_name: true },
+          },
+        },
+      });
+      const sumFirstMonthInt = girviFirstMonthInt.reduce(
+        (acc, item) => {
+          const channels = this.getFirstMonthInterestChannels(item);
+          return {
+            cash: acc.cash + channels.cash,
+            bank: acc.bank + channels.bank,
+            online: acc.online + channels.online,
+            card: acc.card + channels.card,
+          };
+        },
+        { cash: 0, bank: 0, online: 0, card: 0 }
+      );
+
+      // f) Processing / charge retained at loan or finance creation (cash inflow)
+      const [girviProcessing, financeProcessing] = await Promise.all([
+        prisma.girvi.findMany({
+          where: {
+            girv_is_deleted: false,
+            girv_is_transferred_in: false,
+            OR: [{ girv_process_amt: { gt: 0 } }, { girv_charge_amt: { gt: 0 } }],
+            ...(legacyTransferTargetIds.length > 0
+              ? { girv_id: { notIn: legacyTransferTargetIds } }
+              : {}),
+            ...(firmId && { girv_firm_id: firmId }),
+            ...(startDate && { girv_start_date: { lt: startDate } }),
+          },
+          select: {
+            girv_process_amt: true,
+            girv_charge_amt: true,
+            girv_cash_amt: true,
+            girv_bank_amt: true,
+            girv_online_amt: true,
+            girv_card_amt: true,
+          },
+        }),
+        prisma.finance.findMany({
+          where: {
+            fin_is_deleted: false,
+            fin_proccess_amt: { gt: 0 },
+            ...(firmId && { fin_firm_id: firmId }),
+            ...(startDate && { fin_start_date: { lt: startDate } }),
+          },
+          select: {
+            fin_proccess_amt: true,
+            fin_cash_amt: true,
+            fin_bank_amt: true,
+            fin_online_amt: true,
+            fin_card_amt: true,
+          },
+        }),
+      ]);
+      const sumProcessing = [...girviProcessing, ...financeProcessing].reduce(
+        (acc, item) => {
+          const channels = this.getProcessingChannels(item);
+          return {
+            cash: acc.cash + channels.cash,
+            bank: acc.bank + channels.bank,
+            online: acc.online + channels.online,
+            card: acc.card + channels.card,
+          };
+        },
+        { cash: 0, bank: 0, online: 0, card: 0 }
+      );
+
       // 3. Account Opening Balances
       const all_opening_balances = await accountService.get_acc_opening_balance(
         dbUrl,
@@ -1255,25 +1540,33 @@ class DaybookService {
         (girviDeposit._sum.dep_cash_amt || 0) +
         (girviRelease._sum.rel_cash_amt || 0) +
         (auctionLoan._sum.al_cash_amt || 0) +
-        sumTransferOut.cash;
+        sumTransferOut.cash +
+        sumFirstMonthInt.cash +
+        sumProcessing.cash;
       const inflowBank =
         (emiPaid._sum.fm_bank_amt || 0) +
         (girviDeposit._sum.dep_bank_amt || 0) +
         (girviRelease._sum.rel_bank_amt || 0) +
         (auctionLoan._sum.al_bank_amt || 0) +
-        sumTransferOut.bank;
+        sumTransferOut.bank +
+        sumFirstMonthInt.bank +
+        sumProcessing.bank;
       const inflowOnline =
         (emiPaid._sum.fm_online_amt || 0) +
         (girviDeposit._sum.dep_online_amt || 0) +
         (girviRelease._sum.rel_online_amt || 0) +
         (auctionLoan._sum.al_online_amt || 0) +
-        sumTransferOut.online;
+        sumTransferOut.online +
+        sumFirstMonthInt.online +
+        sumProcessing.online;
       const inflowCard =
         (emiPaid._sum.fm_card_amt || 0) +
         (girviDeposit._sum.dep_card_amt || 0) +
         (girviRelease._sum.rel_card_amt || 0) +
         (auctionLoan._sum.al_card_amt || 0) +
-        sumTransferOut.card;
+        sumTransferOut.card +
+        sumFirstMonthInt.card +
+        sumProcessing.card;
 
       const outflowCash =
         sumFinance.cash +
