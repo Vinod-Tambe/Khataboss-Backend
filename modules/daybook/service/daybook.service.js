@@ -3,6 +3,7 @@
 const { getTenantPrisma } = require("../../../utils/tenantPrisma");
 const accountService = require("../../account/service/account.service");
 const userService = require("../../user/service/user.service");
+const { calculateFirstMonthInterest } = require("../../../utils/loanInterest");
 
 /** Finance money-trans types counted as cash inflows in Day Book + opening balance. */
 const FINANCE_COLLECTION_INFLOW_TYPES = ["PAID", "CLOSE", "FINE", "INTEREST"];
@@ -199,6 +200,124 @@ class DaybookService {
       db_card_amt: "0.00",
       db_disc_amt: "0.00",
     };
+  }
+
+  async mapFirstMonthInterestRow(dbUrl, item) {
+    const toNumber = (value) => (parseFloat(value) || 0).toFixed(2);
+    const userId = item.girv_user_id || "";
+    const customerName = await this.getCustomerName(dbUrl, userId);
+    const interestAmt = calculateFirstMonthInterest(
+      item.girv_prin_amt,
+      item.girv_roi,
+      item.girv_interest_method || "simple",
+      item.girv_compound_freq || "monthly",
+      item.girv_roi_type || "monthly"
+    );
+
+    return {
+      db_date: this.formatDateToDDMMYYYY(item.girv_start_date),
+      db_firm: item.firm?.firm_name || "-",
+      db_customer_name: customerName,
+      db_cust_id: userId ? `C${userId}` : "-",
+      db_user_id: userId,
+      db_user_uuid: item.user?.user_uuid || "",
+      db_ref_no: this.formatLoanRef(item),
+      db_ref_type: "LOAN",
+      db_girv_id: item.girv_id || null,
+      db_girv_uuid: item.girv_uuid || null,
+      db_interest_amt: toNumber(interestAmt),
+      db_cash_amt: "0.00",
+      db_bank_amt: "0.00",
+      db_online_amt: "0.00",
+      db_card_amt: "0.00",
+      db_disc_amt: "0.00",
+    };
+  }
+
+  /** Prepaid first-month interest at loan creation (informational — not cash movement). */
+  async get_first_month_interest_data(dbUrl, filters = {}) {
+    const prisma = this.getPrisma(dbUrl);
+    try {
+      const transferLinks = await prisma.girvi.findMany({
+        where: { girv_transfer_girv_id: { not: null } },
+        select: { girv_transfer_girv_id: true },
+      });
+      const transferTargetIds = [
+        ...new Set(
+          transferLinks.map((r) => r.girv_transfer_girv_id).filter(Boolean)
+        ),
+      ];
+
+      const loanWhere = {
+        girv_is_deleted: false,
+        girv_is_transferred_in: false,
+        girv_first_int: "Y",
+        ...(transferTargetIds.length > 0
+          ? { girv_id: { notIn: transferTargetIds } }
+          : {}),
+      };
+      if (filters.firmId) {
+        loanWhere.girv_firm_id = parseInt(filters.firmId);
+      }
+      if (filters.startDate || filters.endDate) {
+        loanWhere.girv_start_date = {};
+        if (filters.startDate) loanWhere.girv_start_date.gte = filters.startDate;
+        if (filters.endDate) loanWhere.girv_start_date.lte = filters.endDate;
+      }
+
+      const loanRecords = await prisma.girvi.findMany({
+        where: loanWhere,
+        select: {
+          girv_id: true,
+          girv_uuid: true,
+          girv_unique_code: true,
+          girv_loan_no: true,
+          girv_start_date: true,
+          girv_firm_id: true,
+          girv_user_id: true,
+          girv_prin_amt: true,
+          girv_roi: true,
+          girv_interest_method: true,
+          girv_compound_freq: true,
+          girv_roi_type: true,
+          user: { select: { user_uuid: true } },
+          firm: { select: { firm_name: true } },
+        },
+      });
+
+      const rows = (
+        await Promise.all(loanRecords.map((item) => this.mapFirstMonthInterestRow(dbUrl, item)))
+      ).filter((row) => parseFloat(row.db_interest_amt) > 0);
+
+      if (rows.length === 0) return 0;
+
+      rows.sort((a, b) => {
+        const parse = (d) => {
+          const [day, month, year] = String(d || "").split("-");
+          return new Date(`${year}-${month}-${day}`).getTime() || 0;
+        };
+        return parse(b.db_date) - parse(a.db_date);
+      });
+
+      return {
+        title: "FIRST MONTH INTEREST",
+        colorClass: "bg-primary",
+        amtColor: "text-primary",
+        column: [
+          "DATE",
+          "FIRM",
+          "CUSTOMER NAME",
+          "REF NO",
+          "TYPE",
+          "INTEREST",
+        ],
+        data: rows,
+      };
+    } catch (error) {
+      return this.handleError(error, "FIRST MONTH INTEREST", "bg-primary", "text-primary");
+    } finally {
+      await prisma.$disconnect();
+    }
   }
 
   /** Processing / charge income at loan or finance creation (informational — not cash movement). */
@@ -1210,6 +1329,7 @@ class DaybookService {
         financeData,
         girviData,
         processingAmountData,
+        firstMonthInterestData,
         additionalPrincipalData,
         girviDepositData,
         girviReleaseData,
@@ -1223,6 +1343,7 @@ class DaybookService {
         this.get_add_new_finance_data(dbUrl, filters),
         this.get_add_new_girvi_data(dbUrl, filters),
         this.get_processing_amount_data(dbUrl, filters),
+        this.get_first_month_interest_data(dbUrl, filters),
         this.get_additional_principal_data(dbUrl, filters),
         this.get_girvi_deposit_data(dbUrl, filters),
         this.get_girvi_release_data(dbUrl, filters),
@@ -1238,6 +1359,7 @@ class DaybookService {
       if (financeData !== 0) response_arr.push(financeData);
       if (girviData !== 0) response_arr.push(girviData);
       if (processingAmountData !== 0) response_arr.push(processingAmountData);
+      if (firstMonthInterestData !== 0) response_arr.push(firstMonthInterestData);
       if (additionalPrincipalData !== 0) response_arr.push(additionalPrincipalData);
       if (girviDepositData !== 0) response_arr.push(girviDepositData);
       if (girviReleaseData !== 0) response_arr.push(girviReleaseData);
