@@ -21,6 +21,15 @@ class OwnerService {
   }
 
   /**
+   * Get a single owner by UUID from the master database.
+   */
+  async getOwnerByUuid(ownUuid) {
+    return await masterPrisma.owner.findFirst({
+      where: { own_uuid: ownUuid, own_is_deleted: false },
+    });
+  }
+
+  /**
    * Create an owner record in both master and tenant databases.
    * @param {string} dbUrl - Connection URL for the owner's database.
    * @param {object} ownerData - The owner data to insert.

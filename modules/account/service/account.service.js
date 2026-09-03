@@ -192,27 +192,29 @@ class AccountService {
   }
 
   /**
-   * Check for duplicate account names under the same firm and primary account.
-   * @param {string} dbUrl 
-   * @param {string} acc_name 
-   * @param {number} firmId 
-   * @param {string} preAcc
+   * Check for duplicate account names under the same firm (case-insensitive).
+   * @param {string} dbUrl
+   * @param {string} acc_name
+   * @param {number} firmId
    * @param {string} excludeUuid Optional UUID to exclude (for updates)
    */
-  async checkDuplicateName(dbUrl, acc_name, firmId, preAcc, excludeUuid = null) {
+  async checkDuplicateName(dbUrl, acc_name, firmId, excludeUuid = null) {
     const prisma = this.getPrisma(dbUrl);
+    const trimmedName = (acc_name || "").trim();
+    if (!trimmedName || !firmId) return false;
 
-      const existing = await prisma.account.findFirst({
-        where: {
-          acc_name: acc_name,
-          acc_firm_id: firmId,
-          acc_pre_acc: preAcc,
-          acc_is_deleted: false,
-          NOT: excludeUuid ? { acc_uuid: excludeUuid } : undefined,
+    const existing = await prisma.account.findFirst({
+      where: {
+        acc_name: {
+          equals: trimmedName,
+          mode: "insensitive",
         },
-      });
-      return existing ? true : false;
-    
+        acc_firm_id: firmId,
+        acc_is_deleted: false,
+        NOT: excludeUuid ? { acc_uuid: excludeUuid } : undefined,
+      },
+    });
+    return !!existing;
   }
 
   /**

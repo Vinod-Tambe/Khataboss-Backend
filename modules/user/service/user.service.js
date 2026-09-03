@@ -2,6 +2,9 @@
 
 const { getTenantPrisma } = require("../../../utils/tenantPrisma");
 const serialNumberService = require("../../../common/service/serialNumber.service");
+const financeTransactionService = require("../../finance/service/finance_transaction.service");
+const financeMoneyTransService = require("../../finance/service/finance_money_trans.service");
+const journalService = require("../../journal/service/journal.service");
 
 const USER_HEADER_SELECT = {
   user_id: true,
@@ -342,24 +345,237 @@ class UserService {
     
   }
 
+  async deleteJournalSafe(dbUrl, journal) {
+    if (!journal?.jrnl_id) return;
+    try {
+      await journalService.delete_journal_entry(
+        dbUrl,
+        journal.jrnl_id,
+        journal.jrnl_own_id,
+        journal.jrnl_firm_id
+      );
+    } catch (err) {
+      // Journal may already be removed by a child delete helper.
+    }
+  }
+
   /**
-   * Soft delete a user by UUID.
-   * @param {string} dbUrl 
-   * @param {string} user_uuid 
-   * @param {string} deletedBy 
+   * Delete all finance records and related EMIs, payments, and journals for a customer.
+   */
+  async deleteUserFinances(dbUrl, userId, deletedBy) {
+    const prisma = this.getPrisma(dbUrl);
+    const deletedAt = new Date();
+
+    const finances = await prisma.finance.findMany({
+      where: { fin_user_id: userId, fin_is_deleted: false },
+    });
+
+    for (const finance of finances) {
+      await financeMoneyTransService.delete_finance_money_entries(dbUrl, finance.fin_id);
+      await financeTransactionService.delete_finance_transaction(dbUrl, finance.fin_id);
+
+      if (finance.fin_jrnl_id) {
+        await this.deleteJournalSafe(dbUrl, {
+          jrnl_id: finance.fin_jrnl_id,
+          jrnl_own_id: finance.fin_own_id,
+          jrnl_firm_id: finance.fin_firm_id,
+        });
+      }
+
+      await prisma.finance.update({
+        where: { fin_id: finance.fin_id },
+        data: {
+          fin_is_deleted: true,
+          fin_deleted_at: deletedAt,
+          fin_deleted_by: deletedBy,
+        },
+      });
+    }
+
+    return finances.length;
+  }
+
+  /**
+   * Delete all loan-related child records for a customer (deposits, releases, principal, auction, stock).
+   */
+  async deleteUserLoanChildren(dbUrl, userId, deletedBy) {
+    const prisma = this.getPrisma(dbUrl);
+    const deletedAt = new Date();
+
+    const girvis = await prisma.girvi.findMany({
+      where: { girv_user_id: userId, girv_is_deleted: false },
+      select: { girv_id: true },
+    });
+    const girvIds = girvis.map((g) => g.girv_id);
+
+    if (girvIds.length > 0) {
+      await prisma.girviDeposit.updateMany({
+        where: { dep_girv_id: { in: girvIds }, dep_is_deleted: false },
+        data: {
+          dep_is_deleted: true,
+          dep_deleted_at: deletedAt,
+          dep_deleted_by: deletedBy,
+        },
+      });
+
+      await prisma.girviRelease.updateMany({
+        where: { rel_girv_id: { in: girvIds }, rel_is_deleted: false },
+        data: {
+          rel_is_deleted: true,
+          rel_deleted_at: deletedAt,
+          rel_deleted_by: deletedBy,
+        },
+      });
+
+      await prisma.additionalPrincipal.updateMany({
+        where: { ap_girv_id: { in: girvIds }, ap_is_deleted: false },
+        data: {
+          ap_is_deleted: true,
+          ap_deleted_at: deletedAt,
+          ap_deleted_by: deletedBy,
+        },
+      });
+
+      await prisma.auctionLoan.deleteMany({
+        where: { al_girv_id: { in: girvIds } },
+      });
+
+      await prisma.stock.updateMany({
+        where: {
+          st_referance_panel: "girvi",
+          st_referance_id: { in: girvIds },
+          st_is_deleted: false,
+        },
+        data: {
+          st_is_deleted: true,
+          st_deleted_at: deletedAt,
+        },
+      });
+    }
+
+    await prisma.girviDeposit.updateMany({
+      where: { dep_user_id: userId, dep_is_deleted: false },
+      data: {
+        dep_is_deleted: true,
+        dep_deleted_at: deletedAt,
+        dep_deleted_by: deletedBy,
+      },
+    });
+
+    await prisma.girviRelease.updateMany({
+      where: { rel_user_id: userId, rel_is_deleted: false },
+      data: {
+        rel_is_deleted: true,
+        rel_deleted_at: deletedAt,
+        rel_deleted_by: deletedBy,
+      },
+    });
+
+    await prisma.additionalPrincipal.updateMany({
+      where: { ap_user_id: userId, ap_is_deleted: false },
+      data: {
+        ap_is_deleted: true,
+        ap_deleted_at: deletedAt,
+        ap_deleted_by: deletedBy,
+      },
+    });
+
+    await prisma.stock.updateMany({
+      where: { st_user_id: userId, st_is_deleted: false },
+      data: {
+        st_is_deleted: true,
+        st_deleted_at: deletedAt,
+      },
+    });
+
+    return girvIds.length;
+  }
+
+  /**
+   * Delete all journals linked to a customer (loans, finance, deposits, collections, auction, etc.).
+   */
+  async deleteUserJournals(dbUrl, userId) {
+    const prisma = this.getPrisma(dbUrl);
+
+    const journals = await prisma.journal.findMany({
+      where: { jrnl_user_id: userId, jrnl_is_deleted: false },
+      select: {
+        jrnl_id: true,
+        jrnl_own_id: true,
+        jrnl_firm_id: true,
+      },
+    });
+
+    for (const journal of journals) {
+      await this.deleteJournalSafe(dbUrl, journal);
+    }
+
+    return journals.length;
+  }
+
+  /**
+   * Soft delete all loans for a customer.
+   */
+  async deleteUserLoans(dbUrl, userId, deletedBy) {
+    const prisma = this.getPrisma(dbUrl);
+    const deletedAt = new Date();
+
+    const result = await prisma.girvi.updateMany({
+      where: { girv_user_id: userId, girv_is_deleted: false },
+      data: {
+        girv_is_deleted: true,
+        girv_deleted_at: deletedAt,
+        girv_deleted_by: deletedBy,
+      },
+    });
+
+    return result.count;
+  }
+
+  /**
+   * Soft delete a user and cascade-delete all related transactions.
+   * @param {string} dbUrl
+   * @param {string} user_uuid
+   * @param {string} deletedBy
    */
   async deleteUserByUuid(dbUrl, user_uuid, deletedBy) {
     const prisma = this.getPrisma(dbUrl);
 
-      return await prisma.user.update({
-        where: { user_uuid: user_uuid },
-        data: {
-          user_is_deleted: true,
-          user_deleted_at: new Date(),
-          user_deleted_by: deletedBy,
-        },
-      });
-    
+    const user = await prisma.user.findUnique({
+      where: { user_uuid },
+      select: { user_id: true, user_is_deleted: true },
+    });
+
+    if (!user) {
+      throw new Error("User not found.");
+    }
+    if (user.user_is_deleted) {
+      throw new Error("User is already deleted.");
+    }
+
+    const userId = user.user_id;
+    const deletedFinances = await this.deleteUserFinances(dbUrl, userId, deletedBy);
+    await this.deleteUserLoanChildren(dbUrl, userId, deletedBy);
+    const deletedJournals = await this.deleteUserJournals(dbUrl, userId);
+    const deletedLoans = await this.deleteUserLoans(dbUrl, userId, deletedBy);
+
+    const deletedUser = await prisma.user.update({
+      where: { user_uuid },
+      data: {
+        user_is_deleted: true,
+        user_deleted_at: new Date(),
+        user_deleted_by: deletedBy,
+      },
+    });
+
+    return {
+      user: deletedUser,
+      summary: {
+        finances: deletedFinances,
+        loans: deletedLoans,
+        journals: deletedJournals,
+      },
+    };
   }
   /**
    * Get user full name by ID.

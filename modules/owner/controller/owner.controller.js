@@ -8,6 +8,21 @@ const { getMasterPrisma } = require("../../../utils/masterPrisma");
 
 const masterPrisma = getMasterPrisma();
 
+const sanitizeOwner = (owner) => {
+  if (!owner) return owner;
+  const {
+    own_password,
+    own_refresh_token,
+    own_jwt_token,
+    own_otp,
+    own_otp_expiry,
+    ...safe
+  } = owner;
+  return safe;
+};
+
+const sanitizeOwners = (owners) => (Array.isArray(owners) ? owners.map(sanitizeOwner) : []);
+
 /**
  * Controller to handle owner creation logic.
  */
@@ -23,10 +38,33 @@ class OwnerController {
 
       return res.status(200).json({
         message: "Owners fetched successfully.",
-        data: owners,
+        data: sanitizeOwners(owners),
       });
     } catch (error) {
       console.error("❌  Error fetching owners:", error.message);
+      return res.status(500).json({ error: error.message });
+    }
+  }
+
+  /**
+   * GET /owner/:uuid
+   * Fetch a single owner by UUID from the master database.
+   */
+  async getOwnerByUuid(req, res) {
+    try {
+      const { uuid } = req.params;
+      const owner = await ownerService.getOwnerByUuid(uuid);
+
+      if (!owner) {
+        return res.status(404).json({ error: "Owner not found." });
+      }
+
+      return res.status(200).json({
+        message: "Owner fetched successfully.",
+        data: sanitizeOwner(owner),
+      });
+    } catch (error) {
+      console.error("❌  Error fetching owner:", error.message);
       return res.status(500).json({ error: error.message });
     }
   }
@@ -40,10 +78,14 @@ class OwnerController {
       const ownerData = req.body;
 
       // 1. Basic Validation
-      const { own_email, own_login_id, own_mobile_no, own_password, own_confirm_password } = ownerData;
+      const { own_email, own_login_id, own_mobile_no, own_password, own_confirm_password, own_first_name, own_last_name } = ownerData;
 
-      if (!own_email || !own_login_id || !own_mobile_no) {
-        return res.status(400).json({ error: "Missing required fields (own_email, own_login_id, own_mobile_no)." });
+      if (!own_email || !own_login_id || !own_mobile_no || !own_first_name || !own_last_name) {
+        return res.status(400).json({ error: "Missing required fields (own_email, own_login_id, own_mobile_no, own_first_name, own_last_name)." });
+      }
+
+      if (!own_password || !own_confirm_password) {
+        return res.status(400).json({ error: "Password and confirm password are required." });
       }
 
       if (own_password !== own_confirm_password) {
@@ -134,11 +176,7 @@ class OwnerController {
       
       return res.status(201).json({
         message: "Owner created and database initialized successfully.",
-        data: {
-          uuid: newOwner.own_uuid,
-          db: newOwner.own_db,
-          email: newOwner.own_email,
-        },
+        data: sanitizeOwner(newOwner),
       });
     } catch (error) {
       console.error("❌  Error creating owner:", error.message);
@@ -220,10 +258,7 @@ class OwnerController {
 
       return res.status(200).json({
         message: "Owner updated successfully.",
-        data: {
-          uuid: updatedOwner.own_uuid,
-          email: updatedOwner.own_email,
-        },
+        data: sanitizeOwner(updatedOwner),
       });
     } catch (error) {
       console.error("❌  Error updating owner:", error.message);
@@ -255,13 +290,90 @@ class OwnerController {
 
       const dbUrl = `${BASE_URL}/${own_db}`;
 
-      await ownerService.deleteOwner(dbUrl, uuid, "Admin"); // Hardcoded "Admin" for now
+      await ownerService.deleteOwner(dbUrl, uuid, req.admin?.admin_login_id || "Admin");
 
       return res.status(200).json({
         message: "Owner deleted successfully (soft delete).",
       });
     } catch (error) {
       console.error("❌  Error deleting owner:", error.message);
+      return res.status(500).json({ error: error.message });
+    }
+  }
+
+  /**
+   * PATCH /owner/:uuid/status
+   */
+  async updateOwnerStatus(req, res) {
+    try {
+      const { uuid } = req.params;
+      const { own_status } = req.body;
+
+      if (!["Active", "Inactive"].includes(own_status)) {
+        return res.status(400).json({ error: "own_status must be Active or Inactive." });
+      }
+
+      const ownerRecord = await masterPrisma.owner.findUnique({
+        where: { own_uuid: uuid, own_is_deleted: false },
+        select: { own_db: true },
+      });
+
+      if (!ownerRecord) {
+        return res.status(404).json({ error: "Owner not found in Master database." });
+      }
+
+      const dbUrl = `${BASE_URL}/${ownerRecord.own_db}`;
+      const updatedOwner = await ownerService.updateOwner(dbUrl, uuid, {
+        own_status,
+        own_updated_by: req.admin?.admin_login_id || "Admin",
+      });
+
+      return res.status(200).json({
+        message: `Owner status updated to ${own_status}.`,
+        data: sanitizeOwner(updatedOwner),
+      });
+    } catch (error) {
+      console.error("❌  Error updating owner status:", error.message);
+      return res.status(500).json({ error: error.message });
+    }
+  }
+
+  /**
+   * POST /owner/:uuid/reset-password
+   */
+  async resetOwnerPassword(req, res) {
+    try {
+      const { uuid } = req.params;
+      const { new_password, confirm_password } = req.body;
+
+      if (!new_password || !confirm_password) {
+        return res.status(400).json({ error: "new_password and confirm_password are required." });
+      }
+
+      if (new_password !== confirm_password) {
+        return res.status(400).json({ error: "Passwords do not match." });
+      }
+
+      const ownerRecord = await masterPrisma.owner.findUnique({
+        where: { own_uuid: uuid, own_is_deleted: false },
+        select: { own_db: true },
+      });
+
+      if (!ownerRecord) {
+        return res.status(404).json({ error: "Owner not found in Master database." });
+      }
+
+      const dbUrl = `${BASE_URL}/${ownerRecord.own_db}`;
+      await ownerService.updateOwner(dbUrl, uuid, {
+        own_password: new_password,
+        own_updated_by: req.admin?.admin_login_id || "Admin",
+      });
+
+      return res.status(200).json({
+        message: "Owner password reset successfully.",
+      });
+    } catch (error) {
+      console.error("❌  Error resetting owner password:", error.message);
       return res.status(500).json({ error: error.message });
     }
   }

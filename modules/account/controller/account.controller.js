@@ -40,15 +40,14 @@ class AccountController {
         accountData.acc_cash_balance = String(accountData.acc_cash_balance);
       }
 
-      // Check Duplicates within the same firm and primary account
+      // Check duplicate account name within the same firm
       const isDuplicate = await accountService.checkDuplicateName(
         dbUrl,
         accountData.acc_name,
-        accountData.acc_firm_id,
-        accountData.acc_pre_acc
+        accountData.acc_firm_id
       );
       if (isDuplicate) {
-        return res.status(409).json({ error: `Account already exists for this firm with the same Name and Primary Account.` });
+        return res.status(409).json({ error: `Account name already exists for this firm.` });
       }
 
       const newAccount = await accountService.createAccount(dbUrl, accountData);
@@ -185,11 +184,10 @@ class AccountController {
         }
         const firmId = updateData.acc_firm_id || currentAccount.acc_firm_id;
         const name = updateData.acc_name || currentAccount.acc_name;
-        const preAcc = updateData.acc_pre_acc === undefined ? currentAccount.acc_pre_acc : updateData.acc_pre_acc;
 
-        const isDuplicate = await accountService.checkDuplicateName(dbUrl, name, firmId, preAcc, uuid);
+        const isDuplicate = await accountService.checkDuplicateName(dbUrl, name, firmId, uuid);
         if (isDuplicate) {
-          return res.status(409).json({ error: `Account already exists for this firm with the same Name and Primary Account.` });
+          return res.status(409).json({ error: `Account name already exists for this firm.` });
         }
       }
 

@@ -216,7 +216,7 @@ class UserController {
         return res.status(404).json({ error: "User not found." });
       }
 
-      await userService.deleteUserByUuid(dbUrl, uuid, req.user.own_login_id || "Admin");
+      const result = await userService.deleteUserByUuid(dbUrl, uuid, req.user.own_login_id || "Admin");
 
       logActivity(dbUrl, req.user, {
         firmId: userToDelete.user_firm_id,
@@ -229,8 +229,10 @@ class UserController {
         refNo: userToDelete.user_unique_code,
       });
 
+      const { summary } = result;
       return res.status(200).json({
-        message: "User deleted successfully (soft delete).",
+        message: "Customer and all related transactions deleted successfully.",
+        summary,
       });
     } catch (error) {
       console.error("❌ Error deleting user:", error.message);

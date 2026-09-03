@@ -8,6 +8,7 @@ const {
 
 const ROLE_OWNER = "OWNER";
 const ROLE_STAFF = "STAFF";
+const ROLE_SUPER_ADMIN = "SUPER_ADMIN";
 
 const isOwner = (user) => user?.role === ROLE_OWNER;
 
@@ -47,6 +48,7 @@ const buildPermissionPayload = (user) => {
 module.exports = {
   ROLE_OWNER,
   ROLE_STAFF,
+  ROLE_SUPER_ADMIN,
   isOwner,
   hasPermission,
   hasAnyPermission,

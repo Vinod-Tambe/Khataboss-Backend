@@ -50,6 +50,7 @@ app.use(
 // ─── Routes ──────────────────────────────────────────────────────────────────
 // API Version 1
 const v1Router = express.Router();
+v1Router.use("/admin", require("./modules/admin/routes/admin.routes"));
 v1Router.use("/auth", require("./modules/auth/routes/auth.routes"));
 v1Router.use("/owner", require("./modules/owner/routes/owner.routes"));
 v1Router.use("/firm", require("./modules/firm/routes/firm.routes"));
