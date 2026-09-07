@@ -52,6 +52,36 @@ function buildFinanceRollbackSummary(finance = {}) {
   };
 }
 
+/** Collect amount must be received via Cash; non-cash channels are for Fine only. */
+function assertCollectPaidViaCash({
+  collectPortion = 0,
+  finePortion = 0,
+  fm_cash_amt = 0,
+  fm_bank_amt = 0,
+  fm_online_amt = 0,
+  fm_card_amt = 0,
+}) {
+  const collect = parseFloat(collectPortion) || 0;
+  if (!(collect > 0)) return;
+
+  const cash = parseFloat(fm_cash_amt) || 0;
+  const nonCash =
+    (parseFloat(fm_bank_amt) || 0) +
+    (parseFloat(fm_online_amt) || 0) +
+    (parseFloat(fm_card_amt) || 0);
+
+  if (cash + 0.01 < collect) {
+    throw new Error(
+      `Collect amount (₹${collect.toFixed(2)}) must be paid via Cash`
+    );
+  }
+  if (nonCash > (parseFloat(finePortion) || 0) + 0.01) {
+    throw new Error(
+      "Collect must be paid in Cash only; Bank/Online/Card can be used for Fine portion only"
+    );
+  }
+}
+
 function evaluateFinanceSettlement(finance, moneyTrans, emis, asOfDate = null) {
   const allEmisPaid =
     emis.length > 0 && emis.every((emi) => emi.ft_emi_status === "PAID");
@@ -1428,6 +1458,17 @@ class FinanceService {
             "COLLECT"
           );
         }
+      }
+
+      if ((isFine || isFineRollback) && collectPortion > 0) {
+        assertCollectPaidViaCash({
+          collectPortion,
+          finePortion,
+          fm_cash_amt,
+          fm_bank_amt,
+          fm_online_amt,
+          fm_card_amt,
+        });
       }
 
       const totalPending = finance.finance_trans.reduce(

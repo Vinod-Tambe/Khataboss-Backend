@@ -200,7 +200,16 @@ class DaybookService {
     );
   }
 
-  /** Allocate process + charge across disbursement channels (same ratio as net payment). */
+  /** Processing / charge / collect fees are always attributed to Cash (never bank/online/card). */
+  allocateFeeToCashOnly(amount = 0) {
+    const total = parseFloat(amount) || 0;
+    if (!(total > 0)) {
+      return { cash: 0, bank: 0, online: 0, card: 0 };
+    }
+    return { cash: parseFloat(total.toFixed(2)), bank: 0, online: 0, card: 0 };
+  }
+
+  /** Allocate process + charge to cash only (not proportional to net payment channels). */
   getProcessingChannels(item = {}) {
     const processAmt = parseFloat(item.girv_process_amt ?? item.fin_proccess_amt) || 0;
     const chargeAmt = parseFloat(item.girv_charge_amt) || 0;
@@ -210,13 +219,7 @@ class DaybookService {
       return { cash: 0, bank: 0, online: 0, card: 0, process: 0, charge: 0, total: 0 };
     }
 
-    const base = {
-      cash: parseFloat(item.girv_cash_amt ?? item.fin_cash_amt) || 0,
-      bank: parseFloat(item.girv_bank_amt ?? item.fin_bank_amt) || 0,
-      online: parseFloat(item.girv_online_amt ?? item.fin_online_amt) || 0,
-      card: parseFloat(item.girv_card_amt ?? item.fin_card_amt) || 0,
-    };
-    const channels = this.scaleChannelsToAmount(base, total);
+    const channels = this.allocateFeeToCashOnly(total);
 
     return {
       cash: channels.cash,
@@ -243,9 +246,9 @@ class DaybookService {
 
     let channels = { cash, bank, online, card };
     if (processChargeTotal > 0) {
-      const allocated = this.scaleChannelsToAmount(base, processChargeTotal);
+      const allocated = this.allocateFeeToCashOnly(processChargeTotal);
       channels = {
-        cash: channels.cash + allocated.cash,
+        cash: parseFloat((channels.cash + allocated.cash).toFixed(2)),
         bank: channels.bank + allocated.bank,
         online: channels.online + allocated.online,
         card: channels.card + allocated.card,
