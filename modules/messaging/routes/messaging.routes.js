@@ -21,6 +21,13 @@ router.put(
   uploadMessage.array("attachments", 5),
   (req, res) => messagingController.updateTemplate(req, res)
 );
+router.post(
+  "/templates/test",
+  authenticateOwner,
+  requirePermission("sms.manage"),
+  uploadMessage.array("attachments", 5),
+  (req, res) => messagingController.testTemplateSend(req, res)
+);
 
 // WhatsApp instance settings
 router.get(

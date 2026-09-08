@@ -360,7 +360,18 @@ class WhatsAppService {
     return { success: true };
   }
 
-  async sendChat({ instanceId, ownDb, firmId, to, body, filename, documentPath, documentUrl }) {
+  async sendChat({
+    instanceId,
+    ownDb,
+    firmId,
+    to,
+    body,
+    filename,
+    documentPath,
+    documentBuffer,
+    mimetype,
+    documentUrl,
+  }) {
     const key = instanceId || this.sessionKey(ownDb, firmId);
     let s = this.sessions.get(key);
 
@@ -392,18 +403,31 @@ class WhatsAppService {
 
     try {
       let result;
-      if (documentPath && fs.existsSync(documentPath)) {
-        result = await s.sock.sendMessage(jid, {
-          document: fs.readFileSync(documentPath),
-          mimetype: "application/pdf",
-          fileName: filename || path.basename(documentPath),
-          caption: body || undefined,
-        });
+      const buffer =
+        documentBuffer ||
+        (documentPath && fs.existsSync(documentPath) ? fs.readFileSync(documentPath) : null);
+      const mime = mimetype || "application/pdf";
+      const fileName = filename || (documentPath ? path.basename(documentPath) : "attachment");
+
+      if (buffer) {
+        if (mime.startsWith("image/")) {
+          result = await s.sock.sendMessage(jid, {
+            image: buffer,
+            caption: body || undefined,
+          });
+        } else {
+          result = await s.sock.sendMessage(jid, {
+            document: buffer,
+            mimetype: mime,
+            fileName,
+            caption: body || undefined,
+          });
+        }
       } else if (documentUrl) {
         result = await s.sock.sendMessage(jid, {
           document: { url: documentUrl },
-          mimetype: "application/pdf",
-          fileName: filename || "attachment.pdf",
+          mimetype: mime,
+          fileName: fileName || "attachment.pdf",
           caption: body || undefined,
         });
       } else {
@@ -413,6 +437,50 @@ class WhatsAppService {
     } catch (err) {
       return { success: false, message: err.message || "Failed to send WhatsApp message" };
     }
+  }
+
+  /** Send text (caption on first file) plus optional extra attachments. */
+  async sendChatWithAttachments({
+    instanceId,
+    ownDb,
+    firmId,
+    to,
+    body,
+    attachments = [],
+  }) {
+    const list = Array.isArray(attachments) ? attachments.filter((a) => a?.content) : [];
+    if (!list.length) {
+      return this.sendChat({ instanceId, ownDb, firmId, to, body });
+    }
+
+    const [primary, ...rest] = list;
+    const first = await this.sendChat({
+      instanceId,
+      ownDb,
+      firmId,
+      to,
+      body,
+      filename: primary.filename,
+      documentBuffer: primary.content,
+      mimetype: primary.contentType,
+    });
+    if (!first.success) return first;
+
+    for (const extra of rest) {
+      const r = await this.sendChat({
+        instanceId,
+        ownDb,
+        firmId,
+        to,
+        body: "",
+        filename: extra.filename,
+        documentBuffer: extra.content,
+        mimetype: extra.contentType,
+      });
+      if (!r.success) return r;
+    }
+
+    return first;
   }
 }
 

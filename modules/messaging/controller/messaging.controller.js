@@ -5,8 +5,16 @@ const messageDispatchService = require("../../../common/service/message-dispatch
 const ownerMailService = require("../../../common/service/owner-mail.service");
 const emailService = require("../../../common/service/email.service");
 const whatsappService = require("../../../common/service/whatsapp.service");
+const messageFormat = require("../../../common/service/message-format.service");
 const { getTenantPrisma } = require("../../../utils/tenantPrisma");
 const { BASE_URL } = require("../../../config/db");
+
+const DEFAULT_TEST_VARS = {
+  1: "Jane Doe",
+  2: "7890",
+  3: "4,500.00",
+  4: () => new Date().toLocaleDateString("en-IN"),
+};
 
 class MessagingController {
   getDbUrl(dbName) {
@@ -19,6 +27,49 @@ class MessagingController {
       where: { firm_id: parseInt(firmId, 10), firm_is_deleted: false },
       select: { firm_id: true, firm_own_id: true, firm_name: true },
     });
+  }
+
+  _renderTemplate(text, vars = {}) {
+    let out = String(text || "");
+    for (const [key, val] of Object.entries(vars)) {
+      const safe = val == null ? "" : String(typeof val === "function" ? val() : val);
+      if (key === "firm_name") {
+        out = out.replace(/\{\{firm_name\}\}/g, safe);
+      } else {
+        out = out.replace(new RegExp(`\\{\\{${key}\\}\\}`, "g"), safe);
+      }
+    }
+    return out;
+  }
+
+  _buildTestVars(firmName = "", customVars = {}) {
+    const base = {};
+    for (const [key, val] of Object.entries(DEFAULT_TEST_VARS)) {
+      base[key] = typeof val === "function" ? val() : val;
+    }
+    base.firm_name = firmName;
+    return { ...base, ...(customVars && typeof customVars === "object" ? customVars : {}) };
+  }
+
+  _defaultTestEmail(req) {
+    return req.user.staff_email || req.user.own_email || "";
+  }
+
+  _defaultTestPhone(req) {
+    return (
+      req.user.ownerProfile?.own_mobile_no ||
+      req.user.staffProfile?.staff_mobile_no ||
+      ""
+    );
+  }
+
+  async _logTestMessage(dbUrl, payload) {
+    try {
+      const prisma = getTenantPrisma(dbUrl);
+      await messageDispatchService.logMessage(prisma, payload);
+    } catch {
+      /* non-blocking */
+    }
   }
 
   async getTemplates(req, res) {
@@ -144,6 +195,7 @@ class MessagingController {
           mt_category: req.body.category || req.body.mt_category,
           mt_language: req.body.language || req.body.mt_language,
           mt_subject: req.body.subject !== undefined ? req.body.subject : req.body.mt_subject,
+          mt_channel: req.body.channel || req.body.mt_channel,
           mt_body: req.body.body || req.body.mt_body,
           mt_variables: variables,
           mt_has_attachment: req.body.hasAttachment ?? req.body.mt_has_attachment,
@@ -380,6 +432,7 @@ class MessagingController {
       const info = await emailService.sendHtmlEmail(to, subject, body, attachments || [], {
         ownId: req.user.own_id,
         dbUrl,
+        firmName: req.body.firmName || "",
       });
       return res.status(200).json({
         success: true,
@@ -459,12 +512,15 @@ class MessagingController {
         });
       }
 
+      const firm = await this._resolveFirm(dbUrl, req.query.firmId || req.body.firmId);
+      const firmName = firm?.firm_name || "";
+
       const info = await emailService.sendHtmlEmail(
         to,
-        "Khataboss — test email",
-        "<p>This is a test email from your Khataboss account. Email settings are working.</p>",
+        "KhataBoss — test email",
+        "<p>Hello,</p><p>This is a <strong>test email</strong> from your KhataBoss account. Email settings are working correctly.</p>",
         [],
-        { ownId: req.user.own_id, dbUrl }
+        { ownId: req.user.own_id, dbUrl, firmName }
       );
 
       return res.status(200).json({
@@ -536,7 +592,9 @@ class MessagingController {
         ownDb: req.user.own_db,
         firmId,
         to,
-        body,
+        body: messageFormat.formatWhatsAppBody(body, {
+          firmName: (await this._resolveFirm(dbUrl, firmId))?.firm_name || "",
+        }),
         documentUrl,
         filename,
       });
@@ -639,6 +697,266 @@ class MessagingController {
       return res.status(400).json({
         success: false,
         message: error.message || "Failed to dispatch message",
+      });
+    }
+  }
+
+  /**
+   * Send a test message using the current draft template body (before or after save).
+   */
+  async testTemplateSend(req, res) {
+    try {
+      const dbUrl = this.getDbUrl(req.user.own_db);
+      const {
+        firmId,
+        channel,
+        to,
+        subject,
+        body,
+        templateName,
+        templateKey,
+      } = req.body;
+
+      let customVars = req.body.vars || {};
+      if (typeof customVars === "string") {
+        try {
+          customVars = JSON.parse(customVars);
+        } catch {
+          customVars = {};
+        }
+      }
+
+      if (!firmId || !channel) {
+        return res.status(400).json({
+          success: false,
+          message: "firmId and channel are required",
+        });
+      }
+      if (!String(body || "").trim()) {
+        return res.status(400).json({
+          success: false,
+          message: "Message body is required",
+        });
+      }
+
+      const firm = await this._resolveFirm(dbUrl, firmId);
+      if (!firm) {
+        return res.status(404).json({ success: false, message: "Firm not found" });
+      }
+
+      const vars = this._buildTestVars(firm.firm_name, customVars);
+      const safeBody = messageFormat.sanitizeTemplateBody(body, channel);
+      const renderedBody = this._renderTemplate(safeBody, vars);
+      const label = templateName || templateKey || "template";
+      const actor = req.user?.staff_login_id
+        ? `${req.user.own_login_id}+${req.user.staff_login_id}`
+        : req.user?.own_login_id || "user";
+
+      const templateUuid = req.body.templateUuid || req.body.template_uuid;
+      const uploadFiles = req.files || (req.file ? [req.file] : []);
+      const sendAttachments = await messagingService.collectSendAttachments(dbUrl, {
+        templateUuid,
+        templateKey,
+        firmId: firm.firm_id,
+        channel,
+        uploadFiles,
+      });
+      const emailAttachments = sendAttachments.map((a) => ({
+        filename: a.filename,
+        content: a.content,
+        contentType: a.contentType,
+      }));
+
+      if (channel === "email") {
+        const recipient = String(to || this._defaultTestEmail(req)).trim();
+        if (!recipient || !recipient.includes("@")) {
+          return res.status(400).json({
+            success: false,
+            message: "Enter a valid recipient email for test send",
+          });
+        }
+        const renderedSubject = this._renderTemplate(
+          subject || `[Test] ${label} — {{firm_name}}`,
+          vars
+        );
+        if (!renderedSubject.trim()) {
+          return res.status(400).json({
+            success: false,
+            message: "Email subject is required",
+          });
+        }
+
+        const configured = await ownerMailService.isConfigured(dbUrl, req.user.own_id);
+        if (!configured) {
+          return res.status(400).json({
+            success: false,
+            message: "Configure Email Settings first (Gmail address + app password).",
+          });
+        }
+
+        const info = await emailService.sendHtmlEmail(
+          recipient,
+          renderedSubject,
+          renderedBody,
+          emailAttachments,
+          {
+            ownId: req.user.own_id,
+            dbUrl,
+            firmName: firm.firm_name,
+            preheader: `[Test] ${label}`,
+          }
+        );
+
+        await this._logTestMessage(dbUrl, {
+          ml_own_id: firm.firm_own_id,
+          ml_firm_id: firm.firm_id,
+          ml_channel: "email",
+          ml_template_key: templateKey || label,
+          ml_to: recipient,
+          ml_status: "sent",
+          ml_error: null,
+          ml_meta: { actor, test: true, messageId: info.messageId },
+        });
+
+        return res.status(200).json({
+          success: true,
+          message: `Test email sent to ${recipient}${
+            emailAttachments.length ? ` with ${emailAttachments.length} attachment(s)` : ""
+          }`,
+          data: {
+            messageId: info.messageId,
+            preview: renderedBody,
+            attachmentCount: emailAttachments.length,
+          },
+        });
+      }
+
+      if (channel === "whatsapp") {
+        const recipient = String(to || this._defaultTestPhone(req)).trim();
+        if (!recipient) {
+          return res.status(400).json({
+            success: false,
+            message: "Enter a recipient mobile number for WhatsApp test",
+          });
+        }
+
+        const refresh = await messagingService.refreshWhatsAppStatus(dbUrl, firmId);
+        const instance =
+          refresh.instance ||
+          (await messagingService.getWhatsAppInstance(dbUrl, firmId, {
+            includeSecrets: true,
+          }));
+        if (!instance?.instanceId) {
+          return res.status(400).json({
+            success: false,
+            message: "Configure WhatsApp for this firm first (WhatsApp Settings).",
+          });
+        }
+        if (instance.status !== "Connected") {
+          return res.status(400).json({
+            success: false,
+            message: "WhatsApp is not connected. Scan QR from WhatsApp Settings.",
+          });
+        }
+
+        const waBody = messageFormat.formatWhatsAppBody(renderedBody, {
+          firmName: firm.firm_name,
+        });
+
+        const result = sendAttachments.length
+          ? await whatsappService.sendChatWithAttachments({
+              instanceId: instance.instanceId,
+              ownDb: req.user.own_db,
+              firmId: firm.firm_id,
+              to: recipient,
+              body: waBody,
+              attachments: sendAttachments,
+            })
+          : await whatsappService.sendChat({
+              instanceId: instance.instanceId,
+              ownDb: req.user.own_db,
+              firmId: firm.firm_id,
+              to: recipient,
+              body: waBody,
+            });
+
+        await this._logTestMessage(dbUrl, {
+          ml_own_id: firm.firm_own_id,
+          ml_firm_id: firm.firm_id,
+          ml_channel: "whatsapp",
+          ml_template_key: templateKey || label,
+          ml_to: recipient,
+          ml_status: result.success ? "sent" : "failed",
+          ml_error: result.success ? null : result.message || "send failed",
+          ml_meta: { actor, test: true, attachmentCount: sendAttachments.length },
+        });
+
+        if (!result.success) {
+          return res.status(400).json({
+            success: false,
+            message: result.message || "Failed to send WhatsApp test message",
+            data: { preview: waBody },
+          });
+        }
+
+        return res.status(200).json({
+          success: true,
+          message: `Test WhatsApp sent to ${recipient}${
+            sendAttachments.length ? ` with ${sendAttachments.length} attachment(s)` : ""
+          }`,
+          data: { preview: waBody, attachmentCount: sendAttachments.length },
+        });
+      }
+
+      if (channel === "sms") {
+        const recipient = String(to || this._defaultTestPhone(req)).trim();
+        if (!recipient) {
+          return res.status(400).json({
+            success: false,
+            message: "Enter a recipient mobile number for SMS test",
+          });
+        }
+
+        const hasHtml = /<[a-z][\s\S]*>/i.test(renderedBody);
+        const smsBody = hasHtml
+          ? messageFormat.htmlToPlainText(renderedBody)
+          : renderedBody.trim();
+        const parts = Math.max(1, Math.ceil(smsBody.length / 160));
+
+        await this._logTestMessage(dbUrl, {
+          ml_own_id: firm.firm_own_id,
+          ml_firm_id: firm.firm_id,
+          ml_channel: "sms",
+          ml_template_key: templateKey || label,
+          ml_to: recipient,
+          ml_status: "preview",
+          ml_error: "SMS gateway not configured",
+          ml_meta: { actor, test: true, parts, preview: smsBody },
+        });
+
+        return res.status(200).json({
+          success: true,
+          preview: true,
+          message:
+            "SMS formatted successfully. SMS gateway is not connected — delivery preview only.",
+          data: {
+            to: recipient,
+            formattedBody: smsBody,
+            parts,
+            characters: smsBody.length,
+          },
+        });
+      }
+
+      return res.status(400).json({
+        success: false,
+        message: "Invalid channel. Use email, whatsapp, or sms.",
+      });
+    } catch (error) {
+      console.error("Test Template Send Error:", error);
+      return res.status(400).json({
+        success: false,
+        message: error.message || "Failed to send test message",
       });
     }
   }

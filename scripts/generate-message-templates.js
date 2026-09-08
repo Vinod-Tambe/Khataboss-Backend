@@ -13,6 +13,16 @@ const V = {
 
 const vars = (...keys) => keys.map((k) => V[k]);
 
+/** WhatsApp: markdown only — *bold* _italic_ — no HTML; footer added on send */
+const wa = (title, ...lines) => [`*KhataBoss* — ${title}`, "", ...lines].join("\n");
+
+const em = (...parts) => parts.join("");
+const p = (html) => `<p>${html}</p>`;
+const hi = (name = "{{1}}") => p(`Hello <strong>${name}</strong>,`);
+const hiHi = (name = "{{1}}") => p(`Hi <strong>${name}</strong>,`);
+const dear = (name = "{{1}}") => p(`Dear <strong>${name}</strong>,`);
+const smsLine = (text) => text;
+
 const ops = [
   {
     module: "owner",
@@ -20,11 +30,23 @@ const ops = [
     key: "owner_otp_login",
     name: "owner_otp_login",
     has_attachment: false,
-    wa: "Hello {{1}}, your owner login OTP is {{2}}. Valid for a short time. Do not share. — {{firm_name}}",
-    sms: "OTP {{2}} for owner login {{1}}. Do not share. - {{firm_name}}",
+    wa: wa(
+      "Owner Login OTP",
+      "Hello *{{1}}*,",
+      "",
+      "Your login OTP is:",
+      "*{{2}}*",
+      "",
+      "Valid for *1 minute*. Do not share this code."
+    ),
+    sms: smsLine("OTP {{2}} for owner login {{1}}. Valid 1 min. Do not share. - {{firm_name}}"),
     email_subject: "Owner login OTP — {{firm_name}}",
-    email:
-      "<p>Hello {{1}},</p><p>Your owner login OTP is <strong>{{2}}</strong>.</p><p>Do not share this code. — {{firm_name}}</p>",
+    email: em(
+      hi(),
+      p("Your owner login OTP is:"),
+      p('<span style="font-size:28px;font-weight:700;letter-spacing:6px;color:#70016e;font-family:monospace;">{{2}}</span>'),
+      p("This code expires in <strong>1 minute</strong>. Do not share it with anyone.")
+    ),
     variables: vars("name", "ref", "firm"),
   },
   {
@@ -59,7 +81,7 @@ const ops = [
     key: "staff_created",
     name: "staff_created",
     has_attachment: false,
-    wa: "Hello {{1}}, your staff account is created at {{firm_name}}.\nLogin ID: {{2}}\nPassword: {{3}}\nPlease login and change your password.",
+    wa: "Hello *{{1}}*,\n\nYour staff account is created at *{{firm_name}}*.\n\n*Login ID:* {{2}}\n*Password:* {{3}}\n\nPlease login and change your password.",
     sms: "Staff account created at {{firm_name}}. Login: {{2}} Pass: {{3}} - {{1}}",
     email_subject: "Staff account created — {{firm_name}}",
     email:
@@ -421,8 +443,8 @@ for (const ch of channels) {
   const templates = ops.map(ch.map);
   const payload = {
     channel: ch.channel,
-    version: 1,
-    description: `${ch.channel} templates for owner, staff, customer, loan, finance`,
+    version: 2,
+    description: `${ch.channel} templates v2 — WhatsApp markdown, email HTML, SMS plain text`,
     modules: ["owner", "staff", "customer", "loan", "finance"],
     templates,
   };

@@ -4,6 +4,7 @@ const path = require("path");
 const { getTenantPrisma } = require("../../../utils/tenantPrisma");
 const imageService = require("../../../utils/image.service");
 const whatsappService = require("../../../common/service/whatsapp.service");
+const messageFormat = require("../../../common/service/message-format.service");
 const {
   seedMessageTemplatesForFirm,
 } = require("../../../prisma/seeder/message-template-seeder");
@@ -186,6 +187,12 @@ class MessagingService {
       }
     }
 
+    const channel = data.mt_channel || existing.mt_channel;
+    let body = data.mt_body ?? existing.mt_body;
+    if (data.mt_body !== undefined) {
+      body = messageFormat.sanitizeTemplateBody(body, channel);
+    }
+
     const updated = await prisma.messageTemplate.update({
       where: { mt_uuid: uuid },
       data: {
@@ -193,7 +200,7 @@ class MessagingService {
         mt_category: data.mt_category ?? existing.mt_category,
         mt_language: data.mt_language ?? existing.mt_language,
         mt_subject: data.mt_subject !== undefined ? data.mt_subject || null : existing.mt_subject,
-        mt_body: data.mt_body ?? existing.mt_body,
+        mt_body: body,
         mt_variables: data.mt_variables ?? existing.mt_variables,
         mt_attachments: attachments,
         mt_has_attachment:
@@ -481,15 +488,63 @@ class MessagingService {
     return mapInstance(updated);
   }
 
-  resolveAttachmentPaths(attachments = []) {
-    const root = path.join(__dirname, "../../../");
-    return (attachments || [])
-      .filter((a) => a && a.path)
-      .map((a) => ({
-        filename: a.originalName || a.filename,
-        path: path.join(root, a.path),
-        contentType: a.mimetype,
+  async getTemplateAttachmentMeta(dbUrl, { uuid, templateKey, firmId, channel } = {}) {
+    const prisma = getTenantPrisma(dbUrl);
+    const where = { mt_is_deleted: false };
+    if (uuid) {
+      where.mt_uuid = uuid;
+    } else if (templateKey && firmId && channel) {
+      where.mt_firm_id = parseInt(firmId, 10);
+      where.mt_channel = channel;
+      where.mt_key = templateKey;
+    } else {
+      return [];
+    }
+
+    const row = await prisma.messageTemplate.findFirst({
+      where,
+      select: { mt_attachments: true },
+    });
+    return Array.isArray(row?.mt_attachments) ? row.mt_attachments : [];
+  }
+
+  /** Load template attachment metadata into send-ready buffers (R2 or local). */
+  async resolveAttachmentsForSend(attachments = []) {
+    const resolved = [];
+    for (const meta of attachments || []) {
+      if (!meta?.path) continue;
+      const buffer = await imageService.getFileBuffer(meta.path);
+      if (!buffer) continue;
+      resolved.push({
+        filename: meta.originalName || meta.filename || "attachment",
+        content: buffer,
+        contentType: meta.mimetype || "application/octet-stream",
+      });
+    }
+    return resolved;
+  }
+
+  attachmentsFromUploadFiles(files = []) {
+    const fs = require("fs");
+    return (files || [])
+      .filter((file) => file?.path && fs.existsSync(file.path))
+      .map((file) => ({
+        filename: file.originalname || path.basename(file.path),
+        content: fs.readFileSync(file.path),
+        contentType: file.mimetype || "application/octet-stream",
       }));
+  }
+
+  async collectSendAttachments(dbUrl, { templateUuid, templateKey, firmId, channel, uploadFiles = [] } = {}) {
+    const savedMeta = await this.getTemplateAttachmentMeta(dbUrl, {
+      uuid: templateUuid,
+      templateKey,
+      firmId,
+      channel,
+    });
+    const fromStorage = await this.resolveAttachmentsForSend(savedMeta);
+    const fromUpload = this.attachmentsFromUploadFiles(uploadFiles);
+    return [...fromStorage, ...fromUpload];
   }
 }
 

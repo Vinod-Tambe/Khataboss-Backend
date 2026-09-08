@@ -379,6 +379,12 @@ class AuthService {
       });
 
       if (firm) {
+        const otpVars = {
+          1: owner.own_first_name || owner.own_login_id,
+          2: otp,
+        };
+        const firmName = firm.firm_name || "";
+
         if (owner.own_email) {
           try {
             await messageDispatchService.dispatchMessage({
@@ -387,19 +393,16 @@ class AuthService {
               firmId: firm.firm_id,
               templateKey: "owner_otp_login",
               toEmail: owner.own_email,
-              vars: {
-                1: owner.own_first_name || owner.own_login_id,
-                2: otp,
-              },
+              vars: otpVars,
               sendWhatsApp: false,
               sendEmail: true,
             });
           } catch (emailErr) {
             await emailService.sendEmail(
               owner.own_email,
-              "Your One-Time Password (OTP) for Login",
+              `Owner login OTP — ${firmName || "KhataBoss"}`,
               "otp.html",
-              { username: owner.own_first_name, otp },
+              { username: owner.own_first_name || owner.own_login_id, otp, firm_name: firmName },
               { ownId: owner.own_id, dbUrl }
             );
           }
@@ -411,10 +414,7 @@ class AuthService {
             firmId: firm.firm_id,
             templateKey: "owner_otp_login",
             toPhone: owner.own_mobile_no,
-            vars: {
-              1: owner.own_first_name || owner.own_login_id,
-              2: otp,
-            },
+            vars: otpVars,
             sendWhatsApp: true,
             sendEmail: false,
           });
@@ -422,9 +422,9 @@ class AuthService {
       } else if (owner.own_email) {
         await emailService.sendEmail(
           owner.own_email,
-          "Your One-Time Password (OTP) for Login",
+          "Owner login OTP — KhataBoss",
           "otp.html",
-          { username: owner.own_first_name, otp },
+          { username: owner.own_first_name || owner.own_login_id, otp },
           { ownId: owner.own_id, dbUrl }
         );
       }
@@ -433,9 +433,9 @@ class AuthService {
       if (owner.own_email) {
         await emailService.sendEmail(
           owner.own_email,
-          "Your One-Time Password (OTP) for Login",
+          "Owner login OTP — KhataBoss",
           "otp.html",
-          { username: owner.own_first_name, otp },
+          { username: owner.own_first_name || owner.own_login_id, otp },
           { ownId: owner.own_id, dbUrl }
         );
       }

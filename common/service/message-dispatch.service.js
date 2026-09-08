@@ -5,13 +5,8 @@ const path = require("path");
 const { getTenantPrisma } = require("../../utils/tenantPrisma");
 const whatsappService = require("./whatsapp.service");
 const emailService = require("./email.service");
-
-function stripHtml(html) {
-  return String(html || "")
-    .replace(/<[^>]+>/g, " ")
-    .replace(/\s+/g, " ")
-    .trim();
-}
+const messageFormat = require("./message-format.service");
+const messagingService = require("../../modules/messaging/service/messaging.service");
 
 function renderTemplate(text, vars = {}) {
   let out = String(text || "");
@@ -133,6 +128,15 @@ class MessageDispatchService {
 
     const results = { whatsapp: null, email: null };
 
+    let runtimeAttachment = null;
+    if (documentPath && fs.existsSync(documentPath)) {
+      runtimeAttachment = {
+        filename: documentFilename || path.basename(documentPath),
+        content: fs.readFileSync(documentPath),
+        contentType: "application/pdf",
+      };
+    }
+
     if (sendWhatsApp && toPhone) {
       const tpl = await this.getTemplate(prisma, firmIdInt, "whatsapp", templateKey);
       if (!tpl) {
@@ -161,17 +165,28 @@ class MessageDispatchService {
           });
         } else {
           const body = renderTemplate(tpl.mt_body, mergedVars);
-          const plainBody = stripHtml(body);
+          const plainBody = messageFormat.formatWhatsAppBody(body, { firmName });
           try {
-            const r = await whatsappService.sendChat({
-              instanceId: wa.instanceId,
-              ownDb: ownDbName,
-              firmId: firmIdInt,
-              to: toPhone,
-              body: plainBody,
-              documentPath,
-              filename: documentFilename,
-            });
+            let waAttachments = runtimeAttachment ? [runtimeAttachment] : [];
+            if (!waAttachments.length && Array.isArray(tpl.mt_attachments) && tpl.mt_attachments.length) {
+              waAttachments = await messagingService.resolveAttachmentsForSend(tpl.mt_attachments);
+            }
+            const r = waAttachments.length
+              ? await whatsappService.sendChatWithAttachments({
+                  instanceId: wa.instanceId,
+                  ownDb: ownDbName,
+                  firmId: firmIdInt,
+                  to: toPhone,
+                  body: plainBody,
+                  attachments: waAttachments,
+                })
+              : await whatsappService.sendChat({
+                  instanceId: wa.instanceId,
+                  ownDb: ownDbName,
+                  firmId: firmIdInt,
+                  to: toPhone,
+                  body: plainBody,
+                });
             results.whatsapp = r;
             await this.logMessage(prisma, {
               ml_own_id: ownId,
@@ -181,7 +196,11 @@ class MessageDispatchService {
               ml_to: String(toPhone),
               ml_status: r.success ? "sent" : "failed",
               ml_error: r.success ? null : r.message || "send failed",
-              ml_meta: { actor: actor || null, hasDocument: Boolean(documentPath) },
+              ml_meta: {
+                actor: actor || null,
+                hasDocument: waAttachments.length > 0,
+                attachmentCount: waAttachments.length,
+              },
             });
           } catch (err) {
             results.whatsapp = { success: false, message: err.message };
@@ -218,18 +237,17 @@ class MessageDispatchService {
         };
       } else {
         const subject = renderTemplate(tpl.mt_subject || "Notification", mergedVars);
-        const html = renderTemplate(tpl.mt_body, mergedVars);
-        const attachments = [];
-        if (documentPath && fs.existsSync(documentPath)) {
-          attachments.push({
-            filename: documentFilename || path.basename(documentPath),
-            path: documentPath,
-          });
+        const bodyHtml = renderTemplate(tpl.mt_body, mergedVars);
+        let emailAttachments = runtimeAttachment ? [runtimeAttachment] : [];
+        if (!emailAttachments.length && Array.isArray(tpl.mt_attachments) && tpl.mt_attachments.length) {
+          emailAttachments = await messagingService.resolveAttachmentsForSend(tpl.mt_attachments);
         }
         try {
-          const info = await emailService.sendHtmlEmail(toEmail, subject, html, attachments, {
+          const info = await emailService.sendHtmlEmail(toEmail, subject, bodyHtml, emailAttachments, {
             ownId,
             dbUrl,
+            firmName,
+            preheader: messageFormat.htmlToPlainText(bodyHtml).slice(0, 120),
           });
           results.email = { success: true, messageId: info.messageId };
           await this.logMessage(prisma, {
