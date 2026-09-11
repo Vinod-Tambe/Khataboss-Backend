@@ -119,6 +119,12 @@ model Owner {
   own_profile_img Json?
 
   // ===============================
+  // Entitlements (set by super-admin)
+  // ===============================
+  own_max_firms Int?
+  own_max_staff Int?
+
+  // ===============================
   // Authentication Details
   // ===============================
   own_refresh_token     String?
@@ -151,8 +157,31 @@ model Owner {
   own_is_deleted Boolean   @default(false)
 
   // ===============================
+  // Relations
+  // ===============================
+  ownerPermissions OwnerPermission[]
+
+  // ===============================
   // Indexes
   // ===============================
   @@index([own_email])
   @@index([own_login_id])
+}
+
+// =============================================================================
+// OwnerPermission — module access granted by super-admin to owner
+// =============================================================================
+model OwnerPermission {
+  op_id         Int      @id @default(autoincrement())
+  op_own_id     Int
+  op_perm_key   String
+  op_granted    Boolean  @default(true)
+  op_created_at DateTime @default(now())
+  op_updated_at DateTime @updatedAt
+
+  owner Owner @relation(fields: [op_own_id], references: [own_id], onDelete: Cascade)
+
+  @@unique([op_own_id, op_perm_key])
+  @@index([op_own_id])
+  @@index([op_perm_key])
 }

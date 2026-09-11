@@ -4928,11 +4928,15 @@ export namespace Prisma {
   export type OwnerAvgAggregateOutputType = {
     own_id: number | null
     own_product_key: number | null
+    own_max_firms: number | null
+    own_max_staff: number | null
   }
 
   export type OwnerSumAggregateOutputType = {
     own_id: number | null
     own_product_key: number | null
+    own_max_firms: number | null
+    own_max_staff: number | null
   }
 
   export type OwnerMinAggregateOutputType = {
@@ -4950,6 +4954,10 @@ export namespace Prisma {
     own_login_id: string | null
     own_password: string | null
     own_status: $Enums.OwnerStatus | null
+    own_max_firms: number | null
+    own_max_staff: number | null
+    own_start_date: Date | null
+    own_expiry_date: Date | null
     own_refresh_token: string | null
     own_refresh_expiry: Date | null
     own_jwt_token: string | null
@@ -4992,6 +5000,10 @@ export namespace Prisma {
     own_login_id: string | null
     own_password: string | null
     own_status: $Enums.OwnerStatus | null
+    own_max_firms: number | null
+    own_max_staff: number | null
+    own_start_date: Date | null
+    own_expiry_date: Date | null
     own_refresh_token: string | null
     own_refresh_expiry: Date | null
     own_jwt_token: string | null
@@ -5035,6 +5047,10 @@ export namespace Prisma {
     own_password: number
     own_status: number
     own_profile_img: number
+    own_max_firms: number
+    own_max_staff: number
+    own_start_date: number
+    own_expiry_date: number
     own_refresh_token: number
     own_refresh_expiry: number
     own_jwt_token: number
@@ -5068,11 +5084,15 @@ export namespace Prisma {
   export type OwnerAvgAggregateInputType = {
     own_id?: true
     own_product_key?: true
+    own_max_firms?: true
+    own_max_staff?: true
   }
 
   export type OwnerSumAggregateInputType = {
     own_id?: true
     own_product_key?: true
+    own_max_firms?: true
+    own_max_staff?: true
   }
 
   export type OwnerMinAggregateInputType = {
@@ -5090,6 +5110,10 @@ export namespace Prisma {
     own_login_id?: true
     own_password?: true
     own_status?: true
+    own_max_firms?: true
+    own_max_staff?: true
+    own_start_date?: true
+    own_expiry_date?: true
     own_refresh_token?: true
     own_refresh_expiry?: true
     own_jwt_token?: true
@@ -5132,6 +5156,10 @@ export namespace Prisma {
     own_login_id?: true
     own_password?: true
     own_status?: true
+    own_max_firms?: true
+    own_max_staff?: true
+    own_start_date?: true
+    own_expiry_date?: true
     own_refresh_token?: true
     own_refresh_expiry?: true
     own_jwt_token?: true
@@ -5175,6 +5203,10 @@ export namespace Prisma {
     own_password?: true
     own_status?: true
     own_profile_img?: true
+    own_max_firms?: true
+    own_max_staff?: true
+    own_start_date?: true
+    own_expiry_date?: true
     own_refresh_token?: true
     own_refresh_expiry?: true
     own_jwt_token?: true
@@ -5306,6 +5338,10 @@ export namespace Prisma {
     own_password: string
     own_status: $Enums.OwnerStatus
     own_profile_img: JsonValue | null
+    own_max_firms: number | null
+    own_max_staff: number | null
+    own_start_date: Date | null
+    own_expiry_date: Date | null
     own_refresh_token: string | null
     own_refresh_expiry: Date | null
     own_jwt_token: string | null
@@ -5369,6 +5405,10 @@ export namespace Prisma {
     own_password?: boolean
     own_status?: boolean
     own_profile_img?: boolean
+    own_max_firms?: boolean
+    own_max_staff?: boolean
+    own_start_date?: boolean
+    own_expiry_date?: boolean
     own_refresh_token?: boolean
     own_refresh_expiry?: boolean
     own_jwt_token?: boolean
@@ -5435,6 +5475,10 @@ export namespace Prisma {
     own_password?: boolean
     own_status?: boolean
     own_profile_img?: boolean
+    own_max_firms?: boolean
+    own_max_staff?: boolean
+    own_start_date?: boolean
+    own_expiry_date?: boolean
     own_refresh_token?: boolean
     own_refresh_expiry?: boolean
     own_jwt_token?: boolean
@@ -5479,6 +5523,10 @@ export namespace Prisma {
     own_password?: boolean
     own_status?: boolean
     own_profile_img?: boolean
+    own_max_firms?: boolean
+    own_max_staff?: boolean
+    own_start_date?: boolean
+    own_expiry_date?: boolean
     own_refresh_token?: boolean
     own_refresh_expiry?: boolean
     own_jwt_token?: boolean
@@ -5574,6 +5622,10 @@ export namespace Prisma {
       own_password: string
       own_status: $Enums.OwnerStatus
       own_profile_img: Prisma.JsonValue | null
+      own_max_firms: number | null
+      own_max_staff: number | null
+      own_start_date: Date | null
+      own_expiry_date: Date | null
       own_refresh_token: string | null
       own_refresh_expiry: Date | null
       own_jwt_token: string | null
@@ -6029,6 +6081,10 @@ export namespace Prisma {
     readonly own_password: FieldRef<"Owner", 'String'>
     readonly own_status: FieldRef<"Owner", 'OwnerStatus'>
     readonly own_profile_img: FieldRef<"Owner", 'Json'>
+    readonly own_max_firms: FieldRef<"Owner", 'Int'>
+    readonly own_max_staff: FieldRef<"Owner", 'Int'>
+    readonly own_start_date: FieldRef<"Owner", 'DateTime'>
+    readonly own_expiry_date: FieldRef<"Owner", 'DateTime'>
     readonly own_refresh_token: FieldRef<"Owner", 'String'>
     readonly own_refresh_expiry: FieldRef<"Owner", 'DateTime'>
     readonly own_jwt_token: FieldRef<"Owner", 'String'>
@@ -46273,6 +46329,10 @@ export namespace Prisma {
     own_password: 'own_password',
     own_status: 'own_status',
     own_profile_img: 'own_profile_img',
+    own_max_firms: 'own_max_firms',
+    own_max_staff: 'own_max_staff',
+    own_start_date: 'own_start_date',
+    own_expiry_date: 'own_expiry_date',
     own_refresh_token: 'own_refresh_token',
     own_refresh_expiry: 'own_refresh_expiry',
     own_jwt_token: 'own_jwt_token',
@@ -47785,6 +47845,10 @@ export namespace Prisma {
     own_password?: StringFilter<"Owner"> | string
     own_status?: EnumOwnerStatusFilter<"Owner"> | $Enums.OwnerStatus
     own_profile_img?: JsonNullableFilter<"Owner">
+    own_max_firms?: IntNullableFilter<"Owner"> | number | null
+    own_max_staff?: IntNullableFilter<"Owner"> | number | null
+    own_start_date?: DateTimeNullableFilter<"Owner"> | Date | string | null
+    own_expiry_date?: DateTimeNullableFilter<"Owner"> | Date | string | null
     own_refresh_token?: StringNullableFilter<"Owner"> | string | null
     own_refresh_expiry?: DateTimeNullableFilter<"Owner"> | Date | string | null
     own_jwt_token?: StringNullableFilter<"Owner"> | string | null
@@ -47850,6 +47914,10 @@ export namespace Prisma {
     own_password?: SortOrder
     own_status?: SortOrder
     own_profile_img?: SortOrderInput | SortOrder
+    own_max_firms?: SortOrderInput | SortOrder
+    own_max_staff?: SortOrderInput | SortOrder
+    own_start_date?: SortOrderInput | SortOrder
+    own_expiry_date?: SortOrderInput | SortOrder
     own_refresh_token?: SortOrderInput | SortOrder
     own_refresh_expiry?: SortOrderInput | SortOrder
     own_jwt_token?: SortOrderInput | SortOrder
@@ -47918,6 +47986,10 @@ export namespace Prisma {
     own_password?: StringFilter<"Owner"> | string
     own_status?: EnumOwnerStatusFilter<"Owner"> | $Enums.OwnerStatus
     own_profile_img?: JsonNullableFilter<"Owner">
+    own_max_firms?: IntNullableFilter<"Owner"> | number | null
+    own_max_staff?: IntNullableFilter<"Owner"> | number | null
+    own_start_date?: DateTimeNullableFilter<"Owner"> | Date | string | null
+    own_expiry_date?: DateTimeNullableFilter<"Owner"> | Date | string | null
     own_refresh_token?: StringNullableFilter<"Owner"> | string | null
     own_refresh_expiry?: DateTimeNullableFilter<"Owner"> | Date | string | null
     own_jwt_token?: StringNullableFilter<"Owner"> | string | null
@@ -47983,6 +48055,10 @@ export namespace Prisma {
     own_password?: SortOrder
     own_status?: SortOrder
     own_profile_img?: SortOrderInput | SortOrder
+    own_max_firms?: SortOrderInput | SortOrder
+    own_max_staff?: SortOrderInput | SortOrder
+    own_start_date?: SortOrderInput | SortOrder
+    own_expiry_date?: SortOrderInput | SortOrder
     own_refresh_token?: SortOrderInput | SortOrder
     own_refresh_expiry?: SortOrderInput | SortOrder
     own_jwt_token?: SortOrderInput | SortOrder
@@ -48035,6 +48111,10 @@ export namespace Prisma {
     own_password?: StringWithAggregatesFilter<"Owner"> | string
     own_status?: EnumOwnerStatusWithAggregatesFilter<"Owner"> | $Enums.OwnerStatus
     own_profile_img?: JsonNullableWithAggregatesFilter<"Owner">
+    own_max_firms?: IntNullableWithAggregatesFilter<"Owner"> | number | null
+    own_max_staff?: IntNullableWithAggregatesFilter<"Owner"> | number | null
+    own_start_date?: DateTimeNullableWithAggregatesFilter<"Owner"> | Date | string | null
+    own_expiry_date?: DateTimeNullableWithAggregatesFilter<"Owner"> | Date | string | null
     own_refresh_token?: StringNullableWithAggregatesFilter<"Owner"> | string | null
     own_refresh_expiry?: DateTimeNullableWithAggregatesFilter<"Owner"> | Date | string | null
     own_jwt_token?: StringNullableWithAggregatesFilter<"Owner"> | string | null
@@ -53357,6 +53437,10 @@ export namespace Prisma {
     own_password: string
     own_status?: $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_max_firms?: number | null
+    own_max_staff?: number | null
+    own_start_date?: Date | string | null
+    own_expiry_date?: Date | string | null
     own_refresh_token?: string | null
     own_refresh_expiry?: Date | string | null
     own_jwt_token?: string | null
@@ -53422,6 +53506,10 @@ export namespace Prisma {
     own_password: string
     own_status?: $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_max_firms?: number | null
+    own_max_staff?: number | null
+    own_start_date?: Date | string | null
+    own_expiry_date?: Date | string | null
     own_refresh_token?: string | null
     own_refresh_expiry?: Date | string | null
     own_jwt_token?: string | null
@@ -53485,6 +53573,10 @@ export namespace Prisma {
     own_password?: StringFieldUpdateOperationsInput | string
     own_status?: EnumOwnerStatusFieldUpdateOperationsInput | $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_max_firms?: NullableIntFieldUpdateOperationsInput | number | null
+    own_max_staff?: NullableIntFieldUpdateOperationsInput | number | null
+    own_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_expiry_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
     own_refresh_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_jwt_token?: NullableStringFieldUpdateOperationsInput | string | null
@@ -53550,6 +53642,10 @@ export namespace Prisma {
     own_password?: StringFieldUpdateOperationsInput | string
     own_status?: EnumOwnerStatusFieldUpdateOperationsInput | $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_max_firms?: NullableIntFieldUpdateOperationsInput | number | null
+    own_max_staff?: NullableIntFieldUpdateOperationsInput | number | null
+    own_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_expiry_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
     own_refresh_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_jwt_token?: NullableStringFieldUpdateOperationsInput | string | null
@@ -53615,6 +53711,10 @@ export namespace Prisma {
     own_password: string
     own_status?: $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_max_firms?: number | null
+    own_max_staff?: number | null
+    own_start_date?: Date | string | null
+    own_expiry_date?: Date | string | null
     own_refresh_token?: string | null
     own_refresh_expiry?: Date | string | null
     own_jwt_token?: string | null
@@ -53657,6 +53757,10 @@ export namespace Prisma {
     own_password?: StringFieldUpdateOperationsInput | string
     own_status?: EnumOwnerStatusFieldUpdateOperationsInput | $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_max_firms?: NullableIntFieldUpdateOperationsInput | number | null
+    own_max_staff?: NullableIntFieldUpdateOperationsInput | number | null
+    own_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_expiry_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
     own_refresh_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_jwt_token?: NullableStringFieldUpdateOperationsInput | string | null
@@ -53701,6 +53805,10 @@ export namespace Prisma {
     own_password?: StringFieldUpdateOperationsInput | string
     own_status?: EnumOwnerStatusFieldUpdateOperationsInput | $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_max_firms?: NullableIntFieldUpdateOperationsInput | number | null
+    own_max_staff?: NullableIntFieldUpdateOperationsInput | number | null
+    own_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_expiry_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
     own_refresh_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_jwt_token?: NullableStringFieldUpdateOperationsInput | string | null
@@ -59962,6 +60070,17 @@ export namespace Prisma {
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
+  export type IntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
   export type DateTimeNullableFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
@@ -60209,6 +60328,10 @@ export namespace Prisma {
     own_password?: SortOrder
     own_status?: SortOrder
     own_profile_img?: SortOrder
+    own_max_firms?: SortOrder
+    own_max_staff?: SortOrder
+    own_start_date?: SortOrder
+    own_expiry_date?: SortOrder
     own_refresh_token?: SortOrder
     own_refresh_expiry?: SortOrder
     own_jwt_token?: SortOrder
@@ -60240,6 +60363,8 @@ export namespace Prisma {
   export type OwnerAvgOrderByAggregateInput = {
     own_id?: SortOrder
     own_product_key?: SortOrder
+    own_max_firms?: SortOrder
+    own_max_staff?: SortOrder
   }
 
   export type OwnerMaxOrderByAggregateInput = {
@@ -60257,6 +60382,10 @@ export namespace Prisma {
     own_login_id?: SortOrder
     own_password?: SortOrder
     own_status?: SortOrder
+    own_max_firms?: SortOrder
+    own_max_staff?: SortOrder
+    own_start_date?: SortOrder
+    own_expiry_date?: SortOrder
     own_refresh_token?: SortOrder
     own_refresh_expiry?: SortOrder
     own_jwt_token?: SortOrder
@@ -60299,6 +60428,10 @@ export namespace Prisma {
     own_login_id?: SortOrder
     own_password?: SortOrder
     own_status?: SortOrder
+    own_max_firms?: SortOrder
+    own_max_staff?: SortOrder
+    own_start_date?: SortOrder
+    own_expiry_date?: SortOrder
     own_refresh_token?: SortOrder
     own_refresh_expiry?: SortOrder
     own_jwt_token?: SortOrder
@@ -60329,6 +60462,8 @@ export namespace Prisma {
   export type OwnerSumOrderByAggregateInput = {
     own_id?: SortOrder
     own_product_key?: SortOrder
+    own_max_firms?: SortOrder
+    own_max_staff?: SortOrder
   }
 
   export type IntWithAggregatesFilter<$PrismaModel = never> = {
@@ -60430,6 +60565,22 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedJsonNullableFilter<$PrismaModel>
     _max?: NestedJsonNullableFilter<$PrismaModel>
+  }
+
+  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
   export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -61023,17 +61174,6 @@ export namespace Prisma {
     _max?: NestedEnumUserMaritalStatusNullableFilter<$PrismaModel>
   }
 
-  export type IntNullableFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
-  }
-
   export type FloatFilter<$PrismaModel = never> = {
     equals?: number | FloatFieldRefInput<$PrismaModel>
     in?: number[] | ListFloatFieldRefInput<$PrismaModel>
@@ -61269,22 +61409,6 @@ export namespace Prisma {
     fin_online_acc_id?: SortOrder
     fin_card_acc_id?: SortOrder
     fin_dr_acc_id?: SortOrder
-  }
-
-  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedIntNullableFilter<$PrismaModel>
-    _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
   export type FloatWithAggregatesFilter<$PrismaModel = never> = {
@@ -64673,6 +64797,14 @@ export namespace Prisma {
 
   export type EnumOwnerStatusFieldUpdateOperationsInput = {
     set?: $Enums.OwnerStatus
+  }
+
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
   }
 
   export type NullableDateTimeFieldUpdateOperationsInput = {
@@ -68533,14 +68665,6 @@ export namespace Prisma {
     connect?: Finance_Money_TransactionWhereUniqueInput | Finance_Money_TransactionWhereUniqueInput[]
   }
 
-  export type NullableIntFieldUpdateOperationsInput = {
-    set?: number | null
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
-  }
-
   export type FloatFieldUpdateOperationsInput = {
     set?: number
     increment?: number
@@ -70716,6 +70840,17 @@ export namespace Prisma {
     not?: NestedEnumOwnerStatusFilter<$PrismaModel> | $Enums.OwnerStatus
   }
 
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
   export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
@@ -70807,17 +70942,6 @@ export namespace Prisma {
     _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
-  export type NestedIntNullableFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
-  }
-
   export type NestedEnumOwnerStatusWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.OwnerStatus | EnumOwnerStatusFieldRefInput<$PrismaModel>
     in?: $Enums.OwnerStatus[] | ListEnumOwnerStatusFieldRefInput<$PrismaModel>
@@ -70848,6 +70972,33 @@ export namespace Prisma {
     gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
     gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
+
+  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
   export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -70969,33 +71120,6 @@ export namespace Prisma {
     in?: $Enums.FinanceStatus[] | ListEnumFinanceStatusFieldRefInput<$PrismaModel>
     notIn?: $Enums.FinanceStatus[] | ListEnumFinanceStatusFieldRefInput<$PrismaModel>
     not?: NestedEnumFinanceStatusFilter<$PrismaModel> | $Enums.FinanceStatus
-  }
-
-  export type NestedFloatNullableFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
-  }
-
-  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedIntNullableFilter<$PrismaModel>
-    _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
   export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
@@ -74616,6 +74740,10 @@ export namespace Prisma {
     own_password: string
     own_status?: $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_max_firms?: number | null
+    own_max_staff?: number | null
+    own_start_date?: Date | string | null
+    own_expiry_date?: Date | string | null
     own_refresh_token?: string | null
     own_refresh_expiry?: Date | string | null
     own_jwt_token?: string | null
@@ -74680,6 +74808,10 @@ export namespace Prisma {
     own_password: string
     own_status?: $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_max_firms?: number | null
+    own_max_staff?: number | null
+    own_start_date?: Date | string | null
+    own_expiry_date?: Date | string | null
     own_refresh_token?: string | null
     own_refresh_expiry?: Date | string | null
     own_jwt_token?: string | null
@@ -76109,6 +76241,10 @@ export namespace Prisma {
     own_password?: StringFieldUpdateOperationsInput | string
     own_status?: EnumOwnerStatusFieldUpdateOperationsInput | $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_max_firms?: NullableIntFieldUpdateOperationsInput | number | null
+    own_max_staff?: NullableIntFieldUpdateOperationsInput | number | null
+    own_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_expiry_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
     own_refresh_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_jwt_token?: NullableStringFieldUpdateOperationsInput | string | null
@@ -76173,6 +76309,10 @@ export namespace Prisma {
     own_password?: StringFieldUpdateOperationsInput | string
     own_status?: EnumOwnerStatusFieldUpdateOperationsInput | $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_max_firms?: NullableIntFieldUpdateOperationsInput | number | null
+    own_max_staff?: NullableIntFieldUpdateOperationsInput | number | null
+    own_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_expiry_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
     own_refresh_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_jwt_token?: NullableStringFieldUpdateOperationsInput | string | null
@@ -76683,6 +76823,10 @@ export namespace Prisma {
     own_password: string
     own_status?: $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_max_firms?: number | null
+    own_max_staff?: number | null
+    own_start_date?: Date | string | null
+    own_expiry_date?: Date | string | null
     own_refresh_token?: string | null
     own_refresh_expiry?: Date | string | null
     own_jwt_token?: string | null
@@ -76747,6 +76891,10 @@ export namespace Prisma {
     own_password: string
     own_status?: $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_max_firms?: number | null
+    own_max_staff?: number | null
+    own_start_date?: Date | string | null
+    own_expiry_date?: Date | string | null
     own_refresh_token?: string | null
     own_refresh_expiry?: Date | string | null
     own_jwt_token?: string | null
@@ -81048,6 +81196,10 @@ export namespace Prisma {
     own_password?: StringFieldUpdateOperationsInput | string
     own_status?: EnumOwnerStatusFieldUpdateOperationsInput | $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_max_firms?: NullableIntFieldUpdateOperationsInput | number | null
+    own_max_staff?: NullableIntFieldUpdateOperationsInput | number | null
+    own_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_expiry_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
     own_refresh_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_jwt_token?: NullableStringFieldUpdateOperationsInput | string | null
@@ -81112,6 +81264,10 @@ export namespace Prisma {
     own_password?: StringFieldUpdateOperationsInput | string
     own_status?: EnumOwnerStatusFieldUpdateOperationsInput | $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_max_firms?: NullableIntFieldUpdateOperationsInput | number | null
+    own_max_staff?: NullableIntFieldUpdateOperationsInput | number | null
+    own_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_expiry_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
     own_refresh_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_jwt_token?: NullableStringFieldUpdateOperationsInput | string | null
@@ -82019,6 +82175,10 @@ export namespace Prisma {
     own_password: string
     own_status?: $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_max_firms?: number | null
+    own_max_staff?: number | null
+    own_start_date?: Date | string | null
+    own_expiry_date?: Date | string | null
     own_refresh_token?: string | null
     own_refresh_expiry?: Date | string | null
     own_jwt_token?: string | null
@@ -82083,6 +82243,10 @@ export namespace Prisma {
     own_password: string
     own_status?: $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_max_firms?: number | null
+    own_max_staff?: number | null
+    own_start_date?: Date | string | null
+    own_expiry_date?: Date | string | null
     own_refresh_token?: string | null
     own_refresh_expiry?: Date | string | null
     own_jwt_token?: string | null
@@ -83151,6 +83315,10 @@ export namespace Prisma {
     own_password?: StringFieldUpdateOperationsInput | string
     own_status?: EnumOwnerStatusFieldUpdateOperationsInput | $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_max_firms?: NullableIntFieldUpdateOperationsInput | number | null
+    own_max_staff?: NullableIntFieldUpdateOperationsInput | number | null
+    own_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_expiry_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
     own_refresh_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_jwt_token?: NullableStringFieldUpdateOperationsInput | string | null
@@ -83215,6 +83383,10 @@ export namespace Prisma {
     own_password?: StringFieldUpdateOperationsInput | string
     own_status?: EnumOwnerStatusFieldUpdateOperationsInput | $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_max_firms?: NullableIntFieldUpdateOperationsInput | number | null
+    own_max_staff?: NullableIntFieldUpdateOperationsInput | number | null
+    own_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_expiry_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
     own_refresh_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_jwt_token?: NullableStringFieldUpdateOperationsInput | string | null
@@ -84782,6 +84954,10 @@ export namespace Prisma {
     own_password: string
     own_status?: $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_max_firms?: number | null
+    own_max_staff?: number | null
+    own_start_date?: Date | string | null
+    own_expiry_date?: Date | string | null
     own_refresh_token?: string | null
     own_refresh_expiry?: Date | string | null
     own_jwt_token?: string | null
@@ -84846,6 +85022,10 @@ export namespace Prisma {
     own_password: string
     own_status?: $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_max_firms?: number | null
+    own_max_staff?: number | null
+    own_start_date?: Date | string | null
+    own_expiry_date?: Date | string | null
     own_refresh_token?: string | null
     own_refresh_expiry?: Date | string | null
     own_jwt_token?: string | null
@@ -86036,6 +86216,10 @@ export namespace Prisma {
     own_password?: StringFieldUpdateOperationsInput | string
     own_status?: EnumOwnerStatusFieldUpdateOperationsInput | $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_max_firms?: NullableIntFieldUpdateOperationsInput | number | null
+    own_max_staff?: NullableIntFieldUpdateOperationsInput | number | null
+    own_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_expiry_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
     own_refresh_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_jwt_token?: NullableStringFieldUpdateOperationsInput | string | null
@@ -86100,6 +86284,10 @@ export namespace Prisma {
     own_password?: StringFieldUpdateOperationsInput | string
     own_status?: EnumOwnerStatusFieldUpdateOperationsInput | $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_max_firms?: NullableIntFieldUpdateOperationsInput | number | null
+    own_max_staff?: NullableIntFieldUpdateOperationsInput | number | null
+    own_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_expiry_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
     own_refresh_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_jwt_token?: NullableStringFieldUpdateOperationsInput | string | null
@@ -86441,6 +86629,10 @@ export namespace Prisma {
     own_password: string
     own_status?: $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_max_firms?: number | null
+    own_max_staff?: number | null
+    own_start_date?: Date | string | null
+    own_expiry_date?: Date | string | null
     own_refresh_token?: string | null
     own_refresh_expiry?: Date | string | null
     own_jwt_token?: string | null
@@ -86505,6 +86697,10 @@ export namespace Prisma {
     own_password: string
     own_status?: $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_max_firms?: number | null
+    own_max_staff?: number | null
+    own_start_date?: Date | string | null
+    own_expiry_date?: Date | string | null
     own_refresh_token?: string | null
     own_refresh_expiry?: Date | string | null
     own_jwt_token?: string | null
@@ -87585,6 +87781,10 @@ export namespace Prisma {
     own_password?: StringFieldUpdateOperationsInput | string
     own_status?: EnumOwnerStatusFieldUpdateOperationsInput | $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_max_firms?: NullableIntFieldUpdateOperationsInput | number | null
+    own_max_staff?: NullableIntFieldUpdateOperationsInput | number | null
+    own_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_expiry_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
     own_refresh_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_jwt_token?: NullableStringFieldUpdateOperationsInput | string | null
@@ -87649,6 +87849,10 @@ export namespace Prisma {
     own_password?: StringFieldUpdateOperationsInput | string
     own_status?: EnumOwnerStatusFieldUpdateOperationsInput | $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_max_firms?: NullableIntFieldUpdateOperationsInput | number | null
+    own_max_staff?: NullableIntFieldUpdateOperationsInput | number | null
+    own_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_expiry_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
     own_refresh_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_jwt_token?: NullableStringFieldUpdateOperationsInput | string | null
@@ -88732,6 +88936,10 @@ export namespace Prisma {
     own_password: string
     own_status?: $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_max_firms?: number | null
+    own_max_staff?: number | null
+    own_start_date?: Date | string | null
+    own_expiry_date?: Date | string | null
     own_refresh_token?: string | null
     own_refresh_expiry?: Date | string | null
     own_jwt_token?: string | null
@@ -88796,6 +89004,10 @@ export namespace Prisma {
     own_password: string
     own_status?: $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_max_firms?: number | null
+    own_max_staff?: number | null
+    own_start_date?: Date | string | null
+    own_expiry_date?: Date | string | null
     own_refresh_token?: string | null
     own_refresh_expiry?: Date | string | null
     own_jwt_token?: string | null
@@ -90074,6 +90286,10 @@ export namespace Prisma {
     own_password?: StringFieldUpdateOperationsInput | string
     own_status?: EnumOwnerStatusFieldUpdateOperationsInput | $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_max_firms?: NullableIntFieldUpdateOperationsInput | number | null
+    own_max_staff?: NullableIntFieldUpdateOperationsInput | number | null
+    own_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_expiry_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
     own_refresh_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_jwt_token?: NullableStringFieldUpdateOperationsInput | string | null
@@ -90138,6 +90354,10 @@ export namespace Prisma {
     own_password?: StringFieldUpdateOperationsInput | string
     own_status?: EnumOwnerStatusFieldUpdateOperationsInput | $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_max_firms?: NullableIntFieldUpdateOperationsInput | number | null
+    own_max_staff?: NullableIntFieldUpdateOperationsInput | number | null
+    own_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_expiry_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
     own_refresh_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_jwt_token?: NullableStringFieldUpdateOperationsInput | string | null
@@ -91514,6 +91734,10 @@ export namespace Prisma {
     own_password: string
     own_status?: $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_max_firms?: number | null
+    own_max_staff?: number | null
+    own_start_date?: Date | string | null
+    own_expiry_date?: Date | string | null
     own_refresh_token?: string | null
     own_refresh_expiry?: Date | string | null
     own_jwt_token?: string | null
@@ -91578,6 +91802,10 @@ export namespace Prisma {
     own_password: string
     own_status?: $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_max_firms?: number | null
+    own_max_staff?: number | null
+    own_start_date?: Date | string | null
+    own_expiry_date?: Date | string | null
     own_refresh_token?: string | null
     own_refresh_expiry?: Date | string | null
     own_jwt_token?: string | null
@@ -92021,6 +92249,10 @@ export namespace Prisma {
     own_password?: StringFieldUpdateOperationsInput | string
     own_status?: EnumOwnerStatusFieldUpdateOperationsInput | $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_max_firms?: NullableIntFieldUpdateOperationsInput | number | null
+    own_max_staff?: NullableIntFieldUpdateOperationsInput | number | null
+    own_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_expiry_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
     own_refresh_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_jwt_token?: NullableStringFieldUpdateOperationsInput | string | null
@@ -92085,6 +92317,10 @@ export namespace Prisma {
     own_password?: StringFieldUpdateOperationsInput | string
     own_status?: EnumOwnerStatusFieldUpdateOperationsInput | $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_max_firms?: NullableIntFieldUpdateOperationsInput | number | null
+    own_max_staff?: NullableIntFieldUpdateOperationsInput | number | null
+    own_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_expiry_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
     own_refresh_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_jwt_token?: NullableStringFieldUpdateOperationsInput | string | null
@@ -92488,6 +92724,10 @@ export namespace Prisma {
     own_password: string
     own_status?: $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_max_firms?: number | null
+    own_max_staff?: number | null
+    own_start_date?: Date | string | null
+    own_expiry_date?: Date | string | null
     own_refresh_token?: string | null
     own_refresh_expiry?: Date | string | null
     own_jwt_token?: string | null
@@ -92552,6 +92792,10 @@ export namespace Prisma {
     own_password: string
     own_status?: $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_max_firms?: number | null
+    own_max_staff?: number | null
+    own_start_date?: Date | string | null
+    own_expiry_date?: Date | string | null
     own_refresh_token?: string | null
     own_refresh_expiry?: Date | string | null
     own_jwt_token?: string | null
@@ -93276,6 +93520,10 @@ export namespace Prisma {
     own_password?: StringFieldUpdateOperationsInput | string
     own_status?: EnumOwnerStatusFieldUpdateOperationsInput | $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_max_firms?: NullableIntFieldUpdateOperationsInput | number | null
+    own_max_staff?: NullableIntFieldUpdateOperationsInput | number | null
+    own_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_expiry_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
     own_refresh_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_jwt_token?: NullableStringFieldUpdateOperationsInput | string | null
@@ -93340,6 +93588,10 @@ export namespace Prisma {
     own_password?: StringFieldUpdateOperationsInput | string
     own_status?: EnumOwnerStatusFieldUpdateOperationsInput | $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_max_firms?: NullableIntFieldUpdateOperationsInput | number | null
+    own_max_staff?: NullableIntFieldUpdateOperationsInput | number | null
+    own_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_expiry_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
     own_refresh_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_jwt_token?: NullableStringFieldUpdateOperationsInput | string | null
@@ -93719,6 +93971,10 @@ export namespace Prisma {
     own_password: string
     own_status?: $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_max_firms?: number | null
+    own_max_staff?: number | null
+    own_start_date?: Date | string | null
+    own_expiry_date?: Date | string | null
     own_refresh_token?: string | null
     own_refresh_expiry?: Date | string | null
     own_jwt_token?: string | null
@@ -93783,6 +94039,10 @@ export namespace Prisma {
     own_password: string
     own_status?: $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_max_firms?: number | null
+    own_max_staff?: number | null
+    own_start_date?: Date | string | null
+    own_expiry_date?: Date | string | null
     own_refresh_token?: string | null
     own_refresh_expiry?: Date | string | null
     own_jwt_token?: string | null
@@ -95601,6 +95861,10 @@ export namespace Prisma {
     own_password?: StringFieldUpdateOperationsInput | string
     own_status?: EnumOwnerStatusFieldUpdateOperationsInput | $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_max_firms?: NullableIntFieldUpdateOperationsInput | number | null
+    own_max_staff?: NullableIntFieldUpdateOperationsInput | number | null
+    own_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_expiry_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
     own_refresh_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_jwt_token?: NullableStringFieldUpdateOperationsInput | string | null
@@ -95665,6 +95929,10 @@ export namespace Prisma {
     own_password?: StringFieldUpdateOperationsInput | string
     own_status?: EnumOwnerStatusFieldUpdateOperationsInput | $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_max_firms?: NullableIntFieldUpdateOperationsInput | number | null
+    own_max_staff?: NullableIntFieldUpdateOperationsInput | number | null
+    own_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_expiry_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
     own_refresh_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_jwt_token?: NullableStringFieldUpdateOperationsInput | string | null
@@ -97268,6 +97536,10 @@ export namespace Prisma {
     own_password: string
     own_status?: $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_max_firms?: number | null
+    own_max_staff?: number | null
+    own_start_date?: Date | string | null
+    own_expiry_date?: Date | string | null
     own_refresh_token?: string | null
     own_refresh_expiry?: Date | string | null
     own_jwt_token?: string | null
@@ -97332,6 +97604,10 @@ export namespace Prisma {
     own_password: string
     own_status?: $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_max_firms?: number | null
+    own_max_staff?: number | null
+    own_start_date?: Date | string | null
+    own_expiry_date?: Date | string | null
     own_refresh_token?: string | null
     own_refresh_expiry?: Date | string | null
     own_jwt_token?: string | null
@@ -97688,6 +97964,10 @@ export namespace Prisma {
     own_password?: StringFieldUpdateOperationsInput | string
     own_status?: EnumOwnerStatusFieldUpdateOperationsInput | $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_max_firms?: NullableIntFieldUpdateOperationsInput | number | null
+    own_max_staff?: NullableIntFieldUpdateOperationsInput | number | null
+    own_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_expiry_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
     own_refresh_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_jwt_token?: NullableStringFieldUpdateOperationsInput | string | null
@@ -97752,6 +98032,10 @@ export namespace Prisma {
     own_password?: StringFieldUpdateOperationsInput | string
     own_status?: EnumOwnerStatusFieldUpdateOperationsInput | $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_max_firms?: NullableIntFieldUpdateOperationsInput | number | null
+    own_max_staff?: NullableIntFieldUpdateOperationsInput | number | null
+    own_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_expiry_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
     own_refresh_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_jwt_token?: NullableStringFieldUpdateOperationsInput | string | null
@@ -98105,6 +98389,10 @@ export namespace Prisma {
     own_password: string
     own_status?: $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_max_firms?: number | null
+    own_max_staff?: number | null
+    own_start_date?: Date | string | null
+    own_expiry_date?: Date | string | null
     own_refresh_token?: string | null
     own_refresh_expiry?: Date | string | null
     own_jwt_token?: string | null
@@ -98169,6 +98457,10 @@ export namespace Prisma {
     own_password: string
     own_status?: $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_max_firms?: number | null
+    own_max_staff?: number | null
+    own_start_date?: Date | string | null
+    own_expiry_date?: Date | string | null
     own_refresh_token?: string | null
     own_refresh_expiry?: Date | string | null
     own_jwt_token?: string | null
@@ -99261,6 +99553,10 @@ export namespace Prisma {
     own_password?: StringFieldUpdateOperationsInput | string
     own_status?: EnumOwnerStatusFieldUpdateOperationsInput | $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_max_firms?: NullableIntFieldUpdateOperationsInput | number | null
+    own_max_staff?: NullableIntFieldUpdateOperationsInput | number | null
+    own_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_expiry_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
     own_refresh_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_jwt_token?: NullableStringFieldUpdateOperationsInput | string | null
@@ -99325,6 +99621,10 @@ export namespace Prisma {
     own_password?: StringFieldUpdateOperationsInput | string
     own_status?: EnumOwnerStatusFieldUpdateOperationsInput | $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_max_firms?: NullableIntFieldUpdateOperationsInput | number | null
+    own_max_staff?: NullableIntFieldUpdateOperationsInput | number | null
+    own_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_expiry_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
     own_refresh_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_jwt_token?: NullableStringFieldUpdateOperationsInput | string | null
@@ -100444,6 +100744,10 @@ export namespace Prisma {
     own_password: string
     own_status?: $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_max_firms?: number | null
+    own_max_staff?: number | null
+    own_start_date?: Date | string | null
+    own_expiry_date?: Date | string | null
     own_refresh_token?: string | null
     own_refresh_expiry?: Date | string | null
     own_jwt_token?: string | null
@@ -100508,6 +100812,10 @@ export namespace Prisma {
     own_password: string
     own_status?: $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_max_firms?: number | null
+    own_max_staff?: number | null
+    own_start_date?: Date | string | null
+    own_expiry_date?: Date | string | null
     own_refresh_token?: string | null
     own_refresh_expiry?: Date | string | null
     own_jwt_token?: string | null
@@ -102208,6 +102516,10 @@ export namespace Prisma {
     own_password?: StringFieldUpdateOperationsInput | string
     own_status?: EnumOwnerStatusFieldUpdateOperationsInput | $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_max_firms?: NullableIntFieldUpdateOperationsInput | number | null
+    own_max_staff?: NullableIntFieldUpdateOperationsInput | number | null
+    own_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_expiry_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
     own_refresh_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_jwt_token?: NullableStringFieldUpdateOperationsInput | string | null
@@ -102272,6 +102584,10 @@ export namespace Prisma {
     own_password?: StringFieldUpdateOperationsInput | string
     own_status?: EnumOwnerStatusFieldUpdateOperationsInput | $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_max_firms?: NullableIntFieldUpdateOperationsInput | number | null
+    own_max_staff?: NullableIntFieldUpdateOperationsInput | number | null
+    own_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_expiry_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
     own_refresh_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_jwt_token?: NullableStringFieldUpdateOperationsInput | string | null
@@ -104023,6 +104339,10 @@ export namespace Prisma {
     own_password: string
     own_status?: $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_max_firms?: number | null
+    own_max_staff?: number | null
+    own_start_date?: Date | string | null
+    own_expiry_date?: Date | string | null
     own_refresh_token?: string | null
     own_refresh_expiry?: Date | string | null
     own_jwt_token?: string | null
@@ -104087,6 +104407,10 @@ export namespace Prisma {
     own_password: string
     own_status?: $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_max_firms?: number | null
+    own_max_staff?: number | null
+    own_start_date?: Date | string | null
+    own_expiry_date?: Date | string | null
     own_refresh_token?: string | null
     own_refresh_expiry?: Date | string | null
     own_jwt_token?: string | null
@@ -105833,6 +106157,10 @@ export namespace Prisma {
     own_password?: StringFieldUpdateOperationsInput | string
     own_status?: EnumOwnerStatusFieldUpdateOperationsInput | $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_max_firms?: NullableIntFieldUpdateOperationsInput | number | null
+    own_max_staff?: NullableIntFieldUpdateOperationsInput | number | null
+    own_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_expiry_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
     own_refresh_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_jwt_token?: NullableStringFieldUpdateOperationsInput | string | null
@@ -105897,6 +106225,10 @@ export namespace Prisma {
     own_password?: StringFieldUpdateOperationsInput | string
     own_status?: EnumOwnerStatusFieldUpdateOperationsInput | $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_max_firms?: NullableIntFieldUpdateOperationsInput | number | null
+    own_max_staff?: NullableIntFieldUpdateOperationsInput | number | null
+    own_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_expiry_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
     own_refresh_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_jwt_token?: NullableStringFieldUpdateOperationsInput | string | null
@@ -108119,6 +108451,10 @@ export namespace Prisma {
     own_password: string
     own_status?: $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_max_firms?: number | null
+    own_max_staff?: number | null
+    own_start_date?: Date | string | null
+    own_expiry_date?: Date | string | null
     own_refresh_token?: string | null
     own_refresh_expiry?: Date | string | null
     own_jwt_token?: string | null
@@ -108183,6 +108519,10 @@ export namespace Prisma {
     own_password: string
     own_status?: $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_max_firms?: number | null
+    own_max_staff?: number | null
+    own_start_date?: Date | string | null
+    own_expiry_date?: Date | string | null
     own_refresh_token?: string | null
     own_refresh_expiry?: Date | string | null
     own_jwt_token?: string | null
@@ -108411,6 +108751,10 @@ export namespace Prisma {
     own_password?: StringFieldUpdateOperationsInput | string
     own_status?: EnumOwnerStatusFieldUpdateOperationsInput | $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_max_firms?: NullableIntFieldUpdateOperationsInput | number | null
+    own_max_staff?: NullableIntFieldUpdateOperationsInput | number | null
+    own_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_expiry_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
     own_refresh_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_jwt_token?: NullableStringFieldUpdateOperationsInput | string | null
@@ -108475,6 +108819,10 @@ export namespace Prisma {
     own_password?: StringFieldUpdateOperationsInput | string
     own_status?: EnumOwnerStatusFieldUpdateOperationsInput | $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_max_firms?: NullableIntFieldUpdateOperationsInput | number | null
+    own_max_staff?: NullableIntFieldUpdateOperationsInput | number | null
+    own_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_expiry_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
     own_refresh_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_jwt_token?: NullableStringFieldUpdateOperationsInput | string | null
@@ -108694,6 +109042,10 @@ export namespace Prisma {
     own_password: string
     own_status?: $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_max_firms?: number | null
+    own_max_staff?: number | null
+    own_start_date?: Date | string | null
+    own_expiry_date?: Date | string | null
     own_refresh_token?: string | null
     own_refresh_expiry?: Date | string | null
     own_jwt_token?: string | null
@@ -108758,6 +109110,10 @@ export namespace Prisma {
     own_password: string
     own_status?: $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_max_firms?: number | null
+    own_max_staff?: number | null
+    own_start_date?: Date | string | null
+    own_expiry_date?: Date | string | null
     own_refresh_token?: string | null
     own_refresh_expiry?: Date | string | null
     own_jwt_token?: string | null
@@ -108836,6 +109192,10 @@ export namespace Prisma {
     own_password?: StringFieldUpdateOperationsInput | string
     own_status?: EnumOwnerStatusFieldUpdateOperationsInput | $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_max_firms?: NullableIntFieldUpdateOperationsInput | number | null
+    own_max_staff?: NullableIntFieldUpdateOperationsInput | number | null
+    own_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_expiry_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
     own_refresh_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_jwt_token?: NullableStringFieldUpdateOperationsInput | string | null
@@ -108900,6 +109260,10 @@ export namespace Prisma {
     own_password?: StringFieldUpdateOperationsInput | string
     own_status?: EnumOwnerStatusFieldUpdateOperationsInput | $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_max_firms?: NullableIntFieldUpdateOperationsInput | number | null
+    own_max_staff?: NullableIntFieldUpdateOperationsInput | number | null
+    own_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_expiry_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
     own_refresh_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_jwt_token?: NullableStringFieldUpdateOperationsInput | string | null
@@ -108963,6 +109327,10 @@ export namespace Prisma {
     own_password: string
     own_status?: $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_max_firms?: number | null
+    own_max_staff?: number | null
+    own_start_date?: Date | string | null
+    own_expiry_date?: Date | string | null
     own_refresh_token?: string | null
     own_refresh_expiry?: Date | string | null
     own_jwt_token?: string | null
@@ -109027,6 +109395,10 @@ export namespace Prisma {
     own_password: string
     own_status?: $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_max_firms?: number | null
+    own_max_staff?: number | null
+    own_start_date?: Date | string | null
+    own_expiry_date?: Date | string | null
     own_refresh_token?: string | null
     own_refresh_expiry?: Date | string | null
     own_jwt_token?: string | null
@@ -109388,6 +109760,10 @@ export namespace Prisma {
     own_password?: StringFieldUpdateOperationsInput | string
     own_status?: EnumOwnerStatusFieldUpdateOperationsInput | $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_max_firms?: NullableIntFieldUpdateOperationsInput | number | null
+    own_max_staff?: NullableIntFieldUpdateOperationsInput | number | null
+    own_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_expiry_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
     own_refresh_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_jwt_token?: NullableStringFieldUpdateOperationsInput | string | null
@@ -109452,6 +109828,10 @@ export namespace Prisma {
     own_password?: StringFieldUpdateOperationsInput | string
     own_status?: EnumOwnerStatusFieldUpdateOperationsInput | $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_max_firms?: NullableIntFieldUpdateOperationsInput | number | null
+    own_max_staff?: NullableIntFieldUpdateOperationsInput | number | null
+    own_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_expiry_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
     own_refresh_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_jwt_token?: NullableStringFieldUpdateOperationsInput | string | null
@@ -110740,6 +111120,10 @@ export namespace Prisma {
     own_password: string
     own_status?: $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_max_firms?: number | null
+    own_max_staff?: number | null
+    own_start_date?: Date | string | null
+    own_expiry_date?: Date | string | null
     own_refresh_token?: string | null
     own_refresh_expiry?: Date | string | null
     own_jwt_token?: string | null
@@ -110804,6 +111188,10 @@ export namespace Prisma {
     own_password: string
     own_status?: $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_max_firms?: number | null
+    own_max_staff?: number | null
+    own_start_date?: Date | string | null
+    own_expiry_date?: Date | string | null
     own_refresh_token?: string | null
     own_refresh_expiry?: Date | string | null
     own_jwt_token?: string | null
@@ -110907,6 +111295,10 @@ export namespace Prisma {
     own_password?: StringFieldUpdateOperationsInput | string
     own_status?: EnumOwnerStatusFieldUpdateOperationsInput | $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_max_firms?: NullableIntFieldUpdateOperationsInput | number | null
+    own_max_staff?: NullableIntFieldUpdateOperationsInput | number | null
+    own_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_expiry_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
     own_refresh_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_jwt_token?: NullableStringFieldUpdateOperationsInput | string | null
@@ -110971,6 +111363,10 @@ export namespace Prisma {
     own_password?: StringFieldUpdateOperationsInput | string
     own_status?: EnumOwnerStatusFieldUpdateOperationsInput | $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_max_firms?: NullableIntFieldUpdateOperationsInput | number | null
+    own_max_staff?: NullableIntFieldUpdateOperationsInput | number | null
+    own_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_expiry_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
     own_refresh_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_jwt_token?: NullableStringFieldUpdateOperationsInput | string | null
@@ -111395,6 +111791,10 @@ export namespace Prisma {
     own_password: string
     own_status?: $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_max_firms?: number | null
+    own_max_staff?: number | null
+    own_start_date?: Date | string | null
+    own_expiry_date?: Date | string | null
     own_refresh_token?: string | null
     own_refresh_expiry?: Date | string | null
     own_jwt_token?: string | null
@@ -111459,6 +111859,10 @@ export namespace Prisma {
     own_password: string
     own_status?: $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_max_firms?: number | null
+    own_max_staff?: number | null
+    own_start_date?: Date | string | null
+    own_expiry_date?: Date | string | null
     own_refresh_token?: string | null
     own_refresh_expiry?: Date | string | null
     own_jwt_token?: string | null
@@ -111687,6 +112091,10 @@ export namespace Prisma {
     own_password?: StringFieldUpdateOperationsInput | string
     own_status?: EnumOwnerStatusFieldUpdateOperationsInput | $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_max_firms?: NullableIntFieldUpdateOperationsInput | number | null
+    own_max_staff?: NullableIntFieldUpdateOperationsInput | number | null
+    own_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_expiry_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
     own_refresh_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_jwt_token?: NullableStringFieldUpdateOperationsInput | string | null
@@ -111751,6 +112159,10 @@ export namespace Prisma {
     own_password?: StringFieldUpdateOperationsInput | string
     own_status?: EnumOwnerStatusFieldUpdateOperationsInput | $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_max_firms?: NullableIntFieldUpdateOperationsInput | number | null
+    own_max_staff?: NullableIntFieldUpdateOperationsInput | number | null
+    own_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_expiry_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
     own_refresh_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_jwt_token?: NullableStringFieldUpdateOperationsInput | string | null
@@ -111970,6 +112382,10 @@ export namespace Prisma {
     own_password: string
     own_status?: $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_max_firms?: number | null
+    own_max_staff?: number | null
+    own_start_date?: Date | string | null
+    own_expiry_date?: Date | string | null
     own_refresh_token?: string | null
     own_refresh_expiry?: Date | string | null
     own_jwt_token?: string | null
@@ -112034,6 +112450,10 @@ export namespace Prisma {
     own_password: string
     own_status?: $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_max_firms?: number | null
+    own_max_staff?: number | null
+    own_start_date?: Date | string | null
+    own_expiry_date?: Date | string | null
     own_refresh_token?: string | null
     own_refresh_expiry?: Date | string | null
     own_jwt_token?: string | null
@@ -112262,6 +112682,10 @@ export namespace Prisma {
     own_password?: StringFieldUpdateOperationsInput | string
     own_status?: EnumOwnerStatusFieldUpdateOperationsInput | $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_max_firms?: NullableIntFieldUpdateOperationsInput | number | null
+    own_max_staff?: NullableIntFieldUpdateOperationsInput | number | null
+    own_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_expiry_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
     own_refresh_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_jwt_token?: NullableStringFieldUpdateOperationsInput | string | null
@@ -112326,6 +112750,10 @@ export namespace Prisma {
     own_password?: StringFieldUpdateOperationsInput | string
     own_status?: EnumOwnerStatusFieldUpdateOperationsInput | $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_max_firms?: NullableIntFieldUpdateOperationsInput | number | null
+    own_max_staff?: NullableIntFieldUpdateOperationsInput | number | null
+    own_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_expiry_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
     own_refresh_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_jwt_token?: NullableStringFieldUpdateOperationsInput | string | null
@@ -112545,6 +112973,10 @@ export namespace Prisma {
     own_password: string
     own_status?: $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_max_firms?: number | null
+    own_max_staff?: number | null
+    own_start_date?: Date | string | null
+    own_expiry_date?: Date | string | null
     own_refresh_token?: string | null
     own_refresh_expiry?: Date | string | null
     own_jwt_token?: string | null
@@ -112609,6 +113041,10 @@ export namespace Prisma {
     own_password: string
     own_status?: $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_max_firms?: number | null
+    own_max_staff?: number | null
+    own_start_date?: Date | string | null
+    own_expiry_date?: Date | string | null
     own_refresh_token?: string | null
     own_refresh_expiry?: Date | string | null
     own_jwt_token?: string | null
@@ -112837,6 +113273,10 @@ export namespace Prisma {
     own_password?: StringFieldUpdateOperationsInput | string
     own_status?: EnumOwnerStatusFieldUpdateOperationsInput | $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_max_firms?: NullableIntFieldUpdateOperationsInput | number | null
+    own_max_staff?: NullableIntFieldUpdateOperationsInput | number | null
+    own_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_expiry_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
     own_refresh_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_jwt_token?: NullableStringFieldUpdateOperationsInput | string | null
@@ -112901,6 +113341,10 @@ export namespace Prisma {
     own_password?: StringFieldUpdateOperationsInput | string
     own_status?: EnumOwnerStatusFieldUpdateOperationsInput | $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_max_firms?: NullableIntFieldUpdateOperationsInput | number | null
+    own_max_staff?: NullableIntFieldUpdateOperationsInput | number | null
+    own_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_expiry_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
     own_refresh_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_jwt_token?: NullableStringFieldUpdateOperationsInput | string | null
@@ -113120,6 +113564,10 @@ export namespace Prisma {
     own_password: string
     own_status?: $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_max_firms?: number | null
+    own_max_staff?: number | null
+    own_start_date?: Date | string | null
+    own_expiry_date?: Date | string | null
     own_refresh_token?: string | null
     own_refresh_expiry?: Date | string | null
     own_jwt_token?: string | null
@@ -113184,6 +113632,10 @@ export namespace Prisma {
     own_password: string
     own_status?: $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_max_firms?: number | null
+    own_max_staff?: number | null
+    own_start_date?: Date | string | null
+    own_expiry_date?: Date | string | null
     own_refresh_token?: string | null
     own_refresh_expiry?: Date | string | null
     own_jwt_token?: string | null
@@ -113412,6 +113864,10 @@ export namespace Prisma {
     own_password?: StringFieldUpdateOperationsInput | string
     own_status?: EnumOwnerStatusFieldUpdateOperationsInput | $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_max_firms?: NullableIntFieldUpdateOperationsInput | number | null
+    own_max_staff?: NullableIntFieldUpdateOperationsInput | number | null
+    own_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_expiry_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
     own_refresh_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_jwt_token?: NullableStringFieldUpdateOperationsInput | string | null
@@ -113476,6 +113932,10 @@ export namespace Prisma {
     own_password?: StringFieldUpdateOperationsInput | string
     own_status?: EnumOwnerStatusFieldUpdateOperationsInput | $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_max_firms?: NullableIntFieldUpdateOperationsInput | number | null
+    own_max_staff?: NullableIntFieldUpdateOperationsInput | number | null
+    own_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_expiry_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
     own_refresh_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_jwt_token?: NullableStringFieldUpdateOperationsInput | string | null

@@ -1,0 +1,100 @@
+[
+  {
+    "module_key": "firm",
+    "module_label": "Firm",
+    "module_icon": "bi-building",
+    "module_sort_order": 10,
+    "perm_modules": ["firm"]
+  },
+  {
+    "module_key": "staff",
+    "module_label": "Staff",
+    "module_icon": "bi-person-badge",
+    "module_sort_order": 20,
+    "perm_modules": ["staff"]
+  },
+  {
+    "module_key": "customer",
+    "module_label": "Customer",
+    "module_icon": "bi-people-fill",
+    "module_sort_order": 30,
+    "perm_modules": ["user"]
+  },
+  {
+    "module_key": "account",
+    "module_label": "Account",
+    "module_icon": "bi-wallet2",
+    "module_sort_order": 40,
+    "perm_modules": ["account"]
+  },
+  {
+    "module_key": "finance",
+    "module_label": "Finance",
+    "module_icon": "bi-currency-rupee",
+    "module_sort_order": 50,
+    "perm_modules": ["finance"]
+  },
+  {
+    "module_key": "loan",
+    "module_label": "Loan",
+    "module_icon": "bi-journal-text",
+    "module_sort_order": 60,
+    "perm_modules": ["loan"]
+  },
+  {
+    "module_key": "moneyLender",
+    "module_label": "Money Lender",
+    "module_icon": "bi-cash-stack",
+    "module_sort_order": 70,
+    "perm_modules": ["moneyLender"]
+  },
+  {
+    "module_key": "daybook",
+    "module_label": "Daybook",
+    "module_icon": "bi-book",
+    "module_sort_order": 80,
+    "perm_keys": ["reports.daybook"]
+  },
+  {
+    "module_key": "trialBalance",
+    "module_label": "Trial Balance",
+    "module_icon": "bi-scale",
+    "module_sort_order": 90,
+    "perm_keys": ["reports.trialBalance"]
+  },
+  {
+    "module_key": "balanceSheet",
+    "module_label": "Balance Sheet",
+    "module_icon": "bi-bar-chart-line",
+    "module_sort_order": 100,
+    "perm_keys": ["reports.balanceSheet"]
+  },
+  {
+    "module_key": "profitLoss",
+    "module_label": "Profit & Loss",
+    "module_icon": "bi-graph-up-arrow",
+    "module_sort_order": 110,
+    "perm_keys": ["reports.profitLoss"]
+  },
+  {
+    "module_key": "logs",
+    "module_label": "Logs",
+    "module_icon": "bi-journal-check",
+    "module_sort_order": 120,
+    "perm_keys": ["reports.logs"]
+  },
+  {
+    "module_key": "sms",
+    "module_label": "SMS / Messaging",
+    "module_icon": "bi-chat-dots-fill",
+    "module_sort_order": 130,
+    "perm_modules": ["sms"]
+  },
+  {
+    "module_key": "customization",
+    "module_label": "Customization",
+    "module_icon": "bi-gear-fill",
+    "module_sort_order": 140,
+    "perm_modules": ["settings"]
+  }
+]

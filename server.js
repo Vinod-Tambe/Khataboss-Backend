@@ -53,6 +53,8 @@ const v1Router = express.Router();
 v1Router.use("/admin", require("./modules/admin/routes/admin.routes"));
 v1Router.use("/auth", require("./modules/auth/routes/auth.routes"));
 v1Router.use("/owner", require("./modules/owner/routes/owner.routes"));
+v1Router.use("/plan", require("./modules/plan/routes/plan.routes"));
+v1Router.use("/announcement", require("./modules/announcement/routes/announcement.routes"));
 v1Router.use("/firm", require("./modules/firm/routes/firm.routes"));
 v1Router.use("/account", require("./modules/account/routes/account.routes"));
 v1Router.use("/user", require("./modules/user/routes/user.routes"));

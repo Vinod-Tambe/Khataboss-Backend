@@ -44,6 +44,14 @@ model Owner {
   own_profile_img Json?
 
   // ===============================
+  // Entitlements (mirrored from master — set by super-admin)
+  // ===============================
+  own_max_firms   Int?
+  own_max_staff   Int?
+  own_start_date  DateTime?
+  own_expiry_date DateTime?
+
+  // ===============================
   // Authentication Details
   // ===============================
   own_refresh_token     String?

@@ -134,6 +134,7 @@ exports.Prisma.AdminScalarFieldEnum = {
   admin_email: 'admin_email',
   admin_login_id: 'admin_login_id',
   admin_password: 'admin_password',
+  admin_company_name: 'admin_company_name',
   admin_refresh_token: 'admin_refresh_token',
   admin_refresh_expiry: 'admin_refresh_expiry',
   admin_jwt_token: 'admin_jwt_token',
@@ -180,6 +181,11 @@ exports.Prisma.OwnerScalarFieldEnum = {
   own_password: 'own_password',
   own_status: 'own_status',
   own_profile_img: 'own_profile_img',
+  own_plan_id: 'own_plan_id',
+  own_max_firms: 'own_max_firms',
+  own_max_staff: 'own_max_staff',
+  own_start_date: 'own_start_date',
+  own_expiry_date: 'own_expiry_date',
   own_refresh_token: 'own_refresh_token',
   own_refresh_expiry: 'own_refresh_expiry',
   own_jwt_token: 'own_jwt_token',
@@ -202,6 +208,63 @@ exports.Prisma.OwnerScalarFieldEnum = {
   own_is_deleted: 'own_is_deleted'
 };
 
+exports.Prisma.PlanScalarFieldEnum = {
+  plan_id: 'plan_id',
+  plan_uuid: 'plan_uuid',
+  plan_name: 'plan_name',
+  plan_code: 'plan_code',
+  plan_description: 'plan_description',
+  plan_price: 'plan_price',
+  plan_offer_price: 'plan_offer_price',
+  plan_currency: 'plan_currency',
+  plan_billing_cycle: 'plan_billing_cycle',
+  plan_duration_days: 'plan_duration_days',
+  plan_max_firms: 'plan_max_firms',
+  plan_max_staff: 'plan_max_staff',
+  plan_modules: 'plan_modules',
+  plan_features: 'plan_features',
+  plan_image: 'plan_image',
+  plan_is_popular: 'plan_is_popular',
+  plan_sort_order: 'plan_sort_order',
+  plan_status: 'plan_status',
+  plan_created_at: 'plan_created_at',
+  plan_created_by: 'plan_created_by',
+  plan_updated_at: 'plan_updated_at',
+  plan_updated_by: 'plan_updated_by',
+  plan_deleted_at: 'plan_deleted_at',
+  plan_deleted_by: 'plan_deleted_by',
+  plan_is_deleted: 'plan_is_deleted'
+};
+
+exports.Prisma.AnnouncementScalarFieldEnum = {
+  ann_id: 'ann_id',
+  ann_uuid: 'ann_uuid',
+  ann_title: 'ann_title',
+  ann_body: 'ann_body',
+  ann_type: 'ann_type',
+  ann_status: 'ann_status',
+  ann_is_pinned: 'ann_is_pinned',
+  ann_sort_order: 'ann_sort_order',
+  ann_publish_at: 'ann_publish_at',
+  ann_expires_at: 'ann_expires_at',
+  ann_created_at: 'ann_created_at',
+  ann_created_by: 'ann_created_by',
+  ann_updated_at: 'ann_updated_at',
+  ann_updated_by: 'ann_updated_by',
+  ann_deleted_at: 'ann_deleted_at',
+  ann_deleted_by: 'ann_deleted_by',
+  ann_is_deleted: 'ann_is_deleted'
+};
+
+exports.Prisma.OwnerPermissionScalarFieldEnum = {
+  op_id: 'op_id',
+  op_own_id: 'op_own_id',
+  op_perm_key: 'op_perm_key',
+  op_granted: 'op_granted',
+  op_created_at: 'op_created_at',
+  op_updated_at: 'op_updated_at'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -209,6 +272,10 @@ exports.Prisma.SortOrder = {
 
 exports.Prisma.NullableJsonNullValueInput = {
   DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull
+};
+
+exports.Prisma.JsonNullValueInput = {
   JsonNull: Prisma.JsonNull
 };
 
@@ -232,10 +299,38 @@ exports.OwnerStatus = exports.$Enums.OwnerStatus = {
   Inactive: 'Inactive'
 };
 
+exports.PlanBillingCycle = exports.$Enums.PlanBillingCycle = {
+  Monthly: 'Monthly',
+  Quarterly: 'Quarterly',
+  Yearly: 'Yearly',
+  Lifetime: 'Lifetime'
+};
+
+exports.PlanStatus = exports.$Enums.PlanStatus = {
+  Active: 'Active',
+  Inactive: 'Inactive'
+};
+
+exports.AnnouncementType = exports.$Enums.AnnouncementType = {
+  Notice: 'Notice',
+  Alert: 'Alert',
+  Warning: 'Warning',
+  Celebration: 'Celebration',
+  Congratulation: 'Congratulation'
+};
+
+exports.AnnouncementStatus = exports.$Enums.AnnouncementStatus = {
+  Active: 'Active',
+  Inactive: 'Inactive'
+};
+
 exports.Prisma.ModelName = {
   Admin: 'Admin',
   DbSeries: 'DbSeries',
-  Owner: 'Owner'
+  Owner: 'Owner',
+  Plan: 'Plan',
+  Announcement: 'Announcement',
+  OwnerPermission: 'OwnerPermission'
 };
 
 /**

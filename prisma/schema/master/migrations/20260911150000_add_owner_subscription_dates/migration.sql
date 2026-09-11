@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "Owner" ADD COLUMN IF NOT EXISTS "own_start_date" TIMESTAMP(3);
+ALTER TABLE "Owner" ADD COLUMN IF NOT EXISTS "own_expiry_date" TIMESTAMP(3);

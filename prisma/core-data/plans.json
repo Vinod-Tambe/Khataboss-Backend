@@ -1,0 +1,101 @@
+[
+  {
+    "plan_name": "Starter",
+    "plan_code": "STARTER",
+    "plan_description": "Best for single-shop jewelers starting with loan (girvi) and customer management.",
+    "plan_price": 5999,
+    "plan_offer_price": 4999,
+    "plan_currency": "INR",
+    "plan_billing_cycle": "Yearly",
+    "plan_duration_days": 365,
+    "plan_max_firms": 1,
+    "plan_max_staff": 5,
+    "plan_module_keys": ["firm", "staff", "customer", "loan"],
+    "plan_features": [
+      "1 jewelry firm",
+      "Up to 5 staff users",
+      "Customer & loan (girvi) management",
+      "Basic reports",
+      "Email support"
+    ],
+    "plan_is_popular": false,
+    "plan_sort_order": 1,
+    "plan_status": "Active"
+  },
+  {
+    "plan_name": "Gold",
+    "plan_code": "GOLD",
+    "plan_description": "Most popular plan for growing jewelry shops with finance, accounts, and WhatsApp messaging.",
+    "plan_price": 14999,
+    "plan_offer_price": 11999,
+    "plan_currency": "INR",
+    "plan_billing_cycle": "Yearly",
+    "plan_duration_days": 365,
+    "plan_max_firms": 3,
+    "plan_max_staff": 20,
+    "plan_module_keys": [
+      "firm",
+      "staff",
+      "customer",
+      "account",
+      "finance",
+      "loan",
+      "moneyLender",
+      "daybook",
+      "sms"
+    ],
+    "plan_features": [
+      "Up to 3 firms",
+      "Up to 20 staff users",
+      "Finance & account modules",
+      "Loan & money lender",
+      "Daybook reports",
+      "WhatsApp / SMS messaging",
+      "Priority email support"
+    ],
+    "plan_is_popular": true,
+    "plan_sort_order": 2,
+    "plan_status": "Active"
+  },
+  {
+    "plan_name": "Platinum",
+    "plan_code": "PLATINUM",
+    "plan_description": "Full-featured plan for multi-branch jewelry businesses with all modules and reports.",
+    "plan_price": 29999,
+    "plan_offer_price": 24999,
+    "plan_currency": "INR",
+    "plan_billing_cycle": "Yearly",
+    "plan_duration_days": 365,
+    "plan_max_firms": 10,
+    "plan_max_staff": 50,
+    "plan_module_keys": [
+      "firm",
+      "staff",
+      "customer",
+      "account",
+      "finance",
+      "loan",
+      "moneyLender",
+      "daybook",
+      "trialBalance",
+      "balanceSheet",
+      "profitLoss",
+      "logs",
+      "sms",
+      "customization"
+    ],
+    "plan_features": [
+      "Up to 10 firms",
+      "Up to 50 staff users",
+      "All modules unlocked",
+      "Trial balance, balance sheet & P&L",
+      "Activity logs",
+      "Form & agreement customization",
+      "WhatsApp / SMS messaging",
+      "Dedicated phone support"
+    ],
+    "plan_is_popular": false,
+    "plan_sort_order": 3,
+    "plan_status": "Active"
+  }
+]

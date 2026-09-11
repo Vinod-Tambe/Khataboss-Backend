@@ -4,6 +4,7 @@ const { getMasterPrisma } = require("../../../utils/masterPrisma");
 const fs = require("fs");
 const path = require("path");
 const firmService = require("../service/firm.service");
+const ownerPermissionService = require("../../owner/services/owner-permission.service");
 const imageService = require("../../../utils/image.service");
 const { BASE_URL } = require("../../../config/db");
 const {
@@ -55,6 +56,12 @@ class FirmController {
       if (validationError) {
         return res.status(409).json({ error: validationError.error });
       }
+
+      await ownerPermissionService.assertFirmLimit(
+        dbUrl,
+        req.user.own_id,
+        req.user.own_uuid
+      );
 
       // 1. Create Firm record first (to get firm_id)
       const newFirm = await firmService.createFirm(dbUrl, firmData);

@@ -154,8 +154,6 @@ class DaybookService {
       };
     } catch (error) {
       return this.handleError(error, "FINANCE ADDED", "bg-green", "text-danger");
-    } finally {
-      await prisma.$disconnect();
     }
   }
 
@@ -460,8 +458,6 @@ class DaybookService {
       };
     } catch (error) {
       return this.handleError(error, "FIRST MONTH INTEREST", "bg-primary", "text-primary");
-    } finally {
-      await prisma.$disconnect();
     }
   }
 
@@ -587,8 +583,6 @@ class DaybookService {
       };
     } catch (error) {
       return this.handleError(error, "PROCESSING AMOUNT", "bg-success", "text-success");
-    } finally {
-      await prisma.$disconnect();
     }
   }
 
@@ -669,8 +663,6 @@ class DaybookService {
       };
     } catch (error) {
       return this.handleError(error, "LOAN ADDED", "bg-purple", "text-danger");
-    } finally {
-      await prisma.$disconnect();
     }
   }
 
@@ -778,8 +770,6 @@ class DaybookService {
       };
     } catch (error) {
       return this.handleError(error, "TRANSFER LOAN OUT", "bg-cust-info", "text-success");
-    } finally {
-      await prisma.$disconnect();
     }
   }
 
@@ -902,8 +892,6 @@ class DaybookService {
       };
     } catch (error) {
       return this.handleError(error, "TRANSFER LOAN IN", "bg-info", "text-danger");
-    } finally {
-      await prisma.$disconnect();
     }
   }
 
@@ -951,8 +939,6 @@ class DaybookService {
       };
     } catch (error) {
       return this.handleError(error, "ADDITIONAL LOAN PRINCIPAL", "bg-pink", "text-danger");
-    } finally {
-      await prisma.$disconnect();
     }
   }
 
@@ -1001,8 +987,6 @@ class DaybookService {
       };
     } catch (error) {
       return this.handleError(error, "LOAN DEPOSIT", "bg-blue", "text-success");
-    } finally {
-      await prisma.$disconnect();
     }
   }
 
@@ -1051,8 +1035,6 @@ class DaybookService {
       };
     } catch (error) {
       return this.handleError(error, "RELEASE LOAN", "bg-cust-info", "text-success");
-    } finally {
-      await prisma.$disconnect();
     }
   }
 
@@ -1116,8 +1098,6 @@ class DaybookService {
       };
     } catch (error) {
       return this.handleError(error, "AUCTION LOAN", "bg-warning", "text-success");
-    } finally {
-      await prisma.$disconnect();
     }
   }
 
@@ -1173,8 +1153,6 @@ class DaybookService {
       };
     } catch (error) {
       return this.handleError(error, title, colorClass, amtColor);
-    } finally {
-      await prisma.$disconnect();
     }
   }
 
@@ -1614,8 +1592,6 @@ class DaybookService {
       };
     } catch (error) {
       return this.handleError(error, "DAYBOOK SUMMARY", "bg-purple", "text-primary", true);
-    } finally {
-      await prisma.$disconnect();
     }
   }
 

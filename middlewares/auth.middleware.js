@@ -7,8 +7,9 @@ const { BASE_URL } = require("../config/db");
 const {
   ROLE_OWNER,
   ROLE_STAFF,
-  getAllPermissionKeys,
 } = require("../common/service/permission.helper");
+const ownerPermissionService = require("../modules/owner/services/owner-permission.service");
+const { isSubscriptionExpired } = require("../utils/owner-subscription-expiry");
 
 const masterPrisma = getMasterPrisma();
 
@@ -51,6 +52,10 @@ const authenticateOwner = async (req, res, next) => {
         own_pincode: true,
         own_db: true,
         own_status: true,
+        own_max_firms: true,
+        own_max_staff: true,
+        own_start_date: true,
+        own_expiry_date: true,
       },
     });
 
@@ -62,9 +67,21 @@ const authenticateOwner = async (req, res, next) => {
       return res.status(403).json({ error: "Owner account is inactive. Please contact support." });
     }
 
+    if (isSubscriptionExpired(owner.own_expiry_date)) {
+      return res.status(403).json({
+        success: false,
+        code: "SUBSCRIPTION_EXPIRED",
+        message:
+          "Your KhataBoss subscription has expired. Please contact your administrator to renew.",
+        error:
+          "Your KhataBoss subscription has expired. Please contact your administrator to renew.",
+      });
+    }
+
     const role = decoded.role === ROLE_STAFF ? ROLE_STAFF : ROLE_OWNER;
 
     if (role === ROLE_OWNER) {
+      const ownerPermissionKeys = await ownerPermissionService.resolvePermissionKeys(owner.own_id);
       req.user = {
         role: ROLE_OWNER,
         own_id: owner.own_id,
@@ -72,8 +89,12 @@ const authenticateOwner = async (req, res, next) => {
         own_login_id: owner.own_login_id,
         own_email: owner.own_email,
         own_db: owner.own_db,
+        own_max_firms: owner.own_max_firms,
+        own_max_staff: owner.own_max_staff,
+        own_start_date: owner.own_start_date,
+        own_expiry_date: owner.own_expiry_date,
         ownerProfile: owner,
-        permissions: getAllPermissionKeys(),
+        permissions: ownerPermissionKeys,
       };
       return next();
     }
@@ -131,6 +152,8 @@ const authenticateOwner = async (req, res, next) => {
       own_login_id: owner.own_login_id,
       own_email: owner.own_email,
       own_db: owner.own_db,
+      own_start_date: owner.own_start_date,
+      own_expiry_date: owner.own_expiry_date,
       staff_id: staff.staff_id,
       staff_uuid: staff.staff_uuid,
       staff_login_id: staff.staff_login_id,

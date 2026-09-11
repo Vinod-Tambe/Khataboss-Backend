@@ -14,8 +14,12 @@ const { BASE_URL } = require("../../../config/db");
 const {
   ROLE_OWNER,
   ROLE_STAFF,
-  getAllPermissionKeys,
 } = require("../../../common/service/permission.helper");
+const ownerPermissionService = require("../../owner/services/owner-permission.service");
+const {
+  assertSubscriptionActive,
+  buildSubscriptionPayload,
+} = require("../../../utils/owner-subscription-expiry");
 const {
   logSystemActivity,
   MODULE,
@@ -87,25 +91,37 @@ function recordAuthProfileUpdate(owner, loginId, displayName = "") {
   });
 }
 
-const toPublicOwner = (owner) => ({
-  own_uuid: owner.own_uuid,
-  own_login_id: owner.own_login_id,
-  own_first_name: owner.own_first_name,
-  own_middle_name: owner.own_middle_name,
-  own_last_name: owner.own_last_name,
-  own_email: owner.own_email,
-  own_mobile_no: owner.own_mobile_no,
-  own_phone_no: owner.own_phone_no,
-  own_profile_img: owner.own_profile_img,
-  own_address: owner.own_address,
-  own_village: owner.own_village,
-  own_city: owner.own_city,
-  own_state: owner.own_state,
-  own_pincode: owner.own_pincode,
-  own_status: owner.own_status,
-  role: ROLE_OWNER,
-  permissions: getAllPermissionKeys(),
-});
+const toPublicOwner = async (owner, dbUrl = null) => {
+  const permissionKeys = await ownerPermissionService.resolvePermissionKeys(owner.own_id);
+  let usage = null;
+  if (dbUrl && owner.own_id && owner.own_uuid) {
+    usage = await ownerPermissionService.getUsageStats(dbUrl, owner.own_id, owner.own_uuid);
+  }
+
+  return {
+    own_uuid: owner.own_uuid,
+    own_login_id: owner.own_login_id,
+    own_first_name: owner.own_first_name,
+    own_middle_name: owner.own_middle_name,
+    own_last_name: owner.own_last_name,
+    own_email: owner.own_email,
+    own_mobile_no: owner.own_mobile_no,
+    own_phone_no: owner.own_phone_no,
+    own_profile_img: owner.own_profile_img,
+    own_address: owner.own_address,
+    own_village: owner.own_village,
+    own_city: owner.own_city,
+    own_state: owner.own_state,
+    own_pincode: owner.own_pincode,
+    own_status: owner.own_status,
+    own_max_firms: owner.own_max_firms ?? null,
+    own_max_staff: owner.own_max_staff ?? null,
+    usage,
+    role: ROLE_OWNER,
+    permissions: permissionKeys,
+    ...buildSubscriptionPayload(owner),
+  };
+};
 
 const toPublicStaffUser = (owner, staff, permissionKeys = []) => ({
   own_uuid: owner.own_uuid,
@@ -133,6 +149,7 @@ const toPublicStaffUser = (owner, staff, permissionKeys = []) => ({
   own_status: staff.staff_status,
   role: ROLE_STAFF,
   permissions: permissionKeys,
+  ...buildSubscriptionPayload(owner),
 });
 
 /**
@@ -174,6 +191,8 @@ class AuthService {
       error.statusCode = 403;
       throw error;
     }
+
+    assertSubscriptionActive(owner);
 
     const dbUrl = `${BASE_URL}/${owner.own_db}`;
     const staff = await staffService.getStaffByLoginId(dbUrl, staffLoginId);
@@ -278,6 +297,8 @@ class AuthService {
       throw error;
     }
 
+    assertSubscriptionActive(owner);
+
     // 2. Verify the password
     const isPasswordValid = await comparePassword(password, owner.own_password);
     if (!isPasswordValid) {
@@ -308,7 +329,8 @@ class AuthService {
       },
     });
 
-    const publicOwner = toPublicOwner(owner);
+    const dbUrl = `${BASE_URL}/${owner.own_db}`;
+    const publicOwner = await toPublicOwner(owner, dbUrl);
     recordAuthLogin(
       owner,
       owner.own_login_id,
@@ -354,6 +376,8 @@ class AuthService {
       error.statusCode = 403;
       throw error;
     }
+
+    assertSubscriptionActive(owner);
 
     // 2. Generate OTP and expiry
     const otp = otpService.generateOtp();
@@ -483,6 +507,14 @@ class AuthService {
       throw error;
     }
 
+    if (owner.own_status !== "Active") {
+      const error = new Error("account is inactive.");
+      error.statusCode = 403;
+      throw error;
+    }
+
+    assertSubscriptionActive(owner);
+
     // 4. Generate Tokens
     const payload = {
       own_uuid: owner.own_uuid,
@@ -507,7 +539,8 @@ class AuthService {
       },
     });
 
-    const publicOwner = toPublicOwner(owner);
+    const dbUrl = `${BASE_URL}/${owner.own_db}`;
+    const publicOwner = await toPublicOwner(owner, dbUrl);
     recordAuthLogin(
       owner,
       owner.own_login_id,
@@ -541,6 +574,8 @@ class AuthService {
             own_uuid: authUser.own_uuid,
             own_login_id: authUser.own_login_id,
             own_db: authUser.own_db,
+            own_start_date: authUser.own_start_date,
+            own_expiry_date: authUser.own_expiry_date,
           },
           authUser.staffProfile,
           authUser.permissions
@@ -553,6 +588,8 @@ class AuthService {
           own_uuid: true,
           own_login_id: true,
           own_db: true,
+          own_start_date: true,
+          own_expiry_date: true,
         },
       });
       if (!owner) {
@@ -575,14 +612,25 @@ class AuthService {
     }
 
     if (authUser.ownerProfile) {
-      return toPublicOwner(authUser.ownerProfile);
+      const dbUrl = authUser.own_db ? `${BASE_URL}/${authUser.own_db}` : null;
+      return toPublicOwner(
+        {
+          ...authUser.ownerProfile,
+          own_id: authUser.own_id,
+          own_max_firms: authUser.own_max_firms,
+          own_max_staff: authUser.own_max_staff,
+        },
+        dbUrl
+      );
     }
 
     const owner = await masterPrisma.owner.findUnique({
       where: { own_uuid: ownUuid, own_is_deleted: false },
       select: {
+        own_id: true,
         own_uuid: true,
         own_login_id: true,
+        own_db: true,
         own_first_name: true,
         own_middle_name: true,
         own_last_name: true,
@@ -596,6 +644,10 @@ class AuthService {
         own_state: true,
         own_pincode: true,
         own_status: true,
+        own_max_firms: true,
+        own_max_staff: true,
+        own_start_date: true,
+        own_expiry_date: true,
       },
     });
     if (!owner) {
@@ -604,7 +656,8 @@ class AuthService {
       throw error;
     }
 
-    return toPublicOwner(owner);
+    const dbUrl = `${BASE_URL}/${owner.own_db}`;
+    return toPublicOwner(owner, dbUrl);
   }
 
   /**
@@ -671,7 +724,7 @@ class AuthService {
       updated.own_login_id,
       formatPersonName(updated.own_first_name, updated.own_middle_name, updated.own_last_name)
     );
-    return toPublicOwner(updated);
+    return toPublicOwner(updated, dbUrl);
   }
 
   /**

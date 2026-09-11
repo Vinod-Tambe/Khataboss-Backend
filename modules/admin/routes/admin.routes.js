@@ -8,7 +8,9 @@ const authenticateAdmin = require("../../../middlewares/admin.middleware");
 const router = express.Router();
 
 router.post("/auth/login", adminAuthController.login.bind(adminAuthController));
+router.get("/branding", adminAuthController.branding.bind(adminAuthController));
 router.get("/auth/me", authenticateAdmin, adminAuthController.me.bind(adminAuthController));
+router.patch("/auth/profile", authenticateAdmin, adminAuthController.updateProfile.bind(adminAuthController));
 router.get("/dashboard", authenticateAdmin, adminDashboardController.getStats.bind(adminDashboardController));
 
 module.exports = router;

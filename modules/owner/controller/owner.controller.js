@@ -3,7 +3,10 @@
 const { BASE_URL, setupOwnerDatabase } = require("../../../config/db");
 const { seedPermissions } = require("../../../prisma/seeder/permission-seeder");
 const ownerService = require("../services/owner.service");
+const ownerPermissionService = require("../services/owner-permission.service");
+const planService = require("../../plan/services/plan.service");
 const imageService = require("../../../utils/image.service");
+const { resolveOwnerSubscriptionDates } = require("../../../utils/owner-subscription-dates");
 const { getMasterPrisma } = require("../../../utils/masterPrisma");
 
 const masterPrisma = getMasterPrisma();
@@ -59,9 +62,14 @@ class OwnerController {
         return res.status(404).json({ error: "Owner not found." });
       }
 
+      const entitlements = await ownerPermissionService.getEntitlements(uuid);
+
       return res.status(200).json({
         message: "Owner fetched successfully.",
-        data: sanitizeOwner(owner),
+        data: {
+          ...sanitizeOwner(owner),
+          entitlements,
+        },
       });
     } catch (error) {
       console.error("❌  Error fetching owner:", error.message);
@@ -149,16 +157,44 @@ class OwnerController {
       console.log(`🚀  Starting database setup for: ${dbName}`);
       const dbUrl = await setupOwnerDatabase(dbName);
 
-      // 4b. Seed permission catalog (owner has all permissions by role)
+      // 4b. Seed permission catalog for staff RBAC in tenant DB
       console.log(`🔐  Seeding permissions for: ${dbName}`);
       await seedPermissions(dbUrl);
+
+      let selectedPlan = null;
+      if (ownerData.plan_uuid) {
+        selectedPlan = await planService.getPlanByUuid(ownerData.plan_uuid);
+        if (!selectedPlan) {
+          return res.status(404).json({ error: "Selected plan not found." });
+        }
+      }
+
+      const subscriptionDates = resolveOwnerSubscriptionDates(ownerData, { plan: selectedPlan });
 
       // 5. Save owner record in the new database
       console.log(`📝  Saving owner record in database: ${dbName}`);
       const newOwner = await ownerService.createOwner(dbUrl, {
         ...ownerData,
         own_db: dbName,
+        ...subscriptionDates,
+        own_created_by: req.admin?.admin_login_id || "Admin",
       });
+
+      // 5b. Apply subscription plan or seed default entitlements
+      if (ownerData.plan_uuid) {
+        await planService.applyPlanToOwner(newOwner.own_uuid, ownerData.plan_uuid, {
+          own_start_date: subscriptionDates.own_start_date,
+          own_expiry_date: subscriptionDates.own_expiry_date,
+        });
+      } else {
+        const limits = ownerPermissionService.parseLimits(ownerData);
+        await ownerPermissionService.seedDefaultEntitlements(newOwner.own_id, newOwner.own_uuid, dbUrl, {
+          own_max_firms: limits.own_max_firms,
+          own_max_staff: limits.own_max_staff,
+          modules: ownerData.modules,
+          module_keys: ownerData.module_keys,
+        });
+      }
 
       // 6. Handle File Upload (Move from temp to owner-specific dir)
       if (req.file) {
@@ -174,13 +210,18 @@ class OwnerController {
 
       console.log(`✅  Owner created successfully: ${newOwner.own_uuid}`);
       
+      const entitlements = await ownerPermissionService.getEntitlements(newOwner.own_uuid);
+
       return res.status(201).json({
         message: "Owner created and database initialized successfully.",
-        data: sanitizeOwner(newOwner),
+        data: {
+          ...sanitizeOwner(newOwner),
+          entitlements,
+        },
       });
     } catch (error) {
       console.error("❌  Error creating owner:", error.message);
-      return res.status(500).json({ error: error.message });
+      return res.status(error.statusCode || 500).json({ error: error.message });
     }
   }
 
@@ -193,23 +234,25 @@ class OwnerController {
       const { uuid } = req.params;
       const updateData = req.body;
 
-      // 1. Resolve own_db from Master Database using uuid
       console.log(`🔍  Resolving db name for owner ${uuid} from Master DB...`);
-      const ownerRecord = await masterPrisma.owner.findUnique({
+      const ownerRecordFull = await masterPrisma.owner.findUnique({
         where: { own_uuid: uuid, own_is_deleted: false },
-        select: { own_id: true, own_db: true, own_profile_img: true }
+        select: {
+          own_id: true,
+          own_db: true,
+          own_profile_img: true,
+          own_start_date: true,
+          own_expiry_date: true,
+        },
       });
 
-      if (!ownerRecord) {
+      if (!ownerRecordFull) {
         return res.status(404).json({ error: "Owner not found in Master database." });
       }
 
-      const { own_db } = ownerRecord;
+      const { own_db, own_profile_img: existingProfileImg } = ownerRecordFull;
       console.log(`✨  Resolved database: ${own_db}`);
 
-      // Check for duplicates before updating (Master DB)
-
-      // Check for duplicates before updating (Master DB)
       const { own_email, own_login_id, own_mobile_no } = updateData;
       if (own_email || own_login_id || own_mobile_no) {
         const orConditions = [];
@@ -237,15 +280,31 @@ class OwnerController {
         }
       }
 
+      if (updateData.plan_uuid) {
+        await planService.applyPlanToOwner(uuid, updateData.plan_uuid, {
+          own_start_date: updateData.own_start_date,
+          own_expiry_date: updateData.own_expiry_date,
+        });
+        delete updateData.plan_uuid;
+      }
+
+      if (updateData.own_start_date !== undefined || updateData.own_expiry_date !== undefined) {
+        const subscriptionDates = resolveOwnerSubscriptionDates(updateData, {
+          existing: ownerRecordFull,
+        });
+        updateData.own_start_date = subscriptionDates.own_start_date;
+        updateData.own_expiry_date = subscriptionDates.own_expiry_date;
+      }
+
       // Handle File Upload for profile image
       if (req.file) {
         updateData.own_profile_img = await imageService.replaceSingleFile(
-          ownerRecord.own_id,
+          ownerRecordFull.own_id,
           "owner",
-          ownerRecord.own_id,
+          ownerRecordFull.own_id,
           req.file,
           "own_profile_img",
-          ownerRecord.own_profile_img
+          existingProfileImg
         );
       }
 
@@ -254,15 +313,22 @@ class OwnerController {
       const dbUrl = `${BASE_URL}/${own_db}`;
 
       console.log(`📝  Updating owner ${uuid} in database: ${own_db}`);
-      const updatedOwner = await ownerService.updateOwner(dbUrl, uuid, updateData);
+      const updatedOwner = Object.keys(updateData).length
+        ? await ownerService.updateOwner(dbUrl, uuid, updateData)
+        : await ownerService.getOwnerByUuid(uuid);
+
+      const entitlements = await ownerPermissionService.getEntitlements(uuid);
 
       return res.status(200).json({
         message: "Owner updated successfully.",
-        data: sanitizeOwner(updatedOwner),
+        data: {
+          ...sanitizeOwner(updatedOwner),
+          entitlements,
+        },
       });
     } catch (error) {
       console.error("❌  Error updating owner:", error.message);
-      return res.status(500).json({ error: error.message });
+      return res.status(error.statusCode || 500).json({ error: error.message });
     }
   }
 
@@ -341,40 +407,149 @@ class OwnerController {
   /**
    * POST /owner/:uuid/reset-password
    */
+  /**
+   * GET /owner/permissions/catalog
+   * Module catalog for super-admin (firm, staff, customer, finance, loan, customization).
+   */
+  async getPermissionCatalog(req, res) {
+    try {
+      const data = ownerPermissionService.getCatalog();
+      return res.status(200).json({
+        message: "Owner permission catalog fetched.",
+        data,
+      });
+    } catch (error) {
+      console.error("❌  Error fetching owner permission catalog:", error.message);
+      return res.status(500).json({ error: error.message });
+    }
+  }
+
+  /**
+   * GET /owner/:uuid/permissions
+   */
+  async getOwnerPermissions(req, res) {
+    try {
+      const entitlements = await ownerPermissionService.getEntitlements(req.params.uuid);
+      if (!entitlements) {
+        return res.status(404).json({ error: "Owner not found." });
+      }
+      return res.status(200).json({
+        message: "Owner entitlements fetched.",
+        data: entitlements,
+      });
+    } catch (error) {
+      console.error("❌  Error fetching owner permissions:", error.message);
+      return res.status(500).json({ error: error.message });
+    }
+  }
+
+  /**
+   * PATCH /owner/:uuid/permissions
+   * Set module permissions + firm/staff limits for an owner.
+   */
+  async updateOwnerPermissions(req, res) {
+    try {
+      const entitlements = await ownerPermissionService.updateEntitlements(
+        req.params.uuid,
+        req.body
+      );
+      return res.status(200).json({
+        message: "Owner entitlements updated.",
+        data: entitlements,
+      });
+    } catch (error) {
+      console.error("❌  Error updating owner permissions:", error.message);
+      return res.status(error.statusCode || 500).json({ error: error.message });
+    }
+  }
+
   async resetOwnerPassword(req, res) {
     try {
       const { uuid } = req.params;
-      const { new_password, confirm_password } = req.body;
-
-      if (!new_password || !confirm_password) {
-        return res.status(400).json({ error: "new_password and confirm_password are required." });
-      }
-
-      if (new_password !== confirm_password) {
-        return res.status(400).json({ error: "Passwords do not match." });
-      }
+      const { new_password, confirm_password, own_login_id } = req.body;
 
       const ownerRecord = await masterPrisma.owner.findUnique({
         where: { own_uuid: uuid, own_is_deleted: false },
-        select: { own_db: true },
+        select: {
+          own_id: true,
+          own_db: true,
+          own_login_id: true,
+          own_email: true,
+          own_mobile_no: true,
+        },
       });
 
       if (!ownerRecord) {
         return res.status(404).json({ error: "Owner not found in Master database." });
       }
 
-      const dbUrl = `${BASE_URL}/${ownerRecord.own_db}`;
-      await ownerService.updateOwner(dbUrl, uuid, {
-        own_password: new_password,
+      const updateData = {
         own_updated_by: req.admin?.admin_login_id || "Admin",
-      });
+      };
+      let loginUpdated = false;
+      let passwordUpdated = false;
+
+      if (own_login_id !== undefined) {
+        const loginId = String(own_login_id).trim();
+        if (!loginId) {
+          return res.status(400).json({ error: "Login ID is required." });
+        }
+
+        if (loginId !== ownerRecord.own_login_id) {
+          const duplicateOwner = await masterPrisma.owner.findFirst({
+            where: {
+              OR: [{ own_login_id: loginId }],
+              NOT: { own_uuid: uuid },
+              own_is_deleted: false,
+            },
+          });
+
+          if (duplicateOwner) {
+            return res.status(409).json({ error: "Login ID already exists in another record." });
+          }
+
+          updateData.own_login_id = loginId;
+          loginUpdated = true;
+        }
+      }
+
+      const hasPasswordInput = new_password || confirm_password;
+      if (hasPasswordInput) {
+        if (!new_password || !confirm_password) {
+          return res.status(400).json({ error: "new_password and confirm_password are required." });
+        }
+
+        if (new_password !== confirm_password) {
+          return res.status(400).json({ error: "Passwords do not match." });
+        }
+
+        updateData.own_password = new_password;
+        passwordUpdated = true;
+      }
+
+      if (!loginUpdated && !passwordUpdated) {
+        return res.status(400).json({ error: "No login ID or password changes to save." });
+      }
+
+      const dbUrl = `${BASE_URL}/${ownerRecord.own_db}`;
+      const updatedOwner = await ownerService.updateOwner(dbUrl, uuid, updateData);
+
+      let message = "Owner account updated successfully.";
+      if (loginUpdated && passwordUpdated) {
+        message = "Owner login ID and password updated successfully.";
+      } else if (loginUpdated) {
+        message = "Owner login ID updated successfully.";
+      } else if (passwordUpdated) {
+        message = "Owner password reset successfully.";
+      }
 
       return res.status(200).json({
-        message: "Owner password reset successfully.",
+        message,
+        data: sanitizeOwner(updatedOwner),
       });
     } catch (error) {
       console.error("❌  Error resetting owner password:", error.message);
-      return res.status(500).json({ error: error.message });
+      return res.status(error.statusCode || 500).json({ error: error.message });
     }
   }
 }

@@ -2,6 +2,7 @@
 
 const {
   getAllPermissionKeys,
+  getAllOwnerPermissionKeys,
   keysToPermissionMatrix,
   emptyPermissionMatrix,
 } = require("../../prisma/seeder/permission-seeder");
@@ -14,19 +15,16 @@ const isOwner = (user) => user?.role === ROLE_OWNER;
 
 const hasPermission = (user, permissionKey) => {
   if (!user) return false;
-  if (isOwner(user)) return true;
   if (!permissionKey) return false;
   const perms = user.permissions || [];
   return perms.includes(permissionKey);
 };
 
 const hasAnyPermission = (user, permissionKeys = []) => {
-  if (isOwner(user)) return true;
   return permissionKeys.some((key) => hasPermission(user, key));
 };
 
 const resolveUserPermissions = (user) => {
-  if (isOwner(user)) return getAllPermissionKeys();
   return Array.isArray(user?.permissions) ? user.permissions : [];
 };
 
@@ -55,4 +53,5 @@ module.exports = {
   resolveUserPermissions,
   buildPermissionPayload,
   getAllPermissionKeys,
+  getAllOwnerPermissionKeys,
 };

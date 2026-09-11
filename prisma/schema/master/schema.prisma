@@ -36,6 +36,7 @@ model Admin {
   admin_email              String    @unique
   admin_login_id           String    @unique
   admin_password           String
+  admin_company_name       String?
 
   // ===============================
   // Authentication Details
@@ -96,6 +97,31 @@ enum OwnerStatus {
   Inactive
 }
 
+enum PlanStatus {
+  Active
+  Inactive
+}
+
+enum PlanBillingCycle {
+  Monthly
+  Quarterly
+  Yearly
+  Lifetime
+}
+
+enum AnnouncementStatus {
+  Active
+  Inactive
+}
+
+enum AnnouncementType {
+  Notice
+  Alert
+  Warning
+  Celebration
+  Congratulation
+}
+
 model Owner {
 
   // ===============================
@@ -118,8 +144,16 @@ model Owner {
   own_login_id         String    @unique
   own_password         String
   own_status           OwnerStatus @default(Active)
-  own_profile_img      Json?        
-  
+  own_profile_img      Json?
+
+  // ===============================
+  // Entitlements (set by super-admin or subscription plan)
+  // ===============================
+  own_plan_id          Int?
+  own_max_firms        Int?
+  own_max_staff        Int?
+  own_start_date       DateTime?
+  own_expiry_date      DateTime?
 
   // ===============================
   // Authentication Details
@@ -155,8 +189,98 @@ model Owner {
 
 
   // ===============================
+  // Relations
+  // ===============================
+  plan             Plan?              @relation(fields: [own_plan_id], references: [plan_id], onDelete: SetNull)
+  ownerPermissions OwnerPermission[]
+
+  // ===============================
   // Indexes
   // ===============================
   @@index([own_email])
   @@index([own_login_id])
+  @@index([own_plan_id])
+}
+
+// =============================================================================
+// Plan — subscription packages sold to jewelry shop owners
+// =============================================================================
+model Plan {
+  plan_id              Int              @id @default(autoincrement())
+  plan_uuid            String           @unique @default(uuid())
+  plan_name            String
+  plan_code            String           @unique
+  plan_description     String?          @db.Text
+  plan_price           Decimal          @db.Decimal(12, 2)
+  plan_offer_price     Decimal?         @db.Decimal(12, 2)
+  plan_currency        String           @default("INR")
+  plan_billing_cycle   PlanBillingCycle @default(Yearly)
+  plan_duration_days   Int?
+  plan_max_firms       Int              @default(1)
+  plan_max_staff       Int              @default(10)
+  plan_modules         Json
+  plan_features        Json?
+  plan_image           Json?
+  plan_is_popular      Boolean          @default(false)
+  plan_sort_order      Int              @default(0)
+  plan_status          PlanStatus       @default(Active)
+
+  plan_created_at      DateTime         @default(now())
+  plan_created_by      String?
+  plan_updated_at      DateTime         @updatedAt
+  plan_updated_by      String?
+  plan_deleted_at      DateTime?
+  plan_deleted_by      String?
+  plan_is_deleted      Boolean          @default(false)
+
+  owners               Owner[]
+
+  @@index([plan_status])
+  @@index([plan_sort_order])
+}
+
+// =============================================================================
+// Announcement — news / updates from super-admin to jewelry shop owners
+// =============================================================================
+model Announcement {
+  ann_id          Int                @id @default(autoincrement())
+  ann_uuid        String             @unique @default(uuid())
+  ann_title       String
+  ann_body        String             @db.Text
+  ann_type        AnnouncementType   @default(Notice)
+  ann_status      AnnouncementStatus @default(Active)
+  ann_is_pinned   Boolean            @default(false)
+  ann_sort_order  Int                @default(0)
+  ann_publish_at  DateTime           @default(now())
+  ann_expires_at  DateTime?
+
+  ann_created_at  DateTime           @default(now())
+  ann_created_by  String?
+  ann_updated_at  DateTime           @updatedAt
+  ann_updated_by  String?
+  ann_deleted_at  DateTime?
+  ann_deleted_by  String?
+  ann_is_deleted  Boolean            @default(false)
+
+  @@index([ann_status])
+  @@index([ann_publish_at])
+  @@index([ann_sort_order])
+}
+
+// =============================================================================
+// OwnerPermission — module access granted by super-admin to owner
+// =============================================================================
+model OwnerPermission {
+  op_id         Int      @id @default(autoincrement())
+  op_own_id     Int
+  op_perm_key   String
+  op_granted    Boolean  @default(true)
+  op_created_at DateTime @default(now())
+  op_updated_at DateTime @updatedAt
+
+  owner Owner @relation(fields: [op_own_id], references: [own_id], onDelete: Cascade)
+
+  @@unique([op_own_id, op_perm_key])
+  @@index([op_own_id])
+  @@index([op_perm_key])
 }

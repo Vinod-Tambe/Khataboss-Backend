@@ -45,6 +45,7 @@ class AuthController {
       return res.status(statusCode).json({
         success: false,
         statusCode: statusCode,
+        code: error.code,
         message: error.message || "Invalid credentials.",
       });
     }
@@ -76,6 +77,7 @@ class AuthController {
       return res.status(statusCode).json({
         success: false,
         statusCode: statusCode,
+        code: error.code,
         message: error.message || "Something went wrong.",
       });
     }
@@ -115,6 +117,7 @@ class AuthController {
       return res.status(statusCode).json({
         success: false,
         statusCode: statusCode,
+        code: error.code,
         message: error.message || "Invalid OTP or credentials.",
       });
     }

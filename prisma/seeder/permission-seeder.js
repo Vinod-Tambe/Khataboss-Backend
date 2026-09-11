@@ -8,6 +8,11 @@ const PERMISSIONS_PATH = path.join(__dirname, "../core-data/permissions.json");
 
 let cachedCatalog = null;
 let cachedKeys = null;
+let cachedOwnerCatalog = null;
+let cachedOwnerKeys = null;
+
+/** Modules excluded from super-admin → owner entitlements (customers managed without RBAC). */
+const OWNER_EXCLUDED_MODULES = new Set(["user"]);
 
 const loadPermissionCatalog = () => {
   if (cachedCatalog) return cachedCatalog;
@@ -15,6 +20,18 @@ const loadPermissionCatalog = () => {
   cachedCatalog = JSON.parse(raw);
   cachedKeys = cachedCatalog.map((p) => p.perm_key);
   return cachedCatalog;
+};
+
+/**
+ * Permission catalog assignable to owners by super-admin (excludes customer/user module).
+ */
+const loadOwnerPermissionCatalog = () => {
+  if (cachedOwnerCatalog) return cachedOwnerCatalog;
+  cachedOwnerCatalog = loadPermissionCatalog().filter(
+    (p) => !OWNER_EXCLUDED_MODULES.has(p.perm_module)
+  );
+  cachedOwnerKeys = cachedOwnerCatalog.map((p) => p.perm_key);
+  return cachedOwnerCatalog;
 };
 
 /**
@@ -60,6 +77,14 @@ const getAllPermissionKeys = () => {
 };
 
 /**
+ * All permission keys assignable to owners (excludes user/customer module).
+ */
+const getAllOwnerPermissionKeys = () => {
+  loadOwnerPermissionCatalog();
+  return cachedOwnerKeys || [];
+};
+
+/**
  * Convert flat permission keys into the nested UI matrix used by StaffDetails.
  */
 const keysToPermissionMatrix = (keys = []) => {
@@ -76,12 +101,13 @@ const keysToPermissionMatrix = (keys = []) => {
 /**
  * Convert nested UI matrix into flat permission keys.
  */
-const permissionMatrixToKeys = (matrix = {}) => {
-  const catalog = loadPermissionCatalog();
+const permissionMatrixToKeys = (matrix = {}, { ownerScope = false } = {}) => {
+  const catalog = ownerScope ? loadOwnerPermissionCatalog() : loadPermissionCatalog();
   const validKeys = new Set(catalog.map((p) => p.perm_key));
   const keys = [];
 
   for (const [module, actions] of Object.entries(matrix || {})) {
+    if (ownerScope && OWNER_EXCLUDED_MODULES.has(module)) continue;
     for (const [action, enabled] of Object.entries(actions || {})) {
       if (!enabled) continue;
       const key = `${module}.${action}`;
@@ -104,11 +130,28 @@ const emptyPermissionMatrix = () => {
   return matrix;
 };
 
+const emptyOwnerPermissionMatrix = () => {
+  const matrix = {};
+  for (const item of loadOwnerPermissionCatalog()) {
+    if (!matrix[item.perm_module]) matrix[item.perm_module] = {};
+    matrix[item.perm_module][item.perm_action] = false;
+  }
+  return matrix;
+};
+
+const ownerPermissionMatrixToKeys = (matrix = {}) =>
+  permissionMatrixToKeys(matrix, { ownerScope: true });
+
 module.exports = {
   seedPermissions,
   getAllPermissionKeys,
+  getAllOwnerPermissionKeys,
   keysToPermissionMatrix,
   permissionMatrixToKeys,
+  ownerPermissionMatrixToKeys,
   emptyPermissionMatrix,
+  emptyOwnerPermissionMatrix,
   loadPermissionCatalog,
+  loadOwnerPermissionCatalog,
+  OWNER_EXCLUDED_MODULES,
 };

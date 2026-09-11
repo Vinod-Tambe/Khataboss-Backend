@@ -1,6 +1,7 @@
 "use strict";
 
 const staffService = require("../service/staff.service");
+const ownerPermissionService = require("../../owner/services/owner-permission.service");
 const imageService = require("../../../utils/image.service");
 const { stripArrayFileFields, applyOtherImagesUpdate } = require("../../../utils/otherImages.helper");
 const { BASE_URL } = require("../../../config/db");
@@ -136,7 +137,12 @@ class StaffController {
         return res.status(409).json(uniqueError);
       }
 
-      const permissionKeys = this.parsePermissionInput(req.body);
+      await ownerPermissionService.assertStaffLimit(dbUrl, req.user.own_uuid);
+
+      const permissionKeys = await ownerPermissionService.filterStaffPermissionKeys(
+        req.user.own_id,
+        this.parsePermissionInput(req.body)
+      );
       const plainPassword = staffData.staff_password;
       const created = await staffService.createStaff(dbUrl, staffData, permissionKeys);
       const fullLogin = `${req.user.own_login_id}+${created.staff_login_id}`;
@@ -422,7 +428,10 @@ class StaffController {
         return res.status(404).json({ error: "Staff not found." });
       }
 
-      const keys = this.parsePermissionInput(req.body);
+      const keys = await ownerPermissionService.filterStaffPermissionKeys(
+        req.user.own_id,
+        this.parsePermissionInput(req.body)
+      );
       await staffService.setStaffPermissions(dbUrl, existing.staff_id, keys);
       const perms = await staffService.getStaffPermissionMatrix(dbUrl, existing.staff_id);
 
@@ -471,7 +480,12 @@ class StaffController {
   async getPermissionCatalog(req, res) {
     try {
       const dbUrl = this.getDbUrl(req.user.own_db);
-      const data = await staffService.getPermissionCatalog(dbUrl);
+      const allowedKeys = new Set(
+        await ownerPermissionService.resolvePermissionKeys(req.user.own_id)
+      );
+      const data = (await staffService.getPermissionCatalog(dbUrl)).filter((item) =>
+        allowedKeys.has(item.perm_key)
+      );
       return res.status(200).json({ message: "Permission catalog.", data });
     } catch (error) {
       console.error("❌  getPermissionCatalog:", error.message);

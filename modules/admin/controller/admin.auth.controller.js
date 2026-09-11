@@ -50,6 +50,41 @@ class AdminAuthController {
       });
     }
   }
+
+  async updateProfile(req, res) {
+    try {
+      const profile = await adminAuthService.updateProfile(
+        req.admin.admin_uuid,
+        req.body || {}
+      );
+      return res.status(200).json({
+        success: true,
+        message: "Admin profile updated successfully.",
+        data: profile,
+      });
+    } catch (error) {
+      return res.status(error.statusCode || 500).json({
+        success: false,
+        message: error.message || "Failed to update admin profile.",
+      });
+    }
+  }
+
+  async branding(req, res) {
+    try {
+      const branding = await adminAuthService.getBranding();
+      return res.status(200).json({
+        success: true,
+        message: "Platform branding fetched successfully.",
+        data: branding,
+      });
+    } catch (error) {
+      return res.status(error.statusCode || 500).json({
+        success: false,
+        message: error.message || "Failed to load platform branding.",
+      });
+    }
+  }
 }
 
 module.exports = new AdminAuthController();

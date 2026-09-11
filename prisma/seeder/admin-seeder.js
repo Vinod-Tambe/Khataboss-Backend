@@ -55,6 +55,7 @@ const seedAdmin = async () => {
         admin_mobile_no:    adminData.admin_mobile_no ?? null,
         admin_email:        adminData.admin_email,
         admin_login_id:     adminData.admin_login_id,
+        admin_company_name: adminData.admin_company_name ?? null,
         admin_password:     hashedPassword,
         admin_login_status: adminData.admin_login_status ?? false,
         admin_address:      adminData.admin_address ?? null,
@@ -157,4 +158,6 @@ const seedAllTenantsSerialNumbers = async () => {
   }
 };
 
-module.exports = { seedAdmin, seedDbSeries, seedAllTenantsSerialNumbers };
+const { seedPlans } = require("./plan-seeder");
+
+module.exports = { seedAdmin, seedDbSeries, seedPlans, seedAllTenantsSerialNumbers };

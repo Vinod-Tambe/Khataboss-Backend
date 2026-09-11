@@ -17,6 +17,19 @@ class OwnerService {
     return await masterPrisma.owner.findMany({
       where: { own_is_deleted: false },
       orderBy: { own_created_at: "desc" },
+      include: {
+        plan: {
+          select: {
+            plan_uuid: true,
+            plan_name: true,
+            plan_code: true,
+            plan_price: true,
+            plan_offer_price: true,
+            plan_billing_cycle: true,
+            plan_status: true,
+          },
+        },
+      },
     });
   }
 
@@ -26,6 +39,21 @@ class OwnerService {
   async getOwnerByUuid(ownUuid) {
     return await masterPrisma.owner.findFirst({
       where: { own_uuid: ownUuid, own_is_deleted: false },
+      include: {
+        plan: {
+          select: {
+            plan_uuid: true,
+            plan_name: true,
+            plan_code: true,
+            plan_price: true,
+            plan_offer_price: true,
+            plan_billing_cycle: true,
+            plan_status: true,
+            plan_max_firms: true,
+            plan_max_staff: true,
+          },
+        },
+      },
     });
   }
 
@@ -42,6 +70,10 @@ class OwnerService {
       const hashedPassword = await hashPassword(ownerData.own_password);
       const finalOwnerData = {
         own_db: ownerData.own_db,
+        own_max_firms: ownerData.own_max_firms ?? null,
+        own_max_staff: ownerData.own_max_staff ?? null,
+        own_start_date: ownerData.own_start_date ?? null,
+        own_expiry_date: ownerData.own_expiry_date ?? null,
         own_first_name: ownerData.own_first_name,
         own_middle_name: ownerData.own_middle_name,
         own_last_name: ownerData.own_last_name,

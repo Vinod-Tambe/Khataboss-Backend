@@ -6,6 +6,7 @@
     "admin_mobile_no": "9876543210",
     "admin_email": "vinod@example.com",
     "admin_login_id": "vinod_admin",
+    "admin_company_name": "KhataBoss",
     "admin_password": "Pass@123",
     "admin_login_status": false,
     "admin_address": "Pune Station Road",
