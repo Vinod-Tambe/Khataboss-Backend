@@ -13,6 +13,12 @@ const websiteRoot = path.join(__dirname, "..", "public", "website");
 function mountWebsite(app) {
   app.use("/assets", express.static(path.join(websiteRoot, "assets"), { maxAge: "1d" }));
 
+  const publicBaseUrl = (
+    process.env.API_PUBLIC_URL ||
+    process.env.WEBSITE_PUBLIC_URL ||
+    "https://khataboss.in"
+  ).replace(/\/$/, "");
+
   const sendPage = (filename) => (req, res, next) => {
     const filePath = path.join(websiteRoot, filename);
     fs.access(filePath, fs.constants.R_OK, (err) => {
@@ -22,11 +28,43 @@ function mountWebsite(app) {
   };
 
   app.get("/robots.txt", (req, res) => {
-    res.type("text/plain").sendFile(path.join(websiteRoot, "robots.txt"));
+    res.type("text/plain").send(
+      `User-agent: *\nAllow: /\nDisallow: /api/\n\nSitemap: ${publicBaseUrl}/sitemap.xml\n`
+    );
   });
 
   app.get("/sitemap.xml", (req, res) => {
-    res.type("application/xml").sendFile(path.join(websiteRoot, "sitemap.xml"));
+    const urls = [
+      "",
+      "/about",
+      "/features",
+      "/contact",
+      "/blog",
+      "/blog/girvi-loan-digitization",
+      "/blog/daybook-best-practices",
+    ];
+    const body = urls
+      .map(
+        (p) =>
+          `  <url><loc>${publicBaseUrl}${p || "/"}</loc><changefreq>weekly</changefreq></url>`
+      )
+      .join("\n");
+    res.type("application/xml").send(
+      `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${body}\n</urlset>\n`
+    );
+  });
+
+  /** Confirm website + Node are reachable behind nginx (optional ops check) */
+  app.get("/health/website", (req, res) => {
+    const indexPath = path.join(websiteRoot, "index.html");
+    fs.access(indexPath, fs.constants.R_OK, (err) => {
+      res.json({
+        ok: !err,
+        websiteRoot,
+        publicBaseUrl,
+        indexExists: !err,
+      });
+    });
   });
 
   app.get("/", sendPage("index.html"));
