@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Blog | KhataBoss Finance Insights</title>
+  <meta name="description" content="Articles on girvi digitization, daybook best practices, loan software, and finance operations from the KhataBoss team." />
+  <link rel="canonical" href="http://localhost:9000/blog" />
+  <link rel="icon" href="/assets/images/logo.svg" type="image/svg+xml" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/css/site.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="/"><img src="/assets/images/logo.svg" width="42" height="42" alt="KhataBoss" /> KhataBoss</a>
+      <nav class="nav-desktop" aria-label="Primary">
+        <a href="/">Home</a>
+        <a href="/about">About</a>
+        <a href="/features">Features</a>
+        <a href="/blog" class="is-active">Blog</a>
+        <a href="/contact">Contact</a>
+      </nav>
+      <div class="header-actions">
+        <a class="btn btn-primary" href="https://khataboss.com">Software Login</a>
+        <button type="button" class="nav-toggle" aria-label="Open menu" aria-expanded="false">☰</button>
+      </div>
+    </div>
+    <nav class="mobile-nav container" aria-label="Mobile">
+      <a href="/">Home</a><a href="/about">About</a><a href="/features">Features</a><a href="/blog">Blog</a><a href="/contact">Contact</a>
+      <a class="login-highlight" href="https://khataboss.com">Software Login</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="page-hero">
+      <div class="container">
+        <span class="section-label">Blog</span>
+        <h1>Insights for loan desks &amp; finance owners</h1>
+        <p>Practical guides on digitizing girvi operations, balancing daybooks, and choosing the right software.</p>
+      </div>
+    </div>
+
+    <section>
+      <div class="container blog-grid">
+        <article class="blog-card" data-aos>
+          <img src="https://images.unsplash.com/photo-1554224311-beee415c201f?w=800&q=80" alt="Gold jewellery collateral for loan business" width="800" height="480" loading="lazy" />
+          <div class="blog-card-body">
+            <p class="meta">Sep 2026 · 6 min read</p>
+            <h3><a href="/blog/girvi-loan-digitization">How to digitize girvi loan operations without disrupting trust</a></h3>
+            <p style="color:var(--text-muted);font-size:0.9rem;margin:0">Step-by-step adoption for counters still running paper khatas.</p>
+          </div>
+        </article>
+        <article class="blog-card" data-aos>
+          <img src="https://images.unsplash.com/photo-1553729459-efe14ef6055d?w=800&q=80" alt="Accounting ledger and calculator on desk" width="800" height="480" loading="lazy" />
+          <div class="blog-card-body">
+            <p class="meta">Aug 2026 · 5 min read</p>
+            <h3><a href="/blog/daybook-best-practices">Daybook best practices for multi-branch finance teams</a></h3>
+            <p style="color:var(--text-muted);font-size:0.9rem;margin:0">Close cash daily with audit-friendly journals.</p>
+          </div>
+        </article>
+        <article class="blog-card" data-aos>
+          <img src="/assets/images/hero-dashboard.svg" alt="KhataBoss software dashboard" width="640" height="400" loading="lazy" />
+          <div class="blog-card-body">
+            <p class="meta">Product · Features</p>
+            <h3><a href="/features">Explore full KhataBoss feature list</a></h3>
+            <p style="color:var(--text-muted);font-size:0.9rem;margin:0">Modules for loans, messaging, reports, and permissions.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-bottom" style="border:none;padding-top:0">
+      <span>© <span id="y"></span> KhataBoss</span>
+    </div>
+  </footer>
+  <script>document.getElementById("y").textContent = new Date().getFullYear();</script>
+  <script src="/assets/js/site.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Contact KhataBoss | Demo & Support</title>
+  <meta name="description" content="Contact KhataBoss for a free demo, sales enquiry, or product support. Schedule setup for loan and finance software." />
+  <link rel="canonical" href="http://localhost:9000/contact" />
+  <link rel="icon" href="/assets/images/logo.svg" type="image/svg+xml" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/css/site.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="/"><img src="/assets/images/logo.svg" width="42" height="42" alt="KhataBoss" /> KhataBoss</a>
+      <nav class="nav-desktop" aria-label="Primary">
+        <a href="/">Home</a>
+        <a href="/about">About</a>
+        <a href="/features">Features</a>
+        <a href="/blog">Blog</a>
+        <a href="/contact" class="is-active">Contact</a>
+      </nav>
+      <div class="header-actions">
+        <a class="btn btn-primary" href="https://khataboss.com">Software Login</a>
+        <button type="button" class="nav-toggle" aria-label="Open menu" aria-expanded="false">☰</button>
+      </div>
+    </div>
+    <nav class="mobile-nav container" aria-label="Mobile">
+      <a href="/">Home</a><a href="/about">About</a><a href="/features">Features</a><a href="/blog">Blog</a><a href="/contact">Contact</a>
+      <a class="login-highlight" href="https://khataboss.com">Software Login</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="page-hero">
+      <div class="container">
+        <span class="section-label">Contact</span>
+        <h1>Book a free demo or talk to our team</h1>
+        <p>Share your business type and branch count—we will tailor a walkthrough of loans, daybook, and owner reports.</p>
+      </div>
+    </div>
+
+    <section>
+      <div class="container two-col">
+        <div class="content-block" data-aos>
+          <h2>Reach us</h2>
+          <p><strong>Website:</strong> <a href="https://khataboss.com">khataboss.com</a> (software login)</p>
+          <p><strong>Product:</strong> Loan &amp; finance ERP (cloud + desktop)</p>
+          <p style="margin-top:1.5rem">Prefer WhatsApp or phone? Mention it in the form—we will reply on your preferred channel during business hours.</p>
+        </div>
+        <div class="content-block" data-aos>
+          <h2>Send a message</h2>
+          <form id="contact-form" class="contact-form" action="#" method="post">
+            <div class="form-row">
+              <div>
+                <label for="name">Full name</label>
+                <input id="name" name="name" type="text" required autocomplete="name" />
+              </div>
+              <div>
+                <label for="phone">Phone / WhatsApp</label>
+                <input id="phone" name="phone" type="tel" required autocomplete="tel" />
+              </div>
+            </div>
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" required autocomplete="email" />
+            <label for="business">Business type</label>
+            <select id="business" name="business">
+              <option>Girvi / Pawnbroker</option>
+              <option>Jewellery finance</option>
+              <option>Money lender</option>
+              <option>Other finance</option>
+            </select>
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="4" required placeholder="Tell us about branches, users, and current software…"></textarea>
+            <button type="submit" class="btn btn-primary">Submit enquiry</button>
+            <p class="form-success" role="status">Thank you! Your enquiry has been recorded. Our team will contact you shortly.</p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-bottom" style="border:none;padding-top:0">
+      <span>© <span id="y"></span> KhataBoss</span>
+    </div>
+  </footer>
+  <script>document.getElementById("y").textContent = new Date().getFullYear();</script>
+  <script src="/assets/js/site.js" defer></script>
+</body>
+</html>

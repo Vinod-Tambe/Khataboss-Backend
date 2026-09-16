@@ -30,8 +30,11 @@ const startServer = async () => {
     // Step 3: Start Express server
     const { isR2Configured } = require("./config/r2");
     const { isCloudflareAccessEnabled } = require("./config/storage");
-    app.listen(PORT, () => {
-      console.log(`🚀  Server running on port ${PORT}`);
+    const HOST = process.env.APP_HOST || "0.0.0.0";
+    app.listen(PORT, HOST, () => {
+      console.log(`🚀  Server running at http://localhost:${PORT}`);
+      console.log(`📄  Website: http://localhost:${PORT}/`);
+      console.log(`📚  Swagger: http://localhost:${PORT}/api/v1/docs`);
       if (!isCloudflareAccessEnabled()) {
         console.log("🚫  Image storage: disabled (CLOUDFLARE_ACCESS=false)");
       } else if (isR2Configured()) {

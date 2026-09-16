@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" role="img" aria-label="KhataBoss dashboard preview">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f4f7f6"/>
+      <stop offset="100%" stop-color="#ffffff"/>
+    </linearGradient>
+  </defs>
+  <rect width="640" height="400" rx="12" fill="url(#bg)" stroke="#dee2e6"/>
+  <rect x="16" y="16" width="608" height="48" rx="8" fill="#ffffff" stroke="#e6e6f0"/>
+  <circle cx="40" cy="40" r="8" fill="#4f9081"/>
+  <rect x="60" y="32" width="120" height="16" rx="4" fill="#e9eff9"/>
+  <rect x="16" y="80" width="140" height="304" rx="8" fill="#ffffff" stroke="#eee"/>
+  <rect x="32" y="100" width="108" height="12" rx="3" fill="#e5e7eb"/>
+  <rect x="32" y="124" width="90" height="12" rx="3" fill="#4f9081" opacity="0.5"/>
+  <rect x="32" y="148" width="100" height="12" rx="3" fill="#e5e7eb"/>
+  <rect x="168" y="80" width="456" height="140" rx="8" fill="#ffffff" stroke="#eee"/>
+  <text x="188" y="110" fill="#6b7280" font-family="sans-serif" font-size="12">Active Loans Overview</text>
+  <rect x="188" y="125" width="80" height="48" rx="6" fill="#edf4ea" stroke="#4f9081" stroke-width="1"/>
+  <rect x="280" y="125" width="80" height="48" rx="6" fill="#e9eff9"/>
+  <rect x="372" y="125" width="80" height="48" rx="6" fill="#dfecff"/>
+  <rect x="168" y="236" width="220" height="148" rx="8" fill="#ffffff" stroke="#eee"/>
+  <polyline points="188,350 220,300 260,320 300,260 340,280 380,220" fill="none" stroke="#4f9081" stroke-width="3"/>
+  <rect x="404" y="236" width="220" height="148" rx="8" fill="#ffffff" stroke="#eee"/>
+  <rect x="424" y="260" width="24" height="100" rx="4" fill="#4f9081" opacity="0.65"/>
+  <rect x="456" y="290" width="24" height="70" rx="4" fill="#cbd5e1"/>
+  <rect x="488" y="270" width="24" height="90" rx="4" fill="#5cae9d" opacity="0.5"/>
+  <rect x="520" y="310" width="24" height="50" rx="4" fill="#cbd5e1"/>
+  <rect x="552" y="250" width="24" height="110" rx="4" fill="#4f9081" opacity="0.35"/>
+</svg>

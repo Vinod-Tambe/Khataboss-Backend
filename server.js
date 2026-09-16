@@ -35,6 +35,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
 
+// ─── Public marketing website (SEO HTML on same port as API) ─────────────────
+const { mountWebsite } = require("./routes/website.routes");
+mountWebsite(app);
+
 // ─── Swagger Documentation ───────────────────────────────────────────────────
 app.use(
   "/api/v1/docs",
@@ -88,5 +92,16 @@ app.use("/api/v1", v1Router);
 
 const uploadErrorHandler = require("./middlewares/uploadError.middleware");
 app.use(uploadErrorHandler);
+
+// Unknown page → marketing 404 (API clients use /api/v1/*)
+app.use((req, res, next) => {
+  if (req.path.startsWith("/api/")) {
+    return res.status(404).json({ success: false, message: "API route not found." });
+  }
+  const notFound = path.join(__dirname, "public", "website", "404.html");
+  res.status(404).sendFile(notFound, (err) => {
+    if (err) next();
+  });
+});
 
 module.exports = app;
