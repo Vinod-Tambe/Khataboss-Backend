@@ -122,6 +122,49 @@ enum AnnouncementType {
   Congratulation
 }
 
+enum SupportTicketPriority {
+  Low
+  Medium
+  High
+  Urgent
+}
+
+enum SupportTicketOwnerStatus {
+  Sent
+  Review
+  InDiscussion
+  Development
+  Testing
+  Done
+  Delivered
+}
+
+enum SupportTicketAdminStatus {
+  Backlog
+  Todo
+  InProgress
+  DoneOnLocal
+  ReadyForTesting
+  Done
+  Delivered
+  Cancelled
+}
+
+enum SupportCommentAuthorRole {
+  Owner
+  Admin
+}
+
+enum SupportTicketCommentKind {
+  Message
+  History
+}
+
+enum SupportCommentAudience {
+  Both
+  Admin
+}
+
 model Owner {
 
   // ===============================
@@ -193,6 +236,7 @@ model Owner {
   // ===============================
   plan             Plan?              @relation(fields: [own_plan_id], references: [plan_id], onDelete: SetNull)
   ownerPermissions OwnerPermission[]
+  supportTickets   SupportTicket[]
 
   // ===============================
   // Indexes
@@ -283,4 +327,56 @@ model OwnerPermission {
   @@unique([op_own_id, op_perm_key])
   @@index([op_own_id])
   @@index([op_perm_key])
+}
+
+// =============================================================================
+// Support — owner tickets to super-admin
+// =============================================================================
+model SupportTicket {
+  st_id                   Int                      @id @default(autoincrement())
+  st_uuid                 String                   @unique @default(uuid())
+  st_own_id               Int
+  st_title                String
+  st_body                 String                   @db.Text
+  st_priority             SupportTicketPriority    @default(Medium)
+  st_images               Json?
+  st_owner_status         SupportTicketOwnerStatus @default(Sent)
+  st_admin_status         SupportTicketAdminStatus @default(Todo)
+  st_expected_delivery_at DateTime?
+
+  st_created_at           DateTime                 @default(now())
+  st_created_by           String?
+  st_updated_at           DateTime                 @updatedAt
+  st_updated_by           String?
+  st_deleted_at           DateTime?
+  st_deleted_by           String?
+  st_is_deleted           Boolean                  @default(false)
+
+  owner    Owner                 @relation(fields: [st_own_id], references: [own_id], onDelete: Cascade)
+  comments SupportTicketComment[]
+
+  @@index([st_own_id])
+  @@index([st_owner_status])
+  @@index([st_admin_status])
+  @@index([st_created_at])
+}
+
+model SupportTicketComment {
+  stc_id            Int                      @id @default(autoincrement())
+  stc_uuid          String                   @unique @default(uuid())
+  st_st_id          Int
+  stc_author_role   SupportCommentAuthorRole
+  stc_author_uuid   String
+  stc_author_name   String
+  stc_kind          SupportTicketCommentKind @default(Message)
+  stc_audience      SupportCommentAudience   @default(Both)
+  stc_body          String                   @db.Text
+  stc_images        Json?
+  stc_created_at    DateTime                 @default(now())
+  stc_updated_at    DateTime                 @updatedAt
+
+  ticket SupportTicket @relation(fields: [st_st_id], references: [st_id], onDelete: Cascade)
+
+  @@index([st_st_id])
+  @@index([stc_created_at])
 }

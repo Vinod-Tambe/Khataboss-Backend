@@ -43,6 +43,16 @@ export type Announcement = $Result.DefaultSelection<Prisma.$AnnouncementPayload>
  * 
  */
 export type OwnerPermission = $Result.DefaultSelection<Prisma.$OwnerPermissionPayload>
+/**
+ * Model SupportTicket
+ * 
+ */
+export type SupportTicket = $Result.DefaultSelection<Prisma.$SupportTicketPayload>
+/**
+ * Model SupportTicketComment
+ * 
+ */
+export type SupportTicketComment = $Result.DefaultSelection<Prisma.$SupportTicketCommentPayload>
 
 /**
  * Enums
@@ -92,6 +102,67 @@ export const AnnouncementStatus: {
 
 export type AnnouncementStatus = (typeof AnnouncementStatus)[keyof typeof AnnouncementStatus]
 
+
+export const SupportTicketPriority: {
+  Low: 'Low',
+  Medium: 'Medium',
+  High: 'High',
+  Urgent: 'Urgent'
+};
+
+export type SupportTicketPriority = (typeof SupportTicketPriority)[keyof typeof SupportTicketPriority]
+
+
+export const SupportTicketOwnerStatus: {
+  Sent: 'Sent',
+  Review: 'Review',
+  InDiscussion: 'InDiscussion',
+  Development: 'Development',
+  Testing: 'Testing',
+  Done: 'Done',
+  Delivered: 'Delivered'
+};
+
+export type SupportTicketOwnerStatus = (typeof SupportTicketOwnerStatus)[keyof typeof SupportTicketOwnerStatus]
+
+
+export const SupportTicketAdminStatus: {
+  Backlog: 'Backlog',
+  Todo: 'Todo',
+  InProgress: 'InProgress',
+  DoneOnLocal: 'DoneOnLocal',
+  ReadyForTesting: 'ReadyForTesting',
+  Done: 'Done',
+  Delivered: 'Delivered',
+  Cancelled: 'Cancelled'
+};
+
+export type SupportTicketAdminStatus = (typeof SupportTicketAdminStatus)[keyof typeof SupportTicketAdminStatus]
+
+
+export const SupportCommentAuthorRole: {
+  Owner: 'Owner',
+  Admin: 'Admin'
+};
+
+export type SupportCommentAuthorRole = (typeof SupportCommentAuthorRole)[keyof typeof SupportCommentAuthorRole]
+
+
+export const SupportTicketCommentKind: {
+  Message: 'Message',
+  History: 'History'
+};
+
+export type SupportTicketCommentKind = (typeof SupportTicketCommentKind)[keyof typeof SupportTicketCommentKind]
+
+
+export const SupportCommentAudience: {
+  Both: 'Both',
+  Admin: 'Admin'
+};
+
+export type SupportCommentAudience = (typeof SupportCommentAudience)[keyof typeof SupportCommentAudience]
+
 }
 
 export type OwnerStatus = $Enums.OwnerStatus
@@ -113,6 +184,30 @@ export const AnnouncementType: typeof $Enums.AnnouncementType
 export type AnnouncementStatus = $Enums.AnnouncementStatus
 
 export const AnnouncementStatus: typeof $Enums.AnnouncementStatus
+
+export type SupportTicketPriority = $Enums.SupportTicketPriority
+
+export const SupportTicketPriority: typeof $Enums.SupportTicketPriority
+
+export type SupportTicketOwnerStatus = $Enums.SupportTicketOwnerStatus
+
+export const SupportTicketOwnerStatus: typeof $Enums.SupportTicketOwnerStatus
+
+export type SupportTicketAdminStatus = $Enums.SupportTicketAdminStatus
+
+export const SupportTicketAdminStatus: typeof $Enums.SupportTicketAdminStatus
+
+export type SupportCommentAuthorRole = $Enums.SupportCommentAuthorRole
+
+export const SupportCommentAuthorRole: typeof $Enums.SupportCommentAuthorRole
+
+export type SupportTicketCommentKind = $Enums.SupportTicketCommentKind
+
+export const SupportTicketCommentKind: typeof $Enums.SupportTicketCommentKind
+
+export type SupportCommentAudience = $Enums.SupportCommentAudience
+
+export const SupportCommentAudience: typeof $Enums.SupportCommentAudience
 
 /**
  * ##  Prisma Client ʲˢ
@@ -296,6 +391,26 @@ export class PrismaClient<
     * ```
     */
   get ownerPermission(): Prisma.OwnerPermissionDelegate<ExtArgs>;
+
+  /**
+   * `prisma.supportTicket`: Exposes CRUD operations for the **SupportTicket** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more SupportTickets
+    * const supportTickets = await prisma.supportTicket.findMany()
+    * ```
+    */
+  get supportTicket(): Prisma.SupportTicketDelegate<ExtArgs>;
+
+  /**
+   * `prisma.supportTicketComment`: Exposes CRUD operations for the **SupportTicketComment** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more SupportTicketComments
+    * const supportTicketComments = await prisma.supportTicketComment.findMany()
+    * ```
+    */
+  get supportTicketComment(): Prisma.SupportTicketCommentDelegate<ExtArgs>;
 }
 
 export namespace Prisma {
@@ -742,7 +857,9 @@ export namespace Prisma {
     Owner: 'Owner',
     Plan: 'Plan',
     Announcement: 'Announcement',
-    OwnerPermission: 'OwnerPermission'
+    OwnerPermission: 'OwnerPermission',
+    SupportTicket: 'SupportTicket',
+    SupportTicketComment: 'SupportTicketComment'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -758,7 +875,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "admin" | "dbSeries" | "owner" | "plan" | "announcement" | "ownerPermission"
+      modelProps: "admin" | "dbSeries" | "owner" | "plan" | "announcement" | "ownerPermission" | "supportTicket" | "supportTicketComment"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1182,6 +1299,146 @@ export namespace Prisma {
           }
         }
       }
+      SupportTicket: {
+        payload: Prisma.$SupportTicketPayload<ExtArgs>
+        fields: Prisma.SupportTicketFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SupportTicketFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SupportTicketPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SupportTicketFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SupportTicketPayload>
+          }
+          findFirst: {
+            args: Prisma.SupportTicketFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SupportTicketPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SupportTicketFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SupportTicketPayload>
+          }
+          findMany: {
+            args: Prisma.SupportTicketFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SupportTicketPayload>[]
+          }
+          create: {
+            args: Prisma.SupportTicketCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SupportTicketPayload>
+          }
+          createMany: {
+            args: Prisma.SupportTicketCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SupportTicketCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SupportTicketPayload>[]
+          }
+          delete: {
+            args: Prisma.SupportTicketDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SupportTicketPayload>
+          }
+          update: {
+            args: Prisma.SupportTicketUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SupportTicketPayload>
+          }
+          deleteMany: {
+            args: Prisma.SupportTicketDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SupportTicketUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.SupportTicketUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SupportTicketPayload>
+          }
+          aggregate: {
+            args: Prisma.SupportTicketAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSupportTicket>
+          }
+          groupBy: {
+            args: Prisma.SupportTicketGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SupportTicketGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SupportTicketCountArgs<ExtArgs>
+            result: $Utils.Optional<SupportTicketCountAggregateOutputType> | number
+          }
+        }
+      }
+      SupportTicketComment: {
+        payload: Prisma.$SupportTicketCommentPayload<ExtArgs>
+        fields: Prisma.SupportTicketCommentFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SupportTicketCommentFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SupportTicketCommentPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SupportTicketCommentFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SupportTicketCommentPayload>
+          }
+          findFirst: {
+            args: Prisma.SupportTicketCommentFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SupportTicketCommentPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SupportTicketCommentFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SupportTicketCommentPayload>
+          }
+          findMany: {
+            args: Prisma.SupportTicketCommentFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SupportTicketCommentPayload>[]
+          }
+          create: {
+            args: Prisma.SupportTicketCommentCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SupportTicketCommentPayload>
+          }
+          createMany: {
+            args: Prisma.SupportTicketCommentCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SupportTicketCommentCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SupportTicketCommentPayload>[]
+          }
+          delete: {
+            args: Prisma.SupportTicketCommentDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SupportTicketCommentPayload>
+          }
+          update: {
+            args: Prisma.SupportTicketCommentUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SupportTicketCommentPayload>
+          }
+          deleteMany: {
+            args: Prisma.SupportTicketCommentDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SupportTicketCommentUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.SupportTicketCommentUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SupportTicketCommentPayload>
+          }
+          aggregate: {
+            args: Prisma.SupportTicketCommentAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSupportTicketComment>
+          }
+          groupBy: {
+            args: Prisma.SupportTicketCommentGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SupportTicketCommentGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SupportTicketCommentCountArgs<ExtArgs>
+            result: $Utils.Optional<SupportTicketCommentCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1344,10 +1601,12 @@ export namespace Prisma {
 
   export type OwnerCountOutputType = {
     ownerPermissions: number
+    supportTickets: number
   }
 
   export type OwnerCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     ownerPermissions?: boolean | OwnerCountOutputTypeCountOwnerPermissionsArgs
+    supportTickets?: boolean | OwnerCountOutputTypeCountSupportTicketsArgs
   }
 
   // Custom InputTypes
@@ -1366,6 +1625,13 @@ export namespace Prisma {
    */
   export type OwnerCountOutputTypeCountOwnerPermissionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: OwnerPermissionWhereInput
+  }
+
+  /**
+   * OwnerCountOutputType without action
+   */
+  export type OwnerCountOutputTypeCountSupportTicketsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SupportTicketWhereInput
   }
 
 
@@ -1397,6 +1663,37 @@ export namespace Prisma {
    */
   export type PlanCountOutputTypeCountOwnersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: OwnerWhereInput
+  }
+
+
+  /**
+   * Count Type SupportTicketCountOutputType
+   */
+
+  export type SupportTicketCountOutputType = {
+    comments: number
+  }
+
+  export type SupportTicketCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    comments?: boolean | SupportTicketCountOutputTypeCountCommentsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * SupportTicketCountOutputType without action
+   */
+  export type SupportTicketCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SupportTicketCountOutputType
+     */
+    select?: SupportTicketCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * SupportTicketCountOutputType without action
+   */
+  export type SupportTicketCountOutputTypeCountCommentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SupportTicketCommentWhereInput
   }
 
 
@@ -4040,6 +4337,7 @@ export namespace Prisma {
     own_is_deleted?: boolean
     plan?: boolean | Owner$planArgs<ExtArgs>
     ownerPermissions?: boolean | Owner$ownerPermissionsArgs<ExtArgs>
+    supportTickets?: boolean | Owner$supportTicketsArgs<ExtArgs>
     _count?: boolean | OwnerCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["owner"]>
 
@@ -4133,6 +4431,7 @@ export namespace Prisma {
   export type OwnerInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     plan?: boolean | Owner$planArgs<ExtArgs>
     ownerPermissions?: boolean | Owner$ownerPermissionsArgs<ExtArgs>
+    supportTickets?: boolean | Owner$supportTicketsArgs<ExtArgs>
     _count?: boolean | OwnerCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type OwnerIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4144,6 +4443,7 @@ export namespace Prisma {
     objects: {
       plan: Prisma.$PlanPayload<ExtArgs> | null
       ownerPermissions: Prisma.$OwnerPermissionPayload<ExtArgs>[]
+      supportTickets: Prisma.$SupportTicketPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       own_id: number
@@ -4552,6 +4852,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     plan<T extends Owner$planArgs<ExtArgs> = {}>(args?: Subset<T, Owner$planArgs<ExtArgs>>): Prisma__PlanClient<$Result.GetResult<Prisma.$PlanPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     ownerPermissions<T extends Owner$ownerPermissionsArgs<ExtArgs> = {}>(args?: Subset<T, Owner$ownerPermissionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OwnerPermissionPayload<ExtArgs>, T, "findMany"> | Null>
+    supportTickets<T extends Owner$supportTicketsArgs<ExtArgs> = {}>(args?: Subset<T, Owner$supportTicketsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SupportTicketPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4971,6 +5272,26 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: OwnerPermissionScalarFieldEnum | OwnerPermissionScalarFieldEnum[]
+  }
+
+  /**
+   * Owner.supportTickets
+   */
+  export type Owner$supportTicketsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SupportTicket
+     */
+    select?: SupportTicketSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SupportTicketInclude<ExtArgs> | null
+    where?: SupportTicketWhereInput
+    orderBy?: SupportTicketOrderByWithRelationInput | SupportTicketOrderByWithRelationInput[]
+    cursor?: SupportTicketWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SupportTicketScalarFieldEnum | SupportTicketScalarFieldEnum[]
   }
 
   /**
@@ -8266,6 +8587,2194 @@ export namespace Prisma {
 
 
   /**
+   * Model SupportTicket
+   */
+
+  export type AggregateSupportTicket = {
+    _count: SupportTicketCountAggregateOutputType | null
+    _avg: SupportTicketAvgAggregateOutputType | null
+    _sum: SupportTicketSumAggregateOutputType | null
+    _min: SupportTicketMinAggregateOutputType | null
+    _max: SupportTicketMaxAggregateOutputType | null
+  }
+
+  export type SupportTicketAvgAggregateOutputType = {
+    st_id: number | null
+    st_own_id: number | null
+  }
+
+  export type SupportTicketSumAggregateOutputType = {
+    st_id: number | null
+    st_own_id: number | null
+  }
+
+  export type SupportTicketMinAggregateOutputType = {
+    st_id: number | null
+    st_uuid: string | null
+    st_own_id: number | null
+    st_title: string | null
+    st_body: string | null
+    st_priority: $Enums.SupportTicketPriority | null
+    st_owner_status: $Enums.SupportTicketOwnerStatus | null
+    st_admin_status: $Enums.SupportTicketAdminStatus | null
+    st_expected_delivery_at: Date | null
+    st_created_at: Date | null
+    st_created_by: string | null
+    st_updated_at: Date | null
+    st_updated_by: string | null
+    st_deleted_at: Date | null
+    st_deleted_by: string | null
+    st_is_deleted: boolean | null
+  }
+
+  export type SupportTicketMaxAggregateOutputType = {
+    st_id: number | null
+    st_uuid: string | null
+    st_own_id: number | null
+    st_title: string | null
+    st_body: string | null
+    st_priority: $Enums.SupportTicketPriority | null
+    st_owner_status: $Enums.SupportTicketOwnerStatus | null
+    st_admin_status: $Enums.SupportTicketAdminStatus | null
+    st_expected_delivery_at: Date | null
+    st_created_at: Date | null
+    st_created_by: string | null
+    st_updated_at: Date | null
+    st_updated_by: string | null
+    st_deleted_at: Date | null
+    st_deleted_by: string | null
+    st_is_deleted: boolean | null
+  }
+
+  export type SupportTicketCountAggregateOutputType = {
+    st_id: number
+    st_uuid: number
+    st_own_id: number
+    st_title: number
+    st_body: number
+    st_priority: number
+    st_images: number
+    st_owner_status: number
+    st_admin_status: number
+    st_expected_delivery_at: number
+    st_created_at: number
+    st_created_by: number
+    st_updated_at: number
+    st_updated_by: number
+    st_deleted_at: number
+    st_deleted_by: number
+    st_is_deleted: number
+    _all: number
+  }
+
+
+  export type SupportTicketAvgAggregateInputType = {
+    st_id?: true
+    st_own_id?: true
+  }
+
+  export type SupportTicketSumAggregateInputType = {
+    st_id?: true
+    st_own_id?: true
+  }
+
+  export type SupportTicketMinAggregateInputType = {
+    st_id?: true
+    st_uuid?: true
+    st_own_id?: true
+    st_title?: true
+    st_body?: true
+    st_priority?: true
+    st_owner_status?: true
+    st_admin_status?: true
+    st_expected_delivery_at?: true
+    st_created_at?: true
+    st_created_by?: true
+    st_updated_at?: true
+    st_updated_by?: true
+    st_deleted_at?: true
+    st_deleted_by?: true
+    st_is_deleted?: true
+  }
+
+  export type SupportTicketMaxAggregateInputType = {
+    st_id?: true
+    st_uuid?: true
+    st_own_id?: true
+    st_title?: true
+    st_body?: true
+    st_priority?: true
+    st_owner_status?: true
+    st_admin_status?: true
+    st_expected_delivery_at?: true
+    st_created_at?: true
+    st_created_by?: true
+    st_updated_at?: true
+    st_updated_by?: true
+    st_deleted_at?: true
+    st_deleted_by?: true
+    st_is_deleted?: true
+  }
+
+  export type SupportTicketCountAggregateInputType = {
+    st_id?: true
+    st_uuid?: true
+    st_own_id?: true
+    st_title?: true
+    st_body?: true
+    st_priority?: true
+    st_images?: true
+    st_owner_status?: true
+    st_admin_status?: true
+    st_expected_delivery_at?: true
+    st_created_at?: true
+    st_created_by?: true
+    st_updated_at?: true
+    st_updated_by?: true
+    st_deleted_at?: true
+    st_deleted_by?: true
+    st_is_deleted?: true
+    _all?: true
+  }
+
+  export type SupportTicketAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SupportTicket to aggregate.
+     */
+    where?: SupportTicketWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SupportTickets to fetch.
+     */
+    orderBy?: SupportTicketOrderByWithRelationInput | SupportTicketOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SupportTicketWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SupportTickets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SupportTickets.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned SupportTickets
+    **/
+    _count?: true | SupportTicketCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: SupportTicketAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: SupportTicketSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SupportTicketMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SupportTicketMaxAggregateInputType
+  }
+
+  export type GetSupportTicketAggregateType<T extends SupportTicketAggregateArgs> = {
+        [P in keyof T & keyof AggregateSupportTicket]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSupportTicket[P]>
+      : GetScalarType<T[P], AggregateSupportTicket[P]>
+  }
+
+
+
+
+  export type SupportTicketGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SupportTicketWhereInput
+    orderBy?: SupportTicketOrderByWithAggregationInput | SupportTicketOrderByWithAggregationInput[]
+    by: SupportTicketScalarFieldEnum[] | SupportTicketScalarFieldEnum
+    having?: SupportTicketScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SupportTicketCountAggregateInputType | true
+    _avg?: SupportTicketAvgAggregateInputType
+    _sum?: SupportTicketSumAggregateInputType
+    _min?: SupportTicketMinAggregateInputType
+    _max?: SupportTicketMaxAggregateInputType
+  }
+
+  export type SupportTicketGroupByOutputType = {
+    st_id: number
+    st_uuid: string
+    st_own_id: number
+    st_title: string
+    st_body: string
+    st_priority: $Enums.SupportTicketPriority
+    st_images: JsonValue | null
+    st_owner_status: $Enums.SupportTicketOwnerStatus
+    st_admin_status: $Enums.SupportTicketAdminStatus
+    st_expected_delivery_at: Date | null
+    st_created_at: Date
+    st_created_by: string | null
+    st_updated_at: Date
+    st_updated_by: string | null
+    st_deleted_at: Date | null
+    st_deleted_by: string | null
+    st_is_deleted: boolean
+    _count: SupportTicketCountAggregateOutputType | null
+    _avg: SupportTicketAvgAggregateOutputType | null
+    _sum: SupportTicketSumAggregateOutputType | null
+    _min: SupportTicketMinAggregateOutputType | null
+    _max: SupportTicketMaxAggregateOutputType | null
+  }
+
+  type GetSupportTicketGroupByPayload<T extends SupportTicketGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SupportTicketGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SupportTicketGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SupportTicketGroupByOutputType[P]>
+            : GetScalarType<T[P], SupportTicketGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SupportTicketSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    st_id?: boolean
+    st_uuid?: boolean
+    st_own_id?: boolean
+    st_title?: boolean
+    st_body?: boolean
+    st_priority?: boolean
+    st_images?: boolean
+    st_owner_status?: boolean
+    st_admin_status?: boolean
+    st_expected_delivery_at?: boolean
+    st_created_at?: boolean
+    st_created_by?: boolean
+    st_updated_at?: boolean
+    st_updated_by?: boolean
+    st_deleted_at?: boolean
+    st_deleted_by?: boolean
+    st_is_deleted?: boolean
+    owner?: boolean | OwnerDefaultArgs<ExtArgs>
+    comments?: boolean | SupportTicket$commentsArgs<ExtArgs>
+    _count?: boolean | SupportTicketCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["supportTicket"]>
+
+  export type SupportTicketSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    st_id?: boolean
+    st_uuid?: boolean
+    st_own_id?: boolean
+    st_title?: boolean
+    st_body?: boolean
+    st_priority?: boolean
+    st_images?: boolean
+    st_owner_status?: boolean
+    st_admin_status?: boolean
+    st_expected_delivery_at?: boolean
+    st_created_at?: boolean
+    st_created_by?: boolean
+    st_updated_at?: boolean
+    st_updated_by?: boolean
+    st_deleted_at?: boolean
+    st_deleted_by?: boolean
+    st_is_deleted?: boolean
+    owner?: boolean | OwnerDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["supportTicket"]>
+
+  export type SupportTicketSelectScalar = {
+    st_id?: boolean
+    st_uuid?: boolean
+    st_own_id?: boolean
+    st_title?: boolean
+    st_body?: boolean
+    st_priority?: boolean
+    st_images?: boolean
+    st_owner_status?: boolean
+    st_admin_status?: boolean
+    st_expected_delivery_at?: boolean
+    st_created_at?: boolean
+    st_created_by?: boolean
+    st_updated_at?: boolean
+    st_updated_by?: boolean
+    st_deleted_at?: boolean
+    st_deleted_by?: boolean
+    st_is_deleted?: boolean
+  }
+
+  export type SupportTicketInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    owner?: boolean | OwnerDefaultArgs<ExtArgs>
+    comments?: boolean | SupportTicket$commentsArgs<ExtArgs>
+    _count?: boolean | SupportTicketCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type SupportTicketIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    owner?: boolean | OwnerDefaultArgs<ExtArgs>
+  }
+
+  export type $SupportTicketPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "SupportTicket"
+    objects: {
+      owner: Prisma.$OwnerPayload<ExtArgs>
+      comments: Prisma.$SupportTicketCommentPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      st_id: number
+      st_uuid: string
+      st_own_id: number
+      st_title: string
+      st_body: string
+      st_priority: $Enums.SupportTicketPriority
+      st_images: Prisma.JsonValue | null
+      st_owner_status: $Enums.SupportTicketOwnerStatus
+      st_admin_status: $Enums.SupportTicketAdminStatus
+      st_expected_delivery_at: Date | null
+      st_created_at: Date
+      st_created_by: string | null
+      st_updated_at: Date
+      st_updated_by: string | null
+      st_deleted_at: Date | null
+      st_deleted_by: string | null
+      st_is_deleted: boolean
+    }, ExtArgs["result"]["supportTicket"]>
+    composites: {}
+  }
+
+  type SupportTicketGetPayload<S extends boolean | null | undefined | SupportTicketDefaultArgs> = $Result.GetResult<Prisma.$SupportTicketPayload, S>
+
+  type SupportTicketCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<SupportTicketFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: SupportTicketCountAggregateInputType | true
+    }
+
+  export interface SupportTicketDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['SupportTicket'], meta: { name: 'SupportTicket' } }
+    /**
+     * Find zero or one SupportTicket that matches the filter.
+     * @param {SupportTicketFindUniqueArgs} args - Arguments to find a SupportTicket
+     * @example
+     * // Get one SupportTicket
+     * const supportTicket = await prisma.supportTicket.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SupportTicketFindUniqueArgs>(args: SelectSubset<T, SupportTicketFindUniqueArgs<ExtArgs>>): Prisma__SupportTicketClient<$Result.GetResult<Prisma.$SupportTicketPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one SupportTicket that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {SupportTicketFindUniqueOrThrowArgs} args - Arguments to find a SupportTicket
+     * @example
+     * // Get one SupportTicket
+     * const supportTicket = await prisma.supportTicket.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SupportTicketFindUniqueOrThrowArgs>(args: SelectSubset<T, SupportTicketFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SupportTicketClient<$Result.GetResult<Prisma.$SupportTicketPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first SupportTicket that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SupportTicketFindFirstArgs} args - Arguments to find a SupportTicket
+     * @example
+     * // Get one SupportTicket
+     * const supportTicket = await prisma.supportTicket.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SupportTicketFindFirstArgs>(args?: SelectSubset<T, SupportTicketFindFirstArgs<ExtArgs>>): Prisma__SupportTicketClient<$Result.GetResult<Prisma.$SupportTicketPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first SupportTicket that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SupportTicketFindFirstOrThrowArgs} args - Arguments to find a SupportTicket
+     * @example
+     * // Get one SupportTicket
+     * const supportTicket = await prisma.supportTicket.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SupportTicketFindFirstOrThrowArgs>(args?: SelectSubset<T, SupportTicketFindFirstOrThrowArgs<ExtArgs>>): Prisma__SupportTicketClient<$Result.GetResult<Prisma.$SupportTicketPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more SupportTickets that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SupportTicketFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all SupportTickets
+     * const supportTickets = await prisma.supportTicket.findMany()
+     * 
+     * // Get first 10 SupportTickets
+     * const supportTickets = await prisma.supportTicket.findMany({ take: 10 })
+     * 
+     * // Only select the `st_id`
+     * const supportTicketWithSt_idOnly = await prisma.supportTicket.findMany({ select: { st_id: true } })
+     * 
+     */
+    findMany<T extends SupportTicketFindManyArgs>(args?: SelectSubset<T, SupportTicketFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SupportTicketPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a SupportTicket.
+     * @param {SupportTicketCreateArgs} args - Arguments to create a SupportTicket.
+     * @example
+     * // Create one SupportTicket
+     * const SupportTicket = await prisma.supportTicket.create({
+     *   data: {
+     *     // ... data to create a SupportTicket
+     *   }
+     * })
+     * 
+     */
+    create<T extends SupportTicketCreateArgs>(args: SelectSubset<T, SupportTicketCreateArgs<ExtArgs>>): Prisma__SupportTicketClient<$Result.GetResult<Prisma.$SupportTicketPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many SupportTickets.
+     * @param {SupportTicketCreateManyArgs} args - Arguments to create many SupportTickets.
+     * @example
+     * // Create many SupportTickets
+     * const supportTicket = await prisma.supportTicket.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SupportTicketCreateManyArgs>(args?: SelectSubset<T, SupportTicketCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many SupportTickets and returns the data saved in the database.
+     * @param {SupportTicketCreateManyAndReturnArgs} args - Arguments to create many SupportTickets.
+     * @example
+     * // Create many SupportTickets
+     * const supportTicket = await prisma.supportTicket.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many SupportTickets and only return the `st_id`
+     * const supportTicketWithSt_idOnly = await prisma.supportTicket.createManyAndReturn({ 
+     *   select: { st_id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SupportTicketCreateManyAndReturnArgs>(args?: SelectSubset<T, SupportTicketCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SupportTicketPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a SupportTicket.
+     * @param {SupportTicketDeleteArgs} args - Arguments to delete one SupportTicket.
+     * @example
+     * // Delete one SupportTicket
+     * const SupportTicket = await prisma.supportTicket.delete({
+     *   where: {
+     *     // ... filter to delete one SupportTicket
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SupportTicketDeleteArgs>(args: SelectSubset<T, SupportTicketDeleteArgs<ExtArgs>>): Prisma__SupportTicketClient<$Result.GetResult<Prisma.$SupportTicketPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one SupportTicket.
+     * @param {SupportTicketUpdateArgs} args - Arguments to update one SupportTicket.
+     * @example
+     * // Update one SupportTicket
+     * const supportTicket = await prisma.supportTicket.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SupportTicketUpdateArgs>(args: SelectSubset<T, SupportTicketUpdateArgs<ExtArgs>>): Prisma__SupportTicketClient<$Result.GetResult<Prisma.$SupportTicketPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more SupportTickets.
+     * @param {SupportTicketDeleteManyArgs} args - Arguments to filter SupportTickets to delete.
+     * @example
+     * // Delete a few SupportTickets
+     * const { count } = await prisma.supportTicket.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SupportTicketDeleteManyArgs>(args?: SelectSubset<T, SupportTicketDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SupportTickets.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SupportTicketUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many SupportTickets
+     * const supportTicket = await prisma.supportTicket.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SupportTicketUpdateManyArgs>(args: SelectSubset<T, SupportTicketUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one SupportTicket.
+     * @param {SupportTicketUpsertArgs} args - Arguments to update or create a SupportTicket.
+     * @example
+     * // Update or create a SupportTicket
+     * const supportTicket = await prisma.supportTicket.upsert({
+     *   create: {
+     *     // ... data to create a SupportTicket
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the SupportTicket we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SupportTicketUpsertArgs>(args: SelectSubset<T, SupportTicketUpsertArgs<ExtArgs>>): Prisma__SupportTicketClient<$Result.GetResult<Prisma.$SupportTicketPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of SupportTickets.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SupportTicketCountArgs} args - Arguments to filter SupportTickets to count.
+     * @example
+     * // Count the number of SupportTickets
+     * const count = await prisma.supportTicket.count({
+     *   where: {
+     *     // ... the filter for the SupportTickets we want to count
+     *   }
+     * })
+    **/
+    count<T extends SupportTicketCountArgs>(
+      args?: Subset<T, SupportTicketCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SupportTicketCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a SupportTicket.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SupportTicketAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SupportTicketAggregateArgs>(args: Subset<T, SupportTicketAggregateArgs>): Prisma.PrismaPromise<GetSupportTicketAggregateType<T>>
+
+    /**
+     * Group by SupportTicket.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SupportTicketGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SupportTicketGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SupportTicketGroupByArgs['orderBy'] }
+        : { orderBy?: SupportTicketGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SupportTicketGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSupportTicketGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the SupportTicket model
+   */
+  readonly fields: SupportTicketFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for SupportTicket.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SupportTicketClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    owner<T extends OwnerDefaultArgs<ExtArgs> = {}>(args?: Subset<T, OwnerDefaultArgs<ExtArgs>>): Prisma__OwnerClient<$Result.GetResult<Prisma.$OwnerPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    comments<T extends SupportTicket$commentsArgs<ExtArgs> = {}>(args?: Subset<T, SupportTicket$commentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SupportTicketCommentPayload<ExtArgs>, T, "findMany"> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the SupportTicket model
+   */ 
+  interface SupportTicketFieldRefs {
+    readonly st_id: FieldRef<"SupportTicket", 'Int'>
+    readonly st_uuid: FieldRef<"SupportTicket", 'String'>
+    readonly st_own_id: FieldRef<"SupportTicket", 'Int'>
+    readonly st_title: FieldRef<"SupportTicket", 'String'>
+    readonly st_body: FieldRef<"SupportTicket", 'String'>
+    readonly st_priority: FieldRef<"SupportTicket", 'SupportTicketPriority'>
+    readonly st_images: FieldRef<"SupportTicket", 'Json'>
+    readonly st_owner_status: FieldRef<"SupportTicket", 'SupportTicketOwnerStatus'>
+    readonly st_admin_status: FieldRef<"SupportTicket", 'SupportTicketAdminStatus'>
+    readonly st_expected_delivery_at: FieldRef<"SupportTicket", 'DateTime'>
+    readonly st_created_at: FieldRef<"SupportTicket", 'DateTime'>
+    readonly st_created_by: FieldRef<"SupportTicket", 'String'>
+    readonly st_updated_at: FieldRef<"SupportTicket", 'DateTime'>
+    readonly st_updated_by: FieldRef<"SupportTicket", 'String'>
+    readonly st_deleted_at: FieldRef<"SupportTicket", 'DateTime'>
+    readonly st_deleted_by: FieldRef<"SupportTicket", 'String'>
+    readonly st_is_deleted: FieldRef<"SupportTicket", 'Boolean'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * SupportTicket findUnique
+   */
+  export type SupportTicketFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SupportTicket
+     */
+    select?: SupportTicketSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SupportTicketInclude<ExtArgs> | null
+    /**
+     * Filter, which SupportTicket to fetch.
+     */
+    where: SupportTicketWhereUniqueInput
+  }
+
+  /**
+   * SupportTicket findUniqueOrThrow
+   */
+  export type SupportTicketFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SupportTicket
+     */
+    select?: SupportTicketSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SupportTicketInclude<ExtArgs> | null
+    /**
+     * Filter, which SupportTicket to fetch.
+     */
+    where: SupportTicketWhereUniqueInput
+  }
+
+  /**
+   * SupportTicket findFirst
+   */
+  export type SupportTicketFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SupportTicket
+     */
+    select?: SupportTicketSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SupportTicketInclude<ExtArgs> | null
+    /**
+     * Filter, which SupportTicket to fetch.
+     */
+    where?: SupportTicketWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SupportTickets to fetch.
+     */
+    orderBy?: SupportTicketOrderByWithRelationInput | SupportTicketOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SupportTickets.
+     */
+    cursor?: SupportTicketWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SupportTickets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SupportTickets.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SupportTickets.
+     */
+    distinct?: SupportTicketScalarFieldEnum | SupportTicketScalarFieldEnum[]
+  }
+
+  /**
+   * SupportTicket findFirstOrThrow
+   */
+  export type SupportTicketFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SupportTicket
+     */
+    select?: SupportTicketSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SupportTicketInclude<ExtArgs> | null
+    /**
+     * Filter, which SupportTicket to fetch.
+     */
+    where?: SupportTicketWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SupportTickets to fetch.
+     */
+    orderBy?: SupportTicketOrderByWithRelationInput | SupportTicketOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SupportTickets.
+     */
+    cursor?: SupportTicketWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SupportTickets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SupportTickets.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SupportTickets.
+     */
+    distinct?: SupportTicketScalarFieldEnum | SupportTicketScalarFieldEnum[]
+  }
+
+  /**
+   * SupportTicket findMany
+   */
+  export type SupportTicketFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SupportTicket
+     */
+    select?: SupportTicketSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SupportTicketInclude<ExtArgs> | null
+    /**
+     * Filter, which SupportTickets to fetch.
+     */
+    where?: SupportTicketWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SupportTickets to fetch.
+     */
+    orderBy?: SupportTicketOrderByWithRelationInput | SupportTicketOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing SupportTickets.
+     */
+    cursor?: SupportTicketWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SupportTickets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SupportTickets.
+     */
+    skip?: number
+    distinct?: SupportTicketScalarFieldEnum | SupportTicketScalarFieldEnum[]
+  }
+
+  /**
+   * SupportTicket create
+   */
+  export type SupportTicketCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SupportTicket
+     */
+    select?: SupportTicketSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SupportTicketInclude<ExtArgs> | null
+    /**
+     * The data needed to create a SupportTicket.
+     */
+    data: XOR<SupportTicketCreateInput, SupportTicketUncheckedCreateInput>
+  }
+
+  /**
+   * SupportTicket createMany
+   */
+  export type SupportTicketCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many SupportTickets.
+     */
+    data: SupportTicketCreateManyInput | SupportTicketCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SupportTicket createManyAndReturn
+   */
+  export type SupportTicketCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SupportTicket
+     */
+    select?: SupportTicketSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many SupportTickets.
+     */
+    data: SupportTicketCreateManyInput | SupportTicketCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SupportTicketIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * SupportTicket update
+   */
+  export type SupportTicketUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SupportTicket
+     */
+    select?: SupportTicketSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SupportTicketInclude<ExtArgs> | null
+    /**
+     * The data needed to update a SupportTicket.
+     */
+    data: XOR<SupportTicketUpdateInput, SupportTicketUncheckedUpdateInput>
+    /**
+     * Choose, which SupportTicket to update.
+     */
+    where: SupportTicketWhereUniqueInput
+  }
+
+  /**
+   * SupportTicket updateMany
+   */
+  export type SupportTicketUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update SupportTickets.
+     */
+    data: XOR<SupportTicketUpdateManyMutationInput, SupportTicketUncheckedUpdateManyInput>
+    /**
+     * Filter which SupportTickets to update
+     */
+    where?: SupportTicketWhereInput
+  }
+
+  /**
+   * SupportTicket upsert
+   */
+  export type SupportTicketUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SupportTicket
+     */
+    select?: SupportTicketSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SupportTicketInclude<ExtArgs> | null
+    /**
+     * The filter to search for the SupportTicket to update in case it exists.
+     */
+    where: SupportTicketWhereUniqueInput
+    /**
+     * In case the SupportTicket found by the `where` argument doesn't exist, create a new SupportTicket with this data.
+     */
+    create: XOR<SupportTicketCreateInput, SupportTicketUncheckedCreateInput>
+    /**
+     * In case the SupportTicket was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SupportTicketUpdateInput, SupportTicketUncheckedUpdateInput>
+  }
+
+  /**
+   * SupportTicket delete
+   */
+  export type SupportTicketDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SupportTicket
+     */
+    select?: SupportTicketSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SupportTicketInclude<ExtArgs> | null
+    /**
+     * Filter which SupportTicket to delete.
+     */
+    where: SupportTicketWhereUniqueInput
+  }
+
+  /**
+   * SupportTicket deleteMany
+   */
+  export type SupportTicketDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SupportTickets to delete
+     */
+    where?: SupportTicketWhereInput
+  }
+
+  /**
+   * SupportTicket.comments
+   */
+  export type SupportTicket$commentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SupportTicketComment
+     */
+    select?: SupportTicketCommentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SupportTicketCommentInclude<ExtArgs> | null
+    where?: SupportTicketCommentWhereInput
+    orderBy?: SupportTicketCommentOrderByWithRelationInput | SupportTicketCommentOrderByWithRelationInput[]
+    cursor?: SupportTicketCommentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SupportTicketCommentScalarFieldEnum | SupportTicketCommentScalarFieldEnum[]
+  }
+
+  /**
+   * SupportTicket without action
+   */
+  export type SupportTicketDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SupportTicket
+     */
+    select?: SupportTicketSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SupportTicketInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model SupportTicketComment
+   */
+
+  export type AggregateSupportTicketComment = {
+    _count: SupportTicketCommentCountAggregateOutputType | null
+    _avg: SupportTicketCommentAvgAggregateOutputType | null
+    _sum: SupportTicketCommentSumAggregateOutputType | null
+    _min: SupportTicketCommentMinAggregateOutputType | null
+    _max: SupportTicketCommentMaxAggregateOutputType | null
+  }
+
+  export type SupportTicketCommentAvgAggregateOutputType = {
+    stc_id: number | null
+    st_st_id: number | null
+  }
+
+  export type SupportTicketCommentSumAggregateOutputType = {
+    stc_id: number | null
+    st_st_id: number | null
+  }
+
+  export type SupportTicketCommentMinAggregateOutputType = {
+    stc_id: number | null
+    stc_uuid: string | null
+    st_st_id: number | null
+    stc_author_role: $Enums.SupportCommentAuthorRole | null
+    stc_author_uuid: string | null
+    stc_author_name: string | null
+    stc_kind: $Enums.SupportTicketCommentKind | null
+    stc_audience: $Enums.SupportCommentAudience | null
+    stc_body: string | null
+    stc_created_at: Date | null
+    stc_updated_at: Date | null
+  }
+
+  export type SupportTicketCommentMaxAggregateOutputType = {
+    stc_id: number | null
+    stc_uuid: string | null
+    st_st_id: number | null
+    stc_author_role: $Enums.SupportCommentAuthorRole | null
+    stc_author_uuid: string | null
+    stc_author_name: string | null
+    stc_kind: $Enums.SupportTicketCommentKind | null
+    stc_audience: $Enums.SupportCommentAudience | null
+    stc_body: string | null
+    stc_created_at: Date | null
+    stc_updated_at: Date | null
+  }
+
+  export type SupportTicketCommentCountAggregateOutputType = {
+    stc_id: number
+    stc_uuid: number
+    st_st_id: number
+    stc_author_role: number
+    stc_author_uuid: number
+    stc_author_name: number
+    stc_kind: number
+    stc_audience: number
+    stc_body: number
+    stc_images: number
+    stc_created_at: number
+    stc_updated_at: number
+    _all: number
+  }
+
+
+  export type SupportTicketCommentAvgAggregateInputType = {
+    stc_id?: true
+    st_st_id?: true
+  }
+
+  export type SupportTicketCommentSumAggregateInputType = {
+    stc_id?: true
+    st_st_id?: true
+  }
+
+  export type SupportTicketCommentMinAggregateInputType = {
+    stc_id?: true
+    stc_uuid?: true
+    st_st_id?: true
+    stc_author_role?: true
+    stc_author_uuid?: true
+    stc_author_name?: true
+    stc_kind?: true
+    stc_audience?: true
+    stc_body?: true
+    stc_created_at?: true
+    stc_updated_at?: true
+  }
+
+  export type SupportTicketCommentMaxAggregateInputType = {
+    stc_id?: true
+    stc_uuid?: true
+    st_st_id?: true
+    stc_author_role?: true
+    stc_author_uuid?: true
+    stc_author_name?: true
+    stc_kind?: true
+    stc_audience?: true
+    stc_body?: true
+    stc_created_at?: true
+    stc_updated_at?: true
+  }
+
+  export type SupportTicketCommentCountAggregateInputType = {
+    stc_id?: true
+    stc_uuid?: true
+    st_st_id?: true
+    stc_author_role?: true
+    stc_author_uuid?: true
+    stc_author_name?: true
+    stc_kind?: true
+    stc_audience?: true
+    stc_body?: true
+    stc_images?: true
+    stc_created_at?: true
+    stc_updated_at?: true
+    _all?: true
+  }
+
+  export type SupportTicketCommentAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SupportTicketComment to aggregate.
+     */
+    where?: SupportTicketCommentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SupportTicketComments to fetch.
+     */
+    orderBy?: SupportTicketCommentOrderByWithRelationInput | SupportTicketCommentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SupportTicketCommentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SupportTicketComments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SupportTicketComments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned SupportTicketComments
+    **/
+    _count?: true | SupportTicketCommentCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: SupportTicketCommentAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: SupportTicketCommentSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SupportTicketCommentMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SupportTicketCommentMaxAggregateInputType
+  }
+
+  export type GetSupportTicketCommentAggregateType<T extends SupportTicketCommentAggregateArgs> = {
+        [P in keyof T & keyof AggregateSupportTicketComment]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSupportTicketComment[P]>
+      : GetScalarType<T[P], AggregateSupportTicketComment[P]>
+  }
+
+
+
+
+  export type SupportTicketCommentGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SupportTicketCommentWhereInput
+    orderBy?: SupportTicketCommentOrderByWithAggregationInput | SupportTicketCommentOrderByWithAggregationInput[]
+    by: SupportTicketCommentScalarFieldEnum[] | SupportTicketCommentScalarFieldEnum
+    having?: SupportTicketCommentScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SupportTicketCommentCountAggregateInputType | true
+    _avg?: SupportTicketCommentAvgAggregateInputType
+    _sum?: SupportTicketCommentSumAggregateInputType
+    _min?: SupportTicketCommentMinAggregateInputType
+    _max?: SupportTicketCommentMaxAggregateInputType
+  }
+
+  export type SupportTicketCommentGroupByOutputType = {
+    stc_id: number
+    stc_uuid: string
+    st_st_id: number
+    stc_author_role: $Enums.SupportCommentAuthorRole
+    stc_author_uuid: string
+    stc_author_name: string
+    stc_kind: $Enums.SupportTicketCommentKind
+    stc_audience: $Enums.SupportCommentAudience
+    stc_body: string
+    stc_images: JsonValue | null
+    stc_created_at: Date
+    stc_updated_at: Date
+    _count: SupportTicketCommentCountAggregateOutputType | null
+    _avg: SupportTicketCommentAvgAggregateOutputType | null
+    _sum: SupportTicketCommentSumAggregateOutputType | null
+    _min: SupportTicketCommentMinAggregateOutputType | null
+    _max: SupportTicketCommentMaxAggregateOutputType | null
+  }
+
+  type GetSupportTicketCommentGroupByPayload<T extends SupportTicketCommentGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SupportTicketCommentGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SupportTicketCommentGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SupportTicketCommentGroupByOutputType[P]>
+            : GetScalarType<T[P], SupportTicketCommentGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SupportTicketCommentSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    stc_id?: boolean
+    stc_uuid?: boolean
+    st_st_id?: boolean
+    stc_author_role?: boolean
+    stc_author_uuid?: boolean
+    stc_author_name?: boolean
+    stc_kind?: boolean
+    stc_audience?: boolean
+    stc_body?: boolean
+    stc_images?: boolean
+    stc_created_at?: boolean
+    stc_updated_at?: boolean
+    ticket?: boolean | SupportTicketDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["supportTicketComment"]>
+
+  export type SupportTicketCommentSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    stc_id?: boolean
+    stc_uuid?: boolean
+    st_st_id?: boolean
+    stc_author_role?: boolean
+    stc_author_uuid?: boolean
+    stc_author_name?: boolean
+    stc_kind?: boolean
+    stc_audience?: boolean
+    stc_body?: boolean
+    stc_images?: boolean
+    stc_created_at?: boolean
+    stc_updated_at?: boolean
+    ticket?: boolean | SupportTicketDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["supportTicketComment"]>
+
+  export type SupportTicketCommentSelectScalar = {
+    stc_id?: boolean
+    stc_uuid?: boolean
+    st_st_id?: boolean
+    stc_author_role?: boolean
+    stc_author_uuid?: boolean
+    stc_author_name?: boolean
+    stc_kind?: boolean
+    stc_audience?: boolean
+    stc_body?: boolean
+    stc_images?: boolean
+    stc_created_at?: boolean
+    stc_updated_at?: boolean
+  }
+
+  export type SupportTicketCommentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    ticket?: boolean | SupportTicketDefaultArgs<ExtArgs>
+  }
+  export type SupportTicketCommentIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    ticket?: boolean | SupportTicketDefaultArgs<ExtArgs>
+  }
+
+  export type $SupportTicketCommentPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "SupportTicketComment"
+    objects: {
+      ticket: Prisma.$SupportTicketPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      stc_id: number
+      stc_uuid: string
+      st_st_id: number
+      stc_author_role: $Enums.SupportCommentAuthorRole
+      stc_author_uuid: string
+      stc_author_name: string
+      stc_kind: $Enums.SupportTicketCommentKind
+      stc_audience: $Enums.SupportCommentAudience
+      stc_body: string
+      stc_images: Prisma.JsonValue | null
+      stc_created_at: Date
+      stc_updated_at: Date
+    }, ExtArgs["result"]["supportTicketComment"]>
+    composites: {}
+  }
+
+  type SupportTicketCommentGetPayload<S extends boolean | null | undefined | SupportTicketCommentDefaultArgs> = $Result.GetResult<Prisma.$SupportTicketCommentPayload, S>
+
+  type SupportTicketCommentCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<SupportTicketCommentFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: SupportTicketCommentCountAggregateInputType | true
+    }
+
+  export interface SupportTicketCommentDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['SupportTicketComment'], meta: { name: 'SupportTicketComment' } }
+    /**
+     * Find zero or one SupportTicketComment that matches the filter.
+     * @param {SupportTicketCommentFindUniqueArgs} args - Arguments to find a SupportTicketComment
+     * @example
+     * // Get one SupportTicketComment
+     * const supportTicketComment = await prisma.supportTicketComment.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SupportTicketCommentFindUniqueArgs>(args: SelectSubset<T, SupportTicketCommentFindUniqueArgs<ExtArgs>>): Prisma__SupportTicketCommentClient<$Result.GetResult<Prisma.$SupportTicketCommentPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one SupportTicketComment that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {SupportTicketCommentFindUniqueOrThrowArgs} args - Arguments to find a SupportTicketComment
+     * @example
+     * // Get one SupportTicketComment
+     * const supportTicketComment = await prisma.supportTicketComment.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SupportTicketCommentFindUniqueOrThrowArgs>(args: SelectSubset<T, SupportTicketCommentFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SupportTicketCommentClient<$Result.GetResult<Prisma.$SupportTicketCommentPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first SupportTicketComment that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SupportTicketCommentFindFirstArgs} args - Arguments to find a SupportTicketComment
+     * @example
+     * // Get one SupportTicketComment
+     * const supportTicketComment = await prisma.supportTicketComment.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SupportTicketCommentFindFirstArgs>(args?: SelectSubset<T, SupportTicketCommentFindFirstArgs<ExtArgs>>): Prisma__SupportTicketCommentClient<$Result.GetResult<Prisma.$SupportTicketCommentPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first SupportTicketComment that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SupportTicketCommentFindFirstOrThrowArgs} args - Arguments to find a SupportTicketComment
+     * @example
+     * // Get one SupportTicketComment
+     * const supportTicketComment = await prisma.supportTicketComment.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SupportTicketCommentFindFirstOrThrowArgs>(args?: SelectSubset<T, SupportTicketCommentFindFirstOrThrowArgs<ExtArgs>>): Prisma__SupportTicketCommentClient<$Result.GetResult<Prisma.$SupportTicketCommentPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more SupportTicketComments that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SupportTicketCommentFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all SupportTicketComments
+     * const supportTicketComments = await prisma.supportTicketComment.findMany()
+     * 
+     * // Get first 10 SupportTicketComments
+     * const supportTicketComments = await prisma.supportTicketComment.findMany({ take: 10 })
+     * 
+     * // Only select the `stc_id`
+     * const supportTicketCommentWithStc_idOnly = await prisma.supportTicketComment.findMany({ select: { stc_id: true } })
+     * 
+     */
+    findMany<T extends SupportTicketCommentFindManyArgs>(args?: SelectSubset<T, SupportTicketCommentFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SupportTicketCommentPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a SupportTicketComment.
+     * @param {SupportTicketCommentCreateArgs} args - Arguments to create a SupportTicketComment.
+     * @example
+     * // Create one SupportTicketComment
+     * const SupportTicketComment = await prisma.supportTicketComment.create({
+     *   data: {
+     *     // ... data to create a SupportTicketComment
+     *   }
+     * })
+     * 
+     */
+    create<T extends SupportTicketCommentCreateArgs>(args: SelectSubset<T, SupportTicketCommentCreateArgs<ExtArgs>>): Prisma__SupportTicketCommentClient<$Result.GetResult<Prisma.$SupportTicketCommentPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many SupportTicketComments.
+     * @param {SupportTicketCommentCreateManyArgs} args - Arguments to create many SupportTicketComments.
+     * @example
+     * // Create many SupportTicketComments
+     * const supportTicketComment = await prisma.supportTicketComment.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SupportTicketCommentCreateManyArgs>(args?: SelectSubset<T, SupportTicketCommentCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many SupportTicketComments and returns the data saved in the database.
+     * @param {SupportTicketCommentCreateManyAndReturnArgs} args - Arguments to create many SupportTicketComments.
+     * @example
+     * // Create many SupportTicketComments
+     * const supportTicketComment = await prisma.supportTicketComment.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many SupportTicketComments and only return the `stc_id`
+     * const supportTicketCommentWithStc_idOnly = await prisma.supportTicketComment.createManyAndReturn({ 
+     *   select: { stc_id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SupportTicketCommentCreateManyAndReturnArgs>(args?: SelectSubset<T, SupportTicketCommentCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SupportTicketCommentPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a SupportTicketComment.
+     * @param {SupportTicketCommentDeleteArgs} args - Arguments to delete one SupportTicketComment.
+     * @example
+     * // Delete one SupportTicketComment
+     * const SupportTicketComment = await prisma.supportTicketComment.delete({
+     *   where: {
+     *     // ... filter to delete one SupportTicketComment
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SupportTicketCommentDeleteArgs>(args: SelectSubset<T, SupportTicketCommentDeleteArgs<ExtArgs>>): Prisma__SupportTicketCommentClient<$Result.GetResult<Prisma.$SupportTicketCommentPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one SupportTicketComment.
+     * @param {SupportTicketCommentUpdateArgs} args - Arguments to update one SupportTicketComment.
+     * @example
+     * // Update one SupportTicketComment
+     * const supportTicketComment = await prisma.supportTicketComment.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SupportTicketCommentUpdateArgs>(args: SelectSubset<T, SupportTicketCommentUpdateArgs<ExtArgs>>): Prisma__SupportTicketCommentClient<$Result.GetResult<Prisma.$SupportTicketCommentPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more SupportTicketComments.
+     * @param {SupportTicketCommentDeleteManyArgs} args - Arguments to filter SupportTicketComments to delete.
+     * @example
+     * // Delete a few SupportTicketComments
+     * const { count } = await prisma.supportTicketComment.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SupportTicketCommentDeleteManyArgs>(args?: SelectSubset<T, SupportTicketCommentDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SupportTicketComments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SupportTicketCommentUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many SupportTicketComments
+     * const supportTicketComment = await prisma.supportTicketComment.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SupportTicketCommentUpdateManyArgs>(args: SelectSubset<T, SupportTicketCommentUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one SupportTicketComment.
+     * @param {SupportTicketCommentUpsertArgs} args - Arguments to update or create a SupportTicketComment.
+     * @example
+     * // Update or create a SupportTicketComment
+     * const supportTicketComment = await prisma.supportTicketComment.upsert({
+     *   create: {
+     *     // ... data to create a SupportTicketComment
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the SupportTicketComment we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SupportTicketCommentUpsertArgs>(args: SelectSubset<T, SupportTicketCommentUpsertArgs<ExtArgs>>): Prisma__SupportTicketCommentClient<$Result.GetResult<Prisma.$SupportTicketCommentPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of SupportTicketComments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SupportTicketCommentCountArgs} args - Arguments to filter SupportTicketComments to count.
+     * @example
+     * // Count the number of SupportTicketComments
+     * const count = await prisma.supportTicketComment.count({
+     *   where: {
+     *     // ... the filter for the SupportTicketComments we want to count
+     *   }
+     * })
+    **/
+    count<T extends SupportTicketCommentCountArgs>(
+      args?: Subset<T, SupportTicketCommentCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SupportTicketCommentCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a SupportTicketComment.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SupportTicketCommentAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SupportTicketCommentAggregateArgs>(args: Subset<T, SupportTicketCommentAggregateArgs>): Prisma.PrismaPromise<GetSupportTicketCommentAggregateType<T>>
+
+    /**
+     * Group by SupportTicketComment.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SupportTicketCommentGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SupportTicketCommentGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SupportTicketCommentGroupByArgs['orderBy'] }
+        : { orderBy?: SupportTicketCommentGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SupportTicketCommentGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSupportTicketCommentGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the SupportTicketComment model
+   */
+  readonly fields: SupportTicketCommentFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for SupportTicketComment.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SupportTicketCommentClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    ticket<T extends SupportTicketDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SupportTicketDefaultArgs<ExtArgs>>): Prisma__SupportTicketClient<$Result.GetResult<Prisma.$SupportTicketPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the SupportTicketComment model
+   */ 
+  interface SupportTicketCommentFieldRefs {
+    readonly stc_id: FieldRef<"SupportTicketComment", 'Int'>
+    readonly stc_uuid: FieldRef<"SupportTicketComment", 'String'>
+    readonly st_st_id: FieldRef<"SupportTicketComment", 'Int'>
+    readonly stc_author_role: FieldRef<"SupportTicketComment", 'SupportCommentAuthorRole'>
+    readonly stc_author_uuid: FieldRef<"SupportTicketComment", 'String'>
+    readonly stc_author_name: FieldRef<"SupportTicketComment", 'String'>
+    readonly stc_kind: FieldRef<"SupportTicketComment", 'SupportTicketCommentKind'>
+    readonly stc_audience: FieldRef<"SupportTicketComment", 'SupportCommentAudience'>
+    readonly stc_body: FieldRef<"SupportTicketComment", 'String'>
+    readonly stc_images: FieldRef<"SupportTicketComment", 'Json'>
+    readonly stc_created_at: FieldRef<"SupportTicketComment", 'DateTime'>
+    readonly stc_updated_at: FieldRef<"SupportTicketComment", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * SupportTicketComment findUnique
+   */
+  export type SupportTicketCommentFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SupportTicketComment
+     */
+    select?: SupportTicketCommentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SupportTicketCommentInclude<ExtArgs> | null
+    /**
+     * Filter, which SupportTicketComment to fetch.
+     */
+    where: SupportTicketCommentWhereUniqueInput
+  }
+
+  /**
+   * SupportTicketComment findUniqueOrThrow
+   */
+  export type SupportTicketCommentFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SupportTicketComment
+     */
+    select?: SupportTicketCommentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SupportTicketCommentInclude<ExtArgs> | null
+    /**
+     * Filter, which SupportTicketComment to fetch.
+     */
+    where: SupportTicketCommentWhereUniqueInput
+  }
+
+  /**
+   * SupportTicketComment findFirst
+   */
+  export type SupportTicketCommentFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SupportTicketComment
+     */
+    select?: SupportTicketCommentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SupportTicketCommentInclude<ExtArgs> | null
+    /**
+     * Filter, which SupportTicketComment to fetch.
+     */
+    where?: SupportTicketCommentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SupportTicketComments to fetch.
+     */
+    orderBy?: SupportTicketCommentOrderByWithRelationInput | SupportTicketCommentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SupportTicketComments.
+     */
+    cursor?: SupportTicketCommentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SupportTicketComments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SupportTicketComments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SupportTicketComments.
+     */
+    distinct?: SupportTicketCommentScalarFieldEnum | SupportTicketCommentScalarFieldEnum[]
+  }
+
+  /**
+   * SupportTicketComment findFirstOrThrow
+   */
+  export type SupportTicketCommentFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SupportTicketComment
+     */
+    select?: SupportTicketCommentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SupportTicketCommentInclude<ExtArgs> | null
+    /**
+     * Filter, which SupportTicketComment to fetch.
+     */
+    where?: SupportTicketCommentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SupportTicketComments to fetch.
+     */
+    orderBy?: SupportTicketCommentOrderByWithRelationInput | SupportTicketCommentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SupportTicketComments.
+     */
+    cursor?: SupportTicketCommentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SupportTicketComments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SupportTicketComments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SupportTicketComments.
+     */
+    distinct?: SupportTicketCommentScalarFieldEnum | SupportTicketCommentScalarFieldEnum[]
+  }
+
+  /**
+   * SupportTicketComment findMany
+   */
+  export type SupportTicketCommentFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SupportTicketComment
+     */
+    select?: SupportTicketCommentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SupportTicketCommentInclude<ExtArgs> | null
+    /**
+     * Filter, which SupportTicketComments to fetch.
+     */
+    where?: SupportTicketCommentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SupportTicketComments to fetch.
+     */
+    orderBy?: SupportTicketCommentOrderByWithRelationInput | SupportTicketCommentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing SupportTicketComments.
+     */
+    cursor?: SupportTicketCommentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SupportTicketComments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SupportTicketComments.
+     */
+    skip?: number
+    distinct?: SupportTicketCommentScalarFieldEnum | SupportTicketCommentScalarFieldEnum[]
+  }
+
+  /**
+   * SupportTicketComment create
+   */
+  export type SupportTicketCommentCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SupportTicketComment
+     */
+    select?: SupportTicketCommentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SupportTicketCommentInclude<ExtArgs> | null
+    /**
+     * The data needed to create a SupportTicketComment.
+     */
+    data: XOR<SupportTicketCommentCreateInput, SupportTicketCommentUncheckedCreateInput>
+  }
+
+  /**
+   * SupportTicketComment createMany
+   */
+  export type SupportTicketCommentCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many SupportTicketComments.
+     */
+    data: SupportTicketCommentCreateManyInput | SupportTicketCommentCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SupportTicketComment createManyAndReturn
+   */
+  export type SupportTicketCommentCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SupportTicketComment
+     */
+    select?: SupportTicketCommentSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many SupportTicketComments.
+     */
+    data: SupportTicketCommentCreateManyInput | SupportTicketCommentCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SupportTicketCommentIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * SupportTicketComment update
+   */
+  export type SupportTicketCommentUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SupportTicketComment
+     */
+    select?: SupportTicketCommentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SupportTicketCommentInclude<ExtArgs> | null
+    /**
+     * The data needed to update a SupportTicketComment.
+     */
+    data: XOR<SupportTicketCommentUpdateInput, SupportTicketCommentUncheckedUpdateInput>
+    /**
+     * Choose, which SupportTicketComment to update.
+     */
+    where: SupportTicketCommentWhereUniqueInput
+  }
+
+  /**
+   * SupportTicketComment updateMany
+   */
+  export type SupportTicketCommentUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update SupportTicketComments.
+     */
+    data: XOR<SupportTicketCommentUpdateManyMutationInput, SupportTicketCommentUncheckedUpdateManyInput>
+    /**
+     * Filter which SupportTicketComments to update
+     */
+    where?: SupportTicketCommentWhereInput
+  }
+
+  /**
+   * SupportTicketComment upsert
+   */
+  export type SupportTicketCommentUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SupportTicketComment
+     */
+    select?: SupportTicketCommentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SupportTicketCommentInclude<ExtArgs> | null
+    /**
+     * The filter to search for the SupportTicketComment to update in case it exists.
+     */
+    where: SupportTicketCommentWhereUniqueInput
+    /**
+     * In case the SupportTicketComment found by the `where` argument doesn't exist, create a new SupportTicketComment with this data.
+     */
+    create: XOR<SupportTicketCommentCreateInput, SupportTicketCommentUncheckedCreateInput>
+    /**
+     * In case the SupportTicketComment was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SupportTicketCommentUpdateInput, SupportTicketCommentUncheckedUpdateInput>
+  }
+
+  /**
+   * SupportTicketComment delete
+   */
+  export type SupportTicketCommentDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SupportTicketComment
+     */
+    select?: SupportTicketCommentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SupportTicketCommentInclude<ExtArgs> | null
+    /**
+     * Filter which SupportTicketComment to delete.
+     */
+    where: SupportTicketCommentWhereUniqueInput
+  }
+
+  /**
+   * SupportTicketComment deleteMany
+   */
+  export type SupportTicketCommentDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SupportTicketComments to delete
+     */
+    where?: SupportTicketCommentWhereInput
+  }
+
+  /**
+   * SupportTicketComment without action
+   */
+  export type SupportTicketCommentDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SupportTicketComment
+     */
+    select?: SupportTicketCommentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SupportTicketCommentInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -8438,6 +10947,47 @@ export namespace Prisma {
   };
 
   export type OwnerPermissionScalarFieldEnum = (typeof OwnerPermissionScalarFieldEnum)[keyof typeof OwnerPermissionScalarFieldEnum]
+
+
+  export const SupportTicketScalarFieldEnum: {
+    st_id: 'st_id',
+    st_uuid: 'st_uuid',
+    st_own_id: 'st_own_id',
+    st_title: 'st_title',
+    st_body: 'st_body',
+    st_priority: 'st_priority',
+    st_images: 'st_images',
+    st_owner_status: 'st_owner_status',
+    st_admin_status: 'st_admin_status',
+    st_expected_delivery_at: 'st_expected_delivery_at',
+    st_created_at: 'st_created_at',
+    st_created_by: 'st_created_by',
+    st_updated_at: 'st_updated_at',
+    st_updated_by: 'st_updated_by',
+    st_deleted_at: 'st_deleted_at',
+    st_deleted_by: 'st_deleted_by',
+    st_is_deleted: 'st_is_deleted'
+  };
+
+  export type SupportTicketScalarFieldEnum = (typeof SupportTicketScalarFieldEnum)[keyof typeof SupportTicketScalarFieldEnum]
+
+
+  export const SupportTicketCommentScalarFieldEnum: {
+    stc_id: 'stc_id',
+    stc_uuid: 'stc_uuid',
+    st_st_id: 'st_st_id',
+    stc_author_role: 'stc_author_role',
+    stc_author_uuid: 'stc_author_uuid',
+    stc_author_name: 'stc_author_name',
+    stc_kind: 'stc_kind',
+    stc_audience: 'stc_audience',
+    stc_body: 'stc_body',
+    stc_images: 'stc_images',
+    stc_created_at: 'stc_created_at',
+    stc_updated_at: 'stc_updated_at'
+  };
+
+  export type SupportTicketCommentScalarFieldEnum = (typeof SupportTicketCommentScalarFieldEnum)[keyof typeof SupportTicketCommentScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -8630,6 +11180,90 @@ export namespace Prisma {
    * Reference to a field of type 'AnnouncementStatus[]'
    */
   export type ListEnumAnnouncementStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AnnouncementStatus[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'SupportTicketPriority'
+   */
+  export type EnumSupportTicketPriorityFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SupportTicketPriority'>
+    
+
+
+  /**
+   * Reference to a field of type 'SupportTicketPriority[]'
+   */
+  export type ListEnumSupportTicketPriorityFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SupportTicketPriority[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'SupportTicketOwnerStatus'
+   */
+  export type EnumSupportTicketOwnerStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SupportTicketOwnerStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'SupportTicketOwnerStatus[]'
+   */
+  export type ListEnumSupportTicketOwnerStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SupportTicketOwnerStatus[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'SupportTicketAdminStatus'
+   */
+  export type EnumSupportTicketAdminStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SupportTicketAdminStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'SupportTicketAdminStatus[]'
+   */
+  export type ListEnumSupportTicketAdminStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SupportTicketAdminStatus[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'SupportCommentAuthorRole'
+   */
+  export type EnumSupportCommentAuthorRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SupportCommentAuthorRole'>
+    
+
+
+  /**
+   * Reference to a field of type 'SupportCommentAuthorRole[]'
+   */
+  export type ListEnumSupportCommentAuthorRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SupportCommentAuthorRole[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'SupportTicketCommentKind'
+   */
+  export type EnumSupportTicketCommentKindFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SupportTicketCommentKind'>
+    
+
+
+  /**
+   * Reference to a field of type 'SupportTicketCommentKind[]'
+   */
+  export type ListEnumSupportTicketCommentKindFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SupportTicketCommentKind[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'SupportCommentAudience'
+   */
+  export type EnumSupportCommentAudienceFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SupportCommentAudience'>
+    
+
+
+  /**
+   * Reference to a field of type 'SupportCommentAudience[]'
+   */
+  export type ListEnumSupportCommentAudienceFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SupportCommentAudience[]'>
     
 
 
@@ -8939,6 +11573,7 @@ export namespace Prisma {
     own_is_deleted?: BoolFilter<"Owner"> | boolean
     plan?: XOR<PlanNullableRelationFilter, PlanWhereInput> | null
     ownerPermissions?: OwnerPermissionListRelationFilter
+    supportTickets?: SupportTicketListRelationFilter
   }
 
   export type OwnerOrderByWithRelationInput = {
@@ -8984,6 +11619,7 @@ export namespace Prisma {
     own_is_deleted?: SortOrder
     plan?: PlanOrderByWithRelationInput
     ownerPermissions?: OwnerPermissionOrderByRelationAggregateInput
+    supportTickets?: SupportTicketOrderByRelationAggregateInput
   }
 
   export type OwnerWhereUniqueInput = Prisma.AtLeast<{
@@ -9032,6 +11668,7 @@ export namespace Prisma {
     own_is_deleted?: BoolFilter<"Owner"> | boolean
     plan?: XOR<PlanNullableRelationFilter, PlanWhereInput> | null
     ownerPermissions?: OwnerPermissionListRelationFilter
+    supportTickets?: SupportTicketListRelationFilter
   }, "own_id" | "own_uuid" | "own_product_key" | "own_db" | "own_mobile_no" | "own_email" | "own_login_id">
 
   export type OwnerOrderByWithAggregationInput = {
@@ -9462,6 +12099,218 @@ export namespace Prisma {
     op_updated_at?: DateTimeWithAggregatesFilter<"OwnerPermission"> | Date | string
   }
 
+  export type SupportTicketWhereInput = {
+    AND?: SupportTicketWhereInput | SupportTicketWhereInput[]
+    OR?: SupportTicketWhereInput[]
+    NOT?: SupportTicketWhereInput | SupportTicketWhereInput[]
+    st_id?: IntFilter<"SupportTicket"> | number
+    st_uuid?: StringFilter<"SupportTicket"> | string
+    st_own_id?: IntFilter<"SupportTicket"> | number
+    st_title?: StringFilter<"SupportTicket"> | string
+    st_body?: StringFilter<"SupportTicket"> | string
+    st_priority?: EnumSupportTicketPriorityFilter<"SupportTicket"> | $Enums.SupportTicketPriority
+    st_images?: JsonNullableFilter<"SupportTicket">
+    st_owner_status?: EnumSupportTicketOwnerStatusFilter<"SupportTicket"> | $Enums.SupportTicketOwnerStatus
+    st_admin_status?: EnumSupportTicketAdminStatusFilter<"SupportTicket"> | $Enums.SupportTicketAdminStatus
+    st_expected_delivery_at?: DateTimeNullableFilter<"SupportTicket"> | Date | string | null
+    st_created_at?: DateTimeFilter<"SupportTicket"> | Date | string
+    st_created_by?: StringNullableFilter<"SupportTicket"> | string | null
+    st_updated_at?: DateTimeFilter<"SupportTicket"> | Date | string
+    st_updated_by?: StringNullableFilter<"SupportTicket"> | string | null
+    st_deleted_at?: DateTimeNullableFilter<"SupportTicket"> | Date | string | null
+    st_deleted_by?: StringNullableFilter<"SupportTicket"> | string | null
+    st_is_deleted?: BoolFilter<"SupportTicket"> | boolean
+    owner?: XOR<OwnerRelationFilter, OwnerWhereInput>
+    comments?: SupportTicketCommentListRelationFilter
+  }
+
+  export type SupportTicketOrderByWithRelationInput = {
+    st_id?: SortOrder
+    st_uuid?: SortOrder
+    st_own_id?: SortOrder
+    st_title?: SortOrder
+    st_body?: SortOrder
+    st_priority?: SortOrder
+    st_images?: SortOrderInput | SortOrder
+    st_owner_status?: SortOrder
+    st_admin_status?: SortOrder
+    st_expected_delivery_at?: SortOrderInput | SortOrder
+    st_created_at?: SortOrder
+    st_created_by?: SortOrderInput | SortOrder
+    st_updated_at?: SortOrder
+    st_updated_by?: SortOrderInput | SortOrder
+    st_deleted_at?: SortOrderInput | SortOrder
+    st_deleted_by?: SortOrderInput | SortOrder
+    st_is_deleted?: SortOrder
+    owner?: OwnerOrderByWithRelationInput
+    comments?: SupportTicketCommentOrderByRelationAggregateInput
+  }
+
+  export type SupportTicketWhereUniqueInput = Prisma.AtLeast<{
+    st_id?: number
+    st_uuid?: string
+    AND?: SupportTicketWhereInput | SupportTicketWhereInput[]
+    OR?: SupportTicketWhereInput[]
+    NOT?: SupportTicketWhereInput | SupportTicketWhereInput[]
+    st_own_id?: IntFilter<"SupportTicket"> | number
+    st_title?: StringFilter<"SupportTicket"> | string
+    st_body?: StringFilter<"SupportTicket"> | string
+    st_priority?: EnumSupportTicketPriorityFilter<"SupportTicket"> | $Enums.SupportTicketPriority
+    st_images?: JsonNullableFilter<"SupportTicket">
+    st_owner_status?: EnumSupportTicketOwnerStatusFilter<"SupportTicket"> | $Enums.SupportTicketOwnerStatus
+    st_admin_status?: EnumSupportTicketAdminStatusFilter<"SupportTicket"> | $Enums.SupportTicketAdminStatus
+    st_expected_delivery_at?: DateTimeNullableFilter<"SupportTicket"> | Date | string | null
+    st_created_at?: DateTimeFilter<"SupportTicket"> | Date | string
+    st_created_by?: StringNullableFilter<"SupportTicket"> | string | null
+    st_updated_at?: DateTimeFilter<"SupportTicket"> | Date | string
+    st_updated_by?: StringNullableFilter<"SupportTicket"> | string | null
+    st_deleted_at?: DateTimeNullableFilter<"SupportTicket"> | Date | string | null
+    st_deleted_by?: StringNullableFilter<"SupportTicket"> | string | null
+    st_is_deleted?: BoolFilter<"SupportTicket"> | boolean
+    owner?: XOR<OwnerRelationFilter, OwnerWhereInput>
+    comments?: SupportTicketCommentListRelationFilter
+  }, "st_id" | "st_uuid">
+
+  export type SupportTicketOrderByWithAggregationInput = {
+    st_id?: SortOrder
+    st_uuid?: SortOrder
+    st_own_id?: SortOrder
+    st_title?: SortOrder
+    st_body?: SortOrder
+    st_priority?: SortOrder
+    st_images?: SortOrderInput | SortOrder
+    st_owner_status?: SortOrder
+    st_admin_status?: SortOrder
+    st_expected_delivery_at?: SortOrderInput | SortOrder
+    st_created_at?: SortOrder
+    st_created_by?: SortOrderInput | SortOrder
+    st_updated_at?: SortOrder
+    st_updated_by?: SortOrderInput | SortOrder
+    st_deleted_at?: SortOrderInput | SortOrder
+    st_deleted_by?: SortOrderInput | SortOrder
+    st_is_deleted?: SortOrder
+    _count?: SupportTicketCountOrderByAggregateInput
+    _avg?: SupportTicketAvgOrderByAggregateInput
+    _max?: SupportTicketMaxOrderByAggregateInput
+    _min?: SupportTicketMinOrderByAggregateInput
+    _sum?: SupportTicketSumOrderByAggregateInput
+  }
+
+  export type SupportTicketScalarWhereWithAggregatesInput = {
+    AND?: SupportTicketScalarWhereWithAggregatesInput | SupportTicketScalarWhereWithAggregatesInput[]
+    OR?: SupportTicketScalarWhereWithAggregatesInput[]
+    NOT?: SupportTicketScalarWhereWithAggregatesInput | SupportTicketScalarWhereWithAggregatesInput[]
+    st_id?: IntWithAggregatesFilter<"SupportTicket"> | number
+    st_uuid?: StringWithAggregatesFilter<"SupportTicket"> | string
+    st_own_id?: IntWithAggregatesFilter<"SupportTicket"> | number
+    st_title?: StringWithAggregatesFilter<"SupportTicket"> | string
+    st_body?: StringWithAggregatesFilter<"SupportTicket"> | string
+    st_priority?: EnumSupportTicketPriorityWithAggregatesFilter<"SupportTicket"> | $Enums.SupportTicketPriority
+    st_images?: JsonNullableWithAggregatesFilter<"SupportTicket">
+    st_owner_status?: EnumSupportTicketOwnerStatusWithAggregatesFilter<"SupportTicket"> | $Enums.SupportTicketOwnerStatus
+    st_admin_status?: EnumSupportTicketAdminStatusWithAggregatesFilter<"SupportTicket"> | $Enums.SupportTicketAdminStatus
+    st_expected_delivery_at?: DateTimeNullableWithAggregatesFilter<"SupportTicket"> | Date | string | null
+    st_created_at?: DateTimeWithAggregatesFilter<"SupportTicket"> | Date | string
+    st_created_by?: StringNullableWithAggregatesFilter<"SupportTicket"> | string | null
+    st_updated_at?: DateTimeWithAggregatesFilter<"SupportTicket"> | Date | string
+    st_updated_by?: StringNullableWithAggregatesFilter<"SupportTicket"> | string | null
+    st_deleted_at?: DateTimeNullableWithAggregatesFilter<"SupportTicket"> | Date | string | null
+    st_deleted_by?: StringNullableWithAggregatesFilter<"SupportTicket"> | string | null
+    st_is_deleted?: BoolWithAggregatesFilter<"SupportTicket"> | boolean
+  }
+
+  export type SupportTicketCommentWhereInput = {
+    AND?: SupportTicketCommentWhereInput | SupportTicketCommentWhereInput[]
+    OR?: SupportTicketCommentWhereInput[]
+    NOT?: SupportTicketCommentWhereInput | SupportTicketCommentWhereInput[]
+    stc_id?: IntFilter<"SupportTicketComment"> | number
+    stc_uuid?: StringFilter<"SupportTicketComment"> | string
+    st_st_id?: IntFilter<"SupportTicketComment"> | number
+    stc_author_role?: EnumSupportCommentAuthorRoleFilter<"SupportTicketComment"> | $Enums.SupportCommentAuthorRole
+    stc_author_uuid?: StringFilter<"SupportTicketComment"> | string
+    stc_author_name?: StringFilter<"SupportTicketComment"> | string
+    stc_kind?: EnumSupportTicketCommentKindFilter<"SupportTicketComment"> | $Enums.SupportTicketCommentKind
+    stc_audience?: EnumSupportCommentAudienceFilter<"SupportTicketComment"> | $Enums.SupportCommentAudience
+    stc_body?: StringFilter<"SupportTicketComment"> | string
+    stc_images?: JsonNullableFilter<"SupportTicketComment">
+    stc_created_at?: DateTimeFilter<"SupportTicketComment"> | Date | string
+    stc_updated_at?: DateTimeFilter<"SupportTicketComment"> | Date | string
+    ticket?: XOR<SupportTicketRelationFilter, SupportTicketWhereInput>
+  }
+
+  export type SupportTicketCommentOrderByWithRelationInput = {
+    stc_id?: SortOrder
+    stc_uuid?: SortOrder
+    st_st_id?: SortOrder
+    stc_author_role?: SortOrder
+    stc_author_uuid?: SortOrder
+    stc_author_name?: SortOrder
+    stc_kind?: SortOrder
+    stc_audience?: SortOrder
+    stc_body?: SortOrder
+    stc_images?: SortOrderInput | SortOrder
+    stc_created_at?: SortOrder
+    stc_updated_at?: SortOrder
+    ticket?: SupportTicketOrderByWithRelationInput
+  }
+
+  export type SupportTicketCommentWhereUniqueInput = Prisma.AtLeast<{
+    stc_id?: number
+    stc_uuid?: string
+    AND?: SupportTicketCommentWhereInput | SupportTicketCommentWhereInput[]
+    OR?: SupportTicketCommentWhereInput[]
+    NOT?: SupportTicketCommentWhereInput | SupportTicketCommentWhereInput[]
+    st_st_id?: IntFilter<"SupportTicketComment"> | number
+    stc_author_role?: EnumSupportCommentAuthorRoleFilter<"SupportTicketComment"> | $Enums.SupportCommentAuthorRole
+    stc_author_uuid?: StringFilter<"SupportTicketComment"> | string
+    stc_author_name?: StringFilter<"SupportTicketComment"> | string
+    stc_kind?: EnumSupportTicketCommentKindFilter<"SupportTicketComment"> | $Enums.SupportTicketCommentKind
+    stc_audience?: EnumSupportCommentAudienceFilter<"SupportTicketComment"> | $Enums.SupportCommentAudience
+    stc_body?: StringFilter<"SupportTicketComment"> | string
+    stc_images?: JsonNullableFilter<"SupportTicketComment">
+    stc_created_at?: DateTimeFilter<"SupportTicketComment"> | Date | string
+    stc_updated_at?: DateTimeFilter<"SupportTicketComment"> | Date | string
+    ticket?: XOR<SupportTicketRelationFilter, SupportTicketWhereInput>
+  }, "stc_id" | "stc_uuid">
+
+  export type SupportTicketCommentOrderByWithAggregationInput = {
+    stc_id?: SortOrder
+    stc_uuid?: SortOrder
+    st_st_id?: SortOrder
+    stc_author_role?: SortOrder
+    stc_author_uuid?: SortOrder
+    stc_author_name?: SortOrder
+    stc_kind?: SortOrder
+    stc_audience?: SortOrder
+    stc_body?: SortOrder
+    stc_images?: SortOrderInput | SortOrder
+    stc_created_at?: SortOrder
+    stc_updated_at?: SortOrder
+    _count?: SupportTicketCommentCountOrderByAggregateInput
+    _avg?: SupportTicketCommentAvgOrderByAggregateInput
+    _max?: SupportTicketCommentMaxOrderByAggregateInput
+    _min?: SupportTicketCommentMinOrderByAggregateInput
+    _sum?: SupportTicketCommentSumOrderByAggregateInput
+  }
+
+  export type SupportTicketCommentScalarWhereWithAggregatesInput = {
+    AND?: SupportTicketCommentScalarWhereWithAggregatesInput | SupportTicketCommentScalarWhereWithAggregatesInput[]
+    OR?: SupportTicketCommentScalarWhereWithAggregatesInput[]
+    NOT?: SupportTicketCommentScalarWhereWithAggregatesInput | SupportTicketCommentScalarWhereWithAggregatesInput[]
+    stc_id?: IntWithAggregatesFilter<"SupportTicketComment"> | number
+    stc_uuid?: StringWithAggregatesFilter<"SupportTicketComment"> | string
+    st_st_id?: IntWithAggregatesFilter<"SupportTicketComment"> | number
+    stc_author_role?: EnumSupportCommentAuthorRoleWithAggregatesFilter<"SupportTicketComment"> | $Enums.SupportCommentAuthorRole
+    stc_author_uuid?: StringWithAggregatesFilter<"SupportTicketComment"> | string
+    stc_author_name?: StringWithAggregatesFilter<"SupportTicketComment"> | string
+    stc_kind?: EnumSupportTicketCommentKindWithAggregatesFilter<"SupportTicketComment"> | $Enums.SupportTicketCommentKind
+    stc_audience?: EnumSupportCommentAudienceWithAggregatesFilter<"SupportTicketComment"> | $Enums.SupportCommentAudience
+    stc_body?: StringWithAggregatesFilter<"SupportTicketComment"> | string
+    stc_images?: JsonNullableWithAggregatesFilter<"SupportTicketComment">
+    stc_created_at?: DateTimeWithAggregatesFilter<"SupportTicketComment"> | Date | string
+    stc_updated_at?: DateTimeWithAggregatesFilter<"SupportTicketComment"> | Date | string
+  }
+
   export type AdminCreateInput = {
     admin_uuid?: string
     admin_add_date?: Date | string
@@ -9798,6 +12647,7 @@ export namespace Prisma {
     own_is_deleted?: boolean
     plan?: PlanCreateNestedOneWithoutOwnersInput
     ownerPermissions?: OwnerPermissionCreateNestedManyWithoutOwnerInput
+    supportTickets?: SupportTicketCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerUncheckedCreateInput = {
@@ -9842,6 +12692,7 @@ export namespace Prisma {
     own_deleted_by?: string | null
     own_is_deleted?: boolean
     ownerPermissions?: OwnerPermissionUncheckedCreateNestedManyWithoutOwnerInput
+    supportTickets?: SupportTicketUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerUpdateInput = {
@@ -9884,6 +12735,7 @@ export namespace Prisma {
     own_is_deleted?: BoolFieldUpdateOperationsInput | boolean
     plan?: PlanUpdateOneWithoutOwnersNestedInput
     ownerPermissions?: OwnerPermissionUpdateManyWithoutOwnerNestedInput
+    supportTickets?: SupportTicketUpdateManyWithoutOwnerNestedInput
   }
 
   export type OwnerUncheckedUpdateInput = {
@@ -9928,6 +12780,7 @@ export namespace Prisma {
     own_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     own_is_deleted?: BoolFieldUpdateOperationsInput | boolean
     ownerPermissions?: OwnerPermissionUncheckedUpdateManyWithoutOwnerNestedInput
+    supportTickets?: SupportTicketUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
   export type OwnerCreateManyInput = {
@@ -10449,6 +13302,247 @@ export namespace Prisma {
     op_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type SupportTicketCreateInput = {
+    st_uuid?: string
+    st_title: string
+    st_body: string
+    st_priority?: $Enums.SupportTicketPriority
+    st_images?: NullableJsonNullValueInput | InputJsonValue
+    st_owner_status?: $Enums.SupportTicketOwnerStatus
+    st_admin_status?: $Enums.SupportTicketAdminStatus
+    st_expected_delivery_at?: Date | string | null
+    st_created_at?: Date | string
+    st_created_by?: string | null
+    st_updated_at?: Date | string
+    st_updated_by?: string | null
+    st_deleted_at?: Date | string | null
+    st_deleted_by?: string | null
+    st_is_deleted?: boolean
+    owner: OwnerCreateNestedOneWithoutSupportTicketsInput
+    comments?: SupportTicketCommentCreateNestedManyWithoutTicketInput
+  }
+
+  export type SupportTicketUncheckedCreateInput = {
+    st_id?: number
+    st_uuid?: string
+    st_own_id: number
+    st_title: string
+    st_body: string
+    st_priority?: $Enums.SupportTicketPriority
+    st_images?: NullableJsonNullValueInput | InputJsonValue
+    st_owner_status?: $Enums.SupportTicketOwnerStatus
+    st_admin_status?: $Enums.SupportTicketAdminStatus
+    st_expected_delivery_at?: Date | string | null
+    st_created_at?: Date | string
+    st_created_by?: string | null
+    st_updated_at?: Date | string
+    st_updated_by?: string | null
+    st_deleted_at?: Date | string | null
+    st_deleted_by?: string | null
+    st_is_deleted?: boolean
+    comments?: SupportTicketCommentUncheckedCreateNestedManyWithoutTicketInput
+  }
+
+  export type SupportTicketUpdateInput = {
+    st_uuid?: StringFieldUpdateOperationsInput | string
+    st_title?: StringFieldUpdateOperationsInput | string
+    st_body?: StringFieldUpdateOperationsInput | string
+    st_priority?: EnumSupportTicketPriorityFieldUpdateOperationsInput | $Enums.SupportTicketPriority
+    st_images?: NullableJsonNullValueInput | InputJsonValue
+    st_owner_status?: EnumSupportTicketOwnerStatusFieldUpdateOperationsInput | $Enums.SupportTicketOwnerStatus
+    st_admin_status?: EnumSupportTicketAdminStatusFieldUpdateOperationsInput | $Enums.SupportTicketAdminStatus
+    st_expected_delivery_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    st_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    st_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    st_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    st_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    st_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    st_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    st_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    owner?: OwnerUpdateOneRequiredWithoutSupportTicketsNestedInput
+    comments?: SupportTicketCommentUpdateManyWithoutTicketNestedInput
+  }
+
+  export type SupportTicketUncheckedUpdateInput = {
+    st_id?: IntFieldUpdateOperationsInput | number
+    st_uuid?: StringFieldUpdateOperationsInput | string
+    st_own_id?: IntFieldUpdateOperationsInput | number
+    st_title?: StringFieldUpdateOperationsInput | string
+    st_body?: StringFieldUpdateOperationsInput | string
+    st_priority?: EnumSupportTicketPriorityFieldUpdateOperationsInput | $Enums.SupportTicketPriority
+    st_images?: NullableJsonNullValueInput | InputJsonValue
+    st_owner_status?: EnumSupportTicketOwnerStatusFieldUpdateOperationsInput | $Enums.SupportTicketOwnerStatus
+    st_admin_status?: EnumSupportTicketAdminStatusFieldUpdateOperationsInput | $Enums.SupportTicketAdminStatus
+    st_expected_delivery_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    st_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    st_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    st_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    st_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    st_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    st_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    st_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    comments?: SupportTicketCommentUncheckedUpdateManyWithoutTicketNestedInput
+  }
+
+  export type SupportTicketCreateManyInput = {
+    st_id?: number
+    st_uuid?: string
+    st_own_id: number
+    st_title: string
+    st_body: string
+    st_priority?: $Enums.SupportTicketPriority
+    st_images?: NullableJsonNullValueInput | InputJsonValue
+    st_owner_status?: $Enums.SupportTicketOwnerStatus
+    st_admin_status?: $Enums.SupportTicketAdminStatus
+    st_expected_delivery_at?: Date | string | null
+    st_created_at?: Date | string
+    st_created_by?: string | null
+    st_updated_at?: Date | string
+    st_updated_by?: string | null
+    st_deleted_at?: Date | string | null
+    st_deleted_by?: string | null
+    st_is_deleted?: boolean
+  }
+
+  export type SupportTicketUpdateManyMutationInput = {
+    st_uuid?: StringFieldUpdateOperationsInput | string
+    st_title?: StringFieldUpdateOperationsInput | string
+    st_body?: StringFieldUpdateOperationsInput | string
+    st_priority?: EnumSupportTicketPriorityFieldUpdateOperationsInput | $Enums.SupportTicketPriority
+    st_images?: NullableJsonNullValueInput | InputJsonValue
+    st_owner_status?: EnumSupportTicketOwnerStatusFieldUpdateOperationsInput | $Enums.SupportTicketOwnerStatus
+    st_admin_status?: EnumSupportTicketAdminStatusFieldUpdateOperationsInput | $Enums.SupportTicketAdminStatus
+    st_expected_delivery_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    st_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    st_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    st_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    st_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    st_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    st_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    st_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type SupportTicketUncheckedUpdateManyInput = {
+    st_id?: IntFieldUpdateOperationsInput | number
+    st_uuid?: StringFieldUpdateOperationsInput | string
+    st_own_id?: IntFieldUpdateOperationsInput | number
+    st_title?: StringFieldUpdateOperationsInput | string
+    st_body?: StringFieldUpdateOperationsInput | string
+    st_priority?: EnumSupportTicketPriorityFieldUpdateOperationsInput | $Enums.SupportTicketPriority
+    st_images?: NullableJsonNullValueInput | InputJsonValue
+    st_owner_status?: EnumSupportTicketOwnerStatusFieldUpdateOperationsInput | $Enums.SupportTicketOwnerStatus
+    st_admin_status?: EnumSupportTicketAdminStatusFieldUpdateOperationsInput | $Enums.SupportTicketAdminStatus
+    st_expected_delivery_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    st_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    st_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    st_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    st_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    st_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    st_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    st_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type SupportTicketCommentCreateInput = {
+    stc_uuid?: string
+    stc_author_role: $Enums.SupportCommentAuthorRole
+    stc_author_uuid: string
+    stc_author_name: string
+    stc_kind?: $Enums.SupportTicketCommentKind
+    stc_audience?: $Enums.SupportCommentAudience
+    stc_body: string
+    stc_images?: NullableJsonNullValueInput | InputJsonValue
+    stc_created_at?: Date | string
+    stc_updated_at?: Date | string
+    ticket: SupportTicketCreateNestedOneWithoutCommentsInput
+  }
+
+  export type SupportTicketCommentUncheckedCreateInput = {
+    stc_id?: number
+    stc_uuid?: string
+    st_st_id: number
+    stc_author_role: $Enums.SupportCommentAuthorRole
+    stc_author_uuid: string
+    stc_author_name: string
+    stc_kind?: $Enums.SupportTicketCommentKind
+    stc_audience?: $Enums.SupportCommentAudience
+    stc_body: string
+    stc_images?: NullableJsonNullValueInput | InputJsonValue
+    stc_created_at?: Date | string
+    stc_updated_at?: Date | string
+  }
+
+  export type SupportTicketCommentUpdateInput = {
+    stc_uuid?: StringFieldUpdateOperationsInput | string
+    stc_author_role?: EnumSupportCommentAuthorRoleFieldUpdateOperationsInput | $Enums.SupportCommentAuthorRole
+    stc_author_uuid?: StringFieldUpdateOperationsInput | string
+    stc_author_name?: StringFieldUpdateOperationsInput | string
+    stc_kind?: EnumSupportTicketCommentKindFieldUpdateOperationsInput | $Enums.SupportTicketCommentKind
+    stc_audience?: EnumSupportCommentAudienceFieldUpdateOperationsInput | $Enums.SupportCommentAudience
+    stc_body?: StringFieldUpdateOperationsInput | string
+    stc_images?: NullableJsonNullValueInput | InputJsonValue
+    stc_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    stc_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    ticket?: SupportTicketUpdateOneRequiredWithoutCommentsNestedInput
+  }
+
+  export type SupportTicketCommentUncheckedUpdateInput = {
+    stc_id?: IntFieldUpdateOperationsInput | number
+    stc_uuid?: StringFieldUpdateOperationsInput | string
+    st_st_id?: IntFieldUpdateOperationsInput | number
+    stc_author_role?: EnumSupportCommentAuthorRoleFieldUpdateOperationsInput | $Enums.SupportCommentAuthorRole
+    stc_author_uuid?: StringFieldUpdateOperationsInput | string
+    stc_author_name?: StringFieldUpdateOperationsInput | string
+    stc_kind?: EnumSupportTicketCommentKindFieldUpdateOperationsInput | $Enums.SupportTicketCommentKind
+    stc_audience?: EnumSupportCommentAudienceFieldUpdateOperationsInput | $Enums.SupportCommentAudience
+    stc_body?: StringFieldUpdateOperationsInput | string
+    stc_images?: NullableJsonNullValueInput | InputJsonValue
+    stc_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    stc_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SupportTicketCommentCreateManyInput = {
+    stc_id?: number
+    stc_uuid?: string
+    st_st_id: number
+    stc_author_role: $Enums.SupportCommentAuthorRole
+    stc_author_uuid: string
+    stc_author_name: string
+    stc_kind?: $Enums.SupportTicketCommentKind
+    stc_audience?: $Enums.SupportCommentAudience
+    stc_body: string
+    stc_images?: NullableJsonNullValueInput | InputJsonValue
+    stc_created_at?: Date | string
+    stc_updated_at?: Date | string
+  }
+
+  export type SupportTicketCommentUpdateManyMutationInput = {
+    stc_uuid?: StringFieldUpdateOperationsInput | string
+    stc_author_role?: EnumSupportCommentAuthorRoleFieldUpdateOperationsInput | $Enums.SupportCommentAuthorRole
+    stc_author_uuid?: StringFieldUpdateOperationsInput | string
+    stc_author_name?: StringFieldUpdateOperationsInput | string
+    stc_kind?: EnumSupportTicketCommentKindFieldUpdateOperationsInput | $Enums.SupportTicketCommentKind
+    stc_audience?: EnumSupportCommentAudienceFieldUpdateOperationsInput | $Enums.SupportCommentAudience
+    stc_body?: StringFieldUpdateOperationsInput | string
+    stc_images?: NullableJsonNullValueInput | InputJsonValue
+    stc_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    stc_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SupportTicketCommentUncheckedUpdateManyInput = {
+    stc_id?: IntFieldUpdateOperationsInput | number
+    stc_uuid?: StringFieldUpdateOperationsInput | string
+    st_st_id?: IntFieldUpdateOperationsInput | number
+    stc_author_role?: EnumSupportCommentAuthorRoleFieldUpdateOperationsInput | $Enums.SupportCommentAuthorRole
+    stc_author_uuid?: StringFieldUpdateOperationsInput | string
+    stc_author_name?: StringFieldUpdateOperationsInput | string
+    stc_kind?: EnumSupportTicketCommentKindFieldUpdateOperationsInput | $Enums.SupportTicketCommentKind
+    stc_audience?: EnumSupportCommentAudienceFieldUpdateOperationsInput | $Enums.SupportCommentAudience
+    stc_body?: StringFieldUpdateOperationsInput | string
+    stc_images?: NullableJsonNullValueInput | InputJsonValue
+    stc_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    stc_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type IntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -10831,7 +13925,17 @@ export namespace Prisma {
     none?: OwnerPermissionWhereInput
   }
 
+  export type SupportTicketListRelationFilter = {
+    every?: SupportTicketWhereInput
+    some?: SupportTicketWhereInput
+    none?: SupportTicketWhereInput
+  }
+
   export type OwnerPermissionOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type SupportTicketOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -11396,6 +14500,244 @@ export namespace Prisma {
     op_own_id?: SortOrder
   }
 
+  export type EnumSupportTicketPriorityFilter<$PrismaModel = never> = {
+    equals?: $Enums.SupportTicketPriority | EnumSupportTicketPriorityFieldRefInput<$PrismaModel>
+    in?: $Enums.SupportTicketPriority[] | ListEnumSupportTicketPriorityFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SupportTicketPriority[] | ListEnumSupportTicketPriorityFieldRefInput<$PrismaModel>
+    not?: NestedEnumSupportTicketPriorityFilter<$PrismaModel> | $Enums.SupportTicketPriority
+  }
+
+  export type EnumSupportTicketOwnerStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.SupportTicketOwnerStatus | EnumSupportTicketOwnerStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.SupportTicketOwnerStatus[] | ListEnumSupportTicketOwnerStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SupportTicketOwnerStatus[] | ListEnumSupportTicketOwnerStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumSupportTicketOwnerStatusFilter<$PrismaModel> | $Enums.SupportTicketOwnerStatus
+  }
+
+  export type EnumSupportTicketAdminStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.SupportTicketAdminStatus | EnumSupportTicketAdminStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.SupportTicketAdminStatus[] | ListEnumSupportTicketAdminStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SupportTicketAdminStatus[] | ListEnumSupportTicketAdminStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumSupportTicketAdminStatusFilter<$PrismaModel> | $Enums.SupportTicketAdminStatus
+  }
+
+  export type SupportTicketCommentListRelationFilter = {
+    every?: SupportTicketCommentWhereInput
+    some?: SupportTicketCommentWhereInput
+    none?: SupportTicketCommentWhereInput
+  }
+
+  export type SupportTicketCommentOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type SupportTicketCountOrderByAggregateInput = {
+    st_id?: SortOrder
+    st_uuid?: SortOrder
+    st_own_id?: SortOrder
+    st_title?: SortOrder
+    st_body?: SortOrder
+    st_priority?: SortOrder
+    st_images?: SortOrder
+    st_owner_status?: SortOrder
+    st_admin_status?: SortOrder
+    st_expected_delivery_at?: SortOrder
+    st_created_at?: SortOrder
+    st_created_by?: SortOrder
+    st_updated_at?: SortOrder
+    st_updated_by?: SortOrder
+    st_deleted_at?: SortOrder
+    st_deleted_by?: SortOrder
+    st_is_deleted?: SortOrder
+  }
+
+  export type SupportTicketAvgOrderByAggregateInput = {
+    st_id?: SortOrder
+    st_own_id?: SortOrder
+  }
+
+  export type SupportTicketMaxOrderByAggregateInput = {
+    st_id?: SortOrder
+    st_uuid?: SortOrder
+    st_own_id?: SortOrder
+    st_title?: SortOrder
+    st_body?: SortOrder
+    st_priority?: SortOrder
+    st_owner_status?: SortOrder
+    st_admin_status?: SortOrder
+    st_expected_delivery_at?: SortOrder
+    st_created_at?: SortOrder
+    st_created_by?: SortOrder
+    st_updated_at?: SortOrder
+    st_updated_by?: SortOrder
+    st_deleted_at?: SortOrder
+    st_deleted_by?: SortOrder
+    st_is_deleted?: SortOrder
+  }
+
+  export type SupportTicketMinOrderByAggregateInput = {
+    st_id?: SortOrder
+    st_uuid?: SortOrder
+    st_own_id?: SortOrder
+    st_title?: SortOrder
+    st_body?: SortOrder
+    st_priority?: SortOrder
+    st_owner_status?: SortOrder
+    st_admin_status?: SortOrder
+    st_expected_delivery_at?: SortOrder
+    st_created_at?: SortOrder
+    st_created_by?: SortOrder
+    st_updated_at?: SortOrder
+    st_updated_by?: SortOrder
+    st_deleted_at?: SortOrder
+    st_deleted_by?: SortOrder
+    st_is_deleted?: SortOrder
+  }
+
+  export type SupportTicketSumOrderByAggregateInput = {
+    st_id?: SortOrder
+    st_own_id?: SortOrder
+  }
+
+  export type EnumSupportTicketPriorityWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.SupportTicketPriority | EnumSupportTicketPriorityFieldRefInput<$PrismaModel>
+    in?: $Enums.SupportTicketPriority[] | ListEnumSupportTicketPriorityFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SupportTicketPriority[] | ListEnumSupportTicketPriorityFieldRefInput<$PrismaModel>
+    not?: NestedEnumSupportTicketPriorityWithAggregatesFilter<$PrismaModel> | $Enums.SupportTicketPriority
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumSupportTicketPriorityFilter<$PrismaModel>
+    _max?: NestedEnumSupportTicketPriorityFilter<$PrismaModel>
+  }
+
+  export type EnumSupportTicketOwnerStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.SupportTicketOwnerStatus | EnumSupportTicketOwnerStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.SupportTicketOwnerStatus[] | ListEnumSupportTicketOwnerStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SupportTicketOwnerStatus[] | ListEnumSupportTicketOwnerStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumSupportTicketOwnerStatusWithAggregatesFilter<$PrismaModel> | $Enums.SupportTicketOwnerStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumSupportTicketOwnerStatusFilter<$PrismaModel>
+    _max?: NestedEnumSupportTicketOwnerStatusFilter<$PrismaModel>
+  }
+
+  export type EnumSupportTicketAdminStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.SupportTicketAdminStatus | EnumSupportTicketAdminStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.SupportTicketAdminStatus[] | ListEnumSupportTicketAdminStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SupportTicketAdminStatus[] | ListEnumSupportTicketAdminStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumSupportTicketAdminStatusWithAggregatesFilter<$PrismaModel> | $Enums.SupportTicketAdminStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumSupportTicketAdminStatusFilter<$PrismaModel>
+    _max?: NestedEnumSupportTicketAdminStatusFilter<$PrismaModel>
+  }
+
+  export type EnumSupportCommentAuthorRoleFilter<$PrismaModel = never> = {
+    equals?: $Enums.SupportCommentAuthorRole | EnumSupportCommentAuthorRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.SupportCommentAuthorRole[] | ListEnumSupportCommentAuthorRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SupportCommentAuthorRole[] | ListEnumSupportCommentAuthorRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumSupportCommentAuthorRoleFilter<$PrismaModel> | $Enums.SupportCommentAuthorRole
+  }
+
+  export type EnumSupportTicketCommentKindFilter<$PrismaModel = never> = {
+    equals?: $Enums.SupportTicketCommentKind | EnumSupportTicketCommentKindFieldRefInput<$PrismaModel>
+    in?: $Enums.SupportTicketCommentKind[] | ListEnumSupportTicketCommentKindFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SupportTicketCommentKind[] | ListEnumSupportTicketCommentKindFieldRefInput<$PrismaModel>
+    not?: NestedEnumSupportTicketCommentKindFilter<$PrismaModel> | $Enums.SupportTicketCommentKind
+  }
+
+  export type EnumSupportCommentAudienceFilter<$PrismaModel = never> = {
+    equals?: $Enums.SupportCommentAudience | EnumSupportCommentAudienceFieldRefInput<$PrismaModel>
+    in?: $Enums.SupportCommentAudience[] | ListEnumSupportCommentAudienceFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SupportCommentAudience[] | ListEnumSupportCommentAudienceFieldRefInput<$PrismaModel>
+    not?: NestedEnumSupportCommentAudienceFilter<$PrismaModel> | $Enums.SupportCommentAudience
+  }
+
+  export type SupportTicketRelationFilter = {
+    is?: SupportTicketWhereInput
+    isNot?: SupportTicketWhereInput
+  }
+
+  export type SupportTicketCommentCountOrderByAggregateInput = {
+    stc_id?: SortOrder
+    stc_uuid?: SortOrder
+    st_st_id?: SortOrder
+    stc_author_role?: SortOrder
+    stc_author_uuid?: SortOrder
+    stc_author_name?: SortOrder
+    stc_kind?: SortOrder
+    stc_audience?: SortOrder
+    stc_body?: SortOrder
+    stc_images?: SortOrder
+    stc_created_at?: SortOrder
+    stc_updated_at?: SortOrder
+  }
+
+  export type SupportTicketCommentAvgOrderByAggregateInput = {
+    stc_id?: SortOrder
+    st_st_id?: SortOrder
+  }
+
+  export type SupportTicketCommentMaxOrderByAggregateInput = {
+    stc_id?: SortOrder
+    stc_uuid?: SortOrder
+    st_st_id?: SortOrder
+    stc_author_role?: SortOrder
+    stc_author_uuid?: SortOrder
+    stc_author_name?: SortOrder
+    stc_kind?: SortOrder
+    stc_audience?: SortOrder
+    stc_body?: SortOrder
+    stc_created_at?: SortOrder
+    stc_updated_at?: SortOrder
+  }
+
+  export type SupportTicketCommentMinOrderByAggregateInput = {
+    stc_id?: SortOrder
+    stc_uuid?: SortOrder
+    st_st_id?: SortOrder
+    stc_author_role?: SortOrder
+    stc_author_uuid?: SortOrder
+    stc_author_name?: SortOrder
+    stc_kind?: SortOrder
+    stc_audience?: SortOrder
+    stc_body?: SortOrder
+    stc_created_at?: SortOrder
+    stc_updated_at?: SortOrder
+  }
+
+  export type SupportTicketCommentSumOrderByAggregateInput = {
+    stc_id?: SortOrder
+    st_st_id?: SortOrder
+  }
+
+  export type EnumSupportCommentAuthorRoleWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.SupportCommentAuthorRole | EnumSupportCommentAuthorRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.SupportCommentAuthorRole[] | ListEnumSupportCommentAuthorRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SupportCommentAuthorRole[] | ListEnumSupportCommentAuthorRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumSupportCommentAuthorRoleWithAggregatesFilter<$PrismaModel> | $Enums.SupportCommentAuthorRole
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumSupportCommentAuthorRoleFilter<$PrismaModel>
+    _max?: NestedEnumSupportCommentAuthorRoleFilter<$PrismaModel>
+  }
+
+  export type EnumSupportTicketCommentKindWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.SupportTicketCommentKind | EnumSupportTicketCommentKindFieldRefInput<$PrismaModel>
+    in?: $Enums.SupportTicketCommentKind[] | ListEnumSupportTicketCommentKindFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SupportTicketCommentKind[] | ListEnumSupportTicketCommentKindFieldRefInput<$PrismaModel>
+    not?: NestedEnumSupportTicketCommentKindWithAggregatesFilter<$PrismaModel> | $Enums.SupportTicketCommentKind
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumSupportTicketCommentKindFilter<$PrismaModel>
+    _max?: NestedEnumSupportTicketCommentKindFilter<$PrismaModel>
+  }
+
+  export type EnumSupportCommentAudienceWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.SupportCommentAudience | EnumSupportCommentAudienceFieldRefInput<$PrismaModel>
+    in?: $Enums.SupportCommentAudience[] | ListEnumSupportCommentAudienceFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SupportCommentAudience[] | ListEnumSupportCommentAudienceFieldRefInput<$PrismaModel>
+    not?: NestedEnumSupportCommentAudienceWithAggregatesFilter<$PrismaModel> | $Enums.SupportCommentAudience
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumSupportCommentAudienceFilter<$PrismaModel>
+    _max?: NestedEnumSupportCommentAudienceFilter<$PrismaModel>
+  }
+
   export type StringFieldUpdateOperationsInput = {
     set?: string
   }
@@ -11437,11 +14779,25 @@ export namespace Prisma {
     connect?: OwnerPermissionWhereUniqueInput | OwnerPermissionWhereUniqueInput[]
   }
 
+  export type SupportTicketCreateNestedManyWithoutOwnerInput = {
+    create?: XOR<SupportTicketCreateWithoutOwnerInput, SupportTicketUncheckedCreateWithoutOwnerInput> | SupportTicketCreateWithoutOwnerInput[] | SupportTicketUncheckedCreateWithoutOwnerInput[]
+    connectOrCreate?: SupportTicketCreateOrConnectWithoutOwnerInput | SupportTicketCreateOrConnectWithoutOwnerInput[]
+    createMany?: SupportTicketCreateManyOwnerInputEnvelope
+    connect?: SupportTicketWhereUniqueInput | SupportTicketWhereUniqueInput[]
+  }
+
   export type OwnerPermissionUncheckedCreateNestedManyWithoutOwnerInput = {
     create?: XOR<OwnerPermissionCreateWithoutOwnerInput, OwnerPermissionUncheckedCreateWithoutOwnerInput> | OwnerPermissionCreateWithoutOwnerInput[] | OwnerPermissionUncheckedCreateWithoutOwnerInput[]
     connectOrCreate?: OwnerPermissionCreateOrConnectWithoutOwnerInput | OwnerPermissionCreateOrConnectWithoutOwnerInput[]
     createMany?: OwnerPermissionCreateManyOwnerInputEnvelope
     connect?: OwnerPermissionWhereUniqueInput | OwnerPermissionWhereUniqueInput[]
+  }
+
+  export type SupportTicketUncheckedCreateNestedManyWithoutOwnerInput = {
+    create?: XOR<SupportTicketCreateWithoutOwnerInput, SupportTicketUncheckedCreateWithoutOwnerInput> | SupportTicketCreateWithoutOwnerInput[] | SupportTicketUncheckedCreateWithoutOwnerInput[]
+    connectOrCreate?: SupportTicketCreateOrConnectWithoutOwnerInput | SupportTicketCreateOrConnectWithoutOwnerInput[]
+    createMany?: SupportTicketCreateManyOwnerInputEnvelope
+    connect?: SupportTicketWhereUniqueInput | SupportTicketWhereUniqueInput[]
   }
 
   export type EnumOwnerStatusFieldUpdateOperationsInput = {
@@ -11480,6 +14836,20 @@ export namespace Prisma {
     deleteMany?: OwnerPermissionScalarWhereInput | OwnerPermissionScalarWhereInput[]
   }
 
+  export type SupportTicketUpdateManyWithoutOwnerNestedInput = {
+    create?: XOR<SupportTicketCreateWithoutOwnerInput, SupportTicketUncheckedCreateWithoutOwnerInput> | SupportTicketCreateWithoutOwnerInput[] | SupportTicketUncheckedCreateWithoutOwnerInput[]
+    connectOrCreate?: SupportTicketCreateOrConnectWithoutOwnerInput | SupportTicketCreateOrConnectWithoutOwnerInput[]
+    upsert?: SupportTicketUpsertWithWhereUniqueWithoutOwnerInput | SupportTicketUpsertWithWhereUniqueWithoutOwnerInput[]
+    createMany?: SupportTicketCreateManyOwnerInputEnvelope
+    set?: SupportTicketWhereUniqueInput | SupportTicketWhereUniqueInput[]
+    disconnect?: SupportTicketWhereUniqueInput | SupportTicketWhereUniqueInput[]
+    delete?: SupportTicketWhereUniqueInput | SupportTicketWhereUniqueInput[]
+    connect?: SupportTicketWhereUniqueInput | SupportTicketWhereUniqueInput[]
+    update?: SupportTicketUpdateWithWhereUniqueWithoutOwnerInput | SupportTicketUpdateWithWhereUniqueWithoutOwnerInput[]
+    updateMany?: SupportTicketUpdateManyWithWhereWithoutOwnerInput | SupportTicketUpdateManyWithWhereWithoutOwnerInput[]
+    deleteMany?: SupportTicketScalarWhereInput | SupportTicketScalarWhereInput[]
+  }
+
   export type OwnerPermissionUncheckedUpdateManyWithoutOwnerNestedInput = {
     create?: XOR<OwnerPermissionCreateWithoutOwnerInput, OwnerPermissionUncheckedCreateWithoutOwnerInput> | OwnerPermissionCreateWithoutOwnerInput[] | OwnerPermissionUncheckedCreateWithoutOwnerInput[]
     connectOrCreate?: OwnerPermissionCreateOrConnectWithoutOwnerInput | OwnerPermissionCreateOrConnectWithoutOwnerInput[]
@@ -11492,6 +14862,20 @@ export namespace Prisma {
     update?: OwnerPermissionUpdateWithWhereUniqueWithoutOwnerInput | OwnerPermissionUpdateWithWhereUniqueWithoutOwnerInput[]
     updateMany?: OwnerPermissionUpdateManyWithWhereWithoutOwnerInput | OwnerPermissionUpdateManyWithWhereWithoutOwnerInput[]
     deleteMany?: OwnerPermissionScalarWhereInput | OwnerPermissionScalarWhereInput[]
+  }
+
+  export type SupportTicketUncheckedUpdateManyWithoutOwnerNestedInput = {
+    create?: XOR<SupportTicketCreateWithoutOwnerInput, SupportTicketUncheckedCreateWithoutOwnerInput> | SupportTicketCreateWithoutOwnerInput[] | SupportTicketUncheckedCreateWithoutOwnerInput[]
+    connectOrCreate?: SupportTicketCreateOrConnectWithoutOwnerInput | SupportTicketCreateOrConnectWithoutOwnerInput[]
+    upsert?: SupportTicketUpsertWithWhereUniqueWithoutOwnerInput | SupportTicketUpsertWithWhereUniqueWithoutOwnerInput[]
+    createMany?: SupportTicketCreateManyOwnerInputEnvelope
+    set?: SupportTicketWhereUniqueInput | SupportTicketWhereUniqueInput[]
+    disconnect?: SupportTicketWhereUniqueInput | SupportTicketWhereUniqueInput[]
+    delete?: SupportTicketWhereUniqueInput | SupportTicketWhereUniqueInput[]
+    connect?: SupportTicketWhereUniqueInput | SupportTicketWhereUniqueInput[]
+    update?: SupportTicketUpdateWithWhereUniqueWithoutOwnerInput | SupportTicketUpdateWithWhereUniqueWithoutOwnerInput[]
+    updateMany?: SupportTicketUpdateManyWithWhereWithoutOwnerInput | SupportTicketUpdateManyWithWhereWithoutOwnerInput[]
+    deleteMany?: SupportTicketScalarWhereInput | SupportTicketScalarWhereInput[]
   }
 
   export type OwnerCreateNestedManyWithoutPlanInput = {
@@ -11580,6 +14964,100 @@ export namespace Prisma {
     upsert?: OwnerUpsertWithoutOwnerPermissionsInput
     connect?: OwnerWhereUniqueInput
     update?: XOR<XOR<OwnerUpdateToOneWithWhereWithoutOwnerPermissionsInput, OwnerUpdateWithoutOwnerPermissionsInput>, OwnerUncheckedUpdateWithoutOwnerPermissionsInput>
+  }
+
+  export type OwnerCreateNestedOneWithoutSupportTicketsInput = {
+    create?: XOR<OwnerCreateWithoutSupportTicketsInput, OwnerUncheckedCreateWithoutSupportTicketsInput>
+    connectOrCreate?: OwnerCreateOrConnectWithoutSupportTicketsInput
+    connect?: OwnerWhereUniqueInput
+  }
+
+  export type SupportTicketCommentCreateNestedManyWithoutTicketInput = {
+    create?: XOR<SupportTicketCommentCreateWithoutTicketInput, SupportTicketCommentUncheckedCreateWithoutTicketInput> | SupportTicketCommentCreateWithoutTicketInput[] | SupportTicketCommentUncheckedCreateWithoutTicketInput[]
+    connectOrCreate?: SupportTicketCommentCreateOrConnectWithoutTicketInput | SupportTicketCommentCreateOrConnectWithoutTicketInput[]
+    createMany?: SupportTicketCommentCreateManyTicketInputEnvelope
+    connect?: SupportTicketCommentWhereUniqueInput | SupportTicketCommentWhereUniqueInput[]
+  }
+
+  export type SupportTicketCommentUncheckedCreateNestedManyWithoutTicketInput = {
+    create?: XOR<SupportTicketCommentCreateWithoutTicketInput, SupportTicketCommentUncheckedCreateWithoutTicketInput> | SupportTicketCommentCreateWithoutTicketInput[] | SupportTicketCommentUncheckedCreateWithoutTicketInput[]
+    connectOrCreate?: SupportTicketCommentCreateOrConnectWithoutTicketInput | SupportTicketCommentCreateOrConnectWithoutTicketInput[]
+    createMany?: SupportTicketCommentCreateManyTicketInputEnvelope
+    connect?: SupportTicketCommentWhereUniqueInput | SupportTicketCommentWhereUniqueInput[]
+  }
+
+  export type EnumSupportTicketPriorityFieldUpdateOperationsInput = {
+    set?: $Enums.SupportTicketPriority
+  }
+
+  export type EnumSupportTicketOwnerStatusFieldUpdateOperationsInput = {
+    set?: $Enums.SupportTicketOwnerStatus
+  }
+
+  export type EnumSupportTicketAdminStatusFieldUpdateOperationsInput = {
+    set?: $Enums.SupportTicketAdminStatus
+  }
+
+  export type OwnerUpdateOneRequiredWithoutSupportTicketsNestedInput = {
+    create?: XOR<OwnerCreateWithoutSupportTicketsInput, OwnerUncheckedCreateWithoutSupportTicketsInput>
+    connectOrCreate?: OwnerCreateOrConnectWithoutSupportTicketsInput
+    upsert?: OwnerUpsertWithoutSupportTicketsInput
+    connect?: OwnerWhereUniqueInput
+    update?: XOR<XOR<OwnerUpdateToOneWithWhereWithoutSupportTicketsInput, OwnerUpdateWithoutSupportTicketsInput>, OwnerUncheckedUpdateWithoutSupportTicketsInput>
+  }
+
+  export type SupportTicketCommentUpdateManyWithoutTicketNestedInput = {
+    create?: XOR<SupportTicketCommentCreateWithoutTicketInput, SupportTicketCommentUncheckedCreateWithoutTicketInput> | SupportTicketCommentCreateWithoutTicketInput[] | SupportTicketCommentUncheckedCreateWithoutTicketInput[]
+    connectOrCreate?: SupportTicketCommentCreateOrConnectWithoutTicketInput | SupportTicketCommentCreateOrConnectWithoutTicketInput[]
+    upsert?: SupportTicketCommentUpsertWithWhereUniqueWithoutTicketInput | SupportTicketCommentUpsertWithWhereUniqueWithoutTicketInput[]
+    createMany?: SupportTicketCommentCreateManyTicketInputEnvelope
+    set?: SupportTicketCommentWhereUniqueInput | SupportTicketCommentWhereUniqueInput[]
+    disconnect?: SupportTicketCommentWhereUniqueInput | SupportTicketCommentWhereUniqueInput[]
+    delete?: SupportTicketCommentWhereUniqueInput | SupportTicketCommentWhereUniqueInput[]
+    connect?: SupportTicketCommentWhereUniqueInput | SupportTicketCommentWhereUniqueInput[]
+    update?: SupportTicketCommentUpdateWithWhereUniqueWithoutTicketInput | SupportTicketCommentUpdateWithWhereUniqueWithoutTicketInput[]
+    updateMany?: SupportTicketCommentUpdateManyWithWhereWithoutTicketInput | SupportTicketCommentUpdateManyWithWhereWithoutTicketInput[]
+    deleteMany?: SupportTicketCommentScalarWhereInput | SupportTicketCommentScalarWhereInput[]
+  }
+
+  export type SupportTicketCommentUncheckedUpdateManyWithoutTicketNestedInput = {
+    create?: XOR<SupportTicketCommentCreateWithoutTicketInput, SupportTicketCommentUncheckedCreateWithoutTicketInput> | SupportTicketCommentCreateWithoutTicketInput[] | SupportTicketCommentUncheckedCreateWithoutTicketInput[]
+    connectOrCreate?: SupportTicketCommentCreateOrConnectWithoutTicketInput | SupportTicketCommentCreateOrConnectWithoutTicketInput[]
+    upsert?: SupportTicketCommentUpsertWithWhereUniqueWithoutTicketInput | SupportTicketCommentUpsertWithWhereUniqueWithoutTicketInput[]
+    createMany?: SupportTicketCommentCreateManyTicketInputEnvelope
+    set?: SupportTicketCommentWhereUniqueInput | SupportTicketCommentWhereUniqueInput[]
+    disconnect?: SupportTicketCommentWhereUniqueInput | SupportTicketCommentWhereUniqueInput[]
+    delete?: SupportTicketCommentWhereUniqueInput | SupportTicketCommentWhereUniqueInput[]
+    connect?: SupportTicketCommentWhereUniqueInput | SupportTicketCommentWhereUniqueInput[]
+    update?: SupportTicketCommentUpdateWithWhereUniqueWithoutTicketInput | SupportTicketCommentUpdateWithWhereUniqueWithoutTicketInput[]
+    updateMany?: SupportTicketCommentUpdateManyWithWhereWithoutTicketInput | SupportTicketCommentUpdateManyWithWhereWithoutTicketInput[]
+    deleteMany?: SupportTicketCommentScalarWhereInput | SupportTicketCommentScalarWhereInput[]
+  }
+
+  export type SupportTicketCreateNestedOneWithoutCommentsInput = {
+    create?: XOR<SupportTicketCreateWithoutCommentsInput, SupportTicketUncheckedCreateWithoutCommentsInput>
+    connectOrCreate?: SupportTicketCreateOrConnectWithoutCommentsInput
+    connect?: SupportTicketWhereUniqueInput
+  }
+
+  export type EnumSupportCommentAuthorRoleFieldUpdateOperationsInput = {
+    set?: $Enums.SupportCommentAuthorRole
+  }
+
+  export type EnumSupportTicketCommentKindFieldUpdateOperationsInput = {
+    set?: $Enums.SupportTicketCommentKind
+  }
+
+  export type EnumSupportCommentAudienceFieldUpdateOperationsInput = {
+    set?: $Enums.SupportCommentAudience
+  }
+
+  export type SupportTicketUpdateOneRequiredWithoutCommentsNestedInput = {
+    create?: XOR<SupportTicketCreateWithoutCommentsInput, SupportTicketUncheckedCreateWithoutCommentsInput>
+    connectOrCreate?: SupportTicketCreateOrConnectWithoutCommentsInput
+    upsert?: SupportTicketUpsertWithoutCommentsInput
+    connect?: SupportTicketWhereUniqueInput
+    update?: XOR<XOR<SupportTicketUpdateToOneWithWhereWithoutCommentsInput, SupportTicketUpdateWithoutCommentsInput>, SupportTicketUncheckedUpdateWithoutCommentsInput>
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -11966,6 +15444,108 @@ export namespace Prisma {
     _max?: NestedEnumAnnouncementStatusFilter<$PrismaModel>
   }
 
+  export type NestedEnumSupportTicketPriorityFilter<$PrismaModel = never> = {
+    equals?: $Enums.SupportTicketPriority | EnumSupportTicketPriorityFieldRefInput<$PrismaModel>
+    in?: $Enums.SupportTicketPriority[] | ListEnumSupportTicketPriorityFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SupportTicketPriority[] | ListEnumSupportTicketPriorityFieldRefInput<$PrismaModel>
+    not?: NestedEnumSupportTicketPriorityFilter<$PrismaModel> | $Enums.SupportTicketPriority
+  }
+
+  export type NestedEnumSupportTicketOwnerStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.SupportTicketOwnerStatus | EnumSupportTicketOwnerStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.SupportTicketOwnerStatus[] | ListEnumSupportTicketOwnerStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SupportTicketOwnerStatus[] | ListEnumSupportTicketOwnerStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumSupportTicketOwnerStatusFilter<$PrismaModel> | $Enums.SupportTicketOwnerStatus
+  }
+
+  export type NestedEnumSupportTicketAdminStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.SupportTicketAdminStatus | EnumSupportTicketAdminStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.SupportTicketAdminStatus[] | ListEnumSupportTicketAdminStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SupportTicketAdminStatus[] | ListEnumSupportTicketAdminStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumSupportTicketAdminStatusFilter<$PrismaModel> | $Enums.SupportTicketAdminStatus
+  }
+
+  export type NestedEnumSupportTicketPriorityWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.SupportTicketPriority | EnumSupportTicketPriorityFieldRefInput<$PrismaModel>
+    in?: $Enums.SupportTicketPriority[] | ListEnumSupportTicketPriorityFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SupportTicketPriority[] | ListEnumSupportTicketPriorityFieldRefInput<$PrismaModel>
+    not?: NestedEnumSupportTicketPriorityWithAggregatesFilter<$PrismaModel> | $Enums.SupportTicketPriority
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumSupportTicketPriorityFilter<$PrismaModel>
+    _max?: NestedEnumSupportTicketPriorityFilter<$PrismaModel>
+  }
+
+  export type NestedEnumSupportTicketOwnerStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.SupportTicketOwnerStatus | EnumSupportTicketOwnerStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.SupportTicketOwnerStatus[] | ListEnumSupportTicketOwnerStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SupportTicketOwnerStatus[] | ListEnumSupportTicketOwnerStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumSupportTicketOwnerStatusWithAggregatesFilter<$PrismaModel> | $Enums.SupportTicketOwnerStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumSupportTicketOwnerStatusFilter<$PrismaModel>
+    _max?: NestedEnumSupportTicketOwnerStatusFilter<$PrismaModel>
+  }
+
+  export type NestedEnumSupportTicketAdminStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.SupportTicketAdminStatus | EnumSupportTicketAdminStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.SupportTicketAdminStatus[] | ListEnumSupportTicketAdminStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SupportTicketAdminStatus[] | ListEnumSupportTicketAdminStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumSupportTicketAdminStatusWithAggregatesFilter<$PrismaModel> | $Enums.SupportTicketAdminStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumSupportTicketAdminStatusFilter<$PrismaModel>
+    _max?: NestedEnumSupportTicketAdminStatusFilter<$PrismaModel>
+  }
+
+  export type NestedEnumSupportCommentAuthorRoleFilter<$PrismaModel = never> = {
+    equals?: $Enums.SupportCommentAuthorRole | EnumSupportCommentAuthorRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.SupportCommentAuthorRole[] | ListEnumSupportCommentAuthorRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SupportCommentAuthorRole[] | ListEnumSupportCommentAuthorRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumSupportCommentAuthorRoleFilter<$PrismaModel> | $Enums.SupportCommentAuthorRole
+  }
+
+  export type NestedEnumSupportTicketCommentKindFilter<$PrismaModel = never> = {
+    equals?: $Enums.SupportTicketCommentKind | EnumSupportTicketCommentKindFieldRefInput<$PrismaModel>
+    in?: $Enums.SupportTicketCommentKind[] | ListEnumSupportTicketCommentKindFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SupportTicketCommentKind[] | ListEnumSupportTicketCommentKindFieldRefInput<$PrismaModel>
+    not?: NestedEnumSupportTicketCommentKindFilter<$PrismaModel> | $Enums.SupportTicketCommentKind
+  }
+
+  export type NestedEnumSupportCommentAudienceFilter<$PrismaModel = never> = {
+    equals?: $Enums.SupportCommentAudience | EnumSupportCommentAudienceFieldRefInput<$PrismaModel>
+    in?: $Enums.SupportCommentAudience[] | ListEnumSupportCommentAudienceFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SupportCommentAudience[] | ListEnumSupportCommentAudienceFieldRefInput<$PrismaModel>
+    not?: NestedEnumSupportCommentAudienceFilter<$PrismaModel> | $Enums.SupportCommentAudience
+  }
+
+  export type NestedEnumSupportCommentAuthorRoleWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.SupportCommentAuthorRole | EnumSupportCommentAuthorRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.SupportCommentAuthorRole[] | ListEnumSupportCommentAuthorRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SupportCommentAuthorRole[] | ListEnumSupportCommentAuthorRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumSupportCommentAuthorRoleWithAggregatesFilter<$PrismaModel> | $Enums.SupportCommentAuthorRole
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumSupportCommentAuthorRoleFilter<$PrismaModel>
+    _max?: NestedEnumSupportCommentAuthorRoleFilter<$PrismaModel>
+  }
+
+  export type NestedEnumSupportTicketCommentKindWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.SupportTicketCommentKind | EnumSupportTicketCommentKindFieldRefInput<$PrismaModel>
+    in?: $Enums.SupportTicketCommentKind[] | ListEnumSupportTicketCommentKindFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SupportTicketCommentKind[] | ListEnumSupportTicketCommentKindFieldRefInput<$PrismaModel>
+    not?: NestedEnumSupportTicketCommentKindWithAggregatesFilter<$PrismaModel> | $Enums.SupportTicketCommentKind
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumSupportTicketCommentKindFilter<$PrismaModel>
+    _max?: NestedEnumSupportTicketCommentKindFilter<$PrismaModel>
+  }
+
+  export type NestedEnumSupportCommentAudienceWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.SupportCommentAudience | EnumSupportCommentAudienceFieldRefInput<$PrismaModel>
+    in?: $Enums.SupportCommentAudience[] | ListEnumSupportCommentAudienceFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SupportCommentAudience[] | ListEnumSupportCommentAudienceFieldRefInput<$PrismaModel>
+    not?: NestedEnumSupportCommentAudienceWithAggregatesFilter<$PrismaModel> | $Enums.SupportCommentAudience
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumSupportCommentAudienceFilter<$PrismaModel>
+    _max?: NestedEnumSupportCommentAudienceFilter<$PrismaModel>
+  }
+
   export type PlanCreateWithoutOwnersInput = {
     plan_uuid?: string
     plan_name: string
@@ -12048,6 +15628,55 @@ export namespace Prisma {
 
   export type OwnerPermissionCreateManyOwnerInputEnvelope = {
     data: OwnerPermissionCreateManyOwnerInput | OwnerPermissionCreateManyOwnerInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type SupportTicketCreateWithoutOwnerInput = {
+    st_uuid?: string
+    st_title: string
+    st_body: string
+    st_priority?: $Enums.SupportTicketPriority
+    st_images?: NullableJsonNullValueInput | InputJsonValue
+    st_owner_status?: $Enums.SupportTicketOwnerStatus
+    st_admin_status?: $Enums.SupportTicketAdminStatus
+    st_expected_delivery_at?: Date | string | null
+    st_created_at?: Date | string
+    st_created_by?: string | null
+    st_updated_at?: Date | string
+    st_updated_by?: string | null
+    st_deleted_at?: Date | string | null
+    st_deleted_by?: string | null
+    st_is_deleted?: boolean
+    comments?: SupportTicketCommentCreateNestedManyWithoutTicketInput
+  }
+
+  export type SupportTicketUncheckedCreateWithoutOwnerInput = {
+    st_id?: number
+    st_uuid?: string
+    st_title: string
+    st_body: string
+    st_priority?: $Enums.SupportTicketPriority
+    st_images?: NullableJsonNullValueInput | InputJsonValue
+    st_owner_status?: $Enums.SupportTicketOwnerStatus
+    st_admin_status?: $Enums.SupportTicketAdminStatus
+    st_expected_delivery_at?: Date | string | null
+    st_created_at?: Date | string
+    st_created_by?: string | null
+    st_updated_at?: Date | string
+    st_updated_by?: string | null
+    st_deleted_at?: Date | string | null
+    st_deleted_by?: string | null
+    st_is_deleted?: boolean
+    comments?: SupportTicketCommentUncheckedCreateNestedManyWithoutTicketInput
+  }
+
+  export type SupportTicketCreateOrConnectWithoutOwnerInput = {
+    where: SupportTicketWhereUniqueInput
+    create: XOR<SupportTicketCreateWithoutOwnerInput, SupportTicketUncheckedCreateWithoutOwnerInput>
+  }
+
+  export type SupportTicketCreateManyOwnerInputEnvelope = {
+    data: SupportTicketCreateManyOwnerInput | SupportTicketCreateManyOwnerInput[]
     skipDuplicates?: boolean
   }
 
@@ -12145,6 +15774,45 @@ export namespace Prisma {
     op_updated_at?: DateTimeFilter<"OwnerPermission"> | Date | string
   }
 
+  export type SupportTicketUpsertWithWhereUniqueWithoutOwnerInput = {
+    where: SupportTicketWhereUniqueInput
+    update: XOR<SupportTicketUpdateWithoutOwnerInput, SupportTicketUncheckedUpdateWithoutOwnerInput>
+    create: XOR<SupportTicketCreateWithoutOwnerInput, SupportTicketUncheckedCreateWithoutOwnerInput>
+  }
+
+  export type SupportTicketUpdateWithWhereUniqueWithoutOwnerInput = {
+    where: SupportTicketWhereUniqueInput
+    data: XOR<SupportTicketUpdateWithoutOwnerInput, SupportTicketUncheckedUpdateWithoutOwnerInput>
+  }
+
+  export type SupportTicketUpdateManyWithWhereWithoutOwnerInput = {
+    where: SupportTicketScalarWhereInput
+    data: XOR<SupportTicketUpdateManyMutationInput, SupportTicketUncheckedUpdateManyWithoutOwnerInput>
+  }
+
+  export type SupportTicketScalarWhereInput = {
+    AND?: SupportTicketScalarWhereInput | SupportTicketScalarWhereInput[]
+    OR?: SupportTicketScalarWhereInput[]
+    NOT?: SupportTicketScalarWhereInput | SupportTicketScalarWhereInput[]
+    st_id?: IntFilter<"SupportTicket"> | number
+    st_uuid?: StringFilter<"SupportTicket"> | string
+    st_own_id?: IntFilter<"SupportTicket"> | number
+    st_title?: StringFilter<"SupportTicket"> | string
+    st_body?: StringFilter<"SupportTicket"> | string
+    st_priority?: EnumSupportTicketPriorityFilter<"SupportTicket"> | $Enums.SupportTicketPriority
+    st_images?: JsonNullableFilter<"SupportTicket">
+    st_owner_status?: EnumSupportTicketOwnerStatusFilter<"SupportTicket"> | $Enums.SupportTicketOwnerStatus
+    st_admin_status?: EnumSupportTicketAdminStatusFilter<"SupportTicket"> | $Enums.SupportTicketAdminStatus
+    st_expected_delivery_at?: DateTimeNullableFilter<"SupportTicket"> | Date | string | null
+    st_created_at?: DateTimeFilter<"SupportTicket"> | Date | string
+    st_created_by?: StringNullableFilter<"SupportTicket"> | string | null
+    st_updated_at?: DateTimeFilter<"SupportTicket"> | Date | string
+    st_updated_by?: StringNullableFilter<"SupportTicket"> | string | null
+    st_deleted_at?: DateTimeNullableFilter<"SupportTicket"> | Date | string | null
+    st_deleted_by?: StringNullableFilter<"SupportTicket"> | string | null
+    st_is_deleted?: BoolFilter<"SupportTicket"> | boolean
+  }
+
   export type OwnerCreateWithoutPlanInput = {
     own_uuid?: string
     own_product_key?: number
@@ -12185,6 +15853,7 @@ export namespace Prisma {
     own_deleted_by?: string | null
     own_is_deleted?: boolean
     ownerPermissions?: OwnerPermissionCreateNestedManyWithoutOwnerInput
+    supportTickets?: SupportTicketCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerUncheckedCreateWithoutPlanInput = {
@@ -12228,6 +15897,7 @@ export namespace Prisma {
     own_deleted_by?: string | null
     own_is_deleted?: boolean
     ownerPermissions?: OwnerPermissionUncheckedCreateNestedManyWithoutOwnerInput
+    supportTickets?: SupportTicketUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerCreateOrConnectWithoutPlanInput = {
@@ -12342,6 +16012,7 @@ export namespace Prisma {
     own_deleted_by?: string | null
     own_is_deleted?: boolean
     plan?: PlanCreateNestedOneWithoutOwnersInput
+    supportTickets?: SupportTicketCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerUncheckedCreateWithoutOwnerPermissionsInput = {
@@ -12385,6 +16056,7 @@ export namespace Prisma {
     own_deleted_at?: Date | string | null
     own_deleted_by?: string | null
     own_is_deleted?: boolean
+    supportTickets?: SupportTicketUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type OwnerCreateOrConnectWithoutOwnerPermissionsInput = {
@@ -12442,6 +16114,7 @@ export namespace Prisma {
     own_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     own_is_deleted?: BoolFieldUpdateOperationsInput | boolean
     plan?: PlanUpdateOneWithoutOwnersNestedInput
+    supportTickets?: SupportTicketUpdateManyWithoutOwnerNestedInput
   }
 
   export type OwnerUncheckedUpdateWithoutOwnerPermissionsInput = {
@@ -12485,6 +16158,361 @@ export namespace Prisma {
     own_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     own_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     own_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    supportTickets?: SupportTicketUncheckedUpdateManyWithoutOwnerNestedInput
+  }
+
+  export type OwnerCreateWithoutSupportTicketsInput = {
+    own_uuid?: string
+    own_product_key?: number
+    own_db: string
+    own_add_date?: Date | string
+    own_first_name: string
+    own_middle_name?: string | null
+    own_last_name: string
+    own_phone_no?: string | null
+    own_mobile_no: string
+    own_email: string
+    own_login_id: string
+    own_password: string
+    own_status?: $Enums.OwnerStatus
+    own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_max_firms?: number | null
+    own_max_staff?: number | null
+    own_start_date?: Date | string | null
+    own_expiry_date?: Date | string | null
+    own_refresh_token?: string | null
+    own_refresh_expiry?: Date | string | null
+    own_jwt_token?: string | null
+    own_jwt_expiry?: Date | string | null
+    own_login_status?: boolean
+    own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
+    own_otp?: string | null
+    own_otp_expiry?: Date | string | null
+    own_address?: string | null
+    own_village?: string | null
+    own_city?: string | null
+    own_state?: string | null
+    own_pincode?: string | null
+    own_created_at?: Date | string
+    own_created_by?: string | null
+    own_updated_at?: Date | string
+    own_updated_by?: string | null
+    own_deleted_at?: Date | string | null
+    own_deleted_by?: string | null
+    own_is_deleted?: boolean
+    plan?: PlanCreateNestedOneWithoutOwnersInput
+    ownerPermissions?: OwnerPermissionCreateNestedManyWithoutOwnerInput
+  }
+
+  export type OwnerUncheckedCreateWithoutSupportTicketsInput = {
+    own_id?: number
+    own_uuid?: string
+    own_product_key?: number
+    own_db: string
+    own_add_date?: Date | string
+    own_first_name: string
+    own_middle_name?: string | null
+    own_last_name: string
+    own_phone_no?: string | null
+    own_mobile_no: string
+    own_email: string
+    own_login_id: string
+    own_password: string
+    own_status?: $Enums.OwnerStatus
+    own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_plan_id?: number | null
+    own_max_firms?: number | null
+    own_max_staff?: number | null
+    own_start_date?: Date | string | null
+    own_expiry_date?: Date | string | null
+    own_refresh_token?: string | null
+    own_refresh_expiry?: Date | string | null
+    own_jwt_token?: string | null
+    own_jwt_expiry?: Date | string | null
+    own_login_status?: boolean
+    own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
+    own_otp?: string | null
+    own_otp_expiry?: Date | string | null
+    own_address?: string | null
+    own_village?: string | null
+    own_city?: string | null
+    own_state?: string | null
+    own_pincode?: string | null
+    own_created_at?: Date | string
+    own_created_by?: string | null
+    own_updated_at?: Date | string
+    own_updated_by?: string | null
+    own_deleted_at?: Date | string | null
+    own_deleted_by?: string | null
+    own_is_deleted?: boolean
+    ownerPermissions?: OwnerPermissionUncheckedCreateNestedManyWithoutOwnerInput
+  }
+
+  export type OwnerCreateOrConnectWithoutSupportTicketsInput = {
+    where: OwnerWhereUniqueInput
+    create: XOR<OwnerCreateWithoutSupportTicketsInput, OwnerUncheckedCreateWithoutSupportTicketsInput>
+  }
+
+  export type SupportTicketCommentCreateWithoutTicketInput = {
+    stc_uuid?: string
+    stc_author_role: $Enums.SupportCommentAuthorRole
+    stc_author_uuid: string
+    stc_author_name: string
+    stc_kind?: $Enums.SupportTicketCommentKind
+    stc_audience?: $Enums.SupportCommentAudience
+    stc_body: string
+    stc_images?: NullableJsonNullValueInput | InputJsonValue
+    stc_created_at?: Date | string
+    stc_updated_at?: Date | string
+  }
+
+  export type SupportTicketCommentUncheckedCreateWithoutTicketInput = {
+    stc_id?: number
+    stc_uuid?: string
+    stc_author_role: $Enums.SupportCommentAuthorRole
+    stc_author_uuid: string
+    stc_author_name: string
+    stc_kind?: $Enums.SupportTicketCommentKind
+    stc_audience?: $Enums.SupportCommentAudience
+    stc_body: string
+    stc_images?: NullableJsonNullValueInput | InputJsonValue
+    stc_created_at?: Date | string
+    stc_updated_at?: Date | string
+  }
+
+  export type SupportTicketCommentCreateOrConnectWithoutTicketInput = {
+    where: SupportTicketCommentWhereUniqueInput
+    create: XOR<SupportTicketCommentCreateWithoutTicketInput, SupportTicketCommentUncheckedCreateWithoutTicketInput>
+  }
+
+  export type SupportTicketCommentCreateManyTicketInputEnvelope = {
+    data: SupportTicketCommentCreateManyTicketInput | SupportTicketCommentCreateManyTicketInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type OwnerUpsertWithoutSupportTicketsInput = {
+    update: XOR<OwnerUpdateWithoutSupportTicketsInput, OwnerUncheckedUpdateWithoutSupportTicketsInput>
+    create: XOR<OwnerCreateWithoutSupportTicketsInput, OwnerUncheckedCreateWithoutSupportTicketsInput>
+    where?: OwnerWhereInput
+  }
+
+  export type OwnerUpdateToOneWithWhereWithoutSupportTicketsInput = {
+    where?: OwnerWhereInput
+    data: XOR<OwnerUpdateWithoutSupportTicketsInput, OwnerUncheckedUpdateWithoutSupportTicketsInput>
+  }
+
+  export type OwnerUpdateWithoutSupportTicketsInput = {
+    own_uuid?: StringFieldUpdateOperationsInput | string
+    own_db?: StringFieldUpdateOperationsInput | string
+    own_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    own_first_name?: StringFieldUpdateOperationsInput | string
+    own_middle_name?: NullableStringFieldUpdateOperationsInput | string | null
+    own_last_name?: StringFieldUpdateOperationsInput | string
+    own_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mobile_no?: StringFieldUpdateOperationsInput | string
+    own_email?: StringFieldUpdateOperationsInput | string
+    own_login_id?: StringFieldUpdateOperationsInput | string
+    own_password?: StringFieldUpdateOperationsInput | string
+    own_status?: EnumOwnerStatusFieldUpdateOperationsInput | $Enums.OwnerStatus
+    own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_max_firms?: NullableIntFieldUpdateOperationsInput | number | null
+    own_max_staff?: NullableIntFieldUpdateOperationsInput | number | null
+    own_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_expiry_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
+    own_refresh_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_jwt_token?: NullableStringFieldUpdateOperationsInput | string | null
+    own_jwt_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_login_status?: BoolFieldUpdateOperationsInput | boolean
+    own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
+    own_otp?: NullableStringFieldUpdateOperationsInput | string | null
+    own_otp_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_address?: NullableStringFieldUpdateOperationsInput | string | null
+    own_village?: NullableStringFieldUpdateOperationsInput | string | null
+    own_city?: NullableStringFieldUpdateOperationsInput | string | null
+    own_state?: NullableStringFieldUpdateOperationsInput | string | null
+    own_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    own_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    own_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    own_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    own_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    own_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    own_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    plan?: PlanUpdateOneWithoutOwnersNestedInput
+    ownerPermissions?: OwnerPermissionUpdateManyWithoutOwnerNestedInput
+  }
+
+  export type OwnerUncheckedUpdateWithoutSupportTicketsInput = {
+    own_id?: IntFieldUpdateOperationsInput | number
+    own_uuid?: StringFieldUpdateOperationsInput | string
+    own_product_key?: IntFieldUpdateOperationsInput | number
+    own_db?: StringFieldUpdateOperationsInput | string
+    own_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    own_first_name?: StringFieldUpdateOperationsInput | string
+    own_middle_name?: NullableStringFieldUpdateOperationsInput | string | null
+    own_last_name?: StringFieldUpdateOperationsInput | string
+    own_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mobile_no?: StringFieldUpdateOperationsInput | string
+    own_email?: StringFieldUpdateOperationsInput | string
+    own_login_id?: StringFieldUpdateOperationsInput | string
+    own_password?: StringFieldUpdateOperationsInput | string
+    own_status?: EnumOwnerStatusFieldUpdateOperationsInput | $Enums.OwnerStatus
+    own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_plan_id?: NullableIntFieldUpdateOperationsInput | number | null
+    own_max_firms?: NullableIntFieldUpdateOperationsInput | number | null
+    own_max_staff?: NullableIntFieldUpdateOperationsInput | number | null
+    own_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_expiry_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
+    own_refresh_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_jwt_token?: NullableStringFieldUpdateOperationsInput | string | null
+    own_jwt_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_login_status?: BoolFieldUpdateOperationsInput | boolean
+    own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
+    own_otp?: NullableStringFieldUpdateOperationsInput | string | null
+    own_otp_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_address?: NullableStringFieldUpdateOperationsInput | string | null
+    own_village?: NullableStringFieldUpdateOperationsInput | string | null
+    own_city?: NullableStringFieldUpdateOperationsInput | string | null
+    own_state?: NullableStringFieldUpdateOperationsInput | string | null
+    own_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    own_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    own_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    own_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    own_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    own_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    own_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    ownerPermissions?: OwnerPermissionUncheckedUpdateManyWithoutOwnerNestedInput
+  }
+
+  export type SupportTicketCommentUpsertWithWhereUniqueWithoutTicketInput = {
+    where: SupportTicketCommentWhereUniqueInput
+    update: XOR<SupportTicketCommentUpdateWithoutTicketInput, SupportTicketCommentUncheckedUpdateWithoutTicketInput>
+    create: XOR<SupportTicketCommentCreateWithoutTicketInput, SupportTicketCommentUncheckedCreateWithoutTicketInput>
+  }
+
+  export type SupportTicketCommentUpdateWithWhereUniqueWithoutTicketInput = {
+    where: SupportTicketCommentWhereUniqueInput
+    data: XOR<SupportTicketCommentUpdateWithoutTicketInput, SupportTicketCommentUncheckedUpdateWithoutTicketInput>
+  }
+
+  export type SupportTicketCommentUpdateManyWithWhereWithoutTicketInput = {
+    where: SupportTicketCommentScalarWhereInput
+    data: XOR<SupportTicketCommentUpdateManyMutationInput, SupportTicketCommentUncheckedUpdateManyWithoutTicketInput>
+  }
+
+  export type SupportTicketCommentScalarWhereInput = {
+    AND?: SupportTicketCommentScalarWhereInput | SupportTicketCommentScalarWhereInput[]
+    OR?: SupportTicketCommentScalarWhereInput[]
+    NOT?: SupportTicketCommentScalarWhereInput | SupportTicketCommentScalarWhereInput[]
+    stc_id?: IntFilter<"SupportTicketComment"> | number
+    stc_uuid?: StringFilter<"SupportTicketComment"> | string
+    st_st_id?: IntFilter<"SupportTicketComment"> | number
+    stc_author_role?: EnumSupportCommentAuthorRoleFilter<"SupportTicketComment"> | $Enums.SupportCommentAuthorRole
+    stc_author_uuid?: StringFilter<"SupportTicketComment"> | string
+    stc_author_name?: StringFilter<"SupportTicketComment"> | string
+    stc_kind?: EnumSupportTicketCommentKindFilter<"SupportTicketComment"> | $Enums.SupportTicketCommentKind
+    stc_audience?: EnumSupportCommentAudienceFilter<"SupportTicketComment"> | $Enums.SupportCommentAudience
+    stc_body?: StringFilter<"SupportTicketComment"> | string
+    stc_images?: JsonNullableFilter<"SupportTicketComment">
+    stc_created_at?: DateTimeFilter<"SupportTicketComment"> | Date | string
+    stc_updated_at?: DateTimeFilter<"SupportTicketComment"> | Date | string
+  }
+
+  export type SupportTicketCreateWithoutCommentsInput = {
+    st_uuid?: string
+    st_title: string
+    st_body: string
+    st_priority?: $Enums.SupportTicketPriority
+    st_images?: NullableJsonNullValueInput | InputJsonValue
+    st_owner_status?: $Enums.SupportTicketOwnerStatus
+    st_admin_status?: $Enums.SupportTicketAdminStatus
+    st_expected_delivery_at?: Date | string | null
+    st_created_at?: Date | string
+    st_created_by?: string | null
+    st_updated_at?: Date | string
+    st_updated_by?: string | null
+    st_deleted_at?: Date | string | null
+    st_deleted_by?: string | null
+    st_is_deleted?: boolean
+    owner: OwnerCreateNestedOneWithoutSupportTicketsInput
+  }
+
+  export type SupportTicketUncheckedCreateWithoutCommentsInput = {
+    st_id?: number
+    st_uuid?: string
+    st_own_id: number
+    st_title: string
+    st_body: string
+    st_priority?: $Enums.SupportTicketPriority
+    st_images?: NullableJsonNullValueInput | InputJsonValue
+    st_owner_status?: $Enums.SupportTicketOwnerStatus
+    st_admin_status?: $Enums.SupportTicketAdminStatus
+    st_expected_delivery_at?: Date | string | null
+    st_created_at?: Date | string
+    st_created_by?: string | null
+    st_updated_at?: Date | string
+    st_updated_by?: string | null
+    st_deleted_at?: Date | string | null
+    st_deleted_by?: string | null
+    st_is_deleted?: boolean
+  }
+
+  export type SupportTicketCreateOrConnectWithoutCommentsInput = {
+    where: SupportTicketWhereUniqueInput
+    create: XOR<SupportTicketCreateWithoutCommentsInput, SupportTicketUncheckedCreateWithoutCommentsInput>
+  }
+
+  export type SupportTicketUpsertWithoutCommentsInput = {
+    update: XOR<SupportTicketUpdateWithoutCommentsInput, SupportTicketUncheckedUpdateWithoutCommentsInput>
+    create: XOR<SupportTicketCreateWithoutCommentsInput, SupportTicketUncheckedCreateWithoutCommentsInput>
+    where?: SupportTicketWhereInput
+  }
+
+  export type SupportTicketUpdateToOneWithWhereWithoutCommentsInput = {
+    where?: SupportTicketWhereInput
+    data: XOR<SupportTicketUpdateWithoutCommentsInput, SupportTicketUncheckedUpdateWithoutCommentsInput>
+  }
+
+  export type SupportTicketUpdateWithoutCommentsInput = {
+    st_uuid?: StringFieldUpdateOperationsInput | string
+    st_title?: StringFieldUpdateOperationsInput | string
+    st_body?: StringFieldUpdateOperationsInput | string
+    st_priority?: EnumSupportTicketPriorityFieldUpdateOperationsInput | $Enums.SupportTicketPriority
+    st_images?: NullableJsonNullValueInput | InputJsonValue
+    st_owner_status?: EnumSupportTicketOwnerStatusFieldUpdateOperationsInput | $Enums.SupportTicketOwnerStatus
+    st_admin_status?: EnumSupportTicketAdminStatusFieldUpdateOperationsInput | $Enums.SupportTicketAdminStatus
+    st_expected_delivery_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    st_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    st_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    st_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    st_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    st_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    st_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    st_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    owner?: OwnerUpdateOneRequiredWithoutSupportTicketsNestedInput
+  }
+
+  export type SupportTicketUncheckedUpdateWithoutCommentsInput = {
+    st_id?: IntFieldUpdateOperationsInput | number
+    st_uuid?: StringFieldUpdateOperationsInput | string
+    st_own_id?: IntFieldUpdateOperationsInput | number
+    st_title?: StringFieldUpdateOperationsInput | string
+    st_body?: StringFieldUpdateOperationsInput | string
+    st_priority?: EnumSupportTicketPriorityFieldUpdateOperationsInput | $Enums.SupportTicketPriority
+    st_images?: NullableJsonNullValueInput | InputJsonValue
+    st_owner_status?: EnumSupportTicketOwnerStatusFieldUpdateOperationsInput | $Enums.SupportTicketOwnerStatus
+    st_admin_status?: EnumSupportTicketAdminStatusFieldUpdateOperationsInput | $Enums.SupportTicketAdminStatus
+    st_expected_delivery_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    st_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    st_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    st_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    st_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    st_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    st_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    st_is_deleted?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type OwnerPermissionCreateManyOwnerInput = {
@@ -12493,6 +16521,25 @@ export namespace Prisma {
     op_granted?: boolean
     op_created_at?: Date | string
     op_updated_at?: Date | string
+  }
+
+  export type SupportTicketCreateManyOwnerInput = {
+    st_id?: number
+    st_uuid?: string
+    st_title: string
+    st_body: string
+    st_priority?: $Enums.SupportTicketPriority
+    st_images?: NullableJsonNullValueInput | InputJsonValue
+    st_owner_status?: $Enums.SupportTicketOwnerStatus
+    st_admin_status?: $Enums.SupportTicketAdminStatus
+    st_expected_delivery_at?: Date | string | null
+    st_created_at?: Date | string
+    st_created_by?: string | null
+    st_updated_at?: Date | string
+    st_updated_by?: string | null
+    st_deleted_at?: Date | string | null
+    st_deleted_by?: string | null
+    st_is_deleted?: boolean
   }
 
   export type OwnerPermissionUpdateWithoutOwnerInput = {
@@ -12516,6 +16563,64 @@ export namespace Prisma {
     op_granted?: BoolFieldUpdateOperationsInput | boolean
     op_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     op_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SupportTicketUpdateWithoutOwnerInput = {
+    st_uuid?: StringFieldUpdateOperationsInput | string
+    st_title?: StringFieldUpdateOperationsInput | string
+    st_body?: StringFieldUpdateOperationsInput | string
+    st_priority?: EnumSupportTicketPriorityFieldUpdateOperationsInput | $Enums.SupportTicketPriority
+    st_images?: NullableJsonNullValueInput | InputJsonValue
+    st_owner_status?: EnumSupportTicketOwnerStatusFieldUpdateOperationsInput | $Enums.SupportTicketOwnerStatus
+    st_admin_status?: EnumSupportTicketAdminStatusFieldUpdateOperationsInput | $Enums.SupportTicketAdminStatus
+    st_expected_delivery_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    st_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    st_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    st_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    st_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    st_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    st_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    st_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    comments?: SupportTicketCommentUpdateManyWithoutTicketNestedInput
+  }
+
+  export type SupportTicketUncheckedUpdateWithoutOwnerInput = {
+    st_id?: IntFieldUpdateOperationsInput | number
+    st_uuid?: StringFieldUpdateOperationsInput | string
+    st_title?: StringFieldUpdateOperationsInput | string
+    st_body?: StringFieldUpdateOperationsInput | string
+    st_priority?: EnumSupportTicketPriorityFieldUpdateOperationsInput | $Enums.SupportTicketPriority
+    st_images?: NullableJsonNullValueInput | InputJsonValue
+    st_owner_status?: EnumSupportTicketOwnerStatusFieldUpdateOperationsInput | $Enums.SupportTicketOwnerStatus
+    st_admin_status?: EnumSupportTicketAdminStatusFieldUpdateOperationsInput | $Enums.SupportTicketAdminStatus
+    st_expected_delivery_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    st_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    st_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    st_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    st_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    st_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    st_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    st_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    comments?: SupportTicketCommentUncheckedUpdateManyWithoutTicketNestedInput
+  }
+
+  export type SupportTicketUncheckedUpdateManyWithoutOwnerInput = {
+    st_id?: IntFieldUpdateOperationsInput | number
+    st_uuid?: StringFieldUpdateOperationsInput | string
+    st_title?: StringFieldUpdateOperationsInput | string
+    st_body?: StringFieldUpdateOperationsInput | string
+    st_priority?: EnumSupportTicketPriorityFieldUpdateOperationsInput | $Enums.SupportTicketPriority
+    st_images?: NullableJsonNullValueInput | InputJsonValue
+    st_owner_status?: EnumSupportTicketOwnerStatusFieldUpdateOperationsInput | $Enums.SupportTicketOwnerStatus
+    st_admin_status?: EnumSupportTicketAdminStatusFieldUpdateOperationsInput | $Enums.SupportTicketAdminStatus
+    st_expected_delivery_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    st_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    st_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    st_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    st_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    st_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    st_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    st_is_deleted?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type OwnerCreateManyPlanInput = {
@@ -12599,6 +16704,7 @@ export namespace Prisma {
     own_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     own_is_deleted?: BoolFieldUpdateOperationsInput | boolean
     ownerPermissions?: OwnerPermissionUpdateManyWithoutOwnerNestedInput
+    supportTickets?: SupportTicketUpdateManyWithoutOwnerNestedInput
   }
 
   export type OwnerUncheckedUpdateWithoutPlanInput = {
@@ -12642,6 +16748,7 @@ export namespace Prisma {
     own_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     own_is_deleted?: BoolFieldUpdateOperationsInput | boolean
     ownerPermissions?: OwnerPermissionUncheckedUpdateManyWithoutOwnerNestedInput
+    supportTickets?: SupportTicketUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
   export type OwnerUncheckedUpdateManyWithoutPlanInput = {
@@ -12686,6 +16793,61 @@ export namespace Prisma {
     own_is_deleted?: BoolFieldUpdateOperationsInput | boolean
   }
 
+  export type SupportTicketCommentCreateManyTicketInput = {
+    stc_id?: number
+    stc_uuid?: string
+    stc_author_role: $Enums.SupportCommentAuthorRole
+    stc_author_uuid: string
+    stc_author_name: string
+    stc_kind?: $Enums.SupportTicketCommentKind
+    stc_audience?: $Enums.SupportCommentAudience
+    stc_body: string
+    stc_images?: NullableJsonNullValueInput | InputJsonValue
+    stc_created_at?: Date | string
+    stc_updated_at?: Date | string
+  }
+
+  export type SupportTicketCommentUpdateWithoutTicketInput = {
+    stc_uuid?: StringFieldUpdateOperationsInput | string
+    stc_author_role?: EnumSupportCommentAuthorRoleFieldUpdateOperationsInput | $Enums.SupportCommentAuthorRole
+    stc_author_uuid?: StringFieldUpdateOperationsInput | string
+    stc_author_name?: StringFieldUpdateOperationsInput | string
+    stc_kind?: EnumSupportTicketCommentKindFieldUpdateOperationsInput | $Enums.SupportTicketCommentKind
+    stc_audience?: EnumSupportCommentAudienceFieldUpdateOperationsInput | $Enums.SupportCommentAudience
+    stc_body?: StringFieldUpdateOperationsInput | string
+    stc_images?: NullableJsonNullValueInput | InputJsonValue
+    stc_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    stc_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SupportTicketCommentUncheckedUpdateWithoutTicketInput = {
+    stc_id?: IntFieldUpdateOperationsInput | number
+    stc_uuid?: StringFieldUpdateOperationsInput | string
+    stc_author_role?: EnumSupportCommentAuthorRoleFieldUpdateOperationsInput | $Enums.SupportCommentAuthorRole
+    stc_author_uuid?: StringFieldUpdateOperationsInput | string
+    stc_author_name?: StringFieldUpdateOperationsInput | string
+    stc_kind?: EnumSupportTicketCommentKindFieldUpdateOperationsInput | $Enums.SupportTicketCommentKind
+    stc_audience?: EnumSupportCommentAudienceFieldUpdateOperationsInput | $Enums.SupportCommentAudience
+    stc_body?: StringFieldUpdateOperationsInput | string
+    stc_images?: NullableJsonNullValueInput | InputJsonValue
+    stc_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    stc_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SupportTicketCommentUncheckedUpdateManyWithoutTicketInput = {
+    stc_id?: IntFieldUpdateOperationsInput | number
+    stc_uuid?: StringFieldUpdateOperationsInput | string
+    stc_author_role?: EnumSupportCommentAuthorRoleFieldUpdateOperationsInput | $Enums.SupportCommentAuthorRole
+    stc_author_uuid?: StringFieldUpdateOperationsInput | string
+    stc_author_name?: StringFieldUpdateOperationsInput | string
+    stc_kind?: EnumSupportTicketCommentKindFieldUpdateOperationsInput | $Enums.SupportTicketCommentKind
+    stc_audience?: EnumSupportCommentAudienceFieldUpdateOperationsInput | $Enums.SupportCommentAudience
+    stc_body?: StringFieldUpdateOperationsInput | string
+    stc_images?: NullableJsonNullValueInput | InputJsonValue
+    stc_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    stc_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
 
 
   /**
@@ -12699,6 +16861,10 @@ export namespace Prisma {
      * @deprecated Use PlanCountOutputTypeDefaultArgs instead
      */
     export type PlanCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = PlanCountOutputTypeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use SupportTicketCountOutputTypeDefaultArgs instead
+     */
+    export type SupportTicketCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = SupportTicketCountOutputTypeDefaultArgs<ExtArgs>
     /**
      * @deprecated Use AdminDefaultArgs instead
      */
@@ -12723,6 +16889,14 @@ export namespace Prisma {
      * @deprecated Use OwnerPermissionDefaultArgs instead
      */
     export type OwnerPermissionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = OwnerPermissionDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use SupportTicketDefaultArgs instead
+     */
+    export type SupportTicketArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = SupportTicketDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use SupportTicketCommentDefaultArgs instead
+     */
+    export type SupportTicketCommentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = SupportTicketCommentDefaultArgs<ExtArgs>
 
   /**
    * Batch Payload for updateMany & deleteMany & createMany

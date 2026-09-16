@@ -265,6 +265,41 @@ exports.Prisma.OwnerPermissionScalarFieldEnum = {
   op_updated_at: 'op_updated_at'
 };
 
+exports.Prisma.SupportTicketScalarFieldEnum = {
+  st_id: 'st_id',
+  st_uuid: 'st_uuid',
+  st_own_id: 'st_own_id',
+  st_title: 'st_title',
+  st_body: 'st_body',
+  st_priority: 'st_priority',
+  st_images: 'st_images',
+  st_owner_status: 'st_owner_status',
+  st_admin_status: 'st_admin_status',
+  st_expected_delivery_at: 'st_expected_delivery_at',
+  st_created_at: 'st_created_at',
+  st_created_by: 'st_created_by',
+  st_updated_at: 'st_updated_at',
+  st_updated_by: 'st_updated_by',
+  st_deleted_at: 'st_deleted_at',
+  st_deleted_by: 'st_deleted_by',
+  st_is_deleted: 'st_is_deleted'
+};
+
+exports.Prisma.SupportTicketCommentScalarFieldEnum = {
+  stc_id: 'stc_id',
+  stc_uuid: 'stc_uuid',
+  st_st_id: 'st_st_id',
+  stc_author_role: 'stc_author_role',
+  stc_author_uuid: 'stc_author_uuid',
+  stc_author_name: 'stc_author_name',
+  stc_kind: 'stc_kind',
+  stc_audience: 'stc_audience',
+  stc_body: 'stc_body',
+  stc_images: 'stc_images',
+  stc_created_at: 'stc_created_at',
+  stc_updated_at: 'stc_updated_at'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -324,13 +359,58 @@ exports.AnnouncementStatus = exports.$Enums.AnnouncementStatus = {
   Inactive: 'Inactive'
 };
 
+exports.SupportTicketPriority = exports.$Enums.SupportTicketPriority = {
+  Low: 'Low',
+  Medium: 'Medium',
+  High: 'High',
+  Urgent: 'Urgent'
+};
+
+exports.SupportTicketOwnerStatus = exports.$Enums.SupportTicketOwnerStatus = {
+  Sent: 'Sent',
+  Review: 'Review',
+  InDiscussion: 'InDiscussion',
+  Development: 'Development',
+  Testing: 'Testing',
+  Done: 'Done',
+  Delivered: 'Delivered'
+};
+
+exports.SupportTicketAdminStatus = exports.$Enums.SupportTicketAdminStatus = {
+  Backlog: 'Backlog',
+  Todo: 'Todo',
+  InProgress: 'InProgress',
+  DoneOnLocal: 'DoneOnLocal',
+  ReadyForTesting: 'ReadyForTesting',
+  Done: 'Done',
+  Delivered: 'Delivered',
+  Cancelled: 'Cancelled'
+};
+
+exports.SupportCommentAuthorRole = exports.$Enums.SupportCommentAuthorRole = {
+  Owner: 'Owner',
+  Admin: 'Admin'
+};
+
+exports.SupportTicketCommentKind = exports.$Enums.SupportTicketCommentKind = {
+  Message: 'Message',
+  History: 'History'
+};
+
+exports.SupportCommentAudience = exports.$Enums.SupportCommentAudience = {
+  Both: 'Both',
+  Admin: 'Admin'
+};
+
 exports.Prisma.ModelName = {
   Admin: 'Admin',
   DbSeries: 'DbSeries',
   Owner: 'Owner',
   Plan: 'Plan',
   Announcement: 'Announcement',
-  OwnerPermission: 'OwnerPermission'
+  OwnerPermission: 'OwnerPermission',
+  SupportTicket: 'SupportTicket',
+  SupportTicketComment: 'SupportTicketComment'
 };
 
 /**
