@@ -2,8 +2,12 @@
 
 const { getTenantPrisma } = require("../../../utils/tenantPrisma");
 const journalService = require("../../journal/service/journal.service");
-const messageDispatchService = require("../../../common/service/message-dispatch.service");
-const { getCustomerWhatsAppNo } = require("../../../utils/customer.helper");
+const notifyCustomer = require("../../../common/service/messaging-notify.service");
+const messagingPdf = require("../../../common/service/messaging-pdf.service");
+const {
+  buildStandardVars,
+  buildLoanRef,
+} = require("../../../common/service/messaging-format.helper");
 const serialNumberService = require("../../../common/service/serialNumber.service");
 const {
   releaseVoucher,
@@ -411,21 +415,23 @@ class ReleaseService {
         relRec.rel_user_id > 0
           ? await prisma.user.findUnique({ where: { user_id: relRec.rel_user_id } })
           : null;
-      messageDispatchService.dispatchSafe({
+      const firm = await prisma.firm.findFirst({
+        where: { firm_id: relRec.rel_firm_id, firm_is_deleted: false },
+      });
+      const girvi = result.girvi;
+      const vars = buildStandardVars(
+        user,
+        buildLoanRef(girvi),
+        relRec.rel_payable_amt,
+        relRec.rel_trans_date
+      );
+      notifyCustomer.notifyCustomerTransactionSafe({
         dbUrl,
-        ownDb: messageDispatchService.ownDbFromUrl(dbUrl),
         firmId: relRec.rel_firm_id,
         templateKey: "loan_release",
-        toPhone: getCustomerWhatsAppNo(user),
-        toEmail: user?.user_email_id,
-        vars: {
-          1: user
-            ? `${user.user_first_name || ""} ${user.user_last_name || ""}`.trim()
-            : "",
-          2: String(relRec.rel_girv_id),
-          3: String(relRec.rel_payable_amt),
-          4: relRec.rel_trans_date,
-        },
+        user,
+        vars,
+        pdfSpec: messagingPdf.buildLoanReleasePdfSpec(girvi, user, firm, relRec),
       });
 
       return result;

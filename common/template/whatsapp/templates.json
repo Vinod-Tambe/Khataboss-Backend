@@ -1,13 +1,14 @@
 {
   "channel": "whatsapp",
   "version": 2,
-  "description": "whatsapp templates v2 — formatted per channel",
+  "description": "whatsapp templates v2 — customer-friendly wording",
   "modules": [
     "owner",
     "staff",
     "customer",
     "loan",
-    "finance"
+    "finance",
+    "reports"
   ],
   "templates": [
     {
@@ -18,7 +19,7 @@
       "category": "OTP",
       "language": "English (US)",
       "subject": "",
-      "body": "*KhataBoss* — Owner Login OTP\n\nHello *{{1}}*,\n\nYour login OTP is:\n*{{2}}*\n\nValid for *1 minute*. Do not share.",
+      "body": "*Login OTP*\n\nHello *{{1}}*,\n\nYour one-time password (OTP) is:\n\n*{{2}}*\n\nValid for *1 minute*. Do not share this code with anyone.\n\n_Please save this message for your records._\n\n──────────────────\n*{{firm_name}}*",
       "has_attachment": false,
       "attachment_hint": null,
       "status": "Active",
@@ -45,7 +46,7 @@
       "category": "Transactional",
       "language": "English (US)",
       "subject": "",
-      "body": "*KhataBoss* — Password Updated\n\nHello *{{1}}*,\n\nPassword for *{{firm_name}}* updated on *{{4}}*.\n\nIf not you, contact support.",
+      "body": "*Password Updated*\n\nHello *{{1}}*,\n\nYour KhataBoss login password was updated on *{{4}}*.\n\nIf you did not make this change, contact your firm immediately.\n\n_Please save this message for your records._\n\n──────────────────\n*{{firm_name}}*",
       "has_attachment": false,
       "attachment_hint": null,
       "status": "Active",
@@ -72,7 +73,7 @@
       "category": "Transactional",
       "language": "English (US)",
       "subject": "",
-      "body": "*KhataBoss* — Password Reset\n\nHello *{{1}}*,\n\nTemporary password:\n*{{3}}*\n\nChange after login.",
+      "body": "*Password Reset*\n\nHello *{{1}}*,\n\nYour temporary password is:\n\n*{{3}}*\n\nPlease login and change it immediately.\n\n_Please save this message for your records._\n\n──────────────────\n*{{firm_name}}*",
       "has_attachment": false,
       "attachment_hint": null,
       "status": "Active",
@@ -99,7 +100,7 @@
       "category": "Transactional",
       "language": "English (US)",
       "subject": "",
-      "body": "*KhataBoss* — Staff Account\n\nHello *{{1}}*,\n\nAccount at *{{firm_name}}*.\n*Login:* {{2}}\n*Password:* {{3}}",
+      "body": "*Staff Account Created*\n\nHello *{{1}}*,\n\nYour staff account at *{{firm_name}}* is ready.\n\nLogin ID: *{{2}}*\nPassword: *{{3}}*\n\nChange your password after first login.\n\n_Please save this message for your records._\n\n──────────────────\n*{{firm_name}}*",
       "has_attachment": false,
       "attachment_hint": null,
       "status": "Active",
@@ -130,7 +131,7 @@
       "category": "Transactional",
       "language": "English (US)",
       "subject": "",
-      "body": "*KhataBoss* — Staff Updated\n\nHello *{{1}}*,\n\nProfile updated at *{{firm_name}}* on *{{4}}*.",
+      "body": "*Profile Updated*\n\nHello *{{1}}*,\n\nYour staff profile at *{{firm_name}}* was updated on *{{4}}*.\n\n_Please save this message for your records._\n\n──────────────────\n*{{firm_name}}*",
       "has_attachment": false,
       "attachment_hint": null,
       "status": "Active",
@@ -157,7 +158,7 @@
       "category": "Transactional",
       "language": "English (US)",
       "subject": "",
-      "body": "*KhataBoss* — Staff Password\n\nHello *{{1}}*,\n\nPassword updated at *{{firm_name}}* on *{{4}}*.",
+      "body": "*Password Updated*\n\nHello *{{1}}*,\n\nYour staff password at *{{firm_name}}* was updated on *{{4}}*.\n\n_Please save this message for your records._\n\n──────────────────\n*{{firm_name}}*",
       "has_attachment": false,
       "attachment_hint": null,
       "status": "Active",
@@ -184,7 +185,7 @@
       "category": "Transactional",
       "language": "English (US)",
       "subject": "",
-      "body": "*KhataBoss* — Staff Reset\n\nHello *{{1}}*,\n\n*Login:* {{2}}\n*Password:* {{3}}",
+      "body": "*Password Reset*\n\nHello *{{1}}*,\n\nLogin ID: *{{2}}*\nTemporary password: *{{3}}*\n\nChange your password after login.\n\n_Please save this message for your records._\n\n──────────────────\n*{{firm_name}}*",
       "has_attachment": false,
       "attachment_hint": null,
       "status": "Active",
@@ -215,7 +216,7 @@
       "category": "OTP",
       "language": "English (US)",
       "subject": "",
-      "body": "*KhataBoss* — Staff OTP\n\nHello *{{1}}*,\n\nOTP:\n*{{2}}*\n\nDo not share.",
+      "body": "*Login OTP*\n\nHello *{{1}}*,\n\nYour OTP is:\n\n*{{2}}*\n\nDo not share this code.\n\n_Please save this message for your records._\n\n──────────────────\n*{{firm_name}}*",
       "has_attachment": false,
       "attachment_hint": null,
       "status": "Active",
@@ -242,7 +243,7 @@
       "category": "Marketing",
       "language": "English (US)",
       "subject": "",
-      "body": "*KhataBoss* — Welcome\n\nHello *{{1}}*, welcome to *{{firm_name}}*!\n*Customer ID:* {{2}}",
+      "body": "*Welcome*\n\nHello *{{1}}*, welcome to *{{firm_name}}*!\n\nYour customer ID is: *{{2}}*\n\nWe are happy to serve you.\n\n_Please save this message for your records._\n\n──────────────────\n*{{firm_name}}*",
       "has_attachment": false,
       "attachment_hint": null,
       "status": "Active",
@@ -269,7 +270,7 @@
       "category": "Transactional",
       "language": "English (US)",
       "subject": "",
-      "body": "*KhataBoss* — Profile Updated\n\nHello *{{1}}*,\n\nUpdated at *{{firm_name}}* on *{{4}}*.\n*ID:* {{2}}",
+      "body": "*Profile Updated*\n\nHello *{{1}}*,\n\nYour details at *{{firm_name}}* were updated on *{{4}}*.\nCustomer ID: *{{2}}*\n\n_Please save this message for your records._\n\n──────────────────\n*{{firm_name}}*",
       "has_attachment": false,
       "attachment_hint": null,
       "status": "Active",
@@ -300,7 +301,7 @@
       "category": "Customer Care",
       "language": "English (US)",
       "subject": "",
-      "body": "*KhataBoss* — Thank You\n\nHello *{{1}}*,\n\nThanks for choosing *{{firm_name}}*.\n*Ref:* {{2}}",
+      "body": "*Thank You*\n\nHello *{{1}}*,\n\nThank you for choosing *{{firm_name}}*.\nReference: *{{2}}*\n\n_Please save this message for your records._\n\n──────────────────\n*{{firm_name}}*",
       "has_attachment": false,
       "attachment_hint": null,
       "status": "Active",
@@ -327,7 +328,7 @@
       "category": "Transactional",
       "language": "English (US)",
       "subject": "",
-      "body": "*KhataBoss* — Loan Created\n\nHi *{{1}}*,\n\n*Loan:* {{2}}\n*Amount:* {{3}}\n*Date:* {{4}}",
+      "body": "*New Loan Created*\n\nHello *{{1}}*,\n\nYour loan account has been opened at *{{firm_name}}*.\n\nLoan / Ticket No: *{{2}}*\nPrincipal Amount: *{{3}}*\nStart Date: *{{4}}*\n\n📎 *Full details are in the attached PDF.*\n\n──────────────────\n*{{firm_name}}*",
       "has_attachment": true,
       "attachment_hint": "loan_receipt",
       "status": "Active",
@@ -362,7 +363,7 @@
       "category": "Transactional",
       "language": "English (US)",
       "subject": "",
-      "body": "*KhataBoss* — Loan Updated\n\nHi *{{1}}*,\n\nLoan *{{2}}* updated.\n*Amount:* {{3}}\n*Date:* {{4}}",
+      "body": "*Loan Updated*\n\nHello *{{1}}*,\n\nLoan *{{2}}* was updated on *{{4}}*.\nCurrent principal: *{{3}}*\n\n_Please save this message for your records._\n\n──────────────────\n*{{firm_name}}*",
       "has_attachment": false,
       "attachment_hint": null,
       "status": "Active",
@@ -397,7 +398,7 @@
       "category": "Transactional",
       "language": "English (US)",
       "subject": "",
-      "body": "*KhataBoss* — Deposit\n\nHello *{{1}}*,\n\nDeposit for loan *{{2}}*.\n*Amount:* {{3}}\n*Date:* {{4}}",
+      "body": "*Payment Received on Loan*\n\nHello *{{1}}*,\n\nWe received your payment towards loan *{{2}}*.\n\nTotal Received: *{{3}}*\nPayment Date: *{{4}}*\n\n📎 *Full details are in the attached PDF.*\n\n──────────────────\n*{{firm_name}}*",
       "has_attachment": true,
       "attachment_hint": "deposit_receipt",
       "status": "Active",
@@ -432,7 +433,7 @@
       "category": "Transactional",
       "language": "English (US)",
       "subject": "",
-      "body": "*KhataBoss* — Add Principal\n\nHello *{{1}}*,\n\nLoan *{{2}}*.\n*Added:* {{3}}\n*Date:* {{4}}",
+      "body": "*Additional Principal Added*\n\nHello *{{1}}*,\n\nAdditional principal was added to loan *{{2}}*.\n\nAmount Added: *{{3}}*\nDate: *{{4}}*\n\n📎 *Full details are in the attached PDF.*\n\n──────────────────\n*{{firm_name}}*",
       "has_attachment": true,
       "attachment_hint": "principal_receipt",
       "status": "Active",
@@ -467,7 +468,7 @@
       "category": "Transactional",
       "language": "English (US)",
       "subject": "",
-      "body": "*KhataBoss* — Loan Released\n\nHello *{{1}}*,\n\nLoan *{{2}}* released.\n*Final:* {{3}}\n*Date:* {{4}}",
+      "body": "*Loan Released / Closed*\n\nHello *{{1}}*,\n\nYour loan *{{2}}* has been released successfully.\n\nTotal Settlement: *{{3}}*\nRelease Date: *{{4}}*\n\n📎 *Full details are in the attached PDF.*\n\n──────────────────\n*{{firm_name}}*",
       "has_attachment": true,
       "attachment_hint": "release_receipt",
       "status": "Active",
@@ -502,7 +503,7 @@
       "category": "Transactional",
       "language": "English (US)",
       "subject": "",
-      "body": "*KhataBoss* — Loan Transfer\n\nHello *{{1}}*,\n\nLoan *{{2}}* transferred.\n*Amount:* {{3}}\n*Date:* {{4}}",
+      "body": "*Loan Transferred*\n\nHello *{{1}}*,\n\nLoan *{{2}}* was transferred on *{{4}}*.\nAmount: *{{3}}*\n\n_Please save this message for your records._\n\n──────────────────\n*{{firm_name}}*",
       "has_attachment": false,
       "attachment_hint": null,
       "status": "Active",
@@ -537,7 +538,7 @@
       "category": "Customer Care",
       "language": "English (US)",
       "subject": "",
-      "body": "*KhataBoss* — Due Reminder\n\nDear *{{1}}*,\n\n*Loan:* {{2}}\n*Due:* {{3}}\n*Date:* {{4}}",
+      "body": "*Payment Reminder*\n\nDear *{{1}}*,\n\nThis is a friendly reminder for loan *{{2}}*.\nAmount Due: *{{3}}*\nDue Date: *{{4}}*\n\nPlease visit the firm or pay on time to avoid penalty.\n\n_Please save this message for your records._\n\n──────────────────\n*{{firm_name}}*",
       "has_attachment": false,
       "attachment_hint": null,
       "status": "Active",
@@ -572,7 +573,7 @@
       "category": "Customer Care",
       "language": "English (US)",
       "subject": "",
-      "body": "*KhataBoss* — Loan Notice\n\nDear *{{1}}*,\n\nLoan *{{2}}* notice.\n*Outstanding:* {{3}}\n*Date:* {{4}}",
+      "body": "*Important Loan Notice*\n\nDear *{{1}}*,\n\nNotice regarding loan *{{2}}*.\nOutstanding Balance: *{{3}}*\nDate: *{{4}}*\n\n📎 *Full details are in the attached PDF.*\n\n──────────────────\n*{{firm_name}}*",
       "has_attachment": true,
       "attachment_hint": "loan_notice",
       "status": "Active",
@@ -607,7 +608,7 @@
       "category": "Transactional",
       "language": "English (US)",
       "subject": "",
-      "body": "*KhataBoss* — Auction\n\nHello *{{1}}*,\n\nLoan *{{2}}* to auction.\n*Amount:* {{3}}\n*Date:* {{4}}",
+      "body": "*Auction Notice*\n\nHello *{{1}}*,\n\nLoan *{{2}}* is marked for auction.\nAmount: *{{3}}*\nDate: *{{4}}*\n\nPlease contact the firm urgently.\n\n📎 *Full details are in the attached PDF.*\n\n──────────────────\n*{{firm_name}}*",
       "has_attachment": true,
       "attachment_hint": "auction_notice",
       "status": "Active",
@@ -642,7 +643,7 @@
       "category": "Transactional",
       "language": "English (US)",
       "subject": "",
-      "body": "*KhataBoss* — Finance Created\n\nHello *{{1}}*,\n\n*Finance:* {{2}}\n*Amount:* {{3}}\n*Start:* {{4}}",
+      "body": "*New Finance Account*\n\nHello *{{1}}*,\n\nYour finance account is opened at *{{firm_name}}*.\n\nFinance No: *{{2}}*\nFinance Amount: *{{3}}*\nStart Date: *{{4}}*\n\n📎 *Full details are in the attached PDF.*\n\n──────────────────\n*{{firm_name}}*",
       "has_attachment": true,
       "attachment_hint": "finance_agreement",
       "status": "Active",
@@ -677,7 +678,7 @@
       "category": "Transactional",
       "language": "English (US)",
       "subject": "",
-      "body": "*KhataBoss* — EMI Reminder\n\nDear *{{1}}*,\n\n*Finance:* {{2}}\n*EMI:* {{3}}\n*Due:* {{4}}",
+      "body": "*EMI Reminder*\n\nDear *{{1}}*,\n\nEMI reminder for finance *{{2}}*.\nEMI Amount: *{{3}}*\nDue Date: *{{4}}*\n\nPlease pay on time.\n\n_Please save this message for your records._\n\n──────────────────\n*{{firm_name}}*",
       "has_attachment": false,
       "attachment_hint": null,
       "status": "Active",
@@ -712,7 +713,7 @@
       "category": "Transactional",
       "language": "English (US)",
       "subject": "",
-      "body": "*KhataBoss* — Payment Received\n\nHello *{{1}}*,\n\nFinance *{{2}}*.\n*Amount:* {{3}}\n*Date:* {{4}}",
+      "body": "*Finance Payment Received*\n\nHello *{{1}}*,\n\nPayment received for finance *{{2}}*.\nAmount: *{{3}}*\nDate: *{{4}}*\n\n📎 *Full details are in the attached PDF.*\n\n──────────────────\n*{{firm_name}}*",
       "has_attachment": true,
       "attachment_hint": "emi_receipt",
       "status": "Active",
@@ -747,7 +748,7 @@
       "category": "Transactional",
       "language": "English (US)",
       "subject": "",
-      "body": "*KhataBoss* — Collection\n\nHello *{{1}}*,\n\nFinance *{{2}}*.\n*Collected:* {{3}}\n*Date:* {{4}}",
+      "body": "*Collection Receipt*\n\nHello *{{1}}*,\n\nCollection recorded for finance *{{2}}*.\nCollected: *{{3}}*\nDate: *{{4}}*\n\n📎 *Full details are in the attached PDF.*\n\n──────────────────\n*{{firm_name}}*",
       "has_attachment": true,
       "attachment_hint": "collection_receipt",
       "status": "Active",
@@ -782,7 +783,7 @@
       "category": "Transactional",
       "language": "English (US)",
       "subject": "",
-      "body": "*KhataBoss* — Finance Closed\n\nHello *{{1}}*,\n\nFinance *{{2}}* closed.\n*Final:* {{3}}\n*Date:* {{4}}",
+      "body": "*Finance Account Closed*\n\nHello *{{1}}*,\n\nFinance *{{2}}* is closed successfully.\nFinal Settlement: *{{3}}*\nClosure Date: *{{4}}*\n\n📎 *Full details are in the attached PDF.*\n\n──────────────────\n*{{firm_name}}*",
       "has_attachment": true,
       "attachment_hint": "finance_closure",
       "status": "Active",
@@ -802,6 +803,146 @@
         {
           "key": "{{4}}",
           "label": "Date / Extra"
+        },
+        {
+          "key": "{{firm_name}}",
+          "label": "Firm Name"
+        }
+      ]
+    },
+    {
+      "key": "report_daybook",
+      "name": "report_daybook",
+      "channel": "whatsapp",
+      "module": "reports",
+      "category": "Transactional",
+      "language": "English (US)",
+      "subject": "",
+      "body": "*Daybook Report*\n\nHello *{{1}}*,\n\nYour *Daybook* report for *{{firm_name}}* is ready.\nPeriod: *{{3}}*\nGenerated: *{{4}}*\n\n📎 *Full details are in the attached PDF.*\n\n──────────────────\n*{{firm_name}}*",
+      "has_attachment": true,
+      "attachment_hint": "daybook_pdf",
+      "status": "Active",
+      "variables": [
+        {
+          "key": "{{1}}",
+          "label": "Recipient Name"
+        },
+        {
+          "key": "{{2}}",
+          "label": "Report Name"
+        },
+        {
+          "key": "{{3}}",
+          "label": "Period"
+        },
+        {
+          "key": "{{4}}",
+          "label": "Generated Date"
+        },
+        {
+          "key": "{{firm_name}}",
+          "label": "Firm Name"
+        }
+      ]
+    },
+    {
+      "key": "report_balance_sheet",
+      "name": "report_balance_sheet",
+      "channel": "whatsapp",
+      "module": "reports",
+      "category": "Transactional",
+      "language": "English (US)",
+      "subject": "",
+      "body": "*Balance Sheet*\n\nHello *{{1}}*,\n\nYour *Balance Sheet* for *{{firm_name}}* is ready.\nPeriod: *{{3}}*\nGenerated: *{{4}}*\n\n📎 *Full details are in the attached PDF.*\n\n──────────────────\n*{{firm_name}}*",
+      "has_attachment": true,
+      "attachment_hint": "balance_sheet_pdf",
+      "status": "Active",
+      "variables": [
+        {
+          "key": "{{1}}",
+          "label": "Recipient Name"
+        },
+        {
+          "key": "{{2}}",
+          "label": "Report Name"
+        },
+        {
+          "key": "{{3}}",
+          "label": "Period"
+        },
+        {
+          "key": "{{4}}",
+          "label": "Generated Date"
+        },
+        {
+          "key": "{{firm_name}}",
+          "label": "Firm Name"
+        }
+      ]
+    },
+    {
+      "key": "report_trial_balance",
+      "name": "report_trial_balance",
+      "channel": "whatsapp",
+      "module": "reports",
+      "category": "Transactional",
+      "language": "English (US)",
+      "subject": "",
+      "body": "*Trial Balance*\n\nHello *{{1}}*,\n\nYour *Trial Balance* for *{{firm_name}}* is ready.\nPeriod: *{{3}}*\nGenerated: *{{4}}*\n\n📎 *Full details are in the attached PDF.*\n\n──────────────────\n*{{firm_name}}*",
+      "has_attachment": true,
+      "attachment_hint": "trial_balance_pdf",
+      "status": "Active",
+      "variables": [
+        {
+          "key": "{{1}}",
+          "label": "Recipient Name"
+        },
+        {
+          "key": "{{2}}",
+          "label": "Report Name"
+        },
+        {
+          "key": "{{3}}",
+          "label": "Period"
+        },
+        {
+          "key": "{{4}}",
+          "label": "Generated Date"
+        },
+        {
+          "key": "{{firm_name}}",
+          "label": "Firm Name"
+        }
+      ]
+    },
+    {
+      "key": "report_profit_loss",
+      "name": "report_profit_loss",
+      "channel": "whatsapp",
+      "module": "reports",
+      "category": "Transactional",
+      "language": "English (US)",
+      "subject": "",
+      "body": "*Profit & Loss Report*\n\nHello *{{1}}*,\n\nYour *Profit & Loss* report for *{{firm_name}}* is ready.\nPeriod: *{{3}}*\nGenerated: *{{4}}*\n\n📎 *Full details are in the attached PDF.*\n\n──────────────────\n*{{firm_name}}*",
+      "has_attachment": true,
+      "attachment_hint": "profit_loss_pdf",
+      "status": "Active",
+      "variables": [
+        {
+          "key": "{{1}}",
+          "label": "Recipient Name"
+        },
+        {
+          "key": "{{2}}",
+          "label": "Report Name"
+        },
+        {
+          "key": "{{3}}",
+          "label": "Period"
+        },
+        {
+          "key": "{{4}}",
+          "label": "Generated Date"
         },
         {
           "key": "{{firm_name}}",

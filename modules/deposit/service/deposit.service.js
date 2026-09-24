@@ -8,6 +8,12 @@ const {
 } = require("../../../utils/journalNarration");
 const { assertActiveLoan } = require("../../../utils/loanValidation");
 const { resolveIncomeAccount } = require("../../../utils/incomeAccounts");
+const notifyCustomer = require("../../../common/service/messaging-notify.service");
+const messagingPdf = require("../../../common/service/messaging-pdf.service");
+const {
+  buildStandardVars,
+  buildLoanRef,
+} = require("../../../common/service/messaging-format.helper");
 const {
   findPanelJournal,
   deletePanelJournal,
@@ -199,6 +205,29 @@ class DepositService {
           `Deposit account entry failed and was rolled back: ${journalErr.message}`
         );
       }
+
+      const girvi = result.girvi;
+      const user =
+        depRec.dep_user_id > 0
+          ? await prisma.user.findUnique({ where: { user_id: depRec.dep_user_id } })
+          : null;
+      const firm = await prisma.firm.findFirst({
+        where: { firm_id: depRec.dep_firm_id, firm_is_deleted: false },
+      });
+      const vars = buildStandardVars(
+        user,
+        buildLoanRef(girvi),
+        depRec.dep_payable_amt,
+        depRec.dep_trans_date
+      );
+      notifyCustomer.notifyCustomerTransactionSafe({
+        dbUrl,
+        firmId: depRec.dep_firm_id,
+        templateKey: "loan_deposit",
+        user,
+        vars,
+        pdfSpec: messagingPdf.buildLoanDepositPdfSpec(girvi, user, firm, depRec),
+      });
 
       return result;
     } finally {

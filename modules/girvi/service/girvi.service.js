@@ -4,8 +4,12 @@ const { getTenantPrisma } = require("../../../utils/tenantPrisma");
 const journalService = require("../../journal/service/journal.service");
 const serialNumberService = require("../../../common/service/serialNumber.service");
 const { calculateFirstMonthInterest, getLoanInterestSummary } = require("../../../utils/loanInterest");
-const messageDispatchService = require("../../../common/service/message-dispatch.service");
-const { getCustomerWhatsAppNo } = require("../../../utils/customer.helper");
+const notifyCustomer = require("../../../common/service/messaging-notify.service");
+const messagingPdf = require("../../../common/service/messaging-pdf.service");
+const {
+  buildStandardVars,
+  buildLoanRef,
+} = require("../../../common/service/messaging-format.helper");
 const {
   addLoanVoucher,
   firstMonthInterestVoucher,
@@ -143,21 +147,22 @@ class GirviService {
         newGirvi.girv_user_id > 0
           ? await prisma.user.findUnique({ where: { user_id: newGirvi.girv_user_id } })
           : null;
-      messageDispatchService.dispatchSafe({
+      const firm = await prisma.firm.findFirst({
+        where: { firm_id: newGirvi.girv_firm_id, firm_is_deleted: false },
+      });
+      const vars = buildStandardVars(
+        user,
+        buildLoanRef(newGirvi),
+        newGirvi.girv_prin_amt,
+        newGirvi.girv_start_date
+      );
+      notifyCustomer.notifyCustomerTransactionSafe({
         dbUrl,
-        ownDb: messageDispatchService.ownDbFromUrl(dbUrl),
         firmId: newGirvi.girv_firm_id,
         templateKey: "loan_created",
-        toPhone: getCustomerWhatsAppNo(user),
-        toEmail: user?.user_email_id,
-        vars: {
-          1: user
-            ? `${user.user_first_name || ""} ${user.user_last_name || ""}`.trim()
-            : "",
-          2: newGirvi.girv_loan_no || String(newGirvi.girv_id),
-          3: String(newGirvi.girv_prin_amt),
-          4: newGirvi.girv_start_date,
-        },
+        user,
+        vars,
+        pdfSpec: messagingPdf.buildLoanCreatedPdfSpec(newGirvi, user, firm),
       });
 
       return newGirvi;

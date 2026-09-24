@@ -9,8 +9,12 @@ const {
   computeFinanceFine,
   sumPaidFineAndCollect,
 } = require("../../../utils/financeFine");
-const messageDispatchService = require("../../../common/service/message-dispatch.service");
-const { getCustomerWhatsAppNo } = require("../../../utils/customer.helper");
+const notifyCustomer = require("../../../common/service/messaging-notify.service");
+const messagingPdf = require("../../../common/service/messaging-pdf.service");
+const {
+  buildStandardVars,
+  buildFinanceRef,
+} = require("../../../common/service/messaging-format.helper");
 const {
   addFinanceVoucher,
   financeCollectionVoucher,
@@ -408,21 +412,22 @@ class FinanceService {
         finance.fin_user_id > 0
           ? await prisma.user.findUnique({ where: { user_id: finance.fin_user_id } })
           : null;
-      messageDispatchService.dispatchSafe({
+      const firm = await prisma.firm.findFirst({
+        where: { firm_id: finance.fin_firm_id, firm_is_deleted: false },
+      });
+      const vars = buildStandardVars(
+        user,
+        buildFinanceRef(finance),
+        finance.fin_prin_amt,
+        finance.fin_start_date
+      );
+      notifyCustomer.notifyCustomerTransactionSafe({
         dbUrl,
-        ownDb: messageDispatchService.ownDbFromUrl(dbUrl),
         firmId: finance.fin_firm_id,
         templateKey: "finance_created",
-        toPhone: getCustomerWhatsAppNo(user),
-        toEmail: user?.user_email_id,
-        vars: {
-          1: user
-            ? `${user.user_first_name || ""} ${user.user_last_name || ""}`.trim()
-            : "",
-          2: finance.fin_unique_code || String(finance.fin_id),
-          3: String(finance.fin_prin_amt),
-          4: finance.fin_start_date,
-        },
+        user,
+        vars,
+        pdfSpec: messagingPdf.buildFinanceCreatedPdfSpec(finance, user, firm),
       });
 
       return result;
@@ -1856,21 +1861,27 @@ class FinanceService {
             : null;
         const templateKey =
           transType === "CLOSE" ? "finance_closed" : "finance_payment_received";
-        messageDispatchService.dispatchSafe({
+        const firm = await prisma.firm.findFirst({
+          where: { firm_id: finance.fin_firm_id, firm_is_deleted: false },
+        });
+        const vars = buildStandardVars(
+          user,
+          buildFinanceRef(finance),
+          paymentAmt,
+          data.fm_trans_date || new Date()
+        );
+        notifyCustomer.notifyCustomerTransactionSafe({
           dbUrl,
-          ownDb: messageDispatchService.ownDbFromUrl(dbUrl),
           firmId: finance.fin_firm_id,
           templateKey,
-          toPhone: getCustomerWhatsAppNo(user),
-          toEmail: user?.user_email_id,
-          vars: {
-            1: user
-              ? `${user.user_first_name || ""} ${user.user_last_name || ""}`.trim()
-              : "",
-            2: finance.fin_unique_code || String(finance.fin_id),
-            3: String(paymentAmt),
-            4: data.fm_trans_date || new Date().toISOString().split("T")[0],
-          },
+          user,
+          vars,
+          pdfSpec: messagingPdf.buildFinancePaymentPdfSpec(finance, user, firm, {
+            date: data.fm_trans_date || new Date(),
+            amount: paymentAmt,
+            type: transType,
+            closed: transType === "CLOSE",
+          }),
         });
       }
 

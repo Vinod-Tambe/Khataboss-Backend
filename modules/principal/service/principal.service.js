@@ -7,6 +7,12 @@ const {
   loanLine,
 } = require("../../../utils/journalNarration");
 const { assertActiveLoan } = require("../../../utils/loanValidation");
+const notifyCustomer = require("../../../common/service/messaging-notify.service");
+const messagingPdf = require("../../../common/service/messaging-pdf.service");
+const {
+  buildStandardVars,
+  buildLoanRef,
+} = require("../../../common/service/messaging-format.helper");
 const {
   findPanelJournal,
   deletePanelJournal,
@@ -161,6 +167,30 @@ class AddPrincipalService {
           `Additional principal account entry failed and was rolled back: ${journalErr.message}`
         );
       }
+
+      const apRecord = result.apRecord;
+      const girvi = result.girvi;
+      const user =
+        apRecord.ap_user_id > 0
+          ? await prisma.user.findUnique({ where: { user_id: apRecord.ap_user_id } })
+          : null;
+      const firm = await prisma.firm.findFirst({
+        where: { firm_id: apRecord.ap_firm_id, firm_is_deleted: false },
+      });
+      const vars = buildStandardVars(
+        user,
+        buildLoanRef(girvi),
+        apRecord.ap_prin_amt,
+        apRecord.ap_trans_date
+      );
+      notifyCustomer.notifyCustomerTransactionSafe({
+        dbUrl,
+        firmId: apRecord.ap_firm_id,
+        templateKey: "loan_add_principal",
+        user,
+        vars,
+        pdfSpec: messagingPdf.buildLoanAddPrincipalPdfSpec(girvi, user, firm, apRecord),
+      });
 
       return result;
     } finally {
