@@ -315,7 +315,7 @@ class FinanceService {
 
       const firm = await prisma.firm.findFirst({
         where: { firm_id: firmId, firm_is_deleted: false },
-        select: { firm_gstin_no: true, firm_pan_no: true, firm_own_id: true },
+        select: { firm_name: true, firm_gstin_no: true, firm_pan_no: true, firm_own_id: true },
       });
 
       const processFeeLines =
@@ -412,9 +412,6 @@ class FinanceService {
         finance.fin_user_id > 0
           ? await prisma.user.findUnique({ where: { user_id: finance.fin_user_id } })
           : null;
-      const firm = await prisma.firm.findFirst({
-        where: { firm_id: finance.fin_firm_id, firm_is_deleted: false },
-      });
       const vars = buildStandardVars(
         user,
         buildFinanceRef(finance),
