@@ -169,6 +169,8 @@ class AccountService {
           acc_id: true,
           acc_uuid: true,
           acc_name: true,
+          acc_balance_type: true,
+          acc_pre_acc: true,
         },
         orderBy: { acc_name: "asc" },
       });

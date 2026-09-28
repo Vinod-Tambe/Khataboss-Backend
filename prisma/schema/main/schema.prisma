@@ -103,6 +103,7 @@ model Owner {
   finances             Finance[]                   @relation("OwnerFinance")
   financeTransactions  Finance_Transaction[]       @relation("OwnerFT")
   financeMoneyTrans    Finance_Money_Transaction[] @relation("OwnerFMT")
+  moneyFromTransactions Money_From_Transaction[]   @relation("OwnerMoneyFromTransaction")
   journals             Journal[]                   @relation("OwnerJournal")
   journalTransactions  JournalTransaction[]        @relation("OwnerJRTR")
   girvis               Girvi[]                     @relation("OwnerGirvi")
@@ -248,6 +249,7 @@ model Firm {
   finances             Finance[]                   @relation("FinanceFirm")
   financeTransactions  Finance_Transaction[]
   financeMoneyTrans    Finance_Money_Transaction[]
+  moneyFromTransactions Money_From_Transaction[]
   journals             Journal[]
   journalTransactions  JournalTransaction[]
   girvis               Girvi[]                     @relation("FirmGirvi")
@@ -369,6 +371,10 @@ model Account {
   relBank   GirviRelease[] @relation("GirviReleaseBankAccount")
   relOnline GirviRelease[] @relation("GirviReleaseOnlineAccount")
   relCard   GirviRelease[] @relation("GirviReleaseCardAccount")
+
+  mtfFromAccount Money_From_Transaction[] @relation("MFTFromAccount")
+  mtfFromLines   Money_Transfer_From_Line[] @relation("MTFFromLineAccount")
+  mttToAccount   Money_To_Transaction[]   @relation("MTTToAccount")
 }
 
 enum UserGender {
@@ -740,6 +746,7 @@ model Journal {
   // ============================
 
   financeMoneyTransactions Finance_Money_Transaction[]
+  moneyFromTransactions    Money_From_Transaction[]
 
   // Audit Fields
   jrnl_created_at DateTime  @default(now())
@@ -760,6 +767,80 @@ model Journal {
   journalTransactions JournalTransaction[]
 
   @@map("journal")
+}
+
+enum MoneyTransferMode {
+  ONE_TO_ONE
+  ONE_TO_MANY
+}
+
+enum MoneyTransferDirection {
+  CR_TO_DR
+  DR_TO_CR
+}
+
+model Money_From_Transaction {
+  mtf_id   Int    @id @default(autoincrement())
+  mtf_uuid String @unique @default(uuid())
+
+  mtf_firm_id     Int
+  mtf_own_id      Int
+  mtf_jrnl_id     Int?
+  mtf_from_acc_id Int
+
+  mtf_trans_date String
+  mtf_mode       MoneyTransferMode @default(ONE_TO_ONE)
+  mtf_direction  MoneyTransferDirection @default(CR_TO_DR)
+  mtf_total_amt  Float
+  mtf_panel      String            @default("Inter-Account Transfer")
+  mtf_narration  String?
+  mtf_other_info String?
+
+  mtf_created_at DateTime  @default(now())
+  mtf_created_by String?
+  mtf_updated_at DateTime  @default(now()) @updatedAt
+  mtf_updated_by String?
+  mtf_deleted_at DateTime?
+  mtf_deleted_by String?
+  mtf_is_deleted Boolean   @default(false)
+
+  firm        Firm                   @relation(fields: [mtf_firm_id], references: [firm_id], onDelete: Cascade)
+  owner       Owner                  @relation("OwnerMoneyFromTransaction", fields: [mtf_own_id], references: [own_id], onDelete: Cascade)
+  fromAccount Account                @relation("MFTFromAccount", fields: [mtf_from_acc_id], references: [acc_id])
+  journal     Journal?               @relation(fields: [mtf_jrnl_id], references: [jrnl_id])
+  fromLines   Money_Transfer_From_Line[]
+  toRows      Money_To_Transaction[]
+
+  @@index([mtf_firm_id, mtf_trans_date])
+  @@map("money_from_transaction")
+}
+
+model Money_To_Transaction {
+  mtt_id        Int    @id @default(autoincrement())
+  mtt_uuid      String @unique @default(uuid())
+  mtt_mtf_id    Int
+  mtt_to_acc_id Int
+  mtt_amt       Float
+  mtt_remarks   String?
+
+  fromTransaction Money_From_Transaction @relation(fields: [mtt_mtf_id], references: [mtf_id], onDelete: Cascade)
+  toAccount       Account                @relation("MTTToAccount", fields: [mtt_to_acc_id], references: [acc_id])
+
+  @@map("money_to_transaction")
+}
+
+model Money_Transfer_From_Line {
+  mfl_id        Int    @id @default(autoincrement())
+  mfl_uuid      String @unique @default(uuid())
+  mfl_mtf_id    Int
+  mfl_acc_id    Int
+  mfl_amt       Float
+  mfl_remarks   String?
+
+  fromTransaction Money_From_Transaction @relation(fields: [mfl_mtf_id], references: [mtf_id], onDelete: Cascade)
+  account         Account                @relation("MTFFromLineAccount", fields: [mfl_acc_id], references: [acc_id])
+
+  @@map("money_transfer_from_line")
 }
 
 enum BalanceAmtType {

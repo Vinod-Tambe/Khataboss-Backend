@@ -445,6 +445,47 @@ exports.Prisma.JournalScalarFieldEnum = {
   jrnl_is_deleted: 'jrnl_is_deleted'
 };
 
+exports.Prisma.Money_From_TransactionScalarFieldEnum = {
+  mtf_id: 'mtf_id',
+  mtf_uuid: 'mtf_uuid',
+  mtf_firm_id: 'mtf_firm_id',
+  mtf_own_id: 'mtf_own_id',
+  mtf_jrnl_id: 'mtf_jrnl_id',
+  mtf_from_acc_id: 'mtf_from_acc_id',
+  mtf_trans_date: 'mtf_trans_date',
+  mtf_mode: 'mtf_mode',
+  mtf_direction: 'mtf_direction',
+  mtf_total_amt: 'mtf_total_amt',
+  mtf_panel: 'mtf_panel',
+  mtf_narration: 'mtf_narration',
+  mtf_other_info: 'mtf_other_info',
+  mtf_created_at: 'mtf_created_at',
+  mtf_created_by: 'mtf_created_by',
+  mtf_updated_at: 'mtf_updated_at',
+  mtf_updated_by: 'mtf_updated_by',
+  mtf_deleted_at: 'mtf_deleted_at',
+  mtf_deleted_by: 'mtf_deleted_by',
+  mtf_is_deleted: 'mtf_is_deleted'
+};
+
+exports.Prisma.Money_To_TransactionScalarFieldEnum = {
+  mtt_id: 'mtt_id',
+  mtt_uuid: 'mtt_uuid',
+  mtt_mtf_id: 'mtt_mtf_id',
+  mtt_to_acc_id: 'mtt_to_acc_id',
+  mtt_amt: 'mtt_amt',
+  mtt_remarks: 'mtt_remarks'
+};
+
+exports.Prisma.Money_Transfer_From_LineScalarFieldEnum = {
+  mfl_id: 'mfl_id',
+  mfl_uuid: 'mfl_uuid',
+  mfl_mtf_id: 'mfl_mtf_id',
+  mfl_acc_id: 'mfl_acc_id',
+  mfl_amt: 'mfl_amt',
+  mfl_remarks: 'mfl_remarks'
+};
+
 exports.Prisma.JournalTransactionScalarFieldEnum = {
   jrtr_id: 'jrtr_id',
   jrtr_uuid: 'jrtr_uuid',
@@ -1120,6 +1161,16 @@ exports.BalanceType = exports.$Enums.BalanceType = {
   DR: 'DR'
 };
 
+exports.MoneyTransferMode = exports.$Enums.MoneyTransferMode = {
+  ONE_TO_ONE: 'ONE_TO_ONE',
+  ONE_TO_MANY: 'ONE_TO_MANY'
+};
+
+exports.MoneyTransferDirection = exports.$Enums.MoneyTransferDirection = {
+  CR_TO_DR: 'CR_TO_DR',
+  DR_TO_CR: 'DR_TO_CR'
+};
+
 exports.BalanceAmtType = exports.$Enums.BalanceAmtType = {
   CR: 'CR',
   DR: 'DR'
@@ -1229,6 +1280,9 @@ exports.Prisma.ModelName = {
   Finance_Transaction: 'Finance_Transaction',
   Finance_Money_Transaction: 'Finance_Money_Transaction',
   Journal: 'Journal',
+  Money_From_Transaction: 'Money_From_Transaction',
+  Money_To_Transaction: 'Money_To_Transaction',
+  Money_Transfer_From_Line: 'Money_Transfer_From_Line',
   JournalTransaction: 'JournalTransaction',
   Girvi: 'Girvi',
   Stock: 'Stock',

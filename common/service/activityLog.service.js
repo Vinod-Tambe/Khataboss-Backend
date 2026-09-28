@@ -248,6 +248,22 @@ const descriptions = {
     return appendLoggedAt(`Account "${account?.acc_name || ""}" deleted.`, loggedAt);
   },
 
+  moneyTransferCreated(row, loggedAt) {
+    const from = row?.from_account?.acc_name || "Source";
+    const to = row?.destination_label || "Destination";
+    return appendLoggedAt(
+      `${row?.mtf_panel || "Inter-Account Transfer"} #${row?.mtf_id || "—"}: ${from} → ${to}. Amount: ${fmtAmt(row?.mtf_total_amt)}.`,
+      loggedAt
+    );
+  },
+
+  moneyTransferDeleted(mtId, amount, loggedAt) {
+    return appendLoggedAt(
+      `Inter-Account Transfer #${mtId || "—"} deleted. Amount: ${fmtAmt(amount)}.`,
+      loggedAt
+    );
+  },
+
   stockCreated(stock, loggedAt) {
     return appendLoggedAt(
       `Stock item "${stock?.st_item_name || ""}" added. Quantity: ${stock?.st_quantity || 0}, Valuation: ${fmtAmt(stock?.st_valuation)}.`,

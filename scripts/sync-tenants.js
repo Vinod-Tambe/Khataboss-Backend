@@ -1,14 +1,11 @@
 "use strict";
 
 const { Client } = require("pg");
-const { execSync } = require("child_process");
-const path = require("path");
 const { BASE_URL } = require("../config/db");
-const { seedPermissions } = require("../prisma/seeder/permission-seeder");
-const { seedMessageTemplatesForTenant } = require("../prisma/seeder/message-template-seeder");
-const { seedFormTemplatesForTenant } = require("../prisma/seeder/form-template-seeder");
-const { seedAgreementTemplatesForTenant } = require("../prisma/seeder/agreement-template-seeder");
-const { seedIncomeAccountsForTenant } = require("../prisma/seeder/income-account-seeder");
+const {
+  applyTenantMigration,
+  applyTenantSeeds,
+} = require("../modules/owner/services/tenant-db-maintenance.service");
 
 const syncTenants = async () => {
   const masterDbUrl = `${BASE_URL}/master`;
@@ -18,69 +15,33 @@ const syncTenants = async () => {
     console.log("🚀 Connecting to master database to find tenants...");
     await client.connect();
 
-    // Fetch all tenant database names from the Owner table
     const res = await client.query('SELECT own_db FROM "Owner" WHERE own_db IS NOT NULL');
-    const dbs = res.rows.map(row => row.own_db);
+    const dbs = res.rows.map((row) => row.own_db);
 
     if (dbs.length === 0) {
       console.log("⚠️ No tenant databases found.");
       return;
     }
 
-    const schemaPath = path.join(__dirname, "../prisma/schema/main/schema.prisma");
-
     for (const dbName of dbs) {
-      const tenantDbUrl = `${BASE_URL}/${dbName}`;
-      console.log(`\n🔄 Syncing database schema for "${dbName}"...`);
-
+      console.log(`\n🔄 Syncing "${dbName}"...`);
       try {
-        execSync(`npx prisma db push --schema="${schemaPath}" --accept-data-loss`, {
-          env: {
-            ...process.env,
-            DATABASE_MAIN_URL: tenantDbUrl,
-            DATABASE_URL: tenantDbUrl,
-          },
-          stdio: "inherit",
-        });
-        console.log(`✅  Database schema synced for "${dbName}".`);
-
-        console.log(`🔐  Seeding permissions for "${dbName}"...`);
-        await seedPermissions(tenantDbUrl);
-
-        console.log(`📨  Seeding message templates for "${dbName}"...`);
-        try {
-          await seedMessageTemplatesForTenant(tenantDbUrl);
-        } catch (seedErr) {
-          console.warn(`⚠️  Message template seed skipped for "${dbName}": ${seedErr.message}`);
-        }
-
-        console.log(`📄  Seeding form templates for "${dbName}"...`);
-        try {
-          await seedFormTemplatesForTenant(tenantDbUrl);
-        } catch (templateErr) {
-          console.warn(`⚠️  Form template seed skipped for "${dbName}": ${templateErr.message}`);
-        }
-
-        console.log(`📋  Seeding agreement templates for "${dbName}"...`);
-        try {
-          await seedAgreementTemplatesForTenant(tenantDbUrl);
-        } catch (agreementErr) {
-          console.warn(`⚠️  Agreement template seed skipped for "${dbName}": ${agreementErr.message}`);
-        }
-
-        console.log(`💰  Seeding income accounts for "${dbName}"...`);
-        try {
-          const firmCount = await seedIncomeAccountsForTenant(tenantDbUrl);
-          console.log(`   Income accounts ensured for ${firmCount} firm(s).`);
-        } catch (incomeErr) {
-          console.warn(`⚠️  Income account seed skipped for "${dbName}": ${incomeErr.message}`);
+        await applyTenantMigration(dbName);
+        console.log(`✅  Schema synced for "${dbName}".`);
+        const seedResult = await applyTenantSeeds(dbName);
+        if (seedResult.warnings?.length) {
+          seedResult.warnings.forEach((w) =>
+            console.warn(`  ⚠️  ${w.label}: ${w.error}`)
+          );
+        } else {
+          console.log(`✅  Seeds applied for "${dbName}".`);
         }
       } catch (err) {
         console.error(`❌  Failed to sync "${dbName}":`, err.message);
       }
     }
-    
-    console.log("\n🌟 All tenant databases successfully synchronized!");
+
+    console.log("\n🌟 All tenant databases processed.");
   } catch (error) {
     console.error("❌ Error syncing tenants:", error);
   } finally {

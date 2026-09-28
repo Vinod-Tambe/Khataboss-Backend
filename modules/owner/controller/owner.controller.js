@@ -4,6 +4,7 @@ const { BASE_URL, setupOwnerDatabase } = require("../../../config/db");
 const { seedPermissions } = require("../../../prisma/seeder/permission-seeder");
 const ownerService = require("../services/owner.service");
 const ownerPermissionService = require("../services/owner-permission.service");
+const tenantDbMaintenance = require("../services/tenant-db-maintenance.service");
 const planService = require("../../plan/services/plan.service");
 const imageService = require("../../../utils/image.service");
 const { resolveOwnerSubscriptionDates } = require("../../../utils/owner-subscription-dates");
@@ -550,6 +551,65 @@ class OwnerController {
     } catch (error) {
       console.error("❌  Error resetting owner password:", error.message);
       return res.status(error.statusCode || 500).json({ error: error.message });
+    }
+  }
+
+  /**
+   * POST /owner/:uuid/tenant/apply-migration
+   * Sync tenant DB schema (Prisma db push) for this owner.
+   */
+  async applyTenantMigration(req, res) {
+    try {
+      const { uuid } = req.params;
+      const owner = await ownerService.getOwnerByUuid(uuid);
+      if (!owner) {
+        return res.status(404).json({ error: "Owner not found." });
+      }
+      if (!owner.own_db) {
+        return res.status(400).json({ error: "Owner has no tenant database assigned." });
+      }
+
+      const result = await tenantDbMaintenance.applyTenantMigration(owner.own_db);
+
+      return res.status(200).json({
+        message: `Tenant database "${owner.own_db}" schema updated successfully.`,
+        data: result,
+      });
+    } catch (error) {
+      console.error("❌  Tenant migration failed:", error.message);
+      return res.status(500).json({ error: error.message });
+    }
+  }
+
+  /**
+   * POST /owner/:uuid/tenant/apply-seeds
+   * Run idempotent seeders on the owner's tenant database.
+   */
+  async applyTenantSeeds(req, res) {
+    try {
+      const { uuid } = req.params;
+      const owner = await ownerService.getOwnerByUuid(uuid);
+      if (!owner) {
+        return res.status(404).json({ error: "Owner not found." });
+      }
+      if (!owner.own_db) {
+        return res.status(400).json({ error: "Owner has no tenant database assigned." });
+      }
+
+      const result = await tenantDbMaintenance.applyTenantSeeds(owner.own_db);
+
+      const message =
+        result.warnings?.length > 0
+          ? `Seeds completed with ${result.warnings.length} warning(s) for "${owner.own_db}".`
+          : `Tenant database "${owner.own_db}" seeds applied successfully.`;
+
+      return res.status(200).json({
+        message,
+        data: result,
+      });
+    } catch (error) {
+      console.error("❌  Tenant seed failed:", error.message);
+      return res.status(500).json({ error: error.message });
     }
   }
 }

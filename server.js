@@ -63,6 +63,7 @@ v1Router.use("/support", require("./modules/support/routes/support.owner.routes"
 v1Router.use("/admin/support", require("./modules/support/routes/support.admin.routes"));
 v1Router.use("/firm", require("./modules/firm/routes/firm.routes"));
 v1Router.use("/account", require("./modules/account/routes/account.routes"));
+v1Router.use("/money-transaction", require("./modules/money_transaction/routes/money_transaction.routes"));
 v1Router.use("/user", require("./modules/user/routes/user.routes"));
 v1Router.use("/staff", require("./modules/staff/routes/staff.routes"));
 v1Router.use("/finance", require("./modules/finance/routes/finance.routes"));

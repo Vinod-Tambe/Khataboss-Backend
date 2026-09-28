@@ -54,6 +54,21 @@ export type Finance_Money_Transaction = $Result.DefaultSelection<Prisma.$Finance
  */
 export type Journal = $Result.DefaultSelection<Prisma.$JournalPayload>
 /**
+ * Model Money_From_Transaction
+ * 
+ */
+export type Money_From_Transaction = $Result.DefaultSelection<Prisma.$Money_From_TransactionPayload>
+/**
+ * Model Money_To_Transaction
+ * 
+ */
+export type Money_To_Transaction = $Result.DefaultSelection<Prisma.$Money_To_TransactionPayload>
+/**
+ * Model Money_Transfer_From_Line
+ * 
+ */
+export type Money_Transfer_From_Line = $Result.DefaultSelection<Prisma.$Money_Transfer_From_LinePayload>
+/**
  * Model JournalTransaction
  * 
  */
@@ -263,6 +278,22 @@ export const BalanceType: {
 export type BalanceType = (typeof BalanceType)[keyof typeof BalanceType]
 
 
+export const MoneyTransferMode: {
+  ONE_TO_ONE: 'ONE_TO_ONE',
+  ONE_TO_MANY: 'ONE_TO_MANY'
+};
+
+export type MoneyTransferMode = (typeof MoneyTransferMode)[keyof typeof MoneyTransferMode]
+
+
+export const MoneyTransferDirection: {
+  CR_TO_DR: 'CR_TO_DR',
+  DR_TO_CR: 'DR_TO_CR'
+};
+
+export type MoneyTransferDirection = (typeof MoneyTransferDirection)[keyof typeof MoneyTransferDirection]
+
+
 export const BalanceAmtType: {
   CR: 'CR',
   DR: 'DR'
@@ -454,6 +485,14 @@ export const EmiStatus: typeof $Enums.EmiStatus
 export type BalanceType = $Enums.BalanceType
 
 export const BalanceType: typeof $Enums.BalanceType
+
+export type MoneyTransferMode = $Enums.MoneyTransferMode
+
+export const MoneyTransferMode: typeof $Enums.MoneyTransferMode
+
+export type MoneyTransferDirection = $Enums.MoneyTransferDirection
+
+export const MoneyTransferDirection: typeof $Enums.MoneyTransferDirection
 
 export type BalanceAmtType = $Enums.BalanceAmtType
 
@@ -725,6 +764,36 @@ export class PrismaClient<
     * ```
     */
   get journal(): Prisma.JournalDelegate<ExtArgs>;
+
+  /**
+   * `prisma.money_From_Transaction`: Exposes CRUD operations for the **Money_From_Transaction** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Money_From_Transactions
+    * const money_From_Transactions = await prisma.money_From_Transaction.findMany()
+    * ```
+    */
+  get money_From_Transaction(): Prisma.Money_From_TransactionDelegate<ExtArgs>;
+
+  /**
+   * `prisma.money_To_Transaction`: Exposes CRUD operations for the **Money_To_Transaction** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Money_To_Transactions
+    * const money_To_Transactions = await prisma.money_To_Transaction.findMany()
+    * ```
+    */
+  get money_To_Transaction(): Prisma.Money_To_TransactionDelegate<ExtArgs>;
+
+  /**
+   * `prisma.money_Transfer_From_Line`: Exposes CRUD operations for the **Money_Transfer_From_Line** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Money_Transfer_From_Lines
+    * const money_Transfer_From_Lines = await prisma.money_Transfer_From_Line.findMany()
+    * ```
+    */
+  get money_Transfer_From_Line(): Prisma.Money_Transfer_From_LineDelegate<ExtArgs>;
 
   /**
    * `prisma.journalTransaction`: Exposes CRUD operations for the **JournalTransaction** model.
@@ -1394,6 +1463,9 @@ export namespace Prisma {
     Finance_Transaction: 'Finance_Transaction',
     Finance_Money_Transaction: 'Finance_Money_Transaction',
     Journal: 'Journal',
+    Money_From_Transaction: 'Money_From_Transaction',
+    Money_To_Transaction: 'Money_To_Transaction',
+    Money_Transfer_From_Line: 'Money_Transfer_From_Line',
     JournalTransaction: 'JournalTransaction',
     Girvi: 'Girvi',
     Stock: 'Stock',
@@ -1431,7 +1503,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "owner" | "firm" | "account" | "user" | "finance" | "finance_Transaction" | "finance_Money_Transaction" | "journal" | "journalTransaction" | "girvi" | "stock" | "additionalPrincipal" | "girviDeposit" | "girviRelease" | "releaseUser" | "rate" | "purity" | "moneyLender" | "auctionUser" | "auctionLoan" | "staff" | "permission" | "staffPermission" | "serialNumber" | "messageTemplate" | "formTemplate" | "agreementTemplate" | "whatsAppInstance" | "messageLog" | "activityLog"
+      modelProps: "owner" | "firm" | "account" | "user" | "finance" | "finance_Transaction" | "finance_Money_Transaction" | "journal" | "money_From_Transaction" | "money_To_Transaction" | "money_Transfer_From_Line" | "journalTransaction" | "girvi" | "stock" | "additionalPrincipal" | "girviDeposit" | "girviRelease" | "releaseUser" | "rate" | "purity" | "moneyLender" | "auctionUser" | "auctionLoan" | "staff" | "permission" | "staffPermission" | "serialNumber" | "messageTemplate" | "formTemplate" | "agreementTemplate" | "whatsAppInstance" | "messageLog" | "activityLog"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1992,6 +2064,216 @@ export namespace Prisma {
           count: {
             args: Prisma.JournalCountArgs<ExtArgs>
             result: $Utils.Optional<JournalCountAggregateOutputType> | number
+          }
+        }
+      }
+      Money_From_Transaction: {
+        payload: Prisma.$Money_From_TransactionPayload<ExtArgs>
+        fields: Prisma.Money_From_TransactionFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.Money_From_TransactionFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$Money_From_TransactionPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.Money_From_TransactionFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$Money_From_TransactionPayload>
+          }
+          findFirst: {
+            args: Prisma.Money_From_TransactionFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$Money_From_TransactionPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.Money_From_TransactionFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$Money_From_TransactionPayload>
+          }
+          findMany: {
+            args: Prisma.Money_From_TransactionFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$Money_From_TransactionPayload>[]
+          }
+          create: {
+            args: Prisma.Money_From_TransactionCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$Money_From_TransactionPayload>
+          }
+          createMany: {
+            args: Prisma.Money_From_TransactionCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.Money_From_TransactionCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$Money_From_TransactionPayload>[]
+          }
+          delete: {
+            args: Prisma.Money_From_TransactionDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$Money_From_TransactionPayload>
+          }
+          update: {
+            args: Prisma.Money_From_TransactionUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$Money_From_TransactionPayload>
+          }
+          deleteMany: {
+            args: Prisma.Money_From_TransactionDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.Money_From_TransactionUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.Money_From_TransactionUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$Money_From_TransactionPayload>
+          }
+          aggregate: {
+            args: Prisma.Money_From_TransactionAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateMoney_From_Transaction>
+          }
+          groupBy: {
+            args: Prisma.Money_From_TransactionGroupByArgs<ExtArgs>
+            result: $Utils.Optional<Money_From_TransactionGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.Money_From_TransactionCountArgs<ExtArgs>
+            result: $Utils.Optional<Money_From_TransactionCountAggregateOutputType> | number
+          }
+        }
+      }
+      Money_To_Transaction: {
+        payload: Prisma.$Money_To_TransactionPayload<ExtArgs>
+        fields: Prisma.Money_To_TransactionFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.Money_To_TransactionFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$Money_To_TransactionPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.Money_To_TransactionFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$Money_To_TransactionPayload>
+          }
+          findFirst: {
+            args: Prisma.Money_To_TransactionFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$Money_To_TransactionPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.Money_To_TransactionFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$Money_To_TransactionPayload>
+          }
+          findMany: {
+            args: Prisma.Money_To_TransactionFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$Money_To_TransactionPayload>[]
+          }
+          create: {
+            args: Prisma.Money_To_TransactionCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$Money_To_TransactionPayload>
+          }
+          createMany: {
+            args: Prisma.Money_To_TransactionCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.Money_To_TransactionCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$Money_To_TransactionPayload>[]
+          }
+          delete: {
+            args: Prisma.Money_To_TransactionDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$Money_To_TransactionPayload>
+          }
+          update: {
+            args: Prisma.Money_To_TransactionUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$Money_To_TransactionPayload>
+          }
+          deleteMany: {
+            args: Prisma.Money_To_TransactionDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.Money_To_TransactionUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.Money_To_TransactionUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$Money_To_TransactionPayload>
+          }
+          aggregate: {
+            args: Prisma.Money_To_TransactionAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateMoney_To_Transaction>
+          }
+          groupBy: {
+            args: Prisma.Money_To_TransactionGroupByArgs<ExtArgs>
+            result: $Utils.Optional<Money_To_TransactionGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.Money_To_TransactionCountArgs<ExtArgs>
+            result: $Utils.Optional<Money_To_TransactionCountAggregateOutputType> | number
+          }
+        }
+      }
+      Money_Transfer_From_Line: {
+        payload: Prisma.$Money_Transfer_From_LinePayload<ExtArgs>
+        fields: Prisma.Money_Transfer_From_LineFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.Money_Transfer_From_LineFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$Money_Transfer_From_LinePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.Money_Transfer_From_LineFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$Money_Transfer_From_LinePayload>
+          }
+          findFirst: {
+            args: Prisma.Money_Transfer_From_LineFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$Money_Transfer_From_LinePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.Money_Transfer_From_LineFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$Money_Transfer_From_LinePayload>
+          }
+          findMany: {
+            args: Prisma.Money_Transfer_From_LineFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$Money_Transfer_From_LinePayload>[]
+          }
+          create: {
+            args: Prisma.Money_Transfer_From_LineCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$Money_Transfer_From_LinePayload>
+          }
+          createMany: {
+            args: Prisma.Money_Transfer_From_LineCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.Money_Transfer_From_LineCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$Money_Transfer_From_LinePayload>[]
+          }
+          delete: {
+            args: Prisma.Money_Transfer_From_LineDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$Money_Transfer_From_LinePayload>
+          }
+          update: {
+            args: Prisma.Money_Transfer_From_LineUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$Money_Transfer_From_LinePayload>
+          }
+          deleteMany: {
+            args: Prisma.Money_Transfer_From_LineDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.Money_Transfer_From_LineUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.Money_Transfer_From_LineUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$Money_Transfer_From_LinePayload>
+          }
+          aggregate: {
+            args: Prisma.Money_Transfer_From_LineAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateMoney_Transfer_From_Line>
+          }
+          groupBy: {
+            args: Prisma.Money_Transfer_From_LineGroupByArgs<ExtArgs>
+            result: $Utils.Optional<Money_Transfer_From_LineGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.Money_Transfer_From_LineCountArgs<ExtArgs>
+            result: $Utils.Optional<Money_Transfer_From_LineCountAggregateOutputType> | number
           }
         }
       }
@@ -3702,6 +3984,7 @@ export namespace Prisma {
     finances: number
     financeTransactions: number
     financeMoneyTrans: number
+    moneyFromTransactions: number
     journals: number
     journalTransactions: number
     girvis: number
@@ -3726,6 +4009,7 @@ export namespace Prisma {
     finances?: boolean | OwnerCountOutputTypeCountFinancesArgs
     financeTransactions?: boolean | OwnerCountOutputTypeCountFinanceTransactionsArgs
     financeMoneyTrans?: boolean | OwnerCountOutputTypeCountFinanceMoneyTransArgs
+    moneyFromTransactions?: boolean | OwnerCountOutputTypeCountMoneyFromTransactionsArgs
     journals?: boolean | OwnerCountOutputTypeCountJournalsArgs
     journalTransactions?: boolean | OwnerCountOutputTypeCountJournalTransactionsArgs
     girvis?: boolean | OwnerCountOutputTypeCountGirvisArgs
@@ -3794,6 +4078,13 @@ export namespace Prisma {
    */
   export type OwnerCountOutputTypeCountFinanceMoneyTransArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: Finance_Money_TransactionWhereInput
+  }
+
+  /**
+   * OwnerCountOutputType without action
+   */
+  export type OwnerCountOutputTypeCountMoneyFromTransactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: Money_From_TransactionWhereInput
   }
 
   /**
@@ -3912,6 +4203,7 @@ export namespace Prisma {
     finances: number
     financeTransactions: number
     financeMoneyTrans: number
+    moneyFromTransactions: number
     journals: number
     journalTransactions: number
     girvis: number
@@ -3934,6 +4226,7 @@ export namespace Prisma {
     finances?: boolean | FirmCountOutputTypeCountFinancesArgs
     financeTransactions?: boolean | FirmCountOutputTypeCountFinanceTransactionsArgs
     financeMoneyTrans?: boolean | FirmCountOutputTypeCountFinanceMoneyTransArgs
+    moneyFromTransactions?: boolean | FirmCountOutputTypeCountMoneyFromTransactionsArgs
     journals?: boolean | FirmCountOutputTypeCountJournalsArgs
     journalTransactions?: boolean | FirmCountOutputTypeCountJournalTransactionsArgs
     girvis?: boolean | FirmCountOutputTypeCountGirvisArgs
@@ -3994,6 +4287,13 @@ export namespace Prisma {
    */
   export type FirmCountOutputTypeCountFinanceMoneyTransArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: Finance_Money_TransactionWhereInput
+  }
+
+  /**
+   * FirmCountOutputType without action
+   */
+  export type FirmCountOutputTypeCountMoneyFromTransactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: Money_From_TransactionWhereInput
   }
 
   /**
@@ -4143,6 +4443,9 @@ export namespace Prisma {
     relBank: number
     relOnline: number
     relCard: number
+    mtfFromAccount: number
+    mtfFromLines: number
+    mttToAccount: number
   }
 
   export type AccountCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4189,6 +4492,9 @@ export namespace Prisma {
     relBank?: boolean | AccountCountOutputTypeCountRelBankArgs
     relOnline?: boolean | AccountCountOutputTypeCountRelOnlineArgs
     relCard?: boolean | AccountCountOutputTypeCountRelCardArgs
+    mtfFromAccount?: boolean | AccountCountOutputTypeCountMtfFromAccountArgs
+    mtfFromLines?: boolean | AccountCountOutputTypeCountMtfFromLinesArgs
+    mttToAccount?: boolean | AccountCountOutputTypeCountMttToAccountArgs
   }
 
   // Custom InputTypes
@@ -4503,6 +4809,27 @@ export namespace Prisma {
     where?: GirviReleaseWhereInput
   }
 
+  /**
+   * AccountCountOutputType without action
+   */
+  export type AccountCountOutputTypeCountMtfFromAccountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: Money_From_TransactionWhereInput
+  }
+
+  /**
+   * AccountCountOutputType without action
+   */
+  export type AccountCountOutputTypeCountMtfFromLinesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: Money_Transfer_From_LineWhereInput
+  }
+
+  /**
+   * AccountCountOutputType without action
+   */
+  export type AccountCountOutputTypeCountMttToAccountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: Money_To_TransactionWhereInput
+  }
+
 
   /**
    * Count Type UserCountOutputType
@@ -4662,11 +4989,13 @@ export namespace Prisma {
 
   export type JournalCountOutputType = {
     financeMoneyTransactions: number
+    moneyFromTransactions: number
     journalTransactions: number
   }
 
   export type JournalCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     financeMoneyTransactions?: boolean | JournalCountOutputTypeCountFinanceMoneyTransactionsArgs
+    moneyFromTransactions?: boolean | JournalCountOutputTypeCountMoneyFromTransactionsArgs
     journalTransactions?: boolean | JournalCountOutputTypeCountJournalTransactionsArgs
   }
 
@@ -4691,8 +5020,55 @@ export namespace Prisma {
   /**
    * JournalCountOutputType without action
    */
+  export type JournalCountOutputTypeCountMoneyFromTransactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: Money_From_TransactionWhereInput
+  }
+
+  /**
+   * JournalCountOutputType without action
+   */
   export type JournalCountOutputTypeCountJournalTransactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: JournalTransactionWhereInput
+  }
+
+
+  /**
+   * Count Type Money_From_TransactionCountOutputType
+   */
+
+  export type Money_From_TransactionCountOutputType = {
+    fromLines: number
+    toRows: number
+  }
+
+  export type Money_From_TransactionCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    fromLines?: boolean | Money_From_TransactionCountOutputTypeCountFromLinesArgs
+    toRows?: boolean | Money_From_TransactionCountOutputTypeCountToRowsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * Money_From_TransactionCountOutputType without action
+   */
+  export type Money_From_TransactionCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Money_From_TransactionCountOutputType
+     */
+    select?: Money_From_TransactionCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * Money_From_TransactionCountOutputType without action
+   */
+  export type Money_From_TransactionCountOutputTypeCountFromLinesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: Money_Transfer_From_LineWhereInput
+  }
+
+  /**
+   * Money_From_TransactionCountOutputType without action
+   */
+  export type Money_From_TransactionCountOutputTypeCountToRowsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: Money_To_TransactionWhereInput
   }
 
 
@@ -5441,6 +5817,7 @@ export namespace Prisma {
     finances?: boolean | Owner$financesArgs<ExtArgs>
     financeTransactions?: boolean | Owner$financeTransactionsArgs<ExtArgs>
     financeMoneyTrans?: boolean | Owner$financeMoneyTransArgs<ExtArgs>
+    moneyFromTransactions?: boolean | Owner$moneyFromTransactionsArgs<ExtArgs>
     journals?: boolean | Owner$journalsArgs<ExtArgs>
     journalTransactions?: boolean | Owner$journalTransactionsArgs<ExtArgs>
     girvis?: boolean | Owner$girvisArgs<ExtArgs>
@@ -5562,6 +5939,7 @@ export namespace Prisma {
     finances?: boolean | Owner$financesArgs<ExtArgs>
     financeTransactions?: boolean | Owner$financeTransactionsArgs<ExtArgs>
     financeMoneyTrans?: boolean | Owner$financeMoneyTransArgs<ExtArgs>
+    moneyFromTransactions?: boolean | Owner$moneyFromTransactionsArgs<ExtArgs>
     journals?: boolean | Owner$journalsArgs<ExtArgs>
     journalTransactions?: boolean | Owner$journalTransactionsArgs<ExtArgs>
     girvis?: boolean | Owner$girvisArgs<ExtArgs>
@@ -5590,6 +5968,7 @@ export namespace Prisma {
       finances: Prisma.$FinancePayload<ExtArgs>[]
       financeTransactions: Prisma.$Finance_TransactionPayload<ExtArgs>[]
       financeMoneyTrans: Prisma.$Finance_Money_TransactionPayload<ExtArgs>[]
+      moneyFromTransactions: Prisma.$Money_From_TransactionPayload<ExtArgs>[]
       journals: Prisma.$JournalPayload<ExtArgs>[]
       journalTransactions: Prisma.$JournalTransactionPayload<ExtArgs>[]
       girvis: Prisma.$GirviPayload<ExtArgs>[]
@@ -6022,6 +6401,7 @@ export namespace Prisma {
     finances<T extends Owner$financesArgs<ExtArgs> = {}>(args?: Subset<T, Owner$financesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FinancePayload<ExtArgs>, T, "findMany"> | Null>
     financeTransactions<T extends Owner$financeTransactionsArgs<ExtArgs> = {}>(args?: Subset<T, Owner$financeTransactionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$Finance_TransactionPayload<ExtArgs>, T, "findMany"> | Null>
     financeMoneyTrans<T extends Owner$financeMoneyTransArgs<ExtArgs> = {}>(args?: Subset<T, Owner$financeMoneyTransArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$Finance_Money_TransactionPayload<ExtArgs>, T, "findMany"> | Null>
+    moneyFromTransactions<T extends Owner$moneyFromTransactionsArgs<ExtArgs> = {}>(args?: Subset<T, Owner$moneyFromTransactionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$Money_From_TransactionPayload<ExtArgs>, T, "findMany"> | Null>
     journals<T extends Owner$journalsArgs<ExtArgs> = {}>(args?: Subset<T, Owner$journalsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$JournalPayload<ExtArgs>, T, "findMany"> | Null>
     journalTransactions<T extends Owner$journalTransactionsArgs<ExtArgs> = {}>(args?: Subset<T, Owner$journalTransactionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$JournalTransactionPayload<ExtArgs>, T, "findMany"> | Null>
     girvis<T extends Owner$girvisArgs<ExtArgs> = {}>(args?: Subset<T, Owner$girvisArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GirviPayload<ExtArgs>, T, "findMany"> | Null>
@@ -6542,6 +6922,26 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: Finance_Money_TransactionScalarFieldEnum | Finance_Money_TransactionScalarFieldEnum[]
+  }
+
+  /**
+   * Owner.moneyFromTransactions
+   */
+  export type Owner$moneyFromTransactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Money_From_Transaction
+     */
+    select?: Money_From_TransactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Money_From_TransactionInclude<ExtArgs> | null
+    where?: Money_From_TransactionWhereInput
+    orderBy?: Money_From_TransactionOrderByWithRelationInput | Money_From_TransactionOrderByWithRelationInput[]
+    cursor?: Money_From_TransactionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Money_From_TransactionScalarFieldEnum | Money_From_TransactionScalarFieldEnum[]
   }
 
   /**
@@ -7407,6 +7807,7 @@ export namespace Prisma {
     finances?: boolean | Firm$financesArgs<ExtArgs>
     financeTransactions?: boolean | Firm$financeTransactionsArgs<ExtArgs>
     financeMoneyTrans?: boolean | Firm$financeMoneyTransArgs<ExtArgs>
+    moneyFromTransactions?: boolean | Firm$moneyFromTransactionsArgs<ExtArgs>
     journals?: boolean | Firm$journalsArgs<ExtArgs>
     journalTransactions?: boolean | Firm$journalTransactionsArgs<ExtArgs>
     girvis?: boolean | Firm$girvisArgs<ExtArgs>
@@ -7540,6 +7941,7 @@ export namespace Prisma {
     finances?: boolean | Firm$financesArgs<ExtArgs>
     financeTransactions?: boolean | Firm$financeTransactionsArgs<ExtArgs>
     financeMoneyTrans?: boolean | Firm$financeMoneyTransArgs<ExtArgs>
+    moneyFromTransactions?: boolean | Firm$moneyFromTransactionsArgs<ExtArgs>
     journals?: boolean | Firm$journalsArgs<ExtArgs>
     journalTransactions?: boolean | Firm$journalTransactionsArgs<ExtArgs>
     girvis?: boolean | Firm$girvisArgs<ExtArgs>
@@ -7571,6 +7973,7 @@ export namespace Prisma {
       finances: Prisma.$FinancePayload<ExtArgs>[]
       financeTransactions: Prisma.$Finance_TransactionPayload<ExtArgs>[]
       financeMoneyTrans: Prisma.$Finance_Money_TransactionPayload<ExtArgs>[]
+      moneyFromTransactions: Prisma.$Money_From_TransactionPayload<ExtArgs>[]
       journals: Prisma.$JournalPayload<ExtArgs>[]
       journalTransactions: Prisma.$JournalTransactionPayload<ExtArgs>[]
       girvis: Prisma.$GirviPayload<ExtArgs>[]
@@ -8009,6 +8412,7 @@ export namespace Prisma {
     finances<T extends Firm$financesArgs<ExtArgs> = {}>(args?: Subset<T, Firm$financesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FinancePayload<ExtArgs>, T, "findMany"> | Null>
     financeTransactions<T extends Firm$financeTransactionsArgs<ExtArgs> = {}>(args?: Subset<T, Firm$financeTransactionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$Finance_TransactionPayload<ExtArgs>, T, "findMany"> | Null>
     financeMoneyTrans<T extends Firm$financeMoneyTransArgs<ExtArgs> = {}>(args?: Subset<T, Firm$financeMoneyTransArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$Finance_Money_TransactionPayload<ExtArgs>, T, "findMany"> | Null>
+    moneyFromTransactions<T extends Firm$moneyFromTransactionsArgs<ExtArgs> = {}>(args?: Subset<T, Firm$moneyFromTransactionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$Money_From_TransactionPayload<ExtArgs>, T, "findMany"> | Null>
     journals<T extends Firm$journalsArgs<ExtArgs> = {}>(args?: Subset<T, Firm$journalsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$JournalPayload<ExtArgs>, T, "findMany"> | Null>
     journalTransactions<T extends Firm$journalTransactionsArgs<ExtArgs> = {}>(args?: Subset<T, Firm$journalTransactionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$JournalTransactionPayload<ExtArgs>, T, "findMany"> | Null>
     girvis<T extends Firm$girvisArgs<ExtArgs> = {}>(args?: Subset<T, Firm$girvisArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GirviPayload<ExtArgs>, T, "findMany"> | Null>
@@ -8519,6 +8923,26 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: Finance_Money_TransactionScalarFieldEnum | Finance_Money_TransactionScalarFieldEnum[]
+  }
+
+  /**
+   * Firm.moneyFromTransactions
+   */
+  export type Firm$moneyFromTransactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Money_From_Transaction
+     */
+    select?: Money_From_TransactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Money_From_TransactionInclude<ExtArgs> | null
+    where?: Money_From_TransactionWhereInput
+    orderBy?: Money_From_TransactionOrderByWithRelationInput | Money_From_TransactionOrderByWithRelationInput[]
+    cursor?: Money_From_TransactionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Money_From_TransactionScalarFieldEnum | Money_From_TransactionScalarFieldEnum[]
   }
 
   /**
@@ -9289,6 +9713,9 @@ export namespace Prisma {
     relBank?: boolean | Account$relBankArgs<ExtArgs>
     relOnline?: boolean | Account$relOnlineArgs<ExtArgs>
     relCard?: boolean | Account$relCardArgs<ExtArgs>
+    mtfFromAccount?: boolean | Account$mtfFromAccountArgs<ExtArgs>
+    mtfFromLines?: boolean | Account$mtfFromLinesArgs<ExtArgs>
+    mttToAccount?: boolean | Account$mttToAccountArgs<ExtArgs>
     _count?: boolean | AccountCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["account"]>
 
@@ -9404,6 +9831,9 @@ export namespace Prisma {
     relBank?: boolean | Account$relBankArgs<ExtArgs>
     relOnline?: boolean | Account$relOnlineArgs<ExtArgs>
     relCard?: boolean | Account$relCardArgs<ExtArgs>
+    mtfFromAccount?: boolean | Account$mtfFromAccountArgs<ExtArgs>
+    mtfFromLines?: boolean | Account$mtfFromLinesArgs<ExtArgs>
+    mttToAccount?: boolean | Account$mttToAccountArgs<ExtArgs>
     _count?: boolean | AccountCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type AccountIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -9459,6 +9889,9 @@ export namespace Prisma {
       relBank: Prisma.$GirviReleasePayload<ExtArgs>[]
       relOnline: Prisma.$GirviReleasePayload<ExtArgs>[]
       relCard: Prisma.$GirviReleasePayload<ExtArgs>[]
+      mtfFromAccount: Prisma.$Money_From_TransactionPayload<ExtArgs>[]
+      mtfFromLines: Prisma.$Money_Transfer_From_LinePayload<ExtArgs>[]
+      mttToAccount: Prisma.$Money_To_TransactionPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       acc_id: number
@@ -9899,6 +10332,9 @@ export namespace Prisma {
     relBank<T extends Account$relBankArgs<ExtArgs> = {}>(args?: Subset<T, Account$relBankArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GirviReleasePayload<ExtArgs>, T, "findMany"> | Null>
     relOnline<T extends Account$relOnlineArgs<ExtArgs> = {}>(args?: Subset<T, Account$relOnlineArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GirviReleasePayload<ExtArgs>, T, "findMany"> | Null>
     relCard<T extends Account$relCardArgs<ExtArgs> = {}>(args?: Subset<T, Account$relCardArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GirviReleasePayload<ExtArgs>, T, "findMany"> | Null>
+    mtfFromAccount<T extends Account$mtfFromAccountArgs<ExtArgs> = {}>(args?: Subset<T, Account$mtfFromAccountArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$Money_From_TransactionPayload<ExtArgs>, T, "findMany"> | Null>
+    mtfFromLines<T extends Account$mtfFromLinesArgs<ExtArgs> = {}>(args?: Subset<T, Account$mtfFromLinesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$Money_Transfer_From_LinePayload<ExtArgs>, T, "findMany"> | Null>
+    mttToAccount<T extends Account$mttToAccountArgs<ExtArgs> = {}>(args?: Subset<T, Account$mttToAccountArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$Money_To_TransactionPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -11132,6 +11568,66 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: GirviReleaseScalarFieldEnum | GirviReleaseScalarFieldEnum[]
+  }
+
+  /**
+   * Account.mtfFromAccount
+   */
+  export type Account$mtfFromAccountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Money_From_Transaction
+     */
+    select?: Money_From_TransactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Money_From_TransactionInclude<ExtArgs> | null
+    where?: Money_From_TransactionWhereInput
+    orderBy?: Money_From_TransactionOrderByWithRelationInput | Money_From_TransactionOrderByWithRelationInput[]
+    cursor?: Money_From_TransactionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Money_From_TransactionScalarFieldEnum | Money_From_TransactionScalarFieldEnum[]
+  }
+
+  /**
+   * Account.mtfFromLines
+   */
+  export type Account$mtfFromLinesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Money_Transfer_From_Line
+     */
+    select?: Money_Transfer_From_LineSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Money_Transfer_From_LineInclude<ExtArgs> | null
+    where?: Money_Transfer_From_LineWhereInput
+    orderBy?: Money_Transfer_From_LineOrderByWithRelationInput | Money_Transfer_From_LineOrderByWithRelationInput[]
+    cursor?: Money_Transfer_From_LineWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Money_Transfer_From_LineScalarFieldEnum | Money_Transfer_From_LineScalarFieldEnum[]
+  }
+
+  /**
+   * Account.mttToAccount
+   */
+  export type Account$mttToAccountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Money_To_Transaction
+     */
+    select?: Money_To_TransactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Money_To_TransactionInclude<ExtArgs> | null
+    where?: Money_To_TransactionWhereInput
+    orderBy?: Money_To_TransactionOrderByWithRelationInput | Money_To_TransactionOrderByWithRelationInput[]
+    cursor?: Money_To_TransactionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Money_To_TransactionScalarFieldEnum | Money_To_TransactionScalarFieldEnum[]
   }
 
   /**
@@ -17829,6 +18325,7 @@ export namespace Prisma {
     jrnl_deleted_by?: boolean
     jrnl_is_deleted?: boolean
     financeMoneyTransactions?: boolean | Journal$financeMoneyTransactionsArgs<ExtArgs>
+    moneyFromTransactions?: boolean | Journal$moneyFromTransactionsArgs<ExtArgs>
     firm?: boolean | FirmDefaultArgs<ExtArgs>
     user?: boolean | Journal$userArgs<ExtArgs>
     owner?: boolean | OwnerDefaultArgs<ExtArgs>
@@ -17881,6 +18378,7 @@ export namespace Prisma {
 
   export type JournalInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     financeMoneyTransactions?: boolean | Journal$financeMoneyTransactionsArgs<ExtArgs>
+    moneyFromTransactions?: boolean | Journal$moneyFromTransactionsArgs<ExtArgs>
     firm?: boolean | FirmDefaultArgs<ExtArgs>
     user?: boolean | Journal$userArgs<ExtArgs>
     owner?: boolean | OwnerDefaultArgs<ExtArgs>
@@ -17897,6 +18395,7 @@ export namespace Prisma {
     name: "Journal"
     objects: {
       financeMoneyTransactions: Prisma.$Finance_Money_TransactionPayload<ExtArgs>[]
+      moneyFromTransactions: Prisma.$Money_From_TransactionPayload<ExtArgs>[]
       firm: Prisma.$FirmPayload<ExtArgs>
       user: Prisma.$UserPayload<ExtArgs> | null
       owner: Prisma.$OwnerPayload<ExtArgs>
@@ -18285,6 +18784,7 @@ export namespace Prisma {
   export interface Prisma__JournalClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     financeMoneyTransactions<T extends Journal$financeMoneyTransactionsArgs<ExtArgs> = {}>(args?: Subset<T, Journal$financeMoneyTransactionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$Finance_Money_TransactionPayload<ExtArgs>, T, "findMany"> | Null>
+    moneyFromTransactions<T extends Journal$moneyFromTransactionsArgs<ExtArgs> = {}>(args?: Subset<T, Journal$moneyFromTransactionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$Money_From_TransactionPayload<ExtArgs>, T, "findMany"> | Null>
     firm<T extends FirmDefaultArgs<ExtArgs> = {}>(args?: Subset<T, FirmDefaultArgs<ExtArgs>>): Prisma__FirmClient<$Result.GetResult<Prisma.$FirmPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     user<T extends Journal$userArgs<ExtArgs> = {}>(args?: Subset<T, Journal$userArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     owner<T extends OwnerDefaultArgs<ExtArgs> = {}>(args?: Subset<T, OwnerDefaultArgs<ExtArgs>>): Prisma__OwnerClient<$Result.GetResult<Prisma.$OwnerPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
@@ -18673,6 +19173,26 @@ export namespace Prisma {
   }
 
   /**
+   * Journal.moneyFromTransactions
+   */
+  export type Journal$moneyFromTransactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Money_From_Transaction
+     */
+    select?: Money_From_TransactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Money_From_TransactionInclude<ExtArgs> | null
+    where?: Money_From_TransactionWhereInput
+    orderBy?: Money_From_TransactionOrderByWithRelationInput | Money_From_TransactionOrderByWithRelationInput[]
+    cursor?: Money_From_TransactionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Money_From_TransactionScalarFieldEnum | Money_From_TransactionScalarFieldEnum[]
+  }
+
+  /**
    * Journal.user
    */
   export type Journal$userArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -18719,6 +19239,3250 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: JournalInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Money_From_Transaction
+   */
+
+  export type AggregateMoney_From_Transaction = {
+    _count: Money_From_TransactionCountAggregateOutputType | null
+    _avg: Money_From_TransactionAvgAggregateOutputType | null
+    _sum: Money_From_TransactionSumAggregateOutputType | null
+    _min: Money_From_TransactionMinAggregateOutputType | null
+    _max: Money_From_TransactionMaxAggregateOutputType | null
+  }
+
+  export type Money_From_TransactionAvgAggregateOutputType = {
+    mtf_id: number | null
+    mtf_firm_id: number | null
+    mtf_own_id: number | null
+    mtf_jrnl_id: number | null
+    mtf_from_acc_id: number | null
+    mtf_total_amt: number | null
+  }
+
+  export type Money_From_TransactionSumAggregateOutputType = {
+    mtf_id: number | null
+    mtf_firm_id: number | null
+    mtf_own_id: number | null
+    mtf_jrnl_id: number | null
+    mtf_from_acc_id: number | null
+    mtf_total_amt: number | null
+  }
+
+  export type Money_From_TransactionMinAggregateOutputType = {
+    mtf_id: number | null
+    mtf_uuid: string | null
+    mtf_firm_id: number | null
+    mtf_own_id: number | null
+    mtf_jrnl_id: number | null
+    mtf_from_acc_id: number | null
+    mtf_trans_date: string | null
+    mtf_mode: $Enums.MoneyTransferMode | null
+    mtf_direction: $Enums.MoneyTransferDirection | null
+    mtf_total_amt: number | null
+    mtf_panel: string | null
+    mtf_narration: string | null
+    mtf_other_info: string | null
+    mtf_created_at: Date | null
+    mtf_created_by: string | null
+    mtf_updated_at: Date | null
+    mtf_updated_by: string | null
+    mtf_deleted_at: Date | null
+    mtf_deleted_by: string | null
+    mtf_is_deleted: boolean | null
+  }
+
+  export type Money_From_TransactionMaxAggregateOutputType = {
+    mtf_id: number | null
+    mtf_uuid: string | null
+    mtf_firm_id: number | null
+    mtf_own_id: number | null
+    mtf_jrnl_id: number | null
+    mtf_from_acc_id: number | null
+    mtf_trans_date: string | null
+    mtf_mode: $Enums.MoneyTransferMode | null
+    mtf_direction: $Enums.MoneyTransferDirection | null
+    mtf_total_amt: number | null
+    mtf_panel: string | null
+    mtf_narration: string | null
+    mtf_other_info: string | null
+    mtf_created_at: Date | null
+    mtf_created_by: string | null
+    mtf_updated_at: Date | null
+    mtf_updated_by: string | null
+    mtf_deleted_at: Date | null
+    mtf_deleted_by: string | null
+    mtf_is_deleted: boolean | null
+  }
+
+  export type Money_From_TransactionCountAggregateOutputType = {
+    mtf_id: number
+    mtf_uuid: number
+    mtf_firm_id: number
+    mtf_own_id: number
+    mtf_jrnl_id: number
+    mtf_from_acc_id: number
+    mtf_trans_date: number
+    mtf_mode: number
+    mtf_direction: number
+    mtf_total_amt: number
+    mtf_panel: number
+    mtf_narration: number
+    mtf_other_info: number
+    mtf_created_at: number
+    mtf_created_by: number
+    mtf_updated_at: number
+    mtf_updated_by: number
+    mtf_deleted_at: number
+    mtf_deleted_by: number
+    mtf_is_deleted: number
+    _all: number
+  }
+
+
+  export type Money_From_TransactionAvgAggregateInputType = {
+    mtf_id?: true
+    mtf_firm_id?: true
+    mtf_own_id?: true
+    mtf_jrnl_id?: true
+    mtf_from_acc_id?: true
+    mtf_total_amt?: true
+  }
+
+  export type Money_From_TransactionSumAggregateInputType = {
+    mtf_id?: true
+    mtf_firm_id?: true
+    mtf_own_id?: true
+    mtf_jrnl_id?: true
+    mtf_from_acc_id?: true
+    mtf_total_amt?: true
+  }
+
+  export type Money_From_TransactionMinAggregateInputType = {
+    mtf_id?: true
+    mtf_uuid?: true
+    mtf_firm_id?: true
+    mtf_own_id?: true
+    mtf_jrnl_id?: true
+    mtf_from_acc_id?: true
+    mtf_trans_date?: true
+    mtf_mode?: true
+    mtf_direction?: true
+    mtf_total_amt?: true
+    mtf_panel?: true
+    mtf_narration?: true
+    mtf_other_info?: true
+    mtf_created_at?: true
+    mtf_created_by?: true
+    mtf_updated_at?: true
+    mtf_updated_by?: true
+    mtf_deleted_at?: true
+    mtf_deleted_by?: true
+    mtf_is_deleted?: true
+  }
+
+  export type Money_From_TransactionMaxAggregateInputType = {
+    mtf_id?: true
+    mtf_uuid?: true
+    mtf_firm_id?: true
+    mtf_own_id?: true
+    mtf_jrnl_id?: true
+    mtf_from_acc_id?: true
+    mtf_trans_date?: true
+    mtf_mode?: true
+    mtf_direction?: true
+    mtf_total_amt?: true
+    mtf_panel?: true
+    mtf_narration?: true
+    mtf_other_info?: true
+    mtf_created_at?: true
+    mtf_created_by?: true
+    mtf_updated_at?: true
+    mtf_updated_by?: true
+    mtf_deleted_at?: true
+    mtf_deleted_by?: true
+    mtf_is_deleted?: true
+  }
+
+  export type Money_From_TransactionCountAggregateInputType = {
+    mtf_id?: true
+    mtf_uuid?: true
+    mtf_firm_id?: true
+    mtf_own_id?: true
+    mtf_jrnl_id?: true
+    mtf_from_acc_id?: true
+    mtf_trans_date?: true
+    mtf_mode?: true
+    mtf_direction?: true
+    mtf_total_amt?: true
+    mtf_panel?: true
+    mtf_narration?: true
+    mtf_other_info?: true
+    mtf_created_at?: true
+    mtf_created_by?: true
+    mtf_updated_at?: true
+    mtf_updated_by?: true
+    mtf_deleted_at?: true
+    mtf_deleted_by?: true
+    mtf_is_deleted?: true
+    _all?: true
+  }
+
+  export type Money_From_TransactionAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Money_From_Transaction to aggregate.
+     */
+    where?: Money_From_TransactionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Money_From_Transactions to fetch.
+     */
+    orderBy?: Money_From_TransactionOrderByWithRelationInput | Money_From_TransactionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: Money_From_TransactionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Money_From_Transactions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Money_From_Transactions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Money_From_Transactions
+    **/
+    _count?: true | Money_From_TransactionCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: Money_From_TransactionAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: Money_From_TransactionSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: Money_From_TransactionMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: Money_From_TransactionMaxAggregateInputType
+  }
+
+  export type GetMoney_From_TransactionAggregateType<T extends Money_From_TransactionAggregateArgs> = {
+        [P in keyof T & keyof AggregateMoney_From_Transaction]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMoney_From_Transaction[P]>
+      : GetScalarType<T[P], AggregateMoney_From_Transaction[P]>
+  }
+
+
+
+
+  export type Money_From_TransactionGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: Money_From_TransactionWhereInput
+    orderBy?: Money_From_TransactionOrderByWithAggregationInput | Money_From_TransactionOrderByWithAggregationInput[]
+    by: Money_From_TransactionScalarFieldEnum[] | Money_From_TransactionScalarFieldEnum
+    having?: Money_From_TransactionScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: Money_From_TransactionCountAggregateInputType | true
+    _avg?: Money_From_TransactionAvgAggregateInputType
+    _sum?: Money_From_TransactionSumAggregateInputType
+    _min?: Money_From_TransactionMinAggregateInputType
+    _max?: Money_From_TransactionMaxAggregateInputType
+  }
+
+  export type Money_From_TransactionGroupByOutputType = {
+    mtf_id: number
+    mtf_uuid: string
+    mtf_firm_id: number
+    mtf_own_id: number
+    mtf_jrnl_id: number | null
+    mtf_from_acc_id: number
+    mtf_trans_date: string
+    mtf_mode: $Enums.MoneyTransferMode
+    mtf_direction: $Enums.MoneyTransferDirection
+    mtf_total_amt: number
+    mtf_panel: string
+    mtf_narration: string | null
+    mtf_other_info: string | null
+    mtf_created_at: Date
+    mtf_created_by: string | null
+    mtf_updated_at: Date
+    mtf_updated_by: string | null
+    mtf_deleted_at: Date | null
+    mtf_deleted_by: string | null
+    mtf_is_deleted: boolean
+    _count: Money_From_TransactionCountAggregateOutputType | null
+    _avg: Money_From_TransactionAvgAggregateOutputType | null
+    _sum: Money_From_TransactionSumAggregateOutputType | null
+    _min: Money_From_TransactionMinAggregateOutputType | null
+    _max: Money_From_TransactionMaxAggregateOutputType | null
+  }
+
+  type GetMoney_From_TransactionGroupByPayload<T extends Money_From_TransactionGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<Money_From_TransactionGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof Money_From_TransactionGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], Money_From_TransactionGroupByOutputType[P]>
+            : GetScalarType<T[P], Money_From_TransactionGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type Money_From_TransactionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    mtf_id?: boolean
+    mtf_uuid?: boolean
+    mtf_firm_id?: boolean
+    mtf_own_id?: boolean
+    mtf_jrnl_id?: boolean
+    mtf_from_acc_id?: boolean
+    mtf_trans_date?: boolean
+    mtf_mode?: boolean
+    mtf_direction?: boolean
+    mtf_total_amt?: boolean
+    mtf_panel?: boolean
+    mtf_narration?: boolean
+    mtf_other_info?: boolean
+    mtf_created_at?: boolean
+    mtf_created_by?: boolean
+    mtf_updated_at?: boolean
+    mtf_updated_by?: boolean
+    mtf_deleted_at?: boolean
+    mtf_deleted_by?: boolean
+    mtf_is_deleted?: boolean
+    firm?: boolean | FirmDefaultArgs<ExtArgs>
+    owner?: boolean | OwnerDefaultArgs<ExtArgs>
+    fromAccount?: boolean | AccountDefaultArgs<ExtArgs>
+    journal?: boolean | Money_From_Transaction$journalArgs<ExtArgs>
+    fromLines?: boolean | Money_From_Transaction$fromLinesArgs<ExtArgs>
+    toRows?: boolean | Money_From_Transaction$toRowsArgs<ExtArgs>
+    _count?: boolean | Money_From_TransactionCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["money_From_Transaction"]>
+
+  export type Money_From_TransactionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    mtf_id?: boolean
+    mtf_uuid?: boolean
+    mtf_firm_id?: boolean
+    mtf_own_id?: boolean
+    mtf_jrnl_id?: boolean
+    mtf_from_acc_id?: boolean
+    mtf_trans_date?: boolean
+    mtf_mode?: boolean
+    mtf_direction?: boolean
+    mtf_total_amt?: boolean
+    mtf_panel?: boolean
+    mtf_narration?: boolean
+    mtf_other_info?: boolean
+    mtf_created_at?: boolean
+    mtf_created_by?: boolean
+    mtf_updated_at?: boolean
+    mtf_updated_by?: boolean
+    mtf_deleted_at?: boolean
+    mtf_deleted_by?: boolean
+    mtf_is_deleted?: boolean
+    firm?: boolean | FirmDefaultArgs<ExtArgs>
+    owner?: boolean | OwnerDefaultArgs<ExtArgs>
+    fromAccount?: boolean | AccountDefaultArgs<ExtArgs>
+    journal?: boolean | Money_From_Transaction$journalArgs<ExtArgs>
+  }, ExtArgs["result"]["money_From_Transaction"]>
+
+  export type Money_From_TransactionSelectScalar = {
+    mtf_id?: boolean
+    mtf_uuid?: boolean
+    mtf_firm_id?: boolean
+    mtf_own_id?: boolean
+    mtf_jrnl_id?: boolean
+    mtf_from_acc_id?: boolean
+    mtf_trans_date?: boolean
+    mtf_mode?: boolean
+    mtf_direction?: boolean
+    mtf_total_amt?: boolean
+    mtf_panel?: boolean
+    mtf_narration?: boolean
+    mtf_other_info?: boolean
+    mtf_created_at?: boolean
+    mtf_created_by?: boolean
+    mtf_updated_at?: boolean
+    mtf_updated_by?: boolean
+    mtf_deleted_at?: boolean
+    mtf_deleted_by?: boolean
+    mtf_is_deleted?: boolean
+  }
+
+  export type Money_From_TransactionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    firm?: boolean | FirmDefaultArgs<ExtArgs>
+    owner?: boolean | OwnerDefaultArgs<ExtArgs>
+    fromAccount?: boolean | AccountDefaultArgs<ExtArgs>
+    journal?: boolean | Money_From_Transaction$journalArgs<ExtArgs>
+    fromLines?: boolean | Money_From_Transaction$fromLinesArgs<ExtArgs>
+    toRows?: boolean | Money_From_Transaction$toRowsArgs<ExtArgs>
+    _count?: boolean | Money_From_TransactionCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type Money_From_TransactionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    firm?: boolean | FirmDefaultArgs<ExtArgs>
+    owner?: boolean | OwnerDefaultArgs<ExtArgs>
+    fromAccount?: boolean | AccountDefaultArgs<ExtArgs>
+    journal?: boolean | Money_From_Transaction$journalArgs<ExtArgs>
+  }
+
+  export type $Money_From_TransactionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Money_From_Transaction"
+    objects: {
+      firm: Prisma.$FirmPayload<ExtArgs>
+      owner: Prisma.$OwnerPayload<ExtArgs>
+      fromAccount: Prisma.$AccountPayload<ExtArgs>
+      journal: Prisma.$JournalPayload<ExtArgs> | null
+      fromLines: Prisma.$Money_Transfer_From_LinePayload<ExtArgs>[]
+      toRows: Prisma.$Money_To_TransactionPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      mtf_id: number
+      mtf_uuid: string
+      mtf_firm_id: number
+      mtf_own_id: number
+      mtf_jrnl_id: number | null
+      mtf_from_acc_id: number
+      mtf_trans_date: string
+      mtf_mode: $Enums.MoneyTransferMode
+      mtf_direction: $Enums.MoneyTransferDirection
+      mtf_total_amt: number
+      mtf_panel: string
+      mtf_narration: string | null
+      mtf_other_info: string | null
+      mtf_created_at: Date
+      mtf_created_by: string | null
+      mtf_updated_at: Date
+      mtf_updated_by: string | null
+      mtf_deleted_at: Date | null
+      mtf_deleted_by: string | null
+      mtf_is_deleted: boolean
+    }, ExtArgs["result"]["money_From_Transaction"]>
+    composites: {}
+  }
+
+  type Money_From_TransactionGetPayload<S extends boolean | null | undefined | Money_From_TransactionDefaultArgs> = $Result.GetResult<Prisma.$Money_From_TransactionPayload, S>
+
+  type Money_From_TransactionCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<Money_From_TransactionFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: Money_From_TransactionCountAggregateInputType | true
+    }
+
+  export interface Money_From_TransactionDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Money_From_Transaction'], meta: { name: 'Money_From_Transaction' } }
+    /**
+     * Find zero or one Money_From_Transaction that matches the filter.
+     * @param {Money_From_TransactionFindUniqueArgs} args - Arguments to find a Money_From_Transaction
+     * @example
+     * // Get one Money_From_Transaction
+     * const money_From_Transaction = await prisma.money_From_Transaction.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends Money_From_TransactionFindUniqueArgs>(args: SelectSubset<T, Money_From_TransactionFindUniqueArgs<ExtArgs>>): Prisma__Money_From_TransactionClient<$Result.GetResult<Prisma.$Money_From_TransactionPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one Money_From_Transaction that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {Money_From_TransactionFindUniqueOrThrowArgs} args - Arguments to find a Money_From_Transaction
+     * @example
+     * // Get one Money_From_Transaction
+     * const money_From_Transaction = await prisma.money_From_Transaction.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends Money_From_TransactionFindUniqueOrThrowArgs>(args: SelectSubset<T, Money_From_TransactionFindUniqueOrThrowArgs<ExtArgs>>): Prisma__Money_From_TransactionClient<$Result.GetResult<Prisma.$Money_From_TransactionPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first Money_From_Transaction that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Money_From_TransactionFindFirstArgs} args - Arguments to find a Money_From_Transaction
+     * @example
+     * // Get one Money_From_Transaction
+     * const money_From_Transaction = await prisma.money_From_Transaction.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends Money_From_TransactionFindFirstArgs>(args?: SelectSubset<T, Money_From_TransactionFindFirstArgs<ExtArgs>>): Prisma__Money_From_TransactionClient<$Result.GetResult<Prisma.$Money_From_TransactionPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first Money_From_Transaction that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Money_From_TransactionFindFirstOrThrowArgs} args - Arguments to find a Money_From_Transaction
+     * @example
+     * // Get one Money_From_Transaction
+     * const money_From_Transaction = await prisma.money_From_Transaction.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends Money_From_TransactionFindFirstOrThrowArgs>(args?: SelectSubset<T, Money_From_TransactionFindFirstOrThrowArgs<ExtArgs>>): Prisma__Money_From_TransactionClient<$Result.GetResult<Prisma.$Money_From_TransactionPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more Money_From_Transactions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Money_From_TransactionFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Money_From_Transactions
+     * const money_From_Transactions = await prisma.money_From_Transaction.findMany()
+     * 
+     * // Get first 10 Money_From_Transactions
+     * const money_From_Transactions = await prisma.money_From_Transaction.findMany({ take: 10 })
+     * 
+     * // Only select the `mtf_id`
+     * const money_From_TransactionWithMtf_idOnly = await prisma.money_From_Transaction.findMany({ select: { mtf_id: true } })
+     * 
+     */
+    findMany<T extends Money_From_TransactionFindManyArgs>(args?: SelectSubset<T, Money_From_TransactionFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$Money_From_TransactionPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a Money_From_Transaction.
+     * @param {Money_From_TransactionCreateArgs} args - Arguments to create a Money_From_Transaction.
+     * @example
+     * // Create one Money_From_Transaction
+     * const Money_From_Transaction = await prisma.money_From_Transaction.create({
+     *   data: {
+     *     // ... data to create a Money_From_Transaction
+     *   }
+     * })
+     * 
+     */
+    create<T extends Money_From_TransactionCreateArgs>(args: SelectSubset<T, Money_From_TransactionCreateArgs<ExtArgs>>): Prisma__Money_From_TransactionClient<$Result.GetResult<Prisma.$Money_From_TransactionPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many Money_From_Transactions.
+     * @param {Money_From_TransactionCreateManyArgs} args - Arguments to create many Money_From_Transactions.
+     * @example
+     * // Create many Money_From_Transactions
+     * const money_From_Transaction = await prisma.money_From_Transaction.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends Money_From_TransactionCreateManyArgs>(args?: SelectSubset<T, Money_From_TransactionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Money_From_Transactions and returns the data saved in the database.
+     * @param {Money_From_TransactionCreateManyAndReturnArgs} args - Arguments to create many Money_From_Transactions.
+     * @example
+     * // Create many Money_From_Transactions
+     * const money_From_Transaction = await prisma.money_From_Transaction.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Money_From_Transactions and only return the `mtf_id`
+     * const money_From_TransactionWithMtf_idOnly = await prisma.money_From_Transaction.createManyAndReturn({ 
+     *   select: { mtf_id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends Money_From_TransactionCreateManyAndReturnArgs>(args?: SelectSubset<T, Money_From_TransactionCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$Money_From_TransactionPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a Money_From_Transaction.
+     * @param {Money_From_TransactionDeleteArgs} args - Arguments to delete one Money_From_Transaction.
+     * @example
+     * // Delete one Money_From_Transaction
+     * const Money_From_Transaction = await prisma.money_From_Transaction.delete({
+     *   where: {
+     *     // ... filter to delete one Money_From_Transaction
+     *   }
+     * })
+     * 
+     */
+    delete<T extends Money_From_TransactionDeleteArgs>(args: SelectSubset<T, Money_From_TransactionDeleteArgs<ExtArgs>>): Prisma__Money_From_TransactionClient<$Result.GetResult<Prisma.$Money_From_TransactionPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one Money_From_Transaction.
+     * @param {Money_From_TransactionUpdateArgs} args - Arguments to update one Money_From_Transaction.
+     * @example
+     * // Update one Money_From_Transaction
+     * const money_From_Transaction = await prisma.money_From_Transaction.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends Money_From_TransactionUpdateArgs>(args: SelectSubset<T, Money_From_TransactionUpdateArgs<ExtArgs>>): Prisma__Money_From_TransactionClient<$Result.GetResult<Prisma.$Money_From_TransactionPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more Money_From_Transactions.
+     * @param {Money_From_TransactionDeleteManyArgs} args - Arguments to filter Money_From_Transactions to delete.
+     * @example
+     * // Delete a few Money_From_Transactions
+     * const { count } = await prisma.money_From_Transaction.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends Money_From_TransactionDeleteManyArgs>(args?: SelectSubset<T, Money_From_TransactionDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Money_From_Transactions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Money_From_TransactionUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Money_From_Transactions
+     * const money_From_Transaction = await prisma.money_From_Transaction.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends Money_From_TransactionUpdateManyArgs>(args: SelectSubset<T, Money_From_TransactionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Money_From_Transaction.
+     * @param {Money_From_TransactionUpsertArgs} args - Arguments to update or create a Money_From_Transaction.
+     * @example
+     * // Update or create a Money_From_Transaction
+     * const money_From_Transaction = await prisma.money_From_Transaction.upsert({
+     *   create: {
+     *     // ... data to create a Money_From_Transaction
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Money_From_Transaction we want to update
+     *   }
+     * })
+     */
+    upsert<T extends Money_From_TransactionUpsertArgs>(args: SelectSubset<T, Money_From_TransactionUpsertArgs<ExtArgs>>): Prisma__Money_From_TransactionClient<$Result.GetResult<Prisma.$Money_From_TransactionPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of Money_From_Transactions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Money_From_TransactionCountArgs} args - Arguments to filter Money_From_Transactions to count.
+     * @example
+     * // Count the number of Money_From_Transactions
+     * const count = await prisma.money_From_Transaction.count({
+     *   where: {
+     *     // ... the filter for the Money_From_Transactions we want to count
+     *   }
+     * })
+    **/
+    count<T extends Money_From_TransactionCountArgs>(
+      args?: Subset<T, Money_From_TransactionCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], Money_From_TransactionCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Money_From_Transaction.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Money_From_TransactionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends Money_From_TransactionAggregateArgs>(args: Subset<T, Money_From_TransactionAggregateArgs>): Prisma.PrismaPromise<GetMoney_From_TransactionAggregateType<T>>
+
+    /**
+     * Group by Money_From_Transaction.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Money_From_TransactionGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends Money_From_TransactionGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: Money_From_TransactionGroupByArgs['orderBy'] }
+        : { orderBy?: Money_From_TransactionGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, Money_From_TransactionGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMoney_From_TransactionGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Money_From_Transaction model
+   */
+  readonly fields: Money_From_TransactionFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Money_From_Transaction.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__Money_From_TransactionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    firm<T extends FirmDefaultArgs<ExtArgs> = {}>(args?: Subset<T, FirmDefaultArgs<ExtArgs>>): Prisma__FirmClient<$Result.GetResult<Prisma.$FirmPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    owner<T extends OwnerDefaultArgs<ExtArgs> = {}>(args?: Subset<T, OwnerDefaultArgs<ExtArgs>>): Prisma__OwnerClient<$Result.GetResult<Prisma.$OwnerPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    fromAccount<T extends AccountDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AccountDefaultArgs<ExtArgs>>): Prisma__AccountClient<$Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    journal<T extends Money_From_Transaction$journalArgs<ExtArgs> = {}>(args?: Subset<T, Money_From_Transaction$journalArgs<ExtArgs>>): Prisma__JournalClient<$Result.GetResult<Prisma.$JournalPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    fromLines<T extends Money_From_Transaction$fromLinesArgs<ExtArgs> = {}>(args?: Subset<T, Money_From_Transaction$fromLinesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$Money_Transfer_From_LinePayload<ExtArgs>, T, "findMany"> | Null>
+    toRows<T extends Money_From_Transaction$toRowsArgs<ExtArgs> = {}>(args?: Subset<T, Money_From_Transaction$toRowsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$Money_To_TransactionPayload<ExtArgs>, T, "findMany"> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Money_From_Transaction model
+   */ 
+  interface Money_From_TransactionFieldRefs {
+    readonly mtf_id: FieldRef<"Money_From_Transaction", 'Int'>
+    readonly mtf_uuid: FieldRef<"Money_From_Transaction", 'String'>
+    readonly mtf_firm_id: FieldRef<"Money_From_Transaction", 'Int'>
+    readonly mtf_own_id: FieldRef<"Money_From_Transaction", 'Int'>
+    readonly mtf_jrnl_id: FieldRef<"Money_From_Transaction", 'Int'>
+    readonly mtf_from_acc_id: FieldRef<"Money_From_Transaction", 'Int'>
+    readonly mtf_trans_date: FieldRef<"Money_From_Transaction", 'String'>
+    readonly mtf_mode: FieldRef<"Money_From_Transaction", 'MoneyTransferMode'>
+    readonly mtf_direction: FieldRef<"Money_From_Transaction", 'MoneyTransferDirection'>
+    readonly mtf_total_amt: FieldRef<"Money_From_Transaction", 'Float'>
+    readonly mtf_panel: FieldRef<"Money_From_Transaction", 'String'>
+    readonly mtf_narration: FieldRef<"Money_From_Transaction", 'String'>
+    readonly mtf_other_info: FieldRef<"Money_From_Transaction", 'String'>
+    readonly mtf_created_at: FieldRef<"Money_From_Transaction", 'DateTime'>
+    readonly mtf_created_by: FieldRef<"Money_From_Transaction", 'String'>
+    readonly mtf_updated_at: FieldRef<"Money_From_Transaction", 'DateTime'>
+    readonly mtf_updated_by: FieldRef<"Money_From_Transaction", 'String'>
+    readonly mtf_deleted_at: FieldRef<"Money_From_Transaction", 'DateTime'>
+    readonly mtf_deleted_by: FieldRef<"Money_From_Transaction", 'String'>
+    readonly mtf_is_deleted: FieldRef<"Money_From_Transaction", 'Boolean'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Money_From_Transaction findUnique
+   */
+  export type Money_From_TransactionFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Money_From_Transaction
+     */
+    select?: Money_From_TransactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Money_From_TransactionInclude<ExtArgs> | null
+    /**
+     * Filter, which Money_From_Transaction to fetch.
+     */
+    where: Money_From_TransactionWhereUniqueInput
+  }
+
+  /**
+   * Money_From_Transaction findUniqueOrThrow
+   */
+  export type Money_From_TransactionFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Money_From_Transaction
+     */
+    select?: Money_From_TransactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Money_From_TransactionInclude<ExtArgs> | null
+    /**
+     * Filter, which Money_From_Transaction to fetch.
+     */
+    where: Money_From_TransactionWhereUniqueInput
+  }
+
+  /**
+   * Money_From_Transaction findFirst
+   */
+  export type Money_From_TransactionFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Money_From_Transaction
+     */
+    select?: Money_From_TransactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Money_From_TransactionInclude<ExtArgs> | null
+    /**
+     * Filter, which Money_From_Transaction to fetch.
+     */
+    where?: Money_From_TransactionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Money_From_Transactions to fetch.
+     */
+    orderBy?: Money_From_TransactionOrderByWithRelationInput | Money_From_TransactionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Money_From_Transactions.
+     */
+    cursor?: Money_From_TransactionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Money_From_Transactions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Money_From_Transactions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Money_From_Transactions.
+     */
+    distinct?: Money_From_TransactionScalarFieldEnum | Money_From_TransactionScalarFieldEnum[]
+  }
+
+  /**
+   * Money_From_Transaction findFirstOrThrow
+   */
+  export type Money_From_TransactionFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Money_From_Transaction
+     */
+    select?: Money_From_TransactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Money_From_TransactionInclude<ExtArgs> | null
+    /**
+     * Filter, which Money_From_Transaction to fetch.
+     */
+    where?: Money_From_TransactionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Money_From_Transactions to fetch.
+     */
+    orderBy?: Money_From_TransactionOrderByWithRelationInput | Money_From_TransactionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Money_From_Transactions.
+     */
+    cursor?: Money_From_TransactionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Money_From_Transactions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Money_From_Transactions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Money_From_Transactions.
+     */
+    distinct?: Money_From_TransactionScalarFieldEnum | Money_From_TransactionScalarFieldEnum[]
+  }
+
+  /**
+   * Money_From_Transaction findMany
+   */
+  export type Money_From_TransactionFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Money_From_Transaction
+     */
+    select?: Money_From_TransactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Money_From_TransactionInclude<ExtArgs> | null
+    /**
+     * Filter, which Money_From_Transactions to fetch.
+     */
+    where?: Money_From_TransactionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Money_From_Transactions to fetch.
+     */
+    orderBy?: Money_From_TransactionOrderByWithRelationInput | Money_From_TransactionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Money_From_Transactions.
+     */
+    cursor?: Money_From_TransactionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Money_From_Transactions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Money_From_Transactions.
+     */
+    skip?: number
+    distinct?: Money_From_TransactionScalarFieldEnum | Money_From_TransactionScalarFieldEnum[]
+  }
+
+  /**
+   * Money_From_Transaction create
+   */
+  export type Money_From_TransactionCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Money_From_Transaction
+     */
+    select?: Money_From_TransactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Money_From_TransactionInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Money_From_Transaction.
+     */
+    data: XOR<Money_From_TransactionCreateInput, Money_From_TransactionUncheckedCreateInput>
+  }
+
+  /**
+   * Money_From_Transaction createMany
+   */
+  export type Money_From_TransactionCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Money_From_Transactions.
+     */
+    data: Money_From_TransactionCreateManyInput | Money_From_TransactionCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Money_From_Transaction createManyAndReturn
+   */
+  export type Money_From_TransactionCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Money_From_Transaction
+     */
+    select?: Money_From_TransactionSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many Money_From_Transactions.
+     */
+    data: Money_From_TransactionCreateManyInput | Money_From_TransactionCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Money_From_TransactionIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Money_From_Transaction update
+   */
+  export type Money_From_TransactionUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Money_From_Transaction
+     */
+    select?: Money_From_TransactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Money_From_TransactionInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Money_From_Transaction.
+     */
+    data: XOR<Money_From_TransactionUpdateInput, Money_From_TransactionUncheckedUpdateInput>
+    /**
+     * Choose, which Money_From_Transaction to update.
+     */
+    where: Money_From_TransactionWhereUniqueInput
+  }
+
+  /**
+   * Money_From_Transaction updateMany
+   */
+  export type Money_From_TransactionUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Money_From_Transactions.
+     */
+    data: XOR<Money_From_TransactionUpdateManyMutationInput, Money_From_TransactionUncheckedUpdateManyInput>
+    /**
+     * Filter which Money_From_Transactions to update
+     */
+    where?: Money_From_TransactionWhereInput
+  }
+
+  /**
+   * Money_From_Transaction upsert
+   */
+  export type Money_From_TransactionUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Money_From_Transaction
+     */
+    select?: Money_From_TransactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Money_From_TransactionInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Money_From_Transaction to update in case it exists.
+     */
+    where: Money_From_TransactionWhereUniqueInput
+    /**
+     * In case the Money_From_Transaction found by the `where` argument doesn't exist, create a new Money_From_Transaction with this data.
+     */
+    create: XOR<Money_From_TransactionCreateInput, Money_From_TransactionUncheckedCreateInput>
+    /**
+     * In case the Money_From_Transaction was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<Money_From_TransactionUpdateInput, Money_From_TransactionUncheckedUpdateInput>
+  }
+
+  /**
+   * Money_From_Transaction delete
+   */
+  export type Money_From_TransactionDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Money_From_Transaction
+     */
+    select?: Money_From_TransactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Money_From_TransactionInclude<ExtArgs> | null
+    /**
+     * Filter which Money_From_Transaction to delete.
+     */
+    where: Money_From_TransactionWhereUniqueInput
+  }
+
+  /**
+   * Money_From_Transaction deleteMany
+   */
+  export type Money_From_TransactionDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Money_From_Transactions to delete
+     */
+    where?: Money_From_TransactionWhereInput
+  }
+
+  /**
+   * Money_From_Transaction.journal
+   */
+  export type Money_From_Transaction$journalArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Journal
+     */
+    select?: JournalSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JournalInclude<ExtArgs> | null
+    where?: JournalWhereInput
+  }
+
+  /**
+   * Money_From_Transaction.fromLines
+   */
+  export type Money_From_Transaction$fromLinesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Money_Transfer_From_Line
+     */
+    select?: Money_Transfer_From_LineSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Money_Transfer_From_LineInclude<ExtArgs> | null
+    where?: Money_Transfer_From_LineWhereInput
+    orderBy?: Money_Transfer_From_LineOrderByWithRelationInput | Money_Transfer_From_LineOrderByWithRelationInput[]
+    cursor?: Money_Transfer_From_LineWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Money_Transfer_From_LineScalarFieldEnum | Money_Transfer_From_LineScalarFieldEnum[]
+  }
+
+  /**
+   * Money_From_Transaction.toRows
+   */
+  export type Money_From_Transaction$toRowsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Money_To_Transaction
+     */
+    select?: Money_To_TransactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Money_To_TransactionInclude<ExtArgs> | null
+    where?: Money_To_TransactionWhereInput
+    orderBy?: Money_To_TransactionOrderByWithRelationInput | Money_To_TransactionOrderByWithRelationInput[]
+    cursor?: Money_To_TransactionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Money_To_TransactionScalarFieldEnum | Money_To_TransactionScalarFieldEnum[]
+  }
+
+  /**
+   * Money_From_Transaction without action
+   */
+  export type Money_From_TransactionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Money_From_Transaction
+     */
+    select?: Money_From_TransactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Money_From_TransactionInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Money_To_Transaction
+   */
+
+  export type AggregateMoney_To_Transaction = {
+    _count: Money_To_TransactionCountAggregateOutputType | null
+    _avg: Money_To_TransactionAvgAggregateOutputType | null
+    _sum: Money_To_TransactionSumAggregateOutputType | null
+    _min: Money_To_TransactionMinAggregateOutputType | null
+    _max: Money_To_TransactionMaxAggregateOutputType | null
+  }
+
+  export type Money_To_TransactionAvgAggregateOutputType = {
+    mtt_id: number | null
+    mtt_mtf_id: number | null
+    mtt_to_acc_id: number | null
+    mtt_amt: number | null
+  }
+
+  export type Money_To_TransactionSumAggregateOutputType = {
+    mtt_id: number | null
+    mtt_mtf_id: number | null
+    mtt_to_acc_id: number | null
+    mtt_amt: number | null
+  }
+
+  export type Money_To_TransactionMinAggregateOutputType = {
+    mtt_id: number | null
+    mtt_uuid: string | null
+    mtt_mtf_id: number | null
+    mtt_to_acc_id: number | null
+    mtt_amt: number | null
+    mtt_remarks: string | null
+  }
+
+  export type Money_To_TransactionMaxAggregateOutputType = {
+    mtt_id: number | null
+    mtt_uuid: string | null
+    mtt_mtf_id: number | null
+    mtt_to_acc_id: number | null
+    mtt_amt: number | null
+    mtt_remarks: string | null
+  }
+
+  export type Money_To_TransactionCountAggregateOutputType = {
+    mtt_id: number
+    mtt_uuid: number
+    mtt_mtf_id: number
+    mtt_to_acc_id: number
+    mtt_amt: number
+    mtt_remarks: number
+    _all: number
+  }
+
+
+  export type Money_To_TransactionAvgAggregateInputType = {
+    mtt_id?: true
+    mtt_mtf_id?: true
+    mtt_to_acc_id?: true
+    mtt_amt?: true
+  }
+
+  export type Money_To_TransactionSumAggregateInputType = {
+    mtt_id?: true
+    mtt_mtf_id?: true
+    mtt_to_acc_id?: true
+    mtt_amt?: true
+  }
+
+  export type Money_To_TransactionMinAggregateInputType = {
+    mtt_id?: true
+    mtt_uuid?: true
+    mtt_mtf_id?: true
+    mtt_to_acc_id?: true
+    mtt_amt?: true
+    mtt_remarks?: true
+  }
+
+  export type Money_To_TransactionMaxAggregateInputType = {
+    mtt_id?: true
+    mtt_uuid?: true
+    mtt_mtf_id?: true
+    mtt_to_acc_id?: true
+    mtt_amt?: true
+    mtt_remarks?: true
+  }
+
+  export type Money_To_TransactionCountAggregateInputType = {
+    mtt_id?: true
+    mtt_uuid?: true
+    mtt_mtf_id?: true
+    mtt_to_acc_id?: true
+    mtt_amt?: true
+    mtt_remarks?: true
+    _all?: true
+  }
+
+  export type Money_To_TransactionAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Money_To_Transaction to aggregate.
+     */
+    where?: Money_To_TransactionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Money_To_Transactions to fetch.
+     */
+    orderBy?: Money_To_TransactionOrderByWithRelationInput | Money_To_TransactionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: Money_To_TransactionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Money_To_Transactions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Money_To_Transactions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Money_To_Transactions
+    **/
+    _count?: true | Money_To_TransactionCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: Money_To_TransactionAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: Money_To_TransactionSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: Money_To_TransactionMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: Money_To_TransactionMaxAggregateInputType
+  }
+
+  export type GetMoney_To_TransactionAggregateType<T extends Money_To_TransactionAggregateArgs> = {
+        [P in keyof T & keyof AggregateMoney_To_Transaction]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMoney_To_Transaction[P]>
+      : GetScalarType<T[P], AggregateMoney_To_Transaction[P]>
+  }
+
+
+
+
+  export type Money_To_TransactionGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: Money_To_TransactionWhereInput
+    orderBy?: Money_To_TransactionOrderByWithAggregationInput | Money_To_TransactionOrderByWithAggregationInput[]
+    by: Money_To_TransactionScalarFieldEnum[] | Money_To_TransactionScalarFieldEnum
+    having?: Money_To_TransactionScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: Money_To_TransactionCountAggregateInputType | true
+    _avg?: Money_To_TransactionAvgAggregateInputType
+    _sum?: Money_To_TransactionSumAggregateInputType
+    _min?: Money_To_TransactionMinAggregateInputType
+    _max?: Money_To_TransactionMaxAggregateInputType
+  }
+
+  export type Money_To_TransactionGroupByOutputType = {
+    mtt_id: number
+    mtt_uuid: string
+    mtt_mtf_id: number
+    mtt_to_acc_id: number
+    mtt_amt: number
+    mtt_remarks: string | null
+    _count: Money_To_TransactionCountAggregateOutputType | null
+    _avg: Money_To_TransactionAvgAggregateOutputType | null
+    _sum: Money_To_TransactionSumAggregateOutputType | null
+    _min: Money_To_TransactionMinAggregateOutputType | null
+    _max: Money_To_TransactionMaxAggregateOutputType | null
+  }
+
+  type GetMoney_To_TransactionGroupByPayload<T extends Money_To_TransactionGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<Money_To_TransactionGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof Money_To_TransactionGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], Money_To_TransactionGroupByOutputType[P]>
+            : GetScalarType<T[P], Money_To_TransactionGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type Money_To_TransactionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    mtt_id?: boolean
+    mtt_uuid?: boolean
+    mtt_mtf_id?: boolean
+    mtt_to_acc_id?: boolean
+    mtt_amt?: boolean
+    mtt_remarks?: boolean
+    fromTransaction?: boolean | Money_From_TransactionDefaultArgs<ExtArgs>
+    toAccount?: boolean | AccountDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["money_To_Transaction"]>
+
+  export type Money_To_TransactionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    mtt_id?: boolean
+    mtt_uuid?: boolean
+    mtt_mtf_id?: boolean
+    mtt_to_acc_id?: boolean
+    mtt_amt?: boolean
+    mtt_remarks?: boolean
+    fromTransaction?: boolean | Money_From_TransactionDefaultArgs<ExtArgs>
+    toAccount?: boolean | AccountDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["money_To_Transaction"]>
+
+  export type Money_To_TransactionSelectScalar = {
+    mtt_id?: boolean
+    mtt_uuid?: boolean
+    mtt_mtf_id?: boolean
+    mtt_to_acc_id?: boolean
+    mtt_amt?: boolean
+    mtt_remarks?: boolean
+  }
+
+  export type Money_To_TransactionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    fromTransaction?: boolean | Money_From_TransactionDefaultArgs<ExtArgs>
+    toAccount?: boolean | AccountDefaultArgs<ExtArgs>
+  }
+  export type Money_To_TransactionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    fromTransaction?: boolean | Money_From_TransactionDefaultArgs<ExtArgs>
+    toAccount?: boolean | AccountDefaultArgs<ExtArgs>
+  }
+
+  export type $Money_To_TransactionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Money_To_Transaction"
+    objects: {
+      fromTransaction: Prisma.$Money_From_TransactionPayload<ExtArgs>
+      toAccount: Prisma.$AccountPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      mtt_id: number
+      mtt_uuid: string
+      mtt_mtf_id: number
+      mtt_to_acc_id: number
+      mtt_amt: number
+      mtt_remarks: string | null
+    }, ExtArgs["result"]["money_To_Transaction"]>
+    composites: {}
+  }
+
+  type Money_To_TransactionGetPayload<S extends boolean | null | undefined | Money_To_TransactionDefaultArgs> = $Result.GetResult<Prisma.$Money_To_TransactionPayload, S>
+
+  type Money_To_TransactionCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<Money_To_TransactionFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: Money_To_TransactionCountAggregateInputType | true
+    }
+
+  export interface Money_To_TransactionDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Money_To_Transaction'], meta: { name: 'Money_To_Transaction' } }
+    /**
+     * Find zero or one Money_To_Transaction that matches the filter.
+     * @param {Money_To_TransactionFindUniqueArgs} args - Arguments to find a Money_To_Transaction
+     * @example
+     * // Get one Money_To_Transaction
+     * const money_To_Transaction = await prisma.money_To_Transaction.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends Money_To_TransactionFindUniqueArgs>(args: SelectSubset<T, Money_To_TransactionFindUniqueArgs<ExtArgs>>): Prisma__Money_To_TransactionClient<$Result.GetResult<Prisma.$Money_To_TransactionPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one Money_To_Transaction that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {Money_To_TransactionFindUniqueOrThrowArgs} args - Arguments to find a Money_To_Transaction
+     * @example
+     * // Get one Money_To_Transaction
+     * const money_To_Transaction = await prisma.money_To_Transaction.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends Money_To_TransactionFindUniqueOrThrowArgs>(args: SelectSubset<T, Money_To_TransactionFindUniqueOrThrowArgs<ExtArgs>>): Prisma__Money_To_TransactionClient<$Result.GetResult<Prisma.$Money_To_TransactionPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first Money_To_Transaction that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Money_To_TransactionFindFirstArgs} args - Arguments to find a Money_To_Transaction
+     * @example
+     * // Get one Money_To_Transaction
+     * const money_To_Transaction = await prisma.money_To_Transaction.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends Money_To_TransactionFindFirstArgs>(args?: SelectSubset<T, Money_To_TransactionFindFirstArgs<ExtArgs>>): Prisma__Money_To_TransactionClient<$Result.GetResult<Prisma.$Money_To_TransactionPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first Money_To_Transaction that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Money_To_TransactionFindFirstOrThrowArgs} args - Arguments to find a Money_To_Transaction
+     * @example
+     * // Get one Money_To_Transaction
+     * const money_To_Transaction = await prisma.money_To_Transaction.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends Money_To_TransactionFindFirstOrThrowArgs>(args?: SelectSubset<T, Money_To_TransactionFindFirstOrThrowArgs<ExtArgs>>): Prisma__Money_To_TransactionClient<$Result.GetResult<Prisma.$Money_To_TransactionPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more Money_To_Transactions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Money_To_TransactionFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Money_To_Transactions
+     * const money_To_Transactions = await prisma.money_To_Transaction.findMany()
+     * 
+     * // Get first 10 Money_To_Transactions
+     * const money_To_Transactions = await prisma.money_To_Transaction.findMany({ take: 10 })
+     * 
+     * // Only select the `mtt_id`
+     * const money_To_TransactionWithMtt_idOnly = await prisma.money_To_Transaction.findMany({ select: { mtt_id: true } })
+     * 
+     */
+    findMany<T extends Money_To_TransactionFindManyArgs>(args?: SelectSubset<T, Money_To_TransactionFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$Money_To_TransactionPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a Money_To_Transaction.
+     * @param {Money_To_TransactionCreateArgs} args - Arguments to create a Money_To_Transaction.
+     * @example
+     * // Create one Money_To_Transaction
+     * const Money_To_Transaction = await prisma.money_To_Transaction.create({
+     *   data: {
+     *     // ... data to create a Money_To_Transaction
+     *   }
+     * })
+     * 
+     */
+    create<T extends Money_To_TransactionCreateArgs>(args: SelectSubset<T, Money_To_TransactionCreateArgs<ExtArgs>>): Prisma__Money_To_TransactionClient<$Result.GetResult<Prisma.$Money_To_TransactionPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many Money_To_Transactions.
+     * @param {Money_To_TransactionCreateManyArgs} args - Arguments to create many Money_To_Transactions.
+     * @example
+     * // Create many Money_To_Transactions
+     * const money_To_Transaction = await prisma.money_To_Transaction.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends Money_To_TransactionCreateManyArgs>(args?: SelectSubset<T, Money_To_TransactionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Money_To_Transactions and returns the data saved in the database.
+     * @param {Money_To_TransactionCreateManyAndReturnArgs} args - Arguments to create many Money_To_Transactions.
+     * @example
+     * // Create many Money_To_Transactions
+     * const money_To_Transaction = await prisma.money_To_Transaction.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Money_To_Transactions and only return the `mtt_id`
+     * const money_To_TransactionWithMtt_idOnly = await prisma.money_To_Transaction.createManyAndReturn({ 
+     *   select: { mtt_id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends Money_To_TransactionCreateManyAndReturnArgs>(args?: SelectSubset<T, Money_To_TransactionCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$Money_To_TransactionPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a Money_To_Transaction.
+     * @param {Money_To_TransactionDeleteArgs} args - Arguments to delete one Money_To_Transaction.
+     * @example
+     * // Delete one Money_To_Transaction
+     * const Money_To_Transaction = await prisma.money_To_Transaction.delete({
+     *   where: {
+     *     // ... filter to delete one Money_To_Transaction
+     *   }
+     * })
+     * 
+     */
+    delete<T extends Money_To_TransactionDeleteArgs>(args: SelectSubset<T, Money_To_TransactionDeleteArgs<ExtArgs>>): Prisma__Money_To_TransactionClient<$Result.GetResult<Prisma.$Money_To_TransactionPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one Money_To_Transaction.
+     * @param {Money_To_TransactionUpdateArgs} args - Arguments to update one Money_To_Transaction.
+     * @example
+     * // Update one Money_To_Transaction
+     * const money_To_Transaction = await prisma.money_To_Transaction.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends Money_To_TransactionUpdateArgs>(args: SelectSubset<T, Money_To_TransactionUpdateArgs<ExtArgs>>): Prisma__Money_To_TransactionClient<$Result.GetResult<Prisma.$Money_To_TransactionPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more Money_To_Transactions.
+     * @param {Money_To_TransactionDeleteManyArgs} args - Arguments to filter Money_To_Transactions to delete.
+     * @example
+     * // Delete a few Money_To_Transactions
+     * const { count } = await prisma.money_To_Transaction.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends Money_To_TransactionDeleteManyArgs>(args?: SelectSubset<T, Money_To_TransactionDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Money_To_Transactions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Money_To_TransactionUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Money_To_Transactions
+     * const money_To_Transaction = await prisma.money_To_Transaction.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends Money_To_TransactionUpdateManyArgs>(args: SelectSubset<T, Money_To_TransactionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Money_To_Transaction.
+     * @param {Money_To_TransactionUpsertArgs} args - Arguments to update or create a Money_To_Transaction.
+     * @example
+     * // Update or create a Money_To_Transaction
+     * const money_To_Transaction = await prisma.money_To_Transaction.upsert({
+     *   create: {
+     *     // ... data to create a Money_To_Transaction
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Money_To_Transaction we want to update
+     *   }
+     * })
+     */
+    upsert<T extends Money_To_TransactionUpsertArgs>(args: SelectSubset<T, Money_To_TransactionUpsertArgs<ExtArgs>>): Prisma__Money_To_TransactionClient<$Result.GetResult<Prisma.$Money_To_TransactionPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of Money_To_Transactions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Money_To_TransactionCountArgs} args - Arguments to filter Money_To_Transactions to count.
+     * @example
+     * // Count the number of Money_To_Transactions
+     * const count = await prisma.money_To_Transaction.count({
+     *   where: {
+     *     // ... the filter for the Money_To_Transactions we want to count
+     *   }
+     * })
+    **/
+    count<T extends Money_To_TransactionCountArgs>(
+      args?: Subset<T, Money_To_TransactionCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], Money_To_TransactionCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Money_To_Transaction.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Money_To_TransactionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends Money_To_TransactionAggregateArgs>(args: Subset<T, Money_To_TransactionAggregateArgs>): Prisma.PrismaPromise<GetMoney_To_TransactionAggregateType<T>>
+
+    /**
+     * Group by Money_To_Transaction.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Money_To_TransactionGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends Money_To_TransactionGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: Money_To_TransactionGroupByArgs['orderBy'] }
+        : { orderBy?: Money_To_TransactionGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, Money_To_TransactionGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMoney_To_TransactionGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Money_To_Transaction model
+   */
+  readonly fields: Money_To_TransactionFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Money_To_Transaction.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__Money_To_TransactionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    fromTransaction<T extends Money_From_TransactionDefaultArgs<ExtArgs> = {}>(args?: Subset<T, Money_From_TransactionDefaultArgs<ExtArgs>>): Prisma__Money_From_TransactionClient<$Result.GetResult<Prisma.$Money_From_TransactionPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    toAccount<T extends AccountDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AccountDefaultArgs<ExtArgs>>): Prisma__AccountClient<$Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Money_To_Transaction model
+   */ 
+  interface Money_To_TransactionFieldRefs {
+    readonly mtt_id: FieldRef<"Money_To_Transaction", 'Int'>
+    readonly mtt_uuid: FieldRef<"Money_To_Transaction", 'String'>
+    readonly mtt_mtf_id: FieldRef<"Money_To_Transaction", 'Int'>
+    readonly mtt_to_acc_id: FieldRef<"Money_To_Transaction", 'Int'>
+    readonly mtt_amt: FieldRef<"Money_To_Transaction", 'Float'>
+    readonly mtt_remarks: FieldRef<"Money_To_Transaction", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Money_To_Transaction findUnique
+   */
+  export type Money_To_TransactionFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Money_To_Transaction
+     */
+    select?: Money_To_TransactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Money_To_TransactionInclude<ExtArgs> | null
+    /**
+     * Filter, which Money_To_Transaction to fetch.
+     */
+    where: Money_To_TransactionWhereUniqueInput
+  }
+
+  /**
+   * Money_To_Transaction findUniqueOrThrow
+   */
+  export type Money_To_TransactionFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Money_To_Transaction
+     */
+    select?: Money_To_TransactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Money_To_TransactionInclude<ExtArgs> | null
+    /**
+     * Filter, which Money_To_Transaction to fetch.
+     */
+    where: Money_To_TransactionWhereUniqueInput
+  }
+
+  /**
+   * Money_To_Transaction findFirst
+   */
+  export type Money_To_TransactionFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Money_To_Transaction
+     */
+    select?: Money_To_TransactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Money_To_TransactionInclude<ExtArgs> | null
+    /**
+     * Filter, which Money_To_Transaction to fetch.
+     */
+    where?: Money_To_TransactionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Money_To_Transactions to fetch.
+     */
+    orderBy?: Money_To_TransactionOrderByWithRelationInput | Money_To_TransactionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Money_To_Transactions.
+     */
+    cursor?: Money_To_TransactionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Money_To_Transactions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Money_To_Transactions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Money_To_Transactions.
+     */
+    distinct?: Money_To_TransactionScalarFieldEnum | Money_To_TransactionScalarFieldEnum[]
+  }
+
+  /**
+   * Money_To_Transaction findFirstOrThrow
+   */
+  export type Money_To_TransactionFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Money_To_Transaction
+     */
+    select?: Money_To_TransactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Money_To_TransactionInclude<ExtArgs> | null
+    /**
+     * Filter, which Money_To_Transaction to fetch.
+     */
+    where?: Money_To_TransactionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Money_To_Transactions to fetch.
+     */
+    orderBy?: Money_To_TransactionOrderByWithRelationInput | Money_To_TransactionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Money_To_Transactions.
+     */
+    cursor?: Money_To_TransactionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Money_To_Transactions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Money_To_Transactions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Money_To_Transactions.
+     */
+    distinct?: Money_To_TransactionScalarFieldEnum | Money_To_TransactionScalarFieldEnum[]
+  }
+
+  /**
+   * Money_To_Transaction findMany
+   */
+  export type Money_To_TransactionFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Money_To_Transaction
+     */
+    select?: Money_To_TransactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Money_To_TransactionInclude<ExtArgs> | null
+    /**
+     * Filter, which Money_To_Transactions to fetch.
+     */
+    where?: Money_To_TransactionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Money_To_Transactions to fetch.
+     */
+    orderBy?: Money_To_TransactionOrderByWithRelationInput | Money_To_TransactionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Money_To_Transactions.
+     */
+    cursor?: Money_To_TransactionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Money_To_Transactions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Money_To_Transactions.
+     */
+    skip?: number
+    distinct?: Money_To_TransactionScalarFieldEnum | Money_To_TransactionScalarFieldEnum[]
+  }
+
+  /**
+   * Money_To_Transaction create
+   */
+  export type Money_To_TransactionCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Money_To_Transaction
+     */
+    select?: Money_To_TransactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Money_To_TransactionInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Money_To_Transaction.
+     */
+    data: XOR<Money_To_TransactionCreateInput, Money_To_TransactionUncheckedCreateInput>
+  }
+
+  /**
+   * Money_To_Transaction createMany
+   */
+  export type Money_To_TransactionCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Money_To_Transactions.
+     */
+    data: Money_To_TransactionCreateManyInput | Money_To_TransactionCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Money_To_Transaction createManyAndReturn
+   */
+  export type Money_To_TransactionCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Money_To_Transaction
+     */
+    select?: Money_To_TransactionSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many Money_To_Transactions.
+     */
+    data: Money_To_TransactionCreateManyInput | Money_To_TransactionCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Money_To_TransactionIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Money_To_Transaction update
+   */
+  export type Money_To_TransactionUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Money_To_Transaction
+     */
+    select?: Money_To_TransactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Money_To_TransactionInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Money_To_Transaction.
+     */
+    data: XOR<Money_To_TransactionUpdateInput, Money_To_TransactionUncheckedUpdateInput>
+    /**
+     * Choose, which Money_To_Transaction to update.
+     */
+    where: Money_To_TransactionWhereUniqueInput
+  }
+
+  /**
+   * Money_To_Transaction updateMany
+   */
+  export type Money_To_TransactionUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Money_To_Transactions.
+     */
+    data: XOR<Money_To_TransactionUpdateManyMutationInput, Money_To_TransactionUncheckedUpdateManyInput>
+    /**
+     * Filter which Money_To_Transactions to update
+     */
+    where?: Money_To_TransactionWhereInput
+  }
+
+  /**
+   * Money_To_Transaction upsert
+   */
+  export type Money_To_TransactionUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Money_To_Transaction
+     */
+    select?: Money_To_TransactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Money_To_TransactionInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Money_To_Transaction to update in case it exists.
+     */
+    where: Money_To_TransactionWhereUniqueInput
+    /**
+     * In case the Money_To_Transaction found by the `where` argument doesn't exist, create a new Money_To_Transaction with this data.
+     */
+    create: XOR<Money_To_TransactionCreateInput, Money_To_TransactionUncheckedCreateInput>
+    /**
+     * In case the Money_To_Transaction was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<Money_To_TransactionUpdateInput, Money_To_TransactionUncheckedUpdateInput>
+  }
+
+  /**
+   * Money_To_Transaction delete
+   */
+  export type Money_To_TransactionDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Money_To_Transaction
+     */
+    select?: Money_To_TransactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Money_To_TransactionInclude<ExtArgs> | null
+    /**
+     * Filter which Money_To_Transaction to delete.
+     */
+    where: Money_To_TransactionWhereUniqueInput
+  }
+
+  /**
+   * Money_To_Transaction deleteMany
+   */
+  export type Money_To_TransactionDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Money_To_Transactions to delete
+     */
+    where?: Money_To_TransactionWhereInput
+  }
+
+  /**
+   * Money_To_Transaction without action
+   */
+  export type Money_To_TransactionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Money_To_Transaction
+     */
+    select?: Money_To_TransactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Money_To_TransactionInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Money_Transfer_From_Line
+   */
+
+  export type AggregateMoney_Transfer_From_Line = {
+    _count: Money_Transfer_From_LineCountAggregateOutputType | null
+    _avg: Money_Transfer_From_LineAvgAggregateOutputType | null
+    _sum: Money_Transfer_From_LineSumAggregateOutputType | null
+    _min: Money_Transfer_From_LineMinAggregateOutputType | null
+    _max: Money_Transfer_From_LineMaxAggregateOutputType | null
+  }
+
+  export type Money_Transfer_From_LineAvgAggregateOutputType = {
+    mfl_id: number | null
+    mfl_mtf_id: number | null
+    mfl_acc_id: number | null
+    mfl_amt: number | null
+  }
+
+  export type Money_Transfer_From_LineSumAggregateOutputType = {
+    mfl_id: number | null
+    mfl_mtf_id: number | null
+    mfl_acc_id: number | null
+    mfl_amt: number | null
+  }
+
+  export type Money_Transfer_From_LineMinAggregateOutputType = {
+    mfl_id: number | null
+    mfl_uuid: string | null
+    mfl_mtf_id: number | null
+    mfl_acc_id: number | null
+    mfl_amt: number | null
+    mfl_remarks: string | null
+  }
+
+  export type Money_Transfer_From_LineMaxAggregateOutputType = {
+    mfl_id: number | null
+    mfl_uuid: string | null
+    mfl_mtf_id: number | null
+    mfl_acc_id: number | null
+    mfl_amt: number | null
+    mfl_remarks: string | null
+  }
+
+  export type Money_Transfer_From_LineCountAggregateOutputType = {
+    mfl_id: number
+    mfl_uuid: number
+    mfl_mtf_id: number
+    mfl_acc_id: number
+    mfl_amt: number
+    mfl_remarks: number
+    _all: number
+  }
+
+
+  export type Money_Transfer_From_LineAvgAggregateInputType = {
+    mfl_id?: true
+    mfl_mtf_id?: true
+    mfl_acc_id?: true
+    mfl_amt?: true
+  }
+
+  export type Money_Transfer_From_LineSumAggregateInputType = {
+    mfl_id?: true
+    mfl_mtf_id?: true
+    mfl_acc_id?: true
+    mfl_amt?: true
+  }
+
+  export type Money_Transfer_From_LineMinAggregateInputType = {
+    mfl_id?: true
+    mfl_uuid?: true
+    mfl_mtf_id?: true
+    mfl_acc_id?: true
+    mfl_amt?: true
+    mfl_remarks?: true
+  }
+
+  export type Money_Transfer_From_LineMaxAggregateInputType = {
+    mfl_id?: true
+    mfl_uuid?: true
+    mfl_mtf_id?: true
+    mfl_acc_id?: true
+    mfl_amt?: true
+    mfl_remarks?: true
+  }
+
+  export type Money_Transfer_From_LineCountAggregateInputType = {
+    mfl_id?: true
+    mfl_uuid?: true
+    mfl_mtf_id?: true
+    mfl_acc_id?: true
+    mfl_amt?: true
+    mfl_remarks?: true
+    _all?: true
+  }
+
+  export type Money_Transfer_From_LineAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Money_Transfer_From_Line to aggregate.
+     */
+    where?: Money_Transfer_From_LineWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Money_Transfer_From_Lines to fetch.
+     */
+    orderBy?: Money_Transfer_From_LineOrderByWithRelationInput | Money_Transfer_From_LineOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: Money_Transfer_From_LineWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Money_Transfer_From_Lines from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Money_Transfer_From_Lines.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Money_Transfer_From_Lines
+    **/
+    _count?: true | Money_Transfer_From_LineCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: Money_Transfer_From_LineAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: Money_Transfer_From_LineSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: Money_Transfer_From_LineMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: Money_Transfer_From_LineMaxAggregateInputType
+  }
+
+  export type GetMoney_Transfer_From_LineAggregateType<T extends Money_Transfer_From_LineAggregateArgs> = {
+        [P in keyof T & keyof AggregateMoney_Transfer_From_Line]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMoney_Transfer_From_Line[P]>
+      : GetScalarType<T[P], AggregateMoney_Transfer_From_Line[P]>
+  }
+
+
+
+
+  export type Money_Transfer_From_LineGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: Money_Transfer_From_LineWhereInput
+    orderBy?: Money_Transfer_From_LineOrderByWithAggregationInput | Money_Transfer_From_LineOrderByWithAggregationInput[]
+    by: Money_Transfer_From_LineScalarFieldEnum[] | Money_Transfer_From_LineScalarFieldEnum
+    having?: Money_Transfer_From_LineScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: Money_Transfer_From_LineCountAggregateInputType | true
+    _avg?: Money_Transfer_From_LineAvgAggregateInputType
+    _sum?: Money_Transfer_From_LineSumAggregateInputType
+    _min?: Money_Transfer_From_LineMinAggregateInputType
+    _max?: Money_Transfer_From_LineMaxAggregateInputType
+  }
+
+  export type Money_Transfer_From_LineGroupByOutputType = {
+    mfl_id: number
+    mfl_uuid: string
+    mfl_mtf_id: number
+    mfl_acc_id: number
+    mfl_amt: number
+    mfl_remarks: string | null
+    _count: Money_Transfer_From_LineCountAggregateOutputType | null
+    _avg: Money_Transfer_From_LineAvgAggregateOutputType | null
+    _sum: Money_Transfer_From_LineSumAggregateOutputType | null
+    _min: Money_Transfer_From_LineMinAggregateOutputType | null
+    _max: Money_Transfer_From_LineMaxAggregateOutputType | null
+  }
+
+  type GetMoney_Transfer_From_LineGroupByPayload<T extends Money_Transfer_From_LineGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<Money_Transfer_From_LineGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof Money_Transfer_From_LineGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], Money_Transfer_From_LineGroupByOutputType[P]>
+            : GetScalarType<T[P], Money_Transfer_From_LineGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type Money_Transfer_From_LineSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    mfl_id?: boolean
+    mfl_uuid?: boolean
+    mfl_mtf_id?: boolean
+    mfl_acc_id?: boolean
+    mfl_amt?: boolean
+    mfl_remarks?: boolean
+    fromTransaction?: boolean | Money_From_TransactionDefaultArgs<ExtArgs>
+    account?: boolean | AccountDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["money_Transfer_From_Line"]>
+
+  export type Money_Transfer_From_LineSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    mfl_id?: boolean
+    mfl_uuid?: boolean
+    mfl_mtf_id?: boolean
+    mfl_acc_id?: boolean
+    mfl_amt?: boolean
+    mfl_remarks?: boolean
+    fromTransaction?: boolean | Money_From_TransactionDefaultArgs<ExtArgs>
+    account?: boolean | AccountDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["money_Transfer_From_Line"]>
+
+  export type Money_Transfer_From_LineSelectScalar = {
+    mfl_id?: boolean
+    mfl_uuid?: boolean
+    mfl_mtf_id?: boolean
+    mfl_acc_id?: boolean
+    mfl_amt?: boolean
+    mfl_remarks?: boolean
+  }
+
+  export type Money_Transfer_From_LineInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    fromTransaction?: boolean | Money_From_TransactionDefaultArgs<ExtArgs>
+    account?: boolean | AccountDefaultArgs<ExtArgs>
+  }
+  export type Money_Transfer_From_LineIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    fromTransaction?: boolean | Money_From_TransactionDefaultArgs<ExtArgs>
+    account?: boolean | AccountDefaultArgs<ExtArgs>
+  }
+
+  export type $Money_Transfer_From_LinePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Money_Transfer_From_Line"
+    objects: {
+      fromTransaction: Prisma.$Money_From_TransactionPayload<ExtArgs>
+      account: Prisma.$AccountPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      mfl_id: number
+      mfl_uuid: string
+      mfl_mtf_id: number
+      mfl_acc_id: number
+      mfl_amt: number
+      mfl_remarks: string | null
+    }, ExtArgs["result"]["money_Transfer_From_Line"]>
+    composites: {}
+  }
+
+  type Money_Transfer_From_LineGetPayload<S extends boolean | null | undefined | Money_Transfer_From_LineDefaultArgs> = $Result.GetResult<Prisma.$Money_Transfer_From_LinePayload, S>
+
+  type Money_Transfer_From_LineCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<Money_Transfer_From_LineFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: Money_Transfer_From_LineCountAggregateInputType | true
+    }
+
+  export interface Money_Transfer_From_LineDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Money_Transfer_From_Line'], meta: { name: 'Money_Transfer_From_Line' } }
+    /**
+     * Find zero or one Money_Transfer_From_Line that matches the filter.
+     * @param {Money_Transfer_From_LineFindUniqueArgs} args - Arguments to find a Money_Transfer_From_Line
+     * @example
+     * // Get one Money_Transfer_From_Line
+     * const money_Transfer_From_Line = await prisma.money_Transfer_From_Line.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends Money_Transfer_From_LineFindUniqueArgs>(args: SelectSubset<T, Money_Transfer_From_LineFindUniqueArgs<ExtArgs>>): Prisma__Money_Transfer_From_LineClient<$Result.GetResult<Prisma.$Money_Transfer_From_LinePayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one Money_Transfer_From_Line that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {Money_Transfer_From_LineFindUniqueOrThrowArgs} args - Arguments to find a Money_Transfer_From_Line
+     * @example
+     * // Get one Money_Transfer_From_Line
+     * const money_Transfer_From_Line = await prisma.money_Transfer_From_Line.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends Money_Transfer_From_LineFindUniqueOrThrowArgs>(args: SelectSubset<T, Money_Transfer_From_LineFindUniqueOrThrowArgs<ExtArgs>>): Prisma__Money_Transfer_From_LineClient<$Result.GetResult<Prisma.$Money_Transfer_From_LinePayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first Money_Transfer_From_Line that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Money_Transfer_From_LineFindFirstArgs} args - Arguments to find a Money_Transfer_From_Line
+     * @example
+     * // Get one Money_Transfer_From_Line
+     * const money_Transfer_From_Line = await prisma.money_Transfer_From_Line.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends Money_Transfer_From_LineFindFirstArgs>(args?: SelectSubset<T, Money_Transfer_From_LineFindFirstArgs<ExtArgs>>): Prisma__Money_Transfer_From_LineClient<$Result.GetResult<Prisma.$Money_Transfer_From_LinePayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first Money_Transfer_From_Line that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Money_Transfer_From_LineFindFirstOrThrowArgs} args - Arguments to find a Money_Transfer_From_Line
+     * @example
+     * // Get one Money_Transfer_From_Line
+     * const money_Transfer_From_Line = await prisma.money_Transfer_From_Line.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends Money_Transfer_From_LineFindFirstOrThrowArgs>(args?: SelectSubset<T, Money_Transfer_From_LineFindFirstOrThrowArgs<ExtArgs>>): Prisma__Money_Transfer_From_LineClient<$Result.GetResult<Prisma.$Money_Transfer_From_LinePayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more Money_Transfer_From_Lines that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Money_Transfer_From_LineFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Money_Transfer_From_Lines
+     * const money_Transfer_From_Lines = await prisma.money_Transfer_From_Line.findMany()
+     * 
+     * // Get first 10 Money_Transfer_From_Lines
+     * const money_Transfer_From_Lines = await prisma.money_Transfer_From_Line.findMany({ take: 10 })
+     * 
+     * // Only select the `mfl_id`
+     * const money_Transfer_From_LineWithMfl_idOnly = await prisma.money_Transfer_From_Line.findMany({ select: { mfl_id: true } })
+     * 
+     */
+    findMany<T extends Money_Transfer_From_LineFindManyArgs>(args?: SelectSubset<T, Money_Transfer_From_LineFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$Money_Transfer_From_LinePayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a Money_Transfer_From_Line.
+     * @param {Money_Transfer_From_LineCreateArgs} args - Arguments to create a Money_Transfer_From_Line.
+     * @example
+     * // Create one Money_Transfer_From_Line
+     * const Money_Transfer_From_Line = await prisma.money_Transfer_From_Line.create({
+     *   data: {
+     *     // ... data to create a Money_Transfer_From_Line
+     *   }
+     * })
+     * 
+     */
+    create<T extends Money_Transfer_From_LineCreateArgs>(args: SelectSubset<T, Money_Transfer_From_LineCreateArgs<ExtArgs>>): Prisma__Money_Transfer_From_LineClient<$Result.GetResult<Prisma.$Money_Transfer_From_LinePayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many Money_Transfer_From_Lines.
+     * @param {Money_Transfer_From_LineCreateManyArgs} args - Arguments to create many Money_Transfer_From_Lines.
+     * @example
+     * // Create many Money_Transfer_From_Lines
+     * const money_Transfer_From_Line = await prisma.money_Transfer_From_Line.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends Money_Transfer_From_LineCreateManyArgs>(args?: SelectSubset<T, Money_Transfer_From_LineCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Money_Transfer_From_Lines and returns the data saved in the database.
+     * @param {Money_Transfer_From_LineCreateManyAndReturnArgs} args - Arguments to create many Money_Transfer_From_Lines.
+     * @example
+     * // Create many Money_Transfer_From_Lines
+     * const money_Transfer_From_Line = await prisma.money_Transfer_From_Line.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Money_Transfer_From_Lines and only return the `mfl_id`
+     * const money_Transfer_From_LineWithMfl_idOnly = await prisma.money_Transfer_From_Line.createManyAndReturn({ 
+     *   select: { mfl_id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends Money_Transfer_From_LineCreateManyAndReturnArgs>(args?: SelectSubset<T, Money_Transfer_From_LineCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$Money_Transfer_From_LinePayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a Money_Transfer_From_Line.
+     * @param {Money_Transfer_From_LineDeleteArgs} args - Arguments to delete one Money_Transfer_From_Line.
+     * @example
+     * // Delete one Money_Transfer_From_Line
+     * const Money_Transfer_From_Line = await prisma.money_Transfer_From_Line.delete({
+     *   where: {
+     *     // ... filter to delete one Money_Transfer_From_Line
+     *   }
+     * })
+     * 
+     */
+    delete<T extends Money_Transfer_From_LineDeleteArgs>(args: SelectSubset<T, Money_Transfer_From_LineDeleteArgs<ExtArgs>>): Prisma__Money_Transfer_From_LineClient<$Result.GetResult<Prisma.$Money_Transfer_From_LinePayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one Money_Transfer_From_Line.
+     * @param {Money_Transfer_From_LineUpdateArgs} args - Arguments to update one Money_Transfer_From_Line.
+     * @example
+     * // Update one Money_Transfer_From_Line
+     * const money_Transfer_From_Line = await prisma.money_Transfer_From_Line.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends Money_Transfer_From_LineUpdateArgs>(args: SelectSubset<T, Money_Transfer_From_LineUpdateArgs<ExtArgs>>): Prisma__Money_Transfer_From_LineClient<$Result.GetResult<Prisma.$Money_Transfer_From_LinePayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more Money_Transfer_From_Lines.
+     * @param {Money_Transfer_From_LineDeleteManyArgs} args - Arguments to filter Money_Transfer_From_Lines to delete.
+     * @example
+     * // Delete a few Money_Transfer_From_Lines
+     * const { count } = await prisma.money_Transfer_From_Line.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends Money_Transfer_From_LineDeleteManyArgs>(args?: SelectSubset<T, Money_Transfer_From_LineDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Money_Transfer_From_Lines.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Money_Transfer_From_LineUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Money_Transfer_From_Lines
+     * const money_Transfer_From_Line = await prisma.money_Transfer_From_Line.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends Money_Transfer_From_LineUpdateManyArgs>(args: SelectSubset<T, Money_Transfer_From_LineUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Money_Transfer_From_Line.
+     * @param {Money_Transfer_From_LineUpsertArgs} args - Arguments to update or create a Money_Transfer_From_Line.
+     * @example
+     * // Update or create a Money_Transfer_From_Line
+     * const money_Transfer_From_Line = await prisma.money_Transfer_From_Line.upsert({
+     *   create: {
+     *     // ... data to create a Money_Transfer_From_Line
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Money_Transfer_From_Line we want to update
+     *   }
+     * })
+     */
+    upsert<T extends Money_Transfer_From_LineUpsertArgs>(args: SelectSubset<T, Money_Transfer_From_LineUpsertArgs<ExtArgs>>): Prisma__Money_Transfer_From_LineClient<$Result.GetResult<Prisma.$Money_Transfer_From_LinePayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of Money_Transfer_From_Lines.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Money_Transfer_From_LineCountArgs} args - Arguments to filter Money_Transfer_From_Lines to count.
+     * @example
+     * // Count the number of Money_Transfer_From_Lines
+     * const count = await prisma.money_Transfer_From_Line.count({
+     *   where: {
+     *     // ... the filter for the Money_Transfer_From_Lines we want to count
+     *   }
+     * })
+    **/
+    count<T extends Money_Transfer_From_LineCountArgs>(
+      args?: Subset<T, Money_Transfer_From_LineCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], Money_Transfer_From_LineCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Money_Transfer_From_Line.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Money_Transfer_From_LineAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends Money_Transfer_From_LineAggregateArgs>(args: Subset<T, Money_Transfer_From_LineAggregateArgs>): Prisma.PrismaPromise<GetMoney_Transfer_From_LineAggregateType<T>>
+
+    /**
+     * Group by Money_Transfer_From_Line.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Money_Transfer_From_LineGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends Money_Transfer_From_LineGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: Money_Transfer_From_LineGroupByArgs['orderBy'] }
+        : { orderBy?: Money_Transfer_From_LineGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, Money_Transfer_From_LineGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMoney_Transfer_From_LineGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Money_Transfer_From_Line model
+   */
+  readonly fields: Money_Transfer_From_LineFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Money_Transfer_From_Line.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__Money_Transfer_From_LineClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    fromTransaction<T extends Money_From_TransactionDefaultArgs<ExtArgs> = {}>(args?: Subset<T, Money_From_TransactionDefaultArgs<ExtArgs>>): Prisma__Money_From_TransactionClient<$Result.GetResult<Prisma.$Money_From_TransactionPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    account<T extends AccountDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AccountDefaultArgs<ExtArgs>>): Prisma__AccountClient<$Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Money_Transfer_From_Line model
+   */ 
+  interface Money_Transfer_From_LineFieldRefs {
+    readonly mfl_id: FieldRef<"Money_Transfer_From_Line", 'Int'>
+    readonly mfl_uuid: FieldRef<"Money_Transfer_From_Line", 'String'>
+    readonly mfl_mtf_id: FieldRef<"Money_Transfer_From_Line", 'Int'>
+    readonly mfl_acc_id: FieldRef<"Money_Transfer_From_Line", 'Int'>
+    readonly mfl_amt: FieldRef<"Money_Transfer_From_Line", 'Float'>
+    readonly mfl_remarks: FieldRef<"Money_Transfer_From_Line", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Money_Transfer_From_Line findUnique
+   */
+  export type Money_Transfer_From_LineFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Money_Transfer_From_Line
+     */
+    select?: Money_Transfer_From_LineSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Money_Transfer_From_LineInclude<ExtArgs> | null
+    /**
+     * Filter, which Money_Transfer_From_Line to fetch.
+     */
+    where: Money_Transfer_From_LineWhereUniqueInput
+  }
+
+  /**
+   * Money_Transfer_From_Line findUniqueOrThrow
+   */
+  export type Money_Transfer_From_LineFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Money_Transfer_From_Line
+     */
+    select?: Money_Transfer_From_LineSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Money_Transfer_From_LineInclude<ExtArgs> | null
+    /**
+     * Filter, which Money_Transfer_From_Line to fetch.
+     */
+    where: Money_Transfer_From_LineWhereUniqueInput
+  }
+
+  /**
+   * Money_Transfer_From_Line findFirst
+   */
+  export type Money_Transfer_From_LineFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Money_Transfer_From_Line
+     */
+    select?: Money_Transfer_From_LineSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Money_Transfer_From_LineInclude<ExtArgs> | null
+    /**
+     * Filter, which Money_Transfer_From_Line to fetch.
+     */
+    where?: Money_Transfer_From_LineWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Money_Transfer_From_Lines to fetch.
+     */
+    orderBy?: Money_Transfer_From_LineOrderByWithRelationInput | Money_Transfer_From_LineOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Money_Transfer_From_Lines.
+     */
+    cursor?: Money_Transfer_From_LineWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Money_Transfer_From_Lines from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Money_Transfer_From_Lines.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Money_Transfer_From_Lines.
+     */
+    distinct?: Money_Transfer_From_LineScalarFieldEnum | Money_Transfer_From_LineScalarFieldEnum[]
+  }
+
+  /**
+   * Money_Transfer_From_Line findFirstOrThrow
+   */
+  export type Money_Transfer_From_LineFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Money_Transfer_From_Line
+     */
+    select?: Money_Transfer_From_LineSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Money_Transfer_From_LineInclude<ExtArgs> | null
+    /**
+     * Filter, which Money_Transfer_From_Line to fetch.
+     */
+    where?: Money_Transfer_From_LineWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Money_Transfer_From_Lines to fetch.
+     */
+    orderBy?: Money_Transfer_From_LineOrderByWithRelationInput | Money_Transfer_From_LineOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Money_Transfer_From_Lines.
+     */
+    cursor?: Money_Transfer_From_LineWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Money_Transfer_From_Lines from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Money_Transfer_From_Lines.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Money_Transfer_From_Lines.
+     */
+    distinct?: Money_Transfer_From_LineScalarFieldEnum | Money_Transfer_From_LineScalarFieldEnum[]
+  }
+
+  /**
+   * Money_Transfer_From_Line findMany
+   */
+  export type Money_Transfer_From_LineFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Money_Transfer_From_Line
+     */
+    select?: Money_Transfer_From_LineSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Money_Transfer_From_LineInclude<ExtArgs> | null
+    /**
+     * Filter, which Money_Transfer_From_Lines to fetch.
+     */
+    where?: Money_Transfer_From_LineWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Money_Transfer_From_Lines to fetch.
+     */
+    orderBy?: Money_Transfer_From_LineOrderByWithRelationInput | Money_Transfer_From_LineOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Money_Transfer_From_Lines.
+     */
+    cursor?: Money_Transfer_From_LineWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Money_Transfer_From_Lines from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Money_Transfer_From_Lines.
+     */
+    skip?: number
+    distinct?: Money_Transfer_From_LineScalarFieldEnum | Money_Transfer_From_LineScalarFieldEnum[]
+  }
+
+  /**
+   * Money_Transfer_From_Line create
+   */
+  export type Money_Transfer_From_LineCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Money_Transfer_From_Line
+     */
+    select?: Money_Transfer_From_LineSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Money_Transfer_From_LineInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Money_Transfer_From_Line.
+     */
+    data: XOR<Money_Transfer_From_LineCreateInput, Money_Transfer_From_LineUncheckedCreateInput>
+  }
+
+  /**
+   * Money_Transfer_From_Line createMany
+   */
+  export type Money_Transfer_From_LineCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Money_Transfer_From_Lines.
+     */
+    data: Money_Transfer_From_LineCreateManyInput | Money_Transfer_From_LineCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Money_Transfer_From_Line createManyAndReturn
+   */
+  export type Money_Transfer_From_LineCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Money_Transfer_From_Line
+     */
+    select?: Money_Transfer_From_LineSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many Money_Transfer_From_Lines.
+     */
+    data: Money_Transfer_From_LineCreateManyInput | Money_Transfer_From_LineCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Money_Transfer_From_LineIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Money_Transfer_From_Line update
+   */
+  export type Money_Transfer_From_LineUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Money_Transfer_From_Line
+     */
+    select?: Money_Transfer_From_LineSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Money_Transfer_From_LineInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Money_Transfer_From_Line.
+     */
+    data: XOR<Money_Transfer_From_LineUpdateInput, Money_Transfer_From_LineUncheckedUpdateInput>
+    /**
+     * Choose, which Money_Transfer_From_Line to update.
+     */
+    where: Money_Transfer_From_LineWhereUniqueInput
+  }
+
+  /**
+   * Money_Transfer_From_Line updateMany
+   */
+  export type Money_Transfer_From_LineUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Money_Transfer_From_Lines.
+     */
+    data: XOR<Money_Transfer_From_LineUpdateManyMutationInput, Money_Transfer_From_LineUncheckedUpdateManyInput>
+    /**
+     * Filter which Money_Transfer_From_Lines to update
+     */
+    where?: Money_Transfer_From_LineWhereInput
+  }
+
+  /**
+   * Money_Transfer_From_Line upsert
+   */
+  export type Money_Transfer_From_LineUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Money_Transfer_From_Line
+     */
+    select?: Money_Transfer_From_LineSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Money_Transfer_From_LineInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Money_Transfer_From_Line to update in case it exists.
+     */
+    where: Money_Transfer_From_LineWhereUniqueInput
+    /**
+     * In case the Money_Transfer_From_Line found by the `where` argument doesn't exist, create a new Money_Transfer_From_Line with this data.
+     */
+    create: XOR<Money_Transfer_From_LineCreateInput, Money_Transfer_From_LineUncheckedCreateInput>
+    /**
+     * In case the Money_Transfer_From_Line was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<Money_Transfer_From_LineUpdateInput, Money_Transfer_From_LineUncheckedUpdateInput>
+  }
+
+  /**
+   * Money_Transfer_From_Line delete
+   */
+  export type Money_Transfer_From_LineDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Money_Transfer_From_Line
+     */
+    select?: Money_Transfer_From_LineSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Money_Transfer_From_LineInclude<ExtArgs> | null
+    /**
+     * Filter which Money_Transfer_From_Line to delete.
+     */
+    where: Money_Transfer_From_LineWhereUniqueInput
+  }
+
+  /**
+   * Money_Transfer_From_Line deleteMany
+   */
+  export type Money_Transfer_From_LineDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Money_Transfer_From_Lines to delete
+     */
+    where?: Money_Transfer_From_LineWhereInput
+  }
+
+  /**
+   * Money_Transfer_From_Line without action
+   */
+  export type Money_Transfer_From_LineDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Money_Transfer_From_Line
+     */
+    select?: Money_Transfer_From_LineSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Money_Transfer_From_LineInclude<ExtArgs> | null
   }
 
 
@@ -46660,6 +50424,56 @@ export namespace Prisma {
   export type JournalScalarFieldEnum = (typeof JournalScalarFieldEnum)[keyof typeof JournalScalarFieldEnum]
 
 
+  export const Money_From_TransactionScalarFieldEnum: {
+    mtf_id: 'mtf_id',
+    mtf_uuid: 'mtf_uuid',
+    mtf_firm_id: 'mtf_firm_id',
+    mtf_own_id: 'mtf_own_id',
+    mtf_jrnl_id: 'mtf_jrnl_id',
+    mtf_from_acc_id: 'mtf_from_acc_id',
+    mtf_trans_date: 'mtf_trans_date',
+    mtf_mode: 'mtf_mode',
+    mtf_direction: 'mtf_direction',
+    mtf_total_amt: 'mtf_total_amt',
+    mtf_panel: 'mtf_panel',
+    mtf_narration: 'mtf_narration',
+    mtf_other_info: 'mtf_other_info',
+    mtf_created_at: 'mtf_created_at',
+    mtf_created_by: 'mtf_created_by',
+    mtf_updated_at: 'mtf_updated_at',
+    mtf_updated_by: 'mtf_updated_by',
+    mtf_deleted_at: 'mtf_deleted_at',
+    mtf_deleted_by: 'mtf_deleted_by',
+    mtf_is_deleted: 'mtf_is_deleted'
+  };
+
+  export type Money_From_TransactionScalarFieldEnum = (typeof Money_From_TransactionScalarFieldEnum)[keyof typeof Money_From_TransactionScalarFieldEnum]
+
+
+  export const Money_To_TransactionScalarFieldEnum: {
+    mtt_id: 'mtt_id',
+    mtt_uuid: 'mtt_uuid',
+    mtt_mtf_id: 'mtt_mtf_id',
+    mtt_to_acc_id: 'mtt_to_acc_id',
+    mtt_amt: 'mtt_amt',
+    mtt_remarks: 'mtt_remarks'
+  };
+
+  export type Money_To_TransactionScalarFieldEnum = (typeof Money_To_TransactionScalarFieldEnum)[keyof typeof Money_To_TransactionScalarFieldEnum]
+
+
+  export const Money_Transfer_From_LineScalarFieldEnum: {
+    mfl_id: 'mfl_id',
+    mfl_uuid: 'mfl_uuid',
+    mfl_mtf_id: 'mfl_mtf_id',
+    mfl_acc_id: 'mfl_acc_id',
+    mfl_amt: 'mfl_amt',
+    mfl_remarks: 'mfl_remarks'
+  };
+
+  export type Money_Transfer_From_LineScalarFieldEnum = (typeof Money_Transfer_From_LineScalarFieldEnum)[keyof typeof Money_Transfer_From_LineScalarFieldEnum]
+
+
   export const JournalTransactionScalarFieldEnum: {
     jrtr_id: 'jrtr_id',
     jrtr_uuid: 'jrtr_uuid',
@@ -47572,6 +51386,34 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'MoneyTransferMode'
+   */
+  export type EnumMoneyTransferModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MoneyTransferMode'>
+    
+
+
+  /**
+   * Reference to a field of type 'MoneyTransferMode[]'
+   */
+  export type ListEnumMoneyTransferModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MoneyTransferMode[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'MoneyTransferDirection'
+   */
+  export type EnumMoneyTransferDirectionFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MoneyTransferDirection'>
+    
+
+
+  /**
+   * Reference to a field of type 'MoneyTransferDirection[]'
+   */
+  export type ListEnumMoneyTransferDirectionFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MoneyTransferDirection[]'>
+    
+
+
+  /**
    * Reference to a field of type 'BalanceAmtType'
    */
   export type EnumBalanceAmtTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BalanceAmtType'>
@@ -47881,6 +51723,7 @@ export namespace Prisma {
     finances?: FinanceListRelationFilter
     financeTransactions?: Finance_TransactionListRelationFilter
     financeMoneyTrans?: Finance_Money_TransactionListRelationFilter
+    moneyFromTransactions?: Money_From_TransactionListRelationFilter
     journals?: JournalListRelationFilter
     journalTransactions?: JournalTransactionListRelationFilter
     girvis?: GirviListRelationFilter
@@ -47950,6 +51793,7 @@ export namespace Prisma {
     finances?: FinanceOrderByRelationAggregateInput
     financeTransactions?: Finance_TransactionOrderByRelationAggregateInput
     financeMoneyTrans?: Finance_Money_TransactionOrderByRelationAggregateInput
+    moneyFromTransactions?: Money_From_TransactionOrderByRelationAggregateInput
     journals?: JournalOrderByRelationAggregateInput
     journalTransactions?: JournalTransactionOrderByRelationAggregateInput
     girvis?: GirviOrderByRelationAggregateInput
@@ -48022,6 +51866,7 @@ export namespace Prisma {
     finances?: FinanceListRelationFilter
     financeTransactions?: Finance_TransactionListRelationFilter
     financeMoneyTrans?: Finance_Money_TransactionListRelationFilter
+    moneyFromTransactions?: Money_From_TransactionListRelationFilter
     journals?: JournalListRelationFilter
     journalTransactions?: JournalTransactionListRelationFilter
     girvis?: GirviListRelationFilter
@@ -48203,6 +52048,7 @@ export namespace Prisma {
     finances?: FinanceListRelationFilter
     financeTransactions?: Finance_TransactionListRelationFilter
     financeMoneyTrans?: Finance_Money_TransactionListRelationFilter
+    moneyFromTransactions?: Money_From_TransactionListRelationFilter
     journals?: JournalListRelationFilter
     journalTransactions?: JournalTransactionListRelationFilter
     girvis?: GirviListRelationFilter
@@ -48278,6 +52124,7 @@ export namespace Prisma {
     finances?: FinanceOrderByRelationAggregateInput
     financeTransactions?: Finance_TransactionOrderByRelationAggregateInput
     financeMoneyTrans?: Finance_Money_TransactionOrderByRelationAggregateInput
+    moneyFromTransactions?: Money_From_TransactionOrderByRelationAggregateInput
     journals?: JournalOrderByRelationAggregateInput
     journalTransactions?: JournalTransactionOrderByRelationAggregateInput
     girvis?: GirviOrderByRelationAggregateInput
@@ -48356,6 +52203,7 @@ export namespace Prisma {
     finances?: FinanceListRelationFilter
     financeTransactions?: Finance_TransactionListRelationFilter
     financeMoneyTrans?: Finance_Money_TransactionListRelationFilter
+    moneyFromTransactions?: Money_From_TransactionListRelationFilter
     journals?: JournalListRelationFilter
     journalTransactions?: JournalTransactionListRelationFilter
     girvis?: GirviListRelationFilter
@@ -48566,6 +52414,9 @@ export namespace Prisma {
     relBank?: GirviReleaseListRelationFilter
     relOnline?: GirviReleaseListRelationFilter
     relCard?: GirviReleaseListRelationFilter
+    mtfFromAccount?: Money_From_TransactionListRelationFilter
+    mtfFromLines?: Money_Transfer_From_LineListRelationFilter
+    mttToAccount?: Money_To_TransactionListRelationFilter
   }
 
   export type AccountOrderByWithRelationInput = {
@@ -48643,6 +52494,9 @@ export namespace Prisma {
     relBank?: GirviReleaseOrderByRelationAggregateInput
     relOnline?: GirviReleaseOrderByRelationAggregateInput
     relCard?: GirviReleaseOrderByRelationAggregateInput
+    mtfFromAccount?: Money_From_TransactionOrderByRelationAggregateInput
+    mtfFromLines?: Money_Transfer_From_LineOrderByRelationAggregateInput
+    mttToAccount?: Money_To_TransactionOrderByRelationAggregateInput
   }
 
   export type AccountWhereUniqueInput = Prisma.AtLeast<{
@@ -48723,6 +52577,9 @@ export namespace Prisma {
     relBank?: GirviReleaseListRelationFilter
     relOnline?: GirviReleaseListRelationFilter
     relCard?: GirviReleaseListRelationFilter
+    mtfFromAccount?: Money_From_TransactionListRelationFilter
+    mtfFromLines?: Money_Transfer_From_LineListRelationFilter
+    mttToAccount?: Money_To_TransactionListRelationFilter
   }, "acc_id" | "acc_uuid">
 
   export type AccountOrderByWithAggregationInput = {
@@ -49845,6 +53702,7 @@ export namespace Prisma {
     jrnl_deleted_by?: StringNullableFilter<"Journal"> | string | null
     jrnl_is_deleted?: BoolFilter<"Journal"> | boolean
     financeMoneyTransactions?: Finance_Money_TransactionListRelationFilter
+    moneyFromTransactions?: Money_From_TransactionListRelationFilter
     firm?: XOR<FirmRelationFilter, FirmWhereInput>
     user?: XOR<UserNullableRelationFilter, UserWhereInput> | null
     owner?: XOR<OwnerRelationFilter, OwnerWhereInput>
@@ -49870,6 +53728,7 @@ export namespace Prisma {
     jrnl_deleted_by?: SortOrderInput | SortOrder
     jrnl_is_deleted?: SortOrder
     financeMoneyTransactions?: Finance_Money_TransactionOrderByRelationAggregateInput
+    moneyFromTransactions?: Money_From_TransactionOrderByRelationAggregateInput
     firm?: FirmOrderByWithRelationInput
     user?: UserOrderByWithRelationInput
     owner?: OwnerOrderByWithRelationInput
@@ -49898,6 +53757,7 @@ export namespace Prisma {
     jrnl_deleted_by?: StringNullableFilter<"Journal"> | string | null
     jrnl_is_deleted?: BoolFilter<"Journal"> | boolean
     financeMoneyTransactions?: Finance_Money_TransactionListRelationFilter
+    moneyFromTransactions?: Money_From_TransactionListRelationFilter
     firm?: XOR<FirmRelationFilter, FirmWhereInput>
     user?: XOR<UserNullableRelationFilter, UserWhereInput> | null
     owner?: XOR<OwnerRelationFilter, OwnerWhereInput>
@@ -49950,6 +53810,283 @@ export namespace Prisma {
     jrnl_deleted_at?: DateTimeNullableWithAggregatesFilter<"Journal"> | Date | string | null
     jrnl_deleted_by?: StringNullableWithAggregatesFilter<"Journal"> | string | null
     jrnl_is_deleted?: BoolWithAggregatesFilter<"Journal"> | boolean
+  }
+
+  export type Money_From_TransactionWhereInput = {
+    AND?: Money_From_TransactionWhereInput | Money_From_TransactionWhereInput[]
+    OR?: Money_From_TransactionWhereInput[]
+    NOT?: Money_From_TransactionWhereInput | Money_From_TransactionWhereInput[]
+    mtf_id?: IntFilter<"Money_From_Transaction"> | number
+    mtf_uuid?: StringFilter<"Money_From_Transaction"> | string
+    mtf_firm_id?: IntFilter<"Money_From_Transaction"> | number
+    mtf_own_id?: IntFilter<"Money_From_Transaction"> | number
+    mtf_jrnl_id?: IntNullableFilter<"Money_From_Transaction"> | number | null
+    mtf_from_acc_id?: IntFilter<"Money_From_Transaction"> | number
+    mtf_trans_date?: StringFilter<"Money_From_Transaction"> | string
+    mtf_mode?: EnumMoneyTransferModeFilter<"Money_From_Transaction"> | $Enums.MoneyTransferMode
+    mtf_direction?: EnumMoneyTransferDirectionFilter<"Money_From_Transaction"> | $Enums.MoneyTransferDirection
+    mtf_total_amt?: FloatFilter<"Money_From_Transaction"> | number
+    mtf_panel?: StringFilter<"Money_From_Transaction"> | string
+    mtf_narration?: StringNullableFilter<"Money_From_Transaction"> | string | null
+    mtf_other_info?: StringNullableFilter<"Money_From_Transaction"> | string | null
+    mtf_created_at?: DateTimeFilter<"Money_From_Transaction"> | Date | string
+    mtf_created_by?: StringNullableFilter<"Money_From_Transaction"> | string | null
+    mtf_updated_at?: DateTimeFilter<"Money_From_Transaction"> | Date | string
+    mtf_updated_by?: StringNullableFilter<"Money_From_Transaction"> | string | null
+    mtf_deleted_at?: DateTimeNullableFilter<"Money_From_Transaction"> | Date | string | null
+    mtf_deleted_by?: StringNullableFilter<"Money_From_Transaction"> | string | null
+    mtf_is_deleted?: BoolFilter<"Money_From_Transaction"> | boolean
+    firm?: XOR<FirmRelationFilter, FirmWhereInput>
+    owner?: XOR<OwnerRelationFilter, OwnerWhereInput>
+    fromAccount?: XOR<AccountRelationFilter, AccountWhereInput>
+    journal?: XOR<JournalNullableRelationFilter, JournalWhereInput> | null
+    fromLines?: Money_Transfer_From_LineListRelationFilter
+    toRows?: Money_To_TransactionListRelationFilter
+  }
+
+  export type Money_From_TransactionOrderByWithRelationInput = {
+    mtf_id?: SortOrder
+    mtf_uuid?: SortOrder
+    mtf_firm_id?: SortOrder
+    mtf_own_id?: SortOrder
+    mtf_jrnl_id?: SortOrderInput | SortOrder
+    mtf_from_acc_id?: SortOrder
+    mtf_trans_date?: SortOrder
+    mtf_mode?: SortOrder
+    mtf_direction?: SortOrder
+    mtf_total_amt?: SortOrder
+    mtf_panel?: SortOrder
+    mtf_narration?: SortOrderInput | SortOrder
+    mtf_other_info?: SortOrderInput | SortOrder
+    mtf_created_at?: SortOrder
+    mtf_created_by?: SortOrderInput | SortOrder
+    mtf_updated_at?: SortOrder
+    mtf_updated_by?: SortOrderInput | SortOrder
+    mtf_deleted_at?: SortOrderInput | SortOrder
+    mtf_deleted_by?: SortOrderInput | SortOrder
+    mtf_is_deleted?: SortOrder
+    firm?: FirmOrderByWithRelationInput
+    owner?: OwnerOrderByWithRelationInput
+    fromAccount?: AccountOrderByWithRelationInput
+    journal?: JournalOrderByWithRelationInput
+    fromLines?: Money_Transfer_From_LineOrderByRelationAggregateInput
+    toRows?: Money_To_TransactionOrderByRelationAggregateInput
+  }
+
+  export type Money_From_TransactionWhereUniqueInput = Prisma.AtLeast<{
+    mtf_id?: number
+    mtf_uuid?: string
+    AND?: Money_From_TransactionWhereInput | Money_From_TransactionWhereInput[]
+    OR?: Money_From_TransactionWhereInput[]
+    NOT?: Money_From_TransactionWhereInput | Money_From_TransactionWhereInput[]
+    mtf_firm_id?: IntFilter<"Money_From_Transaction"> | number
+    mtf_own_id?: IntFilter<"Money_From_Transaction"> | number
+    mtf_jrnl_id?: IntNullableFilter<"Money_From_Transaction"> | number | null
+    mtf_from_acc_id?: IntFilter<"Money_From_Transaction"> | number
+    mtf_trans_date?: StringFilter<"Money_From_Transaction"> | string
+    mtf_mode?: EnumMoneyTransferModeFilter<"Money_From_Transaction"> | $Enums.MoneyTransferMode
+    mtf_direction?: EnumMoneyTransferDirectionFilter<"Money_From_Transaction"> | $Enums.MoneyTransferDirection
+    mtf_total_amt?: FloatFilter<"Money_From_Transaction"> | number
+    mtf_panel?: StringFilter<"Money_From_Transaction"> | string
+    mtf_narration?: StringNullableFilter<"Money_From_Transaction"> | string | null
+    mtf_other_info?: StringNullableFilter<"Money_From_Transaction"> | string | null
+    mtf_created_at?: DateTimeFilter<"Money_From_Transaction"> | Date | string
+    mtf_created_by?: StringNullableFilter<"Money_From_Transaction"> | string | null
+    mtf_updated_at?: DateTimeFilter<"Money_From_Transaction"> | Date | string
+    mtf_updated_by?: StringNullableFilter<"Money_From_Transaction"> | string | null
+    mtf_deleted_at?: DateTimeNullableFilter<"Money_From_Transaction"> | Date | string | null
+    mtf_deleted_by?: StringNullableFilter<"Money_From_Transaction"> | string | null
+    mtf_is_deleted?: BoolFilter<"Money_From_Transaction"> | boolean
+    firm?: XOR<FirmRelationFilter, FirmWhereInput>
+    owner?: XOR<OwnerRelationFilter, OwnerWhereInput>
+    fromAccount?: XOR<AccountRelationFilter, AccountWhereInput>
+    journal?: XOR<JournalNullableRelationFilter, JournalWhereInput> | null
+    fromLines?: Money_Transfer_From_LineListRelationFilter
+    toRows?: Money_To_TransactionListRelationFilter
+  }, "mtf_id" | "mtf_uuid">
+
+  export type Money_From_TransactionOrderByWithAggregationInput = {
+    mtf_id?: SortOrder
+    mtf_uuid?: SortOrder
+    mtf_firm_id?: SortOrder
+    mtf_own_id?: SortOrder
+    mtf_jrnl_id?: SortOrderInput | SortOrder
+    mtf_from_acc_id?: SortOrder
+    mtf_trans_date?: SortOrder
+    mtf_mode?: SortOrder
+    mtf_direction?: SortOrder
+    mtf_total_amt?: SortOrder
+    mtf_panel?: SortOrder
+    mtf_narration?: SortOrderInput | SortOrder
+    mtf_other_info?: SortOrderInput | SortOrder
+    mtf_created_at?: SortOrder
+    mtf_created_by?: SortOrderInput | SortOrder
+    mtf_updated_at?: SortOrder
+    mtf_updated_by?: SortOrderInput | SortOrder
+    mtf_deleted_at?: SortOrderInput | SortOrder
+    mtf_deleted_by?: SortOrderInput | SortOrder
+    mtf_is_deleted?: SortOrder
+    _count?: Money_From_TransactionCountOrderByAggregateInput
+    _avg?: Money_From_TransactionAvgOrderByAggregateInput
+    _max?: Money_From_TransactionMaxOrderByAggregateInput
+    _min?: Money_From_TransactionMinOrderByAggregateInput
+    _sum?: Money_From_TransactionSumOrderByAggregateInput
+  }
+
+  export type Money_From_TransactionScalarWhereWithAggregatesInput = {
+    AND?: Money_From_TransactionScalarWhereWithAggregatesInput | Money_From_TransactionScalarWhereWithAggregatesInput[]
+    OR?: Money_From_TransactionScalarWhereWithAggregatesInput[]
+    NOT?: Money_From_TransactionScalarWhereWithAggregatesInput | Money_From_TransactionScalarWhereWithAggregatesInput[]
+    mtf_id?: IntWithAggregatesFilter<"Money_From_Transaction"> | number
+    mtf_uuid?: StringWithAggregatesFilter<"Money_From_Transaction"> | string
+    mtf_firm_id?: IntWithAggregatesFilter<"Money_From_Transaction"> | number
+    mtf_own_id?: IntWithAggregatesFilter<"Money_From_Transaction"> | number
+    mtf_jrnl_id?: IntNullableWithAggregatesFilter<"Money_From_Transaction"> | number | null
+    mtf_from_acc_id?: IntWithAggregatesFilter<"Money_From_Transaction"> | number
+    mtf_trans_date?: StringWithAggregatesFilter<"Money_From_Transaction"> | string
+    mtf_mode?: EnumMoneyTransferModeWithAggregatesFilter<"Money_From_Transaction"> | $Enums.MoneyTransferMode
+    mtf_direction?: EnumMoneyTransferDirectionWithAggregatesFilter<"Money_From_Transaction"> | $Enums.MoneyTransferDirection
+    mtf_total_amt?: FloatWithAggregatesFilter<"Money_From_Transaction"> | number
+    mtf_panel?: StringWithAggregatesFilter<"Money_From_Transaction"> | string
+    mtf_narration?: StringNullableWithAggregatesFilter<"Money_From_Transaction"> | string | null
+    mtf_other_info?: StringNullableWithAggregatesFilter<"Money_From_Transaction"> | string | null
+    mtf_created_at?: DateTimeWithAggregatesFilter<"Money_From_Transaction"> | Date | string
+    mtf_created_by?: StringNullableWithAggregatesFilter<"Money_From_Transaction"> | string | null
+    mtf_updated_at?: DateTimeWithAggregatesFilter<"Money_From_Transaction"> | Date | string
+    mtf_updated_by?: StringNullableWithAggregatesFilter<"Money_From_Transaction"> | string | null
+    mtf_deleted_at?: DateTimeNullableWithAggregatesFilter<"Money_From_Transaction"> | Date | string | null
+    mtf_deleted_by?: StringNullableWithAggregatesFilter<"Money_From_Transaction"> | string | null
+    mtf_is_deleted?: BoolWithAggregatesFilter<"Money_From_Transaction"> | boolean
+  }
+
+  export type Money_To_TransactionWhereInput = {
+    AND?: Money_To_TransactionWhereInput | Money_To_TransactionWhereInput[]
+    OR?: Money_To_TransactionWhereInput[]
+    NOT?: Money_To_TransactionWhereInput | Money_To_TransactionWhereInput[]
+    mtt_id?: IntFilter<"Money_To_Transaction"> | number
+    mtt_uuid?: StringFilter<"Money_To_Transaction"> | string
+    mtt_mtf_id?: IntFilter<"Money_To_Transaction"> | number
+    mtt_to_acc_id?: IntFilter<"Money_To_Transaction"> | number
+    mtt_amt?: FloatFilter<"Money_To_Transaction"> | number
+    mtt_remarks?: StringNullableFilter<"Money_To_Transaction"> | string | null
+    fromTransaction?: XOR<Money_From_TransactionRelationFilter, Money_From_TransactionWhereInput>
+    toAccount?: XOR<AccountRelationFilter, AccountWhereInput>
+  }
+
+  export type Money_To_TransactionOrderByWithRelationInput = {
+    mtt_id?: SortOrder
+    mtt_uuid?: SortOrder
+    mtt_mtf_id?: SortOrder
+    mtt_to_acc_id?: SortOrder
+    mtt_amt?: SortOrder
+    mtt_remarks?: SortOrderInput | SortOrder
+    fromTransaction?: Money_From_TransactionOrderByWithRelationInput
+    toAccount?: AccountOrderByWithRelationInput
+  }
+
+  export type Money_To_TransactionWhereUniqueInput = Prisma.AtLeast<{
+    mtt_id?: number
+    mtt_uuid?: string
+    AND?: Money_To_TransactionWhereInput | Money_To_TransactionWhereInput[]
+    OR?: Money_To_TransactionWhereInput[]
+    NOT?: Money_To_TransactionWhereInput | Money_To_TransactionWhereInput[]
+    mtt_mtf_id?: IntFilter<"Money_To_Transaction"> | number
+    mtt_to_acc_id?: IntFilter<"Money_To_Transaction"> | number
+    mtt_amt?: FloatFilter<"Money_To_Transaction"> | number
+    mtt_remarks?: StringNullableFilter<"Money_To_Transaction"> | string | null
+    fromTransaction?: XOR<Money_From_TransactionRelationFilter, Money_From_TransactionWhereInput>
+    toAccount?: XOR<AccountRelationFilter, AccountWhereInput>
+  }, "mtt_id" | "mtt_uuid">
+
+  export type Money_To_TransactionOrderByWithAggregationInput = {
+    mtt_id?: SortOrder
+    mtt_uuid?: SortOrder
+    mtt_mtf_id?: SortOrder
+    mtt_to_acc_id?: SortOrder
+    mtt_amt?: SortOrder
+    mtt_remarks?: SortOrderInput | SortOrder
+    _count?: Money_To_TransactionCountOrderByAggregateInput
+    _avg?: Money_To_TransactionAvgOrderByAggregateInput
+    _max?: Money_To_TransactionMaxOrderByAggregateInput
+    _min?: Money_To_TransactionMinOrderByAggregateInput
+    _sum?: Money_To_TransactionSumOrderByAggregateInput
+  }
+
+  export type Money_To_TransactionScalarWhereWithAggregatesInput = {
+    AND?: Money_To_TransactionScalarWhereWithAggregatesInput | Money_To_TransactionScalarWhereWithAggregatesInput[]
+    OR?: Money_To_TransactionScalarWhereWithAggregatesInput[]
+    NOT?: Money_To_TransactionScalarWhereWithAggregatesInput | Money_To_TransactionScalarWhereWithAggregatesInput[]
+    mtt_id?: IntWithAggregatesFilter<"Money_To_Transaction"> | number
+    mtt_uuid?: StringWithAggregatesFilter<"Money_To_Transaction"> | string
+    mtt_mtf_id?: IntWithAggregatesFilter<"Money_To_Transaction"> | number
+    mtt_to_acc_id?: IntWithAggregatesFilter<"Money_To_Transaction"> | number
+    mtt_amt?: FloatWithAggregatesFilter<"Money_To_Transaction"> | number
+    mtt_remarks?: StringNullableWithAggregatesFilter<"Money_To_Transaction"> | string | null
+  }
+
+  export type Money_Transfer_From_LineWhereInput = {
+    AND?: Money_Transfer_From_LineWhereInput | Money_Transfer_From_LineWhereInput[]
+    OR?: Money_Transfer_From_LineWhereInput[]
+    NOT?: Money_Transfer_From_LineWhereInput | Money_Transfer_From_LineWhereInput[]
+    mfl_id?: IntFilter<"Money_Transfer_From_Line"> | number
+    mfl_uuid?: StringFilter<"Money_Transfer_From_Line"> | string
+    mfl_mtf_id?: IntFilter<"Money_Transfer_From_Line"> | number
+    mfl_acc_id?: IntFilter<"Money_Transfer_From_Line"> | number
+    mfl_amt?: FloatFilter<"Money_Transfer_From_Line"> | number
+    mfl_remarks?: StringNullableFilter<"Money_Transfer_From_Line"> | string | null
+    fromTransaction?: XOR<Money_From_TransactionRelationFilter, Money_From_TransactionWhereInput>
+    account?: XOR<AccountRelationFilter, AccountWhereInput>
+  }
+
+  export type Money_Transfer_From_LineOrderByWithRelationInput = {
+    mfl_id?: SortOrder
+    mfl_uuid?: SortOrder
+    mfl_mtf_id?: SortOrder
+    mfl_acc_id?: SortOrder
+    mfl_amt?: SortOrder
+    mfl_remarks?: SortOrderInput | SortOrder
+    fromTransaction?: Money_From_TransactionOrderByWithRelationInput
+    account?: AccountOrderByWithRelationInput
+  }
+
+  export type Money_Transfer_From_LineWhereUniqueInput = Prisma.AtLeast<{
+    mfl_id?: number
+    mfl_uuid?: string
+    AND?: Money_Transfer_From_LineWhereInput | Money_Transfer_From_LineWhereInput[]
+    OR?: Money_Transfer_From_LineWhereInput[]
+    NOT?: Money_Transfer_From_LineWhereInput | Money_Transfer_From_LineWhereInput[]
+    mfl_mtf_id?: IntFilter<"Money_Transfer_From_Line"> | number
+    mfl_acc_id?: IntFilter<"Money_Transfer_From_Line"> | number
+    mfl_amt?: FloatFilter<"Money_Transfer_From_Line"> | number
+    mfl_remarks?: StringNullableFilter<"Money_Transfer_From_Line"> | string | null
+    fromTransaction?: XOR<Money_From_TransactionRelationFilter, Money_From_TransactionWhereInput>
+    account?: XOR<AccountRelationFilter, AccountWhereInput>
+  }, "mfl_id" | "mfl_uuid">
+
+  export type Money_Transfer_From_LineOrderByWithAggregationInput = {
+    mfl_id?: SortOrder
+    mfl_uuid?: SortOrder
+    mfl_mtf_id?: SortOrder
+    mfl_acc_id?: SortOrder
+    mfl_amt?: SortOrder
+    mfl_remarks?: SortOrderInput | SortOrder
+    _count?: Money_Transfer_From_LineCountOrderByAggregateInput
+    _avg?: Money_Transfer_From_LineAvgOrderByAggregateInput
+    _max?: Money_Transfer_From_LineMaxOrderByAggregateInput
+    _min?: Money_Transfer_From_LineMinOrderByAggregateInput
+    _sum?: Money_Transfer_From_LineSumOrderByAggregateInput
+  }
+
+  export type Money_Transfer_From_LineScalarWhereWithAggregatesInput = {
+    AND?: Money_Transfer_From_LineScalarWhereWithAggregatesInput | Money_Transfer_From_LineScalarWhereWithAggregatesInput[]
+    OR?: Money_Transfer_From_LineScalarWhereWithAggregatesInput[]
+    NOT?: Money_Transfer_From_LineScalarWhereWithAggregatesInput | Money_Transfer_From_LineScalarWhereWithAggregatesInput[]
+    mfl_id?: IntWithAggregatesFilter<"Money_Transfer_From_Line"> | number
+    mfl_uuid?: StringWithAggregatesFilter<"Money_Transfer_From_Line"> | string
+    mfl_mtf_id?: IntWithAggregatesFilter<"Money_Transfer_From_Line"> | number
+    mfl_acc_id?: IntWithAggregatesFilter<"Money_Transfer_From_Line"> | number
+    mfl_amt?: FloatWithAggregatesFilter<"Money_Transfer_From_Line"> | number
+    mfl_remarks?: StringNullableWithAggregatesFilter<"Money_Transfer_From_Line"> | string | null
   }
 
   export type JournalTransactionWhereInput = {
@@ -53473,6 +57610,7 @@ export namespace Prisma {
     finances?: FinanceCreateNestedManyWithoutOwnerInput
     financeTransactions?: Finance_TransactionCreateNestedManyWithoutOwnerInput
     financeMoneyTrans?: Finance_Money_TransactionCreateNestedManyWithoutOwnerInput
+    moneyFromTransactions?: Money_From_TransactionCreateNestedManyWithoutOwnerInput
     journals?: JournalCreateNestedManyWithoutOwnerInput
     journalTransactions?: JournalTransactionCreateNestedManyWithoutOwnerInput
     girvis?: GirviCreateNestedManyWithoutOwnerInput
@@ -53542,6 +57680,7 @@ export namespace Prisma {
     finances?: FinanceUncheckedCreateNestedManyWithoutOwnerInput
     financeTransactions?: Finance_TransactionUncheckedCreateNestedManyWithoutOwnerInput
     financeMoneyTrans?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutOwnerInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedCreateNestedManyWithoutOwnerInput
     journals?: JournalUncheckedCreateNestedManyWithoutOwnerInput
     journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutOwnerInput
     girvis?: GirviUncheckedCreateNestedManyWithoutOwnerInput
@@ -53609,6 +57748,7 @@ export namespace Prisma {
     finances?: FinanceUpdateManyWithoutOwnerNestedInput
     financeTransactions?: Finance_TransactionUpdateManyWithoutOwnerNestedInput
     financeMoneyTrans?: Finance_Money_TransactionUpdateManyWithoutOwnerNestedInput
+    moneyFromTransactions?: Money_From_TransactionUpdateManyWithoutOwnerNestedInput
     journals?: JournalUpdateManyWithoutOwnerNestedInput
     journalTransactions?: JournalTransactionUpdateManyWithoutOwnerNestedInput
     girvis?: GirviUpdateManyWithoutOwnerNestedInput
@@ -53678,6 +57818,7 @@ export namespace Prisma {
     finances?: FinanceUncheckedUpdateManyWithoutOwnerNestedInput
     financeTransactions?: Finance_TransactionUncheckedUpdateManyWithoutOwnerNestedInput
     financeMoneyTrans?: Finance_Money_TransactionUncheckedUpdateManyWithoutOwnerNestedInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedUpdateManyWithoutOwnerNestedInput
     journals?: JournalUncheckedUpdateManyWithoutOwnerNestedInput
     journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutOwnerNestedInput
     girvis?: GirviUncheckedUpdateManyWithoutOwnerNestedInput
@@ -53892,6 +58033,7 @@ export namespace Prisma {
     finances?: FinanceCreateNestedManyWithoutFirmInput
     financeTransactions?: Finance_TransactionCreateNestedManyWithoutFirmInput
     financeMoneyTrans?: Finance_Money_TransactionCreateNestedManyWithoutFirmInput
+    moneyFromTransactions?: Money_From_TransactionCreateNestedManyWithoutFirmInput
     journals?: JournalCreateNestedManyWithoutFirmInput
     journalTransactions?: JournalTransactionCreateNestedManyWithoutFirmInput
     girvis?: GirviCreateNestedManyWithoutFirmInput
@@ -53966,6 +58108,7 @@ export namespace Prisma {
     finances?: FinanceUncheckedCreateNestedManyWithoutFirmInput
     financeTransactions?: Finance_TransactionUncheckedCreateNestedManyWithoutFirmInput
     financeMoneyTrans?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutFirmInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedCreateNestedManyWithoutFirmInput
     journals?: JournalUncheckedCreateNestedManyWithoutFirmInput
     journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutFirmInput
     girvis?: GirviUncheckedCreateNestedManyWithoutFirmInput
@@ -54039,6 +58182,7 @@ export namespace Prisma {
     finances?: FinanceUpdateManyWithoutFirmNestedInput
     financeTransactions?: Finance_TransactionUpdateManyWithoutFirmNestedInput
     financeMoneyTrans?: Finance_Money_TransactionUpdateManyWithoutFirmNestedInput
+    moneyFromTransactions?: Money_From_TransactionUpdateManyWithoutFirmNestedInput
     journals?: JournalUpdateManyWithoutFirmNestedInput
     journalTransactions?: JournalTransactionUpdateManyWithoutFirmNestedInput
     girvis?: GirviUpdateManyWithoutFirmNestedInput
@@ -54113,6 +58257,7 @@ export namespace Prisma {
     finances?: FinanceUncheckedUpdateManyWithoutFirmNestedInput
     financeTransactions?: Finance_TransactionUncheckedUpdateManyWithoutFirmNestedInput
     financeMoneyTrans?: Finance_Money_TransactionUncheckedUpdateManyWithoutFirmNestedInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedUpdateManyWithoutFirmNestedInput
     journals?: JournalUncheckedUpdateManyWithoutFirmNestedInput
     journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutFirmNestedInput
     girvis?: GirviUncheckedUpdateManyWithoutFirmNestedInput
@@ -54360,6 +58505,9 @@ export namespace Prisma {
     relBank?: GirviReleaseCreateNestedManyWithoutBankAccountInput
     relOnline?: GirviReleaseCreateNestedManyWithoutOnlineAccountInput
     relCard?: GirviReleaseCreateNestedManyWithoutCardAccountInput
+    mtfFromAccount?: Money_From_TransactionCreateNestedManyWithoutFromAccountInput
+    mtfFromLines?: Money_Transfer_From_LineCreateNestedManyWithoutAccountInput
+    mttToAccount?: Money_To_TransactionCreateNestedManyWithoutToAccountInput
   }
 
   export type AccountUncheckedCreateInput = {
@@ -54435,6 +58583,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUncheckedCreateNestedManyWithoutBankAccountInput
     relOnline?: GirviReleaseUncheckedCreateNestedManyWithoutOnlineAccountInput
     relCard?: GirviReleaseUncheckedCreateNestedManyWithoutCardAccountInput
+    mtfFromAccount?: Money_From_TransactionUncheckedCreateNestedManyWithoutFromAccountInput
+    mtfFromLines?: Money_Transfer_From_LineUncheckedCreateNestedManyWithoutAccountInput
+    mttToAccount?: Money_To_TransactionUncheckedCreateNestedManyWithoutToAccountInput
   }
 
   export type AccountUpdateInput = {
@@ -54509,6 +58660,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUpdateManyWithoutBankAccountNestedInput
     relOnline?: GirviReleaseUpdateManyWithoutOnlineAccountNestedInput
     relCard?: GirviReleaseUpdateManyWithoutCardAccountNestedInput
+    mtfFromAccount?: Money_From_TransactionUpdateManyWithoutFromAccountNestedInput
+    mtfFromLines?: Money_Transfer_From_LineUpdateManyWithoutAccountNestedInput
+    mttToAccount?: Money_To_TransactionUpdateManyWithoutToAccountNestedInput
   }
 
   export type AccountUncheckedUpdateInput = {
@@ -54584,6 +58738,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUncheckedUpdateManyWithoutBankAccountNestedInput
     relOnline?: GirviReleaseUncheckedUpdateManyWithoutOnlineAccountNestedInput
     relCard?: GirviReleaseUncheckedUpdateManyWithoutCardAccountNestedInput
+    mtfFromAccount?: Money_From_TransactionUncheckedUpdateManyWithoutFromAccountNestedInput
+    mtfFromLines?: Money_Transfer_From_LineUncheckedUpdateManyWithoutAccountNestedInput
+    mttToAccount?: Money_To_TransactionUncheckedUpdateManyWithoutToAccountNestedInput
   }
 
   export type AccountCreateManyInput = {
@@ -55892,6 +60049,7 @@ export namespace Prisma {
     jrnl_deleted_by?: string | null
     jrnl_is_deleted?: boolean
     financeMoneyTransactions?: Finance_Money_TransactionCreateNestedManyWithoutJournalInput
+    moneyFromTransactions?: Money_From_TransactionCreateNestedManyWithoutJournalInput
     firm: FirmCreateNestedOneWithoutJournalsInput
     user?: UserCreateNestedOneWithoutJournalsInput
     owner: OwnerCreateNestedOneWithoutJournalsInput
@@ -55917,6 +60075,7 @@ export namespace Prisma {
     jrnl_deleted_by?: string | null
     jrnl_is_deleted?: boolean
     financeMoneyTransactions?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutJournalInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedCreateNestedManyWithoutJournalInput
     journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutJournalInput
   }
 
@@ -55935,6 +60094,7 @@ export namespace Prisma {
     jrnl_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     jrnl_is_deleted?: BoolFieldUpdateOperationsInput | boolean
     financeMoneyTransactions?: Finance_Money_TransactionUpdateManyWithoutJournalNestedInput
+    moneyFromTransactions?: Money_From_TransactionUpdateManyWithoutJournalNestedInput
     firm?: FirmUpdateOneRequiredWithoutJournalsNestedInput
     user?: UserUpdateOneWithoutJournalsNestedInput
     owner?: OwnerUpdateOneRequiredWithoutJournalsNestedInput
@@ -55960,6 +60120,7 @@ export namespace Prisma {
     jrnl_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     jrnl_is_deleted?: BoolFieldUpdateOperationsInput | boolean
     financeMoneyTransactions?: Finance_Money_TransactionUncheckedUpdateManyWithoutJournalNestedInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedUpdateManyWithoutJournalNestedInput
     journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutJournalNestedInput
   }
 
@@ -56017,6 +60178,284 @@ export namespace Prisma {
     jrnl_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     jrnl_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     jrnl_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type Money_From_TransactionCreateInput = {
+    mtf_uuid?: string
+    mtf_trans_date: string
+    mtf_mode?: $Enums.MoneyTransferMode
+    mtf_direction?: $Enums.MoneyTransferDirection
+    mtf_total_amt: number
+    mtf_panel?: string
+    mtf_narration?: string | null
+    mtf_other_info?: string | null
+    mtf_created_at?: Date | string
+    mtf_created_by?: string | null
+    mtf_updated_at?: Date | string
+    mtf_updated_by?: string | null
+    mtf_deleted_at?: Date | string | null
+    mtf_deleted_by?: string | null
+    mtf_is_deleted?: boolean
+    firm: FirmCreateNestedOneWithoutMoneyFromTransactionsInput
+    owner: OwnerCreateNestedOneWithoutMoneyFromTransactionsInput
+    fromAccount: AccountCreateNestedOneWithoutMtfFromAccountInput
+    journal?: JournalCreateNestedOneWithoutMoneyFromTransactionsInput
+    fromLines?: Money_Transfer_From_LineCreateNestedManyWithoutFromTransactionInput
+    toRows?: Money_To_TransactionCreateNestedManyWithoutFromTransactionInput
+  }
+
+  export type Money_From_TransactionUncheckedCreateInput = {
+    mtf_id?: number
+    mtf_uuid?: string
+    mtf_firm_id: number
+    mtf_own_id: number
+    mtf_jrnl_id?: number | null
+    mtf_from_acc_id: number
+    mtf_trans_date: string
+    mtf_mode?: $Enums.MoneyTransferMode
+    mtf_direction?: $Enums.MoneyTransferDirection
+    mtf_total_amt: number
+    mtf_panel?: string
+    mtf_narration?: string | null
+    mtf_other_info?: string | null
+    mtf_created_at?: Date | string
+    mtf_created_by?: string | null
+    mtf_updated_at?: Date | string
+    mtf_updated_by?: string | null
+    mtf_deleted_at?: Date | string | null
+    mtf_deleted_by?: string | null
+    mtf_is_deleted?: boolean
+    fromLines?: Money_Transfer_From_LineUncheckedCreateNestedManyWithoutFromTransactionInput
+    toRows?: Money_To_TransactionUncheckedCreateNestedManyWithoutFromTransactionInput
+  }
+
+  export type Money_From_TransactionUpdateInput = {
+    mtf_uuid?: StringFieldUpdateOperationsInput | string
+    mtf_trans_date?: StringFieldUpdateOperationsInput | string
+    mtf_mode?: EnumMoneyTransferModeFieldUpdateOperationsInput | $Enums.MoneyTransferMode
+    mtf_direction?: EnumMoneyTransferDirectionFieldUpdateOperationsInput | $Enums.MoneyTransferDirection
+    mtf_total_amt?: FloatFieldUpdateOperationsInput | number
+    mtf_panel?: StringFieldUpdateOperationsInput | string
+    mtf_narration?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    mtf_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    mtf_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    mtf_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    firm?: FirmUpdateOneRequiredWithoutMoneyFromTransactionsNestedInput
+    owner?: OwnerUpdateOneRequiredWithoutMoneyFromTransactionsNestedInput
+    fromAccount?: AccountUpdateOneRequiredWithoutMtfFromAccountNestedInput
+    journal?: JournalUpdateOneWithoutMoneyFromTransactionsNestedInput
+    fromLines?: Money_Transfer_From_LineUpdateManyWithoutFromTransactionNestedInput
+    toRows?: Money_To_TransactionUpdateManyWithoutFromTransactionNestedInput
+  }
+
+  export type Money_From_TransactionUncheckedUpdateInput = {
+    mtf_id?: IntFieldUpdateOperationsInput | number
+    mtf_uuid?: StringFieldUpdateOperationsInput | string
+    mtf_firm_id?: IntFieldUpdateOperationsInput | number
+    mtf_own_id?: IntFieldUpdateOperationsInput | number
+    mtf_jrnl_id?: NullableIntFieldUpdateOperationsInput | number | null
+    mtf_from_acc_id?: IntFieldUpdateOperationsInput | number
+    mtf_trans_date?: StringFieldUpdateOperationsInput | string
+    mtf_mode?: EnumMoneyTransferModeFieldUpdateOperationsInput | $Enums.MoneyTransferMode
+    mtf_direction?: EnumMoneyTransferDirectionFieldUpdateOperationsInput | $Enums.MoneyTransferDirection
+    mtf_total_amt?: FloatFieldUpdateOperationsInput | number
+    mtf_panel?: StringFieldUpdateOperationsInput | string
+    mtf_narration?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    mtf_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    mtf_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    mtf_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    fromLines?: Money_Transfer_From_LineUncheckedUpdateManyWithoutFromTransactionNestedInput
+    toRows?: Money_To_TransactionUncheckedUpdateManyWithoutFromTransactionNestedInput
+  }
+
+  export type Money_From_TransactionCreateManyInput = {
+    mtf_id?: number
+    mtf_uuid?: string
+    mtf_firm_id: number
+    mtf_own_id: number
+    mtf_jrnl_id?: number | null
+    mtf_from_acc_id: number
+    mtf_trans_date: string
+    mtf_mode?: $Enums.MoneyTransferMode
+    mtf_direction?: $Enums.MoneyTransferDirection
+    mtf_total_amt: number
+    mtf_panel?: string
+    mtf_narration?: string | null
+    mtf_other_info?: string | null
+    mtf_created_at?: Date | string
+    mtf_created_by?: string | null
+    mtf_updated_at?: Date | string
+    mtf_updated_by?: string | null
+    mtf_deleted_at?: Date | string | null
+    mtf_deleted_by?: string | null
+    mtf_is_deleted?: boolean
+  }
+
+  export type Money_From_TransactionUpdateManyMutationInput = {
+    mtf_uuid?: StringFieldUpdateOperationsInput | string
+    mtf_trans_date?: StringFieldUpdateOperationsInput | string
+    mtf_mode?: EnumMoneyTransferModeFieldUpdateOperationsInput | $Enums.MoneyTransferMode
+    mtf_direction?: EnumMoneyTransferDirectionFieldUpdateOperationsInput | $Enums.MoneyTransferDirection
+    mtf_total_amt?: FloatFieldUpdateOperationsInput | number
+    mtf_panel?: StringFieldUpdateOperationsInput | string
+    mtf_narration?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    mtf_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    mtf_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    mtf_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type Money_From_TransactionUncheckedUpdateManyInput = {
+    mtf_id?: IntFieldUpdateOperationsInput | number
+    mtf_uuid?: StringFieldUpdateOperationsInput | string
+    mtf_firm_id?: IntFieldUpdateOperationsInput | number
+    mtf_own_id?: IntFieldUpdateOperationsInput | number
+    mtf_jrnl_id?: NullableIntFieldUpdateOperationsInput | number | null
+    mtf_from_acc_id?: IntFieldUpdateOperationsInput | number
+    mtf_trans_date?: StringFieldUpdateOperationsInput | string
+    mtf_mode?: EnumMoneyTransferModeFieldUpdateOperationsInput | $Enums.MoneyTransferMode
+    mtf_direction?: EnumMoneyTransferDirectionFieldUpdateOperationsInput | $Enums.MoneyTransferDirection
+    mtf_total_amt?: FloatFieldUpdateOperationsInput | number
+    mtf_panel?: StringFieldUpdateOperationsInput | string
+    mtf_narration?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    mtf_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    mtf_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    mtf_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type Money_To_TransactionCreateInput = {
+    mtt_uuid?: string
+    mtt_amt: number
+    mtt_remarks?: string | null
+    fromTransaction: Money_From_TransactionCreateNestedOneWithoutToRowsInput
+    toAccount: AccountCreateNestedOneWithoutMttToAccountInput
+  }
+
+  export type Money_To_TransactionUncheckedCreateInput = {
+    mtt_id?: number
+    mtt_uuid?: string
+    mtt_mtf_id: number
+    mtt_to_acc_id: number
+    mtt_amt: number
+    mtt_remarks?: string | null
+  }
+
+  export type Money_To_TransactionUpdateInput = {
+    mtt_uuid?: StringFieldUpdateOperationsInput | string
+    mtt_amt?: FloatFieldUpdateOperationsInput | number
+    mtt_remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    fromTransaction?: Money_From_TransactionUpdateOneRequiredWithoutToRowsNestedInput
+    toAccount?: AccountUpdateOneRequiredWithoutMttToAccountNestedInput
+  }
+
+  export type Money_To_TransactionUncheckedUpdateInput = {
+    mtt_id?: IntFieldUpdateOperationsInput | number
+    mtt_uuid?: StringFieldUpdateOperationsInput | string
+    mtt_mtf_id?: IntFieldUpdateOperationsInput | number
+    mtt_to_acc_id?: IntFieldUpdateOperationsInput | number
+    mtt_amt?: FloatFieldUpdateOperationsInput | number
+    mtt_remarks?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type Money_To_TransactionCreateManyInput = {
+    mtt_id?: number
+    mtt_uuid?: string
+    mtt_mtf_id: number
+    mtt_to_acc_id: number
+    mtt_amt: number
+    mtt_remarks?: string | null
+  }
+
+  export type Money_To_TransactionUpdateManyMutationInput = {
+    mtt_uuid?: StringFieldUpdateOperationsInput | string
+    mtt_amt?: FloatFieldUpdateOperationsInput | number
+    mtt_remarks?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type Money_To_TransactionUncheckedUpdateManyInput = {
+    mtt_id?: IntFieldUpdateOperationsInput | number
+    mtt_uuid?: StringFieldUpdateOperationsInput | string
+    mtt_mtf_id?: IntFieldUpdateOperationsInput | number
+    mtt_to_acc_id?: IntFieldUpdateOperationsInput | number
+    mtt_amt?: FloatFieldUpdateOperationsInput | number
+    mtt_remarks?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type Money_Transfer_From_LineCreateInput = {
+    mfl_uuid?: string
+    mfl_amt: number
+    mfl_remarks?: string | null
+    fromTransaction: Money_From_TransactionCreateNestedOneWithoutFromLinesInput
+    account: AccountCreateNestedOneWithoutMtfFromLinesInput
+  }
+
+  export type Money_Transfer_From_LineUncheckedCreateInput = {
+    mfl_id?: number
+    mfl_uuid?: string
+    mfl_mtf_id: number
+    mfl_acc_id: number
+    mfl_amt: number
+    mfl_remarks?: string | null
+  }
+
+  export type Money_Transfer_From_LineUpdateInput = {
+    mfl_uuid?: StringFieldUpdateOperationsInput | string
+    mfl_amt?: FloatFieldUpdateOperationsInput | number
+    mfl_remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    fromTransaction?: Money_From_TransactionUpdateOneRequiredWithoutFromLinesNestedInput
+    account?: AccountUpdateOneRequiredWithoutMtfFromLinesNestedInput
+  }
+
+  export type Money_Transfer_From_LineUncheckedUpdateInput = {
+    mfl_id?: IntFieldUpdateOperationsInput | number
+    mfl_uuid?: StringFieldUpdateOperationsInput | string
+    mfl_mtf_id?: IntFieldUpdateOperationsInput | number
+    mfl_acc_id?: IntFieldUpdateOperationsInput | number
+    mfl_amt?: FloatFieldUpdateOperationsInput | number
+    mfl_remarks?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type Money_Transfer_From_LineCreateManyInput = {
+    mfl_id?: number
+    mfl_uuid?: string
+    mfl_mtf_id: number
+    mfl_acc_id: number
+    mfl_amt: number
+    mfl_remarks?: string | null
+  }
+
+  export type Money_Transfer_From_LineUpdateManyMutationInput = {
+    mfl_uuid?: StringFieldUpdateOperationsInput | string
+    mfl_amt?: FloatFieldUpdateOperationsInput | number
+    mfl_remarks?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type Money_Transfer_From_LineUncheckedUpdateManyInput = {
+    mfl_id?: IntFieldUpdateOperationsInput | number
+    mfl_uuid?: StringFieldUpdateOperationsInput | string
+    mfl_mtf_id?: IntFieldUpdateOperationsInput | number
+    mfl_acc_id?: IntFieldUpdateOperationsInput | number
+    mfl_amt?: FloatFieldUpdateOperationsInput | number
+    mfl_remarks?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type JournalTransactionCreateInput = {
@@ -60133,6 +64572,12 @@ export namespace Prisma {
     none?: Finance_Money_TransactionWhereInput
   }
 
+  export type Money_From_TransactionListRelationFilter = {
+    every?: Money_From_TransactionWhereInput
+    some?: Money_From_TransactionWhereInput
+    none?: Money_From_TransactionWhereInput
+  }
+
   export type JournalListRelationFilter = {
     every?: JournalWhereInput
     some?: JournalWhereInput
@@ -60249,6 +64694,10 @@ export namespace Prisma {
   }
 
   export type Finance_Money_TransactionOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type Money_From_TransactionOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -60853,6 +65302,26 @@ export namespace Prisma {
   export type FirmRelationFilter = {
     is?: FirmWhereInput
     isNot?: FirmWhereInput
+  }
+
+  export type Money_Transfer_From_LineListRelationFilter = {
+    every?: Money_Transfer_From_LineWhereInput
+    some?: Money_Transfer_From_LineWhereInput
+    none?: Money_Transfer_From_LineWhereInput
+  }
+
+  export type Money_To_TransactionListRelationFilter = {
+    every?: Money_To_TransactionWhereInput
+    some?: Money_To_TransactionWhereInput
+    none?: Money_To_TransactionWhereInput
+  }
+
+  export type Money_Transfer_From_LineOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type Money_To_TransactionOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type AccountCountOrderByAggregateInput = {
@@ -61862,6 +66331,219 @@ export namespace Prisma {
     jrnl_own_id?: SortOrder
     jrnl_user_id?: SortOrder
     jrnl_amt?: SortOrder
+  }
+
+  export type EnumMoneyTransferModeFilter<$PrismaModel = never> = {
+    equals?: $Enums.MoneyTransferMode | EnumMoneyTransferModeFieldRefInput<$PrismaModel>
+    in?: $Enums.MoneyTransferMode[] | ListEnumMoneyTransferModeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MoneyTransferMode[] | ListEnumMoneyTransferModeFieldRefInput<$PrismaModel>
+    not?: NestedEnumMoneyTransferModeFilter<$PrismaModel> | $Enums.MoneyTransferMode
+  }
+
+  export type EnumMoneyTransferDirectionFilter<$PrismaModel = never> = {
+    equals?: $Enums.MoneyTransferDirection | EnumMoneyTransferDirectionFieldRefInput<$PrismaModel>
+    in?: $Enums.MoneyTransferDirection[] | ListEnumMoneyTransferDirectionFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MoneyTransferDirection[] | ListEnumMoneyTransferDirectionFieldRefInput<$PrismaModel>
+    not?: NestedEnumMoneyTransferDirectionFilter<$PrismaModel> | $Enums.MoneyTransferDirection
+  }
+
+  export type AccountRelationFilter = {
+    is?: AccountWhereInput
+    isNot?: AccountWhereInput
+  }
+
+  export type Money_From_TransactionCountOrderByAggregateInput = {
+    mtf_id?: SortOrder
+    mtf_uuid?: SortOrder
+    mtf_firm_id?: SortOrder
+    mtf_own_id?: SortOrder
+    mtf_jrnl_id?: SortOrder
+    mtf_from_acc_id?: SortOrder
+    mtf_trans_date?: SortOrder
+    mtf_mode?: SortOrder
+    mtf_direction?: SortOrder
+    mtf_total_amt?: SortOrder
+    mtf_panel?: SortOrder
+    mtf_narration?: SortOrder
+    mtf_other_info?: SortOrder
+    mtf_created_at?: SortOrder
+    mtf_created_by?: SortOrder
+    mtf_updated_at?: SortOrder
+    mtf_updated_by?: SortOrder
+    mtf_deleted_at?: SortOrder
+    mtf_deleted_by?: SortOrder
+    mtf_is_deleted?: SortOrder
+  }
+
+  export type Money_From_TransactionAvgOrderByAggregateInput = {
+    mtf_id?: SortOrder
+    mtf_firm_id?: SortOrder
+    mtf_own_id?: SortOrder
+    mtf_jrnl_id?: SortOrder
+    mtf_from_acc_id?: SortOrder
+    mtf_total_amt?: SortOrder
+  }
+
+  export type Money_From_TransactionMaxOrderByAggregateInput = {
+    mtf_id?: SortOrder
+    mtf_uuid?: SortOrder
+    mtf_firm_id?: SortOrder
+    mtf_own_id?: SortOrder
+    mtf_jrnl_id?: SortOrder
+    mtf_from_acc_id?: SortOrder
+    mtf_trans_date?: SortOrder
+    mtf_mode?: SortOrder
+    mtf_direction?: SortOrder
+    mtf_total_amt?: SortOrder
+    mtf_panel?: SortOrder
+    mtf_narration?: SortOrder
+    mtf_other_info?: SortOrder
+    mtf_created_at?: SortOrder
+    mtf_created_by?: SortOrder
+    mtf_updated_at?: SortOrder
+    mtf_updated_by?: SortOrder
+    mtf_deleted_at?: SortOrder
+    mtf_deleted_by?: SortOrder
+    mtf_is_deleted?: SortOrder
+  }
+
+  export type Money_From_TransactionMinOrderByAggregateInput = {
+    mtf_id?: SortOrder
+    mtf_uuid?: SortOrder
+    mtf_firm_id?: SortOrder
+    mtf_own_id?: SortOrder
+    mtf_jrnl_id?: SortOrder
+    mtf_from_acc_id?: SortOrder
+    mtf_trans_date?: SortOrder
+    mtf_mode?: SortOrder
+    mtf_direction?: SortOrder
+    mtf_total_amt?: SortOrder
+    mtf_panel?: SortOrder
+    mtf_narration?: SortOrder
+    mtf_other_info?: SortOrder
+    mtf_created_at?: SortOrder
+    mtf_created_by?: SortOrder
+    mtf_updated_at?: SortOrder
+    mtf_updated_by?: SortOrder
+    mtf_deleted_at?: SortOrder
+    mtf_deleted_by?: SortOrder
+    mtf_is_deleted?: SortOrder
+  }
+
+  export type Money_From_TransactionSumOrderByAggregateInput = {
+    mtf_id?: SortOrder
+    mtf_firm_id?: SortOrder
+    mtf_own_id?: SortOrder
+    mtf_jrnl_id?: SortOrder
+    mtf_from_acc_id?: SortOrder
+    mtf_total_amt?: SortOrder
+  }
+
+  export type EnumMoneyTransferModeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.MoneyTransferMode | EnumMoneyTransferModeFieldRefInput<$PrismaModel>
+    in?: $Enums.MoneyTransferMode[] | ListEnumMoneyTransferModeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MoneyTransferMode[] | ListEnumMoneyTransferModeFieldRefInput<$PrismaModel>
+    not?: NestedEnumMoneyTransferModeWithAggregatesFilter<$PrismaModel> | $Enums.MoneyTransferMode
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumMoneyTransferModeFilter<$PrismaModel>
+    _max?: NestedEnumMoneyTransferModeFilter<$PrismaModel>
+  }
+
+  export type EnumMoneyTransferDirectionWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.MoneyTransferDirection | EnumMoneyTransferDirectionFieldRefInput<$PrismaModel>
+    in?: $Enums.MoneyTransferDirection[] | ListEnumMoneyTransferDirectionFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MoneyTransferDirection[] | ListEnumMoneyTransferDirectionFieldRefInput<$PrismaModel>
+    not?: NestedEnumMoneyTransferDirectionWithAggregatesFilter<$PrismaModel> | $Enums.MoneyTransferDirection
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumMoneyTransferDirectionFilter<$PrismaModel>
+    _max?: NestedEnumMoneyTransferDirectionFilter<$PrismaModel>
+  }
+
+  export type Money_From_TransactionRelationFilter = {
+    is?: Money_From_TransactionWhereInput
+    isNot?: Money_From_TransactionWhereInput
+  }
+
+  export type Money_To_TransactionCountOrderByAggregateInput = {
+    mtt_id?: SortOrder
+    mtt_uuid?: SortOrder
+    mtt_mtf_id?: SortOrder
+    mtt_to_acc_id?: SortOrder
+    mtt_amt?: SortOrder
+    mtt_remarks?: SortOrder
+  }
+
+  export type Money_To_TransactionAvgOrderByAggregateInput = {
+    mtt_id?: SortOrder
+    mtt_mtf_id?: SortOrder
+    mtt_to_acc_id?: SortOrder
+    mtt_amt?: SortOrder
+  }
+
+  export type Money_To_TransactionMaxOrderByAggregateInput = {
+    mtt_id?: SortOrder
+    mtt_uuid?: SortOrder
+    mtt_mtf_id?: SortOrder
+    mtt_to_acc_id?: SortOrder
+    mtt_amt?: SortOrder
+    mtt_remarks?: SortOrder
+  }
+
+  export type Money_To_TransactionMinOrderByAggregateInput = {
+    mtt_id?: SortOrder
+    mtt_uuid?: SortOrder
+    mtt_mtf_id?: SortOrder
+    mtt_to_acc_id?: SortOrder
+    mtt_amt?: SortOrder
+    mtt_remarks?: SortOrder
+  }
+
+  export type Money_To_TransactionSumOrderByAggregateInput = {
+    mtt_id?: SortOrder
+    mtt_mtf_id?: SortOrder
+    mtt_to_acc_id?: SortOrder
+    mtt_amt?: SortOrder
+  }
+
+  export type Money_Transfer_From_LineCountOrderByAggregateInput = {
+    mfl_id?: SortOrder
+    mfl_uuid?: SortOrder
+    mfl_mtf_id?: SortOrder
+    mfl_acc_id?: SortOrder
+    mfl_amt?: SortOrder
+    mfl_remarks?: SortOrder
+  }
+
+  export type Money_Transfer_From_LineAvgOrderByAggregateInput = {
+    mfl_id?: SortOrder
+    mfl_mtf_id?: SortOrder
+    mfl_acc_id?: SortOrder
+    mfl_amt?: SortOrder
+  }
+
+  export type Money_Transfer_From_LineMaxOrderByAggregateInput = {
+    mfl_id?: SortOrder
+    mfl_uuid?: SortOrder
+    mfl_mtf_id?: SortOrder
+    mfl_acc_id?: SortOrder
+    mfl_amt?: SortOrder
+    mfl_remarks?: SortOrder
+  }
+
+  export type Money_Transfer_From_LineMinOrderByAggregateInput = {
+    mfl_id?: SortOrder
+    mfl_uuid?: SortOrder
+    mfl_mtf_id?: SortOrder
+    mfl_acc_id?: SortOrder
+    mfl_amt?: SortOrder
+    mfl_remarks?: SortOrder
+  }
+
+  export type Money_Transfer_From_LineSumOrderByAggregateInput = {
+    mfl_id?: SortOrder
+    mfl_mtf_id?: SortOrder
+    mfl_acc_id?: SortOrder
+    mfl_amt?: SortOrder
   }
 
   export type EnumBalanceAmtTypeFilter<$PrismaModel = never> = {
@@ -64531,6 +69213,13 @@ export namespace Prisma {
     connect?: Finance_Money_TransactionWhereUniqueInput | Finance_Money_TransactionWhereUniqueInput[]
   }
 
+  export type Money_From_TransactionCreateNestedManyWithoutOwnerInput = {
+    create?: XOR<Money_From_TransactionCreateWithoutOwnerInput, Money_From_TransactionUncheckedCreateWithoutOwnerInput> | Money_From_TransactionCreateWithoutOwnerInput[] | Money_From_TransactionUncheckedCreateWithoutOwnerInput[]
+    connectOrCreate?: Money_From_TransactionCreateOrConnectWithoutOwnerInput | Money_From_TransactionCreateOrConnectWithoutOwnerInput[]
+    createMany?: Money_From_TransactionCreateManyOwnerInputEnvelope
+    connect?: Money_From_TransactionWhereUniqueInput | Money_From_TransactionWhereUniqueInput[]
+  }
+
   export type JournalCreateNestedManyWithoutOwnerInput = {
     create?: XOR<JournalCreateWithoutOwnerInput, JournalUncheckedCreateWithoutOwnerInput> | JournalCreateWithoutOwnerInput[] | JournalUncheckedCreateWithoutOwnerInput[]
     connectOrCreate?: JournalCreateOrConnectWithoutOwnerInput | JournalCreateOrConnectWithoutOwnerInput[]
@@ -64676,6 +69365,13 @@ export namespace Prisma {
     connectOrCreate?: Finance_Money_TransactionCreateOrConnectWithoutOwnerInput | Finance_Money_TransactionCreateOrConnectWithoutOwnerInput[]
     createMany?: Finance_Money_TransactionCreateManyOwnerInputEnvelope
     connect?: Finance_Money_TransactionWhereUniqueInput | Finance_Money_TransactionWhereUniqueInput[]
+  }
+
+  export type Money_From_TransactionUncheckedCreateNestedManyWithoutOwnerInput = {
+    create?: XOR<Money_From_TransactionCreateWithoutOwnerInput, Money_From_TransactionUncheckedCreateWithoutOwnerInput> | Money_From_TransactionCreateWithoutOwnerInput[] | Money_From_TransactionUncheckedCreateWithoutOwnerInput[]
+    connectOrCreate?: Money_From_TransactionCreateOrConnectWithoutOwnerInput | Money_From_TransactionCreateOrConnectWithoutOwnerInput[]
+    createMany?: Money_From_TransactionCreateManyOwnerInputEnvelope
+    connect?: Money_From_TransactionWhereUniqueInput | Money_From_TransactionWhereUniqueInput[]
   }
 
   export type JournalUncheckedCreateNestedManyWithoutOwnerInput = {
@@ -64897,6 +69593,20 @@ export namespace Prisma {
     update?: Finance_Money_TransactionUpdateWithWhereUniqueWithoutOwnerInput | Finance_Money_TransactionUpdateWithWhereUniqueWithoutOwnerInput[]
     updateMany?: Finance_Money_TransactionUpdateManyWithWhereWithoutOwnerInput | Finance_Money_TransactionUpdateManyWithWhereWithoutOwnerInput[]
     deleteMany?: Finance_Money_TransactionScalarWhereInput | Finance_Money_TransactionScalarWhereInput[]
+  }
+
+  export type Money_From_TransactionUpdateManyWithoutOwnerNestedInput = {
+    create?: XOR<Money_From_TransactionCreateWithoutOwnerInput, Money_From_TransactionUncheckedCreateWithoutOwnerInput> | Money_From_TransactionCreateWithoutOwnerInput[] | Money_From_TransactionUncheckedCreateWithoutOwnerInput[]
+    connectOrCreate?: Money_From_TransactionCreateOrConnectWithoutOwnerInput | Money_From_TransactionCreateOrConnectWithoutOwnerInput[]
+    upsert?: Money_From_TransactionUpsertWithWhereUniqueWithoutOwnerInput | Money_From_TransactionUpsertWithWhereUniqueWithoutOwnerInput[]
+    createMany?: Money_From_TransactionCreateManyOwnerInputEnvelope
+    set?: Money_From_TransactionWhereUniqueInput | Money_From_TransactionWhereUniqueInput[]
+    disconnect?: Money_From_TransactionWhereUniqueInput | Money_From_TransactionWhereUniqueInput[]
+    delete?: Money_From_TransactionWhereUniqueInput | Money_From_TransactionWhereUniqueInput[]
+    connect?: Money_From_TransactionWhereUniqueInput | Money_From_TransactionWhereUniqueInput[]
+    update?: Money_From_TransactionUpdateWithWhereUniqueWithoutOwnerInput | Money_From_TransactionUpdateWithWhereUniqueWithoutOwnerInput[]
+    updateMany?: Money_From_TransactionUpdateManyWithWhereWithoutOwnerInput | Money_From_TransactionUpdateManyWithWhereWithoutOwnerInput[]
+    deleteMany?: Money_From_TransactionScalarWhereInput | Money_From_TransactionScalarWhereInput[]
   }
 
   export type JournalUpdateManyWithoutOwnerNestedInput = {
@@ -65201,6 +69911,20 @@ export namespace Prisma {
     deleteMany?: Finance_Money_TransactionScalarWhereInput | Finance_Money_TransactionScalarWhereInput[]
   }
 
+  export type Money_From_TransactionUncheckedUpdateManyWithoutOwnerNestedInput = {
+    create?: XOR<Money_From_TransactionCreateWithoutOwnerInput, Money_From_TransactionUncheckedCreateWithoutOwnerInput> | Money_From_TransactionCreateWithoutOwnerInput[] | Money_From_TransactionUncheckedCreateWithoutOwnerInput[]
+    connectOrCreate?: Money_From_TransactionCreateOrConnectWithoutOwnerInput | Money_From_TransactionCreateOrConnectWithoutOwnerInput[]
+    upsert?: Money_From_TransactionUpsertWithWhereUniqueWithoutOwnerInput | Money_From_TransactionUpsertWithWhereUniqueWithoutOwnerInput[]
+    createMany?: Money_From_TransactionCreateManyOwnerInputEnvelope
+    set?: Money_From_TransactionWhereUniqueInput | Money_From_TransactionWhereUniqueInput[]
+    disconnect?: Money_From_TransactionWhereUniqueInput | Money_From_TransactionWhereUniqueInput[]
+    delete?: Money_From_TransactionWhereUniqueInput | Money_From_TransactionWhereUniqueInput[]
+    connect?: Money_From_TransactionWhereUniqueInput | Money_From_TransactionWhereUniqueInput[]
+    update?: Money_From_TransactionUpdateWithWhereUniqueWithoutOwnerInput | Money_From_TransactionUpdateWithWhereUniqueWithoutOwnerInput[]
+    updateMany?: Money_From_TransactionUpdateManyWithWhereWithoutOwnerInput | Money_From_TransactionUpdateManyWithWhereWithoutOwnerInput[]
+    deleteMany?: Money_From_TransactionScalarWhereInput | Money_From_TransactionScalarWhereInput[]
+  }
+
   export type JournalUncheckedUpdateManyWithoutOwnerNestedInput = {
     create?: XOR<JournalCreateWithoutOwnerInput, JournalUncheckedCreateWithoutOwnerInput> | JournalCreateWithoutOwnerInput[] | JournalUncheckedCreateWithoutOwnerInput[]
     connectOrCreate?: JournalCreateOrConnectWithoutOwnerInput | JournalCreateOrConnectWithoutOwnerInput[]
@@ -65452,6 +70176,13 @@ export namespace Prisma {
     connect?: Finance_Money_TransactionWhereUniqueInput | Finance_Money_TransactionWhereUniqueInput[]
   }
 
+  export type Money_From_TransactionCreateNestedManyWithoutFirmInput = {
+    create?: XOR<Money_From_TransactionCreateWithoutFirmInput, Money_From_TransactionUncheckedCreateWithoutFirmInput> | Money_From_TransactionCreateWithoutFirmInput[] | Money_From_TransactionUncheckedCreateWithoutFirmInput[]
+    connectOrCreate?: Money_From_TransactionCreateOrConnectWithoutFirmInput | Money_From_TransactionCreateOrConnectWithoutFirmInput[]
+    createMany?: Money_From_TransactionCreateManyFirmInputEnvelope
+    connect?: Money_From_TransactionWhereUniqueInput | Money_From_TransactionWhereUniqueInput[]
+  }
+
   export type JournalCreateNestedManyWithoutFirmInput = {
     create?: XOR<JournalCreateWithoutFirmInput, JournalUncheckedCreateWithoutFirmInput> | JournalCreateWithoutFirmInput[] | JournalUncheckedCreateWithoutFirmInput[]
     connectOrCreate?: JournalCreateOrConnectWithoutFirmInput | JournalCreateOrConnectWithoutFirmInput[]
@@ -65595,6 +70326,13 @@ export namespace Prisma {
     connectOrCreate?: Finance_Money_TransactionCreateOrConnectWithoutFirmInput | Finance_Money_TransactionCreateOrConnectWithoutFirmInput[]
     createMany?: Finance_Money_TransactionCreateManyFirmInputEnvelope
     connect?: Finance_Money_TransactionWhereUniqueInput | Finance_Money_TransactionWhereUniqueInput[]
+  }
+
+  export type Money_From_TransactionUncheckedCreateNestedManyWithoutFirmInput = {
+    create?: XOR<Money_From_TransactionCreateWithoutFirmInput, Money_From_TransactionUncheckedCreateWithoutFirmInput> | Money_From_TransactionCreateWithoutFirmInput[] | Money_From_TransactionUncheckedCreateWithoutFirmInput[]
+    connectOrCreate?: Money_From_TransactionCreateOrConnectWithoutFirmInput | Money_From_TransactionCreateOrConnectWithoutFirmInput[]
+    createMany?: Money_From_TransactionCreateManyFirmInputEnvelope
+    connect?: Money_From_TransactionWhereUniqueInput | Money_From_TransactionWhereUniqueInput[]
   }
 
   export type JournalUncheckedCreateNestedManyWithoutFirmInput = {
@@ -65791,6 +70529,20 @@ export namespace Prisma {
     update?: Finance_Money_TransactionUpdateWithWhereUniqueWithoutFirmInput | Finance_Money_TransactionUpdateWithWhereUniqueWithoutFirmInput[]
     updateMany?: Finance_Money_TransactionUpdateManyWithWhereWithoutFirmInput | Finance_Money_TransactionUpdateManyWithWhereWithoutFirmInput[]
     deleteMany?: Finance_Money_TransactionScalarWhereInput | Finance_Money_TransactionScalarWhereInput[]
+  }
+
+  export type Money_From_TransactionUpdateManyWithoutFirmNestedInput = {
+    create?: XOR<Money_From_TransactionCreateWithoutFirmInput, Money_From_TransactionUncheckedCreateWithoutFirmInput> | Money_From_TransactionCreateWithoutFirmInput[] | Money_From_TransactionUncheckedCreateWithoutFirmInput[]
+    connectOrCreate?: Money_From_TransactionCreateOrConnectWithoutFirmInput | Money_From_TransactionCreateOrConnectWithoutFirmInput[]
+    upsert?: Money_From_TransactionUpsertWithWhereUniqueWithoutFirmInput | Money_From_TransactionUpsertWithWhereUniqueWithoutFirmInput[]
+    createMany?: Money_From_TransactionCreateManyFirmInputEnvelope
+    set?: Money_From_TransactionWhereUniqueInput | Money_From_TransactionWhereUniqueInput[]
+    disconnect?: Money_From_TransactionWhereUniqueInput | Money_From_TransactionWhereUniqueInput[]
+    delete?: Money_From_TransactionWhereUniqueInput | Money_From_TransactionWhereUniqueInput[]
+    connect?: Money_From_TransactionWhereUniqueInput | Money_From_TransactionWhereUniqueInput[]
+    update?: Money_From_TransactionUpdateWithWhereUniqueWithoutFirmInput | Money_From_TransactionUpdateWithWhereUniqueWithoutFirmInput[]
+    updateMany?: Money_From_TransactionUpdateManyWithWhereWithoutFirmInput | Money_From_TransactionUpdateManyWithWhereWithoutFirmInput[]
+    deleteMany?: Money_From_TransactionScalarWhereInput | Money_From_TransactionScalarWhereInput[]
   }
 
   export type JournalUpdateManyWithoutFirmNestedInput = {
@@ -66077,6 +70829,20 @@ export namespace Prisma {
     update?: Finance_Money_TransactionUpdateWithWhereUniqueWithoutFirmInput | Finance_Money_TransactionUpdateWithWhereUniqueWithoutFirmInput[]
     updateMany?: Finance_Money_TransactionUpdateManyWithWhereWithoutFirmInput | Finance_Money_TransactionUpdateManyWithWhereWithoutFirmInput[]
     deleteMany?: Finance_Money_TransactionScalarWhereInput | Finance_Money_TransactionScalarWhereInput[]
+  }
+
+  export type Money_From_TransactionUncheckedUpdateManyWithoutFirmNestedInput = {
+    create?: XOR<Money_From_TransactionCreateWithoutFirmInput, Money_From_TransactionUncheckedCreateWithoutFirmInput> | Money_From_TransactionCreateWithoutFirmInput[] | Money_From_TransactionUncheckedCreateWithoutFirmInput[]
+    connectOrCreate?: Money_From_TransactionCreateOrConnectWithoutFirmInput | Money_From_TransactionCreateOrConnectWithoutFirmInput[]
+    upsert?: Money_From_TransactionUpsertWithWhereUniqueWithoutFirmInput | Money_From_TransactionUpsertWithWhereUniqueWithoutFirmInput[]
+    createMany?: Money_From_TransactionCreateManyFirmInputEnvelope
+    set?: Money_From_TransactionWhereUniqueInput | Money_From_TransactionWhereUniqueInput[]
+    disconnect?: Money_From_TransactionWhereUniqueInput | Money_From_TransactionWhereUniqueInput[]
+    delete?: Money_From_TransactionWhereUniqueInput | Money_From_TransactionWhereUniqueInput[]
+    connect?: Money_From_TransactionWhereUniqueInput | Money_From_TransactionWhereUniqueInput[]
+    update?: Money_From_TransactionUpdateWithWhereUniqueWithoutFirmInput | Money_From_TransactionUpdateWithWhereUniqueWithoutFirmInput[]
+    updateMany?: Money_From_TransactionUpdateManyWithWhereWithoutFirmInput | Money_From_TransactionUpdateManyWithWhereWithoutFirmInput[]
+    deleteMany?: Money_From_TransactionScalarWhereInput | Money_From_TransactionScalarWhereInput[]
   }
 
   export type JournalUncheckedUpdateManyWithoutFirmNestedInput = {
@@ -66608,6 +71374,27 @@ export namespace Prisma {
     connect?: GirviReleaseWhereUniqueInput | GirviReleaseWhereUniqueInput[]
   }
 
+  export type Money_From_TransactionCreateNestedManyWithoutFromAccountInput = {
+    create?: XOR<Money_From_TransactionCreateWithoutFromAccountInput, Money_From_TransactionUncheckedCreateWithoutFromAccountInput> | Money_From_TransactionCreateWithoutFromAccountInput[] | Money_From_TransactionUncheckedCreateWithoutFromAccountInput[]
+    connectOrCreate?: Money_From_TransactionCreateOrConnectWithoutFromAccountInput | Money_From_TransactionCreateOrConnectWithoutFromAccountInput[]
+    createMany?: Money_From_TransactionCreateManyFromAccountInputEnvelope
+    connect?: Money_From_TransactionWhereUniqueInput | Money_From_TransactionWhereUniqueInput[]
+  }
+
+  export type Money_Transfer_From_LineCreateNestedManyWithoutAccountInput = {
+    create?: XOR<Money_Transfer_From_LineCreateWithoutAccountInput, Money_Transfer_From_LineUncheckedCreateWithoutAccountInput> | Money_Transfer_From_LineCreateWithoutAccountInput[] | Money_Transfer_From_LineUncheckedCreateWithoutAccountInput[]
+    connectOrCreate?: Money_Transfer_From_LineCreateOrConnectWithoutAccountInput | Money_Transfer_From_LineCreateOrConnectWithoutAccountInput[]
+    createMany?: Money_Transfer_From_LineCreateManyAccountInputEnvelope
+    connect?: Money_Transfer_From_LineWhereUniqueInput | Money_Transfer_From_LineWhereUniqueInput[]
+  }
+
+  export type Money_To_TransactionCreateNestedManyWithoutToAccountInput = {
+    create?: XOR<Money_To_TransactionCreateWithoutToAccountInput, Money_To_TransactionUncheckedCreateWithoutToAccountInput> | Money_To_TransactionCreateWithoutToAccountInput[] | Money_To_TransactionUncheckedCreateWithoutToAccountInput[]
+    connectOrCreate?: Money_To_TransactionCreateOrConnectWithoutToAccountInput | Money_To_TransactionCreateOrConnectWithoutToAccountInput[]
+    createMany?: Money_To_TransactionCreateManyToAccountInputEnvelope
+    connect?: Money_To_TransactionWhereUniqueInput | Money_To_TransactionWhereUniqueInput[]
+  }
+
   export type FinanceUncheckedCreateNestedManyWithoutCashAccountInput = {
     create?: XOR<FinanceCreateWithoutCashAccountInput, FinanceUncheckedCreateWithoutCashAccountInput> | FinanceCreateWithoutCashAccountInput[] | FinanceUncheckedCreateWithoutCashAccountInput[]
     connectOrCreate?: FinanceCreateOrConnectWithoutCashAccountInput | FinanceCreateOrConnectWithoutCashAccountInput[]
@@ -66907,6 +71694,27 @@ export namespace Prisma {
     connectOrCreate?: GirviReleaseCreateOrConnectWithoutCardAccountInput | GirviReleaseCreateOrConnectWithoutCardAccountInput[]
     createMany?: GirviReleaseCreateManyCardAccountInputEnvelope
     connect?: GirviReleaseWhereUniqueInput | GirviReleaseWhereUniqueInput[]
+  }
+
+  export type Money_From_TransactionUncheckedCreateNestedManyWithoutFromAccountInput = {
+    create?: XOR<Money_From_TransactionCreateWithoutFromAccountInput, Money_From_TransactionUncheckedCreateWithoutFromAccountInput> | Money_From_TransactionCreateWithoutFromAccountInput[] | Money_From_TransactionUncheckedCreateWithoutFromAccountInput[]
+    connectOrCreate?: Money_From_TransactionCreateOrConnectWithoutFromAccountInput | Money_From_TransactionCreateOrConnectWithoutFromAccountInput[]
+    createMany?: Money_From_TransactionCreateManyFromAccountInputEnvelope
+    connect?: Money_From_TransactionWhereUniqueInput | Money_From_TransactionWhereUniqueInput[]
+  }
+
+  export type Money_Transfer_From_LineUncheckedCreateNestedManyWithoutAccountInput = {
+    create?: XOR<Money_Transfer_From_LineCreateWithoutAccountInput, Money_Transfer_From_LineUncheckedCreateWithoutAccountInput> | Money_Transfer_From_LineCreateWithoutAccountInput[] | Money_Transfer_From_LineUncheckedCreateWithoutAccountInput[]
+    connectOrCreate?: Money_Transfer_From_LineCreateOrConnectWithoutAccountInput | Money_Transfer_From_LineCreateOrConnectWithoutAccountInput[]
+    createMany?: Money_Transfer_From_LineCreateManyAccountInputEnvelope
+    connect?: Money_Transfer_From_LineWhereUniqueInput | Money_Transfer_From_LineWhereUniqueInput[]
+  }
+
+  export type Money_To_TransactionUncheckedCreateNestedManyWithoutToAccountInput = {
+    create?: XOR<Money_To_TransactionCreateWithoutToAccountInput, Money_To_TransactionUncheckedCreateWithoutToAccountInput> | Money_To_TransactionCreateWithoutToAccountInput[] | Money_To_TransactionUncheckedCreateWithoutToAccountInput[]
+    connectOrCreate?: Money_To_TransactionCreateOrConnectWithoutToAccountInput | Money_To_TransactionCreateOrConnectWithoutToAccountInput[]
+    createMany?: Money_To_TransactionCreateManyToAccountInputEnvelope
+    connect?: Money_To_TransactionWhereUniqueInput | Money_To_TransactionWhereUniqueInput[]
   }
 
   export type EnumAccountBalanceTypeFieldUpdateOperationsInput = {
@@ -67531,6 +72339,48 @@ export namespace Prisma {
     deleteMany?: GirviReleaseScalarWhereInput | GirviReleaseScalarWhereInput[]
   }
 
+  export type Money_From_TransactionUpdateManyWithoutFromAccountNestedInput = {
+    create?: XOR<Money_From_TransactionCreateWithoutFromAccountInput, Money_From_TransactionUncheckedCreateWithoutFromAccountInput> | Money_From_TransactionCreateWithoutFromAccountInput[] | Money_From_TransactionUncheckedCreateWithoutFromAccountInput[]
+    connectOrCreate?: Money_From_TransactionCreateOrConnectWithoutFromAccountInput | Money_From_TransactionCreateOrConnectWithoutFromAccountInput[]
+    upsert?: Money_From_TransactionUpsertWithWhereUniqueWithoutFromAccountInput | Money_From_TransactionUpsertWithWhereUniqueWithoutFromAccountInput[]
+    createMany?: Money_From_TransactionCreateManyFromAccountInputEnvelope
+    set?: Money_From_TransactionWhereUniqueInput | Money_From_TransactionWhereUniqueInput[]
+    disconnect?: Money_From_TransactionWhereUniqueInput | Money_From_TransactionWhereUniqueInput[]
+    delete?: Money_From_TransactionWhereUniqueInput | Money_From_TransactionWhereUniqueInput[]
+    connect?: Money_From_TransactionWhereUniqueInput | Money_From_TransactionWhereUniqueInput[]
+    update?: Money_From_TransactionUpdateWithWhereUniqueWithoutFromAccountInput | Money_From_TransactionUpdateWithWhereUniqueWithoutFromAccountInput[]
+    updateMany?: Money_From_TransactionUpdateManyWithWhereWithoutFromAccountInput | Money_From_TransactionUpdateManyWithWhereWithoutFromAccountInput[]
+    deleteMany?: Money_From_TransactionScalarWhereInput | Money_From_TransactionScalarWhereInput[]
+  }
+
+  export type Money_Transfer_From_LineUpdateManyWithoutAccountNestedInput = {
+    create?: XOR<Money_Transfer_From_LineCreateWithoutAccountInput, Money_Transfer_From_LineUncheckedCreateWithoutAccountInput> | Money_Transfer_From_LineCreateWithoutAccountInput[] | Money_Transfer_From_LineUncheckedCreateWithoutAccountInput[]
+    connectOrCreate?: Money_Transfer_From_LineCreateOrConnectWithoutAccountInput | Money_Transfer_From_LineCreateOrConnectWithoutAccountInput[]
+    upsert?: Money_Transfer_From_LineUpsertWithWhereUniqueWithoutAccountInput | Money_Transfer_From_LineUpsertWithWhereUniqueWithoutAccountInput[]
+    createMany?: Money_Transfer_From_LineCreateManyAccountInputEnvelope
+    set?: Money_Transfer_From_LineWhereUniqueInput | Money_Transfer_From_LineWhereUniqueInput[]
+    disconnect?: Money_Transfer_From_LineWhereUniqueInput | Money_Transfer_From_LineWhereUniqueInput[]
+    delete?: Money_Transfer_From_LineWhereUniqueInput | Money_Transfer_From_LineWhereUniqueInput[]
+    connect?: Money_Transfer_From_LineWhereUniqueInput | Money_Transfer_From_LineWhereUniqueInput[]
+    update?: Money_Transfer_From_LineUpdateWithWhereUniqueWithoutAccountInput | Money_Transfer_From_LineUpdateWithWhereUniqueWithoutAccountInput[]
+    updateMany?: Money_Transfer_From_LineUpdateManyWithWhereWithoutAccountInput | Money_Transfer_From_LineUpdateManyWithWhereWithoutAccountInput[]
+    deleteMany?: Money_Transfer_From_LineScalarWhereInput | Money_Transfer_From_LineScalarWhereInput[]
+  }
+
+  export type Money_To_TransactionUpdateManyWithoutToAccountNestedInput = {
+    create?: XOR<Money_To_TransactionCreateWithoutToAccountInput, Money_To_TransactionUncheckedCreateWithoutToAccountInput> | Money_To_TransactionCreateWithoutToAccountInput[] | Money_To_TransactionUncheckedCreateWithoutToAccountInput[]
+    connectOrCreate?: Money_To_TransactionCreateOrConnectWithoutToAccountInput | Money_To_TransactionCreateOrConnectWithoutToAccountInput[]
+    upsert?: Money_To_TransactionUpsertWithWhereUniqueWithoutToAccountInput | Money_To_TransactionUpsertWithWhereUniqueWithoutToAccountInput[]
+    createMany?: Money_To_TransactionCreateManyToAccountInputEnvelope
+    set?: Money_To_TransactionWhereUniqueInput | Money_To_TransactionWhereUniqueInput[]
+    disconnect?: Money_To_TransactionWhereUniqueInput | Money_To_TransactionWhereUniqueInput[]
+    delete?: Money_To_TransactionWhereUniqueInput | Money_To_TransactionWhereUniqueInput[]
+    connect?: Money_To_TransactionWhereUniqueInput | Money_To_TransactionWhereUniqueInput[]
+    update?: Money_To_TransactionUpdateWithWhereUniqueWithoutToAccountInput | Money_To_TransactionUpdateWithWhereUniqueWithoutToAccountInput[]
+    updateMany?: Money_To_TransactionUpdateManyWithWhereWithoutToAccountInput | Money_To_TransactionUpdateManyWithWhereWithoutToAccountInput[]
+    deleteMany?: Money_To_TransactionScalarWhereInput | Money_To_TransactionScalarWhereInput[]
+  }
+
   export type FinanceUncheckedUpdateManyWithoutCashAccountNestedInput = {
     create?: XOR<FinanceCreateWithoutCashAccountInput, FinanceUncheckedCreateWithoutCashAccountInput> | FinanceCreateWithoutCashAccountInput[] | FinanceUncheckedCreateWithoutCashAccountInput[]
     connectOrCreate?: FinanceCreateOrConnectWithoutCashAccountInput | FinanceCreateOrConnectWithoutCashAccountInput[]
@@ -68131,6 +72981,48 @@ export namespace Prisma {
     update?: GirviReleaseUpdateWithWhereUniqueWithoutCardAccountInput | GirviReleaseUpdateWithWhereUniqueWithoutCardAccountInput[]
     updateMany?: GirviReleaseUpdateManyWithWhereWithoutCardAccountInput | GirviReleaseUpdateManyWithWhereWithoutCardAccountInput[]
     deleteMany?: GirviReleaseScalarWhereInput | GirviReleaseScalarWhereInput[]
+  }
+
+  export type Money_From_TransactionUncheckedUpdateManyWithoutFromAccountNestedInput = {
+    create?: XOR<Money_From_TransactionCreateWithoutFromAccountInput, Money_From_TransactionUncheckedCreateWithoutFromAccountInput> | Money_From_TransactionCreateWithoutFromAccountInput[] | Money_From_TransactionUncheckedCreateWithoutFromAccountInput[]
+    connectOrCreate?: Money_From_TransactionCreateOrConnectWithoutFromAccountInput | Money_From_TransactionCreateOrConnectWithoutFromAccountInput[]
+    upsert?: Money_From_TransactionUpsertWithWhereUniqueWithoutFromAccountInput | Money_From_TransactionUpsertWithWhereUniqueWithoutFromAccountInput[]
+    createMany?: Money_From_TransactionCreateManyFromAccountInputEnvelope
+    set?: Money_From_TransactionWhereUniqueInput | Money_From_TransactionWhereUniqueInput[]
+    disconnect?: Money_From_TransactionWhereUniqueInput | Money_From_TransactionWhereUniqueInput[]
+    delete?: Money_From_TransactionWhereUniqueInput | Money_From_TransactionWhereUniqueInput[]
+    connect?: Money_From_TransactionWhereUniqueInput | Money_From_TransactionWhereUniqueInput[]
+    update?: Money_From_TransactionUpdateWithWhereUniqueWithoutFromAccountInput | Money_From_TransactionUpdateWithWhereUniqueWithoutFromAccountInput[]
+    updateMany?: Money_From_TransactionUpdateManyWithWhereWithoutFromAccountInput | Money_From_TransactionUpdateManyWithWhereWithoutFromAccountInput[]
+    deleteMany?: Money_From_TransactionScalarWhereInput | Money_From_TransactionScalarWhereInput[]
+  }
+
+  export type Money_Transfer_From_LineUncheckedUpdateManyWithoutAccountNestedInput = {
+    create?: XOR<Money_Transfer_From_LineCreateWithoutAccountInput, Money_Transfer_From_LineUncheckedCreateWithoutAccountInput> | Money_Transfer_From_LineCreateWithoutAccountInput[] | Money_Transfer_From_LineUncheckedCreateWithoutAccountInput[]
+    connectOrCreate?: Money_Transfer_From_LineCreateOrConnectWithoutAccountInput | Money_Transfer_From_LineCreateOrConnectWithoutAccountInput[]
+    upsert?: Money_Transfer_From_LineUpsertWithWhereUniqueWithoutAccountInput | Money_Transfer_From_LineUpsertWithWhereUniqueWithoutAccountInput[]
+    createMany?: Money_Transfer_From_LineCreateManyAccountInputEnvelope
+    set?: Money_Transfer_From_LineWhereUniqueInput | Money_Transfer_From_LineWhereUniqueInput[]
+    disconnect?: Money_Transfer_From_LineWhereUniqueInput | Money_Transfer_From_LineWhereUniqueInput[]
+    delete?: Money_Transfer_From_LineWhereUniqueInput | Money_Transfer_From_LineWhereUniqueInput[]
+    connect?: Money_Transfer_From_LineWhereUniqueInput | Money_Transfer_From_LineWhereUniqueInput[]
+    update?: Money_Transfer_From_LineUpdateWithWhereUniqueWithoutAccountInput | Money_Transfer_From_LineUpdateWithWhereUniqueWithoutAccountInput[]
+    updateMany?: Money_Transfer_From_LineUpdateManyWithWhereWithoutAccountInput | Money_Transfer_From_LineUpdateManyWithWhereWithoutAccountInput[]
+    deleteMany?: Money_Transfer_From_LineScalarWhereInput | Money_Transfer_From_LineScalarWhereInput[]
+  }
+
+  export type Money_To_TransactionUncheckedUpdateManyWithoutToAccountNestedInput = {
+    create?: XOR<Money_To_TransactionCreateWithoutToAccountInput, Money_To_TransactionUncheckedCreateWithoutToAccountInput> | Money_To_TransactionCreateWithoutToAccountInput[] | Money_To_TransactionUncheckedCreateWithoutToAccountInput[]
+    connectOrCreate?: Money_To_TransactionCreateOrConnectWithoutToAccountInput | Money_To_TransactionCreateOrConnectWithoutToAccountInput[]
+    upsert?: Money_To_TransactionUpsertWithWhereUniqueWithoutToAccountInput | Money_To_TransactionUpsertWithWhereUniqueWithoutToAccountInput[]
+    createMany?: Money_To_TransactionCreateManyToAccountInputEnvelope
+    set?: Money_To_TransactionWhereUniqueInput | Money_To_TransactionWhereUniqueInput[]
+    disconnect?: Money_To_TransactionWhereUniqueInput | Money_To_TransactionWhereUniqueInput[]
+    delete?: Money_To_TransactionWhereUniqueInput | Money_To_TransactionWhereUniqueInput[]
+    connect?: Money_To_TransactionWhereUniqueInput | Money_To_TransactionWhereUniqueInput[]
+    update?: Money_To_TransactionUpdateWithWhereUniqueWithoutToAccountInput | Money_To_TransactionUpdateWithWhereUniqueWithoutToAccountInput[]
+    updateMany?: Money_To_TransactionUpdateManyWithWhereWithoutToAccountInput | Money_To_TransactionUpdateManyWithWhereWithoutToAccountInput[]
+    deleteMany?: Money_To_TransactionScalarWhereInput | Money_To_TransactionScalarWhereInput[]
   }
 
   export type OwnerCreateNestedOneWithoutUsersInput = {
@@ -69106,6 +73998,13 @@ export namespace Prisma {
     connect?: Finance_Money_TransactionWhereUniqueInput | Finance_Money_TransactionWhereUniqueInput[]
   }
 
+  export type Money_From_TransactionCreateNestedManyWithoutJournalInput = {
+    create?: XOR<Money_From_TransactionCreateWithoutJournalInput, Money_From_TransactionUncheckedCreateWithoutJournalInput> | Money_From_TransactionCreateWithoutJournalInput[] | Money_From_TransactionUncheckedCreateWithoutJournalInput[]
+    connectOrCreate?: Money_From_TransactionCreateOrConnectWithoutJournalInput | Money_From_TransactionCreateOrConnectWithoutJournalInput[]
+    createMany?: Money_From_TransactionCreateManyJournalInputEnvelope
+    connect?: Money_From_TransactionWhereUniqueInput | Money_From_TransactionWhereUniqueInput[]
+  }
+
   export type FirmCreateNestedOneWithoutJournalsInput = {
     create?: XOR<FirmCreateWithoutJournalsInput, FirmUncheckedCreateWithoutJournalsInput>
     connectOrCreate?: FirmCreateOrConnectWithoutJournalsInput
@@ -69138,6 +74037,13 @@ export namespace Prisma {
     connect?: Finance_Money_TransactionWhereUniqueInput | Finance_Money_TransactionWhereUniqueInput[]
   }
 
+  export type Money_From_TransactionUncheckedCreateNestedManyWithoutJournalInput = {
+    create?: XOR<Money_From_TransactionCreateWithoutJournalInput, Money_From_TransactionUncheckedCreateWithoutJournalInput> | Money_From_TransactionCreateWithoutJournalInput[] | Money_From_TransactionUncheckedCreateWithoutJournalInput[]
+    connectOrCreate?: Money_From_TransactionCreateOrConnectWithoutJournalInput | Money_From_TransactionCreateOrConnectWithoutJournalInput[]
+    createMany?: Money_From_TransactionCreateManyJournalInputEnvelope
+    connect?: Money_From_TransactionWhereUniqueInput | Money_From_TransactionWhereUniqueInput[]
+  }
+
   export type JournalTransactionUncheckedCreateNestedManyWithoutJournalInput = {
     create?: XOR<JournalTransactionCreateWithoutJournalInput, JournalTransactionUncheckedCreateWithoutJournalInput> | JournalTransactionCreateWithoutJournalInput[] | JournalTransactionUncheckedCreateWithoutJournalInput[]
     connectOrCreate?: JournalTransactionCreateOrConnectWithoutJournalInput | JournalTransactionCreateOrConnectWithoutJournalInput[]
@@ -69157,6 +74063,20 @@ export namespace Prisma {
     update?: Finance_Money_TransactionUpdateWithWhereUniqueWithoutJournalInput | Finance_Money_TransactionUpdateWithWhereUniqueWithoutJournalInput[]
     updateMany?: Finance_Money_TransactionUpdateManyWithWhereWithoutJournalInput | Finance_Money_TransactionUpdateManyWithWhereWithoutJournalInput[]
     deleteMany?: Finance_Money_TransactionScalarWhereInput | Finance_Money_TransactionScalarWhereInput[]
+  }
+
+  export type Money_From_TransactionUpdateManyWithoutJournalNestedInput = {
+    create?: XOR<Money_From_TransactionCreateWithoutJournalInput, Money_From_TransactionUncheckedCreateWithoutJournalInput> | Money_From_TransactionCreateWithoutJournalInput[] | Money_From_TransactionUncheckedCreateWithoutJournalInput[]
+    connectOrCreate?: Money_From_TransactionCreateOrConnectWithoutJournalInput | Money_From_TransactionCreateOrConnectWithoutJournalInput[]
+    upsert?: Money_From_TransactionUpsertWithWhereUniqueWithoutJournalInput | Money_From_TransactionUpsertWithWhereUniqueWithoutJournalInput[]
+    createMany?: Money_From_TransactionCreateManyJournalInputEnvelope
+    set?: Money_From_TransactionWhereUniqueInput | Money_From_TransactionWhereUniqueInput[]
+    disconnect?: Money_From_TransactionWhereUniqueInput | Money_From_TransactionWhereUniqueInput[]
+    delete?: Money_From_TransactionWhereUniqueInput | Money_From_TransactionWhereUniqueInput[]
+    connect?: Money_From_TransactionWhereUniqueInput | Money_From_TransactionWhereUniqueInput[]
+    update?: Money_From_TransactionUpdateWithWhereUniqueWithoutJournalInput | Money_From_TransactionUpdateWithWhereUniqueWithoutJournalInput[]
+    updateMany?: Money_From_TransactionUpdateManyWithWhereWithoutJournalInput | Money_From_TransactionUpdateManyWithWhereWithoutJournalInput[]
+    deleteMany?: Money_From_TransactionScalarWhereInput | Money_From_TransactionScalarWhereInput[]
   }
 
   export type FirmUpdateOneRequiredWithoutJournalsNestedInput = {
@@ -69213,6 +74133,20 @@ export namespace Prisma {
     deleteMany?: Finance_Money_TransactionScalarWhereInput | Finance_Money_TransactionScalarWhereInput[]
   }
 
+  export type Money_From_TransactionUncheckedUpdateManyWithoutJournalNestedInput = {
+    create?: XOR<Money_From_TransactionCreateWithoutJournalInput, Money_From_TransactionUncheckedCreateWithoutJournalInput> | Money_From_TransactionCreateWithoutJournalInput[] | Money_From_TransactionUncheckedCreateWithoutJournalInput[]
+    connectOrCreate?: Money_From_TransactionCreateOrConnectWithoutJournalInput | Money_From_TransactionCreateOrConnectWithoutJournalInput[]
+    upsert?: Money_From_TransactionUpsertWithWhereUniqueWithoutJournalInput | Money_From_TransactionUpsertWithWhereUniqueWithoutJournalInput[]
+    createMany?: Money_From_TransactionCreateManyJournalInputEnvelope
+    set?: Money_From_TransactionWhereUniqueInput | Money_From_TransactionWhereUniqueInput[]
+    disconnect?: Money_From_TransactionWhereUniqueInput | Money_From_TransactionWhereUniqueInput[]
+    delete?: Money_From_TransactionWhereUniqueInput | Money_From_TransactionWhereUniqueInput[]
+    connect?: Money_From_TransactionWhereUniqueInput | Money_From_TransactionWhereUniqueInput[]
+    update?: Money_From_TransactionUpdateWithWhereUniqueWithoutJournalInput | Money_From_TransactionUpdateWithWhereUniqueWithoutJournalInput[]
+    updateMany?: Money_From_TransactionUpdateManyWithWhereWithoutJournalInput | Money_From_TransactionUpdateManyWithWhereWithoutJournalInput[]
+    deleteMany?: Money_From_TransactionScalarWhereInput | Money_From_TransactionScalarWhereInput[]
+  }
+
   export type JournalTransactionUncheckedUpdateManyWithoutJournalNestedInput = {
     create?: XOR<JournalTransactionCreateWithoutJournalInput, JournalTransactionUncheckedCreateWithoutJournalInput> | JournalTransactionCreateWithoutJournalInput[] | JournalTransactionUncheckedCreateWithoutJournalInput[]
     connectOrCreate?: JournalTransactionCreateOrConnectWithoutJournalInput | JournalTransactionCreateOrConnectWithoutJournalInput[]
@@ -69225,6 +74159,212 @@ export namespace Prisma {
     update?: JournalTransactionUpdateWithWhereUniqueWithoutJournalInput | JournalTransactionUpdateWithWhereUniqueWithoutJournalInput[]
     updateMany?: JournalTransactionUpdateManyWithWhereWithoutJournalInput | JournalTransactionUpdateManyWithWhereWithoutJournalInput[]
     deleteMany?: JournalTransactionScalarWhereInput | JournalTransactionScalarWhereInput[]
+  }
+
+  export type FirmCreateNestedOneWithoutMoneyFromTransactionsInput = {
+    create?: XOR<FirmCreateWithoutMoneyFromTransactionsInput, FirmUncheckedCreateWithoutMoneyFromTransactionsInput>
+    connectOrCreate?: FirmCreateOrConnectWithoutMoneyFromTransactionsInput
+    connect?: FirmWhereUniqueInput
+  }
+
+  export type OwnerCreateNestedOneWithoutMoneyFromTransactionsInput = {
+    create?: XOR<OwnerCreateWithoutMoneyFromTransactionsInput, OwnerUncheckedCreateWithoutMoneyFromTransactionsInput>
+    connectOrCreate?: OwnerCreateOrConnectWithoutMoneyFromTransactionsInput
+    connect?: OwnerWhereUniqueInput
+  }
+
+  export type AccountCreateNestedOneWithoutMtfFromAccountInput = {
+    create?: XOR<AccountCreateWithoutMtfFromAccountInput, AccountUncheckedCreateWithoutMtfFromAccountInput>
+    connectOrCreate?: AccountCreateOrConnectWithoutMtfFromAccountInput
+    connect?: AccountWhereUniqueInput
+  }
+
+  export type JournalCreateNestedOneWithoutMoneyFromTransactionsInput = {
+    create?: XOR<JournalCreateWithoutMoneyFromTransactionsInput, JournalUncheckedCreateWithoutMoneyFromTransactionsInput>
+    connectOrCreate?: JournalCreateOrConnectWithoutMoneyFromTransactionsInput
+    connect?: JournalWhereUniqueInput
+  }
+
+  export type Money_Transfer_From_LineCreateNestedManyWithoutFromTransactionInput = {
+    create?: XOR<Money_Transfer_From_LineCreateWithoutFromTransactionInput, Money_Transfer_From_LineUncheckedCreateWithoutFromTransactionInput> | Money_Transfer_From_LineCreateWithoutFromTransactionInput[] | Money_Transfer_From_LineUncheckedCreateWithoutFromTransactionInput[]
+    connectOrCreate?: Money_Transfer_From_LineCreateOrConnectWithoutFromTransactionInput | Money_Transfer_From_LineCreateOrConnectWithoutFromTransactionInput[]
+    createMany?: Money_Transfer_From_LineCreateManyFromTransactionInputEnvelope
+    connect?: Money_Transfer_From_LineWhereUniqueInput | Money_Transfer_From_LineWhereUniqueInput[]
+  }
+
+  export type Money_To_TransactionCreateNestedManyWithoutFromTransactionInput = {
+    create?: XOR<Money_To_TransactionCreateWithoutFromTransactionInput, Money_To_TransactionUncheckedCreateWithoutFromTransactionInput> | Money_To_TransactionCreateWithoutFromTransactionInput[] | Money_To_TransactionUncheckedCreateWithoutFromTransactionInput[]
+    connectOrCreate?: Money_To_TransactionCreateOrConnectWithoutFromTransactionInput | Money_To_TransactionCreateOrConnectWithoutFromTransactionInput[]
+    createMany?: Money_To_TransactionCreateManyFromTransactionInputEnvelope
+    connect?: Money_To_TransactionWhereUniqueInput | Money_To_TransactionWhereUniqueInput[]
+  }
+
+  export type Money_Transfer_From_LineUncheckedCreateNestedManyWithoutFromTransactionInput = {
+    create?: XOR<Money_Transfer_From_LineCreateWithoutFromTransactionInput, Money_Transfer_From_LineUncheckedCreateWithoutFromTransactionInput> | Money_Transfer_From_LineCreateWithoutFromTransactionInput[] | Money_Transfer_From_LineUncheckedCreateWithoutFromTransactionInput[]
+    connectOrCreate?: Money_Transfer_From_LineCreateOrConnectWithoutFromTransactionInput | Money_Transfer_From_LineCreateOrConnectWithoutFromTransactionInput[]
+    createMany?: Money_Transfer_From_LineCreateManyFromTransactionInputEnvelope
+    connect?: Money_Transfer_From_LineWhereUniqueInput | Money_Transfer_From_LineWhereUniqueInput[]
+  }
+
+  export type Money_To_TransactionUncheckedCreateNestedManyWithoutFromTransactionInput = {
+    create?: XOR<Money_To_TransactionCreateWithoutFromTransactionInput, Money_To_TransactionUncheckedCreateWithoutFromTransactionInput> | Money_To_TransactionCreateWithoutFromTransactionInput[] | Money_To_TransactionUncheckedCreateWithoutFromTransactionInput[]
+    connectOrCreate?: Money_To_TransactionCreateOrConnectWithoutFromTransactionInput | Money_To_TransactionCreateOrConnectWithoutFromTransactionInput[]
+    createMany?: Money_To_TransactionCreateManyFromTransactionInputEnvelope
+    connect?: Money_To_TransactionWhereUniqueInput | Money_To_TransactionWhereUniqueInput[]
+  }
+
+  export type EnumMoneyTransferModeFieldUpdateOperationsInput = {
+    set?: $Enums.MoneyTransferMode
+  }
+
+  export type EnumMoneyTransferDirectionFieldUpdateOperationsInput = {
+    set?: $Enums.MoneyTransferDirection
+  }
+
+  export type FirmUpdateOneRequiredWithoutMoneyFromTransactionsNestedInput = {
+    create?: XOR<FirmCreateWithoutMoneyFromTransactionsInput, FirmUncheckedCreateWithoutMoneyFromTransactionsInput>
+    connectOrCreate?: FirmCreateOrConnectWithoutMoneyFromTransactionsInput
+    upsert?: FirmUpsertWithoutMoneyFromTransactionsInput
+    connect?: FirmWhereUniqueInput
+    update?: XOR<XOR<FirmUpdateToOneWithWhereWithoutMoneyFromTransactionsInput, FirmUpdateWithoutMoneyFromTransactionsInput>, FirmUncheckedUpdateWithoutMoneyFromTransactionsInput>
+  }
+
+  export type OwnerUpdateOneRequiredWithoutMoneyFromTransactionsNestedInput = {
+    create?: XOR<OwnerCreateWithoutMoneyFromTransactionsInput, OwnerUncheckedCreateWithoutMoneyFromTransactionsInput>
+    connectOrCreate?: OwnerCreateOrConnectWithoutMoneyFromTransactionsInput
+    upsert?: OwnerUpsertWithoutMoneyFromTransactionsInput
+    connect?: OwnerWhereUniqueInput
+    update?: XOR<XOR<OwnerUpdateToOneWithWhereWithoutMoneyFromTransactionsInput, OwnerUpdateWithoutMoneyFromTransactionsInput>, OwnerUncheckedUpdateWithoutMoneyFromTransactionsInput>
+  }
+
+  export type AccountUpdateOneRequiredWithoutMtfFromAccountNestedInput = {
+    create?: XOR<AccountCreateWithoutMtfFromAccountInput, AccountUncheckedCreateWithoutMtfFromAccountInput>
+    connectOrCreate?: AccountCreateOrConnectWithoutMtfFromAccountInput
+    upsert?: AccountUpsertWithoutMtfFromAccountInput
+    connect?: AccountWhereUniqueInput
+    update?: XOR<XOR<AccountUpdateToOneWithWhereWithoutMtfFromAccountInput, AccountUpdateWithoutMtfFromAccountInput>, AccountUncheckedUpdateWithoutMtfFromAccountInput>
+  }
+
+  export type JournalUpdateOneWithoutMoneyFromTransactionsNestedInput = {
+    create?: XOR<JournalCreateWithoutMoneyFromTransactionsInput, JournalUncheckedCreateWithoutMoneyFromTransactionsInput>
+    connectOrCreate?: JournalCreateOrConnectWithoutMoneyFromTransactionsInput
+    upsert?: JournalUpsertWithoutMoneyFromTransactionsInput
+    disconnect?: JournalWhereInput | boolean
+    delete?: JournalWhereInput | boolean
+    connect?: JournalWhereUniqueInput
+    update?: XOR<XOR<JournalUpdateToOneWithWhereWithoutMoneyFromTransactionsInput, JournalUpdateWithoutMoneyFromTransactionsInput>, JournalUncheckedUpdateWithoutMoneyFromTransactionsInput>
+  }
+
+  export type Money_Transfer_From_LineUpdateManyWithoutFromTransactionNestedInput = {
+    create?: XOR<Money_Transfer_From_LineCreateWithoutFromTransactionInput, Money_Transfer_From_LineUncheckedCreateWithoutFromTransactionInput> | Money_Transfer_From_LineCreateWithoutFromTransactionInput[] | Money_Transfer_From_LineUncheckedCreateWithoutFromTransactionInput[]
+    connectOrCreate?: Money_Transfer_From_LineCreateOrConnectWithoutFromTransactionInput | Money_Transfer_From_LineCreateOrConnectWithoutFromTransactionInput[]
+    upsert?: Money_Transfer_From_LineUpsertWithWhereUniqueWithoutFromTransactionInput | Money_Transfer_From_LineUpsertWithWhereUniqueWithoutFromTransactionInput[]
+    createMany?: Money_Transfer_From_LineCreateManyFromTransactionInputEnvelope
+    set?: Money_Transfer_From_LineWhereUniqueInput | Money_Transfer_From_LineWhereUniqueInput[]
+    disconnect?: Money_Transfer_From_LineWhereUniqueInput | Money_Transfer_From_LineWhereUniqueInput[]
+    delete?: Money_Transfer_From_LineWhereUniqueInput | Money_Transfer_From_LineWhereUniqueInput[]
+    connect?: Money_Transfer_From_LineWhereUniqueInput | Money_Transfer_From_LineWhereUniqueInput[]
+    update?: Money_Transfer_From_LineUpdateWithWhereUniqueWithoutFromTransactionInput | Money_Transfer_From_LineUpdateWithWhereUniqueWithoutFromTransactionInput[]
+    updateMany?: Money_Transfer_From_LineUpdateManyWithWhereWithoutFromTransactionInput | Money_Transfer_From_LineUpdateManyWithWhereWithoutFromTransactionInput[]
+    deleteMany?: Money_Transfer_From_LineScalarWhereInput | Money_Transfer_From_LineScalarWhereInput[]
+  }
+
+  export type Money_To_TransactionUpdateManyWithoutFromTransactionNestedInput = {
+    create?: XOR<Money_To_TransactionCreateWithoutFromTransactionInput, Money_To_TransactionUncheckedCreateWithoutFromTransactionInput> | Money_To_TransactionCreateWithoutFromTransactionInput[] | Money_To_TransactionUncheckedCreateWithoutFromTransactionInput[]
+    connectOrCreate?: Money_To_TransactionCreateOrConnectWithoutFromTransactionInput | Money_To_TransactionCreateOrConnectWithoutFromTransactionInput[]
+    upsert?: Money_To_TransactionUpsertWithWhereUniqueWithoutFromTransactionInput | Money_To_TransactionUpsertWithWhereUniqueWithoutFromTransactionInput[]
+    createMany?: Money_To_TransactionCreateManyFromTransactionInputEnvelope
+    set?: Money_To_TransactionWhereUniqueInput | Money_To_TransactionWhereUniqueInput[]
+    disconnect?: Money_To_TransactionWhereUniqueInput | Money_To_TransactionWhereUniqueInput[]
+    delete?: Money_To_TransactionWhereUniqueInput | Money_To_TransactionWhereUniqueInput[]
+    connect?: Money_To_TransactionWhereUniqueInput | Money_To_TransactionWhereUniqueInput[]
+    update?: Money_To_TransactionUpdateWithWhereUniqueWithoutFromTransactionInput | Money_To_TransactionUpdateWithWhereUniqueWithoutFromTransactionInput[]
+    updateMany?: Money_To_TransactionUpdateManyWithWhereWithoutFromTransactionInput | Money_To_TransactionUpdateManyWithWhereWithoutFromTransactionInput[]
+    deleteMany?: Money_To_TransactionScalarWhereInput | Money_To_TransactionScalarWhereInput[]
+  }
+
+  export type Money_Transfer_From_LineUncheckedUpdateManyWithoutFromTransactionNestedInput = {
+    create?: XOR<Money_Transfer_From_LineCreateWithoutFromTransactionInput, Money_Transfer_From_LineUncheckedCreateWithoutFromTransactionInput> | Money_Transfer_From_LineCreateWithoutFromTransactionInput[] | Money_Transfer_From_LineUncheckedCreateWithoutFromTransactionInput[]
+    connectOrCreate?: Money_Transfer_From_LineCreateOrConnectWithoutFromTransactionInput | Money_Transfer_From_LineCreateOrConnectWithoutFromTransactionInput[]
+    upsert?: Money_Transfer_From_LineUpsertWithWhereUniqueWithoutFromTransactionInput | Money_Transfer_From_LineUpsertWithWhereUniqueWithoutFromTransactionInput[]
+    createMany?: Money_Transfer_From_LineCreateManyFromTransactionInputEnvelope
+    set?: Money_Transfer_From_LineWhereUniqueInput | Money_Transfer_From_LineWhereUniqueInput[]
+    disconnect?: Money_Transfer_From_LineWhereUniqueInput | Money_Transfer_From_LineWhereUniqueInput[]
+    delete?: Money_Transfer_From_LineWhereUniqueInput | Money_Transfer_From_LineWhereUniqueInput[]
+    connect?: Money_Transfer_From_LineWhereUniqueInput | Money_Transfer_From_LineWhereUniqueInput[]
+    update?: Money_Transfer_From_LineUpdateWithWhereUniqueWithoutFromTransactionInput | Money_Transfer_From_LineUpdateWithWhereUniqueWithoutFromTransactionInput[]
+    updateMany?: Money_Transfer_From_LineUpdateManyWithWhereWithoutFromTransactionInput | Money_Transfer_From_LineUpdateManyWithWhereWithoutFromTransactionInput[]
+    deleteMany?: Money_Transfer_From_LineScalarWhereInput | Money_Transfer_From_LineScalarWhereInput[]
+  }
+
+  export type Money_To_TransactionUncheckedUpdateManyWithoutFromTransactionNestedInput = {
+    create?: XOR<Money_To_TransactionCreateWithoutFromTransactionInput, Money_To_TransactionUncheckedCreateWithoutFromTransactionInput> | Money_To_TransactionCreateWithoutFromTransactionInput[] | Money_To_TransactionUncheckedCreateWithoutFromTransactionInput[]
+    connectOrCreate?: Money_To_TransactionCreateOrConnectWithoutFromTransactionInput | Money_To_TransactionCreateOrConnectWithoutFromTransactionInput[]
+    upsert?: Money_To_TransactionUpsertWithWhereUniqueWithoutFromTransactionInput | Money_To_TransactionUpsertWithWhereUniqueWithoutFromTransactionInput[]
+    createMany?: Money_To_TransactionCreateManyFromTransactionInputEnvelope
+    set?: Money_To_TransactionWhereUniqueInput | Money_To_TransactionWhereUniqueInput[]
+    disconnect?: Money_To_TransactionWhereUniqueInput | Money_To_TransactionWhereUniqueInput[]
+    delete?: Money_To_TransactionWhereUniqueInput | Money_To_TransactionWhereUniqueInput[]
+    connect?: Money_To_TransactionWhereUniqueInput | Money_To_TransactionWhereUniqueInput[]
+    update?: Money_To_TransactionUpdateWithWhereUniqueWithoutFromTransactionInput | Money_To_TransactionUpdateWithWhereUniqueWithoutFromTransactionInput[]
+    updateMany?: Money_To_TransactionUpdateManyWithWhereWithoutFromTransactionInput | Money_To_TransactionUpdateManyWithWhereWithoutFromTransactionInput[]
+    deleteMany?: Money_To_TransactionScalarWhereInput | Money_To_TransactionScalarWhereInput[]
+  }
+
+  export type Money_From_TransactionCreateNestedOneWithoutToRowsInput = {
+    create?: XOR<Money_From_TransactionCreateWithoutToRowsInput, Money_From_TransactionUncheckedCreateWithoutToRowsInput>
+    connectOrCreate?: Money_From_TransactionCreateOrConnectWithoutToRowsInput
+    connect?: Money_From_TransactionWhereUniqueInput
+  }
+
+  export type AccountCreateNestedOneWithoutMttToAccountInput = {
+    create?: XOR<AccountCreateWithoutMttToAccountInput, AccountUncheckedCreateWithoutMttToAccountInput>
+    connectOrCreate?: AccountCreateOrConnectWithoutMttToAccountInput
+    connect?: AccountWhereUniqueInput
+  }
+
+  export type Money_From_TransactionUpdateOneRequiredWithoutToRowsNestedInput = {
+    create?: XOR<Money_From_TransactionCreateWithoutToRowsInput, Money_From_TransactionUncheckedCreateWithoutToRowsInput>
+    connectOrCreate?: Money_From_TransactionCreateOrConnectWithoutToRowsInput
+    upsert?: Money_From_TransactionUpsertWithoutToRowsInput
+    connect?: Money_From_TransactionWhereUniqueInput
+    update?: XOR<XOR<Money_From_TransactionUpdateToOneWithWhereWithoutToRowsInput, Money_From_TransactionUpdateWithoutToRowsInput>, Money_From_TransactionUncheckedUpdateWithoutToRowsInput>
+  }
+
+  export type AccountUpdateOneRequiredWithoutMttToAccountNestedInput = {
+    create?: XOR<AccountCreateWithoutMttToAccountInput, AccountUncheckedCreateWithoutMttToAccountInput>
+    connectOrCreate?: AccountCreateOrConnectWithoutMttToAccountInput
+    upsert?: AccountUpsertWithoutMttToAccountInput
+    connect?: AccountWhereUniqueInput
+    update?: XOR<XOR<AccountUpdateToOneWithWhereWithoutMttToAccountInput, AccountUpdateWithoutMttToAccountInput>, AccountUncheckedUpdateWithoutMttToAccountInput>
+  }
+
+  export type Money_From_TransactionCreateNestedOneWithoutFromLinesInput = {
+    create?: XOR<Money_From_TransactionCreateWithoutFromLinesInput, Money_From_TransactionUncheckedCreateWithoutFromLinesInput>
+    connectOrCreate?: Money_From_TransactionCreateOrConnectWithoutFromLinesInput
+    connect?: Money_From_TransactionWhereUniqueInput
+  }
+
+  export type AccountCreateNestedOneWithoutMtfFromLinesInput = {
+    create?: XOR<AccountCreateWithoutMtfFromLinesInput, AccountUncheckedCreateWithoutMtfFromLinesInput>
+    connectOrCreate?: AccountCreateOrConnectWithoutMtfFromLinesInput
+    connect?: AccountWhereUniqueInput
+  }
+
+  export type Money_From_TransactionUpdateOneRequiredWithoutFromLinesNestedInput = {
+    create?: XOR<Money_From_TransactionCreateWithoutFromLinesInput, Money_From_TransactionUncheckedCreateWithoutFromLinesInput>
+    connectOrCreate?: Money_From_TransactionCreateOrConnectWithoutFromLinesInput
+    upsert?: Money_From_TransactionUpsertWithoutFromLinesInput
+    connect?: Money_From_TransactionWhereUniqueInput
+    update?: XOR<XOR<Money_From_TransactionUpdateToOneWithWhereWithoutFromLinesInput, Money_From_TransactionUpdateWithoutFromLinesInput>, Money_From_TransactionUncheckedUpdateWithoutFromLinesInput>
+  }
+
+  export type AccountUpdateOneRequiredWithoutMtfFromLinesNestedInput = {
+    create?: XOR<AccountCreateWithoutMtfFromLinesInput, AccountUncheckedCreateWithoutMtfFromLinesInput>
+    connectOrCreate?: AccountCreateOrConnectWithoutMtfFromLinesInput
+    upsert?: AccountUpsertWithoutMtfFromLinesInput
+    connect?: AccountWhereUniqueInput
+    update?: XOR<XOR<AccountUpdateToOneWithWhereWithoutMtfFromLinesInput, AccountUpdateWithoutMtfFromLinesInput>, AccountUncheckedUpdateWithoutMtfFromLinesInput>
   }
 
   export type JournalCreateNestedOneWithoutJournalTransactionsInput = {
@@ -71208,6 +76348,40 @@ export namespace Prisma {
     _max?: NestedEnumBalanceTypeFilter<$PrismaModel>
   }
 
+  export type NestedEnumMoneyTransferModeFilter<$PrismaModel = never> = {
+    equals?: $Enums.MoneyTransferMode | EnumMoneyTransferModeFieldRefInput<$PrismaModel>
+    in?: $Enums.MoneyTransferMode[] | ListEnumMoneyTransferModeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MoneyTransferMode[] | ListEnumMoneyTransferModeFieldRefInput<$PrismaModel>
+    not?: NestedEnumMoneyTransferModeFilter<$PrismaModel> | $Enums.MoneyTransferMode
+  }
+
+  export type NestedEnumMoneyTransferDirectionFilter<$PrismaModel = never> = {
+    equals?: $Enums.MoneyTransferDirection | EnumMoneyTransferDirectionFieldRefInput<$PrismaModel>
+    in?: $Enums.MoneyTransferDirection[] | ListEnumMoneyTransferDirectionFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MoneyTransferDirection[] | ListEnumMoneyTransferDirectionFieldRefInput<$PrismaModel>
+    not?: NestedEnumMoneyTransferDirectionFilter<$PrismaModel> | $Enums.MoneyTransferDirection
+  }
+
+  export type NestedEnumMoneyTransferModeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.MoneyTransferMode | EnumMoneyTransferModeFieldRefInput<$PrismaModel>
+    in?: $Enums.MoneyTransferMode[] | ListEnumMoneyTransferModeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MoneyTransferMode[] | ListEnumMoneyTransferModeFieldRefInput<$PrismaModel>
+    not?: NestedEnumMoneyTransferModeWithAggregatesFilter<$PrismaModel> | $Enums.MoneyTransferMode
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumMoneyTransferModeFilter<$PrismaModel>
+    _max?: NestedEnumMoneyTransferModeFilter<$PrismaModel>
+  }
+
+  export type NestedEnumMoneyTransferDirectionWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.MoneyTransferDirection | EnumMoneyTransferDirectionFieldRefInput<$PrismaModel>
+    in?: $Enums.MoneyTransferDirection[] | ListEnumMoneyTransferDirectionFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MoneyTransferDirection[] | ListEnumMoneyTransferDirectionFieldRefInput<$PrismaModel>
+    not?: NestedEnumMoneyTransferDirectionWithAggregatesFilter<$PrismaModel> | $Enums.MoneyTransferDirection
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumMoneyTransferDirectionFilter<$PrismaModel>
+    _max?: NestedEnumMoneyTransferDirectionFilter<$PrismaModel>
+  }
+
   export type NestedEnumBalanceAmtTypeFilter<$PrismaModel = never> = {
     equals?: $Enums.BalanceAmtType | EnumBalanceAmtTypeFieldRefInput<$PrismaModel>
     in?: $Enums.BalanceAmtType[] | ListEnumBalanceAmtTypeFieldRefInput<$PrismaModel>
@@ -71733,6 +76907,7 @@ export namespace Prisma {
     finances?: FinanceCreateNestedManyWithoutFirmInput
     financeTransactions?: Finance_TransactionCreateNestedManyWithoutFirmInput
     financeMoneyTrans?: Finance_Money_TransactionCreateNestedManyWithoutFirmInput
+    moneyFromTransactions?: Money_From_TransactionCreateNestedManyWithoutFirmInput
     journals?: JournalCreateNestedManyWithoutFirmInput
     journalTransactions?: JournalTransactionCreateNestedManyWithoutFirmInput
     girvis?: GirviCreateNestedManyWithoutFirmInput
@@ -71806,6 +76981,7 @@ export namespace Prisma {
     finances?: FinanceUncheckedCreateNestedManyWithoutFirmInput
     financeTransactions?: Finance_TransactionUncheckedCreateNestedManyWithoutFirmInput
     financeMoneyTrans?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutFirmInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedCreateNestedManyWithoutFirmInput
     journals?: JournalUncheckedCreateNestedManyWithoutFirmInput
     journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutFirmInput
     girvis?: GirviUncheckedCreateNestedManyWithoutFirmInput
@@ -71905,6 +77081,9 @@ export namespace Prisma {
     relBank?: GirviReleaseCreateNestedManyWithoutBankAccountInput
     relOnline?: GirviReleaseCreateNestedManyWithoutOnlineAccountInput
     relCard?: GirviReleaseCreateNestedManyWithoutCardAccountInput
+    mtfFromAccount?: Money_From_TransactionCreateNestedManyWithoutFromAccountInput
+    mtfFromLines?: Money_Transfer_From_LineCreateNestedManyWithoutAccountInput
+    mttToAccount?: Money_To_TransactionCreateNestedManyWithoutToAccountInput
   }
 
   export type AccountUncheckedCreateWithoutOwnerInput = {
@@ -71979,6 +77158,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUncheckedCreateNestedManyWithoutBankAccountInput
     relOnline?: GirviReleaseUncheckedCreateNestedManyWithoutOnlineAccountInput
     relCard?: GirviReleaseUncheckedCreateNestedManyWithoutCardAccountInput
+    mtfFromAccount?: Money_From_TransactionUncheckedCreateNestedManyWithoutFromAccountInput
+    mtfFromLines?: Money_Transfer_From_LineUncheckedCreateNestedManyWithoutAccountInput
+    mttToAccount?: Money_To_TransactionUncheckedCreateNestedManyWithoutToAccountInput
   }
 
   export type AccountCreateOrConnectWithoutOwnerInput = {
@@ -72250,6 +77432,63 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type Money_From_TransactionCreateWithoutOwnerInput = {
+    mtf_uuid?: string
+    mtf_trans_date: string
+    mtf_mode?: $Enums.MoneyTransferMode
+    mtf_direction?: $Enums.MoneyTransferDirection
+    mtf_total_amt: number
+    mtf_panel?: string
+    mtf_narration?: string | null
+    mtf_other_info?: string | null
+    mtf_created_at?: Date | string
+    mtf_created_by?: string | null
+    mtf_updated_at?: Date | string
+    mtf_updated_by?: string | null
+    mtf_deleted_at?: Date | string | null
+    mtf_deleted_by?: string | null
+    mtf_is_deleted?: boolean
+    firm: FirmCreateNestedOneWithoutMoneyFromTransactionsInput
+    fromAccount: AccountCreateNestedOneWithoutMtfFromAccountInput
+    journal?: JournalCreateNestedOneWithoutMoneyFromTransactionsInput
+    fromLines?: Money_Transfer_From_LineCreateNestedManyWithoutFromTransactionInput
+    toRows?: Money_To_TransactionCreateNestedManyWithoutFromTransactionInput
+  }
+
+  export type Money_From_TransactionUncheckedCreateWithoutOwnerInput = {
+    mtf_id?: number
+    mtf_uuid?: string
+    mtf_firm_id: number
+    mtf_jrnl_id?: number | null
+    mtf_from_acc_id: number
+    mtf_trans_date: string
+    mtf_mode?: $Enums.MoneyTransferMode
+    mtf_direction?: $Enums.MoneyTransferDirection
+    mtf_total_amt: number
+    mtf_panel?: string
+    mtf_narration?: string | null
+    mtf_other_info?: string | null
+    mtf_created_at?: Date | string
+    mtf_created_by?: string | null
+    mtf_updated_at?: Date | string
+    mtf_updated_by?: string | null
+    mtf_deleted_at?: Date | string | null
+    mtf_deleted_by?: string | null
+    mtf_is_deleted?: boolean
+    fromLines?: Money_Transfer_From_LineUncheckedCreateNestedManyWithoutFromTransactionInput
+    toRows?: Money_To_TransactionUncheckedCreateNestedManyWithoutFromTransactionInput
+  }
+
+  export type Money_From_TransactionCreateOrConnectWithoutOwnerInput = {
+    where: Money_From_TransactionWhereUniqueInput
+    create: XOR<Money_From_TransactionCreateWithoutOwnerInput, Money_From_TransactionUncheckedCreateWithoutOwnerInput>
+  }
+
+  export type Money_From_TransactionCreateManyOwnerInputEnvelope = {
+    data: Money_From_TransactionCreateManyOwnerInput | Money_From_TransactionCreateManyOwnerInput[]
+    skipDuplicates?: boolean
+  }
+
   export type JournalCreateWithoutOwnerInput = {
     jrnl_uuid?: string
     jrnl_add_date?: string | null
@@ -72265,6 +77504,7 @@ export namespace Prisma {
     jrnl_deleted_by?: string | null
     jrnl_is_deleted?: boolean
     financeMoneyTransactions?: Finance_Money_TransactionCreateNestedManyWithoutJournalInput
+    moneyFromTransactions?: Money_From_TransactionCreateNestedManyWithoutJournalInput
     firm: FirmCreateNestedOneWithoutJournalsInput
     user?: UserCreateNestedOneWithoutJournalsInput
     journalTransactions?: JournalTransactionCreateNestedManyWithoutJournalInput
@@ -72288,6 +77528,7 @@ export namespace Prisma {
     jrnl_deleted_by?: string | null
     jrnl_is_deleted?: boolean
     financeMoneyTransactions?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutJournalInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedCreateNestedManyWithoutJournalInput
     journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutJournalInput
   }
 
@@ -73680,6 +78921,48 @@ export namespace Prisma {
     fm_is_deleted?: BoolFilter<"Finance_Money_Transaction"> | boolean
   }
 
+  export type Money_From_TransactionUpsertWithWhereUniqueWithoutOwnerInput = {
+    where: Money_From_TransactionWhereUniqueInput
+    update: XOR<Money_From_TransactionUpdateWithoutOwnerInput, Money_From_TransactionUncheckedUpdateWithoutOwnerInput>
+    create: XOR<Money_From_TransactionCreateWithoutOwnerInput, Money_From_TransactionUncheckedCreateWithoutOwnerInput>
+  }
+
+  export type Money_From_TransactionUpdateWithWhereUniqueWithoutOwnerInput = {
+    where: Money_From_TransactionWhereUniqueInput
+    data: XOR<Money_From_TransactionUpdateWithoutOwnerInput, Money_From_TransactionUncheckedUpdateWithoutOwnerInput>
+  }
+
+  export type Money_From_TransactionUpdateManyWithWhereWithoutOwnerInput = {
+    where: Money_From_TransactionScalarWhereInput
+    data: XOR<Money_From_TransactionUpdateManyMutationInput, Money_From_TransactionUncheckedUpdateManyWithoutOwnerInput>
+  }
+
+  export type Money_From_TransactionScalarWhereInput = {
+    AND?: Money_From_TransactionScalarWhereInput | Money_From_TransactionScalarWhereInput[]
+    OR?: Money_From_TransactionScalarWhereInput[]
+    NOT?: Money_From_TransactionScalarWhereInput | Money_From_TransactionScalarWhereInput[]
+    mtf_id?: IntFilter<"Money_From_Transaction"> | number
+    mtf_uuid?: StringFilter<"Money_From_Transaction"> | string
+    mtf_firm_id?: IntFilter<"Money_From_Transaction"> | number
+    mtf_own_id?: IntFilter<"Money_From_Transaction"> | number
+    mtf_jrnl_id?: IntNullableFilter<"Money_From_Transaction"> | number | null
+    mtf_from_acc_id?: IntFilter<"Money_From_Transaction"> | number
+    mtf_trans_date?: StringFilter<"Money_From_Transaction"> | string
+    mtf_mode?: EnumMoneyTransferModeFilter<"Money_From_Transaction"> | $Enums.MoneyTransferMode
+    mtf_direction?: EnumMoneyTransferDirectionFilter<"Money_From_Transaction"> | $Enums.MoneyTransferDirection
+    mtf_total_amt?: FloatFilter<"Money_From_Transaction"> | number
+    mtf_panel?: StringFilter<"Money_From_Transaction"> | string
+    mtf_narration?: StringNullableFilter<"Money_From_Transaction"> | string | null
+    mtf_other_info?: StringNullableFilter<"Money_From_Transaction"> | string | null
+    mtf_created_at?: DateTimeFilter<"Money_From_Transaction"> | Date | string
+    mtf_created_by?: StringNullableFilter<"Money_From_Transaction"> | string | null
+    mtf_updated_at?: DateTimeFilter<"Money_From_Transaction"> | Date | string
+    mtf_updated_by?: StringNullableFilter<"Money_From_Transaction"> | string | null
+    mtf_deleted_at?: DateTimeNullableFilter<"Money_From_Transaction"> | Date | string | null
+    mtf_deleted_by?: StringNullableFilter<"Money_From_Transaction"> | string | null
+    mtf_is_deleted?: BoolFilter<"Money_From_Transaction"> | boolean
+  }
+
   export type JournalUpsertWithWhereUniqueWithoutOwnerInput = {
     where: JournalWhereUniqueInput
     update: XOR<JournalUpdateWithoutOwnerInput, JournalUncheckedUpdateWithoutOwnerInput>
@@ -74639,6 +79922,9 @@ export namespace Prisma {
     relBank?: GirviReleaseCreateNestedManyWithoutBankAccountInput
     relOnline?: GirviReleaseCreateNestedManyWithoutOnlineAccountInput
     relCard?: GirviReleaseCreateNestedManyWithoutCardAccountInput
+    mtfFromAccount?: Money_From_TransactionCreateNestedManyWithoutFromAccountInput
+    mtfFromLines?: Money_Transfer_From_LineCreateNestedManyWithoutAccountInput
+    mttToAccount?: Money_To_TransactionCreateNestedManyWithoutToAccountInput
   }
 
   export type AccountUncheckedCreateWithoutFirmInput = {
@@ -74713,6 +79999,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUncheckedCreateNestedManyWithoutBankAccountInput
     relOnline?: GirviReleaseUncheckedCreateNestedManyWithoutOnlineAccountInput
     relCard?: GirviReleaseUncheckedCreateNestedManyWithoutCardAccountInput
+    mtfFromAccount?: Money_From_TransactionUncheckedCreateNestedManyWithoutFromAccountInput
+    mtfFromLines?: Money_Transfer_From_LineUncheckedCreateNestedManyWithoutAccountInput
+    mttToAccount?: Money_To_TransactionUncheckedCreateNestedManyWithoutToAccountInput
   }
 
   export type AccountCreateOrConnectWithoutFirmInput = {
@@ -74775,6 +80064,7 @@ export namespace Prisma {
     finances?: FinanceCreateNestedManyWithoutOwnerInput
     financeTransactions?: Finance_TransactionCreateNestedManyWithoutOwnerInput
     financeMoneyTrans?: Finance_Money_TransactionCreateNestedManyWithoutOwnerInput
+    moneyFromTransactions?: Money_From_TransactionCreateNestedManyWithoutOwnerInput
     journals?: JournalCreateNestedManyWithoutOwnerInput
     journalTransactions?: JournalTransactionCreateNestedManyWithoutOwnerInput
     girvis?: GirviCreateNestedManyWithoutOwnerInput
@@ -74843,6 +80133,7 @@ export namespace Prisma {
     finances?: FinanceUncheckedCreateNestedManyWithoutOwnerInput
     financeTransactions?: Finance_TransactionUncheckedCreateNestedManyWithoutOwnerInput
     financeMoneyTrans?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutOwnerInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedCreateNestedManyWithoutOwnerInput
     journals?: JournalUncheckedCreateNestedManyWithoutOwnerInput
     journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutOwnerInput
     girvis?: GirviUncheckedCreateNestedManyWithoutOwnerInput
@@ -75124,6 +80415,63 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type Money_From_TransactionCreateWithoutFirmInput = {
+    mtf_uuid?: string
+    mtf_trans_date: string
+    mtf_mode?: $Enums.MoneyTransferMode
+    mtf_direction?: $Enums.MoneyTransferDirection
+    mtf_total_amt: number
+    mtf_panel?: string
+    mtf_narration?: string | null
+    mtf_other_info?: string | null
+    mtf_created_at?: Date | string
+    mtf_created_by?: string | null
+    mtf_updated_at?: Date | string
+    mtf_updated_by?: string | null
+    mtf_deleted_at?: Date | string | null
+    mtf_deleted_by?: string | null
+    mtf_is_deleted?: boolean
+    owner: OwnerCreateNestedOneWithoutMoneyFromTransactionsInput
+    fromAccount: AccountCreateNestedOneWithoutMtfFromAccountInput
+    journal?: JournalCreateNestedOneWithoutMoneyFromTransactionsInput
+    fromLines?: Money_Transfer_From_LineCreateNestedManyWithoutFromTransactionInput
+    toRows?: Money_To_TransactionCreateNestedManyWithoutFromTransactionInput
+  }
+
+  export type Money_From_TransactionUncheckedCreateWithoutFirmInput = {
+    mtf_id?: number
+    mtf_uuid?: string
+    mtf_own_id: number
+    mtf_jrnl_id?: number | null
+    mtf_from_acc_id: number
+    mtf_trans_date: string
+    mtf_mode?: $Enums.MoneyTransferMode
+    mtf_direction?: $Enums.MoneyTransferDirection
+    mtf_total_amt: number
+    mtf_panel?: string
+    mtf_narration?: string | null
+    mtf_other_info?: string | null
+    mtf_created_at?: Date | string
+    mtf_created_by?: string | null
+    mtf_updated_at?: Date | string
+    mtf_updated_by?: string | null
+    mtf_deleted_at?: Date | string | null
+    mtf_deleted_by?: string | null
+    mtf_is_deleted?: boolean
+    fromLines?: Money_Transfer_From_LineUncheckedCreateNestedManyWithoutFromTransactionInput
+    toRows?: Money_To_TransactionUncheckedCreateNestedManyWithoutFromTransactionInput
+  }
+
+  export type Money_From_TransactionCreateOrConnectWithoutFirmInput = {
+    where: Money_From_TransactionWhereUniqueInput
+    create: XOR<Money_From_TransactionCreateWithoutFirmInput, Money_From_TransactionUncheckedCreateWithoutFirmInput>
+  }
+
+  export type Money_From_TransactionCreateManyFirmInputEnvelope = {
+    data: Money_From_TransactionCreateManyFirmInput | Money_From_TransactionCreateManyFirmInput[]
+    skipDuplicates?: boolean
+  }
+
   export type JournalCreateWithoutFirmInput = {
     jrnl_uuid?: string
     jrnl_add_date?: string | null
@@ -75139,6 +80487,7 @@ export namespace Prisma {
     jrnl_deleted_by?: string | null
     jrnl_is_deleted?: boolean
     financeMoneyTransactions?: Finance_Money_TransactionCreateNestedManyWithoutJournalInput
+    moneyFromTransactions?: Money_From_TransactionCreateNestedManyWithoutJournalInput
     user?: UserCreateNestedOneWithoutJournalsInput
     owner: OwnerCreateNestedOneWithoutJournalsInput
     journalTransactions?: JournalTransactionCreateNestedManyWithoutJournalInput
@@ -75162,6 +80511,7 @@ export namespace Prisma {
     jrnl_deleted_by?: string | null
     jrnl_is_deleted?: boolean
     financeMoneyTransactions?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutJournalInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedCreateNestedManyWithoutJournalInput
     journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutJournalInput
   }
 
@@ -76276,6 +81626,7 @@ export namespace Prisma {
     finances?: FinanceUpdateManyWithoutOwnerNestedInput
     financeTransactions?: Finance_TransactionUpdateManyWithoutOwnerNestedInput
     financeMoneyTrans?: Finance_Money_TransactionUpdateManyWithoutOwnerNestedInput
+    moneyFromTransactions?: Money_From_TransactionUpdateManyWithoutOwnerNestedInput
     journals?: JournalUpdateManyWithoutOwnerNestedInput
     journalTransactions?: JournalTransactionUpdateManyWithoutOwnerNestedInput
     girvis?: GirviUpdateManyWithoutOwnerNestedInput
@@ -76344,6 +81695,7 @@ export namespace Prisma {
     finances?: FinanceUncheckedUpdateManyWithoutOwnerNestedInput
     financeTransactions?: Finance_TransactionUncheckedUpdateManyWithoutOwnerNestedInput
     financeMoneyTrans?: Finance_Money_TransactionUncheckedUpdateManyWithoutOwnerNestedInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedUpdateManyWithoutOwnerNestedInput
     journals?: JournalUncheckedUpdateManyWithoutOwnerNestedInput
     journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutOwnerNestedInput
     girvis?: GirviUncheckedUpdateManyWithoutOwnerNestedInput
@@ -76407,6 +81759,22 @@ export namespace Prisma {
   export type Finance_Money_TransactionUpdateManyWithWhereWithoutFirmInput = {
     where: Finance_Money_TransactionScalarWhereInput
     data: XOR<Finance_Money_TransactionUpdateManyMutationInput, Finance_Money_TransactionUncheckedUpdateManyWithoutFirmInput>
+  }
+
+  export type Money_From_TransactionUpsertWithWhereUniqueWithoutFirmInput = {
+    where: Money_From_TransactionWhereUniqueInput
+    update: XOR<Money_From_TransactionUpdateWithoutFirmInput, Money_From_TransactionUncheckedUpdateWithoutFirmInput>
+    create: XOR<Money_From_TransactionCreateWithoutFirmInput, Money_From_TransactionUncheckedCreateWithoutFirmInput>
+  }
+
+  export type Money_From_TransactionUpdateWithWhereUniqueWithoutFirmInput = {
+    where: Money_From_TransactionWhereUniqueInput
+    data: XOR<Money_From_TransactionUpdateWithoutFirmInput, Money_From_TransactionUncheckedUpdateWithoutFirmInput>
+  }
+
+  export type Money_From_TransactionUpdateManyWithWhereWithoutFirmInput = {
+    where: Money_From_TransactionScalarWhereInput
+    data: XOR<Money_From_TransactionUpdateManyMutationInput, Money_From_TransactionUncheckedUpdateManyWithoutFirmInput>
   }
 
   export type JournalUpsertWithWhereUniqueWithoutFirmInput = {
@@ -76858,6 +82226,7 @@ export namespace Prisma {
     finances?: FinanceCreateNestedManyWithoutOwnerInput
     financeTransactions?: Finance_TransactionCreateNestedManyWithoutOwnerInput
     financeMoneyTrans?: Finance_Money_TransactionCreateNestedManyWithoutOwnerInput
+    moneyFromTransactions?: Money_From_TransactionCreateNestedManyWithoutOwnerInput
     journals?: JournalCreateNestedManyWithoutOwnerInput
     journalTransactions?: JournalTransactionCreateNestedManyWithoutOwnerInput
     girvis?: GirviCreateNestedManyWithoutOwnerInput
@@ -76926,6 +82295,7 @@ export namespace Prisma {
     finances?: FinanceUncheckedCreateNestedManyWithoutOwnerInput
     financeTransactions?: Finance_TransactionUncheckedCreateNestedManyWithoutOwnerInput
     financeMoneyTrans?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutOwnerInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedCreateNestedManyWithoutOwnerInput
     journals?: JournalUncheckedCreateNestedManyWithoutOwnerInput
     journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutOwnerInput
     girvis?: GirviUncheckedCreateNestedManyWithoutOwnerInput
@@ -77002,6 +82372,7 @@ export namespace Prisma {
     finances?: FinanceCreateNestedManyWithoutFirmInput
     financeTransactions?: Finance_TransactionCreateNestedManyWithoutFirmInput
     financeMoneyTrans?: Finance_Money_TransactionCreateNestedManyWithoutFirmInput
+    moneyFromTransactions?: Money_From_TransactionCreateNestedManyWithoutFirmInput
     journals?: JournalCreateNestedManyWithoutFirmInput
     journalTransactions?: JournalTransactionCreateNestedManyWithoutFirmInput
     girvis?: GirviCreateNestedManyWithoutFirmInput
@@ -77075,6 +82446,7 @@ export namespace Prisma {
     finances?: FinanceUncheckedCreateNestedManyWithoutFirmInput
     financeTransactions?: Finance_TransactionUncheckedCreateNestedManyWithoutFirmInput
     financeMoneyTrans?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutFirmInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedCreateNestedManyWithoutFirmInput
     journals?: JournalUncheckedCreateNestedManyWithoutFirmInput
     journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutFirmInput
     girvis?: GirviUncheckedCreateNestedManyWithoutFirmInput
@@ -81171,6 +86543,113 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type Money_From_TransactionCreateWithoutFromAccountInput = {
+    mtf_uuid?: string
+    mtf_trans_date: string
+    mtf_mode?: $Enums.MoneyTransferMode
+    mtf_direction?: $Enums.MoneyTransferDirection
+    mtf_total_amt: number
+    mtf_panel?: string
+    mtf_narration?: string | null
+    mtf_other_info?: string | null
+    mtf_created_at?: Date | string
+    mtf_created_by?: string | null
+    mtf_updated_at?: Date | string
+    mtf_updated_by?: string | null
+    mtf_deleted_at?: Date | string | null
+    mtf_deleted_by?: string | null
+    mtf_is_deleted?: boolean
+    firm: FirmCreateNestedOneWithoutMoneyFromTransactionsInput
+    owner: OwnerCreateNestedOneWithoutMoneyFromTransactionsInput
+    journal?: JournalCreateNestedOneWithoutMoneyFromTransactionsInput
+    fromLines?: Money_Transfer_From_LineCreateNestedManyWithoutFromTransactionInput
+    toRows?: Money_To_TransactionCreateNestedManyWithoutFromTransactionInput
+  }
+
+  export type Money_From_TransactionUncheckedCreateWithoutFromAccountInput = {
+    mtf_id?: number
+    mtf_uuid?: string
+    mtf_firm_id: number
+    mtf_own_id: number
+    mtf_jrnl_id?: number | null
+    mtf_trans_date: string
+    mtf_mode?: $Enums.MoneyTransferMode
+    mtf_direction?: $Enums.MoneyTransferDirection
+    mtf_total_amt: number
+    mtf_panel?: string
+    mtf_narration?: string | null
+    mtf_other_info?: string | null
+    mtf_created_at?: Date | string
+    mtf_created_by?: string | null
+    mtf_updated_at?: Date | string
+    mtf_updated_by?: string | null
+    mtf_deleted_at?: Date | string | null
+    mtf_deleted_by?: string | null
+    mtf_is_deleted?: boolean
+    fromLines?: Money_Transfer_From_LineUncheckedCreateNestedManyWithoutFromTransactionInput
+    toRows?: Money_To_TransactionUncheckedCreateNestedManyWithoutFromTransactionInput
+  }
+
+  export type Money_From_TransactionCreateOrConnectWithoutFromAccountInput = {
+    where: Money_From_TransactionWhereUniqueInput
+    create: XOR<Money_From_TransactionCreateWithoutFromAccountInput, Money_From_TransactionUncheckedCreateWithoutFromAccountInput>
+  }
+
+  export type Money_From_TransactionCreateManyFromAccountInputEnvelope = {
+    data: Money_From_TransactionCreateManyFromAccountInput | Money_From_TransactionCreateManyFromAccountInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type Money_Transfer_From_LineCreateWithoutAccountInput = {
+    mfl_uuid?: string
+    mfl_amt: number
+    mfl_remarks?: string | null
+    fromTransaction: Money_From_TransactionCreateNestedOneWithoutFromLinesInput
+  }
+
+  export type Money_Transfer_From_LineUncheckedCreateWithoutAccountInput = {
+    mfl_id?: number
+    mfl_uuid?: string
+    mfl_mtf_id: number
+    mfl_amt: number
+    mfl_remarks?: string | null
+  }
+
+  export type Money_Transfer_From_LineCreateOrConnectWithoutAccountInput = {
+    where: Money_Transfer_From_LineWhereUniqueInput
+    create: XOR<Money_Transfer_From_LineCreateWithoutAccountInput, Money_Transfer_From_LineUncheckedCreateWithoutAccountInput>
+  }
+
+  export type Money_Transfer_From_LineCreateManyAccountInputEnvelope = {
+    data: Money_Transfer_From_LineCreateManyAccountInput | Money_Transfer_From_LineCreateManyAccountInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type Money_To_TransactionCreateWithoutToAccountInput = {
+    mtt_uuid?: string
+    mtt_amt: number
+    mtt_remarks?: string | null
+    fromTransaction: Money_From_TransactionCreateNestedOneWithoutToRowsInput
+  }
+
+  export type Money_To_TransactionUncheckedCreateWithoutToAccountInput = {
+    mtt_id?: number
+    mtt_uuid?: string
+    mtt_mtf_id: number
+    mtt_amt: number
+    mtt_remarks?: string | null
+  }
+
+  export type Money_To_TransactionCreateOrConnectWithoutToAccountInput = {
+    where: Money_To_TransactionWhereUniqueInput
+    create: XOR<Money_To_TransactionCreateWithoutToAccountInput, Money_To_TransactionUncheckedCreateWithoutToAccountInput>
+  }
+
+  export type Money_To_TransactionCreateManyToAccountInputEnvelope = {
+    data: Money_To_TransactionCreateManyToAccountInput | Money_To_TransactionCreateManyToAccountInput[]
+    skipDuplicates?: boolean
+  }
+
   export type OwnerUpsertWithoutAccountsInput = {
     update: XOR<OwnerUpdateWithoutAccountsInput, OwnerUncheckedUpdateWithoutAccountsInput>
     create: XOR<OwnerCreateWithoutAccountsInput, OwnerUncheckedCreateWithoutAccountsInput>
@@ -81231,6 +86710,7 @@ export namespace Prisma {
     finances?: FinanceUpdateManyWithoutOwnerNestedInput
     financeTransactions?: Finance_TransactionUpdateManyWithoutOwnerNestedInput
     financeMoneyTrans?: Finance_Money_TransactionUpdateManyWithoutOwnerNestedInput
+    moneyFromTransactions?: Money_From_TransactionUpdateManyWithoutOwnerNestedInput
     journals?: JournalUpdateManyWithoutOwnerNestedInput
     journalTransactions?: JournalTransactionUpdateManyWithoutOwnerNestedInput
     girvis?: GirviUpdateManyWithoutOwnerNestedInput
@@ -81299,6 +86779,7 @@ export namespace Prisma {
     finances?: FinanceUncheckedUpdateManyWithoutOwnerNestedInput
     financeTransactions?: Finance_TransactionUncheckedUpdateManyWithoutOwnerNestedInput
     financeMoneyTrans?: Finance_Money_TransactionUncheckedUpdateManyWithoutOwnerNestedInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedUpdateManyWithoutOwnerNestedInput
     journals?: JournalUncheckedUpdateManyWithoutOwnerNestedInput
     journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutOwnerNestedInput
     girvis?: GirviUncheckedUpdateManyWithoutOwnerNestedInput
@@ -81381,6 +86862,7 @@ export namespace Prisma {
     finances?: FinanceUpdateManyWithoutFirmNestedInput
     financeTransactions?: Finance_TransactionUpdateManyWithoutFirmNestedInput
     financeMoneyTrans?: Finance_Money_TransactionUpdateManyWithoutFirmNestedInput
+    moneyFromTransactions?: Money_From_TransactionUpdateManyWithoutFirmNestedInput
     journals?: JournalUpdateManyWithoutFirmNestedInput
     journalTransactions?: JournalTransactionUpdateManyWithoutFirmNestedInput
     girvis?: GirviUpdateManyWithoutFirmNestedInput
@@ -81454,6 +86936,7 @@ export namespace Prisma {
     finances?: FinanceUncheckedUpdateManyWithoutFirmNestedInput
     financeTransactions?: Finance_TransactionUncheckedUpdateManyWithoutFirmNestedInput
     financeMoneyTrans?: Finance_Money_TransactionUncheckedUpdateManyWithoutFirmNestedInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedUpdateManyWithoutFirmNestedInput
     journals?: JournalUncheckedUpdateManyWithoutFirmNestedInput
     journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutFirmNestedInput
     girvis?: GirviUncheckedUpdateManyWithoutFirmNestedInput
@@ -82160,6 +87643,78 @@ export namespace Prisma {
     data: XOR<GirviReleaseUpdateManyMutationInput, GirviReleaseUncheckedUpdateManyWithoutCardAccountInput>
   }
 
+  export type Money_From_TransactionUpsertWithWhereUniqueWithoutFromAccountInput = {
+    where: Money_From_TransactionWhereUniqueInput
+    update: XOR<Money_From_TransactionUpdateWithoutFromAccountInput, Money_From_TransactionUncheckedUpdateWithoutFromAccountInput>
+    create: XOR<Money_From_TransactionCreateWithoutFromAccountInput, Money_From_TransactionUncheckedCreateWithoutFromAccountInput>
+  }
+
+  export type Money_From_TransactionUpdateWithWhereUniqueWithoutFromAccountInput = {
+    where: Money_From_TransactionWhereUniqueInput
+    data: XOR<Money_From_TransactionUpdateWithoutFromAccountInput, Money_From_TransactionUncheckedUpdateWithoutFromAccountInput>
+  }
+
+  export type Money_From_TransactionUpdateManyWithWhereWithoutFromAccountInput = {
+    where: Money_From_TransactionScalarWhereInput
+    data: XOR<Money_From_TransactionUpdateManyMutationInput, Money_From_TransactionUncheckedUpdateManyWithoutFromAccountInput>
+  }
+
+  export type Money_Transfer_From_LineUpsertWithWhereUniqueWithoutAccountInput = {
+    where: Money_Transfer_From_LineWhereUniqueInput
+    update: XOR<Money_Transfer_From_LineUpdateWithoutAccountInput, Money_Transfer_From_LineUncheckedUpdateWithoutAccountInput>
+    create: XOR<Money_Transfer_From_LineCreateWithoutAccountInput, Money_Transfer_From_LineUncheckedCreateWithoutAccountInput>
+  }
+
+  export type Money_Transfer_From_LineUpdateWithWhereUniqueWithoutAccountInput = {
+    where: Money_Transfer_From_LineWhereUniqueInput
+    data: XOR<Money_Transfer_From_LineUpdateWithoutAccountInput, Money_Transfer_From_LineUncheckedUpdateWithoutAccountInput>
+  }
+
+  export type Money_Transfer_From_LineUpdateManyWithWhereWithoutAccountInput = {
+    where: Money_Transfer_From_LineScalarWhereInput
+    data: XOR<Money_Transfer_From_LineUpdateManyMutationInput, Money_Transfer_From_LineUncheckedUpdateManyWithoutAccountInput>
+  }
+
+  export type Money_Transfer_From_LineScalarWhereInput = {
+    AND?: Money_Transfer_From_LineScalarWhereInput | Money_Transfer_From_LineScalarWhereInput[]
+    OR?: Money_Transfer_From_LineScalarWhereInput[]
+    NOT?: Money_Transfer_From_LineScalarWhereInput | Money_Transfer_From_LineScalarWhereInput[]
+    mfl_id?: IntFilter<"Money_Transfer_From_Line"> | number
+    mfl_uuid?: StringFilter<"Money_Transfer_From_Line"> | string
+    mfl_mtf_id?: IntFilter<"Money_Transfer_From_Line"> | number
+    mfl_acc_id?: IntFilter<"Money_Transfer_From_Line"> | number
+    mfl_amt?: FloatFilter<"Money_Transfer_From_Line"> | number
+    mfl_remarks?: StringNullableFilter<"Money_Transfer_From_Line"> | string | null
+  }
+
+  export type Money_To_TransactionUpsertWithWhereUniqueWithoutToAccountInput = {
+    where: Money_To_TransactionWhereUniqueInput
+    update: XOR<Money_To_TransactionUpdateWithoutToAccountInput, Money_To_TransactionUncheckedUpdateWithoutToAccountInput>
+    create: XOR<Money_To_TransactionCreateWithoutToAccountInput, Money_To_TransactionUncheckedCreateWithoutToAccountInput>
+  }
+
+  export type Money_To_TransactionUpdateWithWhereUniqueWithoutToAccountInput = {
+    where: Money_To_TransactionWhereUniqueInput
+    data: XOR<Money_To_TransactionUpdateWithoutToAccountInput, Money_To_TransactionUncheckedUpdateWithoutToAccountInput>
+  }
+
+  export type Money_To_TransactionUpdateManyWithWhereWithoutToAccountInput = {
+    where: Money_To_TransactionScalarWhereInput
+    data: XOR<Money_To_TransactionUpdateManyMutationInput, Money_To_TransactionUncheckedUpdateManyWithoutToAccountInput>
+  }
+
+  export type Money_To_TransactionScalarWhereInput = {
+    AND?: Money_To_TransactionScalarWhereInput | Money_To_TransactionScalarWhereInput[]
+    OR?: Money_To_TransactionScalarWhereInput[]
+    NOT?: Money_To_TransactionScalarWhereInput | Money_To_TransactionScalarWhereInput[]
+    mtt_id?: IntFilter<"Money_To_Transaction"> | number
+    mtt_uuid?: StringFilter<"Money_To_Transaction"> | string
+    mtt_mtf_id?: IntFilter<"Money_To_Transaction"> | number
+    mtt_to_acc_id?: IntFilter<"Money_To_Transaction"> | number
+    mtt_amt?: FloatFilter<"Money_To_Transaction"> | number
+    mtt_remarks?: StringNullableFilter<"Money_To_Transaction"> | string | null
+  }
+
   export type OwnerCreateWithoutUsersInput = {
     own_uuid?: string
     own_product_key?: number
@@ -82210,6 +87765,7 @@ export namespace Prisma {
     finances?: FinanceCreateNestedManyWithoutOwnerInput
     financeTransactions?: Finance_TransactionCreateNestedManyWithoutOwnerInput
     financeMoneyTrans?: Finance_Money_TransactionCreateNestedManyWithoutOwnerInput
+    moneyFromTransactions?: Money_From_TransactionCreateNestedManyWithoutOwnerInput
     journals?: JournalCreateNestedManyWithoutOwnerInput
     journalTransactions?: JournalTransactionCreateNestedManyWithoutOwnerInput
     girvis?: GirviCreateNestedManyWithoutOwnerInput
@@ -82278,6 +87834,7 @@ export namespace Prisma {
     finances?: FinanceUncheckedCreateNestedManyWithoutOwnerInput
     financeTransactions?: Finance_TransactionUncheckedCreateNestedManyWithoutOwnerInput
     financeMoneyTrans?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutOwnerInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedCreateNestedManyWithoutOwnerInput
     journals?: JournalUncheckedCreateNestedManyWithoutOwnerInput
     journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutOwnerInput
     girvis?: GirviUncheckedCreateNestedManyWithoutOwnerInput
@@ -82354,6 +87911,7 @@ export namespace Prisma {
     finances?: FinanceCreateNestedManyWithoutFirmInput
     financeTransactions?: Finance_TransactionCreateNestedManyWithoutFirmInput
     financeMoneyTrans?: Finance_Money_TransactionCreateNestedManyWithoutFirmInput
+    moneyFromTransactions?: Money_From_TransactionCreateNestedManyWithoutFirmInput
     journals?: JournalCreateNestedManyWithoutFirmInput
     journalTransactions?: JournalTransactionCreateNestedManyWithoutFirmInput
     girvis?: GirviCreateNestedManyWithoutFirmInput
@@ -82427,6 +87985,7 @@ export namespace Prisma {
     finances?: FinanceUncheckedCreateNestedManyWithoutFirmInput
     financeTransactions?: Finance_TransactionUncheckedCreateNestedManyWithoutFirmInput
     financeMoneyTrans?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutFirmInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedCreateNestedManyWithoutFirmInput
     journals?: JournalUncheckedCreateNestedManyWithoutFirmInput
     journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutFirmInput
     girvis?: GirviUncheckedCreateNestedManyWithoutFirmInput
@@ -82724,6 +88283,7 @@ export namespace Prisma {
     jrnl_deleted_by?: string | null
     jrnl_is_deleted?: boolean
     financeMoneyTransactions?: Finance_Money_TransactionCreateNestedManyWithoutJournalInput
+    moneyFromTransactions?: Money_From_TransactionCreateNestedManyWithoutJournalInput
     firm: FirmCreateNestedOneWithoutJournalsInput
     owner: OwnerCreateNestedOneWithoutJournalsInput
     journalTransactions?: JournalTransactionCreateNestedManyWithoutJournalInput
@@ -82747,6 +88307,7 @@ export namespace Prisma {
     jrnl_deleted_by?: string | null
     jrnl_is_deleted?: boolean
     financeMoneyTransactions?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutJournalInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedCreateNestedManyWithoutJournalInput
     journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutJournalInput
   }
 
@@ -83350,6 +88911,7 @@ export namespace Prisma {
     finances?: FinanceUpdateManyWithoutOwnerNestedInput
     financeTransactions?: Finance_TransactionUpdateManyWithoutOwnerNestedInput
     financeMoneyTrans?: Finance_Money_TransactionUpdateManyWithoutOwnerNestedInput
+    moneyFromTransactions?: Money_From_TransactionUpdateManyWithoutOwnerNestedInput
     journals?: JournalUpdateManyWithoutOwnerNestedInput
     journalTransactions?: JournalTransactionUpdateManyWithoutOwnerNestedInput
     girvis?: GirviUpdateManyWithoutOwnerNestedInput
@@ -83418,6 +88980,7 @@ export namespace Prisma {
     finances?: FinanceUncheckedUpdateManyWithoutOwnerNestedInput
     financeTransactions?: Finance_TransactionUncheckedUpdateManyWithoutOwnerNestedInput
     financeMoneyTrans?: Finance_Money_TransactionUncheckedUpdateManyWithoutOwnerNestedInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedUpdateManyWithoutOwnerNestedInput
     journals?: JournalUncheckedUpdateManyWithoutOwnerNestedInput
     journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutOwnerNestedInput
     girvis?: GirviUncheckedUpdateManyWithoutOwnerNestedInput
@@ -83500,6 +89063,7 @@ export namespace Prisma {
     finances?: FinanceUpdateManyWithoutFirmNestedInput
     financeTransactions?: Finance_TransactionUpdateManyWithoutFirmNestedInput
     financeMoneyTrans?: Finance_Money_TransactionUpdateManyWithoutFirmNestedInput
+    moneyFromTransactions?: Money_From_TransactionUpdateManyWithoutFirmNestedInput
     journals?: JournalUpdateManyWithoutFirmNestedInput
     journalTransactions?: JournalTransactionUpdateManyWithoutFirmNestedInput
     girvis?: GirviUpdateManyWithoutFirmNestedInput
@@ -83573,6 +89137,7 @@ export namespace Prisma {
     finances?: FinanceUncheckedUpdateManyWithoutFirmNestedInput
     financeTransactions?: Finance_TransactionUncheckedUpdateManyWithoutFirmNestedInput
     financeMoneyTrans?: Finance_Money_TransactionUncheckedUpdateManyWithoutFirmNestedInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedUpdateManyWithoutFirmNestedInput
     journals?: JournalUncheckedUpdateManyWithoutFirmNestedInput
     journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutFirmNestedInput
     girvis?: GirviUncheckedUpdateManyWithoutFirmNestedInput
@@ -83805,6 +89370,7 @@ export namespace Prisma {
     owner?: OwnerCreateNestedOneWithoutFirmsInput
     financeTransactions?: Finance_TransactionCreateNestedManyWithoutFirmInput
     financeMoneyTrans?: Finance_Money_TransactionCreateNestedManyWithoutFirmInput
+    moneyFromTransactions?: Money_From_TransactionCreateNestedManyWithoutFirmInput
     journals?: JournalCreateNestedManyWithoutFirmInput
     journalTransactions?: JournalTransactionCreateNestedManyWithoutFirmInput
     girvis?: GirviCreateNestedManyWithoutFirmInput
@@ -83878,6 +89444,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedCreateNestedManyWithoutFirmInput
     financeTransactions?: Finance_TransactionUncheckedCreateNestedManyWithoutFirmInput
     financeMoneyTrans?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutFirmInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedCreateNestedManyWithoutFirmInput
     journals?: JournalUncheckedCreateNestedManyWithoutFirmInput
     journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutFirmInput
     girvis?: GirviUncheckedCreateNestedManyWithoutFirmInput
@@ -84250,6 +89817,9 @@ export namespace Prisma {
     relBank?: GirviReleaseCreateNestedManyWithoutBankAccountInput
     relOnline?: GirviReleaseCreateNestedManyWithoutOnlineAccountInput
     relCard?: GirviReleaseCreateNestedManyWithoutCardAccountInput
+    mtfFromAccount?: Money_From_TransactionCreateNestedManyWithoutFromAccountInput
+    mtfFromLines?: Money_Transfer_From_LineCreateNestedManyWithoutAccountInput
+    mttToAccount?: Money_To_TransactionCreateNestedManyWithoutToAccountInput
   }
 
   export type AccountUncheckedCreateWithoutFinanceCashInput = {
@@ -84324,6 +89894,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUncheckedCreateNestedManyWithoutBankAccountInput
     relOnline?: GirviReleaseUncheckedCreateNestedManyWithoutOnlineAccountInput
     relCard?: GirviReleaseUncheckedCreateNestedManyWithoutCardAccountInput
+    mtfFromAccount?: Money_From_TransactionUncheckedCreateNestedManyWithoutFromAccountInput
+    mtfFromLines?: Money_Transfer_From_LineUncheckedCreateNestedManyWithoutAccountInput
+    mttToAccount?: Money_To_TransactionUncheckedCreateNestedManyWithoutToAccountInput
   }
 
   export type AccountCreateOrConnectWithoutFinanceCashInput = {
@@ -84402,6 +89975,9 @@ export namespace Prisma {
     relBank?: GirviReleaseCreateNestedManyWithoutBankAccountInput
     relOnline?: GirviReleaseCreateNestedManyWithoutOnlineAccountInput
     relCard?: GirviReleaseCreateNestedManyWithoutCardAccountInput
+    mtfFromAccount?: Money_From_TransactionCreateNestedManyWithoutFromAccountInput
+    mtfFromLines?: Money_Transfer_From_LineCreateNestedManyWithoutAccountInput
+    mttToAccount?: Money_To_TransactionCreateNestedManyWithoutToAccountInput
   }
 
   export type AccountUncheckedCreateWithoutFinanceBankInput = {
@@ -84476,6 +90052,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUncheckedCreateNestedManyWithoutBankAccountInput
     relOnline?: GirviReleaseUncheckedCreateNestedManyWithoutOnlineAccountInput
     relCard?: GirviReleaseUncheckedCreateNestedManyWithoutCardAccountInput
+    mtfFromAccount?: Money_From_TransactionUncheckedCreateNestedManyWithoutFromAccountInput
+    mtfFromLines?: Money_Transfer_From_LineUncheckedCreateNestedManyWithoutAccountInput
+    mttToAccount?: Money_To_TransactionUncheckedCreateNestedManyWithoutToAccountInput
   }
 
   export type AccountCreateOrConnectWithoutFinanceBankInput = {
@@ -84554,6 +90133,9 @@ export namespace Prisma {
     relBank?: GirviReleaseCreateNestedManyWithoutBankAccountInput
     relOnline?: GirviReleaseCreateNestedManyWithoutOnlineAccountInput
     relCard?: GirviReleaseCreateNestedManyWithoutCardAccountInput
+    mtfFromAccount?: Money_From_TransactionCreateNestedManyWithoutFromAccountInput
+    mtfFromLines?: Money_Transfer_From_LineCreateNestedManyWithoutAccountInput
+    mttToAccount?: Money_To_TransactionCreateNestedManyWithoutToAccountInput
   }
 
   export type AccountUncheckedCreateWithoutFinanceOnlineInput = {
@@ -84628,6 +90210,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUncheckedCreateNestedManyWithoutBankAccountInput
     relOnline?: GirviReleaseUncheckedCreateNestedManyWithoutOnlineAccountInput
     relCard?: GirviReleaseUncheckedCreateNestedManyWithoutCardAccountInput
+    mtfFromAccount?: Money_From_TransactionUncheckedCreateNestedManyWithoutFromAccountInput
+    mtfFromLines?: Money_Transfer_From_LineUncheckedCreateNestedManyWithoutAccountInput
+    mttToAccount?: Money_To_TransactionUncheckedCreateNestedManyWithoutToAccountInput
   }
 
   export type AccountCreateOrConnectWithoutFinanceOnlineInput = {
@@ -84706,6 +90291,9 @@ export namespace Prisma {
     relBank?: GirviReleaseCreateNestedManyWithoutBankAccountInput
     relOnline?: GirviReleaseCreateNestedManyWithoutOnlineAccountInput
     relCard?: GirviReleaseCreateNestedManyWithoutCardAccountInput
+    mtfFromAccount?: Money_From_TransactionCreateNestedManyWithoutFromAccountInput
+    mtfFromLines?: Money_Transfer_From_LineCreateNestedManyWithoutAccountInput
+    mttToAccount?: Money_To_TransactionCreateNestedManyWithoutToAccountInput
   }
 
   export type AccountUncheckedCreateWithoutFinanceCardInput = {
@@ -84780,6 +90368,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUncheckedCreateNestedManyWithoutBankAccountInput
     relOnline?: GirviReleaseUncheckedCreateNestedManyWithoutOnlineAccountInput
     relCard?: GirviReleaseUncheckedCreateNestedManyWithoutCardAccountInput
+    mtfFromAccount?: Money_From_TransactionUncheckedCreateNestedManyWithoutFromAccountInput
+    mtfFromLines?: Money_Transfer_From_LineUncheckedCreateNestedManyWithoutAccountInput
+    mttToAccount?: Money_To_TransactionUncheckedCreateNestedManyWithoutToAccountInput
   }
 
   export type AccountCreateOrConnectWithoutFinanceCardInput = {
@@ -84858,6 +90449,9 @@ export namespace Prisma {
     relBank?: GirviReleaseCreateNestedManyWithoutBankAccountInput
     relOnline?: GirviReleaseCreateNestedManyWithoutOnlineAccountInput
     relCard?: GirviReleaseCreateNestedManyWithoutCardAccountInput
+    mtfFromAccount?: Money_From_TransactionCreateNestedManyWithoutFromAccountInput
+    mtfFromLines?: Money_Transfer_From_LineCreateNestedManyWithoutAccountInput
+    mttToAccount?: Money_To_TransactionCreateNestedManyWithoutToAccountInput
   }
 
   export type AccountUncheckedCreateWithoutFinanceDrInput = {
@@ -84932,6 +90526,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUncheckedCreateNestedManyWithoutBankAccountInput
     relOnline?: GirviReleaseUncheckedCreateNestedManyWithoutOnlineAccountInput
     relCard?: GirviReleaseUncheckedCreateNestedManyWithoutCardAccountInput
+    mtfFromAccount?: Money_From_TransactionUncheckedCreateNestedManyWithoutFromAccountInput
+    mtfFromLines?: Money_Transfer_From_LineUncheckedCreateNestedManyWithoutAccountInput
+    mttToAccount?: Money_To_TransactionUncheckedCreateNestedManyWithoutToAccountInput
   }
 
   export type AccountCreateOrConnectWithoutFinanceDrInput = {
@@ -84989,6 +90586,7 @@ export namespace Prisma {
     accounts?: AccountCreateNestedManyWithoutOwnerInput
     financeTransactions?: Finance_TransactionCreateNestedManyWithoutOwnerInput
     financeMoneyTrans?: Finance_Money_TransactionCreateNestedManyWithoutOwnerInput
+    moneyFromTransactions?: Money_From_TransactionCreateNestedManyWithoutOwnerInput
     journals?: JournalCreateNestedManyWithoutOwnerInput
     journalTransactions?: JournalTransactionCreateNestedManyWithoutOwnerInput
     girvis?: GirviCreateNestedManyWithoutOwnerInput
@@ -85057,6 +90655,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedCreateNestedManyWithoutOwnerInput
     financeTransactions?: Finance_TransactionUncheckedCreateNestedManyWithoutOwnerInput
     financeMoneyTrans?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutOwnerInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedCreateNestedManyWithoutOwnerInput
     journals?: JournalUncheckedCreateNestedManyWithoutOwnerInput
     journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutOwnerInput
     girvis?: GirviUncheckedCreateNestedManyWithoutOwnerInput
@@ -85144,6 +90743,7 @@ export namespace Prisma {
     owner?: OwnerUpdateOneRequiredWithoutFirmsNestedInput
     financeTransactions?: Finance_TransactionUpdateManyWithoutFirmNestedInput
     financeMoneyTrans?: Finance_Money_TransactionUpdateManyWithoutFirmNestedInput
+    moneyFromTransactions?: Money_From_TransactionUpdateManyWithoutFirmNestedInput
     journals?: JournalUpdateManyWithoutFirmNestedInput
     journalTransactions?: JournalTransactionUpdateManyWithoutFirmNestedInput
     girvis?: GirviUpdateManyWithoutFirmNestedInput
@@ -85217,6 +90817,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedUpdateManyWithoutFirmNestedInput
     financeTransactions?: Finance_TransactionUncheckedUpdateManyWithoutFirmNestedInput
     financeMoneyTrans?: Finance_Money_TransactionUncheckedUpdateManyWithoutFirmNestedInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedUpdateManyWithoutFirmNestedInput
     journals?: JournalUncheckedUpdateManyWithoutFirmNestedInput
     journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutFirmNestedInput
     girvis?: GirviUncheckedUpdateManyWithoutFirmNestedInput
@@ -85483,6 +91084,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUpdateManyWithoutBankAccountNestedInput
     relOnline?: GirviReleaseUpdateManyWithoutOnlineAccountNestedInput
     relCard?: GirviReleaseUpdateManyWithoutCardAccountNestedInput
+    mtfFromAccount?: Money_From_TransactionUpdateManyWithoutFromAccountNestedInput
+    mtfFromLines?: Money_Transfer_From_LineUpdateManyWithoutAccountNestedInput
+    mttToAccount?: Money_To_TransactionUpdateManyWithoutToAccountNestedInput
   }
 
   export type AccountUncheckedUpdateWithoutFinanceCashInput = {
@@ -85557,6 +91161,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUncheckedUpdateManyWithoutBankAccountNestedInput
     relOnline?: GirviReleaseUncheckedUpdateManyWithoutOnlineAccountNestedInput
     relCard?: GirviReleaseUncheckedUpdateManyWithoutCardAccountNestedInput
+    mtfFromAccount?: Money_From_TransactionUncheckedUpdateManyWithoutFromAccountNestedInput
+    mtfFromLines?: Money_Transfer_From_LineUncheckedUpdateManyWithoutAccountNestedInput
+    mttToAccount?: Money_To_TransactionUncheckedUpdateManyWithoutToAccountNestedInput
   }
 
   export type AccountUpsertWithoutFinanceBankInput = {
@@ -85641,6 +91248,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUpdateManyWithoutBankAccountNestedInput
     relOnline?: GirviReleaseUpdateManyWithoutOnlineAccountNestedInput
     relCard?: GirviReleaseUpdateManyWithoutCardAccountNestedInput
+    mtfFromAccount?: Money_From_TransactionUpdateManyWithoutFromAccountNestedInput
+    mtfFromLines?: Money_Transfer_From_LineUpdateManyWithoutAccountNestedInput
+    mttToAccount?: Money_To_TransactionUpdateManyWithoutToAccountNestedInput
   }
 
   export type AccountUncheckedUpdateWithoutFinanceBankInput = {
@@ -85715,6 +91325,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUncheckedUpdateManyWithoutBankAccountNestedInput
     relOnline?: GirviReleaseUncheckedUpdateManyWithoutOnlineAccountNestedInput
     relCard?: GirviReleaseUncheckedUpdateManyWithoutCardAccountNestedInput
+    mtfFromAccount?: Money_From_TransactionUncheckedUpdateManyWithoutFromAccountNestedInput
+    mtfFromLines?: Money_Transfer_From_LineUncheckedUpdateManyWithoutAccountNestedInput
+    mttToAccount?: Money_To_TransactionUncheckedUpdateManyWithoutToAccountNestedInput
   }
 
   export type AccountUpsertWithoutFinanceOnlineInput = {
@@ -85799,6 +91412,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUpdateManyWithoutBankAccountNestedInput
     relOnline?: GirviReleaseUpdateManyWithoutOnlineAccountNestedInput
     relCard?: GirviReleaseUpdateManyWithoutCardAccountNestedInput
+    mtfFromAccount?: Money_From_TransactionUpdateManyWithoutFromAccountNestedInput
+    mtfFromLines?: Money_Transfer_From_LineUpdateManyWithoutAccountNestedInput
+    mttToAccount?: Money_To_TransactionUpdateManyWithoutToAccountNestedInput
   }
 
   export type AccountUncheckedUpdateWithoutFinanceOnlineInput = {
@@ -85873,6 +91489,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUncheckedUpdateManyWithoutBankAccountNestedInput
     relOnline?: GirviReleaseUncheckedUpdateManyWithoutOnlineAccountNestedInput
     relCard?: GirviReleaseUncheckedUpdateManyWithoutCardAccountNestedInput
+    mtfFromAccount?: Money_From_TransactionUncheckedUpdateManyWithoutFromAccountNestedInput
+    mtfFromLines?: Money_Transfer_From_LineUncheckedUpdateManyWithoutAccountNestedInput
+    mttToAccount?: Money_To_TransactionUncheckedUpdateManyWithoutToAccountNestedInput
   }
 
   export type AccountUpsertWithoutFinanceCardInput = {
@@ -85957,6 +91576,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUpdateManyWithoutBankAccountNestedInput
     relOnline?: GirviReleaseUpdateManyWithoutOnlineAccountNestedInput
     relCard?: GirviReleaseUpdateManyWithoutCardAccountNestedInput
+    mtfFromAccount?: Money_From_TransactionUpdateManyWithoutFromAccountNestedInput
+    mtfFromLines?: Money_Transfer_From_LineUpdateManyWithoutAccountNestedInput
+    mttToAccount?: Money_To_TransactionUpdateManyWithoutToAccountNestedInput
   }
 
   export type AccountUncheckedUpdateWithoutFinanceCardInput = {
@@ -86031,6 +91653,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUncheckedUpdateManyWithoutBankAccountNestedInput
     relOnline?: GirviReleaseUncheckedUpdateManyWithoutOnlineAccountNestedInput
     relCard?: GirviReleaseUncheckedUpdateManyWithoutCardAccountNestedInput
+    mtfFromAccount?: Money_From_TransactionUncheckedUpdateManyWithoutFromAccountNestedInput
+    mtfFromLines?: Money_Transfer_From_LineUncheckedUpdateManyWithoutAccountNestedInput
+    mttToAccount?: Money_To_TransactionUncheckedUpdateManyWithoutToAccountNestedInput
   }
 
   export type AccountUpsertWithoutFinanceDrInput = {
@@ -86115,6 +91740,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUpdateManyWithoutBankAccountNestedInput
     relOnline?: GirviReleaseUpdateManyWithoutOnlineAccountNestedInput
     relCard?: GirviReleaseUpdateManyWithoutCardAccountNestedInput
+    mtfFromAccount?: Money_From_TransactionUpdateManyWithoutFromAccountNestedInput
+    mtfFromLines?: Money_Transfer_From_LineUpdateManyWithoutAccountNestedInput
+    mttToAccount?: Money_To_TransactionUpdateManyWithoutToAccountNestedInput
   }
 
   export type AccountUncheckedUpdateWithoutFinanceDrInput = {
@@ -86189,6 +91817,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUncheckedUpdateManyWithoutBankAccountNestedInput
     relOnline?: GirviReleaseUncheckedUpdateManyWithoutOnlineAccountNestedInput
     relCard?: GirviReleaseUncheckedUpdateManyWithoutCardAccountNestedInput
+    mtfFromAccount?: Money_From_TransactionUncheckedUpdateManyWithoutFromAccountNestedInput
+    mtfFromLines?: Money_Transfer_From_LineUncheckedUpdateManyWithoutAccountNestedInput
+    mttToAccount?: Money_To_TransactionUncheckedUpdateManyWithoutToAccountNestedInput
   }
 
   export type OwnerUpsertWithoutFinancesInput = {
@@ -86251,6 +91882,7 @@ export namespace Prisma {
     accounts?: AccountUpdateManyWithoutOwnerNestedInput
     financeTransactions?: Finance_TransactionUpdateManyWithoutOwnerNestedInput
     financeMoneyTrans?: Finance_Money_TransactionUpdateManyWithoutOwnerNestedInput
+    moneyFromTransactions?: Money_From_TransactionUpdateManyWithoutOwnerNestedInput
     journals?: JournalUpdateManyWithoutOwnerNestedInput
     journalTransactions?: JournalTransactionUpdateManyWithoutOwnerNestedInput
     girvis?: GirviUpdateManyWithoutOwnerNestedInput
@@ -86319,6 +91951,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedUpdateManyWithoutOwnerNestedInput
     financeTransactions?: Finance_TransactionUncheckedUpdateManyWithoutOwnerNestedInput
     financeMoneyTrans?: Finance_Money_TransactionUncheckedUpdateManyWithoutOwnerNestedInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedUpdateManyWithoutOwnerNestedInput
     journals?: JournalUncheckedUpdateManyWithoutOwnerNestedInput
     journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutOwnerNestedInput
     girvis?: GirviUncheckedUpdateManyWithoutOwnerNestedInput
@@ -86390,6 +92023,7 @@ export namespace Prisma {
     owner?: OwnerCreateNestedOneWithoutFirmsInput
     finances?: FinanceCreateNestedManyWithoutFirmInput
     financeMoneyTrans?: Finance_Money_TransactionCreateNestedManyWithoutFirmInput
+    moneyFromTransactions?: Money_From_TransactionCreateNestedManyWithoutFirmInput
     journals?: JournalCreateNestedManyWithoutFirmInput
     journalTransactions?: JournalTransactionCreateNestedManyWithoutFirmInput
     girvis?: GirviCreateNestedManyWithoutFirmInput
@@ -86463,6 +92097,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedCreateNestedManyWithoutFirmInput
     finances?: FinanceUncheckedCreateNestedManyWithoutFirmInput
     financeMoneyTrans?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutFirmInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedCreateNestedManyWithoutFirmInput
     journals?: JournalUncheckedCreateNestedManyWithoutFirmInput
     journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutFirmInput
     girvis?: GirviUncheckedCreateNestedManyWithoutFirmInput
@@ -86664,6 +92299,7 @@ export namespace Prisma {
     accounts?: AccountCreateNestedManyWithoutOwnerInput
     finances?: FinanceCreateNestedManyWithoutOwnerInput
     financeMoneyTrans?: Finance_Money_TransactionCreateNestedManyWithoutOwnerInput
+    moneyFromTransactions?: Money_From_TransactionCreateNestedManyWithoutOwnerInput
     journals?: JournalCreateNestedManyWithoutOwnerInput
     journalTransactions?: JournalTransactionCreateNestedManyWithoutOwnerInput
     girvis?: GirviCreateNestedManyWithoutOwnerInput
@@ -86732,6 +92368,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedCreateNestedManyWithoutOwnerInput
     finances?: FinanceUncheckedCreateNestedManyWithoutOwnerInput
     financeMoneyTrans?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutOwnerInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedCreateNestedManyWithoutOwnerInput
     journals?: JournalUncheckedCreateNestedManyWithoutOwnerInput
     journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutOwnerInput
     girvis?: GirviUncheckedCreateNestedManyWithoutOwnerInput
@@ -86929,6 +92566,9 @@ export namespace Prisma {
     relBank?: GirviReleaseCreateNestedManyWithoutBankAccountInput
     relOnline?: GirviReleaseCreateNestedManyWithoutOnlineAccountInput
     relCard?: GirviReleaseCreateNestedManyWithoutCardAccountInput
+    mtfFromAccount?: Money_From_TransactionCreateNestedManyWithoutFromAccountInput
+    mtfFromLines?: Money_Transfer_From_LineCreateNestedManyWithoutAccountInput
+    mttToAccount?: Money_To_TransactionCreateNestedManyWithoutToAccountInput
   }
 
   export type AccountUncheckedCreateWithoutFtCashInput = {
@@ -87003,6 +92643,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUncheckedCreateNestedManyWithoutBankAccountInput
     relOnline?: GirviReleaseUncheckedCreateNestedManyWithoutOnlineAccountInput
     relCard?: GirviReleaseUncheckedCreateNestedManyWithoutCardAccountInput
+    mtfFromAccount?: Money_From_TransactionUncheckedCreateNestedManyWithoutFromAccountInput
+    mtfFromLines?: Money_Transfer_From_LineUncheckedCreateNestedManyWithoutAccountInput
+    mttToAccount?: Money_To_TransactionUncheckedCreateNestedManyWithoutToAccountInput
   }
 
   export type AccountCreateOrConnectWithoutFtCashInput = {
@@ -87081,6 +92724,9 @@ export namespace Prisma {
     relBank?: GirviReleaseCreateNestedManyWithoutBankAccountInput
     relOnline?: GirviReleaseCreateNestedManyWithoutOnlineAccountInput
     relCard?: GirviReleaseCreateNestedManyWithoutCardAccountInput
+    mtfFromAccount?: Money_From_TransactionCreateNestedManyWithoutFromAccountInput
+    mtfFromLines?: Money_Transfer_From_LineCreateNestedManyWithoutAccountInput
+    mttToAccount?: Money_To_TransactionCreateNestedManyWithoutToAccountInput
   }
 
   export type AccountUncheckedCreateWithoutFtBankInput = {
@@ -87155,6 +92801,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUncheckedCreateNestedManyWithoutBankAccountInput
     relOnline?: GirviReleaseUncheckedCreateNestedManyWithoutOnlineAccountInput
     relCard?: GirviReleaseUncheckedCreateNestedManyWithoutCardAccountInput
+    mtfFromAccount?: Money_From_TransactionUncheckedCreateNestedManyWithoutFromAccountInput
+    mtfFromLines?: Money_Transfer_From_LineUncheckedCreateNestedManyWithoutAccountInput
+    mttToAccount?: Money_To_TransactionUncheckedCreateNestedManyWithoutToAccountInput
   }
 
   export type AccountCreateOrConnectWithoutFtBankInput = {
@@ -87233,6 +92882,9 @@ export namespace Prisma {
     relBank?: GirviReleaseCreateNestedManyWithoutBankAccountInput
     relOnline?: GirviReleaseCreateNestedManyWithoutOnlineAccountInput
     relCard?: GirviReleaseCreateNestedManyWithoutCardAccountInput
+    mtfFromAccount?: Money_From_TransactionCreateNestedManyWithoutFromAccountInput
+    mtfFromLines?: Money_Transfer_From_LineCreateNestedManyWithoutAccountInput
+    mttToAccount?: Money_To_TransactionCreateNestedManyWithoutToAccountInput
   }
 
   export type AccountUncheckedCreateWithoutFtOnlineInput = {
@@ -87307,6 +92959,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUncheckedCreateNestedManyWithoutBankAccountInput
     relOnline?: GirviReleaseUncheckedCreateNestedManyWithoutOnlineAccountInput
     relCard?: GirviReleaseUncheckedCreateNestedManyWithoutCardAccountInput
+    mtfFromAccount?: Money_From_TransactionUncheckedCreateNestedManyWithoutFromAccountInput
+    mtfFromLines?: Money_Transfer_From_LineUncheckedCreateNestedManyWithoutAccountInput
+    mttToAccount?: Money_To_TransactionUncheckedCreateNestedManyWithoutToAccountInput
   }
 
   export type AccountCreateOrConnectWithoutFtOnlineInput = {
@@ -87385,6 +93040,9 @@ export namespace Prisma {
     relBank?: GirviReleaseCreateNestedManyWithoutBankAccountInput
     relOnline?: GirviReleaseCreateNestedManyWithoutOnlineAccountInput
     relCard?: GirviReleaseCreateNestedManyWithoutCardAccountInput
+    mtfFromAccount?: Money_From_TransactionCreateNestedManyWithoutFromAccountInput
+    mtfFromLines?: Money_Transfer_From_LineCreateNestedManyWithoutAccountInput
+    mttToAccount?: Money_To_TransactionCreateNestedManyWithoutToAccountInput
   }
 
   export type AccountUncheckedCreateWithoutFtCardInput = {
@@ -87459,6 +93117,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUncheckedCreateNestedManyWithoutBankAccountInput
     relOnline?: GirviReleaseUncheckedCreateNestedManyWithoutOnlineAccountInput
     relCard?: GirviReleaseUncheckedCreateNestedManyWithoutCardAccountInput
+    mtfFromAccount?: Money_From_TransactionUncheckedCreateNestedManyWithoutFromAccountInput
+    mtfFromLines?: Money_Transfer_From_LineUncheckedCreateNestedManyWithoutAccountInput
+    mttToAccount?: Money_To_TransactionUncheckedCreateNestedManyWithoutToAccountInput
   }
 
   export type AccountCreateOrConnectWithoutFtCardInput = {
@@ -87531,6 +93192,7 @@ export namespace Prisma {
     owner?: OwnerUpdateOneRequiredWithoutFirmsNestedInput
     finances?: FinanceUpdateManyWithoutFirmNestedInput
     financeMoneyTrans?: Finance_Money_TransactionUpdateManyWithoutFirmNestedInput
+    moneyFromTransactions?: Money_From_TransactionUpdateManyWithoutFirmNestedInput
     journals?: JournalUpdateManyWithoutFirmNestedInput
     journalTransactions?: JournalTransactionUpdateManyWithoutFirmNestedInput
     girvis?: GirviUpdateManyWithoutFirmNestedInput
@@ -87604,6 +93266,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedUpdateManyWithoutFirmNestedInput
     finances?: FinanceUncheckedUpdateManyWithoutFirmNestedInput
     financeMoneyTrans?: Finance_Money_TransactionUncheckedUpdateManyWithoutFirmNestedInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedUpdateManyWithoutFirmNestedInput
     journals?: JournalUncheckedUpdateManyWithoutFirmNestedInput
     journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutFirmNestedInput
     girvis?: GirviUncheckedUpdateManyWithoutFirmNestedInput
@@ -87816,6 +93479,7 @@ export namespace Prisma {
     accounts?: AccountUpdateManyWithoutOwnerNestedInput
     finances?: FinanceUpdateManyWithoutOwnerNestedInput
     financeMoneyTrans?: Finance_Money_TransactionUpdateManyWithoutOwnerNestedInput
+    moneyFromTransactions?: Money_From_TransactionUpdateManyWithoutOwnerNestedInput
     journals?: JournalUpdateManyWithoutOwnerNestedInput
     journalTransactions?: JournalTransactionUpdateManyWithoutOwnerNestedInput
     girvis?: GirviUpdateManyWithoutOwnerNestedInput
@@ -87884,6 +93548,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedUpdateManyWithoutOwnerNestedInput
     finances?: FinanceUncheckedUpdateManyWithoutOwnerNestedInput
     financeMoneyTrans?: Finance_Money_TransactionUncheckedUpdateManyWithoutOwnerNestedInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedUpdateManyWithoutOwnerNestedInput
     journals?: JournalUncheckedUpdateManyWithoutOwnerNestedInput
     journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutOwnerNestedInput
     girvis?: GirviUncheckedUpdateManyWithoutOwnerNestedInput
@@ -88093,6 +93758,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUpdateManyWithoutBankAccountNestedInput
     relOnline?: GirviReleaseUpdateManyWithoutOnlineAccountNestedInput
     relCard?: GirviReleaseUpdateManyWithoutCardAccountNestedInput
+    mtfFromAccount?: Money_From_TransactionUpdateManyWithoutFromAccountNestedInput
+    mtfFromLines?: Money_Transfer_From_LineUpdateManyWithoutAccountNestedInput
+    mttToAccount?: Money_To_TransactionUpdateManyWithoutToAccountNestedInput
   }
 
   export type AccountUncheckedUpdateWithoutFtCashInput = {
@@ -88167,6 +93835,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUncheckedUpdateManyWithoutBankAccountNestedInput
     relOnline?: GirviReleaseUncheckedUpdateManyWithoutOnlineAccountNestedInput
     relCard?: GirviReleaseUncheckedUpdateManyWithoutCardAccountNestedInput
+    mtfFromAccount?: Money_From_TransactionUncheckedUpdateManyWithoutFromAccountNestedInput
+    mtfFromLines?: Money_Transfer_From_LineUncheckedUpdateManyWithoutAccountNestedInput
+    mttToAccount?: Money_To_TransactionUncheckedUpdateManyWithoutToAccountNestedInput
   }
 
   export type AccountUpsertWithoutFtBankInput = {
@@ -88251,6 +93922,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUpdateManyWithoutBankAccountNestedInput
     relOnline?: GirviReleaseUpdateManyWithoutOnlineAccountNestedInput
     relCard?: GirviReleaseUpdateManyWithoutCardAccountNestedInput
+    mtfFromAccount?: Money_From_TransactionUpdateManyWithoutFromAccountNestedInput
+    mtfFromLines?: Money_Transfer_From_LineUpdateManyWithoutAccountNestedInput
+    mttToAccount?: Money_To_TransactionUpdateManyWithoutToAccountNestedInput
   }
 
   export type AccountUncheckedUpdateWithoutFtBankInput = {
@@ -88325,6 +93999,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUncheckedUpdateManyWithoutBankAccountNestedInput
     relOnline?: GirviReleaseUncheckedUpdateManyWithoutOnlineAccountNestedInput
     relCard?: GirviReleaseUncheckedUpdateManyWithoutCardAccountNestedInput
+    mtfFromAccount?: Money_From_TransactionUncheckedUpdateManyWithoutFromAccountNestedInput
+    mtfFromLines?: Money_Transfer_From_LineUncheckedUpdateManyWithoutAccountNestedInput
+    mttToAccount?: Money_To_TransactionUncheckedUpdateManyWithoutToAccountNestedInput
   }
 
   export type AccountUpsertWithoutFtOnlineInput = {
@@ -88409,6 +94086,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUpdateManyWithoutBankAccountNestedInput
     relOnline?: GirviReleaseUpdateManyWithoutOnlineAccountNestedInput
     relCard?: GirviReleaseUpdateManyWithoutCardAccountNestedInput
+    mtfFromAccount?: Money_From_TransactionUpdateManyWithoutFromAccountNestedInput
+    mtfFromLines?: Money_Transfer_From_LineUpdateManyWithoutAccountNestedInput
+    mttToAccount?: Money_To_TransactionUpdateManyWithoutToAccountNestedInput
   }
 
   export type AccountUncheckedUpdateWithoutFtOnlineInput = {
@@ -88483,6 +94163,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUncheckedUpdateManyWithoutBankAccountNestedInput
     relOnline?: GirviReleaseUncheckedUpdateManyWithoutOnlineAccountNestedInput
     relCard?: GirviReleaseUncheckedUpdateManyWithoutCardAccountNestedInput
+    mtfFromAccount?: Money_From_TransactionUncheckedUpdateManyWithoutFromAccountNestedInput
+    mtfFromLines?: Money_Transfer_From_LineUncheckedUpdateManyWithoutAccountNestedInput
+    mttToAccount?: Money_To_TransactionUncheckedUpdateManyWithoutToAccountNestedInput
   }
 
   export type AccountUpsertWithoutFtCardInput = {
@@ -88567,6 +94250,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUpdateManyWithoutBankAccountNestedInput
     relOnline?: GirviReleaseUpdateManyWithoutOnlineAccountNestedInput
     relCard?: GirviReleaseUpdateManyWithoutCardAccountNestedInput
+    mtfFromAccount?: Money_From_TransactionUpdateManyWithoutFromAccountNestedInput
+    mtfFromLines?: Money_Transfer_From_LineUpdateManyWithoutAccountNestedInput
+    mttToAccount?: Money_To_TransactionUpdateManyWithoutToAccountNestedInput
   }
 
   export type AccountUncheckedUpdateWithoutFtCardInput = {
@@ -88641,6 +94327,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUncheckedUpdateManyWithoutBankAccountNestedInput
     relOnline?: GirviReleaseUncheckedUpdateManyWithoutOnlineAccountNestedInput
     relCard?: GirviReleaseUncheckedUpdateManyWithoutCardAccountNestedInput
+    mtfFromAccount?: Money_From_TransactionUncheckedUpdateManyWithoutFromAccountNestedInput
+    mtfFromLines?: Money_Transfer_From_LineUncheckedUpdateManyWithoutAccountNestedInput
+    mttToAccount?: Money_To_TransactionUncheckedUpdateManyWithoutToAccountNestedInput
   }
 
   export type FirmCreateWithoutFinanceMoneyTransInput = {
@@ -88697,6 +94386,7 @@ export namespace Prisma {
     owner?: OwnerCreateNestedOneWithoutFirmsInput
     finances?: FinanceCreateNestedManyWithoutFirmInput
     financeTransactions?: Finance_TransactionCreateNestedManyWithoutFirmInput
+    moneyFromTransactions?: Money_From_TransactionCreateNestedManyWithoutFirmInput
     journals?: JournalCreateNestedManyWithoutFirmInput
     journalTransactions?: JournalTransactionCreateNestedManyWithoutFirmInput
     girvis?: GirviCreateNestedManyWithoutFirmInput
@@ -88770,6 +94460,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedCreateNestedManyWithoutFirmInput
     finances?: FinanceUncheckedCreateNestedManyWithoutFirmInput
     financeTransactions?: Finance_TransactionUncheckedCreateNestedManyWithoutFirmInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedCreateNestedManyWithoutFirmInput
     journals?: JournalUncheckedCreateNestedManyWithoutFirmInput
     journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutFirmInput
     girvis?: GirviUncheckedCreateNestedManyWithoutFirmInput
@@ -88971,6 +94662,7 @@ export namespace Prisma {
     accounts?: AccountCreateNestedManyWithoutOwnerInput
     finances?: FinanceCreateNestedManyWithoutOwnerInput
     financeTransactions?: Finance_TransactionCreateNestedManyWithoutOwnerInput
+    moneyFromTransactions?: Money_From_TransactionCreateNestedManyWithoutOwnerInput
     journals?: JournalCreateNestedManyWithoutOwnerInput
     journalTransactions?: JournalTransactionCreateNestedManyWithoutOwnerInput
     girvis?: GirviCreateNestedManyWithoutOwnerInput
@@ -89039,6 +94731,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedCreateNestedManyWithoutOwnerInput
     finances?: FinanceUncheckedCreateNestedManyWithoutOwnerInput
     financeTransactions?: Finance_TransactionUncheckedCreateNestedManyWithoutOwnerInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedCreateNestedManyWithoutOwnerInput
     journals?: JournalUncheckedCreateNestedManyWithoutOwnerInput
     journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutOwnerInput
     girvis?: GirviUncheckedCreateNestedManyWithoutOwnerInput
@@ -89179,6 +94872,7 @@ export namespace Prisma {
     jrnl_deleted_at?: Date | string | null
     jrnl_deleted_by?: string | null
     jrnl_is_deleted?: boolean
+    moneyFromTransactions?: Money_From_TransactionCreateNestedManyWithoutJournalInput
     firm: FirmCreateNestedOneWithoutJournalsInput
     user?: UserCreateNestedOneWithoutJournalsInput
     owner: OwnerCreateNestedOneWithoutJournalsInput
@@ -89203,6 +94897,7 @@ export namespace Prisma {
     jrnl_deleted_at?: Date | string | null
     jrnl_deleted_by?: string | null
     jrnl_is_deleted?: boolean
+    moneyFromTransactions?: Money_From_TransactionUncheckedCreateNestedManyWithoutJournalInput
     journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutJournalInput
   }
 
@@ -89282,6 +94977,9 @@ export namespace Prisma {
     relBank?: GirviReleaseCreateNestedManyWithoutBankAccountInput
     relOnline?: GirviReleaseCreateNestedManyWithoutOnlineAccountInput
     relCard?: GirviReleaseCreateNestedManyWithoutCardAccountInput
+    mtfFromAccount?: Money_From_TransactionCreateNestedManyWithoutFromAccountInput
+    mtfFromLines?: Money_Transfer_From_LineCreateNestedManyWithoutAccountInput
+    mttToAccount?: Money_To_TransactionCreateNestedManyWithoutToAccountInput
   }
 
   export type AccountUncheckedCreateWithoutFmCashInput = {
@@ -89356,6 +95054,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUncheckedCreateNestedManyWithoutBankAccountInput
     relOnline?: GirviReleaseUncheckedCreateNestedManyWithoutOnlineAccountInput
     relCard?: GirviReleaseUncheckedCreateNestedManyWithoutCardAccountInput
+    mtfFromAccount?: Money_From_TransactionUncheckedCreateNestedManyWithoutFromAccountInput
+    mtfFromLines?: Money_Transfer_From_LineUncheckedCreateNestedManyWithoutAccountInput
+    mttToAccount?: Money_To_TransactionUncheckedCreateNestedManyWithoutToAccountInput
   }
 
   export type AccountCreateOrConnectWithoutFmCashInput = {
@@ -89434,6 +95135,9 @@ export namespace Prisma {
     relBank?: GirviReleaseCreateNestedManyWithoutBankAccountInput
     relOnline?: GirviReleaseCreateNestedManyWithoutOnlineAccountInput
     relCard?: GirviReleaseCreateNestedManyWithoutCardAccountInput
+    mtfFromAccount?: Money_From_TransactionCreateNestedManyWithoutFromAccountInput
+    mtfFromLines?: Money_Transfer_From_LineCreateNestedManyWithoutAccountInput
+    mttToAccount?: Money_To_TransactionCreateNestedManyWithoutToAccountInput
   }
 
   export type AccountUncheckedCreateWithoutFmBankInput = {
@@ -89508,6 +95212,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUncheckedCreateNestedManyWithoutBankAccountInput
     relOnline?: GirviReleaseUncheckedCreateNestedManyWithoutOnlineAccountInput
     relCard?: GirviReleaseUncheckedCreateNestedManyWithoutCardAccountInput
+    mtfFromAccount?: Money_From_TransactionUncheckedCreateNestedManyWithoutFromAccountInput
+    mtfFromLines?: Money_Transfer_From_LineUncheckedCreateNestedManyWithoutAccountInput
+    mttToAccount?: Money_To_TransactionUncheckedCreateNestedManyWithoutToAccountInput
   }
 
   export type AccountCreateOrConnectWithoutFmBankInput = {
@@ -89586,6 +95293,9 @@ export namespace Prisma {
     relBank?: GirviReleaseCreateNestedManyWithoutBankAccountInput
     relOnline?: GirviReleaseCreateNestedManyWithoutOnlineAccountInput
     relCard?: GirviReleaseCreateNestedManyWithoutCardAccountInput
+    mtfFromAccount?: Money_From_TransactionCreateNestedManyWithoutFromAccountInput
+    mtfFromLines?: Money_Transfer_From_LineCreateNestedManyWithoutAccountInput
+    mttToAccount?: Money_To_TransactionCreateNestedManyWithoutToAccountInput
   }
 
   export type AccountUncheckedCreateWithoutFmOnlineInput = {
@@ -89660,6 +95370,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUncheckedCreateNestedManyWithoutBankAccountInput
     relOnline?: GirviReleaseUncheckedCreateNestedManyWithoutOnlineAccountInput
     relCard?: GirviReleaseUncheckedCreateNestedManyWithoutCardAccountInput
+    mtfFromAccount?: Money_From_TransactionUncheckedCreateNestedManyWithoutFromAccountInput
+    mtfFromLines?: Money_Transfer_From_LineUncheckedCreateNestedManyWithoutAccountInput
+    mttToAccount?: Money_To_TransactionUncheckedCreateNestedManyWithoutToAccountInput
   }
 
   export type AccountCreateOrConnectWithoutFmOnlineInput = {
@@ -89738,6 +95451,9 @@ export namespace Prisma {
     relBank?: GirviReleaseCreateNestedManyWithoutBankAccountInput
     relOnline?: GirviReleaseCreateNestedManyWithoutOnlineAccountInput
     relCard?: GirviReleaseCreateNestedManyWithoutCardAccountInput
+    mtfFromAccount?: Money_From_TransactionCreateNestedManyWithoutFromAccountInput
+    mtfFromLines?: Money_Transfer_From_LineCreateNestedManyWithoutAccountInput
+    mttToAccount?: Money_To_TransactionCreateNestedManyWithoutToAccountInput
   }
 
   export type AccountUncheckedCreateWithoutFmCardInput = {
@@ -89812,6 +95528,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUncheckedCreateNestedManyWithoutBankAccountInput
     relOnline?: GirviReleaseUncheckedCreateNestedManyWithoutOnlineAccountInput
     relCard?: GirviReleaseUncheckedCreateNestedManyWithoutCardAccountInput
+    mtfFromAccount?: Money_From_TransactionUncheckedCreateNestedManyWithoutFromAccountInput
+    mtfFromLines?: Money_Transfer_From_LineUncheckedCreateNestedManyWithoutAccountInput
+    mttToAccount?: Money_To_TransactionUncheckedCreateNestedManyWithoutToAccountInput
   }
 
   export type AccountCreateOrConnectWithoutFmCardInput = {
@@ -89890,6 +95609,9 @@ export namespace Prisma {
     relBank?: GirviReleaseCreateNestedManyWithoutBankAccountInput
     relOnline?: GirviReleaseCreateNestedManyWithoutOnlineAccountInput
     relCard?: GirviReleaseCreateNestedManyWithoutCardAccountInput
+    mtfFromAccount?: Money_From_TransactionCreateNestedManyWithoutFromAccountInput
+    mtfFromLines?: Money_Transfer_From_LineCreateNestedManyWithoutAccountInput
+    mttToAccount?: Money_To_TransactionCreateNestedManyWithoutToAccountInput
   }
 
   export type AccountUncheckedCreateWithoutFmDrInput = {
@@ -89964,6 +95686,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUncheckedCreateNestedManyWithoutBankAccountInput
     relOnline?: GirviReleaseUncheckedCreateNestedManyWithoutOnlineAccountInput
     relCard?: GirviReleaseUncheckedCreateNestedManyWithoutCardAccountInput
+    mtfFromAccount?: Money_From_TransactionUncheckedCreateNestedManyWithoutFromAccountInput
+    mtfFromLines?: Money_Transfer_From_LineUncheckedCreateNestedManyWithoutAccountInput
+    mttToAccount?: Money_To_TransactionUncheckedCreateNestedManyWithoutToAccountInput
   }
 
   export type AccountCreateOrConnectWithoutFmDrInput = {
@@ -90036,6 +95761,7 @@ export namespace Prisma {
     owner?: OwnerUpdateOneRequiredWithoutFirmsNestedInput
     finances?: FinanceUpdateManyWithoutFirmNestedInput
     financeTransactions?: Finance_TransactionUpdateManyWithoutFirmNestedInput
+    moneyFromTransactions?: Money_From_TransactionUpdateManyWithoutFirmNestedInput
     journals?: JournalUpdateManyWithoutFirmNestedInput
     journalTransactions?: JournalTransactionUpdateManyWithoutFirmNestedInput
     girvis?: GirviUpdateManyWithoutFirmNestedInput
@@ -90109,6 +95835,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedUpdateManyWithoutFirmNestedInput
     finances?: FinanceUncheckedUpdateManyWithoutFirmNestedInput
     financeTransactions?: Finance_TransactionUncheckedUpdateManyWithoutFirmNestedInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedUpdateManyWithoutFirmNestedInput
     journals?: JournalUncheckedUpdateManyWithoutFirmNestedInput
     journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutFirmNestedInput
     girvis?: GirviUncheckedUpdateManyWithoutFirmNestedInput
@@ -90321,6 +96048,7 @@ export namespace Prisma {
     accounts?: AccountUpdateManyWithoutOwnerNestedInput
     finances?: FinanceUpdateManyWithoutOwnerNestedInput
     financeTransactions?: Finance_TransactionUpdateManyWithoutOwnerNestedInput
+    moneyFromTransactions?: Money_From_TransactionUpdateManyWithoutOwnerNestedInput
     journals?: JournalUpdateManyWithoutOwnerNestedInput
     journalTransactions?: JournalTransactionUpdateManyWithoutOwnerNestedInput
     girvis?: GirviUpdateManyWithoutOwnerNestedInput
@@ -90389,6 +96117,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedUpdateManyWithoutOwnerNestedInput
     finances?: FinanceUncheckedUpdateManyWithoutOwnerNestedInput
     financeTransactions?: Finance_TransactionUncheckedUpdateManyWithoutOwnerNestedInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedUpdateManyWithoutOwnerNestedInput
     journals?: JournalUncheckedUpdateManyWithoutOwnerNestedInput
     journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutOwnerNestedInput
     girvis?: GirviUncheckedUpdateManyWithoutOwnerNestedInput
@@ -90541,6 +96270,7 @@ export namespace Prisma {
     jrnl_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     jrnl_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     jrnl_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    moneyFromTransactions?: Money_From_TransactionUpdateManyWithoutJournalNestedInput
     firm?: FirmUpdateOneRequiredWithoutJournalsNestedInput
     user?: UserUpdateOneWithoutJournalsNestedInput
     owner?: OwnerUpdateOneRequiredWithoutJournalsNestedInput
@@ -90565,6 +96295,7 @@ export namespace Prisma {
     jrnl_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     jrnl_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     jrnl_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    moneyFromTransactions?: Money_From_TransactionUncheckedUpdateManyWithoutJournalNestedInput
     journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutJournalNestedInput
   }
 
@@ -90650,6 +96381,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUpdateManyWithoutBankAccountNestedInput
     relOnline?: GirviReleaseUpdateManyWithoutOnlineAccountNestedInput
     relCard?: GirviReleaseUpdateManyWithoutCardAccountNestedInput
+    mtfFromAccount?: Money_From_TransactionUpdateManyWithoutFromAccountNestedInput
+    mtfFromLines?: Money_Transfer_From_LineUpdateManyWithoutAccountNestedInput
+    mttToAccount?: Money_To_TransactionUpdateManyWithoutToAccountNestedInput
   }
 
   export type AccountUncheckedUpdateWithoutFmCashInput = {
@@ -90724,6 +96458,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUncheckedUpdateManyWithoutBankAccountNestedInput
     relOnline?: GirviReleaseUncheckedUpdateManyWithoutOnlineAccountNestedInput
     relCard?: GirviReleaseUncheckedUpdateManyWithoutCardAccountNestedInput
+    mtfFromAccount?: Money_From_TransactionUncheckedUpdateManyWithoutFromAccountNestedInput
+    mtfFromLines?: Money_Transfer_From_LineUncheckedUpdateManyWithoutAccountNestedInput
+    mttToAccount?: Money_To_TransactionUncheckedUpdateManyWithoutToAccountNestedInput
   }
 
   export type AccountUpsertWithoutFmBankInput = {
@@ -90808,6 +96545,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUpdateManyWithoutBankAccountNestedInput
     relOnline?: GirviReleaseUpdateManyWithoutOnlineAccountNestedInput
     relCard?: GirviReleaseUpdateManyWithoutCardAccountNestedInput
+    mtfFromAccount?: Money_From_TransactionUpdateManyWithoutFromAccountNestedInput
+    mtfFromLines?: Money_Transfer_From_LineUpdateManyWithoutAccountNestedInput
+    mttToAccount?: Money_To_TransactionUpdateManyWithoutToAccountNestedInput
   }
 
   export type AccountUncheckedUpdateWithoutFmBankInput = {
@@ -90882,6 +96622,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUncheckedUpdateManyWithoutBankAccountNestedInput
     relOnline?: GirviReleaseUncheckedUpdateManyWithoutOnlineAccountNestedInput
     relCard?: GirviReleaseUncheckedUpdateManyWithoutCardAccountNestedInput
+    mtfFromAccount?: Money_From_TransactionUncheckedUpdateManyWithoutFromAccountNestedInput
+    mtfFromLines?: Money_Transfer_From_LineUncheckedUpdateManyWithoutAccountNestedInput
+    mttToAccount?: Money_To_TransactionUncheckedUpdateManyWithoutToAccountNestedInput
   }
 
   export type AccountUpsertWithoutFmOnlineInput = {
@@ -90966,6 +96709,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUpdateManyWithoutBankAccountNestedInput
     relOnline?: GirviReleaseUpdateManyWithoutOnlineAccountNestedInput
     relCard?: GirviReleaseUpdateManyWithoutCardAccountNestedInput
+    mtfFromAccount?: Money_From_TransactionUpdateManyWithoutFromAccountNestedInput
+    mtfFromLines?: Money_Transfer_From_LineUpdateManyWithoutAccountNestedInput
+    mttToAccount?: Money_To_TransactionUpdateManyWithoutToAccountNestedInput
   }
 
   export type AccountUncheckedUpdateWithoutFmOnlineInput = {
@@ -91040,6 +96786,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUncheckedUpdateManyWithoutBankAccountNestedInput
     relOnline?: GirviReleaseUncheckedUpdateManyWithoutOnlineAccountNestedInput
     relCard?: GirviReleaseUncheckedUpdateManyWithoutCardAccountNestedInput
+    mtfFromAccount?: Money_From_TransactionUncheckedUpdateManyWithoutFromAccountNestedInput
+    mtfFromLines?: Money_Transfer_From_LineUncheckedUpdateManyWithoutAccountNestedInput
+    mttToAccount?: Money_To_TransactionUncheckedUpdateManyWithoutToAccountNestedInput
   }
 
   export type AccountUpsertWithoutFmCardInput = {
@@ -91124,6 +96873,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUpdateManyWithoutBankAccountNestedInput
     relOnline?: GirviReleaseUpdateManyWithoutOnlineAccountNestedInput
     relCard?: GirviReleaseUpdateManyWithoutCardAccountNestedInput
+    mtfFromAccount?: Money_From_TransactionUpdateManyWithoutFromAccountNestedInput
+    mtfFromLines?: Money_Transfer_From_LineUpdateManyWithoutAccountNestedInput
+    mttToAccount?: Money_To_TransactionUpdateManyWithoutToAccountNestedInput
   }
 
   export type AccountUncheckedUpdateWithoutFmCardInput = {
@@ -91198,6 +96950,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUncheckedUpdateManyWithoutBankAccountNestedInput
     relOnline?: GirviReleaseUncheckedUpdateManyWithoutOnlineAccountNestedInput
     relCard?: GirviReleaseUncheckedUpdateManyWithoutCardAccountNestedInput
+    mtfFromAccount?: Money_From_TransactionUncheckedUpdateManyWithoutFromAccountNestedInput
+    mtfFromLines?: Money_Transfer_From_LineUncheckedUpdateManyWithoutAccountNestedInput
+    mttToAccount?: Money_To_TransactionUncheckedUpdateManyWithoutToAccountNestedInput
   }
 
   export type AccountUpsertWithoutFmDrInput = {
@@ -91282,6 +97037,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUpdateManyWithoutBankAccountNestedInput
     relOnline?: GirviReleaseUpdateManyWithoutOnlineAccountNestedInput
     relCard?: GirviReleaseUpdateManyWithoutCardAccountNestedInput
+    mtfFromAccount?: Money_From_TransactionUpdateManyWithoutFromAccountNestedInput
+    mtfFromLines?: Money_Transfer_From_LineUpdateManyWithoutAccountNestedInput
+    mttToAccount?: Money_To_TransactionUpdateManyWithoutToAccountNestedInput
   }
 
   export type AccountUncheckedUpdateWithoutFmDrInput = {
@@ -91356,6 +97114,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUncheckedUpdateManyWithoutBankAccountNestedInput
     relOnline?: GirviReleaseUncheckedUpdateManyWithoutOnlineAccountNestedInput
     relCard?: GirviReleaseUncheckedUpdateManyWithoutCardAccountNestedInput
+    mtfFromAccount?: Money_From_TransactionUncheckedUpdateManyWithoutFromAccountNestedInput
+    mtfFromLines?: Money_Transfer_From_LineUncheckedUpdateManyWithoutAccountNestedInput
+    mttToAccount?: Money_To_TransactionUncheckedUpdateManyWithoutToAccountNestedInput
   }
 
   export type Finance_Money_TransactionCreateWithoutJournalInput = {
@@ -91441,6 +97202,63 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type Money_From_TransactionCreateWithoutJournalInput = {
+    mtf_uuid?: string
+    mtf_trans_date: string
+    mtf_mode?: $Enums.MoneyTransferMode
+    mtf_direction?: $Enums.MoneyTransferDirection
+    mtf_total_amt: number
+    mtf_panel?: string
+    mtf_narration?: string | null
+    mtf_other_info?: string | null
+    mtf_created_at?: Date | string
+    mtf_created_by?: string | null
+    mtf_updated_at?: Date | string
+    mtf_updated_by?: string | null
+    mtf_deleted_at?: Date | string | null
+    mtf_deleted_by?: string | null
+    mtf_is_deleted?: boolean
+    firm: FirmCreateNestedOneWithoutMoneyFromTransactionsInput
+    owner: OwnerCreateNestedOneWithoutMoneyFromTransactionsInput
+    fromAccount: AccountCreateNestedOneWithoutMtfFromAccountInput
+    fromLines?: Money_Transfer_From_LineCreateNestedManyWithoutFromTransactionInput
+    toRows?: Money_To_TransactionCreateNestedManyWithoutFromTransactionInput
+  }
+
+  export type Money_From_TransactionUncheckedCreateWithoutJournalInput = {
+    mtf_id?: number
+    mtf_uuid?: string
+    mtf_firm_id: number
+    mtf_own_id: number
+    mtf_from_acc_id: number
+    mtf_trans_date: string
+    mtf_mode?: $Enums.MoneyTransferMode
+    mtf_direction?: $Enums.MoneyTransferDirection
+    mtf_total_amt: number
+    mtf_panel?: string
+    mtf_narration?: string | null
+    mtf_other_info?: string | null
+    mtf_created_at?: Date | string
+    mtf_created_by?: string | null
+    mtf_updated_at?: Date | string
+    mtf_updated_by?: string | null
+    mtf_deleted_at?: Date | string | null
+    mtf_deleted_by?: string | null
+    mtf_is_deleted?: boolean
+    fromLines?: Money_Transfer_From_LineUncheckedCreateNestedManyWithoutFromTransactionInput
+    toRows?: Money_To_TransactionUncheckedCreateNestedManyWithoutFromTransactionInput
+  }
+
+  export type Money_From_TransactionCreateOrConnectWithoutJournalInput = {
+    where: Money_From_TransactionWhereUniqueInput
+    create: XOR<Money_From_TransactionCreateWithoutJournalInput, Money_From_TransactionUncheckedCreateWithoutJournalInput>
+  }
+
+  export type Money_From_TransactionCreateManyJournalInputEnvelope = {
+    data: Money_From_TransactionCreateManyJournalInput | Money_From_TransactionCreateManyJournalInput[]
+    skipDuplicates?: boolean
+  }
+
   export type FirmCreateWithoutJournalsInput = {
     firm_uuid?: string
     firm_unique_code?: string | null
@@ -91496,6 +97314,7 @@ export namespace Prisma {
     finances?: FinanceCreateNestedManyWithoutFirmInput
     financeTransactions?: Finance_TransactionCreateNestedManyWithoutFirmInput
     financeMoneyTrans?: Finance_Money_TransactionCreateNestedManyWithoutFirmInput
+    moneyFromTransactions?: Money_From_TransactionCreateNestedManyWithoutFirmInput
     journalTransactions?: JournalTransactionCreateNestedManyWithoutFirmInput
     girvis?: GirviCreateNestedManyWithoutFirmInput
     stocks?: StockCreateNestedManyWithoutFirmInput
@@ -91569,6 +97388,7 @@ export namespace Prisma {
     finances?: FinanceUncheckedCreateNestedManyWithoutFirmInput
     financeTransactions?: Finance_TransactionUncheckedCreateNestedManyWithoutFirmInput
     financeMoneyTrans?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutFirmInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedCreateNestedManyWithoutFirmInput
     journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutFirmInput
     girvis?: GirviUncheckedCreateNestedManyWithoutFirmInput
     stocks?: StockUncheckedCreateNestedManyWithoutFirmInput
@@ -91770,6 +97590,7 @@ export namespace Prisma {
     finances?: FinanceCreateNestedManyWithoutOwnerInput
     financeTransactions?: Finance_TransactionCreateNestedManyWithoutOwnerInput
     financeMoneyTrans?: Finance_Money_TransactionCreateNestedManyWithoutOwnerInput
+    moneyFromTransactions?: Money_From_TransactionCreateNestedManyWithoutOwnerInput
     journalTransactions?: JournalTransactionCreateNestedManyWithoutOwnerInput
     girvis?: GirviCreateNestedManyWithoutOwnerInput
     stocks?: StockCreateNestedManyWithoutOwnerInput
@@ -91838,6 +97659,7 @@ export namespace Prisma {
     finances?: FinanceUncheckedCreateNestedManyWithoutOwnerInput
     financeTransactions?: Finance_TransactionUncheckedCreateNestedManyWithoutOwnerInput
     financeMoneyTrans?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutOwnerInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedCreateNestedManyWithoutOwnerInput
     journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutOwnerInput
     girvis?: GirviUncheckedCreateNestedManyWithoutOwnerInput
     stocks?: StockUncheckedCreateNestedManyWithoutOwnerInput
@@ -91934,6 +97756,22 @@ export namespace Prisma {
     data: XOR<Finance_Money_TransactionUpdateManyMutationInput, Finance_Money_TransactionUncheckedUpdateManyWithoutJournalInput>
   }
 
+  export type Money_From_TransactionUpsertWithWhereUniqueWithoutJournalInput = {
+    where: Money_From_TransactionWhereUniqueInput
+    update: XOR<Money_From_TransactionUpdateWithoutJournalInput, Money_From_TransactionUncheckedUpdateWithoutJournalInput>
+    create: XOR<Money_From_TransactionCreateWithoutJournalInput, Money_From_TransactionUncheckedCreateWithoutJournalInput>
+  }
+
+  export type Money_From_TransactionUpdateWithWhereUniqueWithoutJournalInput = {
+    where: Money_From_TransactionWhereUniqueInput
+    data: XOR<Money_From_TransactionUpdateWithoutJournalInput, Money_From_TransactionUncheckedUpdateWithoutJournalInput>
+  }
+
+  export type Money_From_TransactionUpdateManyWithWhereWithoutJournalInput = {
+    where: Money_From_TransactionScalarWhereInput
+    data: XOR<Money_From_TransactionUpdateManyMutationInput, Money_From_TransactionUncheckedUpdateManyWithoutJournalInput>
+  }
+
   export type FirmUpsertWithoutJournalsInput = {
     update: XOR<FirmUpdateWithoutJournalsInput, FirmUncheckedUpdateWithoutJournalsInput>
     create: XOR<FirmCreateWithoutJournalsInput, FirmUncheckedCreateWithoutJournalsInput>
@@ -92000,6 +97838,7 @@ export namespace Prisma {
     finances?: FinanceUpdateManyWithoutFirmNestedInput
     financeTransactions?: Finance_TransactionUpdateManyWithoutFirmNestedInput
     financeMoneyTrans?: Finance_Money_TransactionUpdateManyWithoutFirmNestedInput
+    moneyFromTransactions?: Money_From_TransactionUpdateManyWithoutFirmNestedInput
     journalTransactions?: JournalTransactionUpdateManyWithoutFirmNestedInput
     girvis?: GirviUpdateManyWithoutFirmNestedInput
     stocks?: StockUpdateManyWithoutFirmNestedInput
@@ -92073,6 +97912,7 @@ export namespace Prisma {
     finances?: FinanceUncheckedUpdateManyWithoutFirmNestedInput
     financeTransactions?: Finance_TransactionUncheckedUpdateManyWithoutFirmNestedInput
     financeMoneyTrans?: Finance_Money_TransactionUncheckedUpdateManyWithoutFirmNestedInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedUpdateManyWithoutFirmNestedInput
     journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutFirmNestedInput
     girvis?: GirviUncheckedUpdateManyWithoutFirmNestedInput
     stocks?: StockUncheckedUpdateManyWithoutFirmNestedInput
@@ -92285,6 +98125,7 @@ export namespace Prisma {
     finances?: FinanceUpdateManyWithoutOwnerNestedInput
     financeTransactions?: Finance_TransactionUpdateManyWithoutOwnerNestedInput
     financeMoneyTrans?: Finance_Money_TransactionUpdateManyWithoutOwnerNestedInput
+    moneyFromTransactions?: Money_From_TransactionUpdateManyWithoutOwnerNestedInput
     journalTransactions?: JournalTransactionUpdateManyWithoutOwnerNestedInput
     girvis?: GirviUpdateManyWithoutOwnerNestedInput
     stocks?: StockUpdateManyWithoutOwnerNestedInput
@@ -92353,6 +98194,7 @@ export namespace Prisma {
     finances?: FinanceUncheckedUpdateManyWithoutOwnerNestedInput
     financeTransactions?: Finance_TransactionUncheckedUpdateManyWithoutOwnerNestedInput
     financeMoneyTrans?: Finance_Money_TransactionUncheckedUpdateManyWithoutOwnerNestedInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedUpdateManyWithoutOwnerNestedInput
     journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutOwnerNestedInput
     girvis?: GirviUncheckedUpdateManyWithoutOwnerNestedInput
     stocks?: StockUncheckedUpdateManyWithoutOwnerNestedInput
@@ -92385,6 +98227,1975 @@ export namespace Prisma {
     data: XOR<JournalTransactionUpdateManyMutationInput, JournalTransactionUncheckedUpdateManyWithoutJournalInput>
   }
 
+  export type FirmCreateWithoutMoneyFromTransactionsInput = {
+    firm_uuid?: string
+    firm_unique_code?: string | null
+    firm_add_date?: Date | string
+    firm_name: string
+    firm_reg_no: string
+    firm_shop_name: string
+    firm_desc?: string | null
+    firm_address?: string | null
+    firm_city?: string | null
+    firm_pincode?: string | null
+    firm_phone_no?: string | null
+    firm_email_id?: string | null
+    firm_website_link?: string | null
+    firm_type?: $Enums.FirmType
+    firm_owner?: string | null
+    firm_other_info?: string | null
+    firm_geo_latitude?: string | null
+    firm_geo_longitude?: string | null
+    firm_whatsapp_link?: string | null
+    firm_facebook_link?: string | null
+    firm_insta_link?: string | null
+    firm_bank_name?: string | null
+    firm_bank_acc_no?: string | null
+    firm_bank_branch?: string | null
+    firm_bank_address?: string | null
+    firm_acc_holder?: string | null
+    firm_acc_type?: string | null
+    firm_ifsc_code?: string | null
+    firm_start_date?: Date | string | null
+    firm_balance?: string | null
+    firm_balance_type?: $Enums.FirmBalanceType
+    firm_gstin_no?: string | null
+    firm_pan_no?: string | null
+    firm_adhaar_no?: string | null
+    firm_form_header?: string | null
+    firm_form_footer?: string | null
+    firm_own_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_left_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_right_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_qr_code_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_pan_no_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_created_at?: Date | string
+    firm_created_by?: string | null
+    firm_updated_at?: Date | string
+    firm_updated_by?: string | null
+    firm_deleted_at?: Date | string | null
+    firm_deleted_by?: string | null
+    firm_is_deleted?: boolean
+    users?: UserCreateNestedManyWithoutFirmInput
+    accounts?: AccountCreateNestedManyWithoutFirmInput
+    owner?: OwnerCreateNestedOneWithoutFirmsInput
+    finances?: FinanceCreateNestedManyWithoutFirmInput
+    financeTransactions?: Finance_TransactionCreateNestedManyWithoutFirmInput
+    financeMoneyTrans?: Finance_Money_TransactionCreateNestedManyWithoutFirmInput
+    journals?: JournalCreateNestedManyWithoutFirmInput
+    journalTransactions?: JournalTransactionCreateNestedManyWithoutFirmInput
+    girvis?: GirviCreateNestedManyWithoutFirmInput
+    stocks?: StockCreateNestedManyWithoutFirmInput
+    additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutFirmInput
+    deposits?: GirviDepositCreateNestedManyWithoutFirmInput
+    releases?: GirviReleaseCreateNestedManyWithoutFirmInput
+    rates?: RateCreateNestedManyWithoutFirmInput
+    moneyLenders?: MoneyLenderCreateNestedManyWithoutFirmInput
+    auctionUsers?: AuctionUserCreateNestedManyWithoutFirmInput
+    auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
+    releaseUsers?: ReleaseUserCreateNestedManyWithoutFirmInput
+    messageTemplates?: MessageTemplateCreateNestedManyWithoutFirmInput
+    formTemplate?: FormTemplateCreateNestedOneWithoutFirmInput
+    agreementTemplates?: AgreementTemplateCreateNestedManyWithoutFirmInput
+    whatsappInstance?: WhatsAppInstanceCreateNestedOneWithoutFirmInput
+  }
+
+  export type FirmUncheckedCreateWithoutMoneyFromTransactionsInput = {
+    firm_id?: number
+    firm_uuid?: string
+    firm_unique_code?: string | null
+    firm_add_date?: Date | string
+    firm_own_id?: number
+    firm_name: string
+    firm_reg_no: string
+    firm_shop_name: string
+    firm_desc?: string | null
+    firm_address?: string | null
+    firm_city?: string | null
+    firm_pincode?: string | null
+    firm_phone_no?: string | null
+    firm_email_id?: string | null
+    firm_website_link?: string | null
+    firm_type?: $Enums.FirmType
+    firm_owner?: string | null
+    firm_other_info?: string | null
+    firm_geo_latitude?: string | null
+    firm_geo_longitude?: string | null
+    firm_whatsapp_link?: string | null
+    firm_facebook_link?: string | null
+    firm_insta_link?: string | null
+    firm_bank_name?: string | null
+    firm_bank_acc_no?: string | null
+    firm_bank_branch?: string | null
+    firm_bank_address?: string | null
+    firm_acc_holder?: string | null
+    firm_acc_type?: string | null
+    firm_ifsc_code?: string | null
+    firm_start_date?: Date | string | null
+    firm_balance?: string | null
+    firm_balance_type?: $Enums.FirmBalanceType
+    firm_gstin_no?: string | null
+    firm_pan_no?: string | null
+    firm_adhaar_no?: string | null
+    firm_form_header?: string | null
+    firm_form_footer?: string | null
+    firm_own_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_left_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_right_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_qr_code_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_pan_no_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_created_at?: Date | string
+    firm_created_by?: string | null
+    firm_updated_at?: Date | string
+    firm_updated_by?: string | null
+    firm_deleted_at?: Date | string | null
+    firm_deleted_by?: string | null
+    firm_is_deleted?: boolean
+    users?: UserUncheckedCreateNestedManyWithoutFirmInput
+    accounts?: AccountUncheckedCreateNestedManyWithoutFirmInput
+    finances?: FinanceUncheckedCreateNestedManyWithoutFirmInput
+    financeTransactions?: Finance_TransactionUncheckedCreateNestedManyWithoutFirmInput
+    financeMoneyTrans?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutFirmInput
+    journals?: JournalUncheckedCreateNestedManyWithoutFirmInput
+    journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutFirmInput
+    girvis?: GirviUncheckedCreateNestedManyWithoutFirmInput
+    stocks?: StockUncheckedCreateNestedManyWithoutFirmInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutFirmInput
+    deposits?: GirviDepositUncheckedCreateNestedManyWithoutFirmInput
+    releases?: GirviReleaseUncheckedCreateNestedManyWithoutFirmInput
+    rates?: RateUncheckedCreateNestedManyWithoutFirmInput
+    moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutFirmInput
+    auctionUsers?: AuctionUserUncheckedCreateNestedManyWithoutFirmInput
+    auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
+    releaseUsers?: ReleaseUserUncheckedCreateNestedManyWithoutFirmInput
+    messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutFirmInput
+    formTemplate?: FormTemplateUncheckedCreateNestedOneWithoutFirmInput
+    agreementTemplates?: AgreementTemplateUncheckedCreateNestedManyWithoutFirmInput
+    whatsappInstance?: WhatsAppInstanceUncheckedCreateNestedOneWithoutFirmInput
+  }
+
+  export type FirmCreateOrConnectWithoutMoneyFromTransactionsInput = {
+    where: FirmWhereUniqueInput
+    create: XOR<FirmCreateWithoutMoneyFromTransactionsInput, FirmUncheckedCreateWithoutMoneyFromTransactionsInput>
+  }
+
+  export type OwnerCreateWithoutMoneyFromTransactionsInput = {
+    own_uuid?: string
+    own_product_key?: number
+    own_db: string
+    own_add_date?: Date | string
+    own_first_name: string
+    own_middle_name?: string | null
+    own_last_name: string
+    own_phone_no?: string | null
+    own_mobile_no: string
+    own_email: string
+    own_login_id: string
+    own_password: string
+    own_status?: $Enums.OwnerStatus
+    own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_max_firms?: number | null
+    own_max_staff?: number | null
+    own_start_date?: Date | string | null
+    own_expiry_date?: Date | string | null
+    own_refresh_token?: string | null
+    own_refresh_expiry?: Date | string | null
+    own_jwt_token?: string | null
+    own_jwt_expiry?: Date | string | null
+    own_login_status?: boolean
+    own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
+    own_otp?: string | null
+    own_otp_expiry?: Date | string | null
+    own_mail_user?: string | null
+    own_mail_pass_enc?: string | null
+    own_mail_from_name?: string | null
+    own_mail_provider?: string | null
+    own_mail_status?: string | null
+    own_mail_updated_at?: Date | string | null
+    own_address?: string | null
+    own_village?: string | null
+    own_city?: string | null
+    own_state?: string | null
+    own_pincode?: string | null
+    own_created_at?: Date | string
+    own_created_by?: string | null
+    own_updated_at?: Date | string
+    own_updated_by?: string | null
+    own_deleted_at?: Date | string | null
+    own_deleted_by?: string | null
+    own_is_deleted?: boolean
+    users?: UserCreateNestedManyWithoutOwnerInput
+    firms?: FirmCreateNestedManyWithoutOwnerInput
+    accounts?: AccountCreateNestedManyWithoutOwnerInput
+    finances?: FinanceCreateNestedManyWithoutOwnerInput
+    financeTransactions?: Finance_TransactionCreateNestedManyWithoutOwnerInput
+    financeMoneyTrans?: Finance_Money_TransactionCreateNestedManyWithoutOwnerInput
+    journals?: JournalCreateNestedManyWithoutOwnerInput
+    journalTransactions?: JournalTransactionCreateNestedManyWithoutOwnerInput
+    girvis?: GirviCreateNestedManyWithoutOwnerInput
+    stocks?: StockCreateNestedManyWithoutOwnerInput
+    additionalPrincipals?: AdditionalPrincipalCreateNestedManyWithoutOwnerInput
+    deposits?: GirviDepositCreateNestedManyWithoutOwnerInput
+    releases?: GirviReleaseCreateNestedManyWithoutOwnerInput
+    rates?: RateCreateNestedManyWithoutOwnerInput
+    purities?: PurityCreateNestedManyWithoutOwnerInput
+    moneyLenders?: MoneyLenderCreateNestedManyWithoutOwnerInput
+    staff?: StaffCreateNestedManyWithoutOwnerInput
+    messageTemplates?: MessageTemplateCreateNestedManyWithoutOwnerInput
+    formTemplates?: FormTemplateCreateNestedManyWithoutOwnerInput
+    agreementTemplates?: AgreementTemplateCreateNestedManyWithoutOwnerInput
+    whatsappInstances?: WhatsAppInstanceCreateNestedManyWithoutOwnerInput
+  }
+
+  export type OwnerUncheckedCreateWithoutMoneyFromTransactionsInput = {
+    own_id?: number
+    own_uuid?: string
+    own_product_key?: number
+    own_db: string
+    own_add_date?: Date | string
+    own_first_name: string
+    own_middle_name?: string | null
+    own_last_name: string
+    own_phone_no?: string | null
+    own_mobile_no: string
+    own_email: string
+    own_login_id: string
+    own_password: string
+    own_status?: $Enums.OwnerStatus
+    own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_max_firms?: number | null
+    own_max_staff?: number | null
+    own_start_date?: Date | string | null
+    own_expiry_date?: Date | string | null
+    own_refresh_token?: string | null
+    own_refresh_expiry?: Date | string | null
+    own_jwt_token?: string | null
+    own_jwt_expiry?: Date | string | null
+    own_login_status?: boolean
+    own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
+    own_otp?: string | null
+    own_otp_expiry?: Date | string | null
+    own_mail_user?: string | null
+    own_mail_pass_enc?: string | null
+    own_mail_from_name?: string | null
+    own_mail_provider?: string | null
+    own_mail_status?: string | null
+    own_mail_updated_at?: Date | string | null
+    own_address?: string | null
+    own_village?: string | null
+    own_city?: string | null
+    own_state?: string | null
+    own_pincode?: string | null
+    own_created_at?: Date | string
+    own_created_by?: string | null
+    own_updated_at?: Date | string
+    own_updated_by?: string | null
+    own_deleted_at?: Date | string | null
+    own_deleted_by?: string | null
+    own_is_deleted?: boolean
+    users?: UserUncheckedCreateNestedManyWithoutOwnerInput
+    firms?: FirmUncheckedCreateNestedManyWithoutOwnerInput
+    accounts?: AccountUncheckedCreateNestedManyWithoutOwnerInput
+    finances?: FinanceUncheckedCreateNestedManyWithoutOwnerInput
+    financeTransactions?: Finance_TransactionUncheckedCreateNestedManyWithoutOwnerInput
+    financeMoneyTrans?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutOwnerInput
+    journals?: JournalUncheckedCreateNestedManyWithoutOwnerInput
+    journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutOwnerInput
+    girvis?: GirviUncheckedCreateNestedManyWithoutOwnerInput
+    stocks?: StockUncheckedCreateNestedManyWithoutOwnerInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedCreateNestedManyWithoutOwnerInput
+    deposits?: GirviDepositUncheckedCreateNestedManyWithoutOwnerInput
+    releases?: GirviReleaseUncheckedCreateNestedManyWithoutOwnerInput
+    rates?: RateUncheckedCreateNestedManyWithoutOwnerInput
+    purities?: PurityUncheckedCreateNestedManyWithoutOwnerInput
+    moneyLenders?: MoneyLenderUncheckedCreateNestedManyWithoutOwnerInput
+    staff?: StaffUncheckedCreateNestedManyWithoutOwnerInput
+    messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutOwnerInput
+    formTemplates?: FormTemplateUncheckedCreateNestedManyWithoutOwnerInput
+    agreementTemplates?: AgreementTemplateUncheckedCreateNestedManyWithoutOwnerInput
+    whatsappInstances?: WhatsAppInstanceUncheckedCreateNestedManyWithoutOwnerInput
+  }
+
+  export type OwnerCreateOrConnectWithoutMoneyFromTransactionsInput = {
+    where: OwnerWhereUniqueInput
+    create: XOR<OwnerCreateWithoutMoneyFromTransactionsInput, OwnerUncheckedCreateWithoutMoneyFromTransactionsInput>
+  }
+
+  export type AccountCreateWithoutMtfFromAccountInput = {
+    acc_uuid?: string
+    acc_add_date?: Date | string
+    acc_pan_no?: string | null
+    acc_name: string
+    acc_desc?: string | null
+    acc_pre_acc?: string | null
+    acc_bank_no?: string | null
+    acc_bsr_no?: string | null
+    acc_ifsc_code?: string | null
+    acc_branch_name?: string | null
+    acc_opening_date: Date | string
+    acc_address?: string | null
+    acc_country?: string | null
+    acc_state?: string | null
+    acc_city?: string | null
+    acc_pincode?: string | null
+    acc_cash_balance?: string | null
+    acc_balance_type?: $Enums.AccountBalanceType
+    acc_other_info?: string | null
+    acc_created_at?: Date | string
+    acc_created_by?: string | null
+    acc_updated_by?: string | null
+    acc_deleted_at?: Date | string | null
+    acc_deleted_by?: string | null
+    acc_is_system?: boolean
+    acc_is_deleted?: boolean
+    owner?: OwnerCreateNestedOneWithoutAccountsInput
+    firm?: FirmCreateNestedOneWithoutAccountsInput
+    financeCash?: FinanceCreateNestedManyWithoutCashAccountInput
+    financeBank?: FinanceCreateNestedManyWithoutBankAccountInput
+    financeOnline?: FinanceCreateNestedManyWithoutOnlineAccountInput
+    financeCard?: FinanceCreateNestedManyWithoutCardAccountInput
+    financeDr?: FinanceCreateNestedManyWithoutDrAccountInput
+    ftCash?: Finance_TransactionCreateNestedManyWithoutCashAccountInput
+    ftBank?: Finance_TransactionCreateNestedManyWithoutBankAccountInput
+    ftOnline?: Finance_TransactionCreateNestedManyWithoutOnlineAccountInput
+    ftCard?: Finance_TransactionCreateNestedManyWithoutCardAccountInput
+    fmCash?: Finance_Money_TransactionCreateNestedManyWithoutCashAccountInput
+    fmBank?: Finance_Money_TransactionCreateNestedManyWithoutBankAccountInput
+    fmOnline?: Finance_Money_TransactionCreateNestedManyWithoutOnlineAccountInput
+    fmCard?: Finance_Money_TransactionCreateNestedManyWithoutCardAccountInput
+    fmDr?: Finance_Money_TransactionCreateNestedManyWithoutDrAccountInput
+    jrtrCredit?: JournalTransactionCreateNestedManyWithoutCreditAccountInput
+    jrtrDebit?: JournalTransactionCreateNestedManyWithoutDebitAccountInput
+    girviFirstIntCr?: GirviCreateNestedManyWithoutFirstIntCrAccountInput
+    girviFirstIntDr?: GirviCreateNestedManyWithoutFirstIntDrAccountInput
+    girviCash?: GirviCreateNestedManyWithoutCashAccountInput
+    girviBank?: GirviCreateNestedManyWithoutBankAccountInput
+    girviOnline?: GirviCreateNestedManyWithoutOnlineAccountInput
+    girviCard?: GirviCreateNestedManyWithoutCardAccountInput
+    girviDr?: GirviCreateNestedManyWithoutDrAccountInput
+    apCash?: AdditionalPrincipalCreateNestedManyWithoutCashAccountInput
+    apBank?: AdditionalPrincipalCreateNestedManyWithoutBankAccountInput
+    apOnline?: AdditionalPrincipalCreateNestedManyWithoutOnlineAccountInput
+    apCard?: AdditionalPrincipalCreateNestedManyWithoutCardAccountInput
+    depPrin?: GirviDepositCreateNestedManyWithoutPrinAccountInput
+    depInt?: GirviDepositCreateNestedManyWithoutIntAccountInput
+    depDisc?: GirviDepositCreateNestedManyWithoutDiscAccountInput
+    depExtra?: GirviDepositCreateNestedManyWithoutExtraAccountInput
+    depCash?: GirviDepositCreateNestedManyWithoutCashAccountInput
+    depBank?: GirviDepositCreateNestedManyWithoutBankAccountInput
+    depOnline?: GirviDepositCreateNestedManyWithoutOnlineAccountInput
+    depCard?: GirviDepositCreateNestedManyWithoutCardAccountInput
+    relPrin?: GirviReleaseCreateNestedManyWithoutPrinAccountInput
+    relInt?: GirviReleaseCreateNestedManyWithoutIntAccountInput
+    relDisc?: GirviReleaseCreateNestedManyWithoutDiscAccountInput
+    relExtra?: GirviReleaseCreateNestedManyWithoutExtraAccountInput
+    relCash?: GirviReleaseCreateNestedManyWithoutCashAccountInput
+    relBank?: GirviReleaseCreateNestedManyWithoutBankAccountInput
+    relOnline?: GirviReleaseCreateNestedManyWithoutOnlineAccountInput
+    relCard?: GirviReleaseCreateNestedManyWithoutCardAccountInput
+    mtfFromLines?: Money_Transfer_From_LineCreateNestedManyWithoutAccountInput
+    mttToAccount?: Money_To_TransactionCreateNestedManyWithoutToAccountInput
+  }
+
+  export type AccountUncheckedCreateWithoutMtfFromAccountInput = {
+    acc_id?: number
+    acc_uuid?: string
+    acc_add_date?: Date | string
+    acc_own_id?: number
+    acc_firm_id?: number
+    acc_pan_no?: string | null
+    acc_name: string
+    acc_desc?: string | null
+    acc_pre_acc?: string | null
+    acc_bank_no?: string | null
+    acc_bsr_no?: string | null
+    acc_ifsc_code?: string | null
+    acc_branch_name?: string | null
+    acc_opening_date: Date | string
+    acc_address?: string | null
+    acc_country?: string | null
+    acc_state?: string | null
+    acc_city?: string | null
+    acc_pincode?: string | null
+    acc_cash_balance?: string | null
+    acc_balance_type?: $Enums.AccountBalanceType
+    acc_other_info?: string | null
+    acc_created_at?: Date | string
+    acc_created_by?: string | null
+    acc_updated_by?: string | null
+    acc_deleted_at?: Date | string | null
+    acc_deleted_by?: string | null
+    acc_is_system?: boolean
+    acc_is_deleted?: boolean
+    financeCash?: FinanceUncheckedCreateNestedManyWithoutCashAccountInput
+    financeBank?: FinanceUncheckedCreateNestedManyWithoutBankAccountInput
+    financeOnline?: FinanceUncheckedCreateNestedManyWithoutOnlineAccountInput
+    financeCard?: FinanceUncheckedCreateNestedManyWithoutCardAccountInput
+    financeDr?: FinanceUncheckedCreateNestedManyWithoutDrAccountInput
+    ftCash?: Finance_TransactionUncheckedCreateNestedManyWithoutCashAccountInput
+    ftBank?: Finance_TransactionUncheckedCreateNestedManyWithoutBankAccountInput
+    ftOnline?: Finance_TransactionUncheckedCreateNestedManyWithoutOnlineAccountInput
+    ftCard?: Finance_TransactionUncheckedCreateNestedManyWithoutCardAccountInput
+    fmCash?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutCashAccountInput
+    fmBank?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutBankAccountInput
+    fmOnline?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutOnlineAccountInput
+    fmCard?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutCardAccountInput
+    fmDr?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutDrAccountInput
+    jrtrCredit?: JournalTransactionUncheckedCreateNestedManyWithoutCreditAccountInput
+    jrtrDebit?: JournalTransactionUncheckedCreateNestedManyWithoutDebitAccountInput
+    girviFirstIntCr?: GirviUncheckedCreateNestedManyWithoutFirstIntCrAccountInput
+    girviFirstIntDr?: GirviUncheckedCreateNestedManyWithoutFirstIntDrAccountInput
+    girviCash?: GirviUncheckedCreateNestedManyWithoutCashAccountInput
+    girviBank?: GirviUncheckedCreateNestedManyWithoutBankAccountInput
+    girviOnline?: GirviUncheckedCreateNestedManyWithoutOnlineAccountInput
+    girviCard?: GirviUncheckedCreateNestedManyWithoutCardAccountInput
+    girviDr?: GirviUncheckedCreateNestedManyWithoutDrAccountInput
+    apCash?: AdditionalPrincipalUncheckedCreateNestedManyWithoutCashAccountInput
+    apBank?: AdditionalPrincipalUncheckedCreateNestedManyWithoutBankAccountInput
+    apOnline?: AdditionalPrincipalUncheckedCreateNestedManyWithoutOnlineAccountInput
+    apCard?: AdditionalPrincipalUncheckedCreateNestedManyWithoutCardAccountInput
+    depPrin?: GirviDepositUncheckedCreateNestedManyWithoutPrinAccountInput
+    depInt?: GirviDepositUncheckedCreateNestedManyWithoutIntAccountInput
+    depDisc?: GirviDepositUncheckedCreateNestedManyWithoutDiscAccountInput
+    depExtra?: GirviDepositUncheckedCreateNestedManyWithoutExtraAccountInput
+    depCash?: GirviDepositUncheckedCreateNestedManyWithoutCashAccountInput
+    depBank?: GirviDepositUncheckedCreateNestedManyWithoutBankAccountInput
+    depOnline?: GirviDepositUncheckedCreateNestedManyWithoutOnlineAccountInput
+    depCard?: GirviDepositUncheckedCreateNestedManyWithoutCardAccountInput
+    relPrin?: GirviReleaseUncheckedCreateNestedManyWithoutPrinAccountInput
+    relInt?: GirviReleaseUncheckedCreateNestedManyWithoutIntAccountInput
+    relDisc?: GirviReleaseUncheckedCreateNestedManyWithoutDiscAccountInput
+    relExtra?: GirviReleaseUncheckedCreateNestedManyWithoutExtraAccountInput
+    relCash?: GirviReleaseUncheckedCreateNestedManyWithoutCashAccountInput
+    relBank?: GirviReleaseUncheckedCreateNestedManyWithoutBankAccountInput
+    relOnline?: GirviReleaseUncheckedCreateNestedManyWithoutOnlineAccountInput
+    relCard?: GirviReleaseUncheckedCreateNestedManyWithoutCardAccountInput
+    mtfFromLines?: Money_Transfer_From_LineUncheckedCreateNestedManyWithoutAccountInput
+    mttToAccount?: Money_To_TransactionUncheckedCreateNestedManyWithoutToAccountInput
+  }
+
+  export type AccountCreateOrConnectWithoutMtfFromAccountInput = {
+    where: AccountWhereUniqueInput
+    create: XOR<AccountCreateWithoutMtfFromAccountInput, AccountUncheckedCreateWithoutMtfFromAccountInput>
+  }
+
+  export type JournalCreateWithoutMoneyFromTransactionsInput = {
+    jrnl_uuid?: string
+    jrnl_add_date?: string | null
+    jrnl_date: string
+    jrnl_amt: number
+    jrnl_panel: string
+    jrnl_other_info?: string | null
+    jrnl_created_at?: Date | string
+    jrnl_created_by?: string | null
+    jrnl_updated_by?: string | null
+    jrnl_updated_at?: Date | string
+    jrnl_deleted_at?: Date | string | null
+    jrnl_deleted_by?: string | null
+    jrnl_is_deleted?: boolean
+    financeMoneyTransactions?: Finance_Money_TransactionCreateNestedManyWithoutJournalInput
+    firm: FirmCreateNestedOneWithoutJournalsInput
+    user?: UserCreateNestedOneWithoutJournalsInput
+    owner: OwnerCreateNestedOneWithoutJournalsInput
+    journalTransactions?: JournalTransactionCreateNestedManyWithoutJournalInput
+  }
+
+  export type JournalUncheckedCreateWithoutMoneyFromTransactionsInput = {
+    jrnl_id?: number
+    jrnl_uuid?: string
+    jrnl_firm_id: number
+    jrnl_own_id: number
+    jrnl_user_id?: number | null
+    jrnl_add_date?: string | null
+    jrnl_date: string
+    jrnl_amt: number
+    jrnl_panel: string
+    jrnl_other_info?: string | null
+    jrnl_created_at?: Date | string
+    jrnl_created_by?: string | null
+    jrnl_updated_by?: string | null
+    jrnl_updated_at?: Date | string
+    jrnl_deleted_at?: Date | string | null
+    jrnl_deleted_by?: string | null
+    jrnl_is_deleted?: boolean
+    financeMoneyTransactions?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutJournalInput
+    journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutJournalInput
+  }
+
+  export type JournalCreateOrConnectWithoutMoneyFromTransactionsInput = {
+    where: JournalWhereUniqueInput
+    create: XOR<JournalCreateWithoutMoneyFromTransactionsInput, JournalUncheckedCreateWithoutMoneyFromTransactionsInput>
+  }
+
+  export type Money_Transfer_From_LineCreateWithoutFromTransactionInput = {
+    mfl_uuid?: string
+    mfl_amt: number
+    mfl_remarks?: string | null
+    account: AccountCreateNestedOneWithoutMtfFromLinesInput
+  }
+
+  export type Money_Transfer_From_LineUncheckedCreateWithoutFromTransactionInput = {
+    mfl_id?: number
+    mfl_uuid?: string
+    mfl_acc_id: number
+    mfl_amt: number
+    mfl_remarks?: string | null
+  }
+
+  export type Money_Transfer_From_LineCreateOrConnectWithoutFromTransactionInput = {
+    where: Money_Transfer_From_LineWhereUniqueInput
+    create: XOR<Money_Transfer_From_LineCreateWithoutFromTransactionInput, Money_Transfer_From_LineUncheckedCreateWithoutFromTransactionInput>
+  }
+
+  export type Money_Transfer_From_LineCreateManyFromTransactionInputEnvelope = {
+    data: Money_Transfer_From_LineCreateManyFromTransactionInput | Money_Transfer_From_LineCreateManyFromTransactionInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type Money_To_TransactionCreateWithoutFromTransactionInput = {
+    mtt_uuid?: string
+    mtt_amt: number
+    mtt_remarks?: string | null
+    toAccount: AccountCreateNestedOneWithoutMttToAccountInput
+  }
+
+  export type Money_To_TransactionUncheckedCreateWithoutFromTransactionInput = {
+    mtt_id?: number
+    mtt_uuid?: string
+    mtt_to_acc_id: number
+    mtt_amt: number
+    mtt_remarks?: string | null
+  }
+
+  export type Money_To_TransactionCreateOrConnectWithoutFromTransactionInput = {
+    where: Money_To_TransactionWhereUniqueInput
+    create: XOR<Money_To_TransactionCreateWithoutFromTransactionInput, Money_To_TransactionUncheckedCreateWithoutFromTransactionInput>
+  }
+
+  export type Money_To_TransactionCreateManyFromTransactionInputEnvelope = {
+    data: Money_To_TransactionCreateManyFromTransactionInput | Money_To_TransactionCreateManyFromTransactionInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type FirmUpsertWithoutMoneyFromTransactionsInput = {
+    update: XOR<FirmUpdateWithoutMoneyFromTransactionsInput, FirmUncheckedUpdateWithoutMoneyFromTransactionsInput>
+    create: XOR<FirmCreateWithoutMoneyFromTransactionsInput, FirmUncheckedCreateWithoutMoneyFromTransactionsInput>
+    where?: FirmWhereInput
+  }
+
+  export type FirmUpdateToOneWithWhereWithoutMoneyFromTransactionsInput = {
+    where?: FirmWhereInput
+    data: XOR<FirmUpdateWithoutMoneyFromTransactionsInput, FirmUncheckedUpdateWithoutMoneyFromTransactionsInput>
+  }
+
+  export type FirmUpdateWithoutMoneyFromTransactionsInput = {
+    firm_uuid?: StringFieldUpdateOperationsInput | string
+    firm_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    firm_name?: StringFieldUpdateOperationsInput | string
+    firm_reg_no?: StringFieldUpdateOperationsInput | string
+    firm_shop_name?: StringFieldUpdateOperationsInput | string
+    firm_desc?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_address?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_city?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_email_id?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_website_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_type?: EnumFirmTypeFieldUpdateOperationsInput | $Enums.FirmType
+    firm_owner?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_geo_latitude?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_geo_longitude?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_whatsapp_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_facebook_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_insta_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_name?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_acc_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_branch?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_address?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_acc_holder?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_acc_type?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firm_balance?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_balance_type?: EnumFirmBalanceTypeFieldUpdateOperationsInput | $Enums.FirmBalanceType
+    firm_gstin_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_adhaar_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_form_header?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_form_footer?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_own_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_left_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_right_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_qr_code_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_pan_no_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    firm_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    firm_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firm_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    users?: UserUpdateManyWithoutFirmNestedInput
+    accounts?: AccountUpdateManyWithoutFirmNestedInput
+    owner?: OwnerUpdateOneRequiredWithoutFirmsNestedInput
+    finances?: FinanceUpdateManyWithoutFirmNestedInput
+    financeTransactions?: Finance_TransactionUpdateManyWithoutFirmNestedInput
+    financeMoneyTrans?: Finance_Money_TransactionUpdateManyWithoutFirmNestedInput
+    journals?: JournalUpdateManyWithoutFirmNestedInput
+    journalTransactions?: JournalTransactionUpdateManyWithoutFirmNestedInput
+    girvis?: GirviUpdateManyWithoutFirmNestedInput
+    stocks?: StockUpdateManyWithoutFirmNestedInput
+    additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutFirmNestedInput
+    deposits?: GirviDepositUpdateManyWithoutFirmNestedInput
+    releases?: GirviReleaseUpdateManyWithoutFirmNestedInput
+    rates?: RateUpdateManyWithoutFirmNestedInput
+    moneyLenders?: MoneyLenderUpdateManyWithoutFirmNestedInput
+    auctionUsers?: AuctionUserUpdateManyWithoutFirmNestedInput
+    auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
+    releaseUsers?: ReleaseUserUpdateManyWithoutFirmNestedInput
+    messageTemplates?: MessageTemplateUpdateManyWithoutFirmNestedInput
+    formTemplate?: FormTemplateUpdateOneWithoutFirmNestedInput
+    agreementTemplates?: AgreementTemplateUpdateManyWithoutFirmNestedInput
+    whatsappInstance?: WhatsAppInstanceUpdateOneWithoutFirmNestedInput
+  }
+
+  export type FirmUncheckedUpdateWithoutMoneyFromTransactionsInput = {
+    firm_id?: IntFieldUpdateOperationsInput | number
+    firm_uuid?: StringFieldUpdateOperationsInput | string
+    firm_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    firm_own_id?: IntFieldUpdateOperationsInput | number
+    firm_name?: StringFieldUpdateOperationsInput | string
+    firm_reg_no?: StringFieldUpdateOperationsInput | string
+    firm_shop_name?: StringFieldUpdateOperationsInput | string
+    firm_desc?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_address?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_city?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_email_id?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_website_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_type?: EnumFirmTypeFieldUpdateOperationsInput | $Enums.FirmType
+    firm_owner?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_geo_latitude?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_geo_longitude?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_whatsapp_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_facebook_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_insta_link?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_name?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_acc_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_branch?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_bank_address?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_acc_holder?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_acc_type?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firm_balance?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_balance_type?: EnumFirmBalanceTypeFieldUpdateOperationsInput | $Enums.FirmBalanceType
+    firm_gstin_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_adhaar_no?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_form_header?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_form_footer?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_own_sign_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_left_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_right_logo_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_qr_code_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_pan_no_img?: NullableJsonNullValueInput | InputJsonValue
+    firm_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    firm_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    firm_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firm_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    firm_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    users?: UserUncheckedUpdateManyWithoutFirmNestedInput
+    accounts?: AccountUncheckedUpdateManyWithoutFirmNestedInput
+    finances?: FinanceUncheckedUpdateManyWithoutFirmNestedInput
+    financeTransactions?: Finance_TransactionUncheckedUpdateManyWithoutFirmNestedInput
+    financeMoneyTrans?: Finance_Money_TransactionUncheckedUpdateManyWithoutFirmNestedInput
+    journals?: JournalUncheckedUpdateManyWithoutFirmNestedInput
+    journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutFirmNestedInput
+    girvis?: GirviUncheckedUpdateManyWithoutFirmNestedInput
+    stocks?: StockUncheckedUpdateManyWithoutFirmNestedInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutFirmNestedInput
+    deposits?: GirviDepositUncheckedUpdateManyWithoutFirmNestedInput
+    releases?: GirviReleaseUncheckedUpdateManyWithoutFirmNestedInput
+    rates?: RateUncheckedUpdateManyWithoutFirmNestedInput
+    moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutFirmNestedInput
+    auctionUsers?: AuctionUserUncheckedUpdateManyWithoutFirmNestedInput
+    auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
+    releaseUsers?: ReleaseUserUncheckedUpdateManyWithoutFirmNestedInput
+    messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutFirmNestedInput
+    formTemplate?: FormTemplateUncheckedUpdateOneWithoutFirmNestedInput
+    agreementTemplates?: AgreementTemplateUncheckedUpdateManyWithoutFirmNestedInput
+    whatsappInstance?: WhatsAppInstanceUncheckedUpdateOneWithoutFirmNestedInput
+  }
+
+  export type OwnerUpsertWithoutMoneyFromTransactionsInput = {
+    update: XOR<OwnerUpdateWithoutMoneyFromTransactionsInput, OwnerUncheckedUpdateWithoutMoneyFromTransactionsInput>
+    create: XOR<OwnerCreateWithoutMoneyFromTransactionsInput, OwnerUncheckedCreateWithoutMoneyFromTransactionsInput>
+    where?: OwnerWhereInput
+  }
+
+  export type OwnerUpdateToOneWithWhereWithoutMoneyFromTransactionsInput = {
+    where?: OwnerWhereInput
+    data: XOR<OwnerUpdateWithoutMoneyFromTransactionsInput, OwnerUncheckedUpdateWithoutMoneyFromTransactionsInput>
+  }
+
+  export type OwnerUpdateWithoutMoneyFromTransactionsInput = {
+    own_uuid?: StringFieldUpdateOperationsInput | string
+    own_db?: StringFieldUpdateOperationsInput | string
+    own_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    own_first_name?: StringFieldUpdateOperationsInput | string
+    own_middle_name?: NullableStringFieldUpdateOperationsInput | string | null
+    own_last_name?: StringFieldUpdateOperationsInput | string
+    own_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mobile_no?: StringFieldUpdateOperationsInput | string
+    own_email?: StringFieldUpdateOperationsInput | string
+    own_login_id?: StringFieldUpdateOperationsInput | string
+    own_password?: StringFieldUpdateOperationsInput | string
+    own_status?: EnumOwnerStatusFieldUpdateOperationsInput | $Enums.OwnerStatus
+    own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_max_firms?: NullableIntFieldUpdateOperationsInput | number | null
+    own_max_staff?: NullableIntFieldUpdateOperationsInput | number | null
+    own_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_expiry_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
+    own_refresh_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_jwt_token?: NullableStringFieldUpdateOperationsInput | string | null
+    own_jwt_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_login_status?: BoolFieldUpdateOperationsInput | boolean
+    own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
+    own_otp?: NullableStringFieldUpdateOperationsInput | string | null
+    own_otp_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_mail_user?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_pass_enc?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_from_name?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_provider?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_status?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_address?: NullableStringFieldUpdateOperationsInput | string | null
+    own_village?: NullableStringFieldUpdateOperationsInput | string | null
+    own_city?: NullableStringFieldUpdateOperationsInput | string | null
+    own_state?: NullableStringFieldUpdateOperationsInput | string | null
+    own_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    own_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    own_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    own_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    own_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    own_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    own_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    users?: UserUpdateManyWithoutOwnerNestedInput
+    firms?: FirmUpdateManyWithoutOwnerNestedInput
+    accounts?: AccountUpdateManyWithoutOwnerNestedInput
+    finances?: FinanceUpdateManyWithoutOwnerNestedInput
+    financeTransactions?: Finance_TransactionUpdateManyWithoutOwnerNestedInput
+    financeMoneyTrans?: Finance_Money_TransactionUpdateManyWithoutOwnerNestedInput
+    journals?: JournalUpdateManyWithoutOwnerNestedInput
+    journalTransactions?: JournalTransactionUpdateManyWithoutOwnerNestedInput
+    girvis?: GirviUpdateManyWithoutOwnerNestedInput
+    stocks?: StockUpdateManyWithoutOwnerNestedInput
+    additionalPrincipals?: AdditionalPrincipalUpdateManyWithoutOwnerNestedInput
+    deposits?: GirviDepositUpdateManyWithoutOwnerNestedInput
+    releases?: GirviReleaseUpdateManyWithoutOwnerNestedInput
+    rates?: RateUpdateManyWithoutOwnerNestedInput
+    purities?: PurityUpdateManyWithoutOwnerNestedInput
+    moneyLenders?: MoneyLenderUpdateManyWithoutOwnerNestedInput
+    staff?: StaffUpdateManyWithoutOwnerNestedInput
+    messageTemplates?: MessageTemplateUpdateManyWithoutOwnerNestedInput
+    formTemplates?: FormTemplateUpdateManyWithoutOwnerNestedInput
+    agreementTemplates?: AgreementTemplateUpdateManyWithoutOwnerNestedInput
+    whatsappInstances?: WhatsAppInstanceUpdateManyWithoutOwnerNestedInput
+  }
+
+  export type OwnerUncheckedUpdateWithoutMoneyFromTransactionsInput = {
+    own_id?: IntFieldUpdateOperationsInput | number
+    own_uuid?: StringFieldUpdateOperationsInput | string
+    own_product_key?: IntFieldUpdateOperationsInput | number
+    own_db?: StringFieldUpdateOperationsInput | string
+    own_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    own_first_name?: StringFieldUpdateOperationsInput | string
+    own_middle_name?: NullableStringFieldUpdateOperationsInput | string | null
+    own_last_name?: StringFieldUpdateOperationsInput | string
+    own_phone_no?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mobile_no?: StringFieldUpdateOperationsInput | string
+    own_email?: StringFieldUpdateOperationsInput | string
+    own_login_id?: StringFieldUpdateOperationsInput | string
+    own_password?: StringFieldUpdateOperationsInput | string
+    own_status?: EnumOwnerStatusFieldUpdateOperationsInput | $Enums.OwnerStatus
+    own_profile_img?: NullableJsonNullValueInput | InputJsonValue
+    own_max_firms?: NullableIntFieldUpdateOperationsInput | number | null
+    own_max_staff?: NullableIntFieldUpdateOperationsInput | number | null
+    own_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_expiry_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_refresh_token?: NullableStringFieldUpdateOperationsInput | string | null
+    own_refresh_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_jwt_token?: NullableStringFieldUpdateOperationsInput | string | null
+    own_jwt_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_login_status?: BoolFieldUpdateOperationsInput | boolean
+    own_last_login_system?: NullableJsonNullValueInput | InputJsonValue
+    own_otp?: NullableStringFieldUpdateOperationsInput | string | null
+    own_otp_expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_mail_user?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_pass_enc?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_from_name?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_provider?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_status?: NullableStringFieldUpdateOperationsInput | string | null
+    own_mail_updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_address?: NullableStringFieldUpdateOperationsInput | string | null
+    own_village?: NullableStringFieldUpdateOperationsInput | string | null
+    own_city?: NullableStringFieldUpdateOperationsInput | string | null
+    own_state?: NullableStringFieldUpdateOperationsInput | string | null
+    own_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    own_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    own_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    own_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    own_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    own_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    own_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    own_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    users?: UserUncheckedUpdateManyWithoutOwnerNestedInput
+    firms?: FirmUncheckedUpdateManyWithoutOwnerNestedInput
+    accounts?: AccountUncheckedUpdateManyWithoutOwnerNestedInput
+    finances?: FinanceUncheckedUpdateManyWithoutOwnerNestedInput
+    financeTransactions?: Finance_TransactionUncheckedUpdateManyWithoutOwnerNestedInput
+    financeMoneyTrans?: Finance_Money_TransactionUncheckedUpdateManyWithoutOwnerNestedInput
+    journals?: JournalUncheckedUpdateManyWithoutOwnerNestedInput
+    journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutOwnerNestedInput
+    girvis?: GirviUncheckedUpdateManyWithoutOwnerNestedInput
+    stocks?: StockUncheckedUpdateManyWithoutOwnerNestedInput
+    additionalPrincipals?: AdditionalPrincipalUncheckedUpdateManyWithoutOwnerNestedInput
+    deposits?: GirviDepositUncheckedUpdateManyWithoutOwnerNestedInput
+    releases?: GirviReleaseUncheckedUpdateManyWithoutOwnerNestedInput
+    rates?: RateUncheckedUpdateManyWithoutOwnerNestedInput
+    purities?: PurityUncheckedUpdateManyWithoutOwnerNestedInput
+    moneyLenders?: MoneyLenderUncheckedUpdateManyWithoutOwnerNestedInput
+    staff?: StaffUncheckedUpdateManyWithoutOwnerNestedInput
+    messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutOwnerNestedInput
+    formTemplates?: FormTemplateUncheckedUpdateManyWithoutOwnerNestedInput
+    agreementTemplates?: AgreementTemplateUncheckedUpdateManyWithoutOwnerNestedInput
+    whatsappInstances?: WhatsAppInstanceUncheckedUpdateManyWithoutOwnerNestedInput
+  }
+
+  export type AccountUpsertWithoutMtfFromAccountInput = {
+    update: XOR<AccountUpdateWithoutMtfFromAccountInput, AccountUncheckedUpdateWithoutMtfFromAccountInput>
+    create: XOR<AccountCreateWithoutMtfFromAccountInput, AccountUncheckedCreateWithoutMtfFromAccountInput>
+    where?: AccountWhereInput
+  }
+
+  export type AccountUpdateToOneWithWhereWithoutMtfFromAccountInput = {
+    where?: AccountWhereInput
+    data: XOR<AccountUpdateWithoutMtfFromAccountInput, AccountUncheckedUpdateWithoutMtfFromAccountInput>
+  }
+
+  export type AccountUpdateWithoutMtfFromAccountInput = {
+    acc_uuid?: StringFieldUpdateOperationsInput | string
+    acc_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    acc_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_name?: StringFieldUpdateOperationsInput | string
+    acc_desc?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_pre_acc?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_bank_no?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_bsr_no?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_branch_name?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_opening_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    acc_address?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_country?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_state?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_city?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_cash_balance?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_balance_type?: EnumAccountBalanceTypeFieldUpdateOperationsInput | $Enums.AccountBalanceType
+    acc_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    acc_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    acc_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_is_system?: BoolFieldUpdateOperationsInput | boolean
+    acc_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    owner?: OwnerUpdateOneRequiredWithoutAccountsNestedInput
+    firm?: FirmUpdateOneRequiredWithoutAccountsNestedInput
+    financeCash?: FinanceUpdateManyWithoutCashAccountNestedInput
+    financeBank?: FinanceUpdateManyWithoutBankAccountNestedInput
+    financeOnline?: FinanceUpdateManyWithoutOnlineAccountNestedInput
+    financeCard?: FinanceUpdateManyWithoutCardAccountNestedInput
+    financeDr?: FinanceUpdateManyWithoutDrAccountNestedInput
+    ftCash?: Finance_TransactionUpdateManyWithoutCashAccountNestedInput
+    ftBank?: Finance_TransactionUpdateManyWithoutBankAccountNestedInput
+    ftOnline?: Finance_TransactionUpdateManyWithoutOnlineAccountNestedInput
+    ftCard?: Finance_TransactionUpdateManyWithoutCardAccountNestedInput
+    fmCash?: Finance_Money_TransactionUpdateManyWithoutCashAccountNestedInput
+    fmBank?: Finance_Money_TransactionUpdateManyWithoutBankAccountNestedInput
+    fmOnline?: Finance_Money_TransactionUpdateManyWithoutOnlineAccountNestedInput
+    fmCard?: Finance_Money_TransactionUpdateManyWithoutCardAccountNestedInput
+    fmDr?: Finance_Money_TransactionUpdateManyWithoutDrAccountNestedInput
+    jrtrCredit?: JournalTransactionUpdateManyWithoutCreditAccountNestedInput
+    jrtrDebit?: JournalTransactionUpdateManyWithoutDebitAccountNestedInput
+    girviFirstIntCr?: GirviUpdateManyWithoutFirstIntCrAccountNestedInput
+    girviFirstIntDr?: GirviUpdateManyWithoutFirstIntDrAccountNestedInput
+    girviCash?: GirviUpdateManyWithoutCashAccountNestedInput
+    girviBank?: GirviUpdateManyWithoutBankAccountNestedInput
+    girviOnline?: GirviUpdateManyWithoutOnlineAccountNestedInput
+    girviCard?: GirviUpdateManyWithoutCardAccountNestedInput
+    girviDr?: GirviUpdateManyWithoutDrAccountNestedInput
+    apCash?: AdditionalPrincipalUpdateManyWithoutCashAccountNestedInput
+    apBank?: AdditionalPrincipalUpdateManyWithoutBankAccountNestedInput
+    apOnline?: AdditionalPrincipalUpdateManyWithoutOnlineAccountNestedInput
+    apCard?: AdditionalPrincipalUpdateManyWithoutCardAccountNestedInput
+    depPrin?: GirviDepositUpdateManyWithoutPrinAccountNestedInput
+    depInt?: GirviDepositUpdateManyWithoutIntAccountNestedInput
+    depDisc?: GirviDepositUpdateManyWithoutDiscAccountNestedInput
+    depExtra?: GirviDepositUpdateManyWithoutExtraAccountNestedInput
+    depCash?: GirviDepositUpdateManyWithoutCashAccountNestedInput
+    depBank?: GirviDepositUpdateManyWithoutBankAccountNestedInput
+    depOnline?: GirviDepositUpdateManyWithoutOnlineAccountNestedInput
+    depCard?: GirviDepositUpdateManyWithoutCardAccountNestedInput
+    relPrin?: GirviReleaseUpdateManyWithoutPrinAccountNestedInput
+    relInt?: GirviReleaseUpdateManyWithoutIntAccountNestedInput
+    relDisc?: GirviReleaseUpdateManyWithoutDiscAccountNestedInput
+    relExtra?: GirviReleaseUpdateManyWithoutExtraAccountNestedInput
+    relCash?: GirviReleaseUpdateManyWithoutCashAccountNestedInput
+    relBank?: GirviReleaseUpdateManyWithoutBankAccountNestedInput
+    relOnline?: GirviReleaseUpdateManyWithoutOnlineAccountNestedInput
+    relCard?: GirviReleaseUpdateManyWithoutCardAccountNestedInput
+    mtfFromLines?: Money_Transfer_From_LineUpdateManyWithoutAccountNestedInput
+    mttToAccount?: Money_To_TransactionUpdateManyWithoutToAccountNestedInput
+  }
+
+  export type AccountUncheckedUpdateWithoutMtfFromAccountInput = {
+    acc_id?: IntFieldUpdateOperationsInput | number
+    acc_uuid?: StringFieldUpdateOperationsInput | string
+    acc_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    acc_own_id?: IntFieldUpdateOperationsInput | number
+    acc_firm_id?: IntFieldUpdateOperationsInput | number
+    acc_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_name?: StringFieldUpdateOperationsInput | string
+    acc_desc?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_pre_acc?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_bank_no?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_bsr_no?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_branch_name?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_opening_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    acc_address?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_country?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_state?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_city?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_cash_balance?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_balance_type?: EnumAccountBalanceTypeFieldUpdateOperationsInput | $Enums.AccountBalanceType
+    acc_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    acc_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    acc_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_is_system?: BoolFieldUpdateOperationsInput | boolean
+    acc_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    financeCash?: FinanceUncheckedUpdateManyWithoutCashAccountNestedInput
+    financeBank?: FinanceUncheckedUpdateManyWithoutBankAccountNestedInput
+    financeOnline?: FinanceUncheckedUpdateManyWithoutOnlineAccountNestedInput
+    financeCard?: FinanceUncheckedUpdateManyWithoutCardAccountNestedInput
+    financeDr?: FinanceUncheckedUpdateManyWithoutDrAccountNestedInput
+    ftCash?: Finance_TransactionUncheckedUpdateManyWithoutCashAccountNestedInput
+    ftBank?: Finance_TransactionUncheckedUpdateManyWithoutBankAccountNestedInput
+    ftOnline?: Finance_TransactionUncheckedUpdateManyWithoutOnlineAccountNestedInput
+    ftCard?: Finance_TransactionUncheckedUpdateManyWithoutCardAccountNestedInput
+    fmCash?: Finance_Money_TransactionUncheckedUpdateManyWithoutCashAccountNestedInput
+    fmBank?: Finance_Money_TransactionUncheckedUpdateManyWithoutBankAccountNestedInput
+    fmOnline?: Finance_Money_TransactionUncheckedUpdateManyWithoutOnlineAccountNestedInput
+    fmCard?: Finance_Money_TransactionUncheckedUpdateManyWithoutCardAccountNestedInput
+    fmDr?: Finance_Money_TransactionUncheckedUpdateManyWithoutDrAccountNestedInput
+    jrtrCredit?: JournalTransactionUncheckedUpdateManyWithoutCreditAccountNestedInput
+    jrtrDebit?: JournalTransactionUncheckedUpdateManyWithoutDebitAccountNestedInput
+    girviFirstIntCr?: GirviUncheckedUpdateManyWithoutFirstIntCrAccountNestedInput
+    girviFirstIntDr?: GirviUncheckedUpdateManyWithoutFirstIntDrAccountNestedInput
+    girviCash?: GirviUncheckedUpdateManyWithoutCashAccountNestedInput
+    girviBank?: GirviUncheckedUpdateManyWithoutBankAccountNestedInput
+    girviOnline?: GirviUncheckedUpdateManyWithoutOnlineAccountNestedInput
+    girviCard?: GirviUncheckedUpdateManyWithoutCardAccountNestedInput
+    girviDr?: GirviUncheckedUpdateManyWithoutDrAccountNestedInput
+    apCash?: AdditionalPrincipalUncheckedUpdateManyWithoutCashAccountNestedInput
+    apBank?: AdditionalPrincipalUncheckedUpdateManyWithoutBankAccountNestedInput
+    apOnline?: AdditionalPrincipalUncheckedUpdateManyWithoutOnlineAccountNestedInput
+    apCard?: AdditionalPrincipalUncheckedUpdateManyWithoutCardAccountNestedInput
+    depPrin?: GirviDepositUncheckedUpdateManyWithoutPrinAccountNestedInput
+    depInt?: GirviDepositUncheckedUpdateManyWithoutIntAccountNestedInput
+    depDisc?: GirviDepositUncheckedUpdateManyWithoutDiscAccountNestedInput
+    depExtra?: GirviDepositUncheckedUpdateManyWithoutExtraAccountNestedInput
+    depCash?: GirviDepositUncheckedUpdateManyWithoutCashAccountNestedInput
+    depBank?: GirviDepositUncheckedUpdateManyWithoutBankAccountNestedInput
+    depOnline?: GirviDepositUncheckedUpdateManyWithoutOnlineAccountNestedInput
+    depCard?: GirviDepositUncheckedUpdateManyWithoutCardAccountNestedInput
+    relPrin?: GirviReleaseUncheckedUpdateManyWithoutPrinAccountNestedInput
+    relInt?: GirviReleaseUncheckedUpdateManyWithoutIntAccountNestedInput
+    relDisc?: GirviReleaseUncheckedUpdateManyWithoutDiscAccountNestedInput
+    relExtra?: GirviReleaseUncheckedUpdateManyWithoutExtraAccountNestedInput
+    relCash?: GirviReleaseUncheckedUpdateManyWithoutCashAccountNestedInput
+    relBank?: GirviReleaseUncheckedUpdateManyWithoutBankAccountNestedInput
+    relOnline?: GirviReleaseUncheckedUpdateManyWithoutOnlineAccountNestedInput
+    relCard?: GirviReleaseUncheckedUpdateManyWithoutCardAccountNestedInput
+    mtfFromLines?: Money_Transfer_From_LineUncheckedUpdateManyWithoutAccountNestedInput
+    mttToAccount?: Money_To_TransactionUncheckedUpdateManyWithoutToAccountNestedInput
+  }
+
+  export type JournalUpsertWithoutMoneyFromTransactionsInput = {
+    update: XOR<JournalUpdateWithoutMoneyFromTransactionsInput, JournalUncheckedUpdateWithoutMoneyFromTransactionsInput>
+    create: XOR<JournalCreateWithoutMoneyFromTransactionsInput, JournalUncheckedCreateWithoutMoneyFromTransactionsInput>
+    where?: JournalWhereInput
+  }
+
+  export type JournalUpdateToOneWithWhereWithoutMoneyFromTransactionsInput = {
+    where?: JournalWhereInput
+    data: XOR<JournalUpdateWithoutMoneyFromTransactionsInput, JournalUncheckedUpdateWithoutMoneyFromTransactionsInput>
+  }
+
+  export type JournalUpdateWithoutMoneyFromTransactionsInput = {
+    jrnl_uuid?: StringFieldUpdateOperationsInput | string
+    jrnl_add_date?: NullableStringFieldUpdateOperationsInput | string | null
+    jrnl_date?: StringFieldUpdateOperationsInput | string
+    jrnl_amt?: FloatFieldUpdateOperationsInput | number
+    jrnl_panel?: StringFieldUpdateOperationsInput | string
+    jrnl_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    jrnl_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    jrnl_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    jrnl_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    jrnl_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    jrnl_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    jrnl_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    jrnl_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    financeMoneyTransactions?: Finance_Money_TransactionUpdateManyWithoutJournalNestedInput
+    firm?: FirmUpdateOneRequiredWithoutJournalsNestedInput
+    user?: UserUpdateOneWithoutJournalsNestedInput
+    owner?: OwnerUpdateOneRequiredWithoutJournalsNestedInput
+    journalTransactions?: JournalTransactionUpdateManyWithoutJournalNestedInput
+  }
+
+  export type JournalUncheckedUpdateWithoutMoneyFromTransactionsInput = {
+    jrnl_id?: IntFieldUpdateOperationsInput | number
+    jrnl_uuid?: StringFieldUpdateOperationsInput | string
+    jrnl_firm_id?: IntFieldUpdateOperationsInput | number
+    jrnl_own_id?: IntFieldUpdateOperationsInput | number
+    jrnl_user_id?: NullableIntFieldUpdateOperationsInput | number | null
+    jrnl_add_date?: NullableStringFieldUpdateOperationsInput | string | null
+    jrnl_date?: StringFieldUpdateOperationsInput | string
+    jrnl_amt?: FloatFieldUpdateOperationsInput | number
+    jrnl_panel?: StringFieldUpdateOperationsInput | string
+    jrnl_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    jrnl_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    jrnl_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    jrnl_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    jrnl_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    jrnl_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    jrnl_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    jrnl_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    financeMoneyTransactions?: Finance_Money_TransactionUncheckedUpdateManyWithoutJournalNestedInput
+    journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutJournalNestedInput
+  }
+
+  export type Money_Transfer_From_LineUpsertWithWhereUniqueWithoutFromTransactionInput = {
+    where: Money_Transfer_From_LineWhereUniqueInput
+    update: XOR<Money_Transfer_From_LineUpdateWithoutFromTransactionInput, Money_Transfer_From_LineUncheckedUpdateWithoutFromTransactionInput>
+    create: XOR<Money_Transfer_From_LineCreateWithoutFromTransactionInput, Money_Transfer_From_LineUncheckedCreateWithoutFromTransactionInput>
+  }
+
+  export type Money_Transfer_From_LineUpdateWithWhereUniqueWithoutFromTransactionInput = {
+    where: Money_Transfer_From_LineWhereUniqueInput
+    data: XOR<Money_Transfer_From_LineUpdateWithoutFromTransactionInput, Money_Transfer_From_LineUncheckedUpdateWithoutFromTransactionInput>
+  }
+
+  export type Money_Transfer_From_LineUpdateManyWithWhereWithoutFromTransactionInput = {
+    where: Money_Transfer_From_LineScalarWhereInput
+    data: XOR<Money_Transfer_From_LineUpdateManyMutationInput, Money_Transfer_From_LineUncheckedUpdateManyWithoutFromTransactionInput>
+  }
+
+  export type Money_To_TransactionUpsertWithWhereUniqueWithoutFromTransactionInput = {
+    where: Money_To_TransactionWhereUniqueInput
+    update: XOR<Money_To_TransactionUpdateWithoutFromTransactionInput, Money_To_TransactionUncheckedUpdateWithoutFromTransactionInput>
+    create: XOR<Money_To_TransactionCreateWithoutFromTransactionInput, Money_To_TransactionUncheckedCreateWithoutFromTransactionInput>
+  }
+
+  export type Money_To_TransactionUpdateWithWhereUniqueWithoutFromTransactionInput = {
+    where: Money_To_TransactionWhereUniqueInput
+    data: XOR<Money_To_TransactionUpdateWithoutFromTransactionInput, Money_To_TransactionUncheckedUpdateWithoutFromTransactionInput>
+  }
+
+  export type Money_To_TransactionUpdateManyWithWhereWithoutFromTransactionInput = {
+    where: Money_To_TransactionScalarWhereInput
+    data: XOR<Money_To_TransactionUpdateManyMutationInput, Money_To_TransactionUncheckedUpdateManyWithoutFromTransactionInput>
+  }
+
+  export type Money_From_TransactionCreateWithoutToRowsInput = {
+    mtf_uuid?: string
+    mtf_trans_date: string
+    mtf_mode?: $Enums.MoneyTransferMode
+    mtf_direction?: $Enums.MoneyTransferDirection
+    mtf_total_amt: number
+    mtf_panel?: string
+    mtf_narration?: string | null
+    mtf_other_info?: string | null
+    mtf_created_at?: Date | string
+    mtf_created_by?: string | null
+    mtf_updated_at?: Date | string
+    mtf_updated_by?: string | null
+    mtf_deleted_at?: Date | string | null
+    mtf_deleted_by?: string | null
+    mtf_is_deleted?: boolean
+    firm: FirmCreateNestedOneWithoutMoneyFromTransactionsInput
+    owner: OwnerCreateNestedOneWithoutMoneyFromTransactionsInput
+    fromAccount: AccountCreateNestedOneWithoutMtfFromAccountInput
+    journal?: JournalCreateNestedOneWithoutMoneyFromTransactionsInput
+    fromLines?: Money_Transfer_From_LineCreateNestedManyWithoutFromTransactionInput
+  }
+
+  export type Money_From_TransactionUncheckedCreateWithoutToRowsInput = {
+    mtf_id?: number
+    mtf_uuid?: string
+    mtf_firm_id: number
+    mtf_own_id: number
+    mtf_jrnl_id?: number | null
+    mtf_from_acc_id: number
+    mtf_trans_date: string
+    mtf_mode?: $Enums.MoneyTransferMode
+    mtf_direction?: $Enums.MoneyTransferDirection
+    mtf_total_amt: number
+    mtf_panel?: string
+    mtf_narration?: string | null
+    mtf_other_info?: string | null
+    mtf_created_at?: Date | string
+    mtf_created_by?: string | null
+    mtf_updated_at?: Date | string
+    mtf_updated_by?: string | null
+    mtf_deleted_at?: Date | string | null
+    mtf_deleted_by?: string | null
+    mtf_is_deleted?: boolean
+    fromLines?: Money_Transfer_From_LineUncheckedCreateNestedManyWithoutFromTransactionInput
+  }
+
+  export type Money_From_TransactionCreateOrConnectWithoutToRowsInput = {
+    where: Money_From_TransactionWhereUniqueInput
+    create: XOR<Money_From_TransactionCreateWithoutToRowsInput, Money_From_TransactionUncheckedCreateWithoutToRowsInput>
+  }
+
+  export type AccountCreateWithoutMttToAccountInput = {
+    acc_uuid?: string
+    acc_add_date?: Date | string
+    acc_pan_no?: string | null
+    acc_name: string
+    acc_desc?: string | null
+    acc_pre_acc?: string | null
+    acc_bank_no?: string | null
+    acc_bsr_no?: string | null
+    acc_ifsc_code?: string | null
+    acc_branch_name?: string | null
+    acc_opening_date: Date | string
+    acc_address?: string | null
+    acc_country?: string | null
+    acc_state?: string | null
+    acc_city?: string | null
+    acc_pincode?: string | null
+    acc_cash_balance?: string | null
+    acc_balance_type?: $Enums.AccountBalanceType
+    acc_other_info?: string | null
+    acc_created_at?: Date | string
+    acc_created_by?: string | null
+    acc_updated_by?: string | null
+    acc_deleted_at?: Date | string | null
+    acc_deleted_by?: string | null
+    acc_is_system?: boolean
+    acc_is_deleted?: boolean
+    owner?: OwnerCreateNestedOneWithoutAccountsInput
+    firm?: FirmCreateNestedOneWithoutAccountsInput
+    financeCash?: FinanceCreateNestedManyWithoutCashAccountInput
+    financeBank?: FinanceCreateNestedManyWithoutBankAccountInput
+    financeOnline?: FinanceCreateNestedManyWithoutOnlineAccountInput
+    financeCard?: FinanceCreateNestedManyWithoutCardAccountInput
+    financeDr?: FinanceCreateNestedManyWithoutDrAccountInput
+    ftCash?: Finance_TransactionCreateNestedManyWithoutCashAccountInput
+    ftBank?: Finance_TransactionCreateNestedManyWithoutBankAccountInput
+    ftOnline?: Finance_TransactionCreateNestedManyWithoutOnlineAccountInput
+    ftCard?: Finance_TransactionCreateNestedManyWithoutCardAccountInput
+    fmCash?: Finance_Money_TransactionCreateNestedManyWithoutCashAccountInput
+    fmBank?: Finance_Money_TransactionCreateNestedManyWithoutBankAccountInput
+    fmOnline?: Finance_Money_TransactionCreateNestedManyWithoutOnlineAccountInput
+    fmCard?: Finance_Money_TransactionCreateNestedManyWithoutCardAccountInput
+    fmDr?: Finance_Money_TransactionCreateNestedManyWithoutDrAccountInput
+    jrtrCredit?: JournalTransactionCreateNestedManyWithoutCreditAccountInput
+    jrtrDebit?: JournalTransactionCreateNestedManyWithoutDebitAccountInput
+    girviFirstIntCr?: GirviCreateNestedManyWithoutFirstIntCrAccountInput
+    girviFirstIntDr?: GirviCreateNestedManyWithoutFirstIntDrAccountInput
+    girviCash?: GirviCreateNestedManyWithoutCashAccountInput
+    girviBank?: GirviCreateNestedManyWithoutBankAccountInput
+    girviOnline?: GirviCreateNestedManyWithoutOnlineAccountInput
+    girviCard?: GirviCreateNestedManyWithoutCardAccountInput
+    girviDr?: GirviCreateNestedManyWithoutDrAccountInput
+    apCash?: AdditionalPrincipalCreateNestedManyWithoutCashAccountInput
+    apBank?: AdditionalPrincipalCreateNestedManyWithoutBankAccountInput
+    apOnline?: AdditionalPrincipalCreateNestedManyWithoutOnlineAccountInput
+    apCard?: AdditionalPrincipalCreateNestedManyWithoutCardAccountInput
+    depPrin?: GirviDepositCreateNestedManyWithoutPrinAccountInput
+    depInt?: GirviDepositCreateNestedManyWithoutIntAccountInput
+    depDisc?: GirviDepositCreateNestedManyWithoutDiscAccountInput
+    depExtra?: GirviDepositCreateNestedManyWithoutExtraAccountInput
+    depCash?: GirviDepositCreateNestedManyWithoutCashAccountInput
+    depBank?: GirviDepositCreateNestedManyWithoutBankAccountInput
+    depOnline?: GirviDepositCreateNestedManyWithoutOnlineAccountInput
+    depCard?: GirviDepositCreateNestedManyWithoutCardAccountInput
+    relPrin?: GirviReleaseCreateNestedManyWithoutPrinAccountInput
+    relInt?: GirviReleaseCreateNestedManyWithoutIntAccountInput
+    relDisc?: GirviReleaseCreateNestedManyWithoutDiscAccountInput
+    relExtra?: GirviReleaseCreateNestedManyWithoutExtraAccountInput
+    relCash?: GirviReleaseCreateNestedManyWithoutCashAccountInput
+    relBank?: GirviReleaseCreateNestedManyWithoutBankAccountInput
+    relOnline?: GirviReleaseCreateNestedManyWithoutOnlineAccountInput
+    relCard?: GirviReleaseCreateNestedManyWithoutCardAccountInput
+    mtfFromAccount?: Money_From_TransactionCreateNestedManyWithoutFromAccountInput
+    mtfFromLines?: Money_Transfer_From_LineCreateNestedManyWithoutAccountInput
+  }
+
+  export type AccountUncheckedCreateWithoutMttToAccountInput = {
+    acc_id?: number
+    acc_uuid?: string
+    acc_add_date?: Date | string
+    acc_own_id?: number
+    acc_firm_id?: number
+    acc_pan_no?: string | null
+    acc_name: string
+    acc_desc?: string | null
+    acc_pre_acc?: string | null
+    acc_bank_no?: string | null
+    acc_bsr_no?: string | null
+    acc_ifsc_code?: string | null
+    acc_branch_name?: string | null
+    acc_opening_date: Date | string
+    acc_address?: string | null
+    acc_country?: string | null
+    acc_state?: string | null
+    acc_city?: string | null
+    acc_pincode?: string | null
+    acc_cash_balance?: string | null
+    acc_balance_type?: $Enums.AccountBalanceType
+    acc_other_info?: string | null
+    acc_created_at?: Date | string
+    acc_created_by?: string | null
+    acc_updated_by?: string | null
+    acc_deleted_at?: Date | string | null
+    acc_deleted_by?: string | null
+    acc_is_system?: boolean
+    acc_is_deleted?: boolean
+    financeCash?: FinanceUncheckedCreateNestedManyWithoutCashAccountInput
+    financeBank?: FinanceUncheckedCreateNestedManyWithoutBankAccountInput
+    financeOnline?: FinanceUncheckedCreateNestedManyWithoutOnlineAccountInput
+    financeCard?: FinanceUncheckedCreateNestedManyWithoutCardAccountInput
+    financeDr?: FinanceUncheckedCreateNestedManyWithoutDrAccountInput
+    ftCash?: Finance_TransactionUncheckedCreateNestedManyWithoutCashAccountInput
+    ftBank?: Finance_TransactionUncheckedCreateNestedManyWithoutBankAccountInput
+    ftOnline?: Finance_TransactionUncheckedCreateNestedManyWithoutOnlineAccountInput
+    ftCard?: Finance_TransactionUncheckedCreateNestedManyWithoutCardAccountInput
+    fmCash?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutCashAccountInput
+    fmBank?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutBankAccountInput
+    fmOnline?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutOnlineAccountInput
+    fmCard?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutCardAccountInput
+    fmDr?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutDrAccountInput
+    jrtrCredit?: JournalTransactionUncheckedCreateNestedManyWithoutCreditAccountInput
+    jrtrDebit?: JournalTransactionUncheckedCreateNestedManyWithoutDebitAccountInput
+    girviFirstIntCr?: GirviUncheckedCreateNestedManyWithoutFirstIntCrAccountInput
+    girviFirstIntDr?: GirviUncheckedCreateNestedManyWithoutFirstIntDrAccountInput
+    girviCash?: GirviUncheckedCreateNestedManyWithoutCashAccountInput
+    girviBank?: GirviUncheckedCreateNestedManyWithoutBankAccountInput
+    girviOnline?: GirviUncheckedCreateNestedManyWithoutOnlineAccountInput
+    girviCard?: GirviUncheckedCreateNestedManyWithoutCardAccountInput
+    girviDr?: GirviUncheckedCreateNestedManyWithoutDrAccountInput
+    apCash?: AdditionalPrincipalUncheckedCreateNestedManyWithoutCashAccountInput
+    apBank?: AdditionalPrincipalUncheckedCreateNestedManyWithoutBankAccountInput
+    apOnline?: AdditionalPrincipalUncheckedCreateNestedManyWithoutOnlineAccountInput
+    apCard?: AdditionalPrincipalUncheckedCreateNestedManyWithoutCardAccountInput
+    depPrin?: GirviDepositUncheckedCreateNestedManyWithoutPrinAccountInput
+    depInt?: GirviDepositUncheckedCreateNestedManyWithoutIntAccountInput
+    depDisc?: GirviDepositUncheckedCreateNestedManyWithoutDiscAccountInput
+    depExtra?: GirviDepositUncheckedCreateNestedManyWithoutExtraAccountInput
+    depCash?: GirviDepositUncheckedCreateNestedManyWithoutCashAccountInput
+    depBank?: GirviDepositUncheckedCreateNestedManyWithoutBankAccountInput
+    depOnline?: GirviDepositUncheckedCreateNestedManyWithoutOnlineAccountInput
+    depCard?: GirviDepositUncheckedCreateNestedManyWithoutCardAccountInput
+    relPrin?: GirviReleaseUncheckedCreateNestedManyWithoutPrinAccountInput
+    relInt?: GirviReleaseUncheckedCreateNestedManyWithoutIntAccountInput
+    relDisc?: GirviReleaseUncheckedCreateNestedManyWithoutDiscAccountInput
+    relExtra?: GirviReleaseUncheckedCreateNestedManyWithoutExtraAccountInput
+    relCash?: GirviReleaseUncheckedCreateNestedManyWithoutCashAccountInput
+    relBank?: GirviReleaseUncheckedCreateNestedManyWithoutBankAccountInput
+    relOnline?: GirviReleaseUncheckedCreateNestedManyWithoutOnlineAccountInput
+    relCard?: GirviReleaseUncheckedCreateNestedManyWithoutCardAccountInput
+    mtfFromAccount?: Money_From_TransactionUncheckedCreateNestedManyWithoutFromAccountInput
+    mtfFromLines?: Money_Transfer_From_LineUncheckedCreateNestedManyWithoutAccountInput
+  }
+
+  export type AccountCreateOrConnectWithoutMttToAccountInput = {
+    where: AccountWhereUniqueInput
+    create: XOR<AccountCreateWithoutMttToAccountInput, AccountUncheckedCreateWithoutMttToAccountInput>
+  }
+
+  export type Money_From_TransactionUpsertWithoutToRowsInput = {
+    update: XOR<Money_From_TransactionUpdateWithoutToRowsInput, Money_From_TransactionUncheckedUpdateWithoutToRowsInput>
+    create: XOR<Money_From_TransactionCreateWithoutToRowsInput, Money_From_TransactionUncheckedCreateWithoutToRowsInput>
+    where?: Money_From_TransactionWhereInput
+  }
+
+  export type Money_From_TransactionUpdateToOneWithWhereWithoutToRowsInput = {
+    where?: Money_From_TransactionWhereInput
+    data: XOR<Money_From_TransactionUpdateWithoutToRowsInput, Money_From_TransactionUncheckedUpdateWithoutToRowsInput>
+  }
+
+  export type Money_From_TransactionUpdateWithoutToRowsInput = {
+    mtf_uuid?: StringFieldUpdateOperationsInput | string
+    mtf_trans_date?: StringFieldUpdateOperationsInput | string
+    mtf_mode?: EnumMoneyTransferModeFieldUpdateOperationsInput | $Enums.MoneyTransferMode
+    mtf_direction?: EnumMoneyTransferDirectionFieldUpdateOperationsInput | $Enums.MoneyTransferDirection
+    mtf_total_amt?: FloatFieldUpdateOperationsInput | number
+    mtf_panel?: StringFieldUpdateOperationsInput | string
+    mtf_narration?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    mtf_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    mtf_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    mtf_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    firm?: FirmUpdateOneRequiredWithoutMoneyFromTransactionsNestedInput
+    owner?: OwnerUpdateOneRequiredWithoutMoneyFromTransactionsNestedInput
+    fromAccount?: AccountUpdateOneRequiredWithoutMtfFromAccountNestedInput
+    journal?: JournalUpdateOneWithoutMoneyFromTransactionsNestedInput
+    fromLines?: Money_Transfer_From_LineUpdateManyWithoutFromTransactionNestedInput
+  }
+
+  export type Money_From_TransactionUncheckedUpdateWithoutToRowsInput = {
+    mtf_id?: IntFieldUpdateOperationsInput | number
+    mtf_uuid?: StringFieldUpdateOperationsInput | string
+    mtf_firm_id?: IntFieldUpdateOperationsInput | number
+    mtf_own_id?: IntFieldUpdateOperationsInput | number
+    mtf_jrnl_id?: NullableIntFieldUpdateOperationsInput | number | null
+    mtf_from_acc_id?: IntFieldUpdateOperationsInput | number
+    mtf_trans_date?: StringFieldUpdateOperationsInput | string
+    mtf_mode?: EnumMoneyTransferModeFieldUpdateOperationsInput | $Enums.MoneyTransferMode
+    mtf_direction?: EnumMoneyTransferDirectionFieldUpdateOperationsInput | $Enums.MoneyTransferDirection
+    mtf_total_amt?: FloatFieldUpdateOperationsInput | number
+    mtf_panel?: StringFieldUpdateOperationsInput | string
+    mtf_narration?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    mtf_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    mtf_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    mtf_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    fromLines?: Money_Transfer_From_LineUncheckedUpdateManyWithoutFromTransactionNestedInput
+  }
+
+  export type AccountUpsertWithoutMttToAccountInput = {
+    update: XOR<AccountUpdateWithoutMttToAccountInput, AccountUncheckedUpdateWithoutMttToAccountInput>
+    create: XOR<AccountCreateWithoutMttToAccountInput, AccountUncheckedCreateWithoutMttToAccountInput>
+    where?: AccountWhereInput
+  }
+
+  export type AccountUpdateToOneWithWhereWithoutMttToAccountInput = {
+    where?: AccountWhereInput
+    data: XOR<AccountUpdateWithoutMttToAccountInput, AccountUncheckedUpdateWithoutMttToAccountInput>
+  }
+
+  export type AccountUpdateWithoutMttToAccountInput = {
+    acc_uuid?: StringFieldUpdateOperationsInput | string
+    acc_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    acc_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_name?: StringFieldUpdateOperationsInput | string
+    acc_desc?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_pre_acc?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_bank_no?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_bsr_no?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_branch_name?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_opening_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    acc_address?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_country?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_state?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_city?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_cash_balance?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_balance_type?: EnumAccountBalanceTypeFieldUpdateOperationsInput | $Enums.AccountBalanceType
+    acc_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    acc_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    acc_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_is_system?: BoolFieldUpdateOperationsInput | boolean
+    acc_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    owner?: OwnerUpdateOneRequiredWithoutAccountsNestedInput
+    firm?: FirmUpdateOneRequiredWithoutAccountsNestedInput
+    financeCash?: FinanceUpdateManyWithoutCashAccountNestedInput
+    financeBank?: FinanceUpdateManyWithoutBankAccountNestedInput
+    financeOnline?: FinanceUpdateManyWithoutOnlineAccountNestedInput
+    financeCard?: FinanceUpdateManyWithoutCardAccountNestedInput
+    financeDr?: FinanceUpdateManyWithoutDrAccountNestedInput
+    ftCash?: Finance_TransactionUpdateManyWithoutCashAccountNestedInput
+    ftBank?: Finance_TransactionUpdateManyWithoutBankAccountNestedInput
+    ftOnline?: Finance_TransactionUpdateManyWithoutOnlineAccountNestedInput
+    ftCard?: Finance_TransactionUpdateManyWithoutCardAccountNestedInput
+    fmCash?: Finance_Money_TransactionUpdateManyWithoutCashAccountNestedInput
+    fmBank?: Finance_Money_TransactionUpdateManyWithoutBankAccountNestedInput
+    fmOnline?: Finance_Money_TransactionUpdateManyWithoutOnlineAccountNestedInput
+    fmCard?: Finance_Money_TransactionUpdateManyWithoutCardAccountNestedInput
+    fmDr?: Finance_Money_TransactionUpdateManyWithoutDrAccountNestedInput
+    jrtrCredit?: JournalTransactionUpdateManyWithoutCreditAccountNestedInput
+    jrtrDebit?: JournalTransactionUpdateManyWithoutDebitAccountNestedInput
+    girviFirstIntCr?: GirviUpdateManyWithoutFirstIntCrAccountNestedInput
+    girviFirstIntDr?: GirviUpdateManyWithoutFirstIntDrAccountNestedInput
+    girviCash?: GirviUpdateManyWithoutCashAccountNestedInput
+    girviBank?: GirviUpdateManyWithoutBankAccountNestedInput
+    girviOnline?: GirviUpdateManyWithoutOnlineAccountNestedInput
+    girviCard?: GirviUpdateManyWithoutCardAccountNestedInput
+    girviDr?: GirviUpdateManyWithoutDrAccountNestedInput
+    apCash?: AdditionalPrincipalUpdateManyWithoutCashAccountNestedInput
+    apBank?: AdditionalPrincipalUpdateManyWithoutBankAccountNestedInput
+    apOnline?: AdditionalPrincipalUpdateManyWithoutOnlineAccountNestedInput
+    apCard?: AdditionalPrincipalUpdateManyWithoutCardAccountNestedInput
+    depPrin?: GirviDepositUpdateManyWithoutPrinAccountNestedInput
+    depInt?: GirviDepositUpdateManyWithoutIntAccountNestedInput
+    depDisc?: GirviDepositUpdateManyWithoutDiscAccountNestedInput
+    depExtra?: GirviDepositUpdateManyWithoutExtraAccountNestedInput
+    depCash?: GirviDepositUpdateManyWithoutCashAccountNestedInput
+    depBank?: GirviDepositUpdateManyWithoutBankAccountNestedInput
+    depOnline?: GirviDepositUpdateManyWithoutOnlineAccountNestedInput
+    depCard?: GirviDepositUpdateManyWithoutCardAccountNestedInput
+    relPrin?: GirviReleaseUpdateManyWithoutPrinAccountNestedInput
+    relInt?: GirviReleaseUpdateManyWithoutIntAccountNestedInput
+    relDisc?: GirviReleaseUpdateManyWithoutDiscAccountNestedInput
+    relExtra?: GirviReleaseUpdateManyWithoutExtraAccountNestedInput
+    relCash?: GirviReleaseUpdateManyWithoutCashAccountNestedInput
+    relBank?: GirviReleaseUpdateManyWithoutBankAccountNestedInput
+    relOnline?: GirviReleaseUpdateManyWithoutOnlineAccountNestedInput
+    relCard?: GirviReleaseUpdateManyWithoutCardAccountNestedInput
+    mtfFromAccount?: Money_From_TransactionUpdateManyWithoutFromAccountNestedInput
+    mtfFromLines?: Money_Transfer_From_LineUpdateManyWithoutAccountNestedInput
+  }
+
+  export type AccountUncheckedUpdateWithoutMttToAccountInput = {
+    acc_id?: IntFieldUpdateOperationsInput | number
+    acc_uuid?: StringFieldUpdateOperationsInput | string
+    acc_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    acc_own_id?: IntFieldUpdateOperationsInput | number
+    acc_firm_id?: IntFieldUpdateOperationsInput | number
+    acc_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_name?: StringFieldUpdateOperationsInput | string
+    acc_desc?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_pre_acc?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_bank_no?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_bsr_no?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_branch_name?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_opening_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    acc_address?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_country?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_state?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_city?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_cash_balance?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_balance_type?: EnumAccountBalanceTypeFieldUpdateOperationsInput | $Enums.AccountBalanceType
+    acc_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    acc_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    acc_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_is_system?: BoolFieldUpdateOperationsInput | boolean
+    acc_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    financeCash?: FinanceUncheckedUpdateManyWithoutCashAccountNestedInput
+    financeBank?: FinanceUncheckedUpdateManyWithoutBankAccountNestedInput
+    financeOnline?: FinanceUncheckedUpdateManyWithoutOnlineAccountNestedInput
+    financeCard?: FinanceUncheckedUpdateManyWithoutCardAccountNestedInput
+    financeDr?: FinanceUncheckedUpdateManyWithoutDrAccountNestedInput
+    ftCash?: Finance_TransactionUncheckedUpdateManyWithoutCashAccountNestedInput
+    ftBank?: Finance_TransactionUncheckedUpdateManyWithoutBankAccountNestedInput
+    ftOnline?: Finance_TransactionUncheckedUpdateManyWithoutOnlineAccountNestedInput
+    ftCard?: Finance_TransactionUncheckedUpdateManyWithoutCardAccountNestedInput
+    fmCash?: Finance_Money_TransactionUncheckedUpdateManyWithoutCashAccountNestedInput
+    fmBank?: Finance_Money_TransactionUncheckedUpdateManyWithoutBankAccountNestedInput
+    fmOnline?: Finance_Money_TransactionUncheckedUpdateManyWithoutOnlineAccountNestedInput
+    fmCard?: Finance_Money_TransactionUncheckedUpdateManyWithoutCardAccountNestedInput
+    fmDr?: Finance_Money_TransactionUncheckedUpdateManyWithoutDrAccountNestedInput
+    jrtrCredit?: JournalTransactionUncheckedUpdateManyWithoutCreditAccountNestedInput
+    jrtrDebit?: JournalTransactionUncheckedUpdateManyWithoutDebitAccountNestedInput
+    girviFirstIntCr?: GirviUncheckedUpdateManyWithoutFirstIntCrAccountNestedInput
+    girviFirstIntDr?: GirviUncheckedUpdateManyWithoutFirstIntDrAccountNestedInput
+    girviCash?: GirviUncheckedUpdateManyWithoutCashAccountNestedInput
+    girviBank?: GirviUncheckedUpdateManyWithoutBankAccountNestedInput
+    girviOnline?: GirviUncheckedUpdateManyWithoutOnlineAccountNestedInput
+    girviCard?: GirviUncheckedUpdateManyWithoutCardAccountNestedInput
+    girviDr?: GirviUncheckedUpdateManyWithoutDrAccountNestedInput
+    apCash?: AdditionalPrincipalUncheckedUpdateManyWithoutCashAccountNestedInput
+    apBank?: AdditionalPrincipalUncheckedUpdateManyWithoutBankAccountNestedInput
+    apOnline?: AdditionalPrincipalUncheckedUpdateManyWithoutOnlineAccountNestedInput
+    apCard?: AdditionalPrincipalUncheckedUpdateManyWithoutCardAccountNestedInput
+    depPrin?: GirviDepositUncheckedUpdateManyWithoutPrinAccountNestedInput
+    depInt?: GirviDepositUncheckedUpdateManyWithoutIntAccountNestedInput
+    depDisc?: GirviDepositUncheckedUpdateManyWithoutDiscAccountNestedInput
+    depExtra?: GirviDepositUncheckedUpdateManyWithoutExtraAccountNestedInput
+    depCash?: GirviDepositUncheckedUpdateManyWithoutCashAccountNestedInput
+    depBank?: GirviDepositUncheckedUpdateManyWithoutBankAccountNestedInput
+    depOnline?: GirviDepositUncheckedUpdateManyWithoutOnlineAccountNestedInput
+    depCard?: GirviDepositUncheckedUpdateManyWithoutCardAccountNestedInput
+    relPrin?: GirviReleaseUncheckedUpdateManyWithoutPrinAccountNestedInput
+    relInt?: GirviReleaseUncheckedUpdateManyWithoutIntAccountNestedInput
+    relDisc?: GirviReleaseUncheckedUpdateManyWithoutDiscAccountNestedInput
+    relExtra?: GirviReleaseUncheckedUpdateManyWithoutExtraAccountNestedInput
+    relCash?: GirviReleaseUncheckedUpdateManyWithoutCashAccountNestedInput
+    relBank?: GirviReleaseUncheckedUpdateManyWithoutBankAccountNestedInput
+    relOnline?: GirviReleaseUncheckedUpdateManyWithoutOnlineAccountNestedInput
+    relCard?: GirviReleaseUncheckedUpdateManyWithoutCardAccountNestedInput
+    mtfFromAccount?: Money_From_TransactionUncheckedUpdateManyWithoutFromAccountNestedInput
+    mtfFromLines?: Money_Transfer_From_LineUncheckedUpdateManyWithoutAccountNestedInput
+  }
+
+  export type Money_From_TransactionCreateWithoutFromLinesInput = {
+    mtf_uuid?: string
+    mtf_trans_date: string
+    mtf_mode?: $Enums.MoneyTransferMode
+    mtf_direction?: $Enums.MoneyTransferDirection
+    mtf_total_amt: number
+    mtf_panel?: string
+    mtf_narration?: string | null
+    mtf_other_info?: string | null
+    mtf_created_at?: Date | string
+    mtf_created_by?: string | null
+    mtf_updated_at?: Date | string
+    mtf_updated_by?: string | null
+    mtf_deleted_at?: Date | string | null
+    mtf_deleted_by?: string | null
+    mtf_is_deleted?: boolean
+    firm: FirmCreateNestedOneWithoutMoneyFromTransactionsInput
+    owner: OwnerCreateNestedOneWithoutMoneyFromTransactionsInput
+    fromAccount: AccountCreateNestedOneWithoutMtfFromAccountInput
+    journal?: JournalCreateNestedOneWithoutMoneyFromTransactionsInput
+    toRows?: Money_To_TransactionCreateNestedManyWithoutFromTransactionInput
+  }
+
+  export type Money_From_TransactionUncheckedCreateWithoutFromLinesInput = {
+    mtf_id?: number
+    mtf_uuid?: string
+    mtf_firm_id: number
+    mtf_own_id: number
+    mtf_jrnl_id?: number | null
+    mtf_from_acc_id: number
+    mtf_trans_date: string
+    mtf_mode?: $Enums.MoneyTransferMode
+    mtf_direction?: $Enums.MoneyTransferDirection
+    mtf_total_amt: number
+    mtf_panel?: string
+    mtf_narration?: string | null
+    mtf_other_info?: string | null
+    mtf_created_at?: Date | string
+    mtf_created_by?: string | null
+    mtf_updated_at?: Date | string
+    mtf_updated_by?: string | null
+    mtf_deleted_at?: Date | string | null
+    mtf_deleted_by?: string | null
+    mtf_is_deleted?: boolean
+    toRows?: Money_To_TransactionUncheckedCreateNestedManyWithoutFromTransactionInput
+  }
+
+  export type Money_From_TransactionCreateOrConnectWithoutFromLinesInput = {
+    where: Money_From_TransactionWhereUniqueInput
+    create: XOR<Money_From_TransactionCreateWithoutFromLinesInput, Money_From_TransactionUncheckedCreateWithoutFromLinesInput>
+  }
+
+  export type AccountCreateWithoutMtfFromLinesInput = {
+    acc_uuid?: string
+    acc_add_date?: Date | string
+    acc_pan_no?: string | null
+    acc_name: string
+    acc_desc?: string | null
+    acc_pre_acc?: string | null
+    acc_bank_no?: string | null
+    acc_bsr_no?: string | null
+    acc_ifsc_code?: string | null
+    acc_branch_name?: string | null
+    acc_opening_date: Date | string
+    acc_address?: string | null
+    acc_country?: string | null
+    acc_state?: string | null
+    acc_city?: string | null
+    acc_pincode?: string | null
+    acc_cash_balance?: string | null
+    acc_balance_type?: $Enums.AccountBalanceType
+    acc_other_info?: string | null
+    acc_created_at?: Date | string
+    acc_created_by?: string | null
+    acc_updated_by?: string | null
+    acc_deleted_at?: Date | string | null
+    acc_deleted_by?: string | null
+    acc_is_system?: boolean
+    acc_is_deleted?: boolean
+    owner?: OwnerCreateNestedOneWithoutAccountsInput
+    firm?: FirmCreateNestedOneWithoutAccountsInput
+    financeCash?: FinanceCreateNestedManyWithoutCashAccountInput
+    financeBank?: FinanceCreateNestedManyWithoutBankAccountInput
+    financeOnline?: FinanceCreateNestedManyWithoutOnlineAccountInput
+    financeCard?: FinanceCreateNestedManyWithoutCardAccountInput
+    financeDr?: FinanceCreateNestedManyWithoutDrAccountInput
+    ftCash?: Finance_TransactionCreateNestedManyWithoutCashAccountInput
+    ftBank?: Finance_TransactionCreateNestedManyWithoutBankAccountInput
+    ftOnline?: Finance_TransactionCreateNestedManyWithoutOnlineAccountInput
+    ftCard?: Finance_TransactionCreateNestedManyWithoutCardAccountInput
+    fmCash?: Finance_Money_TransactionCreateNestedManyWithoutCashAccountInput
+    fmBank?: Finance_Money_TransactionCreateNestedManyWithoutBankAccountInput
+    fmOnline?: Finance_Money_TransactionCreateNestedManyWithoutOnlineAccountInput
+    fmCard?: Finance_Money_TransactionCreateNestedManyWithoutCardAccountInput
+    fmDr?: Finance_Money_TransactionCreateNestedManyWithoutDrAccountInput
+    jrtrCredit?: JournalTransactionCreateNestedManyWithoutCreditAccountInput
+    jrtrDebit?: JournalTransactionCreateNestedManyWithoutDebitAccountInput
+    girviFirstIntCr?: GirviCreateNestedManyWithoutFirstIntCrAccountInput
+    girviFirstIntDr?: GirviCreateNestedManyWithoutFirstIntDrAccountInput
+    girviCash?: GirviCreateNestedManyWithoutCashAccountInput
+    girviBank?: GirviCreateNestedManyWithoutBankAccountInput
+    girviOnline?: GirviCreateNestedManyWithoutOnlineAccountInput
+    girviCard?: GirviCreateNestedManyWithoutCardAccountInput
+    girviDr?: GirviCreateNestedManyWithoutDrAccountInput
+    apCash?: AdditionalPrincipalCreateNestedManyWithoutCashAccountInput
+    apBank?: AdditionalPrincipalCreateNestedManyWithoutBankAccountInput
+    apOnline?: AdditionalPrincipalCreateNestedManyWithoutOnlineAccountInput
+    apCard?: AdditionalPrincipalCreateNestedManyWithoutCardAccountInput
+    depPrin?: GirviDepositCreateNestedManyWithoutPrinAccountInput
+    depInt?: GirviDepositCreateNestedManyWithoutIntAccountInput
+    depDisc?: GirviDepositCreateNestedManyWithoutDiscAccountInput
+    depExtra?: GirviDepositCreateNestedManyWithoutExtraAccountInput
+    depCash?: GirviDepositCreateNestedManyWithoutCashAccountInput
+    depBank?: GirviDepositCreateNestedManyWithoutBankAccountInput
+    depOnline?: GirviDepositCreateNestedManyWithoutOnlineAccountInput
+    depCard?: GirviDepositCreateNestedManyWithoutCardAccountInput
+    relPrin?: GirviReleaseCreateNestedManyWithoutPrinAccountInput
+    relInt?: GirviReleaseCreateNestedManyWithoutIntAccountInput
+    relDisc?: GirviReleaseCreateNestedManyWithoutDiscAccountInput
+    relExtra?: GirviReleaseCreateNestedManyWithoutExtraAccountInput
+    relCash?: GirviReleaseCreateNestedManyWithoutCashAccountInput
+    relBank?: GirviReleaseCreateNestedManyWithoutBankAccountInput
+    relOnline?: GirviReleaseCreateNestedManyWithoutOnlineAccountInput
+    relCard?: GirviReleaseCreateNestedManyWithoutCardAccountInput
+    mtfFromAccount?: Money_From_TransactionCreateNestedManyWithoutFromAccountInput
+    mttToAccount?: Money_To_TransactionCreateNestedManyWithoutToAccountInput
+  }
+
+  export type AccountUncheckedCreateWithoutMtfFromLinesInput = {
+    acc_id?: number
+    acc_uuid?: string
+    acc_add_date?: Date | string
+    acc_own_id?: number
+    acc_firm_id?: number
+    acc_pan_no?: string | null
+    acc_name: string
+    acc_desc?: string | null
+    acc_pre_acc?: string | null
+    acc_bank_no?: string | null
+    acc_bsr_no?: string | null
+    acc_ifsc_code?: string | null
+    acc_branch_name?: string | null
+    acc_opening_date: Date | string
+    acc_address?: string | null
+    acc_country?: string | null
+    acc_state?: string | null
+    acc_city?: string | null
+    acc_pincode?: string | null
+    acc_cash_balance?: string | null
+    acc_balance_type?: $Enums.AccountBalanceType
+    acc_other_info?: string | null
+    acc_created_at?: Date | string
+    acc_created_by?: string | null
+    acc_updated_by?: string | null
+    acc_deleted_at?: Date | string | null
+    acc_deleted_by?: string | null
+    acc_is_system?: boolean
+    acc_is_deleted?: boolean
+    financeCash?: FinanceUncheckedCreateNestedManyWithoutCashAccountInput
+    financeBank?: FinanceUncheckedCreateNestedManyWithoutBankAccountInput
+    financeOnline?: FinanceUncheckedCreateNestedManyWithoutOnlineAccountInput
+    financeCard?: FinanceUncheckedCreateNestedManyWithoutCardAccountInput
+    financeDr?: FinanceUncheckedCreateNestedManyWithoutDrAccountInput
+    ftCash?: Finance_TransactionUncheckedCreateNestedManyWithoutCashAccountInput
+    ftBank?: Finance_TransactionUncheckedCreateNestedManyWithoutBankAccountInput
+    ftOnline?: Finance_TransactionUncheckedCreateNestedManyWithoutOnlineAccountInput
+    ftCard?: Finance_TransactionUncheckedCreateNestedManyWithoutCardAccountInput
+    fmCash?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutCashAccountInput
+    fmBank?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutBankAccountInput
+    fmOnline?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutOnlineAccountInput
+    fmCard?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutCardAccountInput
+    fmDr?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutDrAccountInput
+    jrtrCredit?: JournalTransactionUncheckedCreateNestedManyWithoutCreditAccountInput
+    jrtrDebit?: JournalTransactionUncheckedCreateNestedManyWithoutDebitAccountInput
+    girviFirstIntCr?: GirviUncheckedCreateNestedManyWithoutFirstIntCrAccountInput
+    girviFirstIntDr?: GirviUncheckedCreateNestedManyWithoutFirstIntDrAccountInput
+    girviCash?: GirviUncheckedCreateNestedManyWithoutCashAccountInput
+    girviBank?: GirviUncheckedCreateNestedManyWithoutBankAccountInput
+    girviOnline?: GirviUncheckedCreateNestedManyWithoutOnlineAccountInput
+    girviCard?: GirviUncheckedCreateNestedManyWithoutCardAccountInput
+    girviDr?: GirviUncheckedCreateNestedManyWithoutDrAccountInput
+    apCash?: AdditionalPrincipalUncheckedCreateNestedManyWithoutCashAccountInput
+    apBank?: AdditionalPrincipalUncheckedCreateNestedManyWithoutBankAccountInput
+    apOnline?: AdditionalPrincipalUncheckedCreateNestedManyWithoutOnlineAccountInput
+    apCard?: AdditionalPrincipalUncheckedCreateNestedManyWithoutCardAccountInput
+    depPrin?: GirviDepositUncheckedCreateNestedManyWithoutPrinAccountInput
+    depInt?: GirviDepositUncheckedCreateNestedManyWithoutIntAccountInput
+    depDisc?: GirviDepositUncheckedCreateNestedManyWithoutDiscAccountInput
+    depExtra?: GirviDepositUncheckedCreateNestedManyWithoutExtraAccountInput
+    depCash?: GirviDepositUncheckedCreateNestedManyWithoutCashAccountInput
+    depBank?: GirviDepositUncheckedCreateNestedManyWithoutBankAccountInput
+    depOnline?: GirviDepositUncheckedCreateNestedManyWithoutOnlineAccountInput
+    depCard?: GirviDepositUncheckedCreateNestedManyWithoutCardAccountInput
+    relPrin?: GirviReleaseUncheckedCreateNestedManyWithoutPrinAccountInput
+    relInt?: GirviReleaseUncheckedCreateNestedManyWithoutIntAccountInput
+    relDisc?: GirviReleaseUncheckedCreateNestedManyWithoutDiscAccountInput
+    relExtra?: GirviReleaseUncheckedCreateNestedManyWithoutExtraAccountInput
+    relCash?: GirviReleaseUncheckedCreateNestedManyWithoutCashAccountInput
+    relBank?: GirviReleaseUncheckedCreateNestedManyWithoutBankAccountInput
+    relOnline?: GirviReleaseUncheckedCreateNestedManyWithoutOnlineAccountInput
+    relCard?: GirviReleaseUncheckedCreateNestedManyWithoutCardAccountInput
+    mtfFromAccount?: Money_From_TransactionUncheckedCreateNestedManyWithoutFromAccountInput
+    mttToAccount?: Money_To_TransactionUncheckedCreateNestedManyWithoutToAccountInput
+  }
+
+  export type AccountCreateOrConnectWithoutMtfFromLinesInput = {
+    where: AccountWhereUniqueInput
+    create: XOR<AccountCreateWithoutMtfFromLinesInput, AccountUncheckedCreateWithoutMtfFromLinesInput>
+  }
+
+  export type Money_From_TransactionUpsertWithoutFromLinesInput = {
+    update: XOR<Money_From_TransactionUpdateWithoutFromLinesInput, Money_From_TransactionUncheckedUpdateWithoutFromLinesInput>
+    create: XOR<Money_From_TransactionCreateWithoutFromLinesInput, Money_From_TransactionUncheckedCreateWithoutFromLinesInput>
+    where?: Money_From_TransactionWhereInput
+  }
+
+  export type Money_From_TransactionUpdateToOneWithWhereWithoutFromLinesInput = {
+    where?: Money_From_TransactionWhereInput
+    data: XOR<Money_From_TransactionUpdateWithoutFromLinesInput, Money_From_TransactionUncheckedUpdateWithoutFromLinesInput>
+  }
+
+  export type Money_From_TransactionUpdateWithoutFromLinesInput = {
+    mtf_uuid?: StringFieldUpdateOperationsInput | string
+    mtf_trans_date?: StringFieldUpdateOperationsInput | string
+    mtf_mode?: EnumMoneyTransferModeFieldUpdateOperationsInput | $Enums.MoneyTransferMode
+    mtf_direction?: EnumMoneyTransferDirectionFieldUpdateOperationsInput | $Enums.MoneyTransferDirection
+    mtf_total_amt?: FloatFieldUpdateOperationsInput | number
+    mtf_panel?: StringFieldUpdateOperationsInput | string
+    mtf_narration?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    mtf_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    mtf_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    mtf_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    firm?: FirmUpdateOneRequiredWithoutMoneyFromTransactionsNestedInput
+    owner?: OwnerUpdateOneRequiredWithoutMoneyFromTransactionsNestedInput
+    fromAccount?: AccountUpdateOneRequiredWithoutMtfFromAccountNestedInput
+    journal?: JournalUpdateOneWithoutMoneyFromTransactionsNestedInput
+    toRows?: Money_To_TransactionUpdateManyWithoutFromTransactionNestedInput
+  }
+
+  export type Money_From_TransactionUncheckedUpdateWithoutFromLinesInput = {
+    mtf_id?: IntFieldUpdateOperationsInput | number
+    mtf_uuid?: StringFieldUpdateOperationsInput | string
+    mtf_firm_id?: IntFieldUpdateOperationsInput | number
+    mtf_own_id?: IntFieldUpdateOperationsInput | number
+    mtf_jrnl_id?: NullableIntFieldUpdateOperationsInput | number | null
+    mtf_from_acc_id?: IntFieldUpdateOperationsInput | number
+    mtf_trans_date?: StringFieldUpdateOperationsInput | string
+    mtf_mode?: EnumMoneyTransferModeFieldUpdateOperationsInput | $Enums.MoneyTransferMode
+    mtf_direction?: EnumMoneyTransferDirectionFieldUpdateOperationsInput | $Enums.MoneyTransferDirection
+    mtf_total_amt?: FloatFieldUpdateOperationsInput | number
+    mtf_panel?: StringFieldUpdateOperationsInput | string
+    mtf_narration?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    mtf_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    mtf_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    mtf_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    toRows?: Money_To_TransactionUncheckedUpdateManyWithoutFromTransactionNestedInput
+  }
+
+  export type AccountUpsertWithoutMtfFromLinesInput = {
+    update: XOR<AccountUpdateWithoutMtfFromLinesInput, AccountUncheckedUpdateWithoutMtfFromLinesInput>
+    create: XOR<AccountCreateWithoutMtfFromLinesInput, AccountUncheckedCreateWithoutMtfFromLinesInput>
+    where?: AccountWhereInput
+  }
+
+  export type AccountUpdateToOneWithWhereWithoutMtfFromLinesInput = {
+    where?: AccountWhereInput
+    data: XOR<AccountUpdateWithoutMtfFromLinesInput, AccountUncheckedUpdateWithoutMtfFromLinesInput>
+  }
+
+  export type AccountUpdateWithoutMtfFromLinesInput = {
+    acc_uuid?: StringFieldUpdateOperationsInput | string
+    acc_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    acc_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_name?: StringFieldUpdateOperationsInput | string
+    acc_desc?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_pre_acc?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_bank_no?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_bsr_no?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_branch_name?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_opening_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    acc_address?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_country?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_state?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_city?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_cash_balance?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_balance_type?: EnumAccountBalanceTypeFieldUpdateOperationsInput | $Enums.AccountBalanceType
+    acc_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    acc_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    acc_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_is_system?: BoolFieldUpdateOperationsInput | boolean
+    acc_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    owner?: OwnerUpdateOneRequiredWithoutAccountsNestedInput
+    firm?: FirmUpdateOneRequiredWithoutAccountsNestedInput
+    financeCash?: FinanceUpdateManyWithoutCashAccountNestedInput
+    financeBank?: FinanceUpdateManyWithoutBankAccountNestedInput
+    financeOnline?: FinanceUpdateManyWithoutOnlineAccountNestedInput
+    financeCard?: FinanceUpdateManyWithoutCardAccountNestedInput
+    financeDr?: FinanceUpdateManyWithoutDrAccountNestedInput
+    ftCash?: Finance_TransactionUpdateManyWithoutCashAccountNestedInput
+    ftBank?: Finance_TransactionUpdateManyWithoutBankAccountNestedInput
+    ftOnline?: Finance_TransactionUpdateManyWithoutOnlineAccountNestedInput
+    ftCard?: Finance_TransactionUpdateManyWithoutCardAccountNestedInput
+    fmCash?: Finance_Money_TransactionUpdateManyWithoutCashAccountNestedInput
+    fmBank?: Finance_Money_TransactionUpdateManyWithoutBankAccountNestedInput
+    fmOnline?: Finance_Money_TransactionUpdateManyWithoutOnlineAccountNestedInput
+    fmCard?: Finance_Money_TransactionUpdateManyWithoutCardAccountNestedInput
+    fmDr?: Finance_Money_TransactionUpdateManyWithoutDrAccountNestedInput
+    jrtrCredit?: JournalTransactionUpdateManyWithoutCreditAccountNestedInput
+    jrtrDebit?: JournalTransactionUpdateManyWithoutDebitAccountNestedInput
+    girviFirstIntCr?: GirviUpdateManyWithoutFirstIntCrAccountNestedInput
+    girviFirstIntDr?: GirviUpdateManyWithoutFirstIntDrAccountNestedInput
+    girviCash?: GirviUpdateManyWithoutCashAccountNestedInput
+    girviBank?: GirviUpdateManyWithoutBankAccountNestedInput
+    girviOnline?: GirviUpdateManyWithoutOnlineAccountNestedInput
+    girviCard?: GirviUpdateManyWithoutCardAccountNestedInput
+    girviDr?: GirviUpdateManyWithoutDrAccountNestedInput
+    apCash?: AdditionalPrincipalUpdateManyWithoutCashAccountNestedInput
+    apBank?: AdditionalPrincipalUpdateManyWithoutBankAccountNestedInput
+    apOnline?: AdditionalPrincipalUpdateManyWithoutOnlineAccountNestedInput
+    apCard?: AdditionalPrincipalUpdateManyWithoutCardAccountNestedInput
+    depPrin?: GirviDepositUpdateManyWithoutPrinAccountNestedInput
+    depInt?: GirviDepositUpdateManyWithoutIntAccountNestedInput
+    depDisc?: GirviDepositUpdateManyWithoutDiscAccountNestedInput
+    depExtra?: GirviDepositUpdateManyWithoutExtraAccountNestedInput
+    depCash?: GirviDepositUpdateManyWithoutCashAccountNestedInput
+    depBank?: GirviDepositUpdateManyWithoutBankAccountNestedInput
+    depOnline?: GirviDepositUpdateManyWithoutOnlineAccountNestedInput
+    depCard?: GirviDepositUpdateManyWithoutCardAccountNestedInput
+    relPrin?: GirviReleaseUpdateManyWithoutPrinAccountNestedInput
+    relInt?: GirviReleaseUpdateManyWithoutIntAccountNestedInput
+    relDisc?: GirviReleaseUpdateManyWithoutDiscAccountNestedInput
+    relExtra?: GirviReleaseUpdateManyWithoutExtraAccountNestedInput
+    relCash?: GirviReleaseUpdateManyWithoutCashAccountNestedInput
+    relBank?: GirviReleaseUpdateManyWithoutBankAccountNestedInput
+    relOnline?: GirviReleaseUpdateManyWithoutOnlineAccountNestedInput
+    relCard?: GirviReleaseUpdateManyWithoutCardAccountNestedInput
+    mtfFromAccount?: Money_From_TransactionUpdateManyWithoutFromAccountNestedInput
+    mttToAccount?: Money_To_TransactionUpdateManyWithoutToAccountNestedInput
+  }
+
+  export type AccountUncheckedUpdateWithoutMtfFromLinesInput = {
+    acc_id?: IntFieldUpdateOperationsInput | number
+    acc_uuid?: StringFieldUpdateOperationsInput | string
+    acc_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    acc_own_id?: IntFieldUpdateOperationsInput | number
+    acc_firm_id?: IntFieldUpdateOperationsInput | number
+    acc_pan_no?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_name?: StringFieldUpdateOperationsInput | string
+    acc_desc?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_pre_acc?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_bank_no?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_bsr_no?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_ifsc_code?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_branch_name?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_opening_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    acc_address?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_country?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_state?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_city?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_cash_balance?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_balance_type?: EnumAccountBalanceTypeFieldUpdateOperationsInput | $Enums.AccountBalanceType
+    acc_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    acc_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    acc_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    acc_is_system?: BoolFieldUpdateOperationsInput | boolean
+    acc_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    financeCash?: FinanceUncheckedUpdateManyWithoutCashAccountNestedInput
+    financeBank?: FinanceUncheckedUpdateManyWithoutBankAccountNestedInput
+    financeOnline?: FinanceUncheckedUpdateManyWithoutOnlineAccountNestedInput
+    financeCard?: FinanceUncheckedUpdateManyWithoutCardAccountNestedInput
+    financeDr?: FinanceUncheckedUpdateManyWithoutDrAccountNestedInput
+    ftCash?: Finance_TransactionUncheckedUpdateManyWithoutCashAccountNestedInput
+    ftBank?: Finance_TransactionUncheckedUpdateManyWithoutBankAccountNestedInput
+    ftOnline?: Finance_TransactionUncheckedUpdateManyWithoutOnlineAccountNestedInput
+    ftCard?: Finance_TransactionUncheckedUpdateManyWithoutCardAccountNestedInput
+    fmCash?: Finance_Money_TransactionUncheckedUpdateManyWithoutCashAccountNestedInput
+    fmBank?: Finance_Money_TransactionUncheckedUpdateManyWithoutBankAccountNestedInput
+    fmOnline?: Finance_Money_TransactionUncheckedUpdateManyWithoutOnlineAccountNestedInput
+    fmCard?: Finance_Money_TransactionUncheckedUpdateManyWithoutCardAccountNestedInput
+    fmDr?: Finance_Money_TransactionUncheckedUpdateManyWithoutDrAccountNestedInput
+    jrtrCredit?: JournalTransactionUncheckedUpdateManyWithoutCreditAccountNestedInput
+    jrtrDebit?: JournalTransactionUncheckedUpdateManyWithoutDebitAccountNestedInput
+    girviFirstIntCr?: GirviUncheckedUpdateManyWithoutFirstIntCrAccountNestedInput
+    girviFirstIntDr?: GirviUncheckedUpdateManyWithoutFirstIntDrAccountNestedInput
+    girviCash?: GirviUncheckedUpdateManyWithoutCashAccountNestedInput
+    girviBank?: GirviUncheckedUpdateManyWithoutBankAccountNestedInput
+    girviOnline?: GirviUncheckedUpdateManyWithoutOnlineAccountNestedInput
+    girviCard?: GirviUncheckedUpdateManyWithoutCardAccountNestedInput
+    girviDr?: GirviUncheckedUpdateManyWithoutDrAccountNestedInput
+    apCash?: AdditionalPrincipalUncheckedUpdateManyWithoutCashAccountNestedInput
+    apBank?: AdditionalPrincipalUncheckedUpdateManyWithoutBankAccountNestedInput
+    apOnline?: AdditionalPrincipalUncheckedUpdateManyWithoutOnlineAccountNestedInput
+    apCard?: AdditionalPrincipalUncheckedUpdateManyWithoutCardAccountNestedInput
+    depPrin?: GirviDepositUncheckedUpdateManyWithoutPrinAccountNestedInput
+    depInt?: GirviDepositUncheckedUpdateManyWithoutIntAccountNestedInput
+    depDisc?: GirviDepositUncheckedUpdateManyWithoutDiscAccountNestedInput
+    depExtra?: GirviDepositUncheckedUpdateManyWithoutExtraAccountNestedInput
+    depCash?: GirviDepositUncheckedUpdateManyWithoutCashAccountNestedInput
+    depBank?: GirviDepositUncheckedUpdateManyWithoutBankAccountNestedInput
+    depOnline?: GirviDepositUncheckedUpdateManyWithoutOnlineAccountNestedInput
+    depCard?: GirviDepositUncheckedUpdateManyWithoutCardAccountNestedInput
+    relPrin?: GirviReleaseUncheckedUpdateManyWithoutPrinAccountNestedInput
+    relInt?: GirviReleaseUncheckedUpdateManyWithoutIntAccountNestedInput
+    relDisc?: GirviReleaseUncheckedUpdateManyWithoutDiscAccountNestedInput
+    relExtra?: GirviReleaseUncheckedUpdateManyWithoutExtraAccountNestedInput
+    relCash?: GirviReleaseUncheckedUpdateManyWithoutCashAccountNestedInput
+    relBank?: GirviReleaseUncheckedUpdateManyWithoutBankAccountNestedInput
+    relOnline?: GirviReleaseUncheckedUpdateManyWithoutOnlineAccountNestedInput
+    relCard?: GirviReleaseUncheckedUpdateManyWithoutCardAccountNestedInput
+    mtfFromAccount?: Money_From_TransactionUncheckedUpdateManyWithoutFromAccountNestedInput
+    mttToAccount?: Money_To_TransactionUncheckedUpdateManyWithoutToAccountNestedInput
+  }
+
   export type JournalCreateWithoutJournalTransactionsInput = {
     jrnl_uuid?: string
     jrnl_add_date?: string | null
@@ -92400,6 +100211,7 @@ export namespace Prisma {
     jrnl_deleted_by?: string | null
     jrnl_is_deleted?: boolean
     financeMoneyTransactions?: Finance_Money_TransactionCreateNestedManyWithoutJournalInput
+    moneyFromTransactions?: Money_From_TransactionCreateNestedManyWithoutJournalInput
     firm: FirmCreateNestedOneWithoutJournalsInput
     user?: UserCreateNestedOneWithoutJournalsInput
     owner: OwnerCreateNestedOneWithoutJournalsInput
@@ -92424,6 +100236,7 @@ export namespace Prisma {
     jrnl_deleted_by?: string | null
     jrnl_is_deleted?: boolean
     financeMoneyTransactions?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutJournalInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedCreateNestedManyWithoutJournalInput
   }
 
   export type JournalCreateOrConnectWithoutJournalTransactionsInput = {
@@ -92486,6 +100299,7 @@ export namespace Prisma {
     finances?: FinanceCreateNestedManyWithoutFirmInput
     financeTransactions?: Finance_TransactionCreateNestedManyWithoutFirmInput
     financeMoneyTrans?: Finance_Money_TransactionCreateNestedManyWithoutFirmInput
+    moneyFromTransactions?: Money_From_TransactionCreateNestedManyWithoutFirmInput
     journals?: JournalCreateNestedManyWithoutFirmInput
     girvis?: GirviCreateNestedManyWithoutFirmInput
     stocks?: StockCreateNestedManyWithoutFirmInput
@@ -92559,6 +100373,7 @@ export namespace Prisma {
     finances?: FinanceUncheckedCreateNestedManyWithoutFirmInput
     financeTransactions?: Finance_TransactionUncheckedCreateNestedManyWithoutFirmInput
     financeMoneyTrans?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutFirmInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedCreateNestedManyWithoutFirmInput
     journals?: JournalUncheckedCreateNestedManyWithoutFirmInput
     girvis?: GirviUncheckedCreateNestedManyWithoutFirmInput
     stocks?: StockUncheckedCreateNestedManyWithoutFirmInput
@@ -92760,6 +100575,7 @@ export namespace Prisma {
     finances?: FinanceCreateNestedManyWithoutOwnerInput
     financeTransactions?: Finance_TransactionCreateNestedManyWithoutOwnerInput
     financeMoneyTrans?: Finance_Money_TransactionCreateNestedManyWithoutOwnerInput
+    moneyFromTransactions?: Money_From_TransactionCreateNestedManyWithoutOwnerInput
     journals?: JournalCreateNestedManyWithoutOwnerInput
     girvis?: GirviCreateNestedManyWithoutOwnerInput
     stocks?: StockCreateNestedManyWithoutOwnerInput
@@ -92828,6 +100644,7 @@ export namespace Prisma {
     finances?: FinanceUncheckedCreateNestedManyWithoutOwnerInput
     financeTransactions?: Finance_TransactionUncheckedCreateNestedManyWithoutOwnerInput
     financeMoneyTrans?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutOwnerInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedCreateNestedManyWithoutOwnerInput
     journals?: JournalUncheckedCreateNestedManyWithoutOwnerInput
     girvis?: GirviUncheckedCreateNestedManyWithoutOwnerInput
     stocks?: StockUncheckedCreateNestedManyWithoutOwnerInput
@@ -92920,6 +100737,9 @@ export namespace Prisma {
     relBank?: GirviReleaseCreateNestedManyWithoutBankAccountInput
     relOnline?: GirviReleaseCreateNestedManyWithoutOnlineAccountInput
     relCard?: GirviReleaseCreateNestedManyWithoutCardAccountInput
+    mtfFromAccount?: Money_From_TransactionCreateNestedManyWithoutFromAccountInput
+    mtfFromLines?: Money_Transfer_From_LineCreateNestedManyWithoutAccountInput
+    mttToAccount?: Money_To_TransactionCreateNestedManyWithoutToAccountInput
   }
 
   export type AccountUncheckedCreateWithoutJrtrCreditInput = {
@@ -92994,6 +100814,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUncheckedCreateNestedManyWithoutBankAccountInput
     relOnline?: GirviReleaseUncheckedCreateNestedManyWithoutOnlineAccountInput
     relCard?: GirviReleaseUncheckedCreateNestedManyWithoutCardAccountInput
+    mtfFromAccount?: Money_From_TransactionUncheckedCreateNestedManyWithoutFromAccountInput
+    mtfFromLines?: Money_Transfer_From_LineUncheckedCreateNestedManyWithoutAccountInput
+    mttToAccount?: Money_To_TransactionUncheckedCreateNestedManyWithoutToAccountInput
   }
 
   export type AccountCreateOrConnectWithoutJrtrCreditInput = {
@@ -93072,6 +100895,9 @@ export namespace Prisma {
     relBank?: GirviReleaseCreateNestedManyWithoutBankAccountInput
     relOnline?: GirviReleaseCreateNestedManyWithoutOnlineAccountInput
     relCard?: GirviReleaseCreateNestedManyWithoutCardAccountInput
+    mtfFromAccount?: Money_From_TransactionCreateNestedManyWithoutFromAccountInput
+    mtfFromLines?: Money_Transfer_From_LineCreateNestedManyWithoutAccountInput
+    mttToAccount?: Money_To_TransactionCreateNestedManyWithoutToAccountInput
   }
 
   export type AccountUncheckedCreateWithoutJrtrDebitInput = {
@@ -93146,6 +100972,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUncheckedCreateNestedManyWithoutBankAccountInput
     relOnline?: GirviReleaseUncheckedCreateNestedManyWithoutOnlineAccountInput
     relCard?: GirviReleaseUncheckedCreateNestedManyWithoutCardAccountInput
+    mtfFromAccount?: Money_From_TransactionUncheckedCreateNestedManyWithoutFromAccountInput
+    mtfFromLines?: Money_Transfer_From_LineUncheckedCreateNestedManyWithoutAccountInput
+    mttToAccount?: Money_To_TransactionUncheckedCreateNestedManyWithoutToAccountInput
   }
 
   export type AccountCreateOrConnectWithoutJrtrDebitInput = {
@@ -93179,6 +101008,7 @@ export namespace Prisma {
     jrnl_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     jrnl_is_deleted?: BoolFieldUpdateOperationsInput | boolean
     financeMoneyTransactions?: Finance_Money_TransactionUpdateManyWithoutJournalNestedInput
+    moneyFromTransactions?: Money_From_TransactionUpdateManyWithoutJournalNestedInput
     firm?: FirmUpdateOneRequiredWithoutJournalsNestedInput
     user?: UserUpdateOneWithoutJournalsNestedInput
     owner?: OwnerUpdateOneRequiredWithoutJournalsNestedInput
@@ -93203,6 +101033,7 @@ export namespace Prisma {
     jrnl_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     jrnl_is_deleted?: BoolFieldUpdateOperationsInput | boolean
     financeMoneyTransactions?: Finance_Money_TransactionUncheckedUpdateManyWithoutJournalNestedInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedUpdateManyWithoutJournalNestedInput
   }
 
   export type FirmUpsertWithoutJournalTransactionsInput = {
@@ -93271,6 +101102,7 @@ export namespace Prisma {
     finances?: FinanceUpdateManyWithoutFirmNestedInput
     financeTransactions?: Finance_TransactionUpdateManyWithoutFirmNestedInput
     financeMoneyTrans?: Finance_Money_TransactionUpdateManyWithoutFirmNestedInput
+    moneyFromTransactions?: Money_From_TransactionUpdateManyWithoutFirmNestedInput
     journals?: JournalUpdateManyWithoutFirmNestedInput
     girvis?: GirviUpdateManyWithoutFirmNestedInput
     stocks?: StockUpdateManyWithoutFirmNestedInput
@@ -93344,6 +101176,7 @@ export namespace Prisma {
     finances?: FinanceUncheckedUpdateManyWithoutFirmNestedInput
     financeTransactions?: Finance_TransactionUncheckedUpdateManyWithoutFirmNestedInput
     financeMoneyTrans?: Finance_Money_TransactionUncheckedUpdateManyWithoutFirmNestedInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedUpdateManyWithoutFirmNestedInput
     journals?: JournalUncheckedUpdateManyWithoutFirmNestedInput
     girvis?: GirviUncheckedUpdateManyWithoutFirmNestedInput
     stocks?: StockUncheckedUpdateManyWithoutFirmNestedInput
@@ -93556,6 +101389,7 @@ export namespace Prisma {
     finances?: FinanceUpdateManyWithoutOwnerNestedInput
     financeTransactions?: Finance_TransactionUpdateManyWithoutOwnerNestedInput
     financeMoneyTrans?: Finance_Money_TransactionUpdateManyWithoutOwnerNestedInput
+    moneyFromTransactions?: Money_From_TransactionUpdateManyWithoutOwnerNestedInput
     journals?: JournalUpdateManyWithoutOwnerNestedInput
     girvis?: GirviUpdateManyWithoutOwnerNestedInput
     stocks?: StockUpdateManyWithoutOwnerNestedInput
@@ -93624,6 +101458,7 @@ export namespace Prisma {
     finances?: FinanceUncheckedUpdateManyWithoutOwnerNestedInput
     financeTransactions?: Finance_TransactionUncheckedUpdateManyWithoutOwnerNestedInput
     financeMoneyTrans?: Finance_Money_TransactionUncheckedUpdateManyWithoutOwnerNestedInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedUpdateManyWithoutOwnerNestedInput
     journals?: JournalUncheckedUpdateManyWithoutOwnerNestedInput
     girvis?: GirviUncheckedUpdateManyWithoutOwnerNestedInput
     stocks?: StockUncheckedUpdateManyWithoutOwnerNestedInput
@@ -93722,6 +101557,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUpdateManyWithoutBankAccountNestedInput
     relOnline?: GirviReleaseUpdateManyWithoutOnlineAccountNestedInput
     relCard?: GirviReleaseUpdateManyWithoutCardAccountNestedInput
+    mtfFromAccount?: Money_From_TransactionUpdateManyWithoutFromAccountNestedInput
+    mtfFromLines?: Money_Transfer_From_LineUpdateManyWithoutAccountNestedInput
+    mttToAccount?: Money_To_TransactionUpdateManyWithoutToAccountNestedInput
   }
 
   export type AccountUncheckedUpdateWithoutJrtrCreditInput = {
@@ -93796,6 +101634,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUncheckedUpdateManyWithoutBankAccountNestedInput
     relOnline?: GirviReleaseUncheckedUpdateManyWithoutOnlineAccountNestedInput
     relCard?: GirviReleaseUncheckedUpdateManyWithoutCardAccountNestedInput
+    mtfFromAccount?: Money_From_TransactionUncheckedUpdateManyWithoutFromAccountNestedInput
+    mtfFromLines?: Money_Transfer_From_LineUncheckedUpdateManyWithoutAccountNestedInput
+    mttToAccount?: Money_To_TransactionUncheckedUpdateManyWithoutToAccountNestedInput
   }
 
   export type AccountUpsertWithoutJrtrDebitInput = {
@@ -93880,6 +101721,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUpdateManyWithoutBankAccountNestedInput
     relOnline?: GirviReleaseUpdateManyWithoutOnlineAccountNestedInput
     relCard?: GirviReleaseUpdateManyWithoutCardAccountNestedInput
+    mtfFromAccount?: Money_From_TransactionUpdateManyWithoutFromAccountNestedInput
+    mtfFromLines?: Money_Transfer_From_LineUpdateManyWithoutAccountNestedInput
+    mttToAccount?: Money_To_TransactionUpdateManyWithoutToAccountNestedInput
   }
 
   export type AccountUncheckedUpdateWithoutJrtrDebitInput = {
@@ -93954,6 +101798,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUncheckedUpdateManyWithoutBankAccountNestedInput
     relOnline?: GirviReleaseUncheckedUpdateManyWithoutOnlineAccountNestedInput
     relCard?: GirviReleaseUncheckedUpdateManyWithoutCardAccountNestedInput
+    mtfFromAccount?: Money_From_TransactionUncheckedUpdateManyWithoutFromAccountNestedInput
+    mtfFromLines?: Money_Transfer_From_LineUncheckedUpdateManyWithoutAccountNestedInput
+    mttToAccount?: Money_To_TransactionUncheckedUpdateManyWithoutToAccountNestedInput
   }
 
   export type OwnerCreateWithoutGirvisInput = {
@@ -94007,6 +101854,7 @@ export namespace Prisma {
     finances?: FinanceCreateNestedManyWithoutOwnerInput
     financeTransactions?: Finance_TransactionCreateNestedManyWithoutOwnerInput
     financeMoneyTrans?: Finance_Money_TransactionCreateNestedManyWithoutOwnerInput
+    moneyFromTransactions?: Money_From_TransactionCreateNestedManyWithoutOwnerInput
     journals?: JournalCreateNestedManyWithoutOwnerInput
     journalTransactions?: JournalTransactionCreateNestedManyWithoutOwnerInput
     stocks?: StockCreateNestedManyWithoutOwnerInput
@@ -94075,6 +101923,7 @@ export namespace Prisma {
     finances?: FinanceUncheckedCreateNestedManyWithoutOwnerInput
     financeTransactions?: Finance_TransactionUncheckedCreateNestedManyWithoutOwnerInput
     financeMoneyTrans?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutOwnerInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedCreateNestedManyWithoutOwnerInput
     journals?: JournalUncheckedCreateNestedManyWithoutOwnerInput
     journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutOwnerInput
     stocks?: StockUncheckedCreateNestedManyWithoutOwnerInput
@@ -94151,6 +102000,7 @@ export namespace Prisma {
     finances?: FinanceCreateNestedManyWithoutFirmInput
     financeTransactions?: Finance_TransactionCreateNestedManyWithoutFirmInput
     financeMoneyTrans?: Finance_Money_TransactionCreateNestedManyWithoutFirmInput
+    moneyFromTransactions?: Money_From_TransactionCreateNestedManyWithoutFirmInput
     journals?: JournalCreateNestedManyWithoutFirmInput
     journalTransactions?: JournalTransactionCreateNestedManyWithoutFirmInput
     stocks?: StockCreateNestedManyWithoutFirmInput
@@ -94224,6 +102074,7 @@ export namespace Prisma {
     finances?: FinanceUncheckedCreateNestedManyWithoutFirmInput
     financeTransactions?: Finance_TransactionUncheckedCreateNestedManyWithoutFirmInput
     financeMoneyTrans?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutFirmInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedCreateNestedManyWithoutFirmInput
     journals?: JournalUncheckedCreateNestedManyWithoutFirmInput
     journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutFirmInput
     stocks?: StockUncheckedCreateNestedManyWithoutFirmInput
@@ -94519,6 +102370,9 @@ export namespace Prisma {
     relBank?: GirviReleaseCreateNestedManyWithoutBankAccountInput
     relOnline?: GirviReleaseCreateNestedManyWithoutOnlineAccountInput
     relCard?: GirviReleaseCreateNestedManyWithoutCardAccountInput
+    mtfFromAccount?: Money_From_TransactionCreateNestedManyWithoutFromAccountInput
+    mtfFromLines?: Money_Transfer_From_LineCreateNestedManyWithoutAccountInput
+    mttToAccount?: Money_To_TransactionCreateNestedManyWithoutToAccountInput
   }
 
   export type AccountUncheckedCreateWithoutGirviFirstIntCrInput = {
@@ -94593,6 +102447,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUncheckedCreateNestedManyWithoutBankAccountInput
     relOnline?: GirviReleaseUncheckedCreateNestedManyWithoutOnlineAccountInput
     relCard?: GirviReleaseUncheckedCreateNestedManyWithoutCardAccountInput
+    mtfFromAccount?: Money_From_TransactionUncheckedCreateNestedManyWithoutFromAccountInput
+    mtfFromLines?: Money_Transfer_From_LineUncheckedCreateNestedManyWithoutAccountInput
+    mttToAccount?: Money_To_TransactionUncheckedCreateNestedManyWithoutToAccountInput
   }
 
   export type AccountCreateOrConnectWithoutGirviFirstIntCrInput = {
@@ -94671,6 +102528,9 @@ export namespace Prisma {
     relBank?: GirviReleaseCreateNestedManyWithoutBankAccountInput
     relOnline?: GirviReleaseCreateNestedManyWithoutOnlineAccountInput
     relCard?: GirviReleaseCreateNestedManyWithoutCardAccountInput
+    mtfFromAccount?: Money_From_TransactionCreateNestedManyWithoutFromAccountInput
+    mtfFromLines?: Money_Transfer_From_LineCreateNestedManyWithoutAccountInput
+    mttToAccount?: Money_To_TransactionCreateNestedManyWithoutToAccountInput
   }
 
   export type AccountUncheckedCreateWithoutGirviFirstIntDrInput = {
@@ -94745,6 +102605,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUncheckedCreateNestedManyWithoutBankAccountInput
     relOnline?: GirviReleaseUncheckedCreateNestedManyWithoutOnlineAccountInput
     relCard?: GirviReleaseUncheckedCreateNestedManyWithoutCardAccountInput
+    mtfFromAccount?: Money_From_TransactionUncheckedCreateNestedManyWithoutFromAccountInput
+    mtfFromLines?: Money_Transfer_From_LineUncheckedCreateNestedManyWithoutAccountInput
+    mttToAccount?: Money_To_TransactionUncheckedCreateNestedManyWithoutToAccountInput
   }
 
   export type AccountCreateOrConnectWithoutGirviFirstIntDrInput = {
@@ -94823,6 +102686,9 @@ export namespace Prisma {
     relBank?: GirviReleaseCreateNestedManyWithoutBankAccountInput
     relOnline?: GirviReleaseCreateNestedManyWithoutOnlineAccountInput
     relCard?: GirviReleaseCreateNestedManyWithoutCardAccountInput
+    mtfFromAccount?: Money_From_TransactionCreateNestedManyWithoutFromAccountInput
+    mtfFromLines?: Money_Transfer_From_LineCreateNestedManyWithoutAccountInput
+    mttToAccount?: Money_To_TransactionCreateNestedManyWithoutToAccountInput
   }
 
   export type AccountUncheckedCreateWithoutGirviCashInput = {
@@ -94897,6 +102763,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUncheckedCreateNestedManyWithoutBankAccountInput
     relOnline?: GirviReleaseUncheckedCreateNestedManyWithoutOnlineAccountInput
     relCard?: GirviReleaseUncheckedCreateNestedManyWithoutCardAccountInput
+    mtfFromAccount?: Money_From_TransactionUncheckedCreateNestedManyWithoutFromAccountInput
+    mtfFromLines?: Money_Transfer_From_LineUncheckedCreateNestedManyWithoutAccountInput
+    mttToAccount?: Money_To_TransactionUncheckedCreateNestedManyWithoutToAccountInput
   }
 
   export type AccountCreateOrConnectWithoutGirviCashInput = {
@@ -94975,6 +102844,9 @@ export namespace Prisma {
     relBank?: GirviReleaseCreateNestedManyWithoutBankAccountInput
     relOnline?: GirviReleaseCreateNestedManyWithoutOnlineAccountInput
     relCard?: GirviReleaseCreateNestedManyWithoutCardAccountInput
+    mtfFromAccount?: Money_From_TransactionCreateNestedManyWithoutFromAccountInput
+    mtfFromLines?: Money_Transfer_From_LineCreateNestedManyWithoutAccountInput
+    mttToAccount?: Money_To_TransactionCreateNestedManyWithoutToAccountInput
   }
 
   export type AccountUncheckedCreateWithoutGirviBankInput = {
@@ -95049,6 +102921,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUncheckedCreateNestedManyWithoutBankAccountInput
     relOnline?: GirviReleaseUncheckedCreateNestedManyWithoutOnlineAccountInput
     relCard?: GirviReleaseUncheckedCreateNestedManyWithoutCardAccountInput
+    mtfFromAccount?: Money_From_TransactionUncheckedCreateNestedManyWithoutFromAccountInput
+    mtfFromLines?: Money_Transfer_From_LineUncheckedCreateNestedManyWithoutAccountInput
+    mttToAccount?: Money_To_TransactionUncheckedCreateNestedManyWithoutToAccountInput
   }
 
   export type AccountCreateOrConnectWithoutGirviBankInput = {
@@ -95127,6 +103002,9 @@ export namespace Prisma {
     relBank?: GirviReleaseCreateNestedManyWithoutBankAccountInput
     relOnline?: GirviReleaseCreateNestedManyWithoutOnlineAccountInput
     relCard?: GirviReleaseCreateNestedManyWithoutCardAccountInput
+    mtfFromAccount?: Money_From_TransactionCreateNestedManyWithoutFromAccountInput
+    mtfFromLines?: Money_Transfer_From_LineCreateNestedManyWithoutAccountInput
+    mttToAccount?: Money_To_TransactionCreateNestedManyWithoutToAccountInput
   }
 
   export type AccountUncheckedCreateWithoutGirviOnlineInput = {
@@ -95201,6 +103079,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUncheckedCreateNestedManyWithoutBankAccountInput
     relOnline?: GirviReleaseUncheckedCreateNestedManyWithoutOnlineAccountInput
     relCard?: GirviReleaseUncheckedCreateNestedManyWithoutCardAccountInput
+    mtfFromAccount?: Money_From_TransactionUncheckedCreateNestedManyWithoutFromAccountInput
+    mtfFromLines?: Money_Transfer_From_LineUncheckedCreateNestedManyWithoutAccountInput
+    mttToAccount?: Money_To_TransactionUncheckedCreateNestedManyWithoutToAccountInput
   }
 
   export type AccountCreateOrConnectWithoutGirviOnlineInput = {
@@ -95279,6 +103160,9 @@ export namespace Prisma {
     relBank?: GirviReleaseCreateNestedManyWithoutBankAccountInput
     relOnline?: GirviReleaseCreateNestedManyWithoutOnlineAccountInput
     relCard?: GirviReleaseCreateNestedManyWithoutCardAccountInput
+    mtfFromAccount?: Money_From_TransactionCreateNestedManyWithoutFromAccountInput
+    mtfFromLines?: Money_Transfer_From_LineCreateNestedManyWithoutAccountInput
+    mttToAccount?: Money_To_TransactionCreateNestedManyWithoutToAccountInput
   }
 
   export type AccountUncheckedCreateWithoutGirviCardInput = {
@@ -95353,6 +103237,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUncheckedCreateNestedManyWithoutBankAccountInput
     relOnline?: GirviReleaseUncheckedCreateNestedManyWithoutOnlineAccountInput
     relCard?: GirviReleaseUncheckedCreateNestedManyWithoutCardAccountInput
+    mtfFromAccount?: Money_From_TransactionUncheckedCreateNestedManyWithoutFromAccountInput
+    mtfFromLines?: Money_Transfer_From_LineUncheckedCreateNestedManyWithoutAccountInput
+    mttToAccount?: Money_To_TransactionUncheckedCreateNestedManyWithoutToAccountInput
   }
 
   export type AccountCreateOrConnectWithoutGirviCardInput = {
@@ -95431,6 +103318,9 @@ export namespace Prisma {
     relBank?: GirviReleaseCreateNestedManyWithoutBankAccountInput
     relOnline?: GirviReleaseCreateNestedManyWithoutOnlineAccountInput
     relCard?: GirviReleaseCreateNestedManyWithoutCardAccountInput
+    mtfFromAccount?: Money_From_TransactionCreateNestedManyWithoutFromAccountInput
+    mtfFromLines?: Money_Transfer_From_LineCreateNestedManyWithoutAccountInput
+    mttToAccount?: Money_To_TransactionCreateNestedManyWithoutToAccountInput
   }
 
   export type AccountUncheckedCreateWithoutGirviDrInput = {
@@ -95505,6 +103395,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUncheckedCreateNestedManyWithoutBankAccountInput
     relOnline?: GirviReleaseUncheckedCreateNestedManyWithoutOnlineAccountInput
     relCard?: GirviReleaseUncheckedCreateNestedManyWithoutCardAccountInput
+    mtfFromAccount?: Money_From_TransactionUncheckedCreateNestedManyWithoutFromAccountInput
+    mtfFromLines?: Money_Transfer_From_LineUncheckedCreateNestedManyWithoutAccountInput
+    mttToAccount?: Money_To_TransactionUncheckedCreateNestedManyWithoutToAccountInput
   }
 
   export type AccountCreateOrConnectWithoutGirviDrInput = {
@@ -95897,6 +103790,7 @@ export namespace Prisma {
     finances?: FinanceUpdateManyWithoutOwnerNestedInput
     financeTransactions?: Finance_TransactionUpdateManyWithoutOwnerNestedInput
     financeMoneyTrans?: Finance_Money_TransactionUpdateManyWithoutOwnerNestedInput
+    moneyFromTransactions?: Money_From_TransactionUpdateManyWithoutOwnerNestedInput
     journals?: JournalUpdateManyWithoutOwnerNestedInput
     journalTransactions?: JournalTransactionUpdateManyWithoutOwnerNestedInput
     stocks?: StockUpdateManyWithoutOwnerNestedInput
@@ -95965,6 +103859,7 @@ export namespace Prisma {
     finances?: FinanceUncheckedUpdateManyWithoutOwnerNestedInput
     financeTransactions?: Finance_TransactionUncheckedUpdateManyWithoutOwnerNestedInput
     financeMoneyTrans?: Finance_Money_TransactionUncheckedUpdateManyWithoutOwnerNestedInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedUpdateManyWithoutOwnerNestedInput
     journals?: JournalUncheckedUpdateManyWithoutOwnerNestedInput
     journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutOwnerNestedInput
     stocks?: StockUncheckedUpdateManyWithoutOwnerNestedInput
@@ -96047,6 +103942,7 @@ export namespace Prisma {
     finances?: FinanceUpdateManyWithoutFirmNestedInput
     financeTransactions?: Finance_TransactionUpdateManyWithoutFirmNestedInput
     financeMoneyTrans?: Finance_Money_TransactionUpdateManyWithoutFirmNestedInput
+    moneyFromTransactions?: Money_From_TransactionUpdateManyWithoutFirmNestedInput
     journals?: JournalUpdateManyWithoutFirmNestedInput
     journalTransactions?: JournalTransactionUpdateManyWithoutFirmNestedInput
     stocks?: StockUpdateManyWithoutFirmNestedInput
@@ -96120,6 +104016,7 @@ export namespace Prisma {
     finances?: FinanceUncheckedUpdateManyWithoutFirmNestedInput
     financeTransactions?: Finance_TransactionUncheckedUpdateManyWithoutFirmNestedInput
     financeMoneyTrans?: Finance_Money_TransactionUncheckedUpdateManyWithoutFirmNestedInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedUpdateManyWithoutFirmNestedInput
     journals?: JournalUncheckedUpdateManyWithoutFirmNestedInput
     journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutFirmNestedInput
     stocks?: StockUncheckedUpdateManyWithoutFirmNestedInput
@@ -96433,6 +104330,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUpdateManyWithoutBankAccountNestedInput
     relOnline?: GirviReleaseUpdateManyWithoutOnlineAccountNestedInput
     relCard?: GirviReleaseUpdateManyWithoutCardAccountNestedInput
+    mtfFromAccount?: Money_From_TransactionUpdateManyWithoutFromAccountNestedInput
+    mtfFromLines?: Money_Transfer_From_LineUpdateManyWithoutAccountNestedInput
+    mttToAccount?: Money_To_TransactionUpdateManyWithoutToAccountNestedInput
   }
 
   export type AccountUncheckedUpdateWithoutGirviFirstIntCrInput = {
@@ -96507,6 +104407,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUncheckedUpdateManyWithoutBankAccountNestedInput
     relOnline?: GirviReleaseUncheckedUpdateManyWithoutOnlineAccountNestedInput
     relCard?: GirviReleaseUncheckedUpdateManyWithoutCardAccountNestedInput
+    mtfFromAccount?: Money_From_TransactionUncheckedUpdateManyWithoutFromAccountNestedInput
+    mtfFromLines?: Money_Transfer_From_LineUncheckedUpdateManyWithoutAccountNestedInput
+    mttToAccount?: Money_To_TransactionUncheckedUpdateManyWithoutToAccountNestedInput
   }
 
   export type AccountUpsertWithoutGirviFirstIntDrInput = {
@@ -96591,6 +104494,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUpdateManyWithoutBankAccountNestedInput
     relOnline?: GirviReleaseUpdateManyWithoutOnlineAccountNestedInput
     relCard?: GirviReleaseUpdateManyWithoutCardAccountNestedInput
+    mtfFromAccount?: Money_From_TransactionUpdateManyWithoutFromAccountNestedInput
+    mtfFromLines?: Money_Transfer_From_LineUpdateManyWithoutAccountNestedInput
+    mttToAccount?: Money_To_TransactionUpdateManyWithoutToAccountNestedInput
   }
 
   export type AccountUncheckedUpdateWithoutGirviFirstIntDrInput = {
@@ -96665,6 +104571,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUncheckedUpdateManyWithoutBankAccountNestedInput
     relOnline?: GirviReleaseUncheckedUpdateManyWithoutOnlineAccountNestedInput
     relCard?: GirviReleaseUncheckedUpdateManyWithoutCardAccountNestedInput
+    mtfFromAccount?: Money_From_TransactionUncheckedUpdateManyWithoutFromAccountNestedInput
+    mtfFromLines?: Money_Transfer_From_LineUncheckedUpdateManyWithoutAccountNestedInput
+    mttToAccount?: Money_To_TransactionUncheckedUpdateManyWithoutToAccountNestedInput
   }
 
   export type AccountUpsertWithoutGirviCashInput = {
@@ -96749,6 +104658,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUpdateManyWithoutBankAccountNestedInput
     relOnline?: GirviReleaseUpdateManyWithoutOnlineAccountNestedInput
     relCard?: GirviReleaseUpdateManyWithoutCardAccountNestedInput
+    mtfFromAccount?: Money_From_TransactionUpdateManyWithoutFromAccountNestedInput
+    mtfFromLines?: Money_Transfer_From_LineUpdateManyWithoutAccountNestedInput
+    mttToAccount?: Money_To_TransactionUpdateManyWithoutToAccountNestedInput
   }
 
   export type AccountUncheckedUpdateWithoutGirviCashInput = {
@@ -96823,6 +104735,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUncheckedUpdateManyWithoutBankAccountNestedInput
     relOnline?: GirviReleaseUncheckedUpdateManyWithoutOnlineAccountNestedInput
     relCard?: GirviReleaseUncheckedUpdateManyWithoutCardAccountNestedInput
+    mtfFromAccount?: Money_From_TransactionUncheckedUpdateManyWithoutFromAccountNestedInput
+    mtfFromLines?: Money_Transfer_From_LineUncheckedUpdateManyWithoutAccountNestedInput
+    mttToAccount?: Money_To_TransactionUncheckedUpdateManyWithoutToAccountNestedInput
   }
 
   export type AccountUpsertWithoutGirviBankInput = {
@@ -96907,6 +104822,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUpdateManyWithoutBankAccountNestedInput
     relOnline?: GirviReleaseUpdateManyWithoutOnlineAccountNestedInput
     relCard?: GirviReleaseUpdateManyWithoutCardAccountNestedInput
+    mtfFromAccount?: Money_From_TransactionUpdateManyWithoutFromAccountNestedInput
+    mtfFromLines?: Money_Transfer_From_LineUpdateManyWithoutAccountNestedInput
+    mttToAccount?: Money_To_TransactionUpdateManyWithoutToAccountNestedInput
   }
 
   export type AccountUncheckedUpdateWithoutGirviBankInput = {
@@ -96981,6 +104899,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUncheckedUpdateManyWithoutBankAccountNestedInput
     relOnline?: GirviReleaseUncheckedUpdateManyWithoutOnlineAccountNestedInput
     relCard?: GirviReleaseUncheckedUpdateManyWithoutCardAccountNestedInput
+    mtfFromAccount?: Money_From_TransactionUncheckedUpdateManyWithoutFromAccountNestedInput
+    mtfFromLines?: Money_Transfer_From_LineUncheckedUpdateManyWithoutAccountNestedInput
+    mttToAccount?: Money_To_TransactionUncheckedUpdateManyWithoutToAccountNestedInput
   }
 
   export type AccountUpsertWithoutGirviOnlineInput = {
@@ -97065,6 +104986,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUpdateManyWithoutBankAccountNestedInput
     relOnline?: GirviReleaseUpdateManyWithoutOnlineAccountNestedInput
     relCard?: GirviReleaseUpdateManyWithoutCardAccountNestedInput
+    mtfFromAccount?: Money_From_TransactionUpdateManyWithoutFromAccountNestedInput
+    mtfFromLines?: Money_Transfer_From_LineUpdateManyWithoutAccountNestedInput
+    mttToAccount?: Money_To_TransactionUpdateManyWithoutToAccountNestedInput
   }
 
   export type AccountUncheckedUpdateWithoutGirviOnlineInput = {
@@ -97139,6 +105063,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUncheckedUpdateManyWithoutBankAccountNestedInput
     relOnline?: GirviReleaseUncheckedUpdateManyWithoutOnlineAccountNestedInput
     relCard?: GirviReleaseUncheckedUpdateManyWithoutCardAccountNestedInput
+    mtfFromAccount?: Money_From_TransactionUncheckedUpdateManyWithoutFromAccountNestedInput
+    mtfFromLines?: Money_Transfer_From_LineUncheckedUpdateManyWithoutAccountNestedInput
+    mttToAccount?: Money_To_TransactionUncheckedUpdateManyWithoutToAccountNestedInput
   }
 
   export type AccountUpsertWithoutGirviCardInput = {
@@ -97223,6 +105150,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUpdateManyWithoutBankAccountNestedInput
     relOnline?: GirviReleaseUpdateManyWithoutOnlineAccountNestedInput
     relCard?: GirviReleaseUpdateManyWithoutCardAccountNestedInput
+    mtfFromAccount?: Money_From_TransactionUpdateManyWithoutFromAccountNestedInput
+    mtfFromLines?: Money_Transfer_From_LineUpdateManyWithoutAccountNestedInput
+    mttToAccount?: Money_To_TransactionUpdateManyWithoutToAccountNestedInput
   }
 
   export type AccountUncheckedUpdateWithoutGirviCardInput = {
@@ -97297,6 +105227,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUncheckedUpdateManyWithoutBankAccountNestedInput
     relOnline?: GirviReleaseUncheckedUpdateManyWithoutOnlineAccountNestedInput
     relCard?: GirviReleaseUncheckedUpdateManyWithoutCardAccountNestedInput
+    mtfFromAccount?: Money_From_TransactionUncheckedUpdateManyWithoutFromAccountNestedInput
+    mtfFromLines?: Money_Transfer_From_LineUncheckedUpdateManyWithoutAccountNestedInput
+    mttToAccount?: Money_To_TransactionUncheckedUpdateManyWithoutToAccountNestedInput
   }
 
   export type AccountUpsertWithoutGirviDrInput = {
@@ -97381,6 +105314,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUpdateManyWithoutBankAccountNestedInput
     relOnline?: GirviReleaseUpdateManyWithoutOnlineAccountNestedInput
     relCard?: GirviReleaseUpdateManyWithoutCardAccountNestedInput
+    mtfFromAccount?: Money_From_TransactionUpdateManyWithoutFromAccountNestedInput
+    mtfFromLines?: Money_Transfer_From_LineUpdateManyWithoutAccountNestedInput
+    mttToAccount?: Money_To_TransactionUpdateManyWithoutToAccountNestedInput
   }
 
   export type AccountUncheckedUpdateWithoutGirviDrInput = {
@@ -97455,6 +105391,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUncheckedUpdateManyWithoutBankAccountNestedInput
     relOnline?: GirviReleaseUncheckedUpdateManyWithoutOnlineAccountNestedInput
     relCard?: GirviReleaseUncheckedUpdateManyWithoutCardAccountNestedInput
+    mtfFromAccount?: Money_From_TransactionUncheckedUpdateManyWithoutFromAccountNestedInput
+    mtfFromLines?: Money_Transfer_From_LineUncheckedUpdateManyWithoutAccountNestedInput
+    mttToAccount?: Money_To_TransactionUncheckedUpdateManyWithoutToAccountNestedInput
   }
 
   export type AdditionalPrincipalUpsertWithWhereUniqueWithoutGirviInput = {
@@ -97572,6 +105511,7 @@ export namespace Prisma {
     finances?: FinanceCreateNestedManyWithoutOwnerInput
     financeTransactions?: Finance_TransactionCreateNestedManyWithoutOwnerInput
     financeMoneyTrans?: Finance_Money_TransactionCreateNestedManyWithoutOwnerInput
+    moneyFromTransactions?: Money_From_TransactionCreateNestedManyWithoutOwnerInput
     journals?: JournalCreateNestedManyWithoutOwnerInput
     journalTransactions?: JournalTransactionCreateNestedManyWithoutOwnerInput
     girvis?: GirviCreateNestedManyWithoutOwnerInput
@@ -97640,6 +105580,7 @@ export namespace Prisma {
     finances?: FinanceUncheckedCreateNestedManyWithoutOwnerInput
     financeTransactions?: Finance_TransactionUncheckedCreateNestedManyWithoutOwnerInput
     financeMoneyTrans?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutOwnerInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedCreateNestedManyWithoutOwnerInput
     journals?: JournalUncheckedCreateNestedManyWithoutOwnerInput
     journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutOwnerInput
     girvis?: GirviUncheckedCreateNestedManyWithoutOwnerInput
@@ -97716,6 +105657,7 @@ export namespace Prisma {
     finances?: FinanceCreateNestedManyWithoutFirmInput
     financeTransactions?: Finance_TransactionCreateNestedManyWithoutFirmInput
     financeMoneyTrans?: Finance_Money_TransactionCreateNestedManyWithoutFirmInput
+    moneyFromTransactions?: Money_From_TransactionCreateNestedManyWithoutFirmInput
     journals?: JournalCreateNestedManyWithoutFirmInput
     journalTransactions?: JournalTransactionCreateNestedManyWithoutFirmInput
     girvis?: GirviCreateNestedManyWithoutFirmInput
@@ -97789,6 +105731,7 @@ export namespace Prisma {
     finances?: FinanceUncheckedCreateNestedManyWithoutFirmInput
     financeTransactions?: Finance_TransactionUncheckedCreateNestedManyWithoutFirmInput
     financeMoneyTrans?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutFirmInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedCreateNestedManyWithoutFirmInput
     journals?: JournalUncheckedCreateNestedManyWithoutFirmInput
     journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutFirmInput
     girvis?: GirviUncheckedCreateNestedManyWithoutFirmInput
@@ -98000,6 +105943,7 @@ export namespace Prisma {
     finances?: FinanceUpdateManyWithoutOwnerNestedInput
     financeTransactions?: Finance_TransactionUpdateManyWithoutOwnerNestedInput
     financeMoneyTrans?: Finance_Money_TransactionUpdateManyWithoutOwnerNestedInput
+    moneyFromTransactions?: Money_From_TransactionUpdateManyWithoutOwnerNestedInput
     journals?: JournalUpdateManyWithoutOwnerNestedInput
     journalTransactions?: JournalTransactionUpdateManyWithoutOwnerNestedInput
     girvis?: GirviUpdateManyWithoutOwnerNestedInput
@@ -98068,6 +106012,7 @@ export namespace Prisma {
     finances?: FinanceUncheckedUpdateManyWithoutOwnerNestedInput
     financeTransactions?: Finance_TransactionUncheckedUpdateManyWithoutOwnerNestedInput
     financeMoneyTrans?: Finance_Money_TransactionUncheckedUpdateManyWithoutOwnerNestedInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedUpdateManyWithoutOwnerNestedInput
     journals?: JournalUncheckedUpdateManyWithoutOwnerNestedInput
     journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutOwnerNestedInput
     girvis?: GirviUncheckedUpdateManyWithoutOwnerNestedInput
@@ -98150,6 +106095,7 @@ export namespace Prisma {
     finances?: FinanceUpdateManyWithoutFirmNestedInput
     financeTransactions?: Finance_TransactionUpdateManyWithoutFirmNestedInput
     financeMoneyTrans?: Finance_Money_TransactionUpdateManyWithoutFirmNestedInput
+    moneyFromTransactions?: Money_From_TransactionUpdateManyWithoutFirmNestedInput
     journals?: JournalUpdateManyWithoutFirmNestedInput
     journalTransactions?: JournalTransactionUpdateManyWithoutFirmNestedInput
     girvis?: GirviUpdateManyWithoutFirmNestedInput
@@ -98223,6 +106169,7 @@ export namespace Prisma {
     finances?: FinanceUncheckedUpdateManyWithoutFirmNestedInput
     financeTransactions?: Finance_TransactionUncheckedUpdateManyWithoutFirmNestedInput
     financeMoneyTrans?: Finance_Money_TransactionUncheckedUpdateManyWithoutFirmNestedInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedUpdateManyWithoutFirmNestedInput
     journals?: JournalUncheckedUpdateManyWithoutFirmNestedInput
     journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutFirmNestedInput
     girvis?: GirviUncheckedUpdateManyWithoutFirmNestedInput
@@ -98425,6 +106372,7 @@ export namespace Prisma {
     finances?: FinanceCreateNestedManyWithoutOwnerInput
     financeTransactions?: Finance_TransactionCreateNestedManyWithoutOwnerInput
     financeMoneyTrans?: Finance_Money_TransactionCreateNestedManyWithoutOwnerInput
+    moneyFromTransactions?: Money_From_TransactionCreateNestedManyWithoutOwnerInput
     journals?: JournalCreateNestedManyWithoutOwnerInput
     journalTransactions?: JournalTransactionCreateNestedManyWithoutOwnerInput
     girvis?: GirviCreateNestedManyWithoutOwnerInput
@@ -98493,6 +106441,7 @@ export namespace Prisma {
     finances?: FinanceUncheckedCreateNestedManyWithoutOwnerInput
     financeTransactions?: Finance_TransactionUncheckedCreateNestedManyWithoutOwnerInput
     financeMoneyTrans?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutOwnerInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedCreateNestedManyWithoutOwnerInput
     journals?: JournalUncheckedCreateNestedManyWithoutOwnerInput
     journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutOwnerInput
     girvis?: GirviUncheckedCreateNestedManyWithoutOwnerInput
@@ -98569,6 +106518,7 @@ export namespace Prisma {
     finances?: FinanceCreateNestedManyWithoutFirmInput
     financeTransactions?: Finance_TransactionCreateNestedManyWithoutFirmInput
     financeMoneyTrans?: Finance_Money_TransactionCreateNestedManyWithoutFirmInput
+    moneyFromTransactions?: Money_From_TransactionCreateNestedManyWithoutFirmInput
     journals?: JournalCreateNestedManyWithoutFirmInput
     journalTransactions?: JournalTransactionCreateNestedManyWithoutFirmInput
     girvis?: GirviCreateNestedManyWithoutFirmInput
@@ -98642,6 +106592,7 @@ export namespace Prisma {
     finances?: FinanceUncheckedCreateNestedManyWithoutFirmInput
     financeTransactions?: Finance_TransactionUncheckedCreateNestedManyWithoutFirmInput
     financeMoneyTrans?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutFirmInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedCreateNestedManyWithoutFirmInput
     journals?: JournalUncheckedCreateNestedManyWithoutFirmInput
     journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutFirmInput
     girvis?: GirviUncheckedCreateNestedManyWithoutFirmInput
@@ -98991,6 +106942,9 @@ export namespace Prisma {
     relBank?: GirviReleaseCreateNestedManyWithoutBankAccountInput
     relOnline?: GirviReleaseCreateNestedManyWithoutOnlineAccountInput
     relCard?: GirviReleaseCreateNestedManyWithoutCardAccountInput
+    mtfFromAccount?: Money_From_TransactionCreateNestedManyWithoutFromAccountInput
+    mtfFromLines?: Money_Transfer_From_LineCreateNestedManyWithoutAccountInput
+    mttToAccount?: Money_To_TransactionCreateNestedManyWithoutToAccountInput
   }
 
   export type AccountUncheckedCreateWithoutApCashInput = {
@@ -99065,6 +107019,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUncheckedCreateNestedManyWithoutBankAccountInput
     relOnline?: GirviReleaseUncheckedCreateNestedManyWithoutOnlineAccountInput
     relCard?: GirviReleaseUncheckedCreateNestedManyWithoutCardAccountInput
+    mtfFromAccount?: Money_From_TransactionUncheckedCreateNestedManyWithoutFromAccountInput
+    mtfFromLines?: Money_Transfer_From_LineUncheckedCreateNestedManyWithoutAccountInput
+    mttToAccount?: Money_To_TransactionUncheckedCreateNestedManyWithoutToAccountInput
   }
 
   export type AccountCreateOrConnectWithoutApCashInput = {
@@ -99143,6 +107100,9 @@ export namespace Prisma {
     relBank?: GirviReleaseCreateNestedManyWithoutBankAccountInput
     relOnline?: GirviReleaseCreateNestedManyWithoutOnlineAccountInput
     relCard?: GirviReleaseCreateNestedManyWithoutCardAccountInput
+    mtfFromAccount?: Money_From_TransactionCreateNestedManyWithoutFromAccountInput
+    mtfFromLines?: Money_Transfer_From_LineCreateNestedManyWithoutAccountInput
+    mttToAccount?: Money_To_TransactionCreateNestedManyWithoutToAccountInput
   }
 
   export type AccountUncheckedCreateWithoutApBankInput = {
@@ -99217,6 +107177,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUncheckedCreateNestedManyWithoutBankAccountInput
     relOnline?: GirviReleaseUncheckedCreateNestedManyWithoutOnlineAccountInput
     relCard?: GirviReleaseUncheckedCreateNestedManyWithoutCardAccountInput
+    mtfFromAccount?: Money_From_TransactionUncheckedCreateNestedManyWithoutFromAccountInput
+    mtfFromLines?: Money_Transfer_From_LineUncheckedCreateNestedManyWithoutAccountInput
+    mttToAccount?: Money_To_TransactionUncheckedCreateNestedManyWithoutToAccountInput
   }
 
   export type AccountCreateOrConnectWithoutApBankInput = {
@@ -99295,6 +107258,9 @@ export namespace Prisma {
     relBank?: GirviReleaseCreateNestedManyWithoutBankAccountInput
     relOnline?: GirviReleaseCreateNestedManyWithoutOnlineAccountInput
     relCard?: GirviReleaseCreateNestedManyWithoutCardAccountInput
+    mtfFromAccount?: Money_From_TransactionCreateNestedManyWithoutFromAccountInput
+    mtfFromLines?: Money_Transfer_From_LineCreateNestedManyWithoutAccountInput
+    mttToAccount?: Money_To_TransactionCreateNestedManyWithoutToAccountInput
   }
 
   export type AccountUncheckedCreateWithoutApOnlineInput = {
@@ -99369,6 +107335,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUncheckedCreateNestedManyWithoutBankAccountInput
     relOnline?: GirviReleaseUncheckedCreateNestedManyWithoutOnlineAccountInput
     relCard?: GirviReleaseUncheckedCreateNestedManyWithoutCardAccountInput
+    mtfFromAccount?: Money_From_TransactionUncheckedCreateNestedManyWithoutFromAccountInput
+    mtfFromLines?: Money_Transfer_From_LineUncheckedCreateNestedManyWithoutAccountInput
+    mttToAccount?: Money_To_TransactionUncheckedCreateNestedManyWithoutToAccountInput
   }
 
   export type AccountCreateOrConnectWithoutApOnlineInput = {
@@ -99447,6 +107416,9 @@ export namespace Prisma {
     relBank?: GirviReleaseCreateNestedManyWithoutBankAccountInput
     relOnline?: GirviReleaseCreateNestedManyWithoutOnlineAccountInput
     relCard?: GirviReleaseCreateNestedManyWithoutCardAccountInput
+    mtfFromAccount?: Money_From_TransactionCreateNestedManyWithoutFromAccountInput
+    mtfFromLines?: Money_Transfer_From_LineCreateNestedManyWithoutAccountInput
+    mttToAccount?: Money_To_TransactionCreateNestedManyWithoutToAccountInput
   }
 
   export type AccountUncheckedCreateWithoutApCardInput = {
@@ -99521,6 +107493,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUncheckedCreateNestedManyWithoutBankAccountInput
     relOnline?: GirviReleaseUncheckedCreateNestedManyWithoutOnlineAccountInput
     relCard?: GirviReleaseUncheckedCreateNestedManyWithoutCardAccountInput
+    mtfFromAccount?: Money_From_TransactionUncheckedCreateNestedManyWithoutFromAccountInput
+    mtfFromLines?: Money_Transfer_From_LineUncheckedCreateNestedManyWithoutAccountInput
+    mttToAccount?: Money_To_TransactionUncheckedCreateNestedManyWithoutToAccountInput
   }
 
   export type AccountCreateOrConnectWithoutApCardInput = {
@@ -99589,6 +107564,7 @@ export namespace Prisma {
     finances?: FinanceUpdateManyWithoutOwnerNestedInput
     financeTransactions?: Finance_TransactionUpdateManyWithoutOwnerNestedInput
     financeMoneyTrans?: Finance_Money_TransactionUpdateManyWithoutOwnerNestedInput
+    moneyFromTransactions?: Money_From_TransactionUpdateManyWithoutOwnerNestedInput
     journals?: JournalUpdateManyWithoutOwnerNestedInput
     journalTransactions?: JournalTransactionUpdateManyWithoutOwnerNestedInput
     girvis?: GirviUpdateManyWithoutOwnerNestedInput
@@ -99657,6 +107633,7 @@ export namespace Prisma {
     finances?: FinanceUncheckedUpdateManyWithoutOwnerNestedInput
     financeTransactions?: Finance_TransactionUncheckedUpdateManyWithoutOwnerNestedInput
     financeMoneyTrans?: Finance_Money_TransactionUncheckedUpdateManyWithoutOwnerNestedInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedUpdateManyWithoutOwnerNestedInput
     journals?: JournalUncheckedUpdateManyWithoutOwnerNestedInput
     journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutOwnerNestedInput
     girvis?: GirviUncheckedUpdateManyWithoutOwnerNestedInput
@@ -99739,6 +107716,7 @@ export namespace Prisma {
     finances?: FinanceUpdateManyWithoutFirmNestedInput
     financeTransactions?: Finance_TransactionUpdateManyWithoutFirmNestedInput
     financeMoneyTrans?: Finance_Money_TransactionUpdateManyWithoutFirmNestedInput
+    moneyFromTransactions?: Money_From_TransactionUpdateManyWithoutFirmNestedInput
     journals?: JournalUpdateManyWithoutFirmNestedInput
     journalTransactions?: JournalTransactionUpdateManyWithoutFirmNestedInput
     girvis?: GirviUpdateManyWithoutFirmNestedInput
@@ -99812,6 +107790,7 @@ export namespace Prisma {
     finances?: FinanceUncheckedUpdateManyWithoutFirmNestedInput
     financeTransactions?: Finance_TransactionUncheckedUpdateManyWithoutFirmNestedInput
     financeMoneyTrans?: Finance_Money_TransactionUncheckedUpdateManyWithoutFirmNestedInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedUpdateManyWithoutFirmNestedInput
     journals?: JournalUncheckedUpdateManyWithoutFirmNestedInput
     journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutFirmNestedInput
     girvis?: GirviUncheckedUpdateManyWithoutFirmNestedInput
@@ -100179,6 +108158,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUpdateManyWithoutBankAccountNestedInput
     relOnline?: GirviReleaseUpdateManyWithoutOnlineAccountNestedInput
     relCard?: GirviReleaseUpdateManyWithoutCardAccountNestedInput
+    mtfFromAccount?: Money_From_TransactionUpdateManyWithoutFromAccountNestedInput
+    mtfFromLines?: Money_Transfer_From_LineUpdateManyWithoutAccountNestedInput
+    mttToAccount?: Money_To_TransactionUpdateManyWithoutToAccountNestedInput
   }
 
   export type AccountUncheckedUpdateWithoutApCashInput = {
@@ -100253,6 +108235,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUncheckedUpdateManyWithoutBankAccountNestedInput
     relOnline?: GirviReleaseUncheckedUpdateManyWithoutOnlineAccountNestedInput
     relCard?: GirviReleaseUncheckedUpdateManyWithoutCardAccountNestedInput
+    mtfFromAccount?: Money_From_TransactionUncheckedUpdateManyWithoutFromAccountNestedInput
+    mtfFromLines?: Money_Transfer_From_LineUncheckedUpdateManyWithoutAccountNestedInput
+    mttToAccount?: Money_To_TransactionUncheckedUpdateManyWithoutToAccountNestedInput
   }
 
   export type AccountUpsertWithoutApBankInput = {
@@ -100337,6 +108322,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUpdateManyWithoutBankAccountNestedInput
     relOnline?: GirviReleaseUpdateManyWithoutOnlineAccountNestedInput
     relCard?: GirviReleaseUpdateManyWithoutCardAccountNestedInput
+    mtfFromAccount?: Money_From_TransactionUpdateManyWithoutFromAccountNestedInput
+    mtfFromLines?: Money_Transfer_From_LineUpdateManyWithoutAccountNestedInput
+    mttToAccount?: Money_To_TransactionUpdateManyWithoutToAccountNestedInput
   }
 
   export type AccountUncheckedUpdateWithoutApBankInput = {
@@ -100411,6 +108399,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUncheckedUpdateManyWithoutBankAccountNestedInput
     relOnline?: GirviReleaseUncheckedUpdateManyWithoutOnlineAccountNestedInput
     relCard?: GirviReleaseUncheckedUpdateManyWithoutCardAccountNestedInput
+    mtfFromAccount?: Money_From_TransactionUncheckedUpdateManyWithoutFromAccountNestedInput
+    mtfFromLines?: Money_Transfer_From_LineUncheckedUpdateManyWithoutAccountNestedInput
+    mttToAccount?: Money_To_TransactionUncheckedUpdateManyWithoutToAccountNestedInput
   }
 
   export type AccountUpsertWithoutApOnlineInput = {
@@ -100495,6 +108486,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUpdateManyWithoutBankAccountNestedInput
     relOnline?: GirviReleaseUpdateManyWithoutOnlineAccountNestedInput
     relCard?: GirviReleaseUpdateManyWithoutCardAccountNestedInput
+    mtfFromAccount?: Money_From_TransactionUpdateManyWithoutFromAccountNestedInput
+    mtfFromLines?: Money_Transfer_From_LineUpdateManyWithoutAccountNestedInput
+    mttToAccount?: Money_To_TransactionUpdateManyWithoutToAccountNestedInput
   }
 
   export type AccountUncheckedUpdateWithoutApOnlineInput = {
@@ -100569,6 +108563,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUncheckedUpdateManyWithoutBankAccountNestedInput
     relOnline?: GirviReleaseUncheckedUpdateManyWithoutOnlineAccountNestedInput
     relCard?: GirviReleaseUncheckedUpdateManyWithoutCardAccountNestedInput
+    mtfFromAccount?: Money_From_TransactionUncheckedUpdateManyWithoutFromAccountNestedInput
+    mtfFromLines?: Money_Transfer_From_LineUncheckedUpdateManyWithoutAccountNestedInput
+    mttToAccount?: Money_To_TransactionUncheckedUpdateManyWithoutToAccountNestedInput
   }
 
   export type AccountUpsertWithoutApCardInput = {
@@ -100653,6 +108650,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUpdateManyWithoutBankAccountNestedInput
     relOnline?: GirviReleaseUpdateManyWithoutOnlineAccountNestedInput
     relCard?: GirviReleaseUpdateManyWithoutCardAccountNestedInput
+    mtfFromAccount?: Money_From_TransactionUpdateManyWithoutFromAccountNestedInput
+    mtfFromLines?: Money_Transfer_From_LineUpdateManyWithoutAccountNestedInput
+    mttToAccount?: Money_To_TransactionUpdateManyWithoutToAccountNestedInput
   }
 
   export type AccountUncheckedUpdateWithoutApCardInput = {
@@ -100727,6 +108727,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUncheckedUpdateManyWithoutBankAccountNestedInput
     relOnline?: GirviReleaseUncheckedUpdateManyWithoutOnlineAccountNestedInput
     relCard?: GirviReleaseUncheckedUpdateManyWithoutCardAccountNestedInput
+    mtfFromAccount?: Money_From_TransactionUncheckedUpdateManyWithoutFromAccountNestedInput
+    mtfFromLines?: Money_Transfer_From_LineUncheckedUpdateManyWithoutAccountNestedInput
+    mttToAccount?: Money_To_TransactionUncheckedUpdateManyWithoutToAccountNestedInput
   }
 
   export type OwnerCreateWithoutDepositsInput = {
@@ -100780,6 +108783,7 @@ export namespace Prisma {
     finances?: FinanceCreateNestedManyWithoutOwnerInput
     financeTransactions?: Finance_TransactionCreateNestedManyWithoutOwnerInput
     financeMoneyTrans?: Finance_Money_TransactionCreateNestedManyWithoutOwnerInput
+    moneyFromTransactions?: Money_From_TransactionCreateNestedManyWithoutOwnerInput
     journals?: JournalCreateNestedManyWithoutOwnerInput
     journalTransactions?: JournalTransactionCreateNestedManyWithoutOwnerInput
     girvis?: GirviCreateNestedManyWithoutOwnerInput
@@ -100848,6 +108852,7 @@ export namespace Prisma {
     finances?: FinanceUncheckedCreateNestedManyWithoutOwnerInput
     financeTransactions?: Finance_TransactionUncheckedCreateNestedManyWithoutOwnerInput
     financeMoneyTrans?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutOwnerInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedCreateNestedManyWithoutOwnerInput
     journals?: JournalUncheckedCreateNestedManyWithoutOwnerInput
     journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutOwnerInput
     girvis?: GirviUncheckedCreateNestedManyWithoutOwnerInput
@@ -100924,6 +108929,7 @@ export namespace Prisma {
     finances?: FinanceCreateNestedManyWithoutFirmInput
     financeTransactions?: Finance_TransactionCreateNestedManyWithoutFirmInput
     financeMoneyTrans?: Finance_Money_TransactionCreateNestedManyWithoutFirmInput
+    moneyFromTransactions?: Money_From_TransactionCreateNestedManyWithoutFirmInput
     journals?: JournalCreateNestedManyWithoutFirmInput
     journalTransactions?: JournalTransactionCreateNestedManyWithoutFirmInput
     girvis?: GirviCreateNestedManyWithoutFirmInput
@@ -100997,6 +109003,7 @@ export namespace Prisma {
     finances?: FinanceUncheckedCreateNestedManyWithoutFirmInput
     financeTransactions?: Finance_TransactionUncheckedCreateNestedManyWithoutFirmInput
     financeMoneyTrans?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutFirmInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedCreateNestedManyWithoutFirmInput
     journals?: JournalUncheckedCreateNestedManyWithoutFirmInput
     journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutFirmInput
     girvis?: GirviUncheckedCreateNestedManyWithoutFirmInput
@@ -101346,6 +109353,9 @@ export namespace Prisma {
     relBank?: GirviReleaseCreateNestedManyWithoutBankAccountInput
     relOnline?: GirviReleaseCreateNestedManyWithoutOnlineAccountInput
     relCard?: GirviReleaseCreateNestedManyWithoutCardAccountInput
+    mtfFromAccount?: Money_From_TransactionCreateNestedManyWithoutFromAccountInput
+    mtfFromLines?: Money_Transfer_From_LineCreateNestedManyWithoutAccountInput
+    mttToAccount?: Money_To_TransactionCreateNestedManyWithoutToAccountInput
   }
 
   export type AccountUncheckedCreateWithoutDepPrinInput = {
@@ -101420,6 +109430,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUncheckedCreateNestedManyWithoutBankAccountInput
     relOnline?: GirviReleaseUncheckedCreateNestedManyWithoutOnlineAccountInput
     relCard?: GirviReleaseUncheckedCreateNestedManyWithoutCardAccountInput
+    mtfFromAccount?: Money_From_TransactionUncheckedCreateNestedManyWithoutFromAccountInput
+    mtfFromLines?: Money_Transfer_From_LineUncheckedCreateNestedManyWithoutAccountInput
+    mttToAccount?: Money_To_TransactionUncheckedCreateNestedManyWithoutToAccountInput
   }
 
   export type AccountCreateOrConnectWithoutDepPrinInput = {
@@ -101498,6 +109511,9 @@ export namespace Prisma {
     relBank?: GirviReleaseCreateNestedManyWithoutBankAccountInput
     relOnline?: GirviReleaseCreateNestedManyWithoutOnlineAccountInput
     relCard?: GirviReleaseCreateNestedManyWithoutCardAccountInput
+    mtfFromAccount?: Money_From_TransactionCreateNestedManyWithoutFromAccountInput
+    mtfFromLines?: Money_Transfer_From_LineCreateNestedManyWithoutAccountInput
+    mttToAccount?: Money_To_TransactionCreateNestedManyWithoutToAccountInput
   }
 
   export type AccountUncheckedCreateWithoutDepIntInput = {
@@ -101572,6 +109588,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUncheckedCreateNestedManyWithoutBankAccountInput
     relOnline?: GirviReleaseUncheckedCreateNestedManyWithoutOnlineAccountInput
     relCard?: GirviReleaseUncheckedCreateNestedManyWithoutCardAccountInput
+    mtfFromAccount?: Money_From_TransactionUncheckedCreateNestedManyWithoutFromAccountInput
+    mtfFromLines?: Money_Transfer_From_LineUncheckedCreateNestedManyWithoutAccountInput
+    mttToAccount?: Money_To_TransactionUncheckedCreateNestedManyWithoutToAccountInput
   }
 
   export type AccountCreateOrConnectWithoutDepIntInput = {
@@ -101650,6 +109669,9 @@ export namespace Prisma {
     relBank?: GirviReleaseCreateNestedManyWithoutBankAccountInput
     relOnline?: GirviReleaseCreateNestedManyWithoutOnlineAccountInput
     relCard?: GirviReleaseCreateNestedManyWithoutCardAccountInput
+    mtfFromAccount?: Money_From_TransactionCreateNestedManyWithoutFromAccountInput
+    mtfFromLines?: Money_Transfer_From_LineCreateNestedManyWithoutAccountInput
+    mttToAccount?: Money_To_TransactionCreateNestedManyWithoutToAccountInput
   }
 
   export type AccountUncheckedCreateWithoutDepDiscInput = {
@@ -101724,6 +109746,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUncheckedCreateNestedManyWithoutBankAccountInput
     relOnline?: GirviReleaseUncheckedCreateNestedManyWithoutOnlineAccountInput
     relCard?: GirviReleaseUncheckedCreateNestedManyWithoutCardAccountInput
+    mtfFromAccount?: Money_From_TransactionUncheckedCreateNestedManyWithoutFromAccountInput
+    mtfFromLines?: Money_Transfer_From_LineUncheckedCreateNestedManyWithoutAccountInput
+    mttToAccount?: Money_To_TransactionUncheckedCreateNestedManyWithoutToAccountInput
   }
 
   export type AccountCreateOrConnectWithoutDepDiscInput = {
@@ -101802,6 +109827,9 @@ export namespace Prisma {
     relBank?: GirviReleaseCreateNestedManyWithoutBankAccountInput
     relOnline?: GirviReleaseCreateNestedManyWithoutOnlineAccountInput
     relCard?: GirviReleaseCreateNestedManyWithoutCardAccountInput
+    mtfFromAccount?: Money_From_TransactionCreateNestedManyWithoutFromAccountInput
+    mtfFromLines?: Money_Transfer_From_LineCreateNestedManyWithoutAccountInput
+    mttToAccount?: Money_To_TransactionCreateNestedManyWithoutToAccountInput
   }
 
   export type AccountUncheckedCreateWithoutDepExtraInput = {
@@ -101876,6 +109904,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUncheckedCreateNestedManyWithoutBankAccountInput
     relOnline?: GirviReleaseUncheckedCreateNestedManyWithoutOnlineAccountInput
     relCard?: GirviReleaseUncheckedCreateNestedManyWithoutCardAccountInput
+    mtfFromAccount?: Money_From_TransactionUncheckedCreateNestedManyWithoutFromAccountInput
+    mtfFromLines?: Money_Transfer_From_LineUncheckedCreateNestedManyWithoutAccountInput
+    mttToAccount?: Money_To_TransactionUncheckedCreateNestedManyWithoutToAccountInput
   }
 
   export type AccountCreateOrConnectWithoutDepExtraInput = {
@@ -101954,6 +109985,9 @@ export namespace Prisma {
     relBank?: GirviReleaseCreateNestedManyWithoutBankAccountInput
     relOnline?: GirviReleaseCreateNestedManyWithoutOnlineAccountInput
     relCard?: GirviReleaseCreateNestedManyWithoutCardAccountInput
+    mtfFromAccount?: Money_From_TransactionCreateNestedManyWithoutFromAccountInput
+    mtfFromLines?: Money_Transfer_From_LineCreateNestedManyWithoutAccountInput
+    mttToAccount?: Money_To_TransactionCreateNestedManyWithoutToAccountInput
   }
 
   export type AccountUncheckedCreateWithoutDepCashInput = {
@@ -102028,6 +110062,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUncheckedCreateNestedManyWithoutBankAccountInput
     relOnline?: GirviReleaseUncheckedCreateNestedManyWithoutOnlineAccountInput
     relCard?: GirviReleaseUncheckedCreateNestedManyWithoutCardAccountInput
+    mtfFromAccount?: Money_From_TransactionUncheckedCreateNestedManyWithoutFromAccountInput
+    mtfFromLines?: Money_Transfer_From_LineUncheckedCreateNestedManyWithoutAccountInput
+    mttToAccount?: Money_To_TransactionUncheckedCreateNestedManyWithoutToAccountInput
   }
 
   export type AccountCreateOrConnectWithoutDepCashInput = {
@@ -102106,6 +110143,9 @@ export namespace Prisma {
     relBank?: GirviReleaseCreateNestedManyWithoutBankAccountInput
     relOnline?: GirviReleaseCreateNestedManyWithoutOnlineAccountInput
     relCard?: GirviReleaseCreateNestedManyWithoutCardAccountInput
+    mtfFromAccount?: Money_From_TransactionCreateNestedManyWithoutFromAccountInput
+    mtfFromLines?: Money_Transfer_From_LineCreateNestedManyWithoutAccountInput
+    mttToAccount?: Money_To_TransactionCreateNestedManyWithoutToAccountInput
   }
 
   export type AccountUncheckedCreateWithoutDepBankInput = {
@@ -102180,6 +110220,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUncheckedCreateNestedManyWithoutBankAccountInput
     relOnline?: GirviReleaseUncheckedCreateNestedManyWithoutOnlineAccountInput
     relCard?: GirviReleaseUncheckedCreateNestedManyWithoutCardAccountInput
+    mtfFromAccount?: Money_From_TransactionUncheckedCreateNestedManyWithoutFromAccountInput
+    mtfFromLines?: Money_Transfer_From_LineUncheckedCreateNestedManyWithoutAccountInput
+    mttToAccount?: Money_To_TransactionUncheckedCreateNestedManyWithoutToAccountInput
   }
 
   export type AccountCreateOrConnectWithoutDepBankInput = {
@@ -102258,6 +110301,9 @@ export namespace Prisma {
     relBank?: GirviReleaseCreateNestedManyWithoutBankAccountInput
     relOnline?: GirviReleaseCreateNestedManyWithoutOnlineAccountInput
     relCard?: GirviReleaseCreateNestedManyWithoutCardAccountInput
+    mtfFromAccount?: Money_From_TransactionCreateNestedManyWithoutFromAccountInput
+    mtfFromLines?: Money_Transfer_From_LineCreateNestedManyWithoutAccountInput
+    mttToAccount?: Money_To_TransactionCreateNestedManyWithoutToAccountInput
   }
 
   export type AccountUncheckedCreateWithoutDepOnlineInput = {
@@ -102332,6 +110378,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUncheckedCreateNestedManyWithoutBankAccountInput
     relOnline?: GirviReleaseUncheckedCreateNestedManyWithoutOnlineAccountInput
     relCard?: GirviReleaseUncheckedCreateNestedManyWithoutCardAccountInput
+    mtfFromAccount?: Money_From_TransactionUncheckedCreateNestedManyWithoutFromAccountInput
+    mtfFromLines?: Money_Transfer_From_LineUncheckedCreateNestedManyWithoutAccountInput
+    mttToAccount?: Money_To_TransactionUncheckedCreateNestedManyWithoutToAccountInput
   }
 
   export type AccountCreateOrConnectWithoutDepOnlineInput = {
@@ -102410,6 +110459,9 @@ export namespace Prisma {
     relBank?: GirviReleaseCreateNestedManyWithoutBankAccountInput
     relOnline?: GirviReleaseCreateNestedManyWithoutOnlineAccountInput
     relCard?: GirviReleaseCreateNestedManyWithoutCardAccountInput
+    mtfFromAccount?: Money_From_TransactionCreateNestedManyWithoutFromAccountInput
+    mtfFromLines?: Money_Transfer_From_LineCreateNestedManyWithoutAccountInput
+    mttToAccount?: Money_To_TransactionCreateNestedManyWithoutToAccountInput
   }
 
   export type AccountUncheckedCreateWithoutDepCardInput = {
@@ -102484,6 +110536,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUncheckedCreateNestedManyWithoutBankAccountInput
     relOnline?: GirviReleaseUncheckedCreateNestedManyWithoutOnlineAccountInput
     relCard?: GirviReleaseUncheckedCreateNestedManyWithoutCardAccountInput
+    mtfFromAccount?: Money_From_TransactionUncheckedCreateNestedManyWithoutFromAccountInput
+    mtfFromLines?: Money_Transfer_From_LineUncheckedCreateNestedManyWithoutAccountInput
+    mttToAccount?: Money_To_TransactionUncheckedCreateNestedManyWithoutToAccountInput
   }
 
   export type AccountCreateOrConnectWithoutDepCardInput = {
@@ -102552,6 +110607,7 @@ export namespace Prisma {
     finances?: FinanceUpdateManyWithoutOwnerNestedInput
     financeTransactions?: Finance_TransactionUpdateManyWithoutOwnerNestedInput
     financeMoneyTrans?: Finance_Money_TransactionUpdateManyWithoutOwnerNestedInput
+    moneyFromTransactions?: Money_From_TransactionUpdateManyWithoutOwnerNestedInput
     journals?: JournalUpdateManyWithoutOwnerNestedInput
     journalTransactions?: JournalTransactionUpdateManyWithoutOwnerNestedInput
     girvis?: GirviUpdateManyWithoutOwnerNestedInput
@@ -102620,6 +110676,7 @@ export namespace Prisma {
     finances?: FinanceUncheckedUpdateManyWithoutOwnerNestedInput
     financeTransactions?: Finance_TransactionUncheckedUpdateManyWithoutOwnerNestedInput
     financeMoneyTrans?: Finance_Money_TransactionUncheckedUpdateManyWithoutOwnerNestedInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedUpdateManyWithoutOwnerNestedInput
     journals?: JournalUncheckedUpdateManyWithoutOwnerNestedInput
     journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutOwnerNestedInput
     girvis?: GirviUncheckedUpdateManyWithoutOwnerNestedInput
@@ -102702,6 +110759,7 @@ export namespace Prisma {
     finances?: FinanceUpdateManyWithoutFirmNestedInput
     financeTransactions?: Finance_TransactionUpdateManyWithoutFirmNestedInput
     financeMoneyTrans?: Finance_Money_TransactionUpdateManyWithoutFirmNestedInput
+    moneyFromTransactions?: Money_From_TransactionUpdateManyWithoutFirmNestedInput
     journals?: JournalUpdateManyWithoutFirmNestedInput
     journalTransactions?: JournalTransactionUpdateManyWithoutFirmNestedInput
     girvis?: GirviUpdateManyWithoutFirmNestedInput
@@ -102775,6 +110833,7 @@ export namespace Prisma {
     finances?: FinanceUncheckedUpdateManyWithoutFirmNestedInput
     financeTransactions?: Finance_TransactionUncheckedUpdateManyWithoutFirmNestedInput
     financeMoneyTrans?: Finance_Money_TransactionUncheckedUpdateManyWithoutFirmNestedInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedUpdateManyWithoutFirmNestedInput
     journals?: JournalUncheckedUpdateManyWithoutFirmNestedInput
     journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutFirmNestedInput
     girvis?: GirviUncheckedUpdateManyWithoutFirmNestedInput
@@ -103142,6 +111201,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUpdateManyWithoutBankAccountNestedInput
     relOnline?: GirviReleaseUpdateManyWithoutOnlineAccountNestedInput
     relCard?: GirviReleaseUpdateManyWithoutCardAccountNestedInput
+    mtfFromAccount?: Money_From_TransactionUpdateManyWithoutFromAccountNestedInput
+    mtfFromLines?: Money_Transfer_From_LineUpdateManyWithoutAccountNestedInput
+    mttToAccount?: Money_To_TransactionUpdateManyWithoutToAccountNestedInput
   }
 
   export type AccountUncheckedUpdateWithoutDepPrinInput = {
@@ -103216,6 +111278,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUncheckedUpdateManyWithoutBankAccountNestedInput
     relOnline?: GirviReleaseUncheckedUpdateManyWithoutOnlineAccountNestedInput
     relCard?: GirviReleaseUncheckedUpdateManyWithoutCardAccountNestedInput
+    mtfFromAccount?: Money_From_TransactionUncheckedUpdateManyWithoutFromAccountNestedInput
+    mtfFromLines?: Money_Transfer_From_LineUncheckedUpdateManyWithoutAccountNestedInput
+    mttToAccount?: Money_To_TransactionUncheckedUpdateManyWithoutToAccountNestedInput
   }
 
   export type AccountUpsertWithoutDepIntInput = {
@@ -103300,6 +111365,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUpdateManyWithoutBankAccountNestedInput
     relOnline?: GirviReleaseUpdateManyWithoutOnlineAccountNestedInput
     relCard?: GirviReleaseUpdateManyWithoutCardAccountNestedInput
+    mtfFromAccount?: Money_From_TransactionUpdateManyWithoutFromAccountNestedInput
+    mtfFromLines?: Money_Transfer_From_LineUpdateManyWithoutAccountNestedInput
+    mttToAccount?: Money_To_TransactionUpdateManyWithoutToAccountNestedInput
   }
 
   export type AccountUncheckedUpdateWithoutDepIntInput = {
@@ -103374,6 +111442,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUncheckedUpdateManyWithoutBankAccountNestedInput
     relOnline?: GirviReleaseUncheckedUpdateManyWithoutOnlineAccountNestedInput
     relCard?: GirviReleaseUncheckedUpdateManyWithoutCardAccountNestedInput
+    mtfFromAccount?: Money_From_TransactionUncheckedUpdateManyWithoutFromAccountNestedInput
+    mtfFromLines?: Money_Transfer_From_LineUncheckedUpdateManyWithoutAccountNestedInput
+    mttToAccount?: Money_To_TransactionUncheckedUpdateManyWithoutToAccountNestedInput
   }
 
   export type AccountUpsertWithoutDepDiscInput = {
@@ -103458,6 +111529,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUpdateManyWithoutBankAccountNestedInput
     relOnline?: GirviReleaseUpdateManyWithoutOnlineAccountNestedInput
     relCard?: GirviReleaseUpdateManyWithoutCardAccountNestedInput
+    mtfFromAccount?: Money_From_TransactionUpdateManyWithoutFromAccountNestedInput
+    mtfFromLines?: Money_Transfer_From_LineUpdateManyWithoutAccountNestedInput
+    mttToAccount?: Money_To_TransactionUpdateManyWithoutToAccountNestedInput
   }
 
   export type AccountUncheckedUpdateWithoutDepDiscInput = {
@@ -103532,6 +111606,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUncheckedUpdateManyWithoutBankAccountNestedInput
     relOnline?: GirviReleaseUncheckedUpdateManyWithoutOnlineAccountNestedInput
     relCard?: GirviReleaseUncheckedUpdateManyWithoutCardAccountNestedInput
+    mtfFromAccount?: Money_From_TransactionUncheckedUpdateManyWithoutFromAccountNestedInput
+    mtfFromLines?: Money_Transfer_From_LineUncheckedUpdateManyWithoutAccountNestedInput
+    mttToAccount?: Money_To_TransactionUncheckedUpdateManyWithoutToAccountNestedInput
   }
 
   export type AccountUpsertWithoutDepExtraInput = {
@@ -103616,6 +111693,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUpdateManyWithoutBankAccountNestedInput
     relOnline?: GirviReleaseUpdateManyWithoutOnlineAccountNestedInput
     relCard?: GirviReleaseUpdateManyWithoutCardAccountNestedInput
+    mtfFromAccount?: Money_From_TransactionUpdateManyWithoutFromAccountNestedInput
+    mtfFromLines?: Money_Transfer_From_LineUpdateManyWithoutAccountNestedInput
+    mttToAccount?: Money_To_TransactionUpdateManyWithoutToAccountNestedInput
   }
 
   export type AccountUncheckedUpdateWithoutDepExtraInput = {
@@ -103690,6 +111770,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUncheckedUpdateManyWithoutBankAccountNestedInput
     relOnline?: GirviReleaseUncheckedUpdateManyWithoutOnlineAccountNestedInput
     relCard?: GirviReleaseUncheckedUpdateManyWithoutCardAccountNestedInput
+    mtfFromAccount?: Money_From_TransactionUncheckedUpdateManyWithoutFromAccountNestedInput
+    mtfFromLines?: Money_Transfer_From_LineUncheckedUpdateManyWithoutAccountNestedInput
+    mttToAccount?: Money_To_TransactionUncheckedUpdateManyWithoutToAccountNestedInput
   }
 
   export type AccountUpsertWithoutDepCashInput = {
@@ -103774,6 +111857,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUpdateManyWithoutBankAccountNestedInput
     relOnline?: GirviReleaseUpdateManyWithoutOnlineAccountNestedInput
     relCard?: GirviReleaseUpdateManyWithoutCardAccountNestedInput
+    mtfFromAccount?: Money_From_TransactionUpdateManyWithoutFromAccountNestedInput
+    mtfFromLines?: Money_Transfer_From_LineUpdateManyWithoutAccountNestedInput
+    mttToAccount?: Money_To_TransactionUpdateManyWithoutToAccountNestedInput
   }
 
   export type AccountUncheckedUpdateWithoutDepCashInput = {
@@ -103848,6 +111934,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUncheckedUpdateManyWithoutBankAccountNestedInput
     relOnline?: GirviReleaseUncheckedUpdateManyWithoutOnlineAccountNestedInput
     relCard?: GirviReleaseUncheckedUpdateManyWithoutCardAccountNestedInput
+    mtfFromAccount?: Money_From_TransactionUncheckedUpdateManyWithoutFromAccountNestedInput
+    mtfFromLines?: Money_Transfer_From_LineUncheckedUpdateManyWithoutAccountNestedInput
+    mttToAccount?: Money_To_TransactionUncheckedUpdateManyWithoutToAccountNestedInput
   }
 
   export type AccountUpsertWithoutDepBankInput = {
@@ -103932,6 +112021,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUpdateManyWithoutBankAccountNestedInput
     relOnline?: GirviReleaseUpdateManyWithoutOnlineAccountNestedInput
     relCard?: GirviReleaseUpdateManyWithoutCardAccountNestedInput
+    mtfFromAccount?: Money_From_TransactionUpdateManyWithoutFromAccountNestedInput
+    mtfFromLines?: Money_Transfer_From_LineUpdateManyWithoutAccountNestedInput
+    mttToAccount?: Money_To_TransactionUpdateManyWithoutToAccountNestedInput
   }
 
   export type AccountUncheckedUpdateWithoutDepBankInput = {
@@ -104006,6 +112098,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUncheckedUpdateManyWithoutBankAccountNestedInput
     relOnline?: GirviReleaseUncheckedUpdateManyWithoutOnlineAccountNestedInput
     relCard?: GirviReleaseUncheckedUpdateManyWithoutCardAccountNestedInput
+    mtfFromAccount?: Money_From_TransactionUncheckedUpdateManyWithoutFromAccountNestedInput
+    mtfFromLines?: Money_Transfer_From_LineUncheckedUpdateManyWithoutAccountNestedInput
+    mttToAccount?: Money_To_TransactionUncheckedUpdateManyWithoutToAccountNestedInput
   }
 
   export type AccountUpsertWithoutDepOnlineInput = {
@@ -104090,6 +112185,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUpdateManyWithoutBankAccountNestedInput
     relOnline?: GirviReleaseUpdateManyWithoutOnlineAccountNestedInput
     relCard?: GirviReleaseUpdateManyWithoutCardAccountNestedInput
+    mtfFromAccount?: Money_From_TransactionUpdateManyWithoutFromAccountNestedInput
+    mtfFromLines?: Money_Transfer_From_LineUpdateManyWithoutAccountNestedInput
+    mttToAccount?: Money_To_TransactionUpdateManyWithoutToAccountNestedInput
   }
 
   export type AccountUncheckedUpdateWithoutDepOnlineInput = {
@@ -104164,6 +112262,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUncheckedUpdateManyWithoutBankAccountNestedInput
     relOnline?: GirviReleaseUncheckedUpdateManyWithoutOnlineAccountNestedInput
     relCard?: GirviReleaseUncheckedUpdateManyWithoutCardAccountNestedInput
+    mtfFromAccount?: Money_From_TransactionUncheckedUpdateManyWithoutFromAccountNestedInput
+    mtfFromLines?: Money_Transfer_From_LineUncheckedUpdateManyWithoutAccountNestedInput
+    mttToAccount?: Money_To_TransactionUncheckedUpdateManyWithoutToAccountNestedInput
   }
 
   export type AccountUpsertWithoutDepCardInput = {
@@ -104248,6 +112349,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUpdateManyWithoutBankAccountNestedInput
     relOnline?: GirviReleaseUpdateManyWithoutOnlineAccountNestedInput
     relCard?: GirviReleaseUpdateManyWithoutCardAccountNestedInput
+    mtfFromAccount?: Money_From_TransactionUpdateManyWithoutFromAccountNestedInput
+    mtfFromLines?: Money_Transfer_From_LineUpdateManyWithoutAccountNestedInput
+    mttToAccount?: Money_To_TransactionUpdateManyWithoutToAccountNestedInput
   }
 
   export type AccountUncheckedUpdateWithoutDepCardInput = {
@@ -104322,6 +112426,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUncheckedUpdateManyWithoutBankAccountNestedInput
     relOnline?: GirviReleaseUncheckedUpdateManyWithoutOnlineAccountNestedInput
     relCard?: GirviReleaseUncheckedUpdateManyWithoutCardAccountNestedInput
+    mtfFromAccount?: Money_From_TransactionUncheckedUpdateManyWithoutFromAccountNestedInput
+    mtfFromLines?: Money_Transfer_From_LineUncheckedUpdateManyWithoutAccountNestedInput
+    mttToAccount?: Money_To_TransactionUncheckedUpdateManyWithoutToAccountNestedInput
   }
 
   export type OwnerCreateWithoutReleasesInput = {
@@ -104375,6 +112482,7 @@ export namespace Prisma {
     finances?: FinanceCreateNestedManyWithoutOwnerInput
     financeTransactions?: Finance_TransactionCreateNestedManyWithoutOwnerInput
     financeMoneyTrans?: Finance_Money_TransactionCreateNestedManyWithoutOwnerInput
+    moneyFromTransactions?: Money_From_TransactionCreateNestedManyWithoutOwnerInput
     journals?: JournalCreateNestedManyWithoutOwnerInput
     journalTransactions?: JournalTransactionCreateNestedManyWithoutOwnerInput
     girvis?: GirviCreateNestedManyWithoutOwnerInput
@@ -104443,6 +112551,7 @@ export namespace Prisma {
     finances?: FinanceUncheckedCreateNestedManyWithoutOwnerInput
     financeTransactions?: Finance_TransactionUncheckedCreateNestedManyWithoutOwnerInput
     financeMoneyTrans?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutOwnerInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedCreateNestedManyWithoutOwnerInput
     journals?: JournalUncheckedCreateNestedManyWithoutOwnerInput
     journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutOwnerInput
     girvis?: GirviUncheckedCreateNestedManyWithoutOwnerInput
@@ -104519,6 +112628,7 @@ export namespace Prisma {
     finances?: FinanceCreateNestedManyWithoutFirmInput
     financeTransactions?: Finance_TransactionCreateNestedManyWithoutFirmInput
     financeMoneyTrans?: Finance_Money_TransactionCreateNestedManyWithoutFirmInput
+    moneyFromTransactions?: Money_From_TransactionCreateNestedManyWithoutFirmInput
     journals?: JournalCreateNestedManyWithoutFirmInput
     journalTransactions?: JournalTransactionCreateNestedManyWithoutFirmInput
     girvis?: GirviCreateNestedManyWithoutFirmInput
@@ -104592,6 +112702,7 @@ export namespace Prisma {
     finances?: FinanceUncheckedCreateNestedManyWithoutFirmInput
     financeTransactions?: Finance_TransactionUncheckedCreateNestedManyWithoutFirmInput
     financeMoneyTrans?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutFirmInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedCreateNestedManyWithoutFirmInput
     journals?: JournalUncheckedCreateNestedManyWithoutFirmInput
     journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutFirmInput
     girvis?: GirviUncheckedCreateNestedManyWithoutFirmInput
@@ -104941,6 +113052,9 @@ export namespace Prisma {
     relBank?: GirviReleaseCreateNestedManyWithoutBankAccountInput
     relOnline?: GirviReleaseCreateNestedManyWithoutOnlineAccountInput
     relCard?: GirviReleaseCreateNestedManyWithoutCardAccountInput
+    mtfFromAccount?: Money_From_TransactionCreateNestedManyWithoutFromAccountInput
+    mtfFromLines?: Money_Transfer_From_LineCreateNestedManyWithoutAccountInput
+    mttToAccount?: Money_To_TransactionCreateNestedManyWithoutToAccountInput
   }
 
   export type AccountUncheckedCreateWithoutRelPrinInput = {
@@ -105015,6 +113129,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUncheckedCreateNestedManyWithoutBankAccountInput
     relOnline?: GirviReleaseUncheckedCreateNestedManyWithoutOnlineAccountInput
     relCard?: GirviReleaseUncheckedCreateNestedManyWithoutCardAccountInput
+    mtfFromAccount?: Money_From_TransactionUncheckedCreateNestedManyWithoutFromAccountInput
+    mtfFromLines?: Money_Transfer_From_LineUncheckedCreateNestedManyWithoutAccountInput
+    mttToAccount?: Money_To_TransactionUncheckedCreateNestedManyWithoutToAccountInput
   }
 
   export type AccountCreateOrConnectWithoutRelPrinInput = {
@@ -105093,6 +113210,9 @@ export namespace Prisma {
     relBank?: GirviReleaseCreateNestedManyWithoutBankAccountInput
     relOnline?: GirviReleaseCreateNestedManyWithoutOnlineAccountInput
     relCard?: GirviReleaseCreateNestedManyWithoutCardAccountInput
+    mtfFromAccount?: Money_From_TransactionCreateNestedManyWithoutFromAccountInput
+    mtfFromLines?: Money_Transfer_From_LineCreateNestedManyWithoutAccountInput
+    mttToAccount?: Money_To_TransactionCreateNestedManyWithoutToAccountInput
   }
 
   export type AccountUncheckedCreateWithoutRelIntInput = {
@@ -105167,6 +113287,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUncheckedCreateNestedManyWithoutBankAccountInput
     relOnline?: GirviReleaseUncheckedCreateNestedManyWithoutOnlineAccountInput
     relCard?: GirviReleaseUncheckedCreateNestedManyWithoutCardAccountInput
+    mtfFromAccount?: Money_From_TransactionUncheckedCreateNestedManyWithoutFromAccountInput
+    mtfFromLines?: Money_Transfer_From_LineUncheckedCreateNestedManyWithoutAccountInput
+    mttToAccount?: Money_To_TransactionUncheckedCreateNestedManyWithoutToAccountInput
   }
 
   export type AccountCreateOrConnectWithoutRelIntInput = {
@@ -105245,6 +113368,9 @@ export namespace Prisma {
     relBank?: GirviReleaseCreateNestedManyWithoutBankAccountInput
     relOnline?: GirviReleaseCreateNestedManyWithoutOnlineAccountInput
     relCard?: GirviReleaseCreateNestedManyWithoutCardAccountInput
+    mtfFromAccount?: Money_From_TransactionCreateNestedManyWithoutFromAccountInput
+    mtfFromLines?: Money_Transfer_From_LineCreateNestedManyWithoutAccountInput
+    mttToAccount?: Money_To_TransactionCreateNestedManyWithoutToAccountInput
   }
 
   export type AccountUncheckedCreateWithoutRelDiscInput = {
@@ -105319,6 +113445,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUncheckedCreateNestedManyWithoutBankAccountInput
     relOnline?: GirviReleaseUncheckedCreateNestedManyWithoutOnlineAccountInput
     relCard?: GirviReleaseUncheckedCreateNestedManyWithoutCardAccountInput
+    mtfFromAccount?: Money_From_TransactionUncheckedCreateNestedManyWithoutFromAccountInput
+    mtfFromLines?: Money_Transfer_From_LineUncheckedCreateNestedManyWithoutAccountInput
+    mttToAccount?: Money_To_TransactionUncheckedCreateNestedManyWithoutToAccountInput
   }
 
   export type AccountCreateOrConnectWithoutRelDiscInput = {
@@ -105397,6 +113526,9 @@ export namespace Prisma {
     relBank?: GirviReleaseCreateNestedManyWithoutBankAccountInput
     relOnline?: GirviReleaseCreateNestedManyWithoutOnlineAccountInput
     relCard?: GirviReleaseCreateNestedManyWithoutCardAccountInput
+    mtfFromAccount?: Money_From_TransactionCreateNestedManyWithoutFromAccountInput
+    mtfFromLines?: Money_Transfer_From_LineCreateNestedManyWithoutAccountInput
+    mttToAccount?: Money_To_TransactionCreateNestedManyWithoutToAccountInput
   }
 
   export type AccountUncheckedCreateWithoutRelExtraInput = {
@@ -105471,6 +113603,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUncheckedCreateNestedManyWithoutBankAccountInput
     relOnline?: GirviReleaseUncheckedCreateNestedManyWithoutOnlineAccountInput
     relCard?: GirviReleaseUncheckedCreateNestedManyWithoutCardAccountInput
+    mtfFromAccount?: Money_From_TransactionUncheckedCreateNestedManyWithoutFromAccountInput
+    mtfFromLines?: Money_Transfer_From_LineUncheckedCreateNestedManyWithoutAccountInput
+    mttToAccount?: Money_To_TransactionUncheckedCreateNestedManyWithoutToAccountInput
   }
 
   export type AccountCreateOrConnectWithoutRelExtraInput = {
@@ -105549,6 +113684,9 @@ export namespace Prisma {
     relBank?: GirviReleaseCreateNestedManyWithoutBankAccountInput
     relOnline?: GirviReleaseCreateNestedManyWithoutOnlineAccountInput
     relCard?: GirviReleaseCreateNestedManyWithoutCardAccountInput
+    mtfFromAccount?: Money_From_TransactionCreateNestedManyWithoutFromAccountInput
+    mtfFromLines?: Money_Transfer_From_LineCreateNestedManyWithoutAccountInput
+    mttToAccount?: Money_To_TransactionCreateNestedManyWithoutToAccountInput
   }
 
   export type AccountUncheckedCreateWithoutRelCashInput = {
@@ -105623,6 +113761,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUncheckedCreateNestedManyWithoutBankAccountInput
     relOnline?: GirviReleaseUncheckedCreateNestedManyWithoutOnlineAccountInput
     relCard?: GirviReleaseUncheckedCreateNestedManyWithoutCardAccountInput
+    mtfFromAccount?: Money_From_TransactionUncheckedCreateNestedManyWithoutFromAccountInput
+    mtfFromLines?: Money_Transfer_From_LineUncheckedCreateNestedManyWithoutAccountInput
+    mttToAccount?: Money_To_TransactionUncheckedCreateNestedManyWithoutToAccountInput
   }
 
   export type AccountCreateOrConnectWithoutRelCashInput = {
@@ -105701,6 +113842,9 @@ export namespace Prisma {
     relCash?: GirviReleaseCreateNestedManyWithoutCashAccountInput
     relOnline?: GirviReleaseCreateNestedManyWithoutOnlineAccountInput
     relCard?: GirviReleaseCreateNestedManyWithoutCardAccountInput
+    mtfFromAccount?: Money_From_TransactionCreateNestedManyWithoutFromAccountInput
+    mtfFromLines?: Money_Transfer_From_LineCreateNestedManyWithoutAccountInput
+    mttToAccount?: Money_To_TransactionCreateNestedManyWithoutToAccountInput
   }
 
   export type AccountUncheckedCreateWithoutRelBankInput = {
@@ -105775,6 +113919,9 @@ export namespace Prisma {
     relCash?: GirviReleaseUncheckedCreateNestedManyWithoutCashAccountInput
     relOnline?: GirviReleaseUncheckedCreateNestedManyWithoutOnlineAccountInput
     relCard?: GirviReleaseUncheckedCreateNestedManyWithoutCardAccountInput
+    mtfFromAccount?: Money_From_TransactionUncheckedCreateNestedManyWithoutFromAccountInput
+    mtfFromLines?: Money_Transfer_From_LineUncheckedCreateNestedManyWithoutAccountInput
+    mttToAccount?: Money_To_TransactionUncheckedCreateNestedManyWithoutToAccountInput
   }
 
   export type AccountCreateOrConnectWithoutRelBankInput = {
@@ -105853,6 +114000,9 @@ export namespace Prisma {
     relCash?: GirviReleaseCreateNestedManyWithoutCashAccountInput
     relBank?: GirviReleaseCreateNestedManyWithoutBankAccountInput
     relCard?: GirviReleaseCreateNestedManyWithoutCardAccountInput
+    mtfFromAccount?: Money_From_TransactionCreateNestedManyWithoutFromAccountInput
+    mtfFromLines?: Money_Transfer_From_LineCreateNestedManyWithoutAccountInput
+    mttToAccount?: Money_To_TransactionCreateNestedManyWithoutToAccountInput
   }
 
   export type AccountUncheckedCreateWithoutRelOnlineInput = {
@@ -105927,6 +114077,9 @@ export namespace Prisma {
     relCash?: GirviReleaseUncheckedCreateNestedManyWithoutCashAccountInput
     relBank?: GirviReleaseUncheckedCreateNestedManyWithoutBankAccountInput
     relCard?: GirviReleaseUncheckedCreateNestedManyWithoutCardAccountInput
+    mtfFromAccount?: Money_From_TransactionUncheckedCreateNestedManyWithoutFromAccountInput
+    mtfFromLines?: Money_Transfer_From_LineUncheckedCreateNestedManyWithoutAccountInput
+    mttToAccount?: Money_To_TransactionUncheckedCreateNestedManyWithoutToAccountInput
   }
 
   export type AccountCreateOrConnectWithoutRelOnlineInput = {
@@ -106005,6 +114158,9 @@ export namespace Prisma {
     relCash?: GirviReleaseCreateNestedManyWithoutCashAccountInput
     relBank?: GirviReleaseCreateNestedManyWithoutBankAccountInput
     relOnline?: GirviReleaseCreateNestedManyWithoutOnlineAccountInput
+    mtfFromAccount?: Money_From_TransactionCreateNestedManyWithoutFromAccountInput
+    mtfFromLines?: Money_Transfer_From_LineCreateNestedManyWithoutAccountInput
+    mttToAccount?: Money_To_TransactionCreateNestedManyWithoutToAccountInput
   }
 
   export type AccountUncheckedCreateWithoutRelCardInput = {
@@ -106079,6 +114235,9 @@ export namespace Prisma {
     relCash?: GirviReleaseUncheckedCreateNestedManyWithoutCashAccountInput
     relBank?: GirviReleaseUncheckedCreateNestedManyWithoutBankAccountInput
     relOnline?: GirviReleaseUncheckedCreateNestedManyWithoutOnlineAccountInput
+    mtfFromAccount?: Money_From_TransactionUncheckedCreateNestedManyWithoutFromAccountInput
+    mtfFromLines?: Money_Transfer_From_LineUncheckedCreateNestedManyWithoutAccountInput
+    mttToAccount?: Money_To_TransactionUncheckedCreateNestedManyWithoutToAccountInput
   }
 
   export type AccountCreateOrConnectWithoutRelCardInput = {
@@ -106193,6 +114352,7 @@ export namespace Prisma {
     finances?: FinanceUpdateManyWithoutOwnerNestedInput
     financeTransactions?: Finance_TransactionUpdateManyWithoutOwnerNestedInput
     financeMoneyTrans?: Finance_Money_TransactionUpdateManyWithoutOwnerNestedInput
+    moneyFromTransactions?: Money_From_TransactionUpdateManyWithoutOwnerNestedInput
     journals?: JournalUpdateManyWithoutOwnerNestedInput
     journalTransactions?: JournalTransactionUpdateManyWithoutOwnerNestedInput
     girvis?: GirviUpdateManyWithoutOwnerNestedInput
@@ -106261,6 +114421,7 @@ export namespace Prisma {
     finances?: FinanceUncheckedUpdateManyWithoutOwnerNestedInput
     financeTransactions?: Finance_TransactionUncheckedUpdateManyWithoutOwnerNestedInput
     financeMoneyTrans?: Finance_Money_TransactionUncheckedUpdateManyWithoutOwnerNestedInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedUpdateManyWithoutOwnerNestedInput
     journals?: JournalUncheckedUpdateManyWithoutOwnerNestedInput
     journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutOwnerNestedInput
     girvis?: GirviUncheckedUpdateManyWithoutOwnerNestedInput
@@ -106343,6 +114504,7 @@ export namespace Prisma {
     finances?: FinanceUpdateManyWithoutFirmNestedInput
     financeTransactions?: Finance_TransactionUpdateManyWithoutFirmNestedInput
     financeMoneyTrans?: Finance_Money_TransactionUpdateManyWithoutFirmNestedInput
+    moneyFromTransactions?: Money_From_TransactionUpdateManyWithoutFirmNestedInput
     journals?: JournalUpdateManyWithoutFirmNestedInput
     journalTransactions?: JournalTransactionUpdateManyWithoutFirmNestedInput
     girvis?: GirviUpdateManyWithoutFirmNestedInput
@@ -106416,6 +114578,7 @@ export namespace Prisma {
     finances?: FinanceUncheckedUpdateManyWithoutFirmNestedInput
     financeTransactions?: Finance_TransactionUncheckedUpdateManyWithoutFirmNestedInput
     financeMoneyTrans?: Finance_Money_TransactionUncheckedUpdateManyWithoutFirmNestedInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedUpdateManyWithoutFirmNestedInput
     journals?: JournalUncheckedUpdateManyWithoutFirmNestedInput
     journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutFirmNestedInput
     girvis?: GirviUncheckedUpdateManyWithoutFirmNestedInput
@@ -106783,6 +114946,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUpdateManyWithoutBankAccountNestedInput
     relOnline?: GirviReleaseUpdateManyWithoutOnlineAccountNestedInput
     relCard?: GirviReleaseUpdateManyWithoutCardAccountNestedInput
+    mtfFromAccount?: Money_From_TransactionUpdateManyWithoutFromAccountNestedInput
+    mtfFromLines?: Money_Transfer_From_LineUpdateManyWithoutAccountNestedInput
+    mttToAccount?: Money_To_TransactionUpdateManyWithoutToAccountNestedInput
   }
 
   export type AccountUncheckedUpdateWithoutRelPrinInput = {
@@ -106857,6 +115023,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUncheckedUpdateManyWithoutBankAccountNestedInput
     relOnline?: GirviReleaseUncheckedUpdateManyWithoutOnlineAccountNestedInput
     relCard?: GirviReleaseUncheckedUpdateManyWithoutCardAccountNestedInput
+    mtfFromAccount?: Money_From_TransactionUncheckedUpdateManyWithoutFromAccountNestedInput
+    mtfFromLines?: Money_Transfer_From_LineUncheckedUpdateManyWithoutAccountNestedInput
+    mttToAccount?: Money_To_TransactionUncheckedUpdateManyWithoutToAccountNestedInput
   }
 
   export type AccountUpsertWithoutRelIntInput = {
@@ -106941,6 +115110,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUpdateManyWithoutBankAccountNestedInput
     relOnline?: GirviReleaseUpdateManyWithoutOnlineAccountNestedInput
     relCard?: GirviReleaseUpdateManyWithoutCardAccountNestedInput
+    mtfFromAccount?: Money_From_TransactionUpdateManyWithoutFromAccountNestedInput
+    mtfFromLines?: Money_Transfer_From_LineUpdateManyWithoutAccountNestedInput
+    mttToAccount?: Money_To_TransactionUpdateManyWithoutToAccountNestedInput
   }
 
   export type AccountUncheckedUpdateWithoutRelIntInput = {
@@ -107015,6 +115187,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUncheckedUpdateManyWithoutBankAccountNestedInput
     relOnline?: GirviReleaseUncheckedUpdateManyWithoutOnlineAccountNestedInput
     relCard?: GirviReleaseUncheckedUpdateManyWithoutCardAccountNestedInput
+    mtfFromAccount?: Money_From_TransactionUncheckedUpdateManyWithoutFromAccountNestedInput
+    mtfFromLines?: Money_Transfer_From_LineUncheckedUpdateManyWithoutAccountNestedInput
+    mttToAccount?: Money_To_TransactionUncheckedUpdateManyWithoutToAccountNestedInput
   }
 
   export type AccountUpsertWithoutRelDiscInput = {
@@ -107099,6 +115274,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUpdateManyWithoutBankAccountNestedInput
     relOnline?: GirviReleaseUpdateManyWithoutOnlineAccountNestedInput
     relCard?: GirviReleaseUpdateManyWithoutCardAccountNestedInput
+    mtfFromAccount?: Money_From_TransactionUpdateManyWithoutFromAccountNestedInput
+    mtfFromLines?: Money_Transfer_From_LineUpdateManyWithoutAccountNestedInput
+    mttToAccount?: Money_To_TransactionUpdateManyWithoutToAccountNestedInput
   }
 
   export type AccountUncheckedUpdateWithoutRelDiscInput = {
@@ -107173,6 +115351,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUncheckedUpdateManyWithoutBankAccountNestedInput
     relOnline?: GirviReleaseUncheckedUpdateManyWithoutOnlineAccountNestedInput
     relCard?: GirviReleaseUncheckedUpdateManyWithoutCardAccountNestedInput
+    mtfFromAccount?: Money_From_TransactionUncheckedUpdateManyWithoutFromAccountNestedInput
+    mtfFromLines?: Money_Transfer_From_LineUncheckedUpdateManyWithoutAccountNestedInput
+    mttToAccount?: Money_To_TransactionUncheckedUpdateManyWithoutToAccountNestedInput
   }
 
   export type AccountUpsertWithoutRelExtraInput = {
@@ -107257,6 +115438,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUpdateManyWithoutBankAccountNestedInput
     relOnline?: GirviReleaseUpdateManyWithoutOnlineAccountNestedInput
     relCard?: GirviReleaseUpdateManyWithoutCardAccountNestedInput
+    mtfFromAccount?: Money_From_TransactionUpdateManyWithoutFromAccountNestedInput
+    mtfFromLines?: Money_Transfer_From_LineUpdateManyWithoutAccountNestedInput
+    mttToAccount?: Money_To_TransactionUpdateManyWithoutToAccountNestedInput
   }
 
   export type AccountUncheckedUpdateWithoutRelExtraInput = {
@@ -107331,6 +115515,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUncheckedUpdateManyWithoutBankAccountNestedInput
     relOnline?: GirviReleaseUncheckedUpdateManyWithoutOnlineAccountNestedInput
     relCard?: GirviReleaseUncheckedUpdateManyWithoutCardAccountNestedInput
+    mtfFromAccount?: Money_From_TransactionUncheckedUpdateManyWithoutFromAccountNestedInput
+    mtfFromLines?: Money_Transfer_From_LineUncheckedUpdateManyWithoutAccountNestedInput
+    mttToAccount?: Money_To_TransactionUncheckedUpdateManyWithoutToAccountNestedInput
   }
 
   export type AccountUpsertWithoutRelCashInput = {
@@ -107415,6 +115602,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUpdateManyWithoutBankAccountNestedInput
     relOnline?: GirviReleaseUpdateManyWithoutOnlineAccountNestedInput
     relCard?: GirviReleaseUpdateManyWithoutCardAccountNestedInput
+    mtfFromAccount?: Money_From_TransactionUpdateManyWithoutFromAccountNestedInput
+    mtfFromLines?: Money_Transfer_From_LineUpdateManyWithoutAccountNestedInput
+    mttToAccount?: Money_To_TransactionUpdateManyWithoutToAccountNestedInput
   }
 
   export type AccountUncheckedUpdateWithoutRelCashInput = {
@@ -107489,6 +115679,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUncheckedUpdateManyWithoutBankAccountNestedInput
     relOnline?: GirviReleaseUncheckedUpdateManyWithoutOnlineAccountNestedInput
     relCard?: GirviReleaseUncheckedUpdateManyWithoutCardAccountNestedInput
+    mtfFromAccount?: Money_From_TransactionUncheckedUpdateManyWithoutFromAccountNestedInput
+    mtfFromLines?: Money_Transfer_From_LineUncheckedUpdateManyWithoutAccountNestedInput
+    mttToAccount?: Money_To_TransactionUncheckedUpdateManyWithoutToAccountNestedInput
   }
 
   export type AccountUpsertWithoutRelBankInput = {
@@ -107573,6 +115766,9 @@ export namespace Prisma {
     relCash?: GirviReleaseUpdateManyWithoutCashAccountNestedInput
     relOnline?: GirviReleaseUpdateManyWithoutOnlineAccountNestedInput
     relCard?: GirviReleaseUpdateManyWithoutCardAccountNestedInput
+    mtfFromAccount?: Money_From_TransactionUpdateManyWithoutFromAccountNestedInput
+    mtfFromLines?: Money_Transfer_From_LineUpdateManyWithoutAccountNestedInput
+    mttToAccount?: Money_To_TransactionUpdateManyWithoutToAccountNestedInput
   }
 
   export type AccountUncheckedUpdateWithoutRelBankInput = {
@@ -107647,6 +115843,9 @@ export namespace Prisma {
     relCash?: GirviReleaseUncheckedUpdateManyWithoutCashAccountNestedInput
     relOnline?: GirviReleaseUncheckedUpdateManyWithoutOnlineAccountNestedInput
     relCard?: GirviReleaseUncheckedUpdateManyWithoutCardAccountNestedInput
+    mtfFromAccount?: Money_From_TransactionUncheckedUpdateManyWithoutFromAccountNestedInput
+    mtfFromLines?: Money_Transfer_From_LineUncheckedUpdateManyWithoutAccountNestedInput
+    mttToAccount?: Money_To_TransactionUncheckedUpdateManyWithoutToAccountNestedInput
   }
 
   export type AccountUpsertWithoutRelOnlineInput = {
@@ -107731,6 +115930,9 @@ export namespace Prisma {
     relCash?: GirviReleaseUpdateManyWithoutCashAccountNestedInput
     relBank?: GirviReleaseUpdateManyWithoutBankAccountNestedInput
     relCard?: GirviReleaseUpdateManyWithoutCardAccountNestedInput
+    mtfFromAccount?: Money_From_TransactionUpdateManyWithoutFromAccountNestedInput
+    mtfFromLines?: Money_Transfer_From_LineUpdateManyWithoutAccountNestedInput
+    mttToAccount?: Money_To_TransactionUpdateManyWithoutToAccountNestedInput
   }
 
   export type AccountUncheckedUpdateWithoutRelOnlineInput = {
@@ -107805,6 +116007,9 @@ export namespace Prisma {
     relCash?: GirviReleaseUncheckedUpdateManyWithoutCashAccountNestedInput
     relBank?: GirviReleaseUncheckedUpdateManyWithoutBankAccountNestedInput
     relCard?: GirviReleaseUncheckedUpdateManyWithoutCardAccountNestedInput
+    mtfFromAccount?: Money_From_TransactionUncheckedUpdateManyWithoutFromAccountNestedInput
+    mtfFromLines?: Money_Transfer_From_LineUncheckedUpdateManyWithoutAccountNestedInput
+    mttToAccount?: Money_To_TransactionUncheckedUpdateManyWithoutToAccountNestedInput
   }
 
   export type AccountUpsertWithoutRelCardInput = {
@@ -107889,6 +116094,9 @@ export namespace Prisma {
     relCash?: GirviReleaseUpdateManyWithoutCashAccountNestedInput
     relBank?: GirviReleaseUpdateManyWithoutBankAccountNestedInput
     relOnline?: GirviReleaseUpdateManyWithoutOnlineAccountNestedInput
+    mtfFromAccount?: Money_From_TransactionUpdateManyWithoutFromAccountNestedInput
+    mtfFromLines?: Money_Transfer_From_LineUpdateManyWithoutAccountNestedInput
+    mttToAccount?: Money_To_TransactionUpdateManyWithoutToAccountNestedInput
   }
 
   export type AccountUncheckedUpdateWithoutRelCardInput = {
@@ -107963,6 +116171,9 @@ export namespace Prisma {
     relCash?: GirviReleaseUncheckedUpdateManyWithoutCashAccountNestedInput
     relBank?: GirviReleaseUncheckedUpdateManyWithoutBankAccountNestedInput
     relOnline?: GirviReleaseUncheckedUpdateManyWithoutOnlineAccountNestedInput
+    mtfFromAccount?: Money_From_TransactionUncheckedUpdateManyWithoutFromAccountNestedInput
+    mtfFromLines?: Money_Transfer_From_LineUncheckedUpdateManyWithoutAccountNestedInput
+    mttToAccount?: Money_To_TransactionUncheckedUpdateManyWithoutToAccountNestedInput
   }
 
   export type ReleaseUserUpsertWithoutReleasesInput = {
@@ -108072,6 +116283,7 @@ export namespace Prisma {
     finances?: FinanceCreateNestedManyWithoutFirmInput
     financeTransactions?: Finance_TransactionCreateNestedManyWithoutFirmInput
     financeMoneyTrans?: Finance_Money_TransactionCreateNestedManyWithoutFirmInput
+    moneyFromTransactions?: Money_From_TransactionCreateNestedManyWithoutFirmInput
     journals?: JournalCreateNestedManyWithoutFirmInput
     journalTransactions?: JournalTransactionCreateNestedManyWithoutFirmInput
     girvis?: GirviCreateNestedManyWithoutFirmInput
@@ -108145,6 +116357,7 @@ export namespace Prisma {
     finances?: FinanceUncheckedCreateNestedManyWithoutFirmInput
     financeTransactions?: Finance_TransactionUncheckedCreateNestedManyWithoutFirmInput
     financeMoneyTrans?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutFirmInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedCreateNestedManyWithoutFirmInput
     journals?: JournalUncheckedCreateNestedManyWithoutFirmInput
     journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutFirmInput
     girvis?: GirviUncheckedCreateNestedManyWithoutFirmInput
@@ -108330,6 +116543,7 @@ export namespace Prisma {
     finances?: FinanceUpdateManyWithoutFirmNestedInput
     financeTransactions?: Finance_TransactionUpdateManyWithoutFirmNestedInput
     financeMoneyTrans?: Finance_Money_TransactionUpdateManyWithoutFirmNestedInput
+    moneyFromTransactions?: Money_From_TransactionUpdateManyWithoutFirmNestedInput
     journals?: JournalUpdateManyWithoutFirmNestedInput
     journalTransactions?: JournalTransactionUpdateManyWithoutFirmNestedInput
     girvis?: GirviUpdateManyWithoutFirmNestedInput
@@ -108403,6 +116617,7 @@ export namespace Prisma {
     finances?: FinanceUncheckedUpdateManyWithoutFirmNestedInput
     financeTransactions?: Finance_TransactionUncheckedUpdateManyWithoutFirmNestedInput
     financeMoneyTrans?: Finance_Money_TransactionUncheckedUpdateManyWithoutFirmNestedInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedUpdateManyWithoutFirmNestedInput
     journals?: JournalUncheckedUpdateManyWithoutFirmNestedInput
     journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutFirmNestedInput
     girvis?: GirviUncheckedUpdateManyWithoutFirmNestedInput
@@ -108487,6 +116702,7 @@ export namespace Prisma {
     finances?: FinanceCreateNestedManyWithoutOwnerInput
     financeTransactions?: Finance_TransactionCreateNestedManyWithoutOwnerInput
     financeMoneyTrans?: Finance_Money_TransactionCreateNestedManyWithoutOwnerInput
+    moneyFromTransactions?: Money_From_TransactionCreateNestedManyWithoutOwnerInput
     journals?: JournalCreateNestedManyWithoutOwnerInput
     journalTransactions?: JournalTransactionCreateNestedManyWithoutOwnerInput
     girvis?: GirviCreateNestedManyWithoutOwnerInput
@@ -108555,6 +116771,7 @@ export namespace Prisma {
     finances?: FinanceUncheckedCreateNestedManyWithoutOwnerInput
     financeTransactions?: Finance_TransactionUncheckedCreateNestedManyWithoutOwnerInput
     financeMoneyTrans?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutOwnerInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedCreateNestedManyWithoutOwnerInput
     journals?: JournalUncheckedCreateNestedManyWithoutOwnerInput
     journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutOwnerInput
     girvis?: GirviUncheckedCreateNestedManyWithoutOwnerInput
@@ -108631,6 +116848,7 @@ export namespace Prisma {
     finances?: FinanceCreateNestedManyWithoutFirmInput
     financeTransactions?: Finance_TransactionCreateNestedManyWithoutFirmInput
     financeMoneyTrans?: Finance_Money_TransactionCreateNestedManyWithoutFirmInput
+    moneyFromTransactions?: Money_From_TransactionCreateNestedManyWithoutFirmInput
     journals?: JournalCreateNestedManyWithoutFirmInput
     journalTransactions?: JournalTransactionCreateNestedManyWithoutFirmInput
     girvis?: GirviCreateNestedManyWithoutFirmInput
@@ -108704,6 +116922,7 @@ export namespace Prisma {
     finances?: FinanceUncheckedCreateNestedManyWithoutFirmInput
     financeTransactions?: Finance_TransactionUncheckedCreateNestedManyWithoutFirmInput
     financeMoneyTrans?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutFirmInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedCreateNestedManyWithoutFirmInput
     journals?: JournalUncheckedCreateNestedManyWithoutFirmInput
     journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutFirmInput
     girvis?: GirviUncheckedCreateNestedManyWithoutFirmInput
@@ -108787,6 +117006,7 @@ export namespace Prisma {
     finances?: FinanceUpdateManyWithoutOwnerNestedInput
     financeTransactions?: Finance_TransactionUpdateManyWithoutOwnerNestedInput
     financeMoneyTrans?: Finance_Money_TransactionUpdateManyWithoutOwnerNestedInput
+    moneyFromTransactions?: Money_From_TransactionUpdateManyWithoutOwnerNestedInput
     journals?: JournalUpdateManyWithoutOwnerNestedInput
     journalTransactions?: JournalTransactionUpdateManyWithoutOwnerNestedInput
     girvis?: GirviUpdateManyWithoutOwnerNestedInput
@@ -108855,6 +117075,7 @@ export namespace Prisma {
     finances?: FinanceUncheckedUpdateManyWithoutOwnerNestedInput
     financeTransactions?: Finance_TransactionUncheckedUpdateManyWithoutOwnerNestedInput
     financeMoneyTrans?: Finance_Money_TransactionUncheckedUpdateManyWithoutOwnerNestedInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedUpdateManyWithoutOwnerNestedInput
     journals?: JournalUncheckedUpdateManyWithoutOwnerNestedInput
     journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutOwnerNestedInput
     girvis?: GirviUncheckedUpdateManyWithoutOwnerNestedInput
@@ -108937,6 +117158,7 @@ export namespace Prisma {
     finances?: FinanceUpdateManyWithoutFirmNestedInput
     financeTransactions?: Finance_TransactionUpdateManyWithoutFirmNestedInput
     financeMoneyTrans?: Finance_Money_TransactionUpdateManyWithoutFirmNestedInput
+    moneyFromTransactions?: Money_From_TransactionUpdateManyWithoutFirmNestedInput
     journals?: JournalUpdateManyWithoutFirmNestedInput
     journalTransactions?: JournalTransactionUpdateManyWithoutFirmNestedInput
     girvis?: GirviUpdateManyWithoutFirmNestedInput
@@ -109010,6 +117232,7 @@ export namespace Prisma {
     finances?: FinanceUncheckedUpdateManyWithoutFirmNestedInput
     financeTransactions?: Finance_TransactionUncheckedUpdateManyWithoutFirmNestedInput
     financeMoneyTrans?: Finance_Money_TransactionUncheckedUpdateManyWithoutFirmNestedInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedUpdateManyWithoutFirmNestedInput
     journals?: JournalUncheckedUpdateManyWithoutFirmNestedInput
     journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutFirmNestedInput
     girvis?: GirviUncheckedUpdateManyWithoutFirmNestedInput
@@ -109078,6 +117301,7 @@ export namespace Prisma {
     finances?: FinanceCreateNestedManyWithoutOwnerInput
     financeTransactions?: Finance_TransactionCreateNestedManyWithoutOwnerInput
     financeMoneyTrans?: Finance_Money_TransactionCreateNestedManyWithoutOwnerInput
+    moneyFromTransactions?: Money_From_TransactionCreateNestedManyWithoutOwnerInput
     journals?: JournalCreateNestedManyWithoutOwnerInput
     journalTransactions?: JournalTransactionCreateNestedManyWithoutOwnerInput
     girvis?: GirviCreateNestedManyWithoutOwnerInput
@@ -109146,6 +117370,7 @@ export namespace Prisma {
     finances?: FinanceUncheckedCreateNestedManyWithoutOwnerInput
     financeTransactions?: Finance_TransactionUncheckedCreateNestedManyWithoutOwnerInput
     financeMoneyTrans?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutOwnerInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedCreateNestedManyWithoutOwnerInput
     journals?: JournalUncheckedCreateNestedManyWithoutOwnerInput
     journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutOwnerInput
     girvis?: GirviUncheckedCreateNestedManyWithoutOwnerInput
@@ -109228,6 +117453,7 @@ export namespace Prisma {
     finances?: FinanceUpdateManyWithoutOwnerNestedInput
     financeTransactions?: Finance_TransactionUpdateManyWithoutOwnerNestedInput
     financeMoneyTrans?: Finance_Money_TransactionUpdateManyWithoutOwnerNestedInput
+    moneyFromTransactions?: Money_From_TransactionUpdateManyWithoutOwnerNestedInput
     journals?: JournalUpdateManyWithoutOwnerNestedInput
     journalTransactions?: JournalTransactionUpdateManyWithoutOwnerNestedInput
     girvis?: GirviUpdateManyWithoutOwnerNestedInput
@@ -109296,6 +117522,7 @@ export namespace Prisma {
     finances?: FinanceUncheckedUpdateManyWithoutOwnerNestedInput
     financeTransactions?: Finance_TransactionUncheckedUpdateManyWithoutOwnerNestedInput
     financeMoneyTrans?: Finance_Money_TransactionUncheckedUpdateManyWithoutOwnerNestedInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedUpdateManyWithoutOwnerNestedInput
     journals?: JournalUncheckedUpdateManyWithoutOwnerNestedInput
     journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutOwnerNestedInput
     girvis?: GirviUncheckedUpdateManyWithoutOwnerNestedInput
@@ -109363,6 +117590,7 @@ export namespace Prisma {
     finances?: FinanceCreateNestedManyWithoutOwnerInput
     financeTransactions?: Finance_TransactionCreateNestedManyWithoutOwnerInput
     financeMoneyTrans?: Finance_Money_TransactionCreateNestedManyWithoutOwnerInput
+    moneyFromTransactions?: Money_From_TransactionCreateNestedManyWithoutOwnerInput
     journals?: JournalCreateNestedManyWithoutOwnerInput
     journalTransactions?: JournalTransactionCreateNestedManyWithoutOwnerInput
     girvis?: GirviCreateNestedManyWithoutOwnerInput
@@ -109431,6 +117659,7 @@ export namespace Prisma {
     finances?: FinanceUncheckedCreateNestedManyWithoutOwnerInput
     financeTransactions?: Finance_TransactionUncheckedCreateNestedManyWithoutOwnerInput
     financeMoneyTrans?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutOwnerInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedCreateNestedManyWithoutOwnerInput
     journals?: JournalUncheckedCreateNestedManyWithoutOwnerInput
     journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutOwnerInput
     girvis?: GirviUncheckedCreateNestedManyWithoutOwnerInput
@@ -109507,6 +117736,7 @@ export namespace Prisma {
     finances?: FinanceCreateNestedManyWithoutFirmInput
     financeTransactions?: Finance_TransactionCreateNestedManyWithoutFirmInput
     financeMoneyTrans?: Finance_Money_TransactionCreateNestedManyWithoutFirmInput
+    moneyFromTransactions?: Money_From_TransactionCreateNestedManyWithoutFirmInput
     journals?: JournalCreateNestedManyWithoutFirmInput
     journalTransactions?: JournalTransactionCreateNestedManyWithoutFirmInput
     girvis?: GirviCreateNestedManyWithoutFirmInput
@@ -109580,6 +117810,7 @@ export namespace Prisma {
     finances?: FinanceUncheckedCreateNestedManyWithoutFirmInput
     financeTransactions?: Finance_TransactionUncheckedCreateNestedManyWithoutFirmInput
     financeMoneyTrans?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutFirmInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedCreateNestedManyWithoutFirmInput
     journals?: JournalUncheckedCreateNestedManyWithoutFirmInput
     journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutFirmInput
     girvis?: GirviUncheckedCreateNestedManyWithoutFirmInput
@@ -109796,6 +118027,7 @@ export namespace Prisma {
     finances?: FinanceUpdateManyWithoutOwnerNestedInput
     financeTransactions?: Finance_TransactionUpdateManyWithoutOwnerNestedInput
     financeMoneyTrans?: Finance_Money_TransactionUpdateManyWithoutOwnerNestedInput
+    moneyFromTransactions?: Money_From_TransactionUpdateManyWithoutOwnerNestedInput
     journals?: JournalUpdateManyWithoutOwnerNestedInput
     journalTransactions?: JournalTransactionUpdateManyWithoutOwnerNestedInput
     girvis?: GirviUpdateManyWithoutOwnerNestedInput
@@ -109864,6 +118096,7 @@ export namespace Prisma {
     finances?: FinanceUncheckedUpdateManyWithoutOwnerNestedInput
     financeTransactions?: Finance_TransactionUncheckedUpdateManyWithoutOwnerNestedInput
     financeMoneyTrans?: Finance_Money_TransactionUncheckedUpdateManyWithoutOwnerNestedInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedUpdateManyWithoutOwnerNestedInput
     journals?: JournalUncheckedUpdateManyWithoutOwnerNestedInput
     journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutOwnerNestedInput
     girvis?: GirviUncheckedUpdateManyWithoutOwnerNestedInput
@@ -109946,6 +118179,7 @@ export namespace Prisma {
     finances?: FinanceUpdateManyWithoutFirmNestedInput
     financeTransactions?: Finance_TransactionUpdateManyWithoutFirmNestedInput
     financeMoneyTrans?: Finance_Money_TransactionUpdateManyWithoutFirmNestedInput
+    moneyFromTransactions?: Money_From_TransactionUpdateManyWithoutFirmNestedInput
     journals?: JournalUpdateManyWithoutFirmNestedInput
     journalTransactions?: JournalTransactionUpdateManyWithoutFirmNestedInput
     girvis?: GirviUpdateManyWithoutFirmNestedInput
@@ -110019,6 +118253,7 @@ export namespace Prisma {
     finances?: FinanceUncheckedUpdateManyWithoutFirmNestedInput
     financeTransactions?: Finance_TransactionUncheckedUpdateManyWithoutFirmNestedInput
     financeMoneyTrans?: Finance_Money_TransactionUncheckedUpdateManyWithoutFirmNestedInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedUpdateManyWithoutFirmNestedInput
     journals?: JournalUncheckedUpdateManyWithoutFirmNestedInput
     journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutFirmNestedInput
     girvis?: GirviUncheckedUpdateManyWithoutFirmNestedInput
@@ -110107,6 +118342,7 @@ export namespace Prisma {
     finances?: FinanceCreateNestedManyWithoutFirmInput
     financeTransactions?: Finance_TransactionCreateNestedManyWithoutFirmInput
     financeMoneyTrans?: Finance_Money_TransactionCreateNestedManyWithoutFirmInput
+    moneyFromTransactions?: Money_From_TransactionCreateNestedManyWithoutFirmInput
     journals?: JournalCreateNestedManyWithoutFirmInput
     journalTransactions?: JournalTransactionCreateNestedManyWithoutFirmInput
     girvis?: GirviCreateNestedManyWithoutFirmInput
@@ -110180,6 +118416,7 @@ export namespace Prisma {
     finances?: FinanceUncheckedCreateNestedManyWithoutFirmInput
     financeTransactions?: Finance_TransactionUncheckedCreateNestedManyWithoutFirmInput
     financeMoneyTrans?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutFirmInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedCreateNestedManyWithoutFirmInput
     journals?: JournalUncheckedCreateNestedManyWithoutFirmInput
     journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutFirmInput
     girvis?: GirviUncheckedCreateNestedManyWithoutFirmInput
@@ -110329,6 +118566,7 @@ export namespace Prisma {
     finances?: FinanceUpdateManyWithoutFirmNestedInput
     financeTransactions?: Finance_TransactionUpdateManyWithoutFirmNestedInput
     financeMoneyTrans?: Finance_Money_TransactionUpdateManyWithoutFirmNestedInput
+    moneyFromTransactions?: Money_From_TransactionUpdateManyWithoutFirmNestedInput
     journals?: JournalUpdateManyWithoutFirmNestedInput
     journalTransactions?: JournalTransactionUpdateManyWithoutFirmNestedInput
     girvis?: GirviUpdateManyWithoutFirmNestedInput
@@ -110402,6 +118640,7 @@ export namespace Prisma {
     finances?: FinanceUncheckedUpdateManyWithoutFirmNestedInput
     financeTransactions?: Finance_TransactionUncheckedUpdateManyWithoutFirmNestedInput
     financeMoneyTrans?: Finance_Money_TransactionUncheckedUpdateManyWithoutFirmNestedInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedUpdateManyWithoutFirmNestedInput
     journals?: JournalUncheckedUpdateManyWithoutFirmNestedInput
     journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutFirmNestedInput
     girvis?: GirviUncheckedUpdateManyWithoutFirmNestedInput
@@ -110490,6 +118729,7 @@ export namespace Prisma {
     finances?: FinanceCreateNestedManyWithoutFirmInput
     financeTransactions?: Finance_TransactionCreateNestedManyWithoutFirmInput
     financeMoneyTrans?: Finance_Money_TransactionCreateNestedManyWithoutFirmInput
+    moneyFromTransactions?: Money_From_TransactionCreateNestedManyWithoutFirmInput
     journals?: JournalCreateNestedManyWithoutFirmInput
     journalTransactions?: JournalTransactionCreateNestedManyWithoutFirmInput
     girvis?: GirviCreateNestedManyWithoutFirmInput
@@ -110563,6 +118803,7 @@ export namespace Prisma {
     finances?: FinanceUncheckedCreateNestedManyWithoutFirmInput
     financeTransactions?: Finance_TransactionUncheckedCreateNestedManyWithoutFirmInput
     financeMoneyTrans?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutFirmInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedCreateNestedManyWithoutFirmInput
     journals?: JournalUncheckedCreateNestedManyWithoutFirmInput
     journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutFirmInput
     girvis?: GirviUncheckedCreateNestedManyWithoutFirmInput
@@ -110827,6 +119068,7 @@ export namespace Prisma {
     finances?: FinanceUpdateManyWithoutFirmNestedInput
     financeTransactions?: Finance_TransactionUpdateManyWithoutFirmNestedInput
     financeMoneyTrans?: Finance_Money_TransactionUpdateManyWithoutFirmNestedInput
+    moneyFromTransactions?: Money_From_TransactionUpdateManyWithoutFirmNestedInput
     journals?: JournalUpdateManyWithoutFirmNestedInput
     journalTransactions?: JournalTransactionUpdateManyWithoutFirmNestedInput
     girvis?: GirviUpdateManyWithoutFirmNestedInput
@@ -110900,6 +119142,7 @@ export namespace Prisma {
     finances?: FinanceUncheckedUpdateManyWithoutFirmNestedInput
     financeTransactions?: Finance_TransactionUncheckedUpdateManyWithoutFirmNestedInput
     financeMoneyTrans?: Finance_Money_TransactionUncheckedUpdateManyWithoutFirmNestedInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedUpdateManyWithoutFirmNestedInput
     journals?: JournalUncheckedUpdateManyWithoutFirmNestedInput
     journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutFirmNestedInput
     girvis?: GirviUncheckedUpdateManyWithoutFirmNestedInput
@@ -111156,6 +119399,7 @@ export namespace Prisma {
     finances?: FinanceCreateNestedManyWithoutOwnerInput
     financeTransactions?: Finance_TransactionCreateNestedManyWithoutOwnerInput
     financeMoneyTrans?: Finance_Money_TransactionCreateNestedManyWithoutOwnerInput
+    moneyFromTransactions?: Money_From_TransactionCreateNestedManyWithoutOwnerInput
     journals?: JournalCreateNestedManyWithoutOwnerInput
     journalTransactions?: JournalTransactionCreateNestedManyWithoutOwnerInput
     girvis?: GirviCreateNestedManyWithoutOwnerInput
@@ -111224,6 +119468,7 @@ export namespace Prisma {
     finances?: FinanceUncheckedCreateNestedManyWithoutOwnerInput
     financeTransactions?: Finance_TransactionUncheckedCreateNestedManyWithoutOwnerInput
     financeMoneyTrans?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutOwnerInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedCreateNestedManyWithoutOwnerInput
     journals?: JournalUncheckedCreateNestedManyWithoutOwnerInput
     journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutOwnerInput
     girvis?: GirviUncheckedCreateNestedManyWithoutOwnerInput
@@ -111331,6 +119576,7 @@ export namespace Prisma {
     finances?: FinanceUpdateManyWithoutOwnerNestedInput
     financeTransactions?: Finance_TransactionUpdateManyWithoutOwnerNestedInput
     financeMoneyTrans?: Finance_Money_TransactionUpdateManyWithoutOwnerNestedInput
+    moneyFromTransactions?: Money_From_TransactionUpdateManyWithoutOwnerNestedInput
     journals?: JournalUpdateManyWithoutOwnerNestedInput
     journalTransactions?: JournalTransactionUpdateManyWithoutOwnerNestedInput
     girvis?: GirviUpdateManyWithoutOwnerNestedInput
@@ -111399,6 +119645,7 @@ export namespace Prisma {
     finances?: FinanceUncheckedUpdateManyWithoutOwnerNestedInput
     financeTransactions?: Finance_TransactionUncheckedUpdateManyWithoutOwnerNestedInput
     financeMoneyTrans?: Finance_Money_TransactionUncheckedUpdateManyWithoutOwnerNestedInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedUpdateManyWithoutOwnerNestedInput
     journals?: JournalUncheckedUpdateManyWithoutOwnerNestedInput
     journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutOwnerNestedInput
     girvis?: GirviUncheckedUpdateManyWithoutOwnerNestedInput
@@ -111827,6 +120074,7 @@ export namespace Prisma {
     finances?: FinanceCreateNestedManyWithoutOwnerInput
     financeTransactions?: Finance_TransactionCreateNestedManyWithoutOwnerInput
     financeMoneyTrans?: Finance_Money_TransactionCreateNestedManyWithoutOwnerInput
+    moneyFromTransactions?: Money_From_TransactionCreateNestedManyWithoutOwnerInput
     journals?: JournalCreateNestedManyWithoutOwnerInput
     journalTransactions?: JournalTransactionCreateNestedManyWithoutOwnerInput
     girvis?: GirviCreateNestedManyWithoutOwnerInput
@@ -111895,6 +120143,7 @@ export namespace Prisma {
     finances?: FinanceUncheckedCreateNestedManyWithoutOwnerInput
     financeTransactions?: Finance_TransactionUncheckedCreateNestedManyWithoutOwnerInput
     financeMoneyTrans?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutOwnerInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedCreateNestedManyWithoutOwnerInput
     journals?: JournalUncheckedCreateNestedManyWithoutOwnerInput
     journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutOwnerInput
     girvis?: GirviUncheckedCreateNestedManyWithoutOwnerInput
@@ -111971,6 +120220,7 @@ export namespace Prisma {
     finances?: FinanceCreateNestedManyWithoutFirmInput
     financeTransactions?: Finance_TransactionCreateNestedManyWithoutFirmInput
     financeMoneyTrans?: Finance_Money_TransactionCreateNestedManyWithoutFirmInput
+    moneyFromTransactions?: Money_From_TransactionCreateNestedManyWithoutFirmInput
     journals?: JournalCreateNestedManyWithoutFirmInput
     journalTransactions?: JournalTransactionCreateNestedManyWithoutFirmInput
     girvis?: GirviCreateNestedManyWithoutFirmInput
@@ -112044,6 +120294,7 @@ export namespace Prisma {
     finances?: FinanceUncheckedCreateNestedManyWithoutFirmInput
     financeTransactions?: Finance_TransactionUncheckedCreateNestedManyWithoutFirmInput
     financeMoneyTrans?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutFirmInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedCreateNestedManyWithoutFirmInput
     journals?: JournalUncheckedCreateNestedManyWithoutFirmInput
     journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutFirmInput
     girvis?: GirviUncheckedCreateNestedManyWithoutFirmInput
@@ -112127,6 +120378,7 @@ export namespace Prisma {
     finances?: FinanceUpdateManyWithoutOwnerNestedInput
     financeTransactions?: Finance_TransactionUpdateManyWithoutOwnerNestedInput
     financeMoneyTrans?: Finance_Money_TransactionUpdateManyWithoutOwnerNestedInput
+    moneyFromTransactions?: Money_From_TransactionUpdateManyWithoutOwnerNestedInput
     journals?: JournalUpdateManyWithoutOwnerNestedInput
     journalTransactions?: JournalTransactionUpdateManyWithoutOwnerNestedInput
     girvis?: GirviUpdateManyWithoutOwnerNestedInput
@@ -112195,6 +120447,7 @@ export namespace Prisma {
     finances?: FinanceUncheckedUpdateManyWithoutOwnerNestedInput
     financeTransactions?: Finance_TransactionUncheckedUpdateManyWithoutOwnerNestedInput
     financeMoneyTrans?: Finance_Money_TransactionUncheckedUpdateManyWithoutOwnerNestedInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedUpdateManyWithoutOwnerNestedInput
     journals?: JournalUncheckedUpdateManyWithoutOwnerNestedInput
     journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutOwnerNestedInput
     girvis?: GirviUncheckedUpdateManyWithoutOwnerNestedInput
@@ -112277,6 +120530,7 @@ export namespace Prisma {
     finances?: FinanceUpdateManyWithoutFirmNestedInput
     financeTransactions?: Finance_TransactionUpdateManyWithoutFirmNestedInput
     financeMoneyTrans?: Finance_Money_TransactionUpdateManyWithoutFirmNestedInput
+    moneyFromTransactions?: Money_From_TransactionUpdateManyWithoutFirmNestedInput
     journals?: JournalUpdateManyWithoutFirmNestedInput
     journalTransactions?: JournalTransactionUpdateManyWithoutFirmNestedInput
     girvis?: GirviUpdateManyWithoutFirmNestedInput
@@ -112350,6 +120604,7 @@ export namespace Prisma {
     finances?: FinanceUncheckedUpdateManyWithoutFirmNestedInput
     financeTransactions?: Finance_TransactionUncheckedUpdateManyWithoutFirmNestedInput
     financeMoneyTrans?: Finance_Money_TransactionUncheckedUpdateManyWithoutFirmNestedInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedUpdateManyWithoutFirmNestedInput
     journals?: JournalUncheckedUpdateManyWithoutFirmNestedInput
     journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutFirmNestedInput
     girvis?: GirviUncheckedUpdateManyWithoutFirmNestedInput
@@ -112418,6 +120673,7 @@ export namespace Prisma {
     finances?: FinanceCreateNestedManyWithoutOwnerInput
     financeTransactions?: Finance_TransactionCreateNestedManyWithoutOwnerInput
     financeMoneyTrans?: Finance_Money_TransactionCreateNestedManyWithoutOwnerInput
+    moneyFromTransactions?: Money_From_TransactionCreateNestedManyWithoutOwnerInput
     journals?: JournalCreateNestedManyWithoutOwnerInput
     journalTransactions?: JournalTransactionCreateNestedManyWithoutOwnerInput
     girvis?: GirviCreateNestedManyWithoutOwnerInput
@@ -112486,6 +120742,7 @@ export namespace Prisma {
     finances?: FinanceUncheckedCreateNestedManyWithoutOwnerInput
     financeTransactions?: Finance_TransactionUncheckedCreateNestedManyWithoutOwnerInput
     financeMoneyTrans?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutOwnerInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedCreateNestedManyWithoutOwnerInput
     journals?: JournalUncheckedCreateNestedManyWithoutOwnerInput
     journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutOwnerInput
     girvis?: GirviUncheckedCreateNestedManyWithoutOwnerInput
@@ -112562,6 +120819,7 @@ export namespace Prisma {
     finances?: FinanceCreateNestedManyWithoutFirmInput
     financeTransactions?: Finance_TransactionCreateNestedManyWithoutFirmInput
     financeMoneyTrans?: Finance_Money_TransactionCreateNestedManyWithoutFirmInput
+    moneyFromTransactions?: Money_From_TransactionCreateNestedManyWithoutFirmInput
     journals?: JournalCreateNestedManyWithoutFirmInput
     journalTransactions?: JournalTransactionCreateNestedManyWithoutFirmInput
     girvis?: GirviCreateNestedManyWithoutFirmInput
@@ -112635,6 +120893,7 @@ export namespace Prisma {
     finances?: FinanceUncheckedCreateNestedManyWithoutFirmInput
     financeTransactions?: Finance_TransactionUncheckedCreateNestedManyWithoutFirmInput
     financeMoneyTrans?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutFirmInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedCreateNestedManyWithoutFirmInput
     journals?: JournalUncheckedCreateNestedManyWithoutFirmInput
     journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutFirmInput
     girvis?: GirviUncheckedCreateNestedManyWithoutFirmInput
@@ -112718,6 +120977,7 @@ export namespace Prisma {
     finances?: FinanceUpdateManyWithoutOwnerNestedInput
     financeTransactions?: Finance_TransactionUpdateManyWithoutOwnerNestedInput
     financeMoneyTrans?: Finance_Money_TransactionUpdateManyWithoutOwnerNestedInput
+    moneyFromTransactions?: Money_From_TransactionUpdateManyWithoutOwnerNestedInput
     journals?: JournalUpdateManyWithoutOwnerNestedInput
     journalTransactions?: JournalTransactionUpdateManyWithoutOwnerNestedInput
     girvis?: GirviUpdateManyWithoutOwnerNestedInput
@@ -112786,6 +121046,7 @@ export namespace Prisma {
     finances?: FinanceUncheckedUpdateManyWithoutOwnerNestedInput
     financeTransactions?: Finance_TransactionUncheckedUpdateManyWithoutOwnerNestedInput
     financeMoneyTrans?: Finance_Money_TransactionUncheckedUpdateManyWithoutOwnerNestedInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedUpdateManyWithoutOwnerNestedInput
     journals?: JournalUncheckedUpdateManyWithoutOwnerNestedInput
     journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutOwnerNestedInput
     girvis?: GirviUncheckedUpdateManyWithoutOwnerNestedInput
@@ -112868,6 +121129,7 @@ export namespace Prisma {
     finances?: FinanceUpdateManyWithoutFirmNestedInput
     financeTransactions?: Finance_TransactionUpdateManyWithoutFirmNestedInput
     financeMoneyTrans?: Finance_Money_TransactionUpdateManyWithoutFirmNestedInput
+    moneyFromTransactions?: Money_From_TransactionUpdateManyWithoutFirmNestedInput
     journals?: JournalUpdateManyWithoutFirmNestedInput
     journalTransactions?: JournalTransactionUpdateManyWithoutFirmNestedInput
     girvis?: GirviUpdateManyWithoutFirmNestedInput
@@ -112941,6 +121203,7 @@ export namespace Prisma {
     finances?: FinanceUncheckedUpdateManyWithoutFirmNestedInput
     financeTransactions?: Finance_TransactionUncheckedUpdateManyWithoutFirmNestedInput
     financeMoneyTrans?: Finance_Money_TransactionUncheckedUpdateManyWithoutFirmNestedInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedUpdateManyWithoutFirmNestedInput
     journals?: JournalUncheckedUpdateManyWithoutFirmNestedInput
     journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutFirmNestedInput
     girvis?: GirviUncheckedUpdateManyWithoutFirmNestedInput
@@ -113009,6 +121272,7 @@ export namespace Prisma {
     finances?: FinanceCreateNestedManyWithoutOwnerInput
     financeTransactions?: Finance_TransactionCreateNestedManyWithoutOwnerInput
     financeMoneyTrans?: Finance_Money_TransactionCreateNestedManyWithoutOwnerInput
+    moneyFromTransactions?: Money_From_TransactionCreateNestedManyWithoutOwnerInput
     journals?: JournalCreateNestedManyWithoutOwnerInput
     journalTransactions?: JournalTransactionCreateNestedManyWithoutOwnerInput
     girvis?: GirviCreateNestedManyWithoutOwnerInput
@@ -113077,6 +121341,7 @@ export namespace Prisma {
     finances?: FinanceUncheckedCreateNestedManyWithoutOwnerInput
     financeTransactions?: Finance_TransactionUncheckedCreateNestedManyWithoutOwnerInput
     financeMoneyTrans?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutOwnerInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedCreateNestedManyWithoutOwnerInput
     journals?: JournalUncheckedCreateNestedManyWithoutOwnerInput
     journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutOwnerInput
     girvis?: GirviUncheckedCreateNestedManyWithoutOwnerInput
@@ -113153,6 +121418,7 @@ export namespace Prisma {
     finances?: FinanceCreateNestedManyWithoutFirmInput
     financeTransactions?: Finance_TransactionCreateNestedManyWithoutFirmInput
     financeMoneyTrans?: Finance_Money_TransactionCreateNestedManyWithoutFirmInput
+    moneyFromTransactions?: Money_From_TransactionCreateNestedManyWithoutFirmInput
     journals?: JournalCreateNestedManyWithoutFirmInput
     journalTransactions?: JournalTransactionCreateNestedManyWithoutFirmInput
     girvis?: GirviCreateNestedManyWithoutFirmInput
@@ -113226,6 +121492,7 @@ export namespace Prisma {
     finances?: FinanceUncheckedCreateNestedManyWithoutFirmInput
     financeTransactions?: Finance_TransactionUncheckedCreateNestedManyWithoutFirmInput
     financeMoneyTrans?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutFirmInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedCreateNestedManyWithoutFirmInput
     journals?: JournalUncheckedCreateNestedManyWithoutFirmInput
     journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutFirmInput
     girvis?: GirviUncheckedCreateNestedManyWithoutFirmInput
@@ -113309,6 +121576,7 @@ export namespace Prisma {
     finances?: FinanceUpdateManyWithoutOwnerNestedInput
     financeTransactions?: Finance_TransactionUpdateManyWithoutOwnerNestedInput
     financeMoneyTrans?: Finance_Money_TransactionUpdateManyWithoutOwnerNestedInput
+    moneyFromTransactions?: Money_From_TransactionUpdateManyWithoutOwnerNestedInput
     journals?: JournalUpdateManyWithoutOwnerNestedInput
     journalTransactions?: JournalTransactionUpdateManyWithoutOwnerNestedInput
     girvis?: GirviUpdateManyWithoutOwnerNestedInput
@@ -113377,6 +121645,7 @@ export namespace Prisma {
     finances?: FinanceUncheckedUpdateManyWithoutOwnerNestedInput
     financeTransactions?: Finance_TransactionUncheckedUpdateManyWithoutOwnerNestedInput
     financeMoneyTrans?: Finance_Money_TransactionUncheckedUpdateManyWithoutOwnerNestedInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedUpdateManyWithoutOwnerNestedInput
     journals?: JournalUncheckedUpdateManyWithoutOwnerNestedInput
     journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutOwnerNestedInput
     girvis?: GirviUncheckedUpdateManyWithoutOwnerNestedInput
@@ -113459,6 +121728,7 @@ export namespace Prisma {
     finances?: FinanceUpdateManyWithoutFirmNestedInput
     financeTransactions?: Finance_TransactionUpdateManyWithoutFirmNestedInput
     financeMoneyTrans?: Finance_Money_TransactionUpdateManyWithoutFirmNestedInput
+    moneyFromTransactions?: Money_From_TransactionUpdateManyWithoutFirmNestedInput
     journals?: JournalUpdateManyWithoutFirmNestedInput
     journalTransactions?: JournalTransactionUpdateManyWithoutFirmNestedInput
     girvis?: GirviUpdateManyWithoutFirmNestedInput
@@ -113532,6 +121802,7 @@ export namespace Prisma {
     finances?: FinanceUncheckedUpdateManyWithoutFirmNestedInput
     financeTransactions?: Finance_TransactionUncheckedUpdateManyWithoutFirmNestedInput
     financeMoneyTrans?: Finance_Money_TransactionUncheckedUpdateManyWithoutFirmNestedInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedUpdateManyWithoutFirmNestedInput
     journals?: JournalUncheckedUpdateManyWithoutFirmNestedInput
     journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutFirmNestedInput
     girvis?: GirviUncheckedUpdateManyWithoutFirmNestedInput
@@ -113600,6 +121871,7 @@ export namespace Prisma {
     finances?: FinanceCreateNestedManyWithoutOwnerInput
     financeTransactions?: Finance_TransactionCreateNestedManyWithoutOwnerInput
     financeMoneyTrans?: Finance_Money_TransactionCreateNestedManyWithoutOwnerInput
+    moneyFromTransactions?: Money_From_TransactionCreateNestedManyWithoutOwnerInput
     journals?: JournalCreateNestedManyWithoutOwnerInput
     journalTransactions?: JournalTransactionCreateNestedManyWithoutOwnerInput
     girvis?: GirviCreateNestedManyWithoutOwnerInput
@@ -113668,6 +121940,7 @@ export namespace Prisma {
     finances?: FinanceUncheckedCreateNestedManyWithoutOwnerInput
     financeTransactions?: Finance_TransactionUncheckedCreateNestedManyWithoutOwnerInput
     financeMoneyTrans?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutOwnerInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedCreateNestedManyWithoutOwnerInput
     journals?: JournalUncheckedCreateNestedManyWithoutOwnerInput
     journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutOwnerInput
     girvis?: GirviUncheckedCreateNestedManyWithoutOwnerInput
@@ -113744,6 +122017,7 @@ export namespace Prisma {
     finances?: FinanceCreateNestedManyWithoutFirmInput
     financeTransactions?: Finance_TransactionCreateNestedManyWithoutFirmInput
     financeMoneyTrans?: Finance_Money_TransactionCreateNestedManyWithoutFirmInput
+    moneyFromTransactions?: Money_From_TransactionCreateNestedManyWithoutFirmInput
     journals?: JournalCreateNestedManyWithoutFirmInput
     journalTransactions?: JournalTransactionCreateNestedManyWithoutFirmInput
     girvis?: GirviCreateNestedManyWithoutFirmInput
@@ -113817,6 +122091,7 @@ export namespace Prisma {
     finances?: FinanceUncheckedCreateNestedManyWithoutFirmInput
     financeTransactions?: Finance_TransactionUncheckedCreateNestedManyWithoutFirmInput
     financeMoneyTrans?: Finance_Money_TransactionUncheckedCreateNestedManyWithoutFirmInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedCreateNestedManyWithoutFirmInput
     journals?: JournalUncheckedCreateNestedManyWithoutFirmInput
     journalTransactions?: JournalTransactionUncheckedCreateNestedManyWithoutFirmInput
     girvis?: GirviUncheckedCreateNestedManyWithoutFirmInput
@@ -113900,6 +122175,7 @@ export namespace Prisma {
     finances?: FinanceUpdateManyWithoutOwnerNestedInput
     financeTransactions?: Finance_TransactionUpdateManyWithoutOwnerNestedInput
     financeMoneyTrans?: Finance_Money_TransactionUpdateManyWithoutOwnerNestedInput
+    moneyFromTransactions?: Money_From_TransactionUpdateManyWithoutOwnerNestedInput
     journals?: JournalUpdateManyWithoutOwnerNestedInput
     journalTransactions?: JournalTransactionUpdateManyWithoutOwnerNestedInput
     girvis?: GirviUpdateManyWithoutOwnerNestedInput
@@ -113968,6 +122244,7 @@ export namespace Prisma {
     finances?: FinanceUncheckedUpdateManyWithoutOwnerNestedInput
     financeTransactions?: Finance_TransactionUncheckedUpdateManyWithoutOwnerNestedInput
     financeMoneyTrans?: Finance_Money_TransactionUncheckedUpdateManyWithoutOwnerNestedInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedUpdateManyWithoutOwnerNestedInput
     journals?: JournalUncheckedUpdateManyWithoutOwnerNestedInput
     journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutOwnerNestedInput
     girvis?: GirviUncheckedUpdateManyWithoutOwnerNestedInput
@@ -114050,6 +122327,7 @@ export namespace Prisma {
     finances?: FinanceUpdateManyWithoutFirmNestedInput
     financeTransactions?: Finance_TransactionUpdateManyWithoutFirmNestedInput
     financeMoneyTrans?: Finance_Money_TransactionUpdateManyWithoutFirmNestedInput
+    moneyFromTransactions?: Money_From_TransactionUpdateManyWithoutFirmNestedInput
     journals?: JournalUpdateManyWithoutFirmNestedInput
     journalTransactions?: JournalTransactionUpdateManyWithoutFirmNestedInput
     girvis?: GirviUpdateManyWithoutFirmNestedInput
@@ -114123,6 +122401,7 @@ export namespace Prisma {
     finances?: FinanceUncheckedUpdateManyWithoutFirmNestedInput
     financeTransactions?: Finance_TransactionUncheckedUpdateManyWithoutFirmNestedInput
     financeMoneyTrans?: Finance_Money_TransactionUncheckedUpdateManyWithoutFirmNestedInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedUpdateManyWithoutFirmNestedInput
     journals?: JournalUncheckedUpdateManyWithoutFirmNestedInput
     journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutFirmNestedInput
     girvis?: GirviUncheckedUpdateManyWithoutFirmNestedInput
@@ -114387,6 +122666,28 @@ export namespace Prisma {
     fm_deleted_at?: Date | string | null
     fm_deleted_by?: string | null
     fm_is_deleted?: boolean
+  }
+
+  export type Money_From_TransactionCreateManyOwnerInput = {
+    mtf_id?: number
+    mtf_uuid?: string
+    mtf_firm_id: number
+    mtf_jrnl_id?: number | null
+    mtf_from_acc_id: number
+    mtf_trans_date: string
+    mtf_mode?: $Enums.MoneyTransferMode
+    mtf_direction?: $Enums.MoneyTransferDirection
+    mtf_total_amt: number
+    mtf_panel?: string
+    mtf_narration?: string | null
+    mtf_other_info?: string | null
+    mtf_created_at?: Date | string
+    mtf_created_by?: string | null
+    mtf_updated_at?: Date | string
+    mtf_updated_by?: string | null
+    mtf_deleted_at?: Date | string | null
+    mtf_deleted_by?: string | null
+    mtf_is_deleted?: boolean
   }
 
   export type JournalCreateManyOwnerInput = {
@@ -115073,6 +123374,7 @@ export namespace Prisma {
     finances?: FinanceUpdateManyWithoutFirmNestedInput
     financeTransactions?: Finance_TransactionUpdateManyWithoutFirmNestedInput
     financeMoneyTrans?: Finance_Money_TransactionUpdateManyWithoutFirmNestedInput
+    moneyFromTransactions?: Money_From_TransactionUpdateManyWithoutFirmNestedInput
     journals?: JournalUpdateManyWithoutFirmNestedInput
     journalTransactions?: JournalTransactionUpdateManyWithoutFirmNestedInput
     girvis?: GirviUpdateManyWithoutFirmNestedInput
@@ -115146,6 +123448,7 @@ export namespace Prisma {
     finances?: FinanceUncheckedUpdateManyWithoutFirmNestedInput
     financeTransactions?: Finance_TransactionUncheckedUpdateManyWithoutFirmNestedInput
     financeMoneyTrans?: Finance_Money_TransactionUncheckedUpdateManyWithoutFirmNestedInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedUpdateManyWithoutFirmNestedInput
     journals?: JournalUncheckedUpdateManyWithoutFirmNestedInput
     journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutFirmNestedInput
     girvis?: GirviUncheckedUpdateManyWithoutFirmNestedInput
@@ -115287,6 +123590,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUpdateManyWithoutBankAccountNestedInput
     relOnline?: GirviReleaseUpdateManyWithoutOnlineAccountNestedInput
     relCard?: GirviReleaseUpdateManyWithoutCardAccountNestedInput
+    mtfFromAccount?: Money_From_TransactionUpdateManyWithoutFromAccountNestedInput
+    mtfFromLines?: Money_Transfer_From_LineUpdateManyWithoutAccountNestedInput
+    mttToAccount?: Money_To_TransactionUpdateManyWithoutToAccountNestedInput
   }
 
   export type AccountUncheckedUpdateWithoutOwnerInput = {
@@ -115361,6 +123667,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUncheckedUpdateManyWithoutBankAccountNestedInput
     relOnline?: GirviReleaseUncheckedUpdateManyWithoutOnlineAccountNestedInput
     relCard?: GirviReleaseUncheckedUpdateManyWithoutCardAccountNestedInput
+    mtfFromAccount?: Money_From_TransactionUncheckedUpdateManyWithoutFromAccountNestedInput
+    mtfFromLines?: Money_Transfer_From_LineUncheckedUpdateManyWithoutAccountNestedInput
+    mttToAccount?: Money_To_TransactionUncheckedUpdateManyWithoutToAccountNestedInput
   }
 
   export type AccountUncheckedUpdateManyWithoutOwnerInput = {
@@ -115737,6 +124046,75 @@ export namespace Prisma {
     fm_is_deleted?: BoolFieldUpdateOperationsInput | boolean
   }
 
+  export type Money_From_TransactionUpdateWithoutOwnerInput = {
+    mtf_uuid?: StringFieldUpdateOperationsInput | string
+    mtf_trans_date?: StringFieldUpdateOperationsInput | string
+    mtf_mode?: EnumMoneyTransferModeFieldUpdateOperationsInput | $Enums.MoneyTransferMode
+    mtf_direction?: EnumMoneyTransferDirectionFieldUpdateOperationsInput | $Enums.MoneyTransferDirection
+    mtf_total_amt?: FloatFieldUpdateOperationsInput | number
+    mtf_panel?: StringFieldUpdateOperationsInput | string
+    mtf_narration?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    mtf_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    mtf_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    mtf_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    firm?: FirmUpdateOneRequiredWithoutMoneyFromTransactionsNestedInput
+    fromAccount?: AccountUpdateOneRequiredWithoutMtfFromAccountNestedInput
+    journal?: JournalUpdateOneWithoutMoneyFromTransactionsNestedInput
+    fromLines?: Money_Transfer_From_LineUpdateManyWithoutFromTransactionNestedInput
+    toRows?: Money_To_TransactionUpdateManyWithoutFromTransactionNestedInput
+  }
+
+  export type Money_From_TransactionUncheckedUpdateWithoutOwnerInput = {
+    mtf_id?: IntFieldUpdateOperationsInput | number
+    mtf_uuid?: StringFieldUpdateOperationsInput | string
+    mtf_firm_id?: IntFieldUpdateOperationsInput | number
+    mtf_jrnl_id?: NullableIntFieldUpdateOperationsInput | number | null
+    mtf_from_acc_id?: IntFieldUpdateOperationsInput | number
+    mtf_trans_date?: StringFieldUpdateOperationsInput | string
+    mtf_mode?: EnumMoneyTransferModeFieldUpdateOperationsInput | $Enums.MoneyTransferMode
+    mtf_direction?: EnumMoneyTransferDirectionFieldUpdateOperationsInput | $Enums.MoneyTransferDirection
+    mtf_total_amt?: FloatFieldUpdateOperationsInput | number
+    mtf_panel?: StringFieldUpdateOperationsInput | string
+    mtf_narration?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    mtf_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    mtf_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    mtf_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    fromLines?: Money_Transfer_From_LineUncheckedUpdateManyWithoutFromTransactionNestedInput
+    toRows?: Money_To_TransactionUncheckedUpdateManyWithoutFromTransactionNestedInput
+  }
+
+  export type Money_From_TransactionUncheckedUpdateManyWithoutOwnerInput = {
+    mtf_id?: IntFieldUpdateOperationsInput | number
+    mtf_uuid?: StringFieldUpdateOperationsInput | string
+    mtf_firm_id?: IntFieldUpdateOperationsInput | number
+    mtf_jrnl_id?: NullableIntFieldUpdateOperationsInput | number | null
+    mtf_from_acc_id?: IntFieldUpdateOperationsInput | number
+    mtf_trans_date?: StringFieldUpdateOperationsInput | string
+    mtf_mode?: EnumMoneyTransferModeFieldUpdateOperationsInput | $Enums.MoneyTransferMode
+    mtf_direction?: EnumMoneyTransferDirectionFieldUpdateOperationsInput | $Enums.MoneyTransferDirection
+    mtf_total_amt?: FloatFieldUpdateOperationsInput | number
+    mtf_panel?: StringFieldUpdateOperationsInput | string
+    mtf_narration?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    mtf_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    mtf_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    mtf_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
   export type JournalUpdateWithoutOwnerInput = {
     jrnl_uuid?: StringFieldUpdateOperationsInput | string
     jrnl_add_date?: NullableStringFieldUpdateOperationsInput | string | null
@@ -115752,6 +124130,7 @@ export namespace Prisma {
     jrnl_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     jrnl_is_deleted?: BoolFieldUpdateOperationsInput | boolean
     financeMoneyTransactions?: Finance_Money_TransactionUpdateManyWithoutJournalNestedInput
+    moneyFromTransactions?: Money_From_TransactionUpdateManyWithoutJournalNestedInput
     firm?: FirmUpdateOneRequiredWithoutJournalsNestedInput
     user?: UserUpdateOneWithoutJournalsNestedInput
     journalTransactions?: JournalTransactionUpdateManyWithoutJournalNestedInput
@@ -115775,6 +124154,7 @@ export namespace Prisma {
     jrnl_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     jrnl_is_deleted?: BoolFieldUpdateOperationsInput | boolean
     financeMoneyTransactions?: Finance_Money_TransactionUncheckedUpdateManyWithoutJournalNestedInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedUpdateManyWithoutJournalNestedInput
     journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutJournalNestedInput
   }
 
@@ -117300,6 +125680,28 @@ export namespace Prisma {
     fm_is_deleted?: boolean
   }
 
+  export type Money_From_TransactionCreateManyFirmInput = {
+    mtf_id?: number
+    mtf_uuid?: string
+    mtf_own_id: number
+    mtf_jrnl_id?: number | null
+    mtf_from_acc_id: number
+    mtf_trans_date: string
+    mtf_mode?: $Enums.MoneyTransferMode
+    mtf_direction?: $Enums.MoneyTransferDirection
+    mtf_total_amt: number
+    mtf_panel?: string
+    mtf_narration?: string | null
+    mtf_other_info?: string | null
+    mtf_created_at?: Date | string
+    mtf_created_by?: string | null
+    mtf_updated_at?: Date | string
+    mtf_updated_by?: string | null
+    mtf_deleted_at?: Date | string | null
+    mtf_deleted_by?: string | null
+    mtf_is_deleted?: boolean
+  }
+
   export type JournalCreateManyFirmInput = {
     jrnl_id?: number
     jrnl_uuid?: string
@@ -117962,6 +126364,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUpdateManyWithoutBankAccountNestedInput
     relOnline?: GirviReleaseUpdateManyWithoutOnlineAccountNestedInput
     relCard?: GirviReleaseUpdateManyWithoutCardAccountNestedInput
+    mtfFromAccount?: Money_From_TransactionUpdateManyWithoutFromAccountNestedInput
+    mtfFromLines?: Money_Transfer_From_LineUpdateManyWithoutAccountNestedInput
+    mttToAccount?: Money_To_TransactionUpdateManyWithoutToAccountNestedInput
   }
 
   export type AccountUncheckedUpdateWithoutFirmInput = {
@@ -118036,6 +126441,9 @@ export namespace Prisma {
     relBank?: GirviReleaseUncheckedUpdateManyWithoutBankAccountNestedInput
     relOnline?: GirviReleaseUncheckedUpdateManyWithoutOnlineAccountNestedInput
     relCard?: GirviReleaseUncheckedUpdateManyWithoutCardAccountNestedInput
+    mtfFromAccount?: Money_From_TransactionUncheckedUpdateManyWithoutFromAccountNestedInput
+    mtfFromLines?: Money_Transfer_From_LineUncheckedUpdateManyWithoutAccountNestedInput
+    mttToAccount?: Money_To_TransactionUncheckedUpdateManyWithoutToAccountNestedInput
   }
 
   export type AccountUncheckedUpdateManyWithoutFirmInput = {
@@ -118412,6 +126820,75 @@ export namespace Prisma {
     fm_is_deleted?: BoolFieldUpdateOperationsInput | boolean
   }
 
+  export type Money_From_TransactionUpdateWithoutFirmInput = {
+    mtf_uuid?: StringFieldUpdateOperationsInput | string
+    mtf_trans_date?: StringFieldUpdateOperationsInput | string
+    mtf_mode?: EnumMoneyTransferModeFieldUpdateOperationsInput | $Enums.MoneyTransferMode
+    mtf_direction?: EnumMoneyTransferDirectionFieldUpdateOperationsInput | $Enums.MoneyTransferDirection
+    mtf_total_amt?: FloatFieldUpdateOperationsInput | number
+    mtf_panel?: StringFieldUpdateOperationsInput | string
+    mtf_narration?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    mtf_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    mtf_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    mtf_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    owner?: OwnerUpdateOneRequiredWithoutMoneyFromTransactionsNestedInput
+    fromAccount?: AccountUpdateOneRequiredWithoutMtfFromAccountNestedInput
+    journal?: JournalUpdateOneWithoutMoneyFromTransactionsNestedInput
+    fromLines?: Money_Transfer_From_LineUpdateManyWithoutFromTransactionNestedInput
+    toRows?: Money_To_TransactionUpdateManyWithoutFromTransactionNestedInput
+  }
+
+  export type Money_From_TransactionUncheckedUpdateWithoutFirmInput = {
+    mtf_id?: IntFieldUpdateOperationsInput | number
+    mtf_uuid?: StringFieldUpdateOperationsInput | string
+    mtf_own_id?: IntFieldUpdateOperationsInput | number
+    mtf_jrnl_id?: NullableIntFieldUpdateOperationsInput | number | null
+    mtf_from_acc_id?: IntFieldUpdateOperationsInput | number
+    mtf_trans_date?: StringFieldUpdateOperationsInput | string
+    mtf_mode?: EnumMoneyTransferModeFieldUpdateOperationsInput | $Enums.MoneyTransferMode
+    mtf_direction?: EnumMoneyTransferDirectionFieldUpdateOperationsInput | $Enums.MoneyTransferDirection
+    mtf_total_amt?: FloatFieldUpdateOperationsInput | number
+    mtf_panel?: StringFieldUpdateOperationsInput | string
+    mtf_narration?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    mtf_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    mtf_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    mtf_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    fromLines?: Money_Transfer_From_LineUncheckedUpdateManyWithoutFromTransactionNestedInput
+    toRows?: Money_To_TransactionUncheckedUpdateManyWithoutFromTransactionNestedInput
+  }
+
+  export type Money_From_TransactionUncheckedUpdateManyWithoutFirmInput = {
+    mtf_id?: IntFieldUpdateOperationsInput | number
+    mtf_uuid?: StringFieldUpdateOperationsInput | string
+    mtf_own_id?: IntFieldUpdateOperationsInput | number
+    mtf_jrnl_id?: NullableIntFieldUpdateOperationsInput | number | null
+    mtf_from_acc_id?: IntFieldUpdateOperationsInput | number
+    mtf_trans_date?: StringFieldUpdateOperationsInput | string
+    mtf_mode?: EnumMoneyTransferModeFieldUpdateOperationsInput | $Enums.MoneyTransferMode
+    mtf_direction?: EnumMoneyTransferDirectionFieldUpdateOperationsInput | $Enums.MoneyTransferDirection
+    mtf_total_amt?: FloatFieldUpdateOperationsInput | number
+    mtf_panel?: StringFieldUpdateOperationsInput | string
+    mtf_narration?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    mtf_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    mtf_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    mtf_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
   export type JournalUpdateWithoutFirmInput = {
     jrnl_uuid?: StringFieldUpdateOperationsInput | string
     jrnl_add_date?: NullableStringFieldUpdateOperationsInput | string | null
@@ -118427,6 +126904,7 @@ export namespace Prisma {
     jrnl_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     jrnl_is_deleted?: BoolFieldUpdateOperationsInput | boolean
     financeMoneyTransactions?: Finance_Money_TransactionUpdateManyWithoutJournalNestedInput
+    moneyFromTransactions?: Money_From_TransactionUpdateManyWithoutJournalNestedInput
     user?: UserUpdateOneWithoutJournalsNestedInput
     owner?: OwnerUpdateOneRequiredWithoutJournalsNestedInput
     journalTransactions?: JournalTransactionUpdateManyWithoutJournalNestedInput
@@ -118450,6 +126928,7 @@ export namespace Prisma {
     jrnl_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     jrnl_is_deleted?: BoolFieldUpdateOperationsInput | boolean
     financeMoneyTransactions?: Finance_Money_TransactionUncheckedUpdateManyWithoutJournalNestedInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedUpdateManyWithoutJournalNestedInput
     journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutJournalNestedInput
   }
 
@@ -121467,6 +129946,44 @@ export namespace Prisma {
     rel_deleted_at?: Date | string | null
     rel_deleted_by?: string | null
     rel_is_deleted?: boolean
+  }
+
+  export type Money_From_TransactionCreateManyFromAccountInput = {
+    mtf_id?: number
+    mtf_uuid?: string
+    mtf_firm_id: number
+    mtf_own_id: number
+    mtf_jrnl_id?: number | null
+    mtf_trans_date: string
+    mtf_mode?: $Enums.MoneyTransferMode
+    mtf_direction?: $Enums.MoneyTransferDirection
+    mtf_total_amt: number
+    mtf_panel?: string
+    mtf_narration?: string | null
+    mtf_other_info?: string | null
+    mtf_created_at?: Date | string
+    mtf_created_by?: string | null
+    mtf_updated_at?: Date | string
+    mtf_updated_by?: string | null
+    mtf_deleted_at?: Date | string | null
+    mtf_deleted_by?: string | null
+    mtf_is_deleted?: boolean
+  }
+
+  export type Money_Transfer_From_LineCreateManyAccountInput = {
+    mfl_id?: number
+    mfl_uuid?: string
+    mfl_mtf_id: number
+    mfl_amt: number
+    mfl_remarks?: string | null
+  }
+
+  export type Money_To_TransactionCreateManyToAccountInput = {
+    mtt_id?: number
+    mtt_uuid?: string
+    mtt_mtf_id: number
+    mtt_amt: number
+    mtt_remarks?: string | null
   }
 
   export type FinanceUpdateWithoutCashAccountInput = {
@@ -126917,6 +135434,121 @@ export namespace Prisma {
     rel_is_deleted?: BoolFieldUpdateOperationsInput | boolean
   }
 
+  export type Money_From_TransactionUpdateWithoutFromAccountInput = {
+    mtf_uuid?: StringFieldUpdateOperationsInput | string
+    mtf_trans_date?: StringFieldUpdateOperationsInput | string
+    mtf_mode?: EnumMoneyTransferModeFieldUpdateOperationsInput | $Enums.MoneyTransferMode
+    mtf_direction?: EnumMoneyTransferDirectionFieldUpdateOperationsInput | $Enums.MoneyTransferDirection
+    mtf_total_amt?: FloatFieldUpdateOperationsInput | number
+    mtf_panel?: StringFieldUpdateOperationsInput | string
+    mtf_narration?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    mtf_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    mtf_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    mtf_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    firm?: FirmUpdateOneRequiredWithoutMoneyFromTransactionsNestedInput
+    owner?: OwnerUpdateOneRequiredWithoutMoneyFromTransactionsNestedInput
+    journal?: JournalUpdateOneWithoutMoneyFromTransactionsNestedInput
+    fromLines?: Money_Transfer_From_LineUpdateManyWithoutFromTransactionNestedInput
+    toRows?: Money_To_TransactionUpdateManyWithoutFromTransactionNestedInput
+  }
+
+  export type Money_From_TransactionUncheckedUpdateWithoutFromAccountInput = {
+    mtf_id?: IntFieldUpdateOperationsInput | number
+    mtf_uuid?: StringFieldUpdateOperationsInput | string
+    mtf_firm_id?: IntFieldUpdateOperationsInput | number
+    mtf_own_id?: IntFieldUpdateOperationsInput | number
+    mtf_jrnl_id?: NullableIntFieldUpdateOperationsInput | number | null
+    mtf_trans_date?: StringFieldUpdateOperationsInput | string
+    mtf_mode?: EnumMoneyTransferModeFieldUpdateOperationsInput | $Enums.MoneyTransferMode
+    mtf_direction?: EnumMoneyTransferDirectionFieldUpdateOperationsInput | $Enums.MoneyTransferDirection
+    mtf_total_amt?: FloatFieldUpdateOperationsInput | number
+    mtf_panel?: StringFieldUpdateOperationsInput | string
+    mtf_narration?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    mtf_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    mtf_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    mtf_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    fromLines?: Money_Transfer_From_LineUncheckedUpdateManyWithoutFromTransactionNestedInput
+    toRows?: Money_To_TransactionUncheckedUpdateManyWithoutFromTransactionNestedInput
+  }
+
+  export type Money_From_TransactionUncheckedUpdateManyWithoutFromAccountInput = {
+    mtf_id?: IntFieldUpdateOperationsInput | number
+    mtf_uuid?: StringFieldUpdateOperationsInput | string
+    mtf_firm_id?: IntFieldUpdateOperationsInput | number
+    mtf_own_id?: IntFieldUpdateOperationsInput | number
+    mtf_jrnl_id?: NullableIntFieldUpdateOperationsInput | number | null
+    mtf_trans_date?: StringFieldUpdateOperationsInput | string
+    mtf_mode?: EnumMoneyTransferModeFieldUpdateOperationsInput | $Enums.MoneyTransferMode
+    mtf_direction?: EnumMoneyTransferDirectionFieldUpdateOperationsInput | $Enums.MoneyTransferDirection
+    mtf_total_amt?: FloatFieldUpdateOperationsInput | number
+    mtf_panel?: StringFieldUpdateOperationsInput | string
+    mtf_narration?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    mtf_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    mtf_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    mtf_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type Money_Transfer_From_LineUpdateWithoutAccountInput = {
+    mfl_uuid?: StringFieldUpdateOperationsInput | string
+    mfl_amt?: FloatFieldUpdateOperationsInput | number
+    mfl_remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    fromTransaction?: Money_From_TransactionUpdateOneRequiredWithoutFromLinesNestedInput
+  }
+
+  export type Money_Transfer_From_LineUncheckedUpdateWithoutAccountInput = {
+    mfl_id?: IntFieldUpdateOperationsInput | number
+    mfl_uuid?: StringFieldUpdateOperationsInput | string
+    mfl_mtf_id?: IntFieldUpdateOperationsInput | number
+    mfl_amt?: FloatFieldUpdateOperationsInput | number
+    mfl_remarks?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type Money_Transfer_From_LineUncheckedUpdateManyWithoutAccountInput = {
+    mfl_id?: IntFieldUpdateOperationsInput | number
+    mfl_uuid?: StringFieldUpdateOperationsInput | string
+    mfl_mtf_id?: IntFieldUpdateOperationsInput | number
+    mfl_amt?: FloatFieldUpdateOperationsInput | number
+    mfl_remarks?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type Money_To_TransactionUpdateWithoutToAccountInput = {
+    mtt_uuid?: StringFieldUpdateOperationsInput | string
+    mtt_amt?: FloatFieldUpdateOperationsInput | number
+    mtt_remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    fromTransaction?: Money_From_TransactionUpdateOneRequiredWithoutToRowsNestedInput
+  }
+
+  export type Money_To_TransactionUncheckedUpdateWithoutToAccountInput = {
+    mtt_id?: IntFieldUpdateOperationsInput | number
+    mtt_uuid?: StringFieldUpdateOperationsInput | string
+    mtt_mtf_id?: IntFieldUpdateOperationsInput | number
+    mtt_amt?: FloatFieldUpdateOperationsInput | number
+    mtt_remarks?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type Money_To_TransactionUncheckedUpdateManyWithoutToAccountInput = {
+    mtt_id?: IntFieldUpdateOperationsInput | number
+    mtt_uuid?: StringFieldUpdateOperationsInput | string
+    mtt_mtf_id?: IntFieldUpdateOperationsInput | number
+    mtt_amt?: FloatFieldUpdateOperationsInput | number
+    mtt_remarks?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
   export type FinanceCreateManyUserInput = {
     fin_id?: number
     fin_uuid?: string
@@ -127642,6 +136274,7 @@ export namespace Prisma {
     jrnl_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     jrnl_is_deleted?: BoolFieldUpdateOperationsInput | boolean
     financeMoneyTransactions?: Finance_Money_TransactionUpdateManyWithoutJournalNestedInput
+    moneyFromTransactions?: Money_From_TransactionUpdateManyWithoutJournalNestedInput
     firm?: FirmUpdateOneRequiredWithoutJournalsNestedInput
     owner?: OwnerUpdateOneRequiredWithoutJournalsNestedInput
     journalTransactions?: JournalTransactionUpdateManyWithoutJournalNestedInput
@@ -127665,6 +136298,7 @@ export namespace Prisma {
     jrnl_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     jrnl_is_deleted?: BoolFieldUpdateOperationsInput | boolean
     financeMoneyTransactions?: Finance_Money_TransactionUncheckedUpdateManyWithoutJournalNestedInput
+    moneyFromTransactions?: Money_From_TransactionUncheckedUpdateManyWithoutJournalNestedInput
     journalTransactions?: JournalTransactionUncheckedUpdateManyWithoutJournalNestedInput
   }
 
@@ -128690,6 +137324,28 @@ export namespace Prisma {
     fm_is_deleted?: boolean
   }
 
+  export type Money_From_TransactionCreateManyJournalInput = {
+    mtf_id?: number
+    mtf_uuid?: string
+    mtf_firm_id: number
+    mtf_own_id: number
+    mtf_from_acc_id: number
+    mtf_trans_date: string
+    mtf_mode?: $Enums.MoneyTransferMode
+    mtf_direction?: $Enums.MoneyTransferDirection
+    mtf_total_amt: number
+    mtf_panel?: string
+    mtf_narration?: string | null
+    mtf_other_info?: string | null
+    mtf_created_at?: Date | string
+    mtf_created_by?: string | null
+    mtf_updated_at?: Date | string
+    mtf_updated_by?: string | null
+    mtf_deleted_at?: Date | string | null
+    mtf_deleted_by?: string | null
+    mtf_is_deleted?: boolean
+  }
+
   export type JournalTransactionCreateManyJournalInput = {
     jrtr_id?: number
     jrtr_uuid?: string
@@ -128825,6 +137481,75 @@ export namespace Prisma {
     fm_is_deleted?: BoolFieldUpdateOperationsInput | boolean
   }
 
+  export type Money_From_TransactionUpdateWithoutJournalInput = {
+    mtf_uuid?: StringFieldUpdateOperationsInput | string
+    mtf_trans_date?: StringFieldUpdateOperationsInput | string
+    mtf_mode?: EnumMoneyTransferModeFieldUpdateOperationsInput | $Enums.MoneyTransferMode
+    mtf_direction?: EnumMoneyTransferDirectionFieldUpdateOperationsInput | $Enums.MoneyTransferDirection
+    mtf_total_amt?: FloatFieldUpdateOperationsInput | number
+    mtf_panel?: StringFieldUpdateOperationsInput | string
+    mtf_narration?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    mtf_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    mtf_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    mtf_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    firm?: FirmUpdateOneRequiredWithoutMoneyFromTransactionsNestedInput
+    owner?: OwnerUpdateOneRequiredWithoutMoneyFromTransactionsNestedInput
+    fromAccount?: AccountUpdateOneRequiredWithoutMtfFromAccountNestedInput
+    fromLines?: Money_Transfer_From_LineUpdateManyWithoutFromTransactionNestedInput
+    toRows?: Money_To_TransactionUpdateManyWithoutFromTransactionNestedInput
+  }
+
+  export type Money_From_TransactionUncheckedUpdateWithoutJournalInput = {
+    mtf_id?: IntFieldUpdateOperationsInput | number
+    mtf_uuid?: StringFieldUpdateOperationsInput | string
+    mtf_firm_id?: IntFieldUpdateOperationsInput | number
+    mtf_own_id?: IntFieldUpdateOperationsInput | number
+    mtf_from_acc_id?: IntFieldUpdateOperationsInput | number
+    mtf_trans_date?: StringFieldUpdateOperationsInput | string
+    mtf_mode?: EnumMoneyTransferModeFieldUpdateOperationsInput | $Enums.MoneyTransferMode
+    mtf_direction?: EnumMoneyTransferDirectionFieldUpdateOperationsInput | $Enums.MoneyTransferDirection
+    mtf_total_amt?: FloatFieldUpdateOperationsInput | number
+    mtf_panel?: StringFieldUpdateOperationsInput | string
+    mtf_narration?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    mtf_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    mtf_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    mtf_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    fromLines?: Money_Transfer_From_LineUncheckedUpdateManyWithoutFromTransactionNestedInput
+    toRows?: Money_To_TransactionUncheckedUpdateManyWithoutFromTransactionNestedInput
+  }
+
+  export type Money_From_TransactionUncheckedUpdateManyWithoutJournalInput = {
+    mtf_id?: IntFieldUpdateOperationsInput | number
+    mtf_uuid?: StringFieldUpdateOperationsInput | string
+    mtf_firm_id?: IntFieldUpdateOperationsInput | number
+    mtf_own_id?: IntFieldUpdateOperationsInput | number
+    mtf_from_acc_id?: IntFieldUpdateOperationsInput | number
+    mtf_trans_date?: StringFieldUpdateOperationsInput | string
+    mtf_mode?: EnumMoneyTransferModeFieldUpdateOperationsInput | $Enums.MoneyTransferMode
+    mtf_direction?: EnumMoneyTransferDirectionFieldUpdateOperationsInput | $Enums.MoneyTransferDirection
+    mtf_total_amt?: FloatFieldUpdateOperationsInput | number
+    mtf_panel?: StringFieldUpdateOperationsInput | string
+    mtf_narration?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    mtf_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    mtf_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    mtf_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    mtf_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
   export type JournalTransactionUpdateWithoutJournalInput = {
     jrtr_uuid?: StringFieldUpdateOperationsInput | string
     jrtr_add_date?: NullableStringFieldUpdateOperationsInput | string | null
@@ -128897,6 +137622,68 @@ export namespace Prisma {
     jrtr_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     jrtr_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     jrtr_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type Money_Transfer_From_LineCreateManyFromTransactionInput = {
+    mfl_id?: number
+    mfl_uuid?: string
+    mfl_acc_id: number
+    mfl_amt: number
+    mfl_remarks?: string | null
+  }
+
+  export type Money_To_TransactionCreateManyFromTransactionInput = {
+    mtt_id?: number
+    mtt_uuid?: string
+    mtt_to_acc_id: number
+    mtt_amt: number
+    mtt_remarks?: string | null
+  }
+
+  export type Money_Transfer_From_LineUpdateWithoutFromTransactionInput = {
+    mfl_uuid?: StringFieldUpdateOperationsInput | string
+    mfl_amt?: FloatFieldUpdateOperationsInput | number
+    mfl_remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    account?: AccountUpdateOneRequiredWithoutMtfFromLinesNestedInput
+  }
+
+  export type Money_Transfer_From_LineUncheckedUpdateWithoutFromTransactionInput = {
+    mfl_id?: IntFieldUpdateOperationsInput | number
+    mfl_uuid?: StringFieldUpdateOperationsInput | string
+    mfl_acc_id?: IntFieldUpdateOperationsInput | number
+    mfl_amt?: FloatFieldUpdateOperationsInput | number
+    mfl_remarks?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type Money_Transfer_From_LineUncheckedUpdateManyWithoutFromTransactionInput = {
+    mfl_id?: IntFieldUpdateOperationsInput | number
+    mfl_uuid?: StringFieldUpdateOperationsInput | string
+    mfl_acc_id?: IntFieldUpdateOperationsInput | number
+    mfl_amt?: FloatFieldUpdateOperationsInput | number
+    mfl_remarks?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type Money_To_TransactionUpdateWithoutFromTransactionInput = {
+    mtt_uuid?: StringFieldUpdateOperationsInput | string
+    mtt_amt?: FloatFieldUpdateOperationsInput | number
+    mtt_remarks?: NullableStringFieldUpdateOperationsInput | string | null
+    toAccount?: AccountUpdateOneRequiredWithoutMttToAccountNestedInput
+  }
+
+  export type Money_To_TransactionUncheckedUpdateWithoutFromTransactionInput = {
+    mtt_id?: IntFieldUpdateOperationsInput | number
+    mtt_uuid?: StringFieldUpdateOperationsInput | string
+    mtt_to_acc_id?: IntFieldUpdateOperationsInput | number
+    mtt_amt?: FloatFieldUpdateOperationsInput | number
+    mtt_remarks?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type Money_To_TransactionUncheckedUpdateManyWithoutFromTransactionInput = {
+    mtt_id?: IntFieldUpdateOperationsInput | number
+    mtt_uuid?: StringFieldUpdateOperationsInput | string
+    mtt_to_acc_id?: IntFieldUpdateOperationsInput | number
+    mtt_amt?: FloatFieldUpdateOperationsInput | number
+    mtt_remarks?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type AdditionalPrincipalCreateManyGirviInput = {
@@ -130080,6 +138867,10 @@ export namespace Prisma {
      */
     export type JournalCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = JournalCountOutputTypeDefaultArgs<ExtArgs>
     /**
+     * @deprecated Use Money_From_TransactionCountOutputTypeDefaultArgs instead
+     */
+    export type Money_From_TransactionCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = Money_From_TransactionCountOutputTypeDefaultArgs<ExtArgs>
+    /**
      * @deprecated Use GirviCountOutputTypeDefaultArgs instead
      */
     export type GirviCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = GirviCountOutputTypeDefaultArgs<ExtArgs>
@@ -130135,6 +138926,18 @@ export namespace Prisma {
      * @deprecated Use JournalDefaultArgs instead
      */
     export type JournalArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = JournalDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use Money_From_TransactionDefaultArgs instead
+     */
+    export type Money_From_TransactionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = Money_From_TransactionDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use Money_To_TransactionDefaultArgs instead
+     */
+    export type Money_To_TransactionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = Money_To_TransactionDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use Money_Transfer_From_LineDefaultArgs instead
+     */
+    export type Money_Transfer_From_LineArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = Money_Transfer_From_LineDefaultArgs<ExtArgs>
     /**
      * @deprecated Use JournalTransactionDefaultArgs instead
      */

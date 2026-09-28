@@ -8,6 +8,7 @@
   { "perm_key": "account.create", "perm_module": "account", "perm_action": "create", "perm_label": "Create Account", "perm_sort_order": 120 },
   { "perm_key": "account.edit", "perm_module": "account", "perm_action": "edit", "perm_label": "Update Account", "perm_sort_order": 130 },
   { "perm_key": "account.delete", "perm_module": "account", "perm_action": "delete", "perm_label": "Delete Account", "perm_sort_order": 140 },
+  { "perm_key": "account.transfer", "perm_module": "account", "perm_action": "transfer", "perm_label": "Inter-Account Transfer", "perm_sort_order": 145 },
 
   { "perm_key": "staff.view", "perm_module": "staff", "perm_action": "view", "perm_label": "List Staff", "perm_sort_order": 210 },
   { "perm_key": "staff.create", "perm_module": "staff", "perm_action": "create", "perm_label": "Create Staff", "perm_sort_order": 220 },

@@ -12,6 +12,8 @@ router.get("/permissions/catalog", ownerController.getPermissionCatalog);
 router.get("/", ownerController.getOwners);
 router.get("/:uuid/permissions", ownerController.getOwnerPermissions);
 router.patch("/:uuid/permissions", ownerController.updateOwnerPermissions);
+router.post("/:uuid/tenant/apply-migration", ownerController.applyTenantMigration);
+router.post("/:uuid/tenant/apply-seeds", ownerController.applyTenantSeeds);
 router.get("/:uuid", ownerController.getOwnerByUuid);
 router.post("/", upload.single("own_profile_img"), ownerController.createOwner);
 router.patch("/:uuid/status", ownerController.updateOwnerStatus);

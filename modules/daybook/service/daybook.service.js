@@ -4,6 +4,52 @@ const { getTenantPrisma } = require("../../../utils/tenantPrisma");
 const accountService = require("../../account/service/account.service");
 const userService = require("../../user/service/user.service");
 const { calculateFirstMonthInterest } = require("../../../utils/loanInterest");
+const {
+  buildTransferChannelDeltas,
+  buildTransferChannelDeltasLegacy,
+  resolveAccountChannel,
+  formatAccountDisplayName,
+} = require("../../../utils/accountChannel");
+
+function channelsForInterAccountRow(row) {
+  const direction = row.mtf_direction || "CR_TO_DR";
+  if (row.fromLines?.length) {
+    return buildTransferChannelDeltas(
+      row.fromLines.map((line) => ({ account: line.account, amt: line.mfl_amt })),
+      (row.toRows || []).map((item) => ({ account: item.toAccount, amt: item.mtt_amt })),
+      direction
+    );
+  }
+  return buildTransferChannelDeltasLegacy(
+    row.fromAccount,
+    (row.toRows || []).map((item) => ({ account: item.toAccount, amt: item.mtt_amt })),
+    direction
+  );
+}
+
+/** Daybook row columns: net channel shift, or gross on source channel when net is zero (e.g. cash → cash split). */
+function daybookDisplayChannelsForInterAccountRow(row) {
+  const net = channelsForInterAccountRow(row);
+  const gross =
+    Math.abs(net.cash) + Math.abs(net.bank) + Math.abs(net.online) + Math.abs(net.card);
+  if (gross >= 0.01) {
+    return net;
+  }
+  const total =
+    parseFloat(row.mtf_total_amt) ||
+    (row.toRows || []).reduce((sum, item) => sum + (parseFloat(item.mtt_amt) || 0), 0);
+  if (!(total > 0)) {
+    return net;
+  }
+  const fromAcc = row.fromLines?.[0]?.account || row.fromAccount;
+  const key = resolveAccountChannel(fromAcc);
+  return {
+    cash: key === "cash" ? total : 0,
+    bank: key === "bank" ? total : 0,
+    online: key === "online" ? total : 0,
+    card: key === "card" ? total : 0,
+  };
+}
 
 /** Finance money-trans types counted as cash inflows in Day Book + opening balance. */
 const FINANCE_COLLECTION_INFLOW_TYPES = ["PAID", "CLOSE", "FINE", "INTEREST"];
@@ -1514,6 +1560,39 @@ class DaybookService {
       const acc_online_open = parseFloat(all_opening_balances.find(a => a.acc_name === "Online Account")?.acc_cash_balance || 0);
       const acc_card_open = parseFloat(all_opening_balances.find(a => a.acc_name === "Card Account")?.acc_cash_balance || 0);
 
+      const priorInterAccount = await prisma.money_From_Transaction.findMany({
+        where: {
+          mtf_is_deleted: false,
+          ...(firmId && { mtf_firm_id: firmId }),
+          ...(startDate && { mtf_trans_date: { lt: startDate } }),
+        },
+        include: {
+          fromAccount: { select: { acc_name: true, acc_pre_acc: true } },
+          fromLines: {
+            include: {
+              account: { select: { acc_name: true, acc_pre_acc: true } },
+            },
+          },
+          toRows: {
+            include: {
+              toAccount: { select: { acc_name: true, acc_pre_acc: true } },
+            },
+          },
+        },
+      });
+      const sumInterAccount = priorInterAccount.reduce(
+        (acc, row) => {
+          const channels = channelsForInterAccountRow(row);
+          return {
+            cash: acc.cash + channels.cash,
+            bank: acc.bank + channels.bank,
+            online: acc.online + channels.online,
+            card: acc.card + channels.card,
+          };
+        },
+        { cash: 0, bank: 0, online: 0, card: 0 }
+      );
+
       const toNumber = (val) => (parseFloat(val) || 0).toFixed(2);
 
       const inflowCash =
@@ -1574,11 +1653,19 @@ class DaybookService {
         (emiRollback._sum.fm_card_amt || 0) +
         sumTransferIn.card;
 
-      // Formula: Opening = Acc_Opening + Inflows - Outflows
-      const cash_open = toNumber(acc_cash_open + inflowCash - outflowCash);
-      const bank_open = toNumber(acc_bank_open + inflowBank - outflowBank);
-      const online_open = toNumber(acc_online_open + inflowOnline - outflowOnline);
-      const card_open = toNumber(acc_card_open + inflowCard - outflowCard);
+      // Formula: Opening = Acc_Opening + Inflows - Outflows + inter-account net channel shift
+      const cash_open = toNumber(
+        acc_cash_open + inflowCash - outflowCash + sumInterAccount.cash
+      );
+      const bank_open = toNumber(
+        acc_bank_open + inflowBank - outflowBank + sumInterAccount.bank
+      );
+      const online_open = toNumber(
+        acc_online_open + inflowOnline - outflowOnline + sumInterAccount.online
+      );
+      const card_open = toNumber(
+        acc_card_open + inflowCard - outflowCard + sumInterAccount.card
+      );
 
       const total_open = toNumber(parseFloat(cash_open) + parseFloat(bank_open) + parseFloat(online_open) + parseFloat(card_open));
 
@@ -1592,6 +1679,132 @@ class DaybookService {
       };
     } catch (error) {
       return this.handleError(error, "DAYBOOK SUMMARY", "bg-purple", "text-primary", true);
+    }
+  }
+
+  async get_inter_account_transfer_data(dbUrl, filters = {}) {
+    const prisma = this.getPrisma(dbUrl);
+    try {
+      const where = { mtf_is_deleted: false };
+      if (filters.firmId) {
+        where.mtf_firm_id = parseInt(filters.firmId, 10);
+      }
+      if (filters.startDate || filters.endDate) {
+        where.mtf_trans_date = {};
+        if (filters.startDate) where.mtf_trans_date.gte = filters.startDate;
+        if (filters.endDate) where.mtf_trans_date.lte = filters.endDate;
+      }
+
+      const records = await prisma.money_From_Transaction.findMany({
+        where,
+        orderBy: [{ mtf_trans_date: "desc" }, { mtf_id: "desc" }],
+        include: {
+          firm: { select: { firm_name: true } },
+          fromAccount: { select: { acc_id: true, acc_name: true, acc_pre_acc: true } },
+          fromLines: {
+            include: {
+              account: { select: { acc_id: true, acc_name: true, acc_pre_acc: true } },
+            },
+          },
+          toRows: {
+            include: {
+              toAccount: { select: { acc_id: true, acc_name: true, acc_pre_acc: true } },
+            },
+          },
+        },
+      });
+
+      if (records.length === 0) return 0;
+
+      const formatTransferAmt = (value) => (parseFloat(value) || 0).toFixed(2);
+
+      const accountDisplayName = (acc) => formatAccountDisplayName(acc);
+
+      const data = records.map((item) => {
+        const directionTag =
+          item.mtf_direction === "DR_TO_CR" ? "DR → CR" : "CR → DR";
+        const totalAmt = parseFloat(item.mtf_total_amt) || 0;
+
+        const fromAccountName =
+          item.fromLines?.length > 0
+            ? item.fromLines
+                .map((row) => accountDisplayName(row.account))
+                .filter((name) => name && name !== "-")
+                .join(", ") || accountDisplayName(item.fromAccount)
+            : accountDisplayName(item.fromAccount);
+
+        const toLines = (item.toRows || []).map((row) => ({
+          account: accountDisplayName(row.toAccount),
+          amount: formatTransferAmt(row.mtt_amt),
+          remarks: (row.mtt_remarks || "").trim(),
+        }));
+
+        const buildToDescription = () => {
+          if (!toLines.length) return "-";
+          if (item.mtf_mode !== "ONE_TO_MANY" && toLines.length === 1) {
+            const line = toLines[0];
+            const remarkSuffix = line.remarks ? ` (${line.remarks})` : "";
+            return `${line.account} — ₹${line.amount}${remarkSuffix}`;
+          }
+          return toLines
+            .map((line) => {
+              const remarkSuffix = line.remarks ? ` (${line.remarks})` : "";
+              return `${line.account}: ₹${line.amount}${remarkSuffix}`;
+            })
+            .join("; ");
+        };
+
+        const toDescription = buildToDescription();
+        const transferType =
+          item.mtf_mode === "ONE_TO_MANY" || toLines.length > 1
+            ? "One to many"
+            : "One to one";
+
+        return {
+          db_date: this.formatDateToDDMMYYYY(item.mtf_trans_date),
+          db_firm: item.firm?.firm_name || "-",
+          db_direction: directionTag,
+          db_from_account: fromAccountName,
+          db_transfer_type: transferType,
+          db_to_description: toDescription,
+          db_to_lines: toLines,
+          db_transfer_amt: formatTransferAmt(totalAmt),
+          db_narration: (item.mtf_narration || "").trim() || "-",
+          db_mtf_uuid: item.mtf_uuid || "",
+          db_customer_name: `${fromAccountName} → ${toDescription}`,
+          db_cust_id: transferType,
+          db_user_id: "",
+          db_user_uuid: "",
+          db_cash_amt: "0.00",
+          db_bank_amt: "0.00",
+          db_online_amt: "0.00",
+          db_card_amt: "0.00",
+          db_disc_amt: "0.00",
+        };
+      });
+
+      return {
+        title: "INTER-ACCOUNT TRANSFER",
+        colorClass: "bg-purple",
+        amtColor: "text-primary",
+        column: [
+          "DATE",
+          "FIRM",
+          "ENTRY",
+          "FROM ACCOUNT",
+          "TO / SPLIT DETAIL",
+          "AMOUNT",
+          "NARRATION",
+        ],
+        data,
+      };
+    } catch (error) {
+      return this.handleError(
+        error,
+        "INTER-ACCOUNT TRANSFER",
+        "bg-purple",
+        "text-primary"
+      );
     }
   }
 
@@ -1610,6 +1823,7 @@ class DaybookService {
         rollbackEmiData,
         transferLoanOutData,
         transferLoanInData,
+        interAccountTransferData,
         summaryData
       ] = await Promise.all([
         this.get_add_new_finance_data(dbUrl, filters),
@@ -1624,6 +1838,7 @@ class DaybookService {
         this.get_finance_emi_data(dbUrl, "ROLLBACK", "FINANCE EMI ROLLBACK", "bg-secondary", "text-danger", filters),
         this.get_transfer_loan_out_data(dbUrl, filters),
         this.get_transfer_loan_in_data(dbUrl, filters),
+        this.get_inter_account_transfer_data(dbUrl, filters),
         this.get_day_book_summary(dbUrl, filters),
       ]);
 
@@ -1640,6 +1855,7 @@ class DaybookService {
       if (rollbackEmiData !== 0) response_arr.push(rollbackEmiData);
       if (transferLoanOutData !== 0) response_arr.push(transferLoanOutData);
       if (transferLoanInData !== 0) response_arr.push(transferLoanInData);
+      if (interAccountTransferData !== 0) response_arr.push(interAccountTransferData);
 
       return { daybook_data: response_arr, summary: summaryData };
     } catch (error) {
