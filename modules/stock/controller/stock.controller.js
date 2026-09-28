@@ -30,6 +30,30 @@ class StockController {
     }
   }
 
+  async getStockLedger(req, res) {
+    try {
+      const { firmId, startDate, endDate, metalType, itemStatus, loanStatus } =
+        req.query;
+      const dbUrl = this.getDbUrl(req.user.own_db);
+      const rows = await stockService.getStockLedger(dbUrl, {
+        firmId,
+        startDate,
+        endDate,
+        metalType,
+        itemStatus,
+        loanStatus,
+      });
+
+      return res.status(200).json({
+        message: "Stock ledger fetched successfully.",
+        data: rows,
+      });
+    } catch (error) {
+      console.error("❌ Error fetching stock ledger:", error.message);
+      return res.status(500).json({ error: error.message });
+    }
+  }
+
   async createStock(req, res) {
     try {
       const dbUrl = this.getDbUrl(req.user.own_db);

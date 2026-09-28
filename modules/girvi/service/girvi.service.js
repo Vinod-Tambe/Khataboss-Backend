@@ -517,7 +517,16 @@ class GirviService {
     });
   }
 
-  async getGirvis(dbUrl, firmId, userId, status) {
+  async getGirvis(dbUrl, filters = {}) {
+    const {
+      firmId,
+      userId,
+      status,
+      startDate,
+      endDate,
+      girvType,
+      dateScope,
+    } = filters;
     const prisma = this.getPrisma(dbUrl);
     try {
       const where = { girv_is_deleted: false };
@@ -529,6 +538,38 @@ class GirviService {
       }
       if (status && status !== "ALL") {
         where.girv_status = status;
+      }
+      if (girvType && girvType !== "ALL") {
+        where.girv_type = String(girvType).toLowerCase();
+      }
+      const scope = String(dateScope || "open_in_period").toLowerCase();
+      if (startDate && endDate && scope !== "all") {
+        // girv_start_date is stored as String (YYYY-MM-DD) in Prisma — compare as strings
+        const toDateKey = (value) => {
+          if (!value) return null;
+          const s = String(value).trim();
+          if (/^\d{4}-\d{2}-\d{2}/.test(s)) return s.slice(0, 10);
+          const d = new Date(s);
+          if (Number.isNaN(d.getTime())) return null;
+          return d.toISOString().slice(0, 10);
+        };
+        const rangeStart = toDateKey(startDate);
+        const rangeEnd = toDateKey(endDate);
+        if (rangeStart && rangeEnd) {
+          if (scope === "started_in_period") {
+            where.girv_start_date = { gte: rangeStart, lte: rangeEnd };
+          } else {
+            where.AND = [
+              { girv_start_date: { lte: rangeEnd } },
+              {
+                OR: [
+                  { girv_start_date: { gte: rangeStart } },
+                  { girv_status: { in: ["ACTIVE", "AUCTION"] } },
+                ],
+              },
+            ];
+          }
+        }
       }
       const girvis = await prisma.girvi.findMany({
         where,
@@ -602,31 +643,39 @@ class GirviService {
   async getGirviById(dbUrl, girvId) {
     const prisma = this.getPrisma(dbUrl);
     try {
-      const isNum = !isNaN(girvId) && !isNaN(parseInt(girvId));
+      const idStr = String(girvId ?? "").trim();
+      const include = {
+        firm: true,
+        user: true,
+        transferMoneyLender: true,
+      };
+      const isIntId = /^\d+$/.test(idStr);
+      const isUuid =
+        /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(
+          idStr
+        );
+
       let girvi = null;
-      if (isNum) {
+      if (isIntId) {
         girvi = await prisma.girvi.findUnique({
-          where: { girv_id: parseInt(girvId) },
-          include: {
-            firm: true,
-            user: true,
-            transferMoneyLender: true,
-          }
+          where: { girv_id: parseInt(idStr, 10) },
+          include,
         });
-      }
-      if (!girvi && typeof girvId === "string") {
+      } else if (isUuid) {
+        girvi = await prisma.girvi.findUnique({
+          where: { girv_uuid: idStr },
+          include,
+        });
+      } else if (idStr) {
         girvi = await prisma.girvi.findFirst({
           where: {
             OR: [
-              { girv_unique_code: girvId.trim() },
-              { girv_loan_no: girvId.trim() },
+              { girv_unique_code: idStr },
+              { girv_loan_no: idStr },
+              { girv_uuid: idStr },
             ],
           },
-          include: {
-            firm: true,
-            user: true,
-            transferMoneyLender: true,
-          }
+          include,
         });
       }
 

@@ -4,6 +4,14 @@ const express = require("express");
 const router = express.Router();
 const stockController = require("../controller/stock.controller");
 const authenticateOwner = require("../../../middlewares/auth.middleware");
+const requirePermission = require("../../../middlewares/permission.middleware");
+
+router.get(
+  "/ledger",
+  authenticateOwner,
+  requirePermission("loan.view"),
+  (req, res) => stockController.getStockLedger(req, res)
+);
 
 router.post(
   "/",

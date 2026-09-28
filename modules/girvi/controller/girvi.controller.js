@@ -229,9 +229,25 @@ class GirviController {
 
   async getGirvis(req, res) {
     try {
-      const { firmId, userId, status } = req.query;
+      const {
+        firmId,
+        userId,
+        status,
+        startDate,
+        endDate,
+        girvType,
+        dateScope,
+      } = req.query;
       const dbUrl = this.getDbUrl(req.user.own_db);
-      const girvis = await girviService.getGirvis(dbUrl, firmId, userId, status);
+      const girvis = await girviService.getGirvis(dbUrl, {
+        firmId,
+        userId,
+        status,
+        startDate,
+        endDate,
+        girvType,
+        dateScope,
+      });
 
       return res.status(200).json({
         message: "Loans fetched successfully.",
