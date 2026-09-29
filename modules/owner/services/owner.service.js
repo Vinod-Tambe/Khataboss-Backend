@@ -6,6 +6,12 @@ const { hashPassword } = require("../../../common/service/bcrypt.service");
 
 const masterPrisma = getMasterPrisma();
 
+function parseOptionalIntField(value) {
+  if (value === undefined || value === null || value === "") return null;
+  const parsed = parseInt(value, 10);
+  return Number.isNaN(parsed) ? null : parsed;
+}
+
 /**
  * Service to handle owner record operations in both master and tenant databases.
  */
@@ -70,8 +76,8 @@ class OwnerService {
       const hashedPassword = await hashPassword(ownerData.own_password);
       const finalOwnerData = {
         own_db: ownerData.own_db,
-        own_max_firms: ownerData.own_max_firms ?? null,
-        own_max_staff: ownerData.own_max_staff ?? null,
+        own_max_firms: parseOptionalIntField(ownerData.own_max_firms),
+        own_max_staff: parseOptionalIntField(ownerData.own_max_staff),
         own_start_date: ownerData.own_start_date ?? null,
         own_expiry_date: ownerData.own_expiry_date ?? null,
         own_first_name: ownerData.own_first_name,
@@ -122,6 +128,13 @@ class OwnerService {
 
 
       const dataToUpdate = { ...updateData };
+
+      if (Object.prototype.hasOwnProperty.call(dataToUpdate, "own_max_firms")) {
+        dataToUpdate.own_max_firms = parseOptionalIntField(dataToUpdate.own_max_firms);
+      }
+      if (Object.prototype.hasOwnProperty.call(dataToUpdate, "own_max_staff")) {
+        dataToUpdate.own_max_staff = parseOptionalIntField(dataToUpdate.own_max_staff);
+      }
 
       // Hash password if provided
       if (dataToUpdate.own_password) {

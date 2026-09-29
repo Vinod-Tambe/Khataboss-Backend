@@ -8,7 +8,8 @@ const {
   formatAccountDisplayName,
 } = require("../../../utils/accountChannel");
 
-const PANEL_NAME = "Inter-Account Transfer";
+const { PERSONAL_EXPENSE_PANEL_NAME } = require("../../../common/constants/personalExpense");
+const PANEL_NAME = PERSONAL_EXPENSE_PANEL_NAME;
 const MAX_VOUCHER_NARRATION_LENGTH = 200;
 
 function balanceType(acc) {

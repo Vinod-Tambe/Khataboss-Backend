@@ -15,6 +15,21 @@ function roundChannel(value) {
   return parseFloat((parseFloat(value) || 0).toFixed(2));
 }
 
+function isCreditBalanceAccount(account) {
+  return String(account?.acc_balance_type || "DR").toUpperCase() === "CR";
+}
+
+/**
+ * Daybook columns track liquid DR payment accounts (cash / bank / online / card).
+ * CR ledger legs (e.g. Bank OD) are skipped so transfers do not show negative bank.
+ */
+function applyDrLiquidChannelDelta(account, amt, sign, channels) {
+  const amount = parseFloat(amt) || 0;
+  if (!(amount > 0) || !account || isCreditBalanceAccount(account)) return;
+  const key = resolveAccountChannel(account);
+  channels[key] = roundChannel(channels[key] + sign * amount);
+}
+
 /** Ledger label: main account name with primary account in parentheses. */
 function formatAccountDisplayName(account) {
   if (!account) return "-";
@@ -47,15 +62,31 @@ function buildTransferChannelDeltas(fromItems = [], toItems = [], direction = "C
   const fromList = normalizeList(fromItems);
   const toList = normalizeList(toItems);
 
-  for (const item of fromList) {
-    const key = resolveAccountChannel(item.account);
-    channels[key] = roundChannel(channels[key] + (reverse ? item.amt : -item.amt));
-  }
-  for (const item of toList) {
-    const key = resolveAccountChannel(item.account);
-    channels[key] = roundChannel(channels[key] + (reverse ? -item.amt : item.amt));
+  if (!reverse) {
+    // CR → DR: from CR (skip); to DR debited → liquid inflow
+    for (const item of toList) {
+      applyDrLiquidChannelDelta(item.account, item.amt, 1, channels);
+    }
+  } else {
+    // DR → CR: from DR credited → liquid outflow; to CR (skip)
+    for (const item of fromList) {
+      applyDrLiquidChannelDelta(item.account, item.amt, -1, channels);
+    }
   }
 
+  return channels;
+}
+
+/** Sum master opening balances for DR liquid accounts grouped by daybook channel. */
+function sumDrLiquidOpeningByChannel(accounts = []) {
+  const channels = { cash: 0, bank: 0, online: 0, card: 0 };
+  for (const acc of accounts) {
+    if (isCreditBalanceAccount(acc)) continue;
+    const bal = parseFloat(acc.acc_cash_balance || 0);
+    if (!(bal > 0)) continue;
+    const key = resolveAccountChannel(acc);
+    channels[key] = roundChannel(channels[key] + bal);
+  }
   return channels;
 }
 
@@ -74,4 +105,5 @@ module.exports = {
   buildTransferChannelDeltas,
   buildTransferChannelDeltasLegacy,
   formatAccountDisplayName,
+  sumDrLiquidOpeningByChannel,
 };

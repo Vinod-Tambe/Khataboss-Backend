@@ -792,7 +792,7 @@ model Money_From_Transaction {
   mtf_mode       MoneyTransferMode @default(ONE_TO_ONE)
   mtf_direction  MoneyTransferDirection @default(CR_TO_DR)
   mtf_total_amt  Float
-  mtf_panel      String            @default("Inter-Account Transfer")
+  mtf_panel      String            @default("Personal Expense")
   mtf_narration  String?
   mtf_other_info String?
 

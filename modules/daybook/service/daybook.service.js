@@ -9,7 +9,9 @@ const {
   buildTransferChannelDeltasLegacy,
   resolveAccountChannel,
   formatAccountDisplayName,
+  sumDrLiquidOpeningByChannel,
 } = require("../../../utils/accountChannel");
+const { PERSONAL_EXPENSES_DAYBOOK_TITLE } = require("../../../common/constants/personalExpense");
 
 function channelsForInterAccountRow(row) {
   const direction = row.mtf_direction || "CR_TO_DR";
@@ -1555,10 +1557,11 @@ class DaybookService {
         filters.startDate || new Date().toISOString().split("T")[0]
       );
 
-      const acc_cash_open = parseFloat(all_opening_balances.find(a => a.acc_name === "Cash In Hand")?.acc_cash_balance || 0);
-      const acc_bank_open = parseFloat(all_opening_balances.find(a => a.acc_name === "Bank Account")?.acc_cash_balance || 0);
-      const acc_online_open = parseFloat(all_opening_balances.find(a => a.acc_name === "Online Account")?.acc_cash_balance || 0);
-      const acc_card_open = parseFloat(all_opening_balances.find(a => a.acc_name === "Card Account")?.acc_cash_balance || 0);
+      const accOpeningChannels = sumDrLiquidOpeningByChannel(all_opening_balances);
+      const acc_cash_open = accOpeningChannels.cash;
+      const acc_bank_open = accOpeningChannels.bank;
+      const acc_online_open = accOpeningChannels.online;
+      const acc_card_open = accOpeningChannels.card;
 
       const priorInterAccount = await prisma.money_From_Transaction.findMany({
         where: {
@@ -1567,15 +1570,15 @@ class DaybookService {
           ...(startDate && { mtf_trans_date: { lt: startDate } }),
         },
         include: {
-          fromAccount: { select: { acc_name: true, acc_pre_acc: true } },
+          fromAccount: { select: { acc_name: true, acc_pre_acc: true, acc_balance_type: true } },
           fromLines: {
             include: {
-              account: { select: { acc_name: true, acc_pre_acc: true } },
+              account: { select: { acc_name: true, acc_pre_acc: true, acc_balance_type: true } },
             },
           },
           toRows: {
             include: {
-              toAccount: { select: { acc_name: true, acc_pre_acc: true } },
+              toAccount: { select: { acc_name: true, acc_pre_acc: true, acc_balance_type: true } },
             },
           },
         },
@@ -1700,15 +1703,15 @@ class DaybookService {
         orderBy: [{ mtf_trans_date: "desc" }, { mtf_id: "desc" }],
         include: {
           firm: { select: { firm_name: true } },
-          fromAccount: { select: { acc_id: true, acc_name: true, acc_pre_acc: true } },
+          fromAccount: { select: { acc_id: true, acc_name: true, acc_pre_acc: true, acc_balance_type: true } },
           fromLines: {
             include: {
-              account: { select: { acc_id: true, acc_name: true, acc_pre_acc: true } },
+              account: { select: { acc_id: true, acc_name: true, acc_pre_acc: true, acc_balance_type: true } },
             },
           },
           toRows: {
             include: {
-              toAccount: { select: { acc_id: true, acc_name: true, acc_pre_acc: true } },
+              toAccount: { select: { acc_id: true, acc_name: true, acc_pre_acc: true, acc_balance_type: true } },
             },
           },
         },
@@ -1760,6 +1763,8 @@ class DaybookService {
             ? "One to many"
             : "One to one";
 
+        const channelShift = channelsForInterAccountRow(item);
+
         return {
           db_date: this.formatDateToDDMMYYYY(item.mtf_trans_date),
           db_firm: item.firm?.firm_name || "-",
@@ -1771,20 +1776,21 @@ class DaybookService {
           db_transfer_amt: formatTransferAmt(totalAmt),
           db_narration: (item.mtf_narration || "").trim() || "-",
           db_mtf_uuid: item.mtf_uuid || "",
+          db_mtf_direction: item.mtf_direction || "CR_TO_DR",
           db_customer_name: `${fromAccountName} → ${toDescription}`,
           db_cust_id: transferType,
           db_user_id: "",
           db_user_uuid: "",
-          db_cash_amt: "0.00",
-          db_bank_amt: "0.00",
-          db_online_amt: "0.00",
-          db_card_amt: "0.00",
+          db_cash_amt: formatTransferAmt(channelShift.cash),
+          db_bank_amt: formatTransferAmt(channelShift.bank),
+          db_online_amt: formatTransferAmt(channelShift.online),
+          db_card_amt: formatTransferAmt(channelShift.card),
           db_disc_amt: "0.00",
         };
       });
 
       return {
-        title: "INTER-ACCOUNT TRANSFER",
+        title: PERSONAL_EXPENSES_DAYBOOK_TITLE,
         colorClass: "bg-purple",
         amtColor: "text-primary",
         column: [
@@ -1801,7 +1807,7 @@ class DaybookService {
     } catch (error) {
       return this.handleError(
         error,
-        "INTER-ACCOUNT TRANSFER",
+        PERSONAL_EXPENSES_DAYBOOK_TITLE,
         "bg-purple",
         "text-primary"
       );

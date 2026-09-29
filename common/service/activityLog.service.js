@@ -2,6 +2,7 @@
 
 const { getTenantPrisma } = require("../../utils/tenantPrisma");
 const { formatLoanNo, formatFinNo } = require("../../utils/journalNarration");
+const { PERSONAL_EXPENSE_PANEL_NAME } = require("../constants/personalExpense");
 
 const GLOBAL_FIRM_ID = 0;
 
@@ -252,14 +253,14 @@ const descriptions = {
     const from = row?.from_account?.acc_name || "Source";
     const to = row?.destination_label || "Destination";
     return appendLoggedAt(
-      `${row?.mtf_panel || "Inter-Account Transfer"} #${row?.mtf_id || "—"}: ${from} → ${to}. Amount: ${fmtAmt(row?.mtf_total_amt)}.`,
+      `${row?.mtf_panel || PERSONAL_EXPENSE_PANEL_NAME} #${row?.mtf_id || "—"}: ${from} → ${to}. Amount: ${fmtAmt(row?.mtf_total_amt)}.`,
       loggedAt
     );
   },
 
   moneyTransferDeleted(mtId, amount, loggedAt) {
     return appendLoggedAt(
-      `Inter-Account Transfer #${mtId || "—"} deleted. Amount: ${fmtAmt(amount)}.`,
+      `${PERSONAL_EXPENSE_PANEL_NAME} #${mtId || "—"} deleted. Amount: ${fmtAmt(amount)}.`,
       loggedAt
     );
   },

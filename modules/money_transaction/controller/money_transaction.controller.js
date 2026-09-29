@@ -1,6 +1,7 @@
 "use strict";
 
 const moneyTransactionService = require("../service/money_transaction.service");
+const { PERSONAL_EXPENSE_PANEL_NAME } = require("../../../common/constants/personalExpense");
 const { BASE_URL } = require("../../../config/db");
 const {
   logActivity,
@@ -23,7 +24,7 @@ class MoneyTransactionController {
         firmId: req.body.mtf_firm_id || req.body.mt_firm_id,
         module: MODULE.ACCOUNT,
         action: ACTION.TRANSFER,
-        subject: "Inter-Account Transfer",
+        subject: PERSONAL_EXPENSE_PANEL_NAME,
         description: (at) => descriptions.moneyTransferCreated(data, at),
         entityType: "money_from_transaction",
         entityId: data.mtf_id,
@@ -82,7 +83,7 @@ class MoneyTransactionController {
         firmId: deleted.mtf_firm_id,
         module: MODULE.ACCOUNT,
         action: ACTION.DELETE,
-        subject: "Inter-Account Transfer Deleted",
+        subject: `${PERSONAL_EXPENSE_PANEL_NAME} Deleted`,
         description: (at) =>
           descriptions.moneyTransferDeleted(deleted.mtf_id, deleted.mtf_total_amt, at),
         entityType: "money_from_transaction",
