@@ -1,8 +1,8 @@
 "use strict";
 
-const { getMasterPrisma } = require("../../../utils/masterPrisma");
+const { getMasterPrisma, resetMasterPrisma } = require("../../../utils/masterPrisma");
 
-const masterPrisma = getMasterPrisma();
+const prisma = () => getMasterPrisma();
 
 const ANNOUNCEMENT_TYPES = new Set([
   "Notice",
@@ -27,6 +27,7 @@ class AnnouncementService {
     if (!row) return null;
     return {
       ann_uuid: row.ann_uuid,
+      ann_template_key: row.ann_template_key || null,
       ann_title: row.ann_title,
       ann_body: row.ann_body,
       ann_type: row.ann_type || "Notice",
@@ -56,7 +57,7 @@ class AnnouncementService {
     ];
 
     const admins = loginIds.length
-      ? await masterPrisma.admin.findMany({
+      ? await prisma().admin.findMany({
           where: {
             admin_login_id: { in: loginIds },
             admin_is_deleted: false,
@@ -205,8 +206,57 @@ class AnnouncementService {
     return data;
   }
 
+  mapTemplateScheduleUpdate(body = {}, adminLoginId = "Admin", existing = null) {
+    if (!existing?.ann_template_key) return null;
+
+    const blocked = ["ann_title", "ann_body", "ann_type", "ann_sort_order", "ann_is_pinned"];
+    for (const field of blocked) {
+      if (body[field] !== undefined) {
+        const error = new Error(
+          "System announcement templates can only be scheduled with start and end dates."
+        );
+        error.statusCode = 400;
+        throw error;
+      }
+    }
+
+    if (body.ann_publish_at === undefined && body.ann_expires_at === undefined) {
+      const error = new Error("Start date and end date are required.");
+      error.statusCode = 400;
+      throw error;
+    }
+
+    const data = { ann_updated_by: adminLoginId };
+
+    if (body.ann_publish_at !== undefined) {
+      data.ann_publish_at = this.parseDate(body.ann_publish_at);
+    }
+    if (body.ann_expires_at !== undefined) {
+      data.ann_expires_at = body.ann_expires_at
+        ? this.parseDate(body.ann_expires_at)
+        : null;
+    }
+
+    const publishAt =
+      data.ann_publish_at !== undefined ? data.ann_publish_at : existing.ann_publish_at;
+    const expiresAt =
+      data.ann_expires_at !== undefined ? data.ann_expires_at : existing.ann_expires_at;
+
+    this.assertSchedule(publishAt, expiresAt);
+
+    data.ann_status = "Active";
+    return data;
+  }
+
+  async seedSystemTemplates() {
+    const { seedAnnouncementTemplates } = require("../../../prisma/seeder/announcement-template-seeder");
+    const stats = await seedAnnouncementTemplates(getMasterPrisma());
+    await resetMasterPrisma();
+    return stats;
+  }
+
   async getAll() {
-    const rows = await masterPrisma.announcement.findMany({
+    const rows = await prisma().announcement.findMany({
       where: { ann_is_deleted: false },
       orderBy: [
         { ann_is_pinned: "desc" },
@@ -219,7 +269,7 @@ class AnnouncementService {
 
   async getActiveFeed() {
     const now = new Date();
-    const rows = await masterPrisma.announcement.findMany({
+    const rows = await prisma().announcement.findMany({
       where: {
         ann_is_deleted: false,
         ann_status: "Active",
@@ -236,22 +286,33 @@ class AnnouncementService {
     return this.enrichWithPublisher(rows);
   }
 
+  /**
+   * Public feed for login banner. Announcements are informational only — never gate auth.
+   */
+  async getPublicFeed({ softwareOnly = false } = {}) {
+    const rows = await this.getActiveFeed();
+    if (!softwareOnly) return rows;
+    return rows.filter((row) =>
+      String(row.ann_template_key || "").startsWith("software_")
+    );
+  }
+
   async getByUuid(uuid) {
-    const row = await masterPrisma.announcement.findFirst({
+    const row = await prisma().announcement.findFirst({
       where: { ann_uuid: uuid, ann_is_deleted: false },
     });
     return this.serialize(row);
   }
 
   async create(body, adminLoginId) {
-    const created = await masterPrisma.announcement.create({
+    const created = await prisma().announcement.create({
       data: this.mapCreateData(body, adminLoginId),
     });
     return this.serialize(created);
   }
 
   async update(uuid, body, adminLoginId) {
-    const existing = await masterPrisma.announcement.findFirst({
+    const existing = await prisma().announcement.findFirst({
       where: { ann_uuid: uuid, ann_is_deleted: false },
     });
     if (!existing) {
@@ -260,15 +321,17 @@ class AnnouncementService {
       throw error;
     }
 
-    const updated = await masterPrisma.announcement.update({
+    const updated = await prisma().announcement.update({
       where: { ann_id: existing.ann_id },
-      data: this.mapUpdateData(body, adminLoginId, existing),
+      data: existing.ann_template_key
+        ? this.mapTemplateScheduleUpdate(body, adminLoginId, existing)
+        : this.mapUpdateData(body, adminLoginId, existing),
     });
     return this.serialize(updated);
   }
 
   async delete(uuid, adminLoginId) {
-    const existing = await masterPrisma.announcement.findFirst({
+    const existing = await prisma().announcement.findFirst({
       where: { ann_uuid: uuid, ann_is_deleted: false },
     });
     if (!existing) {
@@ -277,7 +340,15 @@ class AnnouncementService {
       throw error;
     }
 
-    await masterPrisma.announcement.update({
+    if (existing.ann_template_key) {
+      const error = new Error(
+        "System templates cannot be deleted. Update the start/end dates or contact support."
+      );
+      error.statusCode = 400;
+      throw error;
+    }
+
+    await prisma().announcement.update({
       where: { ann_id: existing.ann_id },
       data: {
         ann_is_deleted: true,

@@ -239,6 +239,7 @@ exports.Prisma.PlanScalarFieldEnum = {
 exports.Prisma.AnnouncementScalarFieldEnum = {
   ann_id: 'ann_id',
   ann_uuid: 'ann_uuid',
+  ann_template_key: 'ann_template_key',
   ann_title: 'ann_title',
   ann_body: 'ann_body',
   ann_type: 'ann_type',

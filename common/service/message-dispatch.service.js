@@ -112,6 +112,7 @@ class MessageDispatchService {
     actor,
     sendWhatsApp = true,
     sendEmail = true,
+    sendSms = false,
   }) {
     const prisma = getTenantPrisma(dbUrl);
     const ownDbName = ownDb || this.ownDbFromUrl(dbUrl);
@@ -126,7 +127,7 @@ class MessageDispatchService {
     const mergedVars = { ...vars, firm_name: firmName };
     const ownId = firm?.firm_own_id || vars.own_id || 0;
 
-    const results = { whatsapp: null, email: null };
+    const results = { whatsapp: null, email: null, sms: null };
 
     let runtimeAttachment = null;
     if (documentPath && fs.existsSync(documentPath)) {
@@ -274,6 +275,46 @@ class MessageDispatchService {
           });
         }
       }
+      }
+    }
+
+    if (sendSms && toPhone) {
+      const tpl = await this.getTemplate(prisma, firmIdInt, "text", templateKey);
+      if (!tpl) {
+        results.sms = {
+          success: false,
+          skipped: true,
+          message: `SMS template "${templateKey}" not found`,
+        };
+      } else {
+        const hasHtml = /<[a-z][\s\S]*>/i.test(String(tpl.mt_body || ""));
+        const rendered = renderTemplate(tpl.mt_body, mergedVars);
+        const smsBody = hasHtml
+          ? messageFormat.htmlToPlainText(rendered)
+          : String(rendered || "").trim();
+        const parts = Math.max(1, Math.ceil(smsBody.length / 160));
+
+        results.sms = {
+          success: true,
+          preview: true,
+          gatewayConnected: false,
+          message:
+            "SMS formatted. Open your phone SMS app to send, or configure an SMS gateway later.",
+          formattedBody: smsBody,
+          parts,
+          characters: smsBody.length,
+        };
+
+        await this.logMessage(prisma, {
+          ml_own_id: ownId,
+          ml_firm_id: firmIdInt,
+          ml_channel: "sms",
+          ml_template_key: templateKey,
+          ml_to: String(toPhone),
+          ml_status: "preview",
+          ml_error: "SMS gateway not configured",
+          ml_meta: { actor: actor || null, parts, preview: smsBody.slice(0, 500) },
+        });
       }
     }
 

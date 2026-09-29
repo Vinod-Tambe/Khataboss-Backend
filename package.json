@@ -12,6 +12,7 @@
     "generate:main": "prisma generate --schema=prisma/schema/main/schema.prisma",
     "seed": "node -e \"require('./config/db'); const s = require('./prisma/seeder/admin-seeder'); s.seedAdmin().then(() => s.seedDbSeries()).then(() => s.seedPlans()).then(() => s.seedAllTenantsSerialNumbers())\"",
     "seed:plans": "node -e \"require('./config/db'); require('./prisma/seeder/plan-seeder').seedPlans()\"",
+    "seed:announcements": "node -e \"require('./config/db'); require('./prisma/seeder/announcement-template-seeder').seedAnnouncementTemplates()\"",
     "sync": "node scripts/sync-tenants.js"
   },
   "author": "",

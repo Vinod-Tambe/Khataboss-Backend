@@ -234,4 +234,6 @@ router.post("/change-password", authenticateOwner, (req, res) =>
   authController.changePassword(req, res)
 );
 
+router.post("/logout", authenticateOwner, (req, res) => authController.logout(req, res));
+
 module.exports = router;

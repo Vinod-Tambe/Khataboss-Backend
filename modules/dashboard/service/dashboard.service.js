@@ -4,9 +4,6 @@ const { Prisma } = require("../../../prisma/generated/main");
 const { getTenantPrisma } = require("../../../utils/tenantPrisma");
 const girviService = require("../../girvi/service/girvi.service");
 
-const MONTH_LABELS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-const DAY_LABELS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-
 const CLOSED_FINANCE_STATUSES = ["CLOSED", "COMPLETED", "INACTIVE"];
 
 function parseFirmId(firmId) {
@@ -20,31 +17,107 @@ function parseUserId(userId) {
   return Number.isNaN(id) ? undefined : id;
 }
 
-function emptySeries(length) {
-  return Array.from({ length }, () => 0);
+function sumStatusCounts(groups, statusKey, countKey) {
+  const map = new Map();
+  for (const row of groups) {
+    const status = String(row[statusKey] || "").toUpperCase();
+    const count = row._count?.[countKey] || 0;
+    map.set(status, (map.get(status) || 0) + count);
+  }
+  return map;
 }
 
-function fillMonthlySeries(rows, valueKey = "count") {
-  const series = emptySeries(12);
-  rows.forEach((row) => {
-    const monthIndex = Number(row.month) - 1;
-    if (monthIndex >= 0 && monthIndex < 12) {
-      series[monthIndex] = Number(row[valueKey]) || 0;
-    }
+function formatPeriodBucketLabel(bucket, period) {
+  if (period === "year") return String(bucket);
+  const d = bucket instanceof Date ? bucket : new Date(bucket);
+  if (Number.isNaN(d.getTime())) return String(bucket);
+  if (period === "month") {
+    return d.toLocaleDateString("en-IN", { month: "short", year: "numeric" });
+  }
+  return d.toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" });
+}
+
+function mapLastFivePeriodRows(rows, period) {
+  const ordered = [...rows].sort((a, b) => {
+    if (period === "year") return Number(a.bucket) - Number(b.bucket);
+    const av = a.bucket instanceof Date ? a.bucket.getTime() : new Date(a.bucket).getTime();
+    const bv = b.bucket instanceof Date ? b.bucket.getTime() : new Date(b.bucket).getTime();
+    return av - bv;
   });
-  return series;
+  return {
+    categories: ordered.map((r) => formatPeriodBucketLabel(r.bucket, period)),
+    counts: ordered.map((r) => Number(r.count) || 0),
+  };
 }
 
-function fillYearlySeries(rows, years, valueKey = "count") {
-  const map = new Map(rows.map((r) => [Number(r.year), Number(r[valueKey]) || 0]));
-  return years.map((year) => map.get(year) || 0);
+async function fetchLoanLastFive(prisma, fId, period) {
+  const firmSql = fId ? Prisma.sql`AND girv_firm_id = ${fId}` : Prisma.empty;
+  if (period === "day") {
+    const rows = await prisma.$queryRaw`
+      SELECT DATE(girv_created_at) AS bucket, COUNT(*)::int AS count
+      FROM girvi
+      WHERE girv_is_deleted = false
+      ${firmSql}
+      GROUP BY 1
+      ORDER BY 1 DESC
+      LIMIT 5`;
+    return mapLastFivePeriodRows(rows, period);
+  }
+  if (period === "month") {
+    const rows = await prisma.$queryRaw`
+      SELECT date_trunc('month', girv_created_at) AS bucket, COUNT(*)::int AS count
+      FROM girvi
+      WHERE girv_is_deleted = false
+      ${firmSql}
+      GROUP BY 1
+      ORDER BY 1 DESC
+      LIMIT 5`;
+    return mapLastFivePeriodRows(rows, period);
+  }
+  const rows = await prisma.$queryRaw`
+    SELECT EXTRACT(YEAR FROM girv_created_at)::int AS bucket, COUNT(*)::int AS count
+    FROM girvi
+    WHERE girv_is_deleted = false
+    ${firmSql}
+    GROUP BY 1
+    ORDER BY 1 DESC
+    LIMIT 5`;
+  return mapLastFivePeriodRows(rows, period);
 }
 
-function fillWeeklySeries(rows, weekStarts) {
-  const map = new Map(
-    rows.map((r) => [new Date(r.week_start).toISOString().slice(0, 10), Number(r.total) || 0])
-  );
-  return weekStarts.map((d) => map.get(d.toISOString().slice(0, 10)) || 0);
+async function fetchFinanceLastFive(prisma, fId, period) {
+  const firmSql = fId ? Prisma.sql`AND fin_firm_id = ${fId}` : Prisma.empty;
+  if (period === "day") {
+    const rows = await prisma.$queryRaw`
+      SELECT DATE(fin_created_at) AS bucket, COUNT(*)::int AS count
+      FROM finance
+      WHERE fin_is_deleted = false
+      ${firmSql}
+      GROUP BY 1
+      ORDER BY 1 DESC
+      LIMIT 5`;
+    return mapLastFivePeriodRows(rows, period);
+  }
+  if (period === "month") {
+    const rows = await prisma.$queryRaw`
+      SELECT date_trunc('month', fin_created_at) AS bucket, COUNT(*)::int AS count
+      FROM finance
+      WHERE fin_is_deleted = false
+      ${firmSql}
+      GROUP BY 1
+      ORDER BY 1 DESC
+      LIMIT 5`;
+    return mapLastFivePeriodRows(rows, period);
+  }
+  const rows = await prisma.$queryRaw`
+    SELECT EXTRACT(YEAR FROM fin_created_at)::int AS bucket, COUNT(*)::int AS count
+    FROM finance
+    WHERE fin_is_deleted = false
+    ${firmSql}
+    GROUP BY 1
+    ORDER BY 1 DESC
+    LIMIT 5`;
+  return mapLastFivePeriodRows(rows, period);
 }
 
 function sumGroupByStats(groups, activeStatus, closedStatuses, countKey, sumKey) {
@@ -162,199 +235,75 @@ class DashboardService {
   async getOwnerDashboard(dbUrl, firmId) {
     const prisma = getTenantPrisma(dbUrl);
     const fId = parseFirmId(firmId);
-    const now = new Date();
-    const currentYear = now.getFullYear();
-    const yearStart = new Date(currentYear, 0, 1);
-    const firmFinanceSql = fId ? Prisma.sql`AND fin_firm_id = ${fId}` : Prisma.empty;
-    const firmGirviSql = fId ? Prisma.sql`AND girv_firm_id = ${fId}` : Prisma.empty;
-    const firmDepSql = fId ? Prisma.sql`AND dep_firm_id = ${fId}` : Prisma.empty;
-    const firmRelSql = fId ? Prisma.sql`AND rel_firm_id = ${fId}` : Prisma.empty;
-    const firmFmtSql = fId ? Prisma.sql`AND fm_firm_id = ${fId}` : Prisma.empty;
-
-    const weekStarts = [];
-    for (let i = 3; i >= 0; i -= 1) {
-      const d = new Date(now);
-      d.setDate(d.getDate() - i * 7);
-      d.setHours(0, 0, 0, 0);
-      weekStarts.push(new Date(d));
-    }
-    const weeklyFrom = weekStarts[0];
-
-    const yearlyFrom = new Date(currentYear - 4, 0, 1);
-    const years = Array.from({ length: 5 }, (_, i) => currentYear - 4 + i);
-
-    const last7Start = new Date(now);
-    last7Start.setDate(last7Start.getDate() - 6);
-    last7Start.setHours(0, 0, 0, 0);
+    const loanWhere = { girv_is_deleted: false, ...(fId && { girv_firm_id: fId }) };
+    const financeWhere = { fin_is_deleted: false, ...(fId && { fin_firm_id: fId }) };
+    const userWhere = { user_is_deleted: false, ...(fId && { user_firm_id: fId }) };
 
     const [
-      totalFinance,
-      totalLoan,
+      loanGroups,
+      financeGroups,
       totalUsers,
       totalStaff,
-      financeMonthlyCount,
-      girviMonthlyCount,
-      financeMonthlyAmt,
-      girviMonthlyAmt,
-      financeWeeklyCount,
-      girviWeeklyCount,
-      financeWeeklyAmt,
-      girviWeeklyAmt,
-      financeYearlyCount,
-      girviYearlyCount,
-      financeYearlyAmt,
-      girviYearlyAmt,
-      profitRows,
-      lossRows,
-      depDaily,
-      relDaily,
-      fmtDaily,
+      loanLastDay,
+      loanLastMonth,
+      loanLastYear,
+      financeLastDay,
+      financeLastMonth,
+      financeLastYear,
     ] = await Promise.all([
-      prisma.finance.count({ where: { fin_is_deleted: false, ...(fId && { fin_firm_id: fId }) } }),
-      prisma.girvi.count({ where: { girv_is_deleted: false, ...(fId && { girv_firm_id: fId }) } }),
-      prisma.user.count({ where: { user_is_deleted: false, ...(fId && { user_firm_id: fId }) } }),
+      prisma.girvi.groupBy({
+        by: ["girv_status"],
+        where: loanWhere,
+        _count: { girv_id: true },
+      }),
+      prisma.finance.groupBy({
+        by: ["fin_status"],
+        where: financeWhere,
+        _count: { fin_id: true },
+      }),
+      prisma.user.count({ where: userWhere }),
       prisma.staff.count({ where: { staff_is_deleted: false } }),
-
-      prisma.$queryRaw`
-        SELECT EXTRACT(MONTH FROM fin_created_at)::int AS month, COUNT(*)::int AS count
-        FROM finance
-        WHERE fin_is_deleted = false AND fin_created_at >= ${yearStart}
-        ${firmFinanceSql}
-        GROUP BY 1 ORDER BY 1`,
-      prisma.$queryRaw`
-        SELECT EXTRACT(MONTH FROM girv_created_at)::int AS month, COUNT(*)::int AS count
-        FROM girvi
-        WHERE girv_is_deleted = false AND girv_created_at >= ${yearStart}
-        ${firmGirviSql}
-        GROUP BY 1 ORDER BY 1`,
-      prisma.$queryRaw`
-        SELECT EXTRACT(MONTH FROM fin_created_at)::int AS month, COALESCE(SUM(fin_prin_amt), 0)::float AS amount
-        FROM finance
-        WHERE fin_is_deleted = false AND fin_created_at >= ${yearStart}
-        ${firmFinanceSql}
-        GROUP BY 1 ORDER BY 1`,
-      prisma.$queryRaw`
-        SELECT EXTRACT(MONTH FROM girv_created_at)::int AS month, COALESCE(SUM(girv_prin_amt), 0)::float AS amount
-        FROM girvi
-        WHERE girv_is_deleted = false AND girv_created_at >= ${yearStart}
-        ${firmGirviSql}
-        GROUP BY 1 ORDER BY 1`,
-
-      prisma.$queryRaw`
-        SELECT date_trunc('week', fin_created_at) AS week_start, COUNT(*)::int AS total
-        FROM finance
-        WHERE fin_is_deleted = false AND fin_created_at >= ${weeklyFrom}
-        ${firmFinanceSql}
-        GROUP BY 1 ORDER BY 1`,
-      prisma.$queryRaw`
-        SELECT date_trunc('week', girv_created_at) AS week_start, COUNT(*)::int AS total
-        FROM girvi
-        WHERE girv_is_deleted = false AND girv_created_at >= ${weeklyFrom}
-        ${firmGirviSql}
-        GROUP BY 1 ORDER BY 1`,
-      prisma.$queryRaw`
-        SELECT date_trunc('week', fin_created_at) AS week_start, COALESCE(SUM(fin_prin_amt), 0)::float AS total
-        FROM finance
-        WHERE fin_is_deleted = false AND fin_created_at >= ${weeklyFrom}
-        ${firmFinanceSql}
-        GROUP BY 1 ORDER BY 1`,
-      prisma.$queryRaw`
-        SELECT date_trunc('week', girv_created_at) AS week_start, COALESCE(SUM(girv_prin_amt), 0)::float AS total
-        FROM girvi
-        WHERE girv_is_deleted = false AND girv_created_at >= ${weeklyFrom}
-        ${firmGirviSql}
-        GROUP BY 1 ORDER BY 1`,
-
-      prisma.$queryRaw`
-        SELECT EXTRACT(YEAR FROM fin_created_at)::int AS year, COUNT(*)::int AS count
-        FROM finance
-        WHERE fin_is_deleted = false AND fin_created_at >= ${yearlyFrom}
-        ${firmFinanceSql}
-        GROUP BY 1 ORDER BY 1`,
-      prisma.$queryRaw`
-        SELECT EXTRACT(YEAR FROM girv_created_at)::int AS year, COUNT(*)::int AS count
-        FROM girvi
-        WHERE girv_is_deleted = false AND girv_created_at >= ${yearlyFrom}
-        ${firmGirviSql}
-        GROUP BY 1 ORDER BY 1`,
-      prisma.$queryRaw`
-        SELECT EXTRACT(YEAR FROM fin_created_at)::int AS year, COALESCE(SUM(fin_prin_amt), 0)::float AS amount
-        FROM finance
-        WHERE fin_is_deleted = false AND fin_created_at >= ${yearlyFrom}
-        ${firmFinanceSql}
-        GROUP BY 1 ORDER BY 1`,
-      prisma.$queryRaw`
-        SELECT EXTRACT(YEAR FROM girv_created_at)::int AS year, COALESCE(SUM(girv_prin_amt), 0)::float AS amount
-        FROM girvi
-        WHERE girv_is_deleted = false AND girv_created_at >= ${yearlyFrom}
-        ${firmGirviSql}
-        GROUP BY 1 ORDER BY 1`,
-
-      prisma.$queryRaw`
-        SELECT EXTRACT(YEAR FROM dep_created_at)::int AS year,
-               COALESCE(SUM(dep_int_amt), 0)::float AS profit
-        FROM girvi_deposit
-        WHERE dep_is_deleted = false AND dep_created_at >= ${yearlyFrom}
-        ${firmDepSql}
-        GROUP BY 1 ORDER BY 1`,
-      prisma.$queryRaw`
-        SELECT EXTRACT(YEAR FROM rel_created_at)::int AS year,
-               COALESCE(SUM(rel_disc_amt), 0)::float AS loss
-        FROM girvi_release
-        WHERE rel_is_deleted = false AND rel_created_at >= ${yearlyFrom}
-        ${firmRelSql}
-        GROUP BY 1 ORDER BY 1`,
-
-      prisma.$queryRaw`
-        SELECT DATE(dep_created_at) AS day,
-               COALESCE(SUM(COALESCE(dep_payable_amt, dep_prin_amt + dep_int_amt)), 0)::float AS amount
-        FROM girvi_deposit
-        WHERE dep_is_deleted = false AND dep_created_at >= ${last7Start}
-        ${firmDepSql}
-        GROUP BY 1 ORDER BY 1`,
-      prisma.$queryRaw`
-        SELECT DATE(rel_created_at) AS day,
-               COALESCE(SUM(COALESCE(rel_payable_amt, rel_prin_amt)), 0)::float AS amount
-        FROM girvi_release
-        WHERE rel_is_deleted = false AND rel_created_at >= ${last7Start}
-        ${firmRelSql}
-        GROUP BY 1 ORDER BY 1`,
-      prisma.$queryRaw`
-        SELECT DATE(COALESCE(NULLIF(BTRIM(fm_trans_date), '')::timestamp, fm_created_at)) AS day,
-               COALESCE(SUM(fm_trans_amt), 0)::float AS amount
-        FROM finance_money_trans
-        WHERE fm_is_deleted = false
-          AND COALESCE(NULLIF(BTRIM(fm_trans_date), '')::timestamp, fm_created_at) >= ${last7Start}
-        ${firmFmtSql}
-        GROUP BY 1 ORDER BY 1`,
+      fetchLoanLastFive(prisma, fId, "day"),
+      fetchLoanLastFive(prisma, fId, "month"),
+      fetchLoanLastFive(prisma, fId, "year"),
+      fetchFinanceLastFive(prisma, fId, "day"),
+      fetchFinanceLastFive(prisma, fId, "month"),
+      fetchFinanceLastFive(prisma, fId, "year"),
     ]);
 
-    const last7Days = [];
-    for (let i = 6; i >= 0; i -= 1) {
-      const d = new Date(now);
-      d.setDate(d.getDate() - i);
-      d.setHours(0, 0, 0, 0);
-      const key = d.toISOString().slice(0, 10);
-      const loanAmt =
-        (depDaily.find((r) => new Date(r.day).toISOString().slice(0, 10) === key)?.amount || 0) +
-        (relDaily.find((r) => new Date(r.day).toISOString().slice(0, 10) === key)?.amount || 0);
-      const financeAmt =
-        fmtDaily.find((r) => new Date(r.day).toISOString().slice(0, 10) === key)?.amount || 0;
-      last7Days.push({
-        day: DAY_LABELS[d.getDay()],
-        date: key,
-        loan: Number(loanAmt) || 0,
-        finance: Number(financeAmt) || 0,
-      });
-    }
+    const loanStatus = sumStatusCounts(loanGroups, "girv_status", "girv_id");
+    const activeLoans = loanStatus.get("ACTIVE") || 0;
+    const auctionLoans = loanStatus.get("AUCTION") || 0;
+    const releaseLoans = loanStatus.get("RELEASED") || 0;
+    const transferLoans = loanStatus.get("TRANSFERRED") || 0;
+    const closedLoans = loanStatus.get("CLOSED") || 0;
+    const totalLoan =
+      activeLoans + auctionLoans + releaseLoans + transferLoans + closedLoans;
 
-    const profitMap = new Map(profitRows.map((r) => [Number(r.year), Number(r.profit) || 0]));
-    const lossMap = new Map(lossRows.map((r) => [Number(r.year), Number(r.loss) || 0]));
-    const profitLoss = years.map((year) => ({
-      year: String(year),
-      profit: profitMap.get(year) || 0,
-      loss: lossMap.get(year) || 0,
-    }));
+    const financeStatus = sumStatusCounts(financeGroups, "fin_status", "fin_id");
+    const activeFinance =
+      (financeStatus.get("ACTIVE") || 0) + (financeStatus.get("PARTIAL") || 0);
+    let closedFinance = 0;
+    for (const st of CLOSED_FINANCE_STATUSES) {
+      closedFinance += financeStatus.get(st) || 0;
+    }
+    const totalFinance = activeFinance + closedFinance;
+
+    const loanPieLabels = [
+      "Active Loans",
+      "Auction Loans",
+      "Release Loans",
+      "Transfer Loans",
+    ];
+    const loanPieSeries = [
+      activeLoans,
+      auctionLoans,
+      releaseLoans,
+      transferLoans,
+    ];
+
+    const financePieLabels = ["Active Finance", "Close Finance"];
+    const financePieSeries = [activeFinance, closedFinance];
 
     return {
       cards: {
@@ -364,42 +313,33 @@ class DashboardService {
         totalStaff,
       },
       charts: {
-        counts: {
-          weekly: {
-            categories: weekStarts.map((_, i) => `Week ${i + 1}`),
-            loans: fillWeeklySeries(girviWeeklyCount, weekStarts),
-            finance: fillWeeklySeries(financeWeeklyCount, weekStarts),
-          },
-          monthly: {
-            categories: MONTH_LABELS,
-            loans: fillMonthlySeries(girviMonthlyCount),
-            finance: fillMonthlySeries(financeMonthlyCount),
-          },
-          yearly: {
-            categories: years.map(String),
-            loans: fillYearlySeries(girviYearlyCount, years),
-            finance: fillYearlySeries(financeYearlyCount, years),
-          },
+        loanAudit: {
+          total: totalLoan,
+          active: activeLoans,
+          auction: auctionLoans,
+          released: releaseLoans,
+          transfer: transferLoans,
+          closed: closedLoans,
+          labels: loanPieLabels,
+          series: loanPieSeries,
         },
-        amounts: {
-          weekly: {
-            categories: weekStarts.map((_, i) => `Week ${i + 1}`),
-            loans: fillWeeklySeries(girviWeeklyAmt, weekStarts),
-            finance: fillWeeklySeries(financeWeeklyAmt, weekStarts),
-          },
-          monthly: {
-            categories: MONTH_LABELS,
-            loans: fillMonthlySeries(girviMonthlyAmt, "amount"),
-            finance: fillMonthlySeries(financeMonthlyAmt, "amount"),
-          },
-          yearly: {
-            categories: years.map(String),
-            loans: fillYearlySeries(girviYearlyAmt, years, "amount"),
-            finance: fillYearlySeries(financeYearlyAmt, years, "amount"),
-          },
+        loanLast: {
+          day: loanLastDay,
+          month: loanLastMonth,
+          year: loanLastYear,
         },
-        profitLoss,
-        last7Days,
+        financeAudit: {
+          total: totalFinance,
+          active: activeFinance,
+          closed: closedFinance,
+          labels: financePieLabels,
+          series: financePieSeries,
+        },
+        financeLast: {
+          day: financeLastDay,
+          month: financeLastMonth,
+          year: financeLastYear,
+        },
       },
     };
   }

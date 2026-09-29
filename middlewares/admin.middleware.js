@@ -3,6 +3,10 @@
 const jwtService = require("../utils/jwt.service");
 const { getMasterPrisma } = require("../utils/masterPrisma");
 const { ROLE_SUPER_ADMIN } = require("../common/service/permission.helper");
+const {
+  isActiveAccessToken,
+  respondSessionSuperseded,
+} = require("../common/service/auth-session.helper");
 
 const masterPrisma = getMasterPrisma();
 
@@ -36,11 +40,16 @@ const authenticateAdmin = async (req, res, next) => {
         admin_last_name: true,
         admin_mobile_no: true,
         admin_phone_no: true,
+        admin_jwt_token: true,
       },
     });
 
     if (!admin) {
       return res.status(404).json({ error: "Admin account not found." });
+    }
+
+    if (!isActiveAccessToken(admin.admin_jwt_token, token)) {
+      return respondSessionSuperseded(res);
     }
 
     req.admin = {

@@ -652,6 +652,12 @@ class MessagingController {
         req.body.sendEmail !== false &&
         req.body.sendEmail !== "false" &&
         Boolean(toEmail);
+      const sendSms =
+        (req.body.sendSms === true ||
+          req.body.sendSms === "true" ||
+          req.body.sendSms === 1 ||
+          req.body.sendSms === "1") &&
+        Boolean(toPhone);
 
       const documentFile =
         req.file ||
@@ -678,10 +684,13 @@ class MessagingController {
         actor: req.user?.user_name || req.user?.own_login_id || "user",
         sendWhatsApp,
         sendEmail,
+        sendSms,
       });
 
       const sent =
-        results.whatsapp?.success === true || results.email?.success === true;
+        results.whatsapp?.success === true ||
+        results.email?.success === true ||
+        results.sms?.success === true;
 
       return res.status(sent ? 200 : 200).json({
         success: sent,

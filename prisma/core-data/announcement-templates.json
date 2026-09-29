@@ -1,0 +1,156 @@
+[
+  {
+    "key": "diwali",
+    "title": "Diwali — Festival Greetings",
+    "type": "Celebration",
+    "sort_order": 1,
+    "body": "Warm Diwali wishes to you and your team. May this festival of lights bring prosperity, strong customer footfall, and safe celebrations at your jewelry showroom. Plan your offers and stock early for the festive rush."
+  },
+  {
+    "key": "holi",
+    "title": "Holi — Festival Greetings",
+    "type": "Celebration",
+    "sort_order": 2,
+    "body": "Happy Holi! Wishing your firm a colourful season with cheerful staff and steady business. Please take care with valuables and cash handling during festivities and public holidays."
+  },
+  {
+    "key": "navratri",
+    "title": "Navratri — Festival Greetings",
+    "type": "Celebration",
+    "sort_order": 3,
+    "body": "Shubh Navratri! May these nine nights bring energy to your showroom and meaningful connections with customers. Consider festive displays and timely reminders for loan and finance follow-ups."
+  },
+  {
+    "key": "dussehra",
+    "title": "Dussehra — Festival Greetings",
+    "type": "Celebration",
+    "sort_order": 4,
+    "body": "Happy Dussehra! Wishing you victory over daily operational challenges and a smooth closing season. Review pending accounts and celebrate team effort as the festival season continues."
+  },
+  {
+    "key": "janmashtami",
+    "title": "Janmashtami — Festival Greetings",
+    "type": "Celebration",
+    "sort_order": 5,
+    "body": "Janmashtami greetings to you and your staff. May your business stay blessed with trust and transparency. Adjust branch timings if needed and communicate holiday hours to regular customers."
+  },
+  {
+    "key": "ganesh_chaturthi",
+    "title": "Ganesh Chaturthi — Festival Greetings",
+    "type": "Celebration",
+    "sort_order": 6,
+    "body": "Ganpati Bappa Morya! Wishing your firm auspicious beginnings and steady collections through the festival. Plan vault security and customer appointments around processions and local holidays."
+  },
+  {
+    "key": "ram_navami",
+    "title": "Ram Navami — Festival Greetings",
+    "type": "Celebration",
+    "sort_order": 7,
+    "body": "Ram Navami greetings. May your work continue with integrity and respect for every customer. Use this occasion to reinforce fair practices in loan, finance, and gold transactions."
+  },
+  {
+    "key": "maha_shivaratri",
+    "title": "Maha Shivaratri — Festival Greetings",
+    "type": "Celebration",
+    "sort_order": 8,
+    "body": "Om Namah Shivay — warm wishes on Maha Shivaratri. If your branch observes a shorter day, update staff rosters and ensure daybook entries are completed before closing."
+  },
+  {
+    "key": "raksha_bandhan",
+    "title": "Raksha Bandhan — Festival Greetings",
+    "type": "Celebration",
+    "sort_order": 9,
+    "body": "Happy Raksha Bandhan! Wishing your team strong bonds and reliable support during busy counter hours. A thoughtful greeting to loyal customers can strengthen long-term relationships."
+  },
+  {
+    "key": "makar_sankranti",
+    "title": "Makar Sankranti — Festival Greetings",
+    "type": "Celebration",
+    "sort_order": 10,
+    "body": "Happy Makar Sankranti! May the new harvest season bring fresh opportunities for your jewelry and finance business across regions you serve."
+  },
+  {
+    "key": "pongal",
+    "title": "Pongal — Festival Greetings",
+    "type": "Celebration",
+    "sort_order": 11,
+    "body": "Pongal Vazhthukkal! Wishing prosperity to your firm and farming communities you work with. Confirm holiday schedules with staff in Tamil Nadu and neighbouring areas."
+  },
+  {
+    "key": "onam",
+    "title": "Onam — Festival Greetings",
+    "type": "Celebration",
+    "sort_order": 12,
+    "body": "Happy Onam! Wishing your showroom abundance and cheerful celebrations. Plan inventory and customer messaging for the Onam season in Kerala and diaspora clients."
+  },
+  {
+    "key": "republic_day",
+    "title": "Republic Day — 26 January",
+    "type": "Notice",
+    "sort_order": 101,
+    "body": "Wishing you a meaningful Republic Day. Honouring our Constitution and the unity of India. If your branch is closed or on reduced hours, inform customers in advance and reconcile cash before the holiday."
+  },
+  {
+    "key": "independence_day",
+    "title": "Independence Day — 15 August",
+    "type": "Notice",
+    "sort_order": 102,
+    "body": "Happy Independence Day! Saluting the nation and every small business that keeps local economies strong. Fly the tricolour with pride and stay alert on security for your showroom and vault."
+  },
+  {
+    "key": "gandhi_jayanti",
+    "title": "Gandhi Jayanti — 2 October",
+    "type": "Notice",
+    "sort_order": 103,
+    "body": "Gandhi Jayanti greetings. A day to reflect on truth, simplicity, and ethical trade. Encourage fair dealing and accurate records in every loan and finance transaction at your firm."
+  },
+  {
+    "key": "software_maintenance",
+    "title": "Scheduled Software Maintenance",
+    "type": "Warning",
+    "sort_order": 201,
+    "body": "KhataBoss will undergo scheduled maintenance during the dates shown below. Some screens may be slow or briefly unavailable. You can still sign in and work as usual outside the maintenance window. Please finish critical daybook entries and backups before peak hours. We will notify you when service is fully restored."
+  },
+  {
+    "key": "software_update",
+    "title": "Software Update & New Features",
+    "type": "Notice",
+    "sort_order": 202,
+    "body": "A KhataBoss update is rolling out for your firm. You can sign in normally — refresh your browser if prompted. New improvements cover stability, reports, and messaging. If anything looks incorrect after the update, contact support with your firm name and screen name."
+  },
+  {
+    "key": "software_known_issue",
+    "title": "Known Software Issue — Under Review",
+    "type": "Alert",
+    "sort_order": 203,
+    "body": "We are aware of an issue affecting some KhataBoss users and our team is investigating. Sign-in remains available. Until it is resolved, avoid repeating the same action if you see an error. Note the time and module (loan, finance, daybook, etc.) if you contact support."
+  },
+  {
+    "key": "software_issue_resolved",
+    "title": "Software Issue Resolved",
+    "type": "Congratulation",
+    "sort_order": 204,
+    "body": "The recent KhataBoss issue has been fixed. Please refresh your browser and retry your work. If problems continue, clear cache or use another browser and reach out to support with details."
+  },
+  {
+    "key": "software_emergency_downtime",
+    "title": "Emergency Downtime — Service Interruption",
+    "type": "Alert",
+    "sort_order": 205,
+    "body": "We are responding to a service disruption. You can still sign in to KhataBoss; some modules may be slow, read-only, or fail until service is fully restored. Do not assume a transaction is saved until you see a success message. Wait for the resolved notice before bulk data entry."
+  },
+  {
+    "key": "software_security_advisory",
+    "title": "Security Advisory — Action Recommended",
+    "type": "Warning",
+    "sort_order": 206,
+    "body": "Important security notice for all owners and staff: change weak passwords, do not share login IDs, and sign out on shared PCs. Sign-in is not blocked — apply this advisory during the scheduled period and review who has access to your firm in user settings."
+  },
+  {
+    "key": "software_performance",
+    "title": "Performance Notice — Slow Response",
+    "type": "Warning",
+    "sort_order": 207,
+    "body": "Some users may experience slower screens or reports during this period while we optimise servers. You can continue to sign in and use KhataBoss. Large exports and daybook PDFs may take longer than usual. Thank you for your patience."
+  }
+]

@@ -926,6 +926,44 @@ class AuthService {
     );
     return { message: "Password updated successfully." };
   }
+
+  /**
+   * End current session (clear stored access token so other copies of JWT stop working).
+   */
+  async logout(authUser) {
+    if (authUser.role === ROLE_STAFF && authUser.staff_uuid) {
+      const owner = await masterPrisma.owner.findUnique({
+        where: { own_uuid: authUser.own_uuid, own_is_deleted: false },
+        select: { own_db: true },
+      });
+      if (!owner) {
+        const error = new Error("Owner account not found.");
+        error.statusCode = 404;
+        throw error;
+      }
+      const dbUrl = `${BASE_URL}/${owner.own_db}`;
+      const tenantPrisma = getTenantPrisma(dbUrl);
+      await tenantPrisma.staff.update({
+        where: { staff_uuid: authUser.staff_uuid },
+        data: {
+          staff_jwt_token: null,
+          staff_refresh_token: null,
+          staff_login_status: false,
+        },
+      });
+      return { message: "Logged out successfully." };
+    }
+
+    await masterPrisma.owner.update({
+      where: { own_uuid: authUser.own_uuid },
+      data: {
+        own_jwt_token: null,
+        own_refresh_token: null,
+        own_login_status: false,
+      },
+    });
+    return { message: "Logged out successfully." };
+  }
 }
 
 module.exports = new AuthService();

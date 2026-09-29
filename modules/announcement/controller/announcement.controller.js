@@ -13,6 +13,25 @@ class AnnouncementController {
     }
   }
 
+  /** Active announcements for login page (no auth). Never blocks sign-in. */
+  async getPublicFeed(req, res) {
+    try {
+      const softwareOnly =
+        req.query.software === "1" ||
+        req.query.software === "true" ||
+        req.query.scope === "software";
+      const data = await announcementService.getPublicFeed({ softwareOnly });
+      return res.status(200).json({
+        message: "Public announcements fetched.",
+        data,
+        meta: { blocksLogin: false },
+      });
+    } catch (error) {
+      console.error("❌  getPublicFeed:", error.message);
+      return res.status(500).json({ error: error.message });
+    }
+  }
+
   async getAnnouncements(req, res) {
     try {
       const data = await announcementService.getAll();
@@ -71,6 +90,21 @@ class AnnouncementController {
     } catch (error) {
       console.error("❌  deleteAnnouncement:", error.message);
       return res.status(error.statusCode || 500).json({ error: error.message });
+    }
+  }
+
+  async seedTemplates(req, res) {
+    try {
+      const stats = await announcementService.seedSystemTemplates();
+      const data = await announcementService.getAll();
+      return res.status(200).json({
+        message: "Announcement templates synced.",
+        stats,
+        data,
+      });
+    } catch (error) {
+      console.error("❌  seedTemplates:", error.message);
+      return res.status(500).json({ error: error.message });
     }
   }
 }

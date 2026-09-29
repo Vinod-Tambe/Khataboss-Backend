@@ -219,6 +219,27 @@ class AuthController {
       });
     }
   }
+
+  /**
+   * POST /auth/logout — invalidate current session token.
+   */
+  async logout(req, res) {
+    try {
+      const result = await authService.logout(req.user);
+      return res.status(200).json({
+        success: true,
+        statusCode: 200,
+        message: result.message,
+      });
+    } catch (error) {
+      const statusCode = error.statusCode || 500;
+      return res.status(statusCode).json({
+        success: false,
+        statusCode,
+        message: error.message || "Failed to log out.",
+      });
+    }
+  }
 }
 
 module.exports = new AuthController();

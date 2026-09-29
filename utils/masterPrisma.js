@@ -36,4 +36,12 @@ const getMasterPrisma = () => {
   return masterClient;
 };
 
-module.exports = { getMasterPrisma };
+/** Disconnect and drop cached client (after prisma generate / schema change). */
+const resetMasterPrisma = async () => {
+  if (masterClient) {
+    await masterClient.$disconnect();
+    masterClient = null;
+  }
+};
+
+module.exports = { getMasterPrisma, resetMasterPrisma };

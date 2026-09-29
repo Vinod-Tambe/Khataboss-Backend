@@ -9,7 +9,13 @@ const {
   ROLE_STAFF,
 } = require("../common/service/permission.helper");
 const ownerPermissionService = require("../modules/owner/services/owner-permission.service");
-const { isSubscriptionExpired } = require("../utils/owner-subscription-expiry");
+const {
+  isSubscriptionExpired,
+} = require("../utils/owner-subscription-expiry");
+const {
+  isActiveAccessToken,
+  respondSessionSuperseded,
+} = require("../common/service/auth-session.helper");
 
 const masterPrisma = getMasterPrisma();
 
@@ -56,6 +62,7 @@ const authenticateOwner = async (req, res, next) => {
         own_max_staff: true,
         own_start_date: true,
         own_expiry_date: true,
+        own_jwt_token: true,
       },
     });
 
@@ -81,6 +88,9 @@ const authenticateOwner = async (req, res, next) => {
     const role = decoded.role === ROLE_STAFF ? ROLE_STAFF : ROLE_OWNER;
 
     if (role === ROLE_OWNER) {
+      if (!isActiveAccessToken(owner.own_jwt_token, token)) {
+        return respondSessionSuperseded(res);
+      }
       const ownerPermissionKeys = await ownerPermissionService.resolvePermissionKeys(owner.own_id);
       req.user = {
         role: ROLE_OWNER,
@@ -126,6 +136,7 @@ const authenticateOwner = async (req, res, next) => {
         staff_state: true,
         staff_pincode: true,
         staff_status: true,
+        staff_jwt_token: true,
         permissions: {
           where: { sp_granted: true },
           select: {
@@ -141,6 +152,10 @@ const authenticateOwner = async (req, res, next) => {
 
     if (staff.staff_status !== "Active") {
       return res.status(403).json({ error: "Staff account is inactive." });
+    }
+
+    if (!isActiveAccessToken(staff.staff_jwt_token, token)) {
+      return respondSessionSuperseded(res);
     }
 
     const { permissions: staffPermRows, ...staffProfile } = staff;

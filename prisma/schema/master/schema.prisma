@@ -289,6 +289,8 @@ model Plan {
 model Announcement {
   ann_id          Int                @id @default(autoincrement())
   ann_uuid        String             @unique @default(uuid())
+  /// System template key (festivals / national days). Admin may only change schedule dates.
+  ann_template_key String?           @unique
   ann_title       String
   ann_body        String             @db.Text
   ann_type        AnnouncementType   @default(Notice)

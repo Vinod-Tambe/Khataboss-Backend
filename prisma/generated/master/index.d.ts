@@ -6568,6 +6568,7 @@ export namespace Prisma {
   export type AnnouncementMinAggregateOutputType = {
     ann_id: number | null
     ann_uuid: string | null
+    ann_template_key: string | null
     ann_title: string | null
     ann_body: string | null
     ann_type: $Enums.AnnouncementType | null
@@ -6588,6 +6589,7 @@ export namespace Prisma {
   export type AnnouncementMaxAggregateOutputType = {
     ann_id: number | null
     ann_uuid: string | null
+    ann_template_key: string | null
     ann_title: string | null
     ann_body: string | null
     ann_type: $Enums.AnnouncementType | null
@@ -6608,6 +6610,7 @@ export namespace Prisma {
   export type AnnouncementCountAggregateOutputType = {
     ann_id: number
     ann_uuid: number
+    ann_template_key: number
     ann_title: number
     ann_body: number
     ann_type: number
@@ -6640,6 +6643,7 @@ export namespace Prisma {
   export type AnnouncementMinAggregateInputType = {
     ann_id?: true
     ann_uuid?: true
+    ann_template_key?: true
     ann_title?: true
     ann_body?: true
     ann_type?: true
@@ -6660,6 +6664,7 @@ export namespace Prisma {
   export type AnnouncementMaxAggregateInputType = {
     ann_id?: true
     ann_uuid?: true
+    ann_template_key?: true
     ann_title?: true
     ann_body?: true
     ann_type?: true
@@ -6680,6 +6685,7 @@ export namespace Prisma {
   export type AnnouncementCountAggregateInputType = {
     ann_id?: true
     ann_uuid?: true
+    ann_template_key?: true
     ann_title?: true
     ann_body?: true
     ann_type?: true
@@ -6787,6 +6793,7 @@ export namespace Prisma {
   export type AnnouncementGroupByOutputType = {
     ann_id: number
     ann_uuid: string
+    ann_template_key: string | null
     ann_title: string
     ann_body: string
     ann_type: $Enums.AnnouncementType
@@ -6826,6 +6833,7 @@ export namespace Prisma {
   export type AnnouncementSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     ann_id?: boolean
     ann_uuid?: boolean
+    ann_template_key?: boolean
     ann_title?: boolean
     ann_body?: boolean
     ann_type?: boolean
@@ -6846,6 +6854,7 @@ export namespace Prisma {
   export type AnnouncementSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     ann_id?: boolean
     ann_uuid?: boolean
+    ann_template_key?: boolean
     ann_title?: boolean
     ann_body?: boolean
     ann_type?: boolean
@@ -6866,6 +6875,7 @@ export namespace Prisma {
   export type AnnouncementSelectScalar = {
     ann_id?: boolean
     ann_uuid?: boolean
+    ann_template_key?: boolean
     ann_title?: boolean
     ann_body?: boolean
     ann_type?: boolean
@@ -6890,6 +6900,10 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       ann_id: number
       ann_uuid: string
+      /**
+       * System template key (festivals / national days). Admin may only change schedule dates.
+       */
+      ann_template_key: string | null
       ann_title: string
       ann_body: string
       ann_type: $Enums.AnnouncementType
@@ -7300,6 +7314,7 @@ export namespace Prisma {
   interface AnnouncementFieldRefs {
     readonly ann_id: FieldRef<"Announcement", 'Int'>
     readonly ann_uuid: FieldRef<"Announcement", 'String'>
+    readonly ann_template_key: FieldRef<"Announcement", 'String'>
     readonly ann_title: FieldRef<"Announcement", 'String'>
     readonly ann_body: FieldRef<"Announcement", 'String'>
     readonly ann_type: FieldRef<"Announcement", 'AnnouncementType'>
@@ -10917,6 +10932,7 @@ export namespace Prisma {
   export const AnnouncementScalarFieldEnum: {
     ann_id: 'ann_id',
     ann_uuid: 'ann_uuid',
+    ann_template_key: 'ann_template_key',
     ann_title: 'ann_title',
     ann_body: 'ann_body',
     ann_type: 'ann_type',
@@ -11928,6 +11944,7 @@ export namespace Prisma {
     NOT?: AnnouncementWhereInput | AnnouncementWhereInput[]
     ann_id?: IntFilter<"Announcement"> | number
     ann_uuid?: StringFilter<"Announcement"> | string
+    ann_template_key?: StringNullableFilter<"Announcement"> | string | null
     ann_title?: StringFilter<"Announcement"> | string
     ann_body?: StringFilter<"Announcement"> | string
     ann_type?: EnumAnnouncementTypeFilter<"Announcement"> | $Enums.AnnouncementType
@@ -11948,6 +11965,7 @@ export namespace Prisma {
   export type AnnouncementOrderByWithRelationInput = {
     ann_id?: SortOrder
     ann_uuid?: SortOrder
+    ann_template_key?: SortOrderInput | SortOrder
     ann_title?: SortOrder
     ann_body?: SortOrder
     ann_type?: SortOrder
@@ -11968,6 +11986,7 @@ export namespace Prisma {
   export type AnnouncementWhereUniqueInput = Prisma.AtLeast<{
     ann_id?: number
     ann_uuid?: string
+    ann_template_key?: string
     AND?: AnnouncementWhereInput | AnnouncementWhereInput[]
     OR?: AnnouncementWhereInput[]
     NOT?: AnnouncementWhereInput | AnnouncementWhereInput[]
@@ -11986,11 +12005,12 @@ export namespace Prisma {
     ann_deleted_at?: DateTimeNullableFilter<"Announcement"> | Date | string | null
     ann_deleted_by?: StringNullableFilter<"Announcement"> | string | null
     ann_is_deleted?: BoolFilter<"Announcement"> | boolean
-  }, "ann_id" | "ann_uuid">
+  }, "ann_id" | "ann_uuid" | "ann_template_key">
 
   export type AnnouncementOrderByWithAggregationInput = {
     ann_id?: SortOrder
     ann_uuid?: SortOrder
+    ann_template_key?: SortOrderInput | SortOrder
     ann_title?: SortOrder
     ann_body?: SortOrder
     ann_type?: SortOrder
@@ -12019,6 +12039,7 @@ export namespace Prisma {
     NOT?: AnnouncementScalarWhereWithAggregatesInput | AnnouncementScalarWhereWithAggregatesInput[]
     ann_id?: IntWithAggregatesFilter<"Announcement"> | number
     ann_uuid?: StringWithAggregatesFilter<"Announcement"> | string
+    ann_template_key?: StringNullableWithAggregatesFilter<"Announcement"> | string | null
     ann_title?: StringWithAggregatesFilter<"Announcement"> | string
     ann_body?: StringWithAggregatesFilter<"Announcement"> | string
     ann_type?: EnumAnnouncementTypeWithAggregatesFilter<"Announcement"> | $Enums.AnnouncementType
@@ -13108,6 +13129,7 @@ export namespace Prisma {
 
   export type AnnouncementCreateInput = {
     ann_uuid?: string
+    ann_template_key?: string | null
     ann_title: string
     ann_body: string
     ann_type?: $Enums.AnnouncementType
@@ -13128,6 +13150,7 @@ export namespace Prisma {
   export type AnnouncementUncheckedCreateInput = {
     ann_id?: number
     ann_uuid?: string
+    ann_template_key?: string | null
     ann_title: string
     ann_body: string
     ann_type?: $Enums.AnnouncementType
@@ -13147,6 +13170,7 @@ export namespace Prisma {
 
   export type AnnouncementUpdateInput = {
     ann_uuid?: StringFieldUpdateOperationsInput | string
+    ann_template_key?: NullableStringFieldUpdateOperationsInput | string | null
     ann_title?: StringFieldUpdateOperationsInput | string
     ann_body?: StringFieldUpdateOperationsInput | string
     ann_type?: EnumAnnouncementTypeFieldUpdateOperationsInput | $Enums.AnnouncementType
@@ -13167,6 +13191,7 @@ export namespace Prisma {
   export type AnnouncementUncheckedUpdateInput = {
     ann_id?: IntFieldUpdateOperationsInput | number
     ann_uuid?: StringFieldUpdateOperationsInput | string
+    ann_template_key?: NullableStringFieldUpdateOperationsInput | string | null
     ann_title?: StringFieldUpdateOperationsInput | string
     ann_body?: StringFieldUpdateOperationsInput | string
     ann_type?: EnumAnnouncementTypeFieldUpdateOperationsInput | $Enums.AnnouncementType
@@ -13187,6 +13212,7 @@ export namespace Prisma {
   export type AnnouncementCreateManyInput = {
     ann_id?: number
     ann_uuid?: string
+    ann_template_key?: string | null
     ann_title: string
     ann_body: string
     ann_type?: $Enums.AnnouncementType
@@ -13206,6 +13232,7 @@ export namespace Prisma {
 
   export type AnnouncementUpdateManyMutationInput = {
     ann_uuid?: StringFieldUpdateOperationsInput | string
+    ann_template_key?: NullableStringFieldUpdateOperationsInput | string | null
     ann_title?: StringFieldUpdateOperationsInput | string
     ann_body?: StringFieldUpdateOperationsInput | string
     ann_type?: EnumAnnouncementTypeFieldUpdateOperationsInput | $Enums.AnnouncementType
@@ -13226,6 +13253,7 @@ export namespace Prisma {
   export type AnnouncementUncheckedUpdateManyInput = {
     ann_id?: IntFieldUpdateOperationsInput | number
     ann_uuid?: StringFieldUpdateOperationsInput | string
+    ann_template_key?: NullableStringFieldUpdateOperationsInput | string | null
     ann_title?: StringFieldUpdateOperationsInput | string
     ann_body?: StringFieldUpdateOperationsInput | string
     ann_type?: EnumAnnouncementTypeFieldUpdateOperationsInput | $Enums.AnnouncementType
@@ -14366,6 +14394,7 @@ export namespace Prisma {
   export type AnnouncementCountOrderByAggregateInput = {
     ann_id?: SortOrder
     ann_uuid?: SortOrder
+    ann_template_key?: SortOrder
     ann_title?: SortOrder
     ann_body?: SortOrder
     ann_type?: SortOrder
@@ -14391,6 +14420,7 @@ export namespace Prisma {
   export type AnnouncementMaxOrderByAggregateInput = {
     ann_id?: SortOrder
     ann_uuid?: SortOrder
+    ann_template_key?: SortOrder
     ann_title?: SortOrder
     ann_body?: SortOrder
     ann_type?: SortOrder
@@ -14411,6 +14441,7 @@ export namespace Prisma {
   export type AnnouncementMinOrderByAggregateInput = {
     ann_id?: SortOrder
     ann_uuid?: SortOrder
+    ann_template_key?: SortOrder
     ann_title?: SortOrder
     ann_body?: SortOrder
     ann_type?: SortOrder

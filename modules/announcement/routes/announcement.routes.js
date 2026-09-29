@@ -6,9 +6,11 @@ const announcementController = require("../controller/announcement.controller");
 const authenticateAdmin = require("../../../middlewares/admin.middleware");
 const authenticateToken = require("../../../middlewares/auth.middleware");
 
+router.get("/public/feed", announcementController.getPublicFeed);
 router.get("/feed", authenticateToken, announcementController.getFeed);
 
 router.use(authenticateAdmin);
+router.post("/templates/seed", announcementController.seedTemplates);
 router.get("/", announcementController.getAnnouncements);
 router.get("/:uuid", announcementController.getAnnouncementByUuid);
 router.post("/", announcementController.createAnnouncement);
