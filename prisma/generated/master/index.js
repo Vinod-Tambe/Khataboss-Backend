@@ -393,7 +393,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "D:\\Important\\Home\\Khataboss-Backend\\prisma\\generated\\master",
+      "value": "D:\\MyProject\\Backend\\prisma\\generated\\master",
       "fromEnvVar": null
     },
     "config": {
@@ -411,7 +411,7 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "D:\\Important\\Home\\Khataboss-Backend\\prisma\\schema\\master\\schema.prisma",
+    "sourceFilePath": "D:\\MyProject\\Backend\\prisma\\schema\\master\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {

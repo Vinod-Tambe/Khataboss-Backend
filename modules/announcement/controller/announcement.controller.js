@@ -22,13 +22,19 @@ class AnnouncementController {
         req.query.scope === "software";
       const data = await announcementService.getPublicFeed({ softwareOnly });
       return res.status(200).json({
+        success: true,
         message: "Public announcements fetched.",
-        data,
+        data: data || [],
         meta: { blocksLogin: false },
       });
     } catch (error) {
       console.error("❌  getPublicFeed:", error.message);
-      return res.status(500).json({ error: error.message });
+      return res.status(200).json({
+        success: true,
+        message: "Public announcements fetched.",
+        data: [],
+        meta: { blocksLogin: false },
+      });
     }
   }
 

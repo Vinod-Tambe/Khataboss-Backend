@@ -12,6 +12,9 @@ const app = express();
 // ─── Middleware ───────────────────────────────────────────────────────────────
 const allowedOrigins = [
   "http://localhost:3001",
+  "http://127.0.0.1:3001",
+  "http://localhost:3000",
+  "http://127.0.0.1:3000",
   "http://192.168.2.173:3001",
   "https://khataboss.com",
   "https://carlie-atavic-tonita.ngrok-free.dev",
@@ -21,7 +24,11 @@ const allowedOrigins = [
 app.use(
   cors({
     origin: function (origin, callback) {
-      if (!origin || allowedOrigins.includes(origin)) {
+      if (
+        !origin ||
+        allowedOrigins.includes(origin) ||
+        /^http:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(origin)
+      ) {
         callback(null, true);
       } else {
         callback(new Error("Not allowed by CORS"));
