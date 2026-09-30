@@ -52,9 +52,10 @@ function mapLastFivePeriodRows(rows, period) {
 
 async function fetchLoanLastFive(prisma, fId, period) {
   const firmSql = fId ? Prisma.sql`AND girv_firm_id = ${fId}` : Prisma.empty;
+  const startDateExpr = Prisma.sql`(girv_start_date::date)`;
   if (period === "day") {
     const rows = await prisma.$queryRaw`
-      SELECT DATE(girv_created_at) AS bucket, COUNT(*)::int AS count
+      SELECT ${startDateExpr} AS bucket, COUNT(*)::int AS count
       FROM girvi
       WHERE girv_is_deleted = false
       ${firmSql}
@@ -65,7 +66,7 @@ async function fetchLoanLastFive(prisma, fId, period) {
   }
   if (period === "month") {
     const rows = await prisma.$queryRaw`
-      SELECT date_trunc('month', girv_created_at) AS bucket, COUNT(*)::int AS count
+      SELECT date_trunc('month', girv_start_date::date) AS bucket, COUNT(*)::int AS count
       FROM girvi
       WHERE girv_is_deleted = false
       ${firmSql}
@@ -75,7 +76,7 @@ async function fetchLoanLastFive(prisma, fId, period) {
     return mapLastFivePeriodRows(rows, period);
   }
   const rows = await prisma.$queryRaw`
-    SELECT EXTRACT(YEAR FROM girv_created_at)::int AS bucket, COUNT(*)::int AS count
+    SELECT EXTRACT(YEAR FROM girv_start_date::date)::int AS bucket, COUNT(*)::int AS count
     FROM girvi
     WHERE girv_is_deleted = false
     ${firmSql}
@@ -87,9 +88,10 @@ async function fetchLoanLastFive(prisma, fId, period) {
 
 async function fetchFinanceLastFive(prisma, fId, period) {
   const firmSql = fId ? Prisma.sql`AND fin_firm_id = ${fId}` : Prisma.empty;
+  const startDateExpr = Prisma.sql`(fin_start_date::date)`;
   if (period === "day") {
     const rows = await prisma.$queryRaw`
-      SELECT DATE(fin_created_at) AS bucket, COUNT(*)::int AS count
+      SELECT ${startDateExpr} AS bucket, COUNT(*)::int AS count
       FROM finance
       WHERE fin_is_deleted = false
       ${firmSql}
@@ -100,7 +102,7 @@ async function fetchFinanceLastFive(prisma, fId, period) {
   }
   if (period === "month") {
     const rows = await prisma.$queryRaw`
-      SELECT date_trunc('month', fin_created_at) AS bucket, COUNT(*)::int AS count
+      SELECT date_trunc('month', fin_start_date::date) AS bucket, COUNT(*)::int AS count
       FROM finance
       WHERE fin_is_deleted = false
       ${firmSql}
@@ -110,7 +112,7 @@ async function fetchFinanceLastFive(prisma, fId, period) {
     return mapLastFivePeriodRows(rows, period);
   }
   const rows = await prisma.$queryRaw`
-    SELECT EXTRACT(YEAR FROM fin_created_at)::int AS bucket, COUNT(*)::int AS count
+    SELECT EXTRACT(YEAR FROM fin_start_date::date)::int AS bucket, COUNT(*)::int AS count
     FROM finance
     WHERE fin_is_deleted = false
     ${firmSql}
