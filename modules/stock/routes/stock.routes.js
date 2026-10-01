@@ -13,6 +13,13 @@ router.get(
   (req, res) => stockController.getStockLedger(req, res)
 );
 
+router.get(
+  "/:uuid",
+  authenticateOwner,
+  requirePermission("loan.view"),
+  (req, res) => stockController.getStockByUuid(req, res)
+);
+
 router.post(
   "/",
   authenticateOwner,

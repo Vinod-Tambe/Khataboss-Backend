@@ -32,25 +32,61 @@ class StockController {
 
   async getStockLedger(req, res) {
     try {
-      const { firmId, startDate, endDate, metalType, itemStatus, loanStatus } =
-        req.query;
-      const dbUrl = this.getDbUrl(req.user.own_db);
-      const rows = await stockService.getStockLedger(dbUrl, {
+      const {
         firmId,
         startDate,
         endDate,
         metalType,
         itemStatus,
         loanStatus,
+        page,
+        limit,
+        search,
+        q,
+      } = req.query;
+      const dbUrl = this.getDbUrl(req.user.own_db);
+      const result = await stockService.getStockLedger(dbUrl, {
+        firmId,
+        startDate,
+        endDate,
+        metalType,
+        itemStatus,
+        loanStatus,
+        page,
+        limit,
+        search,
+        q,
       });
 
       return res.status(200).json({
         message: "Stock ledger fetched successfully.",
-        data: rows,
+        data: result.data,
+        total: result.total,
+        page: result.page,
+        limit: result.limit,
+        totalPages: result.totalPages,
       });
     } catch (error) {
       console.error("❌ Error fetching stock ledger:", error.message);
       return res.status(500).json({ error: error.message });
+    }
+  }
+
+  async getStockByUuid(req, res) {
+    try {
+      const dbUrl = this.getDbUrl(req.user.own_db);
+      const payload = await stockService.getStockByUuid(dbUrl, req.params.uuid);
+
+      return res.status(200).json({
+        message: "Stock fetched successfully.",
+        data: payload,
+      });
+    } catch (error) {
+      const status = error.message === "Stock not found" ? 404 : 500;
+      if (status === 500) {
+        console.error("❌ Error fetching stock:", error.message);
+      }
+      return res.status(status).json({ error: error.message });
     }
   }
 
