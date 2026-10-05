@@ -864,7 +864,10 @@ exports.Prisma.AuctionLoanScalarFieldEnum = {
   al_card_info: 'al_card_info',
   al_card_amt: 'al_card_amt',
   al_pay_info: 'al_pay_info',
-  al_other_info: 'al_other_info'
+  al_other_info: 'al_other_info',
+  al_deleted_at: 'al_deleted_at',
+  al_deleted_by: 'al_deleted_by',
+  al_is_deleted: 'al_is_deleted'
 };
 
 exports.Prisma.StaffScalarFieldEnum = {
@@ -1168,7 +1171,9 @@ exports.MoneyTransferMode = exports.$Enums.MoneyTransferMode = {
 
 exports.MoneyTransferDirection = exports.$Enums.MoneyTransferDirection = {
   CR_TO_DR: 'CR_TO_DR',
-  DR_TO_CR: 'DR_TO_CR'
+  DR_TO_CR: 'DR_TO_CR',
+  CR_TO_CR: 'CR_TO_CR',
+  DR_TO_DR: 'DR_TO_DR'
 };
 
 exports.BalanceAmtType = exports.$Enums.BalanceAmtType = {

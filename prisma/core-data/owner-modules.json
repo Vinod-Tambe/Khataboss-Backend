@@ -28,6 +28,13 @@
     "perm_modules": ["account"]
   },
   {
+    "module_key": "expense",
+    "module_label": "Personal Expenses",
+    "module_icon": "bi-receipt",
+    "module_sort_order": 45,
+    "perm_modules": ["expense"]
+  },
+  {
     "module_key": "finance",
     "module_label": "Finance",
     "module_icon": "bi-currency-rupee",
@@ -40,6 +47,13 @@
     "module_icon": "bi-journal-text",
     "module_sort_order": 60,
     "perm_modules": ["loan"]
+  },
+  {
+    "module_key": "stock",
+    "module_label": "Stock",
+    "module_icon": "bi-box-seam",
+    "module_sort_order": 65,
+    "perm_modules": ["stock"]
   },
   {
     "module_key": "moneyLender",

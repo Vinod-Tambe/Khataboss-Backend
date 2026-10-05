@@ -27,6 +27,13 @@ router.get(
   (req, res) => userController.getUsers(req, res)
 );
 
+router.get(
+  "/deleted/list",
+  authenticateOwner,
+  requirePermission("user.view"),
+  (req, res) => userController.getDeletedUsers(req, res)
+);
+
 // Search used by loan/finance — allow if user can view OR create loans/finance
 router.get(
   "/search",
@@ -40,6 +47,13 @@ router.get(
   authenticateOwner,
   requirePermission(["user.view", "loan.view", "finance.view", "loan.create", "finance.create"], { mode: "any" }),
   (req, res) => userController.globalSearch(req, res)
+);
+
+router.post(
+  "/:uuid/restore",
+  authenticateOwner,
+  requirePermission("user.delete"),
+  (req, res) => userController.restoreUser(req, res)
 );
 
 router.delete(

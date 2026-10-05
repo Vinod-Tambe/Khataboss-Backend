@@ -12,6 +12,7 @@ const {
   sumDrLiquidOpeningByChannel,
 } = require("../../../utils/accountChannel");
 const { PERSONAL_EXPENSES_DAYBOOK_TITLE } = require("../../../common/constants/personalExpense");
+const { formatTransferDirectionLabel } = require("../../../utils/transferDirection");
 
 function channelsForInterAccountRow(row) {
   const direction = row.mtf_direction || "CR_TO_DR";
@@ -1090,7 +1091,7 @@ class DaybookService {
   async get_auction_loan_data(dbUrl, filters = {}) {
     const prisma = this.getPrisma(dbUrl);
     try {
-      const where = {};
+      const where = { al_is_deleted: false };
       if (filters.firmId) {
         where.al_firm_id = parseInt(filters.firmId);
       }
@@ -1451,6 +1452,7 @@ class DaybookService {
       // d) Auction Loan
       const auctionLoan = await prisma.auctionLoan.aggregate({
         where: {
+          al_is_deleted: false,
           ...(firmId && { al_firm_id: firmId }),
           ...(startDate && { al_date: { lt: startDate } }),
         },
@@ -1724,8 +1726,7 @@ class DaybookService {
       const accountDisplayName = (acc) => formatAccountDisplayName(acc);
 
       const data = records.map((item) => {
-        const directionTag =
-          item.mtf_direction === "DR_TO_CR" ? "DR → CR" : "CR → DR";
+        const directionTag = formatTransferDirectionLabel(item.mtf_direction);
         const totalAmt = parseFloat(item.mtf_total_amt) || 0;
 
         const fromAccountName =

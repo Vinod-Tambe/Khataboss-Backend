@@ -103,6 +103,10 @@ const granularKeysToModuleKeys = (granularKeys = []) => {
   const modules = new Set();
 
   for (const key of granularKeys) {
+    if (key === "account.transfer") {
+      modules.add("expense");
+      continue;
+    }
     if (!String(key).includes(".")) {
       if (getAllOwnerModuleKeys().includes(key)) modules.add(key);
       continue;

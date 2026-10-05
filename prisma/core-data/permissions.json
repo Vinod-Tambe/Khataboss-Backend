@@ -8,7 +8,9 @@
   { "perm_key": "account.create", "perm_module": "account", "perm_action": "create", "perm_label": "Create Account", "perm_sort_order": 120 },
   { "perm_key": "account.edit", "perm_module": "account", "perm_action": "edit", "perm_label": "Update Account", "perm_sort_order": 130 },
   { "perm_key": "account.delete", "perm_module": "account", "perm_action": "delete", "perm_label": "Delete Account", "perm_sort_order": 140 },
-  { "perm_key": "account.transfer", "perm_module": "account", "perm_action": "transfer", "perm_label": "Personal Expense Entry", "perm_sort_order": 145 },
+
+  { "perm_key": "expense.view", "perm_module": "expense", "perm_action": "view", "perm_label": "Expense List", "perm_sort_order": 146 },
+  { "perm_key": "expense.create", "perm_module": "expense", "perm_action": "create", "perm_label": "Add Personal Expense", "perm_sort_order": 147 },
 
   { "perm_key": "staff.view", "perm_module": "staff", "perm_action": "view", "perm_label": "List Staff", "perm_sort_order": 210 },
   { "perm_key": "staff.create", "perm_module": "staff", "perm_action": "create", "perm_label": "Create Staff", "perm_sort_order": 220 },
@@ -40,6 +42,8 @@
   { "perm_key": "loan.customize", "perm_module": "loan", "perm_action": "customize", "perm_label": "Customize Loan", "perm_sort_order": 420 },
   { "perm_key": "loan.print", "perm_module": "loan", "perm_action": "print", "perm_label": "Print Loan", "perm_sort_order": 430 },
   { "perm_key": "loan.loanLogs", "perm_module": "loan", "perm_action": "loanLogs", "perm_label": "Loan Logs", "perm_sort_order": 440 },
+
+  { "perm_key": "stock.view", "perm_module": "stock", "perm_action": "view", "perm_label": "Browse Stock Items", "perm_sort_order": 445 },
 
   { "perm_key": "finance.view", "perm_module": "finance", "perm_action": "view", "perm_label": "List Finance", "perm_sort_order": 510 },
   { "perm_key": "finance.create", "perm_module": "finance", "perm_action": "create", "perm_label": "Create Finance", "perm_sort_order": 520 },

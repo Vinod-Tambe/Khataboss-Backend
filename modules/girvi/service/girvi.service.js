@@ -498,6 +498,23 @@ class GirviService {
         0
       );
       const isSecured = String(g.girv_type || "").toLowerCase() === "secured";
+      const total_fine_weight = isSecured
+        ? parseFloat(
+            items
+              .reduce((sum, item) => {
+                const fine = parseFloat(item.st_fine_weight);
+                if (!Number.isNaN(fine) && fine > 0) {
+                  return sum + fine;
+                }
+                const nt = parseFloat(item.st_nt_weight);
+                if (!Number.isNaN(nt) && nt > 0) {
+                  return sum + nt;
+                }
+                return sum + (parseFloat(item.st_gs_weight) || 0);
+              }, 0)
+              .toFixed(3)
+          )
+        : null;
       const finalPay = interest_summary.totalDueAmount ?? interest_summary.pending;
       const profit_loss =
         isSecured && total_valuation > 0
@@ -512,6 +529,7 @@ class GirviService {
         items,
         interest_summary,
         total_valuation,
+        total_fine_weight,
         profit_loss,
       };
     });
@@ -536,8 +554,12 @@ class GirviService {
       if (userId) {
         where.girv_user_id = parseInt(userId);
       }
-      if (status && status !== "ALL") {
+      const pendingInterestList = status === "PENDING_INTEREST";
+      if (status && status !== "ALL" && !pendingInterestList) {
         where.girv_status = status;
+      }
+      if (pendingInterestList) {
+        where.girv_status = "ACTIVE";
       }
       if (girvType && girvType !== "ALL") {
         where.girv_type = String(girvType).toLowerCase();
@@ -600,7 +622,17 @@ class GirviService {
         );
       }
 
-      const enriched = await this.enrichGirvisListData(prisma, girvis);
+      let enriched = await this.enrichGirvisListData(prisma, girvis);
+
+      if (pendingInterestList) {
+        enriched = enriched
+          .filter((g) => (g.interest_summary?.pendingInterest ?? 0) > 0.01)
+          .sort(
+            (a, b) =>
+              (b.interest_summary?.pendingInterest ?? 0) -
+              (a.interest_summary?.pendingInterest ?? 0)
+          );
+      }
 
       return enriched.map((g) => ({
         ...g,

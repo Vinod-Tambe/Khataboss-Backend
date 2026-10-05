@@ -79,6 +79,52 @@ class JournalService {
   }
 
   /**
+   * Soft-delete journal + lines (restorable with customer restore).
+   */
+  async soft_delete_journal_entry(dbUrl, jrnl_id, own_id, firm_id, deletedBy = "system") {
+    const prisma = this.getPrisma(dbUrl);
+    const deletedAt = new Date();
+    const jrnlId = parseInt(jrnl_id, 10);
+    const ownId = parseInt(own_id, 10);
+    const firmId = parseInt(firm_id, 10);
+
+    try {
+      return await prisma.$transaction(async (tx) => {
+        await tx.journalTransaction.updateMany({
+          where: {
+            jrtr_jrnl_id: jrnlId,
+            jrtr_own_id: ownId,
+            jrtr_firm_id: firmId,
+            jrtr_is_deleted: false,
+          },
+          data: {
+            jrtr_is_deleted: true,
+            jrtr_deleted_at: deletedAt,
+            jrtr_deleted_by: String(deletedBy),
+          },
+        });
+
+        return await tx.journal.updateMany({
+          where: {
+            jrnl_id: jrnlId,
+            jrnl_is_deleted: false,
+          },
+          data: {
+            jrnl_is_deleted: true,
+            jrnl_deleted_at: deletedAt,
+            jrnl_deleted_by: String(deletedBy),
+          },
+        });
+      });
+    } catch (error) {
+      console.error("❌ Error soft-deleting journal entry:", error.message);
+      throw error;
+    } finally {
+      await prisma.$disconnect();
+    }
+  }
+
+  /**
    * Delete a journal entry and its associated transactions.
    */
   async delete_journal_entry(dbUrl, jrnl_id, own_id, firm_id) {

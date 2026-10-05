@@ -6,6 +6,7 @@ const {
   keysToPermissionMatrix,
   emptyPermissionMatrix,
 } = require("../../prisma/seeder/permission-seeder");
+const { expandPermissionKey } = require("../constants/permissionAliases");
 
 const ROLE_OWNER = "OWNER";
 const ROLE_STAFF = "STAFF";
@@ -17,7 +18,7 @@ const hasPermission = (user, permissionKey) => {
   if (!user) return false;
   if (!permissionKey) return false;
   const perms = user.permissions || [];
-  return perms.includes(permissionKey);
+  return expandPermissionKey(permissionKey).some((key) => perms.includes(key));
 };
 
 const hasAnyPermission = (user, permissionKeys = []) => {

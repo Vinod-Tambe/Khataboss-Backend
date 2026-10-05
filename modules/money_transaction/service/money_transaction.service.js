@@ -7,6 +7,10 @@ const {
   buildTransferChannelDeltasLegacy,
   formatAccountDisplayName,
 } = require("../../../utils/accountChannel");
+const {
+  normalizeTransferDirection,
+  getTransferDirectionConfig,
+} = require("../../../utils/transferDirection");
 
 const { PERSONAL_EXPENSE_PANEL_NAME } = require("../../../common/constants/personalExpense");
 const PANEL_NAME = PERSONAL_EXPENSE_PANEL_NAME;
@@ -95,9 +99,7 @@ class MoneyTransactionService {
       throw new Error("Add at least one account on the second section with amount.");
     }
 
-    const isCrToDr = String(direction).toUpperCase() !== "DR_TO_CR";
-    const fromType = isCrToDr ? "CR" : "DR";
-    const toType = isCrToDr ? "DR" : "CR";
+    const { fromType, toType } = getTransferDirectionConfig(direction);
 
     const fromTotal = parseFloat(
       fromItems.reduce((sum, row) => sum + row.amt, 0).toFixed(2)
@@ -160,12 +162,12 @@ class MoneyTransactionService {
   }
 
   buildJournalLines(fromItems, toItems, direction, transDate, accountById, voucherInfo) {
-    const isCrToDr = String(direction).toUpperCase() !== "DR_TO_CR";
+    const { fromJournal, toJournal } = getTransferDirectionConfig(direction);
 
-    const fromLines = fromItems.map((item) => {
+    const lineForSide = (item, side) => {
       const acc = accountById[item.acc_id];
       const name = formatAccountDisplayName(acc);
-      if (isCrToDr) {
+      if (side === "CR") {
         return {
           jrtr_crdr: "CR",
           jrtr_date: transDate,
@@ -183,30 +185,10 @@ class MoneyTransactionService {
         jrtr_acc_info: name,
         jrtr_other_info: item.remarks || voucherInfo,
       };
-    });
+    };
 
-    const toLines = toItems.map((item) => {
-      const acc = accountById[item.acc_id];
-      const name = formatAccountDisplayName(acc);
-      if (isCrToDr) {
-        return {
-          jrtr_crdr: "DR",
-          jrtr_date: transDate,
-          jrtr_dr_acc_id: item.acc_id,
-          jrtr_dr_amt: item.amt,
-          jrtr_acc_info: name,
-          jrtr_other_info: item.remarks || voucherInfo,
-        };
-      }
-      return {
-        jrtr_crdr: "CR",
-        jrtr_date: transDate,
-        jrtr_cr_acc_id: item.acc_id,
-        jrtr_cr_amt: item.amt,
-        jrtr_acc_info: name,
-        jrtr_other_info: item.remarks || voucherInfo,
-      };
-    });
+    const fromLines = fromItems.map((item) => lineForSide(item, fromJournal));
+    const toLines = toItems.map((item) => lineForSide(item, toJournal));
 
     return [...fromLines, ...toLines];
   }
@@ -232,10 +214,7 @@ class MoneyTransactionService {
       );
     }
 
-    const direction =
-      String(picked.direction || "CR_TO_DR").toUpperCase() === "DR_TO_CR"
-        ? "DR_TO_CR"
-        : "CR_TO_DR";
+    const direction = normalizeTransferDirection(picked.direction);
 
     const { fromItems, toItems } = this.resolveFromAndToItems(picked);
 

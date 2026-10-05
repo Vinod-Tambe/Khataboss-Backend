@@ -164,6 +164,63 @@ class UserController {
   }
 
   /**
+   * GET /user/deleted/list
+   */
+  async getDeletedUsers(req, res) {
+    try {
+      const { firmId, search } = req.query;
+      const dbUrl = this.getDbUrl(req.user.own_db);
+      const users = await userService.getDeletedUsers(dbUrl, firmId, search);
+
+      return res.status(200).json({
+        message: "Deleted customers fetched successfully.",
+        data: users,
+      });
+    } catch (error) {
+      console.error("❌ Error fetching deleted users:", error.message);
+      return res.status(500).json({ error: error.message });
+    }
+  }
+
+  /**
+   * POST /user/:uuid/restore
+   */
+  async restoreUser(req, res) {
+    try {
+      const { uuid } = req.params;
+      const dbUrl = this.getDbUrl(req.user.own_db);
+
+      const before = await userService.getUserByUuid(dbUrl, uuid);
+      if (!before) {
+        return res.status(404).json({ error: "User not found." });
+      }
+
+      const result = await userService.restoreUserByUuid(dbUrl, uuid);
+
+      logActivity(dbUrl, req.user, {
+        firmId: result.user.user_firm_id,
+        module: MODULE.USER,
+        action: ACTION.UPDATE,
+        subject: "Customer Restored",
+        description: (at) => descriptions.customerRestored(result.user, at),
+        entityType: "user",
+        entityId: result.user.user_id,
+        refNo: result.user.user_unique_code,
+      });
+
+      return res.status(200).json({
+        message: "Customer and related transactions restored successfully.",
+        data: result.user,
+        summary: result.summary,
+      });
+    } catch (error) {
+      console.error("❌ Error restoring user:", error.message);
+      const status = /not deleted|not found/i.test(error.message) ? 400 : 500;
+      return res.status(status).json({ error: error.message });
+    }
+  }
+
+  /**
    * GET /user/search?q=&firmId=&limit=
    * Fast autocomplete for header search.
    */

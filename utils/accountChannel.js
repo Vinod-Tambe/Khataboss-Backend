@@ -41,15 +41,16 @@ function formatAccountDisplayName(account) {
   return `${main} (${primary})`;
 }
 
+const { normalizeTransferDirection } = require("./transferDirection");
+
 /**
  * Build signed channel deltas for an inter-account transfer.
  * fromItems / toItems: [{ account, amt }]
- * CR_TO_DR: from side credited (out), to side debited (in) — legacy channel signs.
- * DR_TO_CR: reversed.
+ * Liquid DR accounts (cash/bank/online/card) only; CR legs skipped.
  */
 function buildTransferChannelDeltas(fromItems = [], toItems = [], direction = "CR_TO_DR") {
   const channels = { cash: 0, bank: 0, online: 0, card: 0 };
-  const reverse = String(direction).toUpperCase() === "DR_TO_CR";
+  const d = normalizeTransferDirection(direction);
 
   const normalizeList = (items) =>
     (Array.isArray(items) ? items : [])
@@ -62,17 +63,23 @@ function buildTransferChannelDeltas(fromItems = [], toItems = [], direction = "C
   const fromList = normalizeList(fromItems);
   const toList = normalizeList(toItems);
 
-  if (!reverse) {
-    // CR → DR: from CR (skip); to DR debited → liquid inflow
+  if (d === "CR_TO_DR") {
     for (const item of toList) {
       applyDrLiquidChannelDelta(item.account, item.amt, 1, channels);
     }
-  } else {
-    // DR → CR: from DR credited → liquid outflow; to CR (skip)
+  } else if (d === "DR_TO_CR") {
     for (const item of fromList) {
       applyDrLiquidChannelDelta(item.account, item.amt, -1, channels);
     }
+  } else if (d === "DR_TO_DR") {
+    for (const item of fromList) {
+      applyDrLiquidChannelDelta(item.account, item.amt, -1, channels);
+    }
+    for (const item of toList) {
+      applyDrLiquidChannelDelta(item.account, item.amt, 1, channels);
+    }
   }
+  // CR_TO_CR: no DR liquid legs; daybook uses gross fallback on from account when net is zero.
 
   return channels;
 }

@@ -315,6 +315,11 @@ const descriptions = {
     return appendLoggedAt(`Customer "${name || user?.user_unique_code || ""}" deleted.`, loggedAt);
   },
 
+  customerRestored(user, loggedAt) {
+    const name = `${user?.user_first_name || ""} ${user?.user_last_name || ""}`.trim();
+    return appendLoggedAt(`Customer "${name || user?.user_unique_code || ""}" restored.`, loggedAt);
+  },
+
   staffCreated(staff, fullLogin, loggedAt) {
     const name = `${staff?.staff_first_name || ""} ${staff?.staff_last_name || ""}`.trim();
     return appendLoggedAt(

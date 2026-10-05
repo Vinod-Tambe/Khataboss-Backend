@@ -13,6 +13,68 @@ const USER_LEDGER_SELECT = {
   user_profile_img: true,
 };
 
+/** Case-insensitive substring match (PostgreSQL). */
+const icontains = (value) => ({
+  contains: String(value || "").trim(),
+  mode: "insensitive",
+});
+
+const toDateKey = (value) => {
+  if (!value) return null;
+  const s = String(value).trim();
+  if (/^\d{4}-\d{2}-\d{2}/.test(s)) return s.slice(0, 10);
+  const d = new Date(s);
+  if (Number.isNaN(d.getTime())) return null;
+  return d.toISOString().slice(0, 10);
+};
+
+const eachDayKeys = (startKey, endKey) => {
+  const days = [];
+  let cur = new Date(`${startKey}T12:00:00.000Z`);
+  const end = new Date(`${endKey}T12:00:00.000Z`);
+  if (Number.isNaN(cur.getTime()) || Number.isNaN(end.getTime())) return days;
+  while (cur <= end) {
+    days.push(cur.toISOString().slice(0, 10));
+    cur.setUTCDate(cur.getUTCDate() + 1);
+  }
+  return days;
+};
+
+const groupBy = (rows, idKey) =>
+  rows.reduce((acc, row) => {
+    const id = row[idKey];
+    if (!acc[id]) acc[id] = [];
+    acc[id].push(row);
+    return acc;
+  }, {});
+
+const loanPrincipalAsOf = (loan, aps = [], deps = [], asOfDateKey) => {
+  let principal = parseFloat(loan.girv_prin_amt) || 0;
+  aps.forEach((ap) => {
+    const d = toDateKey(ap.ap_trans_date);
+    if (d && d < asOfDateKey) {
+      principal += parseFloat(ap.ap_prin_amt) || 0;
+    }
+  });
+  deps.forEach((dep) => {
+    const d = toDateKey(dep.dep_trans_date);
+    if (d && d < asOfDateKey) {
+      principal -= parseFloat(dep.dep_prin_amt) || 0;
+    }
+  });
+  return Math.max(0, parseFloat(principal.toFixed(2)));
+};
+
+const isLoanInStockOnDate = (loan, releases = [], dayKey) => {
+  const start = toDateKey(loan.girv_start_date);
+  if (!start || start >= dayKey) return false;
+  const closedBefore = releases.some((rel) => {
+    const rd = toDateKey(rel.rel_trans_date);
+    return rd && rd < dayKey;
+  });
+  return !closedBefore;
+};
+
 const GIRV_LEDGER_SELECT = {
   girv_id: true,
   girv_uuid: true,
@@ -105,8 +167,8 @@ class StockService {
       where: {
         girv_is_deleted: false,
         OR: [
-          { girv_loan_no: { contains: term } },
-          { girv_unique_code: { contains: term } },
+          { girv_loan_no: icontains(term) },
+          { girv_unique_code: icontains(term) },
         ],
       },
       select: { girv_id: true },
@@ -207,15 +269,17 @@ class StockService {
       if (search) {
         const searchGirvIds = await this.resolveGirvIdsForSearch(prisma, search);
         const orClause = [
-          { st_item_name: { contains: search } },
+          { st_item_name: icontains(search) },
           {
             user: {
               OR: [
-                { user_first_name: { contains: search } },
-                { user_last_name: { contains: search } },
-                { user_mobile_no: { contains: search } },
-                { user_phone_no: { contains: search } },
-                { user_unique_code: { contains: search } },
+                { user_first_name: icontains(search) },
+                { user_last_name: icontains(search) },
+                { user_mobile_no: icontains(search) },
+                { user_phone_no: icontains(search) },
+                { user_whatsapp_no: icontains(search) },
+                { user_unique_code: icontains(search) },
+                { user_father_name: icontains(search) },
               ],
             },
           },
@@ -334,6 +398,209 @@ class StockService {
     } finally {
       await prisma.$disconnect();
     }
+  }
+
+  emptyDailyLedgerRows(rangeStart, rangeEnd) {
+    const dayKeys = eachDayKeys(rangeStart, rangeEnd);
+    return dayKeys.map((date) => ({
+      date,
+      opening: { amount: 0, girvi: 0 },
+      received: { amount: 0, girvi: 0 },
+      total: { amount: 0, girvi: 0 },
+      released: { amount: 0, girvi: 0 },
+      final: { amount: 0, girvi: 0 },
+      interest: 0,
+    }));
+  }
+
+  async computeDailyGirviMovementLedger(prisma, rangeStart, rangeEnd, girviWhere) {
+    const girvis = await prisma.girvi.findMany({
+        where: girviWhere,
+        select: {
+          girv_id: true,
+          girv_start_date: true,
+          girv_prin_amt: true,
+          girv_status: true,
+        },
+      });
+
+    const girvIds = girvis.map((g) => g.girv_id);
+    if (!girvIds.length) {
+      return this.emptyDailyLedgerRows(rangeStart, rangeEnd);
+    }
+
+    const [releases, additionalPrincipals, deposits] = await Promise.all([
+        prisma.girviRelease.findMany({
+          where: { rel_girv_id: { in: girvIds }, rel_is_deleted: false },
+          select: {
+            rel_girv_id: true,
+            rel_trans_date: true,
+            rel_prin_amt: true,
+            rel_int_amt: true,
+          },
+        }),
+        prisma.additionalPrincipal.findMany({
+          where: { ap_girv_id: { in: girvIds }, ap_is_deleted: false },
+          select: {
+            ap_girv_id: true,
+            ap_trans_date: true,
+            ap_prin_amt: true,
+          },
+        }),
+        prisma.girviDeposit.findMany({
+          where: { dep_girv_id: { in: girvIds }, dep_is_deleted: false },
+          select: {
+            dep_girv_id: true,
+            dep_trans_date: true,
+            dep_prin_amt: true,
+            dep_int_amt: true,
+          },
+        }),
+    ]);
+
+    const relByGirv = groupBy(releases, "rel_girv_id");
+      const apByGirv = groupBy(additionalPrincipals, "ap_girv_id");
+    const depByGirv = groupBy(deposits, "dep_girv_id");
+
+    let carryAmount = 0;
+      let carryGirvi = 0;
+      girvis.forEach((loan) => {
+        if (!isLoanInStockOnDate(loan, relByGirv[loan.girv_id] || [], rangeStart)) {
+          return;
+        }
+        carryGirvi += 1;
+        carryAmount += loanPrincipalAsOf(
+          loan,
+          apByGirv[loan.girv_id],
+          depByGirv[loan.girv_id],
+          rangeStart
+        );
+      });
+    carryAmount = parseFloat(carryAmount.toFixed(2));
+
+    const dayKeys = eachDayKeys(rangeStart, rangeEnd);
+    const rows = dayKeys.map((dateKey) => {
+        const opening = {
+          amount: carryAmount,
+          girvi: carryGirvi,
+        };
+
+      let receivedAmount = 0;
+      let receivedGirvi = 0;
+      let releasedAmount = 0;
+      let releasedGirvi = 0;
+      let interest = 0;
+
+      girvis.forEach((loan) => {
+          const start = toDateKey(loan.girv_start_date);
+          if (start === dateKey) {
+            receivedAmount += parseFloat(loan.girv_prin_amt) || 0;
+            receivedGirvi += 1;
+          }
+        });
+
+        additionalPrincipals.forEach((ap) => {
+          if (toDateKey(ap.ap_trans_date) === dateKey) {
+            receivedAmount += parseFloat(ap.ap_prin_amt) || 0;
+          }
+        });
+
+        releases.forEach((rel) => {
+          if (toDateKey(rel.rel_trans_date) === dateKey) {
+            releasedAmount += parseFloat(rel.rel_prin_amt) || 0;
+            releasedGirvi += 1;
+            interest += parseFloat(rel.rel_int_amt) || 0;
+          }
+        });
+
+        deposits.forEach((dep) => {
+          if (toDateKey(dep.dep_trans_date) === dateKey) {
+            releasedAmount += parseFloat(dep.dep_prin_amt) || 0;
+            interest += parseFloat(dep.dep_int_amt) || 0;
+          }
+        });
+
+        receivedAmount = parseFloat(receivedAmount.toFixed(2));
+        releasedAmount = parseFloat(releasedAmount.toFixed(2));
+        interest = parseFloat(interest.toFixed(2));
+
+        const total = {
+          amount: parseFloat((opening.amount + receivedAmount).toFixed(2)),
+          girvi: opening.girvi + receivedGirvi,
+        };
+        const final = {
+          amount: parseFloat(Math.max(0, total.amount - releasedAmount).toFixed(2)),
+          girvi: Math.max(0, total.girvi - releasedGirvi),
+        };
+
+        const row = {
+          date: dateKey,
+          opening,
+          received: { amount: receivedAmount, girvi: receivedGirvi },
+          total,
+          released: { amount: releasedAmount, girvi: releasedGirvi },
+          final,
+          interest,
+        };
+
+      carryAmount = final.amount;
+      carryGirvi = final.girvi;
+      return row;
+    });
+
+    return rows;
+  }
+
+  async runDailyGirviMovementLedgerReport(dbUrl, filters, girviWhereExtra = {}) {
+    const prisma = this.getPrisma(dbUrl);
+    const rangeStart = toDateKey(filters.startDate);
+    const rangeEnd = toDateKey(filters.endDate);
+    if (!rangeStart || !rangeEnd) {
+      throw new Error("startDate and endDate are required (YYYY-MM-DD).");
+    }
+    if (rangeStart > rangeEnd) {
+      throw new Error("startDate must be before or equal to endDate.");
+    }
+
+    const girviWhere = {
+      girv_is_deleted: false,
+      ...girviWhereExtra,
+    };
+    if (filters.firmId) {
+      girviWhere.girv_firm_id = parseInt(filters.firmId, 10);
+    }
+
+    try {
+      const rows = await this.computeDailyGirviMovementLedger(
+        prisma,
+        rangeStart,
+        rangeEnd,
+        girviWhere
+      );
+      return {
+        startDate: rangeStart,
+        endDate: rangeEnd,
+        rows,
+      };
+    } finally {
+      await prisma.$disconnect();
+    }
+  }
+
+  /**
+   * Daily loan stock ledger (all active loans): opening → received → total → released → closing.
+   */
+  async getLoanStockDailyLedger(dbUrl, filters = {}) {
+    return this.runDailyGirviMovementLedgerReport(dbUrl, filters, {});
+  }
+
+  /**
+   * Daily transferred-in loan ledger: loans received via inter-firm / ML transfer only.
+   */
+  async getTransferredLoanDailyLedger(dbUrl, filters = {}) {
+    return this.runDailyGirviMovementLedgerReport(dbUrl, filters, {
+      girv_is_transferred_in: true,
+    });
   }
 }
 

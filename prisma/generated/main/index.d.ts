@@ -288,7 +288,9 @@ export type MoneyTransferMode = (typeof MoneyTransferMode)[keyof typeof MoneyTra
 
 export const MoneyTransferDirection: {
   CR_TO_DR: 'CR_TO_DR',
-  DR_TO_CR: 'DR_TO_CR'
+  DR_TO_CR: 'DR_TO_CR',
+  CR_TO_CR: 'CR_TO_CR',
+  DR_TO_DR: 'DR_TO_DR'
 };
 
 export type MoneyTransferDirection = (typeof MoneyTransferDirection)[keyof typeof MoneyTransferDirection]
@@ -37803,6 +37805,9 @@ export namespace Prisma {
     al_card_amt: number | null
     al_pay_info: string | null
     al_other_info: string | null
+    al_deleted_at: Date | null
+    al_deleted_by: string | null
+    al_is_deleted: boolean | null
   }
 
   export type AuctionLoanMaxAggregateOutputType = {
@@ -37830,6 +37835,9 @@ export namespace Prisma {
     al_card_amt: number | null
     al_pay_info: string | null
     al_other_info: string | null
+    al_deleted_at: Date | null
+    al_deleted_by: string | null
+    al_is_deleted: boolean | null
   }
 
   export type AuctionLoanCountAggregateOutputType = {
@@ -37857,6 +37865,9 @@ export namespace Prisma {
     al_card_amt: number
     al_pay_info: number
     al_other_info: number
+    al_deleted_at: number
+    al_deleted_by: number
+    al_is_deleted: number
     _all: number
   }
 
@@ -37924,6 +37935,9 @@ export namespace Prisma {
     al_card_amt?: true
     al_pay_info?: true
     al_other_info?: true
+    al_deleted_at?: true
+    al_deleted_by?: true
+    al_is_deleted?: true
   }
 
   export type AuctionLoanMaxAggregateInputType = {
@@ -37951,6 +37965,9 @@ export namespace Prisma {
     al_card_amt?: true
     al_pay_info?: true
     al_other_info?: true
+    al_deleted_at?: true
+    al_deleted_by?: true
+    al_is_deleted?: true
   }
 
   export type AuctionLoanCountAggregateInputType = {
@@ -37978,6 +37995,9 @@ export namespace Prisma {
     al_card_amt?: true
     al_pay_info?: true
     al_other_info?: true
+    al_deleted_at?: true
+    al_deleted_by?: true
+    al_is_deleted?: true
     _all?: true
   }
 
@@ -38092,6 +38112,9 @@ export namespace Prisma {
     al_card_amt: number | null
     al_pay_info: string | null
     al_other_info: string | null
+    al_deleted_at: Date | null
+    al_deleted_by: string | null
+    al_is_deleted: boolean
     _count: AuctionLoanCountAggregateOutputType | null
     _avg: AuctionLoanAvgAggregateOutputType | null
     _sum: AuctionLoanSumAggregateOutputType | null
@@ -38138,6 +38161,9 @@ export namespace Prisma {
     al_card_amt?: boolean
     al_pay_info?: boolean
     al_other_info?: boolean
+    al_deleted_at?: boolean
+    al_deleted_by?: boolean
+    al_is_deleted?: boolean
     firm?: boolean | FirmDefaultArgs<ExtArgs>
     girvi?: boolean | GirviDefaultArgs<ExtArgs>
     buyer?: boolean | AuctionUserDefaultArgs<ExtArgs>
@@ -38168,6 +38194,9 @@ export namespace Prisma {
     al_card_amt?: boolean
     al_pay_info?: boolean
     al_other_info?: boolean
+    al_deleted_at?: boolean
+    al_deleted_by?: boolean
+    al_is_deleted?: boolean
     firm?: boolean | FirmDefaultArgs<ExtArgs>
     girvi?: boolean | GirviDefaultArgs<ExtArgs>
     buyer?: boolean | AuctionUserDefaultArgs<ExtArgs>
@@ -38198,6 +38227,9 @@ export namespace Prisma {
     al_card_amt?: boolean
     al_pay_info?: boolean
     al_other_info?: boolean
+    al_deleted_at?: boolean
+    al_deleted_by?: boolean
+    al_is_deleted?: boolean
   }
 
   export type AuctionLoanInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -38243,6 +38275,9 @@ export namespace Prisma {
       al_card_amt: number | null
       al_pay_info: string | null
       al_other_info: string | null
+      al_deleted_at: Date | null
+      al_deleted_by: string | null
+      al_is_deleted: boolean
     }, ExtArgs["result"]["auctionLoan"]>
     composites: {}
   }
@@ -38663,6 +38698,9 @@ export namespace Prisma {
     readonly al_card_amt: FieldRef<"AuctionLoan", 'Float'>
     readonly al_pay_info: FieldRef<"AuctionLoan", 'String'>
     readonly al_other_info: FieldRef<"AuctionLoan", 'String'>
+    readonly al_deleted_at: FieldRef<"AuctionLoan", 'DateTime'>
+    readonly al_deleted_by: FieldRef<"AuctionLoan", 'String'>
+    readonly al_is_deleted: FieldRef<"AuctionLoan", 'Boolean'>
   }
     
 
@@ -50885,7 +50923,10 @@ export namespace Prisma {
     al_card_info: 'al_card_info',
     al_card_amt: 'al_card_amt',
     al_pay_info: 'al_pay_info',
-    al_other_info: 'al_other_info'
+    al_other_info: 'al_other_info',
+    al_deleted_at: 'al_deleted_at',
+    al_deleted_by: 'al_deleted_by',
+    al_is_deleted: 'al_is_deleted'
   };
 
   export type AuctionLoanScalarFieldEnum = (typeof AuctionLoanScalarFieldEnum)[keyof typeof AuctionLoanScalarFieldEnum]
@@ -56242,6 +56283,9 @@ export namespace Prisma {
     al_card_amt?: FloatNullableFilter<"AuctionLoan"> | number | null
     al_pay_info?: StringNullableFilter<"AuctionLoan"> | string | null
     al_other_info?: StringNullableFilter<"AuctionLoan"> | string | null
+    al_deleted_at?: DateTimeNullableFilter<"AuctionLoan"> | Date | string | null
+    al_deleted_by?: StringNullableFilter<"AuctionLoan"> | string | null
+    al_is_deleted?: BoolFilter<"AuctionLoan"> | boolean
     firm?: XOR<FirmRelationFilter, FirmWhereInput>
     girvi?: XOR<GirviRelationFilter, GirviWhereInput>
     buyer?: XOR<AuctionUserRelationFilter, AuctionUserWhereInput>
@@ -56272,6 +56316,9 @@ export namespace Prisma {
     al_card_amt?: SortOrderInput | SortOrder
     al_pay_info?: SortOrderInput | SortOrder
     al_other_info?: SortOrderInput | SortOrder
+    al_deleted_at?: SortOrderInput | SortOrder
+    al_deleted_by?: SortOrderInput | SortOrder
+    al_is_deleted?: SortOrder
     firm?: FirmOrderByWithRelationInput
     girvi?: GirviOrderByWithRelationInput
     buyer?: AuctionUserOrderByWithRelationInput
@@ -56305,6 +56352,9 @@ export namespace Prisma {
     al_card_amt?: FloatNullableFilter<"AuctionLoan"> | number | null
     al_pay_info?: StringNullableFilter<"AuctionLoan"> | string | null
     al_other_info?: StringNullableFilter<"AuctionLoan"> | string | null
+    al_deleted_at?: DateTimeNullableFilter<"AuctionLoan"> | Date | string | null
+    al_deleted_by?: StringNullableFilter<"AuctionLoan"> | string | null
+    al_is_deleted?: BoolFilter<"AuctionLoan"> | boolean
     firm?: XOR<FirmRelationFilter, FirmWhereInput>
     girvi?: XOR<GirviRelationFilter, GirviWhereInput>
     buyer?: XOR<AuctionUserRelationFilter, AuctionUserWhereInput>
@@ -56335,6 +56385,9 @@ export namespace Prisma {
     al_card_amt?: SortOrderInput | SortOrder
     al_pay_info?: SortOrderInput | SortOrder
     al_other_info?: SortOrderInput | SortOrder
+    al_deleted_at?: SortOrderInput | SortOrder
+    al_deleted_by?: SortOrderInput | SortOrder
+    al_is_deleted?: SortOrder
     _count?: AuctionLoanCountOrderByAggregateInput
     _avg?: AuctionLoanAvgOrderByAggregateInput
     _max?: AuctionLoanMaxOrderByAggregateInput
@@ -56370,6 +56423,9 @@ export namespace Prisma {
     al_card_amt?: FloatNullableWithAggregatesFilter<"AuctionLoan"> | number | null
     al_pay_info?: StringNullableWithAggregatesFilter<"AuctionLoan"> | string | null
     al_other_info?: StringNullableWithAggregatesFilter<"AuctionLoan"> | string | null
+    al_deleted_at?: DateTimeNullableWithAggregatesFilter<"AuctionLoan"> | Date | string | null
+    al_deleted_by?: StringNullableWithAggregatesFilter<"AuctionLoan"> | string | null
+    al_is_deleted?: BoolWithAggregatesFilter<"AuctionLoan"> | boolean
   }
 
   export type StaffWhereInput = {
@@ -62892,6 +62948,9 @@ export namespace Prisma {
     al_card_amt?: number | null
     al_pay_info?: string | null
     al_other_info?: string | null
+    al_deleted_at?: Date | string | null
+    al_deleted_by?: string | null
+    al_is_deleted?: boolean
     firm: FirmCreateNestedOneWithoutAuctionLoansInput
     girvi: GirviCreateNestedOneWithoutAuctionLoansInput
     buyer: AuctionUserCreateNestedOneWithoutAuctionLoansInput
@@ -62922,6 +62981,9 @@ export namespace Prisma {
     al_card_amt?: number | null
     al_pay_info?: string | null
     al_other_info?: string | null
+    al_deleted_at?: Date | string | null
+    al_deleted_by?: string | null
+    al_is_deleted?: boolean
   }
 
   export type AuctionLoanUpdateInput = {
@@ -62945,6 +63007,9 @@ export namespace Prisma {
     al_card_amt?: NullableFloatFieldUpdateOperationsInput | number | null
     al_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     al_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    al_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    al_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    al_is_deleted?: BoolFieldUpdateOperationsInput | boolean
     firm?: FirmUpdateOneRequiredWithoutAuctionLoansNestedInput
     girvi?: GirviUpdateOneRequiredWithoutAuctionLoansNestedInput
     buyer?: AuctionUserUpdateOneRequiredWithoutAuctionLoansNestedInput
@@ -62975,6 +63040,9 @@ export namespace Prisma {
     al_card_amt?: NullableFloatFieldUpdateOperationsInput | number | null
     al_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     al_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    al_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    al_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    al_is_deleted?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type AuctionLoanCreateManyInput = {
@@ -63002,6 +63070,9 @@ export namespace Prisma {
     al_card_amt?: number | null
     al_pay_info?: string | null
     al_other_info?: string | null
+    al_deleted_at?: Date | string | null
+    al_deleted_by?: string | null
+    al_is_deleted?: boolean
   }
 
   export type AuctionLoanUpdateManyMutationInput = {
@@ -63025,6 +63096,9 @@ export namespace Prisma {
     al_card_amt?: NullableFloatFieldUpdateOperationsInput | number | null
     al_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     al_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    al_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    al_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    al_is_deleted?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type AuctionLoanUncheckedUpdateManyInput = {
@@ -63052,6 +63126,9 @@ export namespace Prisma {
     al_card_amt?: NullableFloatFieldUpdateOperationsInput | number | null
     al_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     al_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    al_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    al_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    al_is_deleted?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type StaffCreateInput = {
@@ -68128,6 +68205,9 @@ export namespace Prisma {
     al_card_amt?: SortOrder
     al_pay_info?: SortOrder
     al_other_info?: SortOrder
+    al_deleted_at?: SortOrder
+    al_deleted_by?: SortOrder
+    al_is_deleted?: SortOrder
   }
 
   export type AuctionLoanAvgOrderByAggregateInput = {
@@ -68174,6 +68254,9 @@ export namespace Prisma {
     al_card_amt?: SortOrder
     al_pay_info?: SortOrder
     al_other_info?: SortOrder
+    al_deleted_at?: SortOrder
+    al_deleted_by?: SortOrder
+    al_is_deleted?: SortOrder
   }
 
   export type AuctionLoanMinOrderByAggregateInput = {
@@ -68201,6 +68284,9 @@ export namespace Prisma {
     al_card_amt?: SortOrder
     al_pay_info?: SortOrder
     al_other_info?: SortOrder
+    al_deleted_at?: SortOrder
+    al_deleted_by?: SortOrder
+    al_is_deleted?: SortOrder
   }
 
   export type AuctionLoanSumOrderByAggregateInput = {
@@ -81257,6 +81343,9 @@ export namespace Prisma {
     al_card_amt?: number | null
     al_pay_info?: string | null
     al_other_info?: string | null
+    al_deleted_at?: Date | string | null
+    al_deleted_by?: string | null
+    al_is_deleted?: boolean
     girvi: GirviCreateNestedOneWithoutAuctionLoansInput
     buyer: AuctionUserCreateNestedOneWithoutAuctionLoansInput
   }
@@ -81285,6 +81374,9 @@ export namespace Prisma {
     al_card_amt?: number | null
     al_pay_info?: string | null
     al_other_info?: string | null
+    al_deleted_at?: Date | string | null
+    al_deleted_by?: string | null
+    al_is_deleted?: boolean
   }
 
   export type AuctionLoanCreateOrConnectWithoutFirmInput = {
@@ -82006,6 +82098,9 @@ export namespace Prisma {
     al_card_amt?: FloatNullableFilter<"AuctionLoan"> | number | null
     al_pay_info?: StringNullableFilter<"AuctionLoan"> | string | null
     al_other_info?: StringNullableFilter<"AuctionLoan"> | string | null
+    al_deleted_at?: DateTimeNullableFilter<"AuctionLoan"> | Date | string | null
+    al_deleted_by?: StringNullableFilter<"AuctionLoan"> | string | null
+    al_is_deleted?: BoolFilter<"AuctionLoan"> | boolean
   }
 
   export type ReleaseUserUpsertWithWhereUniqueWithoutFirmInput = {
@@ -103689,6 +103784,9 @@ export namespace Prisma {
     al_card_amt?: number | null
     al_pay_info?: string | null
     al_other_info?: string | null
+    al_deleted_at?: Date | string | null
+    al_deleted_by?: string | null
+    al_is_deleted?: boolean
     firm: FirmCreateNestedOneWithoutAuctionLoansInput
     buyer: AuctionUserCreateNestedOneWithoutAuctionLoansInput
   }
@@ -103717,6 +103815,9 @@ export namespace Prisma {
     al_card_amt?: number | null
     al_pay_info?: string | null
     al_other_info?: string | null
+    al_deleted_at?: Date | string | null
+    al_deleted_by?: string | null
+    al_is_deleted?: boolean
   }
 
   export type AuctionLoanCreateOrConnectWithoutGirviInput = {
@@ -118460,6 +118561,9 @@ export namespace Prisma {
     al_card_amt?: number | null
     al_pay_info?: string | null
     al_other_info?: string | null
+    al_deleted_at?: Date | string | null
+    al_deleted_by?: string | null
+    al_is_deleted?: boolean
     firm: FirmCreateNestedOneWithoutAuctionLoansInput
     girvi: GirviCreateNestedOneWithoutAuctionLoansInput
   }
@@ -118488,6 +118592,9 @@ export namespace Prisma {
     al_card_amt?: number | null
     al_pay_info?: string | null
     al_other_info?: string | null
+    al_deleted_at?: Date | string | null
+    al_deleted_by?: string | null
+    al_is_deleted?: boolean
   }
 
   export type AuctionLoanCreateOrConnectWithoutBuyerInput = {
@@ -126054,6 +126161,9 @@ export namespace Prisma {
     al_card_amt?: number | null
     al_pay_info?: string | null
     al_other_info?: string | null
+    al_deleted_at?: Date | string | null
+    al_deleted_by?: string | null
+    al_is_deleted?: boolean
   }
 
   export type ReleaseUserCreateManyFirmInput = {
@@ -127902,6 +128012,9 @@ export namespace Prisma {
     al_card_amt?: NullableFloatFieldUpdateOperationsInput | number | null
     al_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     al_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    al_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    al_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    al_is_deleted?: BoolFieldUpdateOperationsInput | boolean
     girvi?: GirviUpdateOneRequiredWithoutAuctionLoansNestedInput
     buyer?: AuctionUserUpdateOneRequiredWithoutAuctionLoansNestedInput
   }
@@ -127930,6 +128043,9 @@ export namespace Prisma {
     al_card_amt?: NullableFloatFieldUpdateOperationsInput | number | null
     al_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     al_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    al_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    al_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    al_is_deleted?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type AuctionLoanUncheckedUpdateManyWithoutFirmInput = {
@@ -127956,6 +128072,9 @@ export namespace Prisma {
     al_card_amt?: NullableFloatFieldUpdateOperationsInput | number | null
     al_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     al_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    al_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    al_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    al_is_deleted?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type ReleaseUserUpdateWithoutFirmInput = {
@@ -137828,6 +137947,9 @@ export namespace Prisma {
     al_card_amt?: number | null
     al_pay_info?: string | null
     al_other_info?: string | null
+    al_deleted_at?: Date | string | null
+    al_deleted_by?: string | null
+    al_is_deleted?: boolean
   }
 
   export type AdditionalPrincipalUpdateWithoutGirviInput = {
@@ -138202,6 +138324,9 @@ export namespace Prisma {
     al_card_amt?: NullableFloatFieldUpdateOperationsInput | number | null
     al_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     al_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    al_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    al_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    al_is_deleted?: BoolFieldUpdateOperationsInput | boolean
     firm?: FirmUpdateOneRequiredWithoutAuctionLoansNestedInput
     buyer?: AuctionUserUpdateOneRequiredWithoutAuctionLoansNestedInput
   }
@@ -138230,6 +138355,9 @@ export namespace Prisma {
     al_card_amt?: NullableFloatFieldUpdateOperationsInput | number | null
     al_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     al_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    al_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    al_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    al_is_deleted?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type AuctionLoanUncheckedUpdateManyWithoutGirviInput = {
@@ -138256,6 +138384,9 @@ export namespace Prisma {
     al_card_amt?: NullableFloatFieldUpdateOperationsInput | number | null
     al_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     al_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    al_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    al_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    al_is_deleted?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type GirviReleaseCreateManyPickupUserInput = {
@@ -138696,6 +138827,9 @@ export namespace Prisma {
     al_card_amt?: number | null
     al_pay_info?: string | null
     al_other_info?: string | null
+    al_deleted_at?: Date | string | null
+    al_deleted_by?: string | null
+    al_is_deleted?: boolean
   }
 
   export type AuctionLoanUpdateWithoutBuyerInput = {
@@ -138719,6 +138853,9 @@ export namespace Prisma {
     al_card_amt?: NullableFloatFieldUpdateOperationsInput | number | null
     al_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     al_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    al_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    al_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    al_is_deleted?: BoolFieldUpdateOperationsInput | boolean
     firm?: FirmUpdateOneRequiredWithoutAuctionLoansNestedInput
     girvi?: GirviUpdateOneRequiredWithoutAuctionLoansNestedInput
   }
@@ -138747,6 +138884,9 @@ export namespace Prisma {
     al_card_amt?: NullableFloatFieldUpdateOperationsInput | number | null
     al_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     al_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    al_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    al_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    al_is_deleted?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type AuctionLoanUncheckedUpdateManyWithoutBuyerInput = {
@@ -138773,6 +138913,9 @@ export namespace Prisma {
     al_card_amt?: NullableFloatFieldUpdateOperationsInput | number | null
     al_pay_info?: NullableStringFieldUpdateOperationsInput | string | null
     al_other_info?: NullableStringFieldUpdateOperationsInput | string | null
+    al_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    al_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    al_is_deleted?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type StaffPermissionCreateManyStaffInput = {

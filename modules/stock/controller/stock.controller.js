@@ -1,6 +1,7 @@
 "use strict";
 
 const stockService = require("../service/stock.service");
+const interestLedgerService = require("../service/interest_ledger.service");
 const { BASE_URL } = require("../../../config/db");
 const {
   logActivity,
@@ -26,6 +27,63 @@ class StockController {
       });
     } catch (error) {
       console.error("❌ Error fetching stocks:", error.message);
+      return res.status(500).json({ error: error.message });
+    }
+  }
+
+  async getLoanStockDailyLedger(req, res) {
+    try {
+      const { firmId, startDate, endDate } = req.query;
+      const dbUrl = this.getDbUrl(req.user.own_db);
+      const data = await stockService.getLoanStockDailyLedger(dbUrl, {
+        firmId,
+        startDate,
+        endDate,
+      });
+      return res.status(200).json({
+        message: "Loan stock ledger fetched successfully.",
+        data,
+      });
+    } catch (error) {
+      console.error("❌ Error fetching loan stock ledger:", error.message);
+      return res.status(500).json({ error: error.message });
+    }
+  }
+
+  async getInterestDailyLedger(req, res) {
+    try {
+      const { firmId, startDate, endDate } = req.query;
+      const dbUrl = this.getDbUrl(req.user.own_db);
+      const data = await interestLedgerService.getInterestDailyLedger(dbUrl, {
+        firmId,
+        startDate,
+        endDate,
+      });
+      return res.status(200).json({
+        message: "Interest ledger fetched successfully.",
+        data,
+      });
+    } catch (error) {
+      console.error("❌ Error fetching interest ledger:", error.message);
+      return res.status(500).json({ error: error.message });
+    }
+  }
+
+  async getTransferredLoanDailyLedger(req, res) {
+    try {
+      const { firmId, startDate, endDate } = req.query;
+      const dbUrl = this.getDbUrl(req.user.own_db);
+      const data = await stockService.getTransferredLoanDailyLedger(dbUrl, {
+        firmId,
+        startDate,
+        endDate,
+      });
+      return res.status(200).json({
+        message: "Transferred loan ledger fetched successfully.",
+        data,
+      });
+    } catch (error) {
+      console.error("❌ Error fetching transferred loan ledger:", error.message);
       return res.status(500).json({ error: error.message });
     }
   }
