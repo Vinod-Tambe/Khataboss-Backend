@@ -3,7 +3,11 @@
 const { getTenantPrisma } = require("../../../utils/tenantPrisma");
 const journalService = require("../../journal/service/journal.service");
 const serialNumberService = require("../../../common/service/serialNumber.service");
-const { calculateFirstMonthInterest, getLoanInterestSummary } = require("../../../utils/loanInterest");
+const {
+  calculateFirstMonthInterest,
+  getLoanInterestSummary,
+  isLoanInterestDueToday,
+} = require("../../../utils/loanInterest");
 const notifyCustomer = require("../../../common/service/messaging-notify.service");
 const messagingPdf = require("../../../common/service/messaging-pdf.service");
 const {
@@ -554,7 +558,9 @@ class GirviService {
       if (userId) {
         where.girv_user_id = parseInt(userId);
       }
-      const pendingInterestList = status === "PENDING_INTEREST";
+      const todayPendingInterestList = status === "TODAY_PENDING_INTEREST";
+      const pendingInterestList =
+        status === "PENDING_INTEREST" || todayPendingInterestList;
       if (status && status !== "ALL" && !pendingInterestList) {
         where.girv_status = status;
       }
@@ -632,6 +638,12 @@ class GirviService {
               (b.interest_summary?.pendingInterest ?? 0) -
               (a.interest_summary?.pendingInterest ?? 0)
           );
+      }
+
+      if (todayPendingInterestList) {
+        enriched = enriched.filter((g) =>
+          isLoanInterestDueToday(g.girv_start_date)
+        );
       }
 
       return enriched.map((g) => ({

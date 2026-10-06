@@ -98,6 +98,54 @@ const decomposePeriod = (start, end) => {
  * Count billable months: each full month + any extra days = +1 full month.
  * Min 1 month (even same-day loan).
  */
+const daysInCalendarMonth = (y, m) => new Date(y, m + 1, 0).getDate();
+
+/** Monthly interest due day = loan start day-of-month (clamped to month length). */
+const isLoanInterestDueToday = (startDate, asOfDate = new Date()) => {
+  const start = parseCalendarDate(startDate);
+  const today = parseCalendarDate(asOfDate);
+  if (!start || !today) return false;
+  const dueDay = Math.min(start.d, daysInCalendarMonth(today.y, today.m));
+  return today.d === dueDay;
+};
+
+const getInterestPeriodCounts = (data, summary, asOfDate = new Date()) => {
+  const interestEndDate = resolveLoanInterestEndDate(data, asOfDate);
+  const totalPeriods = getTenureMonths(data.girv_start_date, interestEndDate);
+  const totalInterest = parseFloat(summary.totalInterest) || 0;
+  const paidInterest = parseFloat(
+    (
+      (parseFloat(summary.totalDepositsInterest) || 0) +
+      (parseFloat(summary.totalReleasesInterest) || 0) +
+      (parseFloat(summary.firstMonthInterest) || 0)
+    ).toFixed(2)
+  );
+  const pendingInterest = parseFloat(summary.pendingInterest) || 0;
+
+  let paidPeriods = 0;
+  let pendingPeriods = 0;
+
+  if (totalInterest > 0.01) {
+    paidPeriods = Math.min(
+      totalPeriods,
+      Math.floor((paidInterest / totalInterest) * totalPeriods)
+    );
+    pendingPeriods = Math.max(0, totalPeriods - paidPeriods);
+    if (pendingInterest > 0.01 && pendingPeriods < 1) {
+      pendingPeriods = 1;
+    }
+  } else if (pendingInterest > 0.01) {
+    pendingPeriods = totalPeriods;
+  }
+
+  return {
+    totalInterestPeriods: totalPeriods,
+    paidInterestPeriods: paidPeriods,
+    pendingInterestPeriods: pendingPeriods,
+    totalPaidInterest: paidInterest,
+  };
+};
+
 const getTenureMonths = (startDate, endDate = new Date()) => {
   const start = parseCalendarDate(startDate);
   const end = parseCalendarDate(endDate);
@@ -252,7 +300,7 @@ const getLoanInterestSummary = (data, asOfDate = new Date()) => {
   const pending = parseFloat((pendingPrincipal + pendingInterest).toFixed(2));
   const totalDueAmount = pending;
 
-  return {
+  const base = {
     originalPrincipal,
     currentTotalPrincipal,
     totalDepositsPrincipal,
@@ -272,6 +320,11 @@ const getLoanInterestSummary = (data, asOfDate = new Date()) => {
     interestMethod,
     compoundFreq,
   };
+
+  return {
+    ...base,
+    ...getInterestPeriodCounts(data, base, asOfDate),
+  };
 };
 
 module.exports = {
@@ -283,5 +336,6 @@ module.exports = {
   getTenureMonths,
   isFirstMonthInterestEnabled,
   resolveLoanInterestEndDate,
+  isLoanInterestDueToday,
   getLoanInterestSummary,
 };
