@@ -486,6 +486,7 @@ model User {
   @@index([user_mobile_no])
   @@index([user_email_id])
   @@index([user_firm_id])
+  @@index([user_firm_id, user_is_deleted])
 }
 
 enum FinanceStatus {
@@ -573,6 +574,7 @@ model Finance {
 
   owner Owner @relation("OwnerFinance", fields: [fin_own_id], references: [own_id], onDelete: Cascade)
 
+  @@index([fin_firm_id, fin_is_deleted])
   @@map("finance")
 }
 
@@ -1036,6 +1038,7 @@ model Girvi {
   releases             GirviRelease[]        @relation("GirviGirviRelease")
   auctionLoans         AuctionLoan[]         @relation("GirviAuctionLoan")
 
+  @@index([girv_firm_id, girv_is_deleted])
   @@map("girvi")
 }
 

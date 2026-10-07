@@ -3,6 +3,15 @@
 const { getTenantPrisma } = require("../../../utils/tenantPrisma");
 const serialNumberService = require("../../../common/service/serialNumber.service");
 const journalService = require("../../journal/service/journal.service");
+const {
+  GLOBAL_LOAN_TAKE,
+  GLOBAL_FINANCE_TAKE,
+  buildUserSearchWhere,
+  parseFirmIdInt,
+  buildGlobalLoanOrConditions,
+  buildGlobalFinanceOrConditions,
+  clampUserTake,
+} = require("./userSearch.helpers");
 
 const USER_HEADER_SELECT = {
   user_id: true,
@@ -11,6 +20,11 @@ const USER_HEADER_SELECT = {
   user_first_name: true,
   user_last_name: true,
   user_father_name: true,
+  user_spouse_name: true,
+  user_village: true,
+  user_adhaar_no: true,
+  user_is_deleted: true,
+  user_created_by: true,
   user_mobile_no: true,
   user_phone_no: true,
   user_whatsapp_no: true,
@@ -132,52 +146,10 @@ class UserService {
       const search = String(q || "").trim();
       if (search.length < 1) return [];
 
-      const digitsOnly = search.replace(/\D/g, "");
-
-      const take = Math.min(Math.max(parseInt(limit, 10) || 12, 1), 20);
-      const where = {
-        user_is_deleted: false,
-      };
-
-      if (firmId && firmId !== "all" && firmId !== "undefined") {
-        where.user_firm_id = parseInt(firmId, 10);
-      }
-
-      const or = [
-        { user_unique_code: { equals: search, mode: "insensitive" } },
-        { user_unique_code: { contains: search, mode: "insensitive" } },
-        { user_mobile_no: { contains: search, mode: "insensitive" } },
-        { user_phone_no: { contains: search, mode: "insensitive" } },
-        { user_whatsapp_no: { contains: search, mode: "insensitive" } },
-        { user_email_id: { contains: search, mode: "insensitive" } },
-        { user_first_name: { contains: search, mode: "insensitive" } },
-        { user_last_name: { contains: search, mode: "insensitive" } },
-        { user_father_name: { contains: search, mode: "insensitive" } },
-        { user_curr_address: { contains: search, mode: "insensitive" } },
-        { user_per_address: { contains: search, mode: "insensitive" } },
-        { user_city: { contains: search, mode: "insensitive" } },
-        { user_state: { contains: search, mode: "insensitive" } },
-        { user_country: { contains: search, mode: "insensitive" } },
-        { user_pincode: { contains: search, mode: "insensitive" } },
-      ];
-
-      if (digitsOnly.length >= 3 && digitsOnly !== search) {
-        or.unshift({ user_mobile_no: { contains: digitsOnly } });
-        or.unshift({ user_phone_no: { contains: digitsOnly } });
-        or.unshift({ user_whatsapp_no: { contains: digitsOnly } });
-      }
-
-      if (/^\d+$/.test(search)) {
-        const id = parseInt(search, 10);
-        if (!Number.isNaN(id) && id <= 2147483647) {
-          or.unshift({ user_id: id });
-        }
-      }
-
-      where.OR = or;
+      const take = clampUserTake(limit);
 
       return await prisma.user.findMany({
-        where,
+        where: buildUserSearchWhere(firmId, search),
         take,
         orderBy: [{ user_id: "desc" }],
         select: USER_HEADER_SELECT,
@@ -195,51 +167,25 @@ class UserService {
       return { users: [], loans: [], finances: [] };
     }
 
-    const firmFilter = {};
-    if (firmId && firmId !== "all" && firmId !== "undefined") {
-      firmFilter.user_firm_id = parseInt(firmId, 10);
-    }
+    const firmIdInt = parseFirmIdInt(firmId);
+    const loanFirmFilter = firmIdInt != null ? { girv_firm_id: firmIdInt } : {};
+    const financeFirmFilter = firmIdInt != null ? { fin_firm_id: firmIdInt } : {};
+    const userTake = clampUserTake(limit);
 
-    const users = await this.searchUsers(dbUrl, firmId, q, Math.min(limit, 12));
-
-    const loanFirmFilter = {};
-    const financeFirmFilter = {};
-    if (firmId && firmId !== "all" && firmId !== "undefined") {
-      const firmIdInt = parseInt(firmId, 10);
-      loanFirmFilter.girv_firm_id = firmIdInt;
-      financeFirmFilter.fin_firm_id = firmIdInt;
-    }
-
-    const loanOr = [
-      { girv_unique_code: { equals: search, mode: "insensitive" } },
-      { girv_loan_no: { equals: search, mode: "insensitive" } },
-    ];
-    const financeOr = [{ fin_unique_code: { equals: search, mode: "insensitive" } }];
-
-    if (/^\d+$/.test(search)) {
-      const numericId = parseInt(search, 10);
-      if (!Number.isNaN(numericId) && numericId <= 2147483647) {
-        loanOr.unshift({ girv_id: numericId });
-        financeOr.unshift({ fin_id: numericId });
-      }
-    }
-
-    if (search.length >= 2) {
-      loanOr.push(
-        { girv_unique_code: { contains: search, mode: "insensitive" } },
-        { girv_loan_no: { contains: search, mode: "insensitive" } }
-      );
-      financeOr.push({ fin_unique_code: { contains: search, mode: "insensitive" } });
-    }
-
-    const [loans, finances] = await Promise.all([
+    const [users, loans, finances] = await Promise.all([
+      prisma.user.findMany({
+        where: buildUserSearchWhere(firmId, search),
+        take: userTake,
+        orderBy: [{ user_id: "desc" }],
+        select: USER_HEADER_SELECT,
+      }),
       prisma.girvi.findMany({
         where: {
           girv_is_deleted: false,
           ...loanFirmFilter,
-          OR: loanOr,
+          OR: buildGlobalLoanOrConditions(search),
         },
-        take: 8,
+        take: GLOBAL_LOAN_TAKE,
         orderBy: [{ girv_id: "desc" }],
         select: {
           girv_id: true,
@@ -258,9 +204,9 @@ class UserService {
         where: {
           fin_is_deleted: false,
           ...financeFirmFilter,
-          OR: financeOr,
+          OR: buildGlobalFinanceOrConditions(search),
         },
-        take: 8,
+        take: GLOBAL_FINANCE_TAKE,
         orderBy: [{ fin_id: "desc" }],
         select: {
           fin_id: true,
