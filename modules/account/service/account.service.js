@@ -268,6 +268,40 @@ class AccountService {
   }
 
   /**
+   * Resolve account for ledger/details by id or uuid (no opening-date filter).
+   */
+  async getAccountForLedger(dbUrl, accId, firmId = "N") {
+    const prisma = this.getPrisma(dbUrl);
+    if (!accId || accId === "N") return null;
+
+    const where = { acc_is_deleted: false };
+    if (firmId !== "N" && firmId != null && firmId !== "" && firmId !== "undefined") {
+      where.acc_firm_id = parseInt(firmId, 10);
+    }
+
+    const idText = String(accId);
+    if (isNaN(parseInt(idText, 10)) || idText.includes("-")) {
+      where.acc_uuid = idText;
+    } else {
+      where.acc_id = parseInt(idText, 10);
+    }
+
+    return await prisma.account.findFirst({
+      where,
+      select: {
+        acc_id: true,
+        acc_uuid: true,
+        acc_name: true,
+        acc_firm_id: true,
+        acc_balance_type: true,
+        acc_cash_balance: true,
+        acc_pre_acc: true,
+        acc_opening_date: true,
+      },
+    });
+  }
+
+  /**
    * Get totals of DR and CR accounts and their difference.
    * @param {string} dbUrl 
    * @param {number} firmId Optional firm ID to filter by

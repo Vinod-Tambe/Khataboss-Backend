@@ -13,7 +13,10 @@ const {
 } = require("../../../utils/transferDirection");
 
 const { PERSONAL_EXPENSE_PANEL_NAME } = require("../../../common/constants/personalExpense");
-const PANEL_NAME = PERSONAL_EXPENSE_PANEL_NAME;
+const {
+  resolveExpenseTypePanel,
+  expenseTypeLabelFromPanel,
+} = require("../../../common/constants/expenseTypes");
 const MAX_VOUCHER_NARRATION_LENGTH = 200;
 
 function balanceType(acc) {
@@ -29,6 +32,11 @@ function pickPayload(payload = {}) {
     transDate: payload.mtf_trans_date ?? payload.mt_trans_date,
     mode: payload.mtf_mode ?? payload.mt_mode,
     direction: payload.mtf_direction ?? payload.mt_direction ?? "CR_TO_DR",
+    expenseType:
+      payload.mtf_expense_type ??
+      payload.mtf_panel ??
+      payload.mt_panel ??
+      PERSONAL_EXPENSE_PANEL_NAME,
     narration: payload.mtf_narration ?? payload.mt_narration,
     otherInfo: payload.mtf_other_info ?? payload.mt_other_info,
     fromItems:
@@ -46,10 +54,10 @@ class MoneyTransactionService {
     return getTenantPrisma(dbUrl);
   }
 
-  formatVoucherNarration(fromLabels, toLabels, transDate, narration) {
+  formatVoucherNarration(panelLabel, fromLabels, toLabels, transDate, narration) {
     const fromRoute = fromLabels.filter(Boolean).join(", ");
     const toRoute = toLabels.filter(Boolean).join(", ");
-    const base = `${PANEL_NAME}: ${fromRoute} → ${toRoute} (${transDate})`;
+    const base = `${panelLabel}: ${fromRoute} → ${toRoute} (${transDate})`;
     if (narration && String(narration).trim()) {
       return `${base}. ${String(narration).trim()}`;
     }
@@ -215,6 +223,7 @@ class MoneyTransactionService {
     }
 
     const direction = normalizeTransferDirection(picked.direction);
+    const expensePanel = resolveExpenseTypePanel(picked.expenseType);
 
     const { fromItems, toItems } = this.resolveFromAndToItems(picked);
 
@@ -236,6 +245,7 @@ class MoneyTransactionService {
       (i) => formatAccountDisplayName(accountById[i.acc_id]) || `A/c #${i.acc_id}`
     );
     const voucherInfo = this.formatVoucherNarration(
+      expensePanel,
       fromLabels,
       toLabels,
       transDate,
@@ -258,7 +268,7 @@ class MoneyTransactionService {
         jrnl_own_id: ownId,
         jrnl_user_id: null,
         jrnl_amt: fromTotal,
-        jrnl_panel: PANEL_NAME,
+        jrnl_panel: expensePanel,
         jrnl_other_info: voucherInfo,
       },
       joural_trans_data: journalLines,
@@ -279,7 +289,7 @@ class MoneyTransactionService {
         mtf_mode: mode,
         mtf_direction: direction,
         mtf_total_amt: fromTotal,
-        mtf_panel: PANEL_NAME,
+        mtf_panel: expensePanel,
         mtf_narration: narration,
         mtf_other_info: picked.otherInfo || null,
         mtf_created_by: String(createdBy),
@@ -358,6 +368,8 @@ class MoneyTransactionService {
       mtf_direction: row.mtf_direction || "CR_TO_DR",
       mtf_total_amt: row.mtf_total_amt,
       mtf_panel: row.mtf_panel,
+      mtf_expense_type: row.mtf_panel,
+      expense_type_label: expenseTypeLabelFromPanel(row.mtf_panel),
       mtf_narration: row.mtf_narration,
       mtf_jrnl_id: row.mtf_jrnl_id,
       firm: row.firm,

@@ -69,6 +69,7 @@ class AccountLedgerService {
           jrtr_crdr: true,
           jrtr_acc_info: true,
           jrtr_other_info: true,
+          jrtr_panel: true,
           jrtr_date: true,
           firm: {
             select: { firm_name: true },
@@ -154,26 +155,31 @@ class AccountLedgerService {
       throw new Error("Account id is required");
     }
 
-    // 1. Get initial opening balance from account details
-    const get_acc_details = await accountService.get_acc_opening_balance(
+    // 1. Resolve account (must not depend on opening-date filter used for TB opening lists)
+    const account = await accountService.getAccountForLedger(
       dbUrl,
-      filters.firmId || "N",
-      filters.startDate,
-      filters.acc_id || "N"
+      filters.acc_id,
+      filters.firmId || "N"
     );
 
-    const account =
-      get_acc_details.find(
-        (a) =>
-          a.acc_id === Number(filters.acc_id) || a.acc_uuid === filters.acc_id
-      ) || {};
-
-    if (!account.acc_id) {
+    if (!account?.acc_id) {
       throw new Error("Account not found");
     }
 
     const resolvedAccId = account.acc_id;
-    const initial_opening_balance = parseFloat(account.acc_cash_balance || 0);
+
+    const [startYear, startMonth, startDay] = filters.startDate.split("-").map(Number);
+    const endOfStartDate = new Date(
+      Date.UTC(startYear, startMonth - 1, startDay, 23, 59, 59, 999)
+    );
+    const openingDate = account.acc_opening_date
+      ? new Date(account.acc_opening_date)
+      : null;
+    const masterOpeningApplies =
+      !openingDate || openingDate.getTime() <= endOfStartDate.getTime();
+    const initial_opening_balance = masterOpeningApplies
+      ? parseFloat(account.acc_cash_balance || 0)
+      : 0;
     const acc_balance_type = account.acc_balance_type || "CR";
     const acc_name = account.acc_name || "";
     const acc_pre_acc = account.acc_pre_acc || "";

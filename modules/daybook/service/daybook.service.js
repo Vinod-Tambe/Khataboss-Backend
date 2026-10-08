@@ -1747,14 +1747,10 @@ class DaybookService {
           if (!toLines.length) return "-";
           if (item.mtf_mode !== "ONE_TO_MANY" && toLines.length === 1) {
             const line = toLines[0];
-            const remarkSuffix = line.remarks ? ` (${line.remarks})` : "";
-            return `${line.account} — ₹${line.amount}${remarkSuffix}`;
+            return `${line.account} — ₹${line.amount}`;
           }
           return toLines
-            .map((line) => {
-              const remarkSuffix = line.remarks ? ` (${line.remarks})` : "";
-              return `${line.account}: ₹${line.amount}${remarkSuffix}`;
-            })
+            .map((line) => `${line.account}: ₹${line.amount}`)
             .join("; ");
         };
 
@@ -1766,6 +1762,12 @@ class DaybookService {
 
         const channelShift = channelsForInterAccountRow(item);
 
+        const expensePanel = (item.mtf_panel || "Personal Expense").trim() || "Personal Expense";
+        const rawNarration = (item.mtf_narration || "").trim();
+        const {
+          formatExpenseNarrationWithType,
+        } = require("../../../common/constants/expenseTypes");
+
         return {
           db_date: this.formatDateToDDMMYYYY(item.mtf_trans_date),
           db_firm: item.firm?.firm_name || "-",
@@ -1775,7 +1777,7 @@ class DaybookService {
           db_to_description: toDescription,
           db_to_lines: toLines,
           db_transfer_amt: formatTransferAmt(totalAmt),
-          db_narration: (item.mtf_narration || "").trim() || "-",
+          db_narration: formatExpenseNarrationWithType(rawNarration || "-", expensePanel),
           db_mtf_uuid: item.mtf_uuid || "",
           db_mtf_direction: item.mtf_direction || "CR_TO_DR",
           db_customer_name: `${fromAccountName} → ${toDescription}`,
