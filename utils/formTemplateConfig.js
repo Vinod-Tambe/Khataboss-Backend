@@ -24,6 +24,39 @@ const normalizeFieldLayout = (layout) => {
   return "half";
 };
 
+const FORM8_SECTION_STYLE_KEYS = [
+  "backgroundColor",
+  "borderColor",
+  "titleColor",
+  "titleBackgroundColor",
+  "titleFontSizePt",
+  "titleFontWeight",
+  "labelFontSizePt",
+  "labelFontWeight",
+  "valueFontSizePt",
+  "valueFontWeight",
+];
+
+const mergeSectionStyleFields = (section = {}, defSection = {}) => {
+  const out = {};
+  FORM8_SECTION_STYLE_KEYS.forEach((key) => {
+    const sv = section[key];
+    if (sv != null && String(sv).trim() !== "") {
+      out[key] = sv;
+      return;
+    }
+    if (Object.prototype.hasOwnProperty.call(section, key) && sv === "") {
+      out[key] = "";
+      return;
+    }
+    const dv = defSection[key];
+    if (dv != null && String(dv).trim() !== "") {
+      out[key] = dv;
+    }
+  });
+  return out;
+};
+
 const LEGACY_TXN_FIELD_IDS = new Set([
   "txn_date",
   "txn_type",
@@ -93,7 +126,7 @@ const normalizeFormTemplateConfig = (config, defaults = loadDefaultConfig()) => 
       ...defSection,
       ...section,
       order: section.order ?? sIdx + 1,
-      backgroundColor: section.backgroundColor || "",
+      ...mergeSectionStyleFields(section, defSection),
       fields: mergeSectionFields(section, defSection),
     };
   });
@@ -115,17 +148,52 @@ const normalizeFormTemplateConfig = (config, defaults = loadDefaultConfig()) => 
 
   sections.sort((a, b) => (a.order || 0) - (b.order || 0));
 
+  const isLegacyBuilder =
+    !Array.isArray(config.builderBlockOrder) || config.builderBlockOrder.length === 0;
+
+  const builderBlockOrder =
+    Array.isArray(config.builderBlockOrder) && config.builderBlockOrder.length
+      ? config.builderBlockOrder
+      : defaults.builderBlockOrder || [];
+
+  const blockLayouts = isLegacyBuilder
+    ? { ...(defaults.blockLayouts || {}) }
+    : { ...(defaults.blockLayouts || {}), ...(config.blockLayouts || {}) };
+
+  const layoutFromConfig = config.layout || {};
+
+  const { printHtml: _omitPrintHtml, ...configRest } = config;
+
   return {
     ...defaults,
-    ...config,
+    ...configRest,
     subtitle: config.subtitle || defaults.subtitle,
     complianceReference: config.complianceReference || defaults.complianceReference || "",
     headerNote: config.headerNote || defaults.headerNote || "",
+    footerNoteTitle: config.footerNoteTitle || defaults.footerNoteTitle || "Footer note",
     footerNote: config.footerNote || defaults.footerNote || "",
     termsAndConditions: config.termsAndConditions || defaults.termsAndConditions,
     declarationText: config.declarationText || defaults.declarationText,
     theme: { ...(defaults.theme || {}), ...(config.theme || {}) },
-    layout: { ...defaults.layout, ...(config.layout || {}) },
+    layout: isLegacyBuilder
+      ? {
+          ...defaults.layout,
+          useFirmFormHeader:
+            layoutFromConfig.useFirmFormHeader !== undefined
+              ? Boolean(layoutFromConfig.useFirmFormHeader)
+              : defaults.layout?.useFirmFormHeader,
+          useFirmFormFooter:
+            layoutFromConfig.useFirmFormFooter !== undefined
+              ? Boolean(layoutFromConfig.useFirmFormFooter)
+              : defaults.layout?.useFirmFormFooter,
+        }
+      : { ...defaults.layout, ...layoutFromConfig },
+    builderBlockOrder,
+    blockLayouts,
+    assets: {
+      ...(defaults.assets || {}),
+      ...(config.assets || {}),
+    },
     signatureLabels: {
       ...defaults.signatureLabels,
       ...(config.signatureLabels || {}),
