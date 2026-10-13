@@ -49,7 +49,18 @@ const seedFormTemplateForFirm = async (target, { ownId, firmId, firmName = "" })
     });
 
     if (existing) {
-      return { created: false, updated: false, skipped: true, uuid: existing.ft_uuid };
+      const untouched = Boolean(existing.ft_is_system) && !existing.ft_updated_by;
+      if (!untouched) {
+        return { created: false, updated: false, skipped: true, uuid: existing.ft_uuid };
+      }
+      await prisma.formTemplate.update({
+        where: { ft_uuid: existing.ft_uuid },
+        data: {
+          ft_config: config,
+          ft_updated_by: "system",
+        },
+      });
+      return { created: false, updated: true, skipped: false, uuid: existing.ft_uuid };
     }
 
     const row = await prisma.formTemplate.create({
@@ -60,6 +71,7 @@ const seedFormTemplateForFirm = async (target, { ownId, firmId, firmName = "" })
         ft_is_system: true,
         ft_status: "Active",
         ft_created_by: "system",
+        ft_updated_by: "system",
       },
     });
 
@@ -79,6 +91,7 @@ const seedFormTemplatesForTenant = async (dbUrl) => {
     });
 
     let created = 0;
+    let updated = 0;
     let skipped = 0;
 
     for (const firm of firms) {
@@ -88,13 +101,14 @@ const seedFormTemplatesForTenant = async (dbUrl) => {
         firmName: firm.firm_name,
       });
       if (result.created) created += 1;
+      else if (result.updated) updated += 1;
       else skipped += 1;
     }
 
     console.log(
-      `✅  Seeded form templates for ${firms.length} firm(s) (${created} new, ${skipped} existing).`
+      `✅  Seeded form templates for ${firms.length} firm(s) (${created} new, ${updated} refreshed, ${skipped} existing).`
     );
-    return { firms: firms.length, created, skipped };
+    return { firms: firms.length, created, updated, skipped };
   } catch (err) {
     throw err;
   }

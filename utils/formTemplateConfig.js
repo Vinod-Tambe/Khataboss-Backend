@@ -151,18 +151,26 @@ const normalizeFormTemplateConfig = (config, defaults = loadDefaultConfig()) => 
   const isLegacyBuilder =
     !Array.isArray(config.builderBlockOrder) || config.builderBlockOrder.length === 0;
 
-  const builderBlockOrder =
+  const layoutFromConfig = config.layout || {};
+  const footerValue = String(config.assets?.footerImageDataUrl || "").trim();
+  const hasFooterImage =
+    footerValue.startsWith("data:image/") && layoutFromConfig.showFooterImage === true;
+  const builderBlockOrder = (
     Array.isArray(config.builderBlockOrder) && config.builderBlockOrder.length
       ? config.builderBlockOrder
-      : defaults.builderBlockOrder || [];
+      : defaults.builderBlockOrder || []
+  ).filter((id) => id !== "layout_footer_image" || hasFooterImage);
 
   const blockLayouts = isLegacyBuilder
     ? { ...(defaults.blockLayouts || {}) }
     : { ...(defaults.blockLayouts || {}), ...(config.blockLayouts || {}) };
 
-  const layoutFromConfig = config.layout || {};
-
   const { printHtml: _omitPrintHtml, ...configRest } = config;
+  const assets = {
+    ...(defaults.assets || {}),
+    ...(config.assets || {}),
+    footerImageDataUrl: hasFooterImage ? footerValue : "",
+  };
 
   return {
     ...defaults,
@@ -178,6 +186,7 @@ const normalizeFormTemplateConfig = (config, defaults = loadDefaultConfig()) => 
     layout: isLegacyBuilder
       ? {
           ...defaults.layout,
+          showFooterImage: false,
           useFirmFormHeader:
             layoutFromConfig.useFirmFormHeader !== undefined
               ? Boolean(layoutFromConfig.useFirmFormHeader)
@@ -187,13 +196,14 @@ const normalizeFormTemplateConfig = (config, defaults = loadDefaultConfig()) => 
               ? Boolean(layoutFromConfig.useFirmFormFooter)
               : defaults.layout?.useFirmFormFooter,
         }
-      : { ...defaults.layout, ...layoutFromConfig },
+      : {
+          ...defaults.layout,
+          ...layoutFromConfig,
+          showFooterImage: hasFooterImage,
+        },
     builderBlockOrder,
     blockLayouts,
-    assets: {
-      ...(defaults.assets || {}),
-      ...(config.assets || {}),
-    },
+    assets,
     signatureLabels: {
       ...defaults.signatureLabels,
       ...(config.signatureLabels || {}),
