@@ -3867,6 +3867,7 @@ export namespace Prisma {
     own_plan_id: number | null
     own_max_firms: number | null
     own_max_staff: number | null
+    own_idle_timeout_min: number | null
   }
 
   export type OwnerSumAggregateOutputType = {
@@ -3875,6 +3876,7 @@ export namespace Prisma {
     own_plan_id: number | null
     own_max_firms: number | null
     own_max_staff: number | null
+    own_idle_timeout_min: number | null
   }
 
   export type OwnerMinAggregateOutputType = {
@@ -3909,6 +3911,7 @@ export namespace Prisma {
     own_city: string | null
     own_state: string | null
     own_pincode: string | null
+    own_idle_timeout_min: number | null
     own_created_at: Date | null
     own_created_by: string | null
     own_updated_at: Date | null
@@ -3950,6 +3953,7 @@ export namespace Prisma {
     own_city: string | null
     own_state: string | null
     own_pincode: string | null
+    own_idle_timeout_min: number | null
     own_created_at: Date | null
     own_created_by: string | null
     own_updated_at: Date | null
@@ -3993,6 +3997,7 @@ export namespace Prisma {
     own_city: number
     own_state: number
     own_pincode: number
+    own_idle_timeout_min: number
     own_created_at: number
     own_created_by: number
     own_updated_at: number
@@ -4010,6 +4015,7 @@ export namespace Prisma {
     own_plan_id?: true
     own_max_firms?: true
     own_max_staff?: true
+    own_idle_timeout_min?: true
   }
 
   export type OwnerSumAggregateInputType = {
@@ -4018,6 +4024,7 @@ export namespace Prisma {
     own_plan_id?: true
     own_max_firms?: true
     own_max_staff?: true
+    own_idle_timeout_min?: true
   }
 
   export type OwnerMinAggregateInputType = {
@@ -4052,6 +4059,7 @@ export namespace Prisma {
     own_city?: true
     own_state?: true
     own_pincode?: true
+    own_idle_timeout_min?: true
     own_created_at?: true
     own_created_by?: true
     own_updated_at?: true
@@ -4093,6 +4101,7 @@ export namespace Prisma {
     own_city?: true
     own_state?: true
     own_pincode?: true
+    own_idle_timeout_min?: true
     own_created_at?: true
     own_created_by?: true
     own_updated_at?: true
@@ -4136,6 +4145,7 @@ export namespace Prisma {
     own_city?: true
     own_state?: true
     own_pincode?: true
+    own_idle_timeout_min?: true
     own_created_at?: true
     own_created_by?: true
     own_updated_at?: true
@@ -4266,6 +4276,7 @@ export namespace Prisma {
     own_city: string | null
     own_state: string | null
     own_pincode: string | null
+    own_idle_timeout_min: number
     own_created_at: Date
     own_created_by: string | null
     own_updated_at: Date
@@ -4328,6 +4339,7 @@ export namespace Prisma {
     own_city?: boolean
     own_state?: boolean
     own_pincode?: boolean
+    own_idle_timeout_min?: boolean
     own_created_at?: boolean
     own_created_by?: boolean
     own_updated_at?: boolean
@@ -4375,6 +4387,7 @@ export namespace Prisma {
     own_city?: boolean
     own_state?: boolean
     own_pincode?: boolean
+    own_idle_timeout_min?: boolean
     own_created_at?: boolean
     own_created_by?: boolean
     own_updated_at?: boolean
@@ -4419,6 +4432,7 @@ export namespace Prisma {
     own_city?: boolean
     own_state?: boolean
     own_pincode?: boolean
+    own_idle_timeout_min?: boolean
     own_created_at?: boolean
     own_created_by?: boolean
     own_updated_at?: boolean
@@ -4479,6 +4493,7 @@ export namespace Prisma {
       own_city: string | null
       own_state: string | null
       own_pincode: string | null
+      own_idle_timeout_min: number
       own_created_at: Date
       own_created_by: string | null
       own_updated_at: Date
@@ -4915,6 +4930,7 @@ export namespace Prisma {
     readonly own_city: FieldRef<"Owner", 'String'>
     readonly own_state: FieldRef<"Owner", 'String'>
     readonly own_pincode: FieldRef<"Owner", 'String'>
+    readonly own_idle_timeout_min: FieldRef<"Owner", 'Int'>
     readonly own_created_at: FieldRef<"Owner", 'DateTime'>
     readonly own_created_by: FieldRef<"Owner", 'String'>
     readonly own_updated_at: FieldRef<"Owner", 'DateTime'>
@@ -10886,6 +10902,7 @@ export namespace Prisma {
     own_city: 'own_city',
     own_state: 'own_state',
     own_pincode: 'own_pincode',
+    own_idle_timeout_min: 'own_idle_timeout_min',
     own_created_at: 'own_created_at',
     own_created_by: 'own_created_by',
     own_updated_at: 'own_updated_at',
@@ -11580,6 +11597,7 @@ export namespace Prisma {
     own_city?: StringNullableFilter<"Owner"> | string | null
     own_state?: StringNullableFilter<"Owner"> | string | null
     own_pincode?: StringNullableFilter<"Owner"> | string | null
+    own_idle_timeout_min?: IntFilter<"Owner"> | number
     own_created_at?: DateTimeFilter<"Owner"> | Date | string
     own_created_by?: StringNullableFilter<"Owner"> | string | null
     own_updated_at?: DateTimeFilter<"Owner"> | Date | string
@@ -11626,6 +11644,7 @@ export namespace Prisma {
     own_city?: SortOrderInput | SortOrder
     own_state?: SortOrderInput | SortOrder
     own_pincode?: SortOrderInput | SortOrder
+    own_idle_timeout_min?: SortOrder
     own_created_at?: SortOrder
     own_created_by?: SortOrderInput | SortOrder
     own_updated_at?: SortOrder
@@ -11675,6 +11694,7 @@ export namespace Prisma {
     own_city?: StringNullableFilter<"Owner"> | string | null
     own_state?: StringNullableFilter<"Owner"> | string | null
     own_pincode?: StringNullableFilter<"Owner"> | string | null
+    own_idle_timeout_min?: IntFilter<"Owner"> | number
     own_created_at?: DateTimeFilter<"Owner"> | Date | string
     own_created_by?: StringNullableFilter<"Owner"> | string | null
     own_updated_at?: DateTimeFilter<"Owner"> | Date | string
@@ -11721,6 +11741,7 @@ export namespace Prisma {
     own_city?: SortOrderInput | SortOrder
     own_state?: SortOrderInput | SortOrder
     own_pincode?: SortOrderInput | SortOrder
+    own_idle_timeout_min?: SortOrder
     own_created_at?: SortOrder
     own_created_by?: SortOrderInput | SortOrder
     own_updated_at?: SortOrder
@@ -11772,6 +11793,7 @@ export namespace Prisma {
     own_city?: StringNullableWithAggregatesFilter<"Owner"> | string | null
     own_state?: StringNullableWithAggregatesFilter<"Owner"> | string | null
     own_pincode?: StringNullableWithAggregatesFilter<"Owner"> | string | null
+    own_idle_timeout_min?: IntWithAggregatesFilter<"Owner"> | number
     own_created_at?: DateTimeWithAggregatesFilter<"Owner"> | Date | string
     own_created_by?: StringNullableWithAggregatesFilter<"Owner"> | string | null
     own_updated_at?: DateTimeWithAggregatesFilter<"Owner"> | Date | string
@@ -12659,6 +12681,7 @@ export namespace Prisma {
     own_city?: string | null
     own_state?: string | null
     own_pincode?: string | null
+    own_idle_timeout_min?: number
     own_created_at?: Date | string
     own_created_by?: string | null
     own_updated_at?: Date | string
@@ -12705,6 +12728,7 @@ export namespace Prisma {
     own_city?: string | null
     own_state?: string | null
     own_pincode?: string | null
+    own_idle_timeout_min?: number
     own_created_at?: Date | string
     own_created_by?: string | null
     own_updated_at?: Date | string
@@ -12747,6 +12771,7 @@ export namespace Prisma {
     own_city?: NullableStringFieldUpdateOperationsInput | string | null
     own_state?: NullableStringFieldUpdateOperationsInput | string | null
     own_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    own_idle_timeout_min?: IntFieldUpdateOperationsInput | number
     own_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     own_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     own_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12793,6 +12818,7 @@ export namespace Prisma {
     own_city?: NullableStringFieldUpdateOperationsInput | string | null
     own_state?: NullableStringFieldUpdateOperationsInput | string | null
     own_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    own_idle_timeout_min?: IntFieldUpdateOperationsInput | number
     own_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     own_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     own_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12838,6 +12864,7 @@ export namespace Prisma {
     own_city?: string | null
     own_state?: string | null
     own_pincode?: string | null
+    own_idle_timeout_min?: number
     own_created_at?: Date | string
     own_created_by?: string | null
     own_updated_at?: Date | string
@@ -12878,6 +12905,7 @@ export namespace Prisma {
     own_city?: NullableStringFieldUpdateOperationsInput | string | null
     own_state?: NullableStringFieldUpdateOperationsInput | string | null
     own_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    own_idle_timeout_min?: IntFieldUpdateOperationsInput | number
     own_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     own_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     own_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12921,6 +12949,7 @@ export namespace Prisma {
     own_city?: NullableStringFieldUpdateOperationsInput | string | null
     own_state?: NullableStringFieldUpdateOperationsInput | string | null
     own_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    own_idle_timeout_min?: IntFieldUpdateOperationsInput | number
     own_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     own_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     own_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -14001,6 +14030,7 @@ export namespace Prisma {
     own_city?: SortOrder
     own_state?: SortOrder
     own_pincode?: SortOrder
+    own_idle_timeout_min?: SortOrder
     own_created_at?: SortOrder
     own_created_by?: SortOrder
     own_updated_at?: SortOrder
@@ -14016,6 +14046,7 @@ export namespace Prisma {
     own_plan_id?: SortOrder
     own_max_firms?: SortOrder
     own_max_staff?: SortOrder
+    own_idle_timeout_min?: SortOrder
   }
 
   export type OwnerMaxOrderByAggregateInput = {
@@ -14050,6 +14081,7 @@ export namespace Prisma {
     own_city?: SortOrder
     own_state?: SortOrder
     own_pincode?: SortOrder
+    own_idle_timeout_min?: SortOrder
     own_created_at?: SortOrder
     own_created_by?: SortOrder
     own_updated_at?: SortOrder
@@ -14091,6 +14123,7 @@ export namespace Prisma {
     own_city?: SortOrder
     own_state?: SortOrder
     own_pincode?: SortOrder
+    own_idle_timeout_min?: SortOrder
     own_created_at?: SortOrder
     own_created_by?: SortOrder
     own_updated_at?: SortOrder
@@ -14106,6 +14139,7 @@ export namespace Prisma {
     own_plan_id?: SortOrder
     own_max_firms?: SortOrder
     own_max_staff?: SortOrder
+    own_idle_timeout_min?: SortOrder
   }
 
   export type EnumOwnerStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -15876,6 +15910,7 @@ export namespace Prisma {
     own_city?: string | null
     own_state?: string | null
     own_pincode?: string | null
+    own_idle_timeout_min?: number
     own_created_at?: Date | string
     own_created_by?: string | null
     own_updated_at?: Date | string
@@ -15920,6 +15955,7 @@ export namespace Prisma {
     own_city?: string | null
     own_state?: string | null
     own_pincode?: string | null
+    own_idle_timeout_min?: number
     own_created_at?: Date | string
     own_created_by?: string | null
     own_updated_at?: Date | string
@@ -15994,6 +16030,7 @@ export namespace Prisma {
     own_city?: StringNullableFilter<"Owner"> | string | null
     own_state?: StringNullableFilter<"Owner"> | string | null
     own_pincode?: StringNullableFilter<"Owner"> | string | null
+    own_idle_timeout_min?: IntFilter<"Owner"> | number
     own_created_at?: DateTimeFilter<"Owner"> | Date | string
     own_created_by?: StringNullableFilter<"Owner"> | string | null
     own_updated_at?: DateTimeFilter<"Owner"> | Date | string
@@ -16035,6 +16072,7 @@ export namespace Prisma {
     own_city?: string | null
     own_state?: string | null
     own_pincode?: string | null
+    own_idle_timeout_min?: number
     own_created_at?: Date | string
     own_created_by?: string | null
     own_updated_at?: Date | string
@@ -16080,6 +16118,7 @@ export namespace Prisma {
     own_city?: string | null
     own_state?: string | null
     own_pincode?: string | null
+    own_idle_timeout_min?: number
     own_created_at?: Date | string
     own_created_by?: string | null
     own_updated_at?: Date | string
@@ -16137,6 +16176,7 @@ export namespace Prisma {
     own_city?: NullableStringFieldUpdateOperationsInput | string | null
     own_state?: NullableStringFieldUpdateOperationsInput | string | null
     own_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    own_idle_timeout_min?: IntFieldUpdateOperationsInput | number
     own_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     own_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     own_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -16182,6 +16222,7 @@ export namespace Prisma {
     own_city?: NullableStringFieldUpdateOperationsInput | string | null
     own_state?: NullableStringFieldUpdateOperationsInput | string | null
     own_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    own_idle_timeout_min?: IntFieldUpdateOperationsInput | number
     own_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     own_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     own_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -16224,6 +16265,7 @@ export namespace Prisma {
     own_city?: string | null
     own_state?: string | null
     own_pincode?: string | null
+    own_idle_timeout_min?: number
     own_created_at?: Date | string
     own_created_by?: string | null
     own_updated_at?: Date | string
@@ -16269,6 +16311,7 @@ export namespace Prisma {
     own_city?: string | null
     own_state?: string | null
     own_pincode?: string | null
+    own_idle_timeout_min?: number
     own_created_at?: Date | string
     own_created_by?: string | null
     own_updated_at?: Date | string
@@ -16363,6 +16406,7 @@ export namespace Prisma {
     own_city?: NullableStringFieldUpdateOperationsInput | string | null
     own_state?: NullableStringFieldUpdateOperationsInput | string | null
     own_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    own_idle_timeout_min?: IntFieldUpdateOperationsInput | number
     own_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     own_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     own_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -16408,6 +16452,7 @@ export namespace Prisma {
     own_city?: NullableStringFieldUpdateOperationsInput | string | null
     own_state?: NullableStringFieldUpdateOperationsInput | string | null
     own_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    own_idle_timeout_min?: IntFieldUpdateOperationsInput | number
     own_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     own_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     own_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -16687,6 +16732,7 @@ export namespace Prisma {
     own_city?: string | null
     own_state?: string | null
     own_pincode?: string | null
+    own_idle_timeout_min?: number
     own_created_at?: Date | string
     own_created_by?: string | null
     own_updated_at?: Date | string
@@ -16727,6 +16773,7 @@ export namespace Prisma {
     own_city?: NullableStringFieldUpdateOperationsInput | string | null
     own_state?: NullableStringFieldUpdateOperationsInput | string | null
     own_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    own_idle_timeout_min?: IntFieldUpdateOperationsInput | number
     own_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     own_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     own_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -16771,6 +16818,7 @@ export namespace Prisma {
     own_city?: NullableStringFieldUpdateOperationsInput | string | null
     own_state?: NullableStringFieldUpdateOperationsInput | string | null
     own_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    own_idle_timeout_min?: IntFieldUpdateOperationsInput | number
     own_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     own_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     own_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -16815,6 +16863,7 @@ export namespace Prisma {
     own_city?: NullableStringFieldUpdateOperationsInput | string | null
     own_state?: NullableStringFieldUpdateOperationsInput | string | null
     own_pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    own_idle_timeout_min?: IntFieldUpdateOperationsInput | number
     own_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     own_created_by?: NullableStringFieldUpdateOperationsInput | string | null
     own_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string

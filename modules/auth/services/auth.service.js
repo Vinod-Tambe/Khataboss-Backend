@@ -16,6 +16,16 @@ const {
   ROLE_STAFF,
 } = require("../../../common/service/permission.helper");
 const ownerPermissionService = require("../../owner/services/owner-permission.service");
+const DEFAULT_IDLE_TIMEOUT_MIN = 2;
+const MIN_IDLE_TIMEOUT_MIN = 1;
+const MAX_IDLE_TIMEOUT_MIN = 60;
+
+const parseIdleTimeoutMinutes = (value) => {
+  const n = Number.parseInt(value, 10);
+  if (!Number.isFinite(n)) return DEFAULT_IDLE_TIMEOUT_MIN;
+  return Math.min(MAX_IDLE_TIMEOUT_MIN, Math.max(MIN_IDLE_TIMEOUT_MIN, n));
+};
+
 const {
   assertSubscriptionActive,
   buildSubscriptionPayload,
@@ -113,6 +123,7 @@ const toPublicOwner = async (owner, dbUrl = null) => {
     own_city: owner.own_city,
     own_state: owner.own_state,
     own_pincode: owner.own_pincode,
+    own_idle_timeout_min: parseIdleTimeoutMinutes(owner.own_idle_timeout_min),
     own_status: owner.own_status,
     own_max_firms: owner.own_max_firms ?? null,
     own_max_staff: owner.own_max_staff ?? null,
@@ -146,6 +157,7 @@ const toPublicStaffUser = (owner, staff, permissionKeys = []) => ({
   own_city: staff.staff_city,
   own_state: staff.staff_state,
   own_pincode: staff.staff_pincode,
+  own_idle_timeout_min: parseIdleTimeoutMinutes(staff.staff_idle_timeout_min),
   own_status: staff.staff_status,
   role: ROLE_STAFF,
   permissions: permissionKeys,
@@ -643,6 +655,7 @@ class AuthService {
         own_city: true,
         own_state: true,
         own_pincode: true,
+        own_idle_timeout_min: true,
         own_status: true,
         own_max_firms: true,
         own_max_staff: true,
@@ -677,6 +690,7 @@ class AuthService {
       "own_state",
       "own_pincode",
       "own_profile_img",
+      "own_idle_timeout_min",
     ];
 
     const dataToUpdate = {};
@@ -684,6 +698,11 @@ class AuthService {
       if (updateData[key] !== undefined) {
         dataToUpdate[key] = updateData[key];
       }
+    }
+    if (dataToUpdate.own_idle_timeout_min !== undefined) {
+      dataToUpdate.own_idle_timeout_min = parseIdleTimeoutMinutes(
+        dataToUpdate.own_idle_timeout_min
+      );
     }
 
     if (Object.keys(dataToUpdate).length === 0) {
@@ -760,6 +779,9 @@ class AuthService {
     if (updateData.own_state !== undefined) mapped.staff_state = updateData.own_state;
     if (updateData.own_pincode !== undefined) mapped.staff_pincode = updateData.own_pincode;
     if (updateData.own_profile_img !== undefined) mapped.staff_profile_img = updateData.own_profile_img;
+    if (updateData.own_idle_timeout_min !== undefined) {
+      mapped.staff_idle_timeout_min = parseIdleTimeoutMinutes(updateData.own_idle_timeout_min);
+    }
 
     if (Object.keys(mapped).length === 0) {
       const error = new Error("No valid profile fields to update.");

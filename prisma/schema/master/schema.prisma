@@ -219,6 +219,9 @@ model Owner {
   own_state            String?
   own_pincode          String?
 
+  // Idle session timeout (minutes). No mouse/keyboard activity → timeout popup.
+  own_idle_timeout_min Int @default(2)
+
   // ===============================
   // Audit Fields
   // ===============================

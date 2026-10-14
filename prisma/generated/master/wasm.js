@@ -199,6 +199,7 @@ exports.Prisma.OwnerScalarFieldEnum = {
   own_city: 'own_city',
   own_state: 'own_state',
   own_pincode: 'own_pincode',
+  own_idle_timeout_min: 'own_idle_timeout_min',
   own_created_at: 'own_created_at',
   own_created_by: 'own_created_by',
   own_updated_at: 'own_updated_at',

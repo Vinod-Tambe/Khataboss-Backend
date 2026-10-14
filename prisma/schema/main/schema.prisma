@@ -82,6 +82,9 @@ model Owner {
   own_state   String?
   own_pincode String?
 
+  // Idle session timeout (minutes). No mouse/keyboard activity → timeout popup.
+  own_idle_timeout_min Int @default(2)
+
   // ===============================
   // Audit Fields
   // ===============================
@@ -1631,6 +1634,9 @@ model Staff {
   staff_state        String?
   staff_country      String?
   staff_pincode      String? @db.VarChar(6)
+
+  // Idle session timeout (minutes). No mouse/keyboard activity → timeout popup.
+  staff_idle_timeout_min Int @default(2)
 
   staff_bank_name   String?
   staff_bank_acc_no String?

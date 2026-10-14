@@ -217,6 +217,9 @@ model Owner {
   own_state   String?
   own_pincode String?
 
+  // Idle session timeout (minutes). No mouse/keyboard activity → timeout popup.
+  own_idle_timeout_min Int @default(2)
+
   // ===============================
   // Audit Fields
   // ===============================
@@ -284,16 +287,18 @@ model Plan {
 // Announcement — news / updates from super-admin to jewelry shop owners
 // =============================================================================
 model Announcement {
-  ann_id         Int                @id @default(autoincrement())
-  ann_uuid       String             @unique @default(uuid())
-  ann_title      String
-  ann_body       String             @db.Text
-  ann_type       AnnouncementType   @default(Notice)
-  ann_status     AnnouncementStatus @default(Active)
-  ann_is_pinned  Boolean            @default(false)
-  ann_sort_order Int                @default(0)
-  ann_publish_at DateTime           @default(now())
-  ann_expires_at DateTime?
+  ann_id           Int                @id @default(autoincrement())
+  ann_uuid         String             @unique @default(uuid())
+  /// System template key (festivals / national days). Admin may only change schedule dates.
+  ann_template_key String?            @unique
+  ann_title        String
+  ann_body         String             @db.Text
+  ann_type         AnnouncementType   @default(Notice)
+  ann_status       AnnouncementStatus @default(Active)
+  ann_is_pinned    Boolean            @default(false)
+  ann_sort_order   Int                @default(0)
+  ann_publish_at   DateTime           @default(now())
+  ann_expires_at   DateTime?
 
   ann_created_at DateTime  @default(now())
   ann_created_by String?

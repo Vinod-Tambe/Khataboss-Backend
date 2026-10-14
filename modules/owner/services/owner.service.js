@@ -135,6 +135,12 @@ class OwnerService {
       if (Object.prototype.hasOwnProperty.call(dataToUpdate, "own_max_staff")) {
         dataToUpdate.own_max_staff = parseOptionalIntField(dataToUpdate.own_max_staff);
       }
+      if (Object.prototype.hasOwnProperty.call(dataToUpdate, "own_idle_timeout_min")) {
+        const n = Number.parseInt(dataToUpdate.own_idle_timeout_min, 10);
+        dataToUpdate.own_idle_timeout_min = Number.isFinite(n)
+          ? Math.min(60, Math.max(1, n))
+          : 2;
+      }
 
       // Hash password if provided
       if (dataToUpdate.own_password) {

@@ -56,6 +56,7 @@ const authenticateOwner = async (req, res, next) => {
         own_city: true,
         own_state: true,
         own_pincode: true,
+        own_idle_timeout_min: true,
         own_db: true,
         own_status: true,
         own_max_firms: true,
@@ -135,6 +136,7 @@ const authenticateOwner = async (req, res, next) => {
         staff_city: true,
         staff_state: true,
         staff_pincode: true,
+        staff_idle_timeout_min: true,
         staff_status: true,
         staff_jwt_token: true,
         permissions: {
