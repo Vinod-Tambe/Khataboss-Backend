@@ -8,15 +8,24 @@ const {
   loadDefaultConfig,
   normalizeFormTemplateConfig,
 } = require("../../../utils/formTemplateConfig");
+const {
+  normalizeForm8LoanType,
+  applyForm8LoanTypeToConfig,
+} = require("../../../utils/form8LoanType");
 
 const mapTemplate = (row, firm = null) => {
   if (!row) return null;
-  const config = normalizeFormTemplateConfig(row.ft_config || {}, loadDefaultConfig());
+  const loanType = normalizeForm8LoanType(row.ft_loan_type);
+  const config = applyForm8LoanTypeToConfig(
+    normalizeFormTemplateConfig(row.ft_config || {}, loadDefaultConfig()),
+    loanType
+  );
   return {
     id: row.ft_uuid,
     uuid: row.ft_uuid,
     firmId: row.ft_firm_id,
     ownId: row.ft_own_id,
+    loanType,
     title: config.title || "FORM 8",
     subtitle: config.subtitle || "",
     config,
@@ -24,6 +33,8 @@ const mapTemplate = (row, firm = null) => {
     isSystem: Boolean(row.ft_is_system),
     firmName: firm?.firm_name || "",
     firmRegNo: firm?.firm_reg_no || "",
+    html: row.ft_html || "",
+    printHtml: row.ft_html || "",
     updatedAt: row.ft_updated_at,
     createdAt: row.ft_created_at,
   };
@@ -58,19 +69,21 @@ class FormTemplateService {
         firmName: firm.firm_name,
       });
 
-      const row = await prisma.formTemplate.findFirst({
+      const rows = await prisma.formTemplate.findMany({
         where: { ft_firm_id: firm.firm_id, ft_is_deleted: false },
+        orderBy: { ft_loan_type: "asc" },
       });
 
-      results.push(mapTemplate(row, firm));
+      rows.forEach((row) => results.push(mapTemplate(row, firm)));
     }
 
     return results;
   }
 
-  async getTemplateByFirm(dbUrl, firmId, { ownId, firmName } = {}) {
+  async getTemplateByFirm(dbUrl, firmId, { ownId, firmName, loanType } = {}) {
     const prisma = getTenantPrisma(dbUrl);
     const firmIdInt = parseInt(firmId, 10);
+    const type = normalizeForm8LoanType(loanType);
 
     await this.ensureFirmTemplate(dbUrl, {
       ownId,
@@ -79,7 +92,7 @@ class FormTemplateService {
     });
 
     const row = await prisma.formTemplate.findFirst({
-      where: { ft_firm_id: firmIdInt, ft_is_deleted: false },
+      where: { ft_firm_id: firmIdInt, ft_loan_type: type, ft_is_deleted: false },
     });
 
     if (!row) return null;
@@ -130,18 +143,29 @@ class FormTemplateService {
       throw new Error("Template configuration is required");
     }
 
+    const loanType = normalizeForm8LoanType(existing.ft_loan_type);
     const defaultConfig = loadDefaultConfig();
-    const merged = normalizeFormTemplateConfig(config, defaultConfig);
+    const merged = applyForm8LoanTypeToConfig(
+      normalizeFormTemplateConfig(config, defaultConfig),
+      loanType
+    );
 
     const status =
       payload.status === "Inactive" || payload.ft_status === "Inactive"
         ? "Inactive"
         : "Active";
 
+    const htmlRaw = payload.html != null ? payload.html : payload.printHtml;
+    const html =
+      htmlRaw == null || htmlRaw === ""
+        ? existing.ft_html || ""
+        : String(htmlRaw);
+
     const updated = await prisma.formTemplate.update({
       where: { ft_uuid: uuid },
       data: {
         ft_config: merged,
+        ft_html: html,
         ft_status: status,
         ft_updated_by: updatedBy,
       },

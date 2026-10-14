@@ -986,7 +986,9 @@ exports.Prisma.FormTemplateScalarFieldEnum = {
   ft_uuid: 'ft_uuid',
   ft_own_id: 'ft_own_id',
   ft_firm_id: 'ft_firm_id',
+  ft_loan_type: 'ft_loan_type',
   ft_config: 'ft_config',
+  ft_html: 'ft_html',
   ft_status: 'ft_status',
   ft_is_system: 'ft_is_system',
   ft_created_at: 'ft_created_at',
@@ -1257,6 +1259,11 @@ exports.MessageChannel = exports.$Enums.MessageChannel = {
 exports.MessageTemplateStatus = exports.$Enums.MessageTemplateStatus = {
   Active: 'Active',
   Inactive: 'Inactive'
+};
+
+exports.FormTemplateLoanType = exports.$Enums.FormTemplateLoanType = {
+  secured: 'secured',
+  unsecured: 'unsecured'
 };
 
 exports.FormTemplateStatus = exports.$Enums.FormTemplateStatus = {

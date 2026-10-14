@@ -421,6 +421,14 @@ export const MessageTemplateStatus: {
 export type MessageTemplateStatus = (typeof MessageTemplateStatus)[keyof typeof MessageTemplateStatus]
 
 
+export const FormTemplateLoanType: {
+  secured: 'secured',
+  unsecured: 'unsecured'
+};
+
+export type FormTemplateLoanType = (typeof FormTemplateLoanType)[keyof typeof FormTemplateLoanType]
+
+
 export const FormTemplateStatus: {
   Active: 'Active',
   Inactive: 'Inactive'
@@ -551,6 +559,10 @@ export const MessageChannel: typeof $Enums.MessageChannel
 export type MessageTemplateStatus = $Enums.MessageTemplateStatus
 
 export const MessageTemplateStatus: typeof $Enums.MessageTemplateStatus
+
+export type FormTemplateLoanType = $Enums.FormTemplateLoanType
+
+export const FormTemplateLoanType: typeof $Enums.FormTemplateLoanType
 
 export type FormTemplateStatus = $Enums.FormTemplateStatus
 
@@ -4219,6 +4231,7 @@ export namespace Prisma {
     auctionLoans: number
     releaseUsers: number
     messageTemplates: number
+    formTemplates: number
     agreementTemplates: number
   }
 
@@ -4242,6 +4255,7 @@ export namespace Prisma {
     auctionLoans?: boolean | FirmCountOutputTypeCountAuctionLoansArgs
     releaseUsers?: boolean | FirmCountOutputTypeCountReleaseUsersArgs
     messageTemplates?: boolean | FirmCountOutputTypeCountMessageTemplatesArgs
+    formTemplates?: boolean | FirmCountOutputTypeCountFormTemplatesArgs
     agreementTemplates?: boolean | FirmCountOutputTypeCountAgreementTemplatesArgs
   }
 
@@ -4387,6 +4401,13 @@ export namespace Prisma {
    */
   export type FirmCountOutputTypeCountMessageTemplatesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: MessageTemplateWhereInput
+  }
+
+  /**
+   * FirmCountOutputType without action
+   */
+  export type FirmCountOutputTypeCountFormTemplatesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FormTemplateWhereInput
   }
 
   /**
@@ -7823,7 +7844,7 @@ export namespace Prisma {
     auctionLoans?: boolean | Firm$auctionLoansArgs<ExtArgs>
     releaseUsers?: boolean | Firm$releaseUsersArgs<ExtArgs>
     messageTemplates?: boolean | Firm$messageTemplatesArgs<ExtArgs>
-    formTemplate?: boolean | Firm$formTemplateArgs<ExtArgs>
+    formTemplates?: boolean | Firm$formTemplatesArgs<ExtArgs>
     agreementTemplates?: boolean | Firm$agreementTemplatesArgs<ExtArgs>
     whatsappInstance?: boolean | Firm$whatsappInstanceArgs<ExtArgs>
     _count?: boolean | FirmCountOutputTypeDefaultArgs<ExtArgs>
@@ -7957,7 +7978,7 @@ export namespace Prisma {
     auctionLoans?: boolean | Firm$auctionLoansArgs<ExtArgs>
     releaseUsers?: boolean | Firm$releaseUsersArgs<ExtArgs>
     messageTemplates?: boolean | Firm$messageTemplatesArgs<ExtArgs>
-    formTemplate?: boolean | Firm$formTemplateArgs<ExtArgs>
+    formTemplates?: boolean | Firm$formTemplatesArgs<ExtArgs>
     agreementTemplates?: boolean | Firm$agreementTemplatesArgs<ExtArgs>
     whatsappInstance?: boolean | Firm$whatsappInstanceArgs<ExtArgs>
     _count?: boolean | FirmCountOutputTypeDefaultArgs<ExtArgs>
@@ -7989,7 +8010,7 @@ export namespace Prisma {
       auctionLoans: Prisma.$AuctionLoanPayload<ExtArgs>[]
       releaseUsers: Prisma.$ReleaseUserPayload<ExtArgs>[]
       messageTemplates: Prisma.$MessageTemplatePayload<ExtArgs>[]
-      formTemplate: Prisma.$FormTemplatePayload<ExtArgs> | null
+      formTemplates: Prisma.$FormTemplatePayload<ExtArgs>[]
       agreementTemplates: Prisma.$AgreementTemplatePayload<ExtArgs>[]
       whatsappInstance: Prisma.$WhatsAppInstancePayload<ExtArgs> | null
     }
@@ -8428,7 +8449,7 @@ export namespace Prisma {
     auctionLoans<T extends Firm$auctionLoansArgs<ExtArgs> = {}>(args?: Subset<T, Firm$auctionLoansArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AuctionLoanPayload<ExtArgs>, T, "findMany"> | Null>
     releaseUsers<T extends Firm$releaseUsersArgs<ExtArgs> = {}>(args?: Subset<T, Firm$releaseUsersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReleaseUserPayload<ExtArgs>, T, "findMany"> | Null>
     messageTemplates<T extends Firm$messageTemplatesArgs<ExtArgs> = {}>(args?: Subset<T, Firm$messageTemplatesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessageTemplatePayload<ExtArgs>, T, "findMany"> | Null>
-    formTemplate<T extends Firm$formTemplateArgs<ExtArgs> = {}>(args?: Subset<T, Firm$formTemplateArgs<ExtArgs>>): Prisma__FormTemplateClient<$Result.GetResult<Prisma.$FormTemplatePayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    formTemplates<T extends Firm$formTemplatesArgs<ExtArgs> = {}>(args?: Subset<T, Firm$formTemplatesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FormTemplatePayload<ExtArgs>, T, "findMany"> | Null>
     agreementTemplates<T extends Firm$agreementTemplatesArgs<ExtArgs> = {}>(args?: Subset<T, Firm$agreementTemplatesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AgreementTemplatePayload<ExtArgs>, T, "findMany"> | Null>
     whatsappInstance<T extends Firm$whatsappInstanceArgs<ExtArgs> = {}>(args?: Subset<T, Firm$whatsappInstanceArgs<ExtArgs>>): Prisma__WhatsAppInstanceClient<$Result.GetResult<Prisma.$WhatsAppInstancePayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     /**
@@ -9208,9 +9229,9 @@ export namespace Prisma {
   }
 
   /**
-   * Firm.formTemplate
+   * Firm.formTemplates
    */
-  export type Firm$formTemplateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Firm$formTemplatesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the FormTemplate
      */
@@ -9220,6 +9241,11 @@ export namespace Prisma {
      */
     include?: FormTemplateInclude<ExtArgs> | null
     where?: FormTemplateWhereInput
+    orderBy?: FormTemplateOrderByWithRelationInput | FormTemplateOrderByWithRelationInput[]
+    cursor?: FormTemplateWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: FormTemplateScalarFieldEnum | FormTemplateScalarFieldEnum[]
   }
 
   /**
@@ -44759,6 +44785,8 @@ export namespace Prisma {
     ft_uuid: string | null
     ft_own_id: number | null
     ft_firm_id: number | null
+    ft_loan_type: $Enums.FormTemplateLoanType | null
+    ft_html: string | null
     ft_status: $Enums.FormTemplateStatus | null
     ft_is_system: boolean | null
     ft_created_at: Date | null
@@ -44775,6 +44803,8 @@ export namespace Prisma {
     ft_uuid: string | null
     ft_own_id: number | null
     ft_firm_id: number | null
+    ft_loan_type: $Enums.FormTemplateLoanType | null
+    ft_html: string | null
     ft_status: $Enums.FormTemplateStatus | null
     ft_is_system: boolean | null
     ft_created_at: Date | null
@@ -44791,7 +44821,9 @@ export namespace Prisma {
     ft_uuid: number
     ft_own_id: number
     ft_firm_id: number
+    ft_loan_type: number
     ft_config: number
+    ft_html: number
     ft_status: number
     ft_is_system: number
     ft_created_at: number
@@ -44822,6 +44854,8 @@ export namespace Prisma {
     ft_uuid?: true
     ft_own_id?: true
     ft_firm_id?: true
+    ft_loan_type?: true
+    ft_html?: true
     ft_status?: true
     ft_is_system?: true
     ft_created_at?: true
@@ -44838,6 +44872,8 @@ export namespace Prisma {
     ft_uuid?: true
     ft_own_id?: true
     ft_firm_id?: true
+    ft_loan_type?: true
+    ft_html?: true
     ft_status?: true
     ft_is_system?: true
     ft_created_at?: true
@@ -44854,7 +44890,9 @@ export namespace Prisma {
     ft_uuid?: true
     ft_own_id?: true
     ft_firm_id?: true
+    ft_loan_type?: true
     ft_config?: true
+    ft_html?: true
     ft_status?: true
     ft_is_system?: true
     ft_created_at?: true
@@ -44958,7 +44996,9 @@ export namespace Prisma {
     ft_uuid: string
     ft_own_id: number
     ft_firm_id: number
+    ft_loan_type: $Enums.FormTemplateLoanType
     ft_config: JsonValue
+    ft_html: string | null
     ft_status: $Enums.FormTemplateStatus
     ft_is_system: boolean
     ft_created_at: Date
@@ -44994,7 +45034,9 @@ export namespace Prisma {
     ft_uuid?: boolean
     ft_own_id?: boolean
     ft_firm_id?: boolean
+    ft_loan_type?: boolean
     ft_config?: boolean
+    ft_html?: boolean
     ft_status?: boolean
     ft_is_system?: boolean
     ft_created_at?: boolean
@@ -45013,7 +45055,9 @@ export namespace Prisma {
     ft_uuid?: boolean
     ft_own_id?: boolean
     ft_firm_id?: boolean
+    ft_loan_type?: boolean
     ft_config?: boolean
+    ft_html?: boolean
     ft_status?: boolean
     ft_is_system?: boolean
     ft_created_at?: boolean
@@ -45032,7 +45076,9 @@ export namespace Prisma {
     ft_uuid?: boolean
     ft_own_id?: boolean
     ft_firm_id?: boolean
+    ft_loan_type?: boolean
     ft_config?: boolean
+    ft_html?: boolean
     ft_status?: boolean
     ft_is_system?: boolean
     ft_created_at?: boolean
@@ -45064,7 +45110,9 @@ export namespace Prisma {
       ft_uuid: string
       ft_own_id: number
       ft_firm_id: number
+      ft_loan_type: $Enums.FormTemplateLoanType
       ft_config: Prisma.JsonValue
+      ft_html: string | null
       ft_status: $Enums.FormTemplateStatus
       ft_is_system: boolean
       ft_created_at: Date
@@ -45473,7 +45521,9 @@ export namespace Prisma {
     readonly ft_uuid: FieldRef<"FormTemplate", 'String'>
     readonly ft_own_id: FieldRef<"FormTemplate", 'Int'>
     readonly ft_firm_id: FieldRef<"FormTemplate", 'Int'>
+    readonly ft_loan_type: FieldRef<"FormTemplate", 'FormTemplateLoanType'>
     readonly ft_config: FieldRef<"FormTemplate", 'Json'>
+    readonly ft_html: FieldRef<"FormTemplate", 'String'>
     readonly ft_status: FieldRef<"FormTemplate", 'FormTemplateStatus'>
     readonly ft_is_system: FieldRef<"FormTemplate", 'Boolean'>
     readonly ft_created_at: FieldRef<"FormTemplate", 'DateTime'>
@@ -51063,7 +51113,9 @@ export namespace Prisma {
     ft_uuid: 'ft_uuid',
     ft_own_id: 'ft_own_id',
     ft_firm_id: 'ft_firm_id',
+    ft_loan_type: 'ft_loan_type',
     ft_config: 'ft_config',
+    ft_html: 'ft_html',
     ft_status: 'ft_status',
     ft_is_system: 'ft_is_system',
     ft_created_at: 'ft_created_at',
@@ -51651,6 +51703,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'FormTemplateLoanType'
+   */
+  export type EnumFormTemplateLoanTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FormTemplateLoanType'>
+    
+
+
+  /**
+   * Reference to a field of type 'FormTemplateLoanType[]'
+   */
+  export type ListEnumFormTemplateLoanTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FormTemplateLoanType[]'>
+    
+
+
+  /**
    * Reference to a field of type 'FormTemplateStatus'
    */
   export type EnumFormTemplateStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FormTemplateStatus'>
@@ -52103,7 +52169,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanListRelationFilter
     releaseUsers?: ReleaseUserListRelationFilter
     messageTemplates?: MessageTemplateListRelationFilter
-    formTemplate?: XOR<FormTemplateNullableRelationFilter, FormTemplateWhereInput> | null
+    formTemplates?: FormTemplateListRelationFilter
     agreementTemplates?: AgreementTemplateListRelationFilter
     whatsappInstance?: XOR<WhatsAppInstanceNullableRelationFilter, WhatsAppInstanceWhereInput> | null
   }
@@ -52179,7 +52245,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanOrderByRelationAggregateInput
     releaseUsers?: ReleaseUserOrderByRelationAggregateInput
     messageTemplates?: MessageTemplateOrderByRelationAggregateInput
-    formTemplate?: FormTemplateOrderByWithRelationInput
+    formTemplates?: FormTemplateOrderByRelationAggregateInput
     agreementTemplates?: AgreementTemplateOrderByRelationAggregateInput
     whatsappInstance?: WhatsAppInstanceOrderByWithRelationInput
   }
@@ -52258,7 +52324,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanListRelationFilter
     releaseUsers?: ReleaseUserListRelationFilter
     messageTemplates?: MessageTemplateListRelationFilter
-    formTemplate?: XOR<FormTemplateNullableRelationFilter, FormTemplateWhereInput> | null
+    formTemplates?: FormTemplateListRelationFilter
     agreementTemplates?: AgreementTemplateListRelationFilter
     whatsappInstance?: XOR<WhatsAppInstanceNullableRelationFilter, WhatsAppInstanceWhereInput> | null
   }, "firm_id" | "firm_uuid" | "firm_unique_code" | "firm_name" | "firm_reg_no">
@@ -57084,7 +57150,9 @@ export namespace Prisma {
     ft_uuid?: StringFilter<"FormTemplate"> | string
     ft_own_id?: IntFilter<"FormTemplate"> | number
     ft_firm_id?: IntFilter<"FormTemplate"> | number
+    ft_loan_type?: EnumFormTemplateLoanTypeFilter<"FormTemplate"> | $Enums.FormTemplateLoanType
     ft_config?: JsonFilter<"FormTemplate">
+    ft_html?: StringNullableFilter<"FormTemplate"> | string | null
     ft_status?: EnumFormTemplateStatusFilter<"FormTemplate"> | $Enums.FormTemplateStatus
     ft_is_system?: BoolFilter<"FormTemplate"> | boolean
     ft_created_at?: DateTimeFilter<"FormTemplate"> | Date | string
@@ -57103,7 +57171,9 @@ export namespace Prisma {
     ft_uuid?: SortOrder
     ft_own_id?: SortOrder
     ft_firm_id?: SortOrder
+    ft_loan_type?: SortOrder
     ft_config?: SortOrder
+    ft_html?: SortOrderInput | SortOrder
     ft_status?: SortOrder
     ft_is_system?: SortOrder
     ft_created_at?: SortOrder
@@ -57120,12 +57190,15 @@ export namespace Prisma {
   export type FormTemplateWhereUniqueInput = Prisma.AtLeast<{
     ft_id?: number
     ft_uuid?: string
-    ft_firm_id?: number
+    ft_firm_id_ft_loan_type?: FormTemplateFt_firm_idFt_loan_typeCompoundUniqueInput
     AND?: FormTemplateWhereInput | FormTemplateWhereInput[]
     OR?: FormTemplateWhereInput[]
     NOT?: FormTemplateWhereInput | FormTemplateWhereInput[]
     ft_own_id?: IntFilter<"FormTemplate"> | number
+    ft_firm_id?: IntFilter<"FormTemplate"> | number
+    ft_loan_type?: EnumFormTemplateLoanTypeFilter<"FormTemplate"> | $Enums.FormTemplateLoanType
     ft_config?: JsonFilter<"FormTemplate">
+    ft_html?: StringNullableFilter<"FormTemplate"> | string | null
     ft_status?: EnumFormTemplateStatusFilter<"FormTemplate"> | $Enums.FormTemplateStatus
     ft_is_system?: BoolFilter<"FormTemplate"> | boolean
     ft_created_at?: DateTimeFilter<"FormTemplate"> | Date | string
@@ -57137,14 +57210,16 @@ export namespace Prisma {
     ft_is_deleted?: BoolFilter<"FormTemplate"> | boolean
     owner?: XOR<OwnerRelationFilter, OwnerWhereInput>
     firm?: XOR<FirmRelationFilter, FirmWhereInput>
-  }, "ft_id" | "ft_uuid" | "ft_firm_id">
+  }, "ft_id" | "ft_uuid" | "ft_firm_id_ft_loan_type">
 
   export type FormTemplateOrderByWithAggregationInput = {
     ft_id?: SortOrder
     ft_uuid?: SortOrder
     ft_own_id?: SortOrder
     ft_firm_id?: SortOrder
+    ft_loan_type?: SortOrder
     ft_config?: SortOrder
+    ft_html?: SortOrderInput | SortOrder
     ft_status?: SortOrder
     ft_is_system?: SortOrder
     ft_created_at?: SortOrder
@@ -57169,7 +57244,9 @@ export namespace Prisma {
     ft_uuid?: StringWithAggregatesFilter<"FormTemplate"> | string
     ft_own_id?: IntWithAggregatesFilter<"FormTemplate"> | number
     ft_firm_id?: IntWithAggregatesFilter<"FormTemplate"> | number
+    ft_loan_type?: EnumFormTemplateLoanTypeWithAggregatesFilter<"FormTemplate"> | $Enums.FormTemplateLoanType
     ft_config?: JsonWithAggregatesFilter<"FormTemplate">
+    ft_html?: StringNullableWithAggregatesFilter<"FormTemplate"> | string | null
     ft_status?: EnumFormTemplateStatusWithAggregatesFilter<"FormTemplate"> | $Enums.FormTemplateStatus
     ft_is_system?: BoolWithAggregatesFilter<"FormTemplate"> | boolean
     ft_created_at?: DateTimeWithAggregatesFilter<"FormTemplate"> | Date | string
@@ -58103,7 +58180,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
     releaseUsers?: ReleaseUserCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateCreateNestedManyWithoutFirmInput
-    formTemplate?: FormTemplateCreateNestedOneWithoutFirmInput
+    formTemplates?: FormTemplateCreateNestedManyWithoutFirmInput
     agreementTemplates?: AgreementTemplateCreateNestedManyWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceCreateNestedOneWithoutFirmInput
   }
@@ -58178,7 +58255,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
     releaseUsers?: ReleaseUserUncheckedCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutFirmInput
-    formTemplate?: FormTemplateUncheckedCreateNestedOneWithoutFirmInput
+    formTemplates?: FormTemplateUncheckedCreateNestedManyWithoutFirmInput
     agreementTemplates?: AgreementTemplateUncheckedCreateNestedManyWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceUncheckedCreateNestedOneWithoutFirmInput
   }
@@ -58252,7 +58329,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
     releaseUsers?: ReleaseUserUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUpdateManyWithoutFirmNestedInput
-    formTemplate?: FormTemplateUpdateOneWithoutFirmNestedInput
+    formTemplates?: FormTemplateUpdateManyWithoutFirmNestedInput
     agreementTemplates?: AgreementTemplateUpdateManyWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUpdateOneWithoutFirmNestedInput
   }
@@ -58327,7 +58404,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
     releaseUsers?: ReleaseUserUncheckedUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutFirmNestedInput
-    formTemplate?: FormTemplateUncheckedUpdateOneWithoutFirmNestedInput
+    formTemplates?: FormTemplateUncheckedUpdateManyWithoutFirmNestedInput
     agreementTemplates?: AgreementTemplateUncheckedUpdateManyWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUncheckedUpdateOneWithoutFirmNestedInput
   }
@@ -63898,7 +63975,9 @@ export namespace Prisma {
 
   export type FormTemplateCreateInput = {
     ft_uuid?: string
+    ft_loan_type?: $Enums.FormTemplateLoanType
     ft_config: JsonNullValueInput | InputJsonValue
+    ft_html?: string | null
     ft_status?: $Enums.FormTemplateStatus
     ft_is_system?: boolean
     ft_created_at?: Date | string
@@ -63909,7 +63988,7 @@ export namespace Prisma {
     ft_deleted_by?: string | null
     ft_is_deleted?: boolean
     owner: OwnerCreateNestedOneWithoutFormTemplatesInput
-    firm: FirmCreateNestedOneWithoutFormTemplateInput
+    firm: FirmCreateNestedOneWithoutFormTemplatesInput
   }
 
   export type FormTemplateUncheckedCreateInput = {
@@ -63917,7 +63996,9 @@ export namespace Prisma {
     ft_uuid?: string
     ft_own_id: number
     ft_firm_id: number
+    ft_loan_type?: $Enums.FormTemplateLoanType
     ft_config: JsonNullValueInput | InputJsonValue
+    ft_html?: string | null
     ft_status?: $Enums.FormTemplateStatus
     ft_is_system?: boolean
     ft_created_at?: Date | string
@@ -63931,7 +64012,9 @@ export namespace Prisma {
 
   export type FormTemplateUpdateInput = {
     ft_uuid?: StringFieldUpdateOperationsInput | string
+    ft_loan_type?: EnumFormTemplateLoanTypeFieldUpdateOperationsInput | $Enums.FormTemplateLoanType
     ft_config?: JsonNullValueInput | InputJsonValue
+    ft_html?: NullableStringFieldUpdateOperationsInput | string | null
     ft_status?: EnumFormTemplateStatusFieldUpdateOperationsInput | $Enums.FormTemplateStatus
     ft_is_system?: BoolFieldUpdateOperationsInput | boolean
     ft_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -63942,7 +64025,7 @@ export namespace Prisma {
     ft_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     ft_is_deleted?: BoolFieldUpdateOperationsInput | boolean
     owner?: OwnerUpdateOneRequiredWithoutFormTemplatesNestedInput
-    firm?: FirmUpdateOneRequiredWithoutFormTemplateNestedInput
+    firm?: FirmUpdateOneRequiredWithoutFormTemplatesNestedInput
   }
 
   export type FormTemplateUncheckedUpdateInput = {
@@ -63950,7 +64033,9 @@ export namespace Prisma {
     ft_uuid?: StringFieldUpdateOperationsInput | string
     ft_own_id?: IntFieldUpdateOperationsInput | number
     ft_firm_id?: IntFieldUpdateOperationsInput | number
+    ft_loan_type?: EnumFormTemplateLoanTypeFieldUpdateOperationsInput | $Enums.FormTemplateLoanType
     ft_config?: JsonNullValueInput | InputJsonValue
+    ft_html?: NullableStringFieldUpdateOperationsInput | string | null
     ft_status?: EnumFormTemplateStatusFieldUpdateOperationsInput | $Enums.FormTemplateStatus
     ft_is_system?: BoolFieldUpdateOperationsInput | boolean
     ft_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -63967,7 +64052,9 @@ export namespace Prisma {
     ft_uuid?: string
     ft_own_id: number
     ft_firm_id: number
+    ft_loan_type?: $Enums.FormTemplateLoanType
     ft_config: JsonNullValueInput | InputJsonValue
+    ft_html?: string | null
     ft_status?: $Enums.FormTemplateStatus
     ft_is_system?: boolean
     ft_created_at?: Date | string
@@ -63981,7 +64068,9 @@ export namespace Prisma {
 
   export type FormTemplateUpdateManyMutationInput = {
     ft_uuid?: StringFieldUpdateOperationsInput | string
+    ft_loan_type?: EnumFormTemplateLoanTypeFieldUpdateOperationsInput | $Enums.FormTemplateLoanType
     ft_config?: JsonNullValueInput | InputJsonValue
+    ft_html?: NullableStringFieldUpdateOperationsInput | string | null
     ft_status?: EnumFormTemplateStatusFieldUpdateOperationsInput | $Enums.FormTemplateStatus
     ft_is_system?: BoolFieldUpdateOperationsInput | boolean
     ft_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -63998,7 +64087,9 @@ export namespace Prisma {
     ft_uuid?: StringFieldUpdateOperationsInput | string
     ft_own_id?: IntFieldUpdateOperationsInput | number
     ft_firm_id?: IntFieldUpdateOperationsInput | number
+    ft_loan_type?: EnumFormTemplateLoanTypeFieldUpdateOperationsInput | $Enums.FormTemplateLoanType
     ft_config?: JsonNullValueInput | InputJsonValue
+    ft_html?: NullableStringFieldUpdateOperationsInput | string | null
     ft_status?: EnumFormTemplateStatusFieldUpdateOperationsInput | $Enums.FormTemplateStatus
     ft_is_system?: BoolFieldUpdateOperationsInput | boolean
     ft_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -65166,11 +65257,6 @@ export namespace Prisma {
     every?: ReleaseUserWhereInput
     some?: ReleaseUserWhereInput
     none?: ReleaseUserWhereInput
-  }
-
-  export type FormTemplateNullableRelationFilter = {
-    is?: FormTemplateWhereInput | null
-    isNot?: FormTemplateWhereInput | null
   }
 
   export type WhatsAppInstanceNullableRelationFilter = {
@@ -68802,6 +68888,13 @@ export namespace Prisma {
     _min?: NestedEnumMessageTemplateStatusFilter<$PrismaModel>
     _max?: NestedEnumMessageTemplateStatusFilter<$PrismaModel>
   }
+
+  export type EnumFormTemplateLoanTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.FormTemplateLoanType | EnumFormTemplateLoanTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.FormTemplateLoanType[] | ListEnumFormTemplateLoanTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.FormTemplateLoanType[] | ListEnumFormTemplateLoanTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumFormTemplateLoanTypeFilter<$PrismaModel> | $Enums.FormTemplateLoanType
+  }
   export type JsonFilter<$PrismaModel = never> = 
     | PatchUndefined<
         Either<Required<JsonFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonFilterBase<$PrismaModel>>, 'path'>>,
@@ -68832,12 +68925,19 @@ export namespace Prisma {
     not?: NestedEnumFormTemplateStatusFilter<$PrismaModel> | $Enums.FormTemplateStatus
   }
 
+  export type FormTemplateFt_firm_idFt_loan_typeCompoundUniqueInput = {
+    ft_firm_id: number
+    ft_loan_type: $Enums.FormTemplateLoanType
+  }
+
   export type FormTemplateCountOrderByAggregateInput = {
     ft_id?: SortOrder
     ft_uuid?: SortOrder
     ft_own_id?: SortOrder
     ft_firm_id?: SortOrder
+    ft_loan_type?: SortOrder
     ft_config?: SortOrder
+    ft_html?: SortOrder
     ft_status?: SortOrder
     ft_is_system?: SortOrder
     ft_created_at?: SortOrder
@@ -68860,6 +68960,8 @@ export namespace Prisma {
     ft_uuid?: SortOrder
     ft_own_id?: SortOrder
     ft_firm_id?: SortOrder
+    ft_loan_type?: SortOrder
+    ft_html?: SortOrder
     ft_status?: SortOrder
     ft_is_system?: SortOrder
     ft_created_at?: SortOrder
@@ -68876,6 +68978,8 @@ export namespace Prisma {
     ft_uuid?: SortOrder
     ft_own_id?: SortOrder
     ft_firm_id?: SortOrder
+    ft_loan_type?: SortOrder
+    ft_html?: SortOrder
     ft_status?: SortOrder
     ft_is_system?: SortOrder
     ft_created_at?: SortOrder
@@ -68891,6 +68995,16 @@ export namespace Prisma {
     ft_id?: SortOrder
     ft_own_id?: SortOrder
     ft_firm_id?: SortOrder
+  }
+
+  export type EnumFormTemplateLoanTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.FormTemplateLoanType | EnumFormTemplateLoanTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.FormTemplateLoanType[] | ListEnumFormTemplateLoanTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.FormTemplateLoanType[] | ListEnumFormTemplateLoanTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumFormTemplateLoanTypeWithAggregatesFilter<$PrismaModel> | $Enums.FormTemplateLoanType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumFormTemplateLoanTypeFilter<$PrismaModel>
+    _max?: NestedEnumFormTemplateLoanTypeFilter<$PrismaModel>
   }
   export type JsonWithAggregatesFilter<$PrismaModel = never> = 
     | PatchUndefined<
@@ -70360,10 +70474,11 @@ export namespace Prisma {
     connect?: MessageTemplateWhereUniqueInput | MessageTemplateWhereUniqueInput[]
   }
 
-  export type FormTemplateCreateNestedOneWithoutFirmInput = {
-    create?: XOR<FormTemplateCreateWithoutFirmInput, FormTemplateUncheckedCreateWithoutFirmInput>
-    connectOrCreate?: FormTemplateCreateOrConnectWithoutFirmInput
-    connect?: FormTemplateWhereUniqueInput
+  export type FormTemplateCreateNestedManyWithoutFirmInput = {
+    create?: XOR<FormTemplateCreateWithoutFirmInput, FormTemplateUncheckedCreateWithoutFirmInput> | FormTemplateCreateWithoutFirmInput[] | FormTemplateUncheckedCreateWithoutFirmInput[]
+    connectOrCreate?: FormTemplateCreateOrConnectWithoutFirmInput | FormTemplateCreateOrConnectWithoutFirmInput[]
+    createMany?: FormTemplateCreateManyFirmInputEnvelope
+    connect?: FormTemplateWhereUniqueInput | FormTemplateWhereUniqueInput[]
   }
 
   export type AgreementTemplateCreateNestedManyWithoutFirmInput = {
@@ -70512,10 +70627,11 @@ export namespace Prisma {
     connect?: MessageTemplateWhereUniqueInput | MessageTemplateWhereUniqueInput[]
   }
 
-  export type FormTemplateUncheckedCreateNestedOneWithoutFirmInput = {
-    create?: XOR<FormTemplateCreateWithoutFirmInput, FormTemplateUncheckedCreateWithoutFirmInput>
-    connectOrCreate?: FormTemplateCreateOrConnectWithoutFirmInput
-    connect?: FormTemplateWhereUniqueInput
+  export type FormTemplateUncheckedCreateNestedManyWithoutFirmInput = {
+    create?: XOR<FormTemplateCreateWithoutFirmInput, FormTemplateUncheckedCreateWithoutFirmInput> | FormTemplateCreateWithoutFirmInput[] | FormTemplateUncheckedCreateWithoutFirmInput[]
+    connectOrCreate?: FormTemplateCreateOrConnectWithoutFirmInput | FormTemplateCreateOrConnectWithoutFirmInput[]
+    createMany?: FormTemplateCreateManyFirmInputEnvelope
+    connect?: FormTemplateWhereUniqueInput | FormTemplateWhereUniqueInput[]
   }
 
   export type AgreementTemplateUncheckedCreateNestedManyWithoutFirmInput = {
@@ -70813,14 +70929,18 @@ export namespace Prisma {
     deleteMany?: MessageTemplateScalarWhereInput | MessageTemplateScalarWhereInput[]
   }
 
-  export type FormTemplateUpdateOneWithoutFirmNestedInput = {
-    create?: XOR<FormTemplateCreateWithoutFirmInput, FormTemplateUncheckedCreateWithoutFirmInput>
-    connectOrCreate?: FormTemplateCreateOrConnectWithoutFirmInput
-    upsert?: FormTemplateUpsertWithoutFirmInput
-    disconnect?: FormTemplateWhereInput | boolean
-    delete?: FormTemplateWhereInput | boolean
-    connect?: FormTemplateWhereUniqueInput
-    update?: XOR<XOR<FormTemplateUpdateToOneWithWhereWithoutFirmInput, FormTemplateUpdateWithoutFirmInput>, FormTemplateUncheckedUpdateWithoutFirmInput>
+  export type FormTemplateUpdateManyWithoutFirmNestedInput = {
+    create?: XOR<FormTemplateCreateWithoutFirmInput, FormTemplateUncheckedCreateWithoutFirmInput> | FormTemplateCreateWithoutFirmInput[] | FormTemplateUncheckedCreateWithoutFirmInput[]
+    connectOrCreate?: FormTemplateCreateOrConnectWithoutFirmInput | FormTemplateCreateOrConnectWithoutFirmInput[]
+    upsert?: FormTemplateUpsertWithWhereUniqueWithoutFirmInput | FormTemplateUpsertWithWhereUniqueWithoutFirmInput[]
+    createMany?: FormTemplateCreateManyFirmInputEnvelope
+    set?: FormTemplateWhereUniqueInput | FormTemplateWhereUniqueInput[]
+    disconnect?: FormTemplateWhereUniqueInput | FormTemplateWhereUniqueInput[]
+    delete?: FormTemplateWhereUniqueInput | FormTemplateWhereUniqueInput[]
+    connect?: FormTemplateWhereUniqueInput | FormTemplateWhereUniqueInput[]
+    update?: FormTemplateUpdateWithWhereUniqueWithoutFirmInput | FormTemplateUpdateWithWhereUniqueWithoutFirmInput[]
+    updateMany?: FormTemplateUpdateManyWithWhereWithoutFirmInput | FormTemplateUpdateManyWithWhereWithoutFirmInput[]
+    deleteMany?: FormTemplateScalarWhereInput | FormTemplateScalarWhereInput[]
   }
 
   export type AgreementTemplateUpdateManyWithoutFirmNestedInput = {
@@ -71113,14 +71233,18 @@ export namespace Prisma {
     deleteMany?: MessageTemplateScalarWhereInput | MessageTemplateScalarWhereInput[]
   }
 
-  export type FormTemplateUncheckedUpdateOneWithoutFirmNestedInput = {
-    create?: XOR<FormTemplateCreateWithoutFirmInput, FormTemplateUncheckedCreateWithoutFirmInput>
-    connectOrCreate?: FormTemplateCreateOrConnectWithoutFirmInput
-    upsert?: FormTemplateUpsertWithoutFirmInput
-    disconnect?: FormTemplateWhereInput | boolean
-    delete?: FormTemplateWhereInput | boolean
-    connect?: FormTemplateWhereUniqueInput
-    update?: XOR<XOR<FormTemplateUpdateToOneWithWhereWithoutFirmInput, FormTemplateUpdateWithoutFirmInput>, FormTemplateUncheckedUpdateWithoutFirmInput>
+  export type FormTemplateUncheckedUpdateManyWithoutFirmNestedInput = {
+    create?: XOR<FormTemplateCreateWithoutFirmInput, FormTemplateUncheckedCreateWithoutFirmInput> | FormTemplateCreateWithoutFirmInput[] | FormTemplateUncheckedCreateWithoutFirmInput[]
+    connectOrCreate?: FormTemplateCreateOrConnectWithoutFirmInput | FormTemplateCreateOrConnectWithoutFirmInput[]
+    upsert?: FormTemplateUpsertWithWhereUniqueWithoutFirmInput | FormTemplateUpsertWithWhereUniqueWithoutFirmInput[]
+    createMany?: FormTemplateCreateManyFirmInputEnvelope
+    set?: FormTemplateWhereUniqueInput | FormTemplateWhereUniqueInput[]
+    disconnect?: FormTemplateWhereUniqueInput | FormTemplateWhereUniqueInput[]
+    delete?: FormTemplateWhereUniqueInput | FormTemplateWhereUniqueInput[]
+    connect?: FormTemplateWhereUniqueInput | FormTemplateWhereUniqueInput[]
+    update?: FormTemplateUpdateWithWhereUniqueWithoutFirmInput | FormTemplateUpdateWithWhereUniqueWithoutFirmInput[]
+    updateMany?: FormTemplateUpdateManyWithWhereWithoutFirmInput | FormTemplateUpdateManyWithWhereWithoutFirmInput[]
+    deleteMany?: FormTemplateScalarWhereInput | FormTemplateScalarWhereInput[]
   }
 
   export type AgreementTemplateUncheckedUpdateManyWithoutFirmNestedInput = {
@@ -75911,10 +76035,14 @@ export namespace Prisma {
     connect?: OwnerWhereUniqueInput
   }
 
-  export type FirmCreateNestedOneWithoutFormTemplateInput = {
-    create?: XOR<FirmCreateWithoutFormTemplateInput, FirmUncheckedCreateWithoutFormTemplateInput>
-    connectOrCreate?: FirmCreateOrConnectWithoutFormTemplateInput
+  export type FirmCreateNestedOneWithoutFormTemplatesInput = {
+    create?: XOR<FirmCreateWithoutFormTemplatesInput, FirmUncheckedCreateWithoutFormTemplatesInput>
+    connectOrCreate?: FirmCreateOrConnectWithoutFormTemplatesInput
     connect?: FirmWhereUniqueInput
+  }
+
+  export type EnumFormTemplateLoanTypeFieldUpdateOperationsInput = {
+    set?: $Enums.FormTemplateLoanType
   }
 
   export type EnumFormTemplateStatusFieldUpdateOperationsInput = {
@@ -75929,12 +76057,12 @@ export namespace Prisma {
     update?: XOR<XOR<OwnerUpdateToOneWithWhereWithoutFormTemplatesInput, OwnerUpdateWithoutFormTemplatesInput>, OwnerUncheckedUpdateWithoutFormTemplatesInput>
   }
 
-  export type FirmUpdateOneRequiredWithoutFormTemplateNestedInput = {
-    create?: XOR<FirmCreateWithoutFormTemplateInput, FirmUncheckedCreateWithoutFormTemplateInput>
-    connectOrCreate?: FirmCreateOrConnectWithoutFormTemplateInput
-    upsert?: FirmUpsertWithoutFormTemplateInput
+  export type FirmUpdateOneRequiredWithoutFormTemplatesNestedInput = {
+    create?: XOR<FirmCreateWithoutFormTemplatesInput, FirmUncheckedCreateWithoutFormTemplatesInput>
+    connectOrCreate?: FirmCreateOrConnectWithoutFormTemplatesInput
+    upsert?: FirmUpsertWithoutFormTemplatesInput
     connect?: FirmWhereUniqueInput
-    update?: XOR<XOR<FirmUpdateToOneWithWhereWithoutFormTemplateInput, FirmUpdateWithoutFormTemplateInput>, FirmUncheckedUpdateWithoutFormTemplateInput>
+    update?: XOR<XOR<FirmUpdateToOneWithWhereWithoutFormTemplatesInput, FirmUpdateWithoutFormTemplatesInput>, FirmUncheckedUpdateWithoutFormTemplatesInput>
   }
 
   export type OwnerCreateNestedOneWithoutAgreementTemplatesInput = {
@@ -76706,11 +76834,28 @@ export namespace Prisma {
     _max?: NestedEnumMessageTemplateStatusFilter<$PrismaModel>
   }
 
+  export type NestedEnumFormTemplateLoanTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.FormTemplateLoanType | EnumFormTemplateLoanTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.FormTemplateLoanType[] | ListEnumFormTemplateLoanTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.FormTemplateLoanType[] | ListEnumFormTemplateLoanTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumFormTemplateLoanTypeFilter<$PrismaModel> | $Enums.FormTemplateLoanType
+  }
+
   export type NestedEnumFormTemplateStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.FormTemplateStatus | EnumFormTemplateStatusFieldRefInput<$PrismaModel>
     in?: $Enums.FormTemplateStatus[] | ListEnumFormTemplateStatusFieldRefInput<$PrismaModel>
     notIn?: $Enums.FormTemplateStatus[] | ListEnumFormTemplateStatusFieldRefInput<$PrismaModel>
     not?: NestedEnumFormTemplateStatusFilter<$PrismaModel> | $Enums.FormTemplateStatus
+  }
+
+  export type NestedEnumFormTemplateLoanTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.FormTemplateLoanType | EnumFormTemplateLoanTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.FormTemplateLoanType[] | ListEnumFormTemplateLoanTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.FormTemplateLoanType[] | ListEnumFormTemplateLoanTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumFormTemplateLoanTypeWithAggregatesFilter<$PrismaModel> | $Enums.FormTemplateLoanType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumFormTemplateLoanTypeFilter<$PrismaModel>
+    _max?: NestedEnumFormTemplateLoanTypeFilter<$PrismaModel>
   }
   export type NestedJsonFilter<$PrismaModel = never> = 
     | PatchUndefined<
@@ -77007,7 +77152,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
     releaseUsers?: ReleaseUserCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateCreateNestedManyWithoutFirmInput
-    formTemplate?: FormTemplateCreateNestedOneWithoutFirmInput
+    formTemplates?: FormTemplateCreateNestedManyWithoutFirmInput
     agreementTemplates?: AgreementTemplateCreateNestedManyWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceCreateNestedOneWithoutFirmInput
   }
@@ -77081,7 +77226,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
     releaseUsers?: ReleaseUserUncheckedCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutFirmInput
-    formTemplate?: FormTemplateUncheckedCreateNestedOneWithoutFirmInput
+    formTemplates?: FormTemplateUncheckedCreateNestedManyWithoutFirmInput
     agreementTemplates?: AgreementTemplateUncheckedCreateNestedManyWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceUncheckedCreateNestedOneWithoutFirmInput
   }
@@ -78503,7 +78648,9 @@ export namespace Prisma {
 
   export type FormTemplateCreateWithoutOwnerInput = {
     ft_uuid?: string
+    ft_loan_type?: $Enums.FormTemplateLoanType
     ft_config: JsonNullValueInput | InputJsonValue
+    ft_html?: string | null
     ft_status?: $Enums.FormTemplateStatus
     ft_is_system?: boolean
     ft_created_at?: Date | string
@@ -78513,14 +78660,16 @@ export namespace Prisma {
     ft_deleted_at?: Date | string | null
     ft_deleted_by?: string | null
     ft_is_deleted?: boolean
-    firm: FirmCreateNestedOneWithoutFormTemplateInput
+    firm: FirmCreateNestedOneWithoutFormTemplatesInput
   }
 
   export type FormTemplateUncheckedCreateWithoutOwnerInput = {
     ft_id?: number
     ft_uuid?: string
     ft_firm_id: number
+    ft_loan_type?: $Enums.FormTemplateLoanType
     ft_config: JsonNullValueInput | InputJsonValue
+    ft_html?: string | null
     ft_status?: $Enums.FormTemplateStatus
     ft_is_system?: boolean
     ft_created_at?: Date | string
@@ -79713,7 +79862,9 @@ export namespace Prisma {
     ft_uuid?: StringFilter<"FormTemplate"> | string
     ft_own_id?: IntFilter<"FormTemplate"> | number
     ft_firm_id?: IntFilter<"FormTemplate"> | number
+    ft_loan_type?: EnumFormTemplateLoanTypeFilter<"FormTemplate"> | $Enums.FormTemplateLoanType
     ft_config?: JsonFilter<"FormTemplate">
+    ft_html?: StringNullableFilter<"FormTemplate"> | string | null
     ft_status?: EnumFormTemplateStatusFilter<"FormTemplate"> | $Enums.FormTemplateStatus
     ft_is_system?: BoolFilter<"FormTemplate"> | boolean
     ft_created_at?: DateTimeFilter<"FormTemplate"> | Date | string
@@ -81501,7 +81652,9 @@ export namespace Prisma {
 
   export type FormTemplateCreateWithoutFirmInput = {
     ft_uuid?: string
+    ft_loan_type?: $Enums.FormTemplateLoanType
     ft_config: JsonNullValueInput | InputJsonValue
+    ft_html?: string | null
     ft_status?: $Enums.FormTemplateStatus
     ft_is_system?: boolean
     ft_created_at?: Date | string
@@ -81518,7 +81671,9 @@ export namespace Prisma {
     ft_id?: number
     ft_uuid?: string
     ft_own_id: number
+    ft_loan_type?: $Enums.FormTemplateLoanType
     ft_config: JsonNullValueInput | InputJsonValue
+    ft_html?: string | null
     ft_status?: $Enums.FormTemplateStatus
     ft_is_system?: boolean
     ft_created_at?: Date | string
@@ -81533,6 +81688,11 @@ export namespace Prisma {
   export type FormTemplateCreateOrConnectWithoutFirmInput = {
     where: FormTemplateWhereUniqueInput
     create: XOR<FormTemplateCreateWithoutFirmInput, FormTemplateUncheckedCreateWithoutFirmInput>
+  }
+
+  export type FormTemplateCreateManyFirmInputEnvelope = {
+    data: FormTemplateCreateManyFirmInput | FormTemplateCreateManyFirmInput[]
+    skipDuplicates?: boolean
   }
 
   export type AgreementTemplateCreateWithoutFirmInput = {
@@ -82159,46 +82319,20 @@ export namespace Prisma {
     data: XOR<MessageTemplateUpdateManyMutationInput, MessageTemplateUncheckedUpdateManyWithoutFirmInput>
   }
 
-  export type FormTemplateUpsertWithoutFirmInput = {
+  export type FormTemplateUpsertWithWhereUniqueWithoutFirmInput = {
+    where: FormTemplateWhereUniqueInput
     update: XOR<FormTemplateUpdateWithoutFirmInput, FormTemplateUncheckedUpdateWithoutFirmInput>
     create: XOR<FormTemplateCreateWithoutFirmInput, FormTemplateUncheckedCreateWithoutFirmInput>
-    where?: FormTemplateWhereInput
   }
 
-  export type FormTemplateUpdateToOneWithWhereWithoutFirmInput = {
-    where?: FormTemplateWhereInput
+  export type FormTemplateUpdateWithWhereUniqueWithoutFirmInput = {
+    where: FormTemplateWhereUniqueInput
     data: XOR<FormTemplateUpdateWithoutFirmInput, FormTemplateUncheckedUpdateWithoutFirmInput>
   }
 
-  export type FormTemplateUpdateWithoutFirmInput = {
-    ft_uuid?: StringFieldUpdateOperationsInput | string
-    ft_config?: JsonNullValueInput | InputJsonValue
-    ft_status?: EnumFormTemplateStatusFieldUpdateOperationsInput | $Enums.FormTemplateStatus
-    ft_is_system?: BoolFieldUpdateOperationsInput | boolean
-    ft_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    ft_created_by?: NullableStringFieldUpdateOperationsInput | string | null
-    ft_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    ft_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    ft_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    ft_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
-    ft_is_deleted?: BoolFieldUpdateOperationsInput | boolean
-    owner?: OwnerUpdateOneRequiredWithoutFormTemplatesNestedInput
-  }
-
-  export type FormTemplateUncheckedUpdateWithoutFirmInput = {
-    ft_id?: IntFieldUpdateOperationsInput | number
-    ft_uuid?: StringFieldUpdateOperationsInput | string
-    ft_own_id?: IntFieldUpdateOperationsInput | number
-    ft_config?: JsonNullValueInput | InputJsonValue
-    ft_status?: EnumFormTemplateStatusFieldUpdateOperationsInput | $Enums.FormTemplateStatus
-    ft_is_system?: BoolFieldUpdateOperationsInput | boolean
-    ft_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    ft_created_by?: NullableStringFieldUpdateOperationsInput | string | null
-    ft_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    ft_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
-    ft_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    ft_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
-    ft_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+  export type FormTemplateUpdateManyWithWhereWithoutFirmInput = {
+    where: FormTemplateScalarWhereInput
+    data: XOR<FormTemplateUpdateManyMutationInput, FormTemplateUncheckedUpdateManyWithoutFirmInput>
   }
 
   export type AgreementTemplateUpsertWithWhereUniqueWithoutFirmInput = {
@@ -82481,7 +82615,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
     releaseUsers?: ReleaseUserCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateCreateNestedManyWithoutFirmInput
-    formTemplate?: FormTemplateCreateNestedOneWithoutFirmInput
+    formTemplates?: FormTemplateCreateNestedManyWithoutFirmInput
     agreementTemplates?: AgreementTemplateCreateNestedManyWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceCreateNestedOneWithoutFirmInput
   }
@@ -82555,7 +82689,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
     releaseUsers?: ReleaseUserUncheckedCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutFirmInput
-    formTemplate?: FormTemplateUncheckedCreateNestedOneWithoutFirmInput
+    formTemplates?: FormTemplateUncheckedCreateNestedManyWithoutFirmInput
     agreementTemplates?: AgreementTemplateUncheckedCreateNestedManyWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceUncheckedCreateNestedOneWithoutFirmInput
   }
@@ -86971,7 +87105,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
     releaseUsers?: ReleaseUserUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUpdateManyWithoutFirmNestedInput
-    formTemplate?: FormTemplateUpdateOneWithoutFirmNestedInput
+    formTemplates?: FormTemplateUpdateManyWithoutFirmNestedInput
     agreementTemplates?: AgreementTemplateUpdateManyWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUpdateOneWithoutFirmNestedInput
   }
@@ -87045,7 +87179,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
     releaseUsers?: ReleaseUserUncheckedUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutFirmNestedInput
-    formTemplate?: FormTemplateUncheckedUpdateOneWithoutFirmNestedInput
+    formTemplates?: FormTemplateUncheckedUpdateManyWithoutFirmNestedInput
     agreementTemplates?: AgreementTemplateUncheckedUpdateManyWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUncheckedUpdateOneWithoutFirmNestedInput
   }
@@ -88020,7 +88154,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
     releaseUsers?: ReleaseUserCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateCreateNestedManyWithoutFirmInput
-    formTemplate?: FormTemplateCreateNestedOneWithoutFirmInput
+    formTemplates?: FormTemplateCreateNestedManyWithoutFirmInput
     agreementTemplates?: AgreementTemplateCreateNestedManyWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceCreateNestedOneWithoutFirmInput
   }
@@ -88094,7 +88228,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
     releaseUsers?: ReleaseUserUncheckedCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutFirmInput
-    formTemplate?: FormTemplateUncheckedCreateNestedOneWithoutFirmInput
+    formTemplates?: FormTemplateUncheckedCreateNestedManyWithoutFirmInput
     agreementTemplates?: AgreementTemplateUncheckedCreateNestedManyWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceUncheckedCreateNestedOneWithoutFirmInput
   }
@@ -89172,7 +89306,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
     releaseUsers?: ReleaseUserUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUpdateManyWithoutFirmNestedInput
-    formTemplate?: FormTemplateUpdateOneWithoutFirmNestedInput
+    formTemplates?: FormTemplateUpdateManyWithoutFirmNestedInput
     agreementTemplates?: AgreementTemplateUpdateManyWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUpdateOneWithoutFirmNestedInput
   }
@@ -89246,7 +89380,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
     releaseUsers?: ReleaseUserUncheckedUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutFirmNestedInput
-    formTemplate?: FormTemplateUncheckedUpdateOneWithoutFirmNestedInput
+    formTemplates?: FormTemplateUncheckedUpdateManyWithoutFirmNestedInput
     agreementTemplates?: AgreementTemplateUncheckedUpdateManyWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUncheckedUpdateOneWithoutFirmNestedInput
   }
@@ -89479,7 +89613,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
     releaseUsers?: ReleaseUserCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateCreateNestedManyWithoutFirmInput
-    formTemplate?: FormTemplateCreateNestedOneWithoutFirmInput
+    formTemplates?: FormTemplateCreateNestedManyWithoutFirmInput
     agreementTemplates?: AgreementTemplateCreateNestedManyWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceCreateNestedOneWithoutFirmInput
   }
@@ -89553,7 +89687,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
     releaseUsers?: ReleaseUserUncheckedCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutFirmInput
-    formTemplate?: FormTemplateUncheckedCreateNestedOneWithoutFirmInput
+    formTemplates?: FormTemplateUncheckedCreateNestedManyWithoutFirmInput
     agreementTemplates?: AgreementTemplateUncheckedCreateNestedManyWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceUncheckedCreateNestedOneWithoutFirmInput
   }
@@ -90852,7 +90986,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
     releaseUsers?: ReleaseUserUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUpdateManyWithoutFirmNestedInput
-    formTemplate?: FormTemplateUpdateOneWithoutFirmNestedInput
+    formTemplates?: FormTemplateUpdateManyWithoutFirmNestedInput
     agreementTemplates?: AgreementTemplateUpdateManyWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUpdateOneWithoutFirmNestedInput
   }
@@ -90926,7 +91060,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
     releaseUsers?: ReleaseUserUncheckedUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutFirmNestedInput
-    formTemplate?: FormTemplateUncheckedUpdateOneWithoutFirmNestedInput
+    formTemplates?: FormTemplateUncheckedUpdateManyWithoutFirmNestedInput
     agreementTemplates?: AgreementTemplateUncheckedUpdateManyWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUncheckedUpdateOneWithoutFirmNestedInput
   }
@@ -92132,7 +92266,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
     releaseUsers?: ReleaseUserCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateCreateNestedManyWithoutFirmInput
-    formTemplate?: FormTemplateCreateNestedOneWithoutFirmInput
+    formTemplates?: FormTemplateCreateNestedManyWithoutFirmInput
     agreementTemplates?: AgreementTemplateCreateNestedManyWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceCreateNestedOneWithoutFirmInput
   }
@@ -92206,7 +92340,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
     releaseUsers?: ReleaseUserUncheckedCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutFirmInput
-    formTemplate?: FormTemplateUncheckedCreateNestedOneWithoutFirmInput
+    formTemplates?: FormTemplateUncheckedCreateNestedManyWithoutFirmInput
     agreementTemplates?: AgreementTemplateUncheckedCreateNestedManyWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceUncheckedCreateNestedOneWithoutFirmInput
   }
@@ -93301,7 +93435,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
     releaseUsers?: ReleaseUserUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUpdateManyWithoutFirmNestedInput
-    formTemplate?: FormTemplateUpdateOneWithoutFirmNestedInput
+    formTemplates?: FormTemplateUpdateManyWithoutFirmNestedInput
     agreementTemplates?: AgreementTemplateUpdateManyWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUpdateOneWithoutFirmNestedInput
   }
@@ -93375,7 +93509,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
     releaseUsers?: ReleaseUserUncheckedUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutFirmNestedInput
-    formTemplate?: FormTemplateUncheckedUpdateOneWithoutFirmNestedInput
+    formTemplates?: FormTemplateUncheckedUpdateManyWithoutFirmNestedInput
     agreementTemplates?: AgreementTemplateUncheckedUpdateManyWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUncheckedUpdateOneWithoutFirmNestedInput
   }
@@ -94495,7 +94629,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
     releaseUsers?: ReleaseUserCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateCreateNestedManyWithoutFirmInput
-    formTemplate?: FormTemplateCreateNestedOneWithoutFirmInput
+    formTemplates?: FormTemplateCreateNestedManyWithoutFirmInput
     agreementTemplates?: AgreementTemplateCreateNestedManyWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceCreateNestedOneWithoutFirmInput
   }
@@ -94569,7 +94703,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
     releaseUsers?: ReleaseUserUncheckedCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutFirmInput
-    formTemplate?: FormTemplateUncheckedCreateNestedOneWithoutFirmInput
+    formTemplates?: FormTemplateUncheckedCreateNestedManyWithoutFirmInput
     agreementTemplates?: AgreementTemplateUncheckedCreateNestedManyWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceUncheckedCreateNestedOneWithoutFirmInput
   }
@@ -95870,7 +96004,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
     releaseUsers?: ReleaseUserUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUpdateManyWithoutFirmNestedInput
-    formTemplate?: FormTemplateUpdateOneWithoutFirmNestedInput
+    formTemplates?: FormTemplateUpdateManyWithoutFirmNestedInput
     agreementTemplates?: AgreementTemplateUpdateManyWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUpdateOneWithoutFirmNestedInput
   }
@@ -95944,7 +96078,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
     releaseUsers?: ReleaseUserUncheckedUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutFirmNestedInput
-    formTemplate?: FormTemplateUncheckedUpdateOneWithoutFirmNestedInput
+    formTemplates?: FormTemplateUncheckedUpdateManyWithoutFirmNestedInput
     agreementTemplates?: AgreementTemplateUncheckedUpdateManyWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUncheckedUpdateOneWithoutFirmNestedInput
   }
@@ -97422,7 +97556,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
     releaseUsers?: ReleaseUserCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateCreateNestedManyWithoutFirmInput
-    formTemplate?: FormTemplateCreateNestedOneWithoutFirmInput
+    formTemplates?: FormTemplateCreateNestedManyWithoutFirmInput
     agreementTemplates?: AgreementTemplateCreateNestedManyWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceCreateNestedOneWithoutFirmInput
   }
@@ -97496,7 +97630,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
     releaseUsers?: ReleaseUserUncheckedCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutFirmInput
-    formTemplate?: FormTemplateUncheckedCreateNestedOneWithoutFirmInput
+    formTemplates?: FormTemplateUncheckedCreateNestedManyWithoutFirmInput
     agreementTemplates?: AgreementTemplateUncheckedCreateNestedManyWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceUncheckedCreateNestedOneWithoutFirmInput
   }
@@ -97946,7 +98080,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
     releaseUsers?: ReleaseUserUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUpdateManyWithoutFirmNestedInput
-    formTemplate?: FormTemplateUpdateOneWithoutFirmNestedInput
+    formTemplates?: FormTemplateUpdateManyWithoutFirmNestedInput
     agreementTemplates?: AgreementTemplateUpdateManyWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUpdateOneWithoutFirmNestedInput
   }
@@ -98020,7 +98154,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
     releaseUsers?: ReleaseUserUncheckedUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutFirmNestedInput
-    formTemplate?: FormTemplateUncheckedUpdateOneWithoutFirmNestedInput
+    formTemplates?: FormTemplateUncheckedUpdateManyWithoutFirmNestedInput
     agreementTemplates?: AgreementTemplateUncheckedUpdateManyWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUncheckedUpdateOneWithoutFirmNestedInput
   }
@@ -98390,7 +98524,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
     releaseUsers?: ReleaseUserCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateCreateNestedManyWithoutFirmInput
-    formTemplate?: FormTemplateCreateNestedOneWithoutFirmInput
+    formTemplates?: FormTemplateCreateNestedManyWithoutFirmInput
     agreementTemplates?: AgreementTemplateCreateNestedManyWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceCreateNestedOneWithoutFirmInput
   }
@@ -98464,7 +98598,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
     releaseUsers?: ReleaseUserUncheckedCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutFirmInput
-    formTemplate?: FormTemplateUncheckedCreateNestedOneWithoutFirmInput
+    formTemplates?: FormTemplateUncheckedCreateNestedManyWithoutFirmInput
     agreementTemplates?: AgreementTemplateUncheckedCreateNestedManyWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceUncheckedCreateNestedOneWithoutFirmInput
   }
@@ -98951,7 +99085,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
     releaseUsers?: ReleaseUserUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUpdateManyWithoutFirmNestedInput
-    formTemplate?: FormTemplateUpdateOneWithoutFirmNestedInput
+    formTemplates?: FormTemplateUpdateManyWithoutFirmNestedInput
     agreementTemplates?: AgreementTemplateUpdateManyWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUpdateOneWithoutFirmNestedInput
   }
@@ -99025,7 +99159,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
     releaseUsers?: ReleaseUserUncheckedUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutFirmNestedInput
-    formTemplate?: FormTemplateUncheckedUpdateOneWithoutFirmNestedInput
+    formTemplates?: FormTemplateUncheckedUpdateManyWithoutFirmNestedInput
     agreementTemplates?: AgreementTemplateUncheckedUpdateManyWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUncheckedUpdateOneWithoutFirmNestedInput
   }
@@ -100407,7 +100541,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
     releaseUsers?: ReleaseUserCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateCreateNestedManyWithoutFirmInput
-    formTemplate?: FormTemplateCreateNestedOneWithoutFirmInput
+    formTemplates?: FormTemplateCreateNestedManyWithoutFirmInput
     agreementTemplates?: AgreementTemplateCreateNestedManyWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceCreateNestedOneWithoutFirmInput
   }
@@ -100481,7 +100615,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
     releaseUsers?: ReleaseUserUncheckedCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutFirmInput
-    formTemplate?: FormTemplateUncheckedCreateNestedOneWithoutFirmInput
+    formTemplates?: FormTemplateUncheckedCreateNestedManyWithoutFirmInput
     agreementTemplates?: AgreementTemplateUncheckedCreateNestedManyWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceUncheckedCreateNestedOneWithoutFirmInput
   }
@@ -101210,7 +101344,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
     releaseUsers?: ReleaseUserUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUpdateManyWithoutFirmNestedInput
-    formTemplate?: FormTemplateUpdateOneWithoutFirmNestedInput
+    formTemplates?: FormTemplateUpdateManyWithoutFirmNestedInput
     agreementTemplates?: AgreementTemplateUpdateManyWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUpdateOneWithoutFirmNestedInput
   }
@@ -101284,7 +101418,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
     releaseUsers?: ReleaseUserUncheckedUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutFirmNestedInput
-    formTemplate?: FormTemplateUncheckedUpdateOneWithoutFirmNestedInput
+    formTemplates?: FormTemplateUncheckedUpdateManyWithoutFirmNestedInput
     agreementTemplates?: AgreementTemplateUncheckedUpdateManyWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUncheckedUpdateOneWithoutFirmNestedInput
   }
@@ -102108,7 +102242,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
     releaseUsers?: ReleaseUserCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateCreateNestedManyWithoutFirmInput
-    formTemplate?: FormTemplateCreateNestedOneWithoutFirmInput
+    formTemplates?: FormTemplateCreateNestedManyWithoutFirmInput
     agreementTemplates?: AgreementTemplateCreateNestedManyWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceCreateNestedOneWithoutFirmInput
   }
@@ -102182,7 +102316,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
     releaseUsers?: ReleaseUserUncheckedCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutFirmInput
-    formTemplate?: FormTemplateUncheckedCreateNestedOneWithoutFirmInput
+    formTemplates?: FormTemplateUncheckedCreateNestedManyWithoutFirmInput
     agreementTemplates?: AgreementTemplateUncheckedCreateNestedManyWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceUncheckedCreateNestedOneWithoutFirmInput
   }
@@ -104056,7 +104190,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
     releaseUsers?: ReleaseUserUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUpdateManyWithoutFirmNestedInput
-    formTemplate?: FormTemplateUpdateOneWithoutFirmNestedInput
+    formTemplates?: FormTemplateUpdateManyWithoutFirmNestedInput
     agreementTemplates?: AgreementTemplateUpdateManyWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUpdateOneWithoutFirmNestedInput
   }
@@ -104130,7 +104264,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
     releaseUsers?: ReleaseUserUncheckedUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutFirmNestedInput
-    formTemplate?: FormTemplateUncheckedUpdateOneWithoutFirmNestedInput
+    formTemplates?: FormTemplateUncheckedUpdateManyWithoutFirmNestedInput
     agreementTemplates?: AgreementTemplateUncheckedUpdateManyWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUncheckedUpdateOneWithoutFirmNestedInput
   }
@@ -105771,7 +105905,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
     releaseUsers?: ReleaseUserCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateCreateNestedManyWithoutFirmInput
-    formTemplate?: FormTemplateCreateNestedOneWithoutFirmInput
+    formTemplates?: FormTemplateCreateNestedManyWithoutFirmInput
     agreementTemplates?: AgreementTemplateCreateNestedManyWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceCreateNestedOneWithoutFirmInput
   }
@@ -105845,7 +105979,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
     releaseUsers?: ReleaseUserUncheckedCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutFirmInput
-    formTemplate?: FormTemplateUncheckedCreateNestedOneWithoutFirmInput
+    formTemplates?: FormTemplateUncheckedCreateNestedManyWithoutFirmInput
     agreementTemplates?: AgreementTemplateUncheckedCreateNestedManyWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceUncheckedCreateNestedOneWithoutFirmInput
   }
@@ -106209,7 +106343,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
     releaseUsers?: ReleaseUserUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUpdateManyWithoutFirmNestedInput
-    formTemplate?: FormTemplateUpdateOneWithoutFirmNestedInput
+    formTemplates?: FormTemplateUpdateManyWithoutFirmNestedInput
     agreementTemplates?: AgreementTemplateUpdateManyWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUpdateOneWithoutFirmNestedInput
   }
@@ -106283,7 +106417,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
     releaseUsers?: ReleaseUserUncheckedUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutFirmNestedInput
-    formTemplate?: FormTemplateUncheckedUpdateOneWithoutFirmNestedInput
+    formTemplates?: FormTemplateUncheckedUpdateManyWithoutFirmNestedInput
     agreementTemplates?: AgreementTemplateUncheckedUpdateManyWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUncheckedUpdateOneWithoutFirmNestedInput
   }
@@ -106632,7 +106766,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
     releaseUsers?: ReleaseUserCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateCreateNestedManyWithoutFirmInput
-    formTemplate?: FormTemplateCreateNestedOneWithoutFirmInput
+    formTemplates?: FormTemplateCreateNestedManyWithoutFirmInput
     agreementTemplates?: AgreementTemplateCreateNestedManyWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceCreateNestedOneWithoutFirmInput
   }
@@ -106706,7 +106840,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
     releaseUsers?: ReleaseUserUncheckedCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutFirmInput
-    formTemplate?: FormTemplateUncheckedCreateNestedOneWithoutFirmInput
+    formTemplates?: FormTemplateUncheckedCreateNestedManyWithoutFirmInput
     agreementTemplates?: AgreementTemplateUncheckedCreateNestedManyWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceUncheckedCreateNestedOneWithoutFirmInput
   }
@@ -107830,7 +107964,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
     releaseUsers?: ReleaseUserUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUpdateManyWithoutFirmNestedInput
-    formTemplate?: FormTemplateUpdateOneWithoutFirmNestedInput
+    formTemplates?: FormTemplateUpdateManyWithoutFirmNestedInput
     agreementTemplates?: AgreementTemplateUpdateManyWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUpdateOneWithoutFirmNestedInput
   }
@@ -107904,7 +108038,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
     releaseUsers?: ReleaseUserUncheckedUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutFirmNestedInput
-    formTemplate?: FormTemplateUncheckedUpdateOneWithoutFirmNestedInput
+    formTemplates?: FormTemplateUncheckedUpdateManyWithoutFirmNestedInput
     agreementTemplates?: AgreementTemplateUncheckedUpdateManyWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUncheckedUpdateOneWithoutFirmNestedInput
   }
@@ -109043,7 +109177,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
     releaseUsers?: ReleaseUserCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateCreateNestedManyWithoutFirmInput
-    formTemplate?: FormTemplateCreateNestedOneWithoutFirmInput
+    formTemplates?: FormTemplateCreateNestedManyWithoutFirmInput
     agreementTemplates?: AgreementTemplateCreateNestedManyWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceCreateNestedOneWithoutFirmInput
   }
@@ -109117,7 +109251,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
     releaseUsers?: ReleaseUserUncheckedCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutFirmInput
-    formTemplate?: FormTemplateUncheckedCreateNestedOneWithoutFirmInput
+    formTemplates?: FormTemplateUncheckedCreateNestedManyWithoutFirmInput
     agreementTemplates?: AgreementTemplateUncheckedCreateNestedManyWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceUncheckedCreateNestedOneWithoutFirmInput
   }
@@ -110873,7 +111007,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
     releaseUsers?: ReleaseUserUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUpdateManyWithoutFirmNestedInput
-    formTemplate?: FormTemplateUpdateOneWithoutFirmNestedInput
+    formTemplates?: FormTemplateUpdateManyWithoutFirmNestedInput
     agreementTemplates?: AgreementTemplateUpdateManyWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUpdateOneWithoutFirmNestedInput
   }
@@ -110947,7 +111081,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
     releaseUsers?: ReleaseUserUncheckedUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutFirmNestedInput
-    formTemplate?: FormTemplateUncheckedUpdateOneWithoutFirmNestedInput
+    formTemplates?: FormTemplateUncheckedUpdateManyWithoutFirmNestedInput
     agreementTemplates?: AgreementTemplateUncheckedUpdateManyWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUncheckedUpdateOneWithoutFirmNestedInput
   }
@@ -112742,7 +112876,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
     releaseUsers?: ReleaseUserCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateCreateNestedManyWithoutFirmInput
-    formTemplate?: FormTemplateCreateNestedOneWithoutFirmInput
+    formTemplates?: FormTemplateCreateNestedManyWithoutFirmInput
     agreementTemplates?: AgreementTemplateCreateNestedManyWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceCreateNestedOneWithoutFirmInput
   }
@@ -112816,7 +112950,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
     releaseUsers?: ReleaseUserUncheckedCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutFirmInput
-    formTemplate?: FormTemplateUncheckedCreateNestedOneWithoutFirmInput
+    formTemplates?: FormTemplateUncheckedCreateNestedManyWithoutFirmInput
     agreementTemplates?: AgreementTemplateUncheckedCreateNestedManyWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceUncheckedCreateNestedOneWithoutFirmInput
   }
@@ -114618,7 +114752,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
     releaseUsers?: ReleaseUserUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUpdateManyWithoutFirmNestedInput
-    formTemplate?: FormTemplateUpdateOneWithoutFirmNestedInput
+    formTemplates?: FormTemplateUpdateManyWithoutFirmNestedInput
     agreementTemplates?: AgreementTemplateUpdateManyWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUpdateOneWithoutFirmNestedInput
   }
@@ -114692,7 +114826,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
     releaseUsers?: ReleaseUserUncheckedUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutFirmNestedInput
-    formTemplate?: FormTemplateUncheckedUpdateOneWithoutFirmNestedInput
+    formTemplates?: FormTemplateUncheckedUpdateManyWithoutFirmNestedInput
     agreementTemplates?: AgreementTemplateUncheckedUpdateManyWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUncheckedUpdateOneWithoutFirmNestedInput
   }
@@ -116397,7 +116531,7 @@ export namespace Prisma {
     auctionUsers?: AuctionUserCreateNestedManyWithoutFirmInput
     auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateCreateNestedManyWithoutFirmInput
-    formTemplate?: FormTemplateCreateNestedOneWithoutFirmInput
+    formTemplates?: FormTemplateCreateNestedManyWithoutFirmInput
     agreementTemplates?: AgreementTemplateCreateNestedManyWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceCreateNestedOneWithoutFirmInput
   }
@@ -116471,7 +116605,7 @@ export namespace Prisma {
     auctionUsers?: AuctionUserUncheckedCreateNestedManyWithoutFirmInput
     auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutFirmInput
-    formTemplate?: FormTemplateUncheckedCreateNestedOneWithoutFirmInput
+    formTemplates?: FormTemplateUncheckedCreateNestedManyWithoutFirmInput
     agreementTemplates?: AgreementTemplateUncheckedCreateNestedManyWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceUncheckedCreateNestedOneWithoutFirmInput
   }
@@ -116657,7 +116791,7 @@ export namespace Prisma {
     auctionUsers?: AuctionUserUpdateManyWithoutFirmNestedInput
     auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUpdateManyWithoutFirmNestedInput
-    formTemplate?: FormTemplateUpdateOneWithoutFirmNestedInput
+    formTemplates?: FormTemplateUpdateManyWithoutFirmNestedInput
     agreementTemplates?: AgreementTemplateUpdateManyWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUpdateOneWithoutFirmNestedInput
   }
@@ -116731,7 +116865,7 @@ export namespace Prisma {
     auctionUsers?: AuctionUserUncheckedUpdateManyWithoutFirmNestedInput
     auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutFirmNestedInput
-    formTemplate?: FormTemplateUncheckedUpdateOneWithoutFirmNestedInput
+    formTemplates?: FormTemplateUncheckedUpdateManyWithoutFirmNestedInput
     agreementTemplates?: AgreementTemplateUncheckedUpdateManyWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUncheckedUpdateOneWithoutFirmNestedInput
   }
@@ -116962,7 +117096,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
     releaseUsers?: ReleaseUserCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateCreateNestedManyWithoutFirmInput
-    formTemplate?: FormTemplateCreateNestedOneWithoutFirmInput
+    formTemplates?: FormTemplateCreateNestedManyWithoutFirmInput
     agreementTemplates?: AgreementTemplateCreateNestedManyWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceCreateNestedOneWithoutFirmInput
   }
@@ -117036,7 +117170,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
     releaseUsers?: ReleaseUserUncheckedCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutFirmInput
-    formTemplate?: FormTemplateUncheckedCreateNestedOneWithoutFirmInput
+    formTemplates?: FormTemplateUncheckedCreateNestedManyWithoutFirmInput
     agreementTemplates?: AgreementTemplateUncheckedCreateNestedManyWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceUncheckedCreateNestedOneWithoutFirmInput
   }
@@ -117272,7 +117406,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
     releaseUsers?: ReleaseUserUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUpdateManyWithoutFirmNestedInput
-    formTemplate?: FormTemplateUpdateOneWithoutFirmNestedInput
+    formTemplates?: FormTemplateUpdateManyWithoutFirmNestedInput
     agreementTemplates?: AgreementTemplateUpdateManyWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUpdateOneWithoutFirmNestedInput
   }
@@ -117346,7 +117480,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
     releaseUsers?: ReleaseUserUncheckedUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutFirmNestedInput
-    formTemplate?: FormTemplateUncheckedUpdateOneWithoutFirmNestedInput
+    formTemplates?: FormTemplateUncheckedUpdateManyWithoutFirmNestedInput
     agreementTemplates?: AgreementTemplateUncheckedUpdateManyWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUncheckedUpdateOneWithoutFirmNestedInput
   }
@@ -117850,7 +117984,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
     releaseUsers?: ReleaseUserCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateCreateNestedManyWithoutFirmInput
-    formTemplate?: FormTemplateCreateNestedOneWithoutFirmInput
+    formTemplates?: FormTemplateCreateNestedManyWithoutFirmInput
     agreementTemplates?: AgreementTemplateCreateNestedManyWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceCreateNestedOneWithoutFirmInput
   }
@@ -117924,7 +118058,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
     releaseUsers?: ReleaseUserUncheckedCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutFirmInput
-    formTemplate?: FormTemplateUncheckedCreateNestedOneWithoutFirmInput
+    formTemplates?: FormTemplateUncheckedCreateNestedManyWithoutFirmInput
     agreementTemplates?: AgreementTemplateUncheckedCreateNestedManyWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceUncheckedCreateNestedOneWithoutFirmInput
   }
@@ -118293,7 +118427,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
     releaseUsers?: ReleaseUserUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUpdateManyWithoutFirmNestedInput
-    formTemplate?: FormTemplateUpdateOneWithoutFirmNestedInput
+    formTemplates?: FormTemplateUpdateManyWithoutFirmNestedInput
     agreementTemplates?: AgreementTemplateUpdateManyWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUpdateOneWithoutFirmNestedInput
   }
@@ -118367,7 +118501,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
     releaseUsers?: ReleaseUserUncheckedUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutFirmNestedInput
-    formTemplate?: FormTemplateUncheckedUpdateOneWithoutFirmNestedInput
+    formTemplates?: FormTemplateUncheckedUpdateManyWithoutFirmNestedInput
     agreementTemplates?: AgreementTemplateUncheckedUpdateManyWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUncheckedUpdateOneWithoutFirmNestedInput
   }
@@ -118456,7 +118590,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
     releaseUsers?: ReleaseUserCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateCreateNestedManyWithoutFirmInput
-    formTemplate?: FormTemplateCreateNestedOneWithoutFirmInput
+    formTemplates?: FormTemplateCreateNestedManyWithoutFirmInput
     agreementTemplates?: AgreementTemplateCreateNestedManyWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceCreateNestedOneWithoutFirmInput
   }
@@ -118530,7 +118664,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
     releaseUsers?: ReleaseUserUncheckedCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutFirmInput
-    formTemplate?: FormTemplateUncheckedCreateNestedOneWithoutFirmInput
+    formTemplates?: FormTemplateUncheckedCreateNestedManyWithoutFirmInput
     agreementTemplates?: AgreementTemplateUncheckedCreateNestedManyWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceUncheckedCreateNestedOneWithoutFirmInput
   }
@@ -118686,7 +118820,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
     releaseUsers?: ReleaseUserUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUpdateManyWithoutFirmNestedInput
-    formTemplate?: FormTemplateUpdateOneWithoutFirmNestedInput
+    formTemplates?: FormTemplateUpdateManyWithoutFirmNestedInput
     agreementTemplates?: AgreementTemplateUpdateManyWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUpdateOneWithoutFirmNestedInput
   }
@@ -118760,7 +118894,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
     releaseUsers?: ReleaseUserUncheckedUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutFirmNestedInput
-    formTemplate?: FormTemplateUncheckedUpdateOneWithoutFirmNestedInput
+    formTemplates?: FormTemplateUncheckedUpdateManyWithoutFirmNestedInput
     agreementTemplates?: AgreementTemplateUncheckedUpdateManyWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUncheckedUpdateOneWithoutFirmNestedInput
   }
@@ -118849,7 +118983,7 @@ export namespace Prisma {
     auctionUsers?: AuctionUserCreateNestedManyWithoutFirmInput
     releaseUsers?: ReleaseUserCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateCreateNestedManyWithoutFirmInput
-    formTemplate?: FormTemplateCreateNestedOneWithoutFirmInput
+    formTemplates?: FormTemplateCreateNestedManyWithoutFirmInput
     agreementTemplates?: AgreementTemplateCreateNestedManyWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceCreateNestedOneWithoutFirmInput
   }
@@ -118923,7 +119057,7 @@ export namespace Prisma {
     auctionUsers?: AuctionUserUncheckedCreateNestedManyWithoutFirmInput
     releaseUsers?: ReleaseUserUncheckedCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutFirmInput
-    formTemplate?: FormTemplateUncheckedCreateNestedOneWithoutFirmInput
+    formTemplates?: FormTemplateUncheckedCreateNestedManyWithoutFirmInput
     agreementTemplates?: AgreementTemplateUncheckedCreateNestedManyWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceUncheckedCreateNestedOneWithoutFirmInput
   }
@@ -119188,7 +119322,7 @@ export namespace Prisma {
     auctionUsers?: AuctionUserUpdateManyWithoutFirmNestedInput
     releaseUsers?: ReleaseUserUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUpdateManyWithoutFirmNestedInput
-    formTemplate?: FormTemplateUpdateOneWithoutFirmNestedInput
+    formTemplates?: FormTemplateUpdateManyWithoutFirmNestedInput
     agreementTemplates?: AgreementTemplateUpdateManyWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUpdateOneWithoutFirmNestedInput
   }
@@ -119262,7 +119396,7 @@ export namespace Prisma {
     auctionUsers?: AuctionUserUncheckedUpdateManyWithoutFirmNestedInput
     releaseUsers?: ReleaseUserUncheckedUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutFirmNestedInput
-    formTemplate?: FormTemplateUncheckedUpdateOneWithoutFirmNestedInput
+    formTemplates?: FormTemplateUncheckedUpdateManyWithoutFirmNestedInput
     agreementTemplates?: AgreementTemplateUncheckedUpdateManyWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUncheckedUpdateOneWithoutFirmNestedInput
   }
@@ -120340,7 +120474,7 @@ export namespace Prisma {
     auctionUsers?: AuctionUserCreateNestedManyWithoutFirmInput
     auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
     releaseUsers?: ReleaseUserCreateNestedManyWithoutFirmInput
-    formTemplate?: FormTemplateCreateNestedOneWithoutFirmInput
+    formTemplates?: FormTemplateCreateNestedManyWithoutFirmInput
     agreementTemplates?: AgreementTemplateCreateNestedManyWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceCreateNestedOneWithoutFirmInput
   }
@@ -120414,7 +120548,7 @@ export namespace Prisma {
     auctionUsers?: AuctionUserUncheckedCreateNestedManyWithoutFirmInput
     auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
     releaseUsers?: ReleaseUserUncheckedCreateNestedManyWithoutFirmInput
-    formTemplate?: FormTemplateUncheckedCreateNestedOneWithoutFirmInput
+    formTemplates?: FormTemplateUncheckedCreateNestedManyWithoutFirmInput
     agreementTemplates?: AgreementTemplateUncheckedCreateNestedManyWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceUncheckedCreateNestedOneWithoutFirmInput
   }
@@ -120650,7 +120784,7 @@ export namespace Prisma {
     auctionUsers?: AuctionUserUpdateManyWithoutFirmNestedInput
     auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
     releaseUsers?: ReleaseUserUpdateManyWithoutFirmNestedInput
-    formTemplate?: FormTemplateUpdateOneWithoutFirmNestedInput
+    formTemplates?: FormTemplateUpdateManyWithoutFirmNestedInput
     agreementTemplates?: AgreementTemplateUpdateManyWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUpdateOneWithoutFirmNestedInput
   }
@@ -120724,7 +120858,7 @@ export namespace Prisma {
     auctionUsers?: AuctionUserUncheckedUpdateManyWithoutFirmNestedInput
     auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
     releaseUsers?: ReleaseUserUncheckedUpdateManyWithoutFirmNestedInput
-    formTemplate?: FormTemplateUncheckedUpdateOneWithoutFirmNestedInput
+    formTemplates?: FormTemplateUncheckedUpdateManyWithoutFirmNestedInput
     agreementTemplates?: AgreementTemplateUncheckedUpdateManyWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUncheckedUpdateOneWithoutFirmNestedInput
   }
@@ -120871,7 +121005,7 @@ export namespace Prisma {
     create: XOR<OwnerCreateWithoutFormTemplatesInput, OwnerUncheckedCreateWithoutFormTemplatesInput>
   }
 
-  export type FirmCreateWithoutFormTemplateInput = {
+  export type FirmCreateWithoutFormTemplatesInput = {
     firm_uuid?: string
     firm_unique_code?: string | null
     firm_add_date?: Date | string
@@ -120944,7 +121078,7 @@ export namespace Prisma {
     whatsappInstance?: WhatsAppInstanceCreateNestedOneWithoutFirmInput
   }
 
-  export type FirmUncheckedCreateWithoutFormTemplateInput = {
+  export type FirmUncheckedCreateWithoutFormTemplatesInput = {
     firm_id?: number
     firm_uuid?: string
     firm_unique_code?: string | null
@@ -121018,9 +121152,9 @@ export namespace Prisma {
     whatsappInstance?: WhatsAppInstanceUncheckedCreateNestedOneWithoutFirmInput
   }
 
-  export type FirmCreateOrConnectWithoutFormTemplateInput = {
+  export type FirmCreateOrConnectWithoutFormTemplatesInput = {
     where: FirmWhereUniqueInput
-    create: XOR<FirmCreateWithoutFormTemplateInput, FirmUncheckedCreateWithoutFormTemplateInput>
+    create: XOR<FirmCreateWithoutFormTemplatesInput, FirmUncheckedCreateWithoutFormTemplatesInput>
   }
 
   export type OwnerUpsertWithoutFormTemplatesInput = {
@@ -121170,18 +121304,18 @@ export namespace Prisma {
     whatsappInstances?: WhatsAppInstanceUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
-  export type FirmUpsertWithoutFormTemplateInput = {
-    update: XOR<FirmUpdateWithoutFormTemplateInput, FirmUncheckedUpdateWithoutFormTemplateInput>
-    create: XOR<FirmCreateWithoutFormTemplateInput, FirmUncheckedCreateWithoutFormTemplateInput>
+  export type FirmUpsertWithoutFormTemplatesInput = {
+    update: XOR<FirmUpdateWithoutFormTemplatesInput, FirmUncheckedUpdateWithoutFormTemplatesInput>
+    create: XOR<FirmCreateWithoutFormTemplatesInput, FirmUncheckedCreateWithoutFormTemplatesInput>
     where?: FirmWhereInput
   }
 
-  export type FirmUpdateToOneWithWhereWithoutFormTemplateInput = {
+  export type FirmUpdateToOneWithWhereWithoutFormTemplatesInput = {
     where?: FirmWhereInput
-    data: XOR<FirmUpdateWithoutFormTemplateInput, FirmUncheckedUpdateWithoutFormTemplateInput>
+    data: XOR<FirmUpdateWithoutFormTemplatesInput, FirmUncheckedUpdateWithoutFormTemplatesInput>
   }
 
-  export type FirmUpdateWithoutFormTemplateInput = {
+  export type FirmUpdateWithoutFormTemplatesInput = {
     firm_uuid?: StringFieldUpdateOperationsInput | string
     firm_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
     firm_add_date?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -121254,7 +121388,7 @@ export namespace Prisma {
     whatsappInstance?: WhatsAppInstanceUpdateOneWithoutFirmNestedInput
   }
 
-  export type FirmUncheckedUpdateWithoutFormTemplateInput = {
+  export type FirmUncheckedUpdateWithoutFormTemplatesInput = {
     firm_id?: IntFieldUpdateOperationsInput | number
     firm_uuid?: StringFieldUpdateOperationsInput | string
     firm_unique_code?: NullableStringFieldUpdateOperationsInput | string | null
@@ -121539,7 +121673,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
     releaseUsers?: ReleaseUserCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateCreateNestedManyWithoutFirmInput
-    formTemplate?: FormTemplateCreateNestedOneWithoutFirmInput
+    formTemplates?: FormTemplateCreateNestedManyWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceCreateNestedOneWithoutFirmInput
   }
 
@@ -121613,7 +121747,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
     releaseUsers?: ReleaseUserUncheckedCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutFirmInput
-    formTemplate?: FormTemplateUncheckedCreateNestedOneWithoutFirmInput
+    formTemplates?: FormTemplateUncheckedCreateNestedManyWithoutFirmInput
     whatsappInstance?: WhatsAppInstanceUncheckedCreateNestedOneWithoutFirmInput
   }
 
@@ -121849,7 +121983,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
     releaseUsers?: ReleaseUserUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUpdateManyWithoutFirmNestedInput
-    formTemplate?: FormTemplateUpdateOneWithoutFirmNestedInput
+    formTemplates?: FormTemplateUpdateManyWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUpdateOneWithoutFirmNestedInput
   }
 
@@ -121923,7 +122057,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
     releaseUsers?: ReleaseUserUncheckedUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutFirmNestedInput
-    formTemplate?: FormTemplateUncheckedUpdateOneWithoutFirmNestedInput
+    formTemplates?: FormTemplateUncheckedUpdateManyWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUncheckedUpdateOneWithoutFirmNestedInput
   }
 
@@ -122138,7 +122272,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanCreateNestedManyWithoutFirmInput
     releaseUsers?: ReleaseUserCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateCreateNestedManyWithoutFirmInput
-    formTemplate?: FormTemplateCreateNestedOneWithoutFirmInput
+    formTemplates?: FormTemplateCreateNestedManyWithoutFirmInput
     agreementTemplates?: AgreementTemplateCreateNestedManyWithoutFirmInput
   }
 
@@ -122212,7 +122346,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUncheckedCreateNestedManyWithoutFirmInput
     releaseUsers?: ReleaseUserUncheckedCreateNestedManyWithoutFirmInput
     messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutFirmInput
-    formTemplate?: FormTemplateUncheckedCreateNestedOneWithoutFirmInput
+    formTemplates?: FormTemplateUncheckedCreateNestedManyWithoutFirmInput
     agreementTemplates?: AgreementTemplateUncheckedCreateNestedManyWithoutFirmInput
   }
 
@@ -122448,7 +122582,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
     releaseUsers?: ReleaseUserUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUpdateManyWithoutFirmNestedInput
-    formTemplate?: FormTemplateUpdateOneWithoutFirmNestedInput
+    formTemplates?: FormTemplateUpdateManyWithoutFirmNestedInput
     agreementTemplates?: AgreementTemplateUpdateManyWithoutFirmNestedInput
   }
 
@@ -122522,7 +122656,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
     releaseUsers?: ReleaseUserUncheckedUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutFirmNestedInput
-    formTemplate?: FormTemplateUncheckedUpdateOneWithoutFirmNestedInput
+    formTemplates?: FormTemplateUncheckedUpdateManyWithoutFirmNestedInput
     agreementTemplates?: AgreementTemplateUncheckedUpdateManyWithoutFirmNestedInput
   }
 
@@ -123201,7 +123335,9 @@ export namespace Prisma {
     ft_id?: number
     ft_uuid?: string
     ft_firm_id: number
+    ft_loan_type?: $Enums.FormTemplateLoanType
     ft_config: JsonNullValueInput | InputJsonValue
+    ft_html?: string | null
     ft_status?: $Enums.FormTemplateStatus
     ft_is_system?: boolean
     ft_created_at?: Date | string
@@ -123495,7 +123631,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUpdateManyWithoutFirmNestedInput
     releaseUsers?: ReleaseUserUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUpdateManyWithoutFirmNestedInput
-    formTemplate?: FormTemplateUpdateOneWithoutFirmNestedInput
+    formTemplates?: FormTemplateUpdateManyWithoutFirmNestedInput
     agreementTemplates?: AgreementTemplateUpdateManyWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUpdateOneWithoutFirmNestedInput
   }
@@ -123569,7 +123705,7 @@ export namespace Prisma {
     auctionLoans?: AuctionLoanUncheckedUpdateManyWithoutFirmNestedInput
     releaseUsers?: ReleaseUserUncheckedUpdateManyWithoutFirmNestedInput
     messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutFirmNestedInput
-    formTemplate?: FormTemplateUncheckedUpdateOneWithoutFirmNestedInput
+    formTemplates?: FormTemplateUncheckedUpdateManyWithoutFirmNestedInput
     agreementTemplates?: AgreementTemplateUncheckedUpdateManyWithoutFirmNestedInput
     whatsappInstance?: WhatsAppInstanceUncheckedUpdateOneWithoutFirmNestedInput
   }
@@ -125430,7 +125566,9 @@ export namespace Prisma {
 
   export type FormTemplateUpdateWithoutOwnerInput = {
     ft_uuid?: StringFieldUpdateOperationsInput | string
+    ft_loan_type?: EnumFormTemplateLoanTypeFieldUpdateOperationsInput | $Enums.FormTemplateLoanType
     ft_config?: JsonNullValueInput | InputJsonValue
+    ft_html?: NullableStringFieldUpdateOperationsInput | string | null
     ft_status?: EnumFormTemplateStatusFieldUpdateOperationsInput | $Enums.FormTemplateStatus
     ft_is_system?: BoolFieldUpdateOperationsInput | boolean
     ft_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -125440,14 +125578,16 @@ export namespace Prisma {
     ft_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ft_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     ft_is_deleted?: BoolFieldUpdateOperationsInput | boolean
-    firm?: FirmUpdateOneRequiredWithoutFormTemplateNestedInput
+    firm?: FirmUpdateOneRequiredWithoutFormTemplatesNestedInput
   }
 
   export type FormTemplateUncheckedUpdateWithoutOwnerInput = {
     ft_id?: IntFieldUpdateOperationsInput | number
     ft_uuid?: StringFieldUpdateOperationsInput | string
     ft_firm_id?: IntFieldUpdateOperationsInput | number
+    ft_loan_type?: EnumFormTemplateLoanTypeFieldUpdateOperationsInput | $Enums.FormTemplateLoanType
     ft_config?: JsonNullValueInput | InputJsonValue
+    ft_html?: NullableStringFieldUpdateOperationsInput | string | null
     ft_status?: EnumFormTemplateStatusFieldUpdateOperationsInput | $Enums.FormTemplateStatus
     ft_is_system?: BoolFieldUpdateOperationsInput | boolean
     ft_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -125463,7 +125603,9 @@ export namespace Prisma {
     ft_id?: IntFieldUpdateOperationsInput | number
     ft_uuid?: StringFieldUpdateOperationsInput | string
     ft_firm_id?: IntFieldUpdateOperationsInput | number
+    ft_loan_type?: EnumFormTemplateLoanTypeFieldUpdateOperationsInput | $Enums.FormTemplateLoanType
     ft_config?: JsonNullValueInput | InputJsonValue
+    ft_html?: NullableStringFieldUpdateOperationsInput | string | null
     ft_status?: EnumFormTemplateStatusFieldUpdateOperationsInput | $Enums.FormTemplateStatus
     ft_is_system?: BoolFieldUpdateOperationsInput | boolean
     ft_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -126209,6 +126351,24 @@ export namespace Prisma {
     mt_deleted_at?: Date | string | null
     mt_deleted_by?: string | null
     mt_is_deleted?: boolean
+  }
+
+  export type FormTemplateCreateManyFirmInput = {
+    ft_id?: number
+    ft_uuid?: string
+    ft_own_id: number
+    ft_loan_type?: $Enums.FormTemplateLoanType
+    ft_config: JsonNullValueInput | InputJsonValue
+    ft_html?: string | null
+    ft_status?: $Enums.FormTemplateStatus
+    ft_is_system?: boolean
+    ft_created_at?: Date | string
+    ft_created_by?: string | null
+    ft_updated_at?: Date | string
+    ft_updated_by?: string | null
+    ft_deleted_at?: Date | string | null
+    ft_deleted_by?: string | null
+    ft_is_deleted?: boolean
   }
 
   export type AgreementTemplateCreateManyFirmInput = {
@@ -128210,6 +128370,59 @@ export namespace Prisma {
     mt_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     mt_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
     mt_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type FormTemplateUpdateWithoutFirmInput = {
+    ft_uuid?: StringFieldUpdateOperationsInput | string
+    ft_loan_type?: EnumFormTemplateLoanTypeFieldUpdateOperationsInput | $Enums.FormTemplateLoanType
+    ft_config?: JsonNullValueInput | InputJsonValue
+    ft_html?: NullableStringFieldUpdateOperationsInput | string | null
+    ft_status?: EnumFormTemplateStatusFieldUpdateOperationsInput | $Enums.FormTemplateStatus
+    ft_is_system?: BoolFieldUpdateOperationsInput | boolean
+    ft_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    ft_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ft_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    ft_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ft_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ft_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ft_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    owner?: OwnerUpdateOneRequiredWithoutFormTemplatesNestedInput
+  }
+
+  export type FormTemplateUncheckedUpdateWithoutFirmInput = {
+    ft_id?: IntFieldUpdateOperationsInput | number
+    ft_uuid?: StringFieldUpdateOperationsInput | string
+    ft_own_id?: IntFieldUpdateOperationsInput | number
+    ft_loan_type?: EnumFormTemplateLoanTypeFieldUpdateOperationsInput | $Enums.FormTemplateLoanType
+    ft_config?: JsonNullValueInput | InputJsonValue
+    ft_html?: NullableStringFieldUpdateOperationsInput | string | null
+    ft_status?: EnumFormTemplateStatusFieldUpdateOperationsInput | $Enums.FormTemplateStatus
+    ft_is_system?: BoolFieldUpdateOperationsInput | boolean
+    ft_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    ft_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ft_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    ft_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ft_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ft_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ft_is_deleted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type FormTemplateUncheckedUpdateManyWithoutFirmInput = {
+    ft_id?: IntFieldUpdateOperationsInput | number
+    ft_uuid?: StringFieldUpdateOperationsInput | string
+    ft_own_id?: IntFieldUpdateOperationsInput | number
+    ft_loan_type?: EnumFormTemplateLoanTypeFieldUpdateOperationsInput | $Enums.FormTemplateLoanType
+    ft_config?: JsonNullValueInput | InputJsonValue
+    ft_html?: NullableStringFieldUpdateOperationsInput | string | null
+    ft_status?: EnumFormTemplateStatusFieldUpdateOperationsInput | $Enums.FormTemplateStatus
+    ft_is_system?: BoolFieldUpdateOperationsInput | boolean
+    ft_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    ft_created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ft_updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    ft_updated_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ft_deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ft_deleted_by?: NullableStringFieldUpdateOperationsInput | string | null
+    ft_is_deleted?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type AgreementTemplateUpdateWithoutFirmInput = {

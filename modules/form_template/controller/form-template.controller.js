@@ -42,7 +42,7 @@ class FormTemplateController {
   async getTemplate(req, res) {
     try {
       const dbUrl = this.getDbUrl(req.user.own_db);
-      const { firmId } = req.query;
+      const { firmId, loanType } = req.query;
 
       if (!firmId) {
         return res.status(400).json({
@@ -59,6 +59,7 @@ class FormTemplateController {
       const template = await formTemplateService.getTemplateByFirm(dbUrl, firm.firm_id, {
         ownId: firm.firm_own_id || req.user.own_id,
         firmName: firm.firm_name,
+        loanType,
       });
 
       return res.status(200).json({

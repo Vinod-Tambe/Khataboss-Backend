@@ -263,7 +263,7 @@ model Firm {
   auctionLoans          AuctionLoan[]               @relation("FirmAuctionLoan")
   releaseUsers          ReleaseUser[]               @relation("FirmReleaseUser")
   messageTemplates      MessageTemplate[]           @relation("FirmMessageTemplate")
-  formTemplate          FormTemplate?               @relation("FirmFormTemplate")
+  formTemplates         FormTemplate[]              @relation("FirmFormTemplate")
   agreementTemplates    AgreementTemplate[]         @relation("FirmAgreementTemplate")
   whatsappInstance      WhatsAppInstance?           @relation("FirmWhatsAppInstance")
 }
@@ -1772,14 +1772,21 @@ enum FormTemplateStatus {
   Inactive
 }
 
+enum FormTemplateLoanType {
+  secured
+  unsecured
+}
+
 model FormTemplate {
-  ft_id        Int                @id @default(autoincrement())
-  ft_uuid      String             @unique @default(uuid())
+  ft_id        Int                  @id @default(autoincrement())
+  ft_uuid      String               @unique @default(uuid())
   ft_own_id    Int
-  ft_firm_id   Int                @unique
+  ft_firm_id   Int
+  ft_loan_type FormTemplateLoanType @default(secured)
   ft_config    Json
-  ft_status    FormTemplateStatus @default(Active)
-  ft_is_system Boolean            @default(true)
+  ft_html      String?              @db.Text
+  ft_status    FormTemplateStatus   @default(Active)
+  ft_is_system Boolean              @default(true)
 
   ft_created_at DateTime  @default(now())
   ft_created_by String?
@@ -1792,6 +1799,7 @@ model FormTemplate {
   owner Owner @relation("OwnerFormTemplate", fields: [ft_own_id], references: [own_id], onDelete: Cascade)
   firm  Firm  @relation("FirmFormTemplate", fields: [ft_firm_id], references: [firm_id], onDelete: Cascade)
 
+  @@unique([ft_firm_id, ft_loan_type])
   @@index([ft_own_id, ft_firm_id])
   @@map("form_templates")
 }
