@@ -134,6 +134,25 @@ const toPublicOwner = async (owner, dbUrl = null) => {
   };
 };
 
+const attachOwnerUsage = async (user, owner, dbUrl) => {
+  if (!owner?.own_id || !owner?.own_uuid || !dbUrl) return user;
+  try {
+    const usage = await ownerPermissionService.getUsageStats(
+      dbUrl,
+      owner.own_id,
+      owner.own_uuid
+    );
+    return {
+      ...user,
+      own_max_firms: usage.firms?.limit ?? user.own_max_firms ?? null,
+      own_max_staff: usage.staff?.limit ?? user.own_max_staff ?? null,
+      usage,
+    };
+  } catch {
+    return user;
+  }
+};
+
 const toPublicStaffUser = (owner, staff, permissionKeys = []) => ({
   own_uuid: owner.own_uuid,
   // Profile UI shows staff login only; owner prefix is attached at login time
@@ -255,7 +274,8 @@ class AuthService {
       });
     
 
-    const user = toPublicStaffUser(owner, staff, permissionKeys);
+    let user = toPublicStaffUser(owner, staff, permissionKeys);
+    user = await attachOwnerUsage(user, owner, dbUrl);
     recordAuthLogin(
       owner,
       `${owner.own_login_id}+${staff.staff_login_id}`,
@@ -581,17 +601,20 @@ class AuthService {
     if (authUser.role === ROLE_STAFF && authUser.staff_uuid) {
       // Zero extra DB when middleware already attached staffProfile + permissions
       if (authUser.staffProfile && Array.isArray(authUser.permissions)) {
-        return toPublicStaffUser(
+        const dbUrl = authUser.own_db ? `${BASE_URL}/${authUser.own_db}` : null;
+        let user = toPublicStaffUser(
           {
             own_uuid: authUser.own_uuid,
             own_login_id: authUser.own_login_id,
             own_db: authUser.own_db,
+            own_id: authUser.own_id,
             own_start_date: authUser.own_start_date,
             own_expiry_date: authUser.own_expiry_date,
           },
           authUser.staffProfile,
           authUser.permissions
         );
+        return attachOwnerUsage(user, { own_id: authUser.own_id, own_uuid: authUser.own_uuid }, dbUrl);
       }
 
       const owner = await masterPrisma.owner.findUnique({
@@ -620,7 +643,9 @@ class AuthService {
       const keys = Array.isArray(authUser.permissions)
         ? authUser.permissions
         : await staffService.getStaffPermissionKeys(dbUrl, staff.staff_id);
-      return toPublicStaffUser(owner, staff, keys);
+      let user = toPublicStaffUser(owner, staff, keys);
+      user = await attachOwnerUsage(user, owner, dbUrl);
+      return user;
     }
 
     if (authUser.ownerProfile) {

@@ -105,10 +105,38 @@
     "perm_modules": ["sms"]
   },
   {
-    "module_key": "customization",
-    "module_label": "Customization",
-    "module_icon": "bi-gear-fill",
-    "module_sort_order": 140,
+    "module_key": "kyc",
+    "module_label": "KYC Integration",
+    "module_icon": "bi-shield-check",
+    "module_sort_order": 135,
+    "perm_modules": ["kyc"]
+  },
+  {
+    "module_key": "backup",
+    "module_label": "Backup",
+    "module_icon": "bi-database",
+    "module_sort_order": 138,
+    "perm_modules": ["backup"]
+  },
+  {
+    "module_key": "settings",
+    "module_label": "Rate & Purity",
+    "module_icon": "bi-sliders",
+    "module_sort_order": 139,
     "perm_modules": ["settings"]
+  },
+  {
+    "module_key": "formBuilder",
+    "module_label": "Form Builder",
+    "module_icon": "bi-ui-checks",
+    "module_sort_order": 141,
+    "perm_modules": ["formBuilder"]
+  },
+  {
+    "module_key": "agreementBuilder",
+    "module_label": "Agreement Builder",
+    "module_icon": "bi-file-earmark-text",
+    "module_sort_order": 142,
+    "perm_modules": ["agreementBuilder"]
   }
 ]

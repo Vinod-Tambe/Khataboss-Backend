@@ -9,21 +9,24 @@ const requirePermission = require("../../../middlewares/permission.middleware");
 router.get(
   "/templates",
   authenticateOwner,
-  requirePermission("settings.manage"),
+  requirePermission(["formBuilder.view", "formBuilder.edit"], { mode: "any" }),
   (req, res) => formTemplateController.listTemplates(req, res)
 );
 
 router.get(
   "/template",
   authenticateOwner,
-  requirePermission(["settings.manage", "loan.form8", "loan.view"], { mode: "any" }),
+  requirePermission(
+    ["formBuilder.view", "formBuilder.edit", "loan.form8", "loan.view"],
+    { mode: "any" }
+  ),
   (req, res) => formTemplateController.getTemplate(req, res)
 );
 
 router.put(
   "/templates/:uuid",
   authenticateOwner,
-  requirePermission("settings.manage"),
+  requirePermission("formBuilder.edit"),
   (req, res) => formTemplateController.updateTemplate(req, res)
 );
 

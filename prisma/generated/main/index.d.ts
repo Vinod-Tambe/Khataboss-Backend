@@ -45927,6 +45927,8 @@ export namespace Prisma {
     at_own_id: number | null
     at_firm_id: number | null
     at_type: $Enums.AgreementTemplateType | null
+    at_loan_type: $Enums.FormTemplateLoanType | null
+    at_html: string | null
     at_status: $Enums.FormTemplateStatus | null
     at_is_system: boolean | null
     at_created_at: Date | null
@@ -45944,6 +45946,8 @@ export namespace Prisma {
     at_own_id: number | null
     at_firm_id: number | null
     at_type: $Enums.AgreementTemplateType | null
+    at_loan_type: $Enums.FormTemplateLoanType | null
+    at_html: string | null
     at_status: $Enums.FormTemplateStatus | null
     at_is_system: boolean | null
     at_created_at: Date | null
@@ -45961,7 +45965,9 @@ export namespace Prisma {
     at_own_id: number
     at_firm_id: number
     at_type: number
+    at_loan_type: number
     at_config: number
+    at_html: number
     at_status: number
     at_is_system: number
     at_created_at: number
@@ -45993,6 +45999,8 @@ export namespace Prisma {
     at_own_id?: true
     at_firm_id?: true
     at_type?: true
+    at_loan_type?: true
+    at_html?: true
     at_status?: true
     at_is_system?: true
     at_created_at?: true
@@ -46010,6 +46018,8 @@ export namespace Prisma {
     at_own_id?: true
     at_firm_id?: true
     at_type?: true
+    at_loan_type?: true
+    at_html?: true
     at_status?: true
     at_is_system?: true
     at_created_at?: true
@@ -46027,7 +46037,9 @@ export namespace Prisma {
     at_own_id?: true
     at_firm_id?: true
     at_type?: true
+    at_loan_type?: true
     at_config?: true
+    at_html?: true
     at_status?: true
     at_is_system?: true
     at_created_at?: true
@@ -46132,7 +46144,9 @@ export namespace Prisma {
     at_own_id: number
     at_firm_id: number
     at_type: $Enums.AgreementTemplateType
+    at_loan_type: $Enums.FormTemplateLoanType
     at_config: JsonValue
+    at_html: string | null
     at_status: $Enums.FormTemplateStatus
     at_is_system: boolean
     at_created_at: Date
@@ -46169,7 +46183,9 @@ export namespace Prisma {
     at_own_id?: boolean
     at_firm_id?: boolean
     at_type?: boolean
+    at_loan_type?: boolean
     at_config?: boolean
+    at_html?: boolean
     at_status?: boolean
     at_is_system?: boolean
     at_created_at?: boolean
@@ -46189,7 +46205,9 @@ export namespace Prisma {
     at_own_id?: boolean
     at_firm_id?: boolean
     at_type?: boolean
+    at_loan_type?: boolean
     at_config?: boolean
+    at_html?: boolean
     at_status?: boolean
     at_is_system?: boolean
     at_created_at?: boolean
@@ -46209,7 +46227,9 @@ export namespace Prisma {
     at_own_id?: boolean
     at_firm_id?: boolean
     at_type?: boolean
+    at_loan_type?: boolean
     at_config?: boolean
+    at_html?: boolean
     at_status?: boolean
     at_is_system?: boolean
     at_created_at?: boolean
@@ -46242,7 +46262,9 @@ export namespace Prisma {
       at_own_id: number
       at_firm_id: number
       at_type: $Enums.AgreementTemplateType
+      at_loan_type: $Enums.FormTemplateLoanType
       at_config: Prisma.JsonValue
+      at_html: string | null
       at_status: $Enums.FormTemplateStatus
       at_is_system: boolean
       at_created_at: Date
@@ -46652,7 +46674,9 @@ export namespace Prisma {
     readonly at_own_id: FieldRef<"AgreementTemplate", 'Int'>
     readonly at_firm_id: FieldRef<"AgreementTemplate", 'Int'>
     readonly at_type: FieldRef<"AgreementTemplate", 'AgreementTemplateType'>
+    readonly at_loan_type: FieldRef<"AgreementTemplate", 'FormTemplateLoanType'>
     readonly at_config: FieldRef<"AgreementTemplate", 'Json'>
+    readonly at_html: FieldRef<"AgreementTemplate", 'String'>
     readonly at_status: FieldRef<"AgreementTemplate", 'FormTemplateStatus'>
     readonly at_is_system: FieldRef<"AgreementTemplate", 'Boolean'>
     readonly at_created_at: FieldRef<"AgreementTemplate", 'DateTime'>
@@ -51170,7 +51194,9 @@ export namespace Prisma {
     at_own_id: 'at_own_id',
     at_firm_id: 'at_firm_id',
     at_type: 'at_type',
+    at_loan_type: 'at_loan_type',
     at_config: 'at_config',
+    at_html: 'at_html',
     at_status: 'at_status',
     at_is_system: 'at_is_system',
     at_created_at: 'at_created_at',
@@ -57311,7 +57337,9 @@ export namespace Prisma {
     at_own_id?: IntFilter<"AgreementTemplate"> | number
     at_firm_id?: IntFilter<"AgreementTemplate"> | number
     at_type?: EnumAgreementTemplateTypeFilter<"AgreementTemplate"> | $Enums.AgreementTemplateType
+    at_loan_type?: EnumFormTemplateLoanTypeFilter<"AgreementTemplate"> | $Enums.FormTemplateLoanType
     at_config?: JsonFilter<"AgreementTemplate">
+    at_html?: StringNullableFilter<"AgreementTemplate"> | string | null
     at_status?: EnumFormTemplateStatusFilter<"AgreementTemplate"> | $Enums.FormTemplateStatus
     at_is_system?: BoolFilter<"AgreementTemplate"> | boolean
     at_created_at?: DateTimeFilter<"AgreementTemplate"> | Date | string
@@ -57331,7 +57359,9 @@ export namespace Prisma {
     at_own_id?: SortOrder
     at_firm_id?: SortOrder
     at_type?: SortOrder
+    at_loan_type?: SortOrder
     at_config?: SortOrder
+    at_html?: SortOrderInput | SortOrder
     at_status?: SortOrder
     at_is_system?: SortOrder
     at_created_at?: SortOrder
@@ -57348,14 +57378,16 @@ export namespace Prisma {
   export type AgreementTemplateWhereUniqueInput = Prisma.AtLeast<{
     at_id?: number
     at_uuid?: string
-    at_firm_id_at_type?: AgreementTemplateAt_firm_idAt_typeCompoundUniqueInput
+    at_firm_id_at_type_at_loan_type?: AgreementTemplateAt_firm_idAt_typeAt_loan_typeCompoundUniqueInput
     AND?: AgreementTemplateWhereInput | AgreementTemplateWhereInput[]
     OR?: AgreementTemplateWhereInput[]
     NOT?: AgreementTemplateWhereInput | AgreementTemplateWhereInput[]
     at_own_id?: IntFilter<"AgreementTemplate"> | number
     at_firm_id?: IntFilter<"AgreementTemplate"> | number
     at_type?: EnumAgreementTemplateTypeFilter<"AgreementTemplate"> | $Enums.AgreementTemplateType
+    at_loan_type?: EnumFormTemplateLoanTypeFilter<"AgreementTemplate"> | $Enums.FormTemplateLoanType
     at_config?: JsonFilter<"AgreementTemplate">
+    at_html?: StringNullableFilter<"AgreementTemplate"> | string | null
     at_status?: EnumFormTemplateStatusFilter<"AgreementTemplate"> | $Enums.FormTemplateStatus
     at_is_system?: BoolFilter<"AgreementTemplate"> | boolean
     at_created_at?: DateTimeFilter<"AgreementTemplate"> | Date | string
@@ -57367,7 +57399,7 @@ export namespace Prisma {
     at_is_deleted?: BoolFilter<"AgreementTemplate"> | boolean
     owner?: XOR<OwnerRelationFilter, OwnerWhereInput>
     firm?: XOR<FirmRelationFilter, FirmWhereInput>
-  }, "at_id" | "at_uuid" | "at_firm_id_at_type">
+  }, "at_id" | "at_uuid" | "at_firm_id_at_type_at_loan_type">
 
   export type AgreementTemplateOrderByWithAggregationInput = {
     at_id?: SortOrder
@@ -57375,7 +57407,9 @@ export namespace Prisma {
     at_own_id?: SortOrder
     at_firm_id?: SortOrder
     at_type?: SortOrder
+    at_loan_type?: SortOrder
     at_config?: SortOrder
+    at_html?: SortOrderInput | SortOrder
     at_status?: SortOrder
     at_is_system?: SortOrder
     at_created_at?: SortOrder
@@ -57401,7 +57435,9 @@ export namespace Prisma {
     at_own_id?: IntWithAggregatesFilter<"AgreementTemplate"> | number
     at_firm_id?: IntWithAggregatesFilter<"AgreementTemplate"> | number
     at_type?: EnumAgreementTemplateTypeWithAggregatesFilter<"AgreementTemplate"> | $Enums.AgreementTemplateType
+    at_loan_type?: EnumFormTemplateLoanTypeWithAggregatesFilter<"AgreementTemplate"> | $Enums.FormTemplateLoanType
     at_config?: JsonWithAggregatesFilter<"AgreementTemplate">
+    at_html?: StringNullableWithAggregatesFilter<"AgreementTemplate"> | string | null
     at_status?: EnumFormTemplateStatusWithAggregatesFilter<"AgreementTemplate"> | $Enums.FormTemplateStatus
     at_is_system?: BoolWithAggregatesFilter<"AgreementTemplate"> | boolean
     at_created_at?: DateTimeWithAggregatesFilter<"AgreementTemplate"> | Date | string
@@ -64162,7 +64198,9 @@ export namespace Prisma {
   export type AgreementTemplateCreateInput = {
     at_uuid?: string
     at_type: $Enums.AgreementTemplateType
+    at_loan_type?: $Enums.FormTemplateLoanType
     at_config: JsonNullValueInput | InputJsonValue
+    at_html?: string | null
     at_status?: $Enums.FormTemplateStatus
     at_is_system?: boolean
     at_created_at?: Date | string
@@ -64182,7 +64220,9 @@ export namespace Prisma {
     at_own_id: number
     at_firm_id: number
     at_type: $Enums.AgreementTemplateType
+    at_loan_type?: $Enums.FormTemplateLoanType
     at_config: JsonNullValueInput | InputJsonValue
+    at_html?: string | null
     at_status?: $Enums.FormTemplateStatus
     at_is_system?: boolean
     at_created_at?: Date | string
@@ -64197,7 +64237,9 @@ export namespace Prisma {
   export type AgreementTemplateUpdateInput = {
     at_uuid?: StringFieldUpdateOperationsInput | string
     at_type?: EnumAgreementTemplateTypeFieldUpdateOperationsInput | $Enums.AgreementTemplateType
+    at_loan_type?: EnumFormTemplateLoanTypeFieldUpdateOperationsInput | $Enums.FormTemplateLoanType
     at_config?: JsonNullValueInput | InputJsonValue
+    at_html?: NullableStringFieldUpdateOperationsInput | string | null
     at_status?: EnumFormTemplateStatusFieldUpdateOperationsInput | $Enums.FormTemplateStatus
     at_is_system?: BoolFieldUpdateOperationsInput | boolean
     at_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -64217,7 +64259,9 @@ export namespace Prisma {
     at_own_id?: IntFieldUpdateOperationsInput | number
     at_firm_id?: IntFieldUpdateOperationsInput | number
     at_type?: EnumAgreementTemplateTypeFieldUpdateOperationsInput | $Enums.AgreementTemplateType
+    at_loan_type?: EnumFormTemplateLoanTypeFieldUpdateOperationsInput | $Enums.FormTemplateLoanType
     at_config?: JsonNullValueInput | InputJsonValue
+    at_html?: NullableStringFieldUpdateOperationsInput | string | null
     at_status?: EnumFormTemplateStatusFieldUpdateOperationsInput | $Enums.FormTemplateStatus
     at_is_system?: BoolFieldUpdateOperationsInput | boolean
     at_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -64235,7 +64279,9 @@ export namespace Prisma {
     at_own_id: number
     at_firm_id: number
     at_type: $Enums.AgreementTemplateType
+    at_loan_type?: $Enums.FormTemplateLoanType
     at_config: JsonNullValueInput | InputJsonValue
+    at_html?: string | null
     at_status?: $Enums.FormTemplateStatus
     at_is_system?: boolean
     at_created_at?: Date | string
@@ -64250,7 +64296,9 @@ export namespace Prisma {
   export type AgreementTemplateUpdateManyMutationInput = {
     at_uuid?: StringFieldUpdateOperationsInput | string
     at_type?: EnumAgreementTemplateTypeFieldUpdateOperationsInput | $Enums.AgreementTemplateType
+    at_loan_type?: EnumFormTemplateLoanTypeFieldUpdateOperationsInput | $Enums.FormTemplateLoanType
     at_config?: JsonNullValueInput | InputJsonValue
+    at_html?: NullableStringFieldUpdateOperationsInput | string | null
     at_status?: EnumFormTemplateStatusFieldUpdateOperationsInput | $Enums.FormTemplateStatus
     at_is_system?: BoolFieldUpdateOperationsInput | boolean
     at_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -64268,7 +64316,9 @@ export namespace Prisma {
     at_own_id?: IntFieldUpdateOperationsInput | number
     at_firm_id?: IntFieldUpdateOperationsInput | number
     at_type?: EnumAgreementTemplateTypeFieldUpdateOperationsInput | $Enums.AgreementTemplateType
+    at_loan_type?: EnumFormTemplateLoanTypeFieldUpdateOperationsInput | $Enums.FormTemplateLoanType
     at_config?: JsonNullValueInput | InputJsonValue
+    at_html?: NullableStringFieldUpdateOperationsInput | string | null
     at_status?: EnumFormTemplateStatusFieldUpdateOperationsInput | $Enums.FormTemplateStatus
     at_is_system?: BoolFieldUpdateOperationsInput | boolean
     at_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -69117,9 +69167,10 @@ export namespace Prisma {
     not?: NestedEnumAgreementTemplateTypeFilter<$PrismaModel> | $Enums.AgreementTemplateType
   }
 
-  export type AgreementTemplateAt_firm_idAt_typeCompoundUniqueInput = {
+  export type AgreementTemplateAt_firm_idAt_typeAt_loan_typeCompoundUniqueInput = {
     at_firm_id: number
     at_type: $Enums.AgreementTemplateType
+    at_loan_type: $Enums.FormTemplateLoanType
   }
 
   export type AgreementTemplateCountOrderByAggregateInput = {
@@ -69128,7 +69179,9 @@ export namespace Prisma {
     at_own_id?: SortOrder
     at_firm_id?: SortOrder
     at_type?: SortOrder
+    at_loan_type?: SortOrder
     at_config?: SortOrder
+    at_html?: SortOrder
     at_status?: SortOrder
     at_is_system?: SortOrder
     at_created_at?: SortOrder
@@ -69152,6 +69205,8 @@ export namespace Prisma {
     at_own_id?: SortOrder
     at_firm_id?: SortOrder
     at_type?: SortOrder
+    at_loan_type?: SortOrder
+    at_html?: SortOrder
     at_status?: SortOrder
     at_is_system?: SortOrder
     at_created_at?: SortOrder
@@ -69169,6 +69224,8 @@ export namespace Prisma {
     at_own_id?: SortOrder
     at_firm_id?: SortOrder
     at_type?: SortOrder
+    at_loan_type?: SortOrder
+    at_html?: SortOrder
     at_status?: SortOrder
     at_is_system?: SortOrder
     at_created_at?: SortOrder
@@ -78764,7 +78821,9 @@ export namespace Prisma {
   export type AgreementTemplateCreateWithoutOwnerInput = {
     at_uuid?: string
     at_type: $Enums.AgreementTemplateType
+    at_loan_type?: $Enums.FormTemplateLoanType
     at_config: JsonNullValueInput | InputJsonValue
+    at_html?: string | null
     at_status?: $Enums.FormTemplateStatus
     at_is_system?: boolean
     at_created_at?: Date | string
@@ -78782,7 +78841,9 @@ export namespace Prisma {
     at_uuid?: string
     at_firm_id: number
     at_type: $Enums.AgreementTemplateType
+    at_loan_type?: $Enums.FormTemplateLoanType
     at_config: JsonNullValueInput | InputJsonValue
+    at_html?: string | null
     at_status?: $Enums.FormTemplateStatus
     at_is_system?: boolean
     at_created_at?: Date | string
@@ -79972,7 +80033,9 @@ export namespace Prisma {
     at_own_id?: IntFilter<"AgreementTemplate"> | number
     at_firm_id?: IntFilter<"AgreementTemplate"> | number
     at_type?: EnumAgreementTemplateTypeFilter<"AgreementTemplate"> | $Enums.AgreementTemplateType
+    at_loan_type?: EnumFormTemplateLoanTypeFilter<"AgreementTemplate"> | $Enums.FormTemplateLoanType
     at_config?: JsonFilter<"AgreementTemplate">
+    at_html?: StringNullableFilter<"AgreementTemplate"> | string | null
     at_status?: EnumFormTemplateStatusFilter<"AgreementTemplate"> | $Enums.FormTemplateStatus
     at_is_system?: BoolFilter<"AgreementTemplate"> | boolean
     at_created_at?: DateTimeFilter<"AgreementTemplate"> | Date | string
@@ -81771,7 +81834,9 @@ export namespace Prisma {
   export type AgreementTemplateCreateWithoutFirmInput = {
     at_uuid?: string
     at_type: $Enums.AgreementTemplateType
+    at_loan_type?: $Enums.FormTemplateLoanType
     at_config: JsonNullValueInput | InputJsonValue
+    at_html?: string | null
     at_status?: $Enums.FormTemplateStatus
     at_is_system?: boolean
     at_created_at?: Date | string
@@ -81789,7 +81854,9 @@ export namespace Prisma {
     at_uuid?: string
     at_own_id: number
     at_type: $Enums.AgreementTemplateType
+    at_loan_type?: $Enums.FormTemplateLoanType
     at_config: JsonNullValueInput | InputJsonValue
+    at_html?: string | null
     at_status?: $Enums.FormTemplateStatus
     at_is_system?: boolean
     at_created_at?: Date | string
@@ -123518,7 +123585,9 @@ export namespace Prisma {
     at_uuid?: string
     at_firm_id: number
     at_type: $Enums.AgreementTemplateType
+    at_loan_type?: $Enums.FormTemplateLoanType
     at_config: JsonNullValueInput | InputJsonValue
+    at_html?: string | null
     at_status?: $Enums.FormTemplateStatus
     at_is_system?: boolean
     at_created_at?: Date | string
@@ -125787,7 +125856,9 @@ export namespace Prisma {
   export type AgreementTemplateUpdateWithoutOwnerInput = {
     at_uuid?: StringFieldUpdateOperationsInput | string
     at_type?: EnumAgreementTemplateTypeFieldUpdateOperationsInput | $Enums.AgreementTemplateType
+    at_loan_type?: EnumFormTemplateLoanTypeFieldUpdateOperationsInput | $Enums.FormTemplateLoanType
     at_config?: JsonNullValueInput | InputJsonValue
+    at_html?: NullableStringFieldUpdateOperationsInput | string | null
     at_status?: EnumFormTemplateStatusFieldUpdateOperationsInput | $Enums.FormTemplateStatus
     at_is_system?: BoolFieldUpdateOperationsInput | boolean
     at_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -125805,7 +125876,9 @@ export namespace Prisma {
     at_uuid?: StringFieldUpdateOperationsInput | string
     at_firm_id?: IntFieldUpdateOperationsInput | number
     at_type?: EnumAgreementTemplateTypeFieldUpdateOperationsInput | $Enums.AgreementTemplateType
+    at_loan_type?: EnumFormTemplateLoanTypeFieldUpdateOperationsInput | $Enums.FormTemplateLoanType
     at_config?: JsonNullValueInput | InputJsonValue
+    at_html?: NullableStringFieldUpdateOperationsInput | string | null
     at_status?: EnumFormTemplateStatusFieldUpdateOperationsInput | $Enums.FormTemplateStatus
     at_is_system?: BoolFieldUpdateOperationsInput | boolean
     at_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -125822,7 +125895,9 @@ export namespace Prisma {
     at_uuid?: StringFieldUpdateOperationsInput | string
     at_firm_id?: IntFieldUpdateOperationsInput | number
     at_type?: EnumAgreementTemplateTypeFieldUpdateOperationsInput | $Enums.AgreementTemplateType
+    at_loan_type?: EnumFormTemplateLoanTypeFieldUpdateOperationsInput | $Enums.FormTemplateLoanType
     at_config?: JsonNullValueInput | InputJsonValue
+    at_html?: NullableStringFieldUpdateOperationsInput | string | null
     at_status?: EnumFormTemplateStatusFieldUpdateOperationsInput | $Enums.FormTemplateStatus
     at_is_system?: BoolFieldUpdateOperationsInput | boolean
     at_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -126543,7 +126618,9 @@ export namespace Prisma {
     at_uuid?: string
     at_own_id: number
     at_type: $Enums.AgreementTemplateType
+    at_loan_type?: $Enums.FormTemplateLoanType
     at_config: JsonNullValueInput | InputJsonValue
+    at_html?: string | null
     at_status?: $Enums.FormTemplateStatus
     at_is_system?: boolean
     at_created_at?: Date | string
@@ -128595,7 +128672,9 @@ export namespace Prisma {
   export type AgreementTemplateUpdateWithoutFirmInput = {
     at_uuid?: StringFieldUpdateOperationsInput | string
     at_type?: EnumAgreementTemplateTypeFieldUpdateOperationsInput | $Enums.AgreementTemplateType
+    at_loan_type?: EnumFormTemplateLoanTypeFieldUpdateOperationsInput | $Enums.FormTemplateLoanType
     at_config?: JsonNullValueInput | InputJsonValue
+    at_html?: NullableStringFieldUpdateOperationsInput | string | null
     at_status?: EnumFormTemplateStatusFieldUpdateOperationsInput | $Enums.FormTemplateStatus
     at_is_system?: BoolFieldUpdateOperationsInput | boolean
     at_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -128613,7 +128692,9 @@ export namespace Prisma {
     at_uuid?: StringFieldUpdateOperationsInput | string
     at_own_id?: IntFieldUpdateOperationsInput | number
     at_type?: EnumAgreementTemplateTypeFieldUpdateOperationsInput | $Enums.AgreementTemplateType
+    at_loan_type?: EnumFormTemplateLoanTypeFieldUpdateOperationsInput | $Enums.FormTemplateLoanType
     at_config?: JsonNullValueInput | InputJsonValue
+    at_html?: NullableStringFieldUpdateOperationsInput | string | null
     at_status?: EnumFormTemplateStatusFieldUpdateOperationsInput | $Enums.FormTemplateStatus
     at_is_system?: BoolFieldUpdateOperationsInput | boolean
     at_created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -128630,7 +128711,9 @@ export namespace Prisma {
     at_uuid?: StringFieldUpdateOperationsInput | string
     at_own_id?: IntFieldUpdateOperationsInput | number
     at_type?: EnumAgreementTemplateTypeFieldUpdateOperationsInput | $Enums.AgreementTemplateType
+    at_loan_type?: EnumFormTemplateLoanTypeFieldUpdateOperationsInput | $Enums.FormTemplateLoanType
     at_config?: JsonNullValueInput | InputJsonValue
+    at_html?: NullableStringFieldUpdateOperationsInput | string | null
     at_status?: EnumFormTemplateStatusFieldUpdateOperationsInput | $Enums.FormTemplateStatus
     at_is_system?: BoolFieldUpdateOperationsInput | boolean
     at_created_at?: DateTimeFieldUpdateOperationsInput | Date | string

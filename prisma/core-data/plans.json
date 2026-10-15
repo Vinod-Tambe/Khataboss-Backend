@@ -82,7 +82,11 @@
       "profitLoss",
       "logs",
       "sms",
-      "customization"
+      "kyc",
+      "backup",
+      "settings",
+      "formBuilder",
+      "agreementBuilder"
     ],
     "plan_features": [
       "Up to 10 firms",
@@ -90,7 +94,7 @@
       "All modules unlocked",
       "Trial balance, balance sheet & P&L",
       "Activity logs",
-      "Form & agreement customization",
+      "Rate, form & agreement builders",
       "WhatsApp / SMS messaging",
       "Dedicated phone support"
     ],

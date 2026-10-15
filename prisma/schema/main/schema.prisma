@@ -1821,7 +1821,9 @@ model AgreementTemplate {
   at_own_id     Int
   at_firm_id    Int
   at_type       AgreementTemplateType
+  at_loan_type  FormTemplateLoanType  @default(secured)
   at_config     Json
+  at_html       String?               @db.Text
   at_status     FormTemplateStatus    @default(Active)
   at_is_system  Boolean               @default(true)
 
@@ -1836,7 +1838,7 @@ model AgreementTemplate {
   owner Owner @relation("OwnerAgreementTemplate", fields: [at_own_id], references: [own_id], onDelete: Cascade)
   firm  Firm  @relation("FirmAgreementTemplate", fields: [at_firm_id], references: [firm_id], onDelete: Cascade)
 
-  @@unique([at_firm_id, at_type])
+  @@unique([at_firm_id, at_type, at_loan_type])
   @@index([at_own_id, at_firm_id, at_type])
   @@map("agreement_templates")
 }

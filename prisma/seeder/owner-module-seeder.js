@@ -6,6 +6,11 @@ const { loadPermissionCatalog } = require("./permission-seeder");
 
 const OWNER_MODULES_PATH = path.join(__dirname, "../core-data/owner-modules.json");
 
+/** Super-admin module keys stored before Form / Agreement split. */
+const LEGACY_OWNER_MODULE_ALIASES = {
+  customization: ["settings", "formBuilder", "agreementBuilder"],
+};
+
 let cachedModules = null;
 let cachedModuleKeys = null;
 let permKeysByModuleKey = null;
@@ -96,6 +101,21 @@ const ownerModuleMapToKeys = (moduleMap = {}) => {
     .map(([key]) => key);
 };
 
+/** Expand legacy owner module keys (e.g. customization → settings + builders). */
+const normalizeOwnerModuleKeys = (moduleKeys = []) => {
+  const valid = new Set(getAllOwnerModuleKeys());
+  const out = new Set();
+  for (const key of moduleKeys) {
+    const legacy = LEGACY_OWNER_MODULE_ALIASES[key];
+    if (legacy) {
+      legacy.forEach((m) => out.add(m));
+      continue;
+    }
+    if (valid.has(key)) out.add(key);
+  }
+  return [...out];
+};
+
 /** Legacy rows stored granular keys (firm.view). Map them back to module keys. */
 const granularKeysToModuleKeys = (granularKeys = []) => {
   const catalog = loadOwnerModuleCatalog();
@@ -144,4 +164,6 @@ module.exports = {
   ownerModuleMapFromKeys,
   ownerModuleMapToKeys,
   granularKeysToModuleKeys,
+  normalizeOwnerModuleKeys,
+  LEGACY_OWNER_MODULE_ALIASES,
 };

@@ -166,6 +166,8 @@ const authenticateOwner = async (req, res, next) => {
       role: ROLE_STAFF,
       own_id: owner.own_id,
       own_uuid: owner.own_uuid,
+      own_max_firms: owner.own_max_firms,
+      own_max_staff: owner.own_max_staff,
       own_login_id: owner.own_login_id,
       own_email: owner.own_email,
       own_db: owner.own_db,

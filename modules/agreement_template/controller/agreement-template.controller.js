@@ -21,11 +21,8 @@ class AgreementTemplateController {
   async listTemplates(req, res) {
     try {
       const dbUrl = this.getDbUrl(req.user.own_db);
-      const { type } = req.query;
-
       const templates = await agreementTemplateService.listTemplates(dbUrl, {
         ownId: req.user.own_id,
-        type: type ? normalizeType(type) : undefined,
       });
 
       return res.status(200).json({
@@ -46,7 +43,7 @@ class AgreementTemplateController {
   async getTemplate(req, res) {
     try {
       const dbUrl = this.getDbUrl(req.user.own_db);
-      const { firmId, type } = req.query;
+      const { firmId, type, loanType } = req.query;
 
       if (!firmId) {
         return res.status(400).json({
@@ -74,6 +71,7 @@ class AgreementTemplateController {
         {
           ownId: firm.firm_own_id || req.user.own_id,
           firmName: firm.firm_name,
+          loanType,
         }
       );
 

@@ -61,8 +61,26 @@
   { "perm_key": "reports.profitLoss", "perm_module": "reports", "perm_action": "profitLoss", "perm_label": "List Profit & Loss", "perm_sort_order": 640 },
   { "perm_key": "reports.trialBalance", "perm_module": "reports", "perm_action": "trialBalance", "perm_label": "List Trial Balance", "perm_sort_order": 650 },
 
-  { "perm_key": "settings.manage", "perm_module": "settings", "perm_action": "manage", "perm_label": "Manage Settings (Rate/Purity/Backup)", "perm_sort_order": 710 },
+  { "perm_key": "settings.manage", "perm_module": "settings", "perm_action": "manage", "perm_label": "Manage Rate & Purity", "perm_sort_order": 710 },
 
-  { "perm_key": "sms.view", "perm_module": "sms", "perm_action": "view", "perm_label": "View Message Templates", "perm_sort_order": 810 },
-  { "perm_key": "sms.manage", "perm_module": "sms", "perm_action": "manage", "perm_label": "Manage Message Templates & WhatsApp", "perm_sort_order": 820 }
+  { "perm_key": "formBuilder.view", "perm_module": "formBuilder", "perm_action": "view", "perm_label": "View Form Builder", "perm_sort_order": 715 },
+  { "perm_key": "formBuilder.edit", "perm_module": "formBuilder", "perm_action": "edit", "perm_label": "Edit Form Templates", "perm_sort_order": 716 },
+
+  { "perm_key": "agreementBuilder.view", "perm_module": "agreementBuilder", "perm_action": "view", "perm_label": "View Agreement Builder", "perm_sort_order": 717 },
+  { "perm_key": "agreementBuilder.edit", "perm_module": "agreementBuilder", "perm_action": "edit", "perm_label": "Edit Agreement Templates", "perm_sort_order": 718 },
+
+  { "perm_key": "kyc.view", "perm_module": "kyc", "perm_action": "view", "perm_label": "View KYC Integration", "perm_sort_order": 720 },
+  { "perm_key": "kyc.manage", "perm_module": "kyc", "perm_action": "manage", "perm_label": "Manage KYC Integration", "perm_sort_order": 725 },
+
+  { "perm_key": "backup.view", "perm_module": "backup", "perm_action": "view", "perm_label": "View Backups", "perm_sort_order": 730 },
+  { "perm_key": "backup.manage", "perm_module": "backup", "perm_action": "manage", "perm_label": "Create / Restore Backups", "perm_sort_order": 735 },
+
+  { "perm_key": "sms.view", "perm_module": "sms", "perm_action": "view", "perm_label": "View All Message Templates (legacy)", "perm_sort_order": 800 },
+  { "perm_key": "sms.manage", "perm_module": "sms", "perm_action": "manage", "perm_label": "Manage All Messaging (legacy)", "perm_sort_order": 805 },
+  { "perm_key": "sms.whatsappView", "perm_module": "sms", "perm_action": "whatsappView", "perm_label": "View WhatsApp Templates", "perm_sort_order": 810 },
+  { "perm_key": "sms.whatsappManage", "perm_module": "sms", "perm_action": "whatsappManage", "perm_label": "Manage WhatsApp Templates & Instance", "perm_sort_order": 815 },
+  { "perm_key": "sms.textView", "perm_module": "sms", "perm_action": "textView", "perm_label": "View Text SMS Templates", "perm_sort_order": 820 },
+  { "perm_key": "sms.textManage", "perm_module": "sms", "perm_action": "textManage", "perm_label": "Manage Text SMS Templates", "perm_sort_order": 825 },
+  { "perm_key": "sms.emailView", "perm_module": "sms", "perm_action": "emailView", "perm_label": "View Email Templates", "perm_sort_order": 830 },
+  { "perm_key": "sms.emailManage", "perm_module": "sms", "perm_action": "emailManage", "perm_label": "Manage Email Templates & SMTP", "perm_sort_order": 835 }
 ]

@@ -12,6 +12,7 @@ const {
   ownerModuleMapFromKeys,
   ownerModuleMapToKeys,
   granularKeysToModuleKeys,
+  normalizeOwnerModuleKeys,
 } = require("../../../prisma/seeder/owner-module-seeder");
 
 const masterPrisma = getMasterPrisma();
@@ -44,9 +45,9 @@ class OwnerPermissionService {
     const stored = rows.map((r) => r.op_perm_key);
     const hasGranular = stored.some((k) => String(k).includes("."));
     if (hasGranular) {
-      return granularKeysToModuleKeys(stored);
+      return normalizeOwnerModuleKeys(granularKeysToModuleKeys(stored));
     }
-    return stored.filter((k) => getAllOwnerModuleKeys().includes(k));
+    return normalizeOwnerModuleKeys(stored);
   }
 
   /**

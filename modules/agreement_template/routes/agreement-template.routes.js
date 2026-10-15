@@ -9,7 +9,7 @@ const requirePermission = require("../../../middlewares/permission.middleware");
 router.get(
   "/templates",
   authenticateOwner,
-  requirePermission("settings.manage"),
+  requirePermission(["agreementBuilder.view", "agreementBuilder.edit"], { mode: "any" }),
   (req, res) => agreementTemplateController.listTemplates(req, res)
 );
 
@@ -17,7 +17,14 @@ router.get(
   "/template",
   authenticateOwner,
   requirePermission(
-    ["settings.manage", "loan.agreement", "loan.view", "finance.agreement", "finance.view"],
+    [
+      "agreementBuilder.view",
+      "agreementBuilder.edit",
+      "loan.agreement",
+      "loan.view",
+      "finance.agreement",
+      "finance.view",
+    ],
     { mode: "any" }
   ),
   (req, res) => agreementTemplateController.getTemplate(req, res)
@@ -26,7 +33,7 @@ router.get(
 router.put(
   "/templates/:uuid",
   authenticateOwner,
-  requirePermission("settings.manage"),
+  requirePermission("agreementBuilder.edit"),
   (req, res) => agreementTemplateController.updateTemplate(req, res)
 );
 
