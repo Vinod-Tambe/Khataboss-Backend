@@ -13,7 +13,9 @@
     "seed": "node -e \"require('./config/db'); const s = require('./prisma/seeder/admin-seeder'); s.seedAdmin().then(() => s.seedDbSeries()).then(() => s.seedPlans()).then(() => s.seedAllTenantsSerialNumbers())\"",
     "seed:plans": "node -e \"require('./config/db'); require('./prisma/seeder/plan-seeder').seedPlans()\"",
     "seed:announcements": "node -e \"require('./config/db'); require('./prisma/seeder/announcement-template-seeder').seedAnnouncementTemplates()\"",
-    "sync": "node scripts/sync-tenants.js"
+    "sync": "node scripts/sync-tenants.js",
+    "audit": "npm audit --omit=dev",
+    "audit:all": "npm audit"
   },
   "author": "",
   "license": "ISC",
@@ -49,6 +51,7 @@
     "js-yaml": "4.3.2",
     "proxy-addr": "2.0.8",
     "shell-quote": "1.12.0",
-    "sharp": "0.35.4"
+    "sharp": "0.35.5",
+    "music-metadata": "^11.16.1"
   }
 }
