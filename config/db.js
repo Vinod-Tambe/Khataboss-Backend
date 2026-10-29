@@ -165,6 +165,26 @@ const generateClientIfNeeded = () => {
 };
 
 /**
+ * Quick connectivity check to the master database on server startup.
+ * Does NOT run migrations, schema push, or seeds.
+ */
+const checkDbConnection = async () => {
+  const client = new Client({ connectionString: MASTER_DB_URL });
+  try {
+    await client.connect();
+    await client.query("SELECT 1");
+    console.log(`✅  Database "${TARGET_DB}" connected successfully.`);
+  } catch (error) {
+    console.error(`❌  Database connection failed for "${TARGET_DB}":`, error.message);
+    throw error;
+  } finally {
+    try {
+      await client.end();
+    } catch (_) {}
+  }
+};
+
+/**
  * Full bootstrap: ensure DB → generate client (if needed) → migrate → seed admin.
  */
 const bootstrapDatabase = async () => {
@@ -209,7 +229,8 @@ const setupOwnerDatabase = async (dbName) => {
     // Using 'db push' instead of 'migrate deploy' because 'db push' directly syncs
     // the schema to the database without needing migration files, making it perfect
     // for dynamically created tenant databases.
-    execSync(`npx prisma db push --schema="${schemaPath}" --accept-data-loss`, {
+    // Note: --skip-generate prevents touching prisma/generated files, preventing dev server auto-restarts.
+    execSync(`npx prisma db push --schema="${schemaPath}" --accept-data-loss --skip-generate`, {
       env: {
         ...process.env,
         DATABASE_MAIN_URL: newDbUrl,
@@ -234,4 +255,4 @@ const setupOwnerDatabase = async (dbName) => {
   }
 };
 
-module.exports = { BASE_URL, MASTER_DB_URL, bootstrapDatabase, setupOwnerDatabase };
+module.exports = { BASE_URL, MASTER_DB_URL, checkDbConnection, bootstrapDatabase, setupOwnerDatabase };

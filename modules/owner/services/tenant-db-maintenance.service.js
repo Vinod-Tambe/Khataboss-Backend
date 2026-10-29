@@ -19,7 +19,8 @@ const MAIN_SCHEMA_PATH = path.join(
 const buildTenantDbUrl = (dbName) => `${BASE_URL}/${dbName}`;
 
 const runPrismaDbPush = (tenantDbUrl) => {
-  execSync(`npx prisma db push --schema="${MAIN_SCHEMA_PATH}" --accept-data-loss`, {
+  // Using --skip-generate so prisma does not touch prisma/generated files, preventing dev server auto-restart
+  execSync(`npx prisma db push --schema="${MAIN_SCHEMA_PATH}" --accept-data-loss --skip-generate`, {
     env: {
       ...process.env,
       DATABASE_MAIN_URL: tenantDbUrl,

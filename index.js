@@ -5,15 +5,15 @@ require("dotenv").config({ path: path.join(__dirname, ".env") });
 require("./config/db");
 
 const app = require("./server");
-const { bootstrapDatabase } = require("./config/db");
+const { checkDbConnection } = require("./config/db");
 const whatsappService = require("./common/service/whatsapp.service");
 
 const PORT = process.env.APP_PORT || 3000;
 
 const startServer = async () => {
   try {
-    // Step 1: Ensure DB exists, run migrations, seed admin
-    await bootstrapDatabase();
+    // Step 1: Check database connection only (no migrations or seeds)
+    await checkDbConnection();
 
     // Step 2: Restore WhatsApp Web sessions from disk
     whatsappService
