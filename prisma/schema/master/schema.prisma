@@ -97,6 +97,11 @@ enum OwnerStatus {
   Inactive
 }
 
+enum OwnerLoginType {
+  Online
+  Offline
+}
+
 enum PlanStatus {
   Active
   Inactive
@@ -186,6 +191,7 @@ model Owner {
   own_email            String    @unique
   own_login_id         String    @unique
   own_password         String
+  own_login_type       OwnerLoginType @default(Online)
   own_status           OwnerStatus @default(Active)
   own_profile_img      Json?
 

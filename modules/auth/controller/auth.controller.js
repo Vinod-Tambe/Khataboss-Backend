@@ -240,6 +240,70 @@ class AuthController {
       });
     }
   }
+
+  /**
+   * POST /auth/provision-local-tenant — offline owner first-time local DB setup.
+   */
+  async provisionLocalTenant(req, res) {
+    try {
+      const result = await authService.provisionLocalTenant(req.user);
+      return res.status(200).json({
+        success: true,
+        statusCode: 200,
+        message: "Local database setup completed.",
+        data: result,
+      });
+    } catch (error) {
+      const statusCode = error.statusCode || 500;
+      return res.status(statusCode).json({
+        success: false,
+        statusCode,
+        message: error.message || "Local setup failed.",
+      });
+    }
+  }
+
+  async applyLocalTenantMigration(req, res) {
+    try {
+      const result = await authService.applyLocalTenantMigration(req.user);
+      return res.status(200).json({
+        success: true,
+        statusCode: 200,
+        message: `Local database "${result.dbName}" schema updated successfully.`,
+        data: result,
+      });
+    } catch (error) {
+      const statusCode = error.statusCode || 500;
+      return res.status(statusCode).json({
+        success: false,
+        statusCode,
+        message: error.message || "Local migration failed.",
+      });
+    }
+  }
+
+  async applyLocalTenantSeeds(req, res) {
+    try {
+      const result = await authService.applyLocalTenantSeeds(req.user);
+      const message =
+        result.warnings?.length > 0
+          ? `Seeds completed with ${result.warnings.length} warning(s) for "${result.dbName}".`
+          : `Local database "${result.dbName}" seeds applied successfully.`;
+      return res.status(200).json({
+        success: true,
+        statusCode: 200,
+        message,
+        data: result,
+      });
+    } catch (error) {
+      const statusCode = error.statusCode || 500;
+      return res.status(statusCode).json({
+        success: false,
+        statusCode,
+        message: error.message || "Local seeds failed.",
+      });
+    }
+  }
 }
 
 module.exports = new AuthController();

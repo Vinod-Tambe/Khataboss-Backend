@@ -7,6 +7,7 @@ const {
   ownerModuleMapToKeys,
 } = require("../../../prisma/seeder/owner-module-seeder");
 const ownerPermissionService = require("../../owner/services/owner-permission.service");
+const { isOfflineOwnerRecord } = require("../../owner/utils/owner-login-type.helper");
 const {
   resolveOwnerSubscriptionDates,
 } = require("../../../utils/owner-subscription-dates");
@@ -360,6 +361,7 @@ class PlanService {
         own_db: true,
         own_start_date: true,
         own_expiry_date: true,
+        own_login_type: true,
       },
     });
     if (!owner) {
@@ -390,18 +392,14 @@ class PlanService {
     const moduleKeys = ownerModuleMapToKeys(plan.modules || plan.plan_modules || {});
     await ownerPermissionService.setModules(owner.own_id, moduleKeys);
 
-    if (syncTenantLimits && owner.own_db) {
+    if (syncTenantLimits && owner.own_db && !isOfflineOwnerRecord(owner)) {
       const { BASE_URL } = require("../../../config/db");
-      const { getTenantPrisma } = require("../../../utils/tenantPrisma");
-      const tenantPrisma = getTenantPrisma(`${BASE_URL}/${owner.own_db}`);
-      await tenantPrisma.owner.update({
-        where: { own_uuid: owner.own_uuid },
-        data: {
-          own_max_firms: plan.plan_max_firms,
-          own_max_staff: plan.plan_max_staff,
-          own_start_date: subscriptionDates.own_start_date,
-          own_expiry_date: subscriptionDates.own_expiry_date,
-        },
+      const ownerService = require("../../owner/services/owner.service");
+      await ownerService.patchTenantOwner(`${BASE_URL}/${owner.own_db}`, owner.own_uuid, {
+        own_max_firms: plan.plan_max_firms,
+        own_max_staff: plan.plan_max_staff,
+        own_start_date: subscriptionDates.own_start_date,
+        own_expiry_date: subscriptionDates.own_expiry_date,
       });
     }
 

@@ -64,6 +64,7 @@ const authenticateOwner = async (req, res, next) => {
         own_start_date: true,
         own_expiry_date: true,
         own_jwt_token: true,
+        own_login_type: true,
       },
     });
 

@@ -9,6 +9,13 @@ const planService = require("../../plan/services/plan.service");
 const imageService = require("../../../utils/image.service");
 const { resolveOwnerSubscriptionDates } = require("../../../utils/owner-subscription-dates");
 const { getMasterPrisma } = require("../../../utils/masterPrisma");
+const {
+  parseOwnerLoginType,
+  LOGIN_TYPE_ONLINE,
+  LOGIN_TYPE_OFFLINE,
+  isOfflineOwnerRecord,
+} = require("../utils/owner-login-type.helper");
+const { allocateOwnerDbName } = require("../utils/owner-db-series.helper");
 
 const masterPrisma = getMasterPrisma();
 
@@ -125,42 +132,10 @@ class OwnerController {
         });
       }
 
-      // 2. Dynamic Database Name Generation from DbSeries
-      const SERIES_NAME = "kboss";
-      let dbName = "";
-
-      try {
-        console.log(`🔍  Fetching DbSeries for name: ${SERIES_NAME}`);
-        const series = await masterPrisma.dbSeries.findUnique({
-          where: { series_name: SERIES_NAME },
-        });
-
-        if (!series) {
-          throw new Error(`Series "${SERIES_NAME}" not found in master database.`);
-        }
-
-        const nextNumber = series.last_number + 1;
-        dbName = `${SERIES_NAME}${nextNumber}`;
-
-        // Update last_number in master DB
-        await masterPrisma.dbSeries.update({
-          where: { series_name: SERIES_NAME },
-          data: { last_number: nextNumber },
-        });
-
-        console.log(`✨  Generated database name: ${dbName}`);
-      } catch (dbError) {
-        console.error("❌  Error generating database name:", dbError.message);
-        return res.status(500).json({ error: "Failed to generate database name." });
+      const loginType = parseOwnerLoginType(ownerData.own_login_type);
+      if (!loginType) {
+        return res.status(400).json({ error: "own_login_type must be Online or Offline." });
       }
-
-      // 4. Setup the dynamic database and migrate schema
-      console.log(`🚀  Starting database setup for: ${dbName}`);
-      const dbUrl = await setupOwnerDatabase(dbName);
-
-      // 4b. Seed permission catalog for staff RBAC in tenant DB
-      console.log(`🔐  Seeding permissions for: ${dbName}`);
-      await seedPermissions(dbUrl);
 
       let selectedPlan = null;
       if (ownerData.plan_uuid) {
@@ -172,11 +147,106 @@ class OwnerController {
 
       const subscriptionDates = resolveOwnerSubscriptionDates(ownerData, { plan: selectedPlan });
 
-      // 5. Save owner record in the new database
-      console.log(`📝  Saving owner record in database: ${dbName}`);
+      if (loginType === LOGIN_TYPE_OFFLINE) {
+        let dbName;
+        try {
+          dbName = await allocateOwnerDbName(masterPrisma);
+          console.log(`✨  Assigned database name for offline owner (master only): ${dbName}`);
+        } catch (dbError) {
+          console.error("❌  Error allocating database name:", dbError.message);
+          return res.status(dbError.statusCode || 500).json({
+            error: dbError.message || "Failed to allocate database name.",
+          });
+        }
+
+        console.log(`📝  Creating offline owner in Master DB only (tenant DB: ${dbName}, created on local setup)`);
+        const newOwner = await ownerService.createOwner(
+          null,
+          {
+            ...ownerData,
+            own_db: dbName,
+            own_login_type: LOGIN_TYPE_OFFLINE,
+            ...subscriptionDates,
+            own_created_by: req.admin?.admin_login_id || "Admin",
+          },
+          { skipTenant: true }
+        );
+
+        if (ownerData.plan_uuid) {
+          await planService.applyPlanToOwner(newOwner.own_uuid, ownerData.plan_uuid, {
+            own_start_date: subscriptionDates.own_start_date,
+            own_expiry_date: subscriptionDates.own_expiry_date,
+            syncTenantLimits: false,
+          });
+        } else {
+          const limits = ownerPermissionService.parseLimits(ownerData);
+          await ownerPermissionService.seedDefaultEntitlements(
+            newOwner.own_id,
+            newOwner.own_uuid,
+            null,
+            {
+              own_max_firms: limits.own_max_firms,
+              own_max_staff: limits.own_max_staff,
+              modules: ownerData.modules,
+              module_keys: ownerData.module_keys,
+            },
+            { skipTenant: true }
+          );
+        }
+
+        if (req.file) {
+          const profileImgData = await imageService.moveSingleFile(
+            newOwner.own_id,
+            "owner",
+            newOwner.own_id,
+            req.file,
+            "own_profile_img"
+          );
+          await ownerService.updateOwner(
+            `${BASE_URL}/${dbName}`,
+            newOwner.own_uuid,
+            { own_profile_img: profileImgData },
+            { skipTenant: true }
+          );
+        }
+
+        const entitlements = await ownerPermissionService.getEntitlements(newOwner.own_uuid);
+
+        return res.status(201).json({
+          message: `Offline owner registered in master. Database name ${dbName} will be created on the owner's local PC during setup.`,
+          data: {
+            ...sanitizeOwner(
+              await ownerService.getOwnerByUuid(newOwner.own_uuid)
+            ),
+            entitlements,
+          },
+        });
+      }
+
+      // Online owners: allocate name, create tenant DB on this server
+      let dbName;
+      try {
+        dbName = await allocateOwnerDbName(masterPrisma);
+        console.log(`✨  Generated database name: ${dbName}`);
+      } catch (dbError) {
+        console.error("❌  Error generating database name:", dbError.message);
+        return res.status(dbError.statusCode || 500).json({
+          error: dbError.message || "Failed to generate database name.",
+        });
+      }
+
+      // Setup the dynamic database and migrate schema
+      console.log(`🚀  Starting database setup for: ${dbName}`);
+      const dbUrl = await setupOwnerDatabase(dbName);
+
+      // 4b. Seed permission catalog for staff RBAC in tenant DB
+      console.log(`🔐  Seeding permissions for: ${dbName}`);
+      await seedPermissions(dbUrl);
+
       const newOwner = await ownerService.createOwner(dbUrl, {
         ...ownerData,
         own_db: dbName,
+        own_login_type: LOGIN_TYPE_ONLINE,
         ...subscriptionDates,
         own_created_by: req.admin?.admin_login_id || "Admin",
       });
@@ -233,7 +303,9 @@ class OwnerController {
   async updateOwner(req, res) {
     try {
       const { uuid } = req.params;
-      const updateData = req.body;
+      const updateData = { ...req.body };
+
+      delete updateData.own_login_type;
 
       console.log(`🔍  Resolving db name for owner ${uuid} from Master DB...`);
       const ownerRecordFull = await masterPrisma.owner.findUnique({
@@ -345,11 +417,17 @@ class OwnerController {
       console.log(`🔍  Resolving db name for owner ${uuid} from Master DB...`);
       const ownerRecord = await masterPrisma.owner.findUnique({
         where: { own_uuid: uuid, own_is_deleted: false },
-        select: { own_id: true, own_db: true }
+        select: { own_id: true, own_db: true, own_login_type: true },
       });
 
       if (!ownerRecord) {
         return res.status(404).json({ error: "Owner not found in Master database." });
+      }
+
+      if (isOfflineOwnerRecord(ownerRecord)) {
+        return res.status(400).json({
+          error: "This owner uses offline login type and has no cloud tenant database.",
+        });
       }
 
       const { own_db } = ownerRecord;
@@ -565,8 +643,10 @@ class OwnerController {
       if (!owner) {
         return res.status(404).json({ error: "Owner not found." });
       }
-      if (!owner.own_db) {
-        return res.status(400).json({ error: "Owner has no tenant database assigned." });
+      if (!owner.own_db || isOfflineOwnerRecord(owner)) {
+        return res.status(400).json({
+          error: "Owner has no cloud tenant database (offline login type).",
+        });
       }
 
       const result = await tenantDbMaintenance.applyTenantMigration(owner.own_db);
@@ -592,8 +672,10 @@ class OwnerController {
       if (!owner) {
         return res.status(404).json({ error: "Owner not found." });
       }
-      if (!owner.own_db) {
-        return res.status(400).json({ error: "Owner has no tenant database assigned." });
+      if (!owner.own_db || isOfflineOwnerRecord(owner)) {
+        return res.status(400).json({
+          error: "Owner has no cloud tenant database (offline login type).",
+        });
       }
 
       const result = await tenantDbMaintenance.applyTenantSeeds(owner.own_db);

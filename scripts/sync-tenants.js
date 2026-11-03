@@ -1,30 +1,31 @@
 "use strict";
 
-const { Client } = require("pg");
-const { BASE_URL } = require("../config/db");
+require("../config/db");
+const { getMasterPrisma } = require("../utils/masterPrisma");
+const {
+  fetchOnlineTenantOwnersFromMaster,
+} = require("../modules/owner/utils/owner-login-type.helper");
 const {
   applyTenantMigration,
   applyTenantSeeds,
 } = require("../modules/owner/services/tenant-db-maintenance.service");
 
 const syncTenants = async () => {
-  const masterDbUrl = `${BASE_URL}/master`;
-  const client = new Client({ connectionString: masterDbUrl });
+  const masterPrisma = getMasterPrisma();
 
   try {
-    console.log("🚀 Connecting to master database to find tenants...");
-    await client.connect();
+    console.log("🚀 Loading online tenant databases from master (skipping offline owners)...");
+    const tenants = await fetchOnlineTenantOwnersFromMaster(masterPrisma);
 
-    const res = await client.query('SELECT own_db FROM "Owner" WHERE own_db IS NOT NULL');
-    const dbs = res.rows.map((row) => row.own_db);
-
-    if (dbs.length === 0) {
-      console.log("⚠️ No tenant databases found.");
+    if (tenants.length === 0) {
+      console.log("⚠️  No online tenant databases to sync.");
       return;
     }
 
-    for (const dbName of dbs) {
-      console.log(`\n🔄 Syncing "${dbName}"...`);
+    console.log(`📋  Syncing ${tenants.length} online tenant(s).`);
+
+    for (const { own_db: dbName, own_login_id: loginId } of tenants) {
+      console.log(`\n🔄 Syncing "${dbName}" (${loginId})…`);
       try {
         await applyTenantMigration(dbName);
         console.log(`✅  Schema synced for "${dbName}".`);
@@ -41,11 +42,10 @@ const syncTenants = async () => {
       }
     }
 
-    console.log("\n🌟 All tenant databases processed.");
+    console.log("\n🌟 Online tenant databases processed.");
   } catch (error) {
     console.error("❌ Error syncing tenants:", error);
-  } finally {
-    await client.end();
+    process.exitCode = 1;
   }
 };
 

@@ -3,6 +3,7 @@
 const path = require("path");
 const { PrismaClient } = require("../../prisma/generated/master");
 const { hashPassword } = require("../../common/service/bcrypt.service");
+const { filterOnlineTenantOwners } = require("../../modules/owner/utils/owner-login-type.helper");
 const adminData = require("../core-data/admin.json");
 
 const prisma = new PrismaClient();
@@ -127,17 +128,21 @@ const seedAllTenantsSerialNumbers = async () => {
 
     const owners = await prisma.owner.findMany({
       where: { own_is_deleted: false },
-      select: { own_id: true, own_login_id: true, own_db: true },
+      select: { own_id: true, own_login_id: true, own_db: true, own_login_type: true },
     });
 
-    if (owners.length === 0) {
-      console.log("⏭️   No tenant databases registered — skipping serial number seed.");
+    const onlineOwners = filterOnlineTenantOwners(owners);
+
+    if (onlineOwners.length === 0) {
+      console.log("⏭️   No online tenant databases — skipping serial number seed.");
       return;
     }
 
-    console.log(`📋  Found ${owners.length} tenant(s). Checking serial numbers...`);
+    console.log(
+      `📋  Found ${onlineOwners.length} online tenant(s) (${owners.length - onlineOwners.length} offline skipped). Checking serial numbers…`
+    );
 
-    for (const owner of owners) {
+    for (const owner of onlineOwners) {
       const tenantUrl = buildTenantUrl(owner.own_db);
       console.log(`\n  🏢  Tenant: ${owner.own_login_id} (DB: ${owner.own_db})`);
       try {

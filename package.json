@@ -7,7 +7,7 @@
     "dev": "node --watch index.js",
     "uat": "npx --yes ngrok@5.0.0-beta.2 http 9000",
     "udb": "node scripts/bootstrap.js",
-    "migrate": "prisma migrate deploy --schema=prisma/schema/master/schema.prisma",
+    "migrate": "node scripts/migrate-master.js",
     "generate": "prisma generate --schema=prisma/schema/master/schema.prisma",
     "generate:main": "prisma generate --schema=prisma/schema/main/schema.prisma",
     "seed": "node -e \"require('./config/db'); const s = require('./prisma/seeder/admin-seeder'); s.seedAdmin().then(() => s.seedDbSeries()).then(() => s.seedPlans()).then(() => s.seedAllTenantsSerialNumbers())\"",

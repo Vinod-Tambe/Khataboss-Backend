@@ -58,7 +58,15 @@ export type SupportTicketComment = $Result.DefaultSelection<Prisma.$SupportTicke
  * Enums
  */
 export namespace $Enums {
-  export const OwnerStatus: {
+  export const OwnerLoginType: {
+  Online: 'Online',
+  Offline: 'Offline'
+};
+
+export type OwnerLoginType = (typeof OwnerLoginType)[keyof typeof OwnerLoginType]
+
+
+export const OwnerStatus: {
   Active: 'Active',
   Inactive: 'Inactive'
 };
@@ -164,6 +172,10 @@ export const SupportCommentAudience: {
 export type SupportCommentAudience = (typeof SupportCommentAudience)[keyof typeof SupportCommentAudience]
 
 }
+
+export type OwnerLoginType = $Enums.OwnerLoginType
+
+export const OwnerLoginType: typeof $Enums.OwnerLoginType
 
 export type OwnerStatus = $Enums.OwnerStatus
 
@@ -3893,6 +3905,7 @@ export namespace Prisma {
     own_email: string | null
     own_login_id: string | null
     own_password: string | null
+    own_login_type: $Enums.OwnerLoginType | null
     own_status: $Enums.OwnerStatus | null
     own_plan_id: number | null
     own_max_firms: number | null
@@ -3935,6 +3948,7 @@ export namespace Prisma {
     own_email: string | null
     own_login_id: string | null
     own_password: string | null
+    own_login_type: $Enums.OwnerLoginType | null
     own_status: $Enums.OwnerStatus | null
     own_plan_id: number | null
     own_max_firms: number | null
@@ -3977,6 +3991,7 @@ export namespace Prisma {
     own_email: number
     own_login_id: number
     own_password: number
+    own_login_type: number
     own_status: number
     own_profile_img: number
     own_plan_id: number
@@ -4041,6 +4056,7 @@ export namespace Prisma {
     own_email?: true
     own_login_id?: true
     own_password?: true
+    own_login_type?: true
     own_status?: true
     own_plan_id?: true
     own_max_firms?: true
@@ -4083,6 +4099,7 @@ export namespace Prisma {
     own_email?: true
     own_login_id?: true
     own_password?: true
+    own_login_type?: true
     own_status?: true
     own_plan_id?: true
     own_max_firms?: true
@@ -4125,6 +4142,7 @@ export namespace Prisma {
     own_email?: true
     own_login_id?: true
     own_password?: true
+    own_login_type?: true
     own_status?: true
     own_profile_img?: true
     own_plan_id?: true
@@ -4256,6 +4274,7 @@ export namespace Prisma {
     own_email: string
     own_login_id: string
     own_password: string
+    own_login_type: $Enums.OwnerLoginType
     own_status: $Enums.OwnerStatus
     own_profile_img: JsonValue | null
     own_plan_id: number | null
@@ -4319,6 +4338,7 @@ export namespace Prisma {
     own_email?: boolean
     own_login_id?: boolean
     own_password?: boolean
+    own_login_type?: boolean
     own_status?: boolean
     own_profile_img?: boolean
     own_plan_id?: boolean
@@ -4367,6 +4387,7 @@ export namespace Prisma {
     own_email?: boolean
     own_login_id?: boolean
     own_password?: boolean
+    own_login_type?: boolean
     own_status?: boolean
     own_profile_img?: boolean
     own_plan_id?: boolean
@@ -4412,6 +4433,7 @@ export namespace Prisma {
     own_email?: boolean
     own_login_id?: boolean
     own_password?: boolean
+    own_login_type?: boolean
     own_status?: boolean
     own_profile_img?: boolean
     own_plan_id?: boolean
@@ -4473,6 +4495,7 @@ export namespace Prisma {
       own_email: string
       own_login_id: string
       own_password: string
+      own_login_type: $Enums.OwnerLoginType
       own_status: $Enums.OwnerStatus
       own_profile_img: Prisma.JsonValue | null
       own_plan_id: number | null
@@ -4910,6 +4933,7 @@ export namespace Prisma {
     readonly own_email: FieldRef<"Owner", 'String'>
     readonly own_login_id: FieldRef<"Owner", 'String'>
     readonly own_password: FieldRef<"Owner", 'String'>
+    readonly own_login_type: FieldRef<"Owner", 'OwnerLoginType'>
     readonly own_status: FieldRef<"Owner", 'OwnerStatus'>
     readonly own_profile_img: FieldRef<"Owner", 'Json'>
     readonly own_plan_id: FieldRef<"Owner", 'Int'>
@@ -10882,6 +10906,7 @@ export namespace Prisma {
     own_email: 'own_email',
     own_login_id: 'own_login_id',
     own_password: 'own_password',
+    own_login_type: 'own_login_type',
     own_status: 'own_status',
     own_profile_img: 'own_profile_img',
     own_plan_id: 'own_plan_id',
@@ -11129,6 +11154,20 @@ export namespace Prisma {
    * Reference to a field of type 'Json'
    */
   export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
+    
+
+
+  /**
+   * Reference to a field of type 'OwnerLoginType'
+   */
+  export type EnumOwnerLoginTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'OwnerLoginType'>
+    
+
+
+  /**
+   * Reference to a field of type 'OwnerLoginType[]'
+   */
+  export type ListEnumOwnerLoginTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'OwnerLoginType[]'>
     
 
 
@@ -11577,6 +11616,7 @@ export namespace Prisma {
     own_email?: StringFilter<"Owner"> | string
     own_login_id?: StringFilter<"Owner"> | string
     own_password?: StringFilter<"Owner"> | string
+    own_login_type?: EnumOwnerLoginTypeFilter<"Owner"> | $Enums.OwnerLoginType
     own_status?: EnumOwnerStatusFilter<"Owner"> | $Enums.OwnerStatus
     own_profile_img?: JsonNullableFilter<"Owner">
     own_plan_id?: IntNullableFilter<"Owner"> | number | null
@@ -11624,6 +11664,7 @@ export namespace Prisma {
     own_email?: SortOrder
     own_login_id?: SortOrder
     own_password?: SortOrder
+    own_login_type?: SortOrder
     own_status?: SortOrder
     own_profile_img?: SortOrderInput | SortOrder
     own_plan_id?: SortOrderInput | SortOrder
@@ -11674,6 +11715,7 @@ export namespace Prisma {
     own_last_name?: StringFilter<"Owner"> | string
     own_phone_no?: StringNullableFilter<"Owner"> | string | null
     own_password?: StringFilter<"Owner"> | string
+    own_login_type?: EnumOwnerLoginTypeFilter<"Owner"> | $Enums.OwnerLoginType
     own_status?: EnumOwnerStatusFilter<"Owner"> | $Enums.OwnerStatus
     own_profile_img?: JsonNullableFilter<"Owner">
     own_plan_id?: IntNullableFilter<"Owner"> | number | null
@@ -11721,6 +11763,7 @@ export namespace Prisma {
     own_email?: SortOrder
     own_login_id?: SortOrder
     own_password?: SortOrder
+    own_login_type?: SortOrder
     own_status?: SortOrder
     own_profile_img?: SortOrderInput | SortOrder
     own_plan_id?: SortOrderInput | SortOrder
@@ -11773,6 +11816,7 @@ export namespace Prisma {
     own_email?: StringWithAggregatesFilter<"Owner"> | string
     own_login_id?: StringWithAggregatesFilter<"Owner"> | string
     own_password?: StringWithAggregatesFilter<"Owner"> | string
+    own_login_type?: EnumOwnerLoginTypeWithAggregatesFilter<"Owner"> | $Enums.OwnerLoginType
     own_status?: EnumOwnerStatusWithAggregatesFilter<"Owner"> | $Enums.OwnerStatus
     own_profile_img?: JsonNullableWithAggregatesFilter<"Owner">
     own_plan_id?: IntNullableWithAggregatesFilter<"Owner"> | number | null
@@ -12662,6 +12706,7 @@ export namespace Prisma {
     own_email: string
     own_login_id: string
     own_password: string
+    own_login_type?: $Enums.OwnerLoginType
     own_status?: $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
     own_max_firms?: number | null
@@ -12708,6 +12753,7 @@ export namespace Prisma {
     own_email: string
     own_login_id: string
     own_password: string
+    own_login_type?: $Enums.OwnerLoginType
     own_status?: $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
     own_plan_id?: number | null
@@ -12752,6 +12798,7 @@ export namespace Prisma {
     own_email?: StringFieldUpdateOperationsInput | string
     own_login_id?: StringFieldUpdateOperationsInput | string
     own_password?: StringFieldUpdateOperationsInput | string
+    own_login_type?: EnumOwnerLoginTypeFieldUpdateOperationsInput | $Enums.OwnerLoginType
     own_status?: EnumOwnerStatusFieldUpdateOperationsInput | $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
     own_max_firms?: NullableIntFieldUpdateOperationsInput | number | null
@@ -12798,6 +12845,7 @@ export namespace Prisma {
     own_email?: StringFieldUpdateOperationsInput | string
     own_login_id?: StringFieldUpdateOperationsInput | string
     own_password?: StringFieldUpdateOperationsInput | string
+    own_login_type?: EnumOwnerLoginTypeFieldUpdateOperationsInput | $Enums.OwnerLoginType
     own_status?: EnumOwnerStatusFieldUpdateOperationsInput | $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
     own_plan_id?: NullableIntFieldUpdateOperationsInput | number | null
@@ -12844,6 +12892,7 @@ export namespace Prisma {
     own_email: string
     own_login_id: string
     own_password: string
+    own_login_type?: $Enums.OwnerLoginType
     own_status?: $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
     own_plan_id?: number | null
@@ -12886,6 +12935,7 @@ export namespace Prisma {
     own_email?: StringFieldUpdateOperationsInput | string
     own_login_id?: StringFieldUpdateOperationsInput | string
     own_password?: StringFieldUpdateOperationsInput | string
+    own_login_type?: EnumOwnerLoginTypeFieldUpdateOperationsInput | $Enums.OwnerLoginType
     own_status?: EnumOwnerStatusFieldUpdateOperationsInput | $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
     own_max_firms?: NullableIntFieldUpdateOperationsInput | number | null
@@ -12929,6 +12979,7 @@ export namespace Prisma {
     own_email?: StringFieldUpdateOperationsInput | string
     own_login_id?: StringFieldUpdateOperationsInput | string
     own_password?: StringFieldUpdateOperationsInput | string
+    own_login_type?: EnumOwnerLoginTypeFieldUpdateOperationsInput | $Enums.OwnerLoginType
     own_status?: EnumOwnerStatusFieldUpdateOperationsInput | $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
     own_plan_id?: NullableIntFieldUpdateOperationsInput | number | null
@@ -13953,6 +14004,13 @@ export namespace Prisma {
     last_number?: SortOrder
   }
 
+  export type EnumOwnerLoginTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.OwnerLoginType | EnumOwnerLoginTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.OwnerLoginType[] | ListEnumOwnerLoginTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.OwnerLoginType[] | ListEnumOwnerLoginTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumOwnerLoginTypeFilter<$PrismaModel> | $Enums.OwnerLoginType
+  }
+
   export type EnumOwnerStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.OwnerStatus | EnumOwnerStatusFieldRefInput<$PrismaModel>
     in?: $Enums.OwnerStatus[] | ListEnumOwnerStatusFieldRefInput<$PrismaModel>
@@ -14010,6 +14068,7 @@ export namespace Prisma {
     own_email?: SortOrder
     own_login_id?: SortOrder
     own_password?: SortOrder
+    own_login_type?: SortOrder
     own_status?: SortOrder
     own_profile_img?: SortOrder
     own_plan_id?: SortOrder
@@ -14063,6 +14122,7 @@ export namespace Prisma {
     own_email?: SortOrder
     own_login_id?: SortOrder
     own_password?: SortOrder
+    own_login_type?: SortOrder
     own_status?: SortOrder
     own_plan_id?: SortOrder
     own_max_firms?: SortOrder
@@ -14105,6 +14165,7 @@ export namespace Prisma {
     own_email?: SortOrder
     own_login_id?: SortOrder
     own_password?: SortOrder
+    own_login_type?: SortOrder
     own_status?: SortOrder
     own_plan_id?: SortOrder
     own_max_firms?: SortOrder
@@ -14140,6 +14201,16 @@ export namespace Prisma {
     own_max_firms?: SortOrder
     own_max_staff?: SortOrder
     own_idle_timeout_min?: SortOrder
+  }
+
+  export type EnumOwnerLoginTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.OwnerLoginType | EnumOwnerLoginTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.OwnerLoginType[] | ListEnumOwnerLoginTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.OwnerLoginType[] | ListEnumOwnerLoginTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumOwnerLoginTypeWithAggregatesFilter<$PrismaModel> | $Enums.OwnerLoginType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumOwnerLoginTypeFilter<$PrismaModel>
+    _max?: NestedEnumOwnerLoginTypeFilter<$PrismaModel>
   }
 
   export type EnumOwnerStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -14865,6 +14936,10 @@ export namespace Prisma {
     connect?: SupportTicketWhereUniqueInput | SupportTicketWhereUniqueInput[]
   }
 
+  export type EnumOwnerLoginTypeFieldUpdateOperationsInput = {
+    set?: $Enums.OwnerLoginType
+  }
+
   export type EnumOwnerStatusFieldUpdateOperationsInput = {
     set?: $Enums.OwnerStatus
   }
@@ -15321,11 +15396,28 @@ export namespace Prisma {
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
+  export type NestedEnumOwnerLoginTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.OwnerLoginType | EnumOwnerLoginTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.OwnerLoginType[] | ListEnumOwnerLoginTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.OwnerLoginType[] | ListEnumOwnerLoginTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumOwnerLoginTypeFilter<$PrismaModel> | $Enums.OwnerLoginType
+  }
+
   export type NestedEnumOwnerStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.OwnerStatus | EnumOwnerStatusFieldRefInput<$PrismaModel>
     in?: $Enums.OwnerStatus[] | ListEnumOwnerStatusFieldRefInput<$PrismaModel>
     notIn?: $Enums.OwnerStatus[] | ListEnumOwnerStatusFieldRefInput<$PrismaModel>
     not?: NestedEnumOwnerStatusFilter<$PrismaModel> | $Enums.OwnerStatus
+  }
+
+  export type NestedEnumOwnerLoginTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.OwnerLoginType | EnumOwnerLoginTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.OwnerLoginType[] | ListEnumOwnerLoginTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.OwnerLoginType[] | ListEnumOwnerLoginTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumOwnerLoginTypeWithAggregatesFilter<$PrismaModel> | $Enums.OwnerLoginType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumOwnerLoginTypeFilter<$PrismaModel>
+    _max?: NestedEnumOwnerLoginTypeFilter<$PrismaModel>
   }
 
   export type NestedEnumOwnerStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -15891,6 +15983,7 @@ export namespace Prisma {
     own_email: string
     own_login_id: string
     own_password: string
+    own_login_type?: $Enums.OwnerLoginType
     own_status?: $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
     own_max_firms?: number | null
@@ -15936,6 +16029,7 @@ export namespace Prisma {
     own_email: string
     own_login_id: string
     own_password: string
+    own_login_type?: $Enums.OwnerLoginType
     own_status?: $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
     own_max_firms?: number | null
@@ -16010,6 +16104,7 @@ export namespace Prisma {
     own_email?: StringFilter<"Owner"> | string
     own_login_id?: StringFilter<"Owner"> | string
     own_password?: StringFilter<"Owner"> | string
+    own_login_type?: EnumOwnerLoginTypeFilter<"Owner"> | $Enums.OwnerLoginType
     own_status?: EnumOwnerStatusFilter<"Owner"> | $Enums.OwnerStatus
     own_profile_img?: JsonNullableFilter<"Owner">
     own_plan_id?: IntNullableFilter<"Owner"> | number | null
@@ -16053,6 +16148,7 @@ export namespace Prisma {
     own_email: string
     own_login_id: string
     own_password: string
+    own_login_type?: $Enums.OwnerLoginType
     own_status?: $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
     own_max_firms?: number | null
@@ -16098,6 +16194,7 @@ export namespace Prisma {
     own_email: string
     own_login_id: string
     own_password: string
+    own_login_type?: $Enums.OwnerLoginType
     own_status?: $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
     own_plan_id?: number | null
@@ -16157,6 +16254,7 @@ export namespace Prisma {
     own_email?: StringFieldUpdateOperationsInput | string
     own_login_id?: StringFieldUpdateOperationsInput | string
     own_password?: StringFieldUpdateOperationsInput | string
+    own_login_type?: EnumOwnerLoginTypeFieldUpdateOperationsInput | $Enums.OwnerLoginType
     own_status?: EnumOwnerStatusFieldUpdateOperationsInput | $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
     own_max_firms?: NullableIntFieldUpdateOperationsInput | number | null
@@ -16202,6 +16300,7 @@ export namespace Prisma {
     own_email?: StringFieldUpdateOperationsInput | string
     own_login_id?: StringFieldUpdateOperationsInput | string
     own_password?: StringFieldUpdateOperationsInput | string
+    own_login_type?: EnumOwnerLoginTypeFieldUpdateOperationsInput | $Enums.OwnerLoginType
     own_status?: EnumOwnerStatusFieldUpdateOperationsInput | $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
     own_plan_id?: NullableIntFieldUpdateOperationsInput | number | null
@@ -16246,6 +16345,7 @@ export namespace Prisma {
     own_email: string
     own_login_id: string
     own_password: string
+    own_login_type?: $Enums.OwnerLoginType
     own_status?: $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
     own_max_firms?: number | null
@@ -16291,6 +16391,7 @@ export namespace Prisma {
     own_email: string
     own_login_id: string
     own_password: string
+    own_login_type?: $Enums.OwnerLoginType
     own_status?: $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
     own_plan_id?: number | null
@@ -16387,6 +16488,7 @@ export namespace Prisma {
     own_email?: StringFieldUpdateOperationsInput | string
     own_login_id?: StringFieldUpdateOperationsInput | string
     own_password?: StringFieldUpdateOperationsInput | string
+    own_login_type?: EnumOwnerLoginTypeFieldUpdateOperationsInput | $Enums.OwnerLoginType
     own_status?: EnumOwnerStatusFieldUpdateOperationsInput | $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
     own_max_firms?: NullableIntFieldUpdateOperationsInput | number | null
@@ -16432,6 +16534,7 @@ export namespace Prisma {
     own_email?: StringFieldUpdateOperationsInput | string
     own_login_id?: StringFieldUpdateOperationsInput | string
     own_password?: StringFieldUpdateOperationsInput | string
+    own_login_type?: EnumOwnerLoginTypeFieldUpdateOperationsInput | $Enums.OwnerLoginType
     own_status?: EnumOwnerStatusFieldUpdateOperationsInput | $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
     own_plan_id?: NullableIntFieldUpdateOperationsInput | number | null
@@ -16713,6 +16816,7 @@ export namespace Prisma {
     own_email: string
     own_login_id: string
     own_password: string
+    own_login_type?: $Enums.OwnerLoginType
     own_status?: $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
     own_max_firms?: number | null
@@ -16754,6 +16858,7 @@ export namespace Prisma {
     own_email?: StringFieldUpdateOperationsInput | string
     own_login_id?: StringFieldUpdateOperationsInput | string
     own_password?: StringFieldUpdateOperationsInput | string
+    own_login_type?: EnumOwnerLoginTypeFieldUpdateOperationsInput | $Enums.OwnerLoginType
     own_status?: EnumOwnerStatusFieldUpdateOperationsInput | $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
     own_max_firms?: NullableIntFieldUpdateOperationsInput | number | null
@@ -16799,6 +16904,7 @@ export namespace Prisma {
     own_email?: StringFieldUpdateOperationsInput | string
     own_login_id?: StringFieldUpdateOperationsInput | string
     own_password?: StringFieldUpdateOperationsInput | string
+    own_login_type?: EnumOwnerLoginTypeFieldUpdateOperationsInput | $Enums.OwnerLoginType
     own_status?: EnumOwnerStatusFieldUpdateOperationsInput | $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
     own_max_firms?: NullableIntFieldUpdateOperationsInput | number | null
@@ -16844,6 +16950,7 @@ export namespace Prisma {
     own_email?: StringFieldUpdateOperationsInput | string
     own_login_id?: StringFieldUpdateOperationsInput | string
     own_password?: StringFieldUpdateOperationsInput | string
+    own_login_type?: EnumOwnerLoginTypeFieldUpdateOperationsInput | $Enums.OwnerLoginType
     own_status?: EnumOwnerStatusFieldUpdateOperationsInput | $Enums.OwnerStatus
     own_profile_img?: NullableJsonNullValueInput | InputJsonValue
     own_max_firms?: NullableIntFieldUpdateOperationsInput | number | null

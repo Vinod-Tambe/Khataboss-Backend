@@ -14,6 +14,8 @@ const {
   granularKeysToModuleKeys,
   normalizeOwnerModuleKeys,
 } = require("../../../prisma/seeder/owner-module-seeder");
+const { isOfflineOwnerRecord } = require("../utils/owner-login-type.helper");
+const ownerService = require("./owner.service");
 
 const masterPrisma = getMasterPrisma();
 
@@ -185,17 +187,13 @@ class OwnerPermissionService {
 
   async syncLimitsToTenant(dbUrl, ownUuid, limits) {
     if (!limits || Object.keys(limits).length === 0) return;
-    const tenantPrisma = getTenantPrisma(dbUrl);
-    await tenantPrisma.owner.update({
-      where: { own_uuid: ownUuid },
-      data: limits,
-    });
+    await ownerService.patchTenantOwner(dbUrl, ownUuid, limits);
   }
 
   async updateEntitlements(ownUuid, body = {}) {
     const owner = await masterPrisma.owner.findFirst({
       where: { own_uuid: ownUuid, own_is_deleted: false },
-      select: { own_id: true, own_uuid: true, own_db: true },
+      select: { own_id: true, own_uuid: true, own_db: true, own_login_type: true },
     });
 
     if (!owner) {
@@ -230,13 +228,17 @@ class OwnerPermissionService {
         where: { own_id: owner.own_id },
         data: limits,
       });
-      await this.syncLimitsToTenant(`${BASE_URL}/${owner.own_db}`, owner.own_uuid, limits);
+      if (!isOfflineOwnerRecord(owner)) {
+        await this.syncLimitsToTenant(`${BASE_URL}/${owner.own_db}`, owner.own_uuid, limits);
+      }
     }
 
     return this.getEntitlements(ownUuid);
   }
 
-  async seedDefaultEntitlements(ownId, ownUuid, dbUrl, overrides = {}) {
+  async seedDefaultEntitlements(ownId, ownUuid, dbUrl, overrides = {}, options = {}) {
+    const skipTenant = Boolean(options.skipTenant || !dbUrl);
+
     const defaults = this.getDefaultLimits();
     const limits = {
       own_max_firms: overrides.own_max_firms ?? defaults.own_max_firms,
@@ -252,11 +254,9 @@ class OwnerPermissionService {
       data: limits,
     });
 
-    const tenantPrisma = getTenantPrisma(dbUrl);
-    await tenantPrisma.owner.update({
-      where: { own_uuid: ownUuid },
-      data: limits,
-    });
+    if (!skipTenant) {
+      await ownerService.patchTenantOwner(dbUrl, ownUuid, limits);
+    }
 
     await this.setModules(ownId, moduleKeys);
 

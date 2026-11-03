@@ -16,6 +16,11 @@ const {
   ROLE_STAFF,
 } = require("../../../common/service/permission.helper");
 const ownerPermissionService = require("../../owner/services/owner-permission.service");
+const { isOfflineOwnerRecord } = require("../../owner/utils/owner-login-type.helper");
+const { isTenantOwnerRowReady } = require("../../../utils/tenant-database.helper");
+const { setupOwnerDatabase } = require("../../../config/db");
+const { seedPermissions } = require("../../../prisma/seeder/permission-seeder");
+const tenantDbMaintenance = require("../../owner/services/tenant-db-maintenance.service");
 const DEFAULT_IDLE_TIMEOUT_MIN = 2;
 const MIN_IDLE_TIMEOUT_MIN = 1;
 const MAX_IDLE_TIMEOUT_MIN = 60;
@@ -101,16 +106,32 @@ function recordAuthProfileUpdate(owner, loginId, displayName = "") {
   });
 }
 
-const toPublicOwner = async (owner, dbUrl = null) => {
+const toPublicOwner = async (owner, dbUrl = null, options = {}) => {
   const permissionKeys = await ownerPermissionService.resolvePermissionKeys(owner.own_id);
+  let tenantReady =
+    options.tenantReady !== undefined
+      ? options.tenantReady
+      : await isTenantOwnerRowReady(owner.own_db, owner.own_uuid);
+
   let usage = null;
-  if (dbUrl && owner.own_id && owner.own_uuid) {
-    usage = await ownerPermissionService.getUsageStats(dbUrl, owner.own_id, owner.own_uuid);
+  if (dbUrl && tenantReady && owner.own_id && owner.own_uuid) {
+    try {
+      usage = await ownerPermissionService.getUsageStats(dbUrl, owner.own_id, owner.own_uuid);
+    } catch {
+      usage = null;
+    }
   }
+
+  const ownLoginType = owner.own_login_type || (String(owner.own_db || "").startsWith("offline_") ? "Offline" : "Online");
+  const setupRequired = isOfflineOwnerRecord(owner) && !tenantReady;
 
   return {
     own_uuid: owner.own_uuid,
     own_login_id: owner.own_login_id,
+    own_db: owner.own_db,
+    own_login_type: ownLoginType,
+    tenant_ready: tenantReady,
+    setup_required: setupRequired,
     own_first_name: owner.own_first_name,
     own_middle_name: owner.own_middle_name,
     own_last_name: owner.own_last_name,
@@ -362,14 +383,17 @@ class AuthService {
     });
 
     const dbUrl = `${BASE_URL}/${owner.own_db}`;
-    const publicOwner = await toPublicOwner(owner, dbUrl);
-    recordAuthLogin(
-      owner,
-      owner.own_login_id,
-      "Owner",
-      system_info,
-      formatPersonName(owner.own_first_name, owner.own_middle_name, owner.own_last_name)
-    );
+    const tenantReady = await isTenantOwnerRowReady(owner.own_db, owner.own_uuid);
+    const publicOwner = await toPublicOwner(owner, dbUrl, { tenantReady });
+    if (tenantReady) {
+      recordAuthLogin(
+        owner,
+        owner.own_login_id,
+        "Owner",
+        system_info,
+        formatPersonName(owner.own_first_name, owner.own_middle_name, owner.own_last_name)
+      );
+    }
 
     // 5. Return success data (exclude password and technical/expiry details)
     return {
@@ -377,6 +401,8 @@ class AuthService {
       refreshToken: refreshToken,
       owner: publicOwner,
       user: publicOwner,
+      tenant_ready: tenantReady,
+      setup_required: publicOwner.setup_required,
     };
   }
 
@@ -572,14 +598,17 @@ class AuthService {
     });
 
     const dbUrl = `${BASE_URL}/${owner.own_db}`;
-    const publicOwner = await toPublicOwner(owner, dbUrl);
-    recordAuthLogin(
-      owner,
-      owner.own_login_id,
-      "Owner",
-      system_info,
-      formatPersonName(owner.own_first_name, owner.own_middle_name, owner.own_last_name)
-    );
+    const tenantReady = await isTenantOwnerRowReady(owner.own_db, owner.own_uuid);
+    const publicOwner = await toPublicOwner(owner, dbUrl, { tenantReady });
+    if (tenantReady) {
+      recordAuthLogin(
+        owner,
+        owner.own_login_id,
+        "Owner",
+        system_info,
+        formatPersonName(owner.own_first_name, owner.own_middle_name, owner.own_last_name)
+      );
+    }
 
     // 6. Return success data
     return {
@@ -587,6 +616,8 @@ class AuthService {
       refreshToken: refreshToken,
       owner: publicOwner,
       user: publicOwner,
+      tenant_ready: tenantReady,
+      setup_required: publicOwner.setup_required,
     };
   }
 
@@ -650,15 +681,15 @@ class AuthService {
 
     if (authUser.ownerProfile) {
       const dbUrl = authUser.own_db ? `${BASE_URL}/${authUser.own_db}` : null;
-      return toPublicOwner(
-        {
-          ...authUser.ownerProfile,
-          own_id: authUser.own_id,
-          own_max_firms: authUser.own_max_firms,
-          own_max_staff: authUser.own_max_staff,
-        },
-        dbUrl
-      );
+      const ownerRecord = {
+        ...authUser.ownerProfile,
+        own_id: authUser.own_id,
+        own_max_firms: authUser.own_max_firms,
+        own_max_staff: authUser.own_max_staff,
+        own_login_type: authUser.ownerProfile.own_login_type,
+      };
+      const tenantReady = await isTenantOwnerRowReady(ownerRecord.own_db, ownerRecord.own_uuid);
+      return toPublicOwner(ownerRecord, dbUrl, { tenantReady });
     }
 
     const owner = await masterPrisma.owner.findUnique({
@@ -668,6 +699,7 @@ class AuthService {
         own_uuid: true,
         own_login_id: true,
         own_db: true,
+        own_login_type: true,
         own_first_name: true,
         own_middle_name: true,
         own_last_name: true,
@@ -695,7 +727,76 @@ class AuthService {
     }
 
     const dbUrl = `${BASE_URL}/${owner.own_db}`;
-    return toPublicOwner(owner, dbUrl);
+    const tenantReady = await isTenantOwnerRowReady(owner.own_db, owner.own_uuid);
+    return toPublicOwner(owner, dbUrl, { tenantReady });
+  }
+
+  /**
+   * Create local tenant database for offline owners (first-time setup on this machine).
+   */
+  async provisionLocalTenant(authUser) {
+    if (authUser.role !== ROLE_OWNER) {
+      const error = new Error("Only the owner account can run local setup.");
+      error.statusCode = 403;
+      throw error;
+    }
+
+    const owner = await masterPrisma.owner.findUnique({
+      where: { own_uuid: authUser.own_uuid, own_is_deleted: false },
+    });
+
+    if (!owner) {
+      const error = new Error("Owner account not found.");
+      error.statusCode = 404;
+      throw error;
+    }
+
+    if (!isOfflineOwnerRecord(owner)) {
+      const error = new Error("Local setup applies only to offline login type owners.");
+      error.statusCode = 400;
+      throw error;
+    }
+
+    const steps = [];
+    const addStep = (message) => {
+      steps.push({ message, done: true });
+    };
+
+    const dbUrl = `${BASE_URL}/${owner.own_db}`;
+    let tenantReady = await isTenantOwnerRowReady(owner.own_db, owner.own_uuid);
+
+    if (tenantReady) {
+      addStep("Local database is already set up.");
+      const user = await toPublicOwner(owner, dbUrl, { tenantReady: true });
+      return { steps, tenant_ready: true, user };
+    }
+
+    addStep(`Creating local database "${owner.own_db}"…`);
+    await setupOwnerDatabase(owner.own_db);
+
+    addStep("Loading permission catalog…");
+    await seedPermissions(dbUrl);
+
+    addStep("Creating owner account in local database…");
+    await ownerService.ensureTenantOwnerFromMaster(dbUrl, owner);
+
+    addStep("Applying default templates and settings…");
+    try {
+      await tenantDbMaintenance.applyTenantSeeds(owner.own_db);
+    } catch (seedErr) {
+      addStep(`Default data partially applied: ${seedErr.message}`);
+    }
+
+    tenantReady = await isTenantOwnerRowReady(owner.own_db, owner.own_uuid);
+    if (!tenantReady) {
+      const error = new Error("Local setup did not complete. Please try again or contact support.");
+      error.statusCode = 500;
+      throw error;
+    }
+
+    addStep("Setup complete.");
+    const user = await toPublicOwner(owner, dbUrl, { tenantReady: true });
+    return { steps, tenant_ready: true, user };
   }
 
   /**
@@ -972,6 +1073,56 @@ class AuthService {
       formatPersonName(owner.own_first_name, owner.own_middle_name, owner.own_last_name)
     );
     return { message: "Password updated successfully." };
+  }
+
+  /**
+   * Offline owner on this machine — local tenant DB must exist.
+   */
+  async resolveOfflineOwnerForLocalDbMaintenance(authUser) {
+    if (authUser.role !== ROLE_OWNER) {
+      const error = new Error("Only the owner account can update the local database.");
+      error.statusCode = 403;
+      throw error;
+    }
+
+    const owner = await masterPrisma.owner.findUnique({
+      where: { own_uuid: authUser.own_uuid, own_is_deleted: false },
+    });
+
+    if (!owner) {
+      const error = new Error("Owner account not found.");
+      error.statusCode = 404;
+      throw error;
+    }
+
+    if (!isOfflineOwnerRecord(owner)) {
+      const error = new Error(
+        "Software database tools are available only for local (offline) login type owners."
+      );
+      error.statusCode = 400;
+      throw error;
+    }
+
+    const tenantReady = await isTenantOwnerRowReady(owner.own_db, owner.own_uuid);
+    if (!tenantReady) {
+      const error = new Error("Complete local database setup before running migration or seeds.");
+      error.statusCode = 400;
+      throw error;
+    }
+
+    return owner;
+  }
+
+  async applyLocalTenantMigration(authUser) {
+    const owner = await this.resolveOfflineOwnerForLocalDbMaintenance(authUser);
+    const result = await tenantDbMaintenance.applyTenantMigration(owner.own_db);
+    return { ...result, dbName: owner.own_db };
+  }
+
+  async applyLocalTenantSeeds(authUser) {
+    const owner = await this.resolveOfflineOwnerForLocalDbMaintenance(authUser);
+    const result = await tenantDbMaintenance.applyTenantSeeds(owner.own_db);
+    return { ...result, dbName: owner.own_db };
   }
 
   /**

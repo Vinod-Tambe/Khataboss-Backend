@@ -236,4 +236,16 @@ router.post("/change-password", authenticateOwner, (req, res) =>
 
 router.post("/logout", authenticateOwner, (req, res) => authController.logout(req, res));
 
+router.post("/provision-local-tenant", authenticateOwner, (req, res) =>
+  authController.provisionLocalTenant(req, res)
+);
+
+router.post("/local-tenant/apply-migration", authenticateOwner, (req, res) =>
+  authController.applyLocalTenantMigration(req, res)
+);
+
+router.post("/local-tenant/apply-seeds", authenticateOwner, (req, res) =>
+  authController.applyLocalTenantSeeds(req, res)
+);
+
 module.exports = router;

@@ -179,6 +179,7 @@ exports.Prisma.OwnerScalarFieldEnum = {
   own_email: 'own_email',
   own_login_id: 'own_login_id',
   own_password: 'own_password',
+  own_login_type: 'own_login_type',
   own_status: 'own_status',
   own_profile_img: 'own_profile_img',
   own_plan_id: 'own_plan_id',
@@ -331,6 +332,11 @@ exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
+exports.OwnerLoginType = exports.$Enums.OwnerLoginType = {
+  Online: 'Online',
+  Offline: 'Offline'
+};
+
 exports.OwnerStatus = exports.$Enums.OwnerStatus = {
   Active: 'Active',
   Inactive: 'Inactive'
