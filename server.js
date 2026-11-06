@@ -15,20 +15,29 @@ const allowedOrigins = [
   "http://127.0.0.1:3001",
   "http://localhost:3000",
   "http://127.0.0.1:3000",
+  "http://localhost:9000",
+  "http://127.0.0.1:9000",
+  "http://tauri.localhost",
+  "https://tauri.localhost",
   "http://192.168.2.173:3001",
   "https://khataboss.com",
   "https://carlie-atavic-tonita.ngrok-free.dev",
   "https://khataboss.in",
 ];
 
+function isAllowedCorsOrigin(origin) {
+  if (!origin) return true;
+  if (allowedOrigins.includes(origin)) return true;
+  if (/^http:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(origin)) return true;
+  if (/^https?:\/\/tauri\.localhost(:\d+)?$/i.test(origin)) return true;
+  if (/^https?:\/\/ipc\.localhost(:\d+)?$/i.test(origin)) return true;
+  return false;
+}
+
 app.use(
   cors({
     origin: function (origin, callback) {
-      if (
-        !origin ||
-        allowedOrigins.includes(origin) ||
-        /^http:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(origin)
-      ) {
+      if (isAllowedCorsOrigin(origin)) {
         callback(null, true);
       } else {
         callback(new Error("Not allowed by CORS"));
@@ -39,6 +48,21 @@ app.use(
 );
 app.use(express.json({ limit: "15mb" }));
 app.use(express.urlencoded({ extended: true, limit: "15mb" }));
+
+/** Desktop / ops health — DB must respond (no destructive migrations). */
+app.get("/health", async (req, res) => {
+  const { checkDbConnection } = require("./config/db");
+  try {
+    await checkDbConnection();
+    return res.status(200).json({ status: true, message: "Backend is running" });
+  } catch (err) {
+    return res.status(503).json({
+      status: false,
+      message: err.message || "Database not ready",
+    });
+  }
+});
+
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
 
